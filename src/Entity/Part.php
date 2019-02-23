@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Part
  * @package App\Entity
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\PartRepository")
  * @ORM\Table("parts")
  */
 class Part extends AttachmentContainingDBElement
@@ -53,7 +53,7 @@ class Part extends AttachmentContainingDBElement
     /**
      * @var Attachment
      * @ORM\ManyToOne(targetEntity="Attachment")
-     * @ORM\JoinColumn(name="id_master_picture_attachment", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_master_picture_attachement", referencedColumnName="id")
      */
     protected $master_picture_attachment;
 
