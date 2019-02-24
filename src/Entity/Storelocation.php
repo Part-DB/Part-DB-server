@@ -72,9 +72,10 @@ class Storelocation extends PartsContainingDBElement
      *
      * @throws Exception if there was an error
      */
-    public function setIsFull(bool $new_is_full) : void
+    public function setIsFull(bool $new_is_full) : self
     {
         $this->is_full = $new_is_full;
+        return $this;
     }
 
     /**

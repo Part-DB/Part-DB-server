@@ -100,7 +100,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
 
         //Check if both elements compared, are from the same type:
         if ($class_name != \get_class($another_element)) {
-            throw new \InvalidArgumentException(_('isChildOf() funktioniert nur mit Elementen des gleichen Typs!'));
+            throw new \InvalidArgumentException('isChildOf() funktioniert nur mit Elementen des gleichen Typs!');
         }
 
         if ($this->getID() == null) { // this is the root node
@@ -238,9 +238,10 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      * @param integer|null $new_parent_id           @li the ID of the new parent element
      *                                              @li NULL if the parent should be the root node
      */
-    public function setParentID($new_parent_id)
+    public function setParentID($new_parent_id) : self
     {
         $this->parent_id = $new_parent_id;
+        return $this;
     }
 
     /**
@@ -249,9 +250,10 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      * @param string $new_comment       the new comment
      * @throws Exception if there was an error
      */
-    public function setComment(string $new_comment)
+    public function setComment(string $new_comment) : self
     {
         $this->comment = $new_comment;
+        return $this;
     }
 
     /********************************************************************************

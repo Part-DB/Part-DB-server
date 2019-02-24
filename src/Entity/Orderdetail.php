@@ -226,10 +226,12 @@ class Orderdetail extends DBElement
      * @param integer $new_supplier_id       the ID of the new supplier
 
      */
-    public function setSupplierId(int $new_supplier_id)
+    public function setSupplierId(int $new_supplier_id) : self
     {
         throw new \Exception("Not implemented yet!");
         //TODO;
+
+        return $this;
     }
 
     /**
@@ -238,9 +240,10 @@ class Orderdetail extends DBElement
      * @param string $new_supplierpartnr       the new supplier-part-nr
      *
      */
-    public function setSupplierpartnr(string $new_supplierpartnr)
+    public function setSupplierpartnr(string $new_supplierpartnr) : self
     {
         $this->supplierpartnr = $new_supplierpartnr;
+        return $this;
     }
 
     /**
@@ -248,19 +251,21 @@ class Orderdetail extends DBElement
      *
      * @param boolean $new_obsolete       true means that this part is obsolete
      */
-    public function setObsolete(bool $new_obsolete)
+    public function setObsolete(bool $new_obsolete) : self
     {
         $this->obsolete = $new_obsolete;
+        return $this;
     }
 
     /**
      * Sets the custom product supplier URL for this order detail.
      * Set this to "", if the function getSupplierProductURL should return the automatic generated URL.
      * @param $new_url string The new URL for the supplier URL.
-     * @throws Exception if there was an error
      */
     public function setSupplierProductUrl(string $new_url)
     {
-        $this->setAttributes(array('supplier_product_url' => $new_url));
+        $this->supplier_product_url = $new_url;
+
+        return $this;
     }
 }

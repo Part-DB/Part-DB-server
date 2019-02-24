@@ -146,13 +146,15 @@ class Pricedetail extends  DBElement
      *              @li Example: if "price_related_quantity" is '10',
      *                  you have to set here the price for 10 parts!
      */
-    public function setPrice(float $new_price) : void
+    public function setPrice(float $new_price) : self
     {
         if($new_price < 0)
         {
             throw new \InvalidArgumentException('$new_price must be positive!');
         }
         $this->price = $new_price;
+
+        return $this;
     }
 
     /**
@@ -166,12 +168,14 @@ class Pricedetail extends  DBElement
      *
      * @param integer $new_price_related_quantity the price related quantity
      */
-    public function setPriceRelatedQuantity(int $new_price_related_quantity) : void
+    public function setPriceRelatedQuantity(int $new_price_related_quantity) : self
     {
         if($new_price_related_quantity <= 0) {
             throw new \InvalidArgumentException('$new_price_related_quantity must be greater 0!');
         }
         $this->price_related_quantity = $new_price_related_quantity;
+
+        return $this;
     }
 
     /**
@@ -191,12 +195,14 @@ class Pricedetail extends  DBElement
      *
      * @param integer $new_min_discount_quantity the minimum discount quantity
      */
-    public function setMinDiscountQuantity(int $new_min_discount_quantity)
+    public function setMinDiscountQuantity(int $new_min_discount_quantity) : self
     {
         if($new_min_discount_quantity <= 0 ){
             throw new \InvalidArgumentException('$new_min_discount_quantity must be positive!');
         }
         $this->min_discount_quantity = $new_min_discount_quantity;
+
+        return $this;
     }
 
 

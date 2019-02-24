@@ -780,12 +780,11 @@ class Part extends AttachmentContainingDBElement
      *  Set the description
      *
      * @param string $new_description       the new description
-     *
-     * @throws Exception if there was an error
      */
-    public function setDescription(string $new_description)
+    public function setDescription(string $new_description) : self
     {
         $this->description = $new_description;
+        return $this;
     }
 
     /**
@@ -796,7 +795,7 @@ class Part extends AttachmentContainingDBElement
      * @throws Exception if the new instock is not valid
      * @throws Exception if there was an error
      */
-    public function setInstock(int $new_instock, $comment = null)
+    public function setInstock(int $new_instock, $comment = null) : self
     {
         $old_instock = (int) $this->getInstock();
         $this->instock = $new_instock;
@@ -811,6 +810,8 @@ class Part extends AttachmentContainingDBElement
             $new_instock,
             $comment
         );*/
+
+        return $this;
     }
 
     /**
@@ -819,7 +820,7 @@ class Part extends AttachmentContainingDBElement
      * @param $comment string A comment that should be associated with the withdrawal.
      * @throws Exception if there was an error
      */
-    public function withdrawalParts(int $count, $comment = null)
+    public function withdrawalParts(int $count, $comment = null) : self
     {
         if ($count <= 0) {
             throw new \Exception('Zahl der entnommenen Bauteile muss größer 0 sein!');
@@ -844,6 +845,8 @@ class Part extends AttachmentContainingDBElement
         );*/
 
         $this->instock = $new_instock;
+
+        return $this;
     }
 
     /**
@@ -852,7 +855,7 @@ class Part extends AttachmentContainingDBElement
      * @param $comment string A comment that should be associated with the withdrawal.
      * @throws Exception if there was an error
      */
-    public function addParts(int $count, string $comment = null)
+    public function addParts(int $count, string $comment = null) : self
     {
 
         //TODO
@@ -876,6 +879,8 @@ class Part extends AttachmentContainingDBElement
         );*/
 
         $this->instock = $new_instock;
+
+        return $this;
     }
 
     /**
@@ -884,11 +889,16 @@ class Part extends AttachmentContainingDBElement
      * @param integer $new_mininstock       the new count of parts which should be in stock at least
      *
      * @throws Exception if the new mininstock is not valid
-     * @throws Exception if there was an error
      */
-    public function setMinInstock(int $new_mininstock)
+    public function setMinInstock(int $new_mininstock) : self
     {
+        if($new_mininstock < 0) {
+            throw new \InvalidArgumentException('$new_mininstock must be positive!');
+        }
+
         $this->mininstock = $new_mininstock;
+
+        return $this;
     }
 
     /**
@@ -898,9 +908,11 @@ class Part extends AttachmentContainingDBElement
      *
      * @throws Exception if there was an error
      */
-    public function setComment(string $new_comment)
+    public function setComment(string $new_comment) : self
     {
         $this->comment = $new_comment;
+
+        return $this;
     }
 
     /**
@@ -917,12 +929,14 @@ class Part extends AttachmentContainingDBElement
      *
      * @throws Exception if there was an error
      */
-    public function setManualOrder(bool $new_manual_order, int $new_order_quantity = 1, $new_order_orderdetails_id = null)
+    public function setManualOrder(bool $new_manual_order, int $new_order_quantity = 1, $new_order_orderdetails_id = null) : self
     {
         $this->manual_order = $new_manual_order;
         //TODO;
         /* $this->order_orderdetail = $new_order_orderdetails_id; */
         $this->order_quantity = $new_order_quantity;
+
+        return $this;
     }
 
     /**
@@ -930,13 +944,13 @@ class Part extends AttachmentContainingDBElement
      *
      * @param integer|NULL $new_order_orderdetails_id       @li the new order orderdetails ID
      *                                                      @li Or, to remove the orderdetails, pass a NULL
-     *
-     * @throws Exception if there was an error
      */
-    public function setOrderOrderdetailsID($new_order_orderdetails_id) : void
+    public function setOrderOrderdetailsID($new_order_orderdetails_id) : self
     {
         //TODO
         throw new \Exception("Not implemented yet...");
+
+        return $this;
     }
 
     /**
@@ -944,9 +958,11 @@ class Part extends AttachmentContainingDBElement
      *
      * @param integer $new_order_quantity       the new order quantity
      */
-    public function setOrderQuantity(int $new_order_quantity) : void
+    public function setOrderQuantity(int $new_order_quantity) : self
     {
         $this->order_quantity = $new_order_quantity;
+
+        return $this;
     }
 
     /**
@@ -960,10 +976,12 @@ class Part extends AttachmentContainingDBElement
      * @throws Exception if the new category ID is not valid
      * @throws Exception if there was an error
      */
-    public function setCategoryID(int $new_category_id)
+    public function setCategoryID(int $new_category_id) : self
     {
         //TODO
         throw new \Exception("Not implemented yet!");
+
+        return $this;
     }
 
     /**
@@ -975,10 +993,12 @@ class Part extends AttachmentContainingDBElement
      * @throws Exception if the new footprint ID is not valid
      * @throws Exception if there was an error
      */
-    public function setFootprintID($new_footprint_id)
+    public function setFootprintID($new_footprint_id) : self
     {
         //TODO
         throw new \Exception("Not implemented yet!");
+
+        return $this;
     }
 
     /**
@@ -990,10 +1010,12 @@ class Part extends AttachmentContainingDBElement
      * @throws Exception if the new storelocation ID is not valid
      * @throws Exception if there was an error
      */
-    public function setStorelocationID($new_storelocation_id)
+    public function setStorelocationID($new_storelocation_id) : self
     {
         //TODO
         throw new \Exception("Not implemented yet!");
+
+        return $this;
     }
 
     /**
@@ -1005,10 +1027,12 @@ class Part extends AttachmentContainingDBElement
      * @throws Exception if the new manufacturer ID is not valid
      * @throws Exception if there was an error
      */
-    public function setManufacturerID($new_manufacturer_id)
+    public function setManufacturerID($new_manufacturer_id) : self
     {
         //TODO
         throw new \Exception("Not implemented yet!");
+
+        return $this;
     }
 
     /**
@@ -1016,9 +1040,11 @@ class Part extends AttachmentContainingDBElement
      * @param $new_favorite_status bool The new favorite status, that should be applied on this part.
      *      Set this to true, when the part should be a favorite.
      */
-    public function setFavorite(bool $new_favorite_status)
+    public function setFavorite(bool $new_favorite_status) : self
     {
         $this->favorite = $new_favorite_status;
+
+        return $this;
     }
 
     /**
@@ -1026,9 +1052,11 @@ class Part extends AttachmentContainingDBElement
      * @param string $new_url The new url
      * @throws Exception when an error happens.
      */
-    public function setManufacturerProductURL(string $new_url)
+    public function setManufacturerProductURL(string $new_url) : self
     {
         $this->manufacturer_product_url = $new_url;
+
+        return $this;
     }
 
     /**
@@ -1040,10 +1068,12 @@ class Part extends AttachmentContainingDBElement
      * @throws Exception if the new ID is not valid
      * @throws Exception if there was an error
      */
-    public function setMasterPictureAttachementID($new_master_picture_attachement_id)
+    public function setMasterPictureAttachementID($new_master_picture_attachement_id) : self
     {
         //TODO
         throw new \Exception("Not implemented yet!");
+
+        return $this;
     }
 
 

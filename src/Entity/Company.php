@@ -151,9 +151,10 @@ abstract class Company extends StructuralDBElement
      * Set the addres
      * @param string $new_address       the new address (with "\n" as line break)
      */
-    public function setAddress(string $new_address)
+    public function setAddress(string $new_address) : self
     {
         $this->address = $new_address;
+        return $this;
     }
 
     /**
@@ -161,9 +162,10 @@ abstract class Company extends StructuralDBElement
      *
      * @param string $new_phone_number       the new phone number
      */
-    public function setPhoneNumber(string $new_phone_number)
+    public function setPhoneNumber(string $new_phone_number) : self
     {
         $this->phone_number = $new_phone_number;
+        return $this;
     }
 
     /**
@@ -171,9 +173,10 @@ abstract class Company extends StructuralDBElement
      *
      * @param string $new_fax_number       the new fax number
      */
-    public function setFaxNumber(string $new_fax_number)
+    public function setFaxNumber(string $new_fax_number) : self
     {
         $this->fax_number = $new_fax_number;
+        return $this;
     }
 
     /**
@@ -182,9 +185,10 @@ abstract class Company extends StructuralDBElement
      * @param string $new_email_address       the new e-mail address
 
      */
-    public function setEmailAddress(string $new_email_address)
+    public function setEmailAddress(string $new_email_address) : self
     {
         $this->email_address = $new_email_address;
+        return $this;
     }
 
     /**
@@ -192,9 +196,10 @@ abstract class Company extends StructuralDBElement
      *
      * @param string $new_website       the new website
      */
-    public function setWebsite(string $new_website)
+    public function setWebsite(string $new_website) : self
     {
         $this->website = $new_website;
+        return $this;
     }
 
     /**
@@ -203,9 +208,10 @@ abstract class Company extends StructuralDBElement
      * @param string $new_url       the new URL with the placeholder %PARTNUMBER% for the part number
      *
      */
-    public function setAutoProductUrl(string $new_url)
+    public function setAutoProductUrl(string $new_url) : self
     {
         $this->auto_product_url = $new_url;
+        return $this;
     }
 
 }

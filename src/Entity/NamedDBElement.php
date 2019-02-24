@@ -106,9 +106,10 @@ abstract class NamedDBElement extends DBElement
      *
      * @param string $new_name      the new name
      */
-    public function setName(string $new_name)
+    public function setName(string $new_name) : self
     {
         $this->name = $new_name;
+        return $this;
     }
 
 }

@@ -78,13 +78,14 @@ class Device extends PartsContainingDBElement
      *
      * @param integer $new_order_quantity       the new order quantity
      */
-    public function setOrderQuantity(int $new_order_quantity)
+    public function setOrderQuantity(int $new_order_quantity) : self
     {
         if($new_order_quantity < 0)
         {
             throw new \InvalidArgumentException("The new order quantity must not be negative!");
         }
         $this->order_quantity = $new_order_quantity;
+        return $this;
     }
 
     /**
@@ -93,9 +94,10 @@ class Device extends PartsContainingDBElement
      * @param boolean $new_order_only_missing_parts       the new "order_only_missing_parts" attribute
      *
      */
-    public function setOrderOnlyMissingParts(bool $new_order_only_missing_parts)
+    public function setOrderOnlyMissingParts(bool $new_order_only_missing_parts) : self
     {
         $this->order_only_missing_parts = $new_order_only_missing_parts;
+        return $this;
     }
 
 

@@ -176,17 +176,19 @@ class Footprint extends PartsContainingDBElement
      *
      * @throws Exception if there was an error
      */
-    public function setFilename(string $new_filename)
+    public function setFilename(string $new_filename) : self
     {
         $this->filename = $new_filename;
+        return $this;
     }
 
     /**
      *  Change the 3d model filename of this footprint
      * @throws Exception if there was an error
      */
-    public function set3dFilename(string $new_filename)
+    public function set3dFilename(string $new_filename) : self
     {
         $this->filename = $new_filename;
+        return $this;
     }
 }
