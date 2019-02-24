@@ -61,13 +61,13 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
 
     /**
      * @var string The comment info for this element
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $comment;
 
     /**
      * @var int
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $parent_id;
 
