@@ -42,12 +42,14 @@
                             </h6>
                             <h6 title="{% trans %}Average price{% endtrans %}">
                                 <i class="fas fa-money-bill-alt fa-fw"></i>
-                                <span class="text-muted">{{ part.averagePrice }}</span>
+                                <span class="text-muted">{{ "TODO" }}</span>
                             </h6>
+                            {% if part.comment != "" %}
                             <h6 title="{% trans %}Comment{% endtrans %}">
                                 <i class="fas fa-comment-alt fa-fw"></i>
                                 <span class="text-muted">{{ part.comment }}</span>
                             </h6>
+                            {% endif %}
                         </div>
                     </div>
 

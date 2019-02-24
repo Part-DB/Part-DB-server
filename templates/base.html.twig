@@ -11,11 +11,244 @@
 <body>
 {% block body %}
 
+    <header>
 
-    <div class="container-fluid">
-        {% block content %}
-        {% endblock %}
-    </div>
+        <nav class="navbar navbar-expand-md navbar-light bg-light border-bottom shadow-sm fixed-top py-0" id="navbar">
+
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidebar-container">
+                <span class="sr-only">{% trans %}Toggle Sidebar{% endtrans %}</span>
+                <!-- <span class="navbar-toggler-icon"></span> -->
+                <i class="fas fa-folder-open fa-lg fa-fw"></i>
+            </button>
+
+            <a class="navbar-brand" href="{{ path('homepage') }}"><i class="fa fa-microchip" aria-hidden="true"></i> {{ partdb_title }}</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <!-- <span class="navbar-toggler-icon"></span> -->
+                <i class="fas fa-bars  fa-lg"></i>
+            </button>
+
+
+
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <div class="form-inline my-2 my-lg-0 ml-auto" id="searchbar">
+                    <!-- Searchbar -->
+                    <form action="{$relative_path}show_search_parts.php" method="get">
+                        <div class="dropdown d-inline">
+                            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                {% trans %}Search options{% endtrans %}
+                                <span class="caret"></span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="SearchOptions">
+                                <div class="abc-checkbox form-check-dropdown"><input type="checkbox" class="form-check-input" name="search_name" value="true" checked>
+                                    <label for="search_name" class="form-check-label">{% trans %}Name{% endtrans %}</label></div>
+                                <div class="abc-checkbox form-check-dropdown"><input type="checkbox" class="form-check-input" name="search_category" value="true" checked>
+                                    <label for="search_category" class="form-check-label">{% trans %}Category{% endtrans %}</label></div>
+                                <div class="abc-checkbox form-check-dropdown"><input type="checkbox" class="form-check-input" name="search_description" value="true" checked>
+                                    <label for="search_description" class="form-check-label"></label>{% trans %}Description{% endtrans %}</div>
+                                <div class="abc-checkbox form-check-dropdown"><input type="checkbox" class="form-check-input" name="search_storelocation" value="true" checked>
+                                    <label for="search_storelocation" class="form-check-label">{% trans %}Storelocation{% endtrans %}</label></div>
+                                <div class="form-check-dropdown abc-checkbox" class="form-check-label"><input type="checkbox" class="form-check-input" name="search_comment" value="true" checked>
+                                    <label for="search_comment" class="form-check-label">{% trans %}Comment{% endtrans %}</label></div>
+                                {% if true %}
+                                    <div class="form-check-dropdown abc-checkbox"><input type="checkbox" class="form-check-input" name="search_supplierpartnr" value="true" checked>
+                                        <label for="search_supplierpartnr" class="form-check-label">{% trans %}Ordernr.{% endtrans %}</label></div>
+                                    <li class="form-check-dropdown abc-checkbox"><input type="checkbox" class="form-check-input" name="search_supplier" value="true">
+                                        <label for="search_supplier" class="form-check-label">{% trans %}Supplier{% endtrans %}</label></li> {% endif %}
+                                {% if true %}
+                                    <div class="form-check-dropdown abc-checkbox"><input type="checkbox"  class="form-check-input" name="search_manufacturer" value="true">
+                                    <label for="search_manufacturer" class="form-check-label">{% trans %}Manufacturer{% endtrans %}</label></div>{% endif %}
+                                {% if true %}
+                                    <div class="form-check-dropdown abc-checkbox"><input type="checkbox" class="form-check-input" name="search_footprint" value="true">
+                                    <label for="search_footprint" class="form-check-label">{% trans %}Footprint{% endtrans %}</label></div>{% endif %}
+                                <div class="form-check-dropdown abc-checkbox"><input type="checkbox" class="form-check-input" name="disable_pid_input" value="false">
+                                    <label for="disable_pid_input" class="form-check-label">{% trans %}Deact. Barcode{% endtrans %}</label></div>
+                                <div class="form-check-dropdown abc-checkbox"><input type="checkbox" class="form-check-input" name="regex" value="true">
+                                    <label for="regex" class="form-check-label">{% trans %}RegEx Matching{% endtrans %}</label></div>
+                            </div>
+                        </div>
+                        <input type="search" class="form-control mr-sm-2" placeholder="{% trans %}Suche{% endtrans %}" name="keyword" onkeyup="livesearch(event, this, 2);">
+                        <button type="submit" id="search-submit" class="btn btn-outline-secondary my-2">{% trans %}Go!{% endtrans %}</button>
+                    </form>
+                </div>
+
+                <a class="d-block d-md-none  nav-link link-datasheet" style="color: black;"
+                   href="zxing://scan/?ret={if isset($smarty.server.HTTPS)}https{else}http{/if}%3A%2F%2F{$smarty.server.HTTP_HOST|escape:'url'}{$relative_path|escape:'url'}show_search_parts.php%3Fkeyword%3D%7BCODE%7D&SCAN_FORMATS=EAN_8,CODE_39">
+                    <i class="fa fa-barcode fa-fw fa-lg" aria-hidden="true"></i>
+                    <span class="ml-2 text-muted">{% trans %}Scan Barcode{% endtrans %}</span>
+                </a>
+
+                <ul class="navbar-nav ml-3">
+                    <li class="nav-item dropdown">
+                        <a href="#" class="dropdown-toggle link-anchor nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            {% if true %}<i class="fa fa-user" aria-hidden="true"></i>{% else %}<i class="far fa-user" aria-hidden="true"></i>{% endif %} <span class="caret"></span></a>
+                        <ul class="dropdown-menu dropdown-menu-right" id="login-menu">
+                            {% if true %}
+                                <a class="dropdown-item disabled" href="#" >{% trans %}Logged in as{% endtrans %} {$firstname} {$lastname} ({$username})</a>
+                                <a class="dropdown-item" href="user_settings.php"><i class="fa fa-cogs fa-fw" aria-hidden="true"></i> {% trans %}User settings{% endtrans %}</a>
+                                <a class="dropdown-item" href="user_info.php"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> {% trans %}User informations{% endtrans %}</a>
+                                <li role="separator" class="dropdown-divider"></li>
+                                <a class="dropdown-item"  href="{$relative_path}login.php?logout"><i class="fa fa-sign-out-alt fa-fw" aria-hidden="true"></i> {% trans %}Logout{% endtrans %}</a>
+                            {% else %}
+                                <a class="dropdown-item" href="{$relative_path}login.php?redirect={$smarty.server.REQUEST_URI|escape:"url"}" id="login-link"><i class="fa fa-sign-in-alt fa-fw" aria-hidden="true"></i> {% trans %}Login{% endtrans %}</a>
+                            {% endif %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="collapse d-md-block bg-light" id="sidebar-container">
+                    <nav  class="fixed-sidebar col-md-3 col-lg-2 " id="fixed-sidebar">
+                        <ul class="nav flex-column">
+                            <li id="categories">
+                                <!-- <h4>{% trans %}Kategorien{% endtrans %}</h4>-->
+                                <div class="dropdown">
+                                    <button class="btn-text dropdown-toggle mb-2" type="button" id="dropdownCat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <span class="sidebar-title" id="tree-categories-title">{% trans %}Categories{% endtrans %}</span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownCat">
+                                        <li class="dropdown-header">{% trans %}Actions{% endtrans %}</li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="expand" data-target="tree-categories">{% trans %}Expand All{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="collapse" data-target="tree-categories">{% trans %}Reduce All{% endtrans %}</a></li>
+                                        <li role="separator" class="dropdown-divider"></li>
+                                        <li class="dropdown-header">{% trans %}Datasource{% endtrans %}</li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="categories" data-target="tree-categories">{% trans %}Categories{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="locations" data-target="tree-categories">{% trans %}Store locations{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="footprints" data-target="tree-categories">{% trans %}Footprints{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="manufacturers" data-target="tree-categories">{% trans %}Manufacturers{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="suppliers" data-target="tree-categories">{% trans %}Suppliers{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="devices" data-target="tree-categories">{% trans %}Devices{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="tools" data-target="tree-categories">{% trans %}Tools{% endtrans %}</a></li>
+                                    </ul>
+                                </div>
+                                <div id="tree-categories"></div>
+                            </li>
+                            <li id="devices">
+                                <div class="dropdown">
+                                    <button class="btn-text dropdown-toggle mb-2 mt-2" type="button" id="dropdownDev" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <span class="sidebar-title" id="tree-devices-title">{% trans %}Devices{% endtrans %}</span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownDev">
+                                        <li class="dropdown-header">{% trans %}Actions{% endtrans %}</li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="expand" data-target="tree-devices">{% trans %}Expand All{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="collapse" data-target="tree-devices">{% trans %}Reduce All{% endtrans %}</a></li>
+                                        <li role="separator" class="dropdown-divider"></li>
+                                        <li class="dropdown-header">{% trans %}Datasource{% endtrans %}</li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="categories" data-target="tree-devices">{% trans %}Categories{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="locations" data-target="tree-devices">{% trans %}Store locations{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="footprints" data-target="tree-devices">{% trans %}Footprints{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="manufacturers" data-target="tree-devices">{% trans %}Manufacturers{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="suppliers" data-target="tree-devices">{% trans %}Suppliers{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="devices" data-target="tree-devices">{% trans %}Devices{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="tools" data-target="tree-devices">{% trans %}Tools{% endtrans %}</a></li>
+                                    </ul>
+                                </div>
+                                <div id="tree-devices"></div>
+                            </li>
+
+                            <li id="tools">
+                                <div class="dropdown">
+                                    <button class="btn-text dropdown-toggle mb-2 mt-2" type="button" id="dropdownTools" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <span class="sidebar-title" id="tree-tools-title">{% trans %}Tools{% endtrans %}</span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownTools">
+                                        <li class="dropdown-header">{% trans %}Actions{% endtrans %}</li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="expand" data-target="tree-tools">{% trans %}Expand All{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="collapse" data-target="tree-tools">{% trans %}Reduce All{% endtrans %}</a></li>
+                                        <li role="separator" class="dropdown-divider"></li>
+                                        <li class="dropdown-header">{% trans %}Datasource{% endtrans %}</li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="categories" data-target="tree-tools">{% trans %}Categories{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="locations" data-target="tree-tools">{% trans %}Store locations{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="footprints" data-target="tree-tools">{% trans %}Footprints{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="manufacturers" data-target="tree-tools">{% trans %}Manufacturers{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="suppliers" data-target="tree-tools">{% trans %}Suppliers{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="devices" data-target="tree-tools">{% trans %}Devices{% endtrans %}</a></li>
+                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="tools" data-target="tree-tools">{% trans %}Tools{% endtrans %}</a></li>
+                                    </ul>
+                                </div>
+                                <div id="tree-tools"></div>
+                            </li>
+                        </ul>
+
+
+                        <noscript><b>{% trans %}Please activate Javascript to use all features.{% endtrans %}</b></noscript>
+
+                    </nav>
+                </div>
+
+                <div class="col-md-9 col-lg-10 offset-md-3 offset-lg-2 pl-0" id="main">
+                    <div class="container-fluid mr-0 pr-0" id="content">
+                        <div id="content-data">
+
+                            {#
+                            {if isset($messages)}
+                            {assign "alert_style" "alert-info"}
+                            {assign "alert_icon" "fas fa-info"}
+                            {foreach $messages as $msg}
+                            {if isset($msg.color) && $msg.color == "red"}
+                            {assign "alert_style" "alert-danger"}
+                            {assign "alert_icon" "fas fa-exclamation"}
+                            {elseif isset($msg.color) && ( $msg.color == "green" || $msg.color == "darkgreen")}
+                            {assign "alert_style" "alert-success"}
+                            {assign "alert_icon" "fas fa-check"}
+                            {elseif isset($msg.color) && ($msg.color == "yellow" || $msg.color == "orange")}
+                            {assign "alert_style" "alert-warning"}
+                            {assign "alert_icon" "fas fa-bell"}
+                            {/if}
+                            {/foreach}
+                            <div class="alert {$alert_style}" id="messages">
+                                <div class="row vertical-align">
+                                    <div class="col-md-1">
+                                        <i class="{$alert_icon} fa-5x" style="text-align: center; width: 1em;"></i>
+                                    </div>
+                                    <div class="col-md-11">
+                                        <div>
+                                            {if !empty($messages_div_title)}<h4>{$messages_div_title}</h4>{/if}
+                                            <form action="" method="post" class="no-progbar">
+                                                {foreach $messages as $msg}
+                                                {if isset($msg.text)}
+                                                {if isset($msg.strong) && $msg.strong}<strong>{/if}
+                                                    {$msg.text nofilter}
+                                                    {if isset($msg.strong) && $msg.strong}</strong>{/if}
+                                                {/if}
+
+                                                {if isset($msg.html)}
+                                                {$msg.html nofilter}
+                                                {/if}
+
+                                                {if !isset($msg.no_linebreak) || !$msg.no_linebreak}<br>{/if}
+                                                {/foreach}
+
+                                                {if !empty($reload_link)}
+                                                <a href="{$reload_link}">
+                                                    <br>
+                                                    <button class="btn btn-secondary">{% trans %}Seite neu laden{% endtrans %}</button>
+                                                </a>
+                                                {/if}
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            #}
+
+                            {# Here will be the real content be injected#}
+
+                            {% block content %}
+                            {% endblock %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 {% endblock %}
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
