@@ -169,21 +169,21 @@
                         <div class="row">
                             <div class="col-md-12">
                                 {if $manual_order_exists}
-                                <label for="remove_mark_to_order">{% trans %}Bauteil wurde manuell zum Bestellen vorgemerkt.{% endtrans %}</label>
+                                <label for="remove_mark_to_order">{% trans %}Part was marked for ordering manually.{% endtrans %}</label>
                                 <button type="submit" class="btn btn-outline-secondary"
                                         name="remove_mark_to_order" >
-                                {% trans %}Aufheben{% endtrans %}</button>
+                                {% trans %}Cancel{% endtrans %}</button>
                                 {else}
                                 {if $auto_order_exists}
-                                <i>{% trans %}Das Bauteil wird unter "Zu bestellende Teile"aufgelistet, da der Bestand kleiner als der Mindestbestand ist.{% endtrans %}</i>
+                                <i>{% trans %}The part is listed under "Parts marked for ordering", because the in stock amount is less than the minimum in stock value.{% endtrans %}</i>
                                 {else}
-                                <label for="order_quantity">{% trans %}Zum Bestellen vormerken:{% endtrans %}</label>
+                                <label for="order_quantity">{% trans %}Mark for ordering:{% endtrans %}</label>
                                 <div class="input-group">
                                     <input type="number" min="0" max="999999" class="form-control" value="1" name="order_quantity"
-                                           placeholder="Bestellmenge" {if !$can_order_edit}disabled{/if}><br>
+                                           placeholder="Order quantity" {if !$can_order_edit}disabled{/if}><br>
                                     <span class="input-group-append">
                                                     <button type="submit" class="btn btn-outline-secondary"
-                                                            name="mark_to_order" {if !$can_order_edit}disabled{/if}>{% trans %}Übernehmen{% endtrans %}</button>
+                                                            name="mark_to_order" {if !$can_order_edit}disabled{/if}>{% trans %}Apply{% endtrans %}</button>
                                                 </span>
                                 </div>
                                 {/if}
@@ -199,7 +199,7 @@
                     <div class="form-group">
                         <label>{% trans %}Created at:{% endtrans %}</label>
                         <p>{{ part.datetimeAdded | date}}
-                            {#{if !empty($creation_user)} {% trans %}durch{% endtrans %}
+                            {#{if !empty($creation_user)} {% trans %}by{% endtrans %}
                             {if $can_visit_user}
                             <a href="{$relative_path}user_info.php?uid={$creation_user_id}">{$creation_user}</a>
                             {else}
@@ -214,7 +214,7 @@
                     <div class="form-group">
                         <label>{% trans %}Last modified:{% endtrans %}</label>
                         <p>{{ part.lastModified | date }}
-                            {# {if !empty($last_modified_user)} {% trans %}durch{% endtrans %}
+                            {# {if !empty($last_modified_user)} {% trans %}by{% endtrans %}
                             {if $can_visit_user}
                             <a href="{$relative_path}user_info.php?uid={$last_modified_user_id}">{$last_modified_user}</a>
                             {else}
@@ -255,7 +255,7 @@
                         <input type="hidden" name="preset" value="Preset A">
                         <input type="hidden" name="label_generate">
                         <button type="submit" class="btn btn-secondary btn-block"><i class="fa fa-barcode fa-fw" aria-hidden="true"></i>
-                            {% trans %}Barcode erzeugen{% endtrans %}</button>
+                            {% trans %}Create barcode{% endtrans %}</button>
                         {/if}
                     </form>
 
@@ -264,7 +264,7 @@
 
                     <div class=" d-print-none">
                         <button type="button" class="btn btn-secondary btn-block" onclick="window.print();"><i class="fa fa-print fa-fw" aria-hidden="true"></i>
-                            {% trans %}Übersicht drucken{% endtrans %}
+                            {% trans %}Print{% endtrans %}
                         </button>
                     </div>
 
@@ -273,7 +273,7 @@
                     <div class=" d-print-none">
                         <div class="dropdown">
                             <button class="btn btn-secondary btn-block dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                <i class="fa fa-file fa-fw" aria-hidden="true"></i> {% trans %}Datenblattlinks{% endtrans %}
+                                <i class="fa fa-file fa-fw" aria-hidden="true"></i> {% trans %}Datasheet links{% endtrans %}
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
