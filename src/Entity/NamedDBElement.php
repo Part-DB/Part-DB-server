@@ -69,14 +69,11 @@ abstract class NamedDBElement extends DBElement
 
     /**
      * Returns the last time when the element was modified.
-     * @param $formatted bool When true, the date gets formatted with the locale and timezone settings.
-     *          When false, the raw value from the DB is returned.
      * @return string The time of the last edit.
      */
-    public function getLastModified(bool $formatted = true) : string
+    public function getLastModified() : \DateTime
     {
-        //TODO
-        return "TODO";
+        return $this->lastModified;
     }
 
     /**
@@ -85,10 +82,10 @@ abstract class NamedDBElement extends DBElement
      *       When false, the raw value from the DB is returned.
      * @return string The creation time of the part.
      */
-    public function getDatetimeAdded(bool $formatted = true) : string
+    public function getDatetimeAdded() : \DateTime
     {
         //TODO
-        return "TODO";
+        return $this->addedDate;
     }
 
     /********************************************************************************

@@ -1,0 +1,623 @@
+/*
+ *
+ * Part-DB Version 0.4+ "nextgen"
+ * Copyright (C) 2016 - 2018 Jan Böhmer
+ * https://github.com/jbtronics
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
+ *
+ */
+
+/************************************
+* Basic layout (Navbar, sidebar, etc.)
+*************************************/
+
+/* Add padding for fixed header bar */
+body {
+    overflow-x: hidden;
+    position: relative;
+    padding-top: 70px;
+    /* Use font size like in BS3 */
+    font-size: 14px;
+    line-height: 1.428;
+}
+
+@media  (min-width: 768px) {
+    .fixed-sidebar {
+        /*
+        position: fixed;
+        left: 15px;
+        z-index: 1000;
+        /* display: flex;
+        width: inherit; '/
+        overflow-x: hidden;
+        overflow-y: auto;
+        /*noinspection W3CssValidation*/
+        /* -webkit-overflow-scrolling: touch;
+         max-height: 100%;
+         padding-bottom: 50px; */
+
+
+        position: fixed;
+        top: 60px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        /* padding: 20px; */
+        padding-left: 15px;
+        /* padding-top: 15px; */
+        padding-right: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        /*noinspection W3CssValidation*/
+        -webkit-overflow-scrolling: touch;
+
+        /** Hide scrollbar in old Firefox and Edge **/
+        -ms-overflow-style: none;
+        overflow: -moz-scrollbars-none;
+    }
+
+
+}
+
+/*noinspection W3CssValidation*/
+@media  (max-width: 768px) {
+    .fixed-sidebar {
+        position: fixed;
+        top: 56px;
+        right: 0;
+        left: 0;
+        background-color: inherit;
+        z-index: 1000;
+        width: inherit;
+        overflow-x: hidden;
+        overflow-y: auto;
+        /*noinspection W3CssValidation*/
+        -webkit-overflow-scrolling: touch;
+        max-height: 100%;
+        opacity: 0.97;
+        padding: 7px 15px 50px;
+        margin-top: -10px;
+
+        /** Hide scrollbar in Firefox and Edge **/
+        -ms-overflow-style: none;
+        overflow: -moz-scrollbars-none;
+    }
+
+    .sidebar-container {
+        margin-top: 0;
+        padding-top: 5px;
+        background-color: #F8F8F8;
+    }
+}
+
+/* Hide scrollbar */
+.fixed-sidebar::-webkit-scrollbar {display:none;}
+
+@media (min-width: 768px) {
+    .sidebar-collapse.collapse {
+        display: block !important;
+        height: auto !important;
+        padding-bottom: 0;
+        overflow: visible !important;
+    }
+}
+
+/* Back to top button  */
+.back-to-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display:none;
+    z-index: 1030;
+}
+
+
+.sidebar-title {
+    margin-top: 0;
+    font-size: 18px;
+    margin-bottom: 10px;
+    line-height: 1.1;
+}
+
+
+
+/**********************************
+* Helper classes
+ *********************************/
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+.vertical-align-table>tbody>tr>td,
+.vertical-align-table>tbody>tr>th,
+.vertical-align-table>tfoot>tr>td,
+.vertical-align-table>tfoot>tr>th,
+.vertical-align-table>thead>tr>td,
+.vertical-align-table>thead>tr>th {
+    vertical-align: middle;
+}
+
+.table-center{
+    text-align: center;
+}
+
+.font-weight-bold {
+    font-weight:bold;
+}
+
+.table-no-margin {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/**
+ Use this class if you has a <span> or <p> and you want to create automatic textbreaks in the text.
+ */
+.text-break {
+    /*noinspection W3CssValidation,CssUnknownProperty*/
+    -ms-word-break: break-all;
+    /*noinspection CssOverwrittenProperties*/
+    word-break: break-all;
+
+    /* Non standard for webkit */
+    /*noinspection W3CssValidation,CssInvalidPropertyValue,CssOverwrittenProperties*/
+    word-break: break-word;
+
+    /*noinspection W3CssValidation*/
+    -webkit-hyphens: auto;
+    /*noinspection W3CssValidation*/
+    -moz-hyphens: auto;
+    hyphens: auto;
+}
+
+.auto-size-select {
+    height: inherit;
+}
+
+/****************************************
+* Bootstrap extensions
+*****************************************/
+
+.form-group-sm {
+    margin-bottom: 5px;
+}
+
+/* Use this if you want to use a link inside a form-group */
+.form-control-link {
+    display: block;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+
+/* A text-only button without border */
+.btn-text {
+    color: inherit;
+    padding: 0;
+    border: hidden;
+    background-color: transparent;
+}
+
+
+/* Size sensitive pull-* helpers */
+
+@media (max-width: 767px) {
+    .pull-right-not-xs, .pull-left-not-xs{
+        float: none;
+    }
+    .pull-right-xs {
+        float: right;
+    }
+    .pull-left-xs {
+        float: left;
+    }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .pull-right-not-sm, .pull-left-not-sm{
+        float: none;
+    }
+    .pull-right-sm {
+        float: right;
+    }
+    .pull-left-sm {
+        float: left;
+    }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    .pull-right-not-md, .pull-left-not-md{
+        float: none;
+    }
+    .pull-right-md {
+        float: right;
+    }
+    .pull-left-md {
+        float: left;
+    }
+}
+@media (min-width: 1200px) {
+    .pull-right-not-lg, .pull-left-not-lg{
+        float: none;
+    }
+    .pull-right-lg {
+        float: right;
+    }
+    .pull-left-lg {
+        float: left;
+    }
+}
+
+/**************************************
+btn-xs
+btn-xs
+ */
+
+.btn-xs {
+    /*padding: .1rem .3rem; */
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5
+}
+
+.not-enough-instock {
+    background-color: rgba(220, 53, 69, 0.4);
+}
+
+/****************************************
+* Picture classes
+*****************************************/
+
+.companypic {
+    width: 17px;
+    display: inline;
+}
+
+.companypic:hover {
+    filter: opacity(60%);
+}
+
+.companypic-bg {
+    width: 20px;
+    display: inline;
+}
+
+.companypic-bg:hover {
+    filter: opacity(60%);
+}
+
+.hoverpic {
+    min-width: 10px;
+    max-width: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.thumbnail-sm {
+    height: 100px;
+}
+
+img.img-attachement {
+    max-width: 25%;
+    margin: 10px;
+}
+
+/****************************************
+* Tables
+****************************************/
+.table-compact>tbody>tr>td,
+.table-compact>tbody>tr>th,
+.table-compact>tfoot>tr>td,
+.table-compact>tfoot>tr>th,
+.table-compact>thead>tr>td,
+.table-compact>thead>tr>th,
+table.dataTable>tbody>tr>th,
+table.dataTable>tbody>tr>td
+{
+    padding: 3px;
+}
+
+/* We need to override the z index, or the elements will overlap the fixed header from datatables. */
+table .input-group .form-control {
+    z-index: 0;
+}
+
+table .input-group-btn:last-child>.btn, table .input-group-btn:last-child>.btn-group {
+    z-index: 0;
+}
+
+/* Hide datatables fixedHeaders on small devices */
+@media  only screen and (max-width: 1000px){
+    .fixedHeader-floating {
+        display: none;
+    }
+}
+/***************************************
+* Dropdown with radio buttons
+***************************************/
+
+.container-progress {
+    padding-top: 25%;
+}
+
+.dropdown-menu-radio {
+    padding-left: 10px;
+}
+
+.drop-radio {
+    margin-left: 10px;
+}
+
+/*************************************
+* Smaller radio buttons
+**************************************/
+
+.radio-small {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+/************************************
+ X3DOM
+*************************************/
+
+.x3d-fullscreen {
+    /*height: auto;*/
+    width: 100%;
+}
+
+/*******************************
+* Collapsable panel definitions.
+********************************/
+
+.fancy-collapse-panel .panel-default > .panel-heading {
+    padding: 0;
+}
+
+.card-header a[data-toggle=collapse] {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+}
+
+/*
+@font-face {
+    font-family: 'FA5';
+    font-style: normal;
+    font-weight: 900;
+    src: url("../../webfonts/fa-solid-900.eot");
+    src: url("../../webfonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("../../webfonts/fa-solid-900.woff2") format("woff2"), url("../../webfonts/fa-solid-900.woff") format("woff"), url("../../webfonts/fa-solid-900.ttf") format("truetype"), url("../../webfonts/fa-solid-900.svg#fontawesome") format("svg");
+} */
+
+.card-header a[data-toggle=collapse]:after {
+    /*noinspection CssNoGenericFontName*/
+    font-family: "FA5";
+    content: "\f106";
+    position: absolute;
+    right: 20px;
+    font-size: 20px;
+    font-weight: 400;
+    top: 50%;
+    line-height: 1;
+    margin-top: -10px;
+}
+
+.card-header a[data-toggle=collapse].collapsed:after
+{
+    content: "\f107";
+}
+
+.card-header {
+    overflow: hidden;
+}
+
+a.link-collapse {
+    color: #333;
+}
+
+/******************************************************
+Classes for Datatables export
+*******************************************************/
+
+#export-title,
+#export-messageTop,
+.export-helper{
+    display: none;
+}
+
+/**************************************************
+* Link styles
+***************************************************/
+
+/* Show symbol after exteral links */
+/*noinspection CssNoGenericFontName*/
+a[target="_blank"].link-external:after {
+    content: "\f35d ";
+    font-family: "FA5";
+    margin-left: 3px;
+    font-weight: normal;
+    font-size: smaller;
+    font-style: normal;
+    display: inline-block;
+    text-decoration: inherit;
+}
+
+a.text-white {
+    color: #fff;
+}
+
+/****************************************************
+* Search highlighting
+*****************************************************/
+
+span.highlight {
+    background-color: yellow;
+}
+
+/******************************
+* Bootstrap treeview overrides
+*******************************/
+/* Set display style to flexbox, so wraped text is aligned to */
+
+.list-group-item {
+    padding: 5px 10px;
+    display: flex;
+}
+
+.treeview {
+    font-size: 12px;
+}
+
+.fa-treeview {
+    line-height: 1.428;
+}
+
+/*****************************
+* Pagination bar
+*****************************/
+
+/** Select in pagination */
+.pagination>li>select
+{
+    position: relative;
+    float: left;
+    padding: 7px 5px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.pagination>li>button
+{
+    position: relative;
+    float: left;
+    padding: 6px 5px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+/******************************
+* Breadcrumb like structural links
+********************************/
+
+/* Style the list */
+ul.structural_link {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 0;
+    list-style: none;
+    background-color: inherit;
+}
+
+/* Display list items side by side */
+ul.structural_link li {
+    display: inline;
+    font-size: inherit;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.structural_link li+li:before {
+    padding: 2px;
+    color: grey;
+    /*content: "/\00a0";*/
+    font-family: "FA5", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    content: "\f30b"; /* long-arrow-alt-right */
+}
+
+/* Add a color to all links inside the list */
+ul.structural_link li a {
+    color: #0275d8;
+    text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.structural_link li a:hover {
+    color: #01447e;
+    text-decoration: underline;
+}
+
+/*****************************
+* Print styles
+*****************************/
+@media print {
+    body {
+        padding-top: 0;
+    }
+
+    a.hidden-print-href[href]:after {
+        content: none !important;
+    }
+}
+
+/*****************************
+BS 4 overrides
+ ****************************/
+@media (min-width: 768px) {
+    .col-form-label {
+        font-weight: bold;
+        text-align: right;
+    }
+}
+
+label:not(.form-check-label) {
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 0.4rem;
+}
+
+.dropdown-item,
+.dropdown-header,
+.dropdown-divider {
+    padding: .1rem 1.5rem;
+}
+
+/* Font Awesome 5 with Checkbox support */
+.abc-checkbox input[type="checkbox"]:checked+label::after,
+.abc-checkbox input[type="radio"]:checked+label::after {
+    /*noinspection CssNoGenericFontName*/
+    font-family: "FA5", "Font Awesome 5 Pro", "Font Awesome 5 Free";
+    content: "\f00c";
+    font-weight: 900;
+}
+
+.form-check-dropdown {
+    display: flex;
+    width: auto;
+    padding-left: 10%;
+}
+
+.btn-group-append {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0
+}
+
+.tooltip {
+    pointer-events: none;
+}

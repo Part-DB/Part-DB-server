@@ -187,13 +187,13 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
         if (! \is_array($this->full_path_strings)) {
             $this->full_path_strings = array();
             $this->full_path_strings[] = $this->getName();
-            $parent_id = $this->getParentID();
-            while ($parent_id > 0) {
-                /** @var StructuralDBElement $element */
-                $element = static::getInstance($this->database, $this->current_user, $this->log, $parent_id);
-                $parent_id = $element->getParentID();
+            $element = $this;
+
+            while ($element->parent != null) {
+                $element = $element->parent;
                 $this->full_path_strings[] = $element->getName();
             }
+
             $this->full_path_strings = array_reverse($this->full_path_strings);
         }
 

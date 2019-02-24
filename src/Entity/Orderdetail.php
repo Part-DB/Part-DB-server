@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Orderdetail
  * @package App\Entity
  *
- * @ORM\Table("oderdetails")
+ * @ORM\Table("orderdetails")
  * @ORM\Entity()
  */
 class Orderdetail extends DBElement

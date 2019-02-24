@@ -219,7 +219,7 @@ class Part extends AttachmentContainingDBElement
      * @param boolean|int $bbcode_parsing_level Should BBCode converted to HTML, before returning
      * @return string       the comment
      */
-    public function getComment($bbcode_parsing_level = BBCodeParsingLevel::PARSE) : string
+    public function getComment($bbcode_parsing_level = true /*= BBCodeParsingLevel::PARSE*/) : string
     {
 
         $val = htmlspecialchars($this->comment);
