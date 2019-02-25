@@ -20,15 +20,8 @@ class PartController extends AbstractController
      * @Route("/part/{id}/info")
      * @Route("/part/{id}")
      */
-    function show(int $id)
+    function show(Part $part)
     {
-        $repo = $this->getDoctrine()->getRepository(Part::class);
-
-        /** @var Part  $part */
-        $part = $repo->find($id);
-
-        dump($part);
-
         return $this->render('show_part_info.html.twig',
             [
                 "part" => $part

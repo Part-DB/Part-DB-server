@@ -19,13 +19,6 @@ class HomepageController extends AbstractController
      */
     function homepage()
     {
-        $repo = $this->getDoctrine()->getRepository(Part::class);
-
-        /** @var StructuralDBElement  $attachment */
-        $attachment = $repo->find(1);
-
-        dump($attachment);
-        $response = "";
         return $this->render('base.html.twig');
     }
 }
