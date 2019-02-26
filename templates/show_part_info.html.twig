@@ -1,16 +1,16 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    {% trans %}Detail info for{% endtrans %} {{ part.name }}
+    {% trans %}part.info.title{% endtrans %} {{ part.name }}
 {% endblock %}
 
 {% block content %}
     <div class="card border-primary">
         <div class="card-header bg-primary text-white">
             <i class="fa {{ part.favorite ? 'fa-star' : 'fa-info-circle'}} fa-fw" aria-hidden="true"></i>
-            {% trans %}Detail info for{% endtrans %} <b>"{{ part.name }}"</b>
+            {% trans %}part.info.title{% endtrans %} <b>"{{ part.name }}"</b>
             <div class="float-right">
-                {% trans %}ID:{% endtrans %} {{ part.id }}
+                {% trans %}id.label{% endtrans %}: {{ part.id }}
             </div>
         </div>
 
@@ -22,30 +22,30 @@
                             <img src="https://via.placeholder.com/300" class="img-fluid img-thumbnail" height="300" width="300">
                         </div>
                         <div class="col-md-9">
-                            <h5 class="text-muted pt-2" title="{% trans %}Manufacturer{% endtrans %}">{{ part.manufacturer.name ?? ""}}</h5>
+                            <h5 class="text-muted pt-2" title="{% trans %}manufacturer.label{% endtrans %}">{{ part.manufacturer.name ?? ""}}</h5>
                             <h3>{{ part.name }}</h3>
-                            <h6 class="text-muted"><span title="{% trans %}Description{% endtrans %}">{{ part.description }}</span></h6>
-                            <h6 class=""  title="{% trans %}Store location{% endtrans %}">
+                            <h6 class="text-muted"><span title="{% trans %}description.label{% endtrans %}">{{ part.description }}</span></h6>
+                            <h6 class=""  title="{% trans %}storelocation.label{% endtrans %}">
                                 <i class="fas fa-cube fa-fw"></i>
                                 <span class="text-muted">{{  part.storelocation.fullPath ?? "-"}}</span>
                             </h6>
                             <h6><i class="fas fa-shapes fa-fw"></i>
                                 <span class="text-muted">
-                                    <span title="{% trans %}Instock{% endtrans %}">{{ part.instock }}</span>
+                                    <span title="{% trans %}instock.label{% endtrans %}">{{ part.instock }}</span>
                                     /
-                                    <span title="{% trans %}Minimum Instock{% endtrans %}">{{ part.mininstock }}</span>
+                                    <span title="{% trans %}mininstock.label{% endtrans %}">{{ part.mininstock }}</span>
                                 </span>
                             </h6>
-                            <h6 class="" title="{% trans %}Footprint{% endtrans %}">
+                            <h6 class="" title="{% trans %}footprint.label{% endtrans %}">
                                 <i class="fas fa-microchip fa-fw" ></i>
                                 <span class="text-muted">{{ part.footprint.fullPath ?? "-"}}</span>
                             </h6>
-                            <h6 title="{% trans %}Average price{% endtrans %}">
+                            <h6 title="{% trans %}part.avg_price.label{% endtrans %}">
                                 <i class="fas fa-money-bill-alt fa-fw"></i>
                                 <span class="text-muted">{{ "TODO" }}</span>
                             </h6>
                             {% if part.comment != "" %}
-                            <h6 title="{% trans %}Comment{% endtrans %}">
+                            <h6 title="{% trans %}comment.label{% endtrans %}">
                                 <i class="fas fa-comment-alt fa-fw"></i>
                                 <span class="text-muted">{{ part.comment }}</span>
                             </h6>
@@ -59,25 +59,25 @@
                                 <a class="nav-link active" id="attachment-tab" data-toggle="tab"
                                    href="#attachments" role="tab" aria-controls="home" aria-selected="true">
                                     <i class="fas fa-paperclip fa-fw"></i>
-                                    {% trans %}Attachments{% endtrans %}
+                                    {% trans %}attachment.labelp{% endtrans %}
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="supplier-tab" data-toggle="tab" href="#suppliers" role="tab" aria-controls="profile" aria-selected="false">
                                     <i class="fas fa-shopping-cart fa-fw"></i>
-                                    {% trans %}Shopping Informations{% endtrans %}
+                                    {% trans %}vendor.partinfo.shopping_infos{% endtrans %}
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="contact" aria-selected="false">
                                     <i class="fas fa-history"></i>
-                                    {% trans %}History{% endtrans %}
+                                    {% trans %}vendor.partinfo.history{% endtrans %}
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="tools-tab" data-toggle="tab" href="#tools" role="tab" aria-controls="contact" aria-selected="false">
                                     <i class="fas fa-tools"></i>
-                                    {% trans %}Tools{% endtrans %}
+                                    {% trans %}tools.label{% endtrans %}
                                 </a>
                             </li>
                         </ul>
@@ -94,8 +94,8 @@
                             <div class="tab-pane fade" id="tools" role="tabpanel" aria-labelledby="contact-tab">
                                 <form class="mt-3">
                                     <div class="form-group">
-                                        <label>{% trans %}Delete part:{% endtrans %}</label>
-                                        <button class="btn btn-danger">{% trans %}Delete part{% endtrans %}</button>
+                                        <label>{% trans %}part.delete.caption{% endtrans %}:</label>
+                                        <button class="btn btn-danger">{% trans %}part.delete.btn{% endtrans %}</button>
                                     </div>
                                 </form>
                             </div>
@@ -110,17 +110,17 @@
                         <input type="hidden" name="pid" value="{$pid}">
                         <div class="row">
                             <div class="col-md-12">
-                                <label for="n_less">{% trans %}Withdraw parts:{% endtrans %}</label>
+                                <label for="n_less">{% trans %}part.withdraw.caption:{% endtrans %}</label>
                                 <div class="input-group">
                                     <input type="number" class="form-control" name="n_less" min="0" max="999999" value="1" placeholder="Anzahl">
                                     <div class="input-group-append">
                                         <div class="btn-group">
-                                            <button type="submit" class="btn btn-outline-secondary btn-group-append" name="dec"> {% trans %}Withdraw{% endtrans %}</button>
+                                            <button type="submit" class="btn btn-outline-secondary btn-group-append" name="dec"> {% trans %}part.withdraw.btn{% endtrans %}</button>
                                             <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
                                             <div class="dropdown-menu">
                                                 <div class="px-4 py-3">
                                                     <div class="form-group">
-                                                        <label>{% trans %}Comment/Purpose:{% endtrans %}</label>
+                                                        <label>{% trans %}part.withdraw.comment:{% endtrans %}</label>
                                                         <input type="text" class="form-control" name="instock_change_comment" placeholder="{{ "TODO" }}">
                                                     </div>
                                                 </div>
@@ -138,17 +138,17 @@
                         <input type="hidden" name="pid" value="{$pid}">
                         <div class="row">
                             <div class="col-md-12">
-                                <label for="n_more">{% trans %}Add parts:{% endtrans %}</label>
+                                <label for="n_more">{% trans %}part.add.caption{% endtrans %}</label>
                                 <div class="input-group">
                                     <input type="number" class="form-control" name="n_more" min="0" max="999999" value="1">
                                     <div class="input-group-append">
                                         <div class="btn-group">
-                                            <button type="submit" class="btn  btn-outline-secondary btn-group-append" name="inc" >{% trans %}Add{% endtrans %}</button>
+                                            <button type="submit" class="btn  btn-outline-secondary btn-group-append" name="inc" >{% trans %}part.add.btn{% endtrans %}</button>
                                             <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></button>
                                             <div class="dropdown-menu">
                                                 <div class="px-4 py-3">
                                                     <div class="form-group">
-                                                        <label>{% trans %}Comment/Purpose:{% endtrans %}</label>
+                                                        <label>{% trans %}part.add.comment{% endtrans %}</label>
                                                         <input type="text" class="form-control" name="instock_change_comment" placeholder="TODO">
                                                     </div>
                                                 </div>
@@ -197,7 +197,7 @@
                     <p></p>
 
                     <div class="form-group">
-                        <label>{% trans %}Created at:{% endtrans %}</label>
+                        <label>{% trans %}createdAt{% endtrans %}:</label>
                         <p>{{ part.datetimeAdded | date}}
                             {#{if !empty($creation_user)} {% trans %}by{% endtrans %}
                             {if $can_visit_user}
@@ -212,7 +212,7 @@
                     <p></p>
 
                     <div class="form-group">
-                        <label>{% trans %}Last modified:{% endtrans %}</label>
+                        <label>{% trans %}lastModified{% endtrans %}:</label>
                         <p>{{ part.lastModified | date }}
                             {# {if !empty($last_modified_user)} {% trans %}by{% endtrans %}
                             {if $can_visit_user}

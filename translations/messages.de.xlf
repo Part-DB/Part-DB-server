@@ -5,273 +5,209 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="HUwX21L" resname="Toggle Sidebar">
-        <source>Toggle Sidebar</source>
-        <target>__Toggle Sidebar</target>
+      <trans-unit id="cElTSD4" resname="sidebar.toggle">
+        <source>sidebar.toggle</source>
+        <target state="translated">Sidebar umschalten</target>
       </trans-unit>
-      <trans-unit id="VWoIUBD" resname="Search options">
-        <source>Search options</source>
-        <target>__Search options</target>
+      <trans-unit id="el2uFyW" resname="search.options.label">
+        <source>search.options.label</source>
+        <target state="translated">Suchoptionen</target>
       </trans-unit>
-      <trans-unit id="3NHVIj9" resname="Name">
-        <source>Name</source>
+      <trans-unit id="kTRK6H_" resname="name.label">
+        <source>name.label</source>
         <target state="translated">Name</target>
       </trans-unit>
-      <trans-unit id="KSwG8AR" resname="Category">
-        <source>Category</source>
+      <trans-unit id="ZY57BXc" resname="category.label">
+        <source>category.label</source>
         <target state="translated">Kategorie</target>
       </trans-unit>
-      <trans-unit id="Um4Ah8w" resname="Description">
-        <source>Description</source>
+      <trans-unit id="LSnWIG7" resname="description.label">
+        <source>description.label</source>
         <target state="translated">Beschreibung</target>
       </trans-unit>
-      <trans-unit id=".vKyPPB" resname="Storelocation">
-        <source>Storelocation</source>
+      <trans-unit id="RezjOdV" resname="storelocation.label">
+        <source>storelocation.label</source>
         <target state="translated">Lagerort</target>
       </trans-unit>
-      <trans-unit id="RPXj__x" resname="Comment">
-        <source>Comment</source>
+      <trans-unit id="BWS7Lck" resname="comment.label">
+        <source>comment.label</source>
         <target state="translated">Kommentar</target>
       </trans-unit>
-      <trans-unit id="Kg6fyWy" resname="Ordernr.">
-        <source>Ordernr.</source>
-        <target state="translated">Bestellnr.</target>
+      <trans-unit id="z1DQ7QF" resname="ordernumber.label.short">
+        <source>ordernumber.label.short</source>
+        <target state="translated">Ordernr.</target>
       </trans-unit>
-      <trans-unit id="cuLwM2f" resname="Supplier">
-        <source>Supplier</source>
+      <trans-unit id="zT4k8ZJ" resname="supplier.label">
+        <source>supplier.label</source>
         <target state="translated">Lieferant</target>
       </trans-unit>
-      <trans-unit id="GvOExXf" resname="Manufacturer">
-        <source>Manufacturer</source>
+      <trans-unit id="WB3sH1G" resname="manufacturer.label">
+        <source>manufacturer.label</source>
         <target state="translated">Hersteller</target>
       </trans-unit>
-      <trans-unit id="Fh5Ul33" resname="Footprint">
-        <source>Footprint</source>
-        <target state="translated">Footprint</target>
+      <trans-unit id="griVyRf" resname="footprint.label">
+        <source>footprint.label</source>
+        <target>__footprint.label</target>
       </trans-unit>
-      <trans-unit id="zRJMHhU" resname="Deact. Barcode">
-        <source>Deact. Barcode</source>
+      <trans-unit id="Bs5QvO0" resname="search.deactivateBarcode">
+        <source>search.deactivateBarcode</source>
         <target state="translated">Deakt. Barcode</target>
       </trans-unit>
-      <trans-unit id="y8c23Dw" resname="RegEx Matching">
-        <source>RegEx Matching</source>
-        <target state="translated">RegEx Matching</target>
+      <trans-unit id="biFM.cv" resname="search.regexmatching">
+        <source>search.regexmatching</source>
+        <target state="translated">Reg.Ex. Matching</target>
       </trans-unit>
-      <trans-unit id="pPKSLi2" resname="Suche">
-        <source>Suche</source>
+      <trans-unit id="lQ8QeGr" resname="search.placeholder">
+        <source>search.placeholder</source>
         <target state="translated">Suche</target>
       </trans-unit>
-      <trans-unit id="6Vw5YTi" resname="Go!">
-        <source>Go!</source>
+      <trans-unit id="rOLpDSq" resname="go.exclamation">
+        <source>go.exclamation</source>
         <target state="translated">Los!</target>
       </trans-unit>
-      <trans-unit id="PmbUb9n" resname="Scan Barcode">
-        <source>Scan Barcode</source>
+      <trans-unit id="iqU5ScK" resname="barcode.scan">
+        <source>barcode.scan</source>
         <target state="translated">Scanne Barcode</target>
       </trans-unit>
-      <trans-unit id="10Yi6cO" resname="Logged in as">
-        <source>Logged in as</source>
+      <trans-unit id="PRvW.EI" resname="user.loggedin.label">
+        <source>user.loggedin.label</source>
         <target state="translated">Eingeloggt als</target>
       </trans-unit>
-      <trans-unit id="KzY_h1O" resname="User settings">
-        <source>User settings</source>
+      <trans-unit id="4fEJHYJ" resname="user.settings.label">
+        <source>user.settings.label</source>
         <target state="translated">Benutzereinstellungen</target>
       </trans-unit>
-      <trans-unit id="g4EUtfA" resname="User informations">
-        <source>User informations</source>
+      <trans-unit id="_M8LV3f" resname="user.info.label">
+        <source>user.info.label</source>
         <target state="translated">Benutzerinformationen</target>
       </trans-unit>
-      <trans-unit id="0FJ_Sz1" resname="Logout">
-        <source>Logout</source>
-        <target state="translated">Logout</target>
+      <trans-unit id="okzpfQC" resname="user.logout">
+        <source>user.logout</source>
+        <target state="translated">Ausloggen</target>
       </trans-unit>
-      <trans-unit id="nWMiwfT" resname="Login">
-        <source>Login</source>
-        <target>__Login</target>
+      <trans-unit id="rruB2OR" resname="user.login">
+        <source>user.login</source>
+        <target state="translated">Einloggen</target>
       </trans-unit>
-      <trans-unit id="uLHYlMa" resname="Categories">
-        <source>Categories</source>
+      <trans-unit id="OllfX2C" resname="category.labelp">
+        <source>category.labelp</source>
         <target state="translated">Kategorien</target>
       </trans-unit>
-      <trans-unit id=".4BZ3Gd" resname="Actions">
-        <source>Actions</source>
+      <trans-unit id="Kw3N1AA" resname="actions">
+        <source>actions</source>
         <target state="translated">Aktionen</target>
       </trans-unit>
-      <trans-unit id="n1sCOkE" resname="Expand All">
-        <source>Expand All</source>
+      <trans-unit id="10f_Ka3" resname="expandAll">
+        <source>expandAll</source>
         <target state="translated">Alle ausklappen</target>
       </trans-unit>
-      <trans-unit id="mzLTOca" resname="Reduce All">
-        <source>Reduce All</source>
+      <trans-unit id="eS_kUcS" resname="reduceAll">
+        <source>reduceAll</source>
         <target state="translated">Alle einklappen</target>
       </trans-unit>
-      <trans-unit id="3C8Bdj5" resname="Datasource">
-        <source>Datasource</source>
+      <trans-unit id=".x0rFcf" resname="datasource">
+        <source>datasource</source>
         <target state="translated">Datenquelle</target>
       </trans-unit>
-      <trans-unit id="osDXJaf" resname="Store locations">
-        <source>Store locations</source>
-        <target state="translated">Lagerort</target>
+      <trans-unit id="vZGwiMS" resname="storelocation.labelp">
+        <source>storelocation.labelp</source>
+        <target state="translated">Lagerorte</target>
       </trans-unit>
-      <trans-unit id="39g0igz" resname="Footprints">
-        <source>Footprints</source>
+      <trans-unit id="ZJ9SPOS" resname="footprint.labelp">
+        <source>footprint.labelp</source>
         <target state="translated">Footprints</target>
       </trans-unit>
-      <trans-unit id="cPF0URb" resname="Manufacturers">
-        <source>Manufacturers</source>
+      <trans-unit id="NSnSQf4" resname="manufacturer.labelp">
+        <source>manufacturer.labelp</source>
         <target state="translated">Hersteller</target>
       </trans-unit>
-      <trans-unit id="zZQNZIb" resname="Suppliers">
-        <source>Suppliers</source>
-        <target state="translated">Lieferanten</target>
+      <trans-unit id="DQQjhS_" resname="supplier.labelp">
+        <source>supplier.labelp</source>
+        <target state="translated">Anbieter</target>
       </trans-unit>
-      <trans-unit id="S6USHU0" resname="Devices">
-        <source>Devices</source>
-        <target state="translated">Baugruppe</target>
+      <trans-unit id="g6tt4u1" resname="device.labelp">
+        <source>device.labelp</source>
+        <target state="translated">Baugruppen</target>
       </trans-unit>
-      <trans-unit id="6pPWomL" resname="Tools">
-        <source>Tools</source>
+      <trans-unit id="__OuWRw" resname="tools.label">
+        <source>tools.label</source>
         <target state="translated">Tools</target>
       </trans-unit>
-      <trans-unit id="U0JdEhb" resname="Please activate Javascript to use all features.">
-        <source>Please activate Javascript to use all features.</source>
-        <target state="translated">Bitte aktivieren sie Javascript um alle Funktionen zu nutzen!</target>
+      <trans-unit id="ZQMol4U" resname="vendor.base.javascript_hint">
+        <source>vendor.base.javascript_hint</source>
+        <target state="translated">Aktivieren Sie Javascript um alle Features zu nutzen!</target>
       </trans-unit>
-      <trans-unit id="LqLAexz" resname="Detail info for">
-        <source>Detail info for</source>
+      <trans-unit id="UoflU8w" resname="part.info.title">
+        <source>part.info.title</source>
         <target state="translated">Detailinfo für</target>
       </trans-unit>
-      <trans-unit id="PqNq3NH" resname="ID:">
-        <source>ID:</source>
-        <target state="translated">ID:</target>
+      <trans-unit id="2y0kouO" resname="id.label">
+        <source>id.label</source>
+        <target state="translated">ID</target>
       </trans-unit>
-      <trans-unit id="3LfxYjj" resname="Store location">
-        <source>Store location</source>
-        <target state="translated">Lagerort</target>
+      <trans-unit id="J.AXbaM" resname="instock.label">
+        <source>instock.label</source>
+        <target state="translated">Im Lager</target>
       </trans-unit>
-      <trans-unit id="wkroQ3H" resname="Instock">
-        <source>Instock</source>
-        <target state="translated">Vorhandene Teile</target>
+      <trans-unit id="VYcxdrz" resname="mininstock.label">
+        <source>mininstock.label</source>
+        <target state="translated">Mindestanzahl</target>
       </trans-unit>
-      <trans-unit id="anU7ofr" resname="Minimum Instock">
-        <source>Minimum Instock</source>
-        <target state="translated">Mindesanzahl an Lagerbestand</target>
-      </trans-unit>
-      <trans-unit id="yqHvxnl" resname="Average price">
-        <source>Average price</source>
+      <trans-unit id="LL2dt8U" resname="part.avg_price.label">
+        <source>part.avg_price.label</source>
         <target state="translated">Durchschnittspreis</target>
       </trans-unit>
-      <trans-unit id="Y03hFHd" resname="Attachments">
-        <source>Attachments</source>
+      <trans-unit id="MZz0rtU" resname="attachment.labelp">
+        <source>attachment.labelp</source>
         <target state="translated">Dateianhänge</target>
       </trans-unit>
-      <trans-unit id="o0xriSw" resname="Shopping Informations">
-        <source>Shopping Informations</source>
+      <trans-unit id="b5.SSzx" resname="vendor.partinfo.shopping_infos">
+        <source>vendor.partinfo.shopping_infos</source>
         <target state="translated">Einkaufsinformationen</target>
       </trans-unit>
-      <trans-unit id="DnaWAJM" resname="History">
-        <source>History</source>
+      <trans-unit id="1Soir6U" resname="vendor.partinfo.history">
+        <source>vendor.partinfo.history</source>
         <target state="translated">Historie</target>
       </trans-unit>
-      <trans-unit id="mcl3tox" resname="Delete part:">
-        <source>Delete part:</source>
-        <target state="translated">Bauteil löschen:</target>
-      </trans-unit>
-      <trans-unit id="ql2kmFz" resname="Delete part">
-        <source>Delete part</source>
+      <trans-unit id="4ixhjeS" resname="part.delete.caption">
+        <source>part.delete.caption</source>
         <target state="translated">Bauteil löschen</target>
       </trans-unit>
-      <trans-unit id="i9VkL.W" resname="Withdraw parts:">
-        <source>Withdraw parts:</source>
-        <target state="translated">Teile entnehmen:</target>
+      <trans-unit id="CP6LfDs" resname="part.delete.btn">
+        <source>part.delete.btn</source>
+        <target state="translated">Bauteil löschen</target>
       </trans-unit>
-      <trans-unit id="FkVGqcV" resname="Withdraw">
-        <source>Withdraw</source>
+      <trans-unit id="eG9UnaY" resname="part.withdraw.caption:">
+        <source>part.withdraw.caption:</source>
+        <target state="translated">Bauteile entnehmen:</target>
+      </trans-unit>
+      <trans-unit id="7TiUzGF" resname="part.withdraw.btn">
+        <source>part.withdraw.btn</source>
         <target state="translated">Entnehmen</target>
       </trans-unit>
-      <trans-unit id="lNCLw1u" resname="Comment/Purpose:">
-        <source>Comment/Purpose:</source>
-        <target state="translated">Kommentar</target>
+      <trans-unit id="RVKdVNt" resname="part.withdraw.comment:">
+        <source>part.withdraw.comment:</source>
+        <target state="translated">Kommentar/Zweck</target>
       </trans-unit>
-      <trans-unit id="gUui7kz" resname="Add parts:">
-        <source>Add parts:</source>
-        <target state="translated">Teile hinzufügen</target>
+      <trans-unit id="kXcojTi" resname="part.add.caption">
+        <source>part.add.caption</source>
+        <target state="translated">Bauteil hinzufügen</target>
       </trans-unit>
-      <trans-unit id="n9coxmy" resname="Add">
-        <source>Add</source>
+      <trans-unit id="rYoCVp9" resname="part.add.btn">
+        <source>part.add.btn</source>
         <target state="translated">Hinzufügen</target>
       </trans-unit>
-      <trans-unit id="zkJ8LjM" resname="Created at:">
-        <source>Created at:</source>
-        <target state="translated">Hinzugefügt am:</target>
+      <trans-unit id="4CUEJg5" resname="part.add.comment">
+        <source>part.add.comment</source>
+        <target state="translated">Kommentar/Zweck</target>
       </trans-unit>
-      <trans-unit id="dVfmrrN" resname="Last modified:">
-        <source>Last modified:</source>
-        <target state="translated">Zuletzt bearbeitet:</target>
+      <trans-unit id="cMLFYZw" resname="createdAt">
+        <source>createdAt</source>
+        <target state="translated">Erstellt am</target>
       </trans-unit>
-      <trans-unit id="mix.KD6" resname="Teile entnehmen:">
-        <source>Teile entnehmen:</source>
-        <target>__Teile entnehmen:</target>
-      </trans-unit>
-      <trans-unit id="vzLV.6u" resname="Entnehmen">
-        <source>Entnehmen</source>
-        <target>__Entnehmen</target>
-      </trans-unit>
-      <trans-unit id="MduMjNT" resname="Kommentar/Zweck:">
-        <source>Kommentar/Zweck:</source>
-        <target>__Kommentar/Zweck:</target>
-      </trans-unit>
-      <trans-unit id="pGNeBqu" resname="Teile hinzufügen">
-        <source>Teile hinzufügen</source>
-        <target>__Teile hinzufügen</target>
-      </trans-unit>
-      <trans-unit id="y7lc8Ct" resname="Hinzufügen">
-        <source>Hinzufügen</source>
-        <target>__Hinzufügen</target>
-      </trans-unit>
-      <trans-unit id="l57vMsz" resname="Bauteil wurde manuell zum Bestellen vorgemerkt.">
-        <source>Bauteil wurde manuell zum Bestellen vorgemerkt.</source>
-        <target>__Bauteil wurde manuell zum Bestellen vorgemerkt.</target>
-      </trans-unit>
-      <trans-unit id="bZx3MQe" resname="Aufheben">
-        <source>Aufheben</source>
-        <target>__Aufheben</target>
-      </trans-unit>
-      <trans-unit id="6slXTYW" resname="Das Bauteil wird unter &quot;Zu bestellende Teile&quot;aufgelistet, da der Bestand kleiner als der Mindestbestand ist.">
-        <source>Das Bauteil wird unter "Zu bestellende Teile"aufgelistet, da der Bestand kleiner als der Mindestbestand ist.</source>
-        <target>__Das Bauteil wird unter "Zu bestellende Teile"aufgelistet, da der Bestand kleiner als der Mindestbestand ist.</target>
-      </trans-unit>
-      <trans-unit id="tTmJIHI" resname="Zum Bestellen vormerken:">
-        <source>Zum Bestellen vormerken:</source>
-        <target>__Zum Bestellen vormerken:</target>
-      </trans-unit>
-      <trans-unit id="k2N4s3G" resname="Übernehmen">
-        <source>Übernehmen</source>
-        <target>__Übernehmen</target>
-      </trans-unit>
-      <trans-unit id="4TpJExM" resname="Hinzugefügt:">
-        <source>Hinzugefügt:</source>
-        <target>__Hinzugefügt:</target>
-      </trans-unit>
-      <trans-unit id="H1yAwzB" resname="durch">
-        <source>durch</source>
-        <target>__durch</target>
-      </trans-unit>
-      <trans-unit id="oZULmaU" resname="Letzte Änderung:">
-        <source>Letzte Änderung:</source>
-        <target>__Letzte Änderung:</target>
-      </trans-unit>
-      <trans-unit id="p29BNva" resname="Barcode erzeugen">
-        <source>Barcode erzeugen</source>
-        <target>__Barcode erzeugen</target>
-      </trans-unit>
-      <trans-unit id="Xwkn.Ct" resname="Übersicht drucken">
-        <source>Übersicht drucken</source>
-        <target>__Übersicht drucken</target>
-      </trans-unit>
-      <trans-unit id="CPP6fH9" resname="Datenblattlinks">
-        <source>Datenblattlinks</source>
-        <target>__Datenblattlinks</target>
+      <trans-unit id="ZcUFNEJ" resname="lastModified">
+        <source>lastModified</source>
+        <target state="translated">Zuletzt bearbeitet</target>
       </trans-unit>
     </body>
   </file>
