@@ -35,6 +35,7 @@ namespace App\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Webmozart\Assert\Assert;
 
 /**
  * Class Part
@@ -174,48 +175,24 @@ class Part extends AttachmentContainingDBElement
      ********************************************************************************/
 
     /**
-     * Get the description
+     * Get the description string like it is saved in the database.
+     * This can contain BBCode, it is not parsed yet.
      *
-     * @param boolean|int $bbcode_parse_level Should BBCode converted to HTML, before returning
-     * @param int $short_output If this is bigger than 0, than the description will be shortened to this length.
      * @return string       the description
      */
-    public function getDescription($bbcode_parse_level = 0/*BBCodeParsingLevel::PARSE*/, int  $short_output = 0) : string
+    public function getDescription() : string
     {
-        $val = htmlspecialchars($this->description);
-
-        if ($short_output > 0 && \strlen($val) > $short_output) {
-            $val = substr($val, 0, $short_output);
-            $val .= '...';
-            $val = '<span class="text-muted">' . $val . '</span class="text-muted">';
-        }
-
-        //TODO
-        /**
-        if ($bbcode_parse_level === BBCodeParsingLevel::PARSE) {
-            $bbcode = new BBCodeParser();
-            $val = $bbcode->only('bold', 'italic', 'underline', 'linethrough')->parse($val);
-        } elseif ($bbcode_parse_level === BBCodeParsingLevel::STRIP) {
-            $bbcode = new BBCodeParser();
-            $val = $bbcode->stripBBCodeTags($val);
-        }*/
-
-        return $val;
+        return  htmlspecialchars($this->description);
     }
 
     /**
-     *  Get the count of parts which are in stock
-     * @param $with_unknown bool Set this, to true, if the unknown state should be returned as string. Otherwise -2 is returned.
+     *  Get the count of parts which are in stock.
+     *  When the instock is unkown, then Part::INSTOCK_UNKNOWN is returned.
      *
-     * @return integer|string       count of parts which are in stock, "Unknown" if $with_unknown is set and instock is unknown.
+     * @return int       count of parts which are in stock
      */
-    public function getInstock(bool $with_unknown = false) : int
+    public function getInstock() : int
     {
-
-        if ($with_unknown && $this->isInstockUnknown()) {
-            return _('[Unbekannt]');
-        }
-
         return $this->instock;
     }
 
@@ -239,30 +216,14 @@ class Part extends AttachmentContainingDBElement
     }
 
     /**
-     *  Get the comment
+     *  Get the comment associated with this part.
      *
-     * @param boolean|int $bbcode_parsing_level Should BBCode converted to HTML, before returning
-     * @return string       the comment
+     * @return string  The raw/unparsed comment
      */
-    public function getComment($bbcode_parsing_level = true /*= BBCodeParsingLevel::PARSE*/) : string
+    public function getComment() : string
     {
 
-        $val = htmlspecialchars($this->comment);
-
-        //TODO
-        /*if ($bbcode_parsing_level === BBCodeParsingLevel::PARSE) {
-            $bbcode = new BBCodeParser();
-            $bbcode->setParser('brLinebreak', "/\[br\]/s", '<br/>', '');
-            $bbcode->setParser('namedlink', '/\[url\=(.*?)\](.*?)\[\/url\]/s', '<a href="$1" class="link-external" target="_blank">$2</a>', '$2');
-            $bbcode->setParser('link', '/\[url\](.*?)\[\/url\]/s', '<a href="$1" class="link-external" target="_blank">$1</a>', '$1');
-            $val = $bbcode->parse($val);
-        } elseif ($bbcode_parsing_level === BBCodeParsingLevel::STRIP) {
-            $bbcode = new BBCodeParser();
-            $val = str_replace("\n", ' ', $val);
-            $val = $bbcode->stripBBCodeTags($val);
-        }*/
-
-        return $val;
+        return htmlspecialchars($this->comment);
     }
 
     /**
@@ -271,11 +232,9 @@ class Part extends AttachmentContainingDBElement
      *     A Part is marked as "obsolete" if all their orderdetails are marked as "obsolete".
      *          If a part has no orderdetails, the part isn't marked as obsolete.
      *
-     * @return boolean      @li true if this part is obsolete
-     * @li false if this part isn't obsolete
-     * @throws Exception
+     * @return boolean  true, if this part is obsolete. false, if this part isn't obsolete
      */
-    public function getObsolete() : bool
+    public function isObsolete() : bool
     {
         $all_orderdetails = $this->getOrderdetails();
 
@@ -295,12 +254,12 @@ class Part extends AttachmentContainingDBElement
     /**
      *  Get if this part is visible
      *
-     * @return boolean      @li true if this part is visible
-     *                      @li false if this part isn't visible
+     * @return boolean      true if this part is visible
+     *                      false if this part isn't visible
      */
-    public function getVisible() : bool
+    public function isVisible() : bool
     {
-        return (bool) $this->visible;
+        return $this->visible;
     }
 
     /**
@@ -309,9 +268,9 @@ class Part extends AttachmentContainingDBElement
      * @return bool * true if this part is a favorite
      *     * false if this part is not a favorite.
      */
-    public function getFavorite() : bool
+    public function isFavorite() : bool
     {
-        return (bool) $this->favorite;
+        return $this->favorite;
     }
 
     /**
@@ -340,7 +299,7 @@ class Part extends AttachmentContainingDBElement
      */
     public function getOrderQuantity() : int
     {
-        return (int) $this->order_quantity;
+        return $this->order_quantity;
     }
 
     /**
@@ -380,20 +339,21 @@ class Part extends AttachmentContainingDBElement
     }
 
     /**
-     *  Get the "manual_order" attribute
+     *  Check if this part is marked for manual ordering
      *
      * @return boolean      the "manual_order" attribute
      */
-    public function getManualOrder() : bool
+    public function isMarkedForManualOrder() : bool
     {
-        return (bool) $this->manual_order;
+        return $this->manual_order;
     }
 
     /**
      * Check if the part is automatically marked for Ordering, because the instock value is smaller than the min instock value.
+     * This is called automatic ordering
      * @return bool True, if the part should be ordered.
      */
-    public function getAutoOrder() : bool
+    public function isAutoOrdered() : bool
     {
         //Parts with negative instock never gets ordered.
         if ($this->getInstock() < 0) {
@@ -405,21 +365,33 @@ class Part extends AttachmentContainingDBElement
 
     /**
      *  Get the link to the website of the article on the manufacturers website
+     *  When no this part has no explicit url set, then it is tried to generate one from the Manufacturer of this part
+     *  automatically.
      *
      * @param
      *
      * @return string           the link to the article
-     * @throws Exception
      */
-    public function getManufacturerProductUrl(bool $no_auto_url = false) : string
+    public function getManufacturerProductUrl() : string
     {
-        if ($no_auto_url || $this->manufacturer_product_url != '') {
+        if ($this->manufacturer_product_url != '') {
             return $this->manufacturer_product_url;
-        } elseif (\is_object($this->getManufacturer())) {
+        }
+
+        if ($this->getManufacturer() !== null) {
             return $this->getManufacturer()->getAutoProductUrl($this->name);
         } else {
             return '';
         } // no url is available
+    }
+
+    /**
+     * Similar to getManufacturerProductUrl, but here only the database value is returned.
+     * @return string The manufacturer url saved in DB for this part.
+     */
+    public function getOwnProductURL() : string
+    {
+        return $this->manufacturer_product_url;
     }
 
     /**
@@ -805,6 +777,8 @@ class Part extends AttachmentContainingDBElement
      *  Set the description
      *
      * @param string $new_description       the new description
+     *
+     * @return self
      */
     public function setDescription(string $new_description) : self
     {
@@ -817,11 +791,12 @@ class Part extends AttachmentContainingDBElement
      *
      * @param integer $new_instock       the new count of parts which are in stock
      *
-     * @throws Exception if the new instock is not valid
-     * @throws Exception if there was an error
+     * @return self
      */
     public function setInstock(int $new_instock, $comment = null) : self
     {
+        Assert::natural($new_instock, 'New instock must be positive. Got: %s');
+
         $old_instock = (int) $this->getInstock();
         $this->instock = $new_instock;
         //TODO
@@ -840,21 +815,39 @@ class Part extends AttachmentContainingDBElement
     }
 
     /**
+     * Sets the unknown status of this part.
+     * When the instock is currently unknown and you pass false, then the instock is set to zero.
+     * If the instock is not unknown and you pass false, nothing is changed.
+     *
+     * @param bool $new_unknown Set this to true if the instock should be marked as unknown.
+     * @return Part
+     */
+    public function setInstockUnknown(bool $new_unknown) : self
+    {
+        if($new_unknown == true) {
+            $this->instock = self::INSTOCK_UNKNOWN;
+        } else {
+            //Change only if instock is currently unknown.
+            if ($this->isInstockUnknown()) {
+                $this->setInstock(0);
+            }
+        }
+
+    }
+
+    /**
      * Withdrawal the given number of parts.
      * @param $count int The number of parts which should be withdrawan.
      * @param $comment string A comment that should be associated with the withdrawal.
-     * @throws Exception if there was an error
+     *
+     * @return self
      */
     public function withdrawalParts(int $count, $comment = null) : self
     {
-        if ($count <= 0) {
-            throw new \Exception('Zahl der entnommenen Bauteile muss größer 0 sein!');
-        }
-        if ($count > $this->getInstock()) {
-            throw new Exception('Es können nicht mehr Bauteile entnommen werden, als vorhanden sind!');
-        }
+        Assert::greaterThan($count,0, 'Count of withdrawn parts must be greater 0! Got %s!');
+        Assert::greaterThan($count, $this->instock, 'You can not withdraw more parts, than there are existing!');
 
-        $old_instock = (int) $this->getInstock();
+        $old_instock = $this->getInstock();
         $new_instock = $old_instock - $count;
 
         //TODO
@@ -878,17 +871,16 @@ class Part extends AttachmentContainingDBElement
      * Add the given number of parts.
      * @param $count int The number of parts which should be withdrawan.
      * @param $comment string A comment that should be associated with the withdrawal.
-     * @throws Exception if there was an error
+     *
+     * @return self
      */
     public function addParts(int $count, string $comment = null) : self
     {
+        Assert::greaterThan($count, 0, 'Count of added parts must be greater zero! Got %s.');
 
         //TODO
-        if ($count <= 0) {
-            throw new Exception('Zahl der entnommenen Bauteile muss größer 0 sein!');
-        }
 
-        $old_instock = (int) $this->getInstock();
+        $old_instock = $this->getInstock();
         $new_instock = $old_instock + $count;
 
         //TODO
@@ -912,17 +904,13 @@ class Part extends AttachmentContainingDBElement
      *  Set the count of parts which should be in stock at least
      *
      * @param integer $new_mininstock       the new count of parts which should be in stock at least
-     *
-     * @throws Exception if the new mininstock is not valid
+     * @return self
      */
     public function setMinInstock(int $new_mininstock) : self
     {
-        if($new_mininstock < 0) {
-            throw new \InvalidArgumentException('$new_mininstock must be positive!');
-        }
+        Assert::natural($new_mininstock, 'The new minimum instock value must be positive! Got %s.');
 
         $this->mininstock = $new_mininstock;
-
         return $this;
     }
 
@@ -931,7 +919,7 @@ class Part extends AttachmentContainingDBElement
      *
      * @param string $new_comment       the new comment
      *
-     * @throws Exception if there was an error
+     * @return self
      */
     public function setComment(string $new_comment) : self
     {
@@ -952,11 +940,15 @@ class Part extends AttachmentContainingDBElement
      *                                                      set this orderdetails as order orderdetails.
      *                                                      Otherwise, set "no order orderdetails")
      *
-     * @throws Exception if there was an error
+     * @return self
      */
     public function setManualOrder(bool $new_manual_order, int $new_order_quantity = 1, $new_order_orderdetails_id = null) : self
     {
+        Assert::greaterThan($new_order_quantity, 0, 'The new order quantity must be greater zero. Got %s!');
+
+
         $this->manual_order = $new_manual_order;
+
         //TODO;
         /* $this->order_orderdetail = $new_order_orderdetails_id; */
         $this->order_quantity = $new_order_quantity;
@@ -969,6 +961,8 @@ class Part extends AttachmentContainingDBElement
      *
      * @param integer|NULL $new_order_orderdetails_id       @li the new order orderdetails ID
      *                                                      @li Or, to remove the orderdetails, pass a NULL
+     *
+     * @return self
      */
     public function setOrderOrderdetailsID($new_order_orderdetails_id) : self
     {
@@ -982,9 +976,13 @@ class Part extends AttachmentContainingDBElement
      *  Set the order quantity
      *
      * @param integer $new_order_quantity       the new order quantity
+     *
+     * @return self
      */
     public function setOrderQuantity(int $new_order_quantity) : self
     {
+        Assert::greaterThan($new_order_quantity,0, 'The new order quantity must be greater zero. Got %s!');
+
         $this->order_quantity = $new_order_quantity;
 
         return $this;
@@ -1000,6 +998,8 @@ class Part extends AttachmentContainingDBElement
      *
      * @throws Exception if the new category ID is not valid
      * @throws Exception if there was an error
+     *
+     * @return self
      */
     public function setCategoryID(int $new_category_id) : self
     {
@@ -1064,6 +1064,8 @@ class Part extends AttachmentContainingDBElement
      * Set the favorite status for this part.
      * @param $new_favorite_status bool The new favorite status, that should be applied on this part.
      *      Set this to true, when the part should be a favorite.
+     *
+     * @return self
      */
     public function setFavorite(bool $new_favorite_status) : self
     {
@@ -1075,7 +1077,7 @@ class Part extends AttachmentContainingDBElement
     /**
      * Sets the URL to the manufacturer site about this Part. Set to "" if this part should use the automatically URL based on its manufacturer.
      * @param string $new_url The new url
-     * @throws Exception when an error happens.
+     * @return self
      */
     public function setManufacturerProductURL(string $new_url) : self
     {
@@ -1092,6 +1094,8 @@ class Part extends AttachmentContainingDBElement
      *
      * @throws Exception if the new ID is not valid
      * @throws Exception if there was an error
+     *
+     * @return self
      */
     public function setMasterPictureAttachementID($new_master_picture_attachement_id) : self
     {

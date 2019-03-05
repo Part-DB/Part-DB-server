@@ -35,6 +35,7 @@ namespace App\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Webmozart\Assert\Assert;
 
 /**
  * Class Pricedetail
@@ -138,7 +139,7 @@ class Pricedetail extends  DBElement
      */
     public function getPriceRelatedQuantity() : int
     {
-        return (int) $this->price_related_quantity;
+        return $this->price_related_quantity;
     }
 
     /**
@@ -153,7 +154,7 @@ class Pricedetail extends  DBElement
      */
     public function getMinDiscountQuantity() : int
     {
-        return (int) $this->min_discount_quantity;
+        return $this->min_discount_quantity;
     }
 
     /********************************************************************************
@@ -170,13 +171,13 @@ class Pricedetail extends  DBElement
      *      @li This is the price for "price_related_quantity" parts!!
      *              @li Example: if "price_related_quantity" is '10',
      *                  you have to set here the price for 10 parts!
+     *
+     * @return self
      */
     public function setPrice(float $new_price) : self
     {
-        if($new_price < 0)
-        {
-            throw new \InvalidArgumentException('$new_price must be positive!');
-        }
+        Assert::natural($new_price, 'The new price must be positive! Got %s!');
+
         $this->price = $new_price;
 
         return $this;
@@ -192,12 +193,15 @@ class Pricedetail extends  DBElement
      * quantity to 100. The single price (20$/100 = 0.2$) will be calculated automatically.
      *
      * @param integer $new_price_related_quantity the price related quantity
+     *
+     * @return self
      */
     public function setPriceRelatedQuantity(int $new_price_related_quantity) : self
     {
-        if($new_price_related_quantity <= 0) {
-            throw new \InvalidArgumentException('$new_price_related_quantity must be greater 0!');
-        }
+
+        Assert::greaterThan($new_price_related_quantity, 0,
+            'The new price related quantity must be greater zero! Got %s.');
+
         $this->price_related_quantity = $new_price_related_quantity;
 
         return $this;
@@ -219,12 +223,14 @@ class Pricedetail extends  DBElement
      * So the orderdetails would have three Pricedetails for one supplier.)
      *
      * @param integer $new_min_discount_quantity the minimum discount quantity
+     *
+     * @return self
      */
     public function setMinDiscountQuantity(int $new_min_discount_quantity) : self
     {
-        if($new_min_discount_quantity <= 0 ){
-            throw new \InvalidArgumentException('$new_min_discount_quantity must be positive!');
-        }
+        Assert::greaterThan($new_min_discount_quantity, 0,
+            'The new minimum discount quantity must be greater zero! Got %s.');
+
         $this->min_discount_quantity = $new_min_discount_quantity;
 
         return $this;
