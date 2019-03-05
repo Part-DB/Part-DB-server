@@ -39,6 +39,8 @@ class Attachment extends NamedDBElement
      */
     protected $show_in_table;
 
+
+
     /**
      * @var string The filename using the %BASE% variable
      * @ORM\Column(type="string")
@@ -144,5 +146,19 @@ class Attachment extends NamedDBElement
     public function getIDString(): string
     {
         return 'A' . sprintf('%09d', $this->getID());
+    }
+
+    /*****************************************************************************************************
+     * Setters
+     ****************************************************************************************************/
+
+    /**
+     * @param bool $show_in_table
+     * @return self
+     */
+    public function setShowInTable(bool $show_in_table): self
+    {
+        $this->show_in_table = $show_in_table;
+        return $this;
     }
 }
