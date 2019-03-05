@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7f3621e8185fed6caafdf0430d434c3",
+    "content-hash": "61459a4adf332f0c6f3242b54f1eedb1",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1548,6 +1548,92 @@
                 "service proxies"
             ],
             "time": "2018-09-27T13:45:01+00:00"
+        },
+        {
+            "name": "omines/datatables-bundle",
+            "version": "0.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/omines/datatables-bundle.git",
+                "reference": "37aaf560baabc8c621bfb6ae308eaa8933a85da1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/omines/datatables-bundle/zipball/37aaf560baabc8c621bfb6ae308eaa8933a85da1",
+                "reference": "37aaf560baabc8c621bfb6ae308eaa8933a85da1",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0.8",
+                "symfony/framework-bundle": "^3.4|^4.1",
+                "symfony/property-access": "^3.4|^4.1",
+                "symfony/translation": "^3.4|^4.1"
+            },
+            "require-dev": {
+                "doctrine/common": "^2.6",
+                "doctrine/doctrine-bundle": "^1.6.7",
+                "doctrine/orm": "^2.5",
+                "ext-pdo_sqlite": "*",
+                "friendsofphp/php-cs-fixer": "^2.7",
+                "mongodb/mongodb": "^1.2",
+                "phpunit/phpunit": "^6.1|^7.1",
+                "ruflin/elastica": "^6.0",
+                "symfony/browser-kit": "^3.4|^4.1",
+                "symfony/css-selector": "^3.4|^4.1",
+                "symfony/dom-crawler": "^3.4|^4.1",
+                "symfony/phpunit-bridge": "^3.4|^4.1",
+                "symfony/templating": "^3.4|^4.1",
+                "symfony/twig-bundle": "^3.4|^4.1",
+                "symfony/var-dumper": "^3.4|^4.1",
+                "symfony/yaml": "^3.4|^4.1"
+            },
+            "suggest": {
+                "doctrine/doctrine-bundle": "For integrated access to Doctrine object managers",
+                "doctrine/orm": "For full automated integration with Doctrine entities",
+                "mongodb/mongodb": "For integration with MongoDB collections",
+                "ruflin/elastica": "For integration with Elasticsearch indexes",
+                "symfony/twig-bundle": "To use default Twig based rendering and TwigColumn"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Omines\\DataTablesBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Niels Keurentjes",
+                    "email": "niels.keurentjes@omines.com",
+                    "homepage": "https://omines.nl/"
+                },
+                {
+                    "name": "Robbert Beesems",
+                    "email": "robbert.beesems@omines.com",
+                    "homepage": "https://omines.nl/"
+                }
+            ],
+            "description": "Symfony DataTables Bundle with native Doctrine ORM, Elastica and MongoDB support",
+            "keywords": [
+                "bundle",
+                "datatable",
+                "datatables",
+                "doctrine",
+                "elastica",
+                "jquery",
+                "mongodb",
+                "orm",
+                "symfony"
+            ],
+            "time": "2019-02-25T09:17:27+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",

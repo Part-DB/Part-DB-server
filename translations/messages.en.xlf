@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+  <file source-language="de" target-language="en" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -355,7 +355,7 @@
       </trans-unit>
       <trans-unit id="DFDnILM" resname="categories.label">
         <source>categories.label</source>
-        <target state="needs-translation"/>
+        <target state="needs-translation"></target>
       </trans-unit>
       <trans-unit id="Kw3N1AA" resname="actions">
         <source>actions</source>
@@ -485,7 +485,7 @@
         <source>createdAt</source>
         <target state="translated">Created At</target>
       </trans-unit>
-      <trans-unit id="8Vwa6yd" resname="lastModified">
+      <trans-unit id="ZcUFNEJ" resname="lastModified">
         <source>lastModified</source>
         <target state="translated">Last modified</target>
       </trans-unit>
@@ -493,6 +493,14 @@
         <source>search.placeholder</source>
         <target state="translated">Search</target>
       </trans-unit>
+      <trans-unit id="instock.label_short" resname="instock.label_short">
+                    <source>instock.label_short</source>
+                    <target state="translated">Instock</target>
+            </trans-unit>
+            <trans-unit id="mininstock.label_short" resname="mininstock.label_short">
+                          <source>mininstock.label_short</source>
+                          <target state="translated">Min Instock</target>
+            </trans-unit>
     </body>
   </file>
 </xliff>

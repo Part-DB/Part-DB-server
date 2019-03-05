@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="de" datatype="plaintext" original="file.ext">
+  <file source-language="de" target-language="de" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -208,6 +208,14 @@
       <trans-unit id="ZcUFNEJ" resname="lastModified">
         <source>lastModified</source>
         <target state="translated">Zuletzt bearbeitet</target>
+      </trans-unit>
+      <trans-unit id="instock.label_short" resname="instock.label_short">
+              <source>instock.label_short</source>
+              <target state="translated">Bestand</target>
+      </trans-unit>
+      <trans-unit id="mininstock.label_short" resname="mininstock.label_short">
+                    <source>mininstock.label_short</source>
+                    <target state="translated">Mindest-Bestand</target>
       </trans-unit>
     </body>
   </file>

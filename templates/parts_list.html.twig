@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+
+    <div id="presidents">Loading...</div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $( function() {
+            $('#presidents').initDataTables({{ datatable_settings(datatable) }});
+        });
+    </script>
+{% endblock %}

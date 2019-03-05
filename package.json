@@ -5,6 +5,7 @@
         "bootstrap": "^4.3.1",
         "jquery": "^3.3.1",
         "popper.js": "^1.14.7",
+        "webpack-cli": "^3.2.3",
         "webpack-notifier": "^1.6.0"
     },
     "license": "UNLICENSED",
@@ -14,5 +15,13 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
+    },
+    "dependencies": {
+        "datatables.net-bs4": "^1.10.19",
+        "datatables.net-buttons-bs4": "^1.5.4",
+        "datatables.net-fixedheader-bs4": "^3.1.5",
+        "datatables.net-select-bs4": "^1.2.7",
+        "jszip": "^3.2.0",
+        "pdfmake": "^0.1.53"
     }
 }

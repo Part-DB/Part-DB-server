@@ -251,6 +251,13 @@
 {% endblock %}
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
+
+    <script src="{{ asset('helper/datatables.js') }}"></script>
+
+{% endblock %}
+
+{% block scripts %}
+
 {% endblock %}
 </body>
 </html>

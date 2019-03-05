@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * part-db version 0.1
@@ -30,27 +29,10 @@
  *
  */
 
-namespace App\Controller;
+namespace App\Exceptions;
 
 
-use App\Entity\Part;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-
-class PartController extends AbstractController
+class EntityNotSupported extends \Exception
 {
-
-    /**
-     * @Route("/part/{id}/info", name="part_info")
-     * @Route("/part/{id}")
-     */
-    function show(Part $part)
-    {
-        return $this->render('show_part_info.html.twig',
-            [
-                "part" => $part
-            ]
-            );
-    }
 
 }
