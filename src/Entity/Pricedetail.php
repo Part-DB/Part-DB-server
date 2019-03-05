@@ -82,7 +82,7 @@ class Pricedetail extends  DBElement
      * @param integer $multiplier           The returned price (float or string) will be multiplied
      *                                      with this multiplier.
      *
-     * @note    You will get the price for $multiplier parts. If you want the price which is stored
+     *     You will get the price for $multiplier parts. If you want the price which is stored
      *          in the database, you have to pass the "price_related_quantity" count as $multiplier.
      *
      * @return float    the price as a float number (if "$as_money_string == false")
@@ -142,7 +142,7 @@ class Pricedetail extends  DBElement
      *
      * @param float $new_price       the new price as a float number
      *
-     * @warning     @li This is the price for "price_related_quantity" parts!!
+     *      @li This is the price for "price_related_quantity" parts!!
      *              @li Example: if "price_related_quantity" is '10',
      *                  you have to set here the price for 10 parts!
      */

@@ -107,7 +107,7 @@ class Footprint extends PartsContainingDBElement
      * This method is used to get all footprints with broken filename
      * (Footprint::get_broken_filename_footprints()).
      *
-     * @note An empty filename is a valid filename.
+     *  An empty filename is a valid filename.
      *
      * @return boolean      @li true if file exists or filename is empty
      *                      @li false if there is no file with this filename
@@ -127,7 +127,7 @@ class Footprint extends PartsContainingDBElement
      * This method is used to get all footprints with broken 3d filename
      * (Footprint::get_broken_3d_filename_footprints()).
      *
-     * @note An empty filename is a valid filename.
+     *  An empty filename is a valid filename.
      *
      * @return boolean      @li true if file exists or filename is empty
      *                      @li false if there is no file with this filename
@@ -159,20 +159,20 @@ class Footprint extends PartsContainingDBElement
     /**
      *  Change the filename of this footprint
      *
-     * @note    The filename won't be checked if it is valid.
+     *     The filename won't be checked if it is valid.
      *          It's not really a Problem if there is no such file...
      *          (For this purpose we have the method Footprint::get_broken_filename_footprints())
      *
      * @param string $new_filename      @li the new filename (absolute path from filesystem root, as a UNIX path [only slashes!] !! )
      *                                  @li see also lib.functions.php::to_unix_path()
      *
-     * @warning     It's really important that you pass the whole (UNIX) path from filesystem root!
+     *      It's really important that you pass the whole (UNIX) path from filesystem root!
      *              If the file is located in the base directory of Part-DB, the base path
      *              will be automatically replaced with a placeholder before write it in the database.
      *              This way, the filenames are still correct if the installation directory
      *              of Part-DB is moved.
      *
-     * @note        The path-replacing will be done in Footprint::check_values_validity(), not here.
+     *         The path-replacing will be done in Footprint::check_values_validity(), not here.
      *
      * @throws Exception if there was an error
      */

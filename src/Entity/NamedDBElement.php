@@ -95,7 +95,7 @@ abstract class NamedDBElement extends DBElement
     /**
      * Change the name of this element
      *
-     * @note    Spaces at the begin and at the end of the string will be removed
+     *     Spaces at the begin and at the end of the string will be removed
      *          automatically in NamedDBElement::check_values_validity().
      *          So you don't have to do this yourself.
      *

@@ -44,8 +44,8 @@ class Storelocation extends PartsContainingDBElement
     /**
      * Get the "is full" attribute
      *
-     * @note    "is_full == true" means that there is no more space in this storelocation.
-     * @note    This attribute is only for information, it has no effect.
+     *     "is_full == true" means that there is no more space in this storelocation.
+     *     This attribute is only for information, it has no effect.
      *
      * @return boolean      @li true if the storelocation is full
      *                      @li false if the storelocation isn't full
@@ -64,8 +64,8 @@ class Storelocation extends PartsContainingDBElement
     /**
      * Change the "is full" attribute of this storelocation
      *
-     * @note    "is_full" = true means that there is no more space in this storelocation.
-     * @note    This attribute is only for information, it has no effect.
+     *     "is_full" = true means that there is no more space in this storelocation.
+     *     This attribute is only for information, it has no effect.
      *
      * @param boolean $new_is_full      @li true means that the storelocation is full
      *                                  @li false means that the storelocation isn't full

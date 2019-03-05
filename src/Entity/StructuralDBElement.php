@@ -151,7 +151,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     /**
      * Get the level
      *
-     * @note    The level of the root node is -1.
+     *     The level of the root node is -1.
      *
      * @return integer      the level of this element (zero means a most top element
      *                      [a subelement of the root node])

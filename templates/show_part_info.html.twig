@@ -198,7 +198,7 @@
 
                     <div class="form-group">
                         <label>{% trans %}createdAt{% endtrans %}:</label>
-                        <p>{{ part.datetimeAdded | date}}
+                        <p>{{ part.addedDate | date}}
                             {#{if !empty($creation_user)} {% trans %}by{% endtrans %}
                             {if $can_visit_user}
                             <a href="{$relative_path}user_info.php?uid={$creation_user_id}">{$creation_user}</a>
@@ -213,7 +213,7 @@
 
                     <div class="form-group">
                         <label>{% trans %}lastModified{% endtrans %}:</label>
-                        <p>{{ part.addedDate | date }}
+                        <p>{{ part.lastModified | date }}
                             {# {if !empty($last_modified_user)} {% trans %}by{% endtrans %}
                             {if $can_visit_user}
                             <a href="{$relative_path}user_info.php?uid={$last_modified_user_id}">{$last_modified_user}</a>

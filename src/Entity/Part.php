@@ -243,7 +243,7 @@ class Part extends AttachmentContainingDBElement
     /**
      *  Get if this part is obsolete
      *
-     * @note    A Part is marked as "obsolete" if all their orderdetails are marked as "obsolete".
+     *     A Part is marked as "obsolete" if all their orderdetails are marked as "obsolete".
      *          If a part has no orderdetails, the part isn't marked as obsolete.
      *
      * @return boolean      @li true if this part is obsolete
@@ -598,7 +598,7 @@ class Part extends AttachmentContainingDBElement
      * @return array        all prices as an array of strings (if "$delimeter == NULL" & "$float_array == false")
      * @return string       all prices as a string, delimeted by $delimeter (if $delimeter is a string)
      *
-     * @warning             If there are orderdetails without prices, for these orderdetails there
+     *              If there are orderdetails without prices, for these orderdetails there
      *                      will be a "NULL" in the returned float array (or a "-" in the string array)!!
      *                      (This is needed for the HTML output, if there are all orderdetails and prices listed.)
      *
@@ -968,7 +968,7 @@ class Part extends AttachmentContainingDBElement
     /**
      *  Set the ID of the category
      *
-     * @note    Every part must have a valid category (in contrast to the
+     *     Every part must have a valid category (in contrast to the
      *          attributes "footprint", "storelocation", ...)!
      *
      * @param integer $new_category_id       the ID of the category
