@@ -29,6 +29,7 @@ use Doctrine\ORM\Mapping as ORM;
  * All subclasses of this class have an attribute "name".
  *
  * @ORM\MappedSuperclass()
+ * @ORM\HasLifecycleCallbacks()
  */
 abstract class NamedDBElement extends DBElement
 {
@@ -105,6 +106,25 @@ abstract class NamedDBElement extends DBElement
     {
         $this->name = $new_name;
         return $this;
+    }
+
+    /******************************************************************************
+     *
+     * Helpers
+     *
+     ******************************************************************************/
+
+    /**
+     * Helper for updating the timestamp. It is automatically called by doctrine before persisting.
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps(): void
+    {
+        $this->lastModified = new \DateTime('now');
+        if ($this->addedDate === null) {
+            $this->addedDate = new \DateTime('now');
+        }
     }
 
 }
