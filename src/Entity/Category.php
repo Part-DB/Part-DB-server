@@ -50,8 +50,8 @@ class Category extends PartsContainingDBElement
     protected $parts;
 
     /**
-     * @var bool
-     * @ORM\Column(type="boolean")
+     * @var string
+     * @ORM\Column(type="string")
      */
     protected $partname_hint;
 

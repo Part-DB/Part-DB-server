@@ -213,7 +213,7 @@
 
                     <div class="form-group">
                         <label>{% trans %}lastModified{% endtrans %}:</label>
-                        <p>{{ part.lastModified | date }}
+                        <p>{{ part.addedDate | date }}
                             {# {if !empty($last_modified_user)} {% trans %}by{% endtrans %}
                             {if $can_visit_user}
                             <a href="{$relative_path}user_info.php?uid={$last_modified_user_id}">{$last_modified_user}</a>

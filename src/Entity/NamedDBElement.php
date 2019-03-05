@@ -69,7 +69,7 @@ abstract class NamedDBElement extends DBElement
 
     /**
      * Returns the last time when the element was modified.
-     * @return string The time of the last edit.
+     * @return \DateTime The time of the last edit.
      */
     public function getLastModified() : \DateTime
     {
@@ -78,13 +78,10 @@ abstract class NamedDBElement extends DBElement
 
     /**
      * Returns the date/time when the element was created.
-     * @param $formatted bool When true, the date gets formatted with the locale and timezone settings.
-     *       When false, the raw value from the DB is returned.
-     * @return string The creation time of the part.
+     * @return \DateTime The creation time of the part.
      */
-    public function getDatetimeAdded() : \DateTime
+    public function getAddedDate() : \DateTime
     {
-        //TODO
         return $this->addedDate;
     }
 
@@ -102,6 +99,7 @@ abstract class NamedDBElement extends DBElement
      *          So you don't have to do this yourself.
      *
      * @param string $new_name      the new name
+     * @return self
      */
     public function setName(string $new_name) : self
     {
