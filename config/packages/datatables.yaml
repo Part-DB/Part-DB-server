@@ -1,5 +1,8 @@
 # Latest documentation available at https://omines.github.io/datatables-bundle/#configuration
 datatables:
+
+    language_from_cdn: false
+
     # Set options, as documented at https://datatables.net/reference/option/
     options:
         lengthMenu : [10, 25, 50, 100, 250, 500, 1000, 2500]

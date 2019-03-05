@@ -75,5 +75,25 @@ class PartListsController extends AbstractController
         return $this->render('parts_list.html.twig', ['datatable' => $table]);
     }
 
+    /**
+     * @Route("/parts")
+     *
+     * @param Request $request
+     * @param DataTableFactory $dataTable
+     * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function showAll(Request $request, DataTableFactory $dataTable)
+    {
+        $table = $dataTable->createFromType(PartsDataTable::class)
+            ->handleRequest($request);
+
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
+
+        return $this->render('parts_list.html.twig', ['datatable' => $table]);
+    }
+
 
 }
