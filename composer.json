@@ -24,7 +24,9 @@
         "symfony/validator": "4.2.*",
         "symfony/web-link": "4.2.*",
         "symfony/webpack-encore-bundle": "^1.1",
-        "symfony/yaml": "4.2.*"
+        "symfony/yaml": "4.2.*",
+        "twig/extensions": "^1.5",
+        "webmozart/assert": "^1.4"
     },
     "require-dev": {
         "symfony/debug-pack": "*",
