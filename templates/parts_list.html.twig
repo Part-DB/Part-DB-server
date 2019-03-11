@@ -2,14 +2,17 @@
 
 {% block content %}
 
-    <div id="presidents">Loading...</div>
+    <div id="part_list">
+        <h4>{% trans %}part_list.loading.caption{% endtrans %}</h4>
+        <h6>{% trans %}part_list.loading.message{% endtrans %}</h6>
+    </div>
 
 {% endblock %}
 
 {% block scripts %}
     <script>
         $( function() {
-            $('#presidents').initDataTables({{ datatable_settings(datatable) }});
+            $('#part_list').initDataTables({{ datatable_settings(datatable) }});
         });
     </script>
 {% endblock %}
