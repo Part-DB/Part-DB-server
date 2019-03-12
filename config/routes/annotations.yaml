@@ -5,3 +5,4 @@ controllers:
     prefix:
         en: '/en'
         de: '/de'
+        '%locale%': '/'
