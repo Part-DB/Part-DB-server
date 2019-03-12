@@ -39,6 +39,7 @@ use App\Entity\AttachmentType;
 use App\Entity\Category;
 use App\Entity\Part;
 use App\Entity\StructuralDBElement;
+use Shivas\VersioningBundle\Service\VersionManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -48,8 +49,11 @@ class HomepageController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    function homepage()
+    function homepage(VersionManager $versionManager)
     {
-        return $this->render('base.html.twig');
+        return $this->render('homepage.html.twig',
+            [
+                'banner' => $this->getParameter('banner')
+            ]);
     }
 }

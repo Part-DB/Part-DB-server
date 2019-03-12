@@ -4,4 +4,4 @@ twig:
     strict_variables: '%kernel.debug%'
 
     globals:
-        partdb_title: "Part-DB"
+        partdb_title: '%partdb_title%'

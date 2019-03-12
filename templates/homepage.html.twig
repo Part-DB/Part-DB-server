@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <div class="jumbotron">
+        <h1 class="display-3">{{ partdb_title }}</h1>
+
+        <h4>
+            {% trans %}version.caption{% endtrans %}: {{ shivas_app_version }}
+        </h4>
+
+        {% if banner is not empty %}
+        <hr>
+        <div>
+            <h5>{{ banner }}</h5>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
