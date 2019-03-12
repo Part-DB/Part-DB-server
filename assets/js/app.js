@@ -17,8 +17,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.css'
 
 import 'datatables.net-bs4/css/dataTables.bootstrap4.css'
-
 import 'datatables.net-buttons-bs4/css/buttons.bootstrap4.css'
+import 'datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.css'
+import 'datatables.net-select-bs4/css/select.bootstrap4.css'
 
 //require( 'jszip' );
 //#require( 'pdfmake' );

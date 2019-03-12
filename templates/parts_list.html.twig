@@ -2,9 +2,16 @@
 
 {% block content %}
 
-    <div id="part_list">
-        <h4>{% trans %}part_list.loading.caption{% endtrans %}</h4>
-        <h6>{% trans %}part_list.loading.message{% endtrans %}</h6>
+    <div class="card border-primary">
+        <div class="card-header bg-primary text-white">
+            <h6>Bauteile</h6>
+        </div>
+        <div id="part_list" class="table-responsive">
+            <div class="card-body">
+                <h4>{% trans %}part_list.loading.caption{% endtrans %}</h4>
+                <h6>{% trans %}part_list.loading.message{% endtrans %}</h6>
+            </div>
+        </div>
     </div>
 
 {% endblock %}
@@ -12,7 +19,11 @@
 {% block scripts %}
     <script>
         $( function() {
-            $('#part_list').initDataTables({{ datatable_settings(datatable) }});
+            $('#part_list').initDataTables({{ datatable_settings(datatable) }},
+                {
+                    "fixedHeader": { header: $(window).width() >= 768, //Only enable fixedHeaders on devices with big screen. Fixes scrolling issues on smartphones.
+                        headerOffset: $("#navbar").height()}
+                });
         });
     </script>
 {% endblock %}

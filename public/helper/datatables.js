@@ -54,7 +54,7 @@
                             data.draw = request.draw;
                             drawCallback(data);
                             data = null;
-                            if (Object.keys(state).length) {
+                            if (Object.keys(state).length && dt.state != null) {
                                 var merged = $.extend(true, {}, dt.state(), state);
                                 dt
                                     .order(merged.order)
