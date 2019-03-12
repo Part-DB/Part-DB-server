@@ -92,6 +92,10 @@
                             {% else %}
                                 <a class="dropdown-item" href="{$relative_path}login.php?redirect={$smarty.server.REQUEST_URI|escape:"url"}" id="login-link"><i class="fa fa-sign-in-alt fa-fw" aria-hidden="true"></i> {% trans %}user.login{% endtrans %}</a>
                             {% endif %}
+                            <li role="separator" class="dropdown-divider"></li>
+                            <a class="dropdown-item disabled" href="#">{% trans %}user.language_select{% endtrans %}</a>
+                            <a class="dropdown-item" href="{{ path('homepage.en') }}">{% trans %}language.english{% endtrans %}</a>
+                            <a class="dropdown-item" href="{{ path('homepage.de') }}">{% trans %}language.german{% endtrans %}</a>
                         </ul>
                     </li>
                 </ul>
