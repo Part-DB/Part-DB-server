@@ -1,278 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="de" target-language="en" datatype="plaintext" original="file.ext">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
-      <trans-unit id="HUwX21L" resname="Toggle Sidebar">
-        <source>Toggle Sidebar</source>
-        <target>__Toggle Sidebar</target>
-      </trans-unit>
-      <trans-unit id="VWoIUBD" resname="Search options">
-        <source>Search options</source>
-        <target>__Search options</target>
-      </trans-unit>
-      <trans-unit id="3NHVIj9" resname="Name">
-        <source>Name</source>
-        <target>__Name</target>
-      </trans-unit>
-      <trans-unit id="KSwG8AR" resname="Category">
-        <source>Category</source>
-        <target>__Category</target>
-      </trans-unit>
-      <trans-unit id="Um4Ah8w" resname="Description">
-        <source>Description</source>
-        <target>__Description</target>
-      </trans-unit>
-      <trans-unit id=".vKyPPB" resname="Storelocation">
-        <source>Storelocation</source>
-        <target>__Storelocation</target>
-      </trans-unit>
-      <trans-unit id="RPXj__x" resname="Comment">
-        <source>Comment</source>
-        <target>__Comment</target>
-      </trans-unit>
-      <trans-unit id="Kg6fyWy" resname="Ordernr.">
-        <source>Ordernr.</source>
-        <target>__Ordernr.</target>
-      </trans-unit>
-      <trans-unit id="cuLwM2f" resname="Supplier">
-        <source>Supplier</source>
-        <target>__Supplier</target>
-      </trans-unit>
-      <trans-unit id="GvOExXf" resname="Manufacturer">
-        <source>Manufacturer</source>
-        <target>__Manufacturer</target>
-      </trans-unit>
-      <trans-unit id="Fh5Ul33" resname="Footprint">
-        <source>Footprint</source>
-        <target>__Footprint</target>
-      </trans-unit>
-      <trans-unit id="zRJMHhU" resname="Deact. Barcode">
-        <source>Deact. Barcode</source>
-        <target>__Deact. Barcode</target>
-      </trans-unit>
-      <trans-unit id="y8c23Dw" resname="RegEx Matching">
-        <source>RegEx Matching</source>
-        <target>__RegEx Matching</target>
-      </trans-unit>
-      <trans-unit id="p6FlANK" resname="Searc">
-        <source>Searc</source>
-        <target>__Searc</target>
-      </trans-unit>
-      <trans-unit id="6Vw5YTi" resname="Go!">
-        <source>Go!</source>
-        <target>__Go!</target>
-      </trans-unit>
-      <trans-unit id="PmbUb9n" resname="Scan Barcode">
-        <source>Scan Barcode</source>
-        <target>__Scan Barcode</target>
-      </trans-unit>
-      <trans-unit id="10Yi6cO" resname="Logged in as">
-        <source>Logged in as</source>
-        <target>__Logged in as</target>
-      </trans-unit>
-      <trans-unit id="KzY_h1O" resname="User settings">
-        <source>User settings</source>
-        <target>__User settings</target>
-      </trans-unit>
-      <trans-unit id="g4EUtfA" resname="User informations">
-        <source>User informations</source>
-        <target>__User informations</target>
-      </trans-unit>
-      <trans-unit id="0FJ_Sz1" resname="Logout">
-        <source>Logout</source>
-        <target>__Logout</target>
-      </trans-unit>
-      <trans-unit id="nWMiwfT" resname="Login">
-        <source>Login</source>
-        <target>__Login</target>
-      </trans-unit>
-      <trans-unit id="uLHYlMa" resname="Categories">
-        <source>Categories</source>
-        <target>__Categories</target>
-      </trans-unit>
-      <trans-unit id=".4BZ3Gd" resname="Actions">
-        <source>Actions</source>
-        <target>__Actions</target>
-      </trans-unit>
-      <trans-unit id="n1sCOkE" resname="Expand All">
-        <source>Expand All</source>
-        <target>__Expand All</target>
-      </trans-unit>
-      <trans-unit id="mzLTOca" resname="Reduce All">
-        <source>Reduce All</source>
-        <target>__Reduce All</target>
-      </trans-unit>
-      <trans-unit id="3C8Bdj5" resname="Datasource">
-        <source>Datasource</source>
-        <target>__Datasource</target>
-      </trans-unit>
-      <trans-unit id="osDXJaf" resname="Store locations">
-        <source>Store locations</source>
-        <target>__Store locations</target>
-      </trans-unit>
-      <trans-unit id="39g0igz" resname="Footprints">
-        <source>Footprints</source>
-        <target>__Footprints</target>
-      </trans-unit>
-      <trans-unit id="cPF0URb" resname="Manufacturers">
-        <source>Manufacturers</source>
-        <target>__Manufacturers</target>
-      </trans-unit>
-      <trans-unit id="zZQNZIb" resname="Suppliers">
-        <source>Suppliers</source>
-        <target>__Suppliers</target>
-      </trans-unit>
-      <trans-unit id="S6USHU0" resname="Devices">
-        <source>Devices</source>
-        <target>__Devices</target>
-      </trans-unit>
-      <trans-unit id="6pPWomL" resname="Tools">
-        <source>Tools</source>
-        <target>__Tools</target>
-      </trans-unit>
-      <trans-unit id="U0JdEhb" resname="Please activate Javascript to use all features.">
-        <source>Please activate Javascript to use all features.</source>
-        <target>__Please activate Javascript to use all features.</target>
-      </trans-unit>
-      <trans-unit id="LqLAexz" resname="Detail info for">
-        <source>Detail info for</source>
-        <target>__Detail info for</target>
-      </trans-unit>
-      <trans-unit id="PqNq3NH" resname="ID:">
-        <source>ID:</source>
-        <target>__ID:</target>
-      </trans-unit>
-      <trans-unit id="3LfxYjj" resname="Store location">
-        <source>Store location</source>
-        <target>__Store location</target>
-      </trans-unit>
-      <trans-unit id="wkroQ3H" resname="Instock">
-        <source>Instock</source>
-        <target>__Instock</target>
-      </trans-unit>
-      <trans-unit id="anU7ofr" resname="Minimum Instock">
-        <source>Minimum Instock</source>
-        <target>__Minimum Instock</target>
-      </trans-unit>
-      <trans-unit id="yqHvxnl" resname="Average price">
-        <source>Average price</source>
-        <target>__Average price</target>
-      </trans-unit>
-      <trans-unit id="Y03hFHd" resname="Attachments">
-        <source>Attachments</source>
-        <target>__Attachments</target>
-      </trans-unit>
-      <trans-unit id="o0xriSw" resname="Shopping Informations">
-        <source>Shopping Informations</source>
-        <target>__Shopping Informations</target>
-      </trans-unit>
-      <trans-unit id="DnaWAJM" resname="History">
-        <source>History</source>
-        <target>__History</target>
-      </trans-unit>
-      <trans-unit id="mcl3tox" resname="Delete part:">
-        <source>Delete part:</source>
-        <target>__Delete part:</target>
-      </trans-unit>
-      <trans-unit id="ql2kmFz" resname="Delete part">
-        <source>Delete part</source>
-        <target>__Delete part</target>
-      </trans-unit>
-      <trans-unit id="i9VkL.W" resname="Withdraw parts:">
-        <source>Withdraw parts:</source>
-        <target>__Withdraw parts:</target>
-      </trans-unit>
-      <trans-unit id="FkVGqcV" resname="Withdraw">
-        <source>Withdraw</source>
-        <target>__Withdraw</target>
-      </trans-unit>
-      <trans-unit id="lNCLw1u" resname="Comment/Purpose:">
-        <source>Comment/Purpose:</source>
-        <target>__Comment/Purpose:</target>
-      </trans-unit>
-      <trans-unit id="gUui7kz" resname="Add parts:">
-        <source>Add parts:</source>
-        <target>__Add parts:</target>
-      </trans-unit>
-      <trans-unit id="n9coxmy" resname="Add">
-        <source>Add</source>
-        <target>__Add</target>
-      </trans-unit>
-      <trans-unit id="zkJ8LjM" resname="Created at:">
-        <source>Created at:</source>
-        <target>__Created at:</target>
-      </trans-unit>
-      <trans-unit id="dVfmrrN" resname="Last modified:">
-        <source>Last modified:</source>
-        <target>__Last modified:</target>
-      </trans-unit>
-      <trans-unit id="mix.KD6" resname="Teile entnehmen:">
-        <source>Teile entnehmen:</source>
-        <target>__Teile entnehmen:</target>
-      </trans-unit>
-      <trans-unit id="vzLV.6u" resname="Entnehmen">
-        <source>Entnehmen</source>
-        <target>__Entnehmen</target>
-      </trans-unit>
-      <trans-unit id="MduMjNT" resname="Kommentar/Zweck:">
-        <source>Kommentar/Zweck:</source>
-        <target>__Kommentar/Zweck:</target>
-      </trans-unit>
-      <trans-unit id="pGNeBqu" resname="Teile hinzufügen">
-        <source>Teile hinzufügen</source>
-        <target>__Teile hinzufügen</target>
-      </trans-unit>
-      <trans-unit id="y7lc8Ct" resname="Hinzufügen">
-        <source>Hinzufügen</source>
-        <target>__Hinzufügen</target>
-      </trans-unit>
-      <trans-unit id="l57vMsz" resname="Bauteil wurde manuell zum Bestellen vorgemerkt.">
-        <source>Bauteil wurde manuell zum Bestellen vorgemerkt.</source>
-        <target>__Bauteil wurde manuell zum Bestellen vorgemerkt.</target>
-      </trans-unit>
-      <trans-unit id="bZx3MQe" resname="Aufheben">
-        <source>Aufheben</source>
-        <target>__Aufheben</target>
-      </trans-unit>
-      <trans-unit id="6slXTYW" resname="Das Bauteil wird unter &quot;Zu bestellende Teile&quot;aufgelistet, da der Bestand kleiner als der Mindestbestand ist.">
-        <source>Das Bauteil wird unter "Zu bestellende Teile"aufgelistet, da der Bestand kleiner als der Mindestbestand ist.</source>
-        <target>__Das Bauteil wird unter "Zu bestellende Teile"aufgelistet, da der Bestand kleiner als der Mindestbestand ist.</target>
-      </trans-unit>
-      <trans-unit id="tTmJIHI" resname="Zum Bestellen vormerken:">
-        <source>Zum Bestellen vormerken:</source>
-        <target>__Zum Bestellen vormerken:</target>
-      </trans-unit>
-      <trans-unit id="k2N4s3G" resname="Übernehmen">
-        <source>Übernehmen</source>
-        <target>__Übernehmen</target>
-      </trans-unit>
-      <trans-unit id="4TpJExM" resname="Hinzugefügt:">
-        <source>Hinzugefügt:</source>
-        <target>__Hinzugefügt:</target>
-      </trans-unit>
-      <trans-unit id="H1yAwzB" resname="durch">
-        <source>durch</source>
-        <target>__durch</target>
-      </trans-unit>
-      <trans-unit id="oZULmaU" resname="Letzte Änderung:">
-        <source>Letzte Änderung:</source>
-        <target>__Letzte Änderung:</target>
-      </trans-unit>
-      <trans-unit id="p29BNva" resname="Barcode erzeugen">
-        <source>Barcode erzeugen</source>
-        <target>__Barcode erzeugen</target>
-      </trans-unit>
-      <trans-unit id="Xwkn.Ct" resname="Übersicht drucken">
-        <source>Übersicht drucken</source>
-        <target>__Übersicht drucken</target>
-      </trans-unit>
-      <trans-unit id="CPP6fH9" resname="Datenblattlinks">
-        <source>Datenblattlinks</source>
-        <target>__Datenblattlinks</target>
-      </trans-unit>
       <trans-unit id="cElTSD4" resname="sidebar.toggle">
         <source>sidebar.toggle</source>
         <target state="translated">Toggle Sidebar</target>
@@ -355,7 +87,7 @@
       </trans-unit>
       <trans-unit id="DFDnILM" resname="categories.label">
         <source>categories.label</source>
-        <target state="needs-translation"></target>
+        <target state="translated">Categories</target>
       </trans-unit>
       <trans-unit id="Kw3N1AA" resname="actions">
         <source>actions</source>
@@ -403,15 +135,15 @@
       </trans-unit>
       <trans-unit id="xndYXfF" resname="expandall">
         <source>expandall</source>
-        <target>__expandall</target>
+        <target state="translated">Expand All</target>
       </trans-unit>
       <trans-unit id="ZdJ4vzs" resname="reduceall">
         <source>reduceall</source>
-        <target>__reduceall</target>
+        <target state="translated">Reduce All</target>
       </trans-unit>
       <trans-unit id="JUGwseE" resname="tools.labelp">
         <source>tools.labelp</source>
-        <target>__tools.labelp</target>
+        <target state="translated">Tools</target>
       </trans-unit>
       <trans-unit id="ZQMol4U" resname="vendor.base.javascript_hint">
         <source>vendor.base.javascript_hint</source>
@@ -493,14 +225,82 @@
         <source>search.placeholder</source>
         <target state="translated">Search</target>
       </trans-unit>
-      <trans-unit id="instock.label_short" resname="instock.label_short">
-                    <source>instock.label_short</source>
-                    <target state="translated">Instock</target>
-            </trans-unit>
-            <trans-unit id="mininstock.label_short" resname="mininstock.label_short">
-                          <source>mininstock.label_short</source>
-                          <target state="translated">Min Instock</target>
-            </trans-unit>
+      <trans-unit id="nZxWuSY" resname="instock.label_short">
+        <source>instock.label_short</source>
+        <target state="translated">Instock</target>
+      </trans-unit>
+      <trans-unit id="ryY3rJ_" resname="mininstock.label_short">
+        <source>mininstock.label_short</source>
+        <target state="translated">Min Instock</target>
+      </trans-unit>
+      <trans-unit id="oabvQfM" resname="user.language_select">
+        <source>user.language_select</source>
+        <target state="translated">Switch Language</target>
+      </trans-unit>
+      <trans-unit id="rMCnZt." resname="language.english">
+        <source>language.english</source>
+        <target state="translated">English</target>
+      </trans-unit>
+      <trans-unit id="OmHgIys" resname="language.german">
+        <source>language.german</source>
+        <target state="translated">German</target>
+      </trans-unit>
+      <trans-unit id="Qj.Hpb." resname="version.caption">
+        <source>version.caption</source>
+        <target state="translated">Version</target>
+      </trans-unit>
+      <trans-unit id="GDYG7.b" resname="homepage.license">
+        <source>homepage.license</source>
+        <target state="translated">License information</target>
+      </trans-unit>
+      <trans-unit id="5nDb2pj" resname="homepage.github.caption">
+        <source>homepage.github.caption</source>
+        <target state="translated">Project page</target>
+      </trans-unit>
+      <trans-unit id="7nCeHg7" resname="homepage.github.text">
+        <source>homepage.github.text</source>
+        <target state="translated">Downloads, bugreports, to-do-list etc. can be found on &lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub project page&lt;/a&gt;</target>
+      </trans-unit>
+      <trans-unit id="9pp.6vF" resname="homepage.help.caption">
+        <source>homepage.help.caption</source>
+        <target state="translated">Help</target>
+      </trans-unit>
+      <trans-unit id="exp3iqv" resname="homepage.help.text">
+        <source>homepage.help.text</source>
+        <target state="translated">Help and tips can be found in Wiki the &lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub page&lt;/a&gt; </target>
+      </trans-unit>
+      <trans-unit id="R2g.45a" resname="homepage.forum.caption">
+        <source>homepage.forum.caption</source>
+        <target state="translated">Forum</target>
+      </trans-unit>
+      <trans-unit id="nfBdkzp" resname="homepage.forum.text">
+        <source>homepage.forum.text</source>
+        <target state="translated">For questions about the Part-DB there is a thread on &lt;a href="%href%" class="link-external" target="_blank"&gt;mikrocontroller.net&lt;/a&gt;</target>
+      </trans-unit>
+      <trans-unit id="exDsVQ3" resname="homepage.wiki.caption">
+        <source>homepage.wiki.caption</source>
+        <target state="translated">Wiki</target>
+      </trans-unit>
+      <trans-unit id="tdI0IlW" resname="homepage.wiki.text">
+        <source>homepage.wiki.text</source>
+        <target state="translated">Further information is available in &lt;a href="%href%" class="link-external" target="_blank"&gt;mikrocontroller.net Article&lt;/a&gt;</target>
+      </trans-unit>
+      <trans-unit id="gAFUu2a" resname="homepage.basedOn">
+        <source>homepage.basedOn</source>
+        <target state="translated">Based on the original Part-DB created by</target>
+      </trans-unit>
+      <trans-unit id="PlY3xmo" resname="homepage.others">
+        <source>homepage.others</source>
+        <target state="translated">and others</target>
+      </trans-unit>
+      <trans-unit id="79bMpjW" resname="part_list.loading.caption">
+        <source>part_list.loading.caption</source>
+        <target state="translated">Loading</target>
+      </trans-unit>
+      <trans-unit id="dJ3yFo4" resname="part_list.loading.message">
+        <source>part_list.loading.message</source>
+        <target state="translated">This can take a moment. If this message do not disappear, try to reload the page.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

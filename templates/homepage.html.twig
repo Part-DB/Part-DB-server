@@ -3,16 +3,37 @@
 {% block content %}
     <div class="jumbotron">
         <h1 class="display-3">{{ partdb_title }}</h1>
-
         <h4>
             {% trans %}version.caption{% endtrans %}: {{ shivas_app_version }}
         </h4>
-
         {% if banner is not empty %}
-        <hr>
-        <div>
-            <h5>{{ banner }}</h5>
-        </div>
+            <hr>
+            <div>
+                <h5>{{ banner }}</h5>
+            </div>
         {% endif %}
+    </div>
+
+    <div class="card border-primary mt-3">
+        <div class="card-header bg-primary text-white">
+            <h4><i class="fa fa-book fa-fw" aria-hidden="true"></i> {% trans %}homepage.license{% endtrans %}</h4>
+        </div>
+        <div class="card-body">
+            <p>Part-DB, Copyright &copy; 2019 of <strong>
+                    <a class="link-external" rel="noopener" target="_blank" href="https://github.com/jbtronics/">Jan Böhmer</a>
+                </strong>. <br> Part-DB is published under the <strong>GPL</strong>, so it comes with <strong>ABSOLUTELY NO WARRANTY</strong>,
+                This is free software, and you are welcome to redistribute it under certain conditions.
+                Click <a href="https://raw.githubusercontent.com/Part-DB/Part-DB-symfony/master/LICENSE" class="link-external" rel="noopener" target="_blank">here</a> for details.<br>
+            </p>
+            <strong><i class="fab fa-github fa-fw"></i> {% trans %}homepage.github.caption{% endtrans %}:</strong> {% trans with {'%href%': 'https://github.com/Part-DB/Part-DB-symfony'}%}homepage.github.text{% endtrans %}<br>
+            <strong><i class="fas fa-question fa-fw"></i> {% trans %}homepage.help.caption{% endtrans %}:</strong> {% trans with {'%href%': 'https://github.com/Part-DB/Part-DB/wiki'}%}homepage.help.text{% endtrans %}<br>
+            <strong><i class="fas fa-comments fa-fw"></i> {% trans %}homepage.forum.caption{% endtrans %}:</strong> {% trans with {'%href%': 'https://www.mikrocontroller.net/topic/461256'}%}homepage.forum.text{% endtrans %}<br>
+            <strong><i class="fas fa-info fa-fw"></i> {% trans %}homepage.wiki.caption{% endtrans %}:</strong> {% trans with {'%href%': 'https://www.mikrocontroller.net/articles/Part-DB_RW_-_Lagerverwaltung'}%}homepage.wiki.text{% endtrans %}<br>
+            <br>
+            {% trans %} homepage.basedOn {% endtrans %}
+            <a class="link-external" rel="noopener" target="_blank" href="http://www.cl-projects.de/"><strong>Christoph Lechner</strong></a>,
+            <a class="link-external" rel="noopener" target="_blank" href="http://www.grautier.com/"><strong>K. Jacobs</strong></a>
+            {% trans %} homepage.others {% endtrans %}
+        </div>
     </div>
 {% endblock %}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="de" target-language="de" datatype="plaintext" original="file.ext">
+  <file source-language="en" target-language="de" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -47,7 +47,7 @@
       </trans-unit>
       <trans-unit id="griVyRf" resname="footprint.label">
         <source>footprint.label</source>
-        <target>__footprint.label</target>
+        <target state="translated">Footprint</target>
       </trans-unit>
       <trans-unit id="Bs5QvO0" resname="search.deactivateBarcode">
         <source>search.deactivateBarcode</source>
@@ -209,13 +209,81 @@
         <source>lastModified</source>
         <target state="translated">Zuletzt bearbeitet</target>
       </trans-unit>
-      <trans-unit id="instock.label_short" resname="instock.label_short">
-              <source>instock.label_short</source>
-              <target state="translated">Bestand</target>
+      <trans-unit id="nZxWuSY" resname="instock.label_short">
+        <source>instock.label_short</source>
+        <target state="translated">Bestand</target>
       </trans-unit>
-      <trans-unit id="mininstock.label_short" resname="mininstock.label_short">
-                    <source>mininstock.label_short</source>
-                    <target state="translated">Mindest-Bestand</target>
+      <trans-unit id="ryY3rJ_" resname="mininstock.label_short">
+        <source>mininstock.label_short</source>
+        <target state="translated">Mindest-Bestand</target>
+      </trans-unit>
+      <trans-unit id="oabvQfM" resname="user.language_select">
+        <source>user.language_select</source>
+        <target state="translated">Sprache</target>
+      </trans-unit>
+      <trans-unit id="rMCnZt." resname="language.english">
+        <source>language.english</source>
+        <target state="translated">Englisch</target>
+      </trans-unit>
+      <trans-unit id="OmHgIys" resname="language.german">
+        <source>language.german</source>
+        <target state="translated">Deutsch</target>
+      </trans-unit>
+      <trans-unit id="Qj.Hpb." resname="version.caption">
+        <source>version.caption</source>
+        <target state="translated">Version</target>
+      </trans-unit>
+      <trans-unit id="GDYG7.b" resname="homepage.license">
+        <source>homepage.license</source>
+        <target state="translated">Lizenzinformation</target>
+      </trans-unit>
+      <trans-unit id="5nDb2pj" resname="homepage.github.caption">
+        <source>homepage.github.caption</source>
+        <target state="translated">Projektseite</target>
+      </trans-unit>
+      <trans-unit id="7nCeHg7" resname="homepage.github.text">
+        <source>homepage.github.text</source>
+        <target state="translated">Downloads, Bugreports, ToDo-Liste usw. gibts auf der &lt;a class="link-external" target="_blank" href="%href%"&gt;GitHub Projektseite&lt;/a&gt;</target>
+      </trans-unit>
+      <trans-unit id="9pp.6vF" resname="homepage.help.caption">
+        <source>homepage.help.caption</source>
+        <target state="translated">Hilfe</target>
+      </trans-unit>
+      <trans-unit id="exp3iqv" resname="homepage.help.text">
+        <source>homepage.help.text</source>
+        <target state="translated">Hilfe und Tipps finden sie im &lt;a class="link-external" rel="noopener" target="_blank" href="%href%"&gt;Wiki&lt;/a&gt; der GitHub Seite. </target>
+      </trans-unit>
+      <trans-unit id="R2g.45a" resname="homepage.forum.caption">
+        <source>homepage.forum.caption</source>
+        <target state="translated">Forum</target>
+      </trans-unit>
+      <trans-unit id="nfBdkzp" resname="homepage.forum.text">
+        <source>homepage.forum.text</source>
+        <target state="translated">Für Fragen rund um die Part-DB gibt es einen Thread auf &lt;a class="link-external" rel="noopener" target="_blank" href="%href%"&gt;mikrocontroller.net&lt;/a&gt;</target>
+      </trans-unit>
+      <trans-unit id="exDsVQ3" resname="homepage.wiki.caption">
+        <source>homepage.wiki.caption</source>
+        <target state="translated">Wiki</target>
+      </trans-unit>
+      <trans-unit id="tdI0IlW" resname="homepage.wiki.text">
+        <source>homepage.wiki.text</source>
+        <target state="translated">Weitere Informationen gibt es im &lt;a class="link-external" rel="noopener" target="_blank" href="%href%"&gt;mikrocontroller.net Artikel&lt;/a&gt;</target>
+      </trans-unit>
+      <trans-unit id="gAFUu2a" resname="homepage.basedOn">
+        <source>homepage.basedOn</source>
+        <target state="translated">Basierend auf den ursprünglichen Version von Part-DB von</target>
+      </trans-unit>
+      <trans-unit id="PlY3xmo" resname="homepage.others">
+        <source>homepage.others</source>
+        <target state="translated">und anderen.</target>
+      </trans-unit>
+      <trans-unit id="79bMpjW" resname="part_list.loading.caption">
+        <source>part_list.loading.caption</source>
+        <target state="translated">Lade</target>
+      </trans-unit>
+      <trans-unit id="dJ3yFo4" resname="part_list.loading.message">
+        <source>part_list.loading.message</source>
+        <target state="translated">Dies kann einen Moment dauern. Wenn diese Nachricht längere Zeit bestehen bleibt, versuchen sie die Seite erneut zu laden.</target>
       </trans-unit>
     </body>
   </file>
