@@ -449,9 +449,9 @@ Classes for Datatables export
 /*noinspection CssNoGenericFontName*/
 a[target="_blank"].link-external:after {
     content: "\f35d ";
-    font-family: "FA5";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     margin-left: 3px;
-    font-weight: normal;
     font-size: smaller;
     font-style: normal;
     display: inline-block;
@@ -543,9 +543,9 @@ ul.structural_link li+li:before {
     padding: 2px;
     color: grey;
     /*content: "/\00a0";*/
-    font-family: "FA5", sans-serif;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-style: normal;
-    font-weight: normal;
     content: "\f30b"; /* long-arrow-alt-right */
 }
 
@@ -602,7 +602,8 @@ label:not(.form-check-label) {
 .abc-checkbox input[type="checkbox"]:checked+label::after,
 .abc-checkbox input[type="radio"]:checked+label::after {
     /*noinspection CssNoGenericFontName*/
-    font-family: "FA5", "Font Awesome 5 Pro", "Font Awesome 5 Free";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     content: "\f00c";
     font-weight: 900;
 }
