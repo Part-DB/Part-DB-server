@@ -89,21 +89,12 @@ class Footprint extends PartsContainingDBElement
 
     /**
      * Get the filename of the picture (absolute path from filesystem root)
-     *
-     * @param bool $absolute If set to true, then the absolute filename (from system root) is returned.
-     * If set to false, then the path relative to Part-DB folder is returned.
-     * @return string   @li the absolute path to the picture (from filesystem root), as a UNIX path (with slashes)
+     * @return string   the saved filename in the DB
      * @li an empty string if there is no picture
      */
-    public function getFilename(bool $absolute = true) : string
+    public function getFilename() : string
     {
-        if ($absolute == true) {
-            //TODO
-            throw new \Exception("Not Implemented yet...");
-            //return str_replace('%BASE%', BASE, $this->db_data['filename']);
-        } else {
-            return $this->filename;
-        }
+        return $this->filename;
     }
 
     /**

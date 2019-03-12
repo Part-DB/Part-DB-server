@@ -108,13 +108,14 @@ class Attachment extends NamedDBElement
     }
 
     /**
-     * Get the filename (absolute path from filesystem root, as a UNIX path [only slashes])
+     * Get the filename, relative to %BASE%
      *
-     * @return string   the filename as an absolute UNIX filepath from filesystem root
+     * @return string
      */
     public function getFilename() : string
     {
-        return str_replace('%BASE%', BASE, $this->filename);
+        return $this->filename;
+        //return str_replace('%BASE%', BASE, $this->filename);
     }
 
     /**

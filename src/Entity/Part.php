@@ -447,7 +447,7 @@ class Part extends AttachmentContainingDBElement
      */
     public function getMasterPictureAttachement() : ?Attachment
     {
-        return $this->master_picture_attachement;
+        return $this->master_picture_attachment;
     }
 
     /**
@@ -670,19 +670,19 @@ class Part extends AttachmentContainingDBElement
      * @return string   the whole path + filename from filesystem root as a UNIX path (with slashes)
      * @return NULL     if there is no picture
      *
-     * @throws Exception if there was an error
+     * @throws \Exception if there was an error
      */
-    public function getMasterPictureFilename(bool $use_footprint_filename = false)
+    public function getMasterPictureFilename(bool $use_footprint_filename = false) : ?string
     {
         $master_picture = $this->getMasterPictureAttachement(); // returns an Attachement-object
 
-        if (\is_object($master_picture)) {
+        if ($master_picture !== null) {
             return $master_picture->getFilename();
         }
 
         if ($use_footprint_filename) {
             $footprint = $this->getFootprint();
-            if (\is_object($footprint)) {
+            if ($footprint !== null) {
                 return $footprint->getFilename();
             }
         }
