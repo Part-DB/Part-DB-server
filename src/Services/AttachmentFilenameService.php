@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * part-db version 0.1
@@ -30,32 +29,31 @@
  *
  */
 
-namespace App\Controller;
+namespace App\Services;
 
 
-use App\Entity\Part;
-use App\Services\AttachmentFilenameService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Asset\Packages;
 
-class PartController extends AbstractController
+class AttachmentFilenameService
 {
+    protected  $package;
 
-    /**
-     * @Route("/part/{id}/info", name="part_info")
-     * @Route("/part/{id}")
-     */
-    function show(Part $part, AttachmentFilenameService $attachmentFilenameService)
+    public function __construct(Packages $package)
     {
-        $filename = $part->getMasterPictureFilename(true);
-        dump($filename);
-
-        return $this->render('show_part_info.html.twig',
-            [
-                "part" => $part,
-                "main_image" => $attachmentFilenameService->attachmentPathToAbsolutePath($filename)
-            ]
-            );
+        $this->package = $package;
     }
 
+    public function attachmentPathToAbsolutePath(?string $filename) : ?string
+    {
+        //Return placeholder if a part does not have an attachment
+        if ($filename == null) {
+            return $this->package->getUrl('/img/part_placeholder.svg');
+        }
+        if (stripos($filename, "%BASE%/img/") !== false) {
+            return $this->package->getUrl(str_replace('%BASE%', '', $filename));
+        }
+
+        //If no other method works, return placeholder
+        return $this->package->getUrl('/img/part_placeholder.svg');
+    }
 }
