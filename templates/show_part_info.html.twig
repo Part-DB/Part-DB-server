@@ -45,10 +45,12 @@
                                 <span class="text-muted">{{ "TODO" }}</span>
                             </h6>
                             {% if part.comment != "" %}
-                            <h6 title="{% trans %}comment.label{% endtrans %}">
-                                <i class="fas fa-comment-alt fa-fw"></i>
-                                <span class="text-muted">{{ part.comment|nl2br }}</span>
-                            </h6>
+                                <h6 title="{% trans %}comment.label{% endtrans %}">
+                                    <i class="fas fa-comment-alt fa-fw"></i>
+                                    <div class="d-inline-flex">
+                                        <span class="text-muted">{{ part.comment|nl2br }}</span>
+                                    </div>
+                                </h6>
                             {% endif %}
                         </div>
                     </div>
