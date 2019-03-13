@@ -47,7 +47,7 @@
                             {% if part.comment != "" %}
                             <h6 title="{% trans %}comment.label{% endtrans %}">
                                 <i class="fas fa-comment-alt fa-fw"></i>
-                                <span class="text-muted">{{ part.comment }}</span>
+                                <span class="text-muted">{{ part.comment|nl2br }}</span>
                             </h6>
                             {% endif %}
                         </div>
