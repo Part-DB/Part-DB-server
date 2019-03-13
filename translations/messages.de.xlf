@@ -151,7 +151,7 @@
       </trans-unit>
       <trans-unit id="VYcxdrz" resname="mininstock.label">
         <source>mininstock.label</source>
-        <target state="translated">Mindestanzahl</target>
+        <target state="translated">Mindestbestand</target>
       </trans-unit>
       <trans-unit id="LL2dt8U" resname="part.avg_price.label">
         <source>part.avg_price.label</source>

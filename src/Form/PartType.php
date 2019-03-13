@@ -32,24 +32,41 @@
 namespace App\Form;
 
 
+use App\Entity\Part;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PartType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('description', TextType::class, ['required'=>false])
-            ->add('instock', IntegerType::class)
-            ->add('mininstock', IntegerType::class)
+            ->add('name', TextType::class, ['empty_data'=>'', 'label'=> 'name.label'])
+            ->add('description', TextType::class, ['required'=>false, 'empty_data'=>'', 'label'=> 'description.label'])
+            ->add('instock', IntegerType::class, ['attr' => ['min'=>0], 'label'=> 'instock.label'])
+            ->add('mininstock', IntegerType::class, ['attr' => ['min'=>0], 'label'=> 'mininstock.label'])
+            ->add('manufacturer_product_url', UrlType::class, ['required'=>false, 'empty_data' => '',
+                'label'=> 'manufacturer_url.label'])
+            ->add('comment', TextareaType::class, ['required'=>false,
+                'label'=> 'comment.label', 'attr' => ['rows'=> 4]])
+
+            //Buttons
             ->add('save', SubmitType::class, ['label' => 'part.edit.save'])
             ->add('reset', ResetType::class, ['label' => 'part.edit.reset']);
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => Part::class
+        ]);
     }
 }
