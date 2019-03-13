@@ -37,6 +37,7 @@ use App\Entity\Category;
 use App\Entity\Part;
 use App\Form\PartType;
 use App\Services\AttachmentFilenameService;
+use App\Services\EntityURLGenerator;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -70,7 +71,7 @@ class PartController extends AbstractController
      * @param Part $part
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator)
+    public function edit(Part $part, Request $request, EntityManagerInterface $em)
     {
         $form = $this->createForm(PartType::class, $part);
 
@@ -85,7 +86,7 @@ class PartController extends AbstractController
         return $this->render('edit_part_info.html.twig',
             [
                 "part" => $part,
-                "form" => $form->createView()
+                "form" => $form->createView(),
             ]);
     }
 

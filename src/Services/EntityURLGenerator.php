@@ -69,6 +69,27 @@ class EntityURLGenerator
         throw new EntityNotSupported('The given entity is not supported yet!');
     }
 
+    public function editURL($entity) : string
+    {
+        if($entity instanceof Part)
+        {
+            return $this->urlGenerator->generate('part_edit', ['id' => $entity->getID()]);
+        }
+
+        //Otherwise throw an error
+        throw new EntityNotSupported('The given entity is not supported yet!');
+    }
+
+    public function createURL($entity) : string
+    {
+        if($entity instanceof Part)
+        {
+            return $this->urlGenerator->generate('part_new');
+        }
+
+        throw new EntityNotSupported('The given entity is not supported yet!');
+    }
+
     /**
      * Generates an HTML link to the info page about the given entity.
      * @param $entity mixed The entity for which the info link should be generated.

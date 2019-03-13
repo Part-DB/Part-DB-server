@@ -33,7 +33,6 @@ namespace App\Form;
 
 
 use App\Entity\Part;
-use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -49,14 +48,18 @@ class PartType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, ['empty_data'=>'', 'label'=> 'name.label'])
-            ->add('description', TextType::class, ['required'=>false, 'empty_data'=>'', 'label'=> 'description.label'])
-            ->add('instock', IntegerType::class, ['attr' => ['min'=>0], 'label'=> 'instock.label'])
-            ->add('mininstock', IntegerType::class, ['attr' => ['min'=>0], 'label'=> 'mininstock.label'])
+            ->add('name', TextType::class, ['empty_data'=>'', 'label'=> 'name.label',
+                'attr' => ['placeholder' => 'part.name.placeholder']])
+            ->add('description', TextType::class, ['required'=>false, 'empty_data'=>'',
+                'label'=> 'description.label', 'help' => 'bbcode.hint', 'attr' => ['placeholder' => 'part.description.placeholder']])
+            ->add('instock', IntegerType::class,
+                ['attr' => ['min'=>0, 'placeholder' => 'part.instock.placeholder'], 'label'=> 'instock.label'])
+            ->add('mininstock', IntegerType::class,
+                ['attr' => ['min'=>0, 'placeholder' => 'part.mininstock.placeholder'], 'label'=> 'mininstock.label'])
             ->add('manufacturer_product_url', UrlType::class, ['required'=>false, 'empty_data' => '',
                 'label'=> 'manufacturer_url.label'])
             ->add('comment', TextareaType::class, ['required'=>false,
-                'label'=> 'comment.label', 'attr' => ['rows'=> 4]])
+                'label'=> 'comment.label', 'attr' => ['rows'=> 4], 'help' => 'bbcode.hint'])
 
             //Buttons
             ->add('save', SubmitType::class, ['label' => 'part.edit.save'])

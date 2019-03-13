@@ -23,7 +23,7 @@
                         </div>
                         <div class="col-md-9">
                             <h5 class="text-muted pt-2" title="{% trans %}manufacturer.label{% endtrans %}">{{ part.manufacturer.name ?? ""}}</h5>
-                            <h3>{{ part.name }}</h3>
+                            <h3>{{ part.name }} <a href="{{ part|entityURL('edit') }}"><i class="fas fa-fw fa-sm fa-edit"></i></a></h3>
                             <h6 class="text-muted"><span title="{% trans %}description.label{% endtrans %}">{{ part.description }}</span></h6>
                             <h6 class=""  title="{% trans %}storelocation.label{% endtrans %}">
                                 <i class="fas fa-cube fa-fw"></i>
