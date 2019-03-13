@@ -70,13 +70,17 @@ class PartController extends AbstractController
      * @param Part $part
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(Part $part, Request $request)
+    public function edit(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator)
     {
         $form = $this->createForm(PartType::class, $part);
 
 
         $form->handleRequest($request);
-
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($part);
+            $em->flush();
+            $this->addFlash('info', 'part.edited_flash');
+        }
 
         return $this->render('edit_part_info.html.twig',
             [
@@ -101,8 +105,6 @@ class PartController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var Article $article */
-            //$part = $form->getData();
             $em->persist($new_part);
             $em->flush();
             $this->addFlash('success', $translator->trans('part.created_flash'));
