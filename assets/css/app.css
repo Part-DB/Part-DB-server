@@ -134,7 +134,15 @@ body {
     line-height: 1.1;
 }
 
-
+/********************************
+* Toasts
+ ********************************/
+.toast-container {
+    position: fixed;
+    top: auto;
+    z-index: 1;
+    right: 25px;
+}
 
 /**********************************
 * Helper classes

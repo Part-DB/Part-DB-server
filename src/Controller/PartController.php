@@ -42,6 +42,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartController extends AbstractController
 {
@@ -89,13 +90,11 @@ class PartController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function new(Request $request, EntityManagerInterface $em)
+    public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator)
     {
         $new_part = new Part();
         $category = $em->find(Category::class, 1);
         $new_part->setCategory($category);
-
-        $this->addFlash('success', 'Article Created!');
 
         $form = $this->createForm(PartType::class, $new_part);
 
@@ -106,7 +105,7 @@ class PartController extends AbstractController
             //$part = $form->getData();
             $em->persist($new_part);
             $em->flush();
-            $this->addFlash('success', 'Article Created! Knowledge is power!');
+            $this->addFlash('success', $translator->trans('part.created_flash'));
             return $this->redirectToRoute('part_edit',['id' => $new_part->getID()]);
         }
 

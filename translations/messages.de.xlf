@@ -285,6 +285,26 @@
         <source>part_list.loading.message</source>
         <target state="translated">Dies kann einen Moment dauern. Wenn diese Nachricht längere Zeit bestehen bleibt, versuchen sie die Seite erneut zu laden.</target>
       </trans-unit>
+      <trans-unit resname="flash.success" id="flash.success">
+        <source>flash.success</source>
+        <target state="translated">Erfolg</target>
+      </trans-unit>
+      <trans-unit resname="flash.error" id="flash.error">
+         <source>flash.error</source>
+         <target state="translated">Fehler</target>
+      </trans-unit>
+      <trans-unit resname="flash.warning" id="flash.warning">
+         <source>flash.warning</source>
+         <target state="translated">Warnung</target>
+       </trans-unit>
+       <trans-unit resname="flash.notice" id="flash.notice">
+                <source>flash.notice</source>
+                <target state="translated">Hinweis</target>
+              </trans-unit>
+      <trans-unit resname="flash.info" id="flash.info">
+               <source>flash.info</source>
+               <target state="translated">Info</target>
+             </trans-unit>
     </body>
   </file>
 </xliff>
