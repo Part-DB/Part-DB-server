@@ -33,6 +33,7 @@ namespace App\Form;
 
 
 use App\Entity\Part;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -58,7 +59,7 @@ class PartType extends AbstractType
                 ['attr' => ['min'=>0, 'placeholder' => 'part.mininstock.placeholder'], 'label'=> 'mininstock.label'])
             ->add('manufacturer_product_url', UrlType::class, ['required'=>false, 'empty_data' => '',
                 'label'=> 'manufacturer_url.label'])
-            ->add('comment', TextareaType::class, ['required'=>false,
+            ->add('comment', CKEditorType::class, ['required'=>false,
                 'label'=> 'comment.label', 'attr' => ['rows'=> 4], 'help' => 'bbcode.hint'])
 
             //Buttons

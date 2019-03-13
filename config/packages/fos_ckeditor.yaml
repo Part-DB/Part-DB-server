@@ -1,0 +1,21 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+
+twig:
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+
+fos_ck_editor:
+    default_config: complex_config
+    configs:
+        complex_config:
+            extraPlugins: "bbcode"
+            toolbar: standard
+        simple_config:
+            extraPlugins: "bbcode"
+            toolbar: basic
+
+
+    plugins:
+        bbcode:
+            path:     "/ckeditor/plugins/bbcode/" # with trailing slash
+            filename: "plugin.js"
