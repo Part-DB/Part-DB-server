@@ -1,0 +1,9 @@
+{% extends "edit_part_info.html.twig" %}
+
+{% block card_border %}border-success{% endblock %}
+{% block card_type %}bg-success text-white{% endblock %}
+
+{% block card_title %}
+    <i class="fas fa-edit fa-plus-square" aria-hidden="true"></i>
+    {% trans %}part.new.card_title{% endtrans %}
+{% endblock %}

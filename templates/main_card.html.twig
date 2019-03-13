@@ -1,9 +1,9 @@
 {% extends "base.html.twig" %}
 
 {% block content %}
-<div class="card border-primary">
+<div class="card {% block card_border %}border-primary{% endblock %}">
     {% block card_header %}
-    <div class="card-header bg-primary text-white">
+    <div class="card-header {% block card_type %}bg-primary text-white{% endblock %}">
         {% block card_title %}{% endblock %}
     </div>
     {% endblock %}
