@@ -45,7 +45,7 @@ class PartController extends AbstractController
      * @Route("/part/{id}/info", name="part_info")
      * @Route("/part/{id}")
      */
-    function show(Part $part, AttachmentFilenameService $attachmentFilenameService)
+    public function show(Part $part, AttachmentFilenameService $attachmentFilenameService)
     {
         $filename = $part->getMasterPictureFilename(true);
         dump($filename);

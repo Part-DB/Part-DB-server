@@ -49,7 +49,7 @@ class HomepageController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    function homepage(VersionManager $versionManager)
+    public function homepage()
     {
         return $this->render('homepage.html.twig',
             [
