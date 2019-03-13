@@ -24,7 +24,7 @@
                         <div class="col-md-9">
                             <h5 class="text-muted pt-2" title="{% trans %}manufacturer.label{% endtrans %}">{{ part.manufacturer.name ?? ""}}</h5>
                             <h3>{{ part.name }} <a href="{{ part|entityURL('edit') }}"><i class="fas fa-fw fa-sm fa-edit"></i></a></h3>
-                            <h6 class="text-muted"><span title="{% trans %}description.label{% endtrans %}">{{ part.description }}</span></h6>
+                            <h6 class="text-muted"><span title="{% trans %}description.label{% endtrans %}">{{ part.description|bbCode }}</span></h6>
                             <h6 class=""  title="{% trans %}storelocation.label{% endtrans %}">
                                 <i class="fas fa-cube fa-fw"></i>
                                 <span class="text-muted">{{  part.storelocation.fullPath ?? "-"}}</span>
@@ -44,6 +44,7 @@
                                 <i class="fas fa-money-bill-alt fa-fw"></i>
                                 <span class="text-muted">{{ "TODO" }}</span>
                             </h6>
+                            {#
                             {% if part.comment != "" %}
                                 <h6 title="{% trans %}comment.label{% endtrans %}">
                                     <i class="fas fa-comment-alt fa-fw"></i>
@@ -51,14 +52,23 @@
                                         <span class="text-muted">{{ part.comment|nl2br }}</span>
                                     </div>
                                 </h6>
-                            {% endif %}
+                            {% endif %} #}
                         </div>
                     </div>
 
                     <div class="mt-3">
                         <ul class="nav nav-tabs" id="partTab" role="tablist">
+                            {% if part.comment is not empty %}
                             <li class="nav-item">
                                 <a class="nav-link active" id="attachment-tab" data-toggle="tab"
+                                   href="#comment" role="tab" aria-controls="home" aria-selected="true">
+                                    <i class="fas fa-comment-alt fa-fw"></i>
+                                    {% trans %}comment.label{% endtrans %}
+                                </a>
+                            </li>
+                            {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link {% if part.comment is empty%} active{% endif %}" id="attachment-tab" data-toggle="tab"
                                    href="#attachments" role="tab" aria-controls="home" aria-selected="true">
                                     <i class="fas fa-paperclip fa-fw"></i>
                                     {% trans %}attachment.labelp{% endtrans %}
@@ -84,8 +94,15 @@
                             </li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="attachments" role="tabpanel" aria-labelledby="home-tab">
-
+                            {% if part.comment is not empty %}
+                            <div class="tab-pane fade show active" id="comment" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="container-fluid mt-2">
+                                    {{ part.comment|bbCode }}
+                                </div>
+                            </div>
+                            {% endif %}
+                            <div class="tab-pane fade {% if part.comment is empty %} show active{% endif %}" id="attachments" role="tabpanel" aria-labelledby="profile-tab">
+                                Test
                             </div>
                             <div class="tab-pane fade" id="suppliers" role="tabpanel" aria-labelledby="profile-tab">
 

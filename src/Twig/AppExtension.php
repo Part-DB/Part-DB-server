@@ -34,22 +34,28 @@ namespace App\Twig;
 
 use App\Entity\DBElement;
 use App\Services\EntityURLGenerator;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+
+use s9e\TextFormatter\Bundles\Forum as TextFormatter;
 
 class AppExtension extends AbstractExtension
 {
     protected $entityURLGenerator;
+    protected $cache;
 
-    public function __construct(EntityURLGenerator $entityURLGenerator)
+    public function __construct(EntityURLGenerator $entityURLGenerator, AdapterInterface $cache)
     {
         $this->entityURLGenerator = $entityURLGenerator;
+        $this->cache = $cache;
     }
 
     public function getFilters()
     {
        return [
-           new TwigFilter('entityURL', [$this, 'generateEntityURL'])
+           new TwigFilter('entityURL', [$this, 'generateEntityURL']),
+           new TwigFilter('bbCode', [$this, 'parseBBCode'], ['pre_escape' => 'html', 'is_safe' => ['html']])
        ];
     }
 
@@ -65,6 +71,20 @@ class AppExtension extends AbstractExtension
         }
 
         throw new \InvalidArgumentException('method is not supported!');
+    }
+
+    public function parseBBCode(string $bbcode) : string
+    {
+        if($bbcode === '') return '';
+
+        $item = $this->cache->getItem('bbcode_' . md5($bbcode));
+        if(!$item->isHit()) {
+            $xml = TextFormatter::parse($bbcode);
+            $item->set(TextFormatter::render($xml));
+            $this->cache->save($item);
+        }
+
+        return $item->get();
     }
 
 }

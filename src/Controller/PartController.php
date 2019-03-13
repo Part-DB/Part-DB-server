@@ -55,7 +55,6 @@ class PartController extends AbstractController
     public function show(Part $part, AttachmentFilenameService $attachmentFilenameService)
     {
         $filename = $part->getMasterPictureFilename(true);
-        dump($filename);
 
         return $this->render('show_part_info.html.twig',
             [

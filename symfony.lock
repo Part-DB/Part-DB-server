@@ -162,6 +162,9 @@
     "psr/simple-cache": {
         "version": "1.0.1"
     },
+    "s9e/text-formatter": {
+        "version": "1.4.1"
+    },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
         "recipe": {

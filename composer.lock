@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9226477561eef66d140fe1e9a6ccd4a1",
+    "content-hash": "af1eaecfa244525222a1a74e0a06a247",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2159,6 +2159,71 @@
                 "simple-cache"
             ],
             "time": "2017-10-23T01:57:42+00:00"
+        },
+        {
+            "name": "s9e/text-formatter",
+            "version": "1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/s9e/TextFormatter.git",
+                "reference": "45c8a3845aa791b7da720fa13e6ee18ec49bf795"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/s9e/TextFormatter/zipball/45c8a3845aa791b7da720fa13e6ee18ec49bf795",
+                "reference": "45c8a3845aa791b7da720fa13e6ee18ec49bf795",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-filter": "*",
+                "lib-pcre": ">=7.2",
+                "php": ">=5.4.7"
+            },
+            "require-dev": {
+                "matthiasmullie/minify": "*",
+                "php-coveralls/php-coveralls": "*",
+                "s9e/regexp-builder": "1.*"
+            },
+            "suggest": {
+                "ext-curl": "Improves the performance of the MediaEmbed plugin and some JavaScript minifiers",
+                "ext-intl": "Allows international URLs to be accepted by the URL filter",
+                "ext-json": "Enables the generation of a JavaScript parser",
+                "ext-mbstring": "Improves the performance of the PHP renderer",
+                "ext-tokenizer": "Improves the performance of the PHP renderer",
+                "ext-xsl": "Enables the XSLT renderer",
+                "ext-zlib": "Enables gzip compression when scraping content via the MediaEmbed plugin"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "s9e\\TextFormatter\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-purpose text formatting and markup library. Plugins offer support for BBCodes, Markdown, emoticons, HTML, embedding media (YouTube, etc...), enhanced typography and more.",
+            "homepage": "https://github.com/s9e/TextFormatter/",
+            "keywords": [
+                "bbcode",
+                "bbcodes",
+                "blog",
+                "censor",
+                "embed",
+                "emoji",
+                "emoticons",
+                "engine",
+                "forum",
+                "html",
+                "markdown",
+                "markup",
+                "media",
+                "parser",
+                "shortcodes"
+            ],
+            "time": "2019-03-09T15:49:02+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
