@@ -35,7 +35,9 @@ namespace App\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
-use Webmozart\Assert\Assert;
+//use Webmozart\Assert\Assert;
+
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Part
@@ -108,55 +110,57 @@ class Part extends AttachmentContainingDBElement
      * @var string
      * @ORM\Column(type="string")
      */
-    protected $description;
+    protected $description = "";
 
     /**
      * @var int
      * @ORM\Column(type="integer")
+     * @Assert\GreaterThanOrEqual(0)
      */
-    protected $instock;
+    protected $instock = 0;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
+     * @Assert\GreaterThanOrEqual(0)
      */
-    protected $mininstock;
+    protected $mininstock = 0;
 
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    protected $comment;
+    protected $comment = "";
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $visible;
+    protected $visible = true;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $favorite;
+    protected $favorite = false;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
      */
-    protected $order_quantity;
+    protected $order_quantity = 0;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $manual_order;
+    protected $manual_order = false;
 
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    protected $manufacturer_product_url;
+    protected $manufacturer_product_url = "";
 
 
     /**
@@ -305,8 +309,8 @@ class Part extends AttachmentContainingDBElement
     /**
      *  Get the minimum quantity which should be ordered
      *
-     * @param boolean $with_devices @li if true, all parts from devices which are marked as "to order" will be included in the calculation
-     * @li if false, only max(mininstock - instock, 0) will be returned
+     * @param boolean $with_devices * if true, all parts from devices which are marked as "to order" will be included in the calculation
+     * * if false, only max(mininstock - instock, 0) will be returned
      *
      * @return integer      the minimum order quantity
      * @throws Exception
@@ -455,9 +459,9 @@ class Part extends AttachmentContainingDBElement
      *
      * @param boolean $hide_obsolete    If true, obsolete orderdetails will NOT be returned
      *
-     * @return Orderdetails[]    @li all orderdetails as a one-dimensional array of Orderdetails objects
+     * @return Orderdetails[]    * all orderdetails as a one-dimensional array of Orderdetails objects
      *                      (empty array if there are no ones)
-     *                  @li the array is sorted by the suppliers names / minimum order quantity
+     *                  * the array is sorted by the suppliers names / minimum order quantity
      *
      * @throws Exception if there was an error
      */
@@ -479,9 +483,9 @@ class Part extends AttachmentContainingDBElement
     /**
      *  Get all devices which uses this part
      *
-     * @return Device[]    @li all devices which uses this part as a one-dimensional array of Device objects
+     * @return Device[]    * all devices which uses this part as a one-dimensional array of Device objects
      *                      (empty array if there are no ones)
-     *                  @li the array is sorted by the devices names
+     *                  * the array is sorted by the devices names
      *
      * @throws Exception if there was an error
      */
@@ -496,14 +500,14 @@ class Part extends AttachmentContainingDBElement
      * This method simply gets the suppliers of the orderdetails and prepare them.\n
      * You can get the suppliers as an array or as a string with individual delimeter.
      *
-     * @param boolean       $object_array   @li if true, this method returns an array of Supplier objects
-     *                                      @li if false, this method returns an array of strings
-     * @param string|NULL   $delimeter      @li if this is a string and "$object_array == false",
+     * @param boolean       $object_array   * if true, this method returns an array of Supplier objects
+     *                                      * if false, this method returns an array of strings
+     * @param string|NULL   $delimeter      * if this is a string and "$object_array == false",
      *                                          this method returns a string with all
      *                                          supplier names, delimeted by "$delimeter"
-     * @param boolean       $full_paths     @li if true and "$object_array = false", the returned
+     * @param boolean       $full_paths     * if true and "$object_array = false", the returned
      *                                          suppliernames are full paths (path + name)
-     *                                      @li if true and "$object_array = false", the returned
+     *                                      * if true and "$object_array = false", the returned
      *                                          suppliernames are only the names (without path)
      * @param boolean       $hide_obsolete  If true, suppliers from obsolete orderdetails will NOT be returned
      *
@@ -552,8 +556,8 @@ class Part extends AttachmentContainingDBElement
      * This method simply gets the suppliers-part-Nrs of the orderdetails and prepare them.\n
      * You can get the numbers as an array or as a string with individual delimeter.
      *
-     * @param string|NULL   $delimeter      @li if this is a string, this method returns a delimeted string
-     *                                      @li otherwise, this method returns an array of strings
+     * @param string|NULL   $delimeter      * if this is a string, this method returns a delimeted string
+     *                                      * otherwise, this method returns an array of strings
      * @param boolean       $hide_obsolete  If true, supplierpartnrs from obsolete orderdetails will NOT be returned
      *
      * @return array        all supplierpartnrs as an array of strings (if "$delimeter == NULL")
@@ -582,13 +586,13 @@ class Part extends AttachmentContainingDBElement
      * This method simply gets the prices of the orderdetails and prepare them.\n
      * In the returned array/string there is a price for every supplier.
      *
-     * @param boolean       $float_array    @li if true, the returned array is an array of floats
-     *                                      @li if false, the returned array is an array of strings
+     * @param boolean       $float_array    * if true, the returned array is an array of floats
+     *                                      * if false, the returned array is an array of strings
      * @param string|NULL   $delimeter      if this is a string, this method returns a delimeted string
      *                                      instead of an array.
      * @param integer       $quantity       this is the quantity to choose the correct priceinformation
-     * @param integer|NULL  $multiplier     @li This is the multiplier which will be applied to every single price
-     *                                      @li If you pass NULL, the number from $quantity will be used
+     * @param integer|NULL  $multiplier     * This is the multiplier which will be applied to every single price
+     *                                      * If you pass NULL, the number from $quantity will be used
      * @param boolean       $hide_obsolete  If true, prices from obsolete orderdetails will NOT be returned
      *
      * @return array        all prices as an array of floats (if "$delimeter == NULL" & "$float_array == true")
@@ -622,12 +626,12 @@ class Part extends AttachmentContainingDBElement
      * With the $multiplier you're able to multiply the price before it will be returned.
      * This is useful if you want to have the price as a string with currency, but multiplied with a factor.
      *
-     * @param boolean   $as_money_string    @li if true, the retruned value will be a string incl. currency,
+     * @param boolean   $as_money_string    * if true, the retruned value will be a string incl. currency,
      *                                          ready to print it out. See float_to_money_string().
-     *                                      @li if false, the returned value is a float
+     *                                      * if false, the returned value is a float
      * @param integer       $quantity       this is the quantity to choose the correct priceinformations
-     * @param integer|NULL  $multiplier     @li This is the multiplier which will be applied to every single price
-     *                                      @li If you pass NULL, the number from $quantity will be used
+     * @param integer|NULL  $multiplier     * This is the multiplier which will be applied to every single price
+     *                                      * If you pass NULL, the number from $quantity will be used
      *
      * @return float        price (if "$as_money_string == false")
      * @return NULL         if there are no prices for this part and "$as_money_string == false"
@@ -662,9 +666,9 @@ class Part extends AttachmentContainingDBElement
     /**
      *  Get the filename of the master picture (absolute path from filesystem root)
      *
-     * @param boolean $use_footprint_filename   @li if true, and this part has no picture, this method
+     * @param boolean $use_footprint_filename   * if true, and this part has no picture, this method
      *                                              will return the filename of its footprint (if available)
-     *                                          @li if false, and this part has no picture,
+     *                                          * if false, and this part has no picture,
      *                                              this method will return NULL
      *
      * @return string   the whole path + filename from filesystem root as a UNIX path (with slashes)
@@ -780,7 +784,7 @@ class Part extends AttachmentContainingDBElement
      *
      * @return self
      */
-    public function setDescription(string $new_description) : self
+    public function setDescription(?string $new_description) : self
     {
         $this->description = $new_description;
         return $this;
@@ -795,7 +799,7 @@ class Part extends AttachmentContainingDBElement
      */
     public function setInstock(int $new_instock, $comment = null) : self
     {
-        Assert::natural($new_instock, 'New instock must be positive. Got: %s');
+        //Assert::natural($new_instock, 'New instock must be positive. Got: %s');
 
         $old_instock = (int) $this->getInstock();
         $this->instock = $new_instock;
@@ -844,8 +848,8 @@ class Part extends AttachmentContainingDBElement
      */
     public function withdrawalParts(int $count, $comment = null) : self
     {
-        Assert::greaterThan($count,0, 'Count of withdrawn parts must be greater 0! Got %s!');
-        Assert::greaterThan($count, $this->instock, 'You can not withdraw more parts, than there are existing!');
+        //Assert::greaterThan($count,0, 'Count of withdrawn parts must be greater 0! Got %s!');
+        //Assert::greaterThan($count, $this->instock, 'You can not withdraw more parts, than there are existing!');
 
         $old_instock = $this->getInstock();
         $new_instock = $old_instock - $count;
@@ -876,7 +880,7 @@ class Part extends AttachmentContainingDBElement
      */
     public function addParts(int $count, string $comment = null) : self
     {
-        Assert::greaterThan($count, 0, 'Count of added parts must be greater zero! Got %s.');
+        //Assert::greaterThan($count, 0, 'Count of added parts must be greater zero! Got %s.');
 
         //TODO
 
@@ -908,7 +912,7 @@ class Part extends AttachmentContainingDBElement
      */
     public function setMinInstock(int $new_mininstock) : self
     {
-        Assert::natural($new_mininstock, 'The new minimum instock value must be positive! Got %s.');
+        //Assert::natural($new_mininstock, 'The new minimum instock value must be positive! Got %s.');
 
         $this->mininstock = $new_mininstock;
         return $this;
@@ -933,9 +937,9 @@ class Part extends AttachmentContainingDBElement
      *
      * @param boolean $new_manual_order                 the new "manual_order" attribute
      * @param integer $new_order_quantity               the new order quantity
-     * @param integer|NULL $new_order_orderdetails_id   @li the ID of the new order orderdetails
-     *                                                  @li or Zero for "no order orderdetails"
-     *                                                  @li or NULL for automatic order orderdetails
+     * @param integer|NULL $new_order_orderdetails_id   * the ID of the new order orderdetails
+     *                                                  * or Zero for "no order orderdetails"
+     *                                                  * or NULL for automatic order orderdetails
      *                                                      (if the part has exactly one orderdetails,
      *                                                      set this orderdetails as order orderdetails.
      *                                                      Otherwise, set "no order orderdetails")
@@ -944,7 +948,7 @@ class Part extends AttachmentContainingDBElement
      */
     public function setManualOrder(bool $new_manual_order, int $new_order_quantity = 1, $new_order_orderdetails_id = null) : self
     {
-        Assert::greaterThan($new_order_quantity, 0, 'The new order quantity must be greater zero. Got %s!');
+        //Assert::greaterThan($new_order_quantity, 0, 'The new order quantity must be greater zero. Got %s!');
 
 
         $this->manual_order = $new_manual_order;
@@ -959,8 +963,8 @@ class Part extends AttachmentContainingDBElement
     /**
      *  Set the ID of the order orderdetails
      *
-     * @param integer|NULL $new_order_orderdetails_id       @li the new order orderdetails ID
-     *                                                      @li Or, to remove the orderdetails, pass a NULL
+     * @param integer|NULL $new_order_orderdetails_id       * the new order orderdetails ID
+     *                                                      * Or, to remove the orderdetails, pass a NULL
      *
      * @return self
      */
@@ -981,7 +985,7 @@ class Part extends AttachmentContainingDBElement
      */
     public function setOrderQuantity(int $new_order_quantity) : self
     {
-        Assert::greaterThan($new_order_quantity,0, 'The new order quantity must be greater zero. Got %s!');
+        //Assert::greaterThan($new_order_quantity,0, 'The new order quantity must be greater zero. Got %s!');
 
         $this->order_quantity = $new_order_quantity;
 
@@ -996,15 +1000,12 @@ class Part extends AttachmentContainingDBElement
      *
      * @param integer $new_category_id       the ID of the category
      *
-     * @throws Exception if the new category ID is not valid
-     * @throws Exception if there was an error
-     *
      * @return self
      */
-    public function setCategoryID(int $new_category_id) : self
+    public function setCategory(Category $category) : self
     {
         //TODO
-        throw new \Exception("Not implemented yet!");
+        $this->category = $category;
 
         return $this;
     }
@@ -1012,8 +1013,8 @@ class Part extends AttachmentContainingDBElement
     /**
      *  Set the footprint ID
      *
-     * @param integer|NULL $new_footprint_id    @li the ID of the footprint
-     *                                          @li NULL means "no footprint"
+     * @param integer|NULL $new_footprint_id    * the ID of the footprint
+     *                                          * NULL means "no footprint"
      *
      * @throws Exception if the new footprint ID is not valid
      * @throws Exception if there was an error
@@ -1029,8 +1030,8 @@ class Part extends AttachmentContainingDBElement
     /**
      *  Set the storelocation ID
      *
-     * @param integer|NULL $new_storelocation_id    @li the ID of the storelocation
-     *                                              @li NULL means "no storelocation"
+     * @param integer|NULL $new_storelocation_id    * the ID of the storelocation
+     *                                              * NULL means "no storelocation"
      *
      * @throws Exception if the new storelocation ID is not valid
      * @throws Exception if there was an error
@@ -1046,8 +1047,8 @@ class Part extends AttachmentContainingDBElement
     /**
      *  Set the manufacturer ID
      *
-     * @param integer|NULL $new_manufacturer_id     @li the ID of the manufacturer
-     *                                              @li NULL means "no manufacturer"
+     * @param integer|NULL $new_manufacturer_id     * the ID of the manufacturer
+     *                                              * NULL means "no manufacturer"
      *
      * @throws Exception if the new manufacturer ID is not valid
      * @throws Exception if there was an error
@@ -1089,8 +1090,8 @@ class Part extends AttachmentContainingDBElement
     /**
      *  Set the ID of the master picture Attachement
      *
-     * @param integer|NULL $new_master_picture_attachement_id       @li the ID of the Attachement object of the master picture
-     *                                                              @li NULL means "no master picture"
+     * @param integer|NULL $new_master_picture_attachement_id       * the ID of the Attachement object of the master picture
+     *                                                              * NULL means "no master picture"
      *
      * @throws Exception if the new ID is not valid
      * @throws Exception if there was an error

@@ -136,8 +136,8 @@ class Orderdetail extends DBElement
      * "Orderdetails is obsolete" means that the part with that supplier-part-nr
      * is no longer available from the supplier of that orderdetails.
      *
-     * @return boolean      @li true if this part is obsolete at that supplier
-     *                      @li false if this part isn't obsolete at that supplier
+     * @return boolean      * true if this part is obsolete at that supplier
+     *                      * false if this part isn't obsolete at that supplier
      */
     public function getObsolete() : bool
     {
@@ -177,11 +177,11 @@ class Orderdetail extends DBElement
     /**
      * Get the price for a specific quantity
      *
-     * @param boolean $as_money_string      @li if true, this method returns a money string incl. currency
-     *                                      @li if false, this method returns the price as float
+     * @param boolean $as_money_string      * if true, this method returns a money string incl. currency
+     *                                      * if false, this method returns the price as float
      * @param integer       $quantity       this is the quantity to choose the correct pricedetails
-     * @param integer|NULL  $multiplier     @li This is the multiplier which will be applied to every single price
-     *                                      @li If you pass NULL, the number from $quantity will be used
+     * @param integer|NULL  $multiplier     * This is the multiplier which will be applied to every single price
+     *                                      * If you pass NULL, the number from $quantity will be used
      *
      * @return float|null|string    float: the price as a float number (if "$as_money_string == false")
      * * null: if there are no prices and "$as_money_string == false"

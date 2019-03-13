@@ -68,8 +68,8 @@ class Attachment extends NamedDBElement
     /**
      * Check if this attachement is a picture (analyse the file's extension)
      *
-     * @return boolean      @li true if the file extension is a picture extension
-     *                      @li otherwise false
+     * @return boolean      * true if the file extension is a picture extension
+     *                      * otherwise false
      */
     public function isPicture() : bool
     {

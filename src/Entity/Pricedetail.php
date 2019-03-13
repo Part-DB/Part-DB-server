@@ -103,8 +103,8 @@ class Pricedetail extends  DBElement
     /**
      * Get the price
      *
-     * @param boolean $as_money_string      @li if true, this method returns a money string incl. currency
-     *                                      @li if false, this method returns the price as float
+     * @param boolean $as_money_string      * if true, this method returns a money string incl. currency
+     *                                      * if false, this method returns the price as float
      * @param integer $multiplier           The returned price (float or string) will be multiplied
      *                                      with this multiplier.
      *
@@ -168,8 +168,8 @@ class Pricedetail extends  DBElement
      *
      * @param float $new_price       the new price as a float number
      *
-     *      @li This is the price for "price_related_quantity" parts!!
-     *              @li Example: if "price_related_quantity" is '10',
+     *      * This is the price for "price_related_quantity" parts!!
+     *              * Example: if "price_related_quantity" is '10',
      *                  you have to set here the price for 10 parts!
      *
      * @return self

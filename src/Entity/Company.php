@@ -128,8 +128,8 @@ abstract class Company extends StructuralDBElement
     /**
      * Get the link to the website of an article
      *
-     * @param string $partnr    @li NULL for returning the URL with a placeholder for the part number
-     *                          @li or the part number for returning the direct URL to the article
+     * @param string $partnr    * NULL for returning the URL with a placeholder for the part number
+     *                          * or the part number for returning the direct URL to the article
      *
      * @return string           the link to the article
      */

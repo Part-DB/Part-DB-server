@@ -25,6 +25,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * All subclasses of this class have an attribute "name".
  *
@@ -36,8 +38,10 @@ abstract class NamedDBElement extends DBElement
     /**
      * @var string The name of this element.
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     *
      */
-    protected $name;
+    protected $name = "";
 
     /**
      * @var \DateTime The date when this element was modified the last time.
@@ -64,8 +68,10 @@ abstract class NamedDBElement extends DBElement
      */
     public function getName() : string
     {
+        /*
         //Strip HTML from Name, so no XSS injection is possible.
-        return strip_tags($this->name);
+        return strip_tags($this->name); */
+        return $this->name;
     }
 
     /**

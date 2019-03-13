@@ -122,9 +122,9 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     /**
      * @brief Get the parent-ID
      *
-     * @retval integer          @li the ID of the parent element
-     *                          @li NULL means, the parent is the root node
-     *                          @li the parent ID of the root node is -1
+     * @retval integer          * the ID of the parent element
+     *                          * NULL means, the parent is the root node
+     *                          * the parent ID of the root node is -1
      */
     public function getParentID() : int
     {
@@ -235,8 +235,8 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     /**
      * Change the parent ID of this element
      *
-     * @param integer|null $new_parent_id           @li the ID of the new parent element
-     *                                              @li NULL if the parent should be the root node
+     * @param integer|null $new_parent_id           * the ID of the new parent element
+     *                                              * NULL if the parent should be the root node
      */
     public function setParentID($new_parent_id) : self
     {

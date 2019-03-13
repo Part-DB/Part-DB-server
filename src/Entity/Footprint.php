@@ -90,7 +90,7 @@ class Footprint extends PartsContainingDBElement
     /**
      * Get the filename of the picture (absolute path from filesystem root)
      * @return string   the saved filename in the DB
-     * @li an empty string if there is no picture
+     * * an empty string if there is no picture
      */
     public function getFilename() : string
     {
@@ -103,8 +103,8 @@ class Footprint extends PartsContainingDBElement
      * @param bool $absolute If set to true, then the absolute filename (from system root) is returned.
      * If set to false, then the path relative to Part-DB folder is returned.
      *
-     * @return string   @li the absolute path to the model (from filesystem root), as a UNIX path (with slashes)
-     *                  @li an empty string if there is no model
+     * @return string   * the absolute path to the model (from filesystem root), as a UNIX path (with slashes)
+     *                  * an empty string if there is no model
      */
     public function get3dFilename(bool $absolute = true) : string
     {
@@ -125,8 +125,8 @@ class Footprint extends PartsContainingDBElement
      *
      *  An empty filename is a valid filename.
      *
-     * @return boolean      @li true if file exists or filename is empty
-     *                      @li false if there is no file with this filename
+     * @return boolean      * true if file exists or filename is empty
+     *                      * false if there is no file with this filename
      */
     public function isFilenameValid() : bool
     {
@@ -145,8 +145,8 @@ class Footprint extends PartsContainingDBElement
      *
      *  An empty filename is a valid filename.
      *
-     * @return boolean      @li true if file exists or filename is empty
-     *                      @li false if there is no file with this filename
+     * @return boolean      * true if file exists or filename is empty
+     *                      * false if there is no file with this filename
      */
     public function is3dFilenameValid() : bool
     {
@@ -179,8 +179,8 @@ class Footprint extends PartsContainingDBElement
      *          It's not really a Problem if there is no such file...
      *          (For this purpose we have the method Footprint::get_broken_filename_footprints())
      *
-     * @param string $new_filename      @li the new filename (absolute path from filesystem root, as a UNIX path [only slashes!] !! )
-     *                                  @li see also lib.functions.php::to_unix_path()
+     * @param string $new_filename      * the new filename (absolute path from filesystem root, as a UNIX path [only slashes!] !! )
+     *                                  * see also lib.functions.php::to_unix_path()
      *
      *      It's really important that you pass the whole (UNIX) path from filesystem root!
      *              If the file is located in the base directory of Part-DB, the base path

@@ -63,8 +63,8 @@ abstract class AttachmentContainingDBElement extends NamedDBElement
     /**
      * Get all attachements of this element / Get the element's attachements with a specific type
      *
-     * @param integer   $type_id                    @li if NULL, all attachements of this element will be returned
-     *                                              @li if this is a number > 0, only attachements with this type ID will be returned
+     * @param integer   $type_id                    * if NULL, all attachements of this element will be returned
+     *                                              * if this is a number > 0, only attachements with this type ID will be returned
      * @param boolean   $only_table_attachements    if true, only attachements with "show_in_table == true"
      *
      * @return Attachment[] the attachements as a one-dimensional array of Attachement objects
