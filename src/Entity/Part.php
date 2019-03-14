@@ -322,24 +322,24 @@ class Part extends AttachmentContainingDBElement
 
         /**
         if ($with_devices) {
-            $count_must_order = 0;      // for devices with "order_only_missing_parts == false"
-            $count_should_order = 0;    // for devices with "order_only_missing_parts == true"
-            $deviceparts = DevicePart::getOrderDeviceParts($this->database, $this->current_user, $this->log, $this->getID());
-            foreach ($deviceparts as $devicepart) {
-                /** @var $devicepart DevicePart */
-                /** @var $device Device */ /**
-                $device = $devicepart->getDevice();
-                if ($device->getOrderOnlyMissingParts()) {
-                    $count_should_order += $device->getOrderQuantity() * $devicepart->getMountQuantity();
-                } else {
-                    $count_must_order += $device->getOrderQuantity() * $devicepart->getMountQuantity();
-                }
-            }
+        $count_must_order = 0;      // for devices with "order_only_missing_parts == false"
+        $count_should_order = 0;    // for devices with "order_only_missing_parts == true"
+        $deviceparts = DevicePart::getOrderDeviceParts($this->database, $this->current_user, $this->log, $this->getID());
+        foreach ($deviceparts as $devicepart) {
+        /** @var $devicepart DevicePart */
+        /** @var $device Device */ /**
+    $device = $devicepart->getDevice();
+    if ($device->getOrderOnlyMissingParts()) {
+    $count_should_order += $device->getOrderQuantity() * $devicepart->getMountQuantity();
+    } else {
+    $count_must_order += $device->getOrderQuantity() * $devicepart->getMountQuantity();
+    }
+    }
 
-            return $count_must_order + max(0, $this->getMinInstock() - $this->getInstock() + $count_should_order);
-        } else {
-            return max(0, $this->getMinInstock() - $this->getInstock());
-        } **/
+    return $count_must_order + max(0, $this->getMinInstock() - $this->getInstock() + $count_should_order);
+    } else {
+    return max(0, $this->getMinInstock() - $this->getInstock());
+    } **/
     }
 
     /**
@@ -993,70 +993,61 @@ class Part extends AttachmentContainingDBElement
     }
 
     /**
-     *  Set the ID of the category
+     *  Set the category of this Part
      *
      *     Every part must have a valid category (in contrast to the
      *          attributes "footprint", "storelocation", ...)!
      *
-     * @param integer $new_category_id       the ID of the category
+     * @param  Category $category       The new category of this part
      *
      * @return self
      */
     public function setCategory(Category $category) : self
     {
-        //TODO
         $this->category = $category;
 
         return $this;
     }
 
     /**
-     *  Set the footprint ID
+     * Set the new Footprint of this Part.
      *
-     * @param integer|NULL $new_footprint_id    * the ID of the footprint
-     *                                          * NULL means "no footprint"
-     *
-     * @throws Exception if the new footprint ID is not valid
-     * @throws Exception if there was an error
+     * @param Footprint|null $new_footprint The new footprint of this part. Set to null, if this part should not have
+     * a footprint.
+     * @return self
      */
-    public function setFootprintID($new_footprint_id) : self
+    public function setFootprint(?Footprint $new_footprint) : self
     {
-        //TODO
-        throw new \Exception("Not implemented yet!");
+        $this->footprint = $new_footprint;
+
+        return $this;
+    }
+
+
+    /**
+     * Set the new store location of this part.
+     *
+     * @param Storelocation|null $new_storelocation The new Storelocation of this part. Set to null, if this part should
+     * not have a storelocation.
+     * @return Part
+     */
+    public function setStorelocation(?Storelocation $new_storelocation) : self
+    {
+        $this->storelocation = $new_storelocation;
 
         return $this;
     }
 
     /**
-     *  Set the storelocation ID
+     * Sets the new manufacturer of this part.
      *
-     * @param integer|NULL $new_storelocation_id    * the ID of the storelocation
-     *                                              * NULL means "no storelocation"
-     *
-     * @throws Exception if the new storelocation ID is not valid
-     * @throws Exception if there was an error
+     * @param Manufacturer|null $new_manufacturer The new Manufacturer of this part. Set to null, if this part should
+     * not have a manufacturer.
+     * @return Part
      */
-    public function setStorelocationID($new_storelocation_id) : self
+    public function setManufacturer(?Manufacturer $new_manufacturer) : self
     {
-        //TODO
-        throw new \Exception("Not implemented yet!");
-
-        return $this;
-    }
-
-    /**
-     *  Set the manufacturer ID
-     *
-     * @param integer|NULL $new_manufacturer_id     * the ID of the manufacturer
-     *                                              * NULL means "no manufacturer"
-     *
-     * @throws Exception if the new manufacturer ID is not valid
-     * @throws Exception if there was an error
-     */
-    public function setManufacturerID($new_manufacturer_id) : self
-    {
-        //TODO
-        throw new \Exception("Not implemented yet!");
+        $this->manufacturer = $new_manufacturer;
 
         return $this;
     }

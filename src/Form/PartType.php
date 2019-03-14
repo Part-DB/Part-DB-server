@@ -32,8 +32,12 @@
 namespace App\Form;
 
 
+use App\Entity\Category;
+use App\Entity\Manufacturer;
 use App\Entity\Part;
+use App\Entity\Storelocation;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -57,6 +61,12 @@ class PartType extends AbstractType
                 ['attr' => ['min'=>0, 'placeholder' => 'part.instock.placeholder'], 'label'=> 'instock.label'])
             ->add('mininstock', IntegerType::class,
                 ['attr' => ['min'=>0, 'placeholder' => 'part.mininstock.placeholder'], 'label'=> 'mininstock.label'])
+            ->add('category', EntityType::class, ['class' => Category::class, 'choice_label' => 'full_path',
+                'attr' => ['class' => 'selectpicker', 'data-live-search' => true, 'label'=> 'category.label']])
+            ->add('storelocation', EntityType::class, ['class' => Storelocation::class, 'choice_label' => 'full_path',
+                'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'required' => false, 'label'=> 'storelocation.label'])
+            ->add('manufacturer', EntityType::class, ['class' => Manufacturer::class, 'choice_label' => 'full_path',
+                'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'required' => false, 'label'=> 'manufacturer.label'])
             ->add('manufacturer_product_url', UrlType::class, ['required'=>false, 'empty_data' => '',
                 'label'=> 'manufacturer_url.label'])
             ->add('comment', CKEditorType::class, ['required'=>false,
