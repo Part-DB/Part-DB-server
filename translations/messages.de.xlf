@@ -559,5 +559,11 @@
         <target>Login</target>
       </segment>
     </unit>
+    <unit id="BSn76q_" name="login.rememberme">
+      <segment>
+        <source>login.rememberme</source>
+        <target>Eingeloggt bleiben (nicht empfohlen auf geteilten Computern)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

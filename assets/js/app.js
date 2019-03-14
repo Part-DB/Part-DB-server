@@ -21,6 +21,7 @@ import 'datatables.net-buttons-bs4/css/buttons.bootstrap4.css'
 import 'datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.css'
 import 'datatables.net-select-bs4/css/select.bootstrap4.css'
 import 'bootstrap-select/dist/css/bootstrap-select.css'
+import 'awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css'
 
 //require( 'jszip' );
 //#require( 'pdfmake' );
