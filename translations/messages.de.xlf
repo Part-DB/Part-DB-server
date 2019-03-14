@@ -517,5 +517,47 @@
         <target>Neues Bauteil erstellen</target>
       </segment>
     </unit>
+    <unit id="6Ks0rFM" name="login.username.label">
+      <segment>
+        <source>login.username.label</source>
+        <target>Benutzername</target>
+      </segment>
+    </unit>
+    <unit id="JUuJUUV" name="login.username.placeholder">
+      <segment>
+        <source>login.username.placeholder</source>
+        <target>Benutzername</target>
+      </segment>
+    </unit>
+    <unit id="HJtrGOc" name="login.password.label">
+      <segment>
+        <source>login.password.label</source>
+        <target>Passwort</target>
+      </segment>
+    </unit>
+    <unit id="8SD.6EK" name="login.password.placeholder">
+      <segment>
+        <source>login.password.placeholder</source>
+        <target>Passwort</target>
+      </segment>
+    </unit>
+    <unit id="XtrGxkd" name="login.btn">
+      <segment>
+        <source>login.btn</source>
+        <target>Login</target>
+      </segment>
+    </unit>
+    <unit id="nDK0G.T" name="login.card_title">
+      <segment>
+        <source>login.card_title</source>
+        <target>Login</target>
+      </segment>
+    </unit>
+    <unit id="Kd99AFq" name="login.title">
+      <segment>
+        <source>login.title</source>
+        <target>Login</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

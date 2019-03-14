@@ -1,326 +1,521 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
-    <header>
-      <tool tool-id="symfony" tool-name="Symfony"/>
-    </header>
-    <body>
-      <trans-unit id="cElTSD4" resname="sidebar.toggle">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="messages.en">
+    <unit id="cElTSD4" name="sidebar.toggle">
+      <segment>
         <source>sidebar.toggle</source>
         <target state="translated">Toggle Sidebar</target>
-      </trans-unit>
-      <trans-unit id="el2uFyW" resname="search.options.label">
+      </segment>
+    </unit>
+    <unit id="el2uFyW" name="search.options.label">
+      <segment>
         <source>search.options.label</source>
         <target state="translated">Search options</target>
-      </trans-unit>
-      <trans-unit id="kTRK6H_" resname="name.label">
+      </segment>
+    </unit>
+    <unit id="kTRK6H_" name="name.label">
+      <segment>
         <source>name.label</source>
         <target state="translated">Name</target>
-      </trans-unit>
-      <trans-unit id="ZY57BXc" resname="category.label">
+      </segment>
+    </unit>
+    <unit id="ZY57BXc" name="category.label">
+      <segment>
         <source>category.label</source>
         <target state="translated">Category</target>
-      </trans-unit>
-      <trans-unit id="LSnWIG7" resname="description.label">
+      </segment>
+    </unit>
+    <unit id="LSnWIG7" name="description.label">
+      <segment>
         <source>description.label</source>
         <target state="translated">Description</target>
-      </trans-unit>
-      <trans-unit id="RezjOdV" resname="storelocation.label">
+      </segment>
+    </unit>
+    <unit id="RezjOdV" name="storelocation.label">
+      <segment>
         <source>storelocation.label</source>
         <target state="translated">Store location</target>
-      </trans-unit>
-      <trans-unit id="BWS7Lck" resname="comment.label">
+      </segment>
+    </unit>
+    <unit id="BWS7Lck" name="comment.label">
+      <segment>
         <source>comment.label</source>
         <target state="translated">Comment</target>
-      </trans-unit>
-      <trans-unit id="z1DQ7QF" resname="ordernumber.label.short">
+      </segment>
+    </unit>
+    <unit id="z1DQ7QF" name="ordernumber.label.short">
+      <segment>
         <source>ordernumber.label.short</source>
         <target state="translated">Ordernr.</target>
-      </trans-unit>
-      <trans-unit id="zT4k8ZJ" resname="supplier.label">
+      </segment>
+    </unit>
+    <unit id="zT4k8ZJ" name="supplier.label">
+      <segment>
         <source>supplier.label</source>
         <target state="translated">Supplier</target>
-      </trans-unit>
-      <trans-unit id="WB3sH1G" resname="manufacturer.label">
+      </segment>
+    </unit>
+    <unit id="WB3sH1G" name="manufacturer.label">
+      <segment>
         <source>manufacturer.label</source>
         <target state="translated">Manufacturer</target>
-      </trans-unit>
-      <trans-unit id="griVyRf" resname="footprint.label">
+      </segment>
+    </unit>
+    <unit id="griVyRf" name="footprint.label">
+      <segment>
         <source>footprint.label</source>
         <target state="translated">Footprint</target>
-      </trans-unit>
-      <trans-unit id="Bs5QvO0" resname="search.deactivateBarcode">
+      </segment>
+    </unit>
+    <unit id="Bs5QvO0" name="search.deactivateBarcode">
+      <segment>
         <source>search.deactivateBarcode</source>
         <target state="translated">Deact. Barcode</target>
-      </trans-unit>
-      <trans-unit id="biFM.cv" resname="search.regexmatching">
+      </segment>
+    </unit>
+    <unit id="biFM.cv" name="search.regexmatching">
+      <segment>
         <source>search.regexmatching</source>
         <target state="translated">Reg.Ex. Matching</target>
-      </trans-unit>
-      <trans-unit id="rOLpDSq" resname="go.exclamation">
+      </segment>
+    </unit>
+    <unit id="rOLpDSq" name="go.exclamation">
+      <segment>
         <source>go.exclamation</source>
         <target state="translated">Go!</target>
-      </trans-unit>
-      <trans-unit id="iqU5ScK" resname="barcode.scan">
+      </segment>
+    </unit>
+    <unit id="iqU5ScK" name="barcode.scan">
+      <segment>
         <source>barcode.scan</source>
         <target state="translated">Scan Barcode</target>
-      </trans-unit>
-      <trans-unit id="PRvW.EI" resname="user.loggedin.label">
+      </segment>
+    </unit>
+    <unit id="PRvW.EI" name="user.loggedin.label">
+      <segment>
         <source>user.loggedin.label</source>
         <target state="translated">Logged in as</target>
-      </trans-unit>
-      <trans-unit id="4fEJHYJ" resname="user.settings.label">
+      </segment>
+    </unit>
+    <unit id="4fEJHYJ" name="user.settings.label">
+      <segment>
         <source>user.settings.label</source>
         <target state="translated">User settings</target>
-      </trans-unit>
-      <trans-unit id="_M8LV3f" resname="user.info.label">
+      </segment>
+    </unit>
+    <unit id="_M8LV3f" name="user.info.label">
+      <segment>
         <source>user.info.label</source>
         <target state="translated">User informations</target>
-      </trans-unit>
-      <trans-unit id="okzpfQC" resname="user.logout">
+      </segment>
+    </unit>
+    <unit id="okzpfQC" name="user.logout">
+      <segment>
         <source>user.logout</source>
         <target state="translated">Logout</target>
-      </trans-unit>
-      <trans-unit id="rruB2OR" resname="user.login">
+      </segment>
+    </unit>
+    <unit id="rruB2OR" name="user.login">
+      <segment>
         <source>user.login</source>
         <target state="translated">Login</target>
-      </trans-unit>
-      <trans-unit id="DFDnILM" resname="categories.label">
+      </segment>
+    </unit>
+    <unit id="DFDnILM" name="categories.label">
+      <segment>
         <source>categories.label</source>
         <target state="translated">Categories</target>
-      </trans-unit>
-      <trans-unit id="Kw3N1AA" resname="actions">
+      </segment>
+    </unit>
+    <unit id="Kw3N1AA" name="actions">
+      <segment>
         <source>actions</source>
         <target state="translated">Actions</target>
-      </trans-unit>
-      <trans-unit id="10f_Ka3" resname="expandAll">
+      </segment>
+    </unit>
+    <unit id="10f_Ka3" name="expandAll">
+      <segment>
         <source>expandAll</source>
         <target state="translated">Expand All</target>
-      </trans-unit>
-      <trans-unit id="eS_kUcS" resname="reduceAll">
+      </segment>
+    </unit>
+    <unit id="eS_kUcS" name="reduceAll">
+      <segment>
         <source>reduceAll</source>
         <target state="translated">Reduce All</target>
-      </trans-unit>
-      <trans-unit id=".x0rFcf" resname="datasource">
+      </segment>
+    </unit>
+    <unit id=".x0rFcf" name="datasource">
+      <segment>
         <source>datasource</source>
         <target state="translated">Datasource</target>
-      </trans-unit>
-      <trans-unit id="OllfX2C" resname="category.labelp">
+      </segment>
+    </unit>
+    <unit id="OllfX2C" name="category.labelp">
+      <segment>
         <source>category.labelp</source>
         <target state="translated">Categories</target>
-      </trans-unit>
-      <trans-unit id="vZGwiMS" resname="storelocation.labelp">
+      </segment>
+    </unit>
+    <unit id="vZGwiMS" name="storelocation.labelp">
+      <segment>
         <source>storelocation.labelp</source>
         <target state="translated">Storelocations</target>
-      </trans-unit>
-      <trans-unit id="ZJ9SPOS" resname="footprint.labelp">
+      </segment>
+    </unit>
+    <unit id="ZJ9SPOS" name="footprint.labelp">
+      <segment>
         <source>footprint.labelp</source>
         <target state="translated">Footprints</target>
-      </trans-unit>
-      <trans-unit id="NSnSQf4" resname="manufacturer.labelp">
+      </segment>
+    </unit>
+    <unit id="NSnSQf4" name="manufacturer.labelp">
+      <segment>
         <source>manufacturer.labelp</source>
         <target state="translated">Manufacturers</target>
-      </trans-unit>
-      <trans-unit id="DQQjhS_" resname="supplier.labelp">
+      </segment>
+    </unit>
+    <unit id="DQQjhS_" name="supplier.labelp">
+      <segment>
         <source>supplier.labelp</source>
         <target state="translated">Suppliers</target>
-      </trans-unit>
-      <trans-unit id="g6tt4u1" resname="device.labelp">
+      </segment>
+    </unit>
+    <unit id="g6tt4u1" name="device.labelp">
+      <segment>
         <source>device.labelp</source>
         <target state="translated">Devices</target>
-      </trans-unit>
-      <trans-unit id="__OuWRw" resname="tools.label">
+      </segment>
+    </unit>
+    <unit id="__OuWRw" name="tools.label">
+      <segment>
         <source>tools.label</source>
         <target state="translated">Tools</target>
-      </trans-unit>
-      <trans-unit id="xndYXfF" resname="expandall">
+      </segment>
+    </unit>
+    <unit id="xndYXfF" name="expandall">
+      <segment>
         <source>expandall</source>
         <target state="translated">Expand All</target>
-      </trans-unit>
-      <trans-unit id="ZdJ4vzs" resname="reduceall">
+      </segment>
+    </unit>
+    <unit id="ZdJ4vzs" name="reduceall">
+      <segment>
         <source>reduceall</source>
         <target state="translated">Reduce All</target>
-      </trans-unit>
-      <trans-unit id="JUGwseE" resname="tools.labelp">
+      </segment>
+    </unit>
+    <unit id="JUGwseE" name="tools.labelp">
+      <segment>
         <source>tools.labelp</source>
         <target state="translated">Tools</target>
-      </trans-unit>
-      <trans-unit id="ZQMol4U" resname="vendor.base.javascript_hint">
+      </segment>
+    </unit>
+    <unit id="ZQMol4U" name="vendor.base.javascript_hint">
+      <segment>
         <source>vendor.base.javascript_hint</source>
         <target state="translated">Please activate Javascript to use all features!</target>
-      </trans-unit>
-      <trans-unit id="UoflU8w" resname="part.info.title">
+      </segment>
+    </unit>
+    <unit id="UoflU8w" name="part.info.title">
+      <segment>
         <source>part.info.title</source>
         <target state="translated">Detail info for part</target>
-      </trans-unit>
-      <trans-unit id="2y0kouO" resname="id.label">
+      </segment>
+    </unit>
+    <unit id="2y0kouO" name="id.label">
+      <segment>
         <source>id.label</source>
         <target state="translated">ID</target>
-      </trans-unit>
-      <trans-unit id="J.AXbaM" resname="instock.label">
+      </segment>
+    </unit>
+    <unit id="J.AXbaM" name="instock.label">
+      <segment>
         <source>instock.label</source>
         <target state="translated">Instock</target>
-      </trans-unit>
-      <trans-unit id="VYcxdrz" resname="mininstock.label">
+      </segment>
+    </unit>
+    <unit id="VYcxdrz" name="mininstock.label">
+      <segment>
         <source>mininstock.label</source>
         <target state="translated">Minimum Instock</target>
-      </trans-unit>
-      <trans-unit id="LL2dt8U" resname="part.avg_price.label">
+      </segment>
+    </unit>
+    <unit id="LL2dt8U" name="part.avg_price.label">
+      <segment>
         <source>part.avg_price.label</source>
         <target state="translated">Average Price</target>
-      </trans-unit>
-      <trans-unit id="MZz0rtU" resname="attachment.labelp">
+      </segment>
+    </unit>
+    <unit id="MZz0rtU" name="attachment.labelp">
+      <segment>
         <source>attachment.labelp</source>
         <target state="translated">Attachments</target>
-      </trans-unit>
-      <trans-unit id="b5.SSzx" resname="vendor.partinfo.shopping_infos">
+      </segment>
+    </unit>
+    <unit id="b5.SSzx" name="vendor.partinfo.shopping_infos">
+      <segment>
         <source>vendor.partinfo.shopping_infos</source>
         <target state="translated">Shopping informations</target>
-      </trans-unit>
-      <trans-unit id="1Soir6U" resname="vendor.partinfo.history">
+      </segment>
+    </unit>
+    <unit id="1Soir6U" name="vendor.partinfo.history">
+      <segment>
         <source>vendor.partinfo.history</source>
         <target state="translated">History</target>
-      </trans-unit>
-      <trans-unit id="4ixhjeS" resname="part.delete.caption">
+      </segment>
+    </unit>
+    <unit id="4ixhjeS" name="part.delete.caption">
+      <segment>
         <source>part.delete.caption</source>
         <target state="translated">Delete Part</target>
-      </trans-unit>
-      <trans-unit id="CP6LfDs" resname="part.delete.btn">
+      </segment>
+    </unit>
+    <unit id="CP6LfDs" name="part.delete.btn">
+      <segment>
         <source>part.delete.btn</source>
         <target state="translated">Delete Part</target>
-      </trans-unit>
-      <trans-unit id="eG9UnaY" resname="part.withdraw.caption:">
+      </segment>
+    </unit>
+    <unit id="eG9UnaY" name="part.withdraw.caption:">
+      <segment>
         <source>part.withdraw.caption:</source>
         <target state="translated">Withdraw parts:</target>
-      </trans-unit>
-      <trans-unit id="7TiUzGF" resname="part.withdraw.btn">
+      </segment>
+    </unit>
+    <unit id="7TiUzGF" name="part.withdraw.btn">
+      <segment>
         <source>part.withdraw.btn</source>
         <target state="translated">Withdraw</target>
-      </trans-unit>
-      <trans-unit id="RVKdVNt" resname="part.withdraw.comment:">
+      </segment>
+    </unit>
+    <unit id="RVKdVNt" name="part.withdraw.comment:">
+      <segment>
         <source>part.withdraw.comment:</source>
         <target state="translated">Comment/Purpose</target>
-      </trans-unit>
-      <trans-unit id="kXcojTi" resname="part.add.caption">
+      </segment>
+    </unit>
+    <unit id="kXcojTi" name="part.add.caption">
+      <segment>
         <source>part.add.caption</source>
         <target state="translated">Add parts</target>
-      </trans-unit>
-      <trans-unit id="rYoCVp9" resname="part.add.btn">
+      </segment>
+    </unit>
+    <unit id="rYoCVp9" name="part.add.btn">
+      <segment>
         <source>part.add.btn</source>
         <target state="translated">Add</target>
-      </trans-unit>
-      <trans-unit id="4CUEJg5" resname="part.add.comment">
+      </segment>
+    </unit>
+    <unit id="4CUEJg5" name="part.add.comment">
+      <segment>
         <source>part.add.comment</source>
         <target state="translated">Comment/Purpose</target>
-      </trans-unit>
-      <trans-unit id="cMLFYZw" resname="createdAt">
+      </segment>
+    </unit>
+    <unit id="cMLFYZw" name="createdAt">
+      <segment>
         <source>createdAt</source>
         <target state="translated">Created At</target>
-      </trans-unit>
-      <trans-unit id="ZcUFNEJ" resname="lastModified">
+      </segment>
+    </unit>
+    <unit id="ZcUFNEJ" name="lastModified">
+      <segment>
         <source>lastModified</source>
         <target state="translated">Last modified</target>
-      </trans-unit>
-      <trans-unit id="lQ8QeGr" resname="search.placeholder">
+      </segment>
+    </unit>
+    <unit id="lQ8QeGr" name="search.placeholder">
+      <segment>
         <source>search.placeholder</source>
         <target state="translated">Search</target>
-      </trans-unit>
-      <trans-unit id="nZxWuSY" resname="instock.label_short">
+      </segment>
+    </unit>
+    <unit id="nZxWuSY" name="instock.label_short">
+      <segment>
         <source>instock.label_short</source>
         <target state="translated">Instock</target>
-      </trans-unit>
-      <trans-unit id="ryY3rJ_" resname="mininstock.label_short">
+      </segment>
+    </unit>
+    <unit id="ryY3rJ_" name="mininstock.label_short">
+      <segment>
         <source>mininstock.label_short</source>
         <target state="translated">Min Instock</target>
-      </trans-unit>
-      <trans-unit id="oabvQfM" resname="user.language_select">
+      </segment>
+    </unit>
+    <unit id="oabvQfM" name="user.language_select">
+      <segment>
         <source>user.language_select</source>
         <target state="translated">Switch Language</target>
-      </trans-unit>
-      <trans-unit id="rMCnZt." resname="language.english">
+      </segment>
+    </unit>
+    <unit id="rMCnZt." name="language.english">
+      <segment>
         <source>language.english</source>
         <target state="translated">English</target>
-      </trans-unit>
-      <trans-unit id="OmHgIys" resname="language.german">
+      </segment>
+    </unit>
+    <unit id="OmHgIys" name="language.german">
+      <segment>
         <source>language.german</source>
         <target state="translated">German</target>
-      </trans-unit>
-      <trans-unit id="Qj.Hpb." resname="version.caption">
+      </segment>
+    </unit>
+    <unit id="Qj.Hpb." name="version.caption">
+      <segment>
         <source>version.caption</source>
         <target state="translated">Version</target>
-      </trans-unit>
-      <trans-unit id="GDYG7.b" resname="homepage.license">
+      </segment>
+    </unit>
+    <unit id="GDYG7.b" name="homepage.license">
+      <segment>
         <source>homepage.license</source>
         <target state="translated">License information</target>
-      </trans-unit>
-      <trans-unit id="5nDb2pj" resname="homepage.github.caption">
+      </segment>
+    </unit>
+    <unit id="5nDb2pj" name="homepage.github.caption">
+      <segment>
         <source>homepage.github.caption</source>
         <target state="translated">Project page</target>
-      </trans-unit>
-      <trans-unit id="7nCeHg7" resname="homepage.github.text">
+      </segment>
+    </unit>
+    <unit id="7nCeHg7" name="homepage.github.text">
+      <segment>
         <source>homepage.github.text</source>
-        <target state="translated">Downloads, bugreports, to-do-list etc. can be found on &lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub project page&lt;/a&gt;</target>
-      </trans-unit>
-      <trans-unit id="9pp.6vF" resname="homepage.help.caption">
+        <target state="translated"><![CDATA[Downloads, bugreports, to-do-list etc. can be found on <a href="%href%" class="link-external" target="_blank">GitHub project page</a>]]></target>
+      </segment>
+    </unit>
+    <unit id="9pp.6vF" name="homepage.help.caption">
+      <segment>
         <source>homepage.help.caption</source>
         <target state="translated">Help</target>
-      </trans-unit>
-      <trans-unit id="exp3iqv" resname="homepage.help.text">
+      </segment>
+    </unit>
+    <unit id="exp3iqv" name="homepage.help.text">
+      <segment>
         <source>homepage.help.text</source>
-        <target state="translated">Help and tips can be found in Wiki the &lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub page&lt;/a&gt; </target>
-      </trans-unit>
-      <trans-unit id="R2g.45a" resname="homepage.forum.caption">
+        <target state="translated"><![CDATA[Help and tips can be found in Wiki the <a href="%href%" class="link-external" target="_blank">GitHub page</a> ]]></target>
+      </segment>
+    </unit>
+    <unit id="R2g.45a" name="homepage.forum.caption">
+      <segment>
         <source>homepage.forum.caption</source>
         <target state="translated">Forum</target>
-      </trans-unit>
-      <trans-unit id="nfBdkzp" resname="homepage.forum.text">
+      </segment>
+    </unit>
+    <unit id="nfBdkzp" name="homepage.forum.text">
+      <segment>
         <source>homepage.forum.text</source>
-        <target state="translated">For questions about the Part-DB there is a thread on &lt;a href="%href%" class="link-external" target="_blank"&gt;mikrocontroller.net&lt;/a&gt;</target>
-      </trans-unit>
-      <trans-unit id="exDsVQ3" resname="homepage.wiki.caption">
+        <target state="translated"><![CDATA[For questions about the Part-DB there is a thread on <a href="%href%" class="link-external" target="_blank">mikrocontroller.net</a>]]></target>
+      </segment>
+    </unit>
+    <unit id="exDsVQ3" name="homepage.wiki.caption">
+      <segment>
         <source>homepage.wiki.caption</source>
         <target state="translated">Wiki</target>
-      </trans-unit>
-      <trans-unit id="tdI0IlW" resname="homepage.wiki.text">
+      </segment>
+    </unit>
+    <unit id="tdI0IlW" name="homepage.wiki.text">
+      <segment>
         <source>homepage.wiki.text</source>
-        <target state="translated">Further information is available in &lt;a href="%href%" class="link-external" target="_blank"&gt;mikrocontroller.net Article&lt;/a&gt;</target>
-      </trans-unit>
-      <trans-unit id="gAFUu2a" resname="homepage.basedOn">
+        <target state="translated"><![CDATA[Further information is available in <a href="%href%" class="link-external" target="_blank">mikrocontroller.net Article</a>]]></target>
+      </segment>
+    </unit>
+    <unit id="gAFUu2a" name="homepage.basedOn">
+      <segment>
         <source>homepage.basedOn</source>
         <target state="translated">Based on the original Part-DB created by</target>
-      </trans-unit>
-      <trans-unit id="PlY3xmo" resname="homepage.others">
+      </segment>
+    </unit>
+    <unit id="PlY3xmo" name="homepage.others">
+      <segment>
         <source>homepage.others</source>
         <target state="translated">and others</target>
-      </trans-unit>
-      <trans-unit id="79bMpjW" resname="part_list.loading.caption">
+      </segment>
+    </unit>
+    <unit id="79bMpjW" name="part_list.loading.caption">
+      <segment>
         <source>part_list.loading.caption</source>
         <target state="translated">Loading</target>
-      </trans-unit>
-      <trans-unit id="dJ3yFo4" resname="part_list.loading.message">
+      </segment>
+    </unit>
+    <unit id="dJ3yFo4" name="part_list.loading.message">
+      <segment>
         <source>part_list.loading.message</source>
         <target state="translated">This can take a moment. If this message do not disappear, try to reload the page.</target>
-      </trans-unit>
-      <trans-unit resname="flash.success" id="flash.success">
-              <source>flash.success</source>
-              <target state="translated">Success</target>
-            </trans-unit>
-            <trans-unit resname="flash.error" id="flash.error">
-               <source>flash.error</source>
-               <target state="translated">Error</target>
-            </trans-unit>
-            <trans-unit resname="flash.warning" id="flash.warning">
-               <source>flash.warning</source>
-               <target state="translated">Warning</target>
-             </trans-unit>
-             <trans-unit resname="flash.notice" id="flash.notice">
-                      <source>flash.notice</source>
-                      <target state="translated">Notice</target>
-                    </trans-unit>
-            <trans-unit resname="flash.info" id="flash.info">
-                     <source>flash.info</source>
-                     <target state="translated">Info</target>
-                   </trans-unit>
-    </body>
+      </segment>
+    </unit>
+    <unit id="g4ahva6" name="flash.success">
+      <segment>
+        <source>flash.success</source>
+        <target state="translated">Success</target>
+      </segment>
+    </unit>
+    <unit id="NehzWgk" name="flash.error">
+      <segment>
+        <source>flash.error</source>
+        <target state="translated">Error</target>
+      </segment>
+    </unit>
+    <unit id="h8vhq_r" name="flash.warning">
+      <segment>
+        <source>flash.warning</source>
+        <target state="translated">Warning</target>
+      </segment>
+    </unit>
+    <unit id="m5p2YEz" name="flash.notice">
+      <segment>
+        <source>flash.notice</source>
+        <target state="translated">Notice</target>
+      </segment>
+    </unit>
+    <unit id="YA5xZMy" name="flash.info">
+      <segment>
+        <source>flash.info</source>
+        <target state="translated">Info</target>
+      </segment>
+    </unit>
+    <unit id="Kd99AFq" name="login.title">
+      <segment>
+        <source>login.title</source>
+        <target>Login</target>
+      </segment>
+    </unit>
+    <unit id="nDK0G.T" name="login.card_title">
+      <segment>
+        <source>login.card_title</source>
+        <target>Login</target>
+      </segment>
+    </unit>
+    <unit id="6Ks0rFM" name="login.username.label">
+      <segment>
+        <source>login.username.label</source>
+        <target>Username</target>
+      </segment>
+    </unit>
+    <unit id="JUuJUUV" name="login.username.placeholder">
+      <segment>
+        <source>login.username.placeholder</source>
+        <target>Username</target>
+      </segment>
+    </unit>
+    <unit id="HJtrGOc" name="login.password.label">
+      <segment>
+        <source>login.password.label</source>
+        <target>Password</target>
+      </segment>
+    </unit>
+    <unit id="8SD.6EK" name="login.password.placeholder">
+      <segment>
+        <source>login.password.placeholder</source>
+        <target>Password</target>
+      </segment>
+    </unit>
+    <unit id="XtrGxkd" name="login.btn">
+      <segment>
+        <source>login.btn</source>
+        <target>Login</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

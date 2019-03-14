@@ -81,16 +81,16 @@
                 <ul class="navbar-nav ml-3">
                     <li class="nav-item dropdown">
                         <a href="#" class="dropdown-toggle link-anchor nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            {% if true %}<i class="fa fa-user" aria-hidden="true"></i>{% else %}<i class="far fa-user" aria-hidden="true"></i>{% endif %} <span class="caret"></span></a>
+                            {% if app.user %}<i class="fa fa-user" aria-hidden="true"></i>{% else %}<i class="far fa-user" aria-hidden="true"></i>{% endif %} <span class="caret"></span></a>
                         <ul class="dropdown-menu dropdown-menu-right" id="login-menu">
-                            {% if true %}
-                                <a class="dropdown-item disabled" href="#" >{% trans %}user.loggedin.label{% endtrans %} {$firstname} {$lastname} ({$username})</a>
+                            {% if app.user %}
+                                <a class="dropdown-item disabled" href="#" >{% trans %}user.loggedin.label{% endtrans %} {{ app.user.firstName }} {{app.user.lastName}} ({{app.user.name}})</a>
                                 <a class="dropdown-item" href="user_settings.php"><i class="fa fa-cogs fa-fw" aria-hidden="true"></i> {% trans %}user.settings.label{% endtrans %}</a>
                                 <a class="dropdown-item" href="user_info.php"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> {% trans %}user.info.label{% endtrans %}</a>
                                 <li role="separator" class="dropdown-divider"></li>
-                                <a class="dropdown-item"  href="{$relative_path}login.php?logout"><i class="fa fa-sign-out-alt fa-fw" aria-hidden="true"></i> {% trans %}user.logout{% endtrans %}</a>
+                                <a class="dropdown-item"  href="{{ path('logout') }}"><i class="fa fa-sign-out-alt fa-fw" aria-hidden="true"></i> {% trans %}user.logout{% endtrans %}</a>
                             {% else %}
-                                <a class="dropdown-item" href="{$relative_path}login.php?redirect={$smarty.server.REQUEST_URI|escape:"url"}" id="login-link"><i class="fa fa-sign-in-alt fa-fw" aria-hidden="true"></i> {% trans %}user.login{% endtrans %}</a>
+                                <a class="dropdown-item" href="{{ path('login', {'_target_path':app.request.pathinfo}) }}" id="login-link"><i class="fa fa-sign-in-alt fa-fw" aria-hidden="true"></i> {% trans %}user.login{% endtrans %}</a>
                             {% endif %}
                             <li role="separator" class="dropdown-divider"></li>
                             <a class="dropdown-item disabled" href="#">{% trans %}user.language_select{% endtrans %}</a>

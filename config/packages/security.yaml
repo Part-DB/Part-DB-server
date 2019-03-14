@@ -1,7 +1,15 @@
 security:
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: ~ }
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: name
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -9,16 +17,24 @@ security:
         main:
             anonymous: true
 
-            # activate different ways to authenticate
+              # activate different ways to authenticate
 
-            # http_basic: true
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+              #http_basic: true
+              # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
 
-            # form_login: true
             # https://symfony.com/doc/current/security/form_login_setup.html
+            form_login:
+                login_path: login
+                check_path: login
+                csrf_token_generator: security.csrf.token_manager
+                use_referer: true
+
+            logout:
+                path: logout
+                target: homepage
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+    # - { path: ^/admin, roles: ROLE_ADMIN }
+    # - { path: ^/profile, roles: ROLE_USER }
