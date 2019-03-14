@@ -33,6 +33,7 @@
         "webmozart/assert": "^1.4"
     },
     "require-dev": {
+        "php-translation/symfony-bundle": "^0.8.1",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",

@@ -62,7 +62,7 @@ class PartType extends AbstractType
             ->add('mininstock', IntegerType::class,
                 ['attr' => ['min'=>0, 'placeholder' => 'part.mininstock.placeholder'], 'label'=> 'mininstock.label'])
             ->add('category', EntityType::class, ['class' => Category::class, 'choice_label' => 'full_path',
-                'attr' => ['class' => 'selectpicker', 'data-live-search' => true, 'label'=> 'category.label']])
+                'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'label'=> 'category.label'])
             ->add('storelocation', EntityType::class, ['class' => Storelocation::class, 'choice_label' => 'full_path',
                 'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'required' => false, 'label'=> 'storelocation.label'])
             ->add('manufacturer', EntityType::class, ['class' => Manufacturer::class, 'choice_label' => 'full_path',

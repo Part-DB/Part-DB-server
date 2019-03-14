@@ -120,6 +120,11 @@
       <path value="$PROJECT_DIR$/vendor/shivas/versioning-bundle" />
       <path value="$PROJECT_DIR$/vendor/friendsofsymfony/ckeditor-bundle" />
       <path value="$PROJECT_DIR$/vendor/s9e/text-formatter" />
+      <path value="$PROJECT_DIR$/vendor/php-translation/extractor" />
+      <path value="$PROJECT_DIR$/vendor/php-translation/symfony-storage" />
+      <path value="$PROJECT_DIR$/vendor/php-translation/common" />
+      <path value="$PROJECT_DIR$/vendor/php-translation/symfony-bundle" />
+      <path value="$PROJECT_DIR$/vendor/nyholm/nsa" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
