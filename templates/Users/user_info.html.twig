@@ -1,0 +1,61 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}user.info.label{% endtrans %}{% endblock %}
+
+{% block card_title %}<i class="fas fa-info-circle fa-fw" aria-hidden="true"></i>
+    {% trans %}user.info.label{% endtrans %}{% endblock %}
+
+{% block card_content %}
+    <div class="card-body row">
+        <div class="col-md-2">
+            <div class="img-thumbnail">
+                <img class="img-fluid img-rounded" src="{{ avatar }}">
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="form form-horizontal">
+                <div class="form-group row">
+                    <label class="col-form-label col-md-4">{% trans %}user.firstName.label{% endtrans %}</label>
+                    <div class="col-md-8">
+                        <p class="form-control-plaintext">{{ user.firstName }}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-md-4">{% trans %}user.lastName.label{% endtrans %}</label>
+                    <div class="col-md-8">
+                        <p class="form-control-plaintext">{{ user.lastName }}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-md-4">{% trans %}user.email.label{% endtrans %}</label>
+                    <div class="col-md-8">
+                       {# <p class="form-control-plaintext">{{ user.email }}</p>#}
+                        <a class="form-control-link" href="mailto:{{ user.email }}">{{ user.email }}</a>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-md-4">{% trans %}user.department.label{% endtrans %}</label>
+                    <div class="col-md-8">
+                        <p class="form-control-plaintext">{{ user.department }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="form form-horizontal">
+                <div class="form-group row">
+                    <label class="col-form-label col-md-4">{% trans %}user.username.label{% endtrans %}</label>
+                    <div class="col-md-8">
+                        <p class="form-control-plaintext">{{ user.name }}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-md-4">{% trans %}group.label{% endtrans %}</label>
+                    <div class="col-md-8">
+                        <p class="form-control-plaintext">TODO</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

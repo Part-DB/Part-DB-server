@@ -523,5 +523,41 @@
         <target>Remember me (should not be used on shared computers)</target>
       </segment>
     </unit>
+    <unit id="PwI64fM" name="user.firstName.label">
+      <segment>
+        <source>user.firstName.label</source>
+        <target>First name</target>
+      </segment>
+    </unit>
+    <unit id="u2ayBIA" name="user.lastName.label">
+      <segment>
+        <source>user.lastName.label</source>
+        <target>Last name</target>
+      </segment>
+    </unit>
+    <unit id="cDu6Rok" name="user.email.label">
+      <segment>
+        <source>user.email.label</source>
+        <target>Email</target>
+      </segment>
+    </unit>
+    <unit id="8GGUFm1" name="user.department.label">
+      <segment>
+        <source>user.department.label</source>
+        <target>Department</target>
+      </segment>
+    </unit>
+    <unit id="oX4P2rM" name="user.username.label">
+      <segment>
+        <source>user.username.label</source>
+        <target>User name</target>
+      </segment>
+    </unit>
+    <unit id="QK5x4IY" name="group.label">
+      <segment>
+        <source>group.label</source>
+        <target>Gruppe:</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

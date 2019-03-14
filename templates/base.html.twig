@@ -86,7 +86,7 @@
                             {% if app.user %}
                                 <a class="dropdown-item disabled" href="#" >{% trans %}user.loggedin.label{% endtrans %} {{ app.user.firstName }} {{app.user.lastName}} ({{app.user.name}})</a>
                                 <a class="dropdown-item" href="user_settings.php"><i class="fa fa-cogs fa-fw" aria-hidden="true"></i> {% trans %}user.settings.label{% endtrans %}</a>
-                                <a class="dropdown-item" href="user_info.php"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> {% trans %}user.info.label{% endtrans %}</a>
+                                <a class="dropdown-item" href="{{ path("user_info_self") }}"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> {% trans %}user.info.label{% endtrans %}</a>
                                 <li role="separator" class="dropdown-divider"></li>
                                 <a class="dropdown-item"  href="{{ path('logout') }}"><i class="fa fa-sign-out-alt fa-fw" aria-hidden="true"></i> {% trans %}user.logout{% endtrans %}</a>
                             {% else %}
