@@ -25,6 +25,10 @@
                             <h5 class="text-muted pt-2" title="{% trans %}manufacturer.label{% endtrans %}">{{ part.manufacturer.name ?? ""}}</h5>
                             <h3>{{ part.name }} <a href="{{ part|entityURL('edit') }}"><i class="fas fa-fw fa-sm fa-edit"></i></a></h3>
                             <h6 class="text-muted"><span title="{% trans %}description.label{% endtrans %}">{{ part.description|bbCode }}</span></h6>
+                            <h6 class=""  title="{% trans %}category.label.label{% endtrans %}">
+                                <i class="fas fa-tag fa-fw"></i>
+                                <span class="text-muted">{{  part.category.fullPath ?? "-"}}</span>
+                            </h6>
                             <h6 class=""  title="{% trans %}storelocation.label{% endtrans %}">
                                 <i class="fas fa-cube fa-fw"></i>
                                 <span class="text-muted">{{  part.storelocation.fullPath ?? "-"}}</span>
