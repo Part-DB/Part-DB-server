@@ -50,7 +50,7 @@ class PartController extends AbstractController
 
     /**
      * @Route("/part/{id}/info", name="part_info")
-     * @Route("/part/{id}")
+     * @Route("/part/{id}", requirements={"id"="\d+"})
      */
     public function show(Part $part, AttachmentFilenameService $attachmentFilenameService)
     {
@@ -65,7 +65,7 @@ class PartController extends AbstractController
     }
 
     /**
-     * @Route("/part/{id}/edit", name="part_edit", requirements={"id"="\d+"})
+     * @Route("/part/{id}/edit", name="part_edit")
      *
      * @param Part $part
      * @return \Symfony\Component\HttpFoundation\Response
@@ -90,14 +90,17 @@ class PartController extends AbstractController
     }
 
     /**
-     * @Route("/parts/new", name="part_new")
+     * @Route("/part/new", name="part_new")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator)
     {
         $new_part = new Part();
-        $category = $em->find(Category::class, 1);
+
+        $cid = $request->get('cid', 1);
+
+        $category = $em->find(Category::class, $cid);
         $new_part->setCategory($category);
 
         $form = $this->createForm(PartType::class, $new_part);
