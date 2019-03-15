@@ -36,6 +36,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
+ * This entity represents a user, which can log in and have permissions.
+ * Also this entity is able to save some informations about the user, like the names, email-address and other info.
+ *
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table("users")
  */
@@ -68,44 +71,51 @@ class User extends NamedDBElement implements UserInterface
      * @var string The first name of the User
      * @ORM\Column(type="string", length=255)
      */
-    protected $first_name;
+    protected $first_name = "";
 
     /**
      * @var string The last name of the User
      * @ORM\Column(type="string", length=255)
      */
-    protected $last_name;
+    protected $last_name = "";
 
     /**
      * @var string The department the user is working
      * @ORM\Column(type="string", length=255)
      */
-    protected $department;
+    protected $department = "";
 
 
     /**
      * @var string The email address of the user
      * @ORM\Column(type="string", length=255)
      */
-    protected $email;
+    protected $email = "";
 
     /**
      * @var string The language/locale the user prefers
      * @ORM\Column(type="string", name="config_language")
      */
-    protected $language;
+    protected $language = "";
 
     /**
      * @var string The timezone the user prefers
      * @ORM\Column(type="string", name="config_timezone")
      */
-    protected $timezone;
+    protected $timezone = "";
 
     /**
      * @var string The theme
      * @ORM\Column(type="string", name="config_theme")
      */
-    protected $theme;
+    protected $theme = "";
+
+    /**
+     * @var Group|null The group this user belongs to.
+     * @ORM\ManyToOne(targetEntity="Group", inversedBy="users")
+     * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
+     */
+    protected $group;
 
 
     /**
@@ -177,7 +187,7 @@ class User extends NamedDBElement implements UserInterface
      */
     public function getIDString(): string
     {
-        return "U" . $this->getID();
+        return 'U' . sprintf('%06d', $this->getID());
     }
 
 
@@ -308,6 +318,17 @@ class User extends NamedDBElement implements UserInterface
     public function setTheme(string $theme): User
     {
         $this->theme = $theme;
+        return $this;
+    }
+
+    public function getGroup(): ?Group
+    {
+        return $this->group;
+    }
+
+    public function setGroup(?Group $group): self
+    {
+        $this->group = $group;
         return $this;
     }
 
