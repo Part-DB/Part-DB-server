@@ -34,6 +34,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This entity represents a user, which can log in and have permissions.
@@ -53,6 +54,7 @@ class User extends NamedDBElement implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank
      */
     protected $name;
 
@@ -62,51 +64,52 @@ class User extends NamedDBElement implements UserInterface
     //protected $roles = [];
 
     /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @var string|null The hashed password
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $password;
 
     /**
-     * @var string The first name of the User
-     * @ORM\Column(type="string", length=255)
+     * @var string|null The first name of the User
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $first_name = "";
 
     /**
-     * @var string The last name of the User
-     * @ORM\Column(type="string", length=255)
+     * @var string|null The last name of the User
+     * @ORM\Column(type="string", length=255,  nullable=true)
      */
     protected $last_name = "";
 
     /**
-     * @var string The department the user is working
-     * @ORM\Column(type="string", length=255)
+     * @var string|null The department the user is working
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $department = "";
 
 
     /**
-     * @var string The email address of the user
-     * @ORM\Column(type="string", length=255)
+     * @var string|null The email address of the user
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Email()
      */
     protected $email = "";
 
     /**
-     * @var string The language/locale the user prefers
-     * @ORM\Column(type="string", name="config_language")
+     * @var string|null The language/locale the user prefers
+     * @ORM\Column(type="string", name="config_language", nullable=true)
      */
     protected $language = "";
 
     /**
-     * @var string The timezone the user prefers
-     * @ORM\Column(type="string", name="config_timezone")
+     * @var string|null The timezone the user prefers
+     * @ORM\Column(type="string", name="config_timezone", nullable=true)
      */
     protected $timezone = "";
 
     /**
-     * @var string The theme
-     * @ORM\Column(type="string", name="config_theme")
+     * @var string|null The theme
+     * @ORM\Column(type="string", name="config_theme", nullable=true)
      */
     protected $theme = "";
 
@@ -198,7 +201,7 @@ class User extends NamedDBElement implements UserInterface
     /**
      * @return string
      */
-    public function getFirstName(): string
+    public function getFirstName(): ?string
     {
         return $this->first_name;
     }
@@ -207,7 +210,7 @@ class User extends NamedDBElement implements UserInterface
      * @param string $first_name
      * @return User
      */
-    public function setFirstName(string $first_name): User
+    public function setFirstName(?string $first_name): User
     {
         $this->first_name = $first_name;
         return $this;
@@ -216,7 +219,7 @@ class User extends NamedDBElement implements UserInterface
     /**
      * @return string
      */
-    public function getLastName(): string
+    public function getLastName(): ?string
     {
         return $this->last_name;
     }
@@ -225,7 +228,7 @@ class User extends NamedDBElement implements UserInterface
      * @param string $last_name
      * @return User
      */
-    public function setLastName(string $last_name): User
+    public function setLastName(?string $last_name): User
     {
         $this->last_name = $last_name;
         return $this;
@@ -234,7 +237,7 @@ class User extends NamedDBElement implements UserInterface
     /**
      * @return string
      */
-    public function getDepartment(): string
+    public function getDepartment(): ?string
     {
         return $this->department;
     }
@@ -243,7 +246,7 @@ class User extends NamedDBElement implements UserInterface
      * @param string $department
      * @return User
      */
-    public function setDepartment(string $department): User
+    public function setDepartment(?string $department): User
     {
         $this->department = $department;
         return $this;
@@ -252,7 +255,7 @@ class User extends NamedDBElement implements UserInterface
     /**
      * @return string
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -261,7 +264,7 @@ class User extends NamedDBElement implements UserInterface
      * @param string $email
      * @return User
      */
-    public function setEmail(string $email): User
+    public function setEmail(?string $email): User
     {
         $this->email = $email;
         return $this;
@@ -270,7 +273,7 @@ class User extends NamedDBElement implements UserInterface
     /**
      * @return string
      */
-    public function getLanguage(): string
+    public function getLanguage(): ?string
     {
         return $this->language;
     }
@@ -279,7 +282,7 @@ class User extends NamedDBElement implements UserInterface
      * @param string $language
      * @return User
      */
-    public function setLanguage(string $language): User
+    public function setLanguage(?string $language): User
     {
         $this->language = $language;
         return $this;
@@ -288,7 +291,7 @@ class User extends NamedDBElement implements UserInterface
     /**
      * @return string
      */
-    public function getTimezone(): string
+    public function getTimezone(): ?string
     {
         return $this->timezone;
     }
@@ -297,7 +300,7 @@ class User extends NamedDBElement implements UserInterface
      * @param string $timezone
      * @return User
      */
-    public function setTimezone(string $timezone): User
+    public function setTimezone(?string $timezone): User
     {
         $this->timezone = $timezone;
         return $this;
@@ -306,7 +309,7 @@ class User extends NamedDBElement implements UserInterface
     /**
      * @return string
      */
-    public function getTheme(): string
+    public function getTheme(): ?string
     {
         return $this->theme;
     }
@@ -315,7 +318,7 @@ class User extends NamedDBElement implements UserInterface
      * @param string $theme
      * @return User
      */
-    public function setTheme(string $theme): User
+    public function setTheme(?string $theme): User
     {
         $this->theme = $theme;
         return $this;

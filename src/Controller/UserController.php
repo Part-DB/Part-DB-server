@@ -33,8 +33,11 @@ namespace App\Controller;
 
 
 use App\Entity\User;
+use App\Form\UserSettingsType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\Packages;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
@@ -63,6 +66,32 @@ class UserController extends AbstractController
                 'user' => $user,
                 'avatar' => $avatar
             ]);
+    }
+
+    /**
+     * @Route("/user/settings", name="user_settings")
+     */
+    public function userSettings(Request $request, EntityManagerInterface $em)
+    {
+        $user = $this->getUser();
+
+        //When user change its settings, he should be logged  in fully.
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+
+        $form = $this->createForm(UserSettingsType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash('success', 'user.settings.saved_flash');
+        }
+
+        return $this->render('Users/user_settings.html.twig', [
+            "settings_form" => $form->createView()
+        ]);
     }
 
 
