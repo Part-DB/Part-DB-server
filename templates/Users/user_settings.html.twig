@@ -38,3 +38,19 @@
 
     {{ form_end(settings_form) }}
 {% endblock %}
+
+{% block content %}
+    {{ parent() }}
+
+    <div class="card mt-4">
+        <div class="card-header">
+            <i class="fa fa-key fa-fw" aria-hidden="true"></i>
+            {% trans %}user.settings.change_pw{% endtrans %}
+        </div>
+        <div class="card-body">
+            {{ form_start(pw_form) }}
+            {{ form_widget(pw_form) }}
+            {{ form_end(pw_form) }}
+        </div>
+    </div>
+{% endblock %}

@@ -153,12 +153,18 @@ class User extends NamedDBElement implements UserInterface
 
     /**
      * @see UserInterface
+     * Gets the password hash for this entity.
      */
     public function getPassword(): string
     {
         return (string) $this->password;
     }
 
+    /**
+     * Sets the password hash for this user.
+     * @param string $password
+     * @return User
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;

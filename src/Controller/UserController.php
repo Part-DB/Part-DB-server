@@ -37,8 +37,14 @@ use App\Form\UserSettingsType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\Packages;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
+use Symfony\Component\Validator\Constraints\Length;
 
 class UserController extends AbstractController
 {
@@ -71,13 +77,19 @@ class UserController extends AbstractController
     /**
      * @Route("/user/settings", name="user_settings")
      */
-    public function userSettings(Request $request, EntityManagerInterface $em)
+    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
     {
+        /**
+         * @var User
+         */
         $user = $this->getUser();
 
         //When user change its settings, he should be logged  in fully.
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
+        /***************************
+         * User settings form
+         ***************************/
 
         $form = $this->createForm(UserSettingsType::class, $user);
 
@@ -89,8 +101,45 @@ class UserController extends AbstractController
             $this->addFlash('success', 'user.settings.saved_flash');
         }
 
+        /*****************************
+         * Password change form
+         ****************************/
+
+        $pw_form = $this->createFormBuilder()
+            ->add('old_password', PasswordType::class, [
+                'label' => 'user.settings.pw_old.label',
+                'constraints'=> [new UserPassword()]]) //This constraint checks, if the current user pw was inputted.
+            ->add('new_password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'first_options' => ['label'=> 'user.settings.pw_new.label'],
+                'second_options' => ['label'=> 'user.settings.pw_confirm.label'],
+                'invalid_message' => 'password_must_match',
+                'constraints' => [new Length([
+                    'min' => 6,
+                    'max' => 128
+                ])]
+            ])
+            ->add('submit', SubmitType::class)
+            ->getForm();
+
+        $pw_form->handleRequest($request);
+
+        //Check if password if everything was correct, then save it to User and DB
+        if($pw_form->isSubmitted() && $pw_form->isValid()) {
+            $password = $passwordEncoder->encodePassword($user, $pw_form['new_password']->getData());
+            $user->setPassword($password);
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash('success', 'user.settings.pw_changed_flash');
+        }
+
+        /******************************
+         * Output both forms
+         *****************************/
+
         return $this->render('Users/user_settings.html.twig', [
-            "settings_form" => $form->createView()
+            "settings_form" => $form->createView(),
+            'pw_form' => $pw_form->createView()
         ]);
     }
 
