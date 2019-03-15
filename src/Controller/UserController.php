@@ -119,7 +119,7 @@ class UserController extends AbstractController
                     'max' => 128
                 ])]
             ])
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, ['label' => 'save'])
             ->getForm();
 
         $pw_form->handleRequest($request);

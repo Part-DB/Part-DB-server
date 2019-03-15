@@ -559,5 +559,83 @@
         <target>Gruppe:</target>
       </segment>
     </unit>
+    <unit id="zqcVMWA" name="user_settings.data.label">
+      <segment>
+        <source>user_settings.data.label</source>
+        <target>Personal data</target>
+      </segment>
+    </unit>
+    <unit id="Dh.DwVa" name="user_settings.configuration.label">
+      <segment>
+        <source>user_settings.configuration.label</source>
+        <target>Configuration</target>
+      </segment>
+    </unit>
+    <unit id="lx12TjD" name="user_settings.language.placeholder">
+      <segment>
+        <source>user_settings.language.placeholder</source>
+        <target>Serverwide language</target>
+      </segment>
+    </unit>
+    <unit id="Lq0fGXJ" name="user.timezone.label">
+      <segment>
+        <source>user.timezone.label</source>
+        <target>Timezone</target>
+      </segment>
+    </unit>
+    <unit id="JROUC8Y" name="user_settings.timezone.placeholder">
+      <segment>
+        <source>user_settings.timezone.placeholder</source>
+        <target>Serverwide Timezone</target>
+      </segment>
+    </unit>
+    <unit id="HhQjrkN" name="user.theme.label">
+      <segment>
+        <source>user.theme.label</source>
+        <target>Theme</target>
+      </segment>
+    </unit>
+    <unit id="Dpfk52." name="user_settings.theme.placeholder">
+      <segment>
+        <source>user_settings.theme.placeholder</source>
+        <target>Serverwide Theme</target>
+      </segment>
+    </unit>
+    <unit id="FX3KkuQ" name="save">
+      <segment>
+        <source>save</source>
+        <target>Apply changes</target>
+      </segment>
+    </unit>
+    <unit id="Ab4wu0o" name="reset">
+      <segment>
+        <source>reset</source>
+        <target>Discard changes</target>
+      </segment>
+    </unit>
+    <unit id="v3ayVni" name="user.settings.change_pw">
+      <segment>
+        <source>user.settings.change_pw</source>
+        <target>Change password</target>
+      </segment>
+    </unit>
+    <unit id="ZrVNh2o" name="user.settings.pw_old.label">
+      <segment>
+        <source>user.settings.pw_old.label</source>
+        <target>Old password</target>
+      </segment>
+    </unit>
+    <unit id="C65DPNY" name="user.settings.pw_new.label">
+      <segment>
+        <source>user.settings.pw_new.label</source>
+        <target>New password</target>
+      </segment>
+    </unit>
+    <unit id="isiBSF3" name="user.settings.pw_confirm.label">
+      <segment>
+        <source>user.settings.pw_confirm.label</source>
+        <target>Confirm password</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
