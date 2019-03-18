@@ -18,5 +18,5 @@ return [
     Omines\DataTablesBundle\DataTablesBundle::class => ['all' => true],
     Shivas\VersioningBundle\ShivasVersioningBundle::class => ['all' => true],
     FOS\CKEditorBundle\FOSCKEditorBundle::class => ['all' => true],
-    Translation\Bundle\TranslationBundle::class => ['all' => true],
+    Translation\Bundle\TranslationBundle::class => ['dev' => true],
 ];
