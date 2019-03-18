@@ -1,0 +1,40 @@
+# In this file the possible permissions are defined.
+# This should be compatible with the legacy Part-DB
+
+perms: # Here comes a list with all Permission names (they have a perm_[name] coloumn in DB)
+
+  parts: # e.g. this maps to perms_parts in User/Group database
+    # label: "perm.parts"
+    operations: # Here are all possible operations are listed => the op name is mapped to bit value
+      read:
+        bit: 0
+      edit:
+        # label: "perm.part.edit"
+        bit: 2
+      create:
+        bit: 4
+      move:
+        bit: 6
+      delete:
+        bit: 8
+      search:
+        bit: 10
+      all_parts:
+        bit: 12
+      no_price_parts:
+        bit: 14
+      obsolete_parts:
+        bit: 16
+      unknown_instock_parts:
+        bit: 18
+      change_favorite:
+        bit: 20
+      show_favorite_parts:
+        bit: 24
+      show_last_edit_parts:
+        bit: 26
+      show_users:
+        bit: 28
+      show_history:
+        bit: 30
+

@@ -31,6 +31,7 @@
 
 namespace App\Entity;
 
+use App\Security\Interfaces\HasPermissionsInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,7 +41,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\Table("groups")
  */
-class Group extends StructuralDBElement
+class Group extends StructuralDBElement implements HasPermissionsInterface
 {
 
     /**
@@ -59,6 +60,11 @@ class Group extends StructuralDBElement
      */
     protected $users;
 
+    /** @var PermissionsEmbed
+     * @ORM\Embedded(class="PermissionsEmbed", columnPrefix="perms_")
+     */
+    protected $permissions;
+
 
     /**
      * Returns the ID as an string, defined by the element class.
@@ -68,5 +74,10 @@ class Group extends StructuralDBElement
     public function getIDString(): string
     {
         return 'G' . sprintf('%06d', $this->getID());
+    }
+
+    public function getPermissions(): PermissionsEmbed
+    {
+        return $this->permissions;
     }
 }

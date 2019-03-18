@@ -32,6 +32,8 @@
 
 namespace App\Entity;
 
+use App\Entity\Embeddables\PermissionEntity;
+use App\Security\Interfaces\HasPermissionsInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -43,7 +45,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table("users")
  */
-class User extends NamedDBElement implements UserInterface
+class User extends NamedDBElement implements UserInterface, HasPermissionsInterface
 {
     /**
      * @ORM\Id()
@@ -115,10 +117,15 @@ class User extends NamedDBElement implements UserInterface
 
     /**
      * @var Group|null The group this user belongs to.
-     * @ORM\ManyToOne(targetEntity="Group", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="Group", inversedBy="users", fetch="EAGER")
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
      */
     protected $group;
+
+    /** @var PermissionsEmbed
+     * @ORM\Embedded(class="PermissionsEmbed", columnPrefix="perms_")
+     */
+    protected $permissions;
 
 
     /**
@@ -199,6 +206,11 @@ class User extends NamedDBElement implements UserInterface
         return 'U' . sprintf('%06d', $this->getID());
     }
 
+
+    public function getPermissions() : PermissionsEmbed
+    {
+        return $this->permissions;
+    }
 
     /************************************************
      * Getters

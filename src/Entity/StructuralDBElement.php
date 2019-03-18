@@ -132,6 +132,15 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     }
 
     /**
+     * Get the parent of this element.
+     * @return StructuralDBElement|null The parent element. Null if this element, does not have a parent.
+     */
+    public function getParent() : ?self
+    {
+        return $this->parent;
+    }
+
+    /**
      *  Get the comment of the element.
      *
      * @param boolean $parse_bbcode Should BBCode converted to HTML, before returning

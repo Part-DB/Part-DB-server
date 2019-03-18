@@ -40,6 +40,7 @@ use App\Services\AttachmentFilenameService;
 use App\Services\EntityURLGenerator;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -54,6 +55,8 @@ class PartController extends AbstractController
      */
     public function show(Part $part, AttachmentFilenameService $attachmentFilenameService)
     {
+        $this->denyAccessUnlessGranted('read', $part);
+
         $filename = $part->getMasterPictureFilename(true);
 
         return $this->render('show_part_info.html.twig',
@@ -72,8 +75,9 @@ class PartController extends AbstractController
      */
     public function edit(Part $part, Request $request, EntityManagerInterface $em)
     {
-        $form = $this->createForm(PartType::class, $part);
+        $this->denyAccessUnlessGranted('edit', $part);
 
+        $form = $this->createForm(PartType::class, $part);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -97,6 +101,8 @@ class PartController extends AbstractController
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator)
     {
         $new_part = new Part();
+
+        $this->denyAccessUnlessGranted('create', $new_part);
 
         $cid = $request->get('cid', 1);
 
