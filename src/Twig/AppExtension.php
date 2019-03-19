@@ -68,6 +68,8 @@ class AppExtension extends AbstractExtension
                 return $this->entityURLGenerator->editURL($entity);
             case 'create':
                 return $this->entityURLGenerator->createURL($entity);
+            case 'clone':
+                return $this->entityURLGenerator->cloneURL($entity);
         }
 
         throw new \InvalidArgumentException('method is not supported!');

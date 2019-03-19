@@ -90,6 +90,16 @@ class EntityURLGenerator
         throw new EntityNotSupported('The given entity is not supported yet!');
     }
 
+    public function cloneURL($entity) : string
+    {
+        if($entity instanceof Part)
+        {
+            return $this->urlGenerator->generate('part_clone', ['id' => $entity->getID()]);
+        }
+
+        throw new EntityNotSupported('The given entity is not supported yet!');
+    }
+
     /**
      * Generates an HTML link to the info page about the given entity.
      * @param $entity mixed The entity for which the info link should be generated.

@@ -56,11 +56,18 @@ abstract class DBElement
         return (int) $this->id;
     }
 
+
     /**
      * Returns the ID as an string, defined by the element class.
      * This should have a form like P000014, for a part with ID 14.
      * @return string The ID as a string;
      */
     abstract public function getIDString() : string;
+
+    public function __clone()
+    {
+        //Set ID to null, so that an new entry is created
+        $this->id = null;
+    }
 
 }

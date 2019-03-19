@@ -68,8 +68,8 @@
                 <ul class="nav nav-tabs" id="partTab" role="tablist">
                     {% if part.comment is not empty %}
                         <li class="nav-item">
-                            <a class="nav-link active" id="attachment-tab" data-toggle="tab"
-                               href="#comment" role="tab" aria-controls="home" aria-selected="true">
+                            <a class="nav-link active" id="comment-tab" data-toggle="tab"
+                               href="#comment" role="tab">
                                 <i class="fas fa-comment-alt fa-fw"></i>
                                 {% trans %}comment.label{% endtrans %}
                             </a>
@@ -77,25 +77,25 @@
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link {% if part.comment is empty%} active{% endif %}" id="attachment-tab" data-toggle="tab"
-                           href="#attachments" role="tab" aria-controls="home" aria-selected="true">
+                           href="#attachments" role="tab">
                             <i class="fas fa-paperclip fa-fw"></i>
                             {% trans %}attachment.labelp{% endtrans %}
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="supplier-tab" data-toggle="tab" href="#suppliers" role="tab" aria-controls="profile" aria-selected="false">
+                        <a class="nav-link" id="supplier-tab" data-toggle="tab" href="#suppliers" role="tab">
                             <i class="fas fa-shopping-cart fa-fw"></i>
                             {% trans %}vendor.partinfo.shopping_infos{% endtrans %}
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="contact" aria-selected="false">
+                        <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab">
                             <i class="fas fa-history"></i>
                             {% trans %}vendor.partinfo.history{% endtrans %}
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="tools-tab" data-toggle="tab" href="#tools" role="tab" aria-controls="contact" aria-selected="false">
+                        <a class="nav-link" id="tools-tab" data-toggle="tab" href="#tools" role="tab">
                             <i class="fas fa-tools"></i>
                             {% trans %}tools.label{% endtrans %}
                         </a>
@@ -119,12 +119,33 @@
                         TODO
                     </div>
                     <div class="tab-pane fade" id="tools" role="tabpanel" aria-labelledby="contact-tab">
-                        <form class="mt-3">
-                            <div class="form-group">
-                                <label>{% trans %}part.delete.caption{% endtrans %}:</label>
-                                <button class="btn btn-danger">{% trans %}part.delete.btn{% endtrans %}</button>
+                        {% if is_granted('edit', part) %}
+                            <a href="{{ part|entityURL('edit') }}" class="btn btn-primary mt-3">
+                                <i class="fas fa-fw fa-edit"></i>
+                                {% trans %}part.edit.btn{% endtrans %}
+                            </a>
+                        {% endif %}
+
+
+                        {% if is_granted('create', part) %}
+                        <br>
+                        <div class="btn-group mt-2">
+                            <a class="btn btn-primary" href="{{ part|entityURL('clone') }}">
+                                <i class="fas fa-clone"></i>
+                                {% trans %}part.clone.btn{% endtrans %}
+                            </a>
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <div class="dropdown-menu" role="menu">
+                                <a class="dropdown-item" href="{{ part|entityURL('create') }}">
+                                    <i class="fas fa-plus-square"></i>
+                                    {% trans %}part.create.btn{% endtrans %}
+                                </a>
                             </div>
-                        </form>
+                        </div>
+                        {% endif %}
+
                     </div>
                 </div>
             </div>

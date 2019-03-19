@@ -121,7 +121,38 @@ class PartController extends AbstractController
         }
 
 
-        return $this->render('new_part.html.twig',
+        return $this->render('Parts/new_part.html.twig',
+            [
+                "part" => $new_part,
+                "form" => $form->createView()
+            ]);
+    }
+
+    /**
+     * @Route("/part/{id}/clone", name="part_clone")
+     *
+     */
+    public function clone(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator)
+    {
+
+        /** @var Part $new_part */
+        $new_part = clone($part);
+
+        $this->denyAccessUnlessGranted('create', $new_part);
+
+        $form = $this->createForm(PartType::class, $new_part);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($new_part);
+            $em->flush();
+            $this->addFlash('success', $translator->trans('part.created_flash'));
+            return $this->redirectToRoute('part_edit',['id' => $new_part->getID()]);
+        }
+
+
+        return $this->render('Parts/new_part.html.twig',
             [
                 "part" => $new_part,
                 "form" => $form->createView()
