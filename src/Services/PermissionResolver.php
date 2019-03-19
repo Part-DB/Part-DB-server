@@ -35,8 +35,6 @@ namespace App\Services;
 use App\Configuration\PermissionsConfiguration;
 use App\Entity\User;
 use App\Security\Interfaces\HasPermissionsInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Yaml\Yaml;
@@ -70,6 +68,8 @@ class PermissionResolver
         );
 
         $this->permission_structure = $processedConfiguration;
+
+        //dump($this->permission_structure);
     }
 
 
@@ -161,6 +161,19 @@ class PermissionResolver
     public function isValidPermission(string $permission) : bool
     {
         return isset($this->permission_structure['perms'][$permission]);
+    }
+
+    /**
+     * Checks if the permission operation combination with the given names is existing.
+     *
+     * @param string $permission The name of the permission which should be checked.
+     * @param string $operation The name of the operation which should be checked.
+     * @return bool True if the given permission operation combination is existing.
+     */
+    public function isValidOperation(string $permission, string $operation) : bool
+    {
+        return $this->isValidPermission($permission) &&
+            isset($this->permission_structure['perms'][$permission]['operations'][$operation]);
     }
 
 

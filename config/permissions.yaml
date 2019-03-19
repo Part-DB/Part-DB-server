@@ -153,9 +153,9 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 4
       delete:
         bit: 8
-      editUsername:
+      edit_username:
         bit: 2
-      changeGroup:
+      change_group:
         bit: 6
       edit_infos:
         bit: 10

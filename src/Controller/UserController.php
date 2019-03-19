@@ -55,10 +55,12 @@ class UserController extends AbstractController
      */
     public function userInfo(?User $user, Packages $packages)
     {
-
         //If no user id was passed, then we show info about the current user
         if($user == null) {
             $user = $this->getUser();
+        } else {
+            //Else we must check, if the current user is allowed to access $user
+            $this->denyAccessUnlessGranted('read', $user);
         }
 
         if($this->getParameter("use_gravatar")) {
