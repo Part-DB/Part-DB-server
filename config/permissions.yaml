@@ -3,6 +3,8 @@
 
 perms: # Here comes a list with all Permission names (they have a perm_[name] coloumn in DB)
 
+# Part related permissions
+
   parts: # e.g. this maps to perms_parts in User/Group database
     # label: "perm.parts"
     operations: # Here are all possible operations are listed => the op name is mapped to bit value
@@ -37,4 +39,194 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 28
       show_history:
         bit: 30
+
+  parts_name: &PART_ATTRIBUTE # We define a template here, that we can use for all part attributes.
+    operations:
+      read:
+        bit: 0
+      edit:
+        bit: 2
+
+  parts_description:
+    *PART_ATTRIBUTE
+
+  parts_instock:
+    *PART_ATTRIBUTE
+
+  parts_mininstock:
+    *PART_ATTRIBUTE
+
+  parts_footprint:
+    *PART_ATTRIBUTE
+
+  parts_comment:
+    *PART_ATTRIBUTE
+
+  parts_storelocation:
+    *PART_ATTRIBUTE
+
+  parts_manufacturer:
+    *PART_ATTRIBUTE
+
+  parts_orderdetails:
+    *PART_ATTRIBUTE
+
+  parts_prices:
+    *PART_ATTRIBUTE
+
+  parts_attachments:
+    *PART_ATTRIBUTE
+
+  parts_order:
+    *PART_ATTRIBUTE
+
+  storelocations: &PART_CONTAINING
+    operations:
+      read:
+        bit: 0
+      edit:
+        bit: 2
+      create:
+        bit: 4
+      move:
+        bit: 6
+      delete:
+        bit: 8
+      list_parts:
+        bit: 10
+      show_users:
+        bit: 12
+
+  footprints:
+    *PART_CONTAINING
+
+  categories:
+    *PART_CONTAINING
+
+  suppliers:
+    *PART_CONTAINING
+
+  manufacturers:
+    *PART_CONTAINING
+
+  devices:
+    *PART_CONTAINING
+
+  attachment_types:
+    *PART_CONTAINING
+
+  tools:
+    operations:
+      import:
+        bit: 0
+      labels:
+        bit: 2
+      calculator:
+        bit: 4
+      footprints:
+        bit: 6
+      ic_logos:
+        bit: 8
+      statistics:
+        bit: 10
+
+  groups:
+    operations:
+      read:
+        bit: 0
+      edit:
+        bit: 2
+      create:
+        bit: 4
+      move:
+        bit: 6
+      delete:
+        bit: 8
+      edit_permissions:
+        bit: 10
+
+  users:
+    operations:
+      read:
+        bit: 0
+      create:
+        bit: 4
+      delete:
+        bit: 8
+      editUsername:
+        bit: 2
+      changeGroup:
+        bit: 6
+      edit_infos:
+        bit: 10
+      edit_permissions:
+        bit: 12
+      set_password:
+        bit: 14
+      change_user_settings:
+        bit: 16
+
+  database:
+    operations:
+      see_status:
+        bit: 0
+      update_db:
+        bit: 2
+      read_db_settings:
+        bit: 4
+      write_db_settings:
+        bit: 2
+
+  config:
+    operations:
+      read_config:
+        bit: 0
+      edit_config:
+        bit: 2
+      server_info:
+        bit: 6
+
+  system:
+    operations:
+      use_debug:
+        bit: 0
+      show_logs:
+        bit: 2
+      delete_logs:
+        bit: 4
+
+  device_parts:
+    operations:
+      read:
+        bit: 0
+      edit:
+        bit: 2
+      create:
+        bit: 6
+      delete:
+        bit: 8
+
+  self:
+    operations:
+      edit_infos:
+        bit: 0
+      edit_username:
+        bit: 2
+      show_permissions:
+        bit: 4
+      show_logs:
+        bit: 6
+
+  labels:
+    operations:
+      create_labels:
+        bit: 0
+      edit_options:
+        bit: 2
+      delete_profiles:
+        bit: 4
+      edit_profiles:
+        bit: 6
+
+
 
