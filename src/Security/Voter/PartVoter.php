@@ -31,7 +31,15 @@ class PartVoter extends ExtendedVoter
 
         if ($subject instanceof Part)
         {
-           return in_array($attribute, $this->resolver->listOperationsForPermission('parts'), false);
+
+            //Check if a sub permission should be checked -> $attribute has format name.edit
+            if(strpos($attribute, '.') !== false) {
+                [$perm, $op] = explode('.', $attribute);
+                return in_array($op, $this->resolver->listOperationsForPermission('parts_'.$perm), false);
+            }
+
+
+            return in_array($attribute, $this->resolver->listOperationsForPermission('parts'), false);
         }
 
         return false;
@@ -41,6 +49,13 @@ class PartVoter extends ExtendedVoter
     protected function voteOnUser($attribute, $subject, User $user): bool
     {
         if($subject instanceof Part) {
+
+            //Check for sub permissions
+            if(strpos($attribute, '.') !== false) {
+                [$perm, $op] = explode('.', $attribute);
+                return $this->resolver->inherit($user, 'parts_'. $perm, $op) ?? false;
+            }
+
             //Null concealing operator means, that no
             return $this->resolver->inherit($user, 'parts', $attribute) ?? false;
         }

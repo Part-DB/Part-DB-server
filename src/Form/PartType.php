@@ -47,30 +47,50 @@ use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class PartType extends AbstractType
 {
+    protected $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $part = $options['data'];
+
         $builder
             ->add('name', TextType::class, ['empty_data'=>'', 'label'=> 'name.label',
-                'attr' => ['placeholder' => 'part.name.placeholder']])
+                'attr' => ['placeholder' => 'part.name.placeholder'],
+                    'disabled' => !$this->security->isGranted('name.edit', $part)])
             ->add('description', TextType::class, ['required'=>false, 'empty_data'=>'',
-                'label'=> 'description.label', 'help' => 'bbcode.hint', 'attr' => ['placeholder' => 'part.description.placeholder']])
+                'label'=> 'description.label', 'help' => 'bbcode.hint', 'attr' => ['placeholder' => 'part.description.placeholder'],
+                'disabled' => !$this->security->isGranted('description.edit', $part)])
             ->add('instock', IntegerType::class,
-                ['attr' => ['min'=>0, 'placeholder' => 'part.instock.placeholder'], 'label'=> 'instock.label'])
+                ['attr' => ['min'=>0, 'placeholder' => 'part.instock.placeholder'], 'label'=> 'instock.label',
+                'disabled' => !$this->security->isGranted('instock.edit', $part)])
             ->add('mininstock', IntegerType::class,
-                ['attr' => ['min'=>0, 'placeholder' => 'part.mininstock.placeholder'], 'label'=> 'mininstock.label'])
+                ['attr' => ['min'=>0, 'placeholder' => 'part.mininstock.placeholder'], 'label'=> 'mininstock.label',
+                    'disabled' => !$this->security->isGranted('mininstock.edit', $part)])
             ->add('category', EntityType::class, ['class' => Category::class, 'choice_label' => 'full_path',
-                'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'label'=> 'category.label'])
+                'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'label'=> 'category.label',
+                'disabled' => !$this->security->isGranted('move', $part)])
             ->add('storelocation', EntityType::class, ['class' => Storelocation::class, 'choice_label' => 'full_path',
-                'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'required' => false, 'label'=> 'storelocation.label'])
+                'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'required' => false, 'label'=> 'storelocation.label',
+                'disabled' => !$this->security->isGranted('storelocation.edit', $part)])
             ->add('manufacturer', EntityType::class, ['class' => Manufacturer::class, 'choice_label' => 'full_path',
-                'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'required' => false, 'label'=> 'manufacturer.label'])
+                'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'required' => false, 'label'=> 'manufacturer.label',
+                'disabled' => !$this->security->isGranted('manufacturer.edit', $part)])
             ->add('manufacturer_product_url', UrlType::class, ['required'=>false, 'empty_data' => '',
-                'label'=> 'manufacturer_url.label'])
+                'label'=> 'manufacturer_url.label',
+                'disabled' => !$this->security->isGranted('manufacturer.edit', $part)])
             ->add('comment', CKEditorType::class, ['required'=>false,
-                'label'=> 'comment.label', 'attr' => ['rows'=> 4], 'help' => 'bbcode.hint'])
+                'label'=> 'comment.label', 'attr' => ['rows'=> 4], 'help' => 'bbcode.hint',
+                'disabled' => !$this->security->isGranted('comment.edit', $part)])
 
             //Buttons
             ->add('save', SubmitType::class, ['label' => 'part.edit.save'])
