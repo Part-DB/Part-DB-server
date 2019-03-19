@@ -18,16 +18,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @package App\Security\Voter
  */
-class PartVoter extends Voter
+class PartVoter extends ExtendedVoter
 {
     const READ = "read";
 
-    protected $resolver;
-
-    public function __construct(PermissionResolver $resolver)
-    {
-        $this->resolver = $resolver;
-    }
 
     protected function supports($attribute, $subject)
     {
@@ -43,14 +37,9 @@ class PartVoter extends Voter
         return false;
     }
 
-    protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
-    {
-        $user = $token->getUser();
-        // if the user is anonymous, do not grant access
-        if (!$user instanceof User) {
-            return false;
-        }
 
+    protected function voteOnUser($attribute, $subject, User $user): bool
+    {
         if($subject instanceof Part) {
             //Null concealing operator means, that no
             return $this->resolver->inherit($user, 'parts', $attribute) ?? false;

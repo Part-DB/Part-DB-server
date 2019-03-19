@@ -47,6 +47,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User extends NamedDBElement implements UserInterface, HasPermissionsInterface
 {
+    /** The User id of the anonymous user */
+    const ID_ANONYMOUS      = 1;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -127,6 +130,15 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
      */
     protected $permissions;
 
+
+    /**
+     * Checks if the current user, is the user which represents the not logged in (anonymous) users.
+     * @return bool True if this user is the anonymous user.
+     */
+    public function isAnonymousUser() : bool
+    {
+        return $this->id === static::ID_ANONYMOUS && $this->name === 'anonymous';
+    }
 
     /**
      * A visual identifier that represents this user.
@@ -215,6 +227,16 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
     /************************************************
      * Getters
      ************************************************/
+
+    public function setName(string $new_name) : NamedDBElement
+    {
+        // Anonymous user is not allowed to change its username
+        if(!$this->isAnonymousUser()) {
+            $this->name = $new_name;
+        }
+
+        return $this;
+    }
 
     /**
      * @return string
