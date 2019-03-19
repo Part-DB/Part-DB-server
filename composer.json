@@ -7,6 +7,7 @@
         "ext-iconv": "*",
         "friendsofsymfony/ckeditor-bundle": "^2.0",
         "omines/datatables-bundle": "^0.2.2",
+        "php-translation/symfony-bundle": "^0.8.1",
         "s9e/text-formatter": "^1.4",
         "sensio/framework-extra-bundle": "^5.1",
         "shivas/versioning-bundle": "^3.1",
@@ -33,7 +34,6 @@
         "webmozart/assert": "^1.4"
     },
     "require-dev": {
-        "php-translation/symfony-bundle": "^0.8.1",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
