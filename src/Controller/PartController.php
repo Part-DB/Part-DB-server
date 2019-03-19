@@ -59,7 +59,7 @@ class PartController extends AbstractController
 
         $filename = $part->getMasterPictureFilename(true);
 
-        return $this->render('show_part_info.html.twig',
+        return $this->render('Parts/show_part_info.html.twig',
             [
                 "part" => $part,
                 "main_image" => $attachmentFilenameService->attachmentPathToAbsolutePath($filename)
@@ -86,7 +86,7 @@ class PartController extends AbstractController
             $this->addFlash('info', 'part.edited_flash');
         }
 
-        return $this->render('edit_part_info.html.twig',
+        return $this->render('Parts/edit_part_info.html.twig',
             [
                 "part" => $part,
                 "form" => $form->createView(),
