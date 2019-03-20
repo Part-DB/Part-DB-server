@@ -104,8 +104,12 @@
                             {% endif %}
                             <li role="separator" class="dropdown-divider"></li>
                             <a class="dropdown-item disabled" href="#">{% trans %}user.language_select{% endtrans %}</a>
-                            <a class="dropdown-item" href="{{ path('homepage.en') }}">{% trans %}language.english{% endtrans %}</a>
-                            <a class="dropdown-item" href="{{ path('homepage.de') }}">{% trans %}language.german{% endtrans %}</a>
+                            <a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'),
+                                   app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}">
+                                {% trans %}language.english{% endtrans %}</a>
+                            <a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'),
+                                app.request.attributes.get('_route_params')|merge({'_locale': 'de'})) }}">
+                                {% trans %}language.german{% endtrans %}</a>
                         </ul>
                     </li>
                 </ul>
