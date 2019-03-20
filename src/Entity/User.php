@@ -75,6 +75,12 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
     protected $password;
 
     /**
+     * @var bool True if the user needs to change password after log in
+     * @ORM\Column(type="boolean")
+     */
+    protected $need_pw_change;
+
+    /**
      * @var string|null The first name of the User
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -227,6 +233,23 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
     /************************************************
      * Getters
      ************************************************/
+
+    /**
+     * Returns the full name in the format FIRSTNAME LASTNAME [(USERNAME)].
+     * Example: Max Muster (m.muster)
+     * @param bool $including_username Include the username in the full name.
+     * @return string A string with the full name of this user.
+     */
+    public function getFullName(bool $including_username = false)
+    {
+        $str = $this->getFirstName() . ' ' . $this->getLastName();
+        if ($including_username) {
+            $str .= ' (' . $this->getName() . ')';
+        }
+
+        return $str;
+    }
+
 
     public function setName(string $new_name) : NamedDBElement
     {
