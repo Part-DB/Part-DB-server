@@ -68,7 +68,7 @@ class ColumnSecurity
 
     /**
      * @var string The name of the property. This is used to determine the default placeholder.
-     * @Annotation\Enum({"integer", "string", "object"})
+     * @Annotation\Enum({"integer", "string", "object", "boolean", "datetime"})
      */
     public $type = 'string';
 
@@ -101,6 +101,11 @@ class ColumnSecurity
                     return '???';
                 case 'object':
                     return null;
+                case 'boolean':
+                    return false;
+                case 'datetime':
+                    $date = new \DateTime();
+                    return $date->setTimestamp(0);
             }
         }
 

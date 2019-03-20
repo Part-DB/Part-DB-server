@@ -62,6 +62,8 @@ class Part extends AttachmentContainingDBElement
      * @var Footprint|null
      * @ORM\ManyToOne(targetEntity="Footprint", inversedBy="parts")
      * @ORM\JoinColumn(name="id_footprint", referencedColumnName="id")
+     *
+     * @ColumnSecurity(prefix="footprint", type="object")
      */
     protected $footprint;
 
@@ -69,6 +71,8 @@ class Part extends AttachmentContainingDBElement
      * @var Storelocation|null
      * @ORM\ManyToOne(targetEntity="Storelocation", inversedBy="parts")
      * @ORM\JoinColumn(name="id_storelocation", referencedColumnName="id")
+     *
+     * @ColumnSecurity(prefix="storelocation", type="object")
      */
     protected $storelocation;
 
@@ -76,6 +80,8 @@ class Part extends AttachmentContainingDBElement
      * @var Manufacturer|null
      * @ORM\ManyToOne(targetEntity="Manufacturer", inversedBy="parts")
      * @ORM\JoinColumn(name="id_manufacturer", referencedColumnName="id")
+     *
+     * @ColumnSecurity(prefix="manufacturer", type="object")
      */
     protected $manufacturer;
 
@@ -83,12 +89,16 @@ class Part extends AttachmentContainingDBElement
      * @var Attachment
      * @ORM\ManyToOne(targetEntity="Attachment")
      * @ORM\JoinColumn(name="id_master_picture_attachement", referencedColumnName="id")
+     *
+     * @ColumnSecurity(prefix="attachments", type="object")
      */
     protected $master_picture_attachment;
 
     /**
      * @var
      * @ORM\OneToMany(targetEntity="Orderdetail", mappedBy="part")
+     *
+     * @ColumnSecurity(prefix="orderdetails", type="object")
      */
     protected $orderdetails;
 
@@ -96,11 +106,26 @@ class Part extends AttachmentContainingDBElement
      * @var Orderdetail
      * @ORM\OneToOne(targetEntity="Orderdetail")
      * @ORM\JoinColumn(name="order_orderdetails_id", referencedColumnName="id")
+     *
+     * @ColumnSecurity(prefix="order", type="object")
      */
     protected $order_orderdetail;
 
     //TODO
     protected $devices;
+
+    /**
+     *  @ColumnSecurity(type="datetime")
+     *  @ORM\Column(type="datetimetz", name="datetime_added")
+     */
+    protected $addedDate;
+
+    /**
+     * @var \DateTime The date when this element was modified the last time.
+     * @ORM\Column(type="datetimetz", name="last_modified")
+     * @ColumnSecurity(type="datetime")
+     */
+    protected $lastModified;
 
 
     /**********************
@@ -157,24 +182,28 @@ class Part extends AttachmentContainingDBElement
     /**
      * @var bool
      * @ORM\Column(type="boolean")
+     * @ColumnSecurity(type="boolean")
      */
     protected $favorite = false;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
+     * @ColumnSecurity(prefix="order", type="integer")
      */
     protected $order_quantity = 0;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
+     * @ColumnSecurity(prefix="order", type="boolean")
      */
     protected $manual_order = false;
 
     /**
      * @var string
      * @ORM\Column(type="string")
+     *@ColumnSecurity(prefix="manufacturer", type="string", placeholder="")
      */
     protected $manufacturer_product_url = "";
 
