@@ -1,9 +1,8 @@
 <?php
 /**
- *
  * part-db version 0.1
  * Copyright (C) 2005 Christoph Lechner
- * http://www.cl-projects.de/
+ * http://www.cl-projects.de/.
  *
  * part-db version 0.2+
  * Copyright (C) 2009 K. Jacobs and others (see authors.php)
@@ -26,11 +25,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Controller;
-
 
 use App\Entity\User;
 use App\Form\UserSettingsType;
@@ -48,7 +45,6 @@ use Symfony\Component\Validator\Constraints\Length;
 
 class UserController extends AbstractController
 {
-
     /**
      * @Route("/user/info", name="user_info_self")
      * @Route("/user/{id}/info")
@@ -56,23 +52,22 @@ class UserController extends AbstractController
     public function userInfo(?User $user, Packages $packages)
     {
         //If no user id was passed, then we show info about the current user
-        if($user === null) {
+        if (null === $user) {
             $user = $this->getUser();
         } else {
             //Else we must check, if the current user is allowed to access $user
             $this->denyAccessUnlessGranted('read', $user);
         }
 
-        if($this->getParameter('use_gravatar')) {
+        if ($this->getParameter('use_gravatar')) {
             $avatar = $this->getGravatar($user->getEmail(), 200, 'identicon');
         } else {
             $avatar = $packages->getUrl('/img/default_avatar.png');
         }
 
-
         return $this->render('Users/user_info.html.twig', [
                 'user' => $user,
-                'avatar' => $avatar
+                'avatar' => $avatar,
             ]);
     }
 
@@ -110,16 +105,16 @@ class UserController extends AbstractController
         $pw_form = $this->createFormBuilder()
             ->add('old_password', PasswordType::class, [
                 'label' => 'user.settings.pw_old.label',
-                'constraints'=> [new UserPassword()]]) //This constraint checks, if the current user pw was inputted.
+                'constraints' => [new UserPassword()], ]) //This constraint checks, if the current user pw was inputted.
             ->add('new_password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options' => ['label'=> 'user.settings.pw_new.label'],
-                'second_options' => ['label'=> 'user.settings.pw_confirm.label'],
+                'first_options' => ['label' => 'user.settings.pw_new.label'],
+                'second_options' => ['label' => 'user.settings.pw_confirm.label'],
                 'invalid_message' => 'password_must_match',
                 'constraints' => [new Length([
                     'min' => 6,
-                    'max' => 128
-                ])]
+                    'max' => 128,
+                ])],
             ])
             ->add('submit', SubmitType::class, ['label' => 'save'])
             ->getForm();
@@ -127,7 +122,7 @@ class UserController extends AbstractController
         $pw_form->handleRequest($request);
 
         //Check if password if everything was correct, then save it to User and DB
-        if($pw_form->isSubmitted() && $pw_form->isValid()) {
+        if ($pw_form->isSubmitted() && $pw_form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $pw_form['new_password']->getData());
             $user->setPassword($password);
             $em->persist($user);
@@ -141,21 +136,21 @@ class UserController extends AbstractController
 
         return $this->render('Users/user_settings.html.twig', [
             'settings_form' => $form->createView(),
-            'pw_form' => $pw_form->createView()
+            'pw_form' => $pw_form->createView(),
         ]);
     }
-
 
     /**
      * Get either a Gravatar URL or complete image tag for a specified email address.
      *
      * @param string $email The email address
-     * @param string $s Size in pixels, defaults to 80px [ 1 - 2048 ]
-     * @param string $d Default imageset to use [ 404 | mm | identicon | monsterid | wavatar ]
-     * @param string $r Maximum rating (inclusive) [ g | pg | r | x ]
-     * @param bool $img True to return a complete IMG tag False for just the URL
-     * @param array $atts Optional, additional key/value attributes to include in the IMG tag
-     * @return String containing either just a URL or a complete image tag
+     * @param string $s     Size in pixels, defaults to 80px [ 1 - 2048 ]
+     * @param string $d     Default imageset to use [ 404 | mm | identicon | monsterid | wavatar ]
+     * @param string $r     Maximum rating (inclusive) [ g | pg | r | x ]
+     * @param bool   $img   True to return a complete IMG tag False for just the URL
+     * @param array  $atts  Optional, additional key/value attributes to include in the IMG tag
+     *
+     * @return string containing either just a URL or a complete image tag
      * @source https://gravatar.com/site/implement/images/php/
      */
     public function getGravatar(string $email, int $s = 80, string $d = 'mm', string $r = 'g', bool $img = false, array $atts = array())
@@ -164,13 +159,13 @@ class UserController extends AbstractController
         $url .= md5(strtolower(trim($email)));
         $url .= "?s=$s&d=$d&r=$r";
         if ($img) {
-            $url = '<img src="' . $url . '"';
+            $url = '<img src="'.$url.'"';
             foreach ($atts as $key => $val) {
-                $url .= ' ' . $key . '="' . $val . '"';
+                $url .= ' '.$key.'="'.$val.'"';
             }
             $url .= ' />';
         }
+
         return $url;
     }
-
 }

@@ -7,7 +7,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -24,10 +23,8 @@ class SetPasswordCommand extends Command
         $this->entityManager = $entityManager;
         $this->encoder = $passwordEncoder;
 
-
         parent::__construct();
     }
-
 
     protected function configure()
     {
@@ -44,15 +41,14 @@ class SetPasswordCommand extends Command
         $user_name = $input->getArgument('user');
 
         /**
-         * @var User $user
+         * @var User
          */
         $users = $this->entityManager->getRepository(User::class)->findBy(['name' => $user_name]);
         $user = $users[0];
 
-
-        if($user == null)
-        {
+        if (null == $user) {
             $io->error(sprintf('No user with the given username %s found in the database!', $user_name));
+
             return;
         }
 
@@ -62,18 +58,17 @@ class SetPasswordCommand extends Command
             sprintf('You are going to change the password of %s with ID %d. Proceed?',
                 $user->getFullName(true), $user->getID()));
 
-        if(!$proceed)
-        {
+        if (!$proceed) {
             return;
         }
 
         $success = false;
-        $new_password = "";
+        $new_password = '';
 
-        while(!$success) {
-            $pw1 = $io->askHidden("Please enter new password:");
+        while (!$success) {
+            $pw1 = $io->askHidden('Please enter new password:');
             $pw2 = $io->askHidden('Please confirm:');
-            if($pw1 !== $pw2) {
+            if ($pw1 !== $pw2) {
                 $io->error('The entered password did not match! Please try again.');
             } else {
                 //Exit loop

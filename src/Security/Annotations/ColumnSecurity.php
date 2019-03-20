@@ -1,9 +1,8 @@
 <?php
 /**
- *
  * part-db version 0.1
  * Copyright (C) 2005 Christoph Lechner
- * http://www.cl-projects.de/
+ * http://www.cl-projects.de/.
  *
  * part-db version 0.2+
  * Copyright (C) 2009 K. Jacobs and others (see authors.php)
@@ -26,7 +25,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Security\Annotations;
@@ -40,22 +38,20 @@ use Doctrine\Common\Annotations\Annotation;
  *
  * With these annotation you can restrict the access to certain coloumns in entities.
  * The entity which should use this class has to use ElementListener as EntityListener.
- *
- * @package App\Annotations
  */
 class ColumnSecurity
 {
     /**
      * @var string The name of the edit permission
      */
-    public $edit = "edit";
+    public $edit = 'edit';
     /**
      * @var string The name of the read permission
      */
-    public $read = "read";
+    public $read = 'read';
 
     /**
-     * @var string A prefix for all permission names (e.g. $prefix.edit, useful for Parts)
+     * @var string A prefix for all permission names (e.g..edit, useful for Parts)
      */
     public $prefix = '';
 
@@ -72,18 +68,19 @@ class ColumnSecurity
      */
     public $type = 'string';
 
-    public function getReadOperationName() : string
+    public function getReadOperationName(): string
     {
-        if($this->prefix !== '') {
-            return $this->prefix . '.' . $this->read;
+        if ('' !== $this->prefix) {
+            return $this->prefix.'.'.$this->read;
         }
+
         return $this->read;
     }
 
-    public function getEditOperationName() : string
+    public function getEditOperationName(): string
     {
-        if($this->prefix !== '') {
-            return $this->prefix . '.' . $this->edit;
+        if ('' !== $this->prefix) {
+            return $this->prefix.'.'.$this->edit;
         }
 
         return $this->edit;
@@ -91,10 +88,8 @@ class ColumnSecurity
 
     public function getPlaceholder()
     {
-        if($this->placeholder === null)
-        {
-            switch($this->type)
-            {
+        if (null === $this->placeholder) {
+            switch ($this->type) {
                 case 'integer':
                     return 0;
                 case 'string':
@@ -105,11 +100,11 @@ class ColumnSecurity
                     return false;
                 case 'datetime':
                     $date = new \DateTime();
+
                     return $date->setTimestamp(0);
             }
         }
 
         return $this->placeholder;
     }
-
 }

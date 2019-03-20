@@ -1,9 +1,8 @@
 <?php
 /**
- *
  * part-db version 0.1
  * Copyright (C) 2005 Christoph Lechner
- * http://www.cl-projects.de/
+ * http://www.cl-projects.de/.
  *
  * part-db version 0.2+
  * Copyright (C) 2009 K. Jacobs and others (see authors.php)
@@ -26,18 +25,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Twig;
-
 
 use App\Entity\DBElement;
 use App\Services\EntityURLGenerator;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-
 use s9e\TextFormatter\Bundles\Forum as TextFormatter;
 
 class AppExtension extends AbstractExtension
@@ -53,15 +49,15 @@ class AppExtension extends AbstractExtension
 
     public function getFilters()
     {
-       return [
+        return [
            new TwigFilter('entityURL', [$this, 'generateEntityURL']),
-           new TwigFilter('bbCode', [$this, 'parseBBCode'], ['pre_escape' => 'html', 'is_safe' => ['html']])
+           new TwigFilter('bbCode', [$this, 'parseBBCode'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
        ];
     }
 
-    public function generateEntityURL(DBElement $entity, string $method = 'info') : string
+    public function generateEntityURL(DBElement $entity, string $method = 'info'): string
     {
-        switch($method) {
+        switch ($method) {
             case 'info':
                 return $this->entityURLGenerator->infoURL($entity);
             case 'edit':
@@ -75,12 +71,14 @@ class AppExtension extends AbstractExtension
         throw new \InvalidArgumentException('method is not supported!');
     }
 
-    public function parseBBCode(string $bbcode) : string
+    public function parseBBCode(string $bbcode): string
     {
-        if($bbcode === '') return '';
+        if ('' === $bbcode) {
+            return '';
+        }
 
-        $item = $this->cache->getItem('bbcode_' . md5($bbcode));
-        if(!$item->isHit()) {
+        $item = $this->cache->getItem('bbcode_'.md5($bbcode));
+        if (!$item->isHit()) {
             $xml = TextFormatter::parse($bbcode);
             $item->set(TextFormatter::render($xml));
             $this->cache->save($item);
@@ -88,5 +86,4 @@ class AppExtension extends AbstractExtension
 
         return $item->get();
     }
-
 }

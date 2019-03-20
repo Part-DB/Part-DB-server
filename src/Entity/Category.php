@@ -1,9 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /**
- *
  * Part-DB Version 0.4+ "nextgen"
  * Copyright (C) 2016 - 2019 Jan Böhmer
- * https://github.com/jbtronics
+ * https://github.com/jbtronics.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -18,7 +19,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity;
@@ -26,13 +26,13 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class AttachmentType
+ * Class AttachmentType.
+ *
  * @ORM\Entity
  * @ORM\Table(name="categories")
  */
 class Category extends PartsContainingDBElement
 {
-
     /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
      */
@@ -97,14 +97,14 @@ class Category extends PartsContainingDBElement
      */
     protected $default_comment;
 
-
     /**
      * Returns the ID as an string, defined by the element class.
      * This should have a form like P000014, for a part with ID 14.
+     *
      * @return string The ID as a string;
      */
     public function getIDString(): string
     {
-        return 'C' . sprintf('%09d', $this->getID());
+        return 'C'.sprintf('%09d', $this->getID());
     }
 }

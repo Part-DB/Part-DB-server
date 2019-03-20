@@ -1,9 +1,8 @@
 <?php
 /**
- *
  * part-db version 0.1
  * Copyright (C) 2005 Christoph Lechner
- * http://www.cl-projects.de/
+ * http://www.cl-projects.de/.
  *
  * part-db version 0.2+
  * Copyright (C) 2009 K. Jacobs and others (see authors.php)
@@ -26,11 +25,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\DataTables;
-
 
 use App\Entity\Part;
 use App\Services\EntityURLGenerator;
@@ -40,11 +37,9 @@ use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PartsDataTable implements DataTableTypeInterface
 {
-
     /**
      * @var EntityURLGenerator
      */
@@ -57,32 +52,32 @@ class PartsDataTable implements DataTableTypeInterface
 
     /**
      * @param DataTable $dataTable
-     * @param array $options
+     * @param array     $options
      */
     public function configure(DataTable $dataTable, array $options)
     {
         $dataTable//->add("id", TextColumn::class)
-            ->add("name", TextColumn::class, ['label' => 'name.label',
-            'render' => function($value, Part $context) {
+            ->add('name', TextColumn::class, ['label' => 'name.label',
+            'render' => function ($value, Part $context) {
                 return $this->urlGenerator->infoHTML($context);
-            }])
-            ->add("description", TextColumn::class, ['label' => 'description.label'])
-            ->add("category", TextColumn::class, ['field' => 'category.name', 'label' => 'category.label'])
-            ->add("instock", TextColumn::class, ['label' => 'instock.label_short'])
-            ->add("mininstock", TextColumn::class, ['label' => 'mininstock.label_short'])
-            ->add("storelocation", TextColumn::class, ['field' => 'storelocation.name', 'label' => 'storelocation.label'])
+            }, ])
+            ->add('description', TextColumn::class, ['label' => 'description.label'])
+            ->add('category', TextColumn::class, ['field' => 'category.name', 'label' => 'category.label'])
+            ->add('instock', TextColumn::class, ['label' => 'instock.label_short'])
+            ->add('mininstock', TextColumn::class, ['label' => 'mininstock.label_short'])
+            ->add('storelocation', TextColumn::class, ['field' => 'storelocation.name', 'label' => 'storelocation.label'])
             ->addOrderBy('name')
             ->createAdapter(ORMAdapter::class, [
                 'entity' => Part::class,
                 'criteria' => [
-                function (QueryBuilder $builder) use($options) {
-                    if(isset($options['cid'])) {
+                function (QueryBuilder $builder) use ($options) {
+                    if (isset($options['cid'])) {
                         $builder->andWhere('part.category = :cid')
                             ->setParameter('cid', $options['cid']);
                     }
                 },
-                    new SearchCriteriaProvider()
-                ]
+                    new SearchCriteriaProvider(),
+                ],
             ]);
     }
 }

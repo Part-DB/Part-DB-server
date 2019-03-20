@@ -1,10 +1,9 @@
 <?php
 
 /**
- *
  * part-db version 0.1
  * Copyright (C) 2005 Christoph Lechner
- * http://www.cl-projects.de/
+ * http://www.cl-projects.de/.
  *
  * part-db version 0.2+
  * Copyright (C) 2009 K. Jacobs and others (see authors.php)
@@ -27,11 +26,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Controller;
-
 
 use App\Entity\Category;
 use App\Entity\Part;
@@ -45,7 +42,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartController extends AbstractController
 {
-
     /**
      * @Route("/part/{id}/info", name="part_info")
      * @Route("/part/{id}", requirements={"id"="\d+"})
@@ -59,7 +55,7 @@ class PartController extends AbstractController
         return $this->render('Parts/show_part_info.html.twig',
             [
                 'part' => $part,
-                'main_image' => $attachmentFilenameService->attachmentPathToAbsolutePath($filename)
+                'main_image' => $attachmentFilenameService->attachmentPathToAbsolutePath($filename),
             ]
             );
     }
@@ -68,6 +64,7 @@ class PartController extends AbstractController
      * @Route("/part/{id}/edit", name="part_edit")
      *
      * @param Part $part
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function edit(Part $part, Request $request, EntityManagerInterface $em)
@@ -114,24 +111,22 @@ class PartController extends AbstractController
             $em->persist($new_part);
             $em->flush();
             $this->addFlash('success', $translator->trans('part.created_flash'));
-            return $this->redirectToRoute('part_edit',['id' => $new_part->getID()]);
-        }
 
+            return $this->redirectToRoute('part_edit', ['id' => $new_part->getID()]);
+        }
 
         return $this->render('Parts/new_part.html.twig',
             [
                 'part' => $new_part,
-                'form' => $form->createView()
+                'form' => $form->createView(),
             ]);
     }
 
     /**
      * @Route("/part/{id}/clone", name="part_clone")
-     *
      */
     public function clone(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator)
     {
-
         /** @var Part $new_part */
         $new_part = clone $part;
 
@@ -145,15 +140,14 @@ class PartController extends AbstractController
             $em->persist($new_part);
             $em->flush();
             $this->addFlash('success', $translator->trans('part.created_flash'));
-            return $this->redirectToRoute('part_edit',['id' => $new_part->getID()]);
-        }
 
+            return $this->redirectToRoute('part_edit', ['id' => $new_part->getID()]);
+        }
 
         return $this->render('Parts/new_part.html.twig',
             [
                 'part' => $new_part,
-                'form' => $form->createView()
+                'form' => $form->createView(),
             ]);
     }
-
 }

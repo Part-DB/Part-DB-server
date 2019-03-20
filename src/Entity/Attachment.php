@@ -1,9 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /**
- *
  * Part-DB Version 0.4+ "nextgen"
  * Copyright (C) 2016 - 2019 Jan Böhmer
- * https://github.com/jbtronics
+ * https://github.com/jbtronics.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -18,7 +19,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity;
@@ -27,8 +27,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Intl\Exception\NotImplementedException;
 
 /**
- * Class Attachment
- * @package PartDB\Models
+ * Class Attachment.
+ *
  * @ORM\Entity
  * @ORM\Table(name="attachements")
  */
@@ -40,8 +40,6 @@ class Attachment extends NamedDBElement
      */
     protected $show_in_table;
 
-
-
     /**
      * @var string The filename using the %BASE% variable
      * @ORM\Column(type="string")
@@ -51,7 +49,7 @@ class Attachment extends NamedDBElement
     /**
      * //TODO
      * //@ORM\ManyToOne(targetEntity="AttachmentContainingDBElement", inversedBy="attachment")
-     * //@ORM\JoinColumn(name="element_id", referencedColumnName="id")
+     * //@ORM\JoinColumn(name="element_id", referencedColumnName="id").
      */
     protected $element;
 
@@ -67,12 +65,12 @@ class Attachment extends NamedDBElement
      ***********************************************************/
 
     /**
-     * Check if this attachement is a picture (analyse the file's extension)
+     * Check if this attachement is a picture (analyse the file's extension).
      *
-     * @return boolean      * true if the file extension is a picture extension
-     *                      * otherwise false
+     * @return bool * true if the file extension is a picture extension
+     *              * otherwise false
      */
-    public function isPicture() : bool
+    public function isPicture(): bool
     {
         $extension = pathinfo($this->getFilename(), PATHINFO_EXTENSION);
 
@@ -89,10 +87,11 @@ class Attachment extends NamedDBElement
      *********************************************************************************/
 
     /**
-     * Get the element, associated with this Attachement (for example a "Part" object)
+     * Get the element, associated with this Attachement (for example a "Part" object).
+     *
      * @return DBElement The associated Element.
      */
-    public function getElement() : AttachmentContainingDBElement
+    public function getElement(): AttachmentContainingDBElement
     {
         return $this->element;
     }
@@ -103,53 +102,56 @@ class Attachment extends NamedDBElement
      *
      * @return bool True if the file is existing.
      */
-    public function isFileExisting() : bool
+    public function isFileExisting(): bool
     {
         return file_exists($this->getFilename()) || isURL($this->getFilename());
     }
 
     /**
-     * Get the filename, relative to %BASE%
+     * Get the filename, relative to %BASE%.
      *
      * @return string
      */
-    public function getFilename() : string
+    public function getFilename(): string
     {
         return $this->filename;
         //return str_replace('%BASE%', BASE, $this->filename);
     }
 
     /**
-     * Get the show_in_table attribute
+     * Get the show_in_table attribute.
      *
-     * @return bool  true means, this attachement will be listed in the "Attachements" column of the HTML tables
-     *               false means, this attachement won't be listed in the "Attachements" column of the HTML tables
+     * @return bool true means, this attachement will be listed in the "Attachements" column of the HTML tables
+     *              false means, this attachement won't be listed in the "Attachements" column of the HTML tables
      */
-    public function getShowInTable() : bool
+    public function getShowInTable(): bool
     {
         return (bool) $this->show_in_table;
     }
 
     /**
-     *  Get the type of this attachement
-     * @return AttachmentType     the type of this attachement
+     *  Get the type of this attachement.
+     *
+     * @return AttachmentType the type of this attachement
+     *
      * @throws Exception if there was an error
      */
-    public function getType() : AttachmentType
+    public function getType(): AttachmentType
     {
         //TODO
 
-        throw new NotImplementedException("Not implemented yet!");
+        throw new NotImplementedException('Not implemented yet!');
     }
 
     /**
      * Returns the ID as an string, defined by the element class.
      * This should have a form like P000014, for a part with ID 14.
+     *
      * @return string The ID as a string;
      */
     public function getIDString(): string
     {
-        return 'A' . sprintf('%09d', $this->getID());
+        return 'A'.sprintf('%09d', $this->getID());
     }
 
     /*****************************************************************************************************
@@ -158,11 +160,13 @@ class Attachment extends NamedDBElement
 
     /**
      * @param bool $show_in_table
+     *
      * @return self
      */
     public function setShowInTable(bool $show_in_table): self
     {
         $this->show_in_table = $show_in_table;
+
         return $this;
     }
 }

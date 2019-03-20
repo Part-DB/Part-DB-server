@@ -1,9 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /**
- *
  * Part-DB Version 0.4+ "nextgen"
  * Copyright (C) 2016 - 2019 Jan Böhmer
- * https://github.com/jbtronics
+ * https://github.com/jbtronics.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -18,7 +19,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity;
@@ -26,13 +26,11 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class PartsContainingDBElement
- * @package PartDB\Models
+ * Class PartsContainingDBElement.
  *
  * @ORM\MappedSuperclass()
  */
 abstract class PartsContainingDBElement extends StructuralDBElement
 {
-
     protected $parts;
 }

@@ -1,11 +1,11 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 
 /**
- *
  * part-db version 0.1
  * Copyright (C) 2005 Christoph Lechner
- * http://www.cl-projects.de/
+ * http://www.cl-projects.de/.
  *
  * part-db version 0.2+
  * Copyright (C) 2009 K. Jacobs and others (see authors.php)
@@ -28,7 +28,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity;
@@ -36,13 +35,13 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class AttachmentType
+ * Class AttachmentType.
+ *
  * @ORM\Entity()
  * @ORM\Table(name="devices")
  */
 class Device extends PartsContainingDBElement
 {
-
     /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
      */
@@ -57,7 +56,6 @@ class Device extends PartsContainingDBElement
     /**
      * @var int
      * @ORM\Column(type="integer")
-     *
      */
     protected $order_quantity;
 
@@ -79,21 +77,21 @@ class Device extends PartsContainingDBElement
      *********************************************************************************/
 
     /**
-     *  Get the order quantity of this device
+     *  Get the order quantity of this device.
      *
-     * @return integer      the order quantity
+     * @return int the order quantity
      */
-    public function getOrderQuantity() : int
+    public function getOrderQuantity(): int
     {
         return $this->order_quantity;
     }
 
     /**
-     *  Get the "order_only_missing_parts" attribute
+     *  Get the "order_only_missing_parts" attribute.
      *
-     * @return boolean      the "order_only_missing_parts" attribute
+     * @return bool the "order_only_missing_parts" attribute
      */
-    public function getOrderOnlyMissingParts() : bool
+    public function getOrderOnlyMissingParts(): bool
     {
         return $this->order_only_missing_parts;
     }
@@ -105,40 +103,44 @@ class Device extends PartsContainingDBElement
      *********************************************************************************/
 
     /**
-     *  Set the order quantity
+     *  Set the order quantity.
      *
-     * @param integer $new_order_quantity       the new order quantity
+     * @param int $new_order_quantity the new order quantity
+     *
      * @return self
      */
-    public function setOrderQuantity(int $new_order_quantity) : self
+    public function setOrderQuantity(int $new_order_quantity): self
     {
-        if($new_order_quantity < 0)
-        {
+        if ($new_order_quantity < 0) {
             throw new \InvalidArgumentException('The new order quantity must not be negative!');
         }
         $this->order_quantity = $new_order_quantity;
+
         return $this;
     }
 
     /**
-     *  Set the "order_only_missing_parts" attribute
-     * @param boolean $new_order_only_missing_parts       the new "order_only_missing_parts" attribute
+     *  Set the "order_only_missing_parts" attribute.
+     *
+     * @param bool $new_order_only_missing_parts the new "order_only_missing_parts" attribute
+     *
      * @return self
      */
-    public function setOrderOnlyMissingParts(bool $new_order_only_missing_parts) : self
+    public function setOrderOnlyMissingParts(bool $new_order_only_missing_parts): self
     {
         $this->order_only_missing_parts = $new_order_only_missing_parts;
+
         return $this;
     }
-
 
     /**
      * Returns the ID as an string, defined by the element class.
      * This should have a form like P000014, for a part with ID 14.
+     *
      * @return string The ID as a string;
      */
     public function getIDString(): string
     {
-        return 'D' . sprintf('%09d', $this->getID());
+        return 'D'.sprintf('%09d', $this->getID());
     }
 }

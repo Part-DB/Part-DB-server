@@ -1,10 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
- *
  * part-db version 0.1
  * Copyright (C) 2005 Christoph Lechner
- * http://www.cl-projects.de/
+ * http://www.cl-projects.de/.
  *
  * part-db version 0.2+
  * Copyright (C) 2009 K. Jacobs and others (see authors.php)
@@ -27,12 +28,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity;
 
-use App\Entity\Embeddables\PermissionEntity;
 use App\Security\Interfaces\HasPermissionsInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -48,7 +47,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class User extends NamedDBElement implements UserInterface, HasPermissionsInterface
 {
     /** The User id of the anonymous user */
-    public const ID_ANONYMOUS      = 1;
+    public const ID_ANONYMOUS = 1;
 
     /**
      * @ORM\Id()
@@ -64,7 +63,7 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
     protected $name;
 
     /**
-     * //@ORM\Column(type="json")
+     * //@ORM\Column(type="json").
      */
     //protected $roles = [];
 
@@ -98,7 +97,6 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
      */
     protected $department = '';
 
-
     /**
      * @var string|null The email address of the user
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -125,7 +123,7 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
     protected $theme = '';
 
     /**
-     * @var Group|null The group this user belongs to.
+     * @var Group|null the group this user belongs to
      * @ORM\ManyToOne(targetEntity="Group", inversedBy="users", fetch="EAGER")
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
      */
@@ -136,14 +134,14 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
      */
     protected $permissions;
 
-
     /**
      * Checks if the current user, is the user which represents the not logged in (anonymous) users.
-     * @return bool True if this user is the anonymous user.
+     *
+     * @return bool true if this user is the anonymous user
      */
-    public function isAnonymousUser() : bool
+    public function isAnonymousUser(): bool
     {
-        return $this->id === static::ID_ANONYMOUS && $this->name === 'anonymous';
+        return $this->id === static::ID_ANONYMOUS && 'anonymous' === $this->name;
     }
 
     /**
@@ -187,7 +185,9 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
 
     /**
      * Sets the password hash for this user.
+     *
      * @param string $password
+     *
      * @return User
      */
     public function setPassword(string $password): self
@@ -217,15 +217,15 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
     /**
      * Returns the ID as an string, defined by the element class.
      * This should have a form like P000014, for a part with ID 14.
+     *
      * @return string The ID as a string;
      */
     public function getIDString(): string
     {
-        return 'U' . sprintf('%06d', $this->getID());
+        return 'U'.sprintf('%06d', $this->getID());
     }
 
-
-    public function getPermissions() : PermissionsEmbed
+    public function getPermissions(): PermissionsEmbed
     {
         return $this->permissions;
     }
@@ -236,25 +236,26 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
 
     /**
      * Returns the full name in the format FIRSTNAME LASTNAME [(USERNAME)].
-     * Example: Max Muster (m.muster)
-     * @param bool $including_username Include the username in the full name.
-     * @return string A string with the full name of this user.
+     * Example: Max Muster (m.muster).
+     *
+     * @param bool $including_username include the username in the full name
+     *
+     * @return string a string with the full name of this user
      */
-    public function getFullName(bool $including_username = false) : string
+    public function getFullName(bool $including_username = false): string
     {
-        $str = $this->getFirstName() . ' ' . $this->getLastName();
+        $str = $this->getFirstName().' '.$this->getLastName();
         if ($including_username) {
-            $str .= ' (' . $this->getName() . ')';
+            $str .= ' ('.$this->getName().')';
         }
 
         return $str;
     }
 
-
-    public function setName(string $new_name) : NamedDBElement
+    public function setName(string $new_name): NamedDBElement
     {
         // Anonymous user is not allowed to change its username
-        if(!$this->isAnonymousUser()) {
+        if (!$this->isAnonymousUser()) {
             $this->name = $new_name;
         }
 
@@ -271,11 +272,13 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
 
     /**
      * @param string $first_name
+     *
      * @return User
      */
     public function setFirstName(?string $first_name): User
     {
         $this->first_name = $first_name;
+
         return $this;
     }
 
@@ -289,11 +292,13 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
 
     /**
      * @param string $last_name
+     *
      * @return User
      */
     public function setLastName(?string $last_name): User
     {
         $this->last_name = $last_name;
+
         return $this;
     }
 
@@ -307,11 +312,13 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
 
     /**
      * @param string $department
+     *
      * @return User
      */
     public function setDepartment(?string $department): User
     {
         $this->department = $department;
+
         return $this;
     }
 
@@ -325,11 +332,13 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
 
     /**
      * @param string $email
+     *
      * @return User
      */
     public function setEmail(?string $email): User
     {
         $this->email = $email;
+
         return $this;
     }
 
@@ -343,11 +352,13 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
 
     /**
      * @param string $language
+     *
      * @return User
      */
     public function setLanguage(?string $language): User
     {
         $this->language = $language;
+
         return $this;
     }
 
@@ -361,11 +372,13 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
 
     /**
      * @param string $timezone
+     *
      * @return User
      */
     public function setTimezone(?string $timezone): User
     {
         $this->timezone = $timezone;
+
         return $this;
     }
 
@@ -379,11 +392,13 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
 
     /**
      * @param string $theme
+     *
      * @return User
      */
     public function setTheme(?string $theme): User
     {
         $this->theme = $theme;
+
         return $this;
     }
 
@@ -395,7 +410,7 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
     public function setGroup(?Group $group): self
     {
         $this->group = $group;
+
         return $this;
     }
-
 }

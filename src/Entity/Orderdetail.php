@@ -1,10 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
- *
  * part-db version 0.1
  * Copyright (C) 2005 Christoph Lechner
- * http://www.cl-projects.de/
+ * http://www.cl-projects.de/.
  *
  * part-db version 0.2+
  * Copyright (C) 2009 K. Jacobs and others (see authors.php)
@@ -27,24 +28,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Orderdetail
- * @package App\Entity
+ * Class Orderdetail.
  *
  * @ORM\Table("orderdetails")
  * @ORM\Entity()
  */
 class Orderdetail extends DBElement
 {
-
     /**
      * @var Part
      * @ORM\ManyToOne(targetEntity="Part", inversedBy="orderdetails")
@@ -85,11 +82,12 @@ class Orderdetail extends DBElement
     /**
      * Returns the ID as an string, defined by the element class.
      * This should have a form like P000014, for a part with ID 14.
+     *
      * @return string The ID as a string;
      */
     public function getIDString(): string
     {
-        return 'O' . sprintf('%06d', $this->getID());
+        return 'O'.sprintf('%06d', $this->getID());
     }
 
     /********************************************************************************
@@ -99,23 +97,23 @@ class Orderdetail extends DBElement
      *********************************************************************************/
 
     /**
-     * Get the part
+     * Get the part.
      *
-     * @return Part     the part of this orderdetails
+     * @return Part the part of this orderdetails
      */
-    public function getPart() : Part
+    public function getPart(): Part
     {
         return $this->part;
     }
 
     /**
-     * Get the supplier
+     * Get the supplier.
      *
-     * @return Supplier     the supplier of this orderdetails
+     * @return Supplier the supplier of this orderdetails
      *
      * @throws DatabaseException if there was an error
      */
-    public function getSupplier() : Supplier
+    public function getSupplier(): Supplier
     {
         return $this->supplier;
     }
@@ -123,23 +121,23 @@ class Orderdetail extends DBElement
     /**
      * Get the supplier part-nr.
      *
-     * @return string       the part-nr.
+     * @return string the part-nr.
      */
-    public function getSupplierPartNr() : string
+    public function getSupplierPartNr(): string
     {
         return $this->supplierpartnr;
     }
 
     /**
-     * Get if this orderdetails is obsolete
+     * Get if this orderdetails is obsolete.
      *
      * "Orderdetails is obsolete" means that the part with that supplier-part-nr
      * is no longer available from the supplier of that orderdetails.
      *
-     * @return boolean      * true if this part is obsolete at that supplier
-     *                      * false if this part isn't obsolete at that supplier
+     * @return bool * true if this part is obsolete at that supplier
+     *              * false if this part isn't obsolete at that supplier
      */
-    public function getObsolete() : bool
+    public function getObsolete(): bool
     {
         return (bool) $this->obsolete;
     }
@@ -150,11 +148,11 @@ class Orderdetail extends DBElement
      * @param $no_automatic_url bool Set this to true, if you only want to get the local set product URL for this Orderdetail
      * and not a automatic generated one, based from the Supplier
      *
-     * @return string           the link to the article
+     * @return string the link to the article
      */
-    public function getSupplierProductUrl(bool $no_automatic_url = false) : string
+    public function getSupplierProductUrl(bool $no_automatic_url = false): string
     {
-        if ($no_automatic_url || $this->supplierpartnr !== '') {
+        if ($no_automatic_url || '' !== $this->supplierpartnr) {
             return $this->supplierpartnr;
         }
 
@@ -162,41 +160,41 @@ class Orderdetail extends DBElement
     }
 
     /**
-     * Get all pricedetails
+     * Get all pricedetails.
      *
-     * @return Pricedetails[]    all pricedetails as a one-dimensional array of Pricedetails objects,
-     *                  sorted by minimum discount quantity
+     * @return Pricedetails[] all pricedetails as a one-dimensional array of Pricedetails objects,
+     *                        sorted by minimum discount quantity
      *
      * @throws Exception if there was an error
      */
-    public function getPricedetails() : array
+    public function getPricedetails(): array
     {
         return $this->pricedetails;
     }
 
     /**
-     * Get the price for a specific quantity
+     * Get the price for a specific quantity.
      *
-     * @param boolean $as_money_string      * if true, this method returns a money string incl. currency
-     *                                      * if false, this method returns the price as float
-     * @param integer       $quantity       this is the quantity to choose the correct pricedetails
-     * @param integer|NULL  $multiplier     * This is the multiplier which will be applied to every single price
-     *                                      * If you pass NULL, the number from $quantity will be used
+     * @param bool     $as_money_string * if true, this method returns a money string incl. currency
+     *                                  * if false, this method returns the price as float
+     * @param int      $quantity        this is the quantity to choose the correct pricedetails
+     * @param int|null $multiplier      * This is the multiplier which will be applied to every single price
+     *                                  * If you pass NULL, the number from $quantity will be used
      *
-     * @return float|null|string    float: the price as a float number (if "$as_money_string == false")
-     * * null: if there are no prices and "$as_money_string == false"
-     * * string:   the price as a string incl. currency (if "$as_money_string == true")
+     * @return float|string|null float: the price as a float number (if "$as_money_string == false")
+     *                           * null: if there are no prices and "$as_money_string == false"
+     *                           * string:   the price as a string incl. currency (if "$as_money_string == true")
      *
      * @throws Exception if there are no pricedetails for the choosed quantity
-     *          (for example, there are only one pricedetails with the minimum discount quantity '10',
-     *          but the choosed quantity is '5' --> the price for 5 parts is not defined!)
+     *                   (for example, there are only one pricedetails with the minimum discount quantity '10',
+     *                   but the choosed quantity is '5' --> the price for 5 parts is not defined!)
      * @throws Exception if there was an error
      *
      * @see floatToMoneyString()
      */
     public function getPrice(bool $as_money_string = false, int $quantity = 1, $multiplier = null)
     {
-        /**
+        /*
         if (($quantity == 0) && ($multiplier === null)) {
             if ($as_money_string) {
                 return floatToMoneyString(0);
@@ -245,12 +243,11 @@ class Orderdetail extends DBElement
      *********************************************************************************/
 
     /**
-     * Set the supplier ID
+     * Set the supplier ID.
      *
-     * @param integer $new_supplier_id       the ID of the new supplier
-
+     * @param int $new_supplier_id the ID of the new supplier
      */
-    public function setSupplierId(int $new_supplier_id) : self
+    public function setSupplierId(int $new_supplier_id): self
     {
         throw new \Exception('Not implemented yet!');
         //TODO;
@@ -261,29 +258,31 @@ class Orderdetail extends DBElement
     /**
      * Set the supplier part-nr.
      *
-     * @param string $new_supplierpartnr       the new supplier-part-nr
-     *
+     * @param string $new_supplierpartnr the new supplier-part-nr
      */
-    public function setSupplierpartnr(string $new_supplierpartnr) : self
+    public function setSupplierpartnr(string $new_supplierpartnr): self
     {
         $this->supplierpartnr = $new_supplierpartnr;
+
         return $this;
     }
 
     /**
-     * Set if the part is obsolete at the supplier of that orderdetails
+     * Set if the part is obsolete at the supplier of that orderdetails.
      *
-     * @param boolean $new_obsolete       true means that this part is obsolete
+     * @param bool $new_obsolete true means that this part is obsolete
      */
-    public function setObsolete(bool $new_obsolete) : self
+    public function setObsolete(bool $new_obsolete): self
     {
         $this->obsolete = $new_obsolete;
+
         return $this;
     }
 
     /**
      * Sets the custom product supplier URL for this order detail.
      * Set this to "", if the function getSupplierProductURL should return the automatic generated URL.
+     *
      * @param $new_url string The new URL for the supplier URL.
      */
     public function setSupplierProductUrl(string $new_url)

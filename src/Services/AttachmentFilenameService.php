@@ -1,9 +1,8 @@
 <?php
 /**
- *
  * part-db version 0.1
  * Copyright (C) 2005 Christoph Lechner
- * http://www.cl-projects.de/
+ * http://www.cl-projects.de/.
  *
  * part-db version 0.2+
  * Copyright (C) 2009 K. Jacobs and others (see authors.php)
@@ -26,30 +25,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services;
-
 
 use Symfony\Component\Asset\Packages;
 
 class AttachmentFilenameService
 {
-    protected  $package;
+    protected $package;
 
     public function __construct(Packages $package)
     {
         $this->package = $package;
     }
 
-    public function attachmentPathToAbsolutePath(?string $filename) : ?string
+    public function attachmentPathToAbsolutePath(?string $filename): ?string
     {
         //Return placeholder if a part does not have an attachment
-        if ($filename == null) {
+        if (null == $filename) {
             return $this->package->getUrl('/img/part_placeholder.svg');
         }
-        if (stripos($filename, "%BASE%/img/") !== false) {
+        if (false !== stripos($filename, '%BASE%/img/')) {
             return $this->package->getUrl(str_replace('%BASE%', '', $filename));
         }
 

@@ -1,9 +1,8 @@
 <?php
 /**
- *
  * part-db version 0.1
  * Copyright (C) 2005 Christoph Lechner
- * http://www.cl-projects.de/
+ * http://www.cl-projects.de/.
  *
  * part-db version 0.2+
  * Copyright (C) 2009 K. Jacobs and others (see authors.php)
@@ -26,11 +25,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Controller;
-
 
 use App\DataTables\PartsDataTable;
 use Omines\DataTablesBundle\DataTableFactory;
@@ -42,11 +39,13 @@ class PartListsController extends AbstractController
 {
     /**
      * @Route("/category/{id}/parts")
+     *
      * @param $id int The id of the category
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function showCategory(int $id, Request $request, DataTableFactory $dataTable)
     {
-
         /*$table = $dataTable->create()
             ->add("id", TextColumn::class)
             ->add("name", TextColumn::class)
@@ -60,7 +59,6 @@ class PartListsController extends AbstractController
         $table = $dataTable->createFromType(PartsDataTable::class, ['cid' => $id])
                     ->handleRequest($request);
 
-
         if ($table->isCallback()) {
             return $table->getResponse();
         }
@@ -71,8 +69,9 @@ class PartListsController extends AbstractController
     /**
      * @Route("/parts")
      *
-     * @param Request $request
+     * @param Request          $request
      * @param DataTableFactory $dataTable
+     *
      * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function showAll(Request $request, DataTableFactory $dataTable)
@@ -80,13 +79,10 @@ class PartListsController extends AbstractController
         $table = $dataTable->createFromType(PartsDataTable::class)
             ->handleRequest($request);
 
-
         if ($table->isCallback()) {
             return $table->getResponse();
         }
 
         return $this->render('parts_list.html.twig', ['datatable' => $table]);
     }
-
-
 }

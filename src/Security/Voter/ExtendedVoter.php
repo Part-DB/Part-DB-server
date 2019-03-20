@@ -1,9 +1,8 @@
 <?php
 /**
- *
  * part-db version 0.1
  * Copyright (C) 2005 Christoph Lechner
- * http://www.cl-projects.de/
+ * http://www.cl-projects.de/.
  *
  * part-db version 0.2+
  * Copyright (C) 2009 K. Jacobs and others (see authors.php)
@@ -26,11 +25,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Security\Voter;
-
 
 use App\Entity\User;
 use App\Services\PermissionResolver;
@@ -40,7 +37,6 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
  * The purpose of this class is, to use the anonymous user from DB in the case, that nobody is logged in.
- * @package App\Security\Voter
  */
 abstract class ExtendedVoter extends Voter
 {
@@ -63,7 +59,7 @@ abstract class ExtendedVoter extends Voter
         // if the user is anonymous, we use the anonymous user.
         if (!$user instanceof User) {
             $user = $this->entityManager->find(User::class, User::ID_ANONYMOUS);
-            if($user === null) {
+            if (null === $user) {
                 return false;
             }
         }
@@ -74,10 +70,12 @@ abstract class ExtendedVoter extends Voter
     /**
      * Similar to voteOnAttribute, but checking for the anonymous user is already done.
      * The current user (or the anonymous user) is passed by $user.
+     *
      * @param $attribute
      * @param $subject
      * @param User $user
+     *
      * @return bool
      */
-    abstract protected function voteOnUser($attribute, $subject, User $user) : bool;
+    abstract protected function voteOnUser($attribute, $subject, User $user): bool;
 }

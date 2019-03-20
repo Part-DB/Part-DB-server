@@ -1,9 +1,8 @@
 <?php
 /**
- *
  * part-db version 0.1
  * Copyright (C) 2005 Christoph Lechner
- * http://www.cl-projects.de/
+ * http://www.cl-projects.de/.
  *
  * part-db version 0.2+
  * Copyright (C) 2009 K. Jacobs and others (see authors.php)
@@ -26,11 +25,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Security\EntityListeners;
-
 
 use App\Security\Annotations\ColumnSecurity;
 use App\Entity\DBElement;
@@ -48,7 +45,6 @@ use Symfony\Component\Security\Core\Security;
  *
  * If a user does not have access to an coloumn, it will be filled, with a placeholder, after doctrine loading is finished.
  * The edit process is also catched, so that these placeholders, does not get saved to database.
- * @package App\EntityListeners
  */
 class ElementPermissionListener
 {
@@ -59,14 +55,12 @@ class ElementPermissionListener
         $this->security = $security;
     }
 
-
     /**
      * @PostLoad
      *
      * This function is called after doctrine filled, the entity properties with db values.
      * We use this, to check if the user is allowed to access these properties, and if not, we write a placeholder
      * into the element properties, so that a user only gets non sensitve data.
-     *
      */
     public function postLoadHandler(DBElement $element, LifecycleEventArgs $event)
     {
@@ -75,19 +69,16 @@ class ElementPermissionListener
         $properties = $reflectionClass->getProperties();
         $reader = new AnnotationReader();
 
-        foreach($properties as $property)
-        {
+        foreach ($properties as $property) {
             /**
-             * @var ColumnSecurity $annotation
+             * @var ColumnSecurity
              */
             $annotation = $reader->getPropertyAnnotation($property,
                 ColumnSecurity::class);
 
-            if($annotation !== null)
-            {
+            if (null !== $annotation) {
                 //Check if user is allowed to read info, otherwise apply placeholder
-                if(!$this->security->isGranted($annotation->getReadOperationName(), $element))
-                {
+                if (!$this->security->isGranted($annotation->getReadOperationName(), $element)) {
                     $property->setAccessible(true);
                     $property->setValue($element, $annotation->getPlaceholder());
                 }
@@ -106,28 +97,23 @@ class ElementPermissionListener
         $properties = $reflectionClass->getProperties();
         $reader = new AnnotationReader();
 
-        foreach($properties as $property)
-        {
+        foreach ($properties as $property) {
             /**
-             * @var ColumnSecurity $annotation
+             * @var ColumnSecurity
              */
             $annotation = $reader->getPropertyAnnotation($property,
                 ColumnSecurity::class);
 
-            if($annotation !== null)
-            {
+            if (null !== $annotation) {
                 $field_name = $property->getName();
 
                 //Check if user is allowed to edit info, otherwise overwrite the new value
                 // so that nothing is changed in the DB.
-                if($event->hasChangedField($field_name) &&
-                    !$this->security->isGranted($annotation->getEditOperationName(), $element))
-                {
+                if ($event->hasChangedField($field_name) &&
+                    !$this->security->isGranted($annotation->getEditOperationName(), $element)) {
                     $event->setNewValue($field_name, $event->getOldValue($field_name));
                 }
             }
         }
     }
-
-
 }

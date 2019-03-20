@@ -1,9 +1,8 @@
 <?php
 /**
- *
  * part-db version 0.1
  * Copyright (C) 2005 Christoph Lechner
- * http://www.cl-projects.de/
+ * http://www.cl-projects.de/.
  *
  * part-db version 0.2+
  * Copyright (C) 2009 K. Jacobs and others (see authors.php)
@@ -26,7 +25,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity;
@@ -35,15 +33,13 @@ use App\Security\Interfaces\HasPermissionsInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * This entity represents an user group
- * @package App\Entity
+ * This entity represents an user group.
  *
  * @ORM\Entity()
  * @ORM\Table("groups")
  */
 class Group extends StructuralDBElement implements HasPermissionsInterface
 {
-
     /**
      * @ORM\OneToMany(targetEntity="Group", mappedBy="parent")
      */
@@ -65,15 +61,15 @@ class Group extends StructuralDBElement implements HasPermissionsInterface
      */
     protected $permissions;
 
-
     /**
      * Returns the ID as an string, defined by the element class.
      * This should have a form like P000014, for a part with ID 14.
+     *
      * @return string The ID as a string;
      */
     public function getIDString(): string
     {
-        return 'G' . sprintf('%06d', $this->getID());
+        return 'G'.sprintf('%06d', $this->getID());
     }
 
     public function getPermissions(): PermissionsEmbed

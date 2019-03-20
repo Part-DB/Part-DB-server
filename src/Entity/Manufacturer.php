@@ -1,10 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
- *
  * part-db version 0.1
  * Copyright (C) 2005 Christoph Lechner
- * http://www.cl-projects.de/
+ * http://www.cl-projects.de/.
  *
  * part-db version 0.2+
  * Copyright (C) 2009 K. Jacobs and others (see authors.php)
@@ -27,17 +28,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
-
 
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Manufacturer
- * @package App\Entity
+ * Class Manufacturer.
  *
  * @ORM\Entity()
  * @ORM\Table("manufacturers")
@@ -63,10 +61,11 @@ class Manufacturer extends Company
     /**
      * Returns the ID as an string, defined by the element class.
      * This should have a form like P000014, for a part with ID 14.
+     *
      * @return string The ID as a string;
      */
     public function getIDString(): string
     {
-        return 'M' . sprintf('%06d', $this->getID());
+        return 'M'.sprintf('%06d', $this->getID());
     }
 }

@@ -1,9 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /**
- *
  * Part-DB Version 0.4+ "nextgen"
  * Copyright (C) 2016 - 2019 Jan Böhmer
- * https://github.com/jbtronics
+ * https://github.com/jbtronics.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -18,7 +19,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity;
@@ -27,8 +27,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class AttachmentType
- * @package PartDB\Models
+ * Class AttachmentType.
+ *
  * @ORM\Entity()
  * @ORM\Table(name="attachement_types")
  */
@@ -39,7 +39,6 @@ class AttachmentType extends StructuralDBElement
      * @ORM\OneToMany(targetEntity="Attachment", mappedBy="attachement_type")
      */
     protected $attachments;
-
 
     /**
      * @ORM\OneToMany(targetEntity="AttachmentType", mappedBy="parent")
@@ -53,16 +52,15 @@ class AttachmentType extends StructuralDBElement
     protected $parent;
 
     /**
-     * Get all attachements ("Attachement" objects) with this type
+     * Get all attachements ("Attachement" objects) with this type.
      *
-     * @return Attachment[]        all attachements with this type, as a one-dimensional array of Attachement-objects
+     * @return Attachment[] all attachements with this type, as a one-dimensional array of Attachement-objects
      *                      (sorted by their names)
-     *
      */
-    public function getAttachementsForType() : ArrayCollection
+    public function getAttachementsForType(): ArrayCollection
     {
         // the attribute $this->attachements is used from class "AttachementsContainingDBELement"
-        if ($this->attachments === null) {
+        if (null === $this->attachments) {
             $this->attachments = new ArrayCollection();
         }
 
@@ -72,6 +70,7 @@ class AttachmentType extends StructuralDBElement
     /**
      * Returns the ID as an string, defined by the element class.
      * This should have a form like P000014, for a part with ID 14.
+     *
      * @return string The ID as a string;
      */
     public function getIDString(): string

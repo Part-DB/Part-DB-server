@@ -1,9 +1,8 @@
 <?php
 /**
- *
  * part-db version 0.1
  * Copyright (C) 2005 Christoph Lechner
- * http://www.cl-projects.de/
+ * http://www.cl-projects.de/.
  *
  * part-db version 0.2+
  * Copyright (C) 2009 K. Jacobs and others (see authors.php)
@@ -26,17 +25,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services;
 
-
-use App\Entity\DBElement;
 use App\Entity\NamedDBElement;
 use App\Entity\Part;
 use App\Exceptions\EntityNotSupported;
-use Doctrine\Migrations\Finder\Exception\NameIsReserved;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class EntityURLGenerator
@@ -53,15 +48,16 @@ class EntityURLGenerator
 
     /**
      * Generates an URL to a page, where info about this entity can be viewed.
+     *
      * @param $entity mixed The entity for which the info should be generated.
+     *
      * @return string The URL to the info page
      *
      * @throws EntityNotSupported If the method is not supported for the given Entity
      */
-    public function infoURL($entity) : string
+    public function infoURL($entity): string
     {
-        if($entity instanceof Part)
-        {
+        if ($entity instanceof Part) {
             return $this->urlGenerator->generate('part_info', ['id' => $entity->getID()]);
         }
 
@@ -69,10 +65,9 @@ class EntityURLGenerator
         throw new EntityNotSupported('The given entity is not supported yet!');
     }
 
-    public function editURL($entity) : string
+    public function editURL($entity): string
     {
-        if($entity instanceof Part)
-        {
+        if ($entity instanceof Part) {
             return $this->urlGenerator->generate('part_edit', ['id' => $entity->getID()]);
         }
 
@@ -80,20 +75,18 @@ class EntityURLGenerator
         throw new EntityNotSupported('The given entity is not supported yet!');
     }
 
-    public function createURL($entity) : string
+    public function createURL($entity): string
     {
-        if($entity instanceof Part)
-        {
+        if ($entity instanceof Part) {
             return $this->urlGenerator->generate('part_new');
         }
 
         throw new EntityNotSupported('The given entity is not supported yet!');
     }
 
-    public function cloneURL($entity) : string
+    public function cloneURL($entity): string
     {
-        if($entity instanceof Part)
-        {
+        if ($entity instanceof Part) {
             return $this->urlGenerator->generate('part_clone', ['id' => $entity->getID()]);
         }
 
@@ -102,20 +95,19 @@ class EntityURLGenerator
 
     /**
      * Generates an HTML link to the info page about the given entity.
+     *
      * @param $entity mixed The entity for which the info link should be generated.
+     *
      * @return string The HTML of the info page link
      *
      * @throws EntityNotSupported
      */
-    public function infoHTML($entity) : string
+    public function infoHTML($entity): string
     {
         $href = $this->infoURL($entity);
 
-        if($entity instanceof NamedDBElement)
-        {
+        if ($entity instanceof NamedDBElement) {
             return sprintf('<a href="%s">%s</a>', $href, $entity->getName());
         }
-
     }
-
 }

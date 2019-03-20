@@ -1,9 +1,8 @@
 <?php
 /**
- *
  * part-db version 0.1
  * Copyright (C) 2005 Christoph Lechner
- * http://www.cl-projects.de/
+ * http://www.cl-projects.de/.
  *
  * part-db version 0.2+
  * Copyright (C) 2009 K. Jacobs and others (see authors.php)
@@ -26,11 +25,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services;
-
 
 use App\Configuration\PermissionsConfiguration;
 use App\Entity\User;
@@ -43,19 +40,17 @@ class PermissionResolver
 {
     protected $permission_structure;
 
-
     /**
-     *
      * PermissionResolver constructor.
+     *
      * @param ParameterBagInterface $params
      */
     public function __construct(ParameterBagInterface $params)
     {
         //Read the permission config file...
         $config = Yaml::parse(
-            file_get_contents(__DIR__ . '/../../config/permissions.yaml')
+            file_get_contents(__DIR__.'/../../config/permissions.yaml')
         );
-
 
         $configs = [$config];
 
@@ -72,19 +67,19 @@ class PermissionResolver
         //dump($this->permission_structure);
     }
 
-
     /**
      * Check if a user/group is allowed to do the specified operation for the permission.
      *
      * See permissions.yaml for valid permission operation combinations.
      *
-     * @param HasPermissionsInterface $user The user/group for which the operation should be checked.
-     * @param string $permission The name of the permission for which should be checked.
-     * @param string $operation The name of the operation for which should be checked.
+     * @param HasPermissionsInterface $user       The user/group for which the operation should be checked.
+     * @param string                  $permission The name of the permission for which should be checked.
+     * @param string                  $operation  The name of the operation for which should be checked.
+     *
      * @return bool|null True, if the user is allowed to do the operation (ALLOW), false if not (DISALLOW), and null,
-     * if the value is set to inherit.
+     *                   if the value is set to inherit.
      */
-    public function dontInherit(HasPermissionsInterface $user, string $permission, string $operation) : ?bool
+    public function dontInherit(HasPermissionsInterface $user, string $permission, string $operation): ?bool
     {
         //Get the permissions from the user
         $perm_list = $user->getPermissions();
@@ -95,7 +90,6 @@ class PermissionResolver
         return $perm_list->getPermissionValue($permission, $bit);
     }
 
-
     /**
      * Checks if a user is allowed to do the specified operation for the permission.
      * In contrast to dontInherit() it tries to resolve the inherit values, of the user, by going upwards in the
@@ -104,27 +98,28 @@ class PermissionResolver
      *
      * In that case the voter should set it manually to false by using ?? false.
      *
-     * @param User $user The user for which the operation should be checked.
+     * @param User   $user       The user for which the operation should be checked.
      * @param string $permission The name of the permission for which should be checked.
-     * @param string $operation The name of the operation for which should be checked.
+     * @param string $operation  The name of the operation for which should be checked.
+     *
      * @return bool|null True, if the user is allowed to do the operation (ALLOW), false if not (DISALLOW), and null,
-     * if the value is set to inherit.
+     *                   if the value is set to inherit.
      */
-    public function inherit(User $user, string $permission, string $operation) : ?bool
+    public function inherit(User $user, string $permission, string $operation): ?bool
     {
         //Check if we need to inherit
         $allowed = $this->dontInherit($user, $permission, $operation);
 
-        if ($allowed !== null) {
+        if (null !== $allowed) {
             //Just return the value of the user.
             return $allowed;
         }
 
         $parent = $user->getGroup();
-        while($parent != null){ //The top group, has parent == null
+        while (null != $parent) { //The top group, has parent == null
             //Check if our current element gives a info about disallow/allow
             $allowed = $this->dontInherit($parent, $permission, $operation);
-            if ($allowed !== null) {
+            if (null !== $allowed) {
                 return $allowed;
             }
             //Else go up in the hierachy.
@@ -134,7 +129,6 @@ class PermissionResolver
         return null; //The inherited value is never resolved. Should be treat as false, in Voters.
     }
 
-
     /**
      * Lists the names of all operations that is supported for the given permission.
      *
@@ -143,9 +137,10 @@ class PermissionResolver
      * This function is useful for the support() function of the voters.
      *
      * @param string $permission The permission for which the
+     *
      * @return string[] A list of all operations that are supported by the given
      */
-    public function listOperationsForPermission(string $permission) : array
+    public function listOperationsForPermission(string $permission): array
     {
         $operations = $this->permission_structure['perms'][$permission]['operations'];
 
@@ -156,9 +151,10 @@ class PermissionResolver
      * Checks if the permission with the given name is existing.
      *
      * @param string $permission The name of the permission which we want to check.
+     *
      * @return bool True if a perm with that name is existing. False if not.
      */
-    public function isValidPermission(string $permission) : bool
+    public function isValidPermission(string $permission): bool
     {
         return isset($this->permission_structure['perms'][$permission]);
     }
@@ -167,14 +163,13 @@ class PermissionResolver
      * Checks if the permission operation combination with the given names is existing.
      *
      * @param string $permission The name of the permission which should be checked.
-     * @param string $operation The name of the operation which should be checked.
+     * @param string $operation  The name of the operation which should be checked.
+     *
      * @return bool True if the given permission operation combination is existing.
      */
-    public function isValidOperation(string $permission, string $operation) : bool
+    public function isValidOperation(string $permission, string $operation): bool
     {
         return $this->isValidPermission($permission) &&
             isset($this->permission_structure['perms'][$permission]['operations'][$operation]);
     }
-
-
 }

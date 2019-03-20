@@ -1,11 +1,11 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 
 /**
- *
  * part-db version 0.1
  * Copyright (C) 2005 Christoph Lechner
- * http://www.cl-projects.de/
+ * http://www.cl-projects.de/.
  *
  * part-db version 0.2+
  * Copyright (C) 2009 K. Jacobs and others (see authors.php)
@@ -28,7 +28,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity;
@@ -36,8 +35,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Storelocation
- * @package App\Entity
+ * Class Storelocation.
  *
  * @ORM\Entity()
  * @ORM\Table("storelocations")
@@ -73,15 +71,15 @@ class Storelocation extends PartsContainingDBElement
      *********************************************************************************/
 
     /**
-     * Get the "is full" attribute
+     * Get the "is full" attribute.
      *
      *     "is_full == true" means that there is no more space in this storelocation.
      *     This attribute is only for information, it has no effect.
      *
-     * @return boolean      * true if the storelocation is full
-     *                      * false if the storelocation isn't full
+     * @return bool * true if the storelocation is full
+     *              * false if the storelocation isn't full
      */
-    public function getIsFull() : bool
+    public function getIsFull(): bool
     {
         return (bool) $this->is_full;
     }
@@ -93,29 +91,31 @@ class Storelocation extends PartsContainingDBElement
      *********************************************************************************/
 
     /**
-     * Change the "is full" attribute of this storelocation
+     * Change the "is full" attribute of this storelocation.
      *
      *     "is_full" = true means that there is no more space in this storelocation.
      *     This attribute is only for information, it has no effect.
      *
-     * @param boolean $new_is_full      * true means that the storelocation is full
-     *                                  * false means that the storelocation isn't full
+     * @param bool $new_is_full * true means that the storelocation is full
+     *                          * false means that the storelocation isn't full
      *
      * @throws Exception if there was an error
      */
-    public function setIsFull(bool $new_is_full) : self
+    public function setIsFull(bool $new_is_full): self
     {
         $this->is_full = $new_is_full;
+
         return $this;
     }
 
     /**
      * Returns the ID as an string, defined by the element class.
      * This should have a form like P000014, for a part with ID 14.
+     *
      * @return string The ID as a string;
      */
     public function getIDString(): string
     {
-        return 'L' . sprintf('%06d', $this->getID());
+        return 'L'.sprintf('%06d', $this->getID());
     }
 }

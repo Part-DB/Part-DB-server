@@ -1,9 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /**
- *
  * Part-DB Version 0.4+ "nextgen"
  * Copyright (C) 2016 - 2019 Jan Böhmer
- * https://github.com/jbtronics
+ * https://github.com/jbtronics.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -18,13 +19,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -39,7 +38,6 @@ abstract class NamedDBElement extends DBElement
      * @var string The name of this element.
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
-     *
      */
     protected $name = '';
 
@@ -62,11 +60,11 @@ abstract class NamedDBElement extends DBElement
      *********************************************************************************/
 
     /**
-     * Get the name
+     * Get the name.
      *
-     * @return string   the name of this element
+     * @return string the name of this element
      */
-    public function getName() : string
+    public function getName(): string
     {
         /*
         //Strip HTML from Name, so no XSS injection is possible.
@@ -76,18 +74,20 @@ abstract class NamedDBElement extends DBElement
 
     /**
      * Returns the last time when the element was modified.
+     *
      * @return \DateTime The time of the last edit.
      */
-    public function getLastModified() : \DateTime
+    public function getLastModified(): \DateTime
     {
         return $this->lastModified;
     }
 
     /**
      * Returns the date/time when the element was created.
+     *
      * @return \DateTime The creation time of the part.
      */
-    public function getAddedDate() : \DateTime
+    public function getAddedDate(): \DateTime
     {
         return $this->addedDate;
     }
@@ -99,18 +99,20 @@ abstract class NamedDBElement extends DBElement
      *********************************************************************************/
 
     /**
-     * Change the name of this element
+     * Change the name of this element.
      *
      *     Spaces at the begin and at the end of the string will be removed
      *          automatically in NamedDBElement::check_values_validity().
      *          So you don't have to do this yourself.
      *
-     * @param string $new_name      the new name
+     * @param string $new_name the new name
+     *
      * @return self
      */
-    public function setName(string $new_name) : self
+    public function setName(string $new_name): self
     {
         $this->name = $new_name;
+
         return $this;
     }
 
@@ -122,15 +124,15 @@ abstract class NamedDBElement extends DBElement
 
     /**
      * Helper for updating the timestamp. It is automatically called by doctrine before persisting.
+     *
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
     public function updatedTimestamps(): void
     {
         $this->lastModified = new \DateTime('now');
-        if ($this->addedDate === null) {
+        if (null === $this->addedDate) {
             $this->addedDate = new \DateTime('now');
         }
     }
-
 }
