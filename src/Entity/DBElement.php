@@ -34,6 +34,8 @@ use Doctrine\ORM\Mapping as ORM;
  *          must have the table row "id"!! The ID is the unique key to identify the elements.
  *
  * @ORM\MappedSuperclass()
+ *
+ * @ORM\EntityListeners({"App\Security\EntityListeners\ElementPermissionListener"})
  */
 abstract class DBElement
 {

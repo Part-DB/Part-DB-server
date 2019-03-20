@@ -38,5 +38,6 @@ use Doctrine\ORM\EntityRepository;
 
 class PartRepository extends EntityRepository
 {
+
     //TODO
 }

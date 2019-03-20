@@ -5,6 +5,7 @@
         "php": "^7.1.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/annotations": "^1.6",
         "friendsofsymfony/ckeditor-bundle": "^2.0",
         "omines/datatables-bundle": "^0.2.2",
         "php-translation/symfony-bundle": "^0.8.1",

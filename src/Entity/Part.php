@@ -34,6 +34,7 @@
 namespace App\Entity;
 
 
+use App\Security\Annotations\ColumnSecurity;
 use Doctrine\ORM\Mapping as ORM;
 //use Webmozart\Assert\Assert;
 
@@ -109,6 +110,16 @@ class Part extends AttachmentContainingDBElement
     /**
      * @var string
      * @ORM\Column(type="string")
+     *
+     * @ColumnSecurity(prefix="name")
+     */
+    protected $name;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     *
+     * @ColumnSecurity(prefix="description")
      */
     protected $description = "";
 
@@ -116,6 +127,8 @@ class Part extends AttachmentContainingDBElement
      * @var int
      * @ORM\Column(type="integer")
      * @Assert\GreaterThanOrEqual(0)
+     *
+     * @ColumnSecurity(prefix="instock", type="integer")
      */
     protected $instock = 0;
 
@@ -123,12 +136,15 @@ class Part extends AttachmentContainingDBElement
      * @var int
      * @ORM\Column(type="integer")
      * @Assert\GreaterThanOrEqual(0)
+     *
+     * @ColumnSecurity(prefix="mininstock", type="integer")
      */
     protected $mininstock = 0;
 
     /**
      * @var string
      * @ORM\Column(type="string")
+     * @ColumnSecurity(prefix="comment")
      */
     protected $comment = "";
 

@@ -28,5 +28,12 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    app.doctrine.elementListener:
+        class: App\Security\EntityListeners\ElementPermissionListener
+        public: false
+        autowire: true
+        tags:
+            - { name: "doctrine.orm.entity_listener" }
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
