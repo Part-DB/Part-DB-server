@@ -56,17 +56,17 @@ class UserController extends AbstractController
     public function userInfo(?User $user, Packages $packages)
     {
         //If no user id was passed, then we show info about the current user
-        if($user == null) {
+        if($user === null) {
             $user = $this->getUser();
         } else {
             //Else we must check, if the current user is allowed to access $user
             $this->denyAccessUnlessGranted('read', $user);
         }
 
-        if($this->getParameter("use_gravatar")) {
+        if($this->getParameter('use_gravatar')) {
             $avatar = $this->getGravatar($user->getEmail(), 200, 'identicon');
         } else {
-            $avatar = $packages->getUrl("/img/default_avatar.png");
+            $avatar = $packages->getUrl('/img/default_avatar.png');
         }
 
 
@@ -140,7 +140,7 @@ class UserController extends AbstractController
          *****************************/
 
         return $this->render('Users/user_settings.html.twig', [
-            "settings_form" => $form->createView(),
+            'settings_form' => $form->createView(),
             'pw_form' => $pw_form->createView()
         ]);
     }

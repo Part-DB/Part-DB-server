@@ -108,13 +108,13 @@ class Footprint extends PartsContainingDBElement
      */
     public function get3dFilename(bool $absolute = true) : string
     {
-        if ($absolute == true) {
+        if ($absolute === true) {
             //TODO
-            throw new \Exception("Not Implemented yet...");
+            throw new \Exception('Not Implemented yet...');
             //return str_replace('%BASE%', BASE, $this->db_data['filename_3d']);
-        } else {
-            return $this->filename_3d;
         }
+
+        return $this->filename_3d;
     }
 
     /**
@@ -155,7 +155,7 @@ class Footprint extends PartsContainingDBElement
         }
 
         //Check if file is X3D-Model (these has .x3d extension)
-        if (strpos($this->get3dFilename(), '.x3d') == false) {
+        if (strpos($this->get3dFilename(), '.x3d') === false) {
             return false;
         }
 

@@ -121,11 +121,11 @@ class Pricedetail extends  DBElement
         $price = ($this->price * $multiplier) / $this->price_related_quantity;
 
         if ($as_money_string) {
-            throw new \Exception("Not implemented yet...");
+            throw new \Exception('Not implemented yet...');
             //return floatToMoneyString($price);
-        } else {
-            return $price;
         }
+
+        return $price;
     }
 
     /**

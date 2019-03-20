@@ -33,14 +33,7 @@ namespace App\Controller;
 
 
 use App\DataTables\PartsDataTable;
-use App\Entity\Part;
-use Omines\DataTablesBundle\Adapter\ArrayAdapter;
-use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
-use Omines\DataTablesBundle\Column\TextColumn;
-use Omines\DataTablesBundle\Controller\DataTablesTrait;
-use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableFactory;
-use Omines\DataTablesBundle\DataTableRendererInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;

@@ -48,7 +48,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class User extends NamedDBElement implements UserInterface, HasPermissionsInterface
 {
     /** The User id of the anonymous user */
-    const ID_ANONYMOUS      = 1;
+    public const ID_ANONYMOUS      = 1;
 
     /**
      * @ORM\Id()
@@ -84,19 +84,19 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
      * @var string|null The first name of the User
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    protected $first_name = "";
+    protected $first_name = '';
 
     /**
      * @var string|null The last name of the User
      * @ORM\Column(type="string", length=255,  nullable=true)
      */
-    protected $last_name = "";
+    protected $last_name = '';
 
     /**
      * @var string|null The department the user is working
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    protected $department = "";
+    protected $department = '';
 
 
     /**
@@ -104,25 +104,25 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Email()
      */
-    protected $email = "";
+    protected $email = '';
 
     /**
      * @var string|null The language/locale the user prefers
      * @ORM\Column(type="string", name="config_language", nullable=true)
      */
-    protected $language = "";
+    protected $language = '';
 
     /**
      * @var string|null The timezone the user prefers
      * @ORM\Column(type="string", name="config_timezone", nullable=true)
      */
-    protected $timezone = "";
+    protected $timezone = '';
 
     /**
      * @var string|null The theme
      * @ORM\Column(type="string", name="config_theme", nullable=true)
      */
-    protected $theme = "";
+    protected $theme = '';
 
     /**
      * @var Group|null The group this user belongs to.
@@ -240,7 +240,7 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
      * @param bool $including_username Include the username in the full name.
      * @return string A string with the full name of this user.
      */
-    public function getFullName(bool $including_username = false)
+    public function getFullName(bool $including_username = false) : string
     {
         $str = $this->getFirstName() . ' ' . $this->getLastName();
         if ($including_username) {

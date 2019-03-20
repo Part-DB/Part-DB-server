@@ -78,14 +78,14 @@ abstract class AttachmentContainingDBElement extends NamedDBElement
 
             foreach ($attachements as $key => $attachement) {
                 if (($only_table_attachements && (! $attachement->getShowInTable()))
-                    || ($type_id && ($attachement->getType()->getID() != $type_id))) {
+                    || ($type_id && ($attachement->getType()->getID() !== $type_id))) {
                     unset($attachements[$key]);
                 }
             }
 
             return $attachements;
-        } else {
-            return $this->attachments;
         }
+
+        return $this->attachments;
     }
 }

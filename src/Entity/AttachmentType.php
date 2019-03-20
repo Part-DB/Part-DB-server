@@ -38,7 +38,7 @@ class AttachmentType extends StructuralDBElement
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Attachment", mappedBy="attachement_type")
      */
-    protected $attachments = null;
+    protected $attachments;
 
 
     /**
@@ -62,7 +62,7 @@ class AttachmentType extends StructuralDBElement
     public function getAttachementsForType() : ArrayCollection
     {
         // the attribute $this->attachements is used from class "AttachementsContainingDBELement"
-        if ($this->attachments == null) {
+        if ($this->attachments === null) {
             $this->attachments = new ArrayCollection();
         }
 
@@ -76,7 +76,7 @@ class AttachmentType extends StructuralDBElement
      */
     public function getIDString(): string
     {
-        return "";
+        return '';
         //return 'AT' . sprintf('%09d', $this->getID());
     }
 }

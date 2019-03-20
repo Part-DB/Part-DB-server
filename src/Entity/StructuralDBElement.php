@@ -26,7 +26,6 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
-use Symfony\Bundle\MakerBundle\Str;
 
 /**
  *
@@ -78,7 +77,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
 
     /** @var string[] all names of all parent elements as a array of strings,
      *  the last array element is the name of the element itself */
-    private $full_path_strings =  null;
+    private $full_path_strings;
 
     /******************************************************************************
      * StructuralDBElement constructor.
@@ -105,11 +104,11 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
 
         if ($this->getID() == null) { // this is the root node
             return false;
-        } else {
-            //If this' parents element, is $another_element, then we are finished
-            return (($this->parent->getID() == $another_element->getID())
-                || $this->parent->isChildOf($another_element)); //Otherwise, check recursivley
         }
+
+//If this' parents element, is $another_element, then we are finished
+        return (($this->parent->getID() == $another_element->getID())
+            || $this->parent->isChildOf($another_element)); //Otherwise, check recursivley
     }
 
 
@@ -149,10 +148,6 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     public function getComment(bool $parse_bbcode = true) : string
     {
         $val = htmlspecialchars($this->comment ?? '');
-        if ($parse_bbcode) {
-            //$bbcode = new BBCodeParser();
-            //$val = $bbcode->parse($val);
-        }
 
         return $val;
     }
@@ -219,7 +214,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     public function getSubelements(bool $recursive) : PersistentCollection
     {
         if ($this->children == null) {
-            $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->children = new ArrayCollection();
         }
 
         if (! $recursive) {

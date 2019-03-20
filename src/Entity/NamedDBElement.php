@@ -41,7 +41,7 @@ abstract class NamedDBElement extends DBElement
      * @Assert\NotBlank()
      *
      */
-    protected $name = "";
+    protected $name = '';
 
     /**
      * @var \DateTime The date when this element was modified the last time.

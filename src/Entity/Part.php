@@ -49,7 +49,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Part extends AttachmentContainingDBElement
 {
-    const INSTOCK_UNKNOWN   = -2;
+    public const INSTOCK_UNKNOWN   = -2;
 
     /**
      * @var Category
@@ -146,7 +146,7 @@ class Part extends AttachmentContainingDBElement
      *
      * @ColumnSecurity(prefix="description")
      */
-    protected $description = "";
+    protected $description = '';
 
     /**
      * @var int
@@ -171,7 +171,7 @@ class Part extends AttachmentContainingDBElement
      * @ORM\Column(type="string")
      * @ColumnSecurity(prefix="comment")
      */
-    protected $comment = "";
+    protected $comment = '';
 
     /**
      * @var bool
@@ -205,7 +205,7 @@ class Part extends AttachmentContainingDBElement
      * @ORM\Column(type="string")
      *@ColumnSecurity(prefix="manufacturer", type="string", placeholder="")
      */
-    protected $manufacturer_product_url = "";
+    protected $manufacturer_product_url = '';
 
 
     /**
@@ -287,7 +287,7 @@ class Part extends AttachmentContainingDBElement
     {
         $all_orderdetails = $this->getOrderdetails();
 
-        if (count($all_orderdetails) == 0) {
+        if (count($all_orderdetails) === 0) {
             return false;
         }
 
@@ -363,7 +363,7 @@ class Part extends AttachmentContainingDBElement
     public function getMinOrderQuantity(bool $with_devices = true) : int
     {
         //TODO
-        throw new \Exception("Not implemented yet...");
+        throw new \Exception('Not implemented yet...');
 
         /**
         if ($with_devices) {
@@ -423,15 +423,15 @@ class Part extends AttachmentContainingDBElement
      */
     public function getManufacturerProductUrl() : string
     {
-        if ($this->manufacturer_product_url != '') {
+        if ($this->manufacturer_product_url !== '') {
             return $this->manufacturer_product_url;
         }
 
         if ($this->getManufacturer() !== null) {
             return $this->getManufacturer()->getAutoProductUrl($this->name);
-        } else {
-            return '';
-        } // no url is available
+        }
+
+        return ''; // no url is available
     }
 
     /**
@@ -752,7 +752,7 @@ class Part extends AttachmentContainingDBElement
     public function getProperties(bool $use_description = true, bool $use_comment = true, bool $use_name = true, bool $force_output = false) : array
     {
         //TODO
-        throw new \Exception("Not implemented yet!");
+        throw new \Exception('Not implemented yet!');
         /*
         global $config;
 
@@ -790,7 +790,7 @@ class Part extends AttachmentContainingDBElement
     public function getPropertiesLoop(bool $use_description = true, bool $use_comment = true, bool $use_name = true) : array
     {
         //TODO
-        throw new \Exception("Not implemented yet!");
+        throw new \Exception('Not implemented yet!');
         $arr = array();
         foreach ($this->getProperties($use_description, $use_comment, $use_name) as $property) {
             /* @var PartProperty $property */
@@ -804,17 +804,6 @@ class Part extends AttachmentContainingDBElement
     {
         return self::isValidName($this->getName(), $this->getCategory());
     } */
-
-
-    public function getAttachmentTypes() : array
-    {
-        return parent::getAttachmentTypes();
-    }
-
-    public function getAttachments($type_id = null, bool $only_table_attachements = false) : array
-    {
-        return parent::getAttachments($type_id, $only_table_attachements);
-    }
 
     /********************************************************************************
      *
@@ -846,7 +835,7 @@ class Part extends AttachmentContainingDBElement
     {
         //Assert::natural($new_instock, 'New instock must be positive. Got: %s');
 
-        $old_instock = (int) $this->getInstock();
+        $old_instock = $this->getInstock();
         $this->instock = $new_instock;
         //TODO
         /*
@@ -873,14 +862,13 @@ class Part extends AttachmentContainingDBElement
      */
     public function setInstockUnknown(bool $new_unknown) : self
     {
-        if($new_unknown == true) {
+        if($new_unknown === true) {
             $this->instock = self::INSTOCK_UNKNOWN;
-        } else {
-            //Change only if instock is currently unknown.
-            if ($this->isInstockUnknown()) {
-                $this->setInstock(0);
-            }
+        } else if ($this->isInstockUnknown()) {
+            $this->setInstock(0);
         }
+
+        return $this;
 
     }
 
@@ -1016,7 +1004,7 @@ class Part extends AttachmentContainingDBElement
     public function setOrderOrderdetailsID($new_order_orderdetails_id) : self
     {
         //TODO
-        throw new \Exception("Not implemented yet...");
+        throw new \Exception('Not implemented yet...');
 
         return $this;
     }
@@ -1137,7 +1125,7 @@ class Part extends AttachmentContainingDBElement
     public function setMasterPictureAttachementID($new_master_picture_attachement_id) : self
     {
         //TODO
-        throw new \Exception("Not implemented yet!");
+        throw new \Exception('Not implemented yet!');
 
         return $this;
     }

@@ -114,7 +114,7 @@ class Device extends PartsContainingDBElement
     {
         if($new_order_quantity < 0)
         {
-            throw new \InvalidArgumentException("The new order quantity must not be negative!");
+            throw new \InvalidArgumentException('The new order quantity must not be negative!');
         }
         $this->order_quantity = $new_order_quantity;
         return $this;

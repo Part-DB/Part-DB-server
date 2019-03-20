@@ -21,9 +21,10 @@
  *
  */
 
-namespace App\Entity;;
+namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Intl\Exception\NotImplementedException;
 
 /**
  * Class Attachment
@@ -137,6 +138,8 @@ class Attachment extends NamedDBElement
     public function getType() : AttachmentType
     {
         //TODO
+
+        throw new NotImplementedException("Not implemented yet!");
     }
 
     /**

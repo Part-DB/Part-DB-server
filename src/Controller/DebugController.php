@@ -53,6 +53,6 @@ class DebugController extends AbstractController
 
         $this->addFlash('testkjfd', 'Blabla. This message type should be not know to template!');
 
-        return $this->render("base.html.twig");
+        return $this->render('base.html.twig');
     }
 }

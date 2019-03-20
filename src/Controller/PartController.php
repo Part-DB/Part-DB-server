@@ -37,10 +37,7 @@ use App\Entity\Category;
 use App\Entity\Part;
 use App\Form\PartType;
 use App\Services\AttachmentFilenameService;
-use App\Services\EntityURLGenerator;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -61,8 +58,8 @@ class PartController extends AbstractController
 
         return $this->render('Parts/show_part_info.html.twig',
             [
-                "part" => $part,
-                "main_image" => $attachmentFilenameService->attachmentPathToAbsolutePath($filename)
+                'part' => $part,
+                'main_image' => $attachmentFilenameService->attachmentPathToAbsolutePath($filename)
             ]
             );
     }
@@ -88,8 +85,8 @@ class PartController extends AbstractController
 
         return $this->render('Parts/edit_part_info.html.twig',
             [
-                "part" => $part,
-                "form" => $form->createView(),
+                'part' => $part,
+                'form' => $form->createView(),
             ]);
     }
 
@@ -123,8 +120,8 @@ class PartController extends AbstractController
 
         return $this->render('Parts/new_part.html.twig',
             [
-                "part" => $new_part,
-                "form" => $form->createView()
+                'part' => $new_part,
+                'form' => $form->createView()
             ]);
     }
 
@@ -136,7 +133,7 @@ class PartController extends AbstractController
     {
 
         /** @var Part $new_part */
-        $new_part = clone($part);
+        $new_part = clone $part;
 
         $this->denyAccessUnlessGranted('create', $new_part);
 
@@ -154,8 +151,8 @@ class PartController extends AbstractController
 
         return $this->render('Parts/new_part.html.twig',
             [
-                "part" => $new_part,
-                "form" => $form->createView()
+                'part' => $new_part,
+                'form' => $form->createView()
             ]);
     }
 

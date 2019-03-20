@@ -55,35 +55,35 @@ class PermissionsEmbed
      * Permission strings
      */
 
-    const STORELOCATIONS    = 'storelocations';
-    const FOOTRPINTS        = 'footprints';
-    const CATEGORIES        = 'categories';
-    const SUPPLIERS         = 'suppliers';
-    const MANUFACTURERS     = 'manufacturers';
-    const DEVICES           = 'devices';
-    const ATTACHMENT_TYPES = 'attachment_types';
-    const TOOLS             = 'tools';
-    const PARTS             = 'parts';
-    const PARTS_NAME        = 'parts_name';
-    const PARTS_DESCRIPTION = 'parts_description';
-    const PARTS_INSTOCK     = 'parts_instock';
-    const PARTS_MININSTOCK  = 'parts_mininstock';
-    const PARTS_FOOTPRINT   = 'parts_footprint';
-    const PARTS_COMMENT     = 'parts_comment';
-    const PARTS_STORELOCATION = 'parts_storelocation';
-    const PARTS_MANUFACTURER = 'parts_manufacturer';
-    const PARTS_ORDERDETAILS = 'parts_orderdetails';
-    const PARTS_PRICES      = 'parts_prices';
-    const PARTS_ATTACHMENTS = 'parts_attachments';
-    const PARTS_ORDER        = 'parts_order';
-    const GROUPS            = 'groups';
-    const USERS             = 'users';
-    const DATABASE          = 'system_database';
-    const CONFIG            = 'system_config';
-    const SYSTEM            = 'system';
-    const DEVICE_PARTS      = 'devices_parts';
-    const SELF              = 'self';
-    const LABELS            = 'labels';
+    public const STORELOCATIONS    = 'storelocations';
+    public const FOOTRPINTS        = 'footprints';
+    public const CATEGORIES        = 'categories';
+    public const SUPPLIERS         = 'suppliers';
+    public const MANUFACTURERS     = 'manufacturers';
+    public const DEVICES           = 'devices';
+    public const ATTACHMENT_TYPES = 'attachment_types';
+    public const TOOLS             = 'tools';
+    public const PARTS             = 'parts';
+    public const PARTS_NAME        = 'parts_name';
+    public const PARTS_DESCRIPTION = 'parts_description';
+    public const PARTS_INSTOCK     = 'parts_instock';
+    public const PARTS_MININSTOCK  = 'parts_mininstock';
+    public const PARTS_FOOTPRINT   = 'parts_footprint';
+    public const PARTS_COMMENT     = 'parts_comment';
+    public const PARTS_STORELOCATION = 'parts_storelocation';
+    public const PARTS_MANUFACTURER = 'parts_manufacturer';
+    public const PARTS_ORDERDETAILS = 'parts_orderdetails';
+    public const PARTS_PRICES      = 'parts_prices';
+    public const PARTS_ATTACHMENTS = 'parts_attachments';
+    public const PARTS_ORDER        = 'parts_order';
+    public const GROUPS            = 'groups';
+    public const USERS             = 'users';
+    public const DATABASE          = 'system_database';
+    public const CONFIG            = 'system_config';
+    public const SYSTEM            = 'system';
+    public const DEVICE_PARTS      = 'devices_parts';
+    public const SELF              = 'self';
+    public const LABELS            = 'labels';
 
     /**
      * @var int
@@ -283,9 +283,11 @@ class PermissionsEmbed
     public function getPermissionValue(string $permission_name, int $bit_n) : ?bool
     {
         $value = $this->getBitValue($permission_name, $bit_n);
-        if($value == self::ALLOW) {
+        if ($value == self::ALLOW) {
             return true;
-        } elseif($value == self::DISALLOW) {
+        }
+
+        if($value == self::DISALLOW) {
             return false;
         } else {
             return null;

@@ -154,11 +154,11 @@ class Orderdetail extends DBElement
      */
     public function getSupplierProductUrl(bool $no_automatic_url = false) : string
     {
-        if ($no_automatic_url || $this->supplierpartnr != '') {
+        if ($no_automatic_url || $this->supplierpartnr !== '') {
             return $this->supplierpartnr;
-        } else {
-            return $this->getSupplier()->getAutoProductUrl($this->supplierpartnr);
-        } // maybe an automatic url is available...
+        }
+
+        return $this->getSupplier()->getAutoProductUrl($this->supplierpartnr); // maybe an automatic url is available...
     }
 
     /**
@@ -235,7 +235,7 @@ class Orderdetail extends DBElement
         return $correct_pricedetails->getPrice($as_money_string, $multiplier);
          * */
         //TODO
-        throw new \Exception("Not implemented yet...");
+        throw new \Exception('Not implemented yet...');
     }
 
     /********************************************************************************
@@ -252,7 +252,7 @@ class Orderdetail extends DBElement
      */
     public function setSupplierId(int $new_supplier_id) : self
     {
-        throw new \Exception("Not implemented yet!");
+        throw new \Exception('Not implemented yet!');
         //TODO;
 
         return $this;
