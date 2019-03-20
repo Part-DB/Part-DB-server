@@ -76,12 +76,10 @@ class ElementPermissionListener
             $annotation = $reader->getPropertyAnnotation($property,
                 ColumnSecurity::class);
 
-            if (null !== $annotation) {
-                //Check if user is allowed to read info, otherwise apply placeholder
-                if (!$this->security->isGranted($annotation->getReadOperationName(), $element)) {
-                    $property->setAccessible(true);
-                    $property->setValue($element, $annotation->getPlaceholder());
-                }
+            //Check if user is allowed to read info, otherwise apply placeholder
+            if ((null !== $annotation) && !$this->security->isGranted($annotation->getReadOperationName(), $element)) {
+                $property->setAccessible(true);
+                $property->setValue($element, $annotation->getPlaceholder());
             }
         }
     }

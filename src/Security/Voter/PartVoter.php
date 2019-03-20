@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
  */
 class PartVoter extends ExtendedVoter
 {
-    const READ = 'read';
+    public const READ = 'read';
 
     protected function supports($attribute, $subject)
     {

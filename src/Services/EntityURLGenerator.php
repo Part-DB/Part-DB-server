@@ -109,5 +109,7 @@ class EntityURLGenerator
         if ($entity instanceof NamedDBElement) {
             return sprintf('<a href="%s">%s</a>', $href, $entity->getName());
         }
+
+        throw new EntityNotSupported('The given entity is not supported yet!');
     }
 }

@@ -286,9 +286,9 @@ class PermissionsEmbed
 
         if (self::DISALLOW == $value) {
             return false;
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**

@@ -585,9 +585,9 @@ class Part extends AttachmentContainingDBElement
 
             if (\is_string($delimeter)) {
                 return implode($delimeter, $supplier_names);
-            } else {
-                return $supplier_names;
             }
+
+            return $supplier_names;
         }
     }
 

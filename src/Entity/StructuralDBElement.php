@@ -40,10 +40,10 @@ use Doctrine\ORM\PersistentCollection;
  */
 abstract class StructuralDBElement extends AttachmentContainingDBElement
 {
-    const ID_ROOT_ELEMENT = 0;
+    public const ID_ROOT_ELEMENT = 0;
 
     //This is a not standard character, so build a const, so a dev can easily use it
-    const PATH_DELIMITER_ARROW = ' → ';
+    public const PATH_DELIMITER_ARROW = ' → ';
 
     // We can not define the mapping here or we will get an exception. Unfortunatly we have to do the mapping in the
     // subclasses
@@ -146,9 +146,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      */
     public function getComment(bool $parse_bbcode = true): string
     {
-        $val = htmlspecialchars($this->comment ?? '');
-
-        return $val;
+        return htmlspecialchars($this->comment ?? '');
     }
 
     /**
@@ -217,15 +215,15 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
 
         if (!$recursive) {
             return $this->children;
-        } else {
-            $all_elements = array();
-            foreach ($this->children as $subelement) {
-                $all_elements[] = $subelement;
-                $all_elements = array_merge($all_elements, $subelement->getSubelements(true));
-            }
-
-            return $all_elements;
         }
+
+        $all_elements = array();
+        foreach ($this->children as $subelement) {
+            $all_elements[] = $subelement;
+            $all_elements = array_merge($all_elements, $subelement->getSubelements(true));
+        }
+
+        return $all_elements;
     }
 
     /******************************************************************************
