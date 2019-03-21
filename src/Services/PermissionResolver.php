@@ -32,7 +32,10 @@ namespace App\Services;
 use App\Configuration\PermissionsConfiguration;
 use App\Entity\User;
 use App\Security\Interfaces\HasPermissionsInterface;
+use Psr\Container\ContainerInterface;
+use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Config\Definition\Processor;
+use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Yaml\Yaml;
 
@@ -40,44 +43,78 @@ class PermissionResolver
 {
     protected $permission_structure;
 
+    protected $is_debug;
+    protected $cache_file;
+
     /**
      * PermissionResolver constructor.
      *
      * @param ParameterBagInterface $params
      */
-    public function __construct(ParameterBagInterface $params)
+    public function __construct(ParameterBagInterface $params, ContainerInterface $container)
     {
-        //Read the permission config file...
-        $config = Yaml::parse(
-            file_get_contents(__DIR__.'/../../config/permissions.yaml')
-        );
+        $cache_dir = $container->getParameter('kernel.cache_dir');
+        //Here the cached structure will be saved.
+        $this->cache_file = $cache_dir.'/permissions.php.cache';
+        $this->is_debug = $container->getParameter('kernel.debug');
 
-        $configs = [$config];
 
-        //... And parse it
-        $processor = new Processor();
-        $databaseConfiguration = new PermissionsConfiguration();
-        $processedConfiguration = $processor->processConfiguration(
-            $databaseConfiguration,
-            $configs
-        );
 
-        $this->permission_structure = $processedConfiguration;
+        $this->permission_structure = $this->getPermissionStructure();
 
         //dump($this->permission_structure);
     }
+
+    protected function getPermissionStructure()
+    {
+
+        $cache = new ConfigCache($this->cache_file, $this->is_debug);
+
+        //Check if the cache is fresh, else regenerate it.
+        if (!$cache->isFresh()) {
+            $permission_file = __DIR__.'/../../config/permissions.yaml';
+
+            //Read the permission config file...
+            $config = Yaml::parse(
+                file_get_contents($permission_file)
+            );
+
+            $configs = [$config];
+
+            //... And parse it
+            $processor = new Processor();
+            $databaseConfiguration = new PermissionsConfiguration();
+            $processedConfiguration = $processor->processConfiguration(
+                $databaseConfiguration,
+                $configs
+            );
+
+            //Permission file is our file resource (it is used to invalidate cache)
+            $resources = array();
+            $resources[] = new FileResource($permission_file);
+
+            //Var export the structure and write it to cache file.
+            $cache->write(
+                sprintf('<?php return %s;', var_export($processedConfiguration, true)),
+                $resources);
+        }
+
+        //In the most cases we just need to dump the cached PHP file.
+        return require $this->cache_file;
+    }
+
 
     /**
      * Check if a user/group is allowed to do the specified operation for the permission.
      *
      * See permissions.yaml for valid permission operation combinations.
      *
-     * @param HasPermissionsInterface $user       The user/group for which the operation should be checked.
-     * @param string                  $permission The name of the permission for which should be checked.
-     * @param string                  $operation  The name of the operation for which should be checked.
+     * @param HasPermissionsInterface $user       the user/group for which the operation should be checked
+     * @param string                  $permission the name of the permission for which should be checked
+     * @param string                  $operation  the name of the operation for which should be checked
      *
-     * @return bool|null True, if the user is allowed to do the operation (ALLOW), false if not (DISALLOW), and null,
-     *                   if the value is set to inherit.
+     * @return bool|null true, if the user is allowed to do the operation (ALLOW), false if not (DISALLOW), and null,
+     *                   if the value is set to inherit
      */
     public function dontInherit(HasPermissionsInterface $user, string $permission, string $operation): ?bool
     {
@@ -98,12 +135,12 @@ class PermissionResolver
      *
      * In that case the voter should set it manually to false by using ?? false.
      *
-     * @param User   $user       The user for which the operation should be checked.
-     * @param string $permission The name of the permission for which should be checked.
-     * @param string $operation  The name of the operation for which should be checked.
+     * @param User   $user       the user for which the operation should be checked
+     * @param string $permission the name of the permission for which should be checked
+     * @param string $operation  the name of the operation for which should be checked
      *
-     * @return bool|null True, if the user is allowed to do the operation (ALLOW), false if not (DISALLOW), and null,
-     *                   if the value is set to inherit.
+     * @return bool|null true, if the user is allowed to do the operation (ALLOW), false if not (DISALLOW), and null,
+     *                   if the value is set to inherit
      */
     public function inherit(User $user, string $permission, string $operation): ?bool
     {
@@ -150,7 +187,7 @@ class PermissionResolver
     /**
      * Checks if the permission with the given name is existing.
      *
-     * @param string $permission The name of the permission which we want to check.
+     * @param string $permission the name of the permission which we want to check
      *
      * @return bool True if a perm with that name is existing. False if not.
      */
@@ -162,10 +199,10 @@ class PermissionResolver
     /**
      * Checks if the permission operation combination with the given names is existing.
      *
-     * @param string $permission The name of the permission which should be checked.
-     * @param string $operation  The name of the operation which should be checked.
+     * @param string $permission the name of the permission which should be checked
+     * @param string $operation  the name of the operation which should be checked
      *
-     * @return bool True if the given permission operation combination is existing.
+     * @return bool true if the given permission operation combination is existing
      */
     public function isValidOperation(string $permission, string $operation): bool
     {
