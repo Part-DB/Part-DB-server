@@ -31,7 +31,7 @@ namespace App\Security\EntityListeners;
 
 use App\Security\Annotations\ColumnSecurity;
 use App\Entity\DBElement;
-use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Annotations\Reader;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping\PostLoad;
@@ -49,10 +49,12 @@ use Symfony\Component\Security\Core\Security;
 class ElementPermissionListener
 {
     protected $security;
+    protected $reader;
 
-    public function __construct(Security $security)
+    public function __construct(Security $security, Reader $reader)
     {
         $this->security = $security;
+        $this->reader = $reader;
     }
 
     /**
@@ -67,13 +69,12 @@ class ElementPermissionListener
         //Read Annotations and properties.
         $reflectionClass = new ReflectionClass($element);
         $properties = $reflectionClass->getProperties();
-        $reader = new AnnotationReader();
 
         foreach ($properties as $property) {
             /**
              * @var ColumnSecurity
              */
-            $annotation = $reader->getPropertyAnnotation($property,
+            $annotation = $this->reader->getPropertyAnnotation($property,
                 ColumnSecurity::class);
 
             //Check if user is allowed to read info, otherwise apply placeholder
@@ -93,13 +94,12 @@ class ElementPermissionListener
     {
         $reflectionClass = new ReflectionClass($element);
         $properties = $reflectionClass->getProperties();
-        $reader = new AnnotationReader();
 
         foreach ($properties as $property) {
             /**
              * @var ColumnSecurity
              */
-            $annotation = $reader->getPropertyAnnotation($property,
+            $annotation = $this->reader->getPropertyAnnotation($property,
                 ColumnSecurity::class);
 
             if (null !== $annotation) {
