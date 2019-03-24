@@ -118,7 +118,7 @@
         </nav>
 
 
-        <div class="toast-container ">
+        <div class="toast-container" id="message-container">
             {% for label, messages in app.flashes() %}
                 {% for message in messages %}
                     {% set flash_title = label|replace({'success': 'flash.success', 'error': 'flash.error'

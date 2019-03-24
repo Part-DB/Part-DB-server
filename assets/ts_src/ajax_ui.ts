@@ -210,6 +210,10 @@ class AjaxUI {
         //Replace login menu too (so everything is up to date)
         $("#login-content").replaceWith($('#login-content', dom));
 
+        //Replace flash messages and show them
+        $("#message-container").replaceWith($('#message-container', dom));
+        $(".toast").toast('show');
+
         //Set new title
         let title  = extractTitle(responseText);
         document.title = title;
