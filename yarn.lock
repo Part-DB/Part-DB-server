@@ -1195,6 +1195,10 @@ bootstrap-select@^1.13.8:
   resolved "https://registry.yarnpkg.com/bootstrap-select/-/bootstrap-select-1.13.8.tgz#c47047410511f6d8a8917a7738d1b03c95717d5d"
   integrity sha512-WF6GJPgb98cv75X6/zoCWUNwM/HPoYKP6JDBryTNDCHMPV9YyMqU7xXncC7Se2M5VAt7kZQ/i2GSYwaf5Q/Z3w==
 
+bootstrap-treeview@jbtronics/bootstrap-treeview:
+  version "1.2.1"
+  resolved "https://codeload.github.com/jbtronics/bootstrap-treeview/tar.gz/0855394d4fa06c99289d2ba9a164a987228456c5"
+
 bootstrap@^4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.3.1.tgz#280ca8f610504d99d7b6b4bfc4b68cec601704ac"

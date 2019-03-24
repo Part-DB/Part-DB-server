@@ -57,18 +57,7 @@ class AppExtension extends AbstractExtension
 
     public function generateEntityURL(DBElement $entity, string $method = 'info'): string
     {
-        switch ($method) {
-            case 'info':
-                return $this->entityURLGenerator->infoURL($entity);
-            case 'edit':
-                return $this->entityURLGenerator->editURL($entity);
-            case 'create':
-                return $this->entityURLGenerator->createURL($entity);
-            case 'clone':
-                return $this->entityURLGenerator->cloneURL($entity);
-        }
-
-        throw new \InvalidArgumentException('method is not supported!');
+        return $this->entityURLGenerator->getURL($entity, $method);
     }
 
     public function parseBBCode(string $bbcode): string

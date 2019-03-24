@@ -23,6 +23,8 @@ import 'datatables.net-select-bs4/css/select.bootstrap4.css'
 import 'bootstrap-select/dist/css/bootstrap-select.css'
 import 'awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css'
 
+import "bootstrap-treeview/src/css/bootstrap-treeview.css"
+
 //require( 'jszip' );
 //#require( 'pdfmake' );
 require( 'datatables.net-bs4' );
@@ -33,10 +35,13 @@ require( 'datatables.net-buttons/js/buttons.print.js' );
 //require( 'datatables.net-colreorder-bs4' )();
 require( 'datatables.net-fixedheader-bs4' );
 require( 'datatables.net-select-bs4' );
-require('bootstrap-select')
+require('bootstrap-select');
 
+//require('bootstrap-treeview/src/js/bootstrap-treeview');
 
 //Define jquery globally
 window.$ = window.jQuery = require("jquery");
+
+require('bootstrap-treeview/src/js/bootstrap-treeview');
 
 //console.log('Hello Webpack Encore! Edit me in assets/js/app.js');

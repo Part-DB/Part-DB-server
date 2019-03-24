@@ -29,6 +29,7 @@
 
 namespace App\Services;
 
+use App\Entity\Category;
 use App\Entity\NamedDBElement;
 use App\Entity\Part;
 use App\Exceptions\EntityNotSupported;
@@ -47,12 +48,40 @@ class EntityURLGenerator
     }
 
     /**
+     * Generates an URL to the page using the given page type and element.
+     * For the given types, the [type]URL() functions are called (e.g. infoURL()).
+     * Not all entity class and $type combinations are supported.
+     *
+     * @param $entity mixed The element for which the page should be generated.
+     * @param string $type The page type. Currently supported: 'info', 'edit', 'create', 'clone', 'list'/'list_parts'
+     * @return string The link to the desired page.
+     * @throws EntityNotSupported Thrown if the entity is not supported for the given type.
+     * @throws \InvalidArgumentException Thrown if the givent type is not existing.
+     */
+    public function getURL($entity, string $type)
+    {
+        switch ($type) {
+            case 'info':
+                return $this->infoURL($entity);
+            case 'edit':
+                return $this->editURL($entity);
+            case 'create':
+                return $this->createURL($entity);
+            case 'clone':
+                return $this->cloneURL($entity);
+            case 'list':
+            case 'list_parts':
+                return $this->listPartsURL($entity);
+        }
+
+        throw new \InvalidArgumentException('Method is not supported!');
+    }
+
+    /**
      * Generates an URL to a page, where info about this entity can be viewed.
      *
      * @param $entity mixed The entity for which the info should be generated.
-     *
      * @return string The URL to the info page
-     *
      * @throws EntityNotSupported If the method is not supported for the given Entity
      */
     public function infoURL($entity): string
@@ -65,6 +94,13 @@ class EntityURLGenerator
         throw new EntityNotSupported('The given entity is not supported yet!');
     }
 
+    /**
+     * Generates an URL to a page, where this entity can be edited.
+     *
+     * @param $entity mixed The entity for which the edit link should be generated.
+     * @return string The URL to the edit page.
+     * @throws EntityNotSupported If the method is not supported for the given Entity
+     */
     public function editURL($entity): string
     {
         if ($entity instanceof Part) {
@@ -75,6 +111,13 @@ class EntityURLGenerator
         throw new EntityNotSupported('The given entity is not supported yet!');
     }
 
+    /**
+     * Generates an URL to a page, where a entity of this type can be created.
+     *
+     * @param $entity mixed The entity for which the link should be generated.
+     * @return string The URL to the page.
+     * @throws EntityNotSupported If the method is not supported for the given Entity
+     */
     public function createURL($entity): string
     {
         if ($entity instanceof Part) {
@@ -84,6 +127,14 @@ class EntityURLGenerator
         throw new EntityNotSupported('The given entity is not supported yet!');
     }
 
+    /**
+     * Generates an URL to a page, where a new entity can be created, that has the same informations as the
+     * given entity (element cloning)
+     *
+     * @param $entity mixed The entity for which the link should be generated.
+     * @return string The URL to the page.
+     * @throws EntityNotSupported If the method is not supported for the given Entity
+     */
     public function cloneURL($entity): string
     {
         if ($entity instanceof Part) {
@@ -91,6 +142,22 @@ class EntityURLGenerator
         }
 
         throw new EntityNotSupported('The given entity is not supported yet!');
+    }
+
+    /**
+     * Generates an URL to a page, where all parts are listed, which are contained in the given element.
+     *
+     * @param $entity mixed The entity for which the link should be generated.
+     * @return string The URL to the page.
+     * @throws EntityNotSupported If the method is not supported for the given Entity
+     */
+    public function listPartsURL($entity) : string
+    {
+        if ($entity instanceof Category) {
+            return $this->urlGenerator->generate('app_partlists_showcategory', ['id' => $entity->getID()]);
+        }
+        throw new EntityNotSupported('The given entity is not supported yet!');
+
     }
 
     /**

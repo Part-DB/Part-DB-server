@@ -19,6 +19,7 @@
         "@ckeditor/ckeditor5-build-classic": "^12.0.0",
         "awesome-bootstrap-checkbox": "^1.0.1",
         "bootstrap-select": "^1.13.8",
+        "bootstrap-treeview": "jbtronics/bootstrap-treeview",
         "datatables.net-bs4": "^1.10.19",
         "datatables.net-buttons-bs4": "^1.5.4",
         "datatables.net-fixedheader-bs4": "^3.1.5",

@@ -309,6 +309,24 @@
 
 {% endblock %}
 
+
+<script>
+    $.getJSON("{{ path("tree_tools") }}",null, function (data) {
+        $('#tree-tools').treeview({
+            data: data,
+            showIcon: false
+        });
+    });
+
+    $.getJSON("{{ path("tree_category", {"id": 1}) }}",null, function (data) {
+        $('#tree-categories').treeview({
+            data: data,
+            showIcon: false,
+            enableLinks: true
+        });
+    });
+</script>
+
 {% block scripts %}
 
 {% endblock %}

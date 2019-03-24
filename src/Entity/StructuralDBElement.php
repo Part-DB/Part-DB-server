@@ -37,6 +37,7 @@ use Doctrine\ORM\PersistentCollection;
  * an attribute of a root element, you will get an exception!
  *
  * @ORM\MappedSuperclass()
+ * //@ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
  */
 abstract class StructuralDBElement extends AttachmentContainingDBElement
 {
@@ -207,23 +208,9 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      *
      * @return static[] all subelements as an array of objects (sorted by their full path)
      */
-    public function getSubelements(bool $recursive): PersistentCollection
+    public function getSubelements(): PersistentCollection
     {
-        if (null == $this->children) {
-            $this->children = new ArrayCollection();
-        }
-
-        if (!$recursive) {
-            return $this->children;
-        }
-
-        $all_elements = array();
-        foreach ($this->children as $subelement) {
-            $all_elements[] = $subelement;
-            $all_elements = array_merge($all_elements, $subelement->getSubelements(true));
-        }
-
-        return $all_elements;
+        return $this->children;
     }
 
     /******************************************************************************
