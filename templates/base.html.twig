@@ -13,7 +13,8 @@
     <meta name="msapplication-config" content="{{ asset('icons/browserconfig.xml') }}">
     <meta name="theme-color" content="#ffffff">
 
-    <title>{% block title %}{{ partdb_title }}{% endblock %}</title>
+
+    <title>{% filter trim %}{% block title %}{{ partdb_title}}{% endblock %}{% endfilter %}</title>
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
@@ -88,7 +89,7 @@
                     <span class="ml-2 text-muted">{% trans %}barcode.scan{% endtrans %}</span>
                 </a>
 
-                <ul class="navbar-nav ml-3">
+                <ul class="navbar-nav ml-3" id="login-content">
                     <li class="nav-item dropdown">
                         <a href="#" class="dropdown-toggle link-anchor nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             {% if app.user %}<i class="fa fa-user" aria-hidden="true"></i>{% else %}<i class="far fa-user" aria-hidden="true"></i>{% endif %} <span class="caret"></span></a>
@@ -104,10 +105,10 @@
                             {% endif %}
                             <li role="separator" class="dropdown-divider"></li>
                             <a class="dropdown-item disabled" href="#">{% trans %}user.language_select{% endtrans %}</a>
-                            <a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'),
+                            <a class="dropdown-item" data-no-ajax href="{{ path(app.request.attributes.get('_route'),
                                    app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}">
                                 {% trans %}language.english{% endtrans %}</a>
-                            <a class="dropdown-item" href="{{ path(app.request.attributes.get('_route'),
+                            <a class="dropdown-item" data-no-ajax href="{{ path(app.request.attributes.get('_route'),
                                 app.request.attributes.get('_route_params')|merge({'_locale': 'de'})) }}">
                                 {% trans %}language.german{% endtrans %}</a>
                         </ul>
@@ -233,59 +234,6 @@
                 <div class="col-md-9 col-lg-10 offset-md-3 offset-lg-2 pl-0" id="main">
                     <div class="container-fluid mr-0 pr-0" id="content">
                         <div id="content-data">
-
-                            {#
-                            {if isset($messages)}
-                            {assign "alert_style" "alert-info"}
-                            {assign "alert_icon" "fas fa-info"}
-                            {foreach $messages as $msg}
-                            {if isset($msg.color) && $msg.color == "red"}
-                            {assign "alert_style" "alert-danger"}
-                            {assign "alert_icon" "fas fa-exclamation"}
-                            {elseif isset($msg.color) && ( $msg.color == "green" || $msg.color == "darkgreen")}
-                            {assign "alert_style" "alert-success"}
-                            {assign "alert_icon" "fas fa-check"}
-                            {elseif isset($msg.color) && ($msg.color == "yellow" || $msg.color == "orange")}
-                            {assign "alert_style" "alert-warning"}
-                            {assign "alert_icon" "fas fa-bell"}
-                            {/if}
-                            {/foreach}
-                            <div class="alert {$alert_style}" id="messages">
-                                <div class="row vertical-align">
-                                    <div class="col-md-1">
-                                        <i class="{$alert_icon} fa-5x" style="text-align: center; width: 1em;"></i>
-                                    </div>
-                                    <div class="col-md-11">
-                                        <div>
-                                            {if !empty($messages_div_title)}<h4>{$messages_div_title}</h4>{/if}
-                                            <form action="" method="post" class="no-progbar">
-                                                {foreach $messages as $msg}
-                                                {if isset($msg.text)}
-                                                {if isset($msg.strong) && $msg.strong}<strong>{/if}
-                                                    {$msg.text nofilter}
-                                                    {if isset($msg.strong) && $msg.strong}</strong>{/if}
-                                                {/if}
-
-                                                {if isset($msg.html)}
-                                                {$msg.html nofilter}
-                                                {/if}
-
-                                                {if !isset($msg.no_linebreak) || !$msg.no_linebreak}<br>{/if}
-                                                {/foreach}
-
-                                                {if !empty($reload_link)}
-                                                <a href="{$reload_link}">
-                                                    <br>
-                                                    <button class="btn btn-secondary">Seite neu laden</button>
-                                                </a>
-                                                {/if}
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            #}
-
                             {# Here will be the real content be injected#}
 
                             {% block content %}
@@ -297,6 +245,26 @@
             </div>
         </div>
     </main>
+
+    {# Modal for loading bar #}
+    <div class="modal border-primary" id="progressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content shadow-lg">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{% trans %}loading.caption{% endtrans %}
+                        <small class="text-muted">{% trans %}loading.message{% endtrans %}</small></h5>
+                </div>
+                <div class="modal-body">
+                    <div class="progress-bar progress-bar-striped active progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0"
+                         aria-valuemax="100" style="width: 100%;">
+                        <span>{% trans %}loading.bar{% endtrans %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 {% endblock %}
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}

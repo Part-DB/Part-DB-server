@@ -134,6 +134,11 @@ body {
     line-height: 1.1;
 }
 
+/* Blur content during loading*/
+.loading-content {
+    filter: blur(2px);
+}
+
 /********************************
 * Toasts
  ********************************/
