@@ -64,7 +64,7 @@ class PartType extends AbstractType
                     'disabled' => !$this->security->isGranted('name.edit', $part), ])
             ->add('description', TextType::class, ['required' => false, 'empty_data' => '',
                 'label' => 'description.label', 'help' => 'bbcode.hint', 'attr' => ['placeholder' => 'part.description.placeholder'],
-                'disabled' => !$this->security->isGranted('description.edit', $part), ])
+                'disabled' => !$this->security->isGranted('description.edit', $part), 'empty_data' => '' ])
             ->add('instock', IntegerType::class,
                 ['attr' => ['min' => 0, 'placeholder' => 'part.instock.placeholder'], 'label' => 'instock.label',
                 'disabled' => !$this->security->isGranted('instock.edit', $part), ])
@@ -85,7 +85,7 @@ class PartType extends AbstractType
                 'disabled' => !$this->security->isGranted('manufacturer.edit', $part), ])
             ->add('comment', CKEditorType::class, ['required' => false,
                 'label' => 'comment.label', 'attr' => ['rows' => 4], 'help' => 'bbcode.hint',
-                'disabled' => !$this->security->isGranted('comment.edit', $part), ])
+                'disabled' => !$this->security->isGranted('comment.edit', $part), 'empty_data' => ''])
 
             //Buttons
             ->add('save', SubmitType::class, ['label' => 'part.edit.save'])

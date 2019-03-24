@@ -658,6 +658,13 @@
     "@types/jquery" "*"
     popper.js "^1.14.1"
 
+"@types/jquery.form@^3.26.30":
+  version "3.26.30"
+  resolved "https://registry.yarnpkg.com/@types/jquery.form/-/jquery.form-3.26.30.tgz#a9640ac12a00cb81b446f54c675252ea9c1218e0"
+  integrity sha512-LJZcG6DiuWZGroYaYmaZRRXg9q6ph0yWS0wxhWHuC1wsvBljV/L9INtrROZcNwLKZNtxVFgeWb8x49iufW9Z+w==
+  dependencies:
+    "@types/jquery" "*"
+
 "@types/jquery@*", "@types/jquery@^3.3.29":
   version "3.3.29"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.3.29.tgz#680a2219ce3c9250483722fccf5570d1e2d08abd"
@@ -3643,7 +3650,14 @@ isobject@^3.0.0, isobject@^3.0.1:
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
 
-jquery@>=1.7, jquery@^3.3.1:
+jquery-form@^4.2.2:
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/jquery-form/-/jquery-form-4.2.2.tgz#9f96fb141ec9cbe0cdaf58b4d3f1dcbb009cdd52"
+  integrity sha512-HJTef7DRBSg8ge/RNUw8rUTTtB3l8ozO0OhD16AzDl+eIXp4skgCqRTd9fYPsOzL+pN6+1B9wvbTLGjgikz8Tg==
+  dependencies:
+    jquery ">=1.7.2"
+
+jquery@>=1.7, jquery@>=1.7.2, jquery@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
   integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==

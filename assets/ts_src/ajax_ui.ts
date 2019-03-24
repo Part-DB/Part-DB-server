@@ -75,6 +75,7 @@ class AjaxUI {
     {
         console.info("AjaxUI started!");
         this.registerLinks();
+        this.registerForm();
     }
 
     /**
@@ -93,6 +94,26 @@ class AjaxUI {
             }
         )
         console.debug('Links registered!');
+    }
+
+    /**
+     * Register all forms for loading via ajax.
+     */
+    protected registerForm()
+    {
+        let options : JQueryFormOptions = {
+            success: this.onAjaxComplete,
+            beforeSubmit: function (arr, $form, options) : boolean {
+                //When data-with-progbar is specified, then show progressbar.
+                if($form.data("with-progbar") != undefined) {
+                    ajaxUI.showProgressBar();
+                }
+                return true;
+            }
+        }
+        $('form').not('[data-no-ajax]').ajaxForm(options);
+
+        console.debug('Forms registered!');
     }
 
 
@@ -204,6 +225,7 @@ class AjaxUI {
 
         //Do things on the new dom
         ajaxUI.registerLinks();
+        ajaxUI.registerForm();
 
 
     }
