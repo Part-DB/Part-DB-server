@@ -1,6 +1,6 @@
 workflow "Build, Test, and Publish" {
   on = "push"
-  resolves = ["new-action"]
+  resolves = ["nuxt/actions-yarn@master"]
 }
 
 action "Build" {
@@ -16,10 +16,5 @@ action "Compile Assets" {
 action "nuxt/actions-yarn@master" {
   uses = "nuxt/actions-yarn@master"
   needs = ["Build"]
-  args = "run"
-}
-
-action "new-action" {
-  uses = "owner/repo/path@ref"
-  needs = ["nuxt/actions-yarn@master"]
+  args = "run build"
 }
