@@ -36,7 +36,7 @@ use Doctrine\ORM\Mapping as ORM;
  * This entity represents an user group.
  *
  * @ORM\Entity()
- * @ORM\Table("groups")
+ * @ORM\Table("`groups`")
  */
 class Group extends StructuralDBElement implements HasPermissionsInterface
 {
