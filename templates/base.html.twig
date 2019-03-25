@@ -18,7 +18,7 @@
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
 </head>
-<body data-base-url="{{ app.request.schemeAndHttpHost }}">
+<body data-base-url="{{ app.request.basePath }}">
 {% block body %}
 
     <header>
