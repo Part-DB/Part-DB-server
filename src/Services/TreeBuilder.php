@@ -1,8 +1,9 @@
 <?php
 /**
+ *
  * part-db version 0.1
  * Copyright (C) 2005 Christoph Lechner
- * http://www.cl-projects.de/.
+ * http://www.cl-projects.de/
  *
  * part-db version 0.2+
  * Copyright (C) 2009 K. Jacobs and others (see authors.php)
@@ -25,15 +26,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
+ *
  */
 
-namespace App\Controller;
+namespace App\Services;
 
 use App\Entity\StructuralDBElement;
 use App\Helpers\TreeViewNode;
 use App\Repository\StructuralDBElementRepository;
-use App\Services\EntityURLGenerator;
-use App\Services\ToolsTreeBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -59,13 +59,13 @@ class TreeBuilder
      *                          See EntityURLGenerator::getURL for possible types.
      * @return TreeViewNode The Node for the given Element.
      */
-    public function elementToTreeNode(StructuralDBElement $element, string $href_type = 'list_parts') : TreeViewNode
+    public function elementToTreeNode(StructuralDBElement $element, ?string $href_type = 'list_parts') : TreeViewNode
     {
         $children = $element->getSubelements();
 
         $children_nodes = null;
         foreach ($children as $child) {
-            $children_nodes[] = $this->elementToTreeNode($child);
+            $children_nodes[] = $this->elementToTreeNode($child, $href_type);
         }
 
         //Check if we need to generate a href type
@@ -86,7 +86,7 @@ class TreeBuilder
      *                          See EntityURLGenerator::getURL for possible types.
      * @return TreeViewNode[] Returns an array, containing all nodes. It is empty if the given class has no elements.
      */
-    public function typeToTree(StructuralDBElement $class_name, string $href_type = 'list_parts') : array
+    public function typeToTree(string $class_name, ?string $href_type = 'list_parts') : array
     {
         /**
          * @var $repo StructuralDBElementRepository
@@ -96,7 +96,7 @@ class TreeBuilder
 
         $array = array();
         foreach ($root_nodes as $node) {
-            $array = $this->elementToTreeNode($node, $href_type);
+            $array[] = $this->elementToTreeNode($node, $href_type);
         }
 
         return $array;

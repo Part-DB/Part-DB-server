@@ -13,13 +13,12 @@
     <meta name="msapplication-config" content="{{ asset('icons/browserconfig.xml') }}">
     <meta name="theme-color" content="#ffffff">
 
-
     <title>{% filter trim %}{% block title %}{{ partdb_title}}{% endblock %}{% endfilter %}</title>
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
 </head>
-<body>
+<body data-base-url="{{ app.request.schemeAndHttpHost }}">
 {% block body %}
 
     <header>
@@ -279,6 +278,7 @@
 
 
 <script>
+    {#
     $.getJSON("{{ path("tree_tools") }}",null, function (data) {
         $('#tree-tools').treeview({
             data: data,
@@ -293,6 +293,7 @@
             enableLinks: true
         });
     });
+    #}
 </script>
 
 {% block scripts %}

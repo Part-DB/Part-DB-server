@@ -37,7 +37,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Footprint.
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
  * @ORM\Table("footprints")
  */
 class Footprint extends PartsContainingDBElement

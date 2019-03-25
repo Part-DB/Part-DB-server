@@ -36,8 +36,7 @@ use Doctrine\ORM\PersistentCollection;
  * It's allowed to have instances of root elements, but if you try to change
  * an attribute of a root element, you will get an exception!
  *
- * @ORM\MappedSuperclass()
- * //@ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
+ * @ORM\MappedSuperclass(repositoryClass="App\Repository\StructuralDBElementRepository")
  */
 abstract class StructuralDBElement extends AttachmentContainingDBElement
 {
@@ -308,50 +307,6 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
         }
 
         return implode("\n", $html);
-    }
-
-    public function buildBootstrapTree(
-        $page,
-        $parameter,
-        $recursive = false,
-        $show_root = false,
-        $use_db_root_name = true,
-        $root_name = '$$'
-    ): array {
-        if ('$$' == $root_name) {
-            $root_name = _('Oberste Ebene');
-        }
-
-        $subelements = $this->getSubelements(false);
-        $nodes = array();
-
-        foreach ($subelements as $element) {
-            $nodes[] = $element->buildBootstrapTree($page, $parameter);
-        }
-
-        // if we are on root level?
-        if (-1 == $this->getParentID()) {
-            if ($show_root) {
-                $tree = array(
-                    array('text' => $use_db_root_name ? htmlspecialchars($this->getName()) : $root_name,
-                        'href' => $page.'?'.$parameter.'='.$this->getID(),
-                        'nodes' => $nodes, ),
-                );
-            } else { //Dont show root node
-                $tree = $nodes;
-            }
-        } elseif (!empty($nodes)) {
-            $tree = array('text' => htmlspecialchars($this->getName()),
-                'href' => $page.'?'.$parameter.'='.$this->getID(),
-                'nodes' => $nodes,
-            );
-        } else {
-            $tree = array('text' => htmlspecialchars($this->getName()),
-                'href' => $page.'?'.$parameter.'='.$this->getID(),
-            );
-        }
-
-        return $tree;
     }
 
     /**

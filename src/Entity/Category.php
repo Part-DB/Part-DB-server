@@ -28,7 +28,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class AttachmentType.
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
  * @ORM\Table(name="categories")
  */
 class Category extends PartsContainingDBElement

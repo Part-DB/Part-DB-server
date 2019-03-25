@@ -37,7 +37,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Supplier.
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
  * @ORM\Table("suppliers")
  */
 class Supplier extends Company
