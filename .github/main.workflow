@@ -1,9 +1,13 @@
 workflow "Build, Test, and Publish" {
   on = "push"
-  resolves = ["nuxt/actions-yarn@master"]
+  resolves = [
+    "Install Composer dependencies",
+    "Build frontent code.",
+    "Install frontend depencies.",
+  ]
 }
 
-action "Build" {
+action "Install frontend depencies." {
   uses = "nuxt/actions-yarn@master"
   args = "install"
 }
@@ -13,8 +17,13 @@ action "Compile Assets" {
   args = "encore production"
 }
 
-action "nuxt/actions-yarn@master" {
+action "Build frontent code." {
   uses = "nuxt/actions-yarn@master"
-  needs = ["Build"]
   args = "run build"
+  needs = ["Install frontend depencies."]
+}
+
+action "Install Composer dependencies" {
+  uses = "pxgamer/composer-action@master"
+  args = "install -a"
 }
