@@ -210,6 +210,18 @@
     "swiftmailer/swiftmailer": {
         "version": "v6.1.3"
     },
+    "symfony/apache-pack": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "c82bead70f9a4f656354a193df7bf0ca2114efa0"
+        },
+        "files": [
+            "./public/.htaccess"
+        ]
+    },
     "symfony/asset": {
         "version": "v4.2.3"
     },
