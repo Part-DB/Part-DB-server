@@ -179,7 +179,11 @@ class PermissionResolver
      */
     public function listOperationsForPermission(string $permission): array
     {
+        if(!$this->isValidPermission($permission)) {
+            throw new \InvalidArgumentException(sprintf('A permission with that name is not existing! Got %s.', $permission));
+        }
         $operations = $this->permission_structure['perms'][$permission]['operations'];
+
 
         return array_keys($operations);
     }

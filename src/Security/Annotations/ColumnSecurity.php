@@ -30,6 +30,7 @@
 namespace App\Security\Annotations;
 
 use Doctrine\Common\Annotations\Annotation;
+use \InvalidArgumentException;
 
 /**
  * @Annotation
@@ -100,8 +101,9 @@ class ColumnSecurity
                     return false;
                 case 'datetime':
                     $date = new \DateTime();
-
                     return $date->setTimestamp(0);
+                default:
+                    throw new InvalidArgumentException('Unknown type! You have to specify a placeholder!');
             }
         }
 

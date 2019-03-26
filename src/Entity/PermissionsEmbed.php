@@ -72,8 +72,8 @@ class PermissionsEmbed
     public const PARTS_ORDER = 'parts_order';
     public const GROUPS = 'groups';
     public const USERS = 'users';
-    public const DATABASE = 'system_database';
-    public const CONFIG = 'system_config';
+    public const DATABASE = 'database';
+    public const CONFIG = 'config';
     public const SYSTEM = 'system';
     public const DEVICE_PARTS = 'devices_parts';
     public const SELF = 'self';
@@ -83,175 +83,185 @@ class PermissionsEmbed
      * @var int
      * @ORM\Column(type="integer")
      */
-    protected $system;
+    protected $system = 0;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
      */
-    protected $groups;
+    protected $groups = 0;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
      */
-    protected $users;
+    protected $users = 0;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
      */
-    protected $self;
+    protected $self = 0;
 
     /**
      * @var int
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", name="system_config")
      */
-    protected $system_config;
+    protected $config = 0;
 
     /**
      * @var int
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", name="system_database")
      */
-    protected $system_database;
+    protected $database = 0;
 
     /**
      * @var int
      * @ORM\Column(type="bigint")
      */
-    protected $parts;
+    protected $parts = 0;
 
     /**
      * @var int
      * @ORM\Column(type="smallint")
      */
-    protected $parts_name;
+    protected $parts_name = 0;
 
     /**
      * @var int
      * @ORM\Column(type="smallint")
      */
-    protected $parts_description;
+    protected $parts_description = 0;
 
     /**
      * @var int
      * @ORM\Column(type="smallint")
      */
-    protected $parts_instock;
+    protected $parts_instock = 0;
 
     /**
      * @var int
      * @ORM\Column(type="smallint")
      */
-    protected $parts_mininstock;
+    protected $parts_mininstock = 0;
 
     /**
      * @var int
      * @ORM\Column(type="smallint")
      */
-    protected $parts_footprint;
+    protected $parts_footprint = 0;
 
     /**
      * @var int
      * @ORM\Column(type="smallint")
      */
-    protected $parts_storelocation;
+    protected $parts_storelocation = 0;
 
     /**
      * @var int
      * @ORM\Column(type="smallint")
      */
-    protected $parts_manufacturer;
+    protected $parts_manufacturer = 0;
 
     /**
      * @var int
      * @ORM\Column(type="smallint")
      */
-    protected $parts_comment;
+    protected $parts_comment = 0;
 
     /**
      * @var int
      * @ORM\Column(type="smallint")
      */
-    protected $parts_order;
+    protected $parts_order = 0;
 
     /**
      * @var int
      * @ORM\Column(type="smallint")
      */
-    protected $parts_orderdetails;
+    protected $parts_orderdetails = 0;
 
     /**
      * @var int
      * @ORM\Column(type="smallint")
      */
-    protected $parts_prices;
+    protected $parts_prices = 0;
 
     /**
      * @var int
      * @ORM\Column(type="smallint", name="parts_attachements")
      */
-    protected $parts_attachments;
+    protected $parts_attachments = 0;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
      */
-    protected $devices;
+    protected $devices = 0;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
      */
-    protected $devices_parts;
+    protected $devices_parts = 0;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
      */
-    protected $storelocations;
+    protected $storelocations = 0;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
      */
-    protected $footprints;
+    protected $footprints = 0;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
      */
-    protected $categories;
+    protected $categories = 0;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
      */
-    protected $suppliers;
+    protected $suppliers = 0;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
      */
-    protected $manufacturers;
+    protected $manufacturers = 0;
 
     /**
      * @var int
      * @ORM\Column(type="integer", name="attachement_types")
      */
-    protected $attachment_types;
+    protected $attachment_types = 0;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
      */
-    protected $tools;
+    protected $tools = 0;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
      */
-    protected $labels;
+    protected $labels = 0;
+
+    /**
+     * Checks whether a permission with the given name is valid for this object.
+     * @param string $permission_name The name of the permission which should be checked for.
+     * @return bool True if the permission is existing on this object.
+     */
+    public function isValidPermissionName(string $permission_name) : bool
+    {
+        return isset($this->$permission_name);
+    }
 
     /**
      * Returns the bit pair value of the given permission.
@@ -263,6 +273,10 @@ class PermissionsEmbed
      */
     public function getBitValue(string $permission_name, int $bit_n): int
     {
+        if(!$this->isValidPermissionName($permission_name)) {
+            throw new \InvalidArgumentException('No permission with the given name is existing!');
+        }
+
         $perm_int = $this->$permission_name;
 
         return static::readBitPair($perm_int, $bit_n);
@@ -280,15 +294,58 @@ class PermissionsEmbed
     public function getPermissionValue(string $permission_name, int $bit_n): ?bool
     {
         $value = $this->getBitValue($permission_name, $bit_n);
-        if (self::ALLOW == $value) {
+        if (self::ALLOW === $value) {
             return true;
         }
 
-        if (self::DISALLOW == $value) {
+        if (self::DISALLOW === $value) {
             return false;
         }
 
         return null;
+    }
+
+    /**
+     * Sets the value of the given permission and operation.
+     * @param string $permission_name The name of the permission, for which the bit pair should be written.
+     * @param int    $bit_n           The (lower) bit number of the bit pair, which should be written.
+     * @param bool|null $new_value    The new value for the operation:
+     *                                True, if the given operation is allowed, false if disallowed
+     *                                and null if it should inherit from parent.
+     * @return PermissionsEmbed       The instance itself.
+     */
+    public function setPermissionValue(string $permission_name, int $bit_n, ?bool $new_value) : self
+    {
+        //Determine which bit value the given value is.
+        if($new_value === true) {
+            $bit_value = static::ALLOW;
+        } elseif($new_value === false) {
+            $bit_value = static::DISALLOW;
+        } else {
+            $bit_value = static::INHERIT;
+        }
+
+        $this->setBitValue($permission_name, $bit_n, $bit_value);
+
+        return $this;
+    }
+
+    /**
+     * Sets the bit value of the given permission and operation.
+     * @param string $permission_name The name of the permission, for which the bit pair should be written.
+     * @param int    $bit_n           The (lower) bit number of the bit pair, which should be written.
+     * @param int $new_value          The new (bit) value of the bit pair, which should be written.
+     * @return PermissionsEmbed       The instance itself.
+     */
+    public function setBitValue(string $permission_name, int $bit_n, int $new_value) : self
+    {
+        if(!$this->isValidPermissionName($permission_name)) {
+            throw new \InvalidArgumentException('No permission with the given name is existing!');
+        }
+
+        $this->$permission_name = static::writeBitPair($this->$permission_name, $bit_n, $new_value);
+
+        return $this;
     }
 
     /**
@@ -323,6 +380,7 @@ class PermissionsEmbed
     {
         Assert::lessThanEq($n, 31, '$n must be smaller than 32, because only a 32bit int is used! Got %s.');
         Assert::lessThanEq($new, 3, '$new must be smaller than 3, because a bit pair is written! Got %s.');
+        Assert::greaterThanEq($new, 0, '$new must not be negative, because a bit pair is written! Got %s.');
 
         if (0 !== $n % 2) {
             throw new \InvalidArgumentException('$n must be dividable by 2, because we address bit pairs here!');

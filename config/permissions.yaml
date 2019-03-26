@@ -195,7 +195,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       delete_logs:
         bit: 4
 
-  device_parts:
+  devices_parts:
     operations:
       read:
         bit: 0
@@ -227,6 +227,5 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 4
       edit_profiles:
         bit: 6
-
 
 
