@@ -105,7 +105,7 @@
                             <li role="separator" class="dropdown-divider"></li>
                             <a class="dropdown-item disabled" href="#">{% trans %}user.language_select{% endtrans %}</a>
                             <a class="dropdown-item" data-no-ajax href="{{ path(app.request.attributes.get('_route'),
-                                   app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}">
+                                app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}">
                                 {% trans %}language.english{% endtrans %}</a>
                             <a class="dropdown-item" data-no-ajax href="{{ path(app.request.attributes.get('_route'),
                                 app.request.attributes.get('_route_params')|merge({'_locale': 'de'})) }}">
@@ -268,33 +268,8 @@
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
 
-    <script src="{{ asset('helper/datatables.js') }}"></script>
-
-    <script>
-        $(".toast").toast('show');
-    </script>
 
 {% endblock %}
-
-
-<script>
-    {#
-    $.getJSON("{{ path("tree_tools") }}",null, function (data) {
-        $('#tree-tools').treeview({
-            data: data,
-            showIcon: false
-        });
-    });
-
-    $.getJSON("{{ path("tree_category", {"id": 1}) }}",null, function (data) {
-        $('#tree-categories').treeview({
-            data: data,
-            showIcon: false,
-            enableLinks: true
-        });
-    });
-    #}
-</script>
 
 {% block scripts %}
 

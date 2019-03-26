@@ -45,6 +45,8 @@ require('jquery-form');
 window.$ = window.jQuery = require("jquery");
 
 require('bootstrap-treeview/src/js/bootstrap-treeview');
+require('./datatables.js');
+
 
 require('../ts_src/ajax_ui');
 import {ajaxUI} from "../ts_src/ajax_ui";

@@ -75,9 +75,16 @@ class AjaxUI {
         this.BASE = $("body").data("base-url") + "/";
         console.info("Base path is " + this.BASE);
 
+        //Show flash messages
+        $(".toast").toast('show');
+
         this.registerLinks();
         this.registerForm();
         this.fillTrees();
+
+
+        this.initDataTables();
+
     }
 
     /**
@@ -198,7 +205,8 @@ class AjaxUI {
      */
     public registerLinks()
     {
-        $('a').not(".link-external, [data-no-ajax]").click(function (event) {
+        // Unbind all old handlers, so the things are not executed multiple times.
+        $('a').not(".link-external, [data-no-ajax]").unbind('click').click(function (event) {
                 let a = $(this);
                 let href = $.trim(a.attr("href"));
                 //Ignore links without href attr and nav links ('they only have a #)
@@ -232,6 +240,9 @@ class AjaxUI {
     }
 
 
+    /**
+     * Show the progressbar
+     */
     public showProgressBar()
     {
         //Blur content background
@@ -245,6 +256,9 @@ class AjaxUI {
         });
     }
 
+    /**
+     * Hides the progressbar.
+     */
     public hideProgressBar()
     {
         // @ts-ignore
@@ -322,7 +336,7 @@ class AjaxUI {
         ajaxUI.hideProgressBar();
 
         //Parse response to DOM structure
-        let dom = $.parseHTML(responseText);
+        let dom = $.parseHTML(responseText, document, true);
         //And replace the content container
         $("#content").replaceWith($("#content", dom));
         //Replace login menu too (so everything is up to date)
@@ -331,6 +345,10 @@ class AjaxUI {
         //Replace flash messages and show them
         $("#message-container").replaceWith($('#message-container', dom));
         $(".toast").toast('show');
+
+        //Inject the local scripts
+        $("#script-reloading").replaceWith($('#script-reloading', dom));
+
 
         //Set new title
         let title  = extractTitle(responseText);
@@ -342,14 +360,38 @@ class AjaxUI {
             history.pushState(null, title, this.url);
         } else {
             //Clear pop state
-            ajaxUI.statePopped;
+            ajaxUI.statePopped = true;
         }
 
         //Do things on the new dom
         ajaxUI.registerLinks();
         ajaxUI.registerForm();
+        ajaxUI.initDataTables();
+    }
 
+    /**
+     * Init all datatables marked with data-datatable based on their data-settings attribute.
+     */
+    protected initDataTables()
+    {
+        //Find all datatables and init it.
+        let $tables = $('[data-datatable]');
+        $.each($tables, function(index, table) {
+            let $table = $(table);
+            let settings = $table.data('settings');
 
+            //@ts-ignore
+            var promise = $('#part_list').initDataTables(settings,
+                {
+                    "fixedHeader": { header: $(window).width() >= 768, //Only enable fixedHeaders on devices with big screen. Fixes scrolling issues on smartphones.
+                        headerOffset: $("#navbar").height()}
+                });
+
+            //Register links.
+            promise.then(ajaxUI.registerLinks);
+        });
+
+        console.debug('Datatables inited.');
     }
 }
 
