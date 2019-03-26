@@ -30,6 +30,8 @@
 namespace App\Services;
 
 use App\Helpers\TreeViewNode;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * This Service generates the tree structure for the tools.
@@ -37,6 +39,16 @@ use App\Helpers\TreeViewNode;
  */
 class ToolsTreeBuilder
 {
+
+    protected $translator;
+    protected $urlGenerator;
+
+    public function __construct(TranslatorInterface $translator, UrlGeneratorInterface $urlGenerator)
+    {
+        $this->translator = $translator;
+        $this->urlGenerator = $urlGenerator;
+    }
+
 
     /**
      * Generates the tree for the tools menu.
@@ -51,6 +63,13 @@ class ToolsTreeBuilder
         $nodes[] = new TreeViewNode('Node 2');
 
         $tree[] = new TreeViewNode('test', 'www.google.de', $nodes);
+
+        $show_nodes = array();
+        $show_nodes[] = new TreeViewNode($this->translator->trans('tree.tools.show.all_parts'),
+            $this->urlGenerator->generate('parts_show_all')
+        );
+
+        $tree[] = new TreeViewNode($this->translator->trans('tree.tools.show'), null, $show_nodes);
 
         return $tree;
     }

@@ -67,7 +67,7 @@ class PartListsController extends AbstractController
     }
 
     /**
-     * @Route("/parts")
+     * @Route("/parts", name="parts_show_all")
      *
      * @param Request          $request
      * @param DataTableFactory $dataTable
