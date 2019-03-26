@@ -53,7 +53,13 @@ import {ajaxUI} from "../ts_src/ajax_ui";
 
 window.ajaxUI = ajaxUI;
 
-//Start AjaxUI
+//Require all events;
+require('../ts_src/event_listeners');
+
+
+//Start AjaxUI AFTER all event has been registered
 $(document).ready(ajaxUI.start());
+
+
 
 //console.log('Hello Webpack Encore! Edit me in assets/js/app.js');

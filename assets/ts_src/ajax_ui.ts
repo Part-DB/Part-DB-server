@@ -56,6 +56,10 @@ class AjaxUI {
 
     private statePopped : boolean = false;
 
+    //Listener savers;
+    private ajax_complete_listeners : Array<() => void> = [];
+    private start_listeners : Array<() => void> = [];
+
     public constructor()
     {
         //Make back in the browser go back in history
@@ -63,6 +67,27 @@ class AjaxUI {
         $(document).ajaxError(this.onAjaxError.bind(this));
         //$(document).ajaxComplete(this.onAjaxComplete.bind(this));
     }
+
+    /**
+     * Register a function, which will be executed every time, a ajax request was successful.
+     * Should be used to register functions for elements in the #content div
+     * @param {() => void} func The function which should be registered.
+     */
+    public addAjaxCompleteAction(func : ()=>void)
+    {
+        this.ajax_complete_listeners.push(func);
+    }
+
+    /**
+     * Register a function, which will be called once, when start() is run.
+     * Should be used to register functions for elements outside the #content div.
+     * @param {() => void} func The function which should be registered.
+     */
+    public addStartAction(func: ()=>void)
+    {
+        this.start_listeners.push(func);
+    }
+
 
     /**
      * Starts the ajax ui und execute handlers registered in addStartAction().
@@ -82,9 +107,10 @@ class AjaxUI {
         this.registerForm();
         this.fillTrees();
 
-
         this.initDataTables();
 
+        //Trigger start event
+        $(document).trigger("ajaxUI:start");
     }
 
     /**
@@ -206,7 +232,7 @@ class AjaxUI {
     public registerLinks()
     {
         // Unbind all old handlers, so the things are not executed multiple times.
-        $('a').not(".link-external, [data-no-ajax]").unbind('click').click(function (event) {
+        $('a').not(".link-external, [data-no-ajax], .page-link").unbind('click').click(function (event) {
                 let a = $(this);
                 let href = $.trim(a.attr("href"));
                 //Ignore links without href attr and nav links ('they only have a #)
@@ -367,6 +393,9 @@ class AjaxUI {
         ajaxUI.registerLinks();
         ajaxUI.registerForm();
         ajaxUI.initDataTables();
+
+        //Trigger reload event
+        $(document).trigger("ajaxUI:reload");
     }
 
     /**
