@@ -17,5 +17,5 @@ fos_ck_editor:
 
     plugins:
         bbcode:
-            path:     "/ckeditor/plugins/bbcode/" # with trailing slash
+            path:     "ckeditor/plugins/bbcode/" # with trailing slash
             filename: "plugin.js"
