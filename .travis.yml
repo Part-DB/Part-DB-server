@@ -1,5 +1,8 @@
 language: php
 
+env:
+  - SYMFONY_DEPRECATIONS_HELPER=disabled # Disable deprecation warnings
+
 # Test for all supported PHP versions
 php:
   - '7.1'
