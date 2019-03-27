@@ -642,3 +642,12 @@ label:not(.form-check-label) {
 .tooltip {
     pointer-events: none;
 }
+
+/* Style datatables */
+.card-footer-table {
+    padding-top: 0;
+}
+
+table.dataTable {
+    margin-top: 0 !important;
+}

@@ -8,6 +8,13 @@ datatables:
         lengthMenu : [10, 25, 50, 100, 250, 500, 1000, 2500]
         pageLength: 50
         #dom: "<'row' <'col-sm-12' tr>><'row' <'col-sm-6'l><'col-sm-6 text-right'pif>>"
+        dom: "  <'row'<'col mb-2' l> <'col mb-2'<'pull-right' p>>>
+                        <'card border-primary'
+                            <'#part-card-header.card-header bg-primary text-white'>
+                            rt
+                            <'card-footer card-footer-table text-muted' i >
+                        >
+                        <'row'<'col mt-2' l> <'col mt-2'<'pull-right' p>>>"
         pagingType: 'simple_numbers'
         searching: true
 

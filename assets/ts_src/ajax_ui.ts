@@ -392,7 +392,13 @@ class AjaxUI {
                 });
 
             //Register links.
-            promise.then(ajaxUI.registerLinks);
+            promise.then(function() {
+                ajaxUI.registerLinks();
+
+                //Set the correct title in the table.
+                let title = $('#part-card-header-src');
+                $('#part-card-header').html(title.html());
+            });
         });
 
         console.debug('Datatables inited.');
