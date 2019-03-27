@@ -1,6 +1,6 @@
 {
     "type": "project",
-    "license": "proprietary",
+    "license": "GPL-2.0-or-later",
     "require": {
         "php": "^7.1.3",
         "ext-ctype": "*",
@@ -37,6 +37,7 @@
         "webmozart/assert": "^1.4"
     },
     "require-dev": {
+        "roave/security-advisories": "dev-master",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
