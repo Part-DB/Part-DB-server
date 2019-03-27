@@ -1,3 +1,6 @@
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Part-DB/Part-DB-symfony/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Part-DB/Part-DB-symfony/?branch=master)
+[![Build Status](https://travis-ci.org/Part-DB/Part-DB-symfony.svg?branch=master)](https://travis-ci.org/Part-DB/Part-DB-symfony)
+
 # Part-DB
 Part-DB is an Open-Source inventory managment system for your electronic components.
 It is installed on a web server and so can be accessed with any browser without the need to install additional software.
