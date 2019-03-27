@@ -18,7 +18,7 @@
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
 </head>
-<body data-base-url="{{ app.request.basePath }}">
+<body data-base-url="{{ app.request.basePath }}/{{ app.request.locale }}">
 {% block body %}
 
     <header>
