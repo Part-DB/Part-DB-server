@@ -189,6 +189,9 @@
     "psr/simple-cache": {
         "version": "1.0.1"
     },
+    "roave/security-advisories": {
+        "version": "dev-master"
+    },
     "s9e/text-formatter": {
         "version": "1.4.1"
     },
