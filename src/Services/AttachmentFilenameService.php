@@ -44,13 +44,13 @@ class AttachmentFilenameService
     {
         //Return placeholder if a part does not have an attachment
         if (null == $filename) {
-            return $this->package->getUrl('/img/part_placeholder.svg');
+            return $this->package->getUrl('img/part_placeholder.svg');
         }
         if (false !== stripos($filename, '%BASE%/img/')) {
             return $this->package->getUrl(str_replace('%BASE%', '', $filename));
         }
 
         //If no other method works, return placeholder
-        return $this->package->getUrl('/img/part_placeholder.svg');
+        return $this->package->getUrl('img/part_placeholder.svg');
     }
 }
