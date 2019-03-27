@@ -9,3 +9,6 @@ php:
 
 install:
   - composer install
+
+script:
+  - php bin/phpunit
