@@ -1,0 +1,82 @@
+{% extends "main_card.html.twig" %}
+
+{% block card_content %}
+    <div class="row">
+        <div class="col-4">
+
+        </div>
+
+        <div class="col-8">
+
+            {{ form_start(form) }}
+
+            <fieldset>
+                <legend>
+                    {% if entity.ID %}
+                        <strong>{% trans with {'%name': entity.name} %}edit.caption{% endtrans %}</strong>
+                    {% else %}
+                        <strong>{% trans %}new.caption{% endtrans %}</strong>
+                    {% endif %}
+                </legend>
+
+                <ul class="nav nav-tabs mt-2">
+                    <li class="nav-item"><a class="link-anchor active nav-link" data-toggle="tab" href="#home">standard.label</a></li>
+                    <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#info">infos.label</a></li>
+                </ul>
+
+                <div class="tab-content mb-3 mt-3">
+                    <div id="home" class="tab-pane fade show active">
+                        {{ form_row(form.name) }}
+                        {{ form_row(form.parent) }}
+                        {% block additional_controls %}{% endblock %}
+                        {{ form_row(form.comment) }}
+                    </div>
+
+                    <div id="info" class="tab-pane fade">
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3">{% trans %}id.label{% endtrans %}</label>
+                            <div class="col-md-9">
+                                <p class="form-control-plaintext">{% if entity.iD %}{{ entity.id }}{% else %}-{% endif %}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3">{% trans %}createdAt{% endtrans %}</label>
+                            <div class="col-md-9">
+                                <p class="form-control-plaintext">
+                                    {% if entity.addedDate %}
+                                        {{ entity.addedDate | localizeddate("long") }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3">{% trans %}lastModified{% endtrans %}</label>
+                            <div class="col-md-9">
+                                <p class="form-control-plaintext">
+                                    {% if entity.lastModified %}
+                                        {{ entity.lastModified | localizeddate("long") }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{ form_row(form.save) }}
+                {{ form_row(form.reset) }}
+
+
+
+            </fieldset>
+
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+{% endblock %}

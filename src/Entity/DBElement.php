@@ -50,9 +50,11 @@ abstract class DBElement
      * Get the ID. The ID can be zero, or even negative (for virtual elements). If an elemenent is virtual, can be
      * checked with isVirtualElement().
      *
-     * @return int the ID of this element
+     * Returns null, if the element is not saved to the DB yet.
+     *
+     * @return int|null the ID of this element
      */
-    final public function getID(): int
+    final public function getID(): ?int
     {
         return (int) $this->id;
     }

@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
+use App\Validator\Constraints\NoneOfItsChildren;
 
 /**
  * All elements with the fields "id", "name" and "parent_id" (at least).
@@ -53,6 +53,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     protected $children;
     /**
      * @var StructuralDBElement
+     * @NoneOfItsChildren()
      */
     protected $parent;
 
@@ -85,7 +86,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      * Check if this element is a child of another element (recursive).
      *
      * @param StructuralDBElement $another_element the object to compare
-     *                                             IMPORTANT: both objects to compare must be from the same class (for example two "Device" objects)!
+     *     IMPORTANT: both objects to compare must be from the same class (for example two "Device" objects)!
      *
      * @return bool True, if this element is child of $another_element.
      *
@@ -97,10 +98,10 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
 
         //Check if both elements compared, are from the same type:
         if ($class_name != \get_class($another_element)) {
-            throw new \InvalidArgumentException('isChildOf() funktioniert nur mit Elementen des gleichen Typs!');
+            throw new \InvalidArgumentException('isChildOf() only works for objects of the same type!');
         }
 
-        if (null == $this->getID()) { // this is the root node
+        if (null == $this->getParent()) { // this is the root node
             return false;
         }
 
@@ -116,13 +117,13 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      ******************************************************************************/
 
     /**
-     * @brief Get the parent-ID
+     * Get the parent-ID
      *
-     * @retval integer          * the ID of the parent element
+     * @return integer          * the ID of the parent element
      *                          * NULL means, the parent is the root node
      *                          * the parent ID of the root node is -1
      */
-    public function getParentID(): int
+    protected function getParentID(): int
     {
         return $this->parent_id ?? self::ID_ROOT_ELEMENT; //Null means root element
     }
@@ -139,14 +140,12 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
 
     /**
      *  Get the comment of the element.
-     *
-     * @param bool $parse_bbcode Should BBCode converted to HTML, before returning
-     *
+
      * @return string the comment
      */
-    public function getComment(bool $parse_bbcode = true): string
+    public function getComment(): ?string
     {
-        return htmlspecialchars($this->comment ?? '');
+        return $this->comment;
     }
 
     /**
@@ -179,8 +178,6 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      * @param string $delimeter the delimeter of the returned string
      *
      * @return string the full path (incl. the name of this element), delimeted by $delimeter
-     *
-     * @throws Exception if there was an error
      */
     public function getFullPath(string $delimeter = self::PATH_DELIMITER_ARROW): string
     {
@@ -189,9 +186,13 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
             $this->full_path_strings[] = $this->getName();
             $element = $this;
 
-            while (null != $element->parent) {
+            $overflow = 20; //We only allow 20 levels depth
+
+            while (null != $element->parent && $overflow >= 0) {
                 $element = $element->parent;
                 $this->full_path_strings[] = $element->getName();
+                //Decrement to prevent mem overflow.
+                $overflow--;
             }
 
             $this->full_path_strings = array_reverse($this->full_path_strings);
@@ -219,143 +220,31 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      ******************************************************************************/
 
     /**
-     * Change the parent ID of this element.
-     *
-     * @param int|null $new_parent_id * the ID of the new parent element
-     *                                * NULL if the parent should be the root node
+     * Sets the new parent object
+     * @param self $new_parent The new parent object
+     * @return StructuralDBElement
      */
-    public function setParentID($new_parent_id): self
+    public function setParent(?self $new_parent) : self
     {
-        $this->parent_id = $new_parent_id;
+        /*
+        if ($new_parent->isChildOf($this)) {
+            throw new \InvalidArgumentException('You can not use one of the element childs as parent!');
+        } */
+
+        $this->parent = $new_parent;
 
         return $this;
     }
 
     /**
      *  Set the comment.
-     *
      * @param string $new_comment the new comment
-     *
-     * @throws Exception if there was an error
+     * @return StructuralDBElement
      */
-    public function setComment(string $new_comment): self
+    public function setComment(?string $new_comment): self
     {
         $this->comment = $new_comment;
 
         return $this;
-    }
-
-    /********************************************************************************
-     *
-     *   Tree / Table Builders
-     *
-     *********************************************************************************/
-
-    /**
-     * Build a HTML tree with all subcategories of this element.
-     *
-     * This method prints a <option>-Line for every item.
-     * <b>The <select>-tags are not printed here, you have to print them yourself!</b>
-     * Deeper levels have more spaces in front.
-     *
-     * @param int    $selected_id  the ID of the selected item
-     * @param bool   $recursive    if true, the tree will be recursive
-     * @param bool   $show_root    if true, the root node will be displayed
-     * @param string $root_name    if the root node is the very root element, you can set its name here
-     * @param string $value_prefix This string is used as a prefix before the id in the value part of the option.
-     *
-     * @return string HTML string if success
-     *
-     * @throws Exception if there was an error
-     */
-    public function buildHtmlTree(
-        $selected_id = null,
-        bool $recursive = true,
-        bool $show_root = true,
-        string $root_name = '$$',
-        string $value_prefix = ''
-    ): string {
-        if ('$$' == $root_name) {
-            $root_name = _('Oberste Ebene');
-        }
-
-        $html = array();
-
-        if ($show_root) {
-            $root_level = $this->getLevel();
-            if ($this->getID() > 0) {
-                $root_name = htmlspecialchars($this->getName());
-            }
-
-            $html[] = '<option value="'.$value_prefix.$this->getID().'">'.$root_name.'</option>';
-        } else {
-            $root_level = $this->getLevel() + 1;
-        }
-
-        // get all subelements
-        $subelements = $this->getSubelements($recursive);
-
-        foreach ($subelements as $element) {
-            $level = $element->getLevel() - $root_level;
-            $selected = ($element->getID() == $selected_id) ? 'selected' : '';
-
-            $html[] = '<option '.$selected.' value="'.$value_prefix.$element->getID().'">';
-            for ($i = 0; $i < $level; ++$i) {
-                $html[] = '&nbsp;&nbsp;&nbsp;';
-            }
-            $html[] = htmlspecialchars($element->getName()).'</option>';
-        }
-
-        return implode("\n", $html);
-    }
-
-    /**
-     * Creates a template loop for a Breadcrumb bar, representing the structural DB element.
-     *
-     * @param $page string The base page, to which the breadcrumb links should be directing to.
-     * @param $parameter string The parameter, which selects the ID of the StructuralDBElement.
-     * @param bool   $show_root Show the root as its own breadcrumb.
-     * @param string $root_name The label which should be used for the root breadcrumb.
-     *
-     * @return array An Loop containing multiple arrays, which contains href and caption for the breadcrumb.
-     */
-    public function buildBreadcrumbLoop(string $page, string $parameter, bool $show_root = false, $root_name = '$$', bool $element_is_link = false): array
-    {
-        $breadcrumb = array();
-
-        if ('$$' == $root_name) {
-            $root_name = _('Oberste Ebene');
-        }
-
-        if ($show_root) {
-            $breadcrumb[] = array('label' => $root_name,
-                'disabled' => true, );
-        }
-
-        if (!$this->current_user->canDo(static::getPermissionName(), StructuralPermission::READ)) {
-            return array('label' => '???',
-                'disabled' => true, );
-        }
-
-        $tmp = array();
-
-        if ($element_is_link) {
-            $tmp[] = array('label' => $this->getName(), 'href' => $page.'?'.$parameter.'='.$this->getID(), 'selected' => true);
-        } else {
-            $tmp[] = array('label' => $this->getName(), 'selected' => true);
-        }
-
-        $parent_id = $this->getParentID();
-        while ($parent_id > 0) {
-            /** @var StructuralDBElement $element */
-            $element = static::getInstance($this->database, $this->current_user, $this->log, $parent_id);
-            $parent_id = $element->getParentID();
-            $tmp[] = array('label' => $element->getName(), 'href' => $page.'?'.$parameter.'='.$element->getID());
-        }
-        $tmp = array_reverse($tmp);
-
-        $breadcrumb = array_merge($breadcrumb, $tmp);
-
-        return $breadcrumb;
     }
 }

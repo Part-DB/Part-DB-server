@@ -68,8 +68,12 @@ class AjaxUI {
      * Starts the ajax ui und execute handlers registered in addStartAction().
      * Should be called in a document.ready, after handlers are set.
      */
-    public start()
+    public start(disabled : boolean = false)
     {
+        if(disabled) {
+            return;
+        }
+
         console.info("AjaxUI started!");
 
         this.BASE = $("body").data("base-url") + "/";
@@ -227,6 +231,19 @@ class AjaxUI {
     {
         let options : JQueryFormOptions = {
             success: this.onAjaxComplete,
+            beforeSerialize: function() : boolean {
+
+                //Update the content of textarea fields using CKEDITOR before submitting.
+
+                //@ts-ignore
+                for(let name in CKEDITOR.instances)
+                {
+                    //@ts-ignore
+                    CKEDITOR.instances[name].updateElement();
+                }
+
+                return true;
+            },
             beforeSubmit: function (arr, $form, options) : boolean {
                 //When data-with-progbar is specified, then show progressbar.
                 if($form.data("with-progbar") != undefined) {

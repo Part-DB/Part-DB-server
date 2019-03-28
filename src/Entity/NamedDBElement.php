@@ -74,20 +74,22 @@ abstract class NamedDBElement extends DBElement
 
     /**
      * Returns the last time when the element was modified.
+     * Returns null if the element was not yet saved to DB yet.
      *
-     * @return \DateTime The time of the last edit.
+     * @return \DateTime|null The time of the last edit.
      */
-    public function getLastModified(): \DateTime
+    public function getLastModified(): ?\DateTime
     {
         return $this->lastModified;
     }
 
     /**
      * Returns the date/time when the element was created.
+     * Returns null if the element was not yet saved to DB yet.
      *
-     * @return \DateTime The creation time of the part.
+     * @return \DateTime|null The creation time of the part.
      */
-    public function getAddedDate(): \DateTime
+    public function getAddedDate(): ?\DateTime
     {
         return $this->addedDate;
     }
