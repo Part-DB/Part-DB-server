@@ -398,8 +398,14 @@ class AjaxUI {
                 //Set the correct title in the table.
                 let title = $('#part-card-header-src');
                 $('#part-card-header').html(title.html());
+
+                //Attach event listener to update links after new page selection:
+                $('#dt').on('draw.dt', function() {
+                    ajaxUI.registerLinks();
+                });
             });
         });
+
 
         console.debug('Datatables inited.');
     }
