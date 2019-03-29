@@ -56,6 +56,8 @@ class AjaxUI {
 
     private statePopped : boolean = false;
 
+    public xhr : XMLHttpRequest;
+
     public constructor()
     {
         //Make back in the browser go back in history
@@ -81,6 +83,21 @@ class AjaxUI {
 
         //Show flash messages
         $(".toast").toast('show');
+
+
+        /**
+         * Save the XMLHttpRequest that jQuery used, to the class, so we can acess the responseURL property.
+         * This is a work-around as long jQuery does not implement this property in its jQXHR objects.
+         */
+        //@ts-ignore
+        jQuery.ajaxSettings.xhr = function () {
+            //@ts-ignore
+            let xhr = new window.XMLHttpRequest();
+            //Save the XMLHttpRequest to the class.
+            ajaxUI.xhr = xhr;
+            return xhr;
+        };
+
 
         this.registerLinks();
         this.registerForm();
@@ -353,7 +370,18 @@ class AjaxUI {
 
         ajaxUI.hideProgressBar();
 
+        /* We need to do the url checking before the parseHTML, so that we dont get wrong url name, caused by scripts
+           in the new content */
+        // @ts-ignore
+        let url = this.url;
+        //Check if we were redirect to a new url, then we should use that as new url.
+        if(ajaxUI.xhr.responseURL) {
+            url = ajaxUI.xhr.responseURL;
+        }
+
+
         //Parse response to DOM structure
+        //We need to preserve javascript, so the table ca
         let dom = $.parseHTML(responseText, document, true);
         //And replace the content container
         $("#content").replaceWith($("#content", dom));
@@ -364,18 +392,13 @@ class AjaxUI {
         $("#message-container").replaceWith($('#message-container', dom));
         $(".toast").toast('show');
 
-        //Inject the local scripts
-        $("#script-reloading").replaceWith($('#script-reloading', dom));
-
-
         //Set new title
         let title  = extractTitle(responseText);
         document.title = title;
 
         //Push to history, if we currently arent poping an old value.
         if(!ajaxUI.statePopped) {
-            // @ts-ignore
-            history.pushState(null, title, this.url);
+            history.pushState(null, title, url);
         } else {
             //Clear pop state
             ajaxUI.statePopped = true;
