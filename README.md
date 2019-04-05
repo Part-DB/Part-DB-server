@@ -39,8 +39,7 @@ for additional informations.
       *Currently it is not possible to create a new databse. You have to use the database created by an old Part-DB version!*
 4. Install composer dependencies and generate autoload files: `composer install --no-dev`
 5. Install client side dependencies and build it: `yarn install` and `yarn build`
-6. Install CKEditor: `php bin/console ckeditor:install`
-7. Optional (speeds up first load): Warmup cache: `php bin/console cache:warmup`
+6. Optional (speeds up first load): Warmup cache: `php bin/console cache:warmup`
 
 When you want to upgrade to a newer version, then just copy the new files into the folder
 and repeat the steps 4. to 7.
