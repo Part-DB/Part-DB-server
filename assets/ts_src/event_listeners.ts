@@ -140,6 +140,8 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
             enableLinks: false,
             showIcon: false,
             showBorder: true,
+            searchResultBackColor: '#ffc107',
+            searchResultColor: '#000',
             showTags: true,
             //@ts-ignore
             wrapNode: true,
@@ -155,6 +157,31 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
             $(this).treeview('collapseAll', { silent: true });
             let selected = $(this).treeview('getSelected');
             $(this).treeview('revealNode', [ selected, {silent: true } ]);
+
+            //Implement searching if needed.
+            if($(this).data('treeSearch')) {
+                let _this = this;
+                let $search = $($(this).data('treeSearch'));
+                $search.on( 'input', function() {
+                    $(_this).treeview('search', [$search.val()]);
+                });
+            }
+
+            //Add tree expand and reduce buttons if needed.
+            if($(this).data('treeReduce')) {
+                let _this = this;
+                let $btn = $($(this).data('treeReduce'));
+                $btn.click(function () {
+                    $(_this).treeview('collapseAll');
+                });
+            }
+            if($(this).data('treeExpand')) {
+                let _this = this;
+                let $btn = $($(this).data('treeExpand'));
+                $btn.click(function () {
+                    $(_this).treeview('expandAll');
+                });
+            }
         });
 
     });

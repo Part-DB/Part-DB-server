@@ -4,8 +4,24 @@
     <div class="row">
         <div class="col-4">
 
+            <div class="row">
+                <div class="col-8">
+                    <input id="tree-search" type="search" class="form-control" placeholder="{% trans %}search{% endtrans %}">
+                </div>
+                    <div class="btn-group btn-group-sm col-4" role="group">
+                        <button type="button" class="btn btn-outline-secondary" id="tree-expand"
+                                title="{% trans %}expandAll{% endtrans %}">
+                            <i class="fas fa-plus fa-fw"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" id="tree-reduce"
+                                title="{% trans %}reduceAll{% endtrans %}">
+                            <i class="fas fa-minus fa-fw"></i>
+                        </button>
+                    </div>
+            </div>
 
-            <div class="treeview-sm" id="tree" data-tree-data="{{ generateTreeData(entity) }}">
+            <div class="treeview-sm mt-2" id="tree" data-tree-data="{{ generateTreeData(entity) }}"
+                 data-tree-search="#tree-search" data-tree-expand="#tree-expand" data-tree-reduce="#tree-reduce">
 
             </div>
 
