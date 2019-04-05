@@ -243,7 +243,7 @@ class AjaxUI {
     public registerLinks()
     {
         // Unbind all old handlers, so the things are not executed multiple times.
-        $('a').not(".link-external, [data-no-ajax], .page-link").unbind('click').click(function (event) {
+        $('a').not(".link-external, [data-no-ajax], .page-link, [href^='#']").unbind('click').click(function (event) {
                 let a = $(this);
                 let href = $.trim(a.attr("href"));
                 //Ignore links without href attr and nav links ('they only have a #)
