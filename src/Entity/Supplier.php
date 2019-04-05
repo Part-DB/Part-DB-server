@@ -43,12 +43,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Supplier extends Company
 {
     /**
-     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Supplier", mappedBy="parent")
      */
     protected $children;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="Supplier", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     protected $parent;
