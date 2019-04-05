@@ -40,7 +40,7 @@ class TreeViewNode
     protected $href;
     protected $nodes;
 
-    protected $state;
+    protected $state = null;
 
     protected $tags;
 
@@ -58,7 +58,7 @@ class TreeViewNode
         $this->href = $href;
         $this->nodes = $nodes;
 
-        $this->state = new TreeViewNodeState();
+        //$this->state = new TreeViewNodeState();
     }
 
     /**
@@ -121,7 +121,7 @@ class TreeViewNode
         return $this;
     }
 
-    public function getState() : TreeViewNodeState
+    public function getState() : ?TreeViewNodeState
     {
         return $this->state;
     }
@@ -134,6 +134,11 @@ class TreeViewNode
 
     public function setDisabled(?bool $disabled) : self
     {
+        //Lazy loading of state, so it does not need to get serialized and transfered, when it is empty.
+        if ($this->state == null) {
+            $this->state = new TreeViewNodeState();
+        }
+
         $this->state->setDisabled($disabled);
 
         return $this;
@@ -141,6 +146,11 @@ class TreeViewNode
 
     public function setSelected(?bool $selected) : self
     {
+        //Lazy loading of state, so it does not need to get serialized and transfered, when it is empty.
+        if ($this->state == null) {
+            $this->state = new TreeViewNodeState();
+        }
+
         $this->state->setSelected($selected);
 
         return $this;
