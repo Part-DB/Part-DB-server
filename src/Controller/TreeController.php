@@ -50,7 +50,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TreeController extends AbstractController
 {
     /**
-     * @Route("/tree/tools/", name="tree_tools")
+     * @Route("/tree/tools", name="tree_tools")
      */
     public function tools(ToolsTreeBuilder $builder)
     {
