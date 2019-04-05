@@ -172,7 +172,7 @@ class AjaxUI {
         text = text + " \n<span class='caret'></span>"; //Add caret or it will be removed, when written into title
         switch(datasource) {
             case "categories":
-                ajaxUI.initTree("#" + target_id, 'tree/categories/');
+                ajaxUI.initTree("#" + target_id, 'tree/categories');
                 break;
             case "locations":
                 ajaxUI.initTree("#" + target_id, 'tree/locations');
@@ -187,7 +187,7 @@ class AjaxUI {
                 ajaxUI.initTree("#" + target_id, 'tree/suppliers');
                 break;
             case "tools":
-                ajaxUI.initTree("#" + target_id, 'tree/tools/');
+                ajaxUI.initTree("#" + target_id, 'tree/tools');
                 break;
             case "devices":
                 ajaxUI.initTree("#" + target_id, 'tree/devices');
