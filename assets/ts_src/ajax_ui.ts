@@ -211,6 +211,8 @@ class AjaxUI {
                 enableLinks: false,
                 showIcon: false,
                 showBorder: true,
+                searchResultBackColor: '#ffc107',
+                searchResultColor: '#000',
                 onNodeSelected: function(event, data) {
                     if(data.href) {
                         ajaxUI.navigateTo(data.href);
@@ -220,6 +222,16 @@ class AjaxUI {
                 expandIcon: "fas fa-plus fa-fw fa-treeview", collapseIcon: "fas fa-minus fa-fw fa-treeview"})
                 .on('initialized', function() {
                     $(this).treeview('collapseAll', { silent: true });
+
+                    //Implement searching if needed.
+                    if($(this).data('treeSearch')) {
+                        let _this = this;
+                        let $search = $($(this).data('treeSearch'));
+                        $search.on( 'input', function() {
+                            $(_this).treeview('collapseAll', { silent: true });
+                            $(_this).treeview('search', [$search.val()]);
+                        });
+                    }
                 });
         });
     }

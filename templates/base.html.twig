@@ -123,7 +123,7 @@
                     {% set flash_title = label|replace({'success': 'flash.success', 'error': 'flash.error'
                         , 'warning': 'flash.warning', 'notice': 'flash.notice', 'info': 'flash.info'}) %}
                     {% set flash_symbol = label|replace({'success': 'fa-check-circle', 'error': 'fa-exclamation-triangle'
-                    , 'warning': 'fa-exclamation-circle', 'notice': 'fa-flag', 'info': 'fa-flag'}) %}
+                        , 'warning': 'fa-exclamation-circle', 'notice': 'fa-flag', 'info': 'fa-flag'}) %}
 
                     {% set flash_bg = label|replace({'success': 'bg-success text-white',
                         'error': 'bg-danger text-white', 'warning': 'bg-warning text-white',
@@ -156,71 +156,89 @@
                     <nav  class="fixed-sidebar col-md-3 col-lg-2 " id="fixed-sidebar">
                         <ul class="nav flex-column">
                             <li id="treeBox-categories">
-                                <div class="dropdown">
-                                    <button class="btn-text dropdown-toggle mb-2" type="button" id="dropdownCat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        <span class="sidebar-title" id="tree-categories-title">{% trans %}category.labelp{% endtrans %}</span>
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownCat">
-                                        <li class="dropdown-header">{% trans %}actions{% endtrans %}</li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="expand" data-target="tree-categories">{% trans %}expandAll{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="collapse" data-target="tree-categories">{% trans %}reduceAll{% endtrans %}</a></li>
-                                        <li role="separator" class="dropdown-divider"></li>
-                                        <li class="dropdown-header">{% trans %}datasource{% endtrans %}</li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="categories" data-target="tree-categories">{% trans %}category.labelp{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="locations" data-target="tree-categories">{% trans %}storelocation.labelp{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="footprints" data-target="tree-categories">{% trans %}footprint.labelp{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="manufacturers" data-target="tree-categories">{% trans %}manufacturer.labelp{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="suppliers" data-target="tree-categories">{% trans %}supplier.labelp{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="devices" data-target="tree-categories">{% trans %}device.labelp{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="tools" data-target="tree-categories">{% trans %}tools.label{% endtrans %}</a></li>
-                                    </ul>
+                                <div class="input-group input-group-sm mb-2 mt-1">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-light dropdown-toggle" type="button"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                        ><span class="sidebar-title" id="tree-categories-title">{% trans %}category.labelp{% endtrans %}</span></button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownCat">
+                                            <li class="dropdown-header">{% trans %}actions{% endtrans %}</li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="expand" data-target="tree-categories">{% trans %}expandAll{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="collapse" data-target="tree-categories">{% trans %}reduceAll{% endtrans %}</a></li>
+                                            <li role="separator" class="dropdown-divider"></li>
+                                            <li class="dropdown-header">{% trans %}datasource{% endtrans %}</li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="categories" data-target="tree-categories">{% trans %}category.labelp{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="locations" data-target="tree-categories">{% trans %}storelocation.labelp{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="footprints" data-target="tree-categories">{% trans %}footprint.labelp{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="manufacturers" data-target="tree-categories">{% trans %}manufacturer.labelp{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="suppliers" data-target="tree-categories">{% trans %}supplier.labelp{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="devices" data-target="tree-categories">{% trans %}device.labelp{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="tools" data-target="tree-categories">{% trans %}tools.label{% endtrans %}</a></li>
+                                        </ul>
+                                    </div>
+                                    <input type="search" class="form-control bg-light border-0" id="tree-category-search" placeholder="{% trans %}search.placeholder{% endtrans %}">
                                 </div>
-                                <div id="tree-categories"></div>
+
+                                <div id="tree-categories" data-tree-search="#tree-category-search"></div>
                             </li>
                             <li id="treeBox-devices">
-                                <div class="dropdown">
-                                    <button class="btn-text dropdown-toggle mb-2 mt-2" type="button" id="dropdownDev" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        <span class="sidebar-title" id="tree-devices-title">{% trans %}device.labelp{% endtrans %}</span>
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownDev">
-                                        <li class="dropdown-header">{% trans %}actions{% endtrans %}</li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="expand" data-target="tree-devices">{% trans %}expandAll{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="collapse" data-target="tree-devices">{% trans %}reduceAll{% endtrans %}</a></li>
-                                        <li role="separator" class="dropdown-divider"></li>
-                                        <li class="dropdown-header">{% trans %}datasource{% endtrans %}</li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="categories" data-target="tree-devices">{% trans %}category.labelp{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="locations" data-target="tree-devices">{% trans %}storelocation.labelp{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="footprints" data-target="tree-devices">{% trans %}footprint.labelp{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="manufacturers" data-target="tree-devices">{% trans %}manufacturer.labelp{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="suppliers" data-target="tree-devices">{% trans %}supplier.labelp{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="devices" data-target="tree-devices">{% trans %}device.labelp{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="tools" data-target="tree-devices">{% trans %}tools.label{% endtrans %}</a></li>
-                                    </ul>
+                                <div class="input-group input-group-sm mb-2 mt-2">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-light dropdown-toggle" type="button"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                        ><span class="sidebar-title" id="tree-devices-title">{% trans %}device.labelp{% endtrans %}</span></button>
+
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownDev">
+                                            <li class="dropdown-header">{% trans %}actions{% endtrans %}</li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="expand" data-target="tree-devices">{% trans %}expandAll{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="collapse" data-target="tree-devices">{% trans %}reduceAll{% endtrans %}</a></li>
+                                            <li role="separator" class="dropdown-divider"></li>
+                                            <li class="dropdown-header">{% trans %}datasource{% endtrans %}</li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="categories" data-target="tree-devices">{% trans %}category.labelp{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="locations" data-target="tree-devices">{% trans %}storelocation.labelp{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="footprints" data-target="tree-devices">{% trans %}footprint.labelp{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="manufacturers" data-target="tree-devices">{% trans %}manufacturer.labelp{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="suppliers" data-target="tree-devices">{% trans %}supplier.labelp{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="devices" data-target="tree-devices">{% trans %}device.labelp{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="tools" data-target="tree-devices">{% trans %}tools.label{% endtrans %}</a></li>
+                                        </ul>
+                                    </div>
+                                    <input type="search" class="form-control bg-light border-0" id="tree-devices-search" placeholder="{% trans %}search.placeholder{% endtrans %}">
                                 </div>
-                                <div id="tree-devices"></div>
+
+                                <div id="tree-devices" data-tree-search="#tree-devices-search"></div>
                             </li>
 
                             <li id="treeBox-tools">
-                                <div class="dropdown">
-                                    <button class="btn-text dropdown-toggle mb-2 mt-2" type="button" id="dropdownTools" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        <span class="sidebar-title" id="tree-tools-title">{% trans %}tools.label{% endtrans %}</span>
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownTools">
-                                        <li class="dropdown-header">{% trans %}actions{% endtrans %}</li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="expand" data-target="tree-tools">{% trans %}expandAll{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="collapse" data-target="tree-tools">{% trans %}reduceAll{% endtrans %}</a></li>
-                                        <li role="separator" class="dropdown-divider"></li>
-                                        <li class="dropdown-header">{% trans %}datasource{% endtrans %}</li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="categories" data-target="tree-tools">{% trans %}category.labelp{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="locations" data-target="tree-tools">{% trans %}storelocation.labelp{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="footprints" data-target="tree-tools">{% trans %}footprint.labelp{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="manufacturers" data-target="tree-tools">{% trans %}manufacturer.labelp{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="suppliers" data-target="tree-tools">{% trans %}supplier.labelp{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="devices" data-target="tree-tools">{% trans %}device.labelp{% endtrans %}</a></li>
-                                        <li><a href="#" class="tree-btns dropdown-item" data-mode="tools" data-target="tree-tools">{% trans %}tools.label{% endtrans %}</a></li>
-                                    </ul>
+                                <div class="input-group input-group-sm mb-2 mt-2">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-light dropdown-toggle" type="button"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                        ><span class="sidebar-title" id="tree-tools-title">{% trans %}tools.label{% endtrans %}</span></button>
+
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownTools">
+                                            <li class="dropdown-header">{% trans %}actions{% endtrans %}</li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="expand" data-target="tree-tools">{% trans %}expandAll{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="collapse" data-target="tree-tools">{% trans %}reduceAll{% endtrans %}</a></li>
+                                            <li role="separator" class="dropdown-divider"></li>
+                                            <li class="dropdown-header">{% trans %}datasource{% endtrans %}</li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="categories" data-target="tree-tools">{% trans %}category.labelp{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="locations" data-target="tree-tools">{% trans %}storelocation.labelp{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="footprints" data-target="tree-tools">{% trans %}footprint.labelp{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="manufacturers" data-target="tree-tools">{% trans %}manufacturer.labelp{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="suppliers" data-target="tree-tools">{% trans %}supplier.labelp{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="devices" data-target="tree-tools">{% trans %}device.labelp{% endtrans %}</a></li>
+                                            <li><a href="#" class="tree-btns dropdown-item" data-mode="tools" data-target="tree-tools">{% trans %}tools.label{% endtrans %}</a></li>
+                                        </ul>
+                                    </div>
+
+
+
+                                    <input type="search" class="form-control bg-light border-0" id="tree-tools-search" placeholder="{% trans %}search.placeholder{% endtrans %}">
+
                                 </div>
-                                <div id="tree-tools"></div>
+
+                                <div id="tree-tools" data-tree-search="#tree-tools-search"></div>
                             </li>
                         </ul>
 
@@ -262,7 +280,7 @@
             </div>
         </div>
     </div>
-    
+
     {# Back to top buton #}
 
     <!-- Back to top button -->
