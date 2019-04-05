@@ -251,12 +251,13 @@ class AjaxUI {
             beforeSerialize: function() : boolean {
 
                 //Update the content of textarea fields using CKEDITOR before submitting.
-
                 //@ts-ignore
-                for(let name in CKEDITOR.instances)
-                {
+                if(typeof CKEDITOR !== 'undefined') {
                     //@ts-ignore
-                    CKEDITOR.instances[name].updateElement();
+                    for (let name in CKEDITOR.instances) {
+                        //@ts-ignore
+                        CKEDITOR.instances[name].updateElement();
+                    }
                 }
 
                 return true;
