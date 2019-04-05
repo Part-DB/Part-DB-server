@@ -163,6 +163,7 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
                 let _this = this;
                 let $search = $($(this).data('treeSearch'));
                 $search.on( 'input', function() {
+                    $(_this).treeview('collapseAll', { silent: true });
                     $(_this).treeview('search', [$search.val()]);
                 });
             }
