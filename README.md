@@ -9,6 +9,16 @@ The version in this Repository is a complete rewrite of the legacy [Part-DB](htt
 In the moment it lacks many features from the old Part-DB and the testing and documentation is not finished, so
 this version is not recommendend for productive work!!
 
+## Demo
+If you want to test Part-DB without installing it, you can use [this](https://part-db.herokuapp.com) Heroku instance. 
+(Or this link for the [German Version](https://part-db.herokuapp.com/de/)). 
+
+You can log in with username: *user* and password: *user*.
+
+Every change to the master branch gets automatically deployed, so it represents the currenct development progress and is
+maybe not completly stable. Please mind, that the free Heroku instance is used, so it can take some time when loading the page
+for the first time.
+
 ## Features
  * TODO
  
