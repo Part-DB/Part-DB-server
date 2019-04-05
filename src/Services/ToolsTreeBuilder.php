@@ -59,10 +59,11 @@ class ToolsTreeBuilder
         //TODO: Use proper values
 
         $nodes = array();
-        $nodes[] = new TreeViewNode('Node 1');
+        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.attachment_types'),
+            $this->urlGenerator->generate('attachment_type_new'));
         $nodes[] = new TreeViewNode('Node 2');
 
-        $tree[] = new TreeViewNode('test', 'www.google.de', $nodes);
+        $tree[] = new TreeViewNode($this->translator->trans('tree.tools.edit'), null, $nodes);
 
         $show_nodes = array();
         $show_nodes[] = new TreeViewNode($this->translator->trans('tree.tools.show.all_parts'),
