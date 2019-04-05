@@ -140,6 +140,11 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
             enableLinks: false,
             showIcon: false,
             showBorder: true,
+            showTags: true,
+            //@ts-ignore
+            wrapNode: true,
+            //@ts-ignore
+            tagsClass: 'badge badge-secondary badge-pill pull-right',
             expandIcon: "fas fa-plus fa-fw fa-treeview", collapseIcon: "fas fa-minus fa-fw fa-treeview",
             onNodeSelected: function(event, data) {
                 if(data.href) {

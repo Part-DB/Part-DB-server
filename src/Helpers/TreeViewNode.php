@@ -42,6 +42,8 @@ class TreeViewNode
 
     protected $state;
 
+    protected $tags;
+
     /**
      * Creates a new TreeView node with the given parameters.
      * @param string $text The text that is shown in the node. (e.g. the name of the node)
@@ -140,6 +142,23 @@ class TreeViewNode
     public function setSelected(?bool $selected) : self
     {
         $this->state->setSelected($selected);
+
+        return $this;
+    }
+
+    public function getTags() : ?array
+    {
+        return $this->tags;
+    }
+
+    public function addTag(string $new_tag) : self
+    {
+        //Lazy loading tags
+        if ($this->tags == null) {
+            $this->tags = array();
+        }
+
+        $this->tags[] = $new_tag;
 
         return $this;
     }

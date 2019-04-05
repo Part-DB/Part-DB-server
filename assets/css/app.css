@@ -513,6 +513,11 @@ span.highlight {
     padding-bottom: 3px;
 }
 
+.treeview .badge {
+    margin-left: auto;
+    line-height:  1.42857143;
+}
+
 /*****************************
 * Pagination bar
 *****************************/

@@ -84,6 +84,10 @@ class TreeBuilder
 
         $tree_node = new TreeViewNode($element->getName(), $href, $children_nodes);
 
+        if($children_nodes != null) {
+            $tree_node->addTag((string) count($children_nodes));
+        }
+
         //Check if we need to select the current part
         if ($selectedElement !== null && $element->getID() === $selectedElement->getID()) {
             $tree_node->setSelected(true);
