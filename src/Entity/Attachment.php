@@ -91,7 +91,7 @@ class Attachment extends NamedDBElement
      *
      * @return DBElement The associated Element.
      */
-    public function getElement(): AttachmentContainingDBElement
+    public function getElement(): ?AttachmentContainingDBElement
     {
         return $this->element;
     }

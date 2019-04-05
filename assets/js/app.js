@@ -24,7 +24,7 @@ import 'datatables.net-select-bs4/css/select.bootstrap4.css'
 import 'bootstrap-select/dist/css/bootstrap-select.css'
 import 'awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css'
 
-import "bootstrap-treeview/src/css/bootstrap-treeview.css"
+import "patternfly-bootstrap-treeview/src/css/bootstrap-treeview.css"
 
 //require( 'jszip' );
 //#require( 'pdfmake' );
@@ -39,12 +39,11 @@ require( 'datatables.net-select-bs4' );
 require('bootstrap-select');
 require('jquery-form');
 
-//require('bootstrap-treeview/src/js/bootstrap-treeview');
-
 //Define jquery globally
 window.$ = window.jQuery = require("jquery");
 
-require('bootstrap-treeview/src/js/bootstrap-treeview');
+require('patternfly-bootstrap-treeview/src/js/bootstrap-treeview')
+
 require('./datatables.js');
 
 

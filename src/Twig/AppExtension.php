@@ -29,22 +29,31 @@
 
 namespace App\Twig;
 
+use App\Entity\Attachment;
 use App\Entity\DBElement;
 use App\Services\EntityURLGenerator;
+use App\Services\TreeBuilder;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use s9e\TextFormatter\Bundles\Forum as TextFormatter;
+use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
 {
     protected $entityURLGenerator;
     protected $cache;
+    protected $serializer;
+    protected $treeBuilder;
 
-    public function __construct(EntityURLGenerator $entityURLGenerator, AdapterInterface $cache)
+    public function __construct(EntityURLGenerator $entityURLGenerator, AdapterInterface $cache,
+                                SerializerInterface $serializer, TreeBuilder $treeBuilder)
     {
         $this->entityURLGenerator = $entityURLGenerator;
         $this->cache = $cache;
+        $this->serializer = $serializer;
+        $this->treeBuilder = $treeBuilder;
     }
 
     public function getFilters()
@@ -53,6 +62,19 @@ class AppExtension extends AbstractExtension
            new TwigFilter('entityURL', [$this, 'generateEntityURL']),
            new TwigFilter('bbCode', [$this, 'parseBBCode'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
        ];
+    }
+
+    public function getFunctions()
+    {
+        return [
+            new TwigFunction('generateTreeData', [$this, 'treeData'])
+        ];
+    }
+
+    public function treeData(DBElement $element, string $type = 'newEdit') : string
+    {
+        $tree = $this->treeBuilder->typeToTree(get_class($element), $type, $element);
+        return $this->serializer->serialize($tree, 'json', ['skip_null_values' => true]);
     }
 
     public function generateEntityURL(DBElement $entity, string $method = 'info'): string

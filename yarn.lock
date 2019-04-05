@@ -1234,9 +1234,10 @@ bootstrap-select@^1.13.8:
   resolved "https://registry.yarnpkg.com/bootstrap-select/-/bootstrap-select-1.13.8.tgz#c47047410511f6d8a8917a7738d1b03c95717d5d"
   integrity sha512-WF6GJPgb98cv75X6/zoCWUNwM/HPoYKP6JDBryTNDCHMPV9YyMqU7xXncC7Se2M5VAt7kZQ/i2GSYwaf5Q/Z3w==
 
-bootstrap-treeview@jbtronics/bootstrap-treeview:
-  version "1.2.1"
-  resolved "https://codeload.github.com/jbtronics/bootstrap-treeview/tar.gz/0855394d4fa06c99289d2ba9a164a987228456c5"
+bootstrap@3.4.x:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.4.1.tgz#c3a347d419e289ad11f4033e3c4132b87c081d72"
+  integrity sha512-yN5oZVmRCwe5aKwzRj6736nSmKDX7pLYwsXiCj/EYmo16hODaBiT4En5btW/jhBF/seV+XMx3aYwukYC3A49DA==
 
 bootstrap@^4.3.1:
   version "4.3.1"
@@ -3664,7 +3665,7 @@ jquery-form@^4.2.2:
   dependencies:
     jquery ">=1.7.2"
 
-jquery@>=1.7, jquery@>=1.7.2, jquery@^3.3.1:
+"jquery@>= 2.1.x", jquery@>=1.7, jquery@>=1.7.2, jquery@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
   integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
@@ -4808,6 +4809,14 @@ path-type@^2.0.0:
   integrity sha1-8BLMuEFbcJb8LaoQVMPXI4lZTHM=
   dependencies:
     pify "^2.0.0"
+
+patternfly-bootstrap-treeview@^2.1.8:
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/patternfly-bootstrap-treeview/-/patternfly-bootstrap-treeview-2.1.8.tgz#4a79e245e8421578b6ce89a52c94596f523ae16f"
+  integrity sha512-Z3v+zJ0AEhMiySyj7qgUs4yGM8afJwjUUWgwSosWI9xpMsyJV+B+I+GzgRoGiukzh14EOl3EiX4qqMBC+nwqXQ==
+  dependencies:
+    bootstrap "3.4.x"
+    jquery ">= 2.1.x"
 
 pbkdf2@^3.0.3:
   version "3.0.17"

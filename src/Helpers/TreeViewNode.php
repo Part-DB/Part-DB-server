@@ -40,6 +40,8 @@ class TreeViewNode
     protected $href;
     protected $nodes;
 
+    protected $state;
+
     /**
      * Creates a new TreeView node with the given parameters.
      * @param string $text The text that is shown in the node. (e.g. the name of the node)
@@ -53,6 +55,8 @@ class TreeViewNode
         $this->text = $text;
         $this->href = $href;
         $this->nodes = $nodes;
+
+        $this->state = new TreeViewNodeState();
     }
 
     /**
@@ -112,6 +116,31 @@ class TreeViewNode
     public function setNodes(?array $nodes): self
     {
         $this->nodes = $nodes;
+        return $this;
+    }
+
+    public function getState() : TreeViewNodeState
+    {
+        return $this->state;
+    }
+
+    public function setState(TreeViewNodeState $state) : self
+    {
+        $this->state = $state;
+        return $this;
+    }
+
+    public function setDisabled(?bool $disabled) : self
+    {
+        $this->state->setDisabled($disabled);
+
+        return $this;
+    }
+
+    public function setSelected(?bool $selected) : self
+    {
+        $this->state->setSelected($selected);
+
         return $this;
     }
 

@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -33,9 +34,9 @@ abstract class AttachmentContainingDBElement extends NamedDBElement
     /**
      * @var
      * //TODO
-     * //@ORM\OneToMany(targetEntity="Attachment", mappedBy="element")
+     * @ORM\OneToMany(targetEntity="Attachment", mappedBy="element")
      */
-    protected $attachment;
+    protected $attachments;
 
     //TODO
     protected $attachmentTypes;
@@ -54,7 +55,7 @@ abstract class AttachmentContainingDBElement extends NamedDBElement
      *
      * @throws Exception if there was an error
      */
-    public function getAttachmentTypes(): array
+    public function getAttachmentTypes(): ?array
     {
         return $this->attachmentTypes;
     }
@@ -70,7 +71,7 @@ abstract class AttachmentContainingDBElement extends NamedDBElement
      *
      * @throws Exception if there was an error
      */
-    public function getAttachments($type_id = null, bool $only_table_attachements = false): array
+    public function getAttachments($type_id = null, bool $only_table_attachements = false) : Collection
     {
         if ($only_table_attachements || $type_id) {
             $attachements = $this->attachments;

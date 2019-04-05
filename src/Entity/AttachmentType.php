@@ -25,6 +25,7 @@ namespace App\Entity;
 
 use App\Validator\Constraints\NoneOfItsChildren;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -58,7 +59,7 @@ class AttachmentType extends StructuralDBElement
      * @return Attachment[] all attachements with this type, as a one-dimensional array of Attachement-objects
      *                      (sorted by their names)
      */
-    public function getAttachementsForType(): ArrayCollection
+    public function getAttachementsForType(): Collection
     {
         // the attribute $this->attachements is used from class "AttachementsContainingDBELement"
         if (null === $this->attachments) {

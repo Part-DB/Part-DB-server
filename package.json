@@ -24,7 +24,6 @@
         "@types/js-cookie": "^2.2.1",
         "awesome-bootstrap-checkbox": "^1.0.1",
         "bootstrap-select": "^1.13.8",
-        "bootstrap-treeview": "jbtronics/bootstrap-treeview",
         "datatables.net-bs4": "^1.10.19",
         "datatables.net-buttons-bs4": "^1.5.4",
         "datatables.net-fixedheader-bs4": "^3.1.5",
@@ -32,6 +31,7 @@
         "jquery-form": "^4.2.2",
         "js-cookie": "^2.2.0",
         "jszip": "^3.2.0",
+        "patternfly-bootstrap-treeview": "^2.1.8",
         "pdfmake": "^0.1.53",
         "ts-loader": "^5.3.3",
         "typescript": "^3.3.4000"

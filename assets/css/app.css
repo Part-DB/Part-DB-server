@@ -508,6 +508,11 @@ span.highlight {
     line-height: 1.428;
 }
 
+.treeview-sm .list-group-item {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
 /*****************************
 * Pagination bar
 *****************************/

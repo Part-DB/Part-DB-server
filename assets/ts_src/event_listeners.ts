@@ -28,6 +28,8 @@
  *
  */
 
+import {ajaxUI} from "./ajax_ui";
+
 /************************************
  *
  * In this file all the functions that has to be called using AjaxUIoperation are registered.
@@ -123,8 +125,34 @@ $(document).on("ajaxUI:reload", function () {
 $(document).on("ajaxUI:start ajaxUI:reload", function () {
     $(".tooltip").remove();
     $('a[title], button[title], span[title], h6[title]')
-        //@ts-ignore
+    //@ts-ignore
         .tooltip("hide").tooltip({container: "body", placement: "auto", boundary: 'window'});
+});
+
+// Add bootstrap treeview on divs with data-tree-data attribute
+$(document).on("ajaxUI:start ajaxUI:reload", function() {
+    $("[data-tree-data]").each(function(index, element) {
+        let data = $(element).data('treeData');
+
+        //@ts-ignore
+        $(element).treeview({
+            data: data,
+            enableLinks: false,
+            showIcon: false,
+            showBorder: true,
+            expandIcon: "fas fa-plus fa-fw fa-treeview", collapseIcon: "fas fa-minus fa-fw fa-treeview",
+            onNodeSelected: function(event, data) {
+                if(data.href) {
+                    ajaxUI.navigateTo(data.href);
+                }
+            }
+        }).on('initialized', function() {
+            $(this).treeview('collapseAll', { silent: true });
+            let selected = $(this).treeview('getSelected');
+            $(this).treeview('revealNode', [ selected, {silent: true } ]);
+        });
+
+    });
 });
 
 

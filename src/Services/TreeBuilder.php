@@ -31,10 +31,12 @@
 
 namespace App\Services;
 
+use App\Entity\DBElement;
 use App\Entity\StructuralDBElement;
 use App\Helpers\TreeViewNode;
 use App\Repository\StructuralDBElementRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  *  This service gives you multiple possibilities to generate trees.
@@ -45,11 +47,13 @@ class TreeBuilder
 {
     protected $url_generator;
     protected $em;
+    protected $translator;
 
-    public function __construct(EntityURLGenerator $URLGenerator, EntityManagerInterface $em)
+    public function __construct(EntityURLGenerator $URLGenerator, EntityManagerInterface $em, TranslatorInterface $translator)
     {
         $this->url_generator = $URLGenerator;
         $this->em = $em;
+        $this->translator = $translator;
     }
 
     /**
@@ -57,15 +61,18 @@ class TreeBuilder
      * @param StructuralDBElement $element The element for which the tree should be generated.
      * @param string $href_type The type of the links that should be used for the links. Set to null, to disable links.
      *                          See EntityURLGenerator::getURL for possible types.
+     * @param DBElement|null $selectedElement When a element is given here, its tree node will be marked as selected in
+     * the resulting tree. When $selectedElement is not existing in the tree, then nothing happens.
      * @return TreeViewNode The Node for the given Element.
+     * @throws \App\Exceptions\EntityNotSupported
      */
-    public function elementToTreeNode(StructuralDBElement $element, ?string $href_type = 'list_parts') : TreeViewNode
+    public function elementToTreeNode(StructuralDBElement $element, ?string $href_type = 'list_parts', DBElement $selectedElement = null) : TreeViewNode
     {
         $children = $element->getSubelements();
 
         $children_nodes = null;
         foreach ($children as $child) {
-            $children_nodes[] = $this->elementToTreeNode($child, $href_type);
+            $children_nodes[] = $this->elementToTreeNode($child, $href_type, $selectedElement);
         }
 
         //Check if we need to generate a href type
@@ -75,7 +82,14 @@ class TreeBuilder
             $href = $this->url_generator->getURL($element, $href_type);
         }
 
-        return new TreeViewNode($element->getName(), $href, $children_nodes);
+        $tree_node = new TreeViewNode($element->getName(), $href, $children_nodes);
+
+        //Check if we need to select the current part
+        if ($selectedElement !== null && $element->getID() === $selectedElement->getID()) {
+            $tree_node->setSelected(true);
+        }
+
+        return $tree_node;
     }
 
     /**
@@ -84,9 +98,12 @@ class TreeBuilder
      *                                          be generated.
      * @param string $href_type The type of the links that should be used for the links. Set to null, to disable links.
      *                          See EntityURLGenerator::getURL for possible types.
+     * @param DBElement|null $selectedElement When a element is given here, its tree node will be marked as selected in
+     * the resulting tree. When $selectedElement is not existing in the tree, then nothing happens.
      * @return TreeViewNode[] Returns an array, containing all nodes. It is empty if the given class has no elements.
+     * @throws \App\Exceptions\EntityNotSupported
      */
-    public function typeToTree(string $class_name, ?string $href_type = 'list_parts') : array
+    public function typeToTree(string $class_name, ?string $href_type = 'list_parts', DBElement $selectedElement = null) : array
     {
         /**
          * @var $repo StructuralDBElementRepository
@@ -95,8 +112,27 @@ class TreeBuilder
         $root_nodes = $repo->findRootNodes();
 
         $array = array();
+
+        //When we use the newEdit type, add the New Element node.
+        if ($href_type === 'newEdit') {
+            //Generate the url for the new node
+            $href = $this->url_generator->createURL(new $class_name());
+            $new_node = new TreeViewNode($this->translator->trans('entity.tree.new'), $href);
+            //When the id of the selected element is null, then we have a new element, and we need to select "new" node
+            if ($selectedElement != null && $selectedElement->getID() == null) {
+                $new_node->setSelected(true);
+            }
+            $array[] = $new_node;
+            //Add spacing
+            $array[] = (new TreeViewNode(''))->setDisabled(true);
+
+            //Every other treeNode will be used for edit
+            $href_type = "edit";
+        }
+
+
         foreach ($root_nodes as $node) {
-            $array[] = $this->elementToTreeNode($node, $href_type);
+            $array[] = $this->elementToTreeNode($node, $href_type, $selectedElement);
         }
 
         return $array;

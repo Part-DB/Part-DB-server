@@ -217,7 +217,10 @@ class AjaxUI {
                     }
                 },
                 //onNodeContextmenu: contextmenu_handler,
-                expandIcon: "fas fa-plus fa-fw fa-treeview", collapseIcon: "fas fa-minus fa-fw fa-treeview"}).treeview('collapseAll', { silent: true });
+                expandIcon: "fas fa-plus fa-fw fa-treeview", collapseIcon: "fas fa-minus fa-fw fa-treeview"})
+                .on('initialized', function() {
+                    $(this).treeview('collapseAll', { silent: true });
+                });
         });
     }
 

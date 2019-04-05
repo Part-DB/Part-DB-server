@@ -67,7 +67,7 @@ class AttachmentTypeController extends AbstractController
     }
 
     /**
-     * @Route("/new")
+     * @Route("/new", name="attachment_type_new")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */

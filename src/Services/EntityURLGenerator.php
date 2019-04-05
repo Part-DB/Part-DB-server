@@ -29,6 +29,7 @@
 
 namespace App\Services;
 
+use App\Entity\AttachmentType;
 use App\Entity\Category;
 use App\Entity\NamedDBElement;
 use App\Entity\Part;
@@ -107,6 +108,10 @@ class EntityURLGenerator
             return $this->urlGenerator->generate('part_edit', ['id' => $entity->getID()]);
         }
 
+        if($entity instanceof AttachmentType) {
+            return $this->urlGenerator->generate('attachment_type_edit', ['id' => $entity->getID()]);
+        }
+
         //Otherwise throw an error
         throw new EntityNotSupported('The given entity is not supported yet!');
     }
@@ -122,6 +127,10 @@ class EntityURLGenerator
     {
         if ($entity instanceof Part) {
             return $this->urlGenerator->generate('part_new');
+        }
+
+        if($entity instanceof AttachmentType) {
+            return $this->urlGenerator->generate('attachment_type_new');
         }
 
         throw new EntityNotSupported('The given entity is not supported yet!');
