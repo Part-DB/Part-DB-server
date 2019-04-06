@@ -26,6 +26,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
 use App\Validator\Constraints\NoneOfItsChildren;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * All elements with the fields "id", "name" and "parent_id" (at least).
@@ -37,6 +38,8 @@ use App\Validator\Constraints\NoneOfItsChildren;
  * an attribute of a root element, you will get an exception!
  *
  * @ORM\MappedSuperclass(repositoryClass="App\Repository\StructuralDBElementRepository")
+ *
+ * @UniqueEntity(fields={"name", "parent"}, ignoreNull=false, message="structural.entity.unique_name")
  */
 abstract class StructuralDBElement extends AttachmentContainingDBElement
 {

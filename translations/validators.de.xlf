@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
+  <file id="validators.de">
+    <unit id="VJHTkxx" name="structural.entity.unique_name">
+      <segment>
+        <source>structural.entity.unique_name</source>
+        <target>Es kann auf jeder Ebene nur ein Objekt mit dem gleichem Namen geben!</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>
