@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-mbstring": "*",
+        "ext-intl": "*",
         "doctrine/annotations": "^1.6",
         "friendsofsymfony/ckeditor-bundle": "^2.0",
         "omines/datatables-bundle": "^0.2.2",
