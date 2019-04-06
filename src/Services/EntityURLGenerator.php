@@ -73,6 +73,8 @@ class EntityURLGenerator
             case 'list':
             case 'list_parts':
                 return $this->listPartsURL($entity);
+            case 'delete':
+                return $this->deleteURL($entity);
         }
 
         throw new \InvalidArgumentException('Method is not supported!');
@@ -167,6 +169,15 @@ class EntityURLGenerator
         }
         throw new EntityNotSupported('The given entity is not supported yet!');
 
+    }
+
+    public function deleteURL($entity) : string
+    {
+        if($entity instanceof AttachmentType) {
+            return $this->urlGenerator->generate('attachment_type_delete', ['id' => $entity->getID()]);
+        }
+
+        throw new EntityNotSupported('The given entity is not supported yet!');
     }
 
     /**

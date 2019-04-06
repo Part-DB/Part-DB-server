@@ -256,12 +256,9 @@ class AjaxUI {
         console.debug('Links registered!');
     }
 
-    /**
-     * Register all forms for loading via ajax.
-     */
-    public registerForm()
+    protected getFormOptions() : JQueryFormOptions
     {
-        let options : JQueryFormOptions = {
+        return  {
             success: this.onAjaxComplete,
             beforeSerialize: function() : boolean {
 
@@ -285,9 +282,31 @@ class AjaxUI {
                 return true;
             }
         };
+    }
+
+    /**
+     * Register all forms for loading via ajax.
+     */
+    public registerForm()
+    {
+
+        let options = this.getFormOptions();
+
         $('form').not('[data-no-ajax]').ajaxForm(options);
 
         console.debug('Forms registered!');
+    }
+
+
+    /**
+     * Submits the given form via ajax.
+     * @param form The form that will be submmitted.
+     */
+    public submitForm(form)
+    {
+        let options = ajaxUI.getFormOptions();
+
+        $(form).ajaxSubmit(options);
     }
 
 

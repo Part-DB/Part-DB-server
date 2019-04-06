@@ -46,6 +46,8 @@ require('patternfly-bootstrap-treeview/src/js/bootstrap-treeview')
 
 require('./datatables.js');
 
+window.bootbox = require('bootbox')
+
 
 require('../ts_src/ajax_ui');
 import {ajaxUI} from "../ts_src/ajax_ui";

@@ -8,16 +8,16 @@
                 <div class="col-8">
                     <input id="tree-search" type="search" class="form-control" placeholder="{% trans %}search.placeholder{% endtrans %}">
                 </div>
-                    <div class="btn-group btn-group-sm col-4" role="group">
-                        <button type="button" class="btn btn-outline-secondary" id="tree-expand"
-                                title="{% trans %}expandAll{% endtrans %}">
-                            <i class="fas fa-plus fa-fw"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary" id="tree-reduce"
-                                title="{% trans %}reduceAll{% endtrans %}">
-                            <i class="fas fa-minus fa-fw"></i>
-                        </button>
-                    </div>
+                <div class="btn-group btn-group-sm col-4" role="group">
+                    <button type="button" class="btn btn-outline-secondary" id="tree-expand"
+                            title="{% trans %}expandAll{% endtrans %}">
+                        <i class="fas fa-plus fa-fw"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" id="tree-reduce"
+                            title="{% trans %}reduceAll{% endtrans %}">
+                        <i class="fas fa-minus fa-fw"></i>
+                    </button>
+                </div>
             </div>
 
             <div class="treeview-sm mt-2" id="tree" data-tree-data="{{ generateTreeData(entity) }}"
@@ -93,10 +93,14 @@
                 {{ form_row(form.reset) }}
 
 
-
             </fieldset>
 
             {{ form_end(form) }}
+
+            {# Only include on existing parts #}
+            {% if entity.id %}
+                {{ include('AdminPages/_delete_form.html.twig') }}
+            {% endif %}
         </div>
 
     </div>

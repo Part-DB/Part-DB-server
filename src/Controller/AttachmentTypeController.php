@@ -94,4 +94,29 @@ class AttachmentTypeController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/{id}", name="attachment_type_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, AttachmentType $entity)
+    {
+        if ($this->isCsrfTokenValid('delete'.$entity->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $parent = $entity->getParent();
+
+            //Move all sub entities to the current parent
+            foreach($entity->getSubelements() as $subelement) {
+                $subelement->setParent($parent);
+                $entityManager->persist($subelement);
+            }
+
+            //Remove current element
+            $entityManager->remove($entity);
+            $entityManager->flush();
+            $this->addFlash('success', 'attachment_type.deleted');
+        }
+
+        return $this->redirectToRoute('attachment_type_new');
+    }
 }

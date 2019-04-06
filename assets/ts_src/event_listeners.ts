@@ -29,6 +29,7 @@
  */
 
 import {ajaxUI} from "./ajax_ui";
+import "bootbox";
 
 /************************************
  *
@@ -185,6 +186,29 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
             }
         });
 
+    });
+});
+
+$(document).on("ajaxUI:start ajaxUI:reload", function() {
+    $("[data-delete-form]").unbind('submit').submit(function(event) {
+        event.preventDefault();
+
+        let form = this;
+
+        let title = $(this).data("title");
+        let message = $(this).data("message");
+
+        bootbox.confirm({
+            message: message,
+            title: title,
+            callback: function(result) {
+            //If the dialog was confirmed, then submit the form.
+            if(result) {
+                ajaxUI.submitForm(form);
+            }
+        }});
+
+        return false;
     });
 });
 
