@@ -65,7 +65,7 @@
                             <label class="col-form-label col-md-3">{% trans %}createdAt{% endtrans %}</label>
                             <div class="col-md-9">
                                 <p class="form-control-plaintext">
-                                    {% if entity.addedDate %}
+                                    {% if date(entity.addedDate) > date('1900/01/01') %}
                                         {{ entity.addedDate | localizeddate("long") }}
                                     {% else %}
                                         -
@@ -78,7 +78,7 @@
                             <label class="col-form-label col-md-3">{% trans %}lastModified{% endtrans %}</label>
                             <div class="col-md-9">
                                 <p class="form-control-plaintext">
-                                    {% if entity.lastModified %}
+                                    {% if date(entity.lastModified) > date('1900/01/01') %}
                                         {{ entity.lastModified | localizeddate("long") }}
                                     {% else %}
                                         -
