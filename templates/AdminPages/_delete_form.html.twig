@@ -1,6 +1,6 @@
 <form method="post" class="" action="{{ entity|entityURL('delete') }}"
       data-delete-form data-title="{% trans  with {'%name%': entity.name }%}entity.delete.confirm_title{% endtrans %}"
-      data-message="{% trans %}entity.delete{% endtrans %}">
+      data-message="{% trans %}entity.delete.message{% endtrans %}">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ entity.id) }}">
     <div class="form-group">

@@ -679,5 +679,139 @@
         <target>Passwort bestätigen</target>
       </segment>
     </unit>
+    <unit id="0Md_YOf" name="attachment_type.caption">
+      <segment>
+        <source>attachment_type.caption</source>
+        <target>Dateitypen für Anhänge</target>
+      </segment>
+    </unit>
+    <unit id="Y7FfSJt" name="entity.tree.new">
+      <segment>
+        <source>entity.tree.new</source>
+        <target>Neues Element</target>
+      </segment>
+    </unit>
+    <unit id="rIod4Xs" name="back_to_top">
+      <segment>
+        <source>back_to_top</source>
+        <target>Zurück zum Seitenbeginn</target>
+      </segment>
+    </unit>
+    <unit id="bblk5.r" name="new.caption">
+      <segment>
+        <source>new.caption</source>
+        <target>Neues Element</target>
+      </segment>
+    </unit>
+    <unit id="dmNi.3b" name="parent.label">
+      <segment>
+        <source>parent.label</source>
+        <target>Übergeordnetes Element</target>
+      </segment>
+    </unit>
+    <unit id="jgfKRbc" name="loading.caption">
+      <segment>
+        <source>loading.caption</source>
+        <target>Lade:</target>
+      </segment>
+    </unit>
+    <unit id="PbxPO3f" name="loading.message">
+      <segment>
+        <source>loading.message</source>
+        <target>Dies kann einen Moment dauern. Sollte diese Nachricht bestehen bleiben, dann laden sie die Seite erneut.</target>
+      </segment>
+    </unit>
+    <unit id="g3Hp.cE" name="loading.bar">
+      <segment>
+        <source>loading.bar</source>
+        <target>Lade...</target>
+      </segment>
+    </unit>
+    <unit id="a5.CFfq" name="edit.caption">
+      <segment>
+        <source>edit.caption</source>
+        <target>Bearbeite Element "%name"</target>
+      </segment>
+    </unit>
+    <unit id="7uawYY6" name="standard.label">
+      <segment>
+        <source>standard.label</source>
+        <target>Eigenschaften</target>
+      </segment>
+    </unit>
+    <unit id="Fe5ax26" name="infos.label">
+      <segment>
+        <source>infos.label</source>
+        <target>Informationen</target>
+      </segment>
+    </unit>
+    <unit id="RqM7iAG" name="entity.delete.confirm_title">
+      <segment>
+        <source>entity.delete.confirm_title</source>
+        <target>Wollen sie das Element %name% wirklich löschen?</target>
+      </segment>
+    </unit>
+    <unit id="eyyICVM" name="entity.delete">
+      <segment>
+        <source>entity.delete</source>
+        <target>Element löschen</target>
+      </segment>
+    </unit>
+    <unit id="Y2QKWU9" name="export.label">
+      <segment>
+        <source>export.label</source>
+        <target>Exportieren</target>
+      </segment>
+    </unit>
+    <unit id="4_pqNGT" name="export.format">
+      <segment>
+        <source>export.format</source>
+        <target>Dateiformat</target>
+      </segment>
+    </unit>
+    <unit id="FlGXF7u" name="export.level">
+      <segment>
+        <source>export.level</source>
+        <target>Ausführlichkeit</target>
+      </segment>
+    </unit>
+    <unit id="dA2Gh6w" name="export.level.simple">
+      <segment>
+        <source>export.level.simple</source>
+        <target>Einfach</target>
+      </segment>
+    </unit>
+    <unit id="0UfNFxx" name="export.level.extended">
+      <segment>
+        <source>export.level.extended</source>
+        <target>Erweitert</target>
+      </segment>
+    </unit>
+    <unit id="dLPhjKy" name="export.level.full">
+      <segment>
+        <source>export.level.full</source>
+        <target>Vollständig</target>
+      </segment>
+    </unit>
+    <unit id="5c8F8f2" name="export.include_children">
+      <segment>
+        <source>export.include_children</source>
+        <target>Unterelemente auch exportieren</target>
+      </segment>
+    </unit>
+    <unit id="G8WtNph" name="export.btn">
+      <segment>
+        <source>export.btn</source>
+        <target>Exportieren</target>
+      </segment>
+    </unit>
+    <unit id="0B3xeO2" name="entity.delete.message">
+      <segment>
+        <source>entity.delete.message</source>
+        <target>Diese Aktion lässt sich nicht rückgängig machen!
+
+Subelemente werden beim Löschen nach oben verschoben.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

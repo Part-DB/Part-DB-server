@@ -637,5 +637,163 @@
         <target>Confirm password</target>
       </segment>
     </unit>
+    <unit id="0Md_YOf" name="attachment_type.caption">
+      <segment>
+        <source>attachment_type.caption</source>
+        <target>File types for attachments</target>
+      </segment>
+    </unit>
+    <unit id="Y7FfSJt" name="entity.tree.new">
+      <segment>
+        <source>entity.tree.new</source>
+        <target>New Element</target>
+      </segment>
+    </unit>
+    <unit id="a5.CFfq" name="edit.caption">
+      <segment>
+        <source>edit.caption</source>
+        <target>Edit element "%name"</target>
+      </segment>
+    </unit>
+    <unit id="7uawYY6" name="standard.label">
+      <segment>
+        <source>standard.label</source>
+        <target>Properties</target>
+      </segment>
+    </unit>
+    <unit id="Fe5ax26" name="infos.label">
+      <segment>
+        <source>infos.label</source>
+        <target>Infos</target>
+      </segment>
+    </unit>
+    <unit id="Y2QKWU9" name="export.label">
+      <segment>
+        <source>export.label</source>
+        <target>Export</target>
+      </segment>
+    </unit>
+    <unit id="nEC2Xzw" name="part.name.placeholder">
+      <segment>
+        <source>part.name.placeholder</source>
+        <target>e.g. BC547</target>
+      </segment>
+    </unit>
+    <unit id="dmNi.3b" name="parent.label">
+      <segment>
+        <source>parent.label</source>
+        <target>Parent element</target>
+      </segment>
+    </unit>
+    <unit id="en0DwC3" name="bbcode.hint">
+      <segment>
+        <source>bbcode.hint</source>
+        <target>Notice: You can use BBCode here to markup your text (e.g. [b][/b] for bold text)</target>
+      </segment>
+    </unit>
+    <unit id="vZwa6za" name="part.edit.save">
+      <segment>
+        <source>part.edit.save</source>
+        <target>Save changes</target>
+      </segment>
+    </unit>
+    <unit id="_GqPyC3" name="part.edit.reset">
+      <segment>
+        <source>part.edit.reset</source>
+        <target>Reset changes</target>
+      </segment>
+    </unit>
+    <unit id="RqM7iAG" name="entity.delete.confirm_title">
+      <segment>
+        <source>entity.delete.confirm_title</source>
+        <target>You really want to delete %name%?</target>
+      </segment>
+    </unit>
+    <unit id="0B3xeO2" name="entity.delete.message">
+      <segment>
+        <source>entity.delete.message</source>
+        <target><![CDATA[This can not be undone!
+<br>
+Subelements will be moved upwards.]]></target>
+      </segment>
+    </unit>
+    <unit id="eyyICVM" name="entity.delete">
+      <segment>
+        <source>entity.delete</source>
+        <target>Delete element</target>
+      </segment>
+    </unit>
+    <unit id="4_pqNGT" name="export.format">
+      <segment>
+        <source>export.format</source>
+        <target>File format</target>
+      </segment>
+    </unit>
+    <unit id="FlGXF7u" name="export.level">
+      <segment>
+        <source>export.level</source>
+        <target>Verbosity level</target>
+      </segment>
+    </unit>
+    <unit id="dA2Gh6w" name="export.level.simple">
+      <segment>
+        <source>export.level.simple</source>
+        <target>Simple</target>
+      </segment>
+    </unit>
+    <unit id="0UfNFxx" name="export.level.extended">
+      <segment>
+        <source>export.level.extended</source>
+        <target>Extended</target>
+      </segment>
+    </unit>
+    <unit id="dLPhjKy" name="export.level.full">
+      <segment>
+        <source>export.level.full</source>
+        <target>Full</target>
+      </segment>
+    </unit>
+    <unit id="5c8F8f2" name="export.include_children">
+      <segment>
+        <source>export.include_children</source>
+        <target>Include children elements in export</target>
+      </segment>
+    </unit>
+    <unit id="G8WtNph" name="export.btn">
+      <segment>
+        <source>export.btn</source>
+        <target>Export</target>
+      </segment>
+    </unit>
+    <unit id="jgfKRbc" name="loading.caption">
+      <segment>
+        <source>loading.caption</source>
+        <target>Loading:</target>
+      </segment>
+    </unit>
+    <unit id="PbxPO3f" name="loading.message">
+      <segment>
+        <source>loading.message</source>
+        <target>This can take a while. If this messages stays for a long time, try to reload the page.</target>
+      </segment>
+    </unit>
+    <unit id="g3Hp.cE" name="loading.bar">
+      <segment>
+        <source>loading.bar</source>
+        <target>Loading...</target>
+      </segment>
+    </unit>
+    <unit id="rIod4Xs" name="back_to_top">
+      <segment>
+        <source>back_to_top</source>
+        <target>Back to page's top</target>
+      </segment>
+    </unit>
+    <unit id="bblk5.r" name="new.caption">
+      <segment>
+        <source>new.caption</source>
+        <target>New element</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

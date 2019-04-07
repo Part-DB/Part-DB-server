@@ -39,10 +39,10 @@
                 </legend>
 
                 <ul class="nav nav-tabs mt-2">
-                    <li class="nav-item"><a class="link-anchor active nav-link" data-toggle="tab" href="#home">standard.label</a></li>
-                    <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#info">infos.label</a></li>
+                    <li class="nav-item"><a class="link-anchor active nav-link" data-toggle="tab" href="#home">{% trans %}standard.label{% endtrans %}</a></li>
+                    <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#info">{% trans %}infos.label{% endtrans %}</a></li>
                     {% if entity.id %}
-                        <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#export">export.label</a> </li>
+                        <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#export">{% trans %}export.label{% endtrans %}</a> </li>
                     {% endif %}
                 </ul>
 
