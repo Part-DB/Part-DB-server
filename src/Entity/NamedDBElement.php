@@ -25,6 +25,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * All subclasses of this class have an attribute "name".
@@ -38,18 +39,21 @@ abstract class NamedDBElement extends DBElement
      * @var string The name of this element.
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
+     * @Groups({"simple", "extended", "full"})
      */
     protected $name = '';
 
     /**
      * @var \DateTime The date when this element was modified the last time.
      * @ORM\Column(type="datetimetz", name="last_modified")
+     * @Groups({"extended", "full"})
      */
     protected $lastModified;
 
     /**
      * @var \DateTime The date when this element was created.
      * @ORM\Column(type="datetimetz", name="datetime_added")
+     * @Groups({"extended", "full"})
      */
     protected $addedDate;
 

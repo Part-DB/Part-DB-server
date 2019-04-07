@@ -33,11 +33,16 @@ namespace App\Controller;
 
 
 use App\Entity\AttachmentType;
+use App\Entity\StructuralDBElement;
 use App\Form\BaseEntityAdminForm;
+use App\Form\ExportType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/attachment_type")
@@ -118,5 +123,92 @@ class AttachmentTypeController extends AbstractController
         }
 
         return $this->redirectToRoute('attachment_type_new');
+    }
+
+    /**
+     * @Route("/export")
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
+    public function exportAll(Request $request, SerializerInterface $serializer, EntityManagerInterface $em)
+    {
+        $entities = $em->getRepository(AttachmentType::class)->findAll();
+
+        return $this->exportHelper($entities, $request, $serializer);
+    }
+
+    /**
+     * @Route("/{id}/export", name="attachment_type_export")
+     * @param Request $request
+     * @param AttachmentType $entity
+     */
+    public function exportEntity(Request $request, AttachmentType $entity, SerializerInterface $serializer)
+    {
+        return $this->exportHelper($entity, $request, $serializer);
+    }
+
+    protected function exportHelper($entity, Request $request, SerializerInterface $serializer) : Response
+    {
+        $format = $request->get('format') ?? "json";
+
+        //Check if we have one of the supported formats
+        if (!in_array($format, ['json', 'csv', 'yaml', 'xml'])) {
+            throw new \InvalidArgumentException("Given format is not supported!");
+        }
+
+        //Check export verbosity level
+        $level = $request->get('level') ?? 'extended';
+        if (!in_array($level, ['simple', 'extended', 'full'])) {
+            throw new \InvalidArgumentException('Given level is not supported!');
+        }
+
+        //Check for include children option
+        $include_children = $request->get('include_children') ?? false;
+
+        //Check which groups we need to export, based on level and include_children
+        $groups = array($level);
+        if ($include_children) {
+            $groups[] = 'include_children';
+        }
+
+        //Plain text should work for all types
+        $content_type = "text/plain";
+
+        //Try to use better content types based on the format
+        switch ($format) {
+            case 'xml':
+                $content_type = "application/xml";
+                break;
+            case 'json':
+                $content_type = "application/json";
+                break;
+        }
+
+        $response = new Response($serializer->serialize($entity, $format,
+            [
+                'groups' => $groups,
+                'as_collection' => true,
+                'csv_delimiter' => ';', //Better for Excel
+                'xml_root_node_name' => 'PartDBExport'
+            ]));
+
+        $response->headers->set('Content-Type', $content_type);
+
+        //If view option is not specified, then download the file.
+        if (!$request->get('view')) {
+            $filename = "export_" . $entity->getName() . "_" . $level . "." . $format;
+
+            // Create the disposition of the file
+            $disposition = $response->headers->makeDisposition(
+                ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+                $filename
+            );
+            // Set the content disposition
+            $response->headers->set('Content-Disposition', $disposition);
+        }
+
+        return $response;
     }
 }

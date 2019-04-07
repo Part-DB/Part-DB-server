@@ -27,6 +27,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
 use App\Validator\Constraints\NoneOfItsChildren;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\DiscriminatorMap;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * All elements with the fields "id", "name" and "parent_id" (at least).
@@ -52,17 +54,20 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     // subclasses
     /**
      * @var StructuralDBElement[]
+     * @Groups({"include_children"})
      */
     protected $children;
     /**
      * @var StructuralDBElement
      * @NoneOfItsChildren()
+     * @Groups({"include_parents"})
      */
     protected $parent;
 
     /**
      * @var string The comment info for this element
      * @ORM\Column(type="string", nullable=true)
+     * @Groups({"simple", "extended", "full"})
      */
     protected $comment;
 
@@ -78,7 +83,9 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     protected $level = 0;
 
     /** @var string[] all names of all parent elements as a array of strings,
-     *  the last array element is the name of the element itself */
+     *  the last array element is the name of the element itself
+     *
+     */
     private $full_path_strings;
 
     /******************************************************************************
@@ -154,24 +161,25 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     /**
      * Get the level.
      *
-     *     The level of the root node is -1.
+     * The level of the root node is -1.
      *
      * @return int the level of this element (zero means a most top element
      *             [a subelement of the root node])
+     *
      */
     public function getLevel(): int
     {
-        if (0 === $this->level) {
+        /**
+         * Only check for nodes that have a parent. In the other cases zero is correct.
+         */
+        if (0 === $this->level && $this->parent !== null) {
             $element = $this->parent;
-            $parent_id = $element->getParentID();
-            while ($parent_id > 0) {
+            while ($element !== null) {
                 /** @var StructuralDBElement $element */
                 $element = $element->parent;
-                $parent_id = $element->getParentID();
                 ++$this->level;
             }
         }
-
         return $this->level;
     }
 
@@ -181,6 +189,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      * @param string $delimeter the delimeter of the returned string
      *
      * @return string the full path (incl. the name of this element), delimeted by $delimeter
+     *
      */
     public function getFullPath(string $delimeter = self::PATH_DELIMITER_ARROW): string
     {
@@ -212,6 +221,11 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      * @return static[] all subelements as an array of objects (sorted by their full path)
      */
     public function getSubelements(): PersistentCollection
+    {
+        return $this->children;
+    }
+
+    public function getChildren(): PersistentCollection
     {
         return $this->children;
     }

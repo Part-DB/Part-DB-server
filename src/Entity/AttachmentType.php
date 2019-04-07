@@ -77,7 +77,6 @@ class AttachmentType extends StructuralDBElement
      */
     public function getIDString(): string
     {
-        return '';
-        //return 'AT' . sprintf('%09d', $this->getID());
+        return 'AT' . sprintf('%09d', $this->getID());
     }
 }

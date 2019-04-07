@@ -24,6 +24,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\DiscriminatorMap;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * This class is for managing all database objects.
@@ -36,6 +38,23 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\MappedSuperclass()
  *
  * @ORM\EntityListeners({"App\Security\EntityListeners\ElementPermissionListener"})
+ *
+ * @DiscriminatorMap(typeProperty="type", mapping={
+ *      "attachment_type" = "App\Entity\AttachmentType",
+ *      "attachment" = "App\Entity\Attachment",
+ *      "category" = "App\Entity\Attachment",
+ *      "device" = "App\Entity\Device",
+ *      "device_part" = "App\Entity\DevicePart",
+ *      "footprint" = "App\Entity\Footprint",
+ *      "group" = "App\Entity\Group",
+ *      "manufacturer" = "App\Entity\Manufacturer",
+ *      "orderdetail" = "App\Entity\Orderdetail",
+ *      "part" = "App\Entity\Part",
+ *      "pricedetail" = "App\Entity\Pricedetail",
+ *      "storelocation" = "App\Entity\Storelocation",
+ *      "supplier" = "App\Entity\Supplier",
+ *      "user" = "App\Entity\User"
+ *  })
  */
 abstract class DBElement
 {
@@ -43,6 +62,7 @@ abstract class DBElement
      * @ORM\Column(type="integer")
      * @ORM\Id()
      * @ORM\GeneratedValue()
+     * @Groups({"full"})
      */
     protected $id;
 
@@ -64,6 +84,7 @@ abstract class DBElement
      * This should have a form like P000014, for a part with ID 14.
      *
      * @return string The ID as a string;
+     *
      */
     abstract public function getIDString(): string;
 
