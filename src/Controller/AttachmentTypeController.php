@@ -33,6 +33,7 @@ namespace App\Controller;
 
 
 use App\Entity\AttachmentType;
+use App\Entity\NamedDBElement;
 use App\Entity\StructuralDBElement;
 use App\Form\BaseEntityAdminForm;
 use App\Form\ExportType;
@@ -73,6 +74,7 @@ class AttachmentTypeController extends AbstractController
 
     /**
      * @Route("/new", name="attachment_type_new")
+     * @Route("/")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -126,7 +128,7 @@ class AttachmentTypeController extends AbstractController
     }
 
     /**
-     * @Route("/export")
+     * @Route("/export", name="attachment_type_export_all")
      * @param Request $request
      * @param SerializerInterface $serializer
      * @param EntityManagerInterface $em
@@ -198,7 +200,22 @@ class AttachmentTypeController extends AbstractController
 
         //If view option is not specified, then download the file.
         if (!$request->get('view')) {
-            $filename = "export_" . $entity->getName() . "_" . $level . "." . $format;
+            if ($entity instanceof NamedDBElement) {
+                $entity_name = $entity->getName();
+            } elseif (is_array($entity)) {
+                if (empty($entity)) {
+                    throw new \InvalidArgumentException('$entity must not be empty!');
+                }
+
+                //Use the class name of the first element for the filename
+                $reflection = new \ReflectionClass($entity[0]);
+                $entity_name = $reflection->getShortName();
+            } else {
+                throw new \InvalidArgumentException('$entity type is not supported!');
+            }
+
+
+            $filename = "export_" . $entity_name . "_" . $level . "." . $format;
 
             // Create the disposition of the file
             $disposition = $response->headers->makeDisposition(
