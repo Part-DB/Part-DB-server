@@ -96,7 +96,14 @@ class EntityExporter
                 break;
         }
 
-        $response = new Response($this->serializer->serialize($entity, $format,
+        //Ensure that we always serialize an array. This makes it easier to import the data again.
+        if(is_array($entity)) {
+            $entity_array = $entity;
+        } else {
+            $entity_array = [$entity];
+        }
+
+        $response = new Response($this->serializer->serialize($entity_array, $format,
             [
                 'groups' => $groups,
                 'as_collection' => true,

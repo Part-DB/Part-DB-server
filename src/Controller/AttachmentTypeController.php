@@ -37,14 +37,18 @@ use App\Entity\NamedDBElement;
 use App\Entity\StructuralDBElement;
 use App\Form\BaseEntityAdminForm;
 use App\Form\ExportType;
+use App\Form\ImportType;
 use App\Services\EntityExporter;
+use App\Services\EntityImporter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\ConstraintViolationList;
 
 /**
  * @Route("/attachment_type")
@@ -80,12 +84,13 @@ class AttachmentTypeController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function new(Request $request, EntityManagerInterface $em)
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
     {
         $new_entity = new AttachmentType();
 
         $this->denyAccessUnlessGranted('create', $new_entity);
 
+        //Basic edit form
         $form = $this->createForm(BaseEntityAdminForm::class, $new_entity);
 
         $form->handleRequest($request);
@@ -98,9 +103,30 @@ class AttachmentTypeController extends AbstractController
             return $this->redirectToRoute('attachment_type_edit', ['id' => $new_entity->getID()]);
         }
 
+        //Import form
+        $import_form = $this->createForm(ImportType::class, ['entity_class' => AttachmentType::class]);
+        $import_form->handleRequest($request);
+
+        if ($import_form->isSubmitted() && $import_form->isValid()) {
+            /** @var UploadedFile $file */
+            $file = $import_form['file']->getData();
+            $data = $import_form->getData();
+
+            $options = array('parent' => $data['parent'], 'preserve_children' => $data['preserve_children'],
+                'format' => $data['format'], 'csv_separator' => $data['csv_separator']);
+
+            $errors = $importer->fileToDBEntities($file, AttachmentType::class, $options);
+
+            foreach ($errors as $name => $error) {
+                /** @var $error ConstraintViolationList */
+                $this->addFlash('error', $name . ":" . $error);
+            }
+        }
+
         return $this->render('AdminPages/AttachmentTypeAdmin.html.twig', [
             'entity' => $new_entity,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'import_form' => $import_form->createView()
         ]);
     }
 

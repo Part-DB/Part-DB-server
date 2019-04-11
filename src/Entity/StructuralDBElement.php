@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
 use App\Validator\Constraints\NoneOfItsChildren;
@@ -87,6 +88,13 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      *
      */
     private $full_path_strings;
+
+
+
+    public function __construct()
+    {
+        $this->children = new ArrayCollection();
+    }
 
     /******************************************************************************
      * StructuralDBElement constructor.
@@ -220,12 +228,12 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      *
      * @return static[] all subelements as an array of objects (sorted by their full path)
      */
-    public function getSubelements(): PersistentCollection
+    public function getSubelements(): iterable
     {
         return $this->children;
     }
 
-    public function getChildren(): PersistentCollection
+    public function getChildren(): iterable
     {
         return $this->children;
     }
@@ -261,6 +269,20 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     public function setComment(?string $new_comment): self
     {
         $this->comment = $new_comment;
+
+        return $this;
+    }
+
+    public function setChildren(array $element) : self
+    {
+        $this->children = $element;
+
+        return $this;
+    }
+
+    public function clearChildren() : self
+    {
+        $this->children = new ArrayCollection();
 
         return $this;
     }

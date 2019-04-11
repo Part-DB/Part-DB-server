@@ -43,7 +43,7 @@ class AttachmentType extends StructuralDBElement
     protected $attachments;
 
     /**
-     * @ORM\OneToMany(targetEntity="AttachmentType", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="AttachmentType", mappedBy="parent", cascade={"persist"})
      */
     protected $children;
 
