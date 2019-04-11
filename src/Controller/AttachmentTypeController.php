@@ -37,6 +37,7 @@ use App\Entity\NamedDBElement;
 use App\Entity\StructuralDBElement;
 use App\Form\BaseEntityAdminForm;
 use App\Form\ExportType;
+use App\Services\EntityExporter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,6 +52,7 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 class AttachmentTypeController extends AbstractController
 {
+
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="attachment_type_edit")
      * @Route("/{id}/", requirements={"id"="\d+"})
@@ -113,7 +115,7 @@ class AttachmentTypeController extends AbstractController
             $parent = $entity->getParent();
 
             //Move all sub entities to the current parent
-            foreach($entity->getSubelements() as $subelement) {
+            foreach ($entity->getSubelements() as $subelement) {
                 $subelement->setParent($parent);
                 $entityManager->persist($subelement);
             }
@@ -134,11 +136,11 @@ class AttachmentTypeController extends AbstractController
      * @param EntityManagerInterface $em
      * @return Response
      */
-    public function exportAll(Request $request, SerializerInterface $serializer, EntityManagerInterface $em)
+    public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request)
     {
         $entities = $em->getRepository(AttachmentType::class)->findAll();
 
-        return $this->exportHelper($entities, $request, $serializer);
+        return $exporter->exportEntityFromRequest($entities,$request);
     }
 
     /**
@@ -146,86 +148,9 @@ class AttachmentTypeController extends AbstractController
      * @param Request $request
      * @param AttachmentType $entity
      */
-    public function exportEntity(Request $request, AttachmentType $entity, SerializerInterface $serializer)
+    public function exportEntity(AttachmentType $entity, EntityExporter $exporter, Request $request)
     {
-        return $this->exportHelper($entity, $request, $serializer);
+        return $exporter->exportEntityFromRequest($entity, $request);
     }
 
-    protected function exportHelper($entity, Request $request, SerializerInterface $serializer) : Response
-    {
-        $format = $request->get('format') ?? "json";
-
-        //Check if we have one of the supported formats
-        if (!in_array($format, ['json', 'csv', 'yaml', 'xml'])) {
-            throw new \InvalidArgumentException("Given format is not supported!");
-        }
-
-        //Check export verbosity level
-        $level = $request->get('level') ?? 'extended';
-        if (!in_array($level, ['simple', 'extended', 'full'])) {
-            throw new \InvalidArgumentException('Given level is not supported!');
-        }
-
-        //Check for include children option
-        $include_children = $request->get('include_children') ?? false;
-
-        //Check which groups we need to export, based on level and include_children
-        $groups = array($level);
-        if ($include_children) {
-            $groups[] = 'include_children';
-        }
-
-        //Plain text should work for all types
-        $content_type = "text/plain";
-
-        //Try to use better content types based on the format
-        switch ($format) {
-            case 'xml':
-                $content_type = "application/xml";
-                break;
-            case 'json':
-                $content_type = "application/json";
-                break;
-        }
-
-        $response = new Response($serializer->serialize($entity, $format,
-            [
-                'groups' => $groups,
-                'as_collection' => true,
-                'csv_delimiter' => ';', //Better for Excel
-                'xml_root_node_name' => 'PartDBExport'
-            ]));
-
-        $response->headers->set('Content-Type', $content_type);
-
-        //If view option is not specified, then download the file.
-        if (!$request->get('view')) {
-            if ($entity instanceof NamedDBElement) {
-                $entity_name = $entity->getName();
-            } elseif (is_array($entity)) {
-                if (empty($entity)) {
-                    throw new \InvalidArgumentException('$entity must not be empty!');
-                }
-
-                //Use the class name of the first element for the filename
-                $reflection = new \ReflectionClass($entity[0]);
-                $entity_name = $reflection->getShortName();
-            } else {
-                throw new \InvalidArgumentException('$entity type is not supported!');
-            }
-
-
-            $filename = "export_" . $entity_name . "_" . $level . "." . $format;
-
-            // Create the disposition of the file
-            $disposition = $response->headers->makeDisposition(
-                ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-                $filename
-            );
-            // Set the content disposition
-            $response->headers->set('Content-Disposition', $disposition);
-        }
-
-        return $response;
-    }
 }
