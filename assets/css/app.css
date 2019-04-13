@@ -614,7 +614,7 @@ BS 4 overrides
     }
 }
 
-label:not(.form-check-label) {
+label:not(.form-check-label, custom-control-label) {
     font-weight: bold;
 }
 

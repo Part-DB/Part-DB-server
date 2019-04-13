@@ -51,13 +51,17 @@ class ImportType extends AbstractType
         $builder
 
             ->add('format', ChoiceType::class, ['choices' =>
-                ['JSON' => 'json', 'XML' => 'xml','CSV'=>'csv' ,'YAML' => 'yaml']])
-            ->add('csv_separator', TextType::class, ['data' => ';'])
+                ['JSON' => 'json', 'XML' => 'xml','CSV'=>'csv' ,'YAML' => 'yaml'], 'label' => 'export.format'])
+            ->add('csv_separator', TextType::class, ['data' => ';', 'label' => 'import.csv_separator'])
             ->add('parent', EntityType::class, ['class' => $data['entity_class'], 'choice_label' => 'full_path',
-                'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'required' => false, 'label' => 'parent.label',
-                ])
-            ->add('preserve_children', CheckboxType::class, ['data' => true, 'required' => false])
-            ->add('file', FileType::class)
+                'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'required' => false, 'label' => 'parent.label'])
+            ->add('file', FileType::class, ['label' => 'import.file',
+                'attr' => ['class' => 'file', 'data-show-preview' => 'false', 'data-show-upload' => 'false']])
+
+            ->add('preserve_children', CheckboxType::class, ['data' => true, 'required' => false,
+                'label' => 'import.preserve_children', 'label_attr'=> ['class' => 'checkbox-custom']])
+            ->add('abort_on_validation_error', CheckboxType::class, ['data' => true, 'required' => false,
+                'label' => 'import.abort_on_validation', 'help'=> 'import.abort_on_validation.help', 'label_attr'=> ['class' => 'checkbox-custom']])
 
             //Buttons
             ->add('import', SubmitType::class, ['label' => 'import.btn']);

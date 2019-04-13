@@ -1,0 +1,29 @@
+{% extends 'bootstrap_4_horizontal_layout.html.twig' %}
+
+{% block file_widget -%}
+    {%- set type = type|default('file') -%}
+    {{- block('form_widget_simple') -}}
+{% endblock %}
+
+{% block checkbox_widget %}
+   {# {% set parent_label_class=(parent_label_class|default(label_attr.class|default(''))) ~ ' checkbox-custom'  %} #}
+    {{ parent() }}
+{% endblock %}
+
+{#
+{% block checkbox_widget -%}
+     {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+    {%- if 'checkbox-custom' in parent_label_class -%}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' custom-control-input')|trim}) -%}
+        <div class="custom-control custom-checkbox{{ 'checkbox-inline' in parent_label_class ? ' custom-control-inline' }}">
+            {{- form_label(form, null, { widget: parent() }) -}}
+        </div>
+    {%- else -%}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-check-input')|trim}) -%}
+        <div class="form-check abc-checkbox {{ 'checkbox-inline' in parent_label_class ? ' form-check-inline' }}">
+            {{- form_label(form, null, { widget: parent() }) -}}
+        </div>
+    {%- endif -%}
+
+{%- endblock checkbox_widget %}
+#}

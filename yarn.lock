@@ -1244,6 +1244,14 @@ bootbox@^5.1.0:
     bootstrap ">=3.0.0"
     jquery ">=1.9.1"
 
+bootstrap-fileinput@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/bootstrap-fileinput/-/bootstrap-fileinput-5.0.1.tgz#4762fb736cef0a21ec93e4f95c43d93626238e0d"
+  integrity sha512-JLOVCcs7Dw0u+bWe3MwkgSz++8lolUJjgnKQ19vf8disS6Zmxmzp771dFjmRDCZDuGDPG5knGCOohqLDPjUQ9Q==
+  dependencies:
+    bootstrap ">= 3.4.1"
+    jquery ">= 1.9.0"
+
 bootstrap-select@^1.13.8:
   version "1.13.8"
   resolved "https://registry.yarnpkg.com/bootstrap-select/-/bootstrap-select-1.13.8.tgz#c47047410511f6d8a8917a7738d1b03c95717d5d"
@@ -1254,7 +1262,7 @@ bootstrap@3.4.x:
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.4.1.tgz#c3a347d419e289ad11f4033e3c4132b87c081d72"
   integrity sha512-yN5oZVmRCwe5aKwzRj6736nSmKDX7pLYwsXiCj/EYmo16hODaBiT4En5btW/jhBF/seV+XMx3aYwukYC3A49DA==
 
-bootstrap@>=3.0.0, bootstrap@^4.3.1:
+"bootstrap@>= 3.4.1", bootstrap@>=3.0.0, bootstrap@^4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.3.1.tgz#280ca8f610504d99d7b6b4bfc4b68cec601704ac"
   integrity sha512-rXqOmH1VilAt2DyPzluTi2blhk17bO7ef+zLLPlWvG494pDxcM234pJ8wTc/6R40UWizAIIMgxjvxZg5kmsbag==
@@ -3679,6 +3687,11 @@ jquery-form@^4.2.2:
   integrity sha512-HJTef7DRBSg8ge/RNUw8rUTTtB3l8ozO0OhD16AzDl+eIXp4skgCqRTd9fYPsOzL+pN6+1B9wvbTLGjgikz8Tg==
   dependencies:
     jquery ">=1.7.2"
+
+"jquery@>= 1.9.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.4.0.tgz#8de513fa0fa4b2c7d2e48a530e26f0596936efdf"
+  integrity sha512-ggRCXln9zEqv6OqAGXFEcshF5dSBvCkzj6Gm2gzuR5fWawaX8t7cxKVkkygKODrDAzKdoYw3l/e3pm3vlT4IbQ==
 
 "jquery@>= 2.1.x", jquery@>=1.7, jquery@>=1.7.2, jquery@>=1.9.1, jquery@^3.3.1:
   version "3.3.1"

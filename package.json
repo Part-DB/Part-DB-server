@@ -25,6 +25,7 @@
         "@types/js-cookie": "^2.2.1",
         "awesome-bootstrap-checkbox": "^1.0.1",
         "bootbox": "^5.1.0",
+        "bootstrap-fileinput": "^5.0.1",
         "bootstrap-select": "^1.13.8",
         "datatables.net-bs4": "^1.10.19",
         "datatables.net-buttons-bs4": "^1.5.4",

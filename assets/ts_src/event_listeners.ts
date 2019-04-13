@@ -212,6 +212,11 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
     });
 });
 
+//Re initialize fileinputs on reload
+$(document).on("ajaxUI:reload", function () {
+    //@ts-ignore
+    $(".file").fileinput();
+});
 
 /**
  * Register the button, to jump to the top of the page.

@@ -26,6 +26,8 @@ import 'awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css'
 
 import "patternfly-bootstrap-treeview/src/css/bootstrap-treeview.css"
 
+import "bootstrap-fileinput/css/fileinput.css"
+
 //require( 'jszip' );
 //#require( 'pdfmake' );
 require( 'datatables.net-bs4' );
@@ -42,7 +44,9 @@ require('jquery-form');
 //Define jquery globally
 window.$ = window.jQuery = require("jquery");
 
-require('patternfly-bootstrap-treeview/src/js/bootstrap-treeview')
+require('patternfly-bootstrap-treeview/src/js/bootstrap-treeview');
+
+require('bootstrap-fileinput');
 
 require('./datatables.js');
 
