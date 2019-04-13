@@ -32,6 +32,7 @@
 namespace App\Form;
 
 
+use App\Entity\StructuralDBElement;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -54,7 +55,9 @@ class BaseEntityAdminForm extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var StructuralDBElement $entity */
         $entity = $options['data'];
+        $is_new = $entity->getID() === null;
 
         $builder
             ->add('name', TextType::class, ['empty_data' => '', 'label' => 'name.label',
@@ -70,7 +73,8 @@ class BaseEntityAdminForm extends AbstractType
                 'disabled' => !$this->security->isGranted('edit', $entity)])
 
             //Buttons
-            ->add('save', SubmitType::class, ['label' => 'part.edit.save'])
-            ->add('reset', ResetType::class, ['label' => 'part.edit.reset']);
+            ->add('save', SubmitType::class, ['label' =>  $is_new ? 'entity.create' : 'entity.edit.save',
+                'attr' => ['class' => $is_new ? 'btn-success' : '']])
+            ->add('reset', ResetType::class, ['label' => 'entity.edit.reset']);
     }
 }

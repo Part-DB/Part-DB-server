@@ -76,7 +76,7 @@ abstract class DBElement
      */
     final public function getID(): ?int
     {
-        return (int) $this->id;
+        return $this->id;
     }
 
     /**
