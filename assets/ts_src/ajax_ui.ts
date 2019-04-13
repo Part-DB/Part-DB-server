@@ -371,6 +371,54 @@ class AjaxUI {
         console.log(event);
         console.log(request);
         console.log(settings);
+
+        ajaxUI.hideProgressBar();
+
+        //Create error text
+        let title = "";
+
+        switch(request.status) {
+            case 500:
+               title =  'Internal Server Error!';
+               break;
+            case 404:
+                title = "Site not found!";
+                break;
+            case 403:
+                title = "Permission denied!";
+                break;
+        }
+
+       var alert = bootbox.alert(
+            {
+                size: 'large',
+                message: function() {
+                    let msg = "Error getting data from Server! <b>Status Code: " + request.status + "</b>";
+
+                    msg += '<br><br><a class=\"btn btn-link\" data-toggle=\"collapse\" href=\"#iframe_div\" >' + 'Show response' + "</a>";
+                    msg += "<div class=\" collapse\" id='iframe_div'><iframe height='512' width='100%' id='iframe'></iframe></div>";
+
+                    return msg;
+                },
+                title: title,
+                callback: function () {
+                    //Remove blur
+                    $('#content').removeClass('loading-content');
+                }
+
+            });
+
+        //@ts-ignore
+        alert.init(function (){
+            var dstFrame = document.getElementById('iframe');
+        //@ts-ignore
+        var dstDoc = dstFrame.contentDocument || dstFrame.contentWindow.document;
+        dstDoc.write(request.responseText);
+        dstDoc.close();
+        });
+
+
+
         //If it was a server error and response is not empty, show it to user.
         if(request.status == 500 && request.responseText !== "")
         {
