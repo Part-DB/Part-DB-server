@@ -105,7 +105,7 @@
                             <form class="form-horizontal" data-no-ajax method="post" action="{{ path('attachment_type_export', {'id': entity.id}) }}">
 
                                 <div class="form-row">
-                                    <label class="col-form-label col-md-2">{% trans %}export.format{% endtrans %}</label>
+                                    <label class="col-form-label col-md-3">{% trans %}export.format{% endtrans %}</label>
                                     <div class="col">
                                         <select class="form-control" name="format">
                                             <option value="json">JSON</option>
@@ -117,7 +117,7 @@
                                 </div>
 
                                 <div class="form-row mt-2">
-                                    <label class="col-form-label col-md-2">{% trans %}export.level{% endtrans %}</label>
+                                    <label class="col-form-label col-md-3">{% trans %}export.level{% endtrans %}</label>
                                     <div class="col">
                                         <select class="form-control" name="level">
                                             <option value="simple">{% trans %}export.level.simple{% endtrans %}</option>
@@ -128,7 +128,7 @@
                                 </div>
 
                                 <div class="form-row mt-2">
-                                    <div class="offset-2 col">
+                                    <div class="offset-3 col">
                                         <div class="custom-control custom-checkbox">
                                             <input class="form-check-input custom-control-input" name="include_children" id="include_children" type="checkbox" checked>
                                             <label class="form-check-label custom-control-label" for="include_children">
@@ -139,7 +139,7 @@
                                 </div>
 
                                 <div class="form-row mt-2">
-                                    <div class="offset-2 col">
+                                    <div class="offset-3 col">
                                         <button type="submit" class="btn btn-primary">{% trans %}export.btn{% endtrans %}</button>
                                     </div>
                                 </div>
@@ -158,7 +158,7 @@
                             <form class="form-horizontal" data-no-ajax method="post" action="{{ path('attachment_type_export_all') }}">
 
                                 <div class="form-row">
-                                    <label class="col-form-label col-md-2">{% trans %}export.format{% endtrans %}</label>
+                                    <label class="col-form-label col-md-3">{% trans %}export.format{% endtrans %}</label>
                                     <div class="col">
                                         <select class="form-control" name="format">
                                             <option value="json">JSON</option>
@@ -170,7 +170,7 @@
                                 </div>
 
                                 <div class="form-row mt-2">
-                                    <label class="col-form-label col-md-2">{% trans %}export.level{% endtrans %}</label>
+                                    <label class="col-form-label col-md-3">{% trans %}export.level{% endtrans %}</label>
                                     <div class="col">
                                         <select class="form-control" name="level">
                                             <option value="simple">{% trans %}export.level.simple{% endtrans %}</option>
@@ -181,7 +181,7 @@
                                 </div>
 
                                 <div class="form-row mt-2">
-                                    <div class="offset-2 col">
+                                    <div class="offset-3 col">
                                         <div class="custom-control custom-checkbox">
                                             <input class="form-check-input custom-control-input" name="include_children" id="include_children" type="checkbox" checked>
                                             <label class="form-check-label custom-control-label" for="include_children">
@@ -192,7 +192,7 @@
                                 </div>
 
                                 <div class="form-row mt-2">
-                                    <div class="offset-2 col">
+                                    <div class="offset-3 col">
                                         <button type="submit" class="btn btn-primary">{% trans %}export.btn{% endtrans %}</button>
                                     </div>
                                 </div>

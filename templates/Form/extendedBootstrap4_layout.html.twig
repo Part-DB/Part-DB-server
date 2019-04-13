@@ -10,6 +10,14 @@
     {{ parent() }}
 {% endblock %}
 
+{% block form_label_class -%}
+    col-3
+{%- endblock form_label_class %}
+
+{% block form_group_class -%}
+    col-9
+{%- endblock form_group_class %}
+
 {#
 {% block checkbox_widget -%}
      {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
