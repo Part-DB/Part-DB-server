@@ -137,7 +137,8 @@ class EntityImporter
         }
 
         //The [] behind class_name denotes that we expect an array.
-        $entities = $this->serializer->deserialize($content, $class_name . '[]', $options['format'], ['groups' => $groups]);
+        $entities = $this->serializer->deserialize($content, $class_name . '[]', $options['format'],
+            ['groups' => $groups, 'csv_delimiter' => $options['csv_separator']]);
 
         //Ensure we have an array of entitity elements.
         if(!is_array($entities)) {
