@@ -6,7 +6,7 @@
     <div class="form-group">
         <div class=""></div>
         <div class="col offset-3 pl-2">
-            <button class="btn btn-danger">{% trans %}entity.delete{% endtrans %}</button>
+            <button class="btn btn-danger" {% if not is_granted("delete", entity) %}disabled{% endif %}">{% trans %}entity.delete{% endtrans %}</button>
         </div>
     </div>
 </form>

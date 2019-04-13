@@ -64,6 +64,8 @@ class AttachmentTypeController extends AbstractController
     public function edit(AttachmentType $entity, Request $request, EntityManagerInterface $em)
     {
 
+        $this->denyAccessUnlessGranted('read', $entity);
+
         $form = $this->createForm(BaseEntityAdminForm::class, $entity);
 
         $form->handleRequest($request);
@@ -88,7 +90,7 @@ class AttachmentTypeController extends AbstractController
     {
         $new_entity = new AttachmentType();
 
-        $this->denyAccessUnlessGranted('create', $new_entity);
+        $this->denyAccessUnlessGranted('read', $new_entity);
 
         //Basic edit form
         $form = $this->createForm(BaseEntityAdminForm::class, $new_entity);
@@ -135,6 +137,8 @@ class AttachmentTypeController extends AbstractController
      */
     public function delete(Request $request, AttachmentType $entity)
     {
+        $this->denyAccessUnlessGranted('delete', $entity);
+
         if ($this->isCsrfTokenValid('delete'.$entity->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
 
@@ -164,6 +168,8 @@ class AttachmentTypeController extends AbstractController
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request)
     {
+        $this->denyAccessUnlessGranted('read', $entity);
+
         $entities = $em->getRepository(AttachmentType::class)->findAll();
 
         return $exporter->exportEntityFromRequest($entities,$request);
@@ -176,6 +182,8 @@ class AttachmentTypeController extends AbstractController
      */
     public function exportEntity(AttachmentType $entity, EntityExporter $exporter, Request $request)
     {
+        $this->denyAccessUnlessGranted('read', $entity);
+
         return $exporter->exportEntityFromRequest($entity, $request);
     }
 

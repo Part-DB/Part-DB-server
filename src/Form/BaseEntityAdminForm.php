@@ -62,19 +62,21 @@ class BaseEntityAdminForm extends AbstractType
         $builder
             ->add('name', TextType::class, ['empty_data' => '', 'label' => 'name.label',
                 'attr' => ['placeholder' => 'part.name.placeholder'],
-                'disabled' => !$this->security->isGranted('edit', $entity), ])
+                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ])
 
             ->add('parent', EntityType::class, ['class' => get_class($entity), 'choice_label' => 'full_path',
                 'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'required' => false, 'label' => 'parent.label',
-                'disabled' => !$this->security->isGranted('move', $entity), ])
+                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity), ])
 
             ->add('comment', CKEditorType::class, ['required' => false,
                 'label' => 'comment.label', 'attr' => ['rows' => 4], 'help' => 'bbcode.hint',
-                'disabled' => !$this->security->isGranted('edit', $entity)])
+                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)])
 
             //Buttons
             ->add('save', SubmitType::class, ['label' =>  $is_new ? 'entity.create' : 'entity.edit.save',
-                'attr' => ['class' => $is_new ? 'btn-success' : '']])
-            ->add('reset', ResetType::class, ['label' => 'entity.edit.reset']);
+                'attr' => ['class' => $is_new ? 'btn-success' : ''],
+                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)])
+            ->add('reset', ResetType::class, ['label' => 'entity.edit.reset',
+                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
     }
 }
