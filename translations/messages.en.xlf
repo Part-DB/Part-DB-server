@@ -795,5 +795,77 @@ Subelements will be moved upwards.]]></target>
         <target>New element</target>
       </segment>
     </unit>
+    <unit id="k5fWSN4" name="import_export.label">
+      <segment>
+        <source>import_export.label</source>
+        <target>Import / Export</target>
+      </segment>
+    </unit>
+    <unit id="2xohoLw" name="JSON">
+      <segment>
+        <source>JSON</source>
+        <target>JSON</target>
+      </segment>
+    </unit>
+    <unit id="QGWOmvj" name="XML">
+      <segment>
+        <source>XML</source>
+        <target>XML</target>
+      </segment>
+    </unit>
+    <unit id="62tC9Ux" name="CSV">
+      <segment>
+        <source>CSV</source>
+        <target>CSV</target>
+      </segment>
+    </unit>
+    <unit id="m26KvkJ" name="YAML">
+      <segment>
+        <source>YAML</source>
+        <target>YAML</target>
+      </segment>
+    </unit>
+    <unit id="Peaf8Qu" name="import.csv_separator">
+      <segment>
+        <source>import.csv_separator</source>
+        <target>CSV separator</target>
+      </segment>
+    </unit>
+    <unit id="VteZCnR" name="import.file">
+      <segment>
+        <source>import.file</source>
+        <target>File</target>
+      </segment>
+    </unit>
+    <unit id="0ybwwKw" name="import.preserve_children">
+      <segment>
+        <source>import.preserve_children</source>
+        <target>Preserve child elements on import</target>
+      </segment>
+    </unit>
+    <unit id="yyIAudL" name="import.abort_on_validation">
+      <segment>
+        <source>import.abort_on_validation</source>
+        <target>Abort on invalid data</target>
+      </segment>
+    </unit>
+    <unit id="_JM6Jxg" name="import.abort_on_validation.help">
+      <segment>
+        <source>import.abort_on_validation.help</source>
+        <target>When this option is enabled, the whole import process is aborted, when encountering invalid data. Disable to import at least the valid data.</target>
+      </segment>
+    </unit>
+    <unit id="R949JGz" name="export_all.label">
+      <segment>
+        <source>export_all.label</source>
+        <target>Export all elements</target>
+      </segment>
+    </unit>
+    <unit id="d0GsgCW" name="import.btn">
+      <segment>
+        <source>import.btn</source>
+        <target>Import</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
