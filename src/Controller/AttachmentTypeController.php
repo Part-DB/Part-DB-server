@@ -40,6 +40,7 @@ use App\Form\ExportType;
 use App\Form\ImportType;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
+use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -135,24 +136,32 @@ class AttachmentTypeController extends AbstractController
     /**
      * @Route("/{id}", name="attachment_type_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, AttachmentType $entity)
+    public function delete(Request $request, AttachmentType $entity, StructuralElementRecursionHelper $recursionHelper)
     {
         $this->denyAccessUnlessGranted('delete', $entity);
 
         if ($this->isCsrfTokenValid('delete'.$entity->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
 
-            $parent = $entity->getParent();
+            //Check if we need to remove recursively
+            if ($request->get('delete_recursive', false)) {
+                $recursionHelper->delete($entity, false);
+            } else {
+                $parent = $entity->getParent();
 
-            //Move all sub entities to the current parent
-            foreach ($entity->getSubelements() as $subelement) {
-                $subelement->setParent($parent);
-                $entityManager->persist($subelement);
+                //Move all sub entities to the current parent
+                foreach ($entity->getSubelements() as $subelement) {
+                    $subelement->setParent($parent);
+                    $entityManager->persist($subelement);
+                }
+
+                //Remove current element
+                $entityManager->remove($entity);
             }
 
-            //Remove current element
-            $entityManager->remove($entity);
+            //Flush changes
             $entityManager->flush();
+
             $this->addFlash('success', 'attachment_type.deleted');
         }
 
