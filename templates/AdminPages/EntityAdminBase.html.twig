@@ -102,48 +102,7 @@
 
                     {% if entity.id %}
                         <div id="export" class="tab-pane fade">
-                            <form class="form-horizontal" data-no-ajax method="post" action="{{ path('attachment_type_export', {'id': entity.id}) }}">
-
-                                <div class="form-row">
-                                    <label class="col-form-label col-md-3">{% trans %}export.format{% endtrans %}</label>
-                                    <div class="col">
-                                        <select class="form-control" name="format">
-                                            <option value="json">JSON</option>
-                                            <option value="xml">XML</option>
-                                            <option value="csv">CSV</option>
-                                            <option value="yaml">YAML</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-row mt-2">
-                                    <label class="col-form-label col-md-3">{% trans %}export.level{% endtrans %}</label>
-                                    <div class="col">
-                                        <select class="form-control" name="level">
-                                            <option value="simple">{% trans %}export.level.simple{% endtrans %}</option>
-                                            <option value="extended" selected>{% trans %}export.level.extended{% endtrans %}</option>
-                                            <option value="full">{% trans %}export.level.full{% endtrans %}</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-row mt-2">
-                                    <div class="offset-3 col">
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="form-check-input custom-control-input" name="include_children" id="include_children" type="checkbox" checked>
-                                            <label class="form-check-label custom-control-label" for="include_children">
-                                                {% trans %}export.include_children{% endtrans %}
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-row mt-2">
-                                    <div class="offset-3 col">
-                                        <button type="submit" class="btn btn-primary">{% trans %}export.btn{% endtrans %}</button>
-                                    </div>
-                                </div>
-                            </form>
+                            {% include 'AdminPages/_export_form.html.twig' with {'path' : path('attachment_type_export', {'id': entity.id})} %}
                         </div>
                     {% else %} {# For new element we have a combined import/export tab #}
                         <div id="import_export" class="tab-pane fade">
@@ -154,49 +113,8 @@
 
                             <hr>
                             <fieldset>
-                            <legend>{% trans %}export_all.label{% endtrans %}</legend>
-                            <form class="form-horizontal" data-no-ajax method="post" action="{{ path('attachment_type_export_all') }}">
-
-                                <div class="form-row">
-                                    <label class="col-form-label col-md-3">{% trans %}export.format{% endtrans %}</label>
-                                    <div class="col">
-                                        <select class="form-control" name="format">
-                                            <option value="json">JSON</option>
-                                            <option value="xml">XML</option>
-                                            <option value="csv">CSV</option>
-                                            <option value="yaml">YAML</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-row mt-2">
-                                    <label class="col-form-label col-md-3">{% trans %}export.level{% endtrans %}</label>
-                                    <div class="col">
-                                        <select class="form-control" name="level">
-                                            <option value="simple">{% trans %}export.level.simple{% endtrans %}</option>
-                                            <option value="extended" selected>{% trans %}export.level.extended{% endtrans %}</option>
-                                            <option value="full">{% trans %}export.level.full{% endtrans %}</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-row mt-2">
-                                    <div class="offset-3 col">
-                                        <div class="custom-control custom-checkbox">
-                                            <input class="form-check-input custom-control-input" name="include_children" id="include_children" type="checkbox" checked>
-                                            <label class="form-check-label custom-control-label" for="include_children">
-                                                {% trans %}export.include_children{% endtrans %}
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-row mt-2">
-                                    <div class="offset-3 col">
-                                        <button type="submit" class="btn btn-primary">{% trans %}export.btn{% endtrans %}</button>
-                                    </div>
-                                </div>
-                            </form>
+                                <legend>{% trans %}export_all.label{% endtrans %}</legend>
+                                {% include 'AdminPages/_export_form.html.twig' with {'path' : path('attachment_type_export_all')} %}
                             </fieldset>
                         </div>
 
