@@ -114,6 +114,10 @@ class EntityURLGenerator
             return $this->urlGenerator->generate('attachment_type_edit', ['id' => $entity->getID()]);
         }
 
+        if($entity instanceof Category) {
+            return $this->urlGenerator->generate("category_edit",  ['id' => $entity->getID()]);
+        }
+
         //Otherwise throw an error
         throw new EntityNotSupported('The given entity is not supported yet!');
     }
@@ -133,6 +137,10 @@ class EntityURLGenerator
 
         if($entity instanceof AttachmentType) {
             return $this->urlGenerator->generate('attachment_type_new');
+        }
+
+        if($entity instanceof Category) {
+            return $this->urlGenerator->generate('category_new');
         }
 
         throw new EntityNotSupported('The given entity is not supported yet!');
@@ -175,6 +183,10 @@ class EntityURLGenerator
     {
         if($entity instanceof AttachmentType) {
             return $this->urlGenerator->generate('attachment_type_delete', ['id' => $entity->getID()]);
+        }
+
+        if($entity instanceof Category) {
+            return $this->urlGenerator->generate('category_delete', ['id' => $entity->getID()]);
         }
 
         throw new EntityNotSupported('The given entity is not supported yet!');

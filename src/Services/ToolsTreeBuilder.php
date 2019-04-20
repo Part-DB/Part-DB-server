@@ -61,6 +61,10 @@ class ToolsTreeBuilder
         $nodes = array();
         $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.attachment_types'),
             $this->urlGenerator->generate('attachment_type_new'));
+        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.categories'),
+            $this->urlGenerator->generate('category_new'));
+
+
         $nodes[] = new TreeViewNode('Node 2');
 
         $tree[] = new TreeViewNode($this->translator->trans('tree.tools.edit'), null, $nodes);
