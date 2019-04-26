@@ -32,8 +32,10 @@ namespace App\Services;
 use App\Entity\AttachmentType;
 use App\Entity\Category;
 use App\Entity\Device;
+use App\Entity\Manufacturer;
 use App\Entity\NamedDBElement;
 use App\Entity\Part;
+use App\Entity\Supplier;
 use App\Exceptions\EntityNotSupported;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -123,6 +125,14 @@ class EntityURLGenerator
             return $this->urlGenerator->generate("device_edit", ['id' => $entity->getID()]);
         }
 
+        if ($entity instanceof Supplier) {
+            return $this->urlGenerator->generate("supplier_edit", ['id' => $entity->getID()]);
+        }
+
+        if ($entity instanceof Manufacturer) {
+            return $this->urlGenerator->generate("manufacturer_edit", ['id' => $entity->getID()]);
+        }
+
         //Otherwise throw an error
         throw new EntityNotSupported('The given entity is not supported yet!');
     }
@@ -150,6 +160,14 @@ class EntityURLGenerator
 
         if ($entity instanceof Device) {
             return $this->urlGenerator->generate('device_new');
+        }
+
+        if ($entity instanceof Supplier) {
+            return $this->urlGenerator->generate('supplier_new');
+        }
+
+        if ($entity instanceof Manufacturer) {
+            return $this->urlGenerator->generate('manufacturer_new');
         }
 
         throw new EntityNotSupported('The given entity is not supported yet!');
@@ -200,6 +218,14 @@ class EntityURLGenerator
 
         if ($entity instanceof Device) {
             return $this->urlGenerator->generate('device_delete', ['id' => $entity->getID()]);
+        }
+
+        if ($entity instanceof Supplier) {
+            return $this->urlGenerator->generate('supplier_delete', ['id' => $entity->getID()]);
+        }
+
+        if ($entity instanceof Manufacturer) {
+            return $this->urlGenerator->generate('manufacturer_new', ['id' => $entity->getID()]);
         }
 
         throw new EntityNotSupported('The given entity is not supported yet!');

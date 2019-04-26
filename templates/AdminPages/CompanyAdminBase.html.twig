@@ -1,0 +1,23 @@
+{% extends "AdminPages/EntityAdminBase.html.twig" %}
+
+{% block additional_controls %}
+    {{ form_row(form.address) }}
+    {{ form_row(form.phone_number) }}
+    {{ form_row(form.fax_number) }}
+    {{ form_row(form.email_address) }}
+    {{ form_row(form.website) }}
+    {{ form_row(form.auto_product_url) }}
+{% endblock %}
+
+{% block comment %}{% endblock %}
+
+{% block additional_pills %}
+    <li class="nav-item"><a data-toggle="tab" class="nav-link link-anchor" href="#home_comment">{% trans %}admin.comment{% endtrans %}</a></li>
+{% endblock %}
+
+{% block additional_panes %}
+<div class="tab-pane" id="home_comment">
+    {{ form_row(form.comment) }}
+</div>
+
+{% endblock %}

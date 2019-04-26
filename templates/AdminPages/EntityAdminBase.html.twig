@@ -66,7 +66,13 @@
                             <div class="tab-pane active" id="home_common">
                                 {{ form_row(form.name) }}
                                 {{ form_row(form.parent) }}
+
+                                {% block additional_controls %}{% endblock %}
+
+                                {% block comment %}
                                 {{ form_row(form.comment) }}
+                                {% endblock %}
+
                             </div>
                             {% block additional_panes %}{% endblock %}
                         </div>
