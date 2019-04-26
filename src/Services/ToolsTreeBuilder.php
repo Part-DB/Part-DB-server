@@ -63,6 +63,8 @@ class ToolsTreeBuilder
             $this->urlGenerator->generate('attachment_type_new'));
         $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.categories'),
             $this->urlGenerator->generate('category_new'));
+        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.devices'),
+            $this->urlGenerator->generate('device_new'));
 
 
         $nodes[] = new TreeViewNode('Node 2');

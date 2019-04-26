@@ -57,13 +57,13 @@ class Device extends PartsContainingDBElement
      * @var int
      * @ORM\Column(type="integer")
      */
-    protected $order_quantity;
+    protected $order_quantity = 0;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $order_only_missing_parts;
+    protected $order_only_missing_parts = false;
 
     /**
      * @ORM\OneToMany(targetEntity="DevicePart", mappedBy="device")

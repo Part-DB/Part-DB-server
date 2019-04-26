@@ -31,6 +31,7 @@ namespace App\Services;
 
 use App\Entity\AttachmentType;
 use App\Entity\Category;
+use App\Entity\Device;
 use App\Entity\NamedDBElement;
 use App\Entity\Part;
 use App\Exceptions\EntityNotSupported;
@@ -110,12 +111,16 @@ class EntityURLGenerator
             return $this->urlGenerator->generate('part_edit', ['id' => $entity->getID()]);
         }
 
-        if($entity instanceof AttachmentType) {
+        if ($entity instanceof AttachmentType) {
             return $this->urlGenerator->generate('attachment_type_edit', ['id' => $entity->getID()]);
         }
 
-        if($entity instanceof Category) {
-            return $this->urlGenerator->generate("category_edit",  ['id' => $entity->getID()]);
+        if ($entity instanceof Category) {
+            return $this->urlGenerator->generate("category_edit", ['id' => $entity->getID()]);
+        }
+
+        if ($entity instanceof Device) {
+            return $this->urlGenerator->generate("device_edit", ['id' => $entity->getID()]);
         }
 
         //Otherwise throw an error
@@ -135,12 +140,16 @@ class EntityURLGenerator
             return $this->urlGenerator->generate('part_new');
         }
 
-        if($entity instanceof AttachmentType) {
+        if ($entity instanceof AttachmentType) {
             return $this->urlGenerator->generate('attachment_type_new');
         }
 
-        if($entity instanceof Category) {
+        if ($entity instanceof Category) {
             return $this->urlGenerator->generate('category_new');
+        }
+
+        if ($entity instanceof Device) {
+            return $this->urlGenerator->generate('device_new');
         }
 
         throw new EntityNotSupported('The given entity is not supported yet!');
@@ -181,12 +190,16 @@ class EntityURLGenerator
 
     public function deleteURL($entity) : string
     {
-        if($entity instanceof AttachmentType) {
+        if ($entity instanceof AttachmentType) {
             return $this->urlGenerator->generate('attachment_type_delete', ['id' => $entity->getID()]);
         }
 
-        if($entity instanceof Category) {
+        if ($entity instanceof Category) {
             return $this->urlGenerator->generate('category_delete', ['id' => $entity->getID()]);
+        }
+
+        if ($entity instanceof Device) {
+            return $this->urlGenerator->generate('device_delete', ['id' => $entity->getID()]);
         }
 
         throw new EntityNotSupported('The given entity is not supported yet!');
