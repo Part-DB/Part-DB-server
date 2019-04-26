@@ -3,3 +3,25 @@
 {% block card_title %}
     <i class="fas fa-tags fa-fw"></i> {% trans %}category.labelp{% endtrans %}
 {% endblock %}
+
+{% block additional_pills %}
+    <li class="nav-item"><a data-toggle="tab" class="nav-link link-anchor" href="#home_options">{% trans %}admin.options{% endtrans %}</a></li>
+    <li class="nav-item"><a data-toggle="tab" class="nav-link link-anchor" href="#home_advanced">{% trans %}admin.advanced{% endtrans %}</a></li>
+{% endblock %}
+
+{% block additional_panes %}
+    <div class="tab-pane" id="home_options">
+        {{ form_row(form.disable_footprints) }}
+        {{ form_row(form.disable_manufacturers) }}
+        {{ form_row(form.disable_autodatasheets) }}
+        {{ form_row(form.disable_properties) }}
+    </div>
+
+    <div class="tab-pane" id="home_advanced">
+        {{ form_row(form.partname_regex) }}
+        {{ form_row(form.partname_hint) }}
+        <hr>
+        {{ form_row(form.default_description) }}
+        {{ form_row(form.default_comment) }}
+    </div>
+{% endblock %}

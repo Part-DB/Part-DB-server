@@ -35,6 +35,7 @@ namespace App\Controller;
 use App\Entity\AttachmentType;
 use App\Entity\Category;
 use App\Form\BaseEntityAdminForm;
+use App\Form\CategoryAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
@@ -53,7 +54,7 @@ class CategoryController extends BaseAdminController
 
     protected $entity_class = Category::class;
     protected $twig_template = 'AdminPages/CategoryAdmin.html.twig';
-    protected $form_class = BaseEntityAdminForm::class;
+    protected $form_class = CategoryAdminForm::class;
     protected $route_base = "category";
 
     /**

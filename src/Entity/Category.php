@@ -53,49 +53,49 @@ class Category extends PartsContainingDBElement
      * @var string
      * @ORM\Column(type="string")
      */
-    protected $partname_hint;
+    protected $partname_hint = "";
 
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    protected $partname_regex;
+    protected $partname_regex = "";
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $disable_footprints;
+    protected $disable_footprints = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $disable_manufacturers;
+    protected $disable_manufacturers = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $disable_autodatasheets;
+    protected $disable_autodatasheets = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $disable_properties;
+    protected $disable_properties = false;
 
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    protected $default_description;
+    protected $default_description = "";
 
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    protected $default_comment;
+    protected $default_comment = "";
 
     /**
      * Returns the ID as an string, defined by the element class.
@@ -107,4 +107,150 @@ class Category extends PartsContainingDBElement
     {
         return 'C'.sprintf('%09d', $this->getID());
     }
+
+    /**
+     * @return string
+     */
+    public function getPartnameHint(): string
+    {
+        return $this->partname_hint;
+    }
+
+    /**
+     * @param string $partname_hint
+     * @return Category
+     */
+    public function setPartnameHint(string $partname_hint): Category
+    {
+        $this->partname_hint = $partname_hint;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPartnameRegex(): string
+    {
+        return $this->partname_regex;
+    }
+
+    /**
+     * @param string $partname_regex
+     * @return Category
+     */
+    public function setPartnameRegex(string $partname_regex): Category
+    {
+        $this->partname_regex = $partname_regex;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDisableFootprints(): bool
+    {
+        return $this->disable_footprints;
+    }
+
+    /**
+     * @param bool $disable_footprints
+     * @return Category
+     */
+    public function setDisableFootprints(bool $disable_footprints): Category
+    {
+        $this->disable_footprints = $disable_footprints;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDisableManufacturers(): bool
+    {
+        return $this->disable_manufacturers;
+    }
+
+    /**
+     * @param bool $disable_manufacturers
+     * @return Category
+     */
+    public function setDisableManufacturers(bool $disable_manufacturers): Category
+    {
+        $this->disable_manufacturers = $disable_manufacturers;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDisableAutodatasheets(): bool
+    {
+        return $this->disable_autodatasheets;
+    }
+
+    /**
+     * @param bool $disable_autodatasheets
+     * @return Category
+     */
+    public function setDisableAutodatasheets(bool $disable_autodatasheets): Category
+    {
+        $this->disable_autodatasheets = $disable_autodatasheets;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDisableProperties(): bool
+    {
+        return $this->disable_properties;
+    }
+
+    /**
+     * @param bool $disable_properties
+     * @return Category
+     */
+    public function setDisableProperties(bool $disable_properties): Category
+    {
+        $this->disable_properties = $disable_properties;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultDescription(): string
+    {
+        return $this->default_description;
+    }
+
+    /**
+     * @param string $default_description
+     * @return Category
+     */
+    public function setDefaultDescription(string $default_description): Category
+    {
+        $this->default_description = $default_description;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultComment(): string
+    {
+        return $this->default_comment;
+    }
+
+    /**
+     * @param string $default_comment
+     * @return Category
+     */
+    public function setDefaultComment(string $default_comment): Category
+    {
+        $this->default_comment = $default_comment;
+        return $this;
+    }
+
+
 }

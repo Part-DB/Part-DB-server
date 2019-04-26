@@ -32,6 +32,7 @@
 namespace App\Form;
 
 
+use App\Entity\NamedDBElement;
 use App\Entity\StructuralDBElement;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -70,13 +71,20 @@ class BaseEntityAdminForm extends AbstractType
 
             ->add('comment', CKEditorType::class, ['required' => false,
                 'label' => 'comment.label', 'attr' => ['rows' => 4], 'help' => 'bbcode.hint',
-                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)])
+                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
+
+            $this->additionalFormElements($builder, $options, $entity);
 
             //Buttons
-            ->add('save', SubmitType::class, ['label' =>  $is_new ? 'entity.create' : 'entity.edit.save',
+            $builder->add('save', SubmitType::class, ['label' =>  $is_new ? 'entity.create' : 'entity.edit.save',
                 'attr' => ['class' => $is_new ? 'btn-success' : ''],
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)])
             ->add('reset', ResetType::class, ['label' => 'entity.edit.reset',
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
+    }
+
+    protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity)
+    {
+        //Empty for Base
     }
 }
