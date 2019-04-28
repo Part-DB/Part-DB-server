@@ -29,47 +29,45 @@
  *
  */
 
-namespace App\Controller;
+namespace App\Controller\AdminPages;
 
 
 use App\Entity\AttachmentType;
 
-use App\Entity\Storelocation;
+use App\Entity\Device;
 use App\Form\BaseEntityAdminForm;
-use App\Form\StorelocationAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\HttpCache\Store;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * @Route("/store_location")
+ * @Route("/device")
  * @package App\Controller
  */
-class StorelocationController extends BaseAdminController
+class DeviceController extends BaseAdminController
 {
 
-    protected $entity_class = Storelocation::class;
-    protected $twig_template = 'AdminPages/StorelocationAdmin.html.twig';
-    protected $form_class = StorelocationAdminForm::class;
-    protected $route_base = "store_location";
+    protected $entity_class = Device::class;
+    protected $twig_template = 'AdminPages/DeviceAdmin.html.twig';
+    protected $form_class = BaseEntityAdminForm::class;
+    protected $route_base = "device";
 
     /**
-     * @Route("/{id}/edit", requirements={"id"="\d+"}, name="store_location_edit")
+     * @Route("/{id}/edit", requirements={"id"="\d+"}, name="device_edit")
      * @Route("/{id}/", requirements={"id"="\d+"})
      */
-    public function edit(Storelocation $entity, Request $request, EntityManagerInterface $em)
+    public function edit(Device $entity, Request $request, EntityManagerInterface $em)
     {
         return $this->_edit($entity, $request, $em);
     }
 
     /**
-     * @Route("/new", name="store_location_new")
+     * @Route("/new", name="device_new")
      * @Route("/")
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -80,15 +78,15 @@ class StorelocationController extends BaseAdminController
     }
 
     /**
-     * @Route("/{id}", name="store_location_delete", methods={"DELETE"})
+     * @Route("/{id}", name="device_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Storelocation $entity, StructuralElementRecursionHelper $recursionHelper)
+    public function delete(Request $request, Device $entity, StructuralElementRecursionHelper $recursionHelper)
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
     /**
-     * @Route("/export", name="store_location_export_all")
+     * @Route("/export", name="device_export_all")
      * @param Request $request
      * @param SerializerInterface $serializer
      * @param EntityManagerInterface $em
@@ -100,11 +98,11 @@ class StorelocationController extends BaseAdminController
     }
 
     /**
-     * @Route("/{id}/export", name="store_location_export")
+     * @Route("/{id}/export", name="device_export")
      * @param Request $request
      * @param AttachmentType $entity
      */
-    public function exportEntity(Storelocation $entity, EntityExporter $exporter, Request $request)
+    public function exportEntity(Device $entity, EntityExporter $exporter, Request $request)
     {
         return $this->_exportEntity($entity, $exporter, $request);
     }

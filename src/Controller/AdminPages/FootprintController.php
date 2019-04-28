@@ -29,14 +29,13 @@
  *
  */
 
-namespace App\Controller;
+namespace App\Controller\AdminPages;
 
 
 use App\Entity\AttachmentType;
 
-use App\Entity\Supplier;
+use App\Entity\Footprint;
 use App\Form\BaseEntityAdminForm;
-use App\Form\CompanyForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
@@ -47,28 +46,28 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * @Route("/supplier")
+ * @Route("/footprint")
  * @package App\Controller
  */
-class SupplierController extends BaseAdminController
+class FootprintController extends BaseAdminController
 {
 
-    protected $entity_class = Supplier::class;
-    protected $twig_template = 'AdminPages/SupplierAdmin.html.twig';
-    protected $form_class = CompanyForm::class;
-    protected $route_base = "supplier";
+    protected $entity_class = Footprint::class;
+    protected $twig_template = 'AdminPages/FootprintAdmin.html.twig';
+    protected $form_class = BaseEntityAdminForm::class;
+    protected $route_base = "footprint";
 
     /**
-     * @Route("/{id}/edit", requirements={"id"="\d+"}, name="supplier_edit")
+     * @Route("/{id}/edit", requirements={"id"="\d+"}, name="footprint_edit")
      * @Route("/{id}/", requirements={"id"="\d+"})
      */
-    public function edit(Supplier $entity, Request $request, EntityManagerInterface $em)
+    public function edit(Footprint $entity, Request $request, EntityManagerInterface $em)
     {
         return $this->_edit($entity, $request, $em);
     }
 
     /**
-     * @Route("/new", name="supplier_new")
+     * @Route("/new", name="footprint_new")
      * @Route("/")
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -79,15 +78,15 @@ class SupplierController extends BaseAdminController
     }
 
     /**
-     * @Route("/{id}", name="supplier_delete", methods={"DELETE"})
+     * @Route("/{id}", name="footprint_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Supplier $entity, StructuralElementRecursionHelper $recursionHelper)
+    public function delete(Request $request, Footprint $entity, StructuralElementRecursionHelper $recursionHelper)
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
     /**
-     * @Route("/export", name="supplier_export_all")
+     * @Route("/export", name="footprint_export_all")
      * @param Request $request
      * @param SerializerInterface $serializer
      * @param EntityManagerInterface $em
@@ -99,11 +98,11 @@ class SupplierController extends BaseAdminController
     }
 
     /**
-     * @Route("/{id}/export", name="supplier_export")
+     * @Route("/{id}/export", name="footprint_export")
      * @param Request $request
-     * @param Supplier $entity
+     * @param AttachmentType $entity
      */
-    public function exportEntity(Supplier $entity, EntityExporter $exporter, Request $request)
+    public function exportEntity(AttachmentType $entity, EntityExporter $exporter, Request $request)
     {
         return $this->_exportEntity($entity, $exporter, $request);
     }

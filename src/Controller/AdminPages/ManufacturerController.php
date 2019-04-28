@@ -29,13 +29,15 @@
  *
  */
 
-namespace App\Controller;
+namespace App\Controller\AdminPages;
 
 
 use App\Entity\AttachmentType;
-use App\Entity\Category;
+
+use App\Entity\Manufacturer;
+use App\Entity\Supplier;
 use App\Form\BaseEntityAdminForm;
-use App\Form\CategoryAdminForm;
+use App\Form\CompanyForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
@@ -46,28 +48,28 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * @Route("/category")
+ * @Route("/manufacturer")
  * @package App\Controller
  */
-class CategoryController extends BaseAdminController
+class ManufacturerController extends BaseAdminController
 {
 
-    protected $entity_class = Category::class;
-    protected $twig_template = 'AdminPages/CategoryAdmin.html.twig';
-    protected $form_class = CategoryAdminForm::class;
-    protected $route_base = "category";
+    protected $entity_class = Manufacturer::class;
+    protected $twig_template = 'AdminPages/ManufacturerAdmin.html.twig';
+    protected $form_class = CompanyForm::class;
+    protected $route_base = 'manufacturer';
 
     /**
-     * @Route("/{id}/edit", requirements={"id"="\d+"}, name="category_edit")
+     * @Route("/{id}/edit", requirements={"id"="\d+"}, name="manufacturer_edit")
      * @Route("/{id}/", requirements={"id"="\d+"})
      */
-    public function edit(Category $entity, Request $request, EntityManagerInterface $em)
+    public function edit(Manufacturer $entity, Request $request, EntityManagerInterface $em)
     {
         return $this->_edit($entity, $request, $em);
     }
 
     /**
-     * @Route("/new", name="category_new")
+     * @Route("/new", name="manufacturer_new")
      * @Route("/")
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -78,15 +80,15 @@ class CategoryController extends BaseAdminController
     }
 
     /**
-     * @Route("/{id}", name="category_delete", methods={"DELETE"})
+     * @Route("/{id}", name="manufacturer_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Category $entity, StructuralElementRecursionHelper $recursionHelper)
+    public function delete(Request $request, Manufacturer $entity, StructuralElementRecursionHelper $recursionHelper)
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
     /**
-     * @Route("/export", name="category_export_all")
+     * @Route("/export", name="manufacturer_export_all")
      * @param Request $request
      * @param SerializerInterface $serializer
      * @param EntityManagerInterface $em
@@ -98,11 +100,11 @@ class CategoryController extends BaseAdminController
     }
 
     /**
-     * @Route("/{id}/export", name="category_export")
+     * @Route("/{id}/export", name="manufacturer_export")
      * @param Request $request
-     * @param AttachmentType $entity
+     * @param Supplier $entity
      */
-    public function exportEntity(Category $entity, EntityExporter $exporter, Request $request)
+    public function exportEntity(Manufacturer $entity, EntityExporter $exporter, Request $request)
     {
         return $this->_exportEntity($entity, $exporter, $request);
     }

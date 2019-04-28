@@ -29,15 +29,12 @@
  *
  */
 
-namespace App\Controller;
+namespace App\Controller\AdminPages;
 
 
 use App\Entity\AttachmentType;
 
-use App\Entity\Manufacturer;
-use App\Entity\Supplier;
 use App\Form\BaseEntityAdminForm;
-use App\Form\CompanyForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
@@ -48,28 +45,28 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * @Route("/manufacturer")
+ * @Route("/attachment_type")
  * @package App\Controller
  */
-class ManufacturerController extends BaseAdminController
+class AttachmentTypeController extends BaseAdminController
 {
 
-    protected $entity_class = Manufacturer::class;
-    protected $twig_template = 'AdminPages/ManufacturerAdmin.html.twig';
-    protected $form_class = CompanyForm::class;
-    protected $route_base = 'manufacturer';
+    protected $entity_class = AttachmentType::class;
+    protected $twig_template = 'AdminPages/AttachmentTypeAdmin.html.twig';
+    protected $form_class = BaseEntityAdminForm::class;
+    protected $route_base = "attachment_type";
 
     /**
-     * @Route("/{id}/edit", requirements={"id"="\d+"}, name="manufacturer_edit")
+     * @Route("/{id}/edit", requirements={"id"="\d+"}, name="attachment_type_edit")
      * @Route("/{id}/", requirements={"id"="\d+"})
      */
-    public function edit(Manufacturer $entity, Request $request, EntityManagerInterface $em)
+    public function edit(AttachmentType $entity, Request $request, EntityManagerInterface $em)
     {
         return $this->_edit($entity, $request, $em);
     }
 
     /**
-     * @Route("/new", name="manufacturer_new")
+     * @Route("/new", name="attachment_type_new")
      * @Route("/")
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -80,15 +77,15 @@ class ManufacturerController extends BaseAdminController
     }
 
     /**
-     * @Route("/{id}", name="manufacturer_delete", methods={"DELETE"})
+     * @Route("/{id}", name="attachment_type_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Manufacturer $entity, StructuralElementRecursionHelper $recursionHelper)
+    public function delete(Request $request, AttachmentType $entity, StructuralElementRecursionHelper $recursionHelper)
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
     /**
-     * @Route("/export", name="manufacturer_export_all")
+     * @Route("/export", name="attachment_type_export_all")
      * @param Request $request
      * @param SerializerInterface $serializer
      * @param EntityManagerInterface $em
@@ -100,11 +97,11 @@ class ManufacturerController extends BaseAdminController
     }
 
     /**
-     * @Route("/{id}/export", name="manufacturer_export")
+     * @Route("/{id}/export", name="attachment_type_export")
      * @param Request $request
-     * @param Supplier $entity
+     * @param AttachmentType $entity
      */
-    public function exportEntity(Manufacturer $entity, EntityExporter $exporter, Request $request)
+    public function exportEntity(AttachmentType $entity, EntityExporter $exporter, Request $request)
     {
         return $this->_exportEntity($entity, $exporter, $request);
     }

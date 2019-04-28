@@ -29,7 +29,7 @@
  *
  */
 
-namespace App\Controller;
+namespace App\Controller\AdminPages;
 
 use App\Entity\AttachmentType;
 use App\Entity\StructuralDBElement;

@@ -29,12 +29,13 @@
  *
  */
 
-namespace App\Controller;
+namespace App\Controller\AdminPages;
 
 
 use App\Entity\AttachmentType;
-
+use App\Entity\Category;
 use App\Form\BaseEntityAdminForm;
+use App\Form\CategoryAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
@@ -45,28 +46,28 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
- * @Route("/attachment_type")
+ * @Route("/category")
  * @package App\Controller
  */
-class AttachmentTypeController extends BaseAdminController
+class CategoryController extends BaseAdminController
 {
 
-    protected $entity_class = AttachmentType::class;
-    protected $twig_template = 'AdminPages/AttachmentTypeAdmin.html.twig';
-    protected $form_class = BaseEntityAdminForm::class;
-    protected $route_base = "attachment_type";
+    protected $entity_class = Category::class;
+    protected $twig_template = 'AdminPages/CategoryAdmin.html.twig';
+    protected $form_class = CategoryAdminForm::class;
+    protected $route_base = "category";
 
     /**
-     * @Route("/{id}/edit", requirements={"id"="\d+"}, name="attachment_type_edit")
+     * @Route("/{id}/edit", requirements={"id"="\d+"}, name="category_edit")
      * @Route("/{id}/", requirements={"id"="\d+"})
      */
-    public function edit(AttachmentType $entity, Request $request, EntityManagerInterface $em)
+    public function edit(Category $entity, Request $request, EntityManagerInterface $em)
     {
         return $this->_edit($entity, $request, $em);
     }
 
     /**
-     * @Route("/new", name="attachment_type_new")
+     * @Route("/new", name="category_new")
      * @Route("/")
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -77,15 +78,15 @@ class AttachmentTypeController extends BaseAdminController
     }
 
     /**
-     * @Route("/{id}", name="attachment_type_delete", methods={"DELETE"})
+     * @Route("/{id}", name="category_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, AttachmentType $entity, StructuralElementRecursionHelper $recursionHelper)
+    public function delete(Request $request, Category $entity, StructuralElementRecursionHelper $recursionHelper)
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
     /**
-     * @Route("/export", name="attachment_type_export_all")
+     * @Route("/export", name="category_export_all")
      * @param Request $request
      * @param SerializerInterface $serializer
      * @param EntityManagerInterface $em
@@ -97,11 +98,11 @@ class AttachmentTypeController extends BaseAdminController
     }
 
     /**
-     * @Route("/{id}/export", name="attachment_type_export")
+     * @Route("/{id}/export", name="category_export")
      * @param Request $request
      * @param AttachmentType $entity
      */
-    public function exportEntity(AttachmentType $entity, EntityExporter $exporter, Request $request)
+    public function exportEntity(Category $entity, EntityExporter $exporter, Request $request)
     {
         return $this->_exportEntity($entity, $exporter, $request);
     }
