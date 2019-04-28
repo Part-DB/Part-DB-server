@@ -32,6 +32,7 @@ namespace App\Services;
 use App\Entity\AttachmentType;
 use App\Entity\Category;
 use App\Entity\Device;
+use App\Entity\Footprint;
 use App\Entity\Manufacturer;
 use App\Entity\NamedDBElement;
 use App\Entity\Part;
@@ -139,6 +140,10 @@ class EntityURLGenerator
             return $this->urlGenerator->generate("store_location_edit", ['id' => $entity->getID()]);
         }
 
+        if ($entity instanceof Footprint) {
+            return $this->urlGenerator->generate("footprint_edit", ['id' => $entity->getID()]);
+        }
+
         //Otherwise throw an error
         throw new EntityNotSupported('The given entity is not supported yet!');
     }
@@ -178,6 +183,10 @@ class EntityURLGenerator
 
         if ($entity instanceof Storelocation) {
             return $this->urlGenerator->generate('store_location_new');
+        }
+
+        if ($entity instanceof Footprint) {
+            return $this->urlGenerator->generate('footprint_new');
         }
 
         throw new EntityNotSupported('The given entity is not supported yet!');
@@ -240,6 +249,10 @@ class EntityURLGenerator
 
         if ($entity instanceof Storelocation) {
             return $this->urlGenerator->generate('store_location_new', ['id' => $entity->getID()]);
+        }
+
+        if ($entity instanceof Footprint) {
+            return $this->urlGenerator->generate('footprint_new', ['id' => $entity->getID()]);
         }
 
         throw new EntityNotSupported('The given entity is not supported yet!');

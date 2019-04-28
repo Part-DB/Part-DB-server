@@ -73,6 +73,9 @@ class ToolsTreeBuilder
         $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.storelocation'),
             $this->urlGenerator->generate('store_location_new'));
 
+        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.footprint'),
+            $this->urlGenerator->generate('footprint_new'));
+
         $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.part'),
             $this->urlGenerator->generate('part_new'));
 
