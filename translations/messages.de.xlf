@@ -1,811 +1,1144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="de-DE" trgLang="de">
   <file id="messages.de">
     <unit id="cElTSD4" name="sidebar.toggle">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:29</note>
+      </notes>
       <segment>
         <source>sidebar.toggle</source>
         <target state="translated">Sidebar umschalten</target>
       </segment>
     </unit>
     <unit id="el2uFyW" name="search.options.label">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:49</note>
+      </notes>
       <segment>
         <source>search.options.label</source>
         <target state="translated">Suchoptionen</target>
       </segment>
     </unit>
     <unit id="kTRK6H_" name="name.label">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:54</note>
+        <note category="file-source" priority="1">src\Form\PartType.php:62</note>
+      </notes>
       <segment>
         <source>name.label</source>
         <target state="translated">Name</target>
       </segment>
     </unit>
     <unit id="ZY57BXc" name="category.label">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:56</note>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:32</note>
+        <note category="file-source" priority="1">src\Form\PartType.php:74</note>
+      </notes>
       <segment>
         <source>category.label</source>
         <target state="translated">Kategorie</target>
       </segment>
     </unit>
     <unit id="LSnWIG7" name="description.label">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:58</note>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:31</note>
+        <note category="file-source" priority="1">src\Form\PartType.php:65</note>
+      </notes>
       <segment>
         <source>description.label</source>
         <target state="translated">Beschreibung</target>
       </segment>
     </unit>
     <unit id="RezjOdV" name="storelocation.label">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:60</note>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:36</note>
+        <note category="file-source" priority="1">src\Form\PartType.php:77</note>
+      </notes>
       <segment>
         <source>storelocation.label</source>
         <target state="translated">Lagerort</target>
       </segment>
     </unit>
     <unit id="BWS7Lck" name="comment.label">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:62</note>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:74</note>
+        <note category="file-source" priority="1">src\Form\PartType.php:86</note>
+      </notes>
       <segment>
         <source>comment.label</source>
         <target state="translated">Kommentar</target>
       </segment>
     </unit>
     <unit id="z1DQ7QF" name="ordernumber.label.short">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:65</note>
+      </notes>
       <segment>
         <source>ordernumber.label.short</source>
         <target state="translated">Ordernr.</target>
       </segment>
     </unit>
     <unit id="zT4k8ZJ" name="supplier.label">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:67</note>
+      </notes>
       <segment>
         <source>supplier.label</source>
         <target state="translated">Lieferant</target>
       </segment>
     </unit>
     <unit id="WB3sH1G" name="manufacturer.label">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:70</note>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:24</note>
+        <note category="file-source" priority="1">src\Form\PartType.php:80</note>
+      </notes>
       <segment>
         <source>manufacturer.label</source>
         <target state="translated">Hersteller</target>
       </segment>
     </unit>
     <unit id="griVyRf" name="footprint.label">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:73</note>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:47</note>
+      </notes>
       <segment>
         <source>footprint.label</source>
         <target state="translated">Footprint</target>
       </segment>
     </unit>
     <unit id="Bs5QvO0" name="search.deactivateBarcode">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:75</note>
+      </notes>
       <segment>
         <source>search.deactivateBarcode</source>
         <target state="translated">Deakt. Barcode</target>
       </segment>
     </unit>
     <unit id="biFM.cv" name="search.regexmatching">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:77</note>
+      </notes>
       <segment>
         <source>search.regexmatching</source>
         <target state="translated">Reg.Ex. Matching</target>
       </segment>
     </unit>
     <unit id="lQ8QeGr" name="search.placeholder">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\EntityAdminBase.html.twig:9</note>
+        <note category="file-source" priority="1">templates\base.html.twig:80</note>
+        <note category="file-source" priority="1">templates\base.html.twig:179</note>
+        <note category="file-source" priority="1">templates\base.html.twig:206</note>
+        <note category="file-source" priority="1">templates\base.html.twig:237</note>
+      </notes>
       <segment>
         <source>search.placeholder</source>
         <target state="translated">Suche</target>
       </segment>
     </unit>
     <unit id="rOLpDSq" name="go.exclamation">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:81</note>
+      </notes>
       <segment>
         <source>go.exclamation</source>
         <target state="translated">Los!</target>
       </segment>
     </unit>
     <unit id="iqU5ScK" name="barcode.scan">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:88</note>
+      </notes>
       <segment>
         <source>barcode.scan</source>
         <target state="translated">Scanne Barcode</target>
       </segment>
     </unit>
     <unit id="PRvW.EI" name="user.loggedin.label">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:97</note>
+      </notes>
       <segment>
         <source>user.loggedin.label</source>
         <target state="translated">Eingeloggt als</target>
       </segment>
     </unit>
     <unit id="4fEJHYJ" name="user.settings.label">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:98</note>
+        <note category="file-source" priority="1">templates\Users\user_settings.html.twig:3</note>
+        <note category="file-source" priority="1">templates\Users\user_settings.html.twig:6</note>
+      </notes>
       <segment>
         <source>user.settings.label</source>
         <target state="translated">Benutzereinstellungen</target>
       </segment>
     </unit>
     <unit id="_M8LV3f" name="user.info.label">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:99</note>
+        <note category="file-source" priority="1">templates\Users\user_info.html.twig:3</note>
+        <note category="file-source" priority="1">templates\Users\user_info.html.twig:6</note>
+      </notes>
       <segment>
         <source>user.info.label</source>
         <target state="translated">Benutzerinformationen</target>
       </segment>
     </unit>
     <unit id="okzpfQC" name="user.logout">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:101</note>
+      </notes>
       <segment>
         <source>user.logout</source>
         <target state="translated">Ausloggen</target>
       </segment>
     </unit>
     <unit id="rruB2OR" name="user.login">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:103</note>
+      </notes>
       <segment>
         <source>user.login</source>
         <target state="translated">Einloggen</target>
       </segment>
     </unit>
     <unit id="OllfX2C" name="category.labelp">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\CategoryAdmin.html.twig:4</note>
+        <note category="file-source" priority="1">templates\base.html.twig:163</note>
+        <note category="file-source" priority="1">templates\base.html.twig:170</note>
+        <note category="file-source" priority="1">templates\base.html.twig:197</note>
+        <note category="file-source" priority="1">templates\base.html.twig:225</note>
+      </notes>
       <segment>
         <source>category.labelp</source>
         <target state="translated">Kategorien</target>
       </segment>
     </unit>
     <unit id="Kw3N1AA" name="actions">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:165</note>
+        <note category="file-source" priority="1">templates\base.html.twig:192</note>
+        <note category="file-source" priority="1">templates\base.html.twig:220</note>
+      </notes>
       <segment>
         <source>actions</source>
         <target state="translated">Aktionen</target>
       </segment>
     </unit>
     <unit id="10f_Ka3" name="expandAll">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\EntityAdminBase.html.twig:13</note>
+        <note category="file-source" priority="1">templates\base.html.twig:166</note>
+        <note category="file-source" priority="1">templates\base.html.twig:193</note>
+        <note category="file-source" priority="1">templates\base.html.twig:221</note>
+      </notes>
       <segment>
         <source>expandAll</source>
         <target state="translated">Alle ausklappen</target>
       </segment>
     </unit>
     <unit id="eS_kUcS" name="reduceAll">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\EntityAdminBase.html.twig:17</note>
+        <note category="file-source" priority="1">templates\base.html.twig:167</note>
+        <note category="file-source" priority="1">templates\base.html.twig:194</note>
+        <note category="file-source" priority="1">templates\base.html.twig:222</note>
+      </notes>
       <segment>
         <source>reduceAll</source>
         <target state="translated">Alle einklappen</target>
       </segment>
     </unit>
     <unit id=".x0rFcf" name="datasource">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:169</note>
+        <note category="file-source" priority="1">templates\base.html.twig:196</note>
+        <note category="file-source" priority="1">templates\base.html.twig:224</note>
+      </notes>
       <segment>
         <source>datasource</source>
         <target state="translated">Datenquelle</target>
       </segment>
     </unit>
     <unit id="vZGwiMS" name="storelocation.labelp">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:171</note>
+        <note category="file-source" priority="1">templates\base.html.twig:198</note>
+        <note category="file-source" priority="1">templates\base.html.twig:226</note>
+      </notes>
       <segment>
         <source>storelocation.labelp</source>
         <target state="translated">Lagerorte</target>
       </segment>
     </unit>
     <unit id="ZJ9SPOS" name="footprint.labelp">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:172</note>
+        <note category="file-source" priority="1">templates\base.html.twig:199</note>
+        <note category="file-source" priority="1">templates\base.html.twig:227</note>
+      </notes>
       <segment>
         <source>footprint.labelp</source>
         <target state="translated">Footprints</target>
       </segment>
     </unit>
     <unit id="NSnSQf4" name="manufacturer.labelp">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:173</note>
+        <note category="file-source" priority="1">templates\base.html.twig:200</note>
+        <note category="file-source" priority="1">templates\base.html.twig:228</note>
+      </notes>
       <segment>
         <source>manufacturer.labelp</source>
         <target state="translated">Hersteller</target>
       </segment>
     </unit>
     <unit id="DQQjhS_" name="supplier.labelp">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:174</note>
+        <note category="file-source" priority="1">templates\base.html.twig:201</note>
+        <note category="file-source" priority="1">templates\base.html.twig:229</note>
+      </notes>
       <segment>
         <source>supplier.labelp</source>
         <target state="translated">Anbieter</target>
       </segment>
     </unit>
     <unit id="g6tt4u1" name="device.labelp">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:175</note>
+        <note category="file-source" priority="1">templates\base.html.twig:189</note>
+        <note category="file-source" priority="1">templates\base.html.twig:202</note>
+        <note category="file-source" priority="1">templates\base.html.twig:230</note>
+      </notes>
       <segment>
         <source>device.labelp</source>
         <target state="translated">Baugruppen</target>
       </segment>
     </unit>
     <unit id="__OuWRw" name="tools.label">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:176</note>
+        <note category="file-source" priority="1">templates\base.html.twig:203</note>
+        <note category="file-source" priority="1">templates\base.html.twig:217</note>
+        <note category="file-source" priority="1">templates\base.html.twig:231</note>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:100</note>
+      </notes>
       <segment>
         <source>tools.label</source>
         <target state="translated">Tools</target>
       </segment>
     </unit>
     <unit id="ZQMol4U" name="vendor.base.javascript_hint">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:246</note>
+      </notes>
       <segment>
         <source>vendor.base.javascript_hint</source>
         <target state="translated">Aktivieren Sie Javascript um alle Features zu nutzen!</target>
       </segment>
     </unit>
     <unit id="UoflU8w" name="part.info.title">
+      <notes>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:4</note>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:9</note>
+      </notes>
       <segment>
         <source>part.info.title</source>
         <target state="translated">Detailinfo für</target>
       </segment>
     </unit>
     <unit id="2y0kouO" name="id.label">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\EntityAdminBase.html.twig:94</note>
+        <note category="file-source" priority="1">templates\Parts\edit_part_info.html.twig:12</note>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:11</note>
+      </notes>
       <segment>
         <source>id.label</source>
         <target state="translated">ID</target>
       </segment>
     </unit>
     <unit id="J.AXbaM" name="instock.label">
+      <notes>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:42</note>
+        <note category="file-source" priority="1">src\Form\PartType.php:69</note>
+      </notes>
       <segment>
         <source>instock.label</source>
         <target state="translated">Im Lager</target>
       </segment>
     </unit>
     <unit id="VYcxdrz" name="mininstock.label">
+      <notes>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:44</note>
+        <note category="file-source" priority="1">src\Form\PartType.php:72</note>
+      </notes>
       <segment>
         <source>mininstock.label</source>
         <target state="translated">Mindestbestand</target>
       </segment>
     </unit>
     <unit id="LL2dt8U" name="part.avg_price.label">
+      <notes>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:51</note>
+      </notes>
       <segment>
         <source>part.avg_price.label</source>
         <target state="translated">Durchschnittspreis</target>
       </segment>
     </unit>
     <unit id="MZz0rtU" name="attachment.labelp">
+      <notes>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:82</note>
+      </notes>
       <segment>
         <source>attachment.labelp</source>
         <target state="translated">Dateianhänge</target>
       </segment>
     </unit>
     <unit id="b5.SSzx" name="vendor.partinfo.shopping_infos">
+      <notes>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:88</note>
+      </notes>
       <segment>
         <source>vendor.partinfo.shopping_infos</source>
         <target state="translated">Einkaufsinformationen</target>
       </segment>
     </unit>
     <unit id="1Soir6U" name="vendor.partinfo.history">
+      <notes>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:94</note>
+      </notes>
       <segment>
         <source>vendor.partinfo.history</source>
         <target state="translated">Historie</target>
       </segment>
     </unit>
-    <unit id="4ixhjeS" name="part.delete.caption">
-      <segment>
-        <source>part.delete.caption</source>
-        <target state="translated">Bauteil löschen</target>
-      </segment>
-    </unit>
-    <unit id="CP6LfDs" name="part.delete.btn">
-      <segment>
-        <source>part.delete.btn</source>
-        <target state="translated">Bauteil löschen</target>
-      </segment>
-    </unit>
     <unit id="eG9UnaY" name="part.withdraw.caption:">
+      <notes>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:161</note>
+      </notes>
       <segment>
         <source>part.withdraw.caption:</source>
         <target state="translated">Bauteile entnehmen:</target>
       </segment>
     </unit>
     <unit id="7TiUzGF" name="part.withdraw.btn">
+      <notes>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:166</note>
+      </notes>
       <segment>
         <source>part.withdraw.btn</source>
         <target state="translated">Entnehmen</target>
       </segment>
     </unit>
     <unit id="RVKdVNt" name="part.withdraw.comment:">
+      <notes>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:171</note>
+      </notes>
       <segment>
         <source>part.withdraw.comment:</source>
         <target state="translated">Kommentar/Zweck</target>
       </segment>
     </unit>
     <unit id="kXcojTi" name="part.add.caption">
+      <notes>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:189</note>
+      </notes>
       <segment>
         <source>part.add.caption</source>
         <target state="translated">Bauteil hinzufügen</target>
       </segment>
     </unit>
     <unit id="rYoCVp9" name="part.add.btn">
+      <notes>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:194</note>
+      </notes>
       <segment>
         <source>part.add.btn</source>
         <target state="translated">Hinzufügen</target>
       </segment>
     </unit>
     <unit id="4CUEJg5" name="part.add.comment">
+      <notes>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:199</note>
+      </notes>
       <segment>
         <source>part.add.comment</source>
         <target state="translated">Kommentar/Zweck</target>
       </segment>
     </unit>
     <unit id="cMLFYZw" name="createdAt">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\EntityAdminBase.html.twig:101</note>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:248</note>
+      </notes>
       <segment>
         <source>createdAt</source>
         <target state="translated">Erstellt am</target>
       </segment>
     </unit>
     <unit id="ZcUFNEJ" name="lastModified">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\EntityAdminBase.html.twig:114</note>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:263</note>
+      </notes>
       <segment>
         <source>lastModified</source>
         <target state="translated">Zuletzt bearbeitet</target>
       </segment>
     </unit>
-    <unit id="nZxWuSY" name="instock.label_short">
-      <segment>
-        <source>instock.label_short</source>
-        <target state="translated">Bestand</target>
-      </segment>
-    </unit>
-    <unit id="ryY3rJ_" name="mininstock.label_short">
-      <segment>
-        <source>mininstock.label_short</source>
-        <target state="translated">Mindest-Bestand</target>
-      </segment>
-    </unit>
     <unit id="oabvQfM" name="user.language_select">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:106</note>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:44</note>
+      </notes>
       <segment>
         <source>user.language_select</source>
         <target state="translated">Sprache</target>
       </segment>
     </unit>
     <unit id="rMCnZt." name="language.english">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:109</note>
+      </notes>
       <segment>
         <source>language.english</source>
         <target state="translated">Englisch</target>
       </segment>
     </unit>
     <unit id="OmHgIys" name="language.german">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:112</note>
+      </notes>
       <segment>
         <source>language.german</source>
         <target state="translated">Deutsch</target>
       </segment>
     </unit>
     <unit id="Qj.Hpb." name="version.caption">
+      <notes>
+        <note category="file-source" priority="1">templates\homepage.html.twig:7</note>
+      </notes>
       <segment>
         <source>version.caption</source>
         <target state="translated">Version</target>
       </segment>
     </unit>
     <unit id="GDYG7.b" name="homepage.license">
+      <notes>
+        <note category="file-source" priority="1">templates\homepage.html.twig:19</note>
+      </notes>
       <segment>
         <source>homepage.license</source>
         <target state="translated">Lizenzinformation</target>
       </segment>
     </unit>
     <unit id="5nDb2pj" name="homepage.github.caption">
+      <notes>
+        <note category="file-source" priority="1">templates\homepage.html.twig:28</note>
+      </notes>
       <segment>
         <source>homepage.github.caption</source>
         <target state="translated">Projektseite</target>
       </segment>
     </unit>
     <unit id="7nCeHg7" name="homepage.github.text">
+      <notes>
+        <note category="file-source" priority="1">templates\homepage.html.twig:28</note>
+      </notes>
       <segment>
         <source>homepage.github.text</source>
         <target state="translated"><![CDATA[Downloads, Bugreports, ToDo-Liste usw. gibts auf der <a class="link-external" target="_blank" href="%href%">GitHub Projektseite</a>]]></target>
       </segment>
     </unit>
     <unit id="9pp.6vF" name="homepage.help.caption">
+      <notes>
+        <note category="file-source" priority="1">templates\homepage.html.twig:29</note>
+      </notes>
       <segment>
         <source>homepage.help.caption</source>
         <target state="translated">Hilfe</target>
       </segment>
     </unit>
     <unit id="exp3iqv" name="homepage.help.text">
+      <notes>
+        <note category="file-source" priority="1">templates\homepage.html.twig:29</note>
+      </notes>
       <segment>
         <source>homepage.help.text</source>
         <target state="translated"><![CDATA[Hilfe und Tipps finden sie im <a class="link-external" rel="noopener" target="_blank" href="%href%">Wiki</a> der GitHub Seite. ]]></target>
       </segment>
     </unit>
     <unit id="R2g.45a" name="homepage.forum.caption">
+      <notes>
+        <note category="file-source" priority="1">templates\homepage.html.twig:30</note>
+      </notes>
       <segment>
         <source>homepage.forum.caption</source>
         <target state="translated">Forum</target>
       </segment>
     </unit>
     <unit id="nfBdkzp" name="homepage.forum.text">
+      <notes>
+        <note category="file-source" priority="1">templates\homepage.html.twig:30</note>
+      </notes>
       <segment>
         <source>homepage.forum.text</source>
         <target state="translated"><![CDATA[Für Fragen rund um die Part-DB gibt es einen Thread auf <a class="link-external" rel="noopener" target="_blank" href="%href%">mikrocontroller.net</a>]]></target>
       </segment>
     </unit>
     <unit id="exDsVQ3" name="homepage.wiki.caption">
+      <notes>
+        <note category="file-source" priority="1">templates\homepage.html.twig:31</note>
+      </notes>
       <segment>
         <source>homepage.wiki.caption</source>
         <target state="translated">Wiki</target>
       </segment>
     </unit>
     <unit id="tdI0IlW" name="homepage.wiki.text">
+      <notes>
+        <note category="file-source" priority="1">templates\homepage.html.twig:31</note>
+      </notes>
       <segment>
         <source>homepage.wiki.text</source>
         <target state="translated"><![CDATA[Weitere Informationen gibt es im <a class="link-external" rel="noopener" target="_blank" href="%href%">mikrocontroller.net Artikel</a>]]></target>
       </segment>
     </unit>
-    <unit id="gAFUu2a" name="homepage.basedOn">
-      <segment>
-        <source>homepage.basedOn</source>
-        <target state="translated">Basierend auf den ursprünglichen Version von Part-DB von</target>
-      </segment>
-    </unit>
-    <unit id="PlY3xmo" name="homepage.others">
-      <segment>
-        <source>homepage.others</source>
-        <target state="translated">und anderen.</target>
-      </segment>
-    </unit>
     <unit id="79bMpjW" name="part_list.loading.caption">
+      <notes>
+        <note category="file-source" priority="1">templates\parts_list.html.twig:22</note>
+      </notes>
       <segment>
         <source>part_list.loading.caption</source>
         <target state="translated">Lade</target>
       </segment>
     </unit>
     <unit id="dJ3yFo4" name="part_list.loading.message">
+      <notes>
+        <note category="file-source" priority="1">templates\parts_list.html.twig:23</note>
+      </notes>
       <segment>
         <source>part_list.loading.message</source>
         <target state="translated">Dies kann einen Moment dauern. Wenn diese Nachricht längere Zeit bestehen bleibt, versuchen sie die Seite erneut zu laden.</target>
       </segment>
     </unit>
-    <unit id="g4ahva6" name="flash.success">
-      <segment>
-        <source>flash.success</source>
-        <target state="translated">Erfolg</target>
-      </segment>
-    </unit>
-    <unit id="NehzWgk" name="flash.error">
-      <segment>
-        <source>flash.error</source>
-        <target state="translated">Fehler</target>
-      </segment>
-    </unit>
-    <unit id="h8vhq_r" name="flash.warning">
-      <segment>
-        <source>flash.warning</source>
-        <target state="translated">Warnung</target>
-      </segment>
-    </unit>
-    <unit id="m5p2YEz" name="flash.notice">
-      <segment>
-        <source>flash.notice</source>
-        <target state="translated">Hinweis</target>
-      </segment>
-    </unit>
-    <unit id="YA5xZMy" name="flash.info">
-      <segment>
-        <source>flash.info</source>
-        <target state="translated">Info</target>
-      </segment>
-    </unit>
     <unit id="nS44Iqv" name="part.edit.title">
+      <notes>
+        <note category="file-source" priority="1">templates\Parts\edit_part_info.html.twig:4</note>
+      </notes>
       <segment>
         <source>part.edit.title</source>
         <target>Bearbeite Bauteil %name%</target>
       </segment>
     </unit>
     <unit id="Ko2G29K" name="part.edit.card_title">
+      <notes>
+        <note category="file-source" priority="1">templates\Parts\edit_part_info.html.twig:9</note>
+      </notes>
       <segment>
         <source>part.edit.card_title</source>
         <target>Bearbeite Bauteileinformationen von</target>
       </segment>
     </unit>
     <unit id="nEC2Xzw" name="part.name.placeholder">
+      <notes>
+        <note category="file-source" priority="1">src\Form\PartType.php:63</note>
+      </notes>
       <segment>
         <source>part.name.placeholder</source>
         <target>z.B. BC547</target>
       </segment>
     </unit>
     <unit id="8QVpbd0" name="part.description.placeholder">
+      <notes>
+        <note category="file-source" priority="1">src\Form\PartType.php:66</note>
+      </notes>
       <segment>
         <source>part.description.placeholder</source>
         <target>z.B. NPN 45V 0,1A 0,5W</target>
       </segment>
     </unit>
-    <unit id="en0DwC3" name="bbcode.hint">
-      <segment>
-        <source>bbcode.hint</source>
-        <target>Hinweis: Hier kann BBCode verwendet werden um den Text besonders auszuzeichnen (z.B. [b]Fett[/b]).</target>
-      </segment>
-    </unit>
     <unit id="w_lfSsB" name="part.instock.placeholder">
+      <notes>
+        <note category="file-source" priority="1">src\Form\PartType.php:69</note>
+      </notes>
       <segment>
         <source>part.instock.placeholder</source>
         <target>z.B. 12</target>
       </segment>
     </unit>
     <unit id="58zdDWF" name="part.mininstock.placeholder">
+      <notes>
+        <note category="file-source" priority="1">src\Form\PartType.php:72</note>
+      </notes>
       <segment>
         <source>part.mininstock.placeholder</source>
         <target>z.B. 10</target>
       </segment>
     </unit>
     <unit id="74zmrRr" name="manufacturer_url.label">
+      <notes>
+        <note category="file-source" priority="1">src\Form\PartType.php:83</note>
+      </notes>
       <segment>
         <source>manufacturer_url.label</source>
         <target>Herstellerlink</target>
       </segment>
     </unit>
     <unit id="vZwa6za" name="part.edit.save">
+      <notes>
+        <note category="file-source" priority="1">src\Form\PartType.php:91</note>
+      </notes>
       <segment>
         <source>part.edit.save</source>
         <target>Änderungen übernehmen</target>
       </segment>
     </unit>
     <unit id="_GqPyC3" name="part.edit.reset">
+      <notes>
+        <note category="file-source" priority="1">src\Form\PartType.php:92</note>
+      </notes>
       <segment>
         <source>part.edit.reset</source>
         <target>Änderungen verwerfen</target>
       </segment>
     </unit>
     <unit id="h0g53U_" name="part.new.card_title">
+      <notes>
+        <note category="file-source" priority="1">templates\Parts\new_part.html.twig:8</note>
+      </notes>
       <segment>
         <source>part.new.card_title</source>
         <target>Neues Bauteil erstellen</target>
       </segment>
     </unit>
     <unit id="6Ks0rFM" name="login.username.label">
+      <notes>
+        <note category="file-source" priority="1">templates\security\login.html.twig:31</note>
+      </notes>
       <segment>
         <source>login.username.label</source>
         <target>Benutzername</target>
       </segment>
     </unit>
     <unit id="JUuJUUV" name="login.username.placeholder">
+      <notes>
+        <note category="file-source" priority="1">templates\security\login.html.twig:34</note>
+      </notes>
       <segment>
         <source>login.username.placeholder</source>
         <target>Benutzername</target>
       </segment>
     </unit>
     <unit id="HJtrGOc" name="login.password.label">
+      <notes>
+        <note category="file-source" priority="1">templates\security\login.html.twig:38</note>
+      </notes>
       <segment>
         <source>login.password.label</source>
         <target>Passwort</target>
       </segment>
     </unit>
     <unit id="8SD.6EK" name="login.password.placeholder">
+      <notes>
+        <note category="file-source" priority="1">templates\security\login.html.twig:40</note>
+      </notes>
       <segment>
         <source>login.password.placeholder</source>
         <target>Passwort</target>
       </segment>
     </unit>
     <unit id="XtrGxkd" name="login.btn">
+      <notes>
+        <note category="file-source" priority="1">templates\security\login.html.twig:58</note>
+      </notes>
       <segment>
         <source>login.btn</source>
         <target>Login</target>
       </segment>
     </unit>
     <unit id="nDK0G.T" name="login.card_title">
+      <notes>
+        <note category="file-source" priority="1">templates\security\login.html.twig:7</note>
+      </notes>
       <segment>
         <source>login.card_title</source>
         <target>Login</target>
       </segment>
     </unit>
     <unit id="Kd99AFq" name="login.title">
+      <notes>
+        <note category="file-source" priority="1">templates\security\login.html.twig:3</note>
+      </notes>
       <segment>
         <source>login.title</source>
         <target>Login</target>
       </segment>
     </unit>
     <unit id="BSn76q_" name="login.rememberme">
+      <notes>
+        <note category="file-source" priority="1">templates\security\login.html.twig:50</note>
+      </notes>
       <segment>
         <source>login.rememberme</source>
         <target>Eingeloggt bleiben (nicht empfohlen auf geteilten Computern)</target>
       </segment>
     </unit>
     <unit id="PwI64fM" name="user.firstName.label">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\user_info.html.twig:18</note>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:32</note>
+      </notes>
       <segment>
         <source>user.firstName.label</source>
         <target>Vorname</target>
       </segment>
     </unit>
     <unit id="u2ayBIA" name="user.lastName.label">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\user_info.html.twig:24</note>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:35</note>
+      </notes>
       <segment>
         <source>user.lastName.label</source>
         <target>Nachname</target>
       </segment>
     </unit>
     <unit id="cDu6Rok" name="user.email.label">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\user_info.html.twig:30</note>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:41</note>
+      </notes>
       <segment>
         <source>user.email.label</source>
         <target>Email</target>
       </segment>
     </unit>
     <unit id="8GGUFm1" name="user.department.label">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\user_info.html.twig:37</note>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:38</note>
+      </notes>
       <segment>
         <source>user.department.label</source>
         <target>Abteilung</target>
       </segment>
     </unit>
     <unit id="oX4P2rM" name="user.username.label">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\user_info.html.twig:47</note>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:30</note>
+      </notes>
       <segment>
         <source>user.username.label</source>
         <target>Benutzername</target>
       </segment>
     </unit>
     <unit id="QK5x4IY" name="group.label">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\user_info.html.twig:53</note>
+      </notes>
       <segment>
         <source>group.label</source>
         <target>Group</target>
       </segment>
     </unit>
     <unit id="zqcVMWA" name="user_settings.data.label">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\user_settings.html.twig:14</note>
+      </notes>
       <segment>
         <source>user_settings.data.label</source>
         <target>Persönliche Daten</target>
       </segment>
     </unit>
     <unit id="Dh.DwVa" name="user_settings.configuration.label">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\user_settings.html.twig:18</note>
+      </notes>
       <segment>
         <source>user_settings.configuration.label</source>
         <target>Konfiguration</target>
       </segment>
     </unit>
     <unit id="lx12TjD" name="user_settings.language.placeholder">
+      <notes>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:45</note>
+      </notes>
       <segment>
         <source>user_settings.language.placeholder</source>
         <target>Serverweite Sprache</target>
       </segment>
     </unit>
     <unit id="JROUC8Y" name="user_settings.timezone.placeholder">
+      <notes>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:48</note>
+      </notes>
       <segment>
         <source>user_settings.timezone.placeholder</source>
         <target>Serverweite Zeitzone</target>
       </segment>
     </unit>
     <unit id="Lq0fGXJ" name="user.timezone.label">
+      <notes>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:46</note>
+      </notes>
       <segment>
         <source>user.timezone.label</source>
         <target>Zeitzone</target>
       </segment>
     </unit>
     <unit id="FX3KkuQ" name="save">
+      <notes>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:53</note>
+      </notes>
       <segment>
         <source>save</source>
         <target>Änderungen übernehmen</target>
       </segment>
     </unit>
     <unit id="Ab4wu0o" name="reset">
+      <notes>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:54</note>
+      </notes>
       <segment>
         <source>reset</source>
         <target>Änderungen verwerfen</target>
       </segment>
     </unit>
     <unit id="v3ayVni" name="user.settings.change_pw">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\user_settings.html.twig:48</note>
+      </notes>
       <segment>
         <source>user.settings.change_pw</source>
         <target>Passwort ändern</target>
       </segment>
     </unit>
     <unit id="HhQjrkN" name="user.theme.label">
+      <notes>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:49</note>
+      </notes>
       <segment>
         <source>user.theme.label</source>
         <target>Theme</target>
       </segment>
     </unit>
     <unit id="Dpfk52." name="user_settings.theme.placeholder">
+      <notes>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:50</note>
+      </notes>
       <segment>
         <source>user_settings.theme.placeholder</source>
         <target>Serverweites Theme</target>
       </segment>
     </unit>
-    <unit id="ZrVNh2o" name="user.settings.pw_old.label">
-      <segment>
-        <source>user.settings.pw_old.label</source>
-        <target>Altes Passwort</target>
-      </segment>
-    </unit>
-    <unit id="C65DPNY" name="user.settings.pw_new.label">
-      <segment>
-        <source>user.settings.pw_new.label</source>
-        <target>Neues Passwort</target>
-      </segment>
-    </unit>
-    <unit id="isiBSF3" name="user.settings.pw_confirm.label">
-      <segment>
-        <source>user.settings.pw_confirm.label</source>
-        <target>Passwort bestätigen</target>
-      </segment>
-    </unit>
     <unit id="0Md_YOf" name="attachment_type.caption">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\AttachmentTypeAdmin.html.twig:4</note>
+      </notes>
       <segment>
         <source>attachment_type.caption</source>
         <target>Dateitypen für Anhänge</target>
       </segment>
     </unit>
     <unit id="Y7FfSJt" name="entity.tree.new">
+      <notes>
+        <note category="file-source" priority="1">src\Services\TreeBuilder.php:124</note>
+      </notes>
       <segment>
         <source>entity.tree.new</source>
         <target>Neues Element</target>
       </segment>
     </unit>
     <unit id="rIod4Xs" name="back_to_top">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:288</note>
+      </notes>
       <segment>
         <source>back_to_top</source>
         <target>Zurück zum Seitenbeginn</target>
       </segment>
     </unit>
     <unit id="bblk5.r" name="new.caption">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\EntityAdminBase.html.twig:37</note>
+      </notes>
       <segment>
         <source>new.caption</source>
         <target>Neues Element</target>
       </segment>
     </unit>
     <unit id="dmNi.3b" name="parent.label">
+      <notes>
+        <note category="file-source" priority="1">src\Form\ImportType.php:72</note>
+      </notes>
       <segment>
         <source>parent.label</source>
         <target>Übergeordnetes Element</target>
       </segment>
     </unit>
     <unit id="jgfKRbc" name="loading.caption">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:271</note>
+      </notes>
       <segment>
         <source>loading.caption</source>
         <target>Lade:</target>
       </segment>
     </unit>
     <unit id="PbxPO3f" name="loading.message">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:272</note>
+      </notes>
       <segment>
         <source>loading.message</source>
         <target>Dies kann einen Moment dauern. Sollte diese Nachricht bestehen bleiben, dann laden sie die Seite erneut.</target>
       </segment>
     </unit>
     <unit id="g3Hp.cE" name="loading.bar">
+      <notes>
+        <note category="file-source" priority="1">templates\base.html.twig:277</note>
+      </notes>
       <segment>
         <source>loading.bar</source>
         <target>Lade...</target>
       </segment>
     </unit>
     <unit id="a5.CFfq" name="edit.caption">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\EntityAdminBase.html.twig:35</note>
+      </notes>
       <segment>
         <source>edit.caption</source>
         <target>Bearbeite Element "%name"</target>
       </segment>
     </unit>
     <unit id="7uawYY6" name="standard.label">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\EntityAdminBase.html.twig:42</note>
+      </notes>
       <segment>
         <source>standard.label</source>
         <target>Eigenschaften</target>
       </segment>
     </unit>
     <unit id="Fe5ax26" name="infos.label">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\EntityAdminBase.html.twig:43</note>
+      </notes>
       <segment>
         <source>infos.label</source>
         <target>Informationen</target>
       </segment>
     </unit>
     <unit id="RqM7iAG" name="entity.delete.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\_delete_form.html.twig:2</note>
+      </notes>
       <segment>
         <source>entity.delete.confirm_title</source>
         <target>Wollen sie das Element %name% wirklich löschen?</target>
       </segment>
     </unit>
     <unit id="eyyICVM" name="entity.delete">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\_delete_form.html.twig:9</note>
+      </notes>
       <segment>
         <source>entity.delete</source>
         <target>Element löschen</target>
       </segment>
     </unit>
     <unit id="Y2QKWU9" name="export.label">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\EntityAdminBase.html.twig:45</note>
+      </notes>
       <segment>
         <source>export.label</source>
         <target>Exportieren</target>
       </segment>
     </unit>
     <unit id="4_pqNGT" name="export.format">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\_export_form.html.twig:4</note>
+        <note category="file-source" priority="1">src\Form\ImportType.php:67</note>
+      </notes>
       <segment>
         <source>export.format</source>
         <target>Dateiformat</target>
       </segment>
     </unit>
     <unit id="FlGXF7u" name="export.level">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\_export_form.html.twig:16</note>
+      </notes>
       <segment>
         <source>export.level</source>
         <target>Ausführlichkeit</target>
       </segment>
     </unit>
     <unit id="dA2Gh6w" name="export.level.simple">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\_export_form.html.twig:19</note>
+      </notes>
       <segment>
         <source>export.level.simple</source>
         <target>Einfach</target>
       </segment>
     </unit>
     <unit id="0UfNFxx" name="export.level.extended">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\_export_form.html.twig:20</note>
+      </notes>
       <segment>
         <source>export.level.extended</source>
         <target>Erweitert</target>
       </segment>
     </unit>
     <unit id="dLPhjKy" name="export.level.full">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\_export_form.html.twig:21</note>
+      </notes>
       <segment>
         <source>export.level.full</source>
         <target>Vollständig</target>
       </segment>
     </unit>
     <unit id="5c8F8f2" name="export.include_children">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\_export_form.html.twig:31</note>
+      </notes>
       <segment>
         <source>export.include_children</source>
         <target>Unterelemente auch exportieren</target>
       </segment>
     </unit>
     <unit id="G8WtNph" name="export.btn">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\_export_form.html.twig:39</note>
+      </notes>
       <segment>
         <source>export.btn</source>
         <target>Exportieren</target>
       </segment>
     </unit>
     <unit id="0B3xeO2" name="entity.delete.message">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\_delete_form.html.twig:3</note>
+      </notes>
       <segment>
         <source>entity.delete.message</source>
         <target>Diese Aktion lässt sich nicht rückgängig machen!
@@ -814,75 +1147,420 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </segment>
     </unit>
     <unit id="2xohoLw" name="JSON">
+      <notes>
+        <note category="file-source" priority="1">src\Form\ImportType.php:68</note>
+      </notes>
       <segment>
         <source>JSON</source>
         <target>JSON</target>
       </segment>
     </unit>
     <unit id="k5fWSN4" name="import_export.label">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\EntityAdminBase.html.twig:47</note>
+      </notes>
       <segment>
         <source>import_export.label</source>
         <target>Import / Export</target>
       </segment>
     </unit>
     <unit id="QGWOmvj" name="XML">
+      <notes>
+        <note category="file-source" priority="1">src\Form\ImportType.php:68</note>
+      </notes>
       <segment>
         <source>XML</source>
         <target>XML</target>
       </segment>
     </unit>
     <unit id="62tC9Ux" name="CSV">
+      <notes>
+        <note category="file-source" priority="1">src\Form\ImportType.php:68</note>
+      </notes>
       <segment>
         <source>CSV</source>
         <target>CSV</target>
       </segment>
     </unit>
     <unit id="m26KvkJ" name="YAML">
+      <notes>
+        <note category="file-source" priority="1">src\Form\ImportType.php:68</note>
+      </notes>
       <segment>
         <source>YAML</source>
         <target>YAML</target>
       </segment>
     </unit>
     <unit id="Peaf8Qu" name="import.csv_separator">
+      <notes>
+        <note category="file-source" priority="1">src\Form\ImportType.php:70</note>
+      </notes>
       <segment>
         <source>import.csv_separator</source>
         <target>CSV Trennzeichen</target>
       </segment>
     </unit>
     <unit id="VteZCnR" name="import.file">
+      <notes>
+        <note category="file-source" priority="1">src\Form\ImportType.php:75</note>
+      </notes>
       <segment>
         <source>import.file</source>
         <target>Datei</target>
       </segment>
     </unit>
     <unit id="0ybwwKw" name="import.preserve_children">
+      <notes>
+        <note category="file-source" priority="1">src\Form\ImportType.php:78</note>
+      </notes>
       <segment>
         <source>import.preserve_children</source>
         <target>Importiere auch Unterelemente</target>
       </segment>
     </unit>
     <unit id="yyIAudL" name="import.abort_on_validation">
+      <notes>
+        <note category="file-source" priority="1">src\Form\ImportType.php:80</note>
+      </notes>
       <segment>
         <source>import.abort_on_validation</source>
         <target>Breche bei Invaliden Daten ab</target>
       </segment>
     </unit>
-    <unit id="_JM6Jxg" name="import.abort_on_validation.help">
-      <segment>
-        <source>import.abort_on_validation.help</source>
-        <target>Wenn diese Option aktiviert ist, wird der Import komplett abgebrochen, wenn ungültige Daten gefunden werden. Deaktiviere diese Option, damit zumindest die gültigen Elemente importiert werden.</target>
-      </segment>
-    </unit>
     <unit id="d0GsgCW" name="import.btn">
+      <notes>
+        <note category="file-source" priority="1">src\Form\ImportType.php:85</note>
+      </notes>
       <segment>
         <source>import.btn</source>
         <target>Importieren</target>
       </segment>
     </unit>
     <unit id="R949JGz" name="export_all.label">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\EntityAdminBase.html.twig:142</note>
+      </notes>
       <segment>
         <source>export_all.label</source>
         <target>Alles exportieren</target>
+      </segment>
+    </unit>
+    <unit id="lnjU5yu" name="admin.options">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\CategoryAdmin.html.twig:8</note>
+      </notes>
+      <segment>
+        <source>admin.options</source>
+        <target>Optionen</target>
+      </segment>
+    </unit>
+    <unit id="CuAPq5N" name="admin.advanced">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\CategoryAdmin.html.twig:9</note>
+      </notes>
+      <segment>
+        <source>admin.advanced</source>
+        <target>Erweitert</target>
+      </segment>
+    </unit>
+    <unit id="wTQX7oE" name="admin.common">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\EntityAdminBase.html.twig:59</note>
+      </notes>
+      <segment>
+        <source>admin.common</source>
+        <target>Allgemein</target>
+      </segment>
+    </unit>
+    <unit id="zIFsIyd" name="admin.comment">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\CompanyAdminBase.html.twig:15</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>admin.comment</source>
+        <target>Kommentar</target>
+      </segment>
+    </unit>
+    <unit id="tlgOYB5" name="device.caption">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>device.caption</source>
+        <target>Baugruppen</target>
+      </segment>
+    </unit>
+    <unit id="Fum_mCX" name="manufacturer.caption">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>manufacturer.caption</source>
+        <target>Hersteller</target>
+      </segment>
+    </unit>
+    <unit id="ykqfBBp" name="supplier.caption">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\SupplierAdmin.html.twig:4</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>supplier.caption</source>
+        <target>Anbieter</target>
+      </segment>
+    </unit>
+    <unit id="A15hzUY" name="entity.delete.recursive">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\_delete_form.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>entity.delete.recursive</source>
+        <target>Rekursiv (alle Unterelemente) löschen</target>
+      </segment>
+    </unit>
+    <unit id="SV0IxK0" name=" homepage.basedOn ">
+      <notes>
+        <note category="file-source" priority="1">templates\homepage.html.twig:33</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source> homepage.basedOn </source>
+        <target>Basierend auf dem originale Part-DB von</target>
+      </segment>
+    </unit>
+    <unit id="Qw1sChr" name=" homepage.others ">
+      <notes>
+        <note category="file-source" priority="1">templates\homepage.html.twig:36</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source> homepage.others </source>
+        <target>und anderen</target>
+      </segment>
+    </unit>
+    <unit id="cTsojYo" name="part.edit.btn">
+      <notes>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:125</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.btn</source>
+        <target>Bauteil bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="XGGYjnA" name="part.clone.btn">
+      <notes>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:135</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>part.clone.btn</source>
+        <target>Bauteil kopieren</target>
+      </segment>
+    </unit>
+    <unit id="WzQH7wQ" name="part.create.btn">
+      <notes>
+        <note category="file-source" priority="1">templates\Parts\show_part_info.html.twig:143</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>part.create.btn</source>
+        <target>Neues Bauteil anlegen</target>
+      </segment>
+    </unit>
+    <unit id="lSfR7sD" name="attachment_type.deleted">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\BaseAdminController.php:154</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.deleted</source>
+        <target>Element gelöscht!</target>
+      </segment>
+    </unit>
+    <unit id="6IyG_kn" name="Success Flash Message!">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\DebugController.php:45</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Success Flash Message!</source>
+        <target/>
+      </segment>
+    </unit>
+    <unit id="Efur0Zp" name="Error Flash Message!">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\DebugController.php:46</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Error Flash Message!</source>
+        <target/>
+      </segment>
+    </unit>
+    <unit id="BRCmXY4" name="Warning Flash Message!">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\DebugController.php:47</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Warning Flash Message!</source>
+        <target/>
+      </segment>
+    </unit>
+    <unit id="Upm6RvH" name="Notice Flash Message!">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\DebugController.php:48</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Notice Flash Message!</source>
+        <target/>
+      </segment>
+    </unit>
+    <unit id="p1634fX" name="Info Flash Message! &lt;b&gt;Test&lt;/b&gt;">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\DebugController.php:49</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Info Flash Message! &lt;b&gt;Test&lt;/b&gt;</source>
+        <target/>
+      </segment>
+    </unit>
+    <unit id="UJki1El" name="Blabla. This message type should be not know to template!">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\DebugController.php:51</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>Blabla. This message type should be not know to template!</source>
+        <target/>
+      </segment>
+    </unit>
+    <unit id="6xOvKkk" name="part.edited_flash">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\PartController.php:80</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>part.edited_flash</source>
+        <target>Änderungen gespeichert!</target>
+      </segment>
+    </unit>
+    <unit id="tG.Jfwp" name="part.created_flash">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\PartController.php:113</note>
+        <note category="file-source" priority="1">src\Controller\PartController.php:142</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>part.created_flash</source>
+        <target>Bauteile erfolgreich angelegt!</target>
+      </segment>
+    </unit>
+    <unit id="PBKICdd" name="user.settings.saved_flash">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\UserController.php:98</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>user.settings.saved_flash</source>
+        <target>Einstellungen gespeichert!</target>
+      </segment>
+    </unit>
+    <unit id="mPAd5JY" name="user.settings.pw_changed_flash">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\UserController.php:130</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>user.settings.pw_changed_flash</source>
+        <target>Passwort geändert!</target>
+      </segment>
+    </unit>
+    <unit id="Umzi6EP" name="tree.tools.edit.attachment_types">
+      <notes>
+        <note category="file-source" priority="1">src\Services\ToolsTreeBuilder.php:62</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>tree.tools.edit.attachment_types</source>
+        <target>Dateitypen</target>
+      </segment>
+    </unit>
+    <unit id="IWpzGV5" name="tree.tools.edit.categories">
+      <notes>
+        <note category="file-source" priority="1">src\Services\ToolsTreeBuilder.php:64</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>tree.tools.edit.categories</source>
+        <target>Kategorien</target>
+      </segment>
+    </unit>
+    <unit id="b2pLmAq" name="tree.tools.edit.devices">
+      <notes>
+        <note category="file-source" priority="1">src\Services\ToolsTreeBuilder.php:66</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>tree.tools.edit.devices</source>
+        <target>Baugruppen</target>
+      </segment>
+    </unit>
+    <unit id="BFfweU_" name="tree.tools.edit.suppliers">
+      <notes>
+        <note category="file-source" priority="1">src\Services\ToolsTreeBuilder.php:68</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>tree.tools.edit.suppliers</source>
+        <target>Anbieter</target>
+      </segment>
+    </unit>
+    <unit id="bkM5GtE" name="tree.tools.edit.manufacturer">
+      <notes>
+        <note category="file-source" priority="1">src\Services\ToolsTreeBuilder.php:70</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>tree.tools.edit.manufacturer</source>
+        <target>Hersteller</target>
+      </segment>
+    </unit>
+    <unit id="sgHHET2" name="tree.tools.edit">
+      <notes>
+        <note category="file-source" priority="1">src\Services\ToolsTreeBuilder.php:74</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>tree.tools.edit</source>
+        <target>Bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="cMe4sAM" name="tree.tools.show.all_parts">
+      <notes>
+        <note category="file-source" priority="1">src\Services\ToolsTreeBuilder.php:77</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>tree.tools.show.all_parts</source>
+        <target>Alle Teile</target>
+      </segment>
+    </unit>
+    <unit id="RRgi9vd" name="tree.tools.show">
+      <notes>
+        <note category="file-source" priority="1">src\Services\ToolsTreeBuilder.php:81</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment>
+        <source>tree.tools.show</source>
+        <target>Zeige</target>
       </segment>
     </unit>
   </file>

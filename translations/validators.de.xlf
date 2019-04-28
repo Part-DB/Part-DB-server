@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="de-DE" trgLang="de">
   <file id="validators.de">
     <unit id="VJHTkxx" name="structural.entity.unique_name">
+      <notes>
+        <note category="file-source" priority="1">src\Entity\AttachmentType.php:0</note>
+        <note category="file-source" priority="1">src\Entity\Category.php:0</note>
+        <note category="file-source" priority="1">src\Entity\Company.php:0</note>
+        <note category="file-source" priority="1">src\Entity\Device.php:0</note>
+        <note category="file-source" priority="1">src\Entity\Footprint.php:0</note>
+        <note category="file-source" priority="1">src\Entity\Group.php:0</note>
+        <note category="file-source" priority="1">src\Entity\Manufacturer.php:0</note>
+        <note category="file-source" priority="1">src\Entity\PartsContainingDBElement.php:0</note>
+        <note category="file-source" priority="1">src\Entity\Storelocation.php:0</note>
+        <note category="file-source" priority="1">src\Entity\StructuralDBElement.php:0</note>
+        <note category="file-source" priority="1">src\Entity\Supplier.php:0</note>
+      </notes>
       <segment>
         <source>structural.entity.unique_name</source>
         <target>Es kann auf jeder Ebene nur ein Objekt mit dem gleichem Namen geben!</target>

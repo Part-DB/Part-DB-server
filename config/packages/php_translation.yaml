@@ -1,5 +1,5 @@
 translation:
-    locales: ["en"]
+    locales: ["en", "de"]
     edit_in_place:
         enabled: false
         config_name: app

@@ -183,7 +183,7 @@ class Pricedetail extends DBElement
      *
      * This is the quantity, for which the price is valid.
      *
-     * @par Example:
+     * Example:
      * If 100pcs costs 20$, you have to set the price to 20$ and the price related
      * quantity to 100. The single price (20$/100 = 0.2$) will be calculated automatically.
      *
@@ -208,7 +208,7 @@ class Pricedetail extends DBElement
      * of this orderdetails is valid. This way, you're able to use different prices
      * for different order quantities (quantity discount!).
      *
-     * @par Example:
+     *  Example:
      *      - 1-9pcs costs 10$: set price to 10$/pcs and minimum discount quantity to 1
      *      - 10-99pcs costs 9$: set price to 9$/pcs and minimum discount quantity to 10
      *      - 100pcs or more costs 8$: set price/pcs to 8$ and minimum discount quantity to 100

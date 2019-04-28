@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="de-DE" trgLang="en">
   <file id="validators.en">
-    <unit id="pkC1piI" name="password_must_match">
+    <unit id="VJHTkxx" name="structural.entity.unique_name">
+      <notes>
+        <note category="file-source" priority="1">src\Entity\AttachmentType.php:0</note>
+        <note category="file-source" priority="1">src\Entity\Category.php:0</note>
+        <note category="file-source" priority="1">src\Entity\Company.php:0</note>
+        <note category="file-source" priority="1">src\Entity\Device.php:0</note>
+        <note category="file-source" priority="1">src\Entity\Footprint.php:0</note>
+        <note category="file-source" priority="1">src\Entity\Group.php:0</note>
+        <note category="file-source" priority="1">src\Entity\Manufacturer.php:0</note>
+        <note category="file-source" priority="1">src\Entity\PartsContainingDBElement.php:0</note>
+        <note category="file-source" priority="1">src\Entity\Storelocation.php:0</note>
+        <note category="file-source" priority="1">src\Entity\StructuralDBElement.php:0</note>
+        <note category="file-source" priority="1">src\Entity\Supplier.php:0</note>
+      </notes>
       <segment>
-        <source>password_must_match</source>
-        <target>Both passwords must match!</target>
+        <source>structural.entity.unique_name</source>
+        <target></target>
       </segment>
     </unit>
   </file>
