@@ -35,8 +35,10 @@ use App\Entity\Device;
 use App\Entity\Manufacturer;
 use App\Entity\NamedDBElement;
 use App\Entity\Part;
+use App\Entity\Storelocation;
 use App\Entity\Supplier;
 use App\Exceptions\EntityNotSupported;
+use Symfony\Component\HttpKernel\HttpCache\Store;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class EntityURLGenerator
@@ -133,6 +135,10 @@ class EntityURLGenerator
             return $this->urlGenerator->generate("manufacturer_edit", ['id' => $entity->getID()]);
         }
 
+        if ($entity instanceof Storelocation) {
+            return $this->urlGenerator->generate("store_location_edit", ['id' => $entity->getID()]);
+        }
+
         //Otherwise throw an error
         throw new EntityNotSupported('The given entity is not supported yet!');
     }
@@ -168,6 +174,10 @@ class EntityURLGenerator
 
         if ($entity instanceof Manufacturer) {
             return $this->urlGenerator->generate('manufacturer_new');
+        }
+
+        if ($entity instanceof Storelocation) {
+            return $this->urlGenerator->generate('store_location_new');
         }
 
         throw new EntityNotSupported('The given entity is not supported yet!');
@@ -226,6 +236,10 @@ class EntityURLGenerator
 
         if ($entity instanceof Manufacturer) {
             return $this->urlGenerator->generate('manufacturer_new', ['id' => $entity->getID()]);
+        }
+
+        if ($entity instanceof Storelocation) {
+            return $this->urlGenerator->generate('store_location_new', ['id' => $entity->getID()]);
         }
 
         throw new EntityNotSupported('The given entity is not supported yet!');

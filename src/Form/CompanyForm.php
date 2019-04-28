@@ -48,37 +48,37 @@ class CompanyForm extends BaseEntityAdminForm
         $is_new = $entity->getID() === null;
 
         $builder->add('address', TextareaType::class, ['label' => 'company.address.label',
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'attr' => ['placeholder' => 'company.address.placeholder'], 'required' => false,
             'empty_data' => ''
         ]);
 
         $builder->add('phone_number', TelType::class, ['label' => 'company.phone_number.label',
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'attr' => ['placeholder' => 'company.phone_number.placeholder'], 'required' => false,
             'empty_data' => ''
         ]);
 
         $builder->add('fax_number', TelType::class, ['label' => 'company.fax_number.label',
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'attr' => ['placeholder' => 'company.fax_number.placeholder'], 'required' => false,
             'empty_data' => ''
         ]);
 
         $builder->add('email_address', EmailType::class, ['label' => 'company.email.label',
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'attr' => ['placeholder' => 'company.email.placeholder'], 'required' => false,
             'empty_data' => ''
         ]);
 
         $builder->add('website', UrlType::class, ['label' => 'company.website.label',
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'attr' => ['placeholder' => 'company.website.placeholder'], 'required' => false,
             'empty_data' => ''
         ]);
 
         $builder->add('auto_product_url', UrlType::class, ['label' => 'company.auto_product_url.label',
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'attr' => ['placeholder' => 'company.auto_product_url.placeholder'], 'required' => false,
             'empty_data' => ''
         ]);

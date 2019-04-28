@@ -69,7 +69,12 @@ class ToolsTreeBuilder
             $this->urlGenerator->generate('supplier_new'));
         $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.manufacturer'),
             $this->urlGenerator->generate('manufacturer_new'));
-        
+
+        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.storelocation'),
+            $this->urlGenerator->generate('store_location_new'));
+
+        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.part'),
+            $this->urlGenerator->generate('part_new'));
 
         $tree[] = new TreeViewNode($this->translator->trans('tree.tools.edit'), null, $nodes);
 

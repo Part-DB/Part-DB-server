@@ -1,0 +1,9 @@
+{% extends "AdminPages/EntityAdminBase.html.twig" %}
+
+{% block card_title %}
+    <i class="fas fa-cube fa-fw"></i> {% trans %}storelocation.labelp{% endtrans %}
+{% endblock %}
+
+{% block additional_controls %}
+    {{ form_row(form.is_full) }}
+{% endblock %}
