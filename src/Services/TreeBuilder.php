@@ -32,10 +32,12 @@
 namespace App\Services;
 
 use App\Entity\DBElement;
+use App\Entity\NamedDBElement;
 use App\Entity\StructuralDBElement;
 use App\Helpers\TreeViewNode;
 use App\Repository\StructuralDBElementRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\MakerBundle\Str;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -66,13 +68,15 @@ class TreeBuilder
      * @return TreeViewNode The Node for the given Element.
      * @throws \App\Exceptions\EntityNotSupported
      */
-    public function elementToTreeNode(StructuralDBElement $element, ?string $href_type = 'list_parts', DBElement $selectedElement = null) : TreeViewNode
+    public function elementToTreeNode(NamedDBElement $element, ?string $href_type = 'list_parts', DBElement $selectedElement = null) : TreeViewNode
     {
-        $children = $element->getSubelements();
-
         $children_nodes = null;
-        foreach ($children as $child) {
-            $children_nodes[] = $this->elementToTreeNode($child, $href_type, $selectedElement);
+
+        if ($element instanceof StructuralDBElement) {
+            $children = $element->getSubelements();
+            foreach ($children as $child) {
+                $children_nodes[] = $this->elementToTreeNode($child, $href_type, $selectedElement);
+            }
         }
 
         //Check if we need to generate a href type
@@ -82,7 +86,7 @@ class TreeBuilder
             $href = $this->url_generator->getURL($element, $href_type);
         }
 
-        $tree_node = new TreeViewNode($element->getName(), $href, $children_nodes);
+        $tree_node = new TreeViewNode($element->__toString(), $href, $children_nodes);
 
         if($children_nodes != null) {
             $tree_node->addTag((string) count($children_nodes));
@@ -113,7 +117,12 @@ class TreeBuilder
          * @var $repo StructuralDBElementRepository
          */
         $repo = $this->em->getRepository($class_name);
-        $root_nodes = $repo->findRootNodes();
+
+        if (new $class_name() instanceof StructuralDBElement) {
+            $root_nodes = $repo->findRootNodes();
+        } else {
+            $root_nodes = $repo->findAll();
+        }
 
         $array = array();
 
@@ -133,7 +142,6 @@ class TreeBuilder
             //Every other treeNode will be used for edit
             $href_type = "edit";
         }
-
 
         foreach ($root_nodes as $node) {
             $array[] = $this->elementToTreeNode($node, $href_type, $selectedElement);

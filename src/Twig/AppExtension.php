@@ -39,6 +39,7 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use s9e\TextFormatter\Bundles\Forum as TextFormatter;
 use Twig\TwigFunction;
+use Twig\TwigTest;
 
 class AppExtension extends AbstractExtension
 {
@@ -62,6 +63,15 @@ class AppExtension extends AbstractExtension
            new TwigFilter('entityURL', [$this, 'generateEntityURL']),
            new TwigFilter('bbCode', [$this, 'parseBBCode'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
        ];
+    }
+
+    public function getTests()
+    {
+        return [
+            new TwigTest('instanceof', function ($var, $instance) {
+                return $var instanceof $instance;
+            } )
+        ];
     }
 
     public function getFunctions()

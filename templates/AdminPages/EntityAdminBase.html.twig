@@ -65,7 +65,9 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="home_common">
                                 {{ form_row(form.name) }}
-                                {{ form_row(form.parent) }}
+                                {% if form.parent%}
+                                    {{ form_row(form.parent) }}
+                                {% endif %}
 
                                 {% block additional_controls %}{% endblock %}
 
@@ -101,6 +103,7 @@
                             <label class="col-form-label col-md-3">{% trans %}createdAt{% endtrans %}</label>
                             <div class="col-md-9">
                                 <p class="form-control-plaintext">
+
                                     {% if date(entity.addedDate) > date('1900/01/01') %}
                                         {{ entity.addedDate | localizeddate("long") }}
                                     {% else %}

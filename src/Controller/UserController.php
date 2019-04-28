@@ -29,8 +29,15 @@
 
 namespace App\Controller;
 
+use App\Entity\AttachmentType;
+use App\Entity\Footprint;
 use App\Entity\User;
+use App\Form\BaseEntityAdminForm;
+use App\Form\UserAdminForm;
 use App\Form\UserSettingsType;
+use App\Services\EntityExporter;
+use App\Services\EntityImporter;
+use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\Packages;
@@ -38,16 +45,81 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Constraints\Length;
 
-class UserController extends AbstractController
+/**
+ * @Route("/user")
+ * Class UserController
+ * @package App\Controller
+ */
+class UserController extends AdminPages\BaseAdminController
 {
+
+    protected $entity_class = User::class;
+    protected $twig_template = 'AdminPages/UserAdmin.html.twig';
+    protected $form_class = UserAdminForm::class;
+    protected $route_base = "user";
+
+
     /**
-     * @Route("/user/info", name="user_info_self")
-     * @Route("/user/{id}/info")
+     * @Route("/{id}/edit", requirements={"id"="\d+"}, name="user_edit")
+     * @Route("/{id}/", requirements={"id"="\d+"})
+     */
+    public function edit(User $entity, Request $request, EntityManagerInterface $em)
+    {
+        return $this->_edit($entity, $request, $em);
+    }
+
+    /**
+     * @Route("/new", name="user_new")
+     * @Route("/")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
+    {
+        return $this->_new($request, $em, $importer);
+    }
+
+    /**
+     * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, User $entity, StructuralElementRecursionHelper $recursionHelper)
+    {
+        return $this->_delete($request, $entity, $recursionHelper);
+    }
+
+    /**
+     * @Route("/export", name="user_export_all")
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
+    public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request)
+    {
+        return $this->_exportAll($em, $exporter, $request);
+    }
+
+    /**
+     * @Route("/{id}/export", name="user_export")
+     * @param Request $request
+     * @param AttachmentType $entity
+     */
+    public function exportEntity(User $entity, EntityExporter $exporter, Request $request)
+    {
+        return $this->_exportEntity($entity, $exporter, $request);
+    }
+
+
+    /**
+     * @Route("/info", name="user_info_self")
+     * @Route("/{id}/info")
      */
     public function userInfo(?User $user, Packages $packages)
     {
@@ -66,13 +138,13 @@ class UserController extends AbstractController
         }
 
         return $this->render('Users/user_info.html.twig', [
-                'user' => $user,
-                'avatar' => $avatar,
-            ]);
+            'user' => $user,
+            'avatar' => $avatar,
+        ]);
     }
 
     /**
-     * @Route("/user/settings", name="user_settings")
+     * @Route("/settings", name="user_settings")
      */
     public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
     {

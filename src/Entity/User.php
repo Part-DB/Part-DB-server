@@ -60,7 +60,7 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank
      */
-    protected $name;
+    protected $name = "";
 
     /**
      * //@ORM\Column(type="json").
@@ -77,7 +77,7 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
      * @var bool True if the user needs to change password after log in
      * @ORM\Column(type="boolean")
      */
-    protected $need_pw_change;
+    protected $need_pw_change = true;
 
     /**
      * @var string|null The first name of the User
@@ -412,5 +412,10 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
         $this->group = $group;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getFullName(true);
     }
 }

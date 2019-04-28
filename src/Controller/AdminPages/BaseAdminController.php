@@ -32,6 +32,7 @@
 namespace App\Controller\AdminPages;
 
 use App\Entity\AttachmentType;
+use App\Entity\NamedDBElement;
 use App\Entity\StructuralDBElement;
 use App\Form\BaseEntityAdminForm;
 use App\Form\ImportType;
@@ -59,7 +60,7 @@ abstract class BaseAdminController extends AbstractController
         }
     }
 
-    protected function _edit(StructuralDBElement $entity, Request $request, EntityManagerInterface $em)
+    protected function _edit(NamedDBElement $entity, Request $request, EntityManagerInterface $em)
     {
 
         $this->denyAccessUnlessGranted('read', $entity);
@@ -125,7 +126,7 @@ abstract class BaseAdminController extends AbstractController
         ]);
     }
 
-    protected function _delete(Request $request, StructuralDBElement $entity, StructuralElementRecursionHelper $recursionHelper)
+    protected function _delete(Request $request, NamedDBElement $entity, StructuralElementRecursionHelper $recursionHelper)
     {
         $this->denyAccessUnlessGranted('delete', $entity);
 
@@ -133,7 +134,7 @@ abstract class BaseAdminController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             //Check if we need to remove recursively
-            if ($request->get('delete_recursive', false)) {
+            if ($entity instanceof StructuralDBElement && $request->get('delete_recursive', false)) {
                 $recursionHelper->delete($entity, false);
             } else {
                 $parent = $entity->getParent();
@@ -168,7 +169,7 @@ abstract class BaseAdminController extends AbstractController
         return $exporter->exportEntityFromRequest($entities,$request);
     }
 
-    protected function _exportEntity(StructuralDBElement $entity, EntityExporter $exporter, Request $request)
+    protected function _exportEntity(NamedDBElement $entity, EntityExporter $exporter, Request $request)
     {
         $this->denyAccessUnlessGranted('read', $entity);
 

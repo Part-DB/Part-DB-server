@@ -38,6 +38,7 @@ use App\Entity\NamedDBElement;
 use App\Entity\Part;
 use App\Entity\Storelocation;
 use App\Entity\Supplier;
+use App\Entity\User;
 use App\Exceptions\EntityNotSupported;
 use Symfony\Component\HttpKernel\HttpCache\Store;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -144,6 +145,10 @@ class EntityURLGenerator
             return $this->urlGenerator->generate("footprint_edit", ['id' => $entity->getID()]);
         }
 
+        if($entity instanceof User) {
+            return $this->urlGenerator->generate('user_edit', ['id' => $entity->getID()]);
+        }
+
         //Otherwise throw an error
         throw new EntityNotSupported('The given entity is not supported yet!');
     }
@@ -187,6 +192,10 @@ class EntityURLGenerator
 
         if ($entity instanceof Footprint) {
             return $this->urlGenerator->generate('footprint_new');
+        }
+
+        if ($entity instanceof User) {
+            return $this->urlGenerator->generate('user_new');
         }
 
         throw new EntityNotSupported('The given entity is not supported yet!');
@@ -244,15 +253,19 @@ class EntityURLGenerator
         }
 
         if ($entity instanceof Manufacturer) {
-            return $this->urlGenerator->generate('manufacturer_new', ['id' => $entity->getID()]);
+            return $this->urlGenerator->generate('manufacturer_delete', ['id' => $entity->getID()]);
         }
 
         if ($entity instanceof Storelocation) {
-            return $this->urlGenerator->generate('store_location_new', ['id' => $entity->getID()]);
+            return $this->urlGenerator->generate('store_location_delete', ['id' => $entity->getID()]);
         }
 
         if ($entity instanceof Footprint) {
-            return $this->urlGenerator->generate('footprint_new', ['id' => $entity->getID()]);
+            return $this->urlGenerator->generate('footprint_delete', ['id' => $entity->getID()]);
+        }
+
+        if ($entity instanceof User) {
+            return $this->urlGenerator->generate('user_delete', ['id' => $entity->getID()]);
         }
 
         throw new EntityNotSupported('The given entity is not supported yet!');

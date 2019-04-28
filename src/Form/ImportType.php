@@ -32,7 +32,9 @@
 namespace App\Form;
 
 
+use App\Entity\StructuralDBElement;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Bundle\MakerBundle\Str;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -68,11 +70,14 @@ class ImportType extends AbstractType
                 ['JSON' => 'json', 'XML' => 'xml','CSV'=>'csv' ,'YAML' => 'yaml'], 'label' => 'export.format',
                 'disabled' => $disabled])
             ->add('csv_separator', TextType::class, ['data' => ';', 'label' => 'import.csv_separator',
-                'disabled' => $disabled])
-            ->add('parent', EntityType::class, ['class' => $data['entity_class'], 'choice_label' => 'full_path',
-                'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'required' => false,
-                'label' => 'parent.label', 'disabled' => $disabled])
-            ->add('file', FileType::class, ['label' => 'import.file',
+                'disabled' => $disabled]);
+            if($data['entity_class'] instanceof StructuralDBElement) {
+                $builder->
+                add('parent', EntityType::class, ['class' => $data['entity_class'], 'choice_label' => 'full_path',
+                    'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'required' => false,
+                    'label' => 'parent.label', 'disabled' => $disabled]);
+            }
+            $builder->add('file', FileType::class, ['label' => 'import.file',
                 'attr' => ['class' => 'file', 'data-show-preview' => 'false', 'data-show-upload' => 'false'], 'disabled' => $disabled])
 
             ->add('preserve_children', CheckboxType::class, ['data' => true, 'required' => false,

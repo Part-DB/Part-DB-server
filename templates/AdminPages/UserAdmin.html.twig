@@ -1,0 +1,15 @@
+{% extends "AdminPages/EntityAdminBase.html.twig" %}
+
+{% block card_title %}
+    <i class="fas fa-file-alt fa-fw"></i> {% trans %}attachment_type.caption{% endtrans %}
+{% endblock %}
+
+{% block comment %}{% endblock %}
+
+{% block additional_controls %}
+    {{ form_row(form.group) }}
+    {{ form_row(form.first_name) }}
+    {{ form_row(form.last_name) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.department) }}
+{% endblock %}

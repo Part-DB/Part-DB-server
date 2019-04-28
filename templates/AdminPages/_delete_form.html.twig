@@ -7,10 +7,12 @@
         <div class=""></div>
         <div class="col offset-3 pl-2">
             <button class="btn btn-danger" {% if not is_granted("delete", entity) %}disabled{% endif %}">{% trans %}entity.delete{% endtrans %}</button>
+            {% if entity is instanceof('\App\Entity\StructuralDBElement')  %}
             <div class="ml-2 custom-control custom-checkbox custom-control-inline">
                 <input type="checkbox" class="custom-control-input" id="recursive" name="delete_recursive">
                 <label class="custom-control-label" for="recursive">{% trans %}entity.delete.recursive{% endtrans %}</label>
             </div>
+            {% endif %}
         </div>
     </div>
 </form>

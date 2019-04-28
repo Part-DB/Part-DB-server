@@ -141,4 +141,9 @@ abstract class NamedDBElement extends DBElement
             $this->addedDate = new \DateTime('now');
         }
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }
