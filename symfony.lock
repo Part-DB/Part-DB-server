@@ -189,6 +189,9 @@
     "roave/security-advisories": {
         "version": "dev-master"
     },
+    "s9e/regexp-builder": {
+        "version": "1.4.3"
+    },
     "s9e/text-formatter": {
         "version": "1.4.1"
     },

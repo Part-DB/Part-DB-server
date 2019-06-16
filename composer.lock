@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "33ae644ef6fad94e686146bf57e0363e",
+    "content-hash": "1a794cf54f952c4bf1bc00d8f952b6a3",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2433,30 +2433,67 @@
             "time": "2018-11-20T15:27:04+00:00"
         },
         {
-            "name": "s9e/text-formatter",
-            "version": "1.4.5",
+            "name": "s9e/regexp-builder",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/s9e/TextFormatter.git",
-                "reference": "6857c53658929b66dc0d92daece17f211c64ea61"
+                "url": "https://github.com/s9e/RegexpBuilder.git",
+                "reference": "59d0167a909659d718f53964f7653d2c83a5f8fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/s9e/TextFormatter/zipball/6857c53658929b66dc0d92daece17f211c64ea61",
-                "reference": "6857c53658929b66dc0d92daece17f211c64ea61",
+                "url": "https://api.github.com/repos/s9e/RegexpBuilder/zipball/59d0167a909659d718f53964f7653d2c83a5f8fe",
+                "reference": "59d0167a909659d718f53964f7653d2c83a5f8fe",
+                "shasum": ""
+            },
+            "require": {
+                "lib-pcre": ">=7.2",
+                "php": ">=5.5.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "<5.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "s9e\\RegexpBuilder\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Single-purpose library that generates regular expressions that match a list of strings.",
+            "homepage": "https://github.com/s9e/RegexpBuilder/",
+            "keywords": [
+                "regexp"
+            ],
+            "time": "2019-04-26T17:55:23+00:00"
+        },
+        {
+            "name": "s9e/text-formatter",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/s9e/TextFormatter.git",
+                "reference": "9bd8b56ebbb9a93eb99c05141e31fded4149de0e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/s9e/TextFormatter/zipball/9bd8b56ebbb9a93eb99c05141e31fded4149de0e",
+                "reference": "9bd8b56ebbb9a93eb99c05141e31fded4149de0e",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-filter": "*",
-                "lib-pcre": ">=7.2",
-                "php": ">=5.4.7"
+                "lib-pcre": ">=8.13",
+                "php": ">=7.1",
+                "s9e/regexp-builder": "^1.4"
             },
             "require-dev": {
                 "matthiasmullie/minify": "*",
-                "php-coveralls/php-coveralls": "*",
-                "phpunit/phpunit": "<6",
-                "s9e/regexp-builder": "1.*"
+                "phpunit/phpunit": "^7"
             },
             "suggest": {
                 "ext-curl": "Improves the performance of the MediaEmbed plugin and some JavaScript minifiers",
@@ -2468,6 +2505,9 @@
                 "ext-zlib": "Enables gzip compression when scraping content via the MediaEmbed plugin"
             },
             "type": "library",
+            "extra": {
+                "version": "2.0.1"
+            },
             "autoload": {
                 "psr-4": {
                     "s9e\\TextFormatter\\": "src"
@@ -2496,7 +2536,7 @@
                 "parser",
                 "shortcodes"
             ],
-            "time": "2019-06-04T15:47:55+00:00"
+            "time": "2019-06-06T13:44:40+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
