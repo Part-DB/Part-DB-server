@@ -626,39 +626,24 @@ class Part extends AttachmentContainingDBElement
      *
      * This method simply gets the prices of the orderdetails and prepare them.\n
      * In the returned array/string there is a price for every supplier.
-     *
-     * @param bool        $float_array   * if true, the returned array is an array of floats
-     *                                   * if false, the returned array is an array of strings
-     * @param string|null $delimeter     if this is a string, this method returns a delimeted string
-     *                                   instead of an array.
-     * @param int         $quantity      this is the quantity to choose the correct priceinformation
-     * @param int|null    $multiplier    * This is the multiplier which will be applied to every single price
+     * @param int $quantity this is the quantity to choose the correct priceinformation
+     * @param int|null $multiplier * This is the multiplier which will be applied to every single price
      *                                   * If you pass NULL, the number from $quantity will be used
-     * @param bool        $hide_obsolete If true, prices from obsolete orderdetails will NOT be returned
+     * @param bool $hide_obsolete If true, prices from obsolete orderdetails will NOT be returned
      *
-     * @return array  all prices as an array of floats (if "$delimeter == NULL" & "$float_array == true")
-     * @return array  all prices as an array of strings (if "$delimeter == NULL" & "$float_array == false")
-     * @return string all prices as a string, delimeted by $delimeter (if $delimeter is a string)
+     * @return float[]  all prices as an array of floats (if "$delimeter == NULL" & "$float_array == true")
      *
-     *              If there are orderdetails without prices, for these orderdetails there
-     *                      will be a "NULL" in the returned float array (or a "-" in the string array)!!
-     *                      (This is needed for the HTML output, if there are all orderdetails and prices listed.)
-     *
-     * @throws Exception if there was an error
+     * @throws \Exception if there was an error
      */
-    public function getPrices(bool $float_array = false, $delimeter = null, int $quantity = 1, $multiplier = null, bool $hide_obsolete = false)
+    public function getPrices(int $quantity = 1, $multiplier = null, bool $hide_obsolete = false) : array
     {
         $prices = array();
 
         foreach ($this->getOrderdetails($hide_obsolete) as $details) {
-            $prices[] = $details->getPrice(!$float_array, $quantity, $multiplier);
+            $prices[] = $details->getPrice($quantity, $multiplier);
         }
 
-        if (\is_string($delimeter)) {
-            return implode($delimeter, $prices);
-        } else {
-            return $prices;
-        }
+        return $prices;
     }
 
     /**
@@ -667,21 +652,17 @@ class Part extends AttachmentContainingDBElement
      * With the $multiplier you're able to multiply the price before it will be returned.
      * This is useful if you want to have the price as a string with currency, but multiplied with a factor.
      *
-     * @param bool     $as_money_string * if true, the retruned value will be a string incl. currency,
-     *                                  ready to print it out. See float_to_money_string().
-     *                                  * if false, the returned value is a float
      * @param int      $quantity        this is the quantity to choose the correct priceinformations
      * @param int|null $multiplier      * This is the multiplier which will be applied to every single price
      *                                  * If you pass NULL, the number from $quantity will be used
      *
      * @return float  price (if "$as_money_string == false")
-     * @return string price with currency (if "$as_money_string == true")
      *
-     * @throws Exception if there was an error
+     * @throws \Exception if there was an error
      */
-    public function getAveragePrice(bool $as_money_string = false, int $quantity = 1, $multiplier = null)
+    public function getAveragePrice(int $quantity = 1, $multiplier = null) : float
     {
-        $prices = $this->getPrices(true, null, $quantity, $multiplier, true);
+        $prices = $this->getPrices($quantity, $multiplier, true);
         $average_price = null;
 
         $count = 0;
@@ -696,11 +677,7 @@ class Part extends AttachmentContainingDBElement
             $average_price /= $count;
         }
 
-        if ($as_money_string) {
-            return floatToMoneyString($average_price);
-        } else {
-            return $average_price;
-        }
+        return $average_price;
     }
 
     /**

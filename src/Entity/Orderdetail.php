@@ -193,45 +193,32 @@ class Orderdetail extends DBElement
 
     /**
      * Get the price for a specific quantity.
-     *
-     * @param bool     $as_money_string * if true, this method returns a money string incl. currency
-     *                                  * if false, this method returns the price as float
      * @param int      $quantity        this is the quantity to choose the correct pricedetails
      * @param int|null $multiplier      * This is the multiplier which will be applied to every single price
      *                                  * If you pass NULL, the number from $quantity will be used
      *
-     * @return float|string|null float: the price as a float number (if "$as_money_string == false")
-     *                           * null: if there are no prices and "$as_money_string == false"
-     *                           * string:   the price as a string incl. currency (if "$as_money_string == true")
+     * @return float float: the price as a float number (if "$as_money_string == false")
      *
      * @throws Exception if there are no pricedetails for the choosed quantity
      *                   (for example, there are only one pricedetails with the minimum discount quantity '10',
      *                   but the choosed quantity is '5' --> the price for 5 parts is not defined!)
      * @throws Exception if there was an error
-     *
-     * @see floatToMoneyString()
      */
-    public function getPrice(bool $as_money_string = false, int $quantity = 1, $multiplier = null)
+    public function getPrice(int $quantity = 1, $multiplier = null) : ?float
     {
-        /*
+
         if (($quantity == 0) && ($multiplier === null)) {
-            if ($as_money_string) {
-                return floatToMoneyString(0);
-            } else {
-                return 0;
-            }
+                return 0.0;
         }
 
         $all_pricedetails = $this->getPricedetails();
 
         if (count($all_pricedetails) == 0) {
-            if ($as_money_string) {
-                return floatToMoneyString(null);
-            } else {
                 return null;
-            }
         }
 
+
+        $correct_pricedetails = null;
         foreach ($all_pricedetails as $pricedetails) {
             // choose the correct pricedetails for the choosed quantity ($quantity)
             if ($quantity < $pricedetails->getMinDiscountQuantity()) {
@@ -241,18 +228,15 @@ class Orderdetail extends DBElement
             $correct_pricedetails = $pricedetails;
         }
 
-        if (! isset($correct_pricedetails) || (! \is_object($correct_pricedetails))) {
-            throw new Exception(_('Es sind keine Preisinformationen für die angegebene Bestellmenge vorhanden!'));
+        if ($correct_pricedetails == null) {
+            return null;
         }
 
         if ($multiplier === null) {
             $multiplier = $quantity;
         }
 
-        return $correct_pricedetails->getPrice($as_money_string, $multiplier);
-         * */
-        //TODO
-        throw new \Exception('Not implemented yet...');
+        return $correct_pricedetails->getPricePerUnit($multiplier);
     }
 
     /********************************************************************************
