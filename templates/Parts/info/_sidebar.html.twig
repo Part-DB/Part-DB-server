@@ -1,4 +1,15 @@
-<form action="" method="post" class="d-print-none no-progbar">
+<div class="mb-3">
+<span class="text-muted" title="{% trans %}lastModified{% endtrans %}">
+    <i class="fas fa-history fa-fw"></i> {{ part.lastModified | localizeddate("short") }}
+</span>
+<br>
+<span class="text-muted mt-1" title="{% trans %}createdAt{% endtrans %}">
+    <i class="fas fa-calendar-plus fa-fw"></i> {{ part.addedDate | localizeddate("short") }}
+</span>
+</div>
+
+
+<form action="" method="post" class="d-print-none no-progbar mb-2">
     <input type="hidden" name="pid" value="{$pid}">
     <div class="row">
         <div class="col-md-12">
@@ -24,9 +35,7 @@
     </div>
 </form>
 
-<p></p>
-
-<form action="" method="post" class="d-print-none no-progbar">
+<form action="" method="post" class="d-print-none no-progbar mb-2">
     <input type="hidden" name="pid" value="{$pid}">
     <div class="row">
         <div class="col-md-12">
@@ -52,7 +61,6 @@
     </div>
 </form>
 
-<p></p>
 
 {#
 {if $can_order_read && !$instock_unknown}
@@ -85,38 +93,6 @@
 </form>
 {/if}
 #}
-
-<p></p>
-
-<div class="form-group">
-    <label>{% trans %}createdAt{% endtrans %}:</label>
-    <p>{{ part.addedDate | localizeddate("long")}}
-        {#{if !empty($creation_user)} {% trans %}by{% endtrans %}
-        {if $can_visit_user}
-        <a href="{$relative_path}user_info.php?uid={$creation_user_id}">{$creation_user}</a>
-        {else}
-        {$creation_user}
-        {/if}
-        {/if} #}
-    </p>
-</div>
-
-<p></p>
-
-<div class="form-group">
-    <label>{% trans %}lastModified{% endtrans %}:</label>
-    <p>{{ part.lastModified | localizeddate("long") }}
-        {# {if !empty($last_modified_user)} {% trans %}by{% endtrans %}
-        {if $can_visit_user}
-        <a href="{$relative_path}user_info.php?uid={$last_modified_user_id}">{$last_modified_user}</a>
-        {else}
-        {$last_modified_user}
-        {/if}
-        {/if} #}
-    </p>
-</div>
-
-<p></p>
 
 {#
 <form action="show_part_label.php" class="d-print-none">

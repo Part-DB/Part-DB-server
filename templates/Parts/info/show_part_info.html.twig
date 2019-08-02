@@ -62,7 +62,13 @@
                         {% trans %}tools.label{% endtrans %}
                     </a>
                 </li>
-                
+                <li class="nav-item">
+                    <a class="nav-link" id="extended_info-tab" data-toggle="tab" href="#extended_info" role="tab">
+                        <i class="fas fa-clipboard-list"></i>
+                        {% trans %}extended_info.label{% endtrans %}
+                    </a>
+                </li>
+
             </ul>
             <div class="tab-content" id="myTabContent">
                 {% if part.comment is not empty %}
@@ -87,6 +93,12 @@
                 <div class="tab-pane fade" id="tools" role="tabpanel" aria-labelledby="contact-tab">
 
                     {% include "Parts/info/_tools.html.twig" %}
+
+                </div>
+
+                <div class="tab-pane fade" id="extended_info" role="tabpanel" aria-labelledby="contact-tab">
+
+                    {% include "Parts/info/_extended_infos.html.twig" %}
 
                 </div>
             </div>

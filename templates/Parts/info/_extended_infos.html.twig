@@ -1,0 +1,25 @@
+{% import "helper.twig" as helper %}
+
+<table class="table table-striped table-hover table-sm w-100">
+    <tbody>
+        <tr> {# Creation date #}
+            <td>{% trans %}createdAt{% endtrans %}</td>
+            <td>{{ part.addedDate | localizeddate("long")}}</td>
+        </tr>
+
+        <tr> {# Last modified date #}
+            <td>{% trans %}lastModified{% endtrans %}</td>
+            <td>{{ part.lastModified | localizeddate("long")}}</td>
+        </tr>
+
+        <tr> {# ID #}
+            <td>{% trans %}id.label{% endtrans %}</td>
+            <td>{{ part.iD }} ({{ part.iDString}})</td>
+        </tr>
+
+        <tr> {# Favorite status #}
+            <td>{% trans %}part.isFavorite{% endtrans %}</td>
+            <td>{{ helper.boolean(part.favorite) }}</td>
+        </tr>
+    </tbody>
+</table>
