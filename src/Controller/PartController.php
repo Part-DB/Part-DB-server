@@ -52,7 +52,7 @@ class PartController extends AbstractController
 
         $filename = $part->getMasterPictureFilename(true);
 
-        return $this->render('Parts/show_part_info.html.twig',
+        return $this->render('Parts/info/show_part_info.html.twig',
             [
                 'part' => $part,
                 'main_image' => $attachmentFilenameService->attachmentPathToAbsolutePath($filename),

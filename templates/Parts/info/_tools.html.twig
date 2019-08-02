@@ -1,0 +1,28 @@
+{% if is_granted('edit', part) %}
+    <a href="{{ part|entityURL('edit') }}" class="btn btn-primary mt-3">
+        <i class="fas fa-fw fa-edit"></i>
+        {% trans %}part.edit.btn{% endtrans %}
+    </a>
+{% endif %}
+
+
+{% if is_granted('create', part) %}
+    <br>
+    <div class="btn-group mt-2">
+        <a class="btn btn-primary" href="{{ part|entityURL('clone') }}">
+            <i class="fas fa-clone"></i>
+            {% trans %}part.clone.btn{% endtrans %}
+        </a>
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            <span class="caret"></span>
+        </button>
+        <div class="dropdown-menu" role="menu">
+            <a class="dropdown-item" href="{{ part|entityURL('create') }}">
+                <i class="fas fa-plus-square"></i>
+                {% trans %}part.create.btn{% endtrans %}
+            </a>
+        </div>
+    </div>
+
+
+{% endif %}

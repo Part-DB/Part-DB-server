@@ -1,0 +1,95 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}
+    {% trans %}part.info.title{% endtrans %} {{ part.name }}
+{% endblock %}
+
+{% block card_title %}
+    <i class="fa {{ part.favorite ? 'fa-star' : 'fa-info-circle'}} fa-fw" aria-hidden="true"></i>
+    {% trans %}part.info.title{% endtrans %} <b>"{{ part.name }}"</b>
+    <div class="float-right">
+        {% trans %}id.label{% endtrans %}: {{ part.id }}
+    </div>
+{% endblock %}
+
+{% block card_content %}
+
+    <div class="row">
+        <div class="col-md-9">
+            {% include "Parts/info/_main_infos.html.twig" %}
+        </div>
+
+        <div class="col-md-3">
+            {% include "Parts/info/_sidebar.html.twig" %}
+        </div>
+
+    </div>
+
+    <div class="">
+        <div class="">
+            <ul class="nav nav-tabs" id="partTab" role="tablist">
+                {% if part.comment is not empty %}
+                    <li class="nav-item">
+                        <a class="nav-link active" id="comment-tab" data-toggle="tab"
+                           href="#comment" role="tab">
+                            <i class="fas fa-comment-alt fa-fw"></i>
+                            {% trans %}comment.label{% endtrans %}
+                        </a>
+                    </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link {% if part.comment is empty%} active{% endif %}" id="attachment-tab" data-toggle="tab"
+                       href="#attachments" role="tab">
+                        <i class="fas fa-paperclip fa-fw"></i>
+                        {% trans %}attachment.labelp{% endtrans %}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="supplier-tab" data-toggle="tab" href="#suppliers" role="tab">
+                        <i class="fas fa-shopping-cart fa-fw"></i>
+                        {% trans %}vendor.partinfo.shopping_infos{% endtrans %}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab">
+                        <i class="fas fa-history"></i>
+                        {% trans %}vendor.partinfo.history{% endtrans %}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="tools-tab" data-toggle="tab" href="#tools" role="tab">
+                        <i class="fas fa-tools"></i>
+                        {% trans %}tools.label{% endtrans %}
+                    </a>
+                </li>
+                
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                {% if part.comment is not empty %}
+                    <div class="tab-pane fade show active" id="comment" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="container-fluid mt-2">
+                            {{ part.comment|bbCode }}
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="tab-pane fade {% if part.comment is empty %} show active{% endif %}" id="attachments" role="tabpanel" aria-labelledby="profile-tab">
+                    Test
+                </div>
+
+                <div class="tab-pane fade" id="suppliers" role="tabpanel" aria-labelledby="profile-tab">
+                    {%  include "Parts/info/_order_infos.html.twig" %}
+                </div>
+
+                <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="profile-tab">
+                    TODO
+                </div>
+
+                <div class="tab-pane fade" id="tools" role="tabpanel" aria-labelledby="contact-tab">
+
+                    {% include "Parts/info/_tools.html.twig" %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

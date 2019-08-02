@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-md-3">
+        <img src="{{ main_image }}" class="img-fluid img-thumbnail bg-light" alt="Part main image" height="300" width="300">
+    </div>
+    <div class="col-md-9">
+        <h5 class="text-muted pt-2" title="{% trans %}manufacturer.label{% endtrans %}">{{ part.manufacturer.name ?? ""}}</h5>
+        <h3>{{ part.name }}
+            {# You need edit permission to use the edit button #}
+            {% if is_granted('edit', part) %}
+                <a href="{{ part|entityURL('edit') }}"><i class="fas fa-fw fa-sm fa-edit"></i></a>
+            {% endif %}
+        </h3>
+        <h6 class="text-muted"><span title="{% trans %}description.label{% endtrans %}">{{ part.description|bbCode }}</span></h6>
+        <h6 class=""  title="{% trans %}category.label{% endtrans %}">
+            <i class="fas fa-tag fa-fw"></i>
+            <span class="text-muted">{{  part.category.fullPath ?? "-"}}</span>
+        </h6>
+        <h6 class=""  title="{% trans %}storelocation.label{% endtrans %}">
+            <i class="fas fa-cube fa-fw"></i>
+            <span class="text-muted">{{  part.storelocation.fullPath ?? "-"}}</span>
+        </h6>
+        <h6><i class="fas fa-shapes fa-fw"></i>
+            <span class="text-muted">
+                                    <span title="{% trans %}instock.label{% endtrans %}">{{ part.instock }}</span>
+                                    /
+                                    <span title="{% trans %}mininstock.label{% endtrans %}">{{ part.mininstock }}</span>
+                                </span>
+        </h6>
+        <h6 class="" title="{% trans %}footprint.label{% endtrans %}">
+            <i class="fas fa-microchip fa-fw" ></i>
+            <span class="text-muted">{{ part.footprint.fullPath ?? "-"}}</span>
+        </h6>
+        <h6 title="{% trans %}part.avg_price.label{% endtrans %}">
+            <i class="fas fa-money-bill-alt fa-fw"></i>
+            <span class="text-muted">{{ "TODO" }}</span>
+        </h6>
+        {#
+        {% if part.comment != "" %}
+            <h6 title="{% trans %}comment.label{% endtrans %}">
+                <i class="fas fa-comment-alt fa-fw"></i>
+                <div class="d-inline-flex">
+                    <span class="text-muted">{{ part.comment|nl2br }}</span>
+                </div>
+            </h6>
+        {% endif %} #}
+    </div>
+</div>
