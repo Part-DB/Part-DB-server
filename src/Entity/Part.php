@@ -92,7 +92,7 @@ class Part extends AttachmentContainingDBElement
     protected $master_picture_attachment;
 
     /**
-     * @var
+     * @var Orderdetail[]
      * @ORM\OneToMany(targetEntity="Orderdetail", mappedBy="part")
      *
      * @ColumnSecurity(prefix="orderdetails", type="object")
@@ -499,7 +499,7 @@ class Part extends AttachmentContainingDBElement
      *
      * @param bool $hide_obsolete If true, obsolete orderdetails will NOT be returned
      *
-     * @return Orderdetails[] * all orderdetails as a one-dimensional array of Orderdetails objects
+     * @return Orderdetail[] * all orderdetails as a one-dimensional array of Orderdetails objects
      *                        (empty array if there are no ones)
      *                        * the array is sorted by the suppliers names / minimum order quantity
      *

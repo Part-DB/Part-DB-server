@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1a794cf54f952c4bf1bc00d8f952b6a3",
+    "content-hash": "c4b42f65037fd3b81886b8d9c98deb32",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1396,6 +1396,54 @@
                 "CKEditor"
             ],
             "time": "2019-04-15T16:29:43+00:00"
+        },
+        {
+            "name": "gerardojbaez/money",
+            "version": "v0.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gerardojbaez/money.git",
+                "reference": "1a29ca19899fad8ae559e9f2c982815ea21f8a6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gerardojbaez/money/zipball/1a29ca19899fad8ae559e9f2c982815ea21f8a6c",
+                "reference": "1a29ca19899fad8ae559e9f2c982815ea21f8a6c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.4.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Gerardojbaez\\Money\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gerardo Báez",
+                    "email": "gerardojbaez@gmail.com"
+                }
+            ],
+            "description": "A simple and cross-platform alternative to PHP money_format(). 91 currencies supported, including INR.",
+            "keywords": [
+                "currency",
+                "formatter",
+                "money",
+                "money_format"
+            ],
+            "time": "2018-02-24T18:59:00+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -7486,8 +7534,8 @@
         "php": "^7.1.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "ext-mbstring": "*",
-        "ext-intl": "*"
+        "ext-intl": "*",
+        "ext-mbstring": "*"
     },
     "platform-dev": []
 }

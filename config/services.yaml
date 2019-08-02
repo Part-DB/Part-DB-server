@@ -9,6 +9,7 @@ parameters:
     partdb_title: 'Part-DB'     # The title shown inside of Part-DB (e.g. in the navbar and on homepage)
     banner: ''                  # The info text shown in the homepage
     use_gravatar: true          # Set to false, if no Gravatar images should be used for user profiles.
+    default_currency: 'EUR'     # The currency that should be used
 
 services:
     # default configuration for services in *this* file

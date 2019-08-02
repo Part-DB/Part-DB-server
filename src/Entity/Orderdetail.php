@@ -33,6 +33,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
+use Exception;
 
 /**
  * Class Orderdetail.
@@ -78,6 +80,12 @@ class Orderdetail extends DBElement
      * @ORM\Column(type="string")
      */
     protected $supplier_product_url;
+
+    /**
+     * @var \DateTime The date when this element was created.
+     * @ORM\Column(type="datetimetz", name="datetime_added")
+     */
+    protected $addedDate;
 
     /**
      * Returns the ID as an string, defined by the element class.
@@ -143,6 +151,17 @@ class Orderdetail extends DBElement
     }
 
     /**
+     * Returns the date/time when the element was created.
+     * Returns null if the element was not yet saved to DB yet.
+     *
+     * @return \DateTime|null The creation time of the part.
+     */
+    public function getAddedDate(): ?\DateTime
+    {
+        return $this->addedDate;
+    }
+
+    /**
      * Get the link to the website of the article on the suppliers website.
      *
      * @param $no_automatic_url bool Set this to true, if you only want to get the local set product URL for this Orderdetail
@@ -152,8 +171,8 @@ class Orderdetail extends DBElement
      */
     public function getSupplierProductUrl(bool $no_automatic_url = false): string
     {
-        if ($no_automatic_url || '' !== $this->supplierpartnr) {
-            return $this->supplierpartnr;
+        if ($no_automatic_url || '' !== $this->supplier_product_url) {
+            return $this->supplier_product_url;
         }
 
         return $this->getSupplier()->getAutoProductUrl($this->supplierpartnr); // maybe an automatic url is available...
@@ -162,12 +181,12 @@ class Orderdetail extends DBElement
     /**
      * Get all pricedetails.
      *
-     * @return Pricedetails[] all pricedetails as a one-dimensional array of Pricedetails objects,
+     * @return Pricedetail[] all pricedetails as a one-dimensional array of Pricedetails objects,
      *                        sorted by minimum discount quantity
      *
      * @throws Exception if there was an error
      */
-    public function getPricedetails(): array
+    public function getPricedetails(): PersistentCollection
     {
         return $this->pricedetails;
     }

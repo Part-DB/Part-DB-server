@@ -32,6 +32,7 @@ namespace App\Twig;
 use App\Entity\Attachment;
 use App\Entity\DBElement;
 use App\Services\EntityURLGenerator;
+use App\Services\MoneyFormatter;
 use App\Services\TreeBuilder;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -47,22 +48,26 @@ class AppExtension extends AbstractExtension
     protected $cache;
     protected $serializer;
     protected $treeBuilder;
+    protected $moneyFormatter;
 
     public function __construct(EntityURLGenerator $entityURLGenerator, AdapterInterface $cache,
-                                SerializerInterface $serializer, TreeBuilder $treeBuilder)
+                                SerializerInterface $serializer, TreeBuilder $treeBuilder,
+                                MoneyFormatter $moneyFormatter)
     {
         $this->entityURLGenerator = $entityURLGenerator;
         $this->cache = $cache;
         $this->serializer = $serializer;
         $this->treeBuilder = $treeBuilder;
+        $this->moneyFormatter = $moneyFormatter;
     }
 
     public function getFilters()
     {
         return [
-           new TwigFilter('entityURL', [$this, 'generateEntityURL']),
-           new TwigFilter('bbCode', [$this, 'parseBBCode'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
-       ];
+            new TwigFilter('entityURL', [$this, 'generateEntityURL']),
+            new TwigFilter('bbCode', [$this, 'parseBBCode'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
+            new TwigFilter('moneyFormat', [$this, 'formatCurrency'])
+        ];
     }
 
     public function getTests()
@@ -106,5 +111,10 @@ class AppExtension extends AbstractExtension
         }
 
         return $item->get();
+    }
+
+    public function formatCurrency($amount, $currency = "")
+    {
+        return $this->moneyFormatter->format($amount, $currency);
     }
 }

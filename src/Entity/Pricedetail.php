@@ -95,30 +95,26 @@ class Pricedetail extends DBElement
         return $this->orderdetail;
     }
 
+    public function getPrice() : float
+    {
+        return (float) $this->price;
+    }
+
     /**
-     * Get the price.
+     * Get the price for a single unit.
      *
-     * @param bool $as_money_string * if true, this method returns a money string incl. currency
-     *                              * if false, this method returns the price as float
      * @param int  $multiplier      The returned price (float or string) will be multiplied
      *                              with this multiplier.
      *
      *     You will get the price for $multiplier parts. If you want the price which is stored
      *          in the database, you have to pass the "price_related_quantity" count as $multiplier.
      *
-     * @return float  the price as a float number (if "$as_money_string == false")
-     * @return string the price as a string incl. currency (if "$as_money_string == true")
-     *
-     * @see floatToMoneyString()
+     * @return float  the price as a float number
+
      */
-    public function getPrice(bool $as_money_string = false, int $multiplier = 1)
+    public function getPricePerUnit(int $multiplier = 1) : float
     {
         $price = ($this->price * $multiplier) / $this->price_related_quantity;
-
-        if ($as_money_string) {
-            throw new \Exception('Not implemented yet...');
-            //return floatToMoneyString($price);
-        }
 
         return $price;
     }

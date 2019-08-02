@@ -112,9 +112,11 @@
                     <div class="tab-pane fade {% if part.comment is empty %} show active{% endif %}" id="attachments" role="tabpanel" aria-labelledby="profile-tab">
                         Test
                     </div>
-                    <div class="tab-pane fade" id="suppliers" role="tabpanel" aria-labelledby="profile-tab">
 
+                    <div class="tab-pane fade" id="suppliers" role="tabpanel" aria-labelledby="profile-tab">
+                        {%  include "Parts/_order_infos.html.twig" %}
                     </div>
+
                     <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="profile-tab">
                         TODO
                     </div>
@@ -128,22 +130,22 @@
 
 
                         {% if is_granted('create', part) %}
-                        <br>
-                        <div class="btn-group mt-2">
-                            <a class="btn btn-primary" href="{{ part|entityURL('clone') }}">
-                                <i class="fas fa-clone"></i>
-                                {% trans %}part.clone.btn{% endtrans %}
-                            </a>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span>
-                            </button>
-                            <div class="dropdown-menu" role="menu">
-                                <a class="dropdown-item" href="{{ part|entityURL('create') }}">
-                                    <i class="fas fa-plus-square"></i>
-                                    {% trans %}part.create.btn{% endtrans %}
+                            <br>
+                            <div class="btn-group mt-2">
+                                <a class="btn btn-primary" href="{{ part|entityURL('clone') }}">
+                                    <i class="fas fa-clone"></i>
+                                    {% trans %}part.clone.btn{% endtrans %}
                                 </a>
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                </button>
+                                <div class="dropdown-menu" role="menu">
+                                    <a class="dropdown-item" href="{{ part|entityURL('create') }}">
+                                        <i class="fas fa-plus-square"></i>
+                                        {% trans %}part.create.btn{% endtrans %}
+                                    </a>
+                                </div>
                             </div>
-                        </div>
                         {% endif %}
 
                     </div>

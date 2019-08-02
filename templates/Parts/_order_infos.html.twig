@@ -1,0 +1,67 @@
+<div class="table-responsive">
+    <table class="table table-striped table-header table-hover">
+        <thead>
+        <tr>
+            <th>{% trans %}part.supplier.name{% endtrans %}</th>
+            <th>{% trans %}part.supplier.partnr{% endtrans %}</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in part.orderdetails %}
+            <tr class="{% if order.obsolete %}table-danger{% endif %}">
+                <td>{{ order.supplier.name }}</td>
+                <td>{% if order.supplierProductUrl is not empty %}
+                        <a href="{{ order.supplierProductUrl }}" target="_blank" class="link-external">{{ order.supplierPartNr }}</a>
+                    {% else %}
+                        {{ order.supplierPartNr }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if order.pricedetails is not empty %}
+                    <table class="table table-bordered table-sm table-striped table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>{% trans %}part.order.minamount{% endtrans %}</th>
+                                <th>{% trans %}part.order.price{% endtrans %}</th>
+                                <th>{% trans %}part.order.single_price{% endtrans %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for detail in order.pricedetails %}
+                        <tr>
+                            <td>
+                                {{ detail.MinDiscountQuantity }}
+                            </td>
+                            <td>
+                                {{ detail.Price | moneyFormat }} <i>{% trans %}part.order.price_per{% endtrans %}</i> {{ detail.PriceRelatedQuantity }}
+                            </td>
+                            <td>
+                                {{ detail.PricePerUnit  | moneyFormat}}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+                </td>
+                <td> {# Action for order information #}
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="window">
+                            Action
+                        </button>
+                        <div class="dropdown-menu">
+                            <span class="text-muted dropdown-item-text" ><i class="fas fa-lightbulb fa-fw"></i> <b>ID:</b> {{ order.iD }}</span>
+                            <span class="text-muted dropdown-item-text" ><i class="fas fa-history fa-fw"></i> <b>{% trans %}createdAt{% endtrans %}:</b> {{ order.addedDate | localizeddate("short")}}</span>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#"><i class="fas fa-edit fa-fw"></i> {% trans %}edit.caption_short{% endtrans %}</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-trash fa-fw"></i> {% trans %}delete.caption{% endtrans %}</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
