@@ -17,7 +17,7 @@ doctrine:
 
         url: '%env(resolve:DATABASE_URL)%'
 
-        schema_filter: ^(?!internal)
+        #schema_filter: "^(?!internal)"
 
     orm:
         auto_generate_proxy_classes: true
