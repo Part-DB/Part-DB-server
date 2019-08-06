@@ -702,7 +702,7 @@ class Part extends AttachmentContainingDBElement
         $master_picture = $this->getMasterPictureAttachement(); // returns an Attachement-object
 
         if (null !== $master_picture) {
-            return $master_picture->getFilename();
+            return $master_picture->getPath();
         }
 
         if ($use_footprint_filename) {

@@ -10,6 +10,7 @@ parameters:
     banner: ''                  # The info text shown in the homepage
     use_gravatar: true          # Set to false, if no Gravatar images should be used for user profiles.
     default_currency: 'EUR'     # The currency that should be used
+    media_directory: ''
 
 services:
     # default configuration for services in *this* file

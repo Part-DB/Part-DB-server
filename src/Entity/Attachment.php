@@ -46,9 +46,9 @@ abstract class Attachment extends NamedDBElement
 
     /**
      * @var string The filename using the %BASE% variable
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", name="filename")
      */
-    protected $filename;
+    protected $path;
 
     /**
      * ORM mapping is done in sub classes (like PartAttachment)
@@ -74,7 +74,7 @@ abstract class Attachment extends NamedDBElement
      */
     public function isPicture(): bool
     {
-        $extension = pathinfo($this->getFilename(), PATHINFO_EXTENSION);
+        $extension = pathinfo($this->getPath(), PATHINFO_EXTENSION);
 
         // list all file extensions which are supported to display them by HTML code
         $picture_extensions = array('gif', 'png', 'jpg', 'jpeg', 'bmp', 'svg', 'tif');
@@ -82,11 +82,30 @@ abstract class Attachment extends NamedDBElement
         return in_array(strtolower($extension), $picture_extensions, true);
     }
 
+    /**
+     * Checks if the attachment file is externally saved (the database saves an URL)
+     * @return bool true, if the file is saved externally
+     */
+    public function isExternal() : bool
+    {
+        return static::isUrl($this->getPath());
+    }
+
     /********************************************************************************
      *
      *   Getters
      *
      *********************************************************************************/
+
+    /**
+     * Returns the extension of the file referenced via the attachment.
+     * For a path like %BASE/path/foo.bar, bar will be returned.
+     * @return string
+     */
+    public function getExtension() : string
+    {
+        return pathinfo($this->getPath(), PATHINFO_EXTENSION);
+    }
 
     /**
      * Get the element, associated with this Attachement (for example a "Part" object).
@@ -106,18 +125,34 @@ abstract class Attachment extends NamedDBElement
      */
     public function isFileExisting(): bool
     {
-        return file_exists($this->getFilename()) || isURL($this->getFilename());
+        return file_exists($this->getPath()) || static::isURL($this->getPath());
     }
 
     /**
-     * Get the filename, relative to %BASE%.
+     * Get the filepath, relative to %BASE%.
      *
-     * @return string
+     * @return string A string like %BASE/path/foo.bar
      */
-    public function getFilename(): string
+    public function getPath(): string
     {
-        return $this->filename;
-        //return str_replace('%BASE%', BASE, $this->filename);
+        return $this->path;
+    }
+
+    /**
+     * Returns the filename of the attachment.
+     * For a path like %BASE/path/foo.bar, foo.bar will be returned.
+     *
+     * If the path is a URL (can be checked via isExternal()), null will be returned.
+     *
+     * @return string|null
+     */
+    public function getFilename(): ?string
+    {
+        if ($this->isExternal()) {
+            return null;
+        }
+
+        return pathinfo($this->getPath(), PATHINFO_BASENAME);
     }
 
     /**
@@ -136,13 +171,10 @@ abstract class Attachment extends NamedDBElement
      *
      * @return AttachmentType the type of this attachement
      *
-     * @throws Exception if there was an error
      */
     public function getType(): AttachmentType
     {
-        //TODO
-
-        throw new NotImplementedException('Not implemented yet!');
+        return $this->attachement_type;
     }
 
     /**
@@ -170,5 +202,32 @@ abstract class Attachment extends NamedDBElement
         $this->show_in_table = $show_in_table;
 
         return $this;
+    }
+
+    /*****************************************************************************************************
+     * Static functions
+     *****************************************************************************************************/
+
+    /**
+     * Check if a string is a URL and is valid.
+     * @param $string string The string which should be checked.
+     * @param bool $path_required If true, the string must contain a path to be valid. (e.g. foo.bar would be invalid, foo.bar/test.php would be valid).
+     * @param $only_http bool Set this to true, if only HTTPS or HTTP schemata should be allowed.
+     *  *Caution: When this is set to false, a attacker could use the file:// schema, to get internal server files, like /etc/passwd.*
+     * @return bool True if the string is a valid URL. False, if the string is not an URL or invalid.
+     */
+    public static function isURL(string $string, bool $path_required = true, bool $only_http = true) : bool
+    {
+        if ($only_http) {   //Check if scheme is HTTPS or HTTP
+            $scheme = parse_url($string, PHP_URL_SCHEME);
+            if ($scheme !== 'http' && $scheme !== 'https') {
+                return false;   //All other schemes are not valid.
+            }
+        }
+        if ($path_required) {
+            return (bool) filter_var($string, FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED);
+        } else {
+            return (bool) filter_var($string, FILTER_VALIDATE_URL);
+        }
     }
 }

@@ -34,6 +34,7 @@ use App\Entity\Category;
 use App\Entity\Part;
 use App\Form\PartType;
 use App\Services\AttachmentFilenameService;
+use App\Services\AttachmentHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,7 +47,7 @@ class PartController extends AbstractController
      * @Route("/part/{id}/info", name="part_info")
      * @Route("/part/{id}", requirements={"id"="\d+"})
      */
-    public function show(Part $part, AttachmentFilenameService $attachmentFilenameService)
+    public function show(Part $part, AttachmentFilenameService $attachmentFilenameService, AttachmentHelper $attachmentHelper)
     {
         $this->denyAccessUnlessGranted('read', $part);
 
@@ -56,6 +57,7 @@ class PartController extends AbstractController
             [
                 'part' => $part,
                 'main_image' => $attachmentFilenameService->attachmentPathToAbsolutePath($filename),
+                'attachment_helper' => $attachmentHelper
             ]
             );
     }

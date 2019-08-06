@@ -32,7 +32,7 @@
         </h6>
         <h6 title="{% trans %}part.avg_price.label{% endtrans %}">
             <i class="fas fa-money-bill-alt fa-fw"></i>
-            <span class="text-muted">{{ part.averagePrice | moneyFormat }}</span>
+            <span class="text-muted">{% if part.averagePrice is not null %}{{ part.averagePrice | moneyFormat }}{% else %}-{% endif %}</span>
         </h6>
         {#
         {% if part.comment != "" %}
