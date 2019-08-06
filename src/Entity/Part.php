@@ -665,7 +665,7 @@ class Part extends AttachmentContainingDBElement
      *
      * @throws \Exception if there was an error
      */
-    public function getAveragePrice(int $quantity = 1, $multiplier = null) : float
+    public function getAveragePrice(int $quantity = 1, $multiplier = null) : ?float
     {
         $prices = $this->getPrices($quantity, $multiplier, true);
         $average_price = null;
