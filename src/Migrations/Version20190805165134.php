@@ -16,7 +16,7 @@ final class Version20190805165134 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Upgrade database from old Part-DB 0.5 Version (dbVersion 16)';
     }
 
     public function up(Schema $schema) : void

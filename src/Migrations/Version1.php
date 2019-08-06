@@ -15,7 +15,7 @@ final class Version1 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Creates an inital empty database';
     }
 
     public function up(Schema $schema) : void
