@@ -9,7 +9,7 @@ doctrine:
     dbal:
         # configure these for your database server
         driver: 'pdo_mysql'
-        server_version: '5.7'
+        server_version: '5.6'
         charset: utf8mb4
         default_table_options:
             charset: utf8mb4
@@ -17,7 +17,7 @@ doctrine:
 
         url: '%env(resolve:DATABASE_URL)%'
 
-        #schema_filter: "^(?!internal)"
+        schema_filter: ~^(?!internal|log)~
 
     orm:
         auto_generate_proxy_classes: true

@@ -30,9 +30,13 @@ use Symfony\Component\Intl\Exception\NotImplementedException;
  * Class Attachment.
  *
  * @ORM\Entity
- * @ORM\Table(name="attachements")
+ * @ORM\Table(name="`attachements`")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="class_name", type="string")
+ * @ORM\DiscriminatorMap({"PartDB\Part" = "PartAttachment", "Part" = "PartAttachment"})
+ *
  */
-class Attachment extends NamedDBElement
+abstract class Attachment extends NamedDBElement
 {
     /**
      * @var bool
@@ -47,9 +51,7 @@ class Attachment extends NamedDBElement
     protected $filename;
 
     /**
-     * //TODO
-     * //@ORM\ManyToOne(targetEntity="AttachmentContainingDBElement", inversedBy="attachment")
-     * //@ORM\JoinColumn(name="element_id", referencedColumnName="id").
+     * ORM mapping is done in sub classes (like PartAttachment)
      */
     protected $element;
 

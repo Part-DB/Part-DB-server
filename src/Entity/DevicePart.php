@@ -37,7 +37,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class DevicePart.
  *
- * @ORM\Table("device_parts")
+ * @ORM\Table("`device_parts`")
  * @ORM\Entity()
  */
 class DevicePart extends DBElement
@@ -49,8 +49,25 @@ class DevicePart extends DBElement
      */
     protected $device;
 
-    //TODO
+    /**
+     * @var Part
+     * @ORM\ManyToOne(targetEntity="Part")
+     * @ORM\JoinColumn(name="id_part", referencedColumnName="id")
+     */
     protected $part;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer", name="quantity")
+     */
+    protected $quantity;
+
+    /**
+     * @var string
+     * @ORM\Column(type="text", name="mountnames")
+     */
+    protected $mountnames;
+
 
     /**
      * Returns the ID as an string, defined by the element class.

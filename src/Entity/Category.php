@@ -29,7 +29,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class AttachmentType.
  *
  * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
- * @ORM\Table(name="categories")
+ * @ORM\Table(name="`categories`")
  */
 class Category extends PartsContainingDBElement
 {
@@ -51,13 +51,13 @@ class Category extends PartsContainingDBElement
 
     /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     protected $partname_hint = "";
 
     /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     protected $partname_regex = "";
 
@@ -87,13 +87,13 @@ class Category extends PartsContainingDBElement
 
     /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     protected $default_description = "";
 
     /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     protected $default_comment = "";
 

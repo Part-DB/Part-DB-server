@@ -34,7 +34,9 @@ abstract class AttachmentContainingDBElement extends NamedDBElement
     /**
      * @var
      * //TODO
-     * @ORM\OneToMany(targetEntity="Attachment", mappedBy="element")
+     * //@ORM\OneToMany(targetEntity="Attachment", mappedBy="element")
+     *
+     * Mapping is done in sub classes like part
      */
     protected $attachments;
 

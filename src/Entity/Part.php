@@ -42,11 +42,16 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class Part.
  *
  * @ORM\Entity(repositoryClass="App\Repository\PartRepository")
- * @ORM\Table("parts")
+ * @ORM\Table("`parts`")
  */
 class Part extends AttachmentContainingDBElement
 {
     public const INSTOCK_UNKNOWN = -2;
+
+    /**
+     * @ORM\OneToMany(targetEntity="PartAttachment", mappedBy="element")
+     */
+    protected $attachments;
 
     /**
      * @var Category
@@ -138,7 +143,7 @@ class Part extends AttachmentContainingDBElement
 
     /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      *
      * @ColumnSecurity(prefix="description")
      */
@@ -164,7 +169,7 @@ class Part extends AttachmentContainingDBElement
 
     /**
      * @var string
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      * @ColumnSecurity(prefix="comment")
      */
     protected $comment = '';

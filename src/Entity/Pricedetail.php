@@ -39,7 +39,7 @@ use Webmozart\Assert\Assert;
  * Class Pricedetail.
  *
  * @ORM\Entity()
- * @ORM\Table("pricedetails")
+ * @ORM\Table("`pricedetails`")
  */
 class Pricedetail extends DBElement
 {

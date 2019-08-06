@@ -67,10 +67,10 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
 
     /**
      * @var string The comment info for this element
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text")
      * @Groups({"simple", "extended", "full"})
      */
-    protected $comment;
+    protected $comment = "";
 
     /**
      * @var int

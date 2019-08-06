@@ -38,7 +38,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Storelocation.
  *
  * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
- * @ORM\Table("storelocations")
+ * @ORM\Table("`storelocations`")
  */
 class Storelocation extends PartsContainingDBElement
 {

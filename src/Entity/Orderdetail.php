@@ -39,7 +39,7 @@ use Exception;
 /**
  * Class Orderdetail.
  *
- * @ORM\Table("orderdetails")
+ * @ORM\Table("`orderdetails`")
  * @ORM\Entity()
  */
 class Orderdetail extends DBElement

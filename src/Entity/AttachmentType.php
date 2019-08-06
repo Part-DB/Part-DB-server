@@ -32,7 +32,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class AttachmentType.
  *
  * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
- * @ORM\Table(name="attachement_types")
+ * @ORM\Table(name="`attachement_types`")
  */
 class AttachmentType extends StructuralDBElement
 {

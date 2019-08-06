@@ -42,7 +42,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Also this entity is able to save some informations about the user, like the names, email-address and other info.
  *
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ORM\Table("users")
+ * @ORM\Table("`users`")
  */
 class User extends NamedDBElement implements UserInterface, HasPermissionsInterface
 {
@@ -133,6 +133,26 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
      * @ORM\Embedded(class="PermissionsEmbed", columnPrefix="perms_")
      */
     protected $permissions;
+
+    /**
+     * @ORM\Column(type="string", name="config_currency")
+     */
+    protected $currency;
+
+    /**
+     * @ORM\Column(type="text", name="config_image_path")
+     */
+    protected $image_path;
+
+    /**
+     * @ORM\Column(type="text", name="config_instock_comment_w")
+     */
+    protected $instock_comment_w;
+
+    /**
+     * @ORM\Column(type="text", name="config_instock_comment_a")
+     */
+    protected $instock_comment_a;
 
     /**
      * Checks if the current user, is the user which represents the not logged in (anonymous) users.
