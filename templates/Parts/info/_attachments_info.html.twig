@@ -35,8 +35,8 @@
             </td>
 
             <td><div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                    <button type="button" class="btn btn-secondary" title="{% trans %}attachment.view{% endtrans %}"><i class="fas fa-eye fa-fw"></i></button>
-                    <button type="button" class="btn btn-secondary" title="{% trans %}attachment.download{% endtrans %}"><i class="fas fa-download fa-fw"></i></button>
+                    <a href="{{ attachment|entityURL('file_view') }}" target="_blank" class="btn btn-secondary" data-no-ajax title="{% trans %}attachment.view{% endtrans %}"><i class="fas fa-eye fa-fw"></i></a>
+                    <a href="{{ attachment|entityURL('file_download') }}" data-no-ajax class="btn btn-secondary" title="{% trans %}attachment.download{% endtrans %}"><i class="fas fa-download fa-fw"></i></a>
 
                     <div class="btn-group" role="group">
                         <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-boundary="window">

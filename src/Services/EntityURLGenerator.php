@@ -29,6 +29,7 @@
 
 namespace App\Services;
 
+use App\Entity\Attachment;
 use App\Entity\AttachmentType;
 use App\Entity\Category;
 use App\Entity\Device;
@@ -82,9 +83,33 @@ class EntityURLGenerator
                 return $this->listPartsURL($entity);
             case 'delete':
                 return $this->deleteURL($entity);
+            case 'file_download':
+                return $this->downloadURL($entity);
+            case 'file_view':
+                return $this->viewURL($entity);
         }
 
         throw new \InvalidArgumentException('Method is not supported!');
+    }
+
+    public function viewURL($entity) : string
+    {
+        if ($entity instanceof Attachment) {
+            return $this->urlGenerator->generate('attachment_view', ['id' => $entity->getID()]);
+        }
+
+        //Otherwise throw an error
+        throw new EntityNotSupported('The given entity is not supported yet!');
+    }
+
+    public function downloadURL($entity) : string
+    {
+        if ($entity instanceof Attachment) {
+            return $this->urlGenerator->generate('attachment_download', ['id' => $entity->getID()]);
+        }
+
+        //Otherwise throw an error
+        throw new EntityNotSupported('The given entity is not supported yet!');
     }
 
     /**
