@@ -129,6 +129,34 @@ abstract class Attachment extends NamedDBElement
     }
 
     /**
+     * The URL to the external file.
+     * Returns null, if the file is not external.
+     * @return string|null
+     */
+    public function getURL(): ?string
+    {
+        if (!$this->isExternal()) {
+            return null;
+        }
+
+        return $this->path;
+    }
+
+    /**
+     * Returns the hostname where the external file is stored.
+     * Returns null, if the file is not external.
+     * @return string|null
+     */
+    public function getHost(): ?string
+    {
+        if (!$this->isExternal()) {
+            return null;
+        }
+
+        return parse_url($this->getURL(), PHP_URL_HOST);
+    }
+
+    /**
      * Get the filepath, relative to %BASE%.
      *
      * @return string A string like %BASE/path/foo.bar
@@ -137,6 +165,8 @@ abstract class Attachment extends NamedDBElement
     {
         return $this->path;
     }
+
+
 
     /**
      * Returns the filename of the attachment.

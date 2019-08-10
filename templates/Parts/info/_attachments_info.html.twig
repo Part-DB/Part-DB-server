@@ -22,9 +22,17 @@
             </td>
             <td class="align-middle">{{ attachment.name }}</td>
             <td class="align-middle">{{ attachment.type.fullPath }}</td>
-            <td class="align-middle">{{ attachment.filename }}</td>
             <td class="align-middle">
-                {% if attachment_helper.fileExisting(attachment) %}
+                {% if attachment.external %}
+                    <a href="{{ attachment.uRL }}" target="_blank" class="link-external">{{ attachment.host }}</a>
+                {% else %}
+                    {{ attachment.filename }}
+                {% endif %}
+            </td>
+            <td class="align-middle">
+                {% if attachment.external %}
+                    <i>{% trans %}attachment.external_file{% endtrans %}</i>
+                {% elseif attachment_helper.fileExisting(attachment) %}
                     {{ attachment_helper.humanFileSize(attachment) }}
                 {% else %}
                     <b class="text-danger">{% trans %}attachment.file_not_found{% endtrans %}</b>

@@ -95,6 +95,9 @@ class EntityURLGenerator
     public function viewURL($entity) : string
     {
         if ($entity instanceof Attachment) {
+            if ($entity->isExternal()) { //For external attachments, return the link to external path
+                return $entity->getURL();
+            }
             return $this->urlGenerator->generate('attachment_view', ['id' => $entity->getID()]);
         }
 
@@ -105,6 +108,9 @@ class EntityURLGenerator
     public function downloadURL($entity) : string
     {
         if ($entity instanceof Attachment) {
+            if ($entity->isExternal()) { //For external attachments, return the link to external path
+                return $entity->getURL();
+            }
             return $this->urlGenerator->generate('attachment_download', ['id' => $entity->getID()]);
         }
 
