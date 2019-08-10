@@ -1,3 +1,5 @@
+{% import "helper.twig" as helper %}
+
 <table class="table table-striped table-hover">
     <thead>
     <tr>
@@ -13,15 +15,10 @@
     <tbody>
 
 
-
     {% for attachment in part.attachments %}
         <tr>
             <td>
-                {% if attachment_helper.fileExisting(attachment) %}
-                    <i class="fas fa-file fa-3x"></i>
-                {% else %}
-                    <i class="fas fa-exclamation-triangle fa-3x text-danger"></i>
-                {% endif %}
+                {{ helper.attachment_icon(attachment, attachment_helper) }}
             </td>
             <td class="align-middle">{{ attachment.name }}</td>
             <td class="align-middle">{{ attachment.type.fullPath }}</td>

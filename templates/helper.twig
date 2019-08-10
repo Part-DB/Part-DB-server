@@ -5,3 +5,41 @@
         {% trans %}bool.false{% endtrans %}
     {% endif %}
 {% endmacro %}
+
+{% macro file_extension_to_fa_icon(ext) %}
+    {% if ext in ['jpeg', 'jpg', 'gif', 'png', 'tiff', 'tif', 'webp', 'bmp', 'svg'] %} {# Images #}
+        fa-file-image
+    {% elseif ext in ['pdf'] %} {# PDFs #}
+        fa-file-pdf
+    {% elseif ext in ['txt', 'md', 'rtf'] %} {# Text files #}
+        fa-file-alt
+    {% elseif ext in ['csv'] %} {# CSV files #}
+            fa-file-csv
+    {% elseif ext in ['doc', 'docx', 'odt'] %} {# Documents #}
+        fa-file-word
+    {% elseif ext in ['zip', 'rar', 'bz2', 'tar', '7z', 'gz'] %}
+        fa-file-archive
+    {% elseif ext in ['mp3', 'wav', 'aac', 'm4a', 'wma'] %}
+        fa-file-audio
+    {% elseif ext in ['ppt', 'pptx', 'odp'] %}
+        fa-file-powerpoint
+    {% elseif ext in ['xls', 'xlsx', 'ods'] %}
+        fa-file-excel
+    {% elseif ext in ['php', 'xml', 'html', 'js', 'ts', 'htm', 'c', 'cpp'] %}
+        fa-file-code
+    {% elseif ext in ['webm', 'avi', 'mp4', 'mkv', 'wmv'] %} {# Videos#}
+        fa-file-video
+    {% else %}
+        fa-file
+    {% endif %}
+{% endmacro %}
+
+{% macro attachment_icon(attachment, attachment_helper, class = "fa-fw fas fa-3x", link = true) %}
+    {% if not attachment_helper or attachment_helper.fileExisting(attachment) %}
+        <a target="_blank"  data-no-ajax href="{% if link %}{{ attachment|entityURL('file_view') }}{% endif %}">
+         <i class="text-dark {{ class }} {{ _self.file_extension_to_fa_icon(attachment.extension) }}"></i>
+        </a>
+    {% elseif not attachment_helper.fileExisting(attachment) %}
+        <i class="{{ class }} fa-exclamation-triangle text-danger"></i>
+    {% endif %}
+{% endmacro %}
