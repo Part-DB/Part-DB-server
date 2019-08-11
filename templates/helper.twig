@@ -14,7 +14,7 @@
     {% elseif ext in ['txt', 'md', 'rtf'] %} {# Text files #}
         fa-file-alt
     {% elseif ext in ['csv'] %} {# CSV files #}
-            fa-file-csv
+        fa-file-csv
     {% elseif ext in ['doc', 'docx', 'odt'] %} {# Documents #}
         fa-file-word
     {% elseif ext in ['zip', 'rar', 'bz2', 'tar', '7z', 'gz'] %}
@@ -37,7 +37,11 @@
 {% macro attachment_icon(attachment, attachment_helper, class = "fa-fw fas fa-3x", link = true) %}
     {% if not attachment_helper or attachment_helper.fileExisting(attachment) %}
         <a target="_blank"  data-no-ajax href="{% if link %}{{ attachment|entityURL('file_view') }}{% endif %}">
-         <i class="text-dark {{ class }} {{ _self.file_extension_to_fa_icon(attachment.extension) }}"></i>
+            {% if attachment.picture %}
+                <img class="hoverpic" src="{{ attachment|entityURL('file_view') }}">
+            {% else %}
+                <i class="text-dark {{ class }} {{ _self.file_extension_to_fa_icon(attachment.extension) }}"></i>
+            {% endif %}
         </a>
     {% elseif not attachment_helper.fileExisting(attachment) %}
         <i class="{{ class }} fa-exclamation-triangle text-danger"></i>
