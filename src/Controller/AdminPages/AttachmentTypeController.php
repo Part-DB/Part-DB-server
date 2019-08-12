@@ -33,7 +33,7 @@ namespace App\Controller\AdminPages;
 
 
 use App\Entity\Attachments\AttachmentType;
-use App\Form\BaseEntityAdminForm;
+use App\Form\AdminPages\BaseEntityAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;

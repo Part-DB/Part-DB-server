@@ -45,6 +45,7 @@
                         <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#export">{% trans %}export.label{% endtrans %}</a> </li>
                     {% else %}
                         <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#import_export">{% trans %}import_export.label{% endtrans %}</a> </li>
+                        <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#mass_creation">{% trans %}mass_creation.label{% endtrans %}</a></li>
                     {% endif %}
                 </ul>
 
@@ -146,6 +147,11 @@
                                 <legend>{% trans %}export_all.label{% endtrans %}</legend>
                                 {% include 'AdminPages/_export_form.html.twig' with {'path' : path('attachment_type_export_all')} %}
                             </fieldset>
+                        </div>
+
+                        <div id="mass_creation" class="tab-pane fade">
+                            <span class="text-muted">{% trans %}mass_creation.help{% endtrans %}</span>
+                            {{ form(mass_creation_form) }}
                         </div>
 
 

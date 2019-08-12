@@ -32,7 +32,7 @@ namespace App\Controller;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\Footprint;
 use App\Entity\UserSystem\User;
-use App\Form\BaseEntityAdminForm;
+use App\Form\AdminPages\BaseEntityAdminForm;
 use App\Form\UserAdminForm;
 use App\Form\UserSettingsType;
 use App\Services\EntityExporter;

@@ -29,7 +29,7 @@
  *
  */
 
-namespace App\Form;
+namespace App\Form\AdminPages;
 
 
 use App\Entity\Base\NamedDBElement;

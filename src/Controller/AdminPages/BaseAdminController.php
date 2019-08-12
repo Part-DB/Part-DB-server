@@ -33,8 +33,9 @@ namespace App\Controller\AdminPages;
 
 use App\Entity\Base\NamedDBElement;
 use App\Entity\Base\StructuralDBElement;
-use App\Form\BaseEntityAdminForm;
-use App\Form\ImportType;
+use App\Form\AdminPages\BaseEntityAdminForm;
+use App\Form\AdminPages\ImportType;
+use App\Form\AdminPages\MassCreationForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
@@ -118,10 +119,30 @@ abstract class BaseAdminController extends AbstractController
             }
         }
 
+        //Mass creation form
+        $mass_creation_form = $this->createForm(MassCreationForm::class, ['entity_class' => $this->entity_class]);
+        $mass_creation_form->handleRequest($request);
+
+        if ($mass_creation_form->isSubmitted() && $mass_creation_form->isValid()) {
+            $data = $mass_creation_form->getData();
+
+            dump($data);
+
+            //Create entries based on input
+            $errors = $importer->massCreation($data['lines'], $this->entity_class, $data['parent']);
+
+            //Show errors to user:
+            foreach ($errors as $name => $error) {
+                /** @var $error ConstraintViolationList */
+                $this->addFlash('error', $name . ":" . $error);
+            }
+        }
+
         return $this->render($this->twig_template, [
             'entity' => $new_entity,
             'form' => $form->createView(),
-            'import_form' => $import_form->createView()
+            'import_form' => $import_form->createView(),
+            'mass_creation_form' => $mass_creation_form->createView()
         ]);
     }
 

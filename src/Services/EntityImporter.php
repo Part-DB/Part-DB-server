@@ -32,6 +32,7 @@
 namespace App\Services;
 
 
+use App\Entity\Base\NamedDBElement;
 use App\Entity\Base\StructuralDBElement;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\MakerBundle\Str;
@@ -66,6 +67,47 @@ class EntityImporter
     }
 
     /**
+     * Creates many entries at once, based on a (text) list of names.
+     *
+     * @param string $lines The list of names seperated by \n
+     * @param string $class_name The name of the class for which the entities should be created
+     * @param StructuralDBElement|null $parent The element which will be used as parent element for new elements.
+     * @return array An associative array containing an ConstraintViolationList and the entity name as key are returned,
+     * if an error happened during validation. When everything was successfull, the array should be empty.
+     */
+    public function massCreation(string $lines, string $class_name, ?StructuralDBElement $parent) : array
+    {
+        //Expand every line to a single entry:
+        $names = explode("\n", $lines);
+
+        $errors = array();
+
+        foreach ($names as $name) {
+            $name = trim($name);
+            /** @var $entity StructuralDBElement */
+            //Create new element with given name
+            $entity = new $class_name();
+            $entity->setName($name);
+            $entity->setParent($parent);
+
+            //Validate entity
+            $tmp = $this->validator->validate($entity);
+            //If no error occured, write entry to DB:
+            if (count($tmp) === 0) {
+                $this->em->persist($entity);
+            } else { //Otherwise log error
+                dump($tmp);
+                $errors[$entity->getFullPath()] = $tmp;
+            }
+        }
+
+        //Save changes to database
+        $this->em->flush();
+
+        return $errors;
+    }
+
+    /**
      * This methods deserializes the given file and saves it database.
      * The imported elements will be checked (validated) before written to database.
      * @param File $file The file that should be used for importing.
@@ -96,7 +138,7 @@ class EntityImporter
             $tmp = $this->validator->validate($entity);
 
             //When no validation error occured, persist entity to database (cascade must be set in entity)
-            if ($tmp === null) {
+            if (count($errors) === 0) {
                 $this->em->persist($entity);
             } else { //Log validation errors to global log.
                 $errors[$entity->getFullPath()] = $tmp;

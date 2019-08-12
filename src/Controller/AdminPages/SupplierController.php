@@ -35,8 +35,8 @@ namespace App\Controller\AdminPages;
 use App\Entity\Attachments\AttachmentType;
 
 use App\Entity\Parts\Supplier;
-use App\Form\BaseEntityAdminForm;
-use App\Form\CompanyForm;
+use App\Form\AdminPages\BaseEntityAdminForm;
+use App\Form\AdminPages\CompanyForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;

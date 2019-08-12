@@ -34,8 +34,8 @@ namespace App\Controller\AdminPages;
 use App\Entity\Attachments\AttachmentType;
 
 use App\Entity\Parts\Storelocation;
-use App\Form\BaseEntityAdminForm;
-use App\Form\StorelocationAdminForm;
+use App\Form\AdminPages\BaseEntityAdminForm;
+use App\Form\AdminPages\StorelocationAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
