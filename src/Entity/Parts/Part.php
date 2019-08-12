@@ -102,15 +102,6 @@ class Part extends AttachmentContainingDBElement
     protected $footprint;
 
     /**
-     * @var Storelocation|null
-     * @ORM\ManyToOne(targetEntity="Storelocation", inversedBy="parts")
-     * @ORM\JoinColumn(name="id_storelocation", referencedColumnName="id")
-     *
-     * @ColumnSecurity(prefix="storelocation", type="object")
-     */
-    protected $storelocation;
-
-    /**
      * @var Manufacturer|null
      * @ORM\ManyToOne(targetEntity="Manufacturer", inversedBy="parts")
      * @ORM\JoinColumn(name="id_manufacturer", referencedColumnName="id")

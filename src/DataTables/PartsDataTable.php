@@ -29,7 +29,7 @@
 
 namespace App\DataTables;
 
-use App\Entity\Part;
+use App\Entity\Parts\Part;
 use App\Services\EntityURLGenerator;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
@@ -65,7 +65,7 @@ class PartsDataTable implements DataTableTypeInterface
             ->add('category', TextColumn::class, ['field' => 'category.name', 'label' => 'category.label'])
             ->add('instock', TextColumn::class, ['label' => 'instock.label_short'])
             ->add('mininstock', TextColumn::class, ['label' => 'mininstock.label_short'])
-            ->add('storelocation', TextColumn::class, ['field' => 'storelocation.name', 'label' => 'storelocation.label'])
+            //->add('storelocation', TextColumn::class, ['field' => 'storelocation.name', 'label' => 'storelocation.label'])
             ->addOrderBy('name')
             ->createAdapter(ORMAdapter::class, [
                 'entity' => Part::class,

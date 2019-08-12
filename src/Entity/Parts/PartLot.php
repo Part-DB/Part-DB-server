@@ -32,7 +32,9 @@
 namespace App\Entity\Parts;
 
 
+use App\Entity\Base\DBElement;
 use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -42,9 +44,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package App\Entity\Parts
  * @ORM\Entity()
  * @ORM\Table(name="part_lots")
+ * @ORM\HasLifecycleCallbacks()
  */
-class PartLot extends NamedDBElement
+class PartLot extends DBElement
 {
+
+    use TimestampTrait;
 
     /**
      * @var string A short description about this lot, shown in table

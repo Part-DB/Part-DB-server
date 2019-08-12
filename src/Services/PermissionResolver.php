@@ -30,7 +30,7 @@
 namespace App\Services;
 
 use App\Configuration\PermissionsConfiguration;
-use App\Entity\User;
+use App\Entity\UserSystem\User;
 use App\Security\Interfaces\HasPermissionsInterface;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Config\Definition\Processor;

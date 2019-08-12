@@ -29,17 +29,17 @@
 
 namespace App\Services;
 
-use App\Entity\Attachment;
-use App\Entity\AttachmentType;
-use App\Entity\Category;
-use App\Entity\Device;
-use App\Entity\Footprint;
-use App\Entity\Manufacturer;
-use App\Entity\NamedDBElement;
-use App\Entity\Part;
-use App\Entity\Storelocation;
-use App\Entity\Supplier;
-use App\Entity\User;
+use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentType;
+use App\Entity\Parts\Category;
+use App\Entity\Devices\Device;
+use App\Entity\Parts\Footprint;
+use App\Entity\Parts\Manufacturer;
+use App\Entity\Base\NamedDBElement;
+use App\Entity\Parts\Part;
+use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\Supplier;
+use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupported;
 use Symfony\Component\HttpKernel\HttpCache\Store;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

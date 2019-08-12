@@ -29,8 +29,8 @@
 
 namespace App\Twig;
 
-use App\Entity\Attachment;
-use App\Entity\DBElement;
+use App\Entity\Attachments\Attachment;
+use App\Entity\Base\DBElement;
 use App\Services\EntityURLGenerator;
 use App\Services\MoneyFormatter;
 use App\Services\TreeBuilder;

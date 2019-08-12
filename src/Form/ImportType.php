@@ -32,7 +32,7 @@
 namespace App\Form;
 
 
-use App\Entity\StructuralDBElement;
+use App\Entity\Base\StructuralDBElement;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\MakerBundle\Str;
 use Symfony\Component\Form\AbstractType;

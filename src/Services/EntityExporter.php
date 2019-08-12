@@ -32,7 +32,7 @@
 namespace App\Services;
 
 
-use App\Entity\NamedDBElement;
+use App\Entity\Base\NamedDBElement;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;

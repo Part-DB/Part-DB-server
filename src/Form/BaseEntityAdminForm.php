@@ -32,8 +32,8 @@
 namespace App\Form;
 
 
-use App\Entity\NamedDBElement;
-use App\Entity\StructuralDBElement;
+use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\StructuralDBElement;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

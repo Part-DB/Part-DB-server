@@ -29,8 +29,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Devices\Device;
 use App\Entity\Parts\Category;
-use App\Entity\Device;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Storelocation;

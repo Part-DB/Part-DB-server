@@ -31,9 +31,9 @@
 
 namespace App\Services;
 
-use App\Entity\DBElement;
-use App\Entity\NamedDBElement;
-use App\Entity\StructuralDBElement;
+use App\Entity\Base\DBElement;
+use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\StructuralDBElement;
 use App\Helpers\TreeViewNode;
 use App\Repository\StructuralDBElementRepository;
 use Doctrine\ORM\EntityManagerInterface;

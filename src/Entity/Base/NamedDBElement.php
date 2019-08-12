@@ -64,6 +64,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 abstract class NamedDBElement extends DBElement
 {
+
+    use TimestampTrait;
+
     /**
      * @var string The name of this element.
      * @ORM\Column(type="string")
@@ -71,20 +74,6 @@ abstract class NamedDBElement extends DBElement
      * @Groups({"simple", "extended", "full"})
      */
     protected $name = '';
-
-    /**
-     * @var \DateTime The date when this element was modified the last time.
-     * @ORM\Column(type="datetimetz", name="last_modified")
-     * @Groups({"extended", "full"})
-     */
-    protected $lastModified;
-
-    /**
-     * @var \DateTime The date when this element was created.
-     * @ORM\Column(type="datetimetz", name="datetime_added")
-     * @Groups({"extended", "full"})
-     */
-    protected $addedDate;
 
     /********************************************************************************
      *
@@ -103,28 +92,6 @@ abstract class NamedDBElement extends DBElement
         //Strip HTML from Name, so no XSS injection is possible.
         return strip_tags($this->name); */
         return $this->name;
-    }
-
-    /**
-     * Returns the last time when the element was modified.
-     * Returns null if the element was not yet saved to DB yet.
-     *
-     * @return \DateTime|null The time of the last edit.
-     */
-    public function getLastModified(): ?\DateTime
-    {
-        return $this->lastModified;
-    }
-
-    /**
-     * Returns the date/time when the element was created.
-     * Returns null if the element was not yet saved to DB yet.
-     *
-     * @return \DateTime|null The creation time of the part.
-     */
-    public function getAddedDate(): ?\DateTime
-    {
-        return $this->addedDate;
     }
 
     /********************************************************************************
@@ -157,19 +124,7 @@ abstract class NamedDBElement extends DBElement
      *
      ******************************************************************************/
 
-    /**
-     * Helper for updating the timestamp. It is automatically called by doctrine before persisting.
-     *
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function updatedTimestamps(): void
-    {
-        $this->lastModified = new \DateTime('now');
-        if (null === $this->addedDate) {
-            $this->addedDate = new \DateTime('now');
-        }
-    }
+
 
     public function __toString()
     {

@@ -29,10 +29,10 @@
 
 namespace App\Form;
 
-use App\Entity\Category;
-use App\Entity\Manufacturer;
-use App\Entity\Part;
-use App\Entity\Storelocation;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\Part;
+use App\Entity\Parts\Storelocation;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

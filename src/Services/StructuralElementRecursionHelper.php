@@ -32,7 +32,7 @@
 namespace App\Services;
 
 
-use App\Entity\StructuralDBElement;
+use App\Entity\Base\StructuralDBElement;
 use Doctrine\ORM\EntityManagerInterface;
 
 class StructuralElementRecursionHelper

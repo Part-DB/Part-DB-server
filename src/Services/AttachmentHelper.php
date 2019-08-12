@@ -32,7 +32,7 @@
 namespace App\Services;
 
 
-use App\Entity\Attachment;
+use App\Entity\Attachments\Attachment;
 use Doctrine\ORM\EntityManagerInterface;
 use SebastianBergmann\CodeCoverage\Node\File;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;

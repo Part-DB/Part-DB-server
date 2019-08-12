@@ -32,7 +32,7 @@
 namespace App\Validator\Constraints;
 
 
-use App\Entity\StructuralDBElement;
+use App\Entity\Base\StructuralDBElement;
 use Symfony\Bundle\MakerBundle\Str;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
