@@ -32,7 +32,7 @@
 namespace App\Controller;
 
 
-use App\Entity\Attachment;
+use App\Entity\Attachments\Attachment;
 use App\Services\AttachmentHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;

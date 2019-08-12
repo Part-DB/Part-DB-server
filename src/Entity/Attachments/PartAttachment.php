@@ -29,7 +29,7 @@
  *
  */
 
-namespace App\Entity;
+namespace App\Entity\Attachments;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -43,7 +43,7 @@ class PartAttachment extends Attachment
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Part", inversedBy="attachments")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id").
      */
     protected $element;

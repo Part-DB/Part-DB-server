@@ -32,8 +32,8 @@
 namespace App\Controller\AdminPages;
 
 
-use App\Entity\AttachmentType;
-use App\Entity\Category;
+use App\Entity\Attachments\AttachmentType;
+use App\Entity\Parts\Category;
 use App\Form\BaseEntityAdminForm;
 use App\Form\CategoryAdminForm;
 use App\Services\EntityExporter;

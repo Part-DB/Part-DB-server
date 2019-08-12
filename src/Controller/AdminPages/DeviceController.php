@@ -32,9 +32,9 @@
 namespace App\Controller\AdminPages;
 
 
-use App\Entity\AttachmentType;
+use App\Entity\Attachments\AttachmentType;
 
-use App\Entity\Device;
+use App\Entity\Devices\Device;
 use App\Form\BaseEntityAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;

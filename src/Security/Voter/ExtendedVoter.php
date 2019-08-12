@@ -29,7 +29,7 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\User;
+use App\Entity\UserSystem\User;
 use App\Services\PermissionResolver;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

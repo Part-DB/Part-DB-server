@@ -2,8 +2,8 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\Part;
-use App\Entity\User;
+use App\Entity\Parts\Part;
+use App\Entity\UserSystem\User;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**

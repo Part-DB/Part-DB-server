@@ -31,9 +31,8 @@
 
 namespace App\Controller\AdminPages;
 
-use App\Entity\AttachmentType;
-use App\Entity\NamedDBElement;
-use App\Entity\StructuralDBElement;
+use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\StructuralDBElement;
 use App\Form\BaseEntityAdminForm;
 use App\Form\ImportType;
 use App\Services\EntityExporter;

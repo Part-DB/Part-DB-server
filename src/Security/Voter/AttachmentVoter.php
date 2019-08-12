@@ -32,8 +32,8 @@
 namespace App\Security\Voter;
 
 
-use App\Entity\Attachment;
-use App\Entity\User;
+use App\Entity\Attachments\Attachment;
+use App\Entity\UserSystem\User;
 
 class AttachmentVoter extends ExtendedVoter
 {

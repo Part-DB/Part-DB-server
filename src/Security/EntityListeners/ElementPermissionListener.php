@@ -29,8 +29,8 @@
 
 namespace App\Security\EntityListeners;
 
+use App\Entity\Base\DBElement;
 use App\Security\Annotations\ColumnSecurity;
-use App\Entity\DBElement;
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;

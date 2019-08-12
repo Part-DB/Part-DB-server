@@ -32,14 +32,14 @@
 namespace App\Security\Voter;
 
 
-use App\Entity\AttachmentType;
-use App\Entity\Category;
-use App\Entity\Device;
-use App\Entity\Footprint;
-use App\Entity\Manufacturer;
-use App\Entity\Storelocation;
-use App\Entity\Supplier;
-use App\Entity\User;
+use App\Entity\Attachments\AttachmentType;
+use App\Entity\Device\Device;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Footprint;
+use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\Supplier;
+use App\Entity\UserSystem\User;
 
 class StructureVoter extends ExtendedVoter
 {

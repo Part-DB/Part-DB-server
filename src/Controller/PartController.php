@@ -30,8 +30,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
-use App\Entity\Part;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Part;
 use App\Form\PartType;
 use App\Services\AttachmentFilenameService;
 use App\Services\AttachmentHelper;

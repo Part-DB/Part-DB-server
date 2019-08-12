@@ -31,9 +31,9 @@
 
 namespace App\Controller\AdminPages;
 
-use App\Entity\AttachmentType;
+use App\Entity\Attachments\AttachmentType;
 
-use App\Entity\Storelocation;
+use App\Entity\Parts\Storelocation;
 use App\Form\BaseEntityAdminForm;
 use App\Form\StorelocationAdminForm;
 use App\Services\EntityExporter;

@@ -29,7 +29,8 @@
 
 namespace App\Security\Interfaces;
 
-use App\Entity\PermissionsEmbed;
+
+use App\Entity\UserSystem\PermissionsEmbed;
 
 interface HasPermissionsInterface
 {

@@ -1,4 +1,33 @@
 <?php
+/**
+ *
+ * part-db version 0.1
+ * Copyright (C) 2005 Christoph Lechner
+ * http://www.cl-projects.de/
+ *
+ * part-db version 0.2+
+ * Copyright (C) 2009 K. Jacobs and others (see authors.php)
+ * http://code.google.com/p/part-db/
+ *
+ * Part-DB Version 0.4+
+ * Copyright (C) 2016 - 2019 Jan Böhmer
+ * https://github.com/jbtronics
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
+ *
+ */
 
 declare(strict_types=1);
 
@@ -30,11 +59,14 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\Entity;
+namespace App\Entity\Parts;
 
+use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentContainingDBElement;
+use App\Entity\Devices\Device;
+use App\Entity\PriceInformations\Orderdetail;
 use App\Security\Annotations\ColumnSecurity;
 use Doctrine\ORM\Mapping as ORM;
-//use Webmozart\Assert\Assert;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -49,7 +81,7 @@ class Part extends AttachmentContainingDBElement
     public const INSTOCK_UNKNOWN = -2;
 
     /**
-     * @ORM\OneToMany(targetEntity="PartAttachment", mappedBy="element")
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\PartAttachment", mappedBy="element")
      */
     protected $attachments;
 
@@ -89,7 +121,7 @@ class Part extends AttachmentContainingDBElement
 
     /**
      * @var Attachment
-     * @ORM\ManyToOne(targetEntity="Attachment")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\Attachment")
      * @ORM\JoinColumn(name="id_master_picture_attachement", referencedColumnName="id")
      *
      * @ColumnSecurity(prefix="attachments", type="object")
@@ -98,7 +130,7 @@ class Part extends AttachmentContainingDBElement
 
     /**
      * @var Orderdetail[]
-     * @ORM\OneToMany(targetEntity="Orderdetail", mappedBy="part")
+     * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="part")
      *
      * @ColumnSecurity(prefix="orderdetails", type="object")
      */
@@ -106,7 +138,7 @@ class Part extends AttachmentContainingDBElement
 
     /**
      * @var Orderdetail
-     * @ORM\OneToOne(targetEntity="Orderdetail")
+     * @ORM\OneToOne(targetEntity="App\Entity\PriceInformations\Orderdetail")
      * @ORM\JoinColumn(name="order_orderdetails_id", referencedColumnName="id")
      *
      * @ColumnSecurity(prefix="order", type="object")
@@ -150,13 +182,10 @@ class Part extends AttachmentContainingDBElement
     protected $description = '';
 
     /**
-     * @var int
-     * @ORM\Column(type="integer")
-     * @Assert\GreaterThanOrEqual(0)
-     *
-     * @ColumnSecurity(prefix="instock", type="integer")
+     * @var ?PartLot[]
+     * @ORM\OneToMany(targetEntity="PartLot", mappedBy="part")
      */
-    protected $instock = 0;
+    protected $partLots;
 
     /**
      * @var int
@@ -166,6 +195,13 @@ class Part extends AttachmentContainingDBElement
      * @ColumnSecurity(prefix="mininstock", type="integer")
      */
     protected $mininstock = 0;
+
+    /**
+     * @var float
+     * @ORM\Column(type="float")
+     * @Assert\PositiveOrZero()
+     */
+    protected $minamount;
 
     /**
      * @var string
@@ -204,9 +240,41 @@ class Part extends AttachmentContainingDBElement
     /**
      * @var string
      * @ORM\Column(type="string")
-     *@ColumnSecurity(prefix="manufacturer", type="string", placeholder="")
+     * @ColumnSecurity(prefix="manufacturer", type="string", placeholder="")
      */
     protected $manufacturer_product_url = '';
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     * @ColumnSecurity(prefix="manufacturer", type="string", placeholder="")
+     */
+    protected $manufacturer_product_number;
+
+    /**
+     * @var bool Determines if this part entry needs review (for example, because it is work in progress)
+     * @ORM\Column(type="boolean")
+     */
+    protected $needs_review = false;
+
+    /**
+     * @var MeasurementUnit The unit in which the part's amount is measured.
+     * @ORM\ManyToOne(targetEntity="MeasurementUnit")
+     * @ORM\JoinColumn(name="id_part_unit", referencedColumnName="id", nullable=true)
+     */
+    protected $partUnit;
+
+    /**
+     * @var string A comma seperated list of tags, assocciated with the part.
+     * @ORM\Column(type="text")
+     */
+    protected $tags;
+
+    /**
+     * @var float|null How much a single part unit weighs in gramms.
+     * @ORM\Column(type="float", nullable=true)
+     */
+    protected $mass;
 
     /**
      * Returns the ID as an string, defined by the element class.

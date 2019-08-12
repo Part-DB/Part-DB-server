@@ -32,9 +32,9 @@
 namespace App\Controller\AdminPages;
 
 
-use App\Entity\AttachmentType;
+use App\Entity\Attachments\AttachmentType;
 
-use App\Entity\Supplier;
+use App\Entity\Parts\Supplier;
 use App\Form\BaseEntityAdminForm;
 use App\Form\CompanyForm;
 use App\Services\EntityExporter;

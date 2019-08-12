@@ -21,8 +21,10 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\Entity;
+namespace App\Entity\Attachments;
 
+use App\Entity\Base\DBElement;
+use App\Entity\Base\NamedDBElement;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Intl\Exception\NotImplementedException;
 

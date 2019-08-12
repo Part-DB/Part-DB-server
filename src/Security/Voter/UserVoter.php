@@ -29,7 +29,7 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\User;
+use App\Entity\UserSystem\User;
 
 class UserVoter extends ExtendedVoter
 {
