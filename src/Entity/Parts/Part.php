@@ -66,6 +66,7 @@ use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Devices\Device;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Security\Annotations\ColumnSecurity;
+use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Validator\Constraints as Assert;
@@ -89,6 +90,7 @@ class Part extends AttachmentContainingDBElement
      * @var Category
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="parts")
      * @ORM\JoinColumn(name="id_category", referencedColumnName="id")
+     * @Selectable()
      */
     protected $category;
 
@@ -98,6 +100,7 @@ class Part extends AttachmentContainingDBElement
      * @ORM\JoinColumn(name="id_footprint", referencedColumnName="id")
      *
      * @ColumnSecurity(prefix="footprint", type="object")
+     * @Selectable()
      */
     protected $footprint;
 
@@ -107,6 +110,7 @@ class Part extends AttachmentContainingDBElement
      * @ORM\JoinColumn(name="id_manufacturer", referencedColumnName="id")
      *
      * @ColumnSecurity(prefix="manufacturer", type="object")
+     * @Selectable()
      */
     protected $manufacturer;
 

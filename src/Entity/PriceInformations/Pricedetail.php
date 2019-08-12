@@ -62,6 +62,7 @@ declare(strict_types=1);
 namespace App\Entity\PriceInformations;
 
 use App\Entity\Base\DBElement;
+use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -94,6 +95,7 @@ class Pricedetail extends DBElement
      * If this is null, the global base unit is assumed.
      * @ORM\ManyToOne(targetEntity="Currency")
      * @ORM\JoinColumn(name="id_currency", referencedColumnName="id", nullable=true)
+     * @Selectable()
      */
     protected $currency;
 

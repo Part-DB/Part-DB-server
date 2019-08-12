@@ -275,6 +275,14 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
         return $this->children;
     }
 
+    /**
+     * @return bool
+     */
+    public function isNotSelectable(): bool
+    {
+        return $this->not_selectable;
+    }
+
     /******************************************************************************
      *
      * Setters
@@ -314,6 +322,16 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     {
         $this->children = $element;
 
+        return $this;
+    }
+
+    /**
+     * @param bool $not_selectable
+     * @return StructuralDBElement
+     */
+    public function setNotSelectable(bool $not_selectable): StructuralDBElement
+    {
+        $this->not_selectable = $not_selectable;
         return $this;
     }
 

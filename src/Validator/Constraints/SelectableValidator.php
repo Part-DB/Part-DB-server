@@ -31,30 +31,29 @@
 
 namespace App\Validator\Constraints;
 
-
 use App\Entity\Base\StructuralDBElement;
-use Symfony\Bundle\MakerBundle\Str;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 /**
- * The validator for the NoneOfItsChildren annotation.
+ * The validator for the Selectable constraint.
  * @package App\Validator\Constraints
  */
-class NoneOfItsChildrenValidator extends ConstraintValidator
+class SelectableValidator extends ConstraintValidator
 {
+
     /**
      * Checks if the passed value is valid.
      *
      * @param mixed $value The value that should be validated
-     * @param Constraint $constraint The constraint for the validation
+     * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
      */
     public function validate($value, Constraint $constraint)
     {
-        if (!$constraint instanceof NoneOfItsChildren) {
-            throw new UnexpectedTypeException($constraint, NoneOfItsChildren::class);
+        if (!$constraint instanceof Selectable) {
+            throw new UnexpectedTypeException($constraint, Selectable::class);
         }
 
         // custom constraints should ignore null and empty values to allow
@@ -68,27 +67,12 @@ class NoneOfItsChildrenValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, 'StructuralDBElement');
         }
 
-        //Check if the object is assigned to itself
-        /** @var StructuralDBElement $entity */
-        $entity = $this->context->getObject();
-        /** @var StructuralDBElement $value */
-
-        // Check if the targeted parent is the object itself:
-        $entity_id = $entity->getID();
-        if ($entity_id !== null && $entity_id === $value->getID()) {
-            //Set the entity to a valid state
-            $entity->setParent(null);
-            $this->context->buildViolation($constraint->self_message)->addViolation();
-            //The other things can not happen.
-            return;
-        }
-
-        // Check if the targeted parent is a child object
-        if ($value->isChildOf($entity)) {
-            //Set the entity to a valid state
-            $entity->setParent(null);
-            $this->context->buildViolation($constraint->children_message)->addViolation();
-            return;
+        //Check if the value is not selectable -> show error message then.
+        if ($value->isNotSelectable()) {
+            $this->context->buildViolation($constraint->message)
+                ->setParameter('{{ name }}', $value->getName())
+                ->setParameter('{{ full_path }}', $value->getFullPath())
+                ->addViolation();
         }
     }
 }

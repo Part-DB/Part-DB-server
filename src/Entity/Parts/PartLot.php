@@ -35,6 +35,7 @@ namespace App\Entity\Parts;
 use App\Entity\Base\DBElement;
 use App\Entity\Base\NamedDBElement;
 use App\Entity\Base\TimestampTrait;
+use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -74,6 +75,7 @@ class PartLot extends DBElement
      * @var Storelocation The storelocation of this lot
      * @ORM\ManyToOne(targetEntity="Storelocation")
      * @ORM\JoinColumn(name="id_store_location", referencedColumnName="id")
+     * @Selectable()
      */
     protected $storage_location;
 

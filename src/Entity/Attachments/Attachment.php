@@ -25,6 +25,7 @@ namespace App\Entity\Attachments;
 
 use App\Entity\Base\DBElement;
 use App\Entity\Base\NamedDBElement;
+use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Intl\Exception\NotImplementedException;
 
@@ -61,6 +62,7 @@ abstract class Attachment extends NamedDBElement
      * @var AttachmentType
      * @ORM\ManyToOne(targetEntity="AttachmentType", inversedBy="attachments")
      * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
+     * @Selectable()
      */
     protected $attachement_type;
 

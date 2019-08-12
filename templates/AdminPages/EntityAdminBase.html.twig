@@ -68,6 +68,7 @@
                                 {% if form.parent%}
                                     {{ form_row(form.parent) }}
                                 {% endif %}
+                                {{ form_row(form.not_selectable) }}
 
                                 {% block additional_controls %}{% endblock %}
 

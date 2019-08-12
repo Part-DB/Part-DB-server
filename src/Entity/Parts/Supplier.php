@@ -63,6 +63,7 @@ namespace App\Entity\Parts;
 
 use App\Entity\Base\Company;
 use App\Entity\PriceInformations\Currency;
+use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -95,6 +96,7 @@ class Supplier extends Company
      * Set to null, to use global base currency.
      * @ORM\ManyToOne(targetEntity="App\Entity\PriceInformations\Currency")
      * @ORM\JoinColumn(name="default_currency_id", referencedColumnName="id", nullable=true)
+     * @Selectable()
      */
     protected $default_currency;
 

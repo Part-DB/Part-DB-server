@@ -37,6 +37,7 @@ use App\Entity\Base\StructuralDBElement;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -68,6 +69,10 @@ class BaseEntityAdminForm extends AbstractType
             ->add('parent', EntityType::class, ['class' => get_class($entity), 'choice_label' => 'full_path',
                 'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'required' => false, 'label' => 'parent.label',
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity), ])
+
+            ->add('not_selectable', CheckboxType::class, ['required' => false,
+                'label' => 'not_selectable.label', 'help' => 'not_selectable.help', 'label_attr'=> ['class' => 'checkbox-custom'],
+                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity) ])
 
             ->add('comment', CKEditorType::class, ['required' => false,
                 'label' => 'comment.label', 'attr' => ['rows' => 4], 'help' => 'bbcode.hint',
