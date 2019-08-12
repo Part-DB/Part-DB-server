@@ -39,6 +39,7 @@ use App\Entity\Base\NamedDBElement;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupported;
 use Symfony\Component\HttpKernel\HttpCache\Store;
@@ -176,8 +177,12 @@ class EntityURLGenerator
             return $this->urlGenerator->generate("footprint_edit", ['id' => $entity->getID()]);
         }
 
-        if($entity instanceof User) {
+        if ($entity instanceof User) {
             return $this->urlGenerator->generate('user_edit', ['id' => $entity->getID()]);
+        }
+
+        if ($entity instanceof Currency) {
+            return $this->urlGenerator->generate('currency_edit', ['id' => $entity->getID()]);
         }
 
         //Otherwise throw an error
@@ -227,6 +232,10 @@ class EntityURLGenerator
 
         if ($entity instanceof User) {
             return $this->urlGenerator->generate('user_new');
+        }
+
+        if ($entity instanceof Currency) {
+            return $this->urlGenerator->generate('currency_new');
         }
 
         throw new EntityNotSupported('The given entity is not supported yet!');
@@ -297,6 +306,10 @@ class EntityURLGenerator
 
         if ($entity instanceof User) {
             return $this->urlGenerator->generate('user_delete', ['id' => $entity->getID()]);
+        }
+
+        if ($entity instanceof Currency) {
+            return $this->urlGenerator->generate('currency_delete', ['id' => $entity->getID()]);
         }
 
         throw new EntityNotSupported('The given entity is not supported yet!');

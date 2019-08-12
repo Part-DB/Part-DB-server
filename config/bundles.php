@@ -19,4 +19,5 @@ return [
     Shivas\VersioningBundle\ShivasVersioningBundle::class => ['all' => true],
     FOS\CKEditorBundle\FOSCKEditorBundle::class => ['all' => true],
     Translation\Bundle\TranslationBundle::class => ['all' => true],
+    Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
 ];

@@ -33,12 +33,13 @@ namespace App\Security\Voter;
 
 
 use App\Entity\Attachments\AttachmentType;
-use App\Entity\Device\Device;
+use App\Entity\Devices\Device;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\User;
 
 class StructureVoter extends ExtendedVoter
@@ -82,6 +83,9 @@ class StructureVoter extends ExtendedVoter
             case Storelocation::class:
                 return 'storelocations';
             case Supplier::class:
+                return 'suppliers';
+            case Currency::class:
+                //TODO: Implement own permission
                 return 'suppliers';
         }
         //When the class is not supported by this class return null

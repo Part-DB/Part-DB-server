@@ -36,6 +36,8 @@ use App\Entity\Base\NamedDBElement;
 use App\Entity\Base\StructuralDBElement;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
@@ -48,10 +50,12 @@ class BaseEntityAdminForm extends AbstractType
 {
 
     protected $security;
+    protected $params;
 
-    public function __construct(Security $security)
+    public function __construct(Security $security, ParameterBagInterface $params)
     {
         $this->security = $security;
+        $this->params = $params;
     }
 
 
@@ -74,7 +78,7 @@ class BaseEntityAdminForm extends AbstractType
                 'label' => 'not_selectable.label', 'help' => 'not_selectable.help', 'label_attr'=> ['class' => 'checkbox-custom'],
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity) ])
 
-            ->add('comment', CKEditorType::class, ['required' => false,
+            ->add('comment', CKEditorType::class, ['required' => false, 'empty_data' => '',
                 'label' => 'comment.label', 'attr' => ['rows' => 4], 'help' => 'bbcode.hint',
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
 

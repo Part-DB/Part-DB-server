@@ -76,6 +76,9 @@ class ToolsTreeBuilder
         $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.footprint'),
             $this->urlGenerator->generate('footprint_new'));
 
+        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.currency'),
+            $this->urlGenerator->generate('currency_new'));
+
         $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.part'),
             $this->urlGenerator->generate('part_new'));
 

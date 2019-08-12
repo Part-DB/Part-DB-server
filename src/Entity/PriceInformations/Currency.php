@@ -49,7 +49,7 @@ class Currency extends StructuralDBElement
 
     /**
      * @var string The 3 letter ISO code of the currency.
-     * @ORM\Column(type="string", unique=true, nullable=true)
+     * @ORM\Column(type="string", unique=true)
      * @Assert\Currency()
      */
     protected $iso_code;
@@ -57,16 +57,27 @@ class Currency extends StructuralDBElement
     /**
      * @var float|null The exchange rate between this currency and the base currency
      * (how many base units the current currency is worth)
-     * @ORM\Column(type="decimal", precision=11, scale=5)
+     * @ORM\Column(type="decimal", precision=11, scale=5, nullable=true)
      * @Assert\Positive()
      */
     protected $exchange_rate;
 
     /**
+     * @ORM\OneToMany(targetEntity="Currency", mappedBy="parent", cascade={"persist"})
+     */
+    protected $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Currency", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    protected $parent;
+
+    /**
      * Returns the 3 letter ISO code of this currency
      * @return string
      */
-    public function getIsoCode(): string
+    public function getIsoCode(): ?string
     {
         return $this->iso_code;
     }

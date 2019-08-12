@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c4b42f65037fd3b81886b8d9c98deb32",
+    "content-hash": "4efee728068f5b14ad389d7a4a75131b",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -6372,6 +6372,118 @@
             "time": "2018-12-05T18:34:18+00:00"
         },
         {
+            "name": "twig/extra-bundle",
+            "version": "3.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/twig-extra-bundle.git",
+                "reference": "695a3d1749265340642681fd48e30795752f7126"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/twig-extra-bundle/zipball/695a3d1749265340642681fd48e30795752f7126",
+                "reference": "695a3d1749265340642681fd48e30795752f7126",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/framework-bundle": "^4.3|^5.0",
+                "symfony/twig-bundle": "^4.3|^5.0",
+                "twig/twig": "^2.4|^3.0"
+            },
+            "require-dev": {
+                "twig/cssinliner-extra": "^2.12|^3.0@dev",
+                "twig/html-extra": "^2.12@dev|^3.0@dev",
+                "twig/inky-extra": "^2.12@dev|^3.0@dev",
+                "twig/intl-extra": "^2.12@dev|^3.0@dev",
+                "twig/markdown-extra": "^2.12@dev|^3.0@dev"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Twig\\Extra\\TwigExtraBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "role": "Lead Developer",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org"
+                }
+            ],
+            "description": "A Symfony bundle for extra Twig extensions",
+            "homepage": "https://twig.symfony.com",
+            "keywords": [
+                "bundle",
+                "extra",
+                "twig"
+            ],
+            "time": "2019-08-12T07:27:28+00:00"
+        },
+        {
+            "name": "twig/intl-extra",
+            "version": "3.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/intl-extra.git",
+                "reference": "6330d1cf99976605aa06c709fc382868b038ae9a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/intl-extra/zipball/6330d1cf99976605aa06c709fc382868b038ae9a",
+                "reference": "6330d1cf99976605aa06c709fc382868b038ae9a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/intl": "^4.3",
+                "twig/twig": "^2.4|^3.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^4.4@dev"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Twig\\Extra\\Intl\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "role": "Lead Developer",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org"
+                }
+            ],
+            "description": "A Twig extension for Intl",
+            "homepage": "https://twig.symfony.com",
+            "keywords": [
+                "intl",
+                "twig"
+            ],
+            "time": "2019-08-12T07:27:28+00:00"
+        },
+        {
             "name": "twig/twig",
             "version": "v2.11.3",
             "source": {
@@ -7526,6 +7638,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "twig/extra-bundle": 20,
+        "twig/intl-extra": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,

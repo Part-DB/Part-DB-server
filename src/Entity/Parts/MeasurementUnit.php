@@ -70,6 +70,17 @@ class MeasurementUnit extends StructuralDBElement
     protected $usesSIPrefixes;
 
     /**
+     * @ORM\OneToMany(targetEntity="MeasurementUnit", mappedBy="parent", cascade={"persist"})
+     */
+    protected $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="MeasurementUnit", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    protected $parent;
+
+    /**
      * Returns the ID as an string, defined by the element class.
      * This should have a form like P000014, for a part with ID 14.
      *

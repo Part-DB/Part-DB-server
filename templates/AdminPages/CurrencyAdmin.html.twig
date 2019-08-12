@@ -1,0 +1,26 @@
+{% extends "AdminPages/EntityAdminBase.html.twig" %}
+
+{% block card_title %}
+    <i class="fas fa-file-alt fa-money-bill-alt"></i> {% trans %}currency.caption{% endtrans %}
+{% endblock %}
+
+{% block additional_controls %}
+    {{ form_row(form.iso_code) }}
+    {% if entity.isoCode %}
+        <div class="mt-0 mb-3">
+        <span class="form-text text-muted offset-3 col-9">
+            <b>{% trans %}currency.iso_code.caption{% endtrans %}:</b> {{ entity.isoCode }}
+        </span>
+            <span class="form-text text-muted offset-3 col-9">
+            <b>{% trans %}currency.symbol.caption{% endtrans %}:</b> {{ entity.isoCode | currency_symbol }}
+        </span>
+        </div>
+    {% endif %}
+
+    {{ form_row(form.exchange_rate) }}
+    {% if entity.inverseExchangeRate %}
+        <span class="form-text text-muted offset-3 col-9">
+        {{ '1'|format_currency(default_currency) }} = {{ entity.inverseExchangeRate | format_currency(entity.isoCode) }}
+    </span>
+    {% endif %}
+{% endblock %}
