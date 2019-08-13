@@ -34,6 +34,7 @@ namespace App\Form\AdminPages;
 
 use App\Entity\Base\NamedDBElement;
 use App\Entity\Base\StructuralDBElement;
+use App\Form\Type\StructuralEntityType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
@@ -70,8 +71,8 @@ class BaseEntityAdminForm extends AbstractType
                 'attr' => ['placeholder' => 'part.name.placeholder'],
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ])
 
-            ->add('parent', EntityType::class, ['class' => get_class($entity), 'choice_label' => 'full_path',
-                'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'required' => false, 'label' => 'parent.label',
+            ->add('parent', StructuralEntityType::class, ['class' => get_class($entity),
+                 'required' => false, 'label' => 'parent.label',
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity), ])
 
             ->add('not_selectable', CheckboxType::class, ['required' => false,

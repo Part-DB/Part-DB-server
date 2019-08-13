@@ -67,9 +67,11 @@
                             <div class="tab-pane active" id="home_common">
                                 {{ form_row(form.name) }}
                                 {% if form.parent%}
-                                    {{ form_row(form.parent) }}
+                                   {{ form_row(form.parent) }}
                                 {% endif %}
-                                {{ form_row(form.not_selectable) }}
+                                {% if form.not_selectable is defined %}
+                                    {{ form_row(form.not_selectable) }}
+                                {% endif %}
 
                                 {% block additional_controls %}{% endblock %}
 

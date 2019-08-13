@@ -46,7 +46,27 @@ class StructuralDBElementRepository extends EntityRepository
      */
     public function findRootNodes() : array
     {
-        return $this->findBy(['parent' => null]);
+        return $this->findBy(['parent' => null], ['name' => 'ASC']);
+    }
+
+    /**
+     * Gets a flattened hierachical tree. Useful for generating option lists.
+     * @param StructuralDBElement|null $parent This entity will be used as root element. Set to null, to use global root
+     * @return StructuralDBElement[] A flattened list containing the tree elements.
+     */
+    public function toNodesList(?StructuralDBElement $parent = null): array
+    {
+        $result = array();
+
+        $entities = $this->findBy(['parent' => $parent], ['name' => 'ASC']);
+
+        foreach ($entities as $entity) {
+            /** @var StructuralDBElement $entity */
+            $result[] = $entity;
+            $result = array_merge($result, $this->toNodesList($entity));
+        }
+
+        return $result;
     }
 
 }

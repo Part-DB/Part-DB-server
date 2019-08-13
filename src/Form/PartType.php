@@ -33,6 +33,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Storelocation;
+use App\Form\Type\StructuralEntityType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -65,20 +66,20 @@ class PartType extends AbstractType
             ->add('description', TextType::class, ['required' => false, 'empty_data' => '',
                 'label' => 'description.label', 'help' => 'bbcode.hint', 'attr' => ['placeholder' => 'part.description.placeholder'],
                 'disabled' => !$this->security->isGranted('description.edit', $part), 'empty_data' => '' ])
-            ->add('instock', IntegerType::class,
+            /*->add('instock', IntegerType::class,
                 ['attr' => ['min' => 0, 'placeholder' => 'part.instock.placeholder'], 'label' => 'instock.label',
-                'disabled' => !$this->security->isGranted('instock.edit', $part), ])
+                'disabled' => !$this->security->isGranted('instock.edit', $part), ]) */
             ->add('mininstock', IntegerType::class,
                 ['attr' => ['min' => 0, 'placeholder' => 'part.mininstock.placeholder'], 'label' => 'mininstock.label',
                     'disabled' => !$this->security->isGranted('mininstock.edit', $part), ])
-            ->add('category', EntityType::class, ['class' => Category::class, 'choice_label' => 'full_path',
-                'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'label' => 'category.label',
+            ->add('category', StructuralEntityType::class, ['class' => Category::class,
+                'label' => 'category.label', 'disable_not_selectable' => true,
                 'disabled' => !$this->security->isGranted('move', $part), ])
-            ->add('storelocation', EntityType::class, ['class' => Storelocation::class, 'choice_label' => 'full_path',
+            /*->add('storelocation', EntityType::class, ['class' => Storelocation::class, 'choice_label' => 'full_path',
                 'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'required' => false, 'label' => 'storelocation.label',
-                'disabled' => !$this->security->isGranted('storelocation.edit', $part), ])
-            ->add('manufacturer', EntityType::class, ['class' => Manufacturer::class, 'choice_label' => 'full_path',
-                'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'required' => false, 'label' => 'manufacturer.label',
+                'disabled' => !$this->security->isGranted('storelocation.edit', $part), ]) */
+            ->add('manufacturer', StructuralEntityType::class, ['class' => Manufacturer::class,
+                 'required' => false, 'label' => 'manufacturer.label', 'disable_not_selectable' => true,
                 'disabled' => !$this->security->isGranted('manufacturer.edit', $part), ])
             ->add('manufacturer_product_url', UrlType::class, ['required' => false, 'empty_data' => '',
                 'label' => 'manufacturer_url.label',

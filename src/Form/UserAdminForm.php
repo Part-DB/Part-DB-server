@@ -35,6 +35,7 @@ namespace App\Form;
 use App\Entity\UserSystem\Group;
 use App\Entity\Base\NamedDBElement;
 use App\Entity\Base\StructuralDBElement;
+use App\Form\Type\StructuralEntityType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -66,8 +67,8 @@ class UserAdminForm extends AbstractType
                 'attr' => ['placeholder' => 'user.username.placeholder'],
                 'disabled' => !$this->security->isGranted('edit_username', $entity), ])
 
-            ->add('group', EntityType::class, ['class' => Group::class, 'choice_label' => 'name',
-                'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'required' => false, 'label' => 'group.label',
+            ->add('group', StructuralEntityType::class, ['class' => Group::class,
+                'required' => false, 'label' => 'group.label', 'disable_not_selectable' => true,
                 'disabled' => !$this->security->isGranted('change_group', $entity), ])
 
             ->add('first_name', TextType::class, ['empty_data' => '', 'label' => 'user.firstName.label',
