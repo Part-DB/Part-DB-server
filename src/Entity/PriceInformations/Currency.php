@@ -49,7 +49,7 @@ class Currency extends StructuralDBElement
 
     /**
      * @var string The 3 letter ISO code of the currency.
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(type="string")
      * @Assert\Currency()
      */
     protected $iso_code;

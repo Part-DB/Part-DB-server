@@ -51,7 +51,7 @@ class MeasurementUnit extends StructuralDBElement
     /**
      * @var string The unit symbol that should be used for the Unit. This could be something like "", g (for gramms)
      * or m (for meters).
-     * @ORM\Column(type="string", name="unit", unique=true)
+     * @ORM\Column(type="string", name="unit")
      */
     protected $unit;
 
