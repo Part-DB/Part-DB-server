@@ -37,5 +37,10 @@ services:
         tags:
             - { name: "doctrine.orm.entity_listener" }
 
+    App\Command\UpdateExchangeRatesCommand:
+        arguments:
+            $base_current: '%default_currency%'
+
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

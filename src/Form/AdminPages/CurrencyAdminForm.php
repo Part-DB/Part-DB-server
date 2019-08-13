@@ -52,6 +52,7 @@ class CurrencyAdminForm extends BaseEntityAdminForm
 
         $builder->add('exchange_rate', MoneyType::class, ['required' => false,
             'label' => 'currency.exchange_rate.label', 'currency' => $this->params->get('default_currency'),
+            'scale' => 6,
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
     }
 }
