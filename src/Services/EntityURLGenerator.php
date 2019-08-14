@@ -36,6 +36,7 @@ use App\Entity\Devices\Device;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Base\NamedDBElement;
+use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
@@ -185,6 +186,10 @@ class EntityURLGenerator
             return $this->urlGenerator->generate('currency_edit', ['id' => $entity->getID()]);
         }
 
+        if ($entity instanceof MeasurementUnit) {
+            return $this->urlGenerator->generate('measurement_unit_edit', ['id' => $entity->getID()]);
+        }
+
         //Otherwise throw an error
         throw new EntityNotSupported('The given entity is not supported yet!');
     }
@@ -236,6 +241,10 @@ class EntityURLGenerator
 
         if ($entity instanceof Currency) {
             return $this->urlGenerator->generate('currency_new');
+        }
+
+        if ($entity instanceof MeasurementUnit) {
+            return $this->urlGenerator->generate('measurement_unit_new');
         }
 
         throw new EntityNotSupported('The given entity is not supported yet!');
@@ -310,6 +319,10 @@ class EntityURLGenerator
 
         if ($entity instanceof Currency) {
             return $this->urlGenerator->generate('currency_delete', ['id' => $entity->getID()]);
+        }
+
+        if ($entity instanceof MeasurementUnit) {
+            return $this->urlGenerator->generate('measurement_unit_delete', ['id' => $entity->getID()]);
         }
 
         throw new EntityNotSupported('The given entity is not supported yet!');

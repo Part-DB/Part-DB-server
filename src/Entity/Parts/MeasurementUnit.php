@@ -32,9 +32,11 @@
 namespace App\Entity\Parts;
 
 
+use App\Entity\Base\PartsContainingDBElement;
 use App\Entity\Base\StructuralDBElement;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This unit represents the unit in which the amount of parts in stock are measured.
@@ -45,13 +47,14 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="`measurement_units`")
  * @UniqueEntity("unit")
  */
-class MeasurementUnit extends StructuralDBElement
+class MeasurementUnit extends PartsContainingDBElement
 {
 
     /**
      * @var string The unit symbol that should be used for the Unit. This could be something like "", g (for gramms)
      * or m (for meters).
-     * @ORM\Column(type="string", name="unit")
+     * @ORM\Column(type="string", name="unit", nullable=true)
+     * @Assert\Length(max=10)
      */
     protected $unit;
 
@@ -60,14 +63,14 @@ class MeasurementUnit extends StructuralDBElement
      * Set to false, to measure continuous sizes likes masses or lengthes.
      * @ORM\Column(type="boolean", name="is_integer")
      */
-    protected $isInteger;
+    protected $is_integer = false;
 
     /**
      * @var bool Determines if the unit can be used with SI Prefixes (kilo, giga, milli, etc.).
      * Useful for sizes like meters.
      * @ORM\Column(type="boolean", name="use_si_prefix")
      */
-    protected $usesSIPrefixes;
+    protected $use_si_prefix = false;
 
     /**
      * @ORM\OneToMany(targetEntity="MeasurementUnit", mappedBy="parent", cascade={"persist"})
@@ -95,7 +98,7 @@ class MeasurementUnit extends StructuralDBElement
     /**
      * @return string
      */
-    public function getUnit(): string
+    public function getUnit(): ?string
     {
         return $this->unit;
     }
@@ -104,7 +107,7 @@ class MeasurementUnit extends StructuralDBElement
      * @param string $unit
      * @return MeasurementUnit
      */
-    public function setUnit(string $unit): MeasurementUnit
+    public function setUnit(?string $unit): MeasurementUnit
     {
         $this->unit = $unit;
         return $this;
@@ -115,7 +118,7 @@ class MeasurementUnit extends StructuralDBElement
      */
     public function isInteger(): bool
     {
-        return $this->isInteger;
+        return $this->is_integer;
     }
 
     /**
@@ -131,21 +134,18 @@ class MeasurementUnit extends StructuralDBElement
     /**
      * @return bool
      */
-    public function isUsesSIPrefixes(): bool
+    public function isUseSIPrefix(): bool
     {
-        return $this->usesSIPrefixes;
+        return $this->use_si_prefix;
     }
 
     /**
      * @param bool $usesSIPrefixes
      * @return MeasurementUnit
      */
-    public function setUsesSIPrefixes(bool $usesSIPrefixes): MeasurementUnit
+    public function setUseSIPrefix(bool $usesSIPrefixes): MeasurementUnit
     {
-        $this->usesSIPrefixes = $usesSIPrefixes;
+        $this->useSIPrefixes = $usesSIPrefixes;
         return $this;
     }
-
-
-
 }

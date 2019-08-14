@@ -1,0 +1,11 @@
+{% extends "AdminPages/EntityAdminBase.html.twig" %}
+
+{% block card_title %}
+    <i class="fas fa-balance-scale fa-fw"></i> {% trans %}measurement_unit.caption{% endtrans %}
+{% endblock %}
+
+{% block additional_controls %}
+    {{ form_row(form.unit) }}
+    {{ form_row(form.is_integer) }}
+    {{ form_row(form.use_si_prefix)}}
+{% endblock %}

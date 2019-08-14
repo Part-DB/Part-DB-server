@@ -37,6 +37,7 @@ use App\Entity\Devices\Device;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
@@ -85,6 +86,9 @@ class StructureVoter extends ExtendedVoter
             case Supplier::class:
                 return 'suppliers';
             case Currency::class:
+                //TODO: Implement own permission
+                return 'suppliers';
+            case MeasurementUnit::class:
                 //TODO: Implement own permission
                 return 'suppliers';
         }

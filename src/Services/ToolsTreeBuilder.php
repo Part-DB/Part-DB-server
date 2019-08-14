@@ -79,6 +79,9 @@ class ToolsTreeBuilder
         $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.currency'),
             $this->urlGenerator->generate('currency_new'));
 
+        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.measurement_unit'),
+            $this->urlGenerator->generate('measurement_unit_new'));
+
         $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.part'),
             $this->urlGenerator->generate('part_new'));
 
