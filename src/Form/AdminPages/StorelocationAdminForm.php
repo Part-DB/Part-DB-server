@@ -33,7 +33,9 @@ namespace App\Form\AdminPages;
 
 
 use App\Entity\Base\NamedDBElement;
+use App\Entity\Parts\MeasurementUnit;
 use App\Form\AdminPages\BaseEntityAdminForm;
+use App\Form\Type\StructuralEntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -45,7 +47,24 @@ class StorelocationAdminForm extends BaseEntityAdminForm
         $is_new = $entity->getID() === null;
 
         $builder->add('is_full', CheckboxType::class, ['required' => false,
-            'label' => 'is_full.label', 'help' => 'is_full.help', 'label_attr'=> ['class' => 'checkbox-custom'],
+            'label' => 'storelocation.is_full.label', 'help' => 'storelocation.is_full.help',
+            'label_attr'=> ['class' => 'checkbox-custom'],
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity)]);
+
+        $builder->add('limit_to_existing_parts', CheckboxType::class, ['required' => false,
+            'label' => 'storelocation.limit_to_existing.label', 'help' => 'storelocation.limit_to_existing.help',
+            'label_attr'=> ['class' => 'checkbox-custom'],
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity)]);
+
+        $builder->add('only_single_part', CheckboxType::class, ['required' => false,
+            'label' => 'storelocation.only_single_part.label', 'help' => 'storelocation.only_single_part.help',
+            'label_attr'=> ['class' => 'checkbox-custom'],
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity)]);
+
+        $builder->add('storage_type', StructuralEntityType::class, ['required' => false,
+            'label' => 'storelocation.storage_type.label', 'help' => 'storelocation.storage_type.help',
+            'class' => MeasurementUnit::class, 'disable_not_selectable' => true,
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity)]);
+
     }
 }

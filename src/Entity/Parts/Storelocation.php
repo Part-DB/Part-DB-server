@@ -92,19 +92,19 @@ class Storelocation extends PartsContainingDBElement
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $is_full;
+    protected $is_full = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $only_single_part;
+    protected $only_single_part = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $limit_to_existing_parts;
+    protected $limit_to_existing_parts = false;
 
     /**
      * @var MeasurementUnit|null The measurement unit, which parts can be stored in here

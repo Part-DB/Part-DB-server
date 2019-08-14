@@ -5,5 +5,17 @@
 {% endblock %}
 
 {% block additional_controls %}
-    {{ form_row(form.is_full) }}
+{% endblock %}
+
+{% block additional_pills %}
+    <li class="nav-item"><a data-toggle="tab" class="nav-link link-anchor" href="#home_options">{% trans %}admin.options{% endtrans %}</a></li>
+{% endblock %}
+
+{% block additional_panes %}
+    <div class="tab-pane" id="home_options">
+        {{ form_row(form.storage_type) }}
+        {{ form_row(form.is_full) }}
+        {{ form_row(form.limit_to_existing_parts) }}
+        {{ form_row(form.only_single_part) }}
+    </div>
 {% endblock %}
