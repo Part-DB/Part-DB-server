@@ -12,11 +12,11 @@
 {% block comment %}{% endblock %}
 
 {% block additional_pills %}
-    <li class="nav-item"><a data-toggle="tab" class="nav-link link-anchor" href="#home_comment">{% trans %}admin.comment{% endtrans %}</a></li>
+    <li class="nav-item"><a data-toggle="tab" class="nav-link link-anchor" href="#home_advanced">{% trans %}admin.advanced{% endtrans %}</a></li>
 {% endblock %}
 
 {% block additional_panes %}
-<div class="tab-pane" id="home_comment">
+<div class="tab-pane" id="home_advanced">
     {{ form_row(form.comment) }}
 </div>
 

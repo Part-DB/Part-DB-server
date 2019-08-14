@@ -37,6 +37,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\Supplier;
 use App\Form\AdminPages\BaseEntityAdminForm;
 use App\Form\AdminPages\CompanyForm;
+use App\Form\AdminPages\SupplierForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
@@ -55,7 +56,7 @@ class SupplierController extends BaseAdminController
 
     protected $entity_class = Supplier::class;
     protected $twig_template = 'AdminPages/SupplierAdmin.html.twig';
-    protected $form_class = CompanyForm::class;
+    protected $form_class = SupplierForm::class;
     protected $route_base = "supplier";
 
     /**

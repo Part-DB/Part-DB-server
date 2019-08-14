@@ -51,7 +51,7 @@ final class Version20190812154222 extends AbstractMigration
         $this->addSql('ALTER TABLE storelocations ADD storage_type_id INT DEFAULT NULL, ADD only_single_part TINYINT(1) NOT NULL, ADD limit_to_existing_parts TINYINT(1) NOT NULL, ADD not_selectable TINYINT(1) NOT NULL, CHANGE parent_id parent_id INT DEFAULT NULL, CHANGE datetime_added datetime_added DATETIME NOT NULL, CHANGE last_modified last_modified DATETIME NOT NULL');
         $this->addSql('ALTER TABLE storelocations ADD CONSTRAINT FK_7517020B270BFF1 FOREIGN KEY (storage_type_id) REFERENCES `measurement_units` (id)');
         $this->addSql('CREATE INDEX IDX_7517020B270BFF1 ON storelocations (storage_type_id)');
-        $this->addSql('ALTER TABLE suppliers ADD default_currency_id INT DEFAULT NULL, ADD shipping_costs NUMERIC(10, 0) DEFAULT NULL, ADD not_selectable TINYINT(1) NOT NULL, CHANGE parent_id parent_id INT DEFAULT NULL, CHANGE datetime_added datetime_added DATETIME NOT NULL, CHANGE last_modified last_modified DATETIME NOT NULL');
+        $this->addSql('ALTER TABLE suppliers ADD default_currency_id INT DEFAULT NULL, ADD shipping_costs NUMERIC(11, 5) DEFAULT NULL, ADD not_selectable TINYINT(1) NOT NULL, CHANGE parent_id parent_id INT DEFAULT NULL, CHANGE datetime_added datetime_added DATETIME NOT NULL, CHANGE last_modified last_modified DATETIME NOT NULL');
         $this->addSql('ALTER TABLE suppliers ADD CONSTRAINT FK_AC28B95CECD792C0 FOREIGN KEY (default_currency_id) REFERENCES currencies (id)');
         $this->addSql('CREATE INDEX IDX_AC28B95CECD792C0 ON suppliers (default_currency_id)');
         $this->addSql('ALTER TABLE parts DROP FOREIGN KEY parts_id_storelocation_fk');

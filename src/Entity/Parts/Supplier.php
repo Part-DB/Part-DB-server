@@ -102,7 +102,7 @@ class Supplier extends Company
 
     /**
      * @var float|null The shipping costs that have to be paid, when ordering via this supplier.
-     * @ORM\Column(name="shipping_costs", nullable=true, type="decimal")
+     * @ORM\Column(name="shipping_costs", nullable=true, type="decimal", precision=11, scale=5)
      * @Assert\PositiveOrZero()
      */
     protected $shipping_costs;
@@ -126,18 +126,19 @@ class Supplier extends Company
     }
 
     /**
-     * @return ?float
+     * @return ?string
      */
-    public function getShippingCosts() : ?float
+    public function getShippingCosts() : ?string
     {
+        dump($this);
         return $this->shipping_costs;
     }
 
     /**
-     * @param ?float $shipping_costs
+     * @param ?string $shipping_costs
      * @return Supplier
      */
-    public function setShippingCosts(?float $shipping_costs) : Supplier
+    public function setShippingCosts(?string $shipping_costs) : Supplier
     {
         $this->shipping_costs = $shipping_costs;
         return $this;
