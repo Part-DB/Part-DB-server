@@ -47,16 +47,13 @@ class PartController extends AbstractController
      * @Route("/part/{id}/info", name="part_info")
      * @Route("/part/{id}", requirements={"id"="\d+"})
      */
-    public function show(Part $part, AttachmentFilenameService $attachmentFilenameService, AttachmentHelper $attachmentHelper)
+    public function show(Part $part, AttachmentHelper $attachmentHelper)
     {
         $this->denyAccessUnlessGranted('read', $part);
-
-        $filename = $part->getMasterPictureFilename(true);
 
         return $this->render('Parts/info/show_part_info.html.twig',
             [
                 'part' => $part,
-                'main_image' => $attachmentFilenameService->attachmentPathToAbsolutePath($filename),
                 'attachment_helper' => $attachmentHelper
             ]
             );

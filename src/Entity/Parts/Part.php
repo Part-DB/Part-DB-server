@@ -69,6 +69,7 @@ use App\Security\Annotations\ColumnSecurity;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -195,6 +196,8 @@ class Part extends AttachmentContainingDBElement
      * @var float
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero()
+     *
+     * @ColumnSecurity(prefix="mininstock", type="integer")
      */
     protected $minamount;
 
@@ -253,7 +256,7 @@ class Part extends AttachmentContainingDBElement
     protected $needs_review = false;
 
     /**
-     * @var MeasurementUnit The unit in which the part's amount is measured.
+     * @var ?MeasurementUnit The unit in which the part's amount is measured.
      * @ORM\ManyToOne(targetEntity="MeasurementUnit")
      * @ORM\JoinColumn(name="id_part_unit", referencedColumnName="id", nullable=true)
      */
@@ -279,7 +282,7 @@ class Part extends AttachmentContainingDBElement
      */
     public function getIDString(): string
     {
-        return 'P'.sprintf('%06d', $this->getID());
+        return 'P' . sprintf('%06d', $this->getID());
     }
 
     /*********************************************************************************
@@ -296,29 +299,6 @@ class Part extends AttachmentContainingDBElement
     {
         return  htmlspecialchars($this->description);
     }
-
-    /**
-     *  Get the count of parts which are in stock.
-     *  When the instock is unkown, then Part::INSTOCK_UNKNOWN is returned.
-     *
-     * @return int count of parts which are in stock
-     */
-    public function getInstock(): int
-    {
-        return $this->instock;
-    }
-
-    /**
-     * Check if the value of the Instock is unknown.
-     *
-     * @return bool True, if the value of the instock is unknown.
-     */
-    public function isInstockUnknown(): bool
-    {
-        return $this->instock <= static::INSTOCK_UNKNOWN;
-    }
-
-    /** @noinspection ReturnTypeCanBeDeclaredInspection */
 
     /**
      *  Get the count of parts which must be in stock at least.
@@ -389,20 +369,10 @@ class Part extends AttachmentContainingDBElement
 
     /**
      *  Get the selected order orderdetails of this part.
-     *
      * @return Orderdetail the selected order orderdetails
-     *
-     * @throws Exception
      */
     public function getOrderOrderdetails(): ?Orderdetail
     {
-        //TODO
-        /*
-        if ($this->order_orderdetails->getObsolete()) {
-            $this->setOrderOrderdetailsID(null);
-            $this->order_orderdetails = null;
-        }*/
-
         return $this->order_orderdetail;
     }
 
@@ -417,42 +387,6 @@ class Part extends AttachmentContainingDBElement
     }
 
     /**
-     *  Get the minimum quantity which should be ordered.
-     *
-     * @param bool $with_devices * if true, all parts from devices which are marked as "to order" will be included in the calculation
-     *                           * if false, only max(mininstock - instock, 0) will be returned
-     *
-     * @return int the minimum order quantity
-     *
-     * @throws Exception
-     */
-    public function getMinOrderQuantity(bool $with_devices = true): int
-    {
-        //TODO
-        throw new \Exception('Not implemented yet...');
-        /*
-        if ($with_devices) {
-        $count_must_order = 0;      // for devices with "order_only_missing_parts == false"
-        $count_should_order = 0;    // for devices with "order_only_missing_parts == true"
-        $deviceparts = DevicePart::getOrderDeviceParts($this->database, $this->current_user, $this->log, $this->getID());
-        foreach ($deviceparts as $devicepart) {
-        /** @var $devicepart DevicePart */
-        /* @var $device Device */ /*
-    $device = $devicepart->getDevice();
-    if ($device->getOrderOnlyMissingParts()) {
-    $count_should_order += $device->getOrderQuantity() * $devicepart->getMountQuantity();
-    } else {
-    $count_must_order += $device->getOrderQuantity() * $devicepart->getMountQuantity();
-    }
-    }
-
-    return $count_must_order + max(0, $this->getMinInstock() - $this->getInstock() + $count_should_order);
-    } else {
-    return max(0, $this->getMinInstock() - $this->getInstock());
-    } **/
-    }
-
-    /**
      *  Check if this part is marked for manual ordering.
      *
      * @return bool the "manual_order" attribute
@@ -460,22 +394,6 @@ class Part extends AttachmentContainingDBElement
     public function isMarkedForManualOrder(): bool
     {
         return $this->manual_order;
-    }
-
-    /**
-     * Check if the part is automatically marked for Ordering, because the instock value is smaller than the min instock value.
-     * This is called automatic ordering.
-     *
-     * @return bool True, if the part should be ordered.
-     */
-    public function isAutoOrdered(): bool
-    {
-        //Parts with negative instock never gets ordered.
-        if ($this->getInstock() < 0) {
-            return false;
-        }
-
-        return $this->getInstock() < $this->getMinInstock();
     }
 
     /**
@@ -505,7 +423,7 @@ class Part extends AttachmentContainingDBElement
      *
      * @return string The manufacturer url saved in DB for this part.
      */
-    public function getOwnProductURL(): string
+    public function getCustomProductURL(): string
     {
         return $this->manufacturer_product_url;
     }
@@ -530,16 +448,6 @@ class Part extends AttachmentContainingDBElement
     public function getFootprint(): ?Footprint
     {
         return $this->footprint;
-    }
-
-    /**
-     *  Get the storelocation of this part (if there is one).
-     *
-     * @return Storelocation the storelocation of this part (if there is one)
-     */
-    public function getStorelocation(): ?Storelocation
-    {
-        return $this->storelocation;
     }
 
     /**
@@ -571,10 +479,10 @@ class Part extends AttachmentContainingDBElement
      *                        (empty array if there are no ones)
      *                        * the array is sorted by the suppliers names / minimum order quantity
      *
-     * @throws Exception if there was an error
      */
-    public function getOrderdetails(bool $hide_obsolete = false)
+    public function getOrderdetails(bool $hide_obsolete = false) : PersistentCollection
     {
+        //If needed hide the obsolete entries
         if ($hide_obsolete) {
             $orderdetails = $this->orderdetails;
             foreach ($orderdetails as $key => $details) {
@@ -584,9 +492,9 @@ class Part extends AttachmentContainingDBElement
             }
 
             return $orderdetails;
-        } else {
-            return $this->orderdetails;
         }
+
+        return $this->orderdetails;
     }
 
     /**
@@ -596,97 +504,10 @@ class Part extends AttachmentContainingDBElement
      *                  (empty array if there are no ones)
      *                  * the array is sorted by the devices names
      *
-     * @throws Exception if there was an error
      */
     public function getDevices(): array
     {
         return $this->devices;
-    }
-
-    /**
-     *  Get all suppliers of this part.
-     *
-     * This method simply gets the suppliers of the orderdetails and prepare them.\n
-     * You can get the suppliers as an array or as a string with individual delimeter.
-     *
-     * @param bool        $object_array  * if true, this method returns an array of Supplier objects
-     *                                   * if false, this method returns an array of strings
-     * @param string|null $delimeter     * if this is a string and "$object_array == false",
-     *                                   this method returns a string with all
-     *                                   supplier names, delimeted by "$delimeter"
-     * @param bool        $full_paths    * if true and "$object_array = false", the returned
-     *                                   suppliernames are full paths (path + name)
-     *                                   * if true and "$object_array = false", the returned
-     *                                   suppliernames are only the names (without path)
-     * @param bool        $hide_obsolete If true, suppliers from obsolete orderdetails will NOT be returned
-     *
-     * @return array  all suppliers as a one-dimensional array of Supplier objects
-     *                (if "$object_array == true")
-     * @return array  all supplier-names as a one-dimensional array of strings
-     *                ("if $object_array == false" and "$delimeter == NULL")
-     * @return string a sting of all supplier names, delimeted by $delimeter
-     *                ("if $object_array == false" and $delimeter is a string)
-     *
-     * @throws Exception if there was an error
-     */
-    public function getSuppliers(bool $object_array = true, $delimeter = null, bool $full_paths = false, bool $hide_obsolete = false)
-    {
-        $suppliers = array();
-        $orderdetails = $this->getOrderdetails($hide_obsolete);
-
-        foreach ($orderdetails as $details) {
-            $suppliers[] = $details->getSupplier();
-        }
-
-        if ($object_array) {
-            return $suppliers;
-        } else {
-            $supplier_names = array();
-            foreach ($suppliers as $supplier) {
-                /* @var Supplier $supplier */
-                if ($full_paths) {
-                    $supplier_names[] = $supplier->getFullPath();
-                } else {
-                    $supplier_names[] = $supplier->getName();
-                }
-            }
-
-            if (\is_string($delimeter)) {
-                return implode($delimeter, $supplier_names);
-            }
-
-            return $supplier_names;
-        }
-    }
-
-    /**
-     *  Get all supplier-part-Nrs.
-     *
-     * This method simply gets the suppliers-part-Nrs of the orderdetails and prepare them.\n
-     * You can get the numbers as an array or as a string with individual delimeter.
-     *
-     * @param string|null $delimeter     * if this is a string, this method returns a delimeted string
-     *                                   * otherwise, this method returns an array of strings
-     * @param bool        $hide_obsolete If true, supplierpartnrs from obsolete orderdetails will NOT be returned
-     *
-     * @return array  all supplierpartnrs as an array of strings (if "$delimeter == NULL")
-     * @return string all supplierpartnrs as a string, delimeted ba $delimeter (if $delimeter is a string)
-     *
-     * @throws Exception if there was an error
-     */
-    public function getSupplierPartNrs($delimeter = null, bool $hide_obsolete = false)
-    {
-        $supplierpartnrs = array();
-
-        foreach ($this->getOrderdetails($hide_obsolete) as $details) {
-            $supplierpartnrs[] = $details->getSupplierPartNr();
-        }
-
-        if (\is_string($delimeter)) {
-            return implode($delimeter, $supplierpartnrs);
-        } else {
-            return $supplierpartnrs;
-        }
     }
 
     /**
@@ -731,10 +552,13 @@ class Part extends AttachmentContainingDBElement
     public function getAveragePrice(int $quantity = 1, $multiplier = null) : ?float
     {
         $prices = $this->getPrices($quantity, $multiplier, true);
+        //Findout out
+
         $average_price = null;
 
         $count = 0;
-        foreach ($prices as $price) {
+        foreach ($this->getOrderdetails() as $orderdetail) {
+            $price = $orderdetail->getPrice(1, null);
             if (null !== $price) {
                 $average_price += $price;
                 ++$count;
@@ -749,106 +573,118 @@ class Part extends AttachmentContainingDBElement
     }
 
     /**
-     *  Get the filename of the master picture (absolute path from filesystem root).
-     *
-     * @param bool $use_footprint_filename * if true, and this part has no picture, this method
-     *                                     will return the filename of its footprint (if available)
-     *                                     * if false, and this part has no picture,
-     *                                     this method will return NULL
-     *
-     * @return string the whole path + filename from filesystem root as a UNIX path (with slashes)
-     *
-     * @throws \Exception if there was an error
+     * Checks if this part is marked, for that it needs further review.
+     * @return bool
      */
-    public function getMasterPictureFilename(bool $use_footprint_filename = false): ?string
+    public function isNeedsReview(): bool
     {
-        $master_picture = $this->getMasterPictureAttachement(); // returns an Attachement-object
-
-        if (null !== $master_picture) {
-            return $master_picture->getPath();
-        }
-
-        if ($use_footprint_filename) {
-            $footprint = $this->getFootprint();
-            if (null !== $footprint) {
-                return $footprint->getFilename();
-            }
-        }
-
-        return null;
+        return $this->needs_review;
     }
 
     /**
-     * Parses the selected fields and extract Properties of the part.
-     *
-     * @param bool $use_description Use the description field for parsing
-     * @param bool $use_comment     Use the comment field for parsing
-     * @param bool $use_name        Use the name field for parsing
-     * @param bool $force_output    Properties are parsed even if properties are disabled.
-     *
-     * @return array A array of PartProperty objects.
-     * @return array If Properties are disabled or nothing was detected, then an empty array is returned.
-     *
-     * @throws Exception
+     * Sets the "needs review" status of this part.
+     * @param bool $needs_review
+     * @return Part
      */
-    public function getProperties(bool $use_description = true, bool $use_comment = true, bool $use_name = true, bool $force_output = false): array
+    public function setNeedsReview(bool $needs_review): Part
     {
-        //TODO
-        throw new \Exception('Not implemented yet!');
-        /*
-        global $config;
-
-        if ($config['properties']['active'] || $force_output) {
-            if ($this->getCategory()->getDisableProperties(true)) {
-                return array();
-            }
-
-            $name = array();
-            $desc = array();
-            $comm = array();
-
-            if ($use_name === true) {
-                $name = $this->getCategory()->getPartnameRegexObj()->getProperties($this->getName());
-            }
-            if ($use_description === true) {
-                $desc = PartProperty::parseDescription($this->getDescription());
-            }
-            if ($use_comment === true) {
-                $comm = PartProperty::parseDescription($this->getComment(false));
-            }
-
-            return array_merge($name, $desc, $comm);
-        } else {
-            return array();
-        }*/
+        $this->needs_review = $needs_review;
+        return $this;
     }
 
     /**
-     * Returns a loop (array) of the array representations of the properties of this part.
-     *
-     * @param bool $use_description Use the description field for parsing
-     * @param bool $use_comment     Use the comment field for parsing
-     *
-     * @return array A array of arrays with the name and value of the properties.
+     * Get all part lots where this part is stored.
+     * @return PartLot[]|PersistentCollection
      */
-    public function getPropertiesLoop(bool $use_description = true, bool $use_comment = true, bool $use_name = true): array
+    public function getPartLots() : PersistentCollection
     {
-        //TODO
-        throw new \Exception('Not implemented yet!');
-        $arr = array();
-        foreach ($this->getProperties($use_description, $use_comment, $use_name) as $property) {
-            /* @var PartProperty $property */
-            $arr[] = $property->getArray(true);
-        }
-
-        return $arr;
+        return $this->partLots;
     }
 
-    /*
-    public function hasValidName() : bool
+
+    /**
+     * Returns the assigned manufacturer product number (MPN) for this part.
+     * @return string
+     */
+    public function getManufacturerProductNumber(): string
     {
-        return self::isValidName($this->getName(), $this->getCategory());
-    } */
+        return $this->manufacturer_product_number;
+    }
+
+    /**
+     * Sets the manufacturer product number (MPN) for this part.
+     * @param string $manufacturer_product_number
+     * @return Part
+     */
+    public function setManufacturerProductNumber(string $manufacturer_product_number): Part
+    {
+        $this->manufacturer_product_number = $manufacturer_product_number;
+        return $this;
+    }
+
+    /**
+     * Gets the measurement unit in which the part's amount should be measured.
+     * Returns null if no specific unit was that. That means the parts are measured simply in quantity numbers.
+     * @return ?MeasurementUnit
+     */
+    public function getPartUnit(): ?MeasurementUnit
+    {
+        return $this->partUnit;
+    }
+
+    /**
+     * Sets the measurement unit in which the part's amount should be measured.
+     * Set to null, if the part should be measured in quantities.
+     * @param ?MeasurementUnit $partUnit
+     * @return Part
+     */
+    public function setPartUnit(?MeasurementUnit $partUnit): Part
+    {
+        $this->partUnit = $partUnit;
+        return $this;
+    }
+
+    /**
+     * Gets a comma separated list, of tags, that are assigned to this part
+     * @return string
+     */
+    public function getTags(): string
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Sets a comma separated list of tags, that are assigned to this part.
+     * @param string $tags
+     * @return Part
+     */
+    public function setTags(string $tags): Part
+    {
+        $this->tags = $tags;
+        return $this;
+    }
+
+    /**
+     * Returns the mass of a single part unit.
+     * Returns null, if the mass is unknown/not set yet
+     * @return float|null
+     */
+    public function getMass(): ?float
+    {
+        return $this->mass;
+    }
+
+    /**
+     * Sets the mass of a single part unit.
+     * Sett to null, if the mass is unknown.
+     * @param float|null $mass
+     * @return Part
+     */
+    public function setMass(?float $mass): Part
+    {
+        $this->mass = $mass;
+        return $this;
+    }
 
     /********************************************************************************
      *
@@ -866,121 +702,6 @@ class Part extends AttachmentContainingDBElement
     public function setDescription(?string $new_description): self
     {
         $this->description = $new_description;
-
-        return $this;
-    }
-
-    /**
-     *  Set the count of parts which are in stock.
-     *
-     * @param int $new_instock the new count of parts which are in stock
-     *
-     * @return self
-     */
-    public function setInstock(int $new_instock, $comment = null): self
-    {
-        //Assert::natural($new_instock, 'New instock must be positive. Got: %s');
-
-        $old_instock = $this->getInstock();
-        $this->instock = $new_instock;
-        //TODO
-        /*
-        InstockChangedEntry::add(
-            $this->database,
-            $this->current_user,
-            $this->log,
-            $this,
-            $old_instock,
-            $new_instock,
-            $comment
-        );*/
-
-        return $this;
-    }
-
-    /**
-     * Sets the unknown status of this part.
-     * When the instock is currently unknown and you pass false, then the instock is set to zero.
-     * If the instock is not unknown and you pass false, nothing is changed.
-     *
-     * @param bool $new_unknown Set this to true if the instock should be marked as unknown.
-     *
-     * @return Part
-     */
-    public function setInstockUnknown(bool $new_unknown): self
-    {
-        if (true === $new_unknown) {
-            $this->instock = self::INSTOCK_UNKNOWN;
-        } elseif ($this->isInstockUnknown()) {
-            $this->setInstock(0);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Withdrawal the given number of parts.
-     *
-     * @param $count int The number of parts which should be withdrawan.
-     * @param $comment string A comment that should be associated with the withdrawal.
-     *
-     * @return self
-     */
-    public function withdrawalParts(int $count, $comment = null): self
-    {
-        //Assert::greaterThan($count,0, 'Count of withdrawn parts must be greater 0! Got %s!');
-        //Assert::greaterThan($count, $this->instock, 'You can not withdraw more parts, than there are existing!');
-
-        $old_instock = $this->getInstock();
-        $new_instock = $old_instock - $count;
-
-        //TODO
-        /*
-        InstockChangedEntry::add(
-            $this->database,
-            $this->current_user,
-            $this->log,
-            $this,
-            $old_instock,
-            $new_instock,
-            $comment
-        );*/
-
-        $this->instock = $new_instock;
-
-        return $this;
-    }
-
-    /**
-     * Add the given number of parts.
-     *
-     * @param $count int The number of parts which should be withdrawan.
-     * @param $comment string A comment that should be associated with the withdrawal.
-     *
-     * @return self
-     */
-    public function addParts(int $count, string $comment = null): self
-    {
-        //Assert::greaterThan($count, 0, 'Count of added parts must be greater zero! Got %s.');
-
-        //TODO
-
-        $old_instock = $this->getInstock();
-        $new_instock = $old_instock + $count;
-
-        //TODO
-        /*
-        InstockChangedEntry::add(
-            $this->database,
-            $this->current_user,
-            $this->log,
-            $this,
-            $old_instock,
-            $new_instock,
-            $comment
-        );*/
-
-        $this->instock = $new_instock;
 
         return $this;
     }
@@ -1029,46 +750,14 @@ class Part extends AttachmentContainingDBElement
      *
      * @return self
      */
-    public function setManualOrder(bool $new_manual_order, int $new_order_quantity = 1, $new_order_orderdetails_id = null): self
+    public function setManualOrder(bool $new_manual_order, int $new_order_quantity = 1, ?Orderdetail $new_order_orderdetail = null): Part
     {
         //Assert::greaterThan($new_order_quantity, 0, 'The new order quantity must be greater zero. Got %s!');
 
         $this->manual_order = $new_manual_order;
 
         //TODO;
-        /* $this->order_orderdetail = $new_order_orderdetails_id; */
-        $this->order_quantity = $new_order_quantity;
-
-        return $this;
-    }
-
-    /**
-     *  Set the ID of the order orderdetails.
-     *
-     * @param int|null $new_order_orderdetails_id * the new order orderdetails ID
-     *                                            * Or, to remove the orderdetails, pass a NULL
-     *
-     * @return self
-     */
-    public function setOrderOrderdetailsID($new_order_orderdetails_id): self
-    {
-        //TODO
-        throw new \Exception('Not implemented yet...');
-
-        return $this;
-    }
-
-    /**
-     *  Set the order quantity.
-     *
-     * @param int $new_order_quantity the new order quantity
-     *
-     * @return self
-     */
-    public function setOrderQuantity(int $new_order_quantity): self
-    {
-        //Assert::greaterThan($new_order_quantity,0, 'The new order quantity must be greater zero. Got %s!');
-
+        $this->order_orderdetail = $new_order_orderdetail;
         $this->order_quantity = $new_order_quantity;
 
         return $this;
@@ -1084,7 +773,7 @@ class Part extends AttachmentContainingDBElement
      *
      * @return self
      */
-    public function setCategory(Category $category): self
+    public function setCategory(Category $category): Part
     {
         $this->category = $category;
 
@@ -1099,24 +788,9 @@ class Part extends AttachmentContainingDBElement
      *
      * @return self
      */
-    public function setFootprint(?Footprint $new_footprint): self
+    public function setFootprint(?Footprint $new_footprint): Part
     {
         $this->footprint = $new_footprint;
-
-        return $this;
-    }
-
-    /**
-     * Set the new store location of this part.
-     *
-     * @param Storelocation|null $new_storelocation The new Storelocation of this part. Set to null, if this part should
-     *                                              not have a storelocation.
-     *
-     * @return Part
-     */
-    public function setStorelocation(?Storelocation $new_storelocation): self
-    {
-        $this->storelocation = $new_storelocation;
 
         return $this;
     }
@@ -1161,25 +835,6 @@ class Part extends AttachmentContainingDBElement
     public function setManufacturerProductURL(string $new_url): self
     {
         $this->manufacturer_product_url = $new_url;
-
-        return $this;
-    }
-
-    /**
-     *  Set the ID of the master picture Attachement.
-     *
-     * @param int|null $new_master_picture_attachement_id * the ID of the Attachement object of the master picture
-     *                                                    * NULL means "no master picture"
-     *
-     * @throws Exception if the new ID is not valid
-     * @throws Exception if there was an error
-     *
-     * @return self
-     */
-    public function setMasterPictureAttachementID($new_master_picture_attachement_id): self
-    {
-        //TODO
-        throw new \Exception('Not implemented yet!');
 
         return $this;
     }
