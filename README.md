@@ -30,16 +30,18 @@ for the first time.
  * For building the client side assets **yarn** and **nodejs** is needed.
  
 ## Installation
+**Caution:** It is possible to upgrade the old Part-DB databases. Anyhow, the migrations that will be made, are not compatible with the old Part-DB versions, so you must not use the old Part-DB versions with the new database, or the DB could become corrupted. Also after the migration it is not possible to go back to the old database scheme, so make sure to make a backup of your database beforehand.
+
 1. Copy or clone this repository into a folder on your server.
 2. Configure your webserver to serve from the `public/` folder. See [here](https://symfony.com/doc/current/setup/web_server_configuration.html)
 for additional informations.
 3. Copy the global config file `cp .env .env.local` and edit `.env.local`:
     * Change the line `APP_ENV=dev` to `APP_ENV=prod`
     * Change the value of `DATABASE_URL=` to your needs (see [here](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url)) for the format.
-      *Currently it is not possible to create a new databse. You have to use the database created by an old Part-DB version!*
 4. Install composer dependencies and generate autoload files: `composer install --no-dev`
 5. Install client side dependencies and build it: `yarn install` and `yarn build`
 6. Optional (speeds up first load): Warmup cache: `php bin/console cache:warmup`
+7. Upgrade database to new scheme (or create it, when it was empty): `php bin/console doctrine:migrations:migrate` and follow the instructions given. **Caution**: This steps tamper with your database and could potentially destroy it. So make sure to make a backup of your database.
 
 When you want to upgrade to a newer version, then just copy the new files into the folder
 and repeat the steps 4. to 7.
