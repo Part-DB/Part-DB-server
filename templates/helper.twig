@@ -47,3 +47,9 @@
         <i class="{{ class }} fa-exclamation-triangle text-danger"></i>
     {% endif %}
 {% endmacro %}
+
+{% macro string_to_tags(string, class="badge badge-info") %}
+    {% for tag in string|split(',') %}
+        <a href="#" class="{{ class }}" >{{ tag | trim }}</a>
+    {% endfor %}
+{% endmacro %}
