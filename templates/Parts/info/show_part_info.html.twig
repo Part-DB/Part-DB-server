@@ -28,9 +28,19 @@
     <div class="">
         <div class="">
             <ul class="nav nav-tabs" id="partTab" role="tablist">
+                {% if part.partLots %}
+                    <li class="nav-item">
+                        <a class="nav-link active" id="part_lots-tab" data-toggle="tab"
+                           href="#part_lots" role="tab">
+                            <i class="fas fa-box fa-fw"></i>
+                            {% trans %}part.part_lots.label{% endtrans %}
+                        </a>
+                    </li>
+                {% endif %}
+
                 {% if part.comment is not empty %}
                     <li class="nav-item">
-                        <a class="nav-link active" id="comment-tab" data-toggle="tab"
+                        <a class="nav-link" id="comment-tab" data-toggle="tab"
                            href="#comment" role="tab">
                             <i class="fas fa-comment-alt fa-fw"></i>
                             {% trans %}comment.label{% endtrans %}
@@ -38,7 +48,7 @@
                     </li>
                 {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link {% if part.comment is empty%} active{% endif %}" id="attachment-tab" data-toggle="tab"
+                    <a class="nav-link" id="attachment-tab" data-toggle="tab"
                        href="#attachments" role="tab">
                         <i class="fas fa-paperclip fa-fw"></i>
                         {% trans %}attachment.labelp{% endtrans %}
@@ -78,25 +88,30 @@
                         </div>
                     </div>
                 {% endif %}
-                <div class="tab-pane fade {% if part.comment is empty %} show active{% endif %}" id="attachments" role="tabpanel" aria-labelledby="profile-tab">
+
+                <div class="tab-pane fade show active" id="part_lots" role="tabpanel" aria-labelledby="part_lots-tab">
+                    {% include "Parts/info/_part_lots.html.twig" %}
+                </div>
+
+                <div class="tab-pane fade" id="attachments" role="tabpanel" aria-labelledby="attachment-tab">
                     {% include "Parts/info/_attachments_info.html.twig" %}
                 </div>
 
-                <div class="tab-pane fade" id="suppliers" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="tab-pane fade" id="suppliers" role="tabpanel" aria-labelledby="supplier-tab">
                     {%  include "Parts/info/_order_infos.html.twig" %}
                 </div>
 
-                <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
                     TODO
                 </div>
 
-                <div class="tab-pane fade" id="tools" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="tab-pane fade" id="tools" role="tabpanel" aria-labelledby="tools-tab">
 
                     {% include "Parts/info/_tools.html.twig" %}
 
                 </div>
 
-                <div class="tab-pane fade" id="extended_info" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="tab-pane fade" id="extended_info" role="tabpanel" aria-labelledby="extended_info-tab">
 
                     {% include "Parts/info/_extended_infos.html.twig" %}
 

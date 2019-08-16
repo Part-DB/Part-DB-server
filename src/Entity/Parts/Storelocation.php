@@ -62,6 +62,8 @@ declare(strict_types=1);
 namespace App\Entity\Parts;
 
 use App\Entity\Base\PartsContainingDBElement;
+use App\Entity\Base\StructuralDBElement;
+use App\Form\Type\StructuralEntityType;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -70,7 +72,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
  * @ORM\Table("`storelocations`")
  */
-class Storelocation extends PartsContainingDBElement
+class Storelocation extends StructuralDBElement
 {
     /**
      * @ORM\OneToMany(targetEntity="Storelocation", mappedBy="parent")
@@ -82,11 +84,6 @@ class Storelocation extends PartsContainingDBElement
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     protected $parent;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Part", mappedBy="storelocation")
-     */
-    protected $parts;
 
     /**
      * @var bool

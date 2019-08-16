@@ -184,22 +184,13 @@ class Part extends AttachmentContainingDBElement
     protected $partLots;
 
     /**
-     * @var int
-     * @ORM\Column(type="integer")
-     * @Assert\GreaterThanOrEqual(0)
-     *
-     * @ColumnSecurity(prefix="mininstock", type="integer")
-     */
-    protected $mininstock = 0;
-
-    /**
      * @var float
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero()
      *
      * @ColumnSecurity(prefix="mininstock", type="integer")
      */
-    protected $minamount;
+    protected $minamount = 0;
 
     /**
      * @var string
@@ -306,9 +297,9 @@ class Part extends AttachmentContainingDBElement
      *
      * @return int count of parts which must be in stock at least
      */
-    public function getMinInstock(): int
+    public function getMinAmount(): float
     {
-        return $this->mininstock;
+        return $this->minamount;
     }
 
     /**
@@ -687,6 +678,45 @@ class Part extends AttachmentContainingDBElement
         return $this;
     }
 
+    /**
+     * Checks if this part uses the float amount .
+     * This setting is based on the part unit (see MeasurementUnit->isInteger()).
+     * @return bool True if the float amount field should be used. False if the integer instock field should be used.
+     */
+    public function useFloatAmount(): bool
+    {
+        if ($this->partUnit instanceof MeasurementUnit) {
+            return $this->partUnit->isInteger();
+        }
+
+        //When no part unit is set, treat it as part count, and so use the integer value.
+        return false;
+    }
+
+    /**
+     * Returns the summed amount of this part (over all part lots)
+     * @return float
+     */
+    public function getAmountSum() : float
+    {
+        //TODO: Find a method to do this natively in SQL, the current method could be a bit slow
+        $sum = 0;
+        foreach($this->getPartLots() as $lot) {
+            //Dont use the instock value, if it is unkown
+            if ($lot->isInstockUnknown()) {
+                continue;
+            }
+
+            $sum += $lot->getAmount();
+        }
+
+        if(!$this->useFloatAmount()) {
+            return $sum;
+        }
+
+        return round($sum);
+    }
+
     /********************************************************************************
      *
      *   Setters
@@ -708,17 +738,18 @@ class Part extends AttachmentContainingDBElement
     }
 
     /**
-     *  Set the count of parts which should be in stock at least.
+     *  Set the minimum amount of parts that have to be instock.
+     *  See getPartUnit() for the associated unit.
      *
      * @param int $new_mininstock the new count of parts which should be in stock at least
      *
      * @return self
      */
-    public function setMinInstock(int $new_mininstock): self
+    public function setMinAmount(float $new_mininstock): self
     {
         //Assert::natural($new_mininstock, 'The new minimum instock value must be positive! Got %s.');
 
-        $this->mininstock = $new_mininstock;
+        $this->minamount = $new_minamount;
 
         return $this;
     }

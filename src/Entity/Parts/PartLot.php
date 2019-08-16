@@ -65,7 +65,7 @@ class PartLot extends DBElement
     protected $comment;
 
     /**
-     * @var \DateTime Set a time until when the lot must be used.
+     * @var ?\DateTime Set a time until when the lot must be used.
      * Set to null, if the lot can be used indefinitley.
      * @ORM\Column(type="datetimetz", name="expiration_date", nullable=true)
      */
@@ -92,16 +92,11 @@ class PartLot extends DBElement
      */
     protected $instock_unknown;
 
-    /**
-     * @var int For integer sizes the instock is saved here.
-     * @ORM\Column(type="integer", nullable=true)
-     * @Assert\Positive()
-     */
-    protected $instock;
 
     /**
      * @var float For continuos sizes (length, volume, etc.) the instock is saved here.
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="float")
+     * @Assert\Positive()
      */
     protected $amount;
 
@@ -122,4 +117,179 @@ class PartLot extends DBElement
     {
         return 'PL' . $this->getID();
     }
+
+    /**
+     * Check if the current part lot is expired.
+     * This is the case, if the expiration date is greater the the current date.
+     * @return bool|null True, if the part lot is expired. Returns null, if no expiration date was set.
+     * @throws \Exception
+     */
+    public function isExpired(): ?bool
+    {
+        if ($this->expiration_date == null) {
+            return null;
+        }
+
+        //Check if the expiration date is bigger then current time
+        return $this->expiration_date < new \DateTime();
+    }
+
+    /**
+     * Gets the description of the part lot. Similar to a "name" of the part lot.
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * Sets the description of the part lot.
+     * @param string $description
+     * @return PartLot
+     */
+    public function setDescription(string $description): PartLot
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * Gets the comment for this part lot.
+     * @return string
+     */
+    public function getComment(): string
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Sets the comment for this part lot.
+     * @param string $comment
+     * @return PartLot
+     */
+    public function setComment(string $comment): PartLot
+    {
+        $this->comment = $comment;
+        return $this;
+    }
+
+    /**
+     * Gets the expiration date for the part lot. Returns null, if no expiration date was set.
+     * @return \DateTime|null
+     */
+    public function getExpirationDate(): ?\DateTime
+    {
+        return $this->expiration_date;
+    }
+
+    /**
+     * Sets the expiration date for the part lot. Set to null, if the part lot does not expires.
+     * @param \DateTime $expiration_date
+     * @return PartLot
+     */
+    public function setExpirationDate(?\DateTime $expiration_date): PartLot
+    {
+        $this->expiration_date = $expiration_date;
+        return $this;
+    }
+
+    /**
+     * Gets the storage locatiion, where this part lot is stored.
+     * @return Storelocation The store location where this part is stored
+     */
+    public function getStorageLocation(): Storelocation
+    {
+        return $this->storage_location;
+    }
+
+    /**
+     * Sets the storage location, where this part lot is stored
+     * @param Storelocation $storage_location
+     * @return PartLot
+     */
+    public function setStorageLocation(Storelocation $storage_location): PartLot
+    {
+        $this->storage_location = $storage_location;
+        return $this;
+    }
+
+    /**
+     * Return the part that is stored in this part lot.
+     * @return Part
+     */
+    public function getPart(): Part
+    {
+        return $this->part;
+    }
+
+    /**
+     * Sets the part that is stored in this part lot.
+     * @param Part $part
+     * @return PartLot
+     */
+    public function setPart(Part $part): PartLot
+    {
+        $this->part = $part;
+        return $this;
+    }
+
+    /**
+     * Checks if the instock value in the part lot is unknown.
+     *
+     * @return bool
+     */
+    public function isInstockUnknown(): bool
+    {
+        return $this->instock_unknown;
+    }
+
+    /**
+     * Set the unknown instock status of this part lot.
+     * @param bool $instock_unknown
+     * @return PartLot
+     */
+    public function setInstockUnknown(bool $instock_unknown): PartLot
+    {
+        $this->instock_unknown = $instock_unknown;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getAmount(): float
+    {
+        if (!$this->part->useFloatAmount()) {
+            return round($this->amount);
+        }
+        return (float) $this->amount;
+    }
+
+    public function setAmount(float $new_amount): PartLot
+    {
+        $this->amount  = $new_amount;
+    }
+
+
+
+    /**
+     * @return bool
+     */
+    public function isNeedsRefill(): bool
+    {
+        return $this->needs_refill;
+    }
+
+    /**
+     * @param bool $needs_refill
+     * @return PartLot
+     */
+    public function setNeedsRefill(bool $needs_refill): PartLot
+    {
+        $this->needs_refill = $needs_refill;
+        return $this;
+    }
+
+
 }

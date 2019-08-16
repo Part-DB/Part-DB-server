@@ -1,0 +1,55 @@
+<table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th>{% trans %}part_lots.description{% endtrans %}</th>
+        <th>{% trans %}part_lots.storage_location{% endtrans %}</th>
+        <th>{% trans %}part_lots.amount{% endtrans %}</th>
+        <th></th> {# Tags row #}
+        <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for lot in part.partLots %}
+        <tr>
+            <td>{{ lot.description }}</td>
+            <td>
+                {{ lot.storageLocation.fullPath }}
+            </td>
+            <td>
+                {% if lot.instockUnknown %}
+                    <span class="badge badge-pill badge-warning">
+                        <i class="fas fa-question-circle fa-fw"></i> {% trans %}part_lots.instock_unknown{% endtrans %}
+                    </span>
+                {% else %}
+                    {{ lot.amount }}
+                {% endif %}
+            </td>
+            <td>
+                <h6>
+                    {% if lot.expirationDate %}
+                        <span class="badge badge-info" title="{% trans %}part_lots.expiration_date{% endtrans %}">
+                            <i class="fas fa-calendar-alt fa-fw"></i> {{ lot.expirationDate | localizeddate }}
+                        </span>
+                    {% endif %}
+                    {% if lot.expired %}
+                        <br>
+                        <span class="badge badge-warning">
+                            <i class="fas fa-exclamation-circle fa-fw"></i>
+                            {% trans %}part_lots.is_expired{% endtrans %}
+                        </span>
+                    {% endif %}
+                    {% if lot.needsRefill %}
+                        <br>
+                        <span class="badge badge-warning">
+                            <i class="fas fa-dolly fa-fw"></i>
+                            {% trans %}part_lots.need_refill{% endtrans %}
+                        </span>
+                    {% endif %}
+                </h6>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
