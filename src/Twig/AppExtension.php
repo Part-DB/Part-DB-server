@@ -33,6 +33,7 @@ use App\Entity\Attachments\Attachment;
 use App\Entity\Base\DBElement;
 use App\Services\EntityURLGenerator;
 use App\Services\MoneyFormatter;
+use App\Services\SIFormatter;
 use App\Services\TreeBuilder;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -49,16 +50,19 @@ class AppExtension extends AbstractExtension
     protected $serializer;
     protected $treeBuilder;
     protected $moneyFormatter;
+    protected $siformatter;
 
     public function __construct(EntityURLGenerator $entityURLGenerator, AdapterInterface $cache,
                                 SerializerInterface $serializer, TreeBuilder $treeBuilder,
-                                MoneyFormatter $moneyFormatter)
+                                MoneyFormatter $moneyFormatter,
+                                SIFormatter $SIFormatter)
     {
         $this->entityURLGenerator = $entityURLGenerator;
         $this->cache = $cache;
         $this->serializer = $serializer;
         $this->treeBuilder = $treeBuilder;
         $this->moneyFormatter = $moneyFormatter;
+        $this->siformatter = $SIFormatter;
     }
 
     public function getFilters()
@@ -66,7 +70,8 @@ class AppExtension extends AbstractExtension
         return [
             new TwigFilter('entityURL', [$this, 'generateEntityURL']),
             new TwigFilter('bbCode', [$this, 'parseBBCode'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
-            new TwigFilter('moneyFormat', [$this, 'formatCurrency'])
+            new TwigFilter('moneyFormat', [$this, 'formatCurrency']),
+            new TwigFilter('siFormat', [$this, 'siFormat']),
         ];
     }
 
@@ -116,5 +121,10 @@ class AppExtension extends AbstractExtension
     public function formatCurrency($amount, $currency = "")
     {
         return $this->moneyFormatter->format($amount, $currency);
+    }
+
+    public function siFormat($value, $unit, $decimals = 2)
+    {
+        return $this->siformatter->format($value, $unit, $decimals);
     }
 }

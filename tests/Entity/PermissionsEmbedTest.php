@@ -31,7 +31,7 @@
 
 namespace App\Tests\Entity;
 
-use App\Entity\PermissionsEmbed;
+use App\Entity\UserSystem\PermissionsEmbed;
 use Doctrine\ORM\Mapping\Embedded;
 use PHPUnit\Framework\TestCase;
 

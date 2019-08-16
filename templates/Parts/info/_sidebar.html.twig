@@ -10,6 +10,15 @@
 </span>
 </div>
 
+{# Part mass #}
+{% if part.mass %}
+    <div>
+        <h6>
+            <span class="badge badge-secondary" title="{% trans %}part.mass.tooltip{% endtrans %}"><i class="fas fa-weight-hanging fa-fw"></i> {{ part.mass | siFormat("g") }}</span>
+        </h6>
+    </div>
+{% endif %}
+
 {# Needs Review tag #}
 {% if part.needsReview %}
     <div class="mt-1">

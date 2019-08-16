@@ -32,9 +32,9 @@
 namespace App\Tests\Services;
 
 
-use App\Entity\Group;
-use App\Entity\PermissionsEmbed;
-use App\Entity\User;
+use App\Entity\UserSystem\Group;
+use App\Entity\UserSystem\PermissionsEmbed;
+use App\Entity\UserSystem\User;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use App\Services\PermissionResolver;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;

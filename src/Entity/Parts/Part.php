@@ -271,6 +271,7 @@ class Part extends AttachmentContainingDBElement
     /**
      * @var float|null How much a single part unit weighs in gramms.
      * @ORM\Column(type="float", nullable=true)
+     * @Assert\Positive()
      */
     protected $mass;
 
