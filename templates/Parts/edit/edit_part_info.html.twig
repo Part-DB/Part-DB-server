@@ -17,18 +17,34 @@
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" role="tab" href="#common">{% trans %}part.edit.tab.common{% endtrans %}</a>
+            <a class="nav-link active" data-toggle="tab" role="tab" href="#common">
+                <i class="fas fa-id-card fa-fw"></i>
+                {% trans %}part.edit.tab.common{% endtrans %}
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" role="tab" href="#manufacturer">{% trans %}part.edit.tab.manufacturer{% endtrans %}</a>
+            <a class="nav-link" data-toggle="tab" role="tab" href="#manufacturer">
+                <i class="fas fa-industry fa-fw"></i>
+                {% trans %}part.edit.tab.manufacturer{% endtrans %}
+            </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" role="tab" href="#options">{% trans %}part.edit.tab.options{% endtrans %}</a>
+            <a class="nav-link" data-toggle="tab" role="tab" href="#options">
+                <i class="fas fa-shapes fa-fw"></i>
+                {% trans %}part.edit.tab.options{% endtrans %}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" role="tab" href="#part_lots">
+                <i class="fas fa-boxes fa-fw"></i>
+                {% trans %}part.edit.tab.part_lots{% endtrans %}
+            </a>
         </li>
     </ul>
 
+    {{ form_start(form) }}
     <div class="tab-content">
-        {{ form_start(form_main) }}
+
         <div class="tab-pane fade show active p-2" id="common" role="tabpanel">
             {% include "Parts/edit/_main.html.twig" %}
         </div>
@@ -38,8 +54,14 @@
         <div class="tab-pane fade p-2" id="options" role="tabpanel">
             {% include "Parts/edit/_options.html.twig" %}
         </div>
-        {{ form_end(form_main) }}
+        <div class="tab-pane fade p-2" id="part_lots" role="tabpanel">
+            {% include "Parts/edit/_lots.html.twig" %}
+        </div>
+
 
 
     </div>
+    {{ form_row(form.save) }}
+    {{ form_row(form.reset) }}
+    {{ form_end(form) }}
 {% endblock %}

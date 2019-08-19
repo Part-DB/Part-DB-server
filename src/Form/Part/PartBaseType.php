@@ -43,6 +43,7 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -119,14 +120,18 @@ class PartBaseType extends AbstractType
             ->add('favorite', CheckboxType::class, ['label_attr'=> ['class' => 'checkbox-custom'],
                 'required' => false, 'label' => 'part.edit.is_favorite']);
 
+        //Part Lots section
+        $builder->add('partLots', CollectionType::class, [
+            'entry_type' => PartLotType::class,
+            'allow_add' => true, 'allow_delete' => true,
+            'label' => false,
+            'by_reference' => false
+        ]);
+
         $builder
             //Buttons
-            ->add('save1', SubmitType::class, ['label' => 'part.edit.save'])
-            ->add('reset1', ResetType::class, ['label' => 'part.edit.reset'])
-            ->add('save2', SubmitType::class, ['label' => 'part.edit.save'])
-            ->add('reset2', ResetType::class, ['label' => 'part.edit.reset'])
-            ->add('save3', SubmitType::class, ['label' => 'part.edit.save'])
-            ->add('reset3', ResetType::class, ['label' => 'part.edit.reset']);
+            ->add('save', SubmitType::class, ['label' => 'part.edit.save'])
+            ->add('reset', ResetType::class, ['label' => 'part.edit.reset']);
     }
 
     public function configureOptions(OptionsResolver $resolver)

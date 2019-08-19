@@ -179,7 +179,8 @@ class Part extends AttachmentContainingDBElement
 
     /**
      * @var ?PartLot[]
-     * @ORM\OneToMany(targetEntity="PartLot", mappedBy="part")
+     * @ORM\OneToMany(targetEntity="PartLot", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     protected $partLots;
 
@@ -593,6 +594,18 @@ class Part extends AttachmentContainingDBElement
         return $this->partLots;
     }
 
+    public function addPartLot(PartLot $lot): Part
+    {
+        $lot->setPart($this);
+        $this->partLots->add($lot);
+        return $this;
+    }
+
+    public function removePartLot(PartLot $lot): Part
+    {
+        $this->partLots->removeElement($lot);
+        return $this;
+    }
 
     /**
      * Returns the assigned manufacturer product number (MPN) for this part.

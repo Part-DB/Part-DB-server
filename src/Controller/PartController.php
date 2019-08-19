@@ -82,7 +82,7 @@ class PartController extends AbstractController
         return $this->render('Parts/edit/edit_part_info.html.twig',
             [
                 'part' => $part,
-                'form_main' => $form->createView(),
+                'form' => $form->createView(),
             ]);
     }
 

@@ -56,13 +56,13 @@ class PartLot extends DBElement
      * @var string A short description about this lot, shown in table
      * @ORM\Column(type="text")
      */
-    protected $description;
+    protected $description = "";
 
     /**
      * @var string A comment stored with this lot.
      * @ORM\Column(type="text")
      */
-    protected $comment;
+    protected $comment = "";
 
     /**
      * @var ?\DateTime Set a time until when the lot must be used.
@@ -90,21 +90,21 @@ class PartLot extends DBElement
      * @var bool If this is set to true, the instock amount is marked as not known
      * @ORM\Column(type="boolean")
      */
-    protected $instock_unknown;
+    protected $instock_unknown = false;
 
 
     /**
      * @var float For continuos sizes (length, volume, etc.) the instock is saved here.
      * @ORM\Column(type="float")
-     * @Assert\Positive()
+     * @Assert\PositiveOrZero()
      */
-    protected $amount;
+    protected $amount = 0;
 
     /**
      * @var boolean Determines if this lot was manually marked for refilling.
      * @ORM\Column(type="boolean")
      */
-    protected $needs_refill;
+    protected $needs_refill = false;
 
     /**
      * Returns the ID as an string, defined by the element class.
@@ -198,7 +198,7 @@ class PartLot extends DBElement
      * Gets the storage locatiion, where this part lot is stored.
      * @return Storelocation The store location where this part is stored
      */
-    public function getStorageLocation(): Storelocation
+    public function getStorageLocation(): ?Storelocation
     {
         return $this->storage_location;
     }
@@ -260,7 +260,7 @@ class PartLot extends DBElement
      */
     public function getAmount(): float
     {
-        if (!$this->part->useFloatAmount()) {
+        if ($this->part instanceof Part && !$this->part->useFloatAmount()) {
             return round($this->amount);
         }
         return (float) $this->amount;
@@ -269,6 +269,7 @@ class PartLot extends DBElement
     public function setAmount(float $new_amount): PartLot
     {
         $this->amount  = $new_amount;
+        return $this;
     }
 
 
