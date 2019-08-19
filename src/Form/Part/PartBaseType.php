@@ -93,10 +93,10 @@ class PartBaseType extends AbstractType
             ->add('category', StructuralEntityType::class, ['class' => Category::class,
                 'label' => 'category.label', 'disable_not_selectable' => true,
                 'disabled' => !$this->security->isGranted('move', $part), ])
-            ->add('footprint', StructuralEntityType::class, ['class' => Footprint::class,
+            ->add('footprint', StructuralEntityType::class, ['class' => Footprint::class, 'required' => false,
                 'label' => 'footprint.label', 'disable_not_selectable' => true,
                 'disabled' => !$this->security->isGranted('move', $part), ])
-            ->add('tags', TextType::class, ['required' => false, 'label' => 'part.tags',
+            ->add('tags', TextType::class, ['required' => false, 'label' => 'part.tags', 'empty_data' => "",
                 'attr' => ['data-role' => 'tagsinput'],
                 'disabled' => !$this->security->isGranted('edit', $part) ])
             ->add('comment', CKEditorType::class, ['required' => false,

@@ -67,6 +67,8 @@ use App\Entity\Devices\Device;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Security\Annotations\ColumnSecurity;
 use App\Validator\Constraints\Selectable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Doctrine\ORM\PersistentCollection;
@@ -167,7 +169,7 @@ class Part extends AttachmentContainingDBElement
      *
      * @ColumnSecurity(prefix="name")
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * @var string
@@ -239,7 +241,7 @@ class Part extends AttachmentContainingDBElement
      * @ORM\Column(type="string")
      * @ColumnSecurity(prefix="manufacturer", type="string", placeholder="")
      */
-    protected $manufacturer_product_number;
+    protected $manufacturer_product_number = '';
 
     /**
      * @var bool Determines if this part entry needs review (for example, because it is work in progress)
@@ -258,7 +260,7 @@ class Part extends AttachmentContainingDBElement
      * @var string A comma seperated list of tags, assocciated with the part.
      * @ORM\Column(type="text")
      */
-    protected $tags;
+    protected $tags = '';
 
     /**
      * @var float|null How much a single part unit weighs in gramms.
@@ -266,6 +268,12 @@ class Part extends AttachmentContainingDBElement
      * @Assert\Positive()
      */
     protected $mass;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->partLots = new ArrayCollection();
+    }
 
     /**
      * Returns the ID as an string, defined by the element class.
@@ -473,7 +481,7 @@ class Part extends AttachmentContainingDBElement
      *                        * the array is sorted by the suppliers names / minimum order quantity
      *
      */
-    public function getOrderdetails(bool $hide_obsolete = false) : PersistentCollection
+    public function getOrderdetails(bool $hide_obsolete = false) : Collection
     {
         //If needed hide the obsolete entries
         if ($hide_obsolete) {
@@ -587,9 +595,9 @@ class Part extends AttachmentContainingDBElement
 
     /**
      * Get all part lots where this part is stored.
-     * @return PartLot[]|PersistentCollection
+     * @return PartLot[]|Collection
      */
-    public function getPartLots() : PersistentCollection
+    public function getPartLots() : Collection
     {
         return $this->partLots;
     }
