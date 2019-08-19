@@ -52,6 +52,9 @@ require('./datatables.js');
 
 window.bootbox = require('bootbox')
 
+// Includes required for tag input
+require('./tagsinput.js');
+require('../css/tagsinput.css')
 
 require('../ts_src/ajax_ui');
 import {ajaxUI} from "../ts_src/ajax_ui";

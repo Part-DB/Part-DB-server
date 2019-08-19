@@ -218,6 +218,11 @@ $(document).on("ajaxUI:reload", function () {
     $(".file").fileinput();
 });
 
+$(document).on("ajaxUI:reload", function () {
+    //@ts-ignore
+    $("input[data-role='tagsinput']").tagsinput();
+});
+
 /**
  * Register the button, to jump to the top of the page.
  */

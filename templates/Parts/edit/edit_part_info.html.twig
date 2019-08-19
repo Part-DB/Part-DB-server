@@ -1,0 +1,45 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}
+    {% trans with {'%name%': part.name} %}part.edit.title{% endtrans %}
+{% endblock %}
+
+{% block card_title %}
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    {% trans with {'%name%': part.name} %}part.edit.card_title{% endtrans %}
+    <b><a href="{{ part|entityURL('info') }}" class="text-white">{{ part.name }}</a></b>
+    <div class="float-right">
+        {% trans %}id.label{% endtrans %}: {{ part.id }}
+    </div>
+{% endblock %}
+
+{% block card_content %}
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" role="tab" href="#common">{% trans %}part.edit.tab.common{% endtrans %}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" role="tab" href="#manufacturer">{% trans %}part.edit.tab.manufacturer{% endtrans %}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" role="tab" href="#options">{% trans %}part.edit.tab.options{% endtrans %}</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        {{ form_start(form_main) }}
+        <div class="tab-pane fade show active p-2" id="common" role="tabpanel">
+            {% include "Parts/edit/_main.html.twig" %}
+        </div>
+        <div class="tab-pane fade p-2" id="manufacturer" role="tabpanel">
+            {% include "Parts/edit/_manufacturer.html.twig" %}
+        </div>
+        <div class="tab-pane fade p-2" id="options" role="tabpanel">
+            {% include "Parts/edit/_options.html.twig" %}
+        </div>
+        {{ form_end(form_main) }}
+
+
+    </div>
+{% endblock %}

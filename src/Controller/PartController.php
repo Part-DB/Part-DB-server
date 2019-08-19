@@ -32,7 +32,7 @@ namespace App\Controller;
 
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
-use App\Form\PartType;
+use App\Form\Part\PartBaseType;
 use App\Services\AttachmentFilenameService;
 use App\Services\AttachmentHelper;
 use Doctrine\ORM\EntityManagerInterface;
@@ -70,7 +70,7 @@ class PartController extends AbstractController
     {
         $this->denyAccessUnlessGranted('edit', $part);
 
-        $form = $this->createForm(PartType::class, $part);
+        $form = $this->createForm(PartBaseType::class, $part);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,10 +79,10 @@ class PartController extends AbstractController
             $this->addFlash('info', 'part.edited_flash');
         }
 
-        return $this->render('Parts/edit_part_info.html.twig',
+        return $this->render('Parts/edit/edit_part_info.html.twig',
             [
                 'part' => $part,
-                'form' => $form->createView(),
+                'form_main' => $form->createView(),
             ]);
     }
 
@@ -102,7 +102,7 @@ class PartController extends AbstractController
         $category = $em->find(Category::class, $cid);
         $new_part->setCategory($category);
 
-        $form = $this->createForm(PartType::class, $new_part);
+        $form = $this->createForm(PartBaseType::class, $new_part);
 
         $form->handleRequest($request);
 
@@ -114,7 +114,7 @@ class PartController extends AbstractController
             return $this->redirectToRoute('part_edit', ['id' => $new_part->getID()]);
         }
 
-        return $this->render('Parts/new_part.html.twig',
+        return $this->render('Parts/edit/new_part.html.twig',
             [
                 'part' => $new_part,
                 'form' => $form->createView(),
@@ -131,7 +131,7 @@ class PartController extends AbstractController
 
         $this->denyAccessUnlessGranted('create', $new_part);
 
-        $form = $this->createForm(PartType::class, $new_part);
+        $form = $this->createForm(PartBaseType::class, $new_part);
 
         $form->handleRequest($request);
 

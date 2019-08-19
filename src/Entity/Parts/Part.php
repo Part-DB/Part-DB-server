@@ -745,7 +745,7 @@ class Part extends AttachmentContainingDBElement
      *
      * @return self
      */
-    public function setMinAmount(float $new_mininstock): self
+    public function setMinAmount(float $new_minamount): self
     {
         //Assert::natural($new_mininstock, 'The new minimum instock value must be positive! Got %s.');
 

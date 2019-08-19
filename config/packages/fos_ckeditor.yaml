@@ -8,14 +8,27 @@ fos_ck_editor:
     default_config: complex_config
     configs:
         complex_config:
-            extraPlugins: "bbcode"
+            extraPlugins: ["bbcode"]
             toolbar: standard
+            height: 100
         simple_config:
             extraPlugins: "bbcode"
             toolbar: basic
+        description_config:
+            extraPlugins: "bbcode"
+            height: 60
+            toolbar: description_toolbar
 
 
     plugins:
         bbcode:
             path:     "ckeditor/plugins/bbcode/" # with trailing slash
             filename: "plugin.js"
+        specialchar:
+            path:     "ckeditor/plugins/specialchar"
+            filename:  "plugin.js"
+
+
+    toolbars:
+        configs:
+            description_toolbar: [ ["Source", "-", 'Bold', 'Italic', "-", "RemoveFormat", "-", "Smiley", "SpecialChar"] ]
