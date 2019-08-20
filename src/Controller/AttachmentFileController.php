@@ -47,17 +47,20 @@ class AttachmentFileController extends AbstractController
      *
      * @Route("/attachment/{id}/download", name="attachment_download")
      * @param Attachment $attachment
+     * @param AttachmentHelper $helper
+     * @return BinaryFileResponse
+     * @throws \Exception
      */
     public function download(Attachment $attachment, AttachmentHelper $helper)
     {
-        $this->denyAccessUnlessGranted("read", $attachment);
+        $this->denyAccessUnlessGranted('read', $attachment);
 
         if ($attachment->isExternal()) {
-            throw new \Exception("You can not download external attachments!");
+            throw new \RuntimeException('You can not download external attachments!');
         }
 
         if (!$helper->isFileExisting($attachment)) {
-            throw new \Exception("The file associated with the attachment is not existing!");
+            throw new \RuntimeException('The file associated with the attachment is not existing!');
         }
 
 
@@ -75,17 +78,20 @@ class AttachmentFileController extends AbstractController
      *
      * @Route("/attachment/{id}/view", name="attachment_view")
      * @param Attachment $attachment
+     * @param AttachmentHelper $helper
+     * @return BinaryFileResponse
+     * @throws \Exception
      */
     public function view(Attachment $attachment, AttachmentHelper $helper)
     {
-        $this->denyAccessUnlessGranted("read", $attachment);
+        $this->denyAccessUnlessGranted('read', $attachment);
 
         if ($attachment->isExternal()) {
-            throw new \Exception("You can not download external attachments!");
+            throw new \RuntimeException('You can not download external attachments!');
         }
 
         if (!$helper->isFileExisting($attachment)) {
-            throw new \Exception("The file associated with the attachment is not existing!");
+            throw new \RuntimeException('The file associated with the attachment is not existing!');
         }
 
 

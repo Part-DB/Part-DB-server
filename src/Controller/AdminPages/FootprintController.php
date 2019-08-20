@@ -55,7 +55,7 @@ class FootprintController extends BaseAdminController
     protected $entity_class = Footprint::class;
     protected $twig_template = 'AdminPages/FootprintAdmin.html.twig';
     protected $form_class = BaseEntityAdminForm::class;
-    protected $route_base = "footprint";
+    protected $route_base = 'footprint';
 
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="footprint_edit")
@@ -70,7 +70,7 @@ class FootprintController extends BaseAdminController
      * @Route("/new", name="footprint_new")
      * @Route("/")
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
     {
@@ -101,6 +101,7 @@ class FootprintController extends BaseAdminController
      * @Route("/{id}/export", name="footprint_export")
      * @param Request $request
      * @param AttachmentType $entity
+     * @return Response
      */
     public function exportEntity(AttachmentType $entity, EntityExporter $exporter, Request $request)
     {

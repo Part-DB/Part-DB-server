@@ -30,16 +30,13 @@
 namespace App\Controller;
 
 use App\Entity\Attachments\AttachmentType;
-use App\Entity\Parts\Footprint;
 use App\Entity\UserSystem\User;
-use App\Form\AdminPages\BaseEntityAdminForm;
 use App\Form\UserAdminForm;
 use App\Form\UserSettingsType;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -63,7 +60,7 @@ class UserController extends AdminPages\BaseAdminController
     protected $entity_class = User::class;
     protected $twig_template = 'AdminPages/UserAdmin.html.twig';
     protected $form_class = UserAdminForm::class;
-    protected $route_base = "user";
+    protected $route_base = 'user';
 
 
     /**
@@ -79,7 +76,7 @@ class UserController extends AdminPages\BaseAdminController
      * @Route("/new", name="user_new")
      * @Route("/")
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
     {
@@ -110,6 +107,7 @@ class UserController extends AdminPages\BaseAdminController
      * @Route("/{id}/export", name="user_export")
      * @param Request $request
      * @param AttachmentType $entity
+     * @return Response
      */
     public function exportEntity(User $entity, EntityExporter $exporter, Request $request)
     {

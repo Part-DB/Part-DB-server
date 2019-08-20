@@ -128,72 +128,13 @@ class Footprint extends PartsContainingDBElement
 
     /**
      *   Get the filename of the 3d model (absolute path from filesystem root).
-     *
-     * @param bool $absolute If set to true, then the absolute filename (from system root) is returned.
-     *                       If set to false, then the path relative to Part-DB folder is returned.
-     *
      * @return string * the absolute path to the model (from filesystem root), as a UNIX path (with slashes)
      *                * an empty string if there is no model
      */
-    public function get3dFilename(bool $absolute = true): string
+    public function get3dFilename(): string
     {
-        if (true === $absolute) {
-            //TODO
-            throw new \Exception('Not Implemented yet...');
-            //return str_replace('%BASE%', BASE, $this->db_data['filename_3d']);
-        }
-
         return $this->filename_3d;
     }
-
-    /**
-     *  Check if the filename of this footprint is valid (picture exists).
-     *
-     * This method is used to get all footprints with broken filename
-     * (Footprint::get_broken_filename_footprints()).
-     *
-     *  An empty filename is a valid filename.
-     *
-     * @return bool * true if file exists or filename is empty
-     *              * false if there is no file with this filename
-     */
-    public function isFilenameValid(): bool
-    {
-        if (empty($this->getFilename())) {
-            return true;
-        }
-
-        return file_exists($this->getFilename());
-    }
-
-    /**
-     *  Check if the filename of this 3d footprint is valid (model exists and have ).
-     *
-     * This method is used to get all footprints with broken 3d filename
-     * (Footprint::get_broken_3d_filename_footprints()).
-     *
-     *  An empty filename is a valid filename.
-     *
-     * @return bool * true if file exists or filename is empty
-     *              * false if there is no file with this filename
-     */
-    public function is3dFilenameValid(): bool
-    {
-        if (empty($this->get3dFilename())) {
-            return true;
-        }
-
-        //Check if file is X3D-Model (these has .x3d extension)
-        if (false === strpos($this->get3dFilename(), '.x3d')) {
-            return false;
-        }
-
-        return file_exists($this->get3dFilename());
-    }
-
-    /*****************************************************************************
-     * Setters
-     ****************************************************************************/
 
     /********************************************************************************
      *
@@ -203,25 +144,8 @@ class Footprint extends PartsContainingDBElement
 
     /**
      *  Change the filename of this footprint.
-     *
-     *     The filename won't be checked if it is valid.
-     *          It's not really a Problem if there is no such file...
-     *          (For this purpose we have the method Footprint::get_broken_filename_footprints())
-     *
-     * @param string $new_filename * the new filename (absolute path from filesystem root, as a UNIX path [only slashes!] !! )
-     *                             * see also lib.functions.php::to_unix_path()
-     *
-     *      It's really important that you pass the whole (UNIX) path from filesystem root!
-     *              If the file is located in the base directory of Part-DB, the base path
-     *              will be automatically replaced with a placeholder before write it in the database.
-     *              This way, the filenames are still correct if the installation directory
-     *              of Part-DB is moved.
-     *
-     *         The path-replacing will be done in Footprint::check_values_validity(), not here.
-     *
-     * @return Footprint
-     *
-     * @throws \Exception if there was an error
+     *  @param string $new_filename The new file name
+     *  @return Footprint
      */
     public function setFilename(string $new_filename): self
     {
@@ -232,8 +156,9 @@ class Footprint extends PartsContainingDBElement
 
     /**
      *  Change the 3d model filename of this footprint.
+     * @param string $new_filename The new filename
      *
-     * @throws \Exception if there was an error
+     * @return Footprint
      */
     public function set3dFilename(string $new_filename): self
     {

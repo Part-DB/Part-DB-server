@@ -33,7 +33,6 @@ namespace App\Repository;
 
 
 use App\Entity\Base\StructuralDBElement;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
 
 class StructuralDBElementRepository extends EntityRepository

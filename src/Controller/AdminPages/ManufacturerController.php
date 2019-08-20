@@ -32,11 +32,8 @@
 namespace App\Controller\AdminPages;
 
 
-use App\Entity\Attachments\AttachmentType;
-
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Supplier;
-use App\Form\AdminPages\BaseEntityAdminForm;
 use App\Form\AdminPages\CompanyForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
@@ -72,7 +69,7 @@ class ManufacturerController extends BaseAdminController
      * @Route("/new", name="manufacturer_new")
      * @Route("/")
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
     {
@@ -103,6 +100,7 @@ class ManufacturerController extends BaseAdminController
      * @Route("/{id}/export", name="manufacturer_export")
      * @param Request $request
      * @param Supplier $entity
+     * @return Response
      */
     public function exportEntity(Manufacturer $entity, EntityExporter $exporter, Request $request)
     {

@@ -33,7 +33,6 @@ namespace App\Controller;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Form\Part\PartBaseType;
-use App\Services\AttachmentFilenameService;
 use App\Services\AttachmentHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -46,6 +45,9 @@ class PartController extends AbstractController
     /**
      * @Route("/part/{id}/info", name="part_info")
      * @Route("/part/{id}", requirements={"id"="\d+"})
+     * @param Part $part
+     * @param AttachmentHelper $attachmentHelper
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function show(Part $part, AttachmentHelper $attachmentHelper)
     {
@@ -64,6 +66,8 @@ class PartController extends AbstractController
      *
      * @param Part $part
      *
+     * @param Request $request
+     * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function edit(Part $part, Request $request, EntityManagerInterface $em)
@@ -89,6 +93,9 @@ class PartController extends AbstractController
     /**
      * @Route("/part/new", name="part_new")
      *
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param TranslatorInterface $translator
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator)
@@ -123,6 +130,11 @@ class PartController extends AbstractController
 
     /**
      * @Route("/part/{id}/clone", name="part_clone")
+     * @param Part $part
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param TranslatorInterface $translator
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function clone(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator)
     {
@@ -143,7 +155,7 @@ class PartController extends AbstractController
             return $this->redirectToRoute('part_edit', ['id' => $new_part->getID()]);
         }
 
-        return $this->render('Parts/new_part.html.twig',
+        return $this->render('Parts/edit/new_part.html.twig',
             [
                 'part' => $new_part,
                 'form' => $form->createView(),

@@ -100,7 +100,7 @@ class Currency extends StructuralDBElement
     {
         $tmp = $this->getExchangeRate();
 
-        if ($tmp == null) {
+        if ($tmp === null) {
             return null;
         }
 

@@ -91,7 +91,7 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank
      */
-    protected $name = "";
+    protected $name = '';
 
     /**
      * //@ORM\Column(type="json").

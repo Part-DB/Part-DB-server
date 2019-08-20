@@ -55,10 +55,8 @@ namespace App\Entity\Base;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\PersistentCollection;
 use App\Validator\Constraints\NoneOfItsChildren;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Serializer\Annotation\DiscriminatorMap;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -102,7 +100,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      * @ORM\Column(type="text")
      * @Groups({"simple", "extended", "full"})
      */
-    protected $comment = "";
+    protected $comment = '';
 
     /**
      * @var int
@@ -132,6 +130,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
 
     public function __construct()
     {
+        parent::__construct();
         $this->children = new ArrayCollection();
     }
 
@@ -154,16 +153,16 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
         $class_name = \get_class($this);
 
         //Check if both elements compared, are from the same type:
-        if ($class_name != \get_class($another_element)) {
+        if ($class_name !== \get_class($another_element)) {
             throw new \InvalidArgumentException('isChildOf() only works for objects of the same type!');
         }
 
-        if (null == $this->getParent()) { // this is the root node
+        if (null === $this->getParent()) { // this is the root node
             return false;
         }
 
         //If this' parents element, is $another_element, then we are finished
-        return ($this->parent->getID() == $another_element->getID())
+        return ($this->parent->getID() === $another_element->getID())
             || $this->parent->isChildOf($another_element); //Otherwise, check recursivley
     }
 
@@ -247,7 +246,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
 
             $overflow = 20; //We only allow 20 levels depth
 
-            while (null != $element->parent && $overflow >= 0) {
+            while (null !== $element->parent && $overflow >= 0) {
                 $element = $element->parent;
                 $this->full_path_strings[] = $element->getName();
                 //Decrement to prevent mem overflow.

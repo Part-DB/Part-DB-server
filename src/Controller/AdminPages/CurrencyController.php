@@ -33,10 +33,7 @@ namespace App\Controller\AdminPages;
 
 
 use App\Entity\Attachments\AttachmentType;
-use App\Entity\Parts\Category;
 use App\Entity\PriceInformations\Currency;
-use App\Form\AdminPages\BaseEntityAdminForm;
-use App\Form\AdminPages\CategoryAdminForm;
 use App\Form\AdminPages\CurrencyAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
@@ -58,11 +55,15 @@ class CurrencyController extends BaseAdminController
     protected $entity_class = Currency::class;
     protected $twig_template = 'AdminPages/CurrencyAdmin.html.twig';
     protected $form_class = CurrencyAdminForm::class;
-    protected $route_base = "currency";
+    protected $route_base = 'currency';
 
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="currency_edit")
      * @Route("/{id}/", requirements={"id"="\d+"})
+     * @param Currency $entity
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return Response
      */
     public function edit(Currency $entity, Request $request, EntityManagerInterface $em)
     {
@@ -73,7 +74,10 @@ class CurrencyController extends BaseAdminController
      * @Route("/new", name="currency_new")
      * @Route("/")
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param EntityImporter $importer
+     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
     {
@@ -82,6 +86,10 @@ class CurrencyController extends BaseAdminController
 
     /**
      * @Route("/{id}", name="currency_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Currency $entity
+     * @param StructuralElementRecursionHelper $recursionHelper
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Request $request, Currency $entity, StructuralElementRecursionHelper $recursionHelper)
     {
@@ -90,9 +98,9 @@ class CurrencyController extends BaseAdminController
 
     /**
      * @Route("/export", name="currency_export_all")
-     * @param Request $request
-     * @param SerializerInterface $serializer
      * @param EntityManagerInterface $em
+     * @param EntityExporter $exporter
+     * @param Request $request
      * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request)
@@ -102,8 +110,10 @@ class CurrencyController extends BaseAdminController
 
     /**
      * @Route("/{id}/export", name="currency_export")
+     * @param Currency $entity
+     * @param EntityExporter $exporter
      * @param Request $request
-     * @param AttachmentType $entity
+     * @return Response
      */
     public function exportEntity(Currency $entity, EntityExporter $exporter, Request $request)
     {

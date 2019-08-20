@@ -52,7 +52,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
-use App\Entity\Base\StructuralDBElement;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -67,39 +66,39 @@ abstract class Company extends StructuralDBElement
      * @var string The address of the company
      * @ORM\Column(type="string")
      */
-    protected $address = "";
+    protected $address = '';
 
     /**
      * @var string The phone number of the company
      * @ORM\Column(type="string")
      */
-    protected $phone_number = "";
+    protected $phone_number = '';
 
     /**
      * @var string The fax number of the company
      * @ORM\Column(type="string")
      */
-    protected $fax_number = "";
+    protected $fax_number = '';
 
     /**
      * @var string The email address of the company
      * @ORM\Column(type="string")
      * @Assert\Email()
      */
-    protected $email_address = "";
+    protected $email_address = '';
 
     /**
      * @var string The website of the company
      * @ORM\Column(type="string")
      * @Assert\Url()
      */
-    protected $website = "";
+    protected $website = '';
 
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    protected $auto_product_url = "";
+    protected $auto_product_url = '';
 
     /********************************************************************************
      *

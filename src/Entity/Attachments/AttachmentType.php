@@ -53,7 +53,6 @@ declare(strict_types=1);
 namespace App\Entity\Attachments;
 
 use App\Entity\Base\StructuralDBElement;
-use App\Validator\Constraints\NoneOfItsChildren;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -86,7 +85,7 @@ class AttachmentType extends StructuralDBElement
     /**
      * Get all attachements ("Attachement" objects) with this type.
      *
-     * @return Attachment[] all attachements with this type, as a one-dimensional array of Attachement-objects
+     * @return Collection|Attachment[] all attachements with this type, as a one-dimensional array of Attachement-objects
      *                      (sorted by their names)
      */
     public function getAttachementsForType(): Collection

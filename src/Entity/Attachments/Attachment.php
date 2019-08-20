@@ -27,7 +27,6 @@ use App\Entity\Base\DBElement;
 use App\Entity\Base\NamedDBElement;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Intl\Exception\NotImplementedException;
 
 /**
  * Class Attachment.
@@ -114,7 +113,7 @@ abstract class Attachment extends NamedDBElement
     /**
      * Get the element, associated with this Attachement (for example a "Part" object).
      *
-     * @return DBElement The associated Element.
+     * @return AttachmentContainingDBElement The associated Element.
      */
     public function getElement(): ?AttachmentContainingDBElement
     {
@@ -260,8 +259,8 @@ abstract class Attachment extends NamedDBElement
         }
         if ($path_required) {
             return (bool) filter_var($string, FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED);
-        } else {
-            return (bool) filter_var($string, FILTER_VALIDATE_URL);
         }
+
+        return (bool) filter_var($string, FILTER_VALIDATE_URL);
     }
 }

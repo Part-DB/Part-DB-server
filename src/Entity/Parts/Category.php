@@ -83,13 +83,13 @@ class Category extends PartsContainingDBElement
      * @var string
      * @ORM\Column(type="text")
      */
-    protected $partname_hint = "";
+    protected $partname_hint = '';
 
     /**
      * @var string
      * @ORM\Column(type="text")
      */
-    protected $partname_regex = "";
+    protected $partname_regex = '';
 
     /**
      * @var bool
@@ -119,13 +119,13 @@ class Category extends PartsContainingDBElement
      * @var string
      * @ORM\Column(type="text")
      */
-    protected $default_description = "";
+    protected $default_description = '';
 
     /**
      * @var string
      * @ORM\Column(type="text")
      */
-    protected $default_comment = "";
+    protected $default_comment = '';
 
     /**
      * Returns the ID as an string, defined by the element class.

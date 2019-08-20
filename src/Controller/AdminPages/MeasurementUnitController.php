@@ -34,7 +34,6 @@ namespace App\Controller\AdminPages;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\MeasurementUnit;
-use App\Form\AdminPages\BaseEntityAdminForm;
 use App\Form\AdminPages\MeasurementUnitAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
@@ -55,7 +54,7 @@ class MeasurementUnitController extends BaseAdminController
     protected $entity_class = MeasurementUnit::class;
     protected $twig_template = 'AdminPages/MeasurementUnitAdmin.html.twig';
     protected $form_class = MeasurementUnitAdminForm::class;
-    protected $route_base = "measurement_unit";
+    protected $route_base = 'measurement_unit';
 
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="measurement_unit_edit")
@@ -70,7 +69,7 @@ class MeasurementUnitController extends BaseAdminController
      * @Route("/new", name="measurement_unit_new")
      * @Route("/")
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
     {
@@ -101,6 +100,7 @@ class MeasurementUnitController extends BaseAdminController
      * @Route("/{id}/export", name="measurement_unit_export")
      * @param Request $request
      * @param AttachmentType $entity
+     * @return Response
      */
     public function exportEntity(AttachmentType $entity, EntityExporter $exporter, Request $request)
     {

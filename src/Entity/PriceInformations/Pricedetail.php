@@ -220,6 +220,7 @@ class Pricedetail extends DBElement
     public function setCurrency(?Currency $currency): Pricedetail
     {
         $this->currency = $currency;
+        return $this;
     }
 
     /**

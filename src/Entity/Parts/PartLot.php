@@ -33,7 +33,6 @@ namespace App\Entity\Parts;
 
 
 use App\Entity\Base\DBElement;
-use App\Entity\Base\NamedDBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
@@ -56,13 +55,13 @@ class PartLot extends DBElement
      * @var string A short description about this lot, shown in table
      * @ORM\Column(type="text")
      */
-    protected $description = "";
+    protected $description = '';
 
     /**
      * @var string A comment stored with this lot.
      * @ORM\Column(type="text")
      */
-    protected $comment = "";
+    protected $comment = '';
 
     /**
      * @var ?\DateTime Set a time until when the lot must be used.
@@ -126,7 +125,7 @@ class PartLot extends DBElement
      */
     public function isExpired(): ?bool
     {
-        if ($this->expiration_date == null) {
+        if ($this->expiration_date === null) {
             return null;
         }
 

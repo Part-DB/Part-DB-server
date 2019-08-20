@@ -35,11 +35,9 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
-use App\Helpers\TreeViewNode;
 use App\Services\ToolsTreeBuilder;
 use App\Services\TreeBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -66,7 +64,7 @@ class TreeController extends AbstractController
      */
     public function categoryTree(TreeBuilder $builder, Category $category = null)
     {
-        if ($category != null) {
+        if ($category !== null) {
             $tree[] = $builder->elementToTreeNode($category);
         } else {
             $tree = $builder->typeToTree(Category::class);
@@ -82,7 +80,7 @@ class TreeController extends AbstractController
      */
     public function footprintTree(TreeBuilder $builder, Footprint $footprint = null)
     {
-        if ($footprint != null) {
+        if ($footprint !== null) {
             $tree[] = $builder->elementToTreeNode($footprint);
         } else {
             $tree = $builder->typeToTree(Footprint::class, null);
@@ -98,7 +96,7 @@ class TreeController extends AbstractController
      */
     public function locationTree(TreeBuilder $builder, Storelocation $location = null)
     {
-        if ($location != null) {
+        if ($location !== null) {
             $tree[] = $builder->elementToTreeNode($location);
         } else {
             $tree = $builder->typeToTree(Storelocation::class, null);
@@ -114,7 +112,7 @@ class TreeController extends AbstractController
      */
     public function manufacturerTree(TreeBuilder $builder, Manufacturer $manufacturer = null)
     {
-        if ($manufacturer != null) {
+        if ($manufacturer !== null) {
             $tree[] = $builder->elementToTreeNode($manufacturer);
         } else {
             $tree = $builder->typeToTree(Manufacturer::class, null);
@@ -130,7 +128,7 @@ class TreeController extends AbstractController
      */
     public function supplierTree(TreeBuilder $builder, Supplier $supplier = null)
     {
-        if ($supplier != null) {
+        if ($supplier !== null) {
             $tree[] = $builder->elementToTreeNode($supplier);
         } else {
             $tree = $builder->typeToTree(Supplier::class, null);
@@ -146,7 +144,7 @@ class TreeController extends AbstractController
      */
     public function deviceTree(TreeBuilder $builder, Device $device = null)
     {
-        if ($device != null) {
+        if ($device !== null) {
             $tree[] = $builder->elementToTreeNode($device);
         } else {
             $tree = $builder->typeToTree(Device::class, null);

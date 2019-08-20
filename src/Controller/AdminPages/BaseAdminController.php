@@ -33,7 +33,6 @@ namespace App\Controller\AdminPages;
 
 use App\Entity\Base\NamedDBElement;
 use App\Entity\Base\StructuralDBElement;
-use App\Form\AdminPages\BaseEntityAdminForm;
 use App\Form\AdminPages\ImportType;
 use App\Form\AdminPages\MassCreationForm;
 use App\Services\EntityExporter;
@@ -48,14 +47,14 @@ use Symfony\Component\Validator\ConstraintViolationList;
 abstract class BaseAdminController extends AbstractController
 {
 
-    protected $entity_class = "";
-    protected $form_class = "";
-    protected $twig_template = "";
-    protected $route_base = "";
+    protected $entity_class = '';
+    protected $form_class = '';
+    protected $twig_template = '';
+    protected $route_base = '';
 
     public function __construct()
     {
-        if ($this->entity_class === "" || $this->form_class === "" || $this->twig_template === "" || $this->route_base === "") {
+        if ($this->entity_class === '' || $this->form_class === '' || $this->twig_template === '' || $this->route_base === '') {
             throw new \InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');
         }
     }
@@ -115,7 +114,7 @@ abstract class BaseAdminController extends AbstractController
 
             foreach ($errors as $name => $error) {
                 /** @var $error ConstraintViolationList */
-                $this->addFlash('error', $name . ":" . $error);
+                $this->addFlash('error', $name . ':' . $error);
             }
         }
 
@@ -134,7 +133,7 @@ abstract class BaseAdminController extends AbstractController
             //Show errors to user:
             foreach ($errors as $name => $error) {
                 /** @var $error ConstraintViolationList */
-                $this->addFlash('error', $name . ":" . $error);
+                $this->addFlash('error', $name . ':' . $error);
             }
         }
 

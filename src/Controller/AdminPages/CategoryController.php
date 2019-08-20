@@ -34,7 +34,6 @@ namespace App\Controller\AdminPages;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\Category;
-use App\Form\AdminPages\BaseEntityAdminForm;
 use App\Form\AdminPages\CategoryAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
@@ -55,11 +54,15 @@ class CategoryController extends BaseAdminController
     protected $entity_class = Category::class;
     protected $twig_template = 'AdminPages/CategoryAdmin.html.twig';
     protected $form_class = CategoryAdminForm::class;
-    protected $route_base = "category";
+    protected $route_base = 'category';
 
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="category_edit")
      * @Route("/{id}/", requirements={"id"="\d+"})
+     * @param Category $entity
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return Response
      */
     public function edit(Category $entity, Request $request, EntityManagerInterface $em)
     {
@@ -70,7 +73,10 @@ class CategoryController extends BaseAdminController
      * @Route("/new", name="category_new")
      * @Route("/")
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param EntityImporter $importer
+     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
     {
@@ -79,6 +85,10 @@ class CategoryController extends BaseAdminController
 
     /**
      * @Route("/{id}", name="category_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Category $entity
+     * @param StructuralElementRecursionHelper $recursionHelper
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Request $request, Category $entity, StructuralElementRecursionHelper $recursionHelper)
     {
@@ -87,9 +97,9 @@ class CategoryController extends BaseAdminController
 
     /**
      * @Route("/export", name="category_export_all")
-     * @param Request $request
-     * @param SerializerInterface $serializer
      * @param EntityManagerInterface $em
+     * @param EntityExporter $exporter
+     * @param Request $request
      * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request)
@@ -99,8 +109,10 @@ class CategoryController extends BaseAdminController
 
     /**
      * @Route("/{id}/export", name="category_export")
+     * @param Category $entity
+     * @param EntityExporter $exporter
      * @param Request $request
-     * @param AttachmentType $entity
+     * @return Response
      */
     public function exportEntity(Category $entity, EntityExporter $exporter, Request $request)
     {

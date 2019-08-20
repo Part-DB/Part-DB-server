@@ -56,7 +56,6 @@ use App\Entity\Base\NamedDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\PersistentCollection;
 use Exception;
 
 /**
@@ -103,11 +102,11 @@ abstract class AttachmentContainingDBElement extends NamedDBElement
     /**
      * Get all attachements of this element / Get the element's attachements with a specific type.
      *
-     * @param int  $type_id                 * if NULL, all attachements of this element will be returned
-     *                                      * if this is a number > 0, only attachements with this type ID will be returned
+     * @param int  $type_id           * if NULL, all attachements of this element will be returned
+     *                                * if this is a number > 0, only attachements with this type ID will be returned
      * @param bool $only_table_attachements if true, only attachements with "show_in_table == true"
      *
-     * @return Attachment[] the attachements as a one-dimensional array of Attachement objects
+     * @return Collection|Attachment[] the attachements as a one-dimensional array of Attachement objects
      *
      * @throws Exception if there was an error
      */

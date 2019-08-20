@@ -32,11 +32,7 @@
 namespace App\Controller\AdminPages;
 
 
-use App\Entity\Attachments\AttachmentType;
-
 use App\Entity\Parts\Supplier;
-use App\Form\AdminPages\BaseEntityAdminForm;
-use App\Form\AdminPages\CompanyForm;
 use App\Form\AdminPages\SupplierForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
@@ -57,7 +53,7 @@ class SupplierController extends BaseAdminController
     protected $entity_class = Supplier::class;
     protected $twig_template = 'AdminPages/SupplierAdmin.html.twig';
     protected $form_class = SupplierForm::class;
-    protected $route_base = "supplier";
+    protected $route_base = 'supplier';
 
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="supplier_edit")
@@ -72,7 +68,7 @@ class SupplierController extends BaseAdminController
      * @Route("/new", name="supplier_new")
      * @Route("/")
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
     {
@@ -103,6 +99,7 @@ class SupplierController extends BaseAdminController
      * @Route("/{id}/export", name="supplier_export")
      * @param Request $request
      * @param Supplier $entity
+     * @return Response
      */
     public function exportEntity(Supplier $entity, EntityExporter $exporter, Request $request)
     {

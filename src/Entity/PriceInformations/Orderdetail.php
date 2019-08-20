@@ -237,7 +237,7 @@ class Orderdetail extends DBElement
     public function getPrice(int $quantity = 1, $multiplier = null) : ?float
     {
 
-        if (($quantity == 0) && ($multiplier === null)) {
+        if (($quantity === 0) && ($multiplier === null)) {
                 return 0.0;
         }
 
@@ -258,7 +258,7 @@ class Orderdetail extends DBElement
             $correct_pricedetails = $pricedetails;
         }
 
-        if ($correct_pricedetails == null) {
+        if ($correct_pricedetails === null) {
             return null;
         }
 
@@ -276,22 +276,21 @@ class Orderdetail extends DBElement
      *********************************************************************************/
 
     /**
-     * Set the supplier ID.
-     *
-     * @param int $new_supplier_id the ID of the new supplier
+     * Sets the new supplier associated with this orderdetail.
+     * @param Supplier $new_supplier
+     * @return Orderdetail
      */
-    public function setSupplierId(int $new_supplier_id): self
+    public function setSupplier(Supplier $new_supplier) : Orderdetail
     {
-        throw new \Exception('Not implemented yet!');
-        //TODO;
-
+        $this->supplier = $new_supplier;
         return $this;
     }
 
     /**
      * Set the supplier part-nr.
-     *
      * @param string $new_supplierpartnr the new supplier-part-nr
+     * @return Orderdetail
+     * @return Orderdetail
      */
     public function setSupplierpartnr(string $new_supplierpartnr): self
     {
@@ -302,8 +301,9 @@ class Orderdetail extends DBElement
 
     /**
      * Set if the part is obsolete at the supplier of that orderdetails.
-     *
      * @param bool $new_obsolete true means that this part is obsolete
+     * @return Orderdetail
+     * @return Orderdetail
      */
     public function setObsolete(bool $new_obsolete): self
     {
@@ -315,8 +315,9 @@ class Orderdetail extends DBElement
     /**
      * Sets the custom product supplier URL for this order detail.
      * Set this to "", if the function getSupplierProductURL should return the automatic generated URL.
-     *
      * @param $new_url string The new URL for the supplier URL.
+     * @return Orderdetail
+     * @return Orderdetail
      */
     public function setSupplierProductUrl(string $new_url)
     {

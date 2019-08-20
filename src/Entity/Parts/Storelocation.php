@@ -61,9 +61,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
-use App\Entity\Base\PartsContainingDBElement;
 use App\Entity\Base\StructuralDBElement;
-use App\Form\Type\StructuralEntityType;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

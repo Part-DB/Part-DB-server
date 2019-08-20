@@ -57,6 +57,6 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
-        throw new \Exception('Will be intercepted before getting here');
+        throw new \RuntimeException('Will be intercepted before getting here');
     }
 }

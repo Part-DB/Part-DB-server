@@ -71,7 +71,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -169,7 +168,7 @@ class Part extends AttachmentContainingDBElement
      *
      * @ColumnSecurity(prefix="name")
      */
-    protected $name = '';
+    protected $name;
 
     /**
      * @var string
@@ -303,12 +302,18 @@ class Part extends AttachmentContainingDBElement
 
     /**
      *  Get the count of parts which must be in stock at least.
+     * If a integer-based part unit is selected, the value will be rounded to integers
      *
-     * @return int count of parts which must be in stock at least
+     * @return float count of parts which must be in stock at least
      */
     public function getMinAmount(): float
     {
-        return $this->minamount;
+        if ($this->useFloatAmount()) {
+            return $this->minamount;
+        }
+
+        return round($this->minamount);
+
     }
 
     /**
@@ -476,7 +481,7 @@ class Part extends AttachmentContainingDBElement
      *
      * @param bool $hide_obsolete If true, obsolete orderdetails will NOT be returned
      *
-     * @return Orderdetail[] * all orderdetails as a one-dimensional array of Orderdetails objects
+     * @return Collection|Orderdetail[] * all orderdetails as a one-dimensional array of Orderdetails objects
      *                        (empty array if there are no ones)
      *                        * the array is sorted by the suppliers names / minimum order quantity
      *
@@ -638,7 +643,7 @@ class Part extends AttachmentContainingDBElement
     /**
      * Gets the measurement unit in which the part's amount should be measured.
      * Returns null if no specific unit was that. That means the parts are measured simply in quantity numbers.
-     * @return ?MeasurementUnit
+     * @return MeasurementUnit|null
      */
     public function getPartUnit(): ?MeasurementUnit
     {
@@ -648,7 +653,7 @@ class Part extends AttachmentContainingDBElement
     /**
      * Sets the measurement unit in which the part's amount should be measured.
      * Set to null, if the part should be measured in quantities.
-     * @param ?MeasurementUnit $partUnit
+     * @param MeasurementUnit|null $partUnit
      * @return Part
      */
     public function setPartUnit(?MeasurementUnit $partUnit): Part
@@ -762,7 +767,7 @@ class Part extends AttachmentContainingDBElement
      *  Set the minimum amount of parts that have to be instock.
      *  See getPartUnit() for the associated unit.
      *
-     * @param int $new_mininstock the new count of parts which should be in stock at least
+     * @param int $new_minamount the new count of parts which should be in stock at least
      *
      * @return self
      */

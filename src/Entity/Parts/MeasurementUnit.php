@@ -33,7 +33,6 @@ namespace App\Entity\Parts;
 
 
 use App\Entity\Base\PartsContainingDBElement;
-use App\Entity\Base\StructuralDBElement;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -127,7 +126,7 @@ class MeasurementUnit extends PartsContainingDBElement
      */
     public function setIsInteger(bool $isInteger): MeasurementUnit
     {
-        $this->isInteger = $isInteger;
+        $this->is_integer = $isInteger;
         return $this;
     }
 
@@ -145,7 +144,7 @@ class MeasurementUnit extends PartsContainingDBElement
      */
     public function setUseSIPrefix(bool $usesSIPrefixes): MeasurementUnit
     {
-        $this->useSIPrefixes = $usesSIPrefixes;
+        $this->use_si_prefix = $usesSIPrefixes;
         return $this;
     }
 }

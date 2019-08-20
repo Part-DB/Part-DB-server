@@ -34,7 +34,6 @@ namespace App\Controller\AdminPages;
 use App\Entity\Attachments\AttachmentType;
 
 use App\Entity\Parts\Storelocation;
-use App\Form\AdminPages\BaseEntityAdminForm;
 use App\Form\AdminPages\StorelocationAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
@@ -42,7 +41,6 @@ use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\HttpCache\Store;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -56,7 +54,7 @@ class StorelocationController extends BaseAdminController
     protected $entity_class = Storelocation::class;
     protected $twig_template = 'AdminPages/StorelocationAdmin.html.twig';
     protected $form_class = StorelocationAdminForm::class;
-    protected $route_base = "store_location";
+    protected $route_base = 'store_location';
 
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="store_location_edit")
@@ -71,7 +69,7 @@ class StorelocationController extends BaseAdminController
      * @Route("/new", name="store_location_new")
      * @Route("/")
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
     {
@@ -102,6 +100,7 @@ class StorelocationController extends BaseAdminController
      * @Route("/{id}/export", name="store_location_export")
      * @param Request $request
      * @param AttachmentType $entity
+     * @return Response
      */
     public function exportEntity(Storelocation $entity, EntityExporter $exporter, Request $request)
     {
