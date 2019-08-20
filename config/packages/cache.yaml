@@ -2,7 +2,7 @@ framework:
     cache:
         # Put the unique name of your app here: the prefix seed
         # is used to compute stable namespaces for cache keys.
-        #prefix_seed: your_vendor_name/app_name
+        prefix_seed: Part-DB/Part-DB
 
         # The app cache caches to the filesystem by default.
         # Other options include:
@@ -15,5 +15,8 @@ framework:
         #app: cache.adapter.apcu
 
         # Namespaced pools use the above "app" backend by default
-        #pools:
-            #my.dedicated.cache: ~
+        pools:
+            # Here all things related to cache the tree structures
+            tree.cache:
+              adapter: cache.app
+              tags: true

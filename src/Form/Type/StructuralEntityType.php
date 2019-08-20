@@ -35,6 +35,7 @@ namespace App\Form\Type;
 use App\Entity\Base\StructuralDBElement;
 use App\Entity\Parts\Storelocation;
 use App\Repository\StructuralDBElementRepository;
+use App\Services\TreeBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
@@ -54,10 +55,13 @@ class StructuralEntityType extends AbstractType
 {
     protected $em;
     protected $options;
+    /** @var TreeBuilder  */
+    protected $builder;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, TreeBuilder $builder)
     {
         $this->em = $em;
+        $this->builder = $builder;
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -122,9 +126,12 @@ class StructuralEntityType extends AbstractType
     {
         $this->options = $options;
 
+        $choices = $this->builder->typeToNodesList($options['class'], null);
+
+
         /** @var StructuralDBElementRepository $repo */
-        $repo = $this->em->getRepository($options['class']);
-        $choices = $repo->toNodesList(null);
+        /*$repo = $this->em->getRepository($options['class']);
+        $choices = $repo->toNodesList(null); */
         return $choices;
     }
 

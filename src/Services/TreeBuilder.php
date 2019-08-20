@@ -37,7 +37,16 @@ use App\Entity\Base\StructuralDBElement;
 use App\Helpers\TreeViewNode;
 use App\Repository\StructuralDBElementRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Bundle\MakerBundle\Str;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Cache\Adapter\TagAwareAdapter;
+use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -50,12 +59,17 @@ class TreeBuilder
     protected $url_generator;
     protected $em;
     protected $translator;
+    protected $cache;
+    protected $security;
 
-    public function __construct(EntityURLGenerator $URLGenerator, EntityManagerInterface $em, TranslatorInterface $translator)
+    public function __construct(EntityURLGenerator $URLGenerator, EntityManagerInterface $em,
+                                TranslatorInterface $translator, TagAwareCacheInterface $treeCache, Security $security)
     {
         $this->url_generator = $URLGenerator;
         $this->em = $em;
         $this->translator = $translator;
+        $this->security = $security;
+        $this->cache = $treeCache;
     }
 
     /**
@@ -148,5 +162,35 @@ class TreeBuilder
         }
 
         return $array;
+    }
+
+    /**
+     * Gets a flattened hierachical tree. Useful for generating option lists.
+     * In difference to the Repository Function, the results here are cached.
+     * @param string $class_name The class name of the entity you want to retrieve.
+     * @param StructuralDBElement|null $parent This entity will be used as root element. Set to null, to use global root
+     * @return StructuralDBElement[] A flattened list containing the tree elements.
+     * @throws \Psr\Cache\InvalidArgumentException
+     */
+    public function typeToNodesList(string $class_name, ?StructuralDBElement $parent = null): array
+    {
+        $username = $this->security->getUser()->getUsername();
+        $parent_id = $parent != null ? $parent->getID() : "0";
+        // Backslashes are not allowed in cache keys
+        $secure_class_name = str_replace("\\", '_', $class_name);
+        $key = "list_" . $username . "_" . $secure_class_name . $parent_id;
+
+        $ret = $this->cache->get($key, function (ItemInterface $item) use ($class_name, $parent, $secure_class_name, $username) {
+            // Invalidate when groups, a element with the class or the user changes
+            $item->tag(['groups', 'tree_list', 'user_' . $username, $secure_class_name]);
+            /**
+             * @var $repo StructuralDBElementRepository
+             */
+            $repo = $this->em->getRepository($class_name);
+
+            return $repo->toNodesList($parent);
+        });
+
+        return $ret;
     }
 }

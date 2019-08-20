@@ -37,6 +37,12 @@ services:
         tags:
             - { name: "doctrine.orm.entity_listener" }
 
+    tree_invalidation_listener:
+        class: App\EntityListeners\TreeCacheInvalidationListener
+        tags:
+            - { name: doctrine.orm.entity_listener }
+
+
     App\Command\UpdateExchangeRatesCommand:
         arguments:
             $base_current: '%default_currency%'
