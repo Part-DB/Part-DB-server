@@ -72,6 +72,9 @@ abstract class BaseAdminController extends AbstractController
             $em->flush();
         }
 
+        //Rebuild form, so it is based on the updated data. Important for the parent field!
+        $form = $this->createForm($this->form_class, $entity);
+
         return $this->render($this->twig_template, [
             'entity' => $entity,
             'form' => $form->createView()

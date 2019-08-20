@@ -37,12 +37,15 @@ use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Form\Type\StructuralEntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\DataMapperInterface;
+use Symfony\Component\Form\Exception;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use function GuzzleHttp\Promise\queue;
 
@@ -55,7 +58,8 @@ class PartLotType extends AbstractType
 
         $builder->add('storage_location', StructuralEntityType::class, ['class' => Storelocation::class,
             'label' => 'part_lot.edit.location',
-            'disable_not_selectable' => true, 'attr' => ['class' => 'form-control-sm']]);
+            'disable_not_selectable' => true,
+            'attr' => ['class' => 'selectpicker form-control-sm', 'data-live-search' => true]]);
 
         $builder->add('amount',NumberType::class, [ 'html5' => true,
             'label' => 'part_lot.edit.amount',
