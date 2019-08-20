@@ -168,7 +168,7 @@ class Part extends AttachmentContainingDBElement
      *
      * @ColumnSecurity(prefix="name")
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * @var string
