@@ -31,6 +31,9 @@ namespace App\Services;
 
 use App\Helpers\TreeViewNode;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -42,22 +45,48 @@ class ToolsTreeBuilder
 
     protected $translator;
     protected $urlGenerator;
+    protected $security;
+    protected $cache;
 
-    public function __construct(TranslatorInterface $translator, UrlGeneratorInterface $urlGenerator)
+    public function __construct(TranslatorInterface $translator, UrlGeneratorInterface $urlGenerator,
+                                TagAwareCacheInterface $treeCache, Security $security)
     {
         $this->translator = $translator;
         $this->urlGenerator = $urlGenerator;
-    }
 
+        $this->security = $security;
+        $this->cache = $treeCache;
+    }
 
     /**
      * Generates the tree for the tools menu.
+     * The result is cached.
      * @return TreeViewNode The array containing all Nodes for the tools menu.
      */
     public function getTree() : array
     {
-        //TODO: Use proper values
+        $username = $this->security->getUser()->getUsername();
 
+        $key = "tree_tools_" .  $username;
+
+        return $this->cache->get($key, function (ItemInterface $item) use ($username) {
+            //Invalidate tree, whenever group or the user changes
+            $item->tag(["tree_tools", "groups", "user_" . $username]);
+
+            $tree = array();
+            $tree[] = new TreeViewNode($this->translator->trans('tree.tools.edit'), null, $this->getEditNodes());
+            $tree[] = new TreeViewNode($this->translator->trans('tree.tools.show'), null, $this->getShowNodes());
+            $tree[] = new TreeViewNode($this->translator->trans('tree.tools.system'), null, $this->getSystemNodes());
+            return $tree;
+        });
+    }
+
+    /**
+     * This functions creates a tree entries for the "edit" node of the tool's tree
+     * @return TreeViewNode[]
+     */
+    protected function getEditNodes() : array
+    {
         $nodes = array();
         $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.attachment_types'),
             $this->urlGenerator->generate('attachment_type_new'));
@@ -85,15 +114,35 @@ class ToolsTreeBuilder
         $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.part'),
             $this->urlGenerator->generate('part_new'));
 
-        $tree[] = new TreeViewNode($this->translator->trans('tree.tools.edit'), null, $nodes);
+        return $nodes;
+    }
 
+    /**
+     * This function creates the tree entries for the "show" node of the tools tree
+     * @return TreeViewNode[]
+     */
+    protected function getShowNodes() : array
+    {
         $show_nodes = array();
         $show_nodes[] = new TreeViewNode($this->translator->trans('tree.tools.show.all_parts'),
             $this->urlGenerator->generate('parts_show_all')
         );
 
-        $tree[] = new TreeViewNode($this->translator->trans('tree.tools.show'), null, $show_nodes);
+        return $show_nodes;
+    }
 
-        return $tree;
+    /**
+     * This function creates the tree entries for the "system" node of the tools tree.
+     * @return array
+     */
+    protected function getSystemNodes() : array
+    {
+        $edit_nodes = array();
+
+        $edit_nodes[] = new TreeViewNode($this->translator->trans('tree.tools.system.users'),
+            $this->urlGenerator->generate("user_new")
+        );
+
+        return $edit_nodes;
     }
 }
