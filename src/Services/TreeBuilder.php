@@ -60,15 +60,15 @@ class TreeBuilder
     protected $em;
     protected $translator;
     protected $cache;
-    protected $security;
+    protected $keyGenerator;
 
     public function __construct(EntityURLGenerator $URLGenerator, EntityManagerInterface $em,
-                                TranslatorInterface $translator, TagAwareCacheInterface $treeCache, Security $security)
+                                TranslatorInterface $translator, TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator)
     {
         $this->url_generator = $URLGenerator;
         $this->em = $em;
         $this->translator = $translator;
-        $this->security = $security;
+        $this->keyGenerator = $keyGenerator;
         $this->cache = $treeCache;
     }
 
@@ -174,15 +174,14 @@ class TreeBuilder
      */
     public function typeToNodesList(string $class_name, ?StructuralDBElement $parent = null): array
     {
-        $username = $this->security->getUser()->getUsername();
         $parent_id = $parent != null ? $parent->getID() : "0";
         // Backslashes are not allowed in cache keys
         $secure_class_name = str_replace("\\", '_', $class_name);
-        $key = "list_" . $username . "_" . $secure_class_name . $parent_id;
+        $key = "list_" . $this->keyGenerator->generateKey() . "_" . $secure_class_name . $parent_id;
 
-        $ret = $this->cache->get($key, function (ItemInterface $item) use ($class_name, $parent, $secure_class_name, $username) {
+        $ret = $this->cache->get($key, function (ItemInterface $item) use ($class_name, $parent, $secure_class_name) {
             // Invalidate when groups, a element with the class or the user changes
-            $item->tag(['groups', 'tree_list', 'user_' . $username, $secure_class_name]);
+            $item->tag(['groups', 'tree_list', $this->keyGenerator->generateKey(), $secure_class_name]);
             /**
              * @var $repo StructuralDBElementRepository
              */

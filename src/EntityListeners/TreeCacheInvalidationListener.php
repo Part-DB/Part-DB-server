@@ -36,6 +36,7 @@ use App\Entity\Base\DBElement;
 use App\Entity\Base\StructuralDBElement;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
+use App\Services\UserCacheKeyGenerator;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
@@ -45,10 +46,12 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
 class TreeCacheInvalidationListener
 {
     protected $cache;
+    protected $keyGenerator;
 
-    public function __construct(TagAwareCacheInterface $treeCache)
+    public function __construct(TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator)
     {
         $this->cache = $treeCache;
+        $this->keyGenerator = $keyGenerator;
     }
 
     /**
@@ -69,7 +72,7 @@ class TreeCacheInvalidationListener
 
         //If a user change, then invalidate all cached trees for him
         if ($element instanceof User) {
-            $tag = "user_" . $element->getUsername();
+            $tag = $this->keyGenerator->generateKey($element);
             $this->cache->invalidateTags([$tag]);
         }
 

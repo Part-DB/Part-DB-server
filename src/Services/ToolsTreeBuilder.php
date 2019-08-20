@@ -45,17 +45,18 @@ class ToolsTreeBuilder
 
     protected $translator;
     protected $urlGenerator;
-    protected $security;
+    protected $keyGenerator;
     protected $cache;
 
     public function __construct(TranslatorInterface $translator, UrlGeneratorInterface $urlGenerator,
-                                TagAwareCacheInterface $treeCache, Security $security)
+                                TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator)
     {
         $this->translator = $translator;
         $this->urlGenerator = $urlGenerator;
 
-        $this->security = $security;
         $this->cache = $treeCache;
+
+        $this->keyGenerator = $keyGenerator;
     }
 
     /**
@@ -65,13 +66,11 @@ class ToolsTreeBuilder
      */
     public function getTree() : array
     {
-        $username = $this->security->getUser()->getUsername();
+        $key = "tree_tools_" .  $this->keyGenerator->generateKey();
 
-        $key = "tree_tools_" .  $username;
-
-        return $this->cache->get($key, function (ItemInterface $item) use ($username) {
+        return $this->cache->get($key, function (ItemInterface $item) {
             //Invalidate tree, whenever group or the user changes
-            $item->tag(["tree_tools", "groups", "user_" . $username]);
+            $item->tag(["tree_tools", "groups", $this->keyGenerator->generateKey()]);
 
             $tree = array();
             $tree[] = new TreeViewNode($this->translator->trans('tree.tools.edit'), null, $this->getEditNodes());
