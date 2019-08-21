@@ -58,6 +58,7 @@ class PartLotType extends AbstractType
 
         $builder->add('storage_location', StructuralEntityType::class, ['class' => Storelocation::class,
             'label' => 'part_lot.edit.location',
+            'required' => false,
             'disable_not_selectable' => true,
             'attr' => ['class' => 'selectpicker form-control-sm', 'data-live-search' => true]]);
 

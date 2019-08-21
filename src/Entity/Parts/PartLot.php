@@ -71,9 +71,9 @@ class PartLot extends DBElement
     protected $expiration_date;
 
     /**
-     * @var Storelocation The storelocation of this lot
+     * @var Storelocation|null The storelocation of this lot
      * @ORM\ManyToOne(targetEntity="Storelocation")
-     * @ORM\JoinColumn(name="id_store_location", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_store_location", referencedColumnName="id", nullable=true)
      * @Selectable()
      */
     protected $storage_location;
@@ -82,6 +82,7 @@ class PartLot extends DBElement
      * @var Part The part that is stored in this lot
      * @ORM\ManyToOne(targetEntity="Part", inversedBy="partLots")
      * @ORM\JoinColumn(name="id_part", referencedColumnName="id")
+     * @Assert\NotNull()
      */
     protected $part;
 
@@ -195,7 +196,7 @@ class PartLot extends DBElement
 
     /**
      * Gets the storage locatiion, where this part lot is stored.
-     * @return Storelocation The store location where this part is stored
+     * @return Storelocation|null The store location where this part is stored
      */
     public function getStorageLocation(): ?Storelocation
     {
@@ -204,10 +205,10 @@ class PartLot extends DBElement
 
     /**
      * Sets the storage location, where this part lot is stored
-     * @param Storelocation $storage_location
+     * @param Storelocation|null $storage_location
      * @return PartLot
      */
-    public function setStorageLocation(Storelocation $storage_location): PartLot
+    public function setStorageLocation(?Storelocation $storage_location): PartLot
     {
         $this->storage_location = $storage_location;
         return $this;

@@ -14,7 +14,13 @@
         <tr>
             <td>{{ lot.description }}</td>
             <td>
-                {{ lot.storageLocation.fullPath }}
+                {% if lot.storageLocation %}
+                    {{ lot.storageLocation.fullPath }}
+                {% else %}
+                    <span class="badge badge-pill badge-warning">
+                        <i class="fas fa-question-circle fa-fw"></i> {% trans %}part_lots.location_unknown{% endtrans %}
+                    </span>
+                {% endif %}
             </td>
             <td>
                 {% if lot.instockUnknown %}

@@ -32,14 +32,14 @@ final class Version20190812154222 extends AbstractMigration
         $this->addSql(
             'INSERT INTO part_lots (id_part, id_store_location, amount, instock_unknown, last_modified, datetime_added) ' .
                 'SELECT parts.id, parts.id_storelocation,  parts.instock, 0, NOW(), NOW() FROM parts ' .
-                'WHERE parts.instock >= 0 AND parts.id_storelocation IS NOT NULL'
+                'WHERE parts.instock >= 0'
         );
 
         //Migrate part locations for parts with unknown instock
         $this->addSql(
             'INSERT INTO part_lots (id_part, id_store_location, amount, instock_unknown, last_modified, datetime_added) ' .
             'SELECT parts.id, parts.id_storelocation, 0, 1, NOW(), NOW() FROM parts ' .
-            'WHERE parts.instock = -2 AND parts.id_storelocation IS NOT NULL'
+            'WHERE parts.instock = -2'
         );
 
         $this->addSql('ALTER TABLE attachements CHANGE element_id element_id INT DEFAULT NULL, CHANGE type_id type_id INT DEFAULT NULL, CHANGE last_modified last_modified DATETIME NOT NULL, CHANGE datetime_added datetime_added DATETIME NOT NULL');
