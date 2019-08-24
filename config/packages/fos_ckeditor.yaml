@@ -10,7 +10,6 @@ fos_ck_editor:
         complex_config:
             extraPlugins: ["bbcode"]
             toolbar: standard
-            height: 100
         simple_config:
             extraPlugins: "bbcode"
             toolbar: basic

@@ -75,12 +75,32 @@ class SIFormatter
     }
 
     /**
+     *
      * @param float $value
-     * @param string $unit
-     * @param int $decimals
+     * @return array
+     */
+    public function convertValue(float $value) : array
+    {
+        //Choose the prefix to use
+        $tmp = $this->getPrefixByMagnitude($this->getMagnitude($value));
+
+        $ret = array(
+            'value' => $value / $tmp[0],
+            'prefix_magnitude' => log10($tmp[0]),
+            'prefix' => $tmp[1]
+        );
+
+        return $ret;
+    }
+
+    /**
+     * Formats the given value to a string, using the given options
+     * @param float $value The value that should be converted
+     * @param string $unit The unit that should be appended after the prefix
+     * @param int $decimals The number of decimals (after decimal dot) that should be outputed.
      * @return string
      */
-    public function format(float $value, string $unit = '', int $decimals = 2)
+    public function format(float $value, string $unit = '', int $decimals = 2) : string
     {
         [$divisor, $symbol] = $this->getPrefixByMagnitude($this->getMagnitude($value));
         $value /= $divisor;

@@ -30,3 +30,17 @@
         {%- endif -%}
     {% endfor %}
 {%- endblock choice_widget_options -%}
+
+{% block si_unit_widget %}
+    <div class="input-group">
+        {{ form_widget(form.value) }}
+        <div class="input-group-append">
+            {% if form.prefix is defined %}
+                {{ form_widget(form.prefix, {'attr': {'class': 'custom-select btn'}}) }}
+            {% endif %}
+            {% if unit is not empty %}
+                <label class="input-group-text">{{ unit }}</label>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -37,6 +37,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Storelocation;
+use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
 use Doctrine\DBAL\Types\FloatType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
@@ -68,12 +69,8 @@ class PartBaseType extends AbstractType
         /** @var Part $part */
         $part = $options['data'];
 
-        //Select the amount value type based on the
-        if($part->useFloatAmount()) {
-            $amount_class = NumberType::class;
-        } else {
-            $amount_class = IntegerType::class;
-        }
+        $part_unit_name = $part->getPartUnit() !== null ? $part->getPartUnit()->getUnit() : "";
+        $use_si_prefix = $part->getPartUnit() !== null ? $part->getPartUnit()->isUseSIPrefix() : false;
 
 
         //Common section
@@ -84,11 +81,10 @@ class PartBaseType extends AbstractType
             ->add('description', CKEditorType::class, ['required' => false, 'empty_data' => '',
                 'label' => 'description.label', 'help' => 'bbcode.hint', 'config_name' => 'description_config',
                 'attr' => ['placeholder' => 'part.description.placeholder', 'rows' => 2],
-                'disabled' => !$this->security->isGranted('description.edit', $part), 'empty_data' => '' ])
-            ->add('partUnit', StructuralEntityType::class, ['class'=> MeasurementUnit::class,
-                'required' => false, 'disable_not_selectable' => true, 'label' => 'part.partUnit'])
-            ->add('minAmount', $amount_class,
+                'disabled' => !$this->security->isGranted('description.edit', $part) ])
+            ->add('minAmount', SIUnitType::class,
                 ['attr' => ['min' => 0, 'placeholder' => 'part.mininstock.placeholder'], 'label' => 'mininstock.label',
+                    'show_prefix' => $use_si_prefix, "unit" => $part_unit_name, "is_integer" => !$part->useFloatAmount(),
                     'disabled' => !$this->security->isGranted('mininstock.edit', $part), ])
             ->add('category', StructuralEntityType::class, ['class' => Category::class,
                 'label' => 'category.label', 'disable_not_selectable' => true,
@@ -98,10 +94,7 @@ class PartBaseType extends AbstractType
                 'disabled' => !$this->security->isGranted('move', $part), ])
             ->add('tags', TextType::class, ['required' => false, 'label' => 'part.tags', 'empty_data' => "",
                 'attr' => ['data-role' => 'tagsinput'],
-                'disabled' => !$this->security->isGranted('edit', $part) ])
-            ->add('comment', CKEditorType::class, ['required' => false,
-                'label' => 'comment.label', 'attr' => ['rows' => 4], 'help' => 'bbcode.hint',
-                'disabled' => !$this->security->isGranted('comment.edit', $part), 'empty_data' => '']);
+                'disabled' => !$this->security->isGranted('edit', $part) ]);
 
         //Manufacturer section
         $builder->add('manufacturer', StructuralEntityType::class, ['class' => Manufacturer::class,
@@ -114,11 +107,21 @@ class PartBaseType extends AbstractType
                 'empty_data' => '', 'label' => 'part.mpn',
                 'disabled' => !$this->security->isGranted('manufacturer.edit', $part)]);
 
-        //Options section
+        //Advanced section
         $builder->add('needsReview', CheckboxType::class, ['label_attr'=> ['class' => 'checkbox-custom'],
             'required' => false, 'label' => 'part.edit.needs_review'])
             ->add('favorite', CheckboxType::class, ['label_attr'=> ['class' => 'checkbox-custom'],
-                'required' => false, 'label' => 'part.edit.is_favorite']);
+                'required' => false, 'label' => 'part.edit.is_favorite'])
+            ->add('mass', SIUnitType::class, ['unit' => 'g',
+                'label' => 'part.mass', 'required' => false])
+            ->add('partUnit', StructuralEntityType::class, ['class'=> MeasurementUnit::class,
+                'required' => false, 'disable_not_selectable' => true, 'label' => 'part.partUnit']);
+
+
+        //Comment section
+        $builder->add('comment', CKEditorType::class, ['required' => false,
+            'label' => 'comment.label', 'attr' => ['rows' => 4], 'help' => 'bbcode.hint',
+            'disabled' => !$this->security->isGranted('comment.edit', $part), 'empty_data' => '']);
 
         //Part Lots section
         $builder->add('partLots', CollectionType::class, [
