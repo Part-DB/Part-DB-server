@@ -43,6 +43,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 abstract class BaseAdminController extends AbstractController
 {
@@ -52,11 +53,15 @@ abstract class BaseAdminController extends AbstractController
     protected $twig_template = '';
     protected $route_base = '';
 
-    public function __construct()
+    protected $translator;
+
+    public function __construct(TranslatorInterface $translator)
     {
         if ($this->entity_class === '' || $this->form_class === '' || $this->twig_template === '' || $this->route_base === '') {
             throw new \InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');
         }
+
+        $this->translator = $translator;
     }
 
     protected function _edit(NamedDBElement $entity, Request $request, EntityManagerInterface $em)
@@ -70,6 +75,9 @@ abstract class BaseAdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($entity);
             $em->flush();
+            $this->addFlash('success', $this->translator->trans('entity.edit_flash'));
+        } elseif ($form->isSubmitted() && ! $form->isValid()) {
+            $this->addFlash('error', $this->translator->trans('entity.edit_flash.invalid'));
         }
 
         //Rebuild form, so it is based on the updated data. Important for the parent field!
@@ -96,9 +104,11 @@ abstract class BaseAdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($new_entity);
             $em->flush();
-            //$this->addFlash('success', $translator->trans('part.created_flash'));
+            $this->addFlash('success', $this->translator->trans('entity.created_flash'));
 
             return $this->redirectToRoute($this->route_base . '_edit', ['id' => $new_entity->getID()]);
+        } elseif ($form->isSubmitted() && ! $form->isValid()) {
+            $this->addFlash('error', $this->translator->trans('entity.created_flash.invalid'));
         }
 
         //Import form

@@ -70,7 +70,7 @@ class PartController extends AbstractController
      * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(Part $part, Request $request, EntityManagerInterface $em)
+    public function edit(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator)
     {
         $this->denyAccessUnlessGranted('edit', $part);
 
@@ -80,7 +80,9 @@ class PartController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($part);
             $em->flush();
-            $this->addFlash('info', 'part.edited_flash');
+            $this->addFlash('info', $translator->trans('part.edited_flash'));
+        } elseif ($form->isSubmitted() && ! $form->isValid()) {
+            $this->addFlash('error', $translator->trans('part.edited_flash.invalid'));
         }
 
         return $this->render('Parts/edit/edit_part_info.html.twig',
@@ -119,6 +121,8 @@ class PartController extends AbstractController
             $this->addFlash('success', $translator->trans('part.created_flash'));
 
             return $this->redirectToRoute('part_edit', ['id' => $new_part->getID()]);
+        } elseif ($form->isSubmitted() && ! $form->isValid()) {
+            $this->addFlash('error', $translator->trans('part.created_flash.invalid'));
         }
 
         return $this->render('Parts/edit/new_part.html.twig',
