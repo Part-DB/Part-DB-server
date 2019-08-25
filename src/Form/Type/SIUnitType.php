@@ -57,6 +57,7 @@ class SIUnitType extends AbstractType implements DataMapperInterface
         $resolver->setDefaults([
             'show_prefix' => true,
             'is_integer' => false,
+            'error_mapping' => [ '.' => 'value']
         ]);
 
         $resolver->setRequired('unit');
