@@ -50,6 +50,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Choice;
 use function foo\func;
 
 /**
@@ -87,6 +88,7 @@ class StructuralEntityType extends AbstractType
             'show_fullpath_in_subtext' => true, //When this is enabled, the full path will be shown in subtext
             'subentities_of' => null,   //Only show entities with the given parent class
             'disable_not_selectable' => false,  //Disable entries with not selectable property
+            'choice_value' => 'id', //Use the element id as option value and for comparing items
             'choice_loader' => function (Options $options) {
                 return new CallbackChoiceLoader(function () use ($options) {
                     return $this->getEntries($options);
@@ -249,8 +251,6 @@ class StructuralEntityType extends AbstractType
             return null;
         }
 
-        $entity = $this->em->find($options['class'], $value->getID());
-
-        return $entity;
+        return $this->em->find($options['class'], $value->getID());
     }
 }
