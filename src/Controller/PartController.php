@@ -81,6 +81,9 @@ class PartController extends AbstractController
             $em->persist($part);
             $em->flush();
             $this->addFlash('info', $translator->trans('part.edited_flash'));
+
+            //Reload form, so the SIUnitType entries use the new part unit
+            $form = $this->createForm(PartBaseType::class, $part);
         } elseif ($form->isSubmitted() && ! $form->isValid()) {
             $this->addFlash('error', $translator->trans('part.edited_flash.invalid'));
         }
