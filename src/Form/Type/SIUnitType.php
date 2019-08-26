@@ -117,7 +117,7 @@ class SIUnitType extends AbstractType implements DataMapperInterface
 
         if ($options['show_prefix']) {
             $builder->add('prefix', ChoiceType::class, [
-                'choices' => ['M' => 6, 'k' => 3, '' => 0, 'm' => -3 ]
+                'choices' => ['M' => 6, 'k' => 3, '' => 0, 'm' => -3, 'µ' => -6 ]
             ]);
         }
 
@@ -143,13 +143,17 @@ class SIUnitType extends AbstractType implements DataMapperInterface
      */
     public function mapDataToForms($viewData, $forms)
     {
+        $forms = iterator_to_array($forms);
+
         if ($viewData === null) {
+            if (isset($forms['prefix'])) {
+                $forms['prefix']->setData(0);
+            }
+
             return null;
         }
 
         $data = $this->si_formatter->convertValue($viewData);
-
-        $forms = iterator_to_array($forms);
 
         if (isset($forms['prefix'])) {
             $forms['value']->setData($data["value"]);
