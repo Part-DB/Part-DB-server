@@ -28,7 +28,7 @@
                         <i class="fas fa-question-circle fa-fw"></i> {% trans %}part_lots.instock_unknown{% endtrans %}
                     </span>
                 {% else %}
-                    {{ lot.amount }}
+                    {{ lot.amount | amountFormat(part.partUnit, {'decimals': 5}) }}
                 {% endif %}
             </td>
             <td>

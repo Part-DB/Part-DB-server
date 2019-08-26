@@ -31,6 +31,8 @@ namespace App\Twig;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Base\DBElement;
+use App\Entity\Parts\MeasurementUnit;
+use App\Services\AmountFormatter;
 use App\Services\EntityURLGenerator;
 use App\Services\MoneyFormatter;
 use App\Services\SIFormatter;
@@ -51,11 +53,12 @@ class AppExtension extends AbstractExtension
     protected $treeBuilder;
     protected $moneyFormatter;
     protected $siformatter;
+    protected $amountFormatter;
 
     public function __construct(EntityURLGenerator $entityURLGenerator, AdapterInterface $cache,
                                 SerializerInterface $serializer, TreeBuilder $treeBuilder,
                                 MoneyFormatter $moneyFormatter,
-                                SIFormatter $SIFormatter)
+                                SIFormatter $SIFormatter, AmountFormatter $amountFormatter)
     {
         $this->entityURLGenerator = $entityURLGenerator;
         $this->cache = $cache;
@@ -63,6 +66,7 @@ class AppExtension extends AbstractExtension
         $this->treeBuilder = $treeBuilder;
         $this->moneyFormatter = $moneyFormatter;
         $this->siformatter = $SIFormatter;
+        $this->amountFormatter = $amountFormatter;
     }
 
     public function getFilters()
@@ -72,6 +76,7 @@ class AppExtension extends AbstractExtension
             new TwigFilter('bbCode', [$this, 'parseBBCode'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
             new TwigFilter('moneyFormat', [$this, 'formatCurrency']),
             new TwigFilter('siFormat', [$this, 'siFormat']),
+            new TwigFilter('amountFormat', [$this, 'amountFormat'])
         ];
     }
 
@@ -126,5 +131,10 @@ class AppExtension extends AbstractExtension
     public function siFormat($value, $unit, $decimals = 2)
     {
         return $this->siformatter->format($value, $unit, $decimals);
+    }
+
+    public function amountFormat($value, ?MeasurementUnit $unit, array $options = [])
+    {
+        return $this->amountFormatter->format($value, $unit, $options);
     }
 }

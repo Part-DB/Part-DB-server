@@ -727,7 +727,7 @@ class Part extends AttachmentContainingDBElement
     {
         //TODO: Find a method to do this natively in SQL, the current method could be a bit slow
         $sum = 0;
-        foreach($this->getPartLots() as $lot) {
+        foreach ($this->getPartLots() as $lot) {
             //Dont use the instock value, if it is unkown
             if ($lot->isInstockUnknown()) {
                 continue;
@@ -736,7 +736,7 @@ class Part extends AttachmentContainingDBElement
             $sum += $lot->getAmount();
         }
 
-        if(!$this->useFloatAmount()) {
+        if ($this->useFloatAmount()) {
             return $sum;
         }
 
