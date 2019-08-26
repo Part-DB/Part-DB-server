@@ -32,9 +32,11 @@
 namespace App\Form\Part;
 
 
+use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
+use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataMapperInterface;
@@ -45,6 +47,8 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use function GuzzleHttp\Promise\queue;
@@ -62,15 +66,19 @@ class PartLotType extends AbstractType
             'disable_not_selectable' => true,
             'attr' => ['class' => 'selectpicker form-control-sm', 'data-live-search' => true]]);
 
-        $builder->add('amount',NumberType::class, [ 'html5' => true,
+
+        $builder->add('amount', SIUnitType::class, [
+            'measurement_unit' => $options['measurement_unit'],
             'label' => 'part_lot.edit.amount',
-            'attr' => ['class' => 'form-control-sm', 'min' => 0, 'step' => 'any']
+            'attr' => ['class' => 'form-control-sm']
         ]);
+
         $builder->add('instock_unknown', CheckboxType::class, ['required' => false,
             'label' => 'part_lot.edit.instock_unknown',
             'attr' => ['class' => 'form-control-sm'],
-            'label_attr'=> ['class' => 'checkbox-custom']]);
-        $builder->add('needs_refill', CheckboxType::class, ['label_attr'=> ['class' => 'checkbox-custom'],
+            'label_attr' => ['class' => 'checkbox-custom']]);
+
+        $builder->add('needs_refill', CheckboxType::class, ['label_attr' => ['class' => 'checkbox-custom'],
             'label' => 'part_lot.edit.needs_refill',
             'attr' => ['class' => 'form-control-sm'],
             'required' => false]);
@@ -80,7 +88,6 @@ class PartLotType extends AbstractType
             'required' => false]);
 
         $builder->add('comment', TextType::class, ['label' => 'part_lot.edit.comment',
-            'label' => 'part_lot.edit.comment',
             'attr' => ['class' => 'form-control-sm'],
             'required' => false, 'empty_data' => ""]);
     }
@@ -91,5 +98,8 @@ class PartLotType extends AbstractType
         $resolver->setDefaults([
             'data_class' => PartLot::class,
         ]);
+
+        $resolver->setRequired('measurement_unit');
+        $resolver->setAllowedTypes('measurement_unit', [MeasurementUnit::class, 'null']);
     }
 }

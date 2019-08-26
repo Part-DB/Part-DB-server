@@ -32,6 +32,7 @@
 namespace App\Form\Type;
 
 
+use App\Entity\Parts\MeasurementUnit;
 use App\Services\SIFormatter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataMapperInterface;
@@ -41,6 +42,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SIUnitType extends AbstractType implements DataMapperInterface
@@ -55,18 +57,63 @@ class SIUnitType extends AbstractType implements DataMapperInterface
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'show_prefix' => true,
-            'is_integer' => false,
+            'measurement_unit' => null,
+            'show_prefix' => function (Options $options) {
+                if ($options['measurement_unit'] !== null) {
+                    /** @var MeasurementUnit $unit */
+                    $unit = $options['measurement_unit'];
+                    return $unit->isUseSIPrefix();
+                }
+                return true;
+            },
+            'is_integer' => function (Options $options) {
+                if ($options['measurement_unit'] !== null) {
+                    /** @var MeasurementUnit $unit */
+                    $unit = $options['measurement_unit'];
+                    return $unit->isInteger();
+                }
+                return false;
+            },
+            'unit' => function (Options $options) {
+                if ($options['measurement_unit'] !== null) {
+                    /** @var MeasurementUnit $unit */
+                    $unit = $options['measurement_unit'];
+                    return $unit->getUnit();
+                }
+                return null;
+            },
             'error_mapping' => [ '.' => 'value']
         ]);
 
+        $resolver->setAllowedTypes('measurement_unit', [MeasurementUnit::class, 'null']);
         $resolver->setRequired('unit');
+
+        //Options which allows us, to limit the input using HTML5 number input
+        $resolver->setDefaults([
+                'min' => 0,
+                'max' => '',
+                'step' => function (Options $options) {
+                    if ($options['is_integer'] === true) {
+                        return 1;
+                    }
+
+                    return "any";
+                },
+                'html5' => true
+            ]);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('value', NumberType::class);
+            ->add('value', NumberType::class, [
+                'html5' => $options['html5'],
+                'attr' => [
+                    'min' => (string) $options['min'],
+                    'max' => (string) $options['max'],
+                    'step' => (string) $options['step']
+                ]
+            ]);
 
         if ($options['show_prefix']) {
             $builder->add('prefix', ChoiceType::class, [

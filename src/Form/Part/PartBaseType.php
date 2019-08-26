@@ -67,11 +67,7 @@ class PartBaseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         /** @var Part $part */
-        $part = $options['data'];
-
-        $part_unit_name = $part->getPartUnit() !== null ? $part->getPartUnit()->getUnit() : "";
-        $use_si_prefix = $part->getPartUnit() !== null ? $part->getPartUnit()->isUseSIPrefix() : false;
-
+        $part = $builder->getData();
 
         //Common section
         $builder
@@ -84,7 +80,7 @@ class PartBaseType extends AbstractType
                 'disabled' => !$this->security->isGranted('description.edit', $part) ])
             ->add('minAmount', SIUnitType::class,
                 ['attr' => ['min' => 0, 'placeholder' => 'part.mininstock.placeholder'], 'label' => 'mininstock.label',
-                    'show_prefix' => $use_si_prefix, "unit" => $part_unit_name, "is_integer" => !$part->useFloatAmount(),
+                    'measurement_unit' => $part->getPartUnit(),
                     'disabled' => !$this->security->isGranted('mininstock.edit', $part), ])
             ->add('category', StructuralEntityType::class, ['class' => Category::class,
                 'label' => 'category.label', 'disable_not_selectable' => true,
@@ -128,6 +124,9 @@ class PartBaseType extends AbstractType
             'entry_type' => PartLotType::class,
             'allow_add' => true, 'allow_delete' => true,
             'label' => false,
+            'entry_options' => [
+                'measurement_unit' => $part->getPartUnit()
+            ],
             'by_reference' => false
         ]);
 
