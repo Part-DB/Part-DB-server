@@ -21,7 +21,7 @@
                 {{ helper.attachment_icon(attachment, attachment_helper) }}
             </td>
             <td class="align-middle">{{ attachment.name }}</td>
-            <td class="align-middle">{{ attachment.type.fullPath }}</td>
+            <td class="align-middle">{{ attachment.attachmentType.fullPath }}</td>
             <td class="align-middle">
                 {% if attachment.external %}
                     <a href="{{ attachment.uRL }}" target="_blank" class="link-external">{{ attachment.host }}</a>

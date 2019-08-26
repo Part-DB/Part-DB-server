@@ -72,9 +72,6 @@ abstract class AttachmentContainingDBElement extends NamedDBElement
      */
     protected $attachments;
 
-    //TODO
-    protected $attachmentTypes;
-
     public function __construct()
     {
         $this->attachments = new ArrayCollection();
@@ -87,44 +84,35 @@ abstract class AttachmentContainingDBElement extends NamedDBElement
      *********************************************************************************/
 
     /**
-     * Get all different attachement types of the attachements of this element.
-     *
-     * @return AttachmentType[] the attachement types as a one-dimensional array of AttachementType objects,
-     *                          sorted by their names
-     *
-     * @throws Exception if there was an error
+     * Gets all attachments associated with this element.
+     * @return Attachment[]|Collection
      */
-    public function getAttachmentTypes(): ?array
+    public function getAttachments() : Collection
     {
-        return $this->attachmentTypes;
+        return $this->attachments;
     }
 
     /**
-     * Get all attachements of this element / Get the element's attachements with a specific type.
-     *
-     * @param int  $type_id           * if NULL, all attachements of this element will be returned
-     *                                * if this is a number > 0, only attachements with this type ID will be returned
-     * @param bool $only_table_attachements if true, only attachements with "show_in_table == true"
-     *
-     * @return Collection|Attachment[] the attachements as a one-dimensional array of Attachement objects
-     *
-     * @throws Exception if there was an error
+     * Adds an attachment to this element
+     * @param Attachment $attachment Attachment
+     * @return $this
      */
-    public function getAttachments($type_id = null, bool $only_table_attachements = false) : Collection
+    public function addAttachment(Attachment $attachment) : self
     {
-        if ($only_table_attachements || $type_id) {
-            $attachements = $this->attachments;
+        //Attachment must be associated with this element
+        $attachment->setElement($this);
+        $this->attachments->add($attachment);
+        return $this;
+    }
 
-            foreach ($attachements as $key => $attachement) {
-                if (($only_table_attachements && (!$attachement->getShowInTable()))
-                    || ($type_id && ($attachement->getType()->getID() !== $type_id))) {
-                    unset($attachements[$key]);
-                }
-            }
-
-            return $attachements;
-        }
-
-        return $this->attachments;
+    /**
+     * Removes the given attachment from this element
+     * @param Attachment $attachment
+     * @return $this
+     */
+    public function removeAttachment(Attachment $attachment) : self
+    {
+        $this->attachments->removeElement($attachment);
+        return $this;
     }
 }

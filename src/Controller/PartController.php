@@ -32,10 +32,12 @@ namespace App\Controller;
 
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
+use App\Form\AttachmentFormType;
 use App\Form\Part\PartBaseType;
 use App\Services\AttachmentHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -70,7 +72,8 @@ class PartController extends AbstractController
      * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator)
+    public function edit(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
+            AttachmentHelper $attachmentHelper)
     {
         $this->denyAccessUnlessGranted('edit', $part);
 
@@ -78,10 +81,17 @@ class PartController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            //Upload passed files
+            $attachments = $form['attachments'];
+            foreach ($attachments as $attachment) {
+                /** @var $attachment FormInterface */
+                $attachmentHelper->upload( $attachment->getData(), $attachment['file']->getData());
+            }
+
+
             $em->persist($part);
             $em->flush();
             $this->addFlash('info', $translator->trans('part.edited_flash'));
-
             //Reload form, so the SIUnitType entries use the new part unit
             $form = $this->createForm(PartBaseType::class, $part);
         } elseif ($form->isSubmitted() && ! $form->isValid()) {

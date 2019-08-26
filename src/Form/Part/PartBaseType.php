@@ -31,12 +31,15 @@
 
 namespace App\Form\Part;
 
+use App\Entity\Attachments\PartAttachment;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Storelocation;
+use App\Form\AttachmentFormType;
+use App\Form\AttachmentType;
 use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
 use Doctrine\DBAL\Types\FloatType;
@@ -126,6 +129,17 @@ class PartBaseType extends AbstractType
             'label' => false,
             'entry_options' => [
                 'measurement_unit' => $part->getPartUnit()
+            ],
+            'by_reference' => false
+        ]);
+
+        //Attachment section
+        $builder->add('attachments', CollectionType::class, [
+            'entry_type' => AttachmentFormType::class,
+            'allow_add' => true, 'allow_delete' => true,
+            'label' => false,
+            'entry_options' => [
+                'data_class' => PartAttachment::class
             ],
             'by_reference' => false
         ]);

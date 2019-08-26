@@ -84,7 +84,8 @@ class Part extends AttachmentContainingDBElement
     public const INSTOCK_UNKNOWN = -2;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\PartAttachment", mappedBy="element")
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\PartAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     protected $attachments;
 

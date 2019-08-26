@@ -44,13 +44,13 @@ abstract class Attachment extends NamedDBElement
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $show_in_table;
+    protected $show_in_table = false;
 
     /**
      * @var string The filename using the %BASE% variable
      * @ORM\Column(type="string", name="filename")
      */
-    protected $path;
+    protected $path = "";
 
     /**
      * ORM mapping is done in sub classes (like PartAttachment)
@@ -63,7 +63,7 @@ abstract class Attachment extends NamedDBElement
      * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
      * @Selectable()
      */
-    protected $attachement_type;
+    protected $attachment_type;
 
     /***********************************************************
      * Various function
@@ -205,9 +205,9 @@ abstract class Attachment extends NamedDBElement
      * @return AttachmentType the type of this attachement
      *
      */
-    public function getType(): AttachmentType
+    public function getAttachmentType(): ?AttachmentType
     {
-        return $this->attachement_type;
+        return $this->attachment_type;
     }
 
     /**
@@ -236,6 +236,39 @@ abstract class Attachment extends NamedDBElement
 
         return $this;
     }
+
+    abstract public function setElement(AttachmentContainingDBElement $element) : Attachment;
+
+    /**
+     * @param string $path
+     * @return Attachment
+     */
+    public function setPath(string $path): Attachment
+    {
+        $this->path = $path;
+        return $this;
+    }
+
+    /**
+     * @param AttachmentType $attachement_type
+     * @return Attachment
+     */
+    public function setAttachmentType(AttachmentType $attachement_type): Attachment
+    {
+        $this->attachment_type = $attachement_type;
+        return $this;
+    }
+
+    public function setURL(?string $url) : Attachment
+    {
+        //Only set if the URL is not empty
+        if (!empty($url)) {
+            $this->path = $url;
+        }
+
+        return $this;
+    }
+
 
     /*****************************************************************************************************
      * Static functions

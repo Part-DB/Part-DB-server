@@ -41,6 +41,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" role="tab" href="#attachments">
+                <i class="fas fa-paperclip fa-fw"></i>
+                {% trans %}part.edit.tab.attachments{% endtrans %}
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" data-toggle="tab" role="tab" href="#comment">
                 <i class="fas fa-sticky-note fa-fw"></i>
                 {% trans %}part.edit.tab.comment{% endtrans %}
@@ -63,7 +69,9 @@
         <div class="tab-pane fade p-2" id="part_lots" role="tabpanel">
             {% include "Parts/edit/_lots.html.twig" %}
         </div>
-
+        <div class="tab-pane fade p-2" id="attachments" role="tabpanel">
+            {% include "Parts/edit/_attachments.html.twig" %}
+        </div>
         <div class="tab-pane fade p-2" id="comment" role="tabpanel">
             {{ form_widget(form.comment)}}
         </div>

@@ -31,6 +31,7 @@
 
 namespace App\Entity\Attachments;
 
+use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,4 +49,14 @@ class PartAttachment extends Attachment
      */
     protected $element;
 
+    public function setElement(AttachmentContainingDBElement $element): Attachment
+    {
+        if (!$element instanceof Part) {
+            throw new \InvalidArgumentException("The element associated with a PartAttachment must be a Part!");
+        }
+
+        $this->element = $element;
+
+        return $this;
+    }
 }

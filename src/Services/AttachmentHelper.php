@@ -33,15 +33,18 @@ namespace App\Services;
 
 
 use App\Entity\Attachments\Attachment;
-use Doctrine\ORM\EntityManagerInterface;
-use SebastianBergmann\CodeCoverage\Node\File;
+use App\Entity\Attachments\PartAttachment;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 class AttachmentHelper
 {
-
+    /**
+     * @var string The folder where the attachments are saved. By default this is data/media in the project root string
+     */
     protected $base_path;
 
     public function __construct(ParameterBagInterface $params, KernelInterface $kernel)
@@ -54,8 +57,40 @@ class AttachmentHelper
         if ($fs->isAbsolutePath($tmp_base_path)) {
             $this->base_path = $tmp_base_path;
         } else {
-            $this->base_path = realpath($kernel->getProjectDir() . $tmp_base_path);
+            $this->base_path = realpath($kernel->getProjectDir() . DIRECTORY_SEPARATOR . $tmp_base_path);
         }
+    }
+
+    /**
+     * Converts an relative placeholder filepath (with %MEDIA% or older %BASE%) to an absolute filepath on disk.
+     * @param string $placeholder_path The filepath with placeholder for which the real path should be determined.
+     * @return string The absolute real path of the file
+     */
+    protected function placeholderToRealPath(string $placeholder_path) : string
+    {
+        //The new attachments use %MEDIA% as placeholders, which is the directory set in media_directory
+        $placeholder_path = str_replace("%MEDIA%", $this->base_path, $placeholder_path);
+
+        //Older path entries are given via %BASE% which was the project root
+        $placeholder_path = str_replace("%BASE%/data/media", $this->base_path, $placeholder_path);
+
+        return $placeholder_path;
+    }
+
+    /**
+     * Converts an real absolute filepath to a placeholder version.
+     * @param string $real_path The absolute path, for which the placeholder version should be generated.
+     * @param bool $old_version By default the %MEDIA% placeholder is used, which is directly replaced with the
+     * media directory. If set to true, the old version with %BASE% will be used, which is the project directory.
+     * @return string The placeholder version of the filepath
+     */
+    protected function realPathToPlaceholder(string $real_path, bool $old_version = false) : string
+    {
+        if ($old_version) {
+            return str_replace($this->base_path, "%BASE%/data/media", $real_path);
+        }
+
+        return str_replace($this->base_path, "%MEDIA%", $real_path);
     }
 
     /**
@@ -70,7 +105,7 @@ class AttachmentHelper
         }
 
         $path = $attachment->getPath();
-        $path = str_replace("%BASE%", $this->base_path, $path);
+        $path = $this->placeholderToRealPath($path);
         return realpath($path);
     }
 
@@ -125,6 +160,63 @@ class AttachmentHelper
         $sz = 'BKMGTP';
         $factor = (int) floor((strlen($bytes) - 1) / 3);
         return sprintf("%.{$decimals}f", $bytes / 1024 ** $factor) . @$sz[$factor];
+    }
+
+    /**
+     * Generate a path to a folder, where this attachment can save its file.
+     * @param Attachment $attachment The attachment for which the folder should be generated
+     * @return string The path to the folder (without trailing slash)
+     */
+    public function generateFolderForAttachment(Attachment $attachment) : string
+    {
+        $mapping = [PartAttachment::class => 'part'];
+
+        $path = $this->base_path . DIRECTORY_SEPARATOR . $mapping[get_class($attachment)] . DIRECTORY_SEPARATOR . $attachment->getElement()->getID();
+        return $path;
+    }
+
+    /**
+     * Moves the given uploaded file to a permanent place and saves it into the attachment
+     * @param Attachment $attachment The attachment in which the file should be saved
+     * @param UploadedFile|null $file The file which was uploaded
+     * @return Attachment The attachment with the new filepath
+     */
+    public function upload(Attachment $attachment, ?UploadedFile $file) : Attachment
+    {
+        //If file is null, do nothing (helpful, so we dont have to check if the file was reuploaded in controller)
+        if (!$file) {
+            return $attachment;
+        }
+
+        $folder = $this->generateFolderForAttachment($attachment);
+
+        //Sanatize filename
+        $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+        $newFilename = $safeFilename . '.' . $file->getClientOriginalExtension();
+
+        //If a file with this name is already existing add a number to the filename
+        if (file_exists($folder . DIRECTORY_SEPARATOR . $newFilename)) {
+            $bak = $newFilename;
+
+            $number = 1;
+            $newFilename = $folder . DIRECTORY_SEPARATOR . $safeFilename . '-' . $number . '.' . $file->getClientOriginalExtension();
+            while (file_exists($newFilename)) {
+                $number++;
+                $newFilename = $folder . DIRECTORY_SEPARATOR . $safeFilename . '-' . $number . '.' . $file->getClientOriginalExtension();
+            }
+        }
+
+        //Move our temporay attachment to its final location
+        $file_path = $file->move($folder, $newFilename)->getRealPath();
+
+        //Make our file path relative to %BASE%
+        $file_path = $this->realPathToPlaceholder($file_path);
+
+        //Save the path to the attachment
+        $attachment->setPath($file_path);
+
+        return $attachment;
     }
 
 }
