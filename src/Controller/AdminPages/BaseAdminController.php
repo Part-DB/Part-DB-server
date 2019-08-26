@@ -76,12 +76,13 @@ abstract class BaseAdminController extends AbstractController
             $em->persist($entity);
             $em->flush();
             $this->addFlash('success', $this->translator->trans('entity.edit_flash'));
+
+            //Rebuild form, so it is based on the updated data. Important for the parent field!
+            //We can not use dynamic form events here, because the parent entity list is build from database!
+            $form = $this->createForm($this->form_class, $entity);
         } elseif ($form->isSubmitted() && ! $form->isValid()) {
             $this->addFlash('error', $this->translator->trans('entity.edit_flash.invalid'));
         }
-
-        //Rebuild form, so it is based on the updated data. Important for the parent field!
-        $form = $this->createForm($this->form_class, $entity);
 
         return $this->render($this->twig_template, [
             'entity' => $entity,
