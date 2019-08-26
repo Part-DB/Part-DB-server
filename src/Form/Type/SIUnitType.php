@@ -64,7 +64,7 @@ class SIUnitType extends AbstractType implements DataMapperInterface
                     $unit = $options['measurement_unit'];
                     return $unit->isUseSIPrefix();
                 }
-                return true;
+                return false;
             },
             'is_integer' => function (Options $options) {
                 if ($options['measurement_unit'] !== null) {
