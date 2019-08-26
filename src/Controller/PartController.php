@@ -102,6 +102,7 @@ class PartController extends AbstractController
             [
                 'part' => $part,
                 'form' => $form->createView(),
+                'attachment_helper' => $attachmentHelper
             ]);
     }
 
@@ -113,7 +114,8 @@ class PartController extends AbstractController
      * @param TranslatorInterface $translator
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator)
+    public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
+                        AttachmentHelper $attachmentHelper)
     {
         $new_part = new Part();
 
@@ -129,6 +131,13 @@ class PartController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //Upload passed files
+            $attachments = $form['attachments'];
+            foreach ($attachments as $attachment) {
+                /** @var $attachment FormInterface */
+                $attachmentHelper->upload( $attachment->getData(), $attachment['file']->getData());
+            }
+
             $em->persist($new_part);
             $em->flush();
             $this->addFlash('success', $translator->trans('part.created_flash'));
@@ -142,6 +151,7 @@ class PartController extends AbstractController
             [
                 'part' => $new_part,
                 'form' => $form->createView(),
+                'attachment_helper' => $attachmentHelper
             ]);
     }
 

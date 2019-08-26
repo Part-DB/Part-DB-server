@@ -100,6 +100,10 @@ class AttachmentHelper
      */
     public function toAbsoluteFilePath(Attachment $attachment): ?string
     {
+        if (empty($attachment->getPath())) {
+            return null;
+        }
+
         if ($attachment->isExternal()) {
             return null;
         }
@@ -119,6 +123,10 @@ class AttachmentHelper
      */
     public function isFileExisting(Attachment $attachment): bool
     {
+        if (empty($attachment->getPath())) {
+            return false;
+        }
+
         return file_exists($this->toAbsoluteFilePath($attachment)) || $attachment->isExternal();
     }
 
