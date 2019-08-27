@@ -34,6 +34,7 @@ namespace App\Services;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\PartAttachment;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
@@ -62,17 +63,29 @@ class AttachmentHelper
     }
 
     /**
+     * Returns the absolute path to the folder where all attachments are saved.
+     * @return string
+     */
+    public function getMediaPath() : string
+    {
+        return $this->base_path;
+    }
+
+    /**
      * Converts an relative placeholder filepath (with %MEDIA% or older %BASE%) to an absolute filepath on disk.
      * @param string $placeholder_path The filepath with placeholder for which the real path should be determined.
      * @return string The absolute real path of the file
      */
-    protected function placeholderToRealPath(string $placeholder_path) : string
+    public function placeholderToRealPath(string $placeholder_path) : string
     {
         //The new attachments use %MEDIA% as placeholders, which is the directory set in media_directory
         $placeholder_path = str_replace("%MEDIA%", $this->base_path, $placeholder_path);
 
         //Older path entries are given via %BASE% which was the project root
         $placeholder_path = str_replace("%BASE%/data/media", $this->base_path, $placeholder_path);
+
+        //Normalize path
+        $placeholder_path = str_replace('\\', '/', $placeholder_path);
 
         return $placeholder_path;
     }
@@ -84,13 +97,17 @@ class AttachmentHelper
      * media directory. If set to true, the old version with %BASE% will be used, which is the project directory.
      * @return string The placeholder version of the filepath
      */
-    protected function realPathToPlaceholder(string $real_path, bool $old_version = false) : string
+    public function realPathToPlaceholder(string $real_path, bool $old_version = false) : string
     {
         if ($old_version) {
-            return str_replace($this->base_path, "%BASE%/data/media", $real_path);
+            $real_path = str_replace($this->base_path, "%BASE%/data/media", $real_path);
+        } else {
+            $real_path = str_replace($this->base_path, "%MEDIA%", $real_path);
         }
 
-        return str_replace($this->base_path, "%MEDIA%", $real_path);
+        //Normalize path
+        $real_path = str_replace('\\', '/', $real_path);
+        return $real_path;
     }
 
     /**
