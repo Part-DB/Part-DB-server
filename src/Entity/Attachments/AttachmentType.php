@@ -67,7 +67,7 @@ class AttachmentType extends StructuralDBElement
 {
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Attachment", mappedBy="attachement_type")
+     * @ORM\OneToMany(targetEntity="Attachment", mappedBy="attachment_type")
      */
     protected $attachments;
 
