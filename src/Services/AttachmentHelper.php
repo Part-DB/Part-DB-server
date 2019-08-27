@@ -34,10 +34,8 @@ namespace App\Services;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\PartAttachment;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -69,6 +67,21 @@ class AttachmentHelper
     public function getMediaPath() : string
     {
         return $this->base_path;
+    }
+
+    /**
+     * Gets an SPLFileInfo object representing the file associated with the attachment.
+     * @param Attachment $attachment The attachment for which the file should be generated
+     * @return \SplFileInfo|null The fileinfo for the attachment file. Null, if the attachment is external or has
+     * invalid file.
+     */
+    public function attachmentToFile(Attachment $attachment) : ?\SplFileInfo
+    {
+        if ($attachment->isExternal() || !$this->isFileExisting($attachment)) {
+            return null;
+        }
+
+        return new \SplFileInfo($this->toAbsoluteFilePath($attachment));
     }
 
     /**

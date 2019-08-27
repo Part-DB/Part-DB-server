@@ -42,6 +42,11 @@ services:
         tags:
             - { name: doctrine.orm.entity_listener }
 
+    attachment_delete_listener:
+        class: App\EntityListeners\AttachmentDeleteListener
+        tags:
+            - name: doctrine.orm.entity_listener
+
 
     App\Command\UpdateExchangeRatesCommand:
         arguments:

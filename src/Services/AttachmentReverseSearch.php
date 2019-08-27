@@ -33,6 +33,7 @@ namespace App\Services;
 
 use App\Entity\Attachments\Attachment;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
 
 /**
@@ -66,4 +67,22 @@ class AttachmentReverseSearch
         return $repo->findBy(['path' => [$relative_path_new, $relative_path_old]]);
     }
 
+    /**
+     * Deletes the given file if it is not used by more than $threshold attachments
+     * @param \SplFileInfo $file The file that should be removed
+     * @param int $threshold The threshold used, to determine if a file should be deleted or not.
+     * @return bool True, if the file was delete. False if not.
+     */
+    public function deleteIfNotUsed(\SplFileInfo $file, int $threshold = 0) : bool
+    {
+        /* When the file is used more then $threshold times, don't delete it */
+        if (count($this->findAttachmentsByFile($file)) > $threshold) {
+            return false;
+        }
+
+        $fs = new Filesystem();
+        $fs->remove($file);
+
+        return true;
+    }
 }

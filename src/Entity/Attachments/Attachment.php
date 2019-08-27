@@ -37,6 +37,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="class_name", type="string")
  * @ORM\DiscriminatorMap({"PartDB\Part" = "PartAttachment", "Part" = "PartAttachment"})
+ * @ORM\EntityListeners({"App\EntityListeners\AttachmentDeleteListener"})
  *
  */
 abstract class Attachment extends NamedDBElement
@@ -122,17 +123,6 @@ abstract class Attachment extends NamedDBElement
     public function getElement(): ?AttachmentContainingDBElement
     {
         return $this->element;
-    }
-
-    /**
-     * Checks if the file in this attachement is existing. This works for files on the HDD, and for URLs
-     * (it's not checked if the ressource behind the URL is really existing).
-     *
-     * @return bool True if the file is existing.
-     */
-    public function isFileExisting(): bool
-    {
-        return file_exists($this->getPath()) || static::isURL($this->getPath());
     }
 
     /**
@@ -273,11 +263,11 @@ abstract class Attachment extends NamedDBElement
     {
         //Only set if the URL is not empty
         if (!empty($url)) {
-            $this->path = $url;
-        }
+            if (strpos($url, '%BASE%') !== false || strpos($url, '%MEDIA%') !== false) {
+                throw new \InvalidArgumentException("You can not reference internal files via the url field! But nice try!");
+            }
 
-        if (strpos($url, '%BASE%') !== false || strpos($url, '%MEDIA%') !== false) {
-            throw new \InvalidArgumentException("You can not reference internal files via the url field! But nice try!");
+            $this->path = $url;
         }
 
         return $this;
