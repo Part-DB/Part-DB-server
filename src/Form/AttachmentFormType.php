@@ -45,6 +45,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Url;
 
 class AttachmentFormType extends AbstractType
 {
@@ -74,7 +75,10 @@ class AttachmentFormType extends AbstractType
 
         $builder->add('url', UrlType::class, [
             'label' => 'attachment.edit.url',
-            'required' => false
+            'required' => false,
+            'constraints' => [
+                new Url()
+            ]
         ]);
 
         $builder->add('file', FileType::class, [
