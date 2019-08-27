@@ -27,6 +27,7 @@ use App\Entity\Base\DBElement;
 use App\Entity\Base\NamedDBElement;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Attachment.
@@ -91,7 +92,10 @@ abstract class Attachment extends NamedDBElement
      */
     public function isExternal() : bool
     {
-        return static::isUrl($this->getPath());
+        //return static::isUrl($this->getPath());
+        //Treat all pathes without a filepath as external
+        return (strpos($this->getPath(), "%MEDIA%") === false)
+            && (strpos($this->getPath(), "%BASE") === false);
     }
 
     /********************************************************************************
@@ -259,11 +263,21 @@ abstract class Attachment extends NamedDBElement
         return $this;
     }
 
+    /**
+     * Sets the url associated with this attachment.
+     * If the url is empty nothing is changed, to not override the file path.
+     * @param string|null $url
+     * @return Attachment
+     */
     public function setURL(?string $url) : Attachment
     {
         //Only set if the URL is not empty
         if (!empty($url)) {
             $this->path = $url;
+        }
+
+        if (strpos($url, '%BASE%') !== false || strpos($url, '%MEDIA%') !== false) {
+            throw new \InvalidArgumentException("You can not reference internal files via the url field! But nice try!");
         }
 
         return $this;
