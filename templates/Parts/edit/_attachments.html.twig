@@ -23,11 +23,18 @@
                         <br><br>
                         <h6>
                         <span class="badge badge-primary">
-                            <i class="fas fa-hdd fa-file"></i> {{ attach.filename }}
+                            <i class="fas fa-fw fa-file"></i> {{ attach.filename }}
                         </span>
                             <br>
                             <span class="badge badge-secondary">
                             <i class="fas fa-hdd fa-fw"></i> {{ attachment_helper.humanFileSize(attach) }}
+                        </span>
+                        </h6>
+                    {% else %}
+                        <br><br>
+                        <h6>
+                        <span class="badge badge-primary">
+                            <i class="fas fa-fw fa-globe"></i> {% trans %}attachment.external{% endtrans %}
                         </span>
                         </h6>
                     {% endif %}
