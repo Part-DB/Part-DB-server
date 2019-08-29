@@ -244,6 +244,12 @@ class Part extends AttachmentContainingDBElement
     protected $manufacturer_product_number = '';
 
     /**
+     * @var string
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $manufacturing_status;
+
+    /**
      * @var bool Determines if this part entry needs review (for example, because it is work in progress)
      * @ORM\Column(type="boolean")
      */

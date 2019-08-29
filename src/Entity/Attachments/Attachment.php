@@ -33,7 +33,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class Attachment.
  *
  * @ORM\Entity
- * @ORM\Table(name="`attachements`")
+ * @ORM\Table(name="`attachments`")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="class_name", type="string")
  * @ORM\DiscriminatorMap({"PartDB\Part" = "PartAttachment", "Part" = "PartAttachment"})

@@ -62,6 +62,7 @@ declare(strict_types=1);
 namespace App\Entity\PriceInformations;
 
 use App\Entity\Base\DBElement;
+use App\Entity\Base\TimestampTrait;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -72,10 +73,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity()
  * @ORM\Table("`pricedetails`")
+ * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(fields={"orderdetail", "min_discount_quantity"})
  */
 class Pricedetail extends DBElement
 {
+
+    use TimestampTrait;
+
     /**
      * @var Orderdetail
      * @ORM\ManyToOne(targetEntity="Orderdetail", inversedBy="pricedetails")
@@ -118,10 +123,6 @@ class Pricedetail extends DBElement
      */
     protected $manual_input;
 
-    /**
-     * @ORM\Column(type="datetimetz")
-     */
-    protected $last_modified;
 
     /********************************************************************************
      *
@@ -303,6 +304,6 @@ class Pricedetail extends DBElement
      */
     public function getIDString(): string
     {
-        return 'PD'.sprintf('%06d', $this->getID());
+        return 'PD' . sprintf('%06d', $this->getID());
     }
 }

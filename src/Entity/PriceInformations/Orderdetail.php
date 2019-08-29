@@ -62,20 +62,25 @@ declare(strict_types=1);
 namespace App\Entity\PriceInformations;
 
 use App\Entity\Base\DBElement;
+use App\Entity\Base\TimestampTrait;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
 use Exception;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Orderdetail.
  *
  * @ORM\Table("`orderdetails`")
  * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks()
  */
 class Orderdetail extends DBElement
 {
+    use TimestampTrait;
+
     /**
      * @var Part
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part", inversedBy="orderdetails")
@@ -99,25 +104,20 @@ class Orderdetail extends DBElement
      * @var string
      * @ORM\Column(type="string")
      */
-    protected $supplierpartnr;
+    protected $supplierpartnr = "";
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $obsolete;
+    protected $obsolete = false;
 
     /**
      * @var string
      * @ORM\Column(type="string")
+     * @Assert\Url()
      */
-    protected $supplier_product_url;
-
-    /**
-     * @var \DateTime The date when this element was created.
-     * @ORM\Column(type="datetimetz", name="datetime_added")
-     */
-    protected $addedDate;
+    protected $supplier_product_url = "";
 
     /**
      * Returns the ID as an string, defined by the element class.
@@ -151,7 +151,7 @@ class Orderdetail extends DBElement
      *
      * @return Supplier the supplier of this orderdetails
      */
-    public function getSupplier(): Supplier
+    public function getSupplier(): ?Supplier
     {
         return $this->supplier;
     }
@@ -178,17 +178,6 @@ class Orderdetail extends DBElement
     public function getObsolete(): bool
     {
         return (bool) $this->obsolete;
-    }
-
-    /**
-     * Returns the date/time when the element was created.
-     * Returns null if the element was not yet saved to DB yet.
-     *
-     * @return \DateTime|null The creation time of the part.
-     */
-    public function getAddedDate(): ?\DateTime
-    {
-        return $this->addedDate;
     }
 
     /**
