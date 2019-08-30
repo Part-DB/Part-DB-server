@@ -115,6 +115,7 @@ class Pricedetail extends DBElement
     /**
      * @var int
      * @ORM\Column(type="integer")
+     * @Assert\Positive()
      */
     protected $min_discount_quantity = 1;
 
