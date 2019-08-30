@@ -53,7 +53,7 @@ class OrderdetailType extends AbstractType
 
         $builder->add('supplier', StructuralEntityType::class, ['class' => Supplier::class, 'disable_not_selectable' => true]);
 
-        $builder->add('supplierProductUrl', UrlType::class, [
+        $builder->add('supplier_product_url', UrlType::class, [
             'required' => false,
             'empty_data' => ""
         ]);
@@ -64,7 +64,7 @@ class OrderdetailType extends AbstractType
         ]);
 
         //Attachment section
-        $builder->add('priceDetails', CollectionType::class, [
+        $builder->add('pricedetails', CollectionType::class, [
             'entry_type' => PricedetailType::class,
             'allow_add' => true, 'allow_delete' => true,
             'label' => false,

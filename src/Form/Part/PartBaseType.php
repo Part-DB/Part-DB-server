@@ -145,7 +145,7 @@ class PartBaseType extends AbstractType
         ]);
 
         //Attachment section
-        $builder->add('orderDetails', CollectionType::class, [
+        $builder->add('orderdetails', CollectionType::class, [
             'entry_type' => OrderdetailType::class,
             'allow_add' => true, 'allow_delete' => true,
             'label' => false,

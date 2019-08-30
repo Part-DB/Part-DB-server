@@ -2,7 +2,7 @@
     {% form_theme form.currency 'Form/extendedBootstrap4_layout.html.twig' %}
 
     <tr>
-        <td>{{ form_widget(form.minDiscountQuantity, {'attr': {'class': 'form-control-sm'}}) }} {{ form_errors(form.minDiscountQuantity) }}</td>
+        <td>{{ form_widget(form.min_discount_quantity, {'attr': {'class': 'form-control-sm'}}) }} {{ form_errors(form.min_discount_quantity) }}</td>
         <td>
             <div class="input-group input-group-sm">
                 {{ form_widget(form.price) }}
@@ -13,10 +13,11 @@
             {{ form_errors(form.price) }}
             {{ form_errors(form.currency) }}
         </td>
-        <td>{{ form_widget(form.priceRelatedQuantity, {'attr': {'class': 'form-control-sm'}}) }} {{ form_errors(form.price) }}</td>
+        <td>{{ form_widget(form.price_related_quantity, {'attr': {'class': 'form-control-sm'}}) }} {{ form_errors(form.price_related_quantity) }}</td>
         <td><button type="button" class="btn btn-danger order_btn_delete btn-sm" title="{% trans %}orderdetail.delete{% endtrans %}" onclick="delete_pricedetail_entry(this);">
                 <i class="fas fa-trash-alt fa-fw"></i>
             </button>
+            {{ form_errors(form) }}
         </td>
     </tr>
 {% endblock %}
@@ -26,11 +27,11 @@
         <td>
             {{ form_row(form.supplier,  {'attr': {'class': 'form-control-sm'}}) }}
             {{ form_row(form.supplierpartnr, {'attr': {'class': 'form-control-sm'}}) }}
-            {{ form_row(form.supplierProductUrl,  {'attr': {'class': 'form-control-sm'}}) }}
+            {{ form_row(form.supplier_product_url,  {'attr': {'class': 'form-control-sm'}}) }}
             {{ form_widget(form.obsolete) }}
         </td>
         <td>
-            <table class="table table-sm table-bordered" data-prototype="{{ form_widget(form.priceDetails.vars.prototype)|e('html_attr') }}">
+            <table class="table table-sm table-bordered" data-prototype="{{ form_widget(form.pricedetails.vars.prototype)|e('html_attr') }}">
                 <thead>
                 <tr>
                     <th>Min Qty.</th>
@@ -40,7 +41,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for price in form.priceDetails %}
+                {% for price in form.pricedetails %}
                     {{ form_widget(price) }}
                 {% endfor %}
                 </tbody>
@@ -55,6 +56,7 @@
             <button type="button" class="btn btn-danger order_btn_delete" onclick="delete_orderdetail_entry(this);" title="{% trans %}orderdetail.delete{% endtrans %}">
                 <i class="fas fa-trash-alt fa-fw"></i>
             </button>
+            {{ form_errors(form) }}
         </td>
     </tr>
 {% endblock %}

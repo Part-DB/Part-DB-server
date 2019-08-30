@@ -47,8 +47,8 @@ class PricedetailType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add("minDiscountQuantity", IntegerType::class);
-        $builder->add("priceRelatedQuantity", IntegerType::class);
+        $builder->add("min_discount_quantity", IntegerType::class);
+        $builder->add("price_related_quantity", IntegerType::class);
         $builder->add("price", NumberType::class);
         $builder->add("currency", CurrencyEntityType::class, ['required' => false]);
     }
@@ -57,6 +57,7 @@ class PricedetailType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Pricedetail::class,
+            'error_bubbling' => false
         ]);
     }
 }
