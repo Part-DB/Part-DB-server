@@ -45,6 +45,7 @@ class CurrencyAdminForm extends BaseEntityAdminForm
         $is_new = $entity->getID() === null;
 
         $builder->add('iso_code', CurrencyType::class , ['required' => true,
+            'required' => false,
             'label' => 'currency.iso_code.label',
             'preferred_choices' => ['EUR', 'USD', 'GBP', 'JPY', 'CNY'],
             'attr' => ['class' => 'selectpicker', 'data-live-search' => true],

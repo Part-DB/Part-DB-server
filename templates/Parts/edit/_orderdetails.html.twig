@@ -1,0 +1,66 @@
+{% form_theme form 'Parts/edit/edit_form_styles.html.twig' %}
+
+<table class="table table-striped" id="orderdetails_table" data-prototype="{{ form_widget(form.orderDetails.vars.prototype)|e('html_attr') }}">
+    <tbody>
+    {% for detail in form.orderDetails %}
+        {{ form_widget(detail) }}
+    {% endfor %}
+    </tbody>
+</table>
+
+<button type="button" class="btn btn-success" onclick="create_orderdetail_entry(this)">
+    <i class="fas fa-plus-square fa-fw"></i>
+    {% trans %}orderdetail.create{% endtrans %}
+</button>
+
+<script>
+    function delete_pricedetail_entry(btn) {
+        window.bootbox.confirm('{% trans %}pricedetails.edit.delete.confirm{% endtrans %}', function (result) {
+            if(result) {
+                $(btn).closest("tr").remove();
+            }
+        });
+    }
+
+    function create_pricedetail_entry(btn) {
+        //Determine the table, so we can determine, how many entries there are already.
+        $holder = $(btn).siblings("table");
+
+        var index = $holder.find(":input").length;
+        var newForm = $holder.data("prototype");
+
+        //Increase the index
+        newForm = newForm.replace(/__name__/g, index);
+
+        $holder.children("tbody").append(newForm);
+
+        //Reinit the selectpickers
+        $(".selectpicker").selectpicker();
+
+    }
+
+    function delete_orderdetail_entry(btn) {
+        window.bootbox.confirm('{% trans %}orderdetails.edit.delete.confirm{% endtrans %}', function (result) {
+            if(result) {
+                $(btn).parents("tr").remove();
+            }
+        });
+    }
+
+    function create_orderdetail_entry(btn) {
+        //Determine the table, so we can determine, how many entries there are already.
+        $holder = $("#orderdetails_table");
+
+        var index = $holder.find(":input").length;
+        var newForm = $holder.data("prototype");
+
+        //Increase the index
+        newForm = newForm.replace(/__name__/g, index);
+
+        $holder.children("tbody").append(newForm);
+
+        //Reinit the selectpickers
+        $(".selectpicker").selectpicker();
+
+    }
+</script>

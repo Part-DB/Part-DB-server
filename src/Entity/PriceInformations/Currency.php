@@ -86,7 +86,7 @@ class Currency extends StructuralDBElement
      * @param string $iso_code
      * @return Currency
      */
-    public function setIsoCode(string $iso_code): Currency
+    public function setIsoCode(?string $iso_code): Currency
     {
         $this->iso_code = $iso_code;
         return $this;

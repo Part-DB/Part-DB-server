@@ -65,9 +65,12 @@ use App\Entity\Base\DBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
 use Exception;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -85,6 +88,7 @@ class Orderdetail extends DBElement
      * @var Part
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part", inversedBy="orderdetails")
      * @ORM\JoinColumn(name="part_id", referencedColumnName="id")
+     * @Assert\NotNull()
      */
     protected $part;
 
@@ -96,7 +100,8 @@ class Orderdetail extends DBElement
     protected $supplier;
 
     /**
-     * @ORM\OneToMany(targetEntity="Pricedetail", mappedBy="orderdetail")
+     * @ORM\OneToMany(targetEntity="Pricedetail", mappedBy="orderdetail", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     protected $pricedetails;
 
@@ -118,6 +123,11 @@ class Orderdetail extends DBElement
      * @Assert\Url()
      */
     protected $supplier_product_url = "";
+
+    public function __construct()
+    {
+        $this->pricedetails = new ArrayCollection();
+    }
 
     /**
      * Returns the ID as an string, defined by the element class.
@@ -205,9 +215,32 @@ class Orderdetail extends DBElement
      *
      * @throws Exception if there was an error
      */
-    public function getPricedetails(): PersistentCollection
+    public function getPricedetails(): Collection
     {
         return $this->pricedetails;
+    }
+
+    /**
+     * Adds an pricedetail to this orderdetail
+     * @param Pricedetail $pricedetail The pricedetail to add
+     * @return Orderdetail
+     */
+    public function addPricedetail(Pricedetail $pricedetail) : Orderdetail
+    {
+        $pricedetail->setOrderdetail($this);
+        $this->pricedetails->add($pricedetail);
+        return $this;
+    }
+
+    /**
+     * Removes an pricedetail from this orderdetail
+     * @param Pricedetail $pricedetail
+     * @return Orderdetail
+     */
+    public function removePricedetail(Pricedetail $pricedetail) : Orderdetail
+    {
+        $this->pricedetails->removeElement($pricedetail);
+        return $this;
     }
 
     /**
@@ -265,6 +298,15 @@ class Orderdetail extends DBElement
      *********************************************************************************/
 
     /**
+     * Sets a new part with which this orderdetail is associated
+     * @param Part $part
+     */
+    public function setPart(Part $part)
+    {
+        $this->part = $part;
+    }
+
+    /**
      * Sets the new supplier associated with this orderdetail.
      * @param Supplier $new_supplier
      * @return Orderdetail
@@ -310,6 +352,11 @@ class Orderdetail extends DBElement
      */
     public function setSupplierProductUrl(string $new_url)
     {
+        //Only change the internal URL if it is not the auto generated one
+        if ($new_url == $this->supplier->getAutoProductUrl($this->getSupplierPartNr())) {
+            return $this;
+        }
+
         $this->supplier_product_url = $new_url;
 
         return $this;

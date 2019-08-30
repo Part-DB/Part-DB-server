@@ -128,8 +128,8 @@ class Part extends AttachmentContainingDBElement
 
     /**
      * @var Orderdetail[]
-     * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="part")
-     *
+     * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
      * @ColumnSecurity(prefix="orderdetails", type="object")
      */
     protected $orderdetails;
@@ -279,6 +279,7 @@ class Part extends AttachmentContainingDBElement
     {
         parent::__construct();
         $this->partLots = new ArrayCollection();
+        $this->orderdetails = new ArrayCollection();
     }
 
     /**
@@ -508,6 +509,19 @@ class Part extends AttachmentContainingDBElement
         }
 
         return $this->orderdetails;
+    }
+
+    public function addOrderdetail(Orderdetail $orderdetail) : Part
+    {
+        $orderdetail->setPart($this);
+        $this->orderdetails->add($orderdetail);
+        return $this;
+    }
+
+    public function removeOrderdetail(Orderdetail $orderdetail) : Part
+    {
+        $this->orderdetails->removeElement($orderdetail);
+        return $this;
     }
 
     /**

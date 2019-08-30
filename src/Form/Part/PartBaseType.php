@@ -144,6 +144,14 @@ class PartBaseType extends AbstractType
             'by_reference' => false
         ]);
 
+        //Attachment section
+        $builder->add('orderDetails', CollectionType::class, [
+            'entry_type' => OrderdetailType::class,
+            'allow_add' => true, 'allow_delete' => true,
+            'label' => false,
+            'by_reference' => false,
+        ]);
+
         $builder
             //Buttons
             ->add('save', SubmitType::class, ['label' => 'part.edit.save'])

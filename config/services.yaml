@@ -52,6 +52,10 @@ services:
         arguments:
             $base_current: '%default_currency%'
 
+    App\Form\Type\CurrencyEntityType:
+        arguments:
+            $base_currency: '%default_currency%'
+
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

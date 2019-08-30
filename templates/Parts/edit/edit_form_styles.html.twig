@@ -1,0 +1,59 @@
+{% block pricedetail_widget %}
+    <tr>
+        <td>{{ form_widget(form.minDiscountQuantity) }} {{ form_errors(form.minDiscountQuantity) }}</td>
+        <td>
+            <div class="input-group">
+                {{ form_widget(form.price) }}
+                <div class="input-group-append">
+                    {{ form_widget(form.currency) }}
+                </div>
+            </div>
+            {{ form_errors(form.price) }}
+            {{ form_errors(form.currency) }}
+        </td>
+        <td>{{ form_widget(form.priceRelatedQuantity) }} {{ form_errors(form.price) }}</td>
+        <td><button type="button" class="btn btn-danger order_btn_delete" title="{% trans %}orderdetail.delete{% endtrans %}" onclick="delete_pricedetail_entry(this);">
+                <i class="fas fa-trash-alt fa-fw"></i>
+            </button>
+        </td>
+    </tr>
+{% endblock %}
+
+{% block orderdetail_widget %}
+    <tr>
+        <td>
+            {{ form_row(form.supplierpartnr) }}
+            {{ form_row(form.supplier) }}
+            {{ form_row(form.supplierProductUrl) }}
+            {{ form_row(form.obsolete) }}
+        </td>
+        <td>
+            <table class="table table-sm table-bordered" data-prototype="{{ form_widget(form.priceDetails.vars.prototype)|e('html_attr') }}">
+                <thead>
+                <tr>
+                    <th>Min Qty.</th>
+                    <th>Price</th>
+                    <th>Price Qty</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for price in form.priceDetails %}
+                    {{ form_widget(price) }}
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <button type="button" class="btn btn-success" onclick="create_pricedetail_entry(this)">
+                <i class="fas fa-plus-square fa-fw"></i>
+                {% trans %}pricedetail.create{% endtrans %}
+            </button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger order_btn_delete" onclick="delete_orderdetail_entry(this);">
+                <i class="fas fa-trash-alt fa-fw"></i>
+                {% trans %}orderdetail.delete{% endtrans %}
+            </button>
+        </td>
+    </tr>
+{% endblock %}

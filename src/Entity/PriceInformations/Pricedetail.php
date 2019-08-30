@@ -85,6 +85,7 @@ class Pricedetail extends DBElement
      * @var Orderdetail
      * @ORM\ManyToOne(targetEntity="Orderdetail", inversedBy="pricedetails")
      * @ORM\JoinColumn(name="orderdetails_id", referencedColumnName="id")
+     * @Assert\NotNull()
      */
     protected $orderdetail;
 
@@ -93,7 +94,7 @@ class Pricedetail extends DBElement
      * @ORM\Column(type="decimal", precision=11, scale=5)
      * @Assert\Positive()
      */
-    protected $price;
+    protected $price = 0.0;
 
     /**
      * @var ?Currency The currency used for the current price information.
@@ -109,19 +110,19 @@ class Pricedetail extends DBElement
      * @ORM\Column(type="integer")
      * @Assert\Positive()
      */
-    protected $price_related_quantity;
+    protected $price_related_quantity = 1;
 
     /**
      * @var int
      * @ORM\Column(type="integer")
      */
-    protected $min_discount_quantity;
+    protected $min_discount_quantity = 1;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $manual_input;
+    protected $manual_input = true;
 
 
     /********************************************************************************
@@ -211,6 +212,17 @@ class Pricedetail extends DBElement
      *   Setters
      *
      *********************************************************************************/
+
+    /**
+     * Sets the orderdetail to which this pricedetail belongs to.
+     * @param Orderdetail $orderdetail
+     * @return $this
+     */
+    public function setOrderdetail(Orderdetail $orderdetail)
+    {
+        $this->orderdetail = $orderdetail;
+        return $this;
+    }
 
     /**
      * Sets the currency associated with the price informations.
