@@ -1,4 +1,4 @@
-{% form_theme form 'Parts/edit/edit_form_styles.html.twig' %}
+{% form_theme form with ['Parts/edit/edit_form_styles.html.twig', "bootstrap_4_layout.html.twig"] %}
 
 <table class="table table-striped" id="orderdetails_table" data-prototype="{{ form_widget(form.orderDetails.vars.prototype)|e('html_attr') }}">
     <tbody>

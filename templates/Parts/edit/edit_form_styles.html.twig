@@ -1,18 +1,20 @@
 {% block pricedetail_widget %}
+    {% form_theme form.currency 'Form/extendedBootstrap4_layout.html.twig' %}
+
     <tr>
-        <td>{{ form_widget(form.minDiscountQuantity) }} {{ form_errors(form.minDiscountQuantity) }}</td>
+        <td>{{ form_widget(form.minDiscountQuantity, {'attr': {'class': 'form-control-sm'}}) }} {{ form_errors(form.minDiscountQuantity) }}</td>
         <td>
-            <div class="input-group">
+            <div class="input-group input-group-sm">
                 {{ form_widget(form.price) }}
                 <div class="input-group-append">
-                    {{ form_widget(form.currency) }}
+                    {{ form_widget(form.currency, {'attr': {'class': 'selectpicker form-control-sm'}}) }}
                 </div>
             </div>
             {{ form_errors(form.price) }}
             {{ form_errors(form.currency) }}
         </td>
-        <td>{{ form_widget(form.priceRelatedQuantity) }} {{ form_errors(form.price) }}</td>
-        <td><button type="button" class="btn btn-danger order_btn_delete" title="{% trans %}orderdetail.delete{% endtrans %}" onclick="delete_pricedetail_entry(this);">
+        <td>{{ form_widget(form.priceRelatedQuantity, {'attr': {'class': 'form-control-sm'}}) }} {{ form_errors(form.price) }}</td>
+        <td><button type="button" class="btn btn-danger order_btn_delete btn-sm" title="{% trans %}orderdetail.delete{% endtrans %}" onclick="delete_pricedetail_entry(this);">
                 <i class="fas fa-trash-alt fa-fw"></i>
             </button>
         </td>
@@ -22,10 +24,10 @@
 {% block orderdetail_widget %}
     <tr>
         <td>
-            {{ form_row(form.supplierpartnr) }}
-            {{ form_row(form.supplier) }}
-            {{ form_row(form.supplierProductUrl) }}
-            {{ form_row(form.obsolete) }}
+            {{ form_row(form.supplierpartnr, {'attr': {'class': 'form-control-sm'}}) }}
+            {{ form_row(form.supplier,  {'attr': {'class': 'form-control-sm'}}) }}
+            {{ form_row(form.supplierProductUrl,  {'attr': {'class': 'form-control-sm'}}) }}
+            {{ form_widget(form.obsolete) }}
         </td>
         <td>
             <table class="table table-sm table-bordered" data-prototype="{{ form_widget(form.priceDetails.vars.prototype)|e('html_attr') }}">
@@ -50,9 +52,8 @@
             </button>
         </td>
         <td>
-            <button type="button" class="btn btn-danger order_btn_delete" onclick="delete_orderdetail_entry(this);">
+            <button type="button" class="btn btn-danger order_btn_delete" onclick="delete_orderdetail_entry(this);" title="{% trans %}orderdetail.delete{% endtrans %}">
                 <i class="fas fa-trash-alt fa-fw"></i>
-                {% trans %}orderdetail.delete{% endtrans %}
             </button>
         </td>
     </tr>
