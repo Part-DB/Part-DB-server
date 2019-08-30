@@ -24,8 +24,8 @@
 {% block orderdetail_widget %}
     <tr>
         <td>
-            {{ form_row(form.supplierpartnr, {'attr': {'class': 'form-control-sm'}}) }}
             {{ form_row(form.supplier,  {'attr': {'class': 'form-control-sm'}}) }}
+            {{ form_row(form.supplierpartnr, {'attr': {'class': 'form-control-sm'}}) }}
             {{ form_row(form.supplierProductUrl,  {'attr': {'class': 'form-control-sm'}}) }}
             {{ form_widget(form.obsolete) }}
         </td>
