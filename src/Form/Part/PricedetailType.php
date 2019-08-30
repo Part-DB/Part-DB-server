@@ -47,6 +47,7 @@ class PricedetailType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        //No labels needed, we define translation in templates
         $builder->add("min_discount_quantity", IntegerType::class);
         $builder->add("price_related_quantity", IntegerType::class);
         $builder->add("price", NumberType::class);

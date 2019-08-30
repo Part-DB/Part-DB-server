@@ -47,20 +47,26 @@ class OrderdetailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('supplierpartnr', TextType::class, [
+            'label' => 'orderdetails.edit.supplierpartnr',
             'required' => false,
             'empty_data' => ""
         ]);
 
-        $builder->add('supplier', StructuralEntityType::class, ['class' => Supplier::class, 'disable_not_selectable' => true]);
+        $builder->add('supplier', StructuralEntityType::class, [
+            'class' => Supplier::class, 'disable_not_selectable' => true,
+            'label' => 'orderdetails.edit.supplier'
+        ]);
 
         $builder->add('supplier_product_url', UrlType::class, [
             'required' => false,
-            'empty_data' => ""
+            'empty_data' => "",
+            'label' => 'orderdetails.edit.url'
         ]);
 
         $builder->add('obsolete', CheckboxType::class, [
             'required' => false,
-            'label_attr' => ['class' => 'checkbox-custom']
+            'label_attr' => ['class' => 'checkbox-custom'],
+            'label' => 'orderdetails.edit.obsolete'
         ]);
 
         //Attachment section
