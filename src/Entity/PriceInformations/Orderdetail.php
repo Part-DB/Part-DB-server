@@ -205,6 +205,10 @@ class Orderdetail extends DBElement
             return $this->supplier_product_url;
         }
 
+        if ($this->supplier === null) {
+            return "";
+        }
+
         return $this->getSupplier()->getAutoProductUrl($this->supplierpartnr); // maybe an automatic url is available...
     }
 

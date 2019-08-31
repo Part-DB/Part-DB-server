@@ -34,6 +34,7 @@ namespace App\Form\Part;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Orderdetail;
+use App\Entity\PriceInformations\Pricedetail;
 use App\Form\Type\StructuralEntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -41,12 +42,18 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function foo\func;
 
 class OrderdetailType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var Orderdetail $orderdetail */
+        $orderdetail = $builder->getData();
+
         $builder->add('supplierpartnr', TextType::class, [
             'label' => 'orderdetails.edit.supplierpartnr',
             'required' => false,
@@ -70,16 +77,30 @@ class OrderdetailType extends AbstractType
             'label' => 'orderdetails.edit.obsolete'
         ]);
 
-        //Attachment section
-        $builder->add('pricedetails', CollectionType::class, [
-            'entry_type' => PricedetailType::class,
-            'allow_add' => true, 'allow_delete' => true,
-            'label' => false,
-            'by_reference' => false,
-            'entry_options' => [
-                'measurement_unit' => $options['measurement_unit']
-            ]
-        ]);
+
+        //Add pricedetails after we know the data, so we can set the default currency
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options) {
+            /** @var Orderdetail $orderdetail */
+            $orderdetail = $event->getData();
+
+            $dummy_pricedetail = new Pricedetail();
+            if ($orderdetail->getSupplier() !== null) {
+                $dummy_pricedetail->setCurrency($orderdetail->getSupplier()->getDefaultCurrency());
+            }
+
+            //Attachment section
+            $event->getForm()->add('pricedetails', CollectionType::class, [
+                'entry_type' => PricedetailType::class,
+                'allow_add' => true, 'allow_delete' => true,
+                'label' => false,
+                'prototype_data' => $dummy_pricedetail,
+                'by_reference' => false,
+                'entry_options' => [
+                    'measurement_unit' => $options['measurement_unit']
+                ]
+            ]);
+
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver)

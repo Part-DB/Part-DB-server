@@ -38,6 +38,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Storelocation;
+use App\Entity\PriceInformations\Orderdetail;
 use App\Form\AttachmentFormType;
 use App\Form\AttachmentType;
 use App\Form\Type\SIUnitType;
@@ -150,6 +151,7 @@ class PartBaseType extends AbstractType
             'allow_add' => true, 'allow_delete' => true,
             'label' => false,
             'by_reference' => false,
+            'prototype_data' => new Orderdetail(),
             'entry_options' => [
                 'measurement_unit' => $part->getPartUnit()
             ]
