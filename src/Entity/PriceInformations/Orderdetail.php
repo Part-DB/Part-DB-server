@@ -102,6 +102,7 @@ class Orderdetail extends DBElement
     /**
      * @ORM\OneToMany(targetEntity="Pricedetail", mappedBy="orderdetail", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
+     * @ORM\OrderBy({"min_discount_quantity" = "ASC"})
      */
     protected $pricedetails;
 
