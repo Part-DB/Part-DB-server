@@ -32,15 +32,15 @@
         //Increase the index
         newForm = newForm.replace(/__name__/g, index);
 
-        //Set default value
-        $vals = $(newForm).find("input[id$='min_discount_quantity']");
-
         //Determine the id of the fields we later update
-        var price_related_id = $("input[id$='price_related_quantity']", newForm).attr('id');
-        var min_discount_id = $("input[id$='min_discount_quantity']", newForm).attr('id');
+        var price_related_id = $("input[id$='price_related_quantity_value']", newForm).attr('id');
+        var min_discount_id = $("input[id$='min_discount_quantity_value']", newForm).attr('id');
+
+        console.error(price_related_id);
+        console.error(min_discount_id);
 
         //Determine the new value for the min_discount_qty
-        var new_min_amount = $("input[id$='min_discount_quantity']" , $holder).last().val();
+        var new_min_amount = $("input[id$='min_discount_quantity_value']" , $holder).last().val();
         new_min_amount = parseInt(new_min_amount) + 1;
         //Determine the next exponent, 10 -> 100 -> 1000
         new_min_amount = Math.pow(10, Math.ceil(Math.log10(new_min_amount)));
