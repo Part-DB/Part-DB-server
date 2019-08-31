@@ -56,7 +56,7 @@ final class Version20190829104643 extends AbstractMigration
 
         //Fill empty timestamps with current date
         $tables = ["attachments", "attachment_types", "categories", "devices", "footprints", "manufacturers",
-            "orderdetails", "pricedetails", "storelocations"];
+            "orderdetails", "pricedetails", "storelocations", "suppliers"];
 
         foreach ($tables as $table) {
             $this->addSql("UPDATE $table SET datetime_added = NOW() WHERE datetime_added = '0000-00-00 00:00:00'");
