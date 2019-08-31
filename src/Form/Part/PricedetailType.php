@@ -32,10 +32,12 @@
 namespace App\Form\Part;
 
 
+use App\Entity\Parts\MeasurementUnit;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
 use App\Form\Type\CurrencyEntityType;
+use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -48,11 +50,13 @@ class PricedetailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         //No labels needed, we define translation in templates
-        $builder->add("min_discount_quantity", IntegerType::class, [
-            'attr' => ['min' => 1]
+        $builder->add("min_discount_quantity", SIUnitType::class, [
+            'measurement_unit' => $options['measurement_unit'],
+            'attr' => ['class' => 'form-control-sm']
         ]);
-        $builder->add("price_related_quantity", IntegerType::class, [
-            'attr' => ['min' => 1]
+        $builder->add("price_related_quantity", SIUnitType::class, [
+            'measurement_unit' => $options['measurement_unit'],
+            'attr' => ['class' => 'form-control-sm']
         ]);
         $builder->add("price", NumberType::class);
         $builder->add("currency", CurrencyEntityType::class, ['required' => false]);
@@ -64,5 +68,8 @@ class PricedetailType extends AbstractType
             'data_class' => Pricedetail::class,
             'error_bubbling' => false
         ]);
+
+        $resolver->setRequired('measurement_unit');
+        $resolver->setAllowedTypes('measurement_unit', [MeasurementUnit::class, 'null']);
     }
 }

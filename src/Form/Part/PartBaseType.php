@@ -150,6 +150,9 @@ class PartBaseType extends AbstractType
             'allow_add' => true, 'allow_delete' => true,
             'label' => false,
             'by_reference' => false,
+            'entry_options' => [
+                'measurement_unit' => $part->getPartUnit()
+            ]
         ]);
 
         $builder

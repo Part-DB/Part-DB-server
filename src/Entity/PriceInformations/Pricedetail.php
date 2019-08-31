@@ -106,18 +106,18 @@ class Pricedetail extends DBElement
     protected $currency;
 
     /**
-     * @var int
-     * @ORM\Column(type="integer")
+     * @var float
+     * @ORM\Column(type="float")
      * @Assert\Positive()
      */
-    protected $price_related_quantity = 1;
+    protected $price_related_quantity = 1.0;
 
     /**
-     * @var int
-     * @ORM\Column(type="integer")
+     * @var float
+     * @ORM\Column(type="float")
      * @Assert\Positive()
      */
-    protected $min_discount_quantity = 1;
+    protected $min_discount_quantity = 1.0;
 
     /**
      * @var bool
@@ -173,13 +173,20 @@ class Pricedetail extends DBElement
      *  Get the price related quantity.
      *
      * This is the quantity, for which the price is valid.
+     * The amount is measured in part unit.
      *
-     * @return int the price related quantity
+     * @return float the price related quantity
      *
      * @see Pricedetail::setPriceRelatedQuantity()
      */
-    public function getPriceRelatedQuantity(): int
+    public function getPriceRelatedQuantity(): float
     {
+        if ($this->orderdetail && $this->orderdetail->getPart()) {
+            if (!$this->orderdetail->getPart()->useFloatAmount()) {
+                $tmp = round($this->price_related_quantity);
+                return $tmp < 1 ? 1 : $tmp;
+            }
+        }
         return $this->price_related_quantity;
     }
 
@@ -189,12 +196,21 @@ class Pricedetail extends DBElement
      * "Minimum discount quantity" means the minimum order quantity for which the price
      * of this orderdetails is valid.
      *
+     * The amount is measured in part unit.
+     *
      * @return int the minimum discount quantity
      *
      * @see Pricedetail::setMinDiscountQuantity()
      */
-    public function getMinDiscountQuantity(): int
+    public function getMinDiscountQuantity(): float
     {
+        if ($this->orderdetail && $this->orderdetail->getPart()) {
+            if (!$this->orderdetail->getPart()->useFloatAmount()) {
+                $tmp = round($this->min_discount_quantity);
+                return $tmp < 1 ? 1 : $tmp;
+            }
+        }
+
         return $this->min_discount_quantity;
     }
 
@@ -270,11 +286,8 @@ class Pricedetail extends DBElement
      *
      * @return self
      */
-    public function setPriceRelatedQuantity(int $new_price_related_quantity): self
+    public function setPriceRelatedQuantity(float $new_price_related_quantity): self
     {
-        //Assert::greaterThan($new_price_related_quantity, 0,
-        //    'The new price related quantity must be greater zero! Got %s.');
-
         $this->price_related_quantity = $new_price_related_quantity;
 
         return $this;
@@ -299,11 +312,8 @@ class Pricedetail extends DBElement
      *
      * @return self
      */
-    public function setMinDiscountQuantity(int $new_min_discount_quantity): self
+    public function setMinDiscountQuantity(float $new_min_discount_quantity): self
     {
-        //Assert::greaterThan($new_min_discount_quantity, 0,
-        //    'The new minimum discount quantity must be greater zero! Got %s.');
-
         $this->min_discount_quantity = $new_min_discount_quantity;
 
         return $this;

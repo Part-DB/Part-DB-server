@@ -32,11 +32,11 @@
 {%- endblock choice_widget_options -%}
 
 {% block si_unit_widget %}
-    <div class="input-group">
+    <div class="input-group {% if sm %}input-group-sm{% endif %}">
         {{ form_widget(form.value) }}
-        <div class="input-group-append">
+        <div class="input-group-append {% if sm %}input-group-sm{% endif %}">
             {% if form.prefix is defined %}
-                {{ form_widget(form.prefix, {'attr': {'class': 'custom-select btn'}}) }}
+                {{ form_widget(form.prefix, {'attr': {'class': 'custom-select'}}) }}
             {% endif %}
             {% if unit is not empty %}
                 <label class="input-group-text">{{ unit }}</label>

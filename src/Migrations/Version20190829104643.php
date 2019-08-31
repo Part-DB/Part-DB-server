@@ -46,6 +46,10 @@ final class Version20190829104643 extends AbstractMigration
         $this->addSql('ALTER TABLE `groups` CHANGE parent_id parent_id INT DEFAULT NULL, CHANGE datetime_added datetime_added DATETIME NOT NULL, CHANGE last_modified last_modified DATETIME NOT NULL');
         $this->addSql('ALTER TABLE users CHANGE group_id group_id INT DEFAULT NULL, CHANGE password password VARCHAR(255) DEFAULT NULL, CHANGE first_name first_name VARCHAR(255) DEFAULT NULL, CHANGE last_name last_name VARCHAR(255) DEFAULT NULL, CHANGE department department VARCHAR(255) DEFAULT NULL, CHANGE email email VARCHAR(255) DEFAULT NULL, CHANGE config_language config_language VARCHAR(255) DEFAULT NULL, CHANGE config_timezone config_timezone VARCHAR(255) DEFAULT NULL, CHANGE config_theme config_theme VARCHAR(255) DEFAULT NULL, CHANGE datetime_added datetime_added DATETIME NOT NULL, CHANGE last_modified last_modified DATETIME NOT NULL');
 
+        //Use float values for pricedetails amount, to use with non integer part units
+        $this->addSql('ALTER TABLE pricedetails CHANGE orderdetails_id orderdetails_id INT DEFAULT NULL, CHANGE id_currency id_currency INT DEFAULT NULL, CHANGE price_related_quantity price_related_quantity DOUBLE PRECISION NOT NULL, CHANGE min_discount_quantity min_discount_quantity DOUBLE PRECISION NOT NULL, CHANGE last_modified last_modified DATETIME NOT NULL, CHANGE datetime_added datetime_added DATETIME NOT NULL');
+
+
         //Fix typo in attachment table names
         $this->addSql("ALTER TABLE attachements RENAME TO attachments;");
         $this->addSql("ALTER TABLE attachement_types RENAME TO attachment_types;");

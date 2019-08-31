@@ -31,6 +31,7 @@
 
 namespace App\Form\Part;
 
+use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Form\Type\StructuralEntityType;
@@ -74,7 +75,10 @@ class OrderdetailType extends AbstractType
             'entry_type' => PricedetailType::class,
             'allow_add' => true, 'allow_delete' => true,
             'label' => false,
-            'by_reference' => false
+            'by_reference' => false,
+            'entry_options' => [
+                'measurement_unit' => $options['measurement_unit']
+            ]
         ]);
     }
 
@@ -84,5 +88,8 @@ class OrderdetailType extends AbstractType
             'data_class' => Orderdetail::class,
             'error_bubbling' => false,
         ]);
+
+        $resolver->setRequired('measurement_unit');
+        $resolver->setAllowedTypes('measurement_unit', [MeasurementUnit::class, 'null']);
     }
 }
