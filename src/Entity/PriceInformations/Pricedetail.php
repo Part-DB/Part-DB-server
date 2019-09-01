@@ -90,11 +90,11 @@ class Pricedetail extends DBElement
     protected $orderdetail;
 
     /**
-     * @var float The price related to the detail. (Given in the selected currency)
+     * @var string The price related to the detail. (Given in the selected currency)
      * @ORM\Column(type="decimal", precision=11, scale=5)
      * @Assert\Positive()
      */
-    protected $price = 0.0;
+    protected $price = "0.0";
 
     /**
      * @var ?Currency The currency used for the current price information.
@@ -147,9 +147,19 @@ class Pricedetail extends DBElement
      * It is given in current currency and for the price related quantity.
      * @return float
      */
-    public function getPrice() : float
+    public function getPriceFloat() : float
     {
         return (float) $this->price;
+    }
+
+    /**
+     * Returns the price associated with this pricedetail.
+     * It is given in current currency and for the price related quantity.
+     * @return string The price as string, like returned raw from DB.
+     */
+    public function getPrice() : string
+    {
+        return $this->price;
     }
 
     /**

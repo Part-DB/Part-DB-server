@@ -58,7 +58,11 @@ class PricedetailType extends AbstractType
             'measurement_unit' => $options['measurement_unit'],
             'attr' => ['class' => 'form-control-sm']
         ]);
-        $builder->add("price", NumberType::class);
+        $builder->add("price", NumberType::class, [
+            'scale' => 5,
+            'html5' => true,
+            'attr' => ['min' => 0, 'step' => "any"]
+        ]);
         $builder->add("currency", CurrencyEntityType::class, ['required' => false]);
     }
 
