@@ -25,7 +25,12 @@
                             <tr>
                                 <th>{% trans %}part.order.minamount{% endtrans %}</th>
                                 <th>{% trans %}part.order.price{% endtrans %}</th>
-                                <th>{% trans %}part.order.single_price{% endtrans %}</th>
+                                <th>
+                                    {% trans %}part.order.single_price{% endtrans %}
+                                    {% if part.partUnit %}
+                                        / 1 {{ part.partUnit.unit }}
+                                    {% endif %}
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
