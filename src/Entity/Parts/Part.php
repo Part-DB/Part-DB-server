@@ -538,68 +538,6 @@ class Part extends AttachmentContainingDBElement
     }
 
     /**
-     *  Get all prices of this part.
-     *
-     * This method simply gets the prices of the orderdetails and prepare them.\n
-     * In the returned array/string there is a price for every supplier.
-     * @param int $quantity this is the quantity to choose the correct priceinformation
-     * @param int|null $multiplier * This is the multiplier which will be applied to every single price
-     *                                   * If you pass NULL, the number from $quantity will be used
-     * @param bool $hide_obsolete If true, prices from obsolete orderdetails will NOT be returned
-     *
-     * @return float[]  all prices as an array of floats (if "$delimeter == NULL" & "$float_array == true")
-     *
-     * @throws \Exception if there was an error
-     */
-    public function getPrices(int $quantity = 1, $multiplier = null, bool $hide_obsolete = false) : array
-    {
-        $prices = array();
-
-        foreach ($this->getOrderdetails($hide_obsolete) as $details) {
-            $prices[] = $details->getPrice($quantity, $multiplier);
-        }
-
-        return $prices;
-    }
-
-    /**
-     *  Get the average price of all orderdetails.
-     *
-     * With the $multiplier you're able to multiply the price before it will be returned.
-     * This is useful if you want to have the price as a string with currency, but multiplied with a factor.
-     *
-     * @param int      $quantity        this is the quantity to choose the correct priceinformations
-     * @param int|null $multiplier      * This is the multiplier which will be applied to every single price
-     *                                  * If you pass NULL, the number from $quantity will be used
-     *
-     * @return float  price (if "$as_money_string == false")
-     *
-     * @throws \Exception if there was an error
-     */
-    public function getAveragePrice(int $quantity = 1, $multiplier = null) : ?float
-    {
-        $prices = $this->getPrices($quantity, $multiplier, true);
-        //Findout out
-
-        $average_price = null;
-
-        $count = 0;
-        foreach ($this->getOrderdetails() as $orderdetail) {
-            $price = $orderdetail->getPrice(1, null);
-            if (null !== $price) {
-                $average_price += $price;
-                ++$count;
-            }
-        }
-
-        if ($count > 0) {
-            $average_price /= $count;
-        }
-
-        return $average_price;
-    }
-
-    /**
      * Checks if this part is marked, for that it needs further review.
      * @return bool
      */

@@ -181,7 +181,7 @@ class Pricedetail extends DBElement
     /**
      * Get the price for a single unit in the currency associated with this price detail.
      *
-     * @param float $multiplier      The returned price (float or string) will be multiplied
+     * @param float|string $multiplier      The returned price (float or string) will be multiplied
      *                              with this multiplier.
      *
      *     You will get the price for $multiplier parts. If you want the price which is stored
@@ -190,7 +190,7 @@ class Pricedetail extends DBElement
      * @return string  the price as a bcmath string
 
      */
-    public function getPricePerUnit($multiplier = 1) : string
+    public function getPricePerUnit($multiplier = 1.0) : string
     {
         $multiplier = (string) $multiplier;
         $tmp = bcmul($this->price, $multiplier, static::PRICE_PRECISION);

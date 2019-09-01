@@ -217,8 +217,6 @@ class Orderdetail extends DBElement
      *
      * @return Pricedetail[]|Collection all pricedetails as a one-dimensional array of Pricedetails objects,
      *                        sorted by minimum discount quantity
-     *
-     * @throws Exception if there was an error
      */
     public function getPricedetails(): Collection
     {
@@ -249,50 +247,30 @@ class Orderdetail extends DBElement
     }
 
     /**
-     * Get the price for a specific quantity.
+     * Get the pricedetail for a specific quantity.
      * @param float     $quantity        this is the quantity to choose the correct pricedetails
-     * @param string|float|int $multiplier      * This is the multiplier which will be applied to every single price
-     *                                  * If you pass NULL, the number from $quantity will be used
      *
-     * @return string|null: the price as a bcmath string. Null if there are no orderdetails for the given quantity
-     *
-     * @throws Exception if there are no pricedetails for the choosed quantity
-     *                   (for example, there are only one pricedetails with the minimum discount quantity '10',
-     *                   but the choosed quantity is '5' --> the price for 5 parts is not defined!)
-     * @throws Exception if there was an error
+     * @return Pricedetail|null: the price as a bcmath string. Null if there are no orderdetails for the given quantity
      */
-    public function getPrice(float $quantity = 1, $multiplier = 1) : ?string
+    public function getPrice(float $quantity = 1) : ?Pricedetail
     {
-        if (($quantity === 0) && ($multiplier === null)) {
-                return "0.0";
+        if ($quantity <= 0) {
+            return null;
         }
 
         $all_pricedetails = $this->getPricedetails();
 
-        if (count($all_pricedetails) == 0) {
-                return null;
-        }
-
-
-        $correct_pricedetails = null;
-        foreach ($all_pricedetails as $pricedetails) {
+        $correct_pricedetail = null;
+        foreach ($all_pricedetails as $pricedetail) {
             // choose the correct pricedetails for the choosed quantity ($quantity)
-            if ($quantity < $pricedetails->getMinDiscountQuantity()) {
+            if ($quantity < $pricedetail->getMinDiscountQuantity()) {
                 break;
             }
 
-            $correct_pricedetails = $pricedetails;
+            $correct_pricedetail = $pricedetail;
         }
 
-        if ($correct_pricedetails === null) {
-            return null;
-        }
-
-        if ($multiplier === null) {
-            $multiplier = $quantity;
-        }
-
-        return $correct_pricedetails->getPricePerUnit($multiplier);
+        return $correct_pricedetail;
     }
 
     /********************************************************************************
