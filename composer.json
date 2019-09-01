@@ -10,7 +10,6 @@
         "doctrine/annotations": "^1.6",
         "florianv/swap": "^4.0",
         "friendsofsymfony/ckeditor-bundle": "^2.0",
-        "gerardojbaez/money": "^0.3.1",
         "nyholm/psr7": "^1.1",
         "ocramius/proxy-manager": "2.1.*",
         "omines/datatables-bundle": "^0.2.2",
@@ -43,7 +42,8 @@
         "twig/extensions": "^1.5",
         "twig/extra-bundle": "3.x-dev",
         "twig/intl-extra": "3.x-dev",
-        "webmozart/assert": "^1.4"
+        "webmozart/assert": "^1.4",
+        "ext-bcmath": "*"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",

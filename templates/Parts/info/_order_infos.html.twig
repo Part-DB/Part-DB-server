@@ -35,10 +35,11 @@
                                 {{ detail.MinDiscountQuantity }}
                             </td>
                             <td>
-                                {{ detail.Price | moneyFormat }} <i>{% trans %}part.order.price_per{% endtrans %}</i> {{ detail.PriceRelatedQuantity }}
+                                {{ detail.price | moneyFormat(detail.currency) }}
+                               {# {{ detail.Price | moneyFormat }} <i>{% trans %}part.order.price_per{% endtrans %}</i> {{ detail.PriceRelatedQuantity }} #}
                             </td>
                             <td>
-                                {{ detail.PricePerUnit  | moneyFormat}}
+                                {{ detail.PricePerUnit  | moneyFormat(detail.currency) }}
                             </td>
                         </tr>
                         {% endfor %}

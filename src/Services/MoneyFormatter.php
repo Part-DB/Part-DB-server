@@ -32,28 +32,38 @@
 namespace App\Services;
 
 
-use Gerardojbaez\Money\Money;
-use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
+use App\Entity\PriceInformations\Currency;
+use Locale;
 
 class MoneyFormatter
 {
 
-    private $params;
+    protected $base_currency;
+    protected $locale;
 
-    public function __construct(ContainerBagInterface $params)
+    public function __construct(string $base_currency)
     {
-        $this->params = $params;
+        $this->base_currency = $base_currency;
+        $this->locale = Locale::getDefault();
     }
 
-    public function format($amount, string $currency = "") : string
+    /**
+     * @param string $value The value that should be
+     * @param Currency|null $currency
+     * @param int $decimals
+     * @return string
+     */
+    public function format(string $value, ?Currency $currency = null, $decimals = 5)
     {
-        if ($currency === "") {
-            $currency = $this->params->get("default_currency");
+        $iso_code = $this->base_currency;
+        if ($currency !== null && !empty($currency->getIsoCode())) {
+            $iso_code = $currency->getIsoCode();
         }
 
-        $money = new Money($amount, $currency);
+        $number_formatter = new \NumberFormatter($this->locale, \NumberFormatter::CURRENCY);
+        $number_formatter->setAttribute(\NumberFormatter::FRACTION_DIGITS, $decimals);
 
-        return $money->format();
+        return $number_formatter->formatCurrency((float) $value, $iso_code);
     }
 
 }

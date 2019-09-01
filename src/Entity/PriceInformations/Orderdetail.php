@@ -215,7 +215,7 @@ class Orderdetail extends DBElement
     /**
      * Get all pricedetails.
      *
-     * @return Pricedetail[] all pricedetails as a one-dimensional array of Pricedetails objects,
+     * @return Pricedetail[]|Collection all pricedetails as a one-dimensional array of Pricedetails objects,
      *                        sorted by minimum discount quantity
      *
      * @throws Exception if there was an error
@@ -250,22 +250,21 @@ class Orderdetail extends DBElement
 
     /**
      * Get the price for a specific quantity.
-     * @param int      $quantity        this is the quantity to choose the correct pricedetails
-     * @param int|null $multiplier      * This is the multiplier which will be applied to every single price
+     * @param float     $quantity        this is the quantity to choose the correct pricedetails
+     * @param string|float|int $multiplier      * This is the multiplier which will be applied to every single price
      *                                  * If you pass NULL, the number from $quantity will be used
      *
-     * @return float float: the price as a float number (if "$as_money_string == false")
+     * @return string|null: the price as a bcmath string. Null if there are no orderdetails for the given quantity
      *
      * @throws Exception if there are no pricedetails for the choosed quantity
      *                   (for example, there are only one pricedetails with the minimum discount quantity '10',
      *                   but the choosed quantity is '5' --> the price for 5 parts is not defined!)
      * @throws Exception if there was an error
      */
-    public function getPrice(int $quantity = 1, $multiplier = null) : ?float
+    public function getPrice(float $quantity = 1, $multiplier = 1) : ?string
     {
-
         if (($quantity === 0) && ($multiplier === null)) {
-                return 0.0;
+                return "0.0";
         }
 
         $all_pricedetails = $this->getPricedetails();

@@ -79,6 +79,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Pricedetail extends DBElement
 {
 
+    public const PRICE_PRECISION = 5;
+
     use TimestampTrait;
 
     /**
@@ -125,6 +127,10 @@ class Pricedetail extends DBElement
      */
     protected $manual_input = true;
 
+    public function __construct()
+    {
+        bcscale(static::PRICE_PRECISION);
+    }
 
     /********************************************************************************
      *
@@ -163,20 +169,33 @@ class Pricedetail extends DBElement
     }
 
     /**
+     * Returns the price associated with this pricedetail as integer.
+     * It is given in current currency and for the price related quantity, in parts of 0.00001 (5 digits)
+     * @return int
+     */
+    public function getPriceInt() : int
+    {
+        return (int) str_replace('.', '', $this->price);
+    }
+
+    /**
      * Get the price for a single unit in the currency associated with this price detail.
      *
-     * @param int  $multiplier      The returned price (float or string) will be multiplied
+     * @param float $multiplier      The returned price (float or string) will be multiplied
      *                              with this multiplier.
      *
      *     You will get the price for $multiplier parts. If you want the price which is stored
      *          in the database, you have to pass the "price_related_quantity" count as $multiplier.
      *
-     * @return float  the price as a float number
+     * @return string  the price as a bcmath string
 
      */
-    public function getPricePerUnit(int $multiplier = 1) : float
+    public function getPricePerUnit($multiplier = 1) : string
     {
-        return ($this->price * $multiplier) / $this->price_related_quantity;
+        $multiplier = (string) $multiplier;
+        $tmp = bcmul($this->price, $multiplier, static::PRICE_PRECISION);
+        return bcdiv($tmp, (string) $this->price_related_quantity, static::PRICE_PRECISION);
+        //return ($this->price * $multiplier) / $this->price_related_quantity;
     }
 
     /**
@@ -266,7 +285,7 @@ class Pricedetail extends DBElement
     /**
      *  Set the price.
      *
-     * @param float $new_price the new price as a float number
+     * @param string $new_price the new price as a float number
      *
      *      * This is the price for "price_related_quantity" parts!!
      *              * Example: if "price_related_quantity" is '10',
@@ -274,7 +293,7 @@ class Pricedetail extends DBElement
      *
      * @return self
      */
-    public function setPrice(float $new_price): Pricedetail
+    public function setPrice(string $new_price): Pricedetail
     {
         //Assert::natural($new_price, 'The new price must be positive! Got %s!');
 
