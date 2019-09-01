@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
@@ -19,6 +20,15 @@ final class Version20190812154222 extends AbstractMigration
 
     public function up(Schema $schema) : void
     {
+        $old_db = true;
+        try {
+            //Check if we can use this migration method:
+            $version = (int)$this->connection->fetchColumn("SELECT keyValue AS version FROM `internal` WHERE `keyName` = 'dbVersion'");
+        } catch (DBALException $ex) {
+            //when the table was not found, then we have an new database
+            $old_db = false;
+        }
+
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
@@ -54,7 +64,10 @@ final class Version20190812154222 extends AbstractMigration
         $this->addSql('ALTER TABLE suppliers ADD default_currency_id INT DEFAULT NULL, ADD shipping_costs NUMERIC(11, 5) DEFAULT NULL, ADD not_selectable TINYINT(1) NOT NULL, CHANGE parent_id parent_id INT DEFAULT NULL, CHANGE datetime_added datetime_added DATETIME NOT NULL, CHANGE last_modified last_modified DATETIME NOT NULL');
         $this->addSql('ALTER TABLE suppliers ADD CONSTRAINT FK_AC28B95CECD792C0 FOREIGN KEY (default_currency_id) REFERENCES currencies (id)');
         $this->addSql('CREATE INDEX IDX_AC28B95CECD792C0 ON suppliers (default_currency_id)');
-        $this->addSql('ALTER TABLE parts DROP FOREIGN KEY parts_id_storelocation_fk');
+        if ($old_db) {
+            $this->addSql('ALTER TABLE parts DROP FOREIGN KEY parts_id_storelocation_fk');
+        }
+        $this->addSql('ALTER TABLE `parts` DROP FOREIGN KEY `FK_6940A7FE8DF69834`');
         $this->addSql('DROP INDEX IDX_6940A7FE8DF69834 ON parts');
         $this->addSql('ALTER TABLE parts ADD id_part_unit INT DEFAULT NULL, CHANGE mininstock minamount DOUBLE PRECISION NOT NULL, ADD manufacturer_product_number VARCHAR(255) NOT NULL, ADD needs_review TINYINT(1) NOT NULL, ADD tags LONGTEXT NOT NULL, ADD mass DOUBLE PRECISION DEFAULT NULL, DROP id_storelocation, DROP instock, CHANGE id_category id_category INT DEFAULT NULL, CHANGE id_footprint id_footprint INT DEFAULT NULL, CHANGE order_orderdetails_id order_orderdetails_id INT DEFAULT NULL, CHANGE id_manufacturer id_manufacturer INT DEFAULT NULL, CHANGE id_master_picture_attachement id_master_picture_attachement INT DEFAULT NULL, CHANGE datetime_added datetime_added DATETIME NOT NULL, CHANGE last_modified last_modified DATETIME NOT NULL');
         $this->addSql('ALTER TABLE parts ADD CONSTRAINT FK_6940A7FE2626CEF9 FOREIGN KEY (id_part_unit) REFERENCES `measurement_units` (id)');
