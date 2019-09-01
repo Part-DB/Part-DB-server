@@ -1,0 +1,62 @@
+{% block pricedetail_widget %}
+    {% form_theme form.currency 'Form/extendedBootstrap4_layout.html.twig' %}
+
+    <tr>
+        <td>{{ form_widget(form.min_discount_quantity, {'attr': {'class': 'form-control-sm'}}) }} {{ form_errors(form.min_discount_quantity) }}</td>
+        <td>
+            <div class="input-group input-group-sm">
+                {{ form_widget(form.price) }}
+                <div class="input-group-append">
+                    {{ form_widget(form.currency, {'attr': {'class': 'selectpicker form-control-sm'}}) }}
+                </div>
+            </div>
+            {{ form_errors(form.price) }}
+            {{ form_errors(form.currency) }}
+        </td>
+        <td>{{ form_widget(form.price_related_quantity, {'attr': {'class': 'form-control-sm'}}) }} {{ form_errors(form.price_related_quantity) }}</td>
+        <td><button type="button" class="btn btn-danger order_btn_delete btn-sm" title="{% trans %}orderdetail.delete{% endtrans %}" onclick="delete_pricedetail_entry(this);">
+                <i class="fas fa-trash-alt fa-fw"></i>
+            </button>
+            {{ form_errors(form) }}
+        </td>
+    </tr>
+{% endblock %}
+
+{% block orderdetail_widget %}
+    <tr>
+        <td>
+            {{ form_row(form.supplier,  {'attr': {'class': 'form-control-sm'}}) }}
+            {{ form_row(form.supplierpartnr, {'attr': {'class': 'form-control-sm'}}) }}
+            {{ form_row(form.supplier_product_url,  {'attr': {'class': 'form-control-sm'}}) }}
+            {{ form_widget(form.obsolete) }}
+        </td>
+        <td>
+            <table class="table table-sm table-bordered" data-prototype="{{ form_widget(form.pricedetails.vars.prototype)|e('html_attr') }}">
+                <thead>
+                <tr>
+                    <th>{% trans %}pricedetails.edit.min_qty{% endtrans %}</th>
+                    <th>{% trans %}pricedetails.edit.price{% endtrans %}</th>
+                    <th>{% trans %}pricedetails.edit.price_qty{% endtrans %}</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for price in form.pricedetails %}
+                    {{ form_widget(price) }}
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <button type="button" class="btn btn-success" onclick="create_pricedetail_entry(this)">
+                <i class="fas fa-plus-square fa-fw"></i>
+                {% trans %}pricedetail.create{% endtrans %}
+            </button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger order_btn_delete" onclick="delete_orderdetail_entry(this);" title="{% trans %}orderdetail.delete{% endtrans %}">
+                <i class="fas fa-trash-alt fa-fw"></i>
+            </button>
+            {{ form_errors(form) }}
+        </td>
+    </tr>
+{% endblock %}

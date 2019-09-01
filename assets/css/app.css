@@ -620,6 +620,10 @@ BS 4 overrides
     }
 }
 
+.form-group > label {
+    font-weight: bold;
+}
+
 label:not(.form-check-label, custom-control-label) {
     font-weight: bold;
 }

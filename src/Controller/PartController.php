@@ -35,6 +35,7 @@ use App\Entity\Parts\Part;
 use App\Form\AttachmentFormType;
 use App\Form\Part\PartBaseType;
 use App\Services\AttachmentHelper;
+use App\Services\PricedetailHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -51,14 +52,15 @@ class PartController extends AbstractController
      * @param AttachmentHelper $attachmentHelper
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function show(Part $part, AttachmentHelper $attachmentHelper)
+    public function show(Part $part, AttachmentHelper $attachmentHelper, PricedetailHelper $pricedetailHelper)
     {
         $this->denyAccessUnlessGranted('read', $part);
 
         return $this->render('Parts/info/show_part_info.html.twig',
             [
                 'part' => $part,
-                'attachment_helper' => $attachmentHelper
+                'attachment_helper' => $attachmentHelper,
+                'pricedetail_helper' => $pricedetailHelper
             ]
             );
     }
@@ -102,7 +104,7 @@ class PartController extends AbstractController
             [
                 'part' => $part,
                 'form' => $form->createView(),
-                'attachment_helper' => $attachmentHelper
+                'attachment_helper' => $attachmentHelper,
             ]);
     }
 

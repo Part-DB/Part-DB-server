@@ -25,20 +25,31 @@
                             <tr>
                                 <th>{% trans %}part.order.minamount{% endtrans %}</th>
                                 <th>{% trans %}part.order.price{% endtrans %}</th>
-                                <th>{% trans %}part.order.single_price{% endtrans %}</th>
+                                <th>
+                                    {% trans %}part.order.single_price{% endtrans %}
+                                    {% if part.partUnit %}
+                                        / 1 {{ part.partUnit.unit }}
+                                    {% endif %}
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                         {% for detail in order.pricedetails %}
                         <tr>
                             <td>
-                                {{ detail.MinDiscountQuantity }}
+                                {{ detail.MinDiscountQuantity | amountFormat(part.partUnit) }}
                             </td>
                             <td>
-                                {{ detail.Price | moneyFormat }} <i>{% trans %}part.order.price_per{% endtrans %}</i> {{ detail.PriceRelatedQuantity }}
+                                {{ detail.price | moneyFormat(detail.currency) }} / {{ detail.PriceRelatedQuantity | amountFormat(part.partUnit) }}
+                                {% if detail.currency and pricedetail_helper.convertMoneyToCurrency(detail.price, detail.currency) > 0 %}
+                                    <span class="text-muted">({{ pricedetail_helper.convertMoneyToCurrency(detail.price, detail.currency) | moneyFormat() }})</span>
+                                {% endif %}
                             </td>
                             <td>
-                                {{ detail.PricePerUnit  | moneyFormat}}
+                                {{ detail.PricePerUnit  | moneyFormat(detail.currency) }}
+                                {% if detail.currency and pricedetail_helper.convertMoneyToCurrency(detail.PricePerUnit, detail.currency) > 0 %}
+                                    <span class="text-muted">({{ pricedetail_helper.convertMoneyToCurrency(detail.PricePerUnit, detail.currency) | moneyFormat() }})</span>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}

@@ -32,11 +32,13 @@ namespace App\Twig;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Base\DBElement;
 use App\Entity\Parts\MeasurementUnit;
+use App\Entity\PriceInformations\Currency;
 use App\Services\AmountFormatter;
 use App\Services\EntityURLGenerator;
 use App\Services\MoneyFormatter;
 use App\Services\SIFormatter;
 use App\Services\TreeBuilder;
+use Money\Currencies;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Twig\Extension\AbstractExtension;
@@ -123,14 +125,14 @@ class AppExtension extends AbstractExtension
         return $item->get();
     }
 
-    public function formatCurrency($amount, $currency = "")
+    public function formatCurrency($amount, Currency $currency = null, int $decimals = 5)
     {
-        return $this->moneyFormatter->format($amount, $currency);
+        return $this->moneyFormatter->format($amount, $currency, $decimals);
     }
 
-    public function siFormat($value, $unit, $decimals = 2)
+    public function siFormat($value, $unit, $decimals = 2, bool $show_all_digits = false)
     {
-        return $this->siformatter->format($value, $unit, $decimals);
+        return $this->siformatter->format($value, $unit, $decimals, $show_all_digits);
     }
 
     public function amountFormat($value, ?MeasurementUnit $unit, array $options = [])

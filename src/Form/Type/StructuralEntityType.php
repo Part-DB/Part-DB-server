@@ -77,14 +77,14 @@ class StructuralEntityType extends AbstractType
             function ($value) use ($options){
                 return $this->transform($value, $options);
             }, function ($value) use ($options) {
-                return $this->reverseTransform($value, $options);
+            return $this->reverseTransform($value, $options);
         }));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired(['class']);
-        $resolver->setDefaults(['attr' => ['class' => 'selectpicker', 'data-live-search' => true],
+        $resolver->setDefaults([
             'show_fullpath_in_subtext' => true, //When this is enabled, the full path will be shown in subtext
             'subentities_of' => null,   //Only show entities with the given parent class
             'disable_not_selectable' => false,  //Disable entries with not selectable property
@@ -99,6 +99,16 @@ class StructuralEntityType extends AbstractType
                 return $this->generateChoiceAttr($choice, $key, $value);
             }
         ]);
+
+        $resolver->setDefault('empty_message', null);
+
+        $resolver->setDefault('attr', function (Options $options) {
+            $tmp =  ['class' => 'selectpicker', 'data-live-search' => true];
+            if ($options['empty_message']) {
+                $tmp['data-none-Selected-Text'] = $options['empty_message'];
+            }
+            return $tmp;
+        });
     }
 
     protected function generateChoiceAttr(StructuralDBElement $choice, $key, $value) : array
@@ -130,7 +140,7 @@ class StructuralEntityType extends AbstractType
 
 
         $tmp = str_repeat('&nbsp;&nbsp;&nbsp;', $choice->getLevel()); //Use 3 spaces for intendation
-        $tmp .=  htmlspecialchars($choice->getName($parent));
+        $tmp .=  htmlspecialchars($choice->getName());
         return $tmp;
     }
 

@@ -62,24 +62,33 @@ declare(strict_types=1);
 namespace App\Entity\PriceInformations;
 
 use App\Entity\Base\DBElement;
+use App\Entity\Base\TimestampTrait;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
 use Exception;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Orderdetail.
  *
  * @ORM\Table("`orderdetails`")
  * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks()
  */
 class Orderdetail extends DBElement
 {
+    use TimestampTrait;
+
     /**
      * @var Part
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part", inversedBy="orderdetails")
      * @ORM\JoinColumn(name="part_id", referencedColumnName="id")
+     * @Assert\NotNull()
      */
     protected $part;
 
@@ -91,7 +100,9 @@ class Orderdetail extends DBElement
     protected $supplier;
 
     /**
-     * @ORM\OneToMany(targetEntity="Pricedetail", mappedBy="orderdetail")
+     * @ORM\OneToMany(targetEntity="Pricedetail", mappedBy="orderdetail", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
+     * @ORM\OrderBy({"min_discount_quantity" = "ASC"})
      */
     protected $pricedetails;
 
@@ -99,25 +110,25 @@ class Orderdetail extends DBElement
      * @var string
      * @ORM\Column(type="string")
      */
-    protected $supplierpartnr;
+    protected $supplierpartnr = "";
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $obsolete;
+    protected $obsolete = false;
 
     /**
      * @var string
      * @ORM\Column(type="string")
+     * @Assert\Url()
      */
-    protected $supplier_product_url;
+    protected $supplier_product_url = "";
 
-    /**
-     * @var \DateTime The date when this element was created.
-     * @ORM\Column(type="datetimetz", name="datetime_added")
-     */
-    protected $addedDate;
+    public function __construct()
+    {
+        $this->pricedetails = new ArrayCollection();
+    }
 
     /**
      * Returns the ID as an string, defined by the element class.
@@ -151,7 +162,7 @@ class Orderdetail extends DBElement
      *
      * @return Supplier the supplier of this orderdetails
      */
-    public function getSupplier(): Supplier
+    public function getSupplier(): ?Supplier
     {
         return $this->supplier;
     }
@@ -181,17 +192,6 @@ class Orderdetail extends DBElement
     }
 
     /**
-     * Returns the date/time when the element was created.
-     * Returns null if the element was not yet saved to DB yet.
-     *
-     * @return \DateTime|null The creation time of the part.
-     */
-    public function getAddedDate(): ?\DateTime
-    {
-        return $this->addedDate;
-    }
-
-    /**
      * Get the link to the website of the article on the suppliers website.
      *
      * @param $no_automatic_url bool Set this to true, if you only want to get the local set product URL for this Orderdetail
@@ -205,68 +205,72 @@ class Orderdetail extends DBElement
             return $this->supplier_product_url;
         }
 
+        if ($this->supplier === null) {
+            return "";
+        }
+
         return $this->getSupplier()->getAutoProductUrl($this->supplierpartnr); // maybe an automatic url is available...
     }
 
     /**
      * Get all pricedetails.
      *
-     * @return Pricedetail[] all pricedetails as a one-dimensional array of Pricedetails objects,
+     * @return Pricedetail[]|Collection all pricedetails as a one-dimensional array of Pricedetails objects,
      *                        sorted by minimum discount quantity
-     *
-     * @throws Exception if there was an error
      */
-    public function getPricedetails(): PersistentCollection
+    public function getPricedetails(): Collection
     {
         return $this->pricedetails;
     }
 
     /**
-     * Get the price for a specific quantity.
-     * @param int      $quantity        this is the quantity to choose the correct pricedetails
-     * @param int|null $multiplier      * This is the multiplier which will be applied to every single price
-     *                                  * If you pass NULL, the number from $quantity will be used
-     *
-     * @return float float: the price as a float number (if "$as_money_string == false")
-     *
-     * @throws Exception if there are no pricedetails for the choosed quantity
-     *                   (for example, there are only one pricedetails with the minimum discount quantity '10',
-     *                   but the choosed quantity is '5' --> the price for 5 parts is not defined!)
-     * @throws Exception if there was an error
+     * Adds an pricedetail to this orderdetail
+     * @param Pricedetail $pricedetail The pricedetail to add
+     * @return Orderdetail
      */
-    public function getPrice(int $quantity = 1, $multiplier = null) : ?float
+    public function addPricedetail(Pricedetail $pricedetail) : Orderdetail
     {
+        $pricedetail->setOrderdetail($this);
+        $this->pricedetails->add($pricedetail);
+        return $this;
+    }
 
-        if (($quantity === 0) && ($multiplier === null)) {
-                return 0.0;
+    /**
+     * Removes an pricedetail from this orderdetail
+     * @param Pricedetail $pricedetail
+     * @return Orderdetail
+     */
+    public function removePricedetail(Pricedetail $pricedetail) : Orderdetail
+    {
+        $this->pricedetails->removeElement($pricedetail);
+        return $this;
+    }
+
+    /**
+     * Get the pricedetail for a specific quantity.
+     * @param float     $quantity        this is the quantity to choose the correct pricedetails
+     *
+     * @return Pricedetail|null: the price as a bcmath string. Null if there are no orderdetails for the given quantity
+     */
+    public function getPrice(float $quantity = 1) : ?Pricedetail
+    {
+        if ($quantity <= 0) {
+            return null;
         }
 
         $all_pricedetails = $this->getPricedetails();
 
-        if (count($all_pricedetails) == 0) {
-                return null;
-        }
-
-
-        $correct_pricedetails = null;
-        foreach ($all_pricedetails as $pricedetails) {
+        $correct_pricedetail = null;
+        foreach ($all_pricedetails as $pricedetail) {
             // choose the correct pricedetails for the choosed quantity ($quantity)
-            if ($quantity < $pricedetails->getMinDiscountQuantity()) {
+            if ($quantity < $pricedetail->getMinDiscountQuantity()) {
                 break;
             }
 
-            $correct_pricedetails = $pricedetails;
+            $correct_pricedetail = $pricedetail;
         }
 
-        if ($correct_pricedetails === null) {
-            return null;
-        }
-
-        if ($multiplier === null) {
-            $multiplier = $quantity;
-        }
-
-        return $correct_pricedetails->getPricePerUnit($multiplier);
+        return $correct_pricedetail;
     }
 
     /********************************************************************************
@@ -274,6 +278,15 @@ class Orderdetail extends DBElement
      *   Setters
      *
      *********************************************************************************/
+
+    /**
+     * Sets a new part with which this orderdetail is associated
+     * @param Part $part
+     */
+    public function setPart(Part $part)
+    {
+        $this->part = $part;
+    }
 
     /**
      * Sets the new supplier associated with this orderdetail.
@@ -321,6 +334,11 @@ class Orderdetail extends DBElement
      */
     public function setSupplierProductUrl(string $new_url)
     {
+        //Only change the internal URL if it is not the auto generated one
+        if ($new_url == $this->supplier->getAutoProductUrl($this->getSupplierPartNr())) {
+            return $this;
+        }
+
         $this->supplier_product_url = $new_url;
 
         return $this;

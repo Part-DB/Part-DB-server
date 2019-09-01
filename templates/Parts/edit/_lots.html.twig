@@ -6,7 +6,7 @@
 {% endset %}
 
 
-<table class="table table-striped" id="lots_table" data-prototype="{{ form_widget(form.partLots.vars.prototype)|e('html_attr') }}">
+<table class="table table-striped table-sm" id="lots_table" data-prototype="{{ form_widget(form.partLots.vars.prototype)|e('html_attr') }}">
     <tbody>
     {% for lot in form.partLots %}
         <tr>

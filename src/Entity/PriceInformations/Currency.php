@@ -34,6 +34,7 @@ namespace App\Entity\PriceInformations;
 
 use App\Entity\Base\StructuralDBElement;
 use Doctrine\ORM\Mapping as ORM;
+use s9e\TextFormatter\Configurator\TemplateNormalizations\AbstractChooseOptimization;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -47,6 +48,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Currency extends StructuralDBElement
 {
 
+    public const PRICE_SCALE = 5;
+
     /**
      * @var string The 3 letter ISO code of the currency.
      * @ORM\Column(type="string")
@@ -55,7 +58,7 @@ class Currency extends StructuralDBElement
     protected $iso_code;
 
     /**
-     * @var float|null The exchange rate between this currency and the base currency
+     * @var string|null The exchange rate between this currency and the base currency
      * (how many base units the current currency is worth)
      * @ORM\Column(type="decimal", precision=11, scale=5, nullable=true)
      * @Assert\Positive()
@@ -86,7 +89,7 @@ class Currency extends StructuralDBElement
      * @param string $iso_code
      * @return Currency
      */
-    public function setIsoCode(string $iso_code): Currency
+    public function setIsoCode(?string $iso_code): Currency
     {
         $this->iso_code = $iso_code;
         return $this;
@@ -94,34 +97,34 @@ class Currency extends StructuralDBElement
 
     /**
      * Returns the inverse exchange rate (how many of the current currency the base unit is worth)
-     * @return float|null
+     * @return string|null
      */
-    public function getInverseExchangeRate(): ?float
+    public function getInverseExchangeRate(): ?string
     {
         $tmp = $this->getExchangeRate();
 
-        if ($tmp === null) {
+        if ($tmp === null || (float) $tmp === 0) {
             return null;
         }
 
-        return 1 / $tmp;
+        return bcdiv(1, $tmp, static::PRICE_SCALE);
     }
 
     /**
      * Returns The exchange rate between this currency and the base currency
      * (how many base units the current currency is worth)
-     * @return float|null
+     * @return string|null
      */
-    public function getExchangeRate(): ?float
+    public function getExchangeRate(): ?string
     {
         return $this->exchange_rate;
     }
 
     /**
-     * @param float|null $exchange_rate
+     * @param string|null $exchange_rate
      * @return Currency
      */
-    public function setExchangeRate(?float $exchange_rate): Currency
+    public function setExchangeRate(?string $exchange_rate): Currency
     {
         $this->exchange_rate = $exchange_rate;
         return $this;

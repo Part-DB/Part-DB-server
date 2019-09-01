@@ -1,0 +1,84 @@
+{% form_theme form with ['Parts/edit/edit_form_styles.html.twig', "bootstrap_4_layout.html.twig"] %}
+
+<table class="table table-striped table-sm" id="orderdetails_table" data-prototype="{{ form_widget(form.orderdetails.vars.prototype)|e('html_attr') }}">
+    <tbody>
+    {% for detail in form.orderdetails %}
+        {{ form_widget(detail) }}
+    {% endfor %}
+    </tbody>
+</table>
+
+<button type="button" class="btn btn-success" onclick="create_orderdetail_entry(this)">
+    <i class="fas fa-plus-square fa-fw"></i>
+    {% trans %}orderdetail.create{% endtrans %}
+</button>
+
+<script>
+    function delete_pricedetail_entry(btn) {
+        window.bootbox.confirm('{% trans %}pricedetails.edit.delete.confirm{% endtrans %}', function (result) {
+            if(result) {
+                $(btn).closest("tr").remove();
+            }
+        });
+    }
+
+    function create_pricedetail_entry(btn) {
+        //Determine the table, so we can determine, how many entries there are already.
+        $holder = $(btn).siblings("table");
+
+        var index = $holder.find(":input").length;
+        var newForm = $holder.data("prototype");
+
+        //Increase the index
+        newForm = newForm.replace(/__name__/g, index);
+
+        //Determine the id of the fields we later update
+        var price_related_id = $("input[id$='price_related_quantity_value']", newForm).attr('id');
+        var min_discount_id = $("input[id$='min_discount_quantity_value']", newForm).attr('id');
+
+        console.error(price_related_id);
+        console.error(min_discount_id);
+
+        //Determine the new value for the min_discount_qty
+        var new_min_amount = $("input[id$='min_discount_quantity_value']" , $holder).last().val();
+        new_min_amount = parseInt(new_min_amount) + 1;
+        //Determine the next exponent, 10 -> 100 -> 1000
+        new_min_amount = Math.pow(10, Math.ceil(Math.log10(new_min_amount)));
+
+        $holder.children("tbody").append(newForm);
+
+        // Now really update the values, after they were inserted into dom
+        $("#" + min_discount_id).val(new_min_amount);
+        $("#" + price_related_id).val("1");
+
+
+        //Reinit the selectpickers
+        $(".selectpicker").selectpicker();
+
+    }
+
+    function delete_orderdetail_entry(btn) {
+        window.bootbox.confirm('{% trans %}orderdetails.edit.delete.confirm{% endtrans %}', function (result) {
+            if(result) {
+                $(btn).parents("tr").remove();
+            }
+        });
+    }
+
+    function create_orderdetail_entry(btn) {
+        //Determine the table, so we can determine, how many entries there are already.
+        $holder = $("#orderdetails_table");
+
+        var index = $holder.find(":input").length;
+        var newForm = $holder.data("prototype");
+
+        //Increase the index
+        newForm = newForm.replace(/__name__/g, index);
+
+        $holder.children("tbody").append(newForm);
+
+        //Reinit the selectpickers
+        $(".selectpicker").selectpicker();
+
+    }
+</script>

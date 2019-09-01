@@ -1045,7 +1045,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </trans-unit>
       <trans-unit id="cpRdMwo" resname="part.order.price_per">
         <source>part.order.price_per</source>
-        <target state="translated">Preis pro</target>
+        <target state="translated">pro</target>
       </trans-unit>
       <trans-unit id="EKnfKFl" resname="edit.caption_short">
         <source>edit.caption_short</source>

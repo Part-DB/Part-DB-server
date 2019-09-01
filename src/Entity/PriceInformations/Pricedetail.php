@@ -62,6 +62,7 @@ declare(strict_types=1);
 namespace App\Entity\PriceInformations;
 
 use App\Entity\Base\DBElement;
+use App\Entity\Base\TimestampTrait;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -72,23 +73,30 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity()
  * @ORM\Table("`pricedetails`")
+ * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(fields={"orderdetail", "min_discount_quantity"})
  */
 class Pricedetail extends DBElement
 {
+
+    public const PRICE_PRECISION = 5;
+
+    use TimestampTrait;
+
     /**
      * @var Orderdetail
      * @ORM\ManyToOne(targetEntity="Orderdetail", inversedBy="pricedetails")
      * @ORM\JoinColumn(name="orderdetails_id", referencedColumnName="id")
+     * @Assert\NotNull()
      */
     protected $orderdetail;
 
     /**
-     * @var float The price related to the detail. (Given in the selected currency)
+     * @var string The price related to the detail. (Given in the selected currency)
      * @ORM\Column(type="decimal", precision=11, scale=5)
      * @Assert\Positive()
      */
-    protected $price;
+    protected $price = "0.0";
 
     /**
      * @var ?Currency The currency used for the current price information.
@@ -100,28 +108,29 @@ class Pricedetail extends DBElement
     protected $currency;
 
     /**
-     * @var int
-     * @ORM\Column(type="integer")
+     * @var float
+     * @ORM\Column(type="float")
      * @Assert\Positive()
      */
-    protected $price_related_quantity;
+    protected $price_related_quantity = 1.0;
 
     /**
-     * @var int
-     * @ORM\Column(type="integer")
+     * @var float
+     * @ORM\Column(type="float")
+     * @Assert\Positive()
      */
-    protected $min_discount_quantity;
+    protected $min_discount_quantity = 1.0;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $manual_input;
+    protected $manual_input = true;
 
-    /**
-     * @ORM\Column(type="datetimetz")
-     */
-    protected $last_modified;
+    public function __construct()
+    {
+        bcscale(static::PRICE_PRECISION);
+    }
 
     /********************************************************************************
      *
@@ -144,39 +153,69 @@ class Pricedetail extends DBElement
      * It is given in current currency and for the price related quantity.
      * @return float
      */
-    public function getPrice() : float
+    public function getPriceFloat() : float
     {
         return (float) $this->price;
     }
 
     /**
+     * Returns the price associated with this pricedetail.
+     * It is given in current currency and for the price related quantity.
+     * @return string The price as string, like returned raw from DB.
+     */
+    public function getPrice() : string
+    {
+        return $this->price;
+    }
+
+    /**
+     * Returns the price associated with this pricedetail as integer.
+     * It is given in current currency and for the price related quantity, in parts of 0.00001 (5 digits)
+     * @return int
+     */
+    public function getPriceInt() : int
+    {
+        return (int) str_replace('.', '', $this->price);
+    }
+
+    /**
      * Get the price for a single unit in the currency associated with this price detail.
      *
-     * @param int  $multiplier      The returned price (float or string) will be multiplied
+     * @param float|string $multiplier      The returned price (float or string) will be multiplied
      *                              with this multiplier.
      *
      *     You will get the price for $multiplier parts. If you want the price which is stored
      *          in the database, you have to pass the "price_related_quantity" count as $multiplier.
      *
-     * @return float  the price as a float number
+     * @return string  the price as a bcmath string
 
      */
-    public function getPricePerUnit(int $multiplier = 1) : float
+    public function getPricePerUnit($multiplier = 1.0) : string
     {
-        return ($this->price * $multiplier) / $this->price_related_quantity;
+        $multiplier = (string) $multiplier;
+        $tmp = bcmul($this->price, $multiplier, static::PRICE_PRECISION);
+        return bcdiv($tmp, (string) $this->price_related_quantity, static::PRICE_PRECISION);
+        //return ($this->price * $multiplier) / $this->price_related_quantity;
     }
 
     /**
      *  Get the price related quantity.
      *
      * This is the quantity, for which the price is valid.
+     * The amount is measured in part unit.
      *
-     * @return int the price related quantity
+     * @return float the price related quantity
      *
      * @see Pricedetail::setPriceRelatedQuantity()
      */
-    public function getPriceRelatedQuantity(): int
+    public function getPriceRelatedQuantity(): float
     {
+        if ($this->orderdetail && $this->orderdetail->getPart()) {
+            if (!$this->orderdetail->getPart()->useFloatAmount()) {
+                $tmp = round($this->price_related_quantity);
+                return $tmp < 1 ? 1 : $tmp;
+            }
+        }
         return $this->price_related_quantity;
     }
 
@@ -186,12 +225,21 @@ class Pricedetail extends DBElement
      * "Minimum discount quantity" means the minimum order quantity for which the price
      * of this orderdetails is valid.
      *
+     * The amount is measured in part unit.
+     *
      * @return int the minimum discount quantity
      *
      * @see Pricedetail::setMinDiscountQuantity()
      */
-    public function getMinDiscountQuantity(): int
+    public function getMinDiscountQuantity(): float
     {
+        if ($this->orderdetail && $this->orderdetail->getPart()) {
+            if (!$this->orderdetail->getPart()->useFloatAmount()) {
+                $tmp = round($this->min_discount_quantity);
+                return $tmp < 1 ? 1 : $tmp;
+            }
+        }
+
         return $this->min_discount_quantity;
     }
 
@@ -212,6 +260,17 @@ class Pricedetail extends DBElement
      *********************************************************************************/
 
     /**
+     * Sets the orderdetail to which this pricedetail belongs to.
+     * @param Orderdetail $orderdetail
+     * @return $this
+     */
+    public function setOrderdetail(Orderdetail $orderdetail)
+    {
+        $this->orderdetail = $orderdetail;
+        return $this;
+    }
+
+    /**
      * Sets the currency associated with the price informations.
      * Set to null, to use the global base currency.
      * @param Currency|null $currency
@@ -226,7 +285,7 @@ class Pricedetail extends DBElement
     /**
      *  Set the price.
      *
-     * @param float $new_price the new price as a float number
+     * @param string $new_price the new price as a float number
      *
      *      * This is the price for "price_related_quantity" parts!!
      *              * Example: if "price_related_quantity" is '10',
@@ -234,7 +293,7 @@ class Pricedetail extends DBElement
      *
      * @return self
      */
-    public function setPrice(float $new_price): Pricedetail
+    public function setPrice(string $new_price): Pricedetail
     {
         //Assert::natural($new_price, 'The new price must be positive! Got %s!');
 
@@ -256,11 +315,8 @@ class Pricedetail extends DBElement
      *
      * @return self
      */
-    public function setPriceRelatedQuantity(int $new_price_related_quantity): self
+    public function setPriceRelatedQuantity(float $new_price_related_quantity): self
     {
-        //Assert::greaterThan($new_price_related_quantity, 0,
-        //    'The new price related quantity must be greater zero! Got %s.');
-
         $this->price_related_quantity = $new_price_related_quantity;
 
         return $this;
@@ -285,11 +341,8 @@ class Pricedetail extends DBElement
      *
      * @return self
      */
-    public function setMinDiscountQuantity(int $new_min_discount_quantity): self
+    public function setMinDiscountQuantity(float $new_min_discount_quantity): self
     {
-        //Assert::greaterThan($new_min_discount_quantity, 0,
-        //    'The new minimum discount quantity must be greater zero! Got %s.');
-
         $this->min_discount_quantity = $new_min_discount_quantity;
 
         return $this;
@@ -303,6 +356,6 @@ class Pricedetail extends DBElement
      */
     public function getIDString(): string
     {
-        return 'PD'.sprintf('%06d', $this->getID());
+        return 'PD' . sprintf('%06d', $this->getID());
     }
 }

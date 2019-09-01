@@ -32,28 +32,44 @@
 namespace App\Services;
 
 
-use Gerardojbaez\Money\Money;
-use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
+use App\Entity\PriceInformations\Currency;
+use Locale;
 
 class MoneyFormatter
 {
 
-    private $params;
+    protected $base_currency;
+    protected $locale;
 
-    public function __construct(ContainerBagInterface $params)
+    public function __construct(string $base_currency)
     {
-        $this->params = $params;
+        $this->base_currency = $base_currency;
+        $this->locale = Locale::getDefault();
     }
 
-    public function format($amount, string $currency = "") : string
+    /**
+     * Format the the given value in the given currency
+     * @param string|float $value The value that should be formatted.
+     * @param Currency|null $currency The currency that should be used for formatting. If null the global one is used
+     * @param int $decimals The number of decimals that should be shown.
+     * @param bool $show_all_digits If set to true, all digits are shown, even if they are null.
+     * @return string
+     */
+    public function format($value, ?Currency $currency = null, $decimals = 5, bool $show_all_digits = false)
     {
-        if ($currency === "") {
-            $currency = $this->params->get("default_currency");
+        $iso_code = $this->base_currency;
+        if ($currency !== null && !empty($currency->getIsoCode())) {
+            $iso_code = $currency->getIsoCode();
         }
 
-        $money = new Money($amount, $currency);
+        $number_formatter = new \NumberFormatter($this->locale, \NumberFormatter::CURRENCY);
+        if ($show_all_digits) {
+            $number_formatter->setAttribute(\NumberFormatter::FRACTION_DIGITS, $decimals);
+        } else {
+            $number_formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, $decimals);
+        }
 
-        return $money->format();
+        return $number_formatter->formatCurrency((float) $value, $iso_code);
     }
 
 }
