@@ -66,8 +66,9 @@ final class Version20190812154222 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_AC28B95CECD792C0 ON suppliers (default_currency_id)');
         if ($old_db) {
             $this->addSql('ALTER TABLE parts DROP FOREIGN KEY parts_id_storelocation_fk');
+        } else {
+            $this->addSql('ALTER TABLE `parts` DROP FOREIGN KEY `FK_6940A7FE8DF69834`');
         }
-        $this->addSql('ALTER TABLE `parts` DROP FOREIGN KEY `FK_6940A7FE8DF69834`');
         $this->addSql('DROP INDEX IDX_6940A7FE8DF69834 ON parts');
         $this->addSql('ALTER TABLE parts ADD id_part_unit INT DEFAULT NULL, CHANGE mininstock minamount DOUBLE PRECISION NOT NULL, ADD manufacturer_product_number VARCHAR(255) NOT NULL, ADD needs_review TINYINT(1) NOT NULL, ADD tags LONGTEXT NOT NULL, ADD mass DOUBLE PRECISION DEFAULT NULL, DROP id_storelocation, DROP instock, CHANGE id_category id_category INT DEFAULT NULL, CHANGE id_footprint id_footprint INT DEFAULT NULL, CHANGE order_orderdetails_id order_orderdetails_id INT DEFAULT NULL, CHANGE id_manufacturer id_manufacturer INT DEFAULT NULL, CHANGE id_master_picture_attachement id_master_picture_attachement INT DEFAULT NULL, CHANGE datetime_added datetime_added DATETIME NOT NULL, CHANGE last_modified last_modified DATETIME NOT NULL');
         $this->addSql('ALTER TABLE parts ADD CONSTRAINT FK_6940A7FE2626CEF9 FOREIGN KEY (id_part_unit) REFERENCES `measurement_units` (id)');
