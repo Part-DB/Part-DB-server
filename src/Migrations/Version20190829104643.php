@@ -49,10 +49,13 @@ final class Version20190829104643 extends AbstractMigration
         //Use float values for pricedetails amount, to use with non integer part units
         $this->addSql('ALTER TABLE pricedetails CHANGE orderdetails_id orderdetails_id INT DEFAULT NULL, CHANGE id_currency id_currency INT DEFAULT NULL, CHANGE price_related_quantity price_related_quantity DOUBLE PRECISION NOT NULL, CHANGE min_discount_quantity min_discount_quantity DOUBLE PRECISION NOT NULL, CHANGE last_modified last_modified DATETIME NOT NULL, CHANGE datetime_added datetime_added DATETIME NOT NULL');
 
-
         //Fix typo in attachment table names
         $this->addSql("ALTER TABLE attachements RENAME TO attachments;");
         $this->addSql("ALTER TABLE attachement_types RENAME TO attachment_types;");
+
+        //Add an filetye filter field to attachment types
+        $this->addSql('ALTER TABLE attachment_types ADD filetype_filter VARCHAR(65535) NOT NULL, CHANGE parent_id parent_id INT DEFAULT NULL, CHANGE datetime_added datetime_added DATETIME NOT NULL, CHANGE last_modified last_modified DATETIME NOT NULL');
+
 
         //Fill empty timestamps with current date
         $tables = ["attachments", "attachment_types", "categories", "devices", "footprints", "manufacturers",

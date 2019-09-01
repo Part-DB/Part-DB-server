@@ -56,6 +56,7 @@ use App\Entity\Base\StructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use s9e\TextFormatter\Configurator\RendererGenerators\PHP\XPathConvertor\Convertors\SingleByteStringManipulation;
 
 /**
  * Class AttachmentType.
@@ -83,6 +84,12 @@ class AttachmentType extends StructuralDBElement
     protected $parent;
 
     /**
+     * @var string
+     * @ORM\Column(type="string", length=65535)
+     */
+    protected $filetype_filter;
+
+    /**
      * Get all attachements ("Attachement" objects) with this type.
      *
      * @return Collection|Attachment[] all attachements with this type, as a one-dimensional array of Attachement-objects
@@ -97,6 +104,27 @@ class AttachmentType extends StructuralDBElement
 
         return $this->attachments;
     }
+
+    /**
+     * Gets an filter, which file types are allowed for attachment files.
+     * @return string
+     */
+    public function getFiletypeFilter(): string
+    {
+        return $this->filetype_filter;
+    }
+
+    /**
+     * @param string $filetype_filter
+     * @return AttachmentType
+     */
+    public function setFiletypeFilter(string $filetype_filter): AttachmentType
+    {
+        $this->filetype_filter = $filetype_filter;
+        return $this;
+    }
+
+
 
     /**
      * Returns the ID as an string, defined by the element class.
