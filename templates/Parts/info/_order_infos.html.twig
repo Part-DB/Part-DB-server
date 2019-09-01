@@ -41,10 +41,15 @@
                             </td>
                             <td>
                                 {{ detail.price | moneyFormat(detail.currency) }} / {{ detail.PriceRelatedQuantity | amountFormat(part.partUnit) }}
-                               {# {{ detail.Price | moneyFormat }} <i>{% trans %}part.order.price_per{% endtrans %}</i> {{ detail.PriceRelatedQuantity }} #}
+                                {% if detail.currency and pricedetail_helper.convertMoneyToCurrency(detail.price, detail.currency) > 0 %}
+                                    <span class="text-muted">({{ pricedetail_helper.convertMoneyToCurrency(detail.price, detail.currency) | moneyFormat() }})</span>
+                                {% endif %}
                             </td>
                             <td>
                                 {{ detail.PricePerUnit  | moneyFormat(detail.currency) }}
+                                {% if detail.currency and pricedetail_helper.convertMoneyToCurrency(detail.PricePerUnit, detail.currency) > 0 %}
+                                    <span class="text-muted">({{ pricedetail_helper.convertMoneyToCurrency(detail.PricePerUnit, detail.currency) | moneyFormat() }})</span>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}
