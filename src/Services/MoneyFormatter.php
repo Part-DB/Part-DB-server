@@ -48,12 +48,14 @@ class MoneyFormatter
     }
 
     /**
-     * @param string $value The value that should be
-     * @param Currency|null $currency
-     * @param int $decimals
+     * Format the the given value in the given currency
+     * @param string|float $value The value that should be formatted.
+     * @param Currency|null $currency The currency that should be used for formatting. If null the global one is used
+     * @param int $decimals The number of decimals that should be shown.
+     * @param bool $show_all_digits If set to true, all digits are shown, even if they are null.
      * @return string
      */
-    public function format(string $value, ?Currency $currency = null, $decimals = 5)
+    public function format($value, ?Currency $currency = null, $decimals = 5, bool $show_all_digits = false)
     {
         $iso_code = $this->base_currency;
         if ($currency !== null && !empty($currency->getIsoCode())) {
@@ -61,7 +63,11 @@ class MoneyFormatter
         }
 
         $number_formatter = new \NumberFormatter($this->locale, \NumberFormatter::CURRENCY);
-        $number_formatter->setAttribute(\NumberFormatter::FRACTION_DIGITS, $decimals);
+        if ($show_all_digits) {
+            $number_formatter->setAttribute(\NumberFormatter::FRACTION_DIGITS, $decimals);
+        } else {
+            $number_formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, $decimals);
+        }
 
         return $number_formatter->formatCurrency((float) $value, $iso_code);
     }

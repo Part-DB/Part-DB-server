@@ -130,9 +130,9 @@ class AppExtension extends AbstractExtension
         return $this->moneyFormatter->format($amount, $currency, $decimals);
     }
 
-    public function siFormat($value, $unit, $decimals = 2)
+    public function siFormat($value, $unit, $decimals = 2, bool $show_all_digits = false)
     {
-        return $this->siformatter->format($value, $unit, $decimals);
+        return $this->siformatter->format($value, $unit, $decimals, $show_all_digits);
     }
 
     public function amountFormat($value, ?MeasurementUnit $unit, array $options = [])
