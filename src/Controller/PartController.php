@@ -30,12 +30,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\StructuralDBElement;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Form\AttachmentFormType;
 use App\Form\Part\PartBaseType;
 use App\Services\AttachmentHelper;
 use App\Services\PricedetailHelper;
+use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -43,11 +46,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @Route("/part")
+ * @package App\Controller
+ */
 class PartController extends AbstractController
 {
     /**
-     * @Route("/part/{id}/info", name="part_info")
-     * @Route("/part/{id}", requirements={"id"="\d+"})
+     * @Route("/{id}/info", name="part_info")
+     * @Route("/{id}", requirements={"id"="\d+"})
      * @param Part $part
      * @param AttachmentHelper $attachmentHelper
      * @return \Symfony\Component\HttpFoundation\Response
@@ -66,7 +73,7 @@ class PartController extends AbstractController
     }
 
     /**
-     * @Route("/part/{id}/edit", name="part_edit")
+     * @Route("/{id}/edit", name="part_edit")
      *
      * @param Part $part
      *
@@ -109,7 +116,32 @@ class PartController extends AbstractController
     }
 
     /**
-     * @Route("/part/new", name="part_new")
+     * @Route("/{id}/delete", name="part_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Part $part
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function delete(Request $request, Part $part)
+    {
+        $this->denyAccessUnlessGranted('delete', $part);
+
+        if ($this->isCsrfTokenValid('delete' . $part->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+
+            //Remove part
+            $entityManager->remove($part);
+
+            //Flush changes
+            $entityManager->flush();
+
+            $this->addFlash('success', 'part.deleted');
+        }
+
+        return $this->redirectToRoute('homepage');
+    }
+
+    /**
+     * @Route("/new", name="part_new")
      *
      * @param Request $request
      * @param EntityManagerInterface $em
@@ -158,7 +190,7 @@ class PartController extends AbstractController
     }
 
     /**
-     * @Route("/part/{id}/clone", name="part_clone")
+     * @Route("/{id}/clone", name="part_clone")
      * @param Part $part
      * @param Request $request
      * @param EntityManagerInterface $em

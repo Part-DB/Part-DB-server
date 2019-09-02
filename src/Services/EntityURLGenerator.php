@@ -285,6 +285,10 @@ class EntityURLGenerator
 
     public function deleteURL($entity) : string
     {
+        if ($entity instanceof Part) {
+            return $this->urlGenerator->generate('part_delete', ['id' => $entity->getID()]);
+        }
+
         if ($entity instanceof AttachmentType) {
             return $this->urlGenerator->generate('attachment_type_delete', ['id' => $entity->getID()]);
         }

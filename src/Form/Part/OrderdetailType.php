@@ -84,7 +84,7 @@ class OrderdetailType extends AbstractType
             $orderdetail = $event->getData();
 
             $dummy_pricedetail = new Pricedetail();
-            if ($orderdetail->getSupplier() !== null) {
+            if ($orderdetail !== null && $orderdetail->getSupplier() !== null) {
                 $dummy_pricedetail->setCurrency($orderdetail->getSupplier()->getDefaultCurrency());
             }
 
