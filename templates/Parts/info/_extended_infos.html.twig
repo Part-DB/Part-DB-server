@@ -2,29 +2,34 @@
 
 <table class="table table-striped table-hover table-sm w-100">
     <tbody>
-        <tr> {# Creation date #}
-            <td>{% trans %}createdAt{% endtrans %}</td>
-            <td>{{ part.addedDate | localizeddate("long")}}</td>
-        </tr>
+    <tr> {# Creation date #}
+        <td>{% trans %}createdAt{% endtrans %}</td>
+        <td>{{ part.addedDate | localizeddate("long")}}</td>
+    </tr>
 
-        <tr> {# Last modified date #}
-            <td>{% trans %}lastModified{% endtrans %}</td>
-            <td>{{ part.lastModified | localizeddate("long")}}</td>
-        </tr>
+    <tr> {# Last modified date #}
+        <td>{% trans %}lastModified{% endtrans %}</td>
+        <td>{{ part.lastModified | localizeddate("long")}}</td>
+    </tr>
 
-        <tr> {# ID #}
-            <td>{% trans %}id.label{% endtrans %}</td>
-            <td>{{ part.iD }} ({{ part.iDString}})</td>
-        </tr>
+    <tr> {# ID #}
+        <td>{% trans %}id.label{% endtrans %}</td>
+        <td>{{ part.iD }} ({{ part.iDString}})</td>
+    </tr>
 
-        <tr> {# Favorite status #}
-            <td>{% trans %}part.isFavorite{% endtrans %}</td>
-            <td>{{ helper.boolean(part.favorite) }}</td>
-        </tr>
+    <tr> {# Favorite status #}
+        <td>{% trans %}part.isFavorite{% endtrans %}</td>
+        <td>{{ helper.boolean(part.favorite) }}</td>
+    </tr>
 
-        <tr>
-            <td>{% trans %}part.minOrderAmount{% endtrans %}</td>
-            <td>{{ pricedetail_helper.minOrderAmount(part) | amountFormat(part.partUnit) }}</td>
-        </tr>
+    <tr>
+        <td>{% trans %}part.minOrderAmount{% endtrans %}</td>
+        <td>{% if  pricedetail_helper.minOrderAmount(part) %}
+                {{ pricedetail_helper.minOrderAmount(part) | amountFormat(part.partUnit) }}
+            {% else %}
+                {% trans %}Unknown{% endtrans %}
+            {% endif %}
+        </td>
+    </tr>
     </tbody>
 </table>
