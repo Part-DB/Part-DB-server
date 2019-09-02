@@ -7,7 +7,15 @@
         {% endif %}
     </div>
     <div class="col-md-9">
-        <h5 class="text-muted pt-2" title="{% trans %}manufacturer.label{% endtrans %}">{{ part.manufacturer.name ?? ""}}</h5>
+        <h5 class="text-muted pt-2" title="{% trans %}manufacturer.label{% endtrans %}">{{ part.manufacturer.name ?? ""}}
+            {% if part.manufacturerProductUrl %}
+                <small>
+                    <a class="link-external" href="{{ part.manufacturerProductUrl }}" target="_blank">{{ part.manufacturerProductNumber }}</a>
+                </small>
+            {% else %}
+                <small>{{ part.manufacturerProductNumber }}</small>
+            {% endif %}
+        </h5>
         <h3>{{ part.name }}
             {# You need edit permission to use the edit button #}
             {% if is_granted('edit', part) %}
@@ -47,7 +55,7 @@
                     {% if min_order_amount < max_order_amount %}
                     <span> - </span>
                     <span title="{% trans %}part.avg_price.label{% endtrans %} {{ min_order_amount | amountFormat(part.partUnit) }}">{{pricedetail_helper.calculateAvgPrice(part, min_order_amount) | moneyFormat }}</span>
-                    {% endif %}
+                {% endif %}
                 {% endif %}
 
             </span>

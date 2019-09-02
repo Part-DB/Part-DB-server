@@ -232,6 +232,7 @@ class Part extends AttachmentContainingDBElement
     /**
      * @var string
      * @ORM\Column(type="string")
+     * @Assert\Url()
      * @ColumnSecurity(prefix="manufacturer", type="string", placeholder="")
      */
     protected $manufacturer_product_url = '';
