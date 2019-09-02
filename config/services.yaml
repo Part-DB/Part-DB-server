@@ -11,6 +11,7 @@ parameters:
     use_gravatar: true          # Set to false, if no Gravatar images should be used for user profiles.
     default_currency: 'EUR'     # The currency that should be used
     media_directory: 'data/media/'
+    db_version_fallback: '5.6' # Be sure to override this, in your .env with your real DB version
 
 services:
     # default configuration for services in *this* file
