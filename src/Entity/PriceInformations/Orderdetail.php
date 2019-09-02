@@ -87,7 +87,7 @@ class Orderdetail extends DBElement
     /**
      * @var Part
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part", inversedBy="orderdetails")
-     * @ORM\JoinColumn(name="part_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="part_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Assert\NotNull()
      */
     protected $part;

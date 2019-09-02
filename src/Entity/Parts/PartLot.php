@@ -81,7 +81,7 @@ class PartLot extends DBElement
     /**
      * @var Part The part that is stored in this lot
      * @ORM\ManyToOne(targetEntity="Part", inversedBy="partLots")
-     * @ORM\JoinColumn(name="id_part", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_part", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Assert\NotNull()
      */
     protected $part;

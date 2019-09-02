@@ -45,7 +45,7 @@ class PartAttachment extends Attachment
     /**
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part", inversedBy="attachments")
-     * @ORM\JoinColumn(name="element_id", referencedColumnName="id").
+     * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */
     protected $element;
 

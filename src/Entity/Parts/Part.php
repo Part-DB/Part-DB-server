@@ -92,7 +92,7 @@ class Part extends AttachmentContainingDBElement
     /**
      * @var Category
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="parts")
-     * @ORM\JoinColumn(name="id_category", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_category", referencedColumnName="id", nullable=false)
      * @Selectable()
      */
     protected $category;
