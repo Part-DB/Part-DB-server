@@ -888,23 +888,23 @@ Subelements will be moved upwards.]]></target>
       </trans-unit>
       <trans-unit id="0uWeEo4" resname="tree.tools.edit.storelocation">
         <source>tree.tools.edit.storelocation</source>
-        <target>__tree.tools.edit.storelocation</target>
+        <target state="translated">Storage locations</target>
       </trans-unit>
       <trans-unit id="AQHSEDZ" resname="tree.tools.edit.footprint">
         <source>tree.tools.edit.footprint</source>
-        <target>__tree.tools.edit.footprint</target>
+        <target state="translated">Footprints</target>
       </trans-unit>
       <trans-unit id="RBBr5gI" resname="tree.tools.edit.currency">
         <source>tree.tools.edit.currency</source>
-        <target>__tree.tools.edit.currency</target>
+        <target state="translated">Currencies</target>
       </trans-unit>
       <trans-unit id="624h27t" resname="tree.tools.edit.measurement_unit">
         <source>tree.tools.edit.measurement_unit</source>
-        <target>__tree.tools.edit.measurement_unit</target>
+        <target state="translated">Measurement Unit</target>
       </trans-unit>
       <trans-unit id="CBX7i_1" resname="tree.tools.edit.part">
         <source>tree.tools.edit.part</source>
-        <target>__tree.tools.edit.part</target>
+        <target state="translated">Part</target>
       </trans-unit>
       <trans-unit id="BJtSZa4" resname="currency.caption">
         <source>currency.caption</source>
@@ -1029,6 +1029,198 @@ Subelements will be moved upwards.]]></target>
       <trans-unit id="1n22zD9" resname="part.withdraw.caption">
         <source>part.withdraw.caption</source>
         <target state="translated">Withdraw parts</target>
+      </trans-unit>
+      <trans-unit id="MBCdfAy" resname="m_status.unknown">
+        <source>m_status.unknown</source>
+        <target state="translated">Unknown</target>
+      </trans-unit>
+      <trans-unit id="q94.fW6" resname="m_status.announced">
+        <source>m_stauts.announced</source>
+        <target state="translated">Announced</target>
+      </trans-unit>
+      <trans-unit id="TN5xR7J" resname="m_status.active">
+        <source>m_status.active</source>
+        <target state="translated">Active</target>
+      </trans-unit>
+      <trans-unit id="0McKh_8" resname="m_status.nrfnd">
+        <source>m_status.nrfnd</source>
+        <target state="translated">Not recommended for new designs</target>
+      </trans-unit>
+      <trans-unit id="L7yLwn0" resname="m_status.eol">
+        <source>m_status.eol</source>
+        <target state="translated">End of life</target>
+      </trans-unit>
+      <trans-unit id="5jxVP1H" resname="m_status.discontinued">
+        <source>m_status.discontinued</source>
+        <target state="translated">Discontinued</target>
+      </trans-unit>
+      <trans-unit id="nQkvo2A" resname="tree.tools.system">
+        <source>tree.tools.system</source>
+        <target state="translated">System</target>
+      </trans-unit>
+      <trans-unit id="D1it4FK" resname="tree.tools.system.users">
+        <source>tree.tools.system.users</source>
+        <target state="translated">Users</target>
+      </trans-unit>
+      <trans-unit id="w57VDWn" resname="part.edited_flash.invalid">
+        <source>part.edited_flash.invalid</source>
+        <target state="translated">Error during saving: Please check your inputs!</target>
+      </trans-unit>
+      <trans-unit id="LOw_XJ." resname="part.created_flash.invalid">
+        <source>part.created_flash.invalid</source>
+        <target state="translated">Error during creation: Please check your inputs!</target>
+      </trans-unit>
+      <trans-unit id="ItQbhLs" resname="orderdetail.delete">
+        <source>orderdetail.delete</source>
+        <target state="translated">Delete</target>
+      </trans-unit>
+      <trans-unit id="uUvRF8P" resname="pricedetails.edit.min_qty">
+        <source>pricedetails.edit.min_qty</source>
+        <target state="translated">Minimum discount quantity</target>
+      </trans-unit>
+      <trans-unit id="3meOpdA" resname="pricedetails.edit.price">
+        <source>pricedetails.edit.price</source>
+        <target state="translated">Price</target>
+      </trans-unit>
+      <trans-unit id="1gzHhnJ" resname="pricedetails.edit.price_qty">
+        <source>pricedetails.edit.price_qty</source>
+        <target state="translated">for amount</target>
+      </trans-unit>
+      <trans-unit id="8BF.OZR" resname="pricedetail.create">
+        <source>pricedetail.create</source>
+        <target state="translated">Add price</target>
+      </trans-unit>
+      <trans-unit id="MvJvWIA" resname="part.edit.tab.common">
+        <source>part.edit.tab.common</source>
+        <target state="translated">Common</target>
+      </trans-unit>
+      <trans-unit id="RjPp2bd" resname="part.edit.tab.manufacturer">
+        <source>part.edit.tab.manufacturer</source>
+        <target state="translated">Manufacturer</target>
+      </trans-unit>
+      <trans-unit id="e9FzmOU" resname="part.edit.tab.advanced">
+        <source>part.edit.tab.advanced</source>
+        <target state="translated">Advanced</target>
+      </trans-unit>
+      <trans-unit id="uc9NwcF" resname="part.edit.tab.part_lots">
+        <source>part.edit.tab.part_lots</source>
+        <target state="translated">Stocks</target>
+      </trans-unit>
+      <trans-unit id="9HrMrf1" resname="part.edit.tab.attachments">
+        <source>part.edit.tab.attachments</source>
+        <target state="translated">Attachments</target>
+      </trans-unit>
+      <trans-unit id="tkdBTwZ" resname="part.edit.tab.orderdetails">
+        <source>part.edit.tab.orderdetails</source>
+        <target state="translated">Purchase informations</target>
+      </trans-unit>
+      <trans-unit id="LgSgFFj" resname="part.edit.tab.comment">
+        <source>part.edit.tab.comment</source>
+        <target state="translated">Comment</target>
+      </trans-unit>
+      <trans-unit id="ffvhms1" resname="attachment.external">
+        <source>attachment.external</source>
+        <target state="translated">External</target>
+      </trans-unit>
+      <trans-unit id="NCjSwVs" resname="attachment.create">
+        <source>attachment.create</source>
+        <target state="translated">Add attachment</target>
+      </trans-unit>
+      <trans-unit id="kxhr8KP" resname="part_lot.edit.delete.confirm">
+        <source>part_lot.edit.delete.confirm</source>
+        <target state="translated">Do you really want to delete this stock? This can not be undone!</target>
+      </trans-unit>
+      <trans-unit id="X.m4tR7" resname="part_lot.delete">
+        <source>part_lot.delete</source>
+        <target state="translated">Delete</target>
+      </trans-unit>
+      <trans-unit id="Ey2BEY6" resname="part_lot.create">
+        <source>part_lot.create</source>
+        <target state="translated">Add stock</target>
+      </trans-unit>
+      <trans-unit id="D7h1rMv" resname="orderdetail.create">
+        <source>orderdetail.create</source>
+        <target state="translated">Add distributor</target>
+      </trans-unit>
+      <trans-unit id="uKZiiFJ" resname="pricedetails.edit.delete.confirm">
+        <source>pricedetails.edit.delete.confirm</source>
+        <target state="translated">Do you really want to delete this price? This can not be undone.</target>
+      </trans-unit>
+      <trans-unit id="FIw9JVr" resname="orderdetails.edit.delete.confirm">
+        <source>orderdetails.edit.delete.confirm</source>
+        <target state="translated">Do you really want to delete this distributor info? This can not be undone!</target>
+      </trans-unit>
+      <trans-unit id="ZrzEsc_" resname="part.part_lots.label">
+        <source>part.part_lots.label</source>
+        <target state="translated">Stocks</target>
+      </trans-unit>
+      <trans-unit id="qwRgUmm" resname="part.minOrderAmount">
+        <source>part.minOrderAmount</source>
+        <target state="translated">Minimum order amount</target>
+      </trans-unit>
+      <trans-unit id="t2TNwOq" resname="Unknown">
+        <source>Unknown</source>
+        <target state="translated">Unknown</target>
+      </trans-unit>
+      <trans-unit id="aUihK3c" resname="part_lots.description">
+        <source>part_lots.description</source>
+        <target state="translated">Description</target>
+      </trans-unit>
+      <trans-unit id="SOcXkyd" resname="part_lots.storage_location">
+        <source>part_lots.storage_location</source>
+        <target state="translated">Storage location</target>
+      </trans-unit>
+      <trans-unit id="jVYrm0U" resname="part_lots.amount">
+        <source>part_lots.amount</source>
+        <target state="translated">Amount</target>
+      </trans-unit>
+      <trans-unit id="upshmqD" resname="part_lots.location_unknown">
+        <source>part_lots.location_unknown</source>
+        <target state="translated">Storage location unknown</target>
+      </trans-unit>
+      <trans-unit id="BTUni9r" resname="part_lots.instock_unknown">
+        <source>part_lots.instock_unknown</source>
+        <target state="translated">Amount unknown</target>
+      </trans-unit>
+      <trans-unit id="NFa2bFQ" resname="part_lots.expiration_date">
+        <source>part_lots.expiration_date</source>
+        <target state="translated">Expiration date</target>
+      </trans-unit>
+      <trans-unit id="axp.g13" resname="part_lots.is_expired">
+        <source>part_lots.is_expired</source>
+        <target state="translated">Expired</target>
+      </trans-unit>
+      <trans-unit id="EWX1Sti" resname="part_lots.need_refill">
+        <source>part_lots.need_refill</source>
+        <target state="translated">Needs refill</target>
+      </trans-unit>
+      <trans-unit id="8zIQiUL" resname="part.mass.tooltip">
+        <source>part.mass.tooltip</source>
+        <target state="translated">Mass</target>
+      </trans-unit>
+      <trans-unit id="9o2FQD1" resname="part.needs_review.badge">
+        <source>part.needs_review.badge</source>
+        <target state="translated">Needs review</target>
+      </trans-unit>
+      <trans-unit id="dF6ZXKR" resname="part.favorite.badge">
+        <source>part.favorite.badge</source>
+        <target state="translated">Favorite</target>
+      </trans-unit>
+      <trans-unit id="EgLR013" resname="part.obsolete.badge">
+        <source>part.obsolete.badge</source>
+        <target state="translated">No longer available</target>
+      </trans-unit>
+      <trans-unit id="GayDkXI" resname="part.delete.confirm_title">
+        <source>part.delete.confirm_title</source>
+        <target state="translated">Do you really want to delete this part?</target>
+      </trans-unit>
+      <trans-unit id="v4cgmfN" resname="part.delete.message">
+        <source>part.delete.message</source>
+        <target state="translated">This part and any associated information (like attachments, price informations, etc.) will be deleted. This can not be undone!</target>
+      </trans-unit>
+      <trans-unit id="CJHxw_e" resname="part.delete">
+        <source>part.delete</source>
+        <target state="translated">Delete part</target>
       </trans-unit>
     </body>
   </file>

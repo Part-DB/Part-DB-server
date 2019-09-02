@@ -82,7 +82,7 @@ class PartBaseType extends AbstractType
 
         $status_choices = [
             $this->trans->trans("m_status.unknown") => '',
-            $this->trans->trans('m_stauts.announced') => 'announced',
+            $this->trans->trans('m_status.announced') => 'announced',
             $this->trans->trans('m_status.active') => 'active',
             $this->trans->trans('m_status.nrfnd') => 'nrfnd',
             $this->trans->trans('m_status.eol') => 'eol',
