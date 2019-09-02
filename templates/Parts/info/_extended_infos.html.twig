@@ -21,5 +21,10 @@
             <td>{% trans %}part.isFavorite{% endtrans %}</td>
             <td>{{ helper.boolean(part.favorite) }}</td>
         </tr>
+
+        <tr>
+            <td>{% trans %}part.minOrderAmount{% endtrans %}</td>
+            <td>{{ pricedetail_helper.minOrderAmount(part) | amountFormat(part.partUnit) }}</td>
+        </tr>
     </tbody>
 </table>
