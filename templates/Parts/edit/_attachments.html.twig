@@ -5,6 +5,7 @@
     </button>
 {% endset %}
 
+{{ form_row(form.master_picture_attachment) }}
 
 <table class="table table-striped table-sm" id="attachments_table" data-prototype="{{ form_widget(form.attachments.vars.prototype)|e('html_attr') }}">
     <tbody>

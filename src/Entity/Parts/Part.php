@@ -121,7 +121,7 @@ class Part extends AttachmentContainingDBElement
      * @var Attachment
      * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\Attachment")
      * @ORM\JoinColumn(name="id_master_picture_attachement", referencedColumnName="id")
-     *
+     * @Assert\Expression("value == null or value.isPicture()")
      * @ColumnSecurity(prefix="attachments", type="object")
      */
     protected $master_picture_attachment;
@@ -508,13 +508,25 @@ class Part extends AttachmentContainingDBElement
     }
 
     /**
-     *  Get the master picture "Attachement"-object of this part (if there is one).
+     *  Get the master picture "Attachment"-object of this part (if there is one).
+     *  The master picture should be used as a visual description/representation of this part.
      *
      * @return Attachment the master picture Attachement of this part (if there is one)
      */
-    public function getMasterPictureAttachement(): ?Attachment
+    public function getMasterPictureAttachment(): ?Attachment
     {
         return $this->master_picture_attachment;
+    }
+
+    /**
+     * Sets the new master picture for this part.
+     * @param Attachment|null $new_master_attachment
+     * @return Part
+     */
+    public function setMasterPictureAttachment(?Attachment $new_master_attachment): Part
+    {
+        $this->master_picture_attachment = $new_master_attachment;
+        return $this;
     }
 
     /**

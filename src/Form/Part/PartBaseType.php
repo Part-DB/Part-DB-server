@@ -31,6 +31,7 @@
 
 namespace App\Form\Part;
 
+use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -44,6 +45,7 @@ use App\Form\AttachmentType;
 use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
 use Doctrine\DBAL\Types\FloatType;
+use Doctrine\ORM\EntityRepository;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -60,6 +62,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use function foo\func;
 
 class PartBaseType extends AbstractType
 {
@@ -164,7 +167,26 @@ class PartBaseType extends AbstractType
             'by_reference' => false
         ]);
 
-        //Attachment section
+        $builder->add('master_picture_attachment', EntityType::class, [
+            'required' => false,
+            'label' => 'part.edit.master_attachment',
+            'class' => PartAttachment::class,
+            'attr' => ['class' => 'selectpicker'],
+            'choice_attr' => function ($choice, $key, $value) {
+                /** @var Attachment $choice */
+                return ['data-subtext' => $choice->getFilename() ?? "URL"];
+            },
+            'choice_label' => 'name',
+            'query_builder' => function (EntityRepository $er) use ($part) {
+                return $er->createQueryBuilder('u')
+                    ->where('u.element = ?1')
+                    ->andWhere("u.path <> ''")
+                    ->orderBy('u.name', 'ASC')
+                    ->setParameter(1, $part);
+            }
+        ]);
+
+        //Orderdetails section
         $builder->add('orderdetails', CollectionType::class, [
             'entry_type' => OrderdetailType::class,
             'allow_add' => true, 'allow_delete' => true,

@@ -73,12 +73,18 @@ abstract class Attachment extends NamedDBElement
 
     /**
      * Check if this attachement is a picture (analyse the file's extension).
+     * If the link is external, it is assumed that this is false.
      *
      * @return bool * true if the file extension is a picture extension
      *              * otherwise false
      */
     public function isPicture(): bool
     {
+        //We can not check if a external link is a picture, so just assume this is false
+        if ($this->isExternal()) {
+            return true;
+        }
+
         $extension = pathinfo($this->getPath(), PATHINFO_EXTENSION);
 
         // list all file extensions which are supported to display them by HTML code
