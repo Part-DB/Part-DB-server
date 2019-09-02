@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
@@ -14,13 +15,23 @@ final class Version20190902140506 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Upgrade database from old Part-DB 0.5 Version (dbVersion 26)';
     }
 
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+
+        try {
+            //Check if we can use this migration method:
+            $version = (int)$this->connection->fetchColumn("SELECT keyValue AS version FROM `internal` WHERE `keyName` = 'dbVersion'");
+            $this->abortIf($version !== 26, "This database migration can only be used if the database version is 26! Install Part-DB 0.5.6 and update database there!");
+        } catch (DBALException $ex) {
+            //when the table was not found, then you can not use this migration
+            $this->skipIf(true, "Empty database detected. Skip migration.");
+        }
+
 
         //Deactive SQL Modes (especially NO_ZERO_DATE, which prevents updating)
         $this->addSql("SET sql_mode = ''");
