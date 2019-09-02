@@ -66,7 +66,7 @@ class PartLot extends DBElement
     /**
      * @var ?\DateTime Set a time until when the lot must be used.
      * Set to null, if the lot can be used indefinitley.
-     * @ORM\Column(type="datetimetz", name="expiration_date", nullable=true)
+     * @ORM\Column(type="datetime", name="expiration_date", nullable=true)
      */
     protected $expiration_date;
 

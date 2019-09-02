@@ -85,7 +85,7 @@ class AttachmentType extends StructuralDBElement
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=65535)
+     * @ORM\Column(type="text")
      */
     protected $filetype_filter;
 

@@ -148,14 +148,14 @@ class Part extends AttachmentContainingDBElement
 
     /**
      *  @ColumnSecurity(type="datetime")
-     *  @ORM\Column(type="datetimetz", name="datetime_added")
+     * @ORM\Column(type="datetime", name="datetime_added", options={"default"="CURRENT_TIMESTAMP"})
      */
     protected $addedDate;
 
     /**
      * @var \DateTime The date when this element was modified the last time.
-     * @ORM\Column(type="datetimetz", name="last_modified")
      * @ColumnSecurity(type="datetime")
+     * @ORM\Column(type="datetime", name="last_modified", options={"default"="CURRENT_TIMESTAMP"})
      */
     protected $lastModified;
 

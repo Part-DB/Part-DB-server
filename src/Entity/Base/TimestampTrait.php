@@ -42,14 +42,14 @@ trait TimestampTrait
 {
     /**
      * @var \DateTime The date when this element was modified the last time.
-     * @ORM\Column(type="datetimetz", name="last_modified")
+     * @ORM\Column(type="datetime", name="last_modified", options={"default"="CURRENT_TIMESTAMP"})
      * @Groups({"extended", "full"})
      */
     protected $lastModified;
 
     /**
      * @var \DateTime The date when this element was created.
-     * @ORM\Column(type="datetimetz", name="datetime_added")
+     * @ORM\Column(type="datetime", name="datetime_added", options={"default"="CURRENT_TIMESTAMP"})
      * @Groups({"extended", "full"})
      */
     protected $addedDate;

@@ -85,7 +85,7 @@ class Footprint extends PartsContainingDBElement
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=65536)
+     * @ORM\Column(type="text")
      */
     protected $filename;
 
@@ -96,7 +96,7 @@ class Footprint extends PartsContainingDBElement
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=65536)
+     * @ORM\Column(type="text")
      */
     protected $filename_3d;
 
