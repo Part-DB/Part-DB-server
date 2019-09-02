@@ -246,8 +246,9 @@ class Part extends AttachmentContainingDBElement
     /**
      * @var string
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Choice({"announced", "active", "nrfnd", "eol", "discontinued", ""})
      */
-    protected $manufacturing_status;
+    protected $manufacturing_status = "";
 
     /**
      * @var bool Determines if this part entry needs review (for example, because it is work in progress)
@@ -441,6 +442,37 @@ class Part extends AttachmentContainingDBElement
     {
         return $this->manufacturer_product_url;
     }
+
+    /**
+     * Returns the manufacturing/production status for this part.
+     * The status can be one of the following:
+     * (Similar to https://designspark.zendesk.com/hc/en-us/articles/213584805-What-are-the-Lifecycle-Status-definitions-)
+     * * "": Status unknown
+     * * "announced": Part has been announced, but is not in production yet
+     * * "active": Part is in production and will be for the forseeable future
+     * * "nrfnd": Not recommended for new designs.
+     * * "eol": Part will become discontinued soon
+     * * "discontinued": Part is obsolete/discontinued by the manufacturer
+     * @return string
+     */
+    public function getManufacturingStatus(): ?string
+    {
+        return $this->manufacturing_status;
+    }
+
+    /**
+     * Sets the manufacturing status for this part
+     * See getManufacturingStatus() for valid values.
+     * @param string $manufacturing_status
+     * @return Part
+     */
+    public function setManufacturingStatus(string $manufacturing_status): Part
+    {
+        $this->manufacturing_status = $manufacturing_status;
+        return $this;
+    }
+
+
 
     /**
      *  Get the category of this part.

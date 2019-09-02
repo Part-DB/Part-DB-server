@@ -53,3 +53,24 @@
         <a href="#" class="{{ class }}" >{{ tag | trim }}</a>
     {% endfor %}
 {% endmacro %}
+
+{% macro m_status_to_badge(status, class="badge") %}
+    {% if status is not empty %}
+        {% set color = " badge-secondary" %}
+
+        {% if status == "active" %}
+            {% set color = " badge-success" %}
+        {% elseif status == "nrfnd" %}
+            {% set color = " badge-warning" %}
+        {% elseif status == "eol" %}
+            {% set color = " badge-warning" %}
+        {% elseif status == "discontinued" %}
+            {% set color = " badge-danger" %}
+        {% endif %}
+
+        <span class="{{ class ~ color}}" title="{{ ("m_status." ~ status ~ ".help") | trans }}">
+            <i class="fa-fw fas fa-info-circle"></i>
+            {{ ("m_status." ~ status) | trans }}
+        </span>
+    {% endif %}
+{% endmacro %}

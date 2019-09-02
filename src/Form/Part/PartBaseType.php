@@ -48,6 +48,7 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -58,20 +59,32 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartBaseType extends AbstractType
 {
     protected $security;
+    protected $trans;
 
-    public function __construct(Security $security)
+    public function __construct(Security $security, TranslatorInterface $trans)
     {
         $this->security = $security;
+        $this->trans = $trans;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         /** @var Part $part */
         $part = $builder->getData();
+
+        $status_choices = [
+            $this->trans->trans("m_status.unknown") => '',
+            $this->trans->trans('m_stauts.announced') => 'announced',
+            $this->trans->trans('m_status.active') => 'active',
+            $this->trans->trans('m_status.nrfnd') => 'nrfnd',
+            $this->trans->trans('m_status.eol') => 'eol',
+            $this->trans->trans('m_status.discontinued') => 'discontinued'
+        ];
 
         //Common section
         $builder
@@ -105,7 +118,13 @@ class PartBaseType extends AbstractType
                 'disabled' => !$this->security->isGranted('manufacturer.edit', $part), ])
             ->add('manufacturer_product_number', TextType::class, ['required' => false,
                 'empty_data' => '', 'label' => 'part.mpn',
-                'disabled' => !$this->security->isGranted('manufacturer.edit', $part)]);
+                'disabled' => !$this->security->isGranted('manufacturer.edit', $part)])
+            ->add('manufacturing_status', ChoiceType::class, [
+                'label' => 'part.manufacturing_status',
+                'choices' => $status_choices,
+                'required' => false,
+                'disabled' => !$this->security->isGranted('manufacturer.edit', $part)
+            ]);
 
         //Advanced section
         $builder->add('needsReview', CheckboxType::class, ['label_attr'=> ['class' => 'checkbox-custom'],

@@ -45,6 +45,13 @@
     </div>
 {% endif %}
 
+{# Manufacturing status tag #}
+<div class="mt-1">
+    <h6>
+        {{ helper.m_status_to_badge(part.manufacturingStatus) }}
+    </h6>
+</div>
+
 {# Show tags #}
 {% if part.tags is not empty %}
     <div class="mt-1">
