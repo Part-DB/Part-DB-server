@@ -121,7 +121,7 @@ class Part extends AttachmentContainingDBElement
      * @var Attachment
      * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\Attachment")
      * @ORM\JoinColumn(name="id_master_picture_attachement", referencedColumnName="id")
-     * @Assert\Expression("value == null or value.isPicture()")
+     * @Assert\Expression("value == null or value.isPicture()", message="part.master_attachment.must_be_picture")
      * @ColumnSecurity(prefix="attachments", type="object")
      */
     protected $master_picture_attachment;
