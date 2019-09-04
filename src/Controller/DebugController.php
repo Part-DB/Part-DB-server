@@ -31,6 +31,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class DebugController.
@@ -50,6 +51,41 @@ class DebugController extends AbstractController
 
         $this->addFlash('testkjfd', 'Blabla. This message type should be not know to template!');
 
+
+
         return $this->render('base.html.twig');
+    }
+
+    /**
+     * @Route("/debug/dummy")
+     */
+    public function dummy(TranslatorInterface $translator)
+    {
+        //Here we collect translation keys automatically created, so they can be extracted easily
+
+        //Validators:
+        $translator->trans('validator.noneofitschild.self');
+        $translator->trans('validator.noneofitschild.children');
+        $translator->trans('validator.isSelectable');
+        $translator->trans('validator.part_lot.location_full.no_increasment');
+        $translator->trans('validator.part_lot.location_full');
+        $translator->trans('validator.part_lot.only_existing');
+        $translator->trans('validator.part_lot.single_part');
+
+        //Manufacturer status
+        $translator->trans('m_status.active.help');
+        $translator->trans('m_status.announced.help');
+        $translator->trans('m_status.discontinued.help');
+        $translator->trans('m_status.eol.help');
+        $translator->trans('m_status.nrfnd.help');
+        $translator->trans('m_status.unknown.help');
+
+        //Flash titles
+        $translator->trans('flash.success');
+        $translator->trans('flash.error');
+        $translator->trans('flash.warning');
+        $translator->trans('flash.notice');
+        $translator->trans('flash.info');
+
     }
 }

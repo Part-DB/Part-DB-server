@@ -1646,6 +1646,82 @@ Element 3</target>
         <source>entity.edit.reset</source>
         <target state="translated">Änderungen verwerfen</target>
       </trans-unit>
+      <trans-unit id="noZi5aQ" resname="entity.info.parts_count">
+        <source>entity.info.parts_count</source>
+        <target state="translated">Bauteile mit diesem Element</target>
+      </trans-unit>
+      <trans-unit id="lZvhKYu" resname="validator.noneofitschild.self">
+        <source>validator.noneofitschild.self</source>
+        <target state="translated">Ein Element kann nicht sich selbst als übergeordnet sein!</target>
+      </trans-unit>
+      <trans-unit id="pr07aV4" resname="validator.noneofitschild.children">
+        <source>validator.noneofitschild.children</source>
+        <target state="translated">Ein Kindelement kann nicht das übergeordnete Element sein!</target>
+      </trans-unit>
+      <trans-unit id="0IF0VIF" resname="validator.isSelectable">
+        <source>validator.isSelectable</source>
+        <target state="translated">Das Element muss auswählbar sein!</target>
+      </trans-unit>
+      <trans-unit id="nd207H6" resname="validator.part_lot.location_full.no_increasment">
+        <source>validator.part_lot.location_full.no_increasment</source>
+        <target state="translated">Der verwendete Lagerort wurde als voll markiert, daher kann der Bestand nicht erhöht werden. (Neuer Bestand maximal {{ old_amount }})</target>
+      </trans-unit>
+      <trans-unit id="R6Ov4Yt" resname="validator.part_lot.location_full">
+        <source>validator.part_lot.location_full</source>
+        <target state="translated">Der Lagerort ist voll, daher können keine neue Teile hinzugefügt werden.</target>
+      </trans-unit>
+      <trans-unit id="6vIlN5q" resname="validator.part_lot.only_existing">
+        <source>validator.part_lot.only_existing</source>
+        <target state="translated">Der Lagerort wurde als "nur bestehende Teile" markiert, daher können keine neuen Teile hinzugefügt werden.</target>
+      </trans-unit>
+      <trans-unit id="BNQk2e7" resname="validator.part_lot.single_part">
+        <source>validator.part_lot.single_part</source>
+        <target state="translated">Der Lagerort wurde als "Nur ein Bauteil" markiert, daher kann kein neues Bauteil hinzugefügt werden.</target>
+      </trans-unit>
+      <trans-unit id="7yhBzTg" resname="m_status.active.help">
+        <source>m_status.active.help</source>
+        <target state="translated">Das Bauteil wird momentan und in absehbarer Zukunft produziert.</target>
+      </trans-unit>
+      <trans-unit id="UsEaNqy" resname="m_status.announced.help">
+        <source>m_status.announced.help</source>
+        <target state="translated">Das Bauteil wurde angekündigt, ist aber noch nicht erhältlich.</target>
+      </trans-unit>
+      <trans-unit id="huj6JXj" resname="m_status.discontinued.help">
+        <source>m_status.discontinued.help</source>
+        <target state="translated">Das Bauteil wird nicht mehr hergestellt.</target>
+      </trans-unit>
+      <trans-unit id="xytsZcE" resname="m_status.eol.help">
+        <source>m_status.eol.help</source>
+        <target state="translated">Die Produktion des Bauteils wird bald eingestellt.</target>
+      </trans-unit>
+      <trans-unit id="t8VuM2P" resname="m_status.nrfnd.help">
+        <source>m_status.nrfnd.help</source>
+        <target state="translated">Im Moment wird das Bauteil noch hergestellt, die Verwendung für neue Designs ist nicht mehr empfohlen.</target>
+      </trans-unit>
+      <trans-unit id="8x._AWi" resname="m_status.unknown.help">
+        <source>m_status.unknown.help</source>
+        <target state="translated">Der Produktionstatus ist nicht bekannt.</target>
+      </trans-unit>
+      <trans-unit id="g4ahva6" resname="flash.success">
+        <source>flash.success</source>
+        <target state="translated">Erfolg</target>
+      </trans-unit>
+      <trans-unit id="NehzWgk" resname="flash.error">
+        <source>flash.error</source>
+        <target state="translated">Fehler</target>
+      </trans-unit>
+      <trans-unit id="h8vhq_r" resname="flash.warning">
+        <source>flash.warning</source>
+        <target state="translated">Warnung</target>
+      </trans-unit>
+      <trans-unit id="m5p2YEz" resname="flash.notice">
+        <source>flash.notice</source>
+        <target state="translated">Hinweis</target>
+      </trans-unit>
+      <trans-unit id="YA5xZMy" resname="flash.info">
+        <source>flash.info</source>
+        <target state="translated">Info</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

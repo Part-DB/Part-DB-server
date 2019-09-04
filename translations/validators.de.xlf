@@ -396,6 +396,34 @@
         <note priority="1">src\Entity\StructuralDBElement.php:0</note>
         <note priority="1">src\Entity\Supplier.php:0</note>
       </trans-unit>
+      <trans-unit id="lZvhKYu" resname="validator.noneofitschild.self">
+              <source>validator.noneofitschild.self</source>
+              <target state="translated">Ein Element kann nicht sich selbst übergeordnet sein!</target>
+            </trans-unit>
+            <trans-unit id="pr07aV4" resname="validator.noneofitschild.children">
+              <source>validator.noneofitschild.children</source>
+              <target state="translated">Ein Kindelement kann nicht das übergeordnete Element sein!</target>
+            </trans-unit>
+            <trans-unit id="0IF0VIF" resname="validator.isSelectable">
+              <source>validator.isSelectable</source>
+              <target state="translated">Das Element muss auswählbar sein!</target>
+            </trans-unit>
+            <trans-unit id="nd207H6" resname="validator.part_lot.location_full.no_increasment">
+              <source>validator.part_lot.location_full.no_increasment</source>
+              <target state="translated">Der verwendete Lagerort wurde als voll markiert, daher kann der Bestand nicht erhöht werden. (Neuer Bestand maximal {{ old_amount }})</target>
+            </trans-unit>
+            <trans-unit id="R6Ov4Yt" resname="validator.part_lot.location_full">
+              <source>validator.part_lot.location_full</source>
+              <target state="translated">Der Lagerort ist voll, daher können keine neue Teile hinzugefügt werden.</target>
+            </trans-unit>
+            <trans-unit id="6vIlN5q" resname="validator.part_lot.only_existing">
+              <source>validator.part_lot.only_existing</source>
+              <target state="translated">Der Lagerort wurde als "nur bestehende Teile" markiert, daher können keine neuen Teile hinzugefügt werden.</target>
+            </trans-unit>
+            <trans-unit id="BNQk2e7" resname="validator.part_lot.single_part">
+              <source>validator.part_lot.single_part</source>
+              <target state="translated">Der Lagerort wurde als "Nur ein Bauteil" markiert, daher kann kein neues Bauteil hinzugefügt werden.</target>
+            </trans-unit>
     </body>
   </file>
 </xliff>

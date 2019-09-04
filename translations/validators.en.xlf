@@ -396,6 +396,34 @@
         <note priority="1">src\Entity\StructuralDBElement.php:0</note>
         <note priority="1">src\Entity\Supplier.php:0</note>
       </trans-unit>
+       <trans-unit id="lZvhKYu" resname="validator.noneofitschild.self">
+              <source>validator.noneofitschild.self</source>
+              <target state="translated">A element can not be its own parent.</target>
+            </trans-unit>
+            <trans-unit id="pr07aV4" resname="validator.noneofitschild.children">
+              <source>validator.noneofitschild.children</source>
+              <target state="translated">The parent can not be one of the children of itself.</target>
+            </trans-unit>
+            <trans-unit id="0IF0VIF" resname="validator.isSelectable">
+              <source>validator.isSelectable</source>
+              <target state="translated">The element must be selectable.</target>
+            </trans-unit>
+            <trans-unit id="nd207H6" resname="validator.part_lot.location_full.no_increasment">
+              <source>validator.part_lot.location_full.no_increasment</source>
+              <target state="translated">The storage location was marked as full, so you can not increase the instock amount. (New amount max. {{ old_amount }})</target>
+            </trans-unit>
+            <trans-unit id="R6Ov4Yt" resname="validator.part_lot.location_full">
+              <source>validator.part_lot.location_full</source>
+              <target state="translated">The storage location was marked as full, so you can not add a new part to it.</target>
+            </trans-unit>
+            <trans-unit id="6vIlN5q" resname="validator.part_lot.only_existing">
+              <source>validator.part_lot.only_existing</source>
+              <target state="translated">The storage location was marked as "only existing", so you can not add new part to it.</target>
+            </trans-unit>
+            <trans-unit id="BNQk2e7" resname="validator.part_lot.single_part">
+              <source>validator.part_lot.single_part</source>
+              <target state="translated">The storage location was marked as "single part", so you can not add a new part to it.</target>
+            </trans-unit>
     </body>
   </file>
 </xliff>
