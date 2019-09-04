@@ -259,7 +259,7 @@ class Part extends AttachmentContainingDBElement
 
     /**
      * @var ?MeasurementUnit The unit in which the part's amount is measured.
-     * @ORM\ManyToOne(targetEntity="MeasurementUnit")
+     * @ORM\ManyToOne(targetEntity="MeasurementUnit", inversedBy="parts")
      * @ORM\JoinColumn(name="id_part_unit", referencedColumnName="id", nullable=true)
      */
     protected $partUnit;
