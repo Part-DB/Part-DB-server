@@ -35,6 +35,7 @@ namespace App\Entity\Parts;
 use App\Entity\Base\DBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Validator\Constraints\Selectable;
+use App\Validator\Constraints\ValidPartLot;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -45,6 +46,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  * @ORM\Table(name="part_lots")
  * @ORM\HasLifecycleCallbacks()
+ * @ValidPartLot()
  */
 class PartLot extends DBElement
 {
