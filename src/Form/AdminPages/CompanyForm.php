@@ -48,39 +48,48 @@ class CompanyForm extends BaseEntityAdminForm
     {
         $is_new = $entity->getID() === null;
 
-        $builder->add('address', TextareaType::class, ['label' => 'company.address.label',
+        $builder->add('address', TextareaType::class, [
+            'label' => $this->trans->trans('company.edit.address'),
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            'attr' => ['placeholder' => 'company.address.placeholder'], 'required' => false,
+            'attr' => ['placeholder' => $this->trans->trans('company.edit.address.placeholder')], 'required' => false,
             'empty_data' => ''
         ]);
 
-        $builder->add('phone_number', TelType::class, ['label' => 'company.phone_number.label',
+        $builder->add('phone_number', TelType::class, [
+            'label' => $this->trans->trans('company.edit.phone_number'),
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            'attr' => ['placeholder' => 'company.phone_number.placeholder'], 'required' => false,
+            'attr' => ['placeholder' => $this->trans->trans('company.edit.phone_number.placeholder')],
+            'required' => false,
             'empty_data' => ''
         ]);
 
-        $builder->add('fax_number', TelType::class, ['label' => 'company.fax_number.label',
+        $builder->add('fax_number', TelType::class, [
+            'label' => $this->trans->trans('company.edit.fax_number'),
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'attr' => ['placeholder' => 'company.fax_number.placeholder'], 'required' => false,
             'empty_data' => ''
         ]);
 
-        $builder->add('email_address', EmailType::class, ['label' => 'company.email.label',
+        $builder->add('email_address', EmailType::class, [
+            'label' => $this->trans->trans('company.edit.email'),
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            'attr' => ['placeholder' => 'company.email.placeholder'], 'required' => false,
+            'attr' => ['placeholder' => $this->trans->trans('company.edit.email.placeholder')], 'required' => false,
             'empty_data' => ''
         ]);
 
-        $builder->add('website', UrlType::class, ['label' => 'company.website.label',
+        $builder->add('website', UrlType::class, [
+            'label' => $this->trans->trans('company.edit.website'),
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            'attr' => ['placeholder' => 'company.website.placeholder'], 'required' => false,
+            'attr' => ['placeholder' => $this->trans->trans('company.edit.website.placeholder')], 'required' => false,
             'empty_data' => ''
         ]);
 
-        $builder->add('auto_product_url', UrlType::class, ['label' => 'company.auto_product_url.label',
+        $builder->add('auto_product_url', UrlType::class, [
+            'label' => $this->trans->trans('company.edit.auto_product_url'),
+            'help' => $this->trans->trans('company.edit.auto_product_url.help'),
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            'attr' => ['placeholder' => 'company.auto_product_url.placeholder'], 'required' => false,
+            'attr' => ['placeholder' => $this->trans->trans('company.edit.auto_product_url.placeholder')],
+            'required' => false,
             'empty_data' => ''
         ]);
     }

@@ -46,23 +46,31 @@ class StorelocationAdminForm extends BaseEntityAdminForm
     {
         $is_new = $entity->getID() === null;
 
-        $builder->add('is_full', CheckboxType::class, ['required' => false,
-            'label' => 'storelocation.is_full.label', 'help' => 'storelocation.is_full.help',
-            'label_attr'=> ['class' => 'checkbox-custom'],
-                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity)]);
-
-        $builder->add('limit_to_existing_parts', CheckboxType::class, ['required' => false,
-            'label' => 'storelocation.limit_to_existing.label', 'help' => 'storelocation.limit_to_existing.help',
-            'label_attr'=> ['class' => 'checkbox-custom'],
+        $builder->add('is_full', CheckboxType::class, [
+            'required' => false,
+            'label' => $this->trans->trans('storelocation.edit.is_full.label'),
+            'help' => $this->trans->trans('storelocation.edit.is_full.help'),
+            'label_attr' => ['class' => 'checkbox-custom'],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity)]);
 
-        $builder->add('only_single_part', CheckboxType::class, ['required' => false,
-            'label' => 'storelocation.only_single_part.label', 'help' => 'storelocation.only_single_part.help',
-            'label_attr'=> ['class' => 'checkbox-custom'],
+        $builder->add('limit_to_existing_parts', CheckboxType::class, [
+            'required' => false,
+            'label' => $this->trans->trans('storelocation.limit_to_existing.label'),
+            'help' => $this->trans->trans('storelocation.limit_to_existing.help'),
+            'label_attr' => ['class' => 'checkbox-custom'],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity)]);
 
-        $builder->add('storage_type', StructuralEntityType::class, ['required' => false,
-            'label' => 'storelocation.storage_type.label', 'help' => 'storelocation.storage_type.help',
+        $builder->add('only_single_part', CheckboxType::class, [
+            'required' => false,
+            'label' => $this->trans->trans('storelocation.only_single_part.label'),
+            'help' => $this->trans->trans('storelocation.only_single_part.help'),
+            'label_attr' => ['class' => 'checkbox-custom'],
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity)]);
+
+        $builder->add('storage_type', StructuralEntityType::class, [
+            'required' => false,
+            'label' => $this->trans->trans('storelocation.storage_type.label'),
+            'help' => $this->trans->trans('storelocation.storage_type.help'),
             'class' => MeasurementUnit::class, 'disable_not_selectable' => true,
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity)]);
 

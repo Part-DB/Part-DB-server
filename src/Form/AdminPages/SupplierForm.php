@@ -47,55 +47,26 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class SupplierForm extends BaseEntityAdminForm
+class SupplierForm extends CompanyForm
 {
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity)
     {
         $is_new = $entity->getID() === null;
 
-        $builder->add('address', TextareaType::class, ['label' => 'company.address.label',
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            'attr' => ['placeholder' => 'company.address.placeholder'], 'required' => false,
-            'empty_data' => ''
-        ]);
+       parent::additionalFormElements($builder, $options, $entity);
 
-        $builder->add('phone_number', TelType::class, ['label' => 'company.phone_number.label',
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            'attr' => ['placeholder' => 'company.phone_number.placeholder'], 'required' => false,
-            'empty_data' => ''
-        ]);
+        $builder->add('default_currency', StructuralEntityType::class, [
+            'class' => Currency::class,
+            'required' => false,
+            'label' => $this->trans->trans('supplier.edit.default_currency'),
+            'disable_not_selectable' => true,
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
 
-        $builder->add('fax_number', TelType::class, ['label' => 'company.fax_number.label',
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            'attr' => ['placeholder' => 'company.fax_number.placeholder'], 'required' => false,
-            'empty_data' => ''
-        ]);
-
-        $builder->add('email_address', EmailType::class, ['label' => 'company.email.label',
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            'attr' => ['placeholder' => 'company.email.placeholder'], 'required' => false,
-            'empty_data' => ''
-        ]);
-
-        $builder->add('website', UrlType::class, ['label' => 'company.website.label',
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            'attr' => ['placeholder' => 'company.website.placeholder'], 'required' => false,
-            'empty_data' => ''
-        ]);
-
-        $builder->add('auto_product_url', UrlType::class, ['label' => 'company.auto_product_url.label',
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            'attr' => ['placeholder' => 'company.auto_product_url.placeholder'], 'required' => false,
-            'empty_data' => ''
-        ]);
-
-        $builder->add('default_currency', StructuralEntityType::class, ['class' => Currency::class,
-            'required' => false, 'label' => 'supplier.default_currency.label', 'disable_not_selectable' => true,
-        'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
-
-        $builder->add('shipping_costs', MoneyType::class, [ 'required' => false,
-            'currency' => $this->params->get('default_currency'), 'scale' => 3,
-            'label' => 'supplier.shipping_costs.label',
+        $builder->add('shipping_costs', MoneyType::class, [
+            'required' => false,
+            'currency' => $this->params->get('default_currency'),
+            'scale' => 3,
+            'label' => $this->trans->trans('supplier.shipping_costs.label'),
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity)
         ]);
     }

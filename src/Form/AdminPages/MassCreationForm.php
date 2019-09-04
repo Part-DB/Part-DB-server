@@ -33,6 +33,7 @@ namespace App\Form\AdminPages;
 
 
 use App\Entity\Base\StructuralDBElement;
+use App\Form\Type\StructuralEntityType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -43,14 +44,17 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MassCreationForm extends AbstractType
 {
     protected $security;
+    protected $translator;
 
-    public function __construct(Security $security)
+    public function __construct(Security $security, TranslatorInterface $translator)
     {
         $this->security = $security;
+        $this->translator = $translator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -64,18 +68,26 @@ class MassCreationForm extends AbstractType
         $disabled = ! $this->security->isGranted($perm_name, $entity);
 
         $builder
-            ->add('lines', TextareaType::class, ['data' => '', 'label' => 'mass_creation.lines',
+            ->add('lines', TextareaType::class, ['data' => '',
+                'label' => $this->translator->trans('mass_creation.lines'),
                 'disabled' => $disabled, 'required' => true,
-                'attr' => ['placeholder' => 'mass_creation.lines.placeholder', 'rows' => 10]]);
+                'attr' => [
+                    'placeholder' => $this->translator->trans('mass_creation.lines.placeholder'),
+                    'rows' => 10
+                ]
+            ]);
         if ($entity instanceof StructuralDBElement) {
-            $builder->
-                add('parent', EntityType::class, ['class' => $data['entity_class'], 'choice_label' => 'full_path',
-                    'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'required' => false,
-                    'label' => 'parent.label', 'disabled' => $disabled]);
+            $builder->add('parent', StructuralEntityType::class, [
+                'class' => $data['entity_class'],
+                'required' => false,
+                'label' => $this->translator->trans('parent.label'),
+                'disabled' => $disabled]);
         }
 
-        $builder
-            //Buttons
-            ->add('create', SubmitType::class, ['label' => 'mass_creation.btn', 'disabled' => $disabled]);
+        //Buttons
+        $builder->add('create', SubmitType::class, [
+                'label' => $this->translator->trans('entity.mass_creation.btn'),
+                'disabled' => $disabled
+            ]);
     }
 }

@@ -45,35 +45,47 @@ class CategoryAdminForm extends BaseEntityAdminForm
         $is_new = $entity->getID() === null;
 
         $builder->add('disable_footprints', CheckboxType::class, ['required' => false,
-            'label' => 'disable_footprints.label', 'help' => 'disable_footprints.help', 'label_attr'=> ['class' => 'checkbox-custom'],
-                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
+            'label' =>  $this->trans->trans('category.edit.disable_footprints'),
+            'help' =>  $this->trans->trans('category.edit.disable_footprints.help'),
+            'label_attr' => ['class' => 'checkbox-custom'],
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
 
         $builder->add('disable_manufacturers', CheckboxType::class, ['required' => false,
-            'label' => 'disable_manufacturers.label', 'help' => 'disable_manufacturers.help', 'label_attr'=> ['class' => 'checkbox-custom'],
+            'label' =>  $this->trans->trans('category.edit.disable_manufacturers'),
+            'help' =>  $this->trans->trans('category.edit.disable_manufacturers.help'),
+            'label_attr'=> ['class' => 'checkbox-custom'],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
 
         $builder->add('disable_autodatasheets', CheckboxType::class, ['required' => false,
-            'label' => 'disable_autodatasheets.label', 'help' => 'disable_autodatasheets.help', 'label_attr'=> ['class' => 'checkbox-custom'],
+            'label' =>  $this->trans->trans('category.edit.disable_autodatasheets'),
+            'help' =>  $this->trans->trans('category.edit.disable_autodatasheets.help'),
+            'label_attr'=> ['class' => 'checkbox-custom'],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
 
         $builder->add('disable_properties', CheckboxType::class, ['required' => false,
-            'label' => 'disable_properties.label', 'help' => 'disable_properties.help', 'label_attr'=> ['class' => 'checkbox-custom'],
+            'label' =>  $this->trans->trans('category.edit.disable_properties'),
+            'help' =>  $this->trans->trans('category.edit.disable_properties.help'),
+            'label_attr'=> ['class' => 'checkbox-custom'],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
 
         $builder->add('partname_hint', TextType::class, ['required' => false, 'empty_data' => '',
-            'label' => 'disable_manufacturers.label', 'attr' => ['placeholder' => 'disable_manufacturers.placeholder'],
+            'label' =>  $this->trans->trans('category.edit.partname_hint'),
+            'attr' => ['placeholder' =>  $this->trans->trans('category.edit.partname_hint.placeholder')],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
 
         $builder->add('partname_regex', TextType::class, ['required' => false, 'empty_data' => '',
-            'label' => 'partname_regex.label', 'attr' => ['placeholder' => 'partname_regex.placeholder'],
+            'label' => $this->trans->trans('category.edit.partname_regex'),
+            'attr' => ['placeholder' => 'category.edit.partname_regex.placeholder'],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
 
         $builder->add('default_description', TextType::class, ['required' => false, 'empty_data' => '',
-            'label' => 'default_description.label', 'attr' => ['placeholder' => 'default_description.placeholder'],
+            'label' =>  $this->trans->trans('category.edit.default_description'),
+            'attr' => ['placeholder' => $this->trans->trans('category.edit.default_description.placeholder')],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
 
         $builder->add('default_comment', TextType::class, ['required' => false, 'empty_data' => '',
-            'label' => 'default_description.label', 'attr' => ['placeholder' => 'default_comment.placeholder'],
+            'label' => $this->trans->trans('category.edit.default_comment'),
+            'attr' => ['placeholder' => $this->trans->trans('category.edit.default_comment.placeholder')],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
     }
 }

@@ -51,45 +51,63 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use function GuzzleHttp\Promise\queue;
 
 class PartLotType extends AbstractType
 {
+    protected $trans;
+
+    public function __construct(TranslatorInterface $trans)
+    {
+        $this->trans = $trans;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('description', TextType::class, ['label' => 'part_lot.edit.description',
-            'required' => false, 'empty_data' => "", 'attr' => ['class' => 'form-control-sm']]);
+        $builder->add('description', TextType::class, [
+            'label' => $this->trans->trans('part_lot.edit.description'),
+            'required' => false,
+            'empty_data' => "",
+            'attr' => ['class' => 'form-control-sm']
+        ]);
 
         $builder->add('storage_location', StructuralEntityType::class, ['class' => Storelocation::class,
-            'label' => 'part_lot.edit.location',
+            'label' => $this->trans->trans('part_lot.edit.location'),
             'required' => false,
             'disable_not_selectable' => true,
-            'attr' => ['class' => 'selectpicker form-control-sm', 'data-live-search' => true]]);
+            'attr' => ['class' => 'selectpicker form-control-sm', 'data-live-search' => true]
+        ]);
 
 
         $builder->add('amount', SIUnitType::class, [
             'measurement_unit' => $options['measurement_unit'],
-            'label' => 'part_lot.edit.amount',
+            'label' => $this->trans->trans('part_lot.edit.amount'),
             'attr' => ['class' => 'form-control-sm']
         ]);
 
         $builder->add('instock_unknown', CheckboxType::class, ['required' => false,
-            'label' => 'part_lot.edit.instock_unknown',
+            'label' => $this->trans->trans('part_lot.edit.instock_unknown'),
             'attr' => ['class' => 'form-control-sm'],
-            'label_attr' => ['class' => 'checkbox-custom']]);
+            'label_attr' => ['class' => 'checkbox-custom']
+        ]);
 
         $builder->add('needs_refill', CheckboxType::class, ['label_attr' => ['class' => 'checkbox-custom'],
-            'label' => 'part_lot.edit.needs_refill',
+            'label' => $this->trans->trans('part_lot.edit.needs_refill'),
             'attr' => ['class' => 'form-control-sm'],
-            'required' => false]);
+            'required' => false
+        ]);
+
         $builder->add('expirationDate', DateTimeType::class, [
-            'label' => 'part_lot.edit.expiration_date',
+            'label' => $this->trans->trans('part_lot.edit.expiration_date'),
             'attr' => [],
             'required' => false]);
 
-        $builder->add('comment', TextType::class, ['label' => 'part_lot.edit.comment',
+        $builder->add('comment', TextType::class, [
+            'label' => $this->trans->trans('part_lot.edit.comment'),
             'attr' => ['class' => 'form-control-sm'],
-            'required' => false, 'empty_data' => ""]);
+            'required' => false, 'empty_data' => ""
+        ]);
     }
 
 

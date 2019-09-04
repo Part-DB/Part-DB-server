@@ -33,6 +33,7 @@ namespace App\Form\AdminPages;
 
 
 use App\Entity\Base\StructuralDBElement;
+use App\Form\Type\StructuralEntityType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\MakerBundle\Str;
 use Symfony\Component\Form\AbstractType;
@@ -43,15 +44,18 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ImportType extends AbstractType
 {
 
     protected $security;
+    protected $trans;
 
-    public function __construct(Security $security)
+    public function __construct(Security $security, TranslatorInterface $trans)
     {
         $this->security = $security;
+        $this->trans = $trans;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -60,31 +64,42 @@ class ImportType extends AbstractType
         $data = $options['data'];
 
         //Disable import if user is not allowed to create elements.
-        $entity = new $data['entity_class'];
+        $entity = new $data['entity_class']();
         $perm_name = "create";
         $disabled = ! $this->security->isGranted($perm_name, $entity);
 
         $builder
 
-            ->add('format', ChoiceType::class, ['choices' =>
-                ['JSON' => 'json', 'XML' => 'xml','CSV'=>'csv' ,'YAML' => 'yaml'], 'label' => 'export.format',
+            ->add('format', ChoiceType::class, [
+                'choices' => ['JSON' => 'json', 'XML' => 'xml','CSV' => 'csv' ,'YAML' => 'yaml'],
+                'label' => $this->trans->trans('export.format'),
                 'disabled' => $disabled])
-            ->add('csv_separator', TextType::class, ['data' => ';', 'label' => 'import.csv_separator',
+            ->add('csv_separator', TextType::class, ['data' => ';',
+                'label' => $this->trans->trans('import.csv_separator'),
                 'disabled' => $disabled]);
-            if($entity instanceof StructuralDBElement) {
-                $builder->
-                add('parent', EntityType::class, ['class' => $data['entity_class'], 'choice_label' => 'full_path',
-                    'attr' => ['class' => 'selectpicker', 'data-live-search' => true], 'required' => false,
-                    'label' => 'parent.label', 'disabled' => $disabled]);
-            }
-            $builder->add('file', FileType::class, ['label' => 'import.file',
-                'attr' => ['class' => 'file', 'data-show-preview' => 'false', 'data-show-upload' => 'false'], 'disabled' => $disabled])
+
+        if ($entity instanceof StructuralDBElement) {
+            $builder->add('parent', StructuralEntityType::class, [
+                'class' => $data['entity_class'],
+                'required' => false,
+                'label' => $this->trans->trans('parent.label'),
+                'disabled' => $disabled
+            ]);
+        }
+
+        $builder->add('file', FileType::class, [
+            'label' => $this->trans->trans('import.file'),
+            'attr' => ['class' => 'file', 'data-show-preview' => 'false', 'data-show-upload' => 'false'],
+            'disabled' => $disabled
+        ])
 
             ->add('preserve_children', CheckboxType::class, ['data' => true, 'required' => false,
-                'label' => 'import.preserve_children', 'label_attr'=> ['class' => 'checkbox-custom'], 'disabled' => $disabled])
+                'label' => $this->trans->trans('import.preserve_children'),
+                'label_attr' => ['class' => 'checkbox-custom'], 'disabled' => $disabled])
             ->add('abort_on_validation_error', CheckboxType::class, ['data' => true, 'required' => false,
-                'label' => 'import.abort_on_validation', 'help'=> 'import.abort_on_validation.help',
-                'label_attr'=> ['class' => 'checkbox-custom'], 'disabled' => $disabled])
+                'label' => $this->trans->trans('import.abort_on_validation'),
+                'help' => $this->trans->trans('import.abort_on_validation.help'),
+                'label_attr' => ['class' => 'checkbox-custom'], 'disabled' => $disabled])
 
             //Buttons
             ->add('import', SubmitType::class, ['label' => 'import.btn', 'disabled' => $disabled]);

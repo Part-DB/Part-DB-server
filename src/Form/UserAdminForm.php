@@ -44,15 +44,18 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserAdminForm extends AbstractType
 {
 
     protected $security;
+    protected $trans;
 
-    public function __construct(Security $security)
+    public function __construct(Security $security, TranslatorInterface $trans)
     {
         $this->security = $security;
+        $this->trans = $trans;
     }
 
 
@@ -63,30 +66,50 @@ class UserAdminForm extends AbstractType
         $is_new = $entity->getID() === null;
 
         $builder
-            ->add('name', TextType::class, ['empty_data' => '', 'label' => 'user.username.label',
-                'attr' => ['placeholder' => 'user.username.placeholder'],
-                'disabled' => !$this->security->isGranted('edit_username', $entity), ])
+            ->add('name', TextType::class, [
+                'empty_data' => '',
+                'label' =>  $this->trans->trans('user.username.label'),
+                'attr' => ['placeholder' => $this->trans->trans('user.username.placeholder')],
+                'disabled' => !$this->security->isGranted('edit_username', $entity),
+            ])
 
-            ->add('group', StructuralEntityType::class, ['class' => Group::class,
-                'required' => false, 'label' => 'group.label', 'disable_not_selectable' => true,
+            ->add('group', StructuralEntityType::class, [
+                'class' => Group::class,
+                'required' => false,
+                'label' => $this->trans->trans('group.label'),
+                'disable_not_selectable' => true,
                 'disabled' => !$this->security->isGranted('change_group', $entity), ])
 
-            ->add('first_name', TextType::class, ['empty_data' => '', 'label' => 'user.firstName.label',
-                'attr' => ['placeholder' => 'user.firstName.placeholder'], 'required' => false,
+            ->add('first_name', TextType::class, [
+                'empty_data' => '',
+                'label' => $this->trans->trans('user.firstName.label'),
+                'attr' => ['placeholder' => $this->trans->trans('user.firstName.placeholder')], 'required' => false,
+                'disabled' => !$this->security->isGranted('edit_infos', $entity),
+            ])
+
+            ->add('last_name', TextType::class, [
+                'empty_data' => '',
+                'label' => $this->trans->trans('user.lastName.label'),
+                'attr' => ['placeholder' => $this->trans->trans('user.lastName.placeholder')],
+                'required' => false,
+                'disabled' => !$this->security->isGranted('edit_infos', $entity),
+            ])
+
+            ->add('email', TextType::class, [
+                'empty_data' => '',
+                'label' => $this->trans->trans('user.email.label'),
+                'attr' => ['placeholder' => $this->trans->trans('user.email.placeholder')],
+                'required' => false,
                 'disabled' => !$this->security->isGranted('edit_infos', $entity), ])
 
-            ->add('last_name', TextType::class, ['empty_data' => '', 'label' => 'user.lastName.label',
-                'attr' => ['placeholder' => 'user.lastName.placeholder'], 'required' => false,
-                'disabled' => !$this->security->isGranted('edit_infos', $entity), ])
 
-            ->add('email', TextType::class, ['empty_data' => '', 'label' => 'user.email.label',
-                'attr' => ['placeholder' => 'user.email.placeholder'], 'required' => false,
-                'disabled' => !$this->security->isGranted('edit_infos', $entity), ])
-
-
-            ->add('department', TextType::class, ['empty_data' => '', 'label' => 'user.department.label',
-                'attr' => ['placeholder' => 'user.department.placeholder'], 'required' => false,
-                'disabled' => !$this->security->isGranted('edit_infos', $entity), ])
+            ->add('department', TextType::class, [
+                'empty_data' => '',
+                'label' => $this->trans->trans('user.department.label'),
+                'attr' => ['placeholder' => $this->trans->trans('user.department.placeholder')],
+                'required' => false,
+                'disabled' => !$this->security->isGranted('edit_infos', $entity),
+            ])
 
         ;
         /*->add('comment', CKEditorType::class, ['required' => false,
@@ -96,9 +119,13 @@ class UserAdminForm extends AbstractType
         $this->additionalFormElements($builder, $options, $entity);
 
         //Buttons
-        $builder->add('save', SubmitType::class, ['label' =>  $is_new ? 'entity.create' : 'entity.edit.save',
-            'attr' => ['class' => $is_new ? 'btn-success' : '']])
-            ->add('reset', ResetType::class, ['label' => 'entity.edit.reset']);
+        $builder->add('save', SubmitType::class, [
+            'label' =>  $is_new ? $this->trans->trans('user.create') : $this->trans->trans('user.edit.save'),
+            'attr' => ['class' => $is_new ? 'btn-success' : '']
+        ])
+            ->add('reset', ResetType::class, [
+                'label' => $this->trans->trans('entity.edit.reset')
+            ]);
     }
 
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity)

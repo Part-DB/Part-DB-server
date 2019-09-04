@@ -91,59 +91,104 @@ class PartBaseType extends AbstractType
 
         //Common section
         $builder
-            ->add('name', TextType::class, ['empty_data' => '', 'label' => 'name.label',
-                'attr' => ['placeholder' => 'part.name.placeholder'],
-                'disabled' => !$this->security->isGranted('name.edit', $part), ])
-            ->add('description', CKEditorType::class, ['required' => false, 'empty_data' => '',
-                'label' => 'description.label', 'help' => 'bbcode.hint', 'config_name' => 'description_config',
-                'attr' => ['placeholder' => 'part.description.placeholder', 'rows' => 2],
-                'disabled' => !$this->security->isGranted('description.edit', $part) ])
-            ->add('minAmount', SIUnitType::class,
-                ['attr' => ['min' => 0, 'placeholder' => 'part.mininstock.placeholder'], 'label' => 'mininstock.label',
-                    'measurement_unit' => $part->getPartUnit(),
-                    'disabled' => !$this->security->isGranted('mininstock.edit', $part), ])
-            ->add('category', StructuralEntityType::class, ['class' => Category::class,
-                'label' => 'category.label', 'disable_not_selectable' => true,
-                'disabled' => !$this->security->isGranted('move', $part), ])
-            ->add('footprint', StructuralEntityType::class, ['class' => Footprint::class, 'required' => false,
-                'label' => 'footprint.label', 'disable_not_selectable' => true,
-                'disabled' => !$this->security->isGranted('move', $part), ])
-            ->add('tags', TextType::class, ['required' => false, 'label' => 'part.tags', 'empty_data' => "",
+            ->add('name', TextType::class, [
+                'empty_data' => '',
+                'label' =>  $this->trans->trans('part.edit.name'),
+                'attr' => ['placeholder' => $this->trans->trans('part.edit.name.placeholder')],
+                'disabled' => !$this->security->isGranted('name.edit', $part),
+            ])
+            ->add('description', CKEditorType::class, [
+                'required' => false,
+                'empty_data' => '',
+                'label' => $this->trans->trans('part.edit.description'),
+                'config_name' => 'description_config',
+                'attr' => ['placeholder' => $this->trans->trans('part.edit.description.placeholder'), 'rows' => 2],
+                'disabled' => !$this->security->isGranted('description.edit', $part)
+            ])
+            ->add('minAmount', SIUnitType::class, [
+                'attr' => ['min' => 0, 'placeholder' => $this->trans->trans('part.editmininstock.placeholder')],
+                'label' => $this->trans->trans('part.edit.mininstock'),
+                'measurement_unit' => $part->getPartUnit(),
+                'disabled' => !$this->security->isGranted('mininstock.edit', $part),
+            ])
+            ->add('category', StructuralEntityType::class, [
+                'class' => Category::class,
+                'label' => $this->trans->trans('part.edit.category'),
+                'disable_not_selectable' => true,
+                'disabled' => !$this->security->isGranted('move', $part),
+            ])
+            ->add('footprint', StructuralEntityType::class, [
+                'class' => Footprint::class,
+                'required' => false,
+                'label' => $this->trans->trans('part.edit.footprint'),
+                'disable_not_selectable' => true,
+                'disabled' => !$this->security->isGranted('move', $part),
+            ])
+            ->add('tags', TextType::class, [
+                'required' => false,
+                'label' => $this->trans->trans('part.edit.tags'),
+                'empty_data' => "",
                 'attr' => ['data-role' => 'tagsinput'],
-                'disabled' => !$this->security->isGranted('edit', $part) ]);
+                'disabled' => !$this->security->isGranted('edit', $part)
+            ]);
 
         //Manufacturer section
-        $builder->add('manufacturer', StructuralEntityType::class, ['class' => Manufacturer::class,
-            'required' => false, 'label' => 'manufacturer.label', 'disable_not_selectable' => true,
-            'disabled' => !$this->security->isGranted('manufacturer.edit', $part), ])
-            ->add('manufacturer_product_url', UrlType::class, ['required' => false, 'empty_data' => '',
-                'label' => 'manufacturer_url.label',
-                'disabled' => !$this->security->isGranted('manufacturer.edit', $part), ])
-            ->add('manufacturer_product_number', TextType::class, ['required' => false,
-                'empty_data' => '', 'label' => 'part.mpn',
+        $builder->add('manufacturer', StructuralEntityType::class, [
+            'class' => Manufacturer::class,
+            'required' => false,
+            'label' => $this->trans->trans('part.edit.manufacturer.label'),
+            'disable_not_selectable' => true,
+            'disabled' => !$this->security->isGranted('manufacturer.edit', $part)
+        ])
+            ->add('manufacturer_product_url', UrlType::class, [
+                'required' => false,
+                'empty_data' => '',
+                'label' => $this->trans->trans('part.edit.manufacturer_url.label'),
+                'disabled' => !$this->security->isGranted('manufacturer.edit', $part),
+            ])
+            ->add('manufacturer_product_number', TextType::class, [
+                'required' => false,
+                'empty_data' => '',
+                'label' => $this->trans->trans('part.edit.mpn'),
                 'disabled' => !$this->security->isGranted('manufacturer.edit', $part)])
             ->add('manufacturing_status', ChoiceType::class, [
-                'label' => 'part.manufacturing_status',
+                'label' => $this->trans->trans('part.edit.manufacturing_status'),
                 'choices' => $status_choices,
                 'required' => false,
                 'disabled' => !$this->security->isGranted('manufacturer.edit', $part)
             ]);
 
         //Advanced section
-        $builder->add('needsReview', CheckboxType::class, ['label_attr'=> ['class' => 'checkbox-custom'],
-            'required' => false, 'label' => 'part.edit.needs_review'])
-            ->add('favorite', CheckboxType::class, ['label_attr'=> ['class' => 'checkbox-custom'],
-                'required' => false, 'label' => 'part.edit.is_favorite'])
-            ->add('mass', SIUnitType::class, ['unit' => 'g',
-                'label' => 'part.mass', 'required' => false])
-            ->add('partUnit', StructuralEntityType::class, ['class'=> MeasurementUnit::class,
-                'required' => false, 'disable_not_selectable' => true, 'label' => 'part.partUnit']);
+        $builder->add('needsReview', CheckboxType::class, [
+            'label_attr' => ['class' => 'checkbox-custom'],
+            'required' => false,
+            'label' => $this->trans->trans('part.edit.needs_review')
+        ])
+            ->add('favorite', CheckboxType::class, [
+                'label_attr' => ['class' => 'checkbox-custom'],
+                'required' => false,
+                'label' => $this->trans->trans('part.edit.is_favorite')
+            ])
+            ->add('mass', SIUnitType::class, [
+                'unit' => 'g',
+                'label' => $this->trans->trans('part.edit.mass'),
+                'required' => false
+            ])
+            ->add('partUnit', StructuralEntityType::class, [
+                'class' => MeasurementUnit::class,
+                'required' => false,
+                'disable_not_selectable' => true,
+                'label' => $this->trans->trans('part.edit.partUnit')
+            ]);
 
 
         //Comment section
-        $builder->add('comment', CKEditorType::class, ['required' => false,
-            'label' => 'comment.label', 'attr' => ['rows' => 4], 'help' => 'bbcode.hint',
-            'disabled' => !$this->security->isGranted('comment.edit', $part), 'empty_data' => '']);
+        $builder->add('comment', CKEditorType::class, [
+            'required' => false,
+            'label' => $this->trans->trans('part.edit.comment'),
+            'attr' => ['rows' => 4],
+            'disabled' => !$this->security->isGranted('comment.edit', $part), 'empty_data' => ''
+        ]);
 
         //Part Lots section
         $builder->add('partLots', CollectionType::class, [
@@ -169,7 +214,7 @@ class PartBaseType extends AbstractType
 
         $builder->add('master_picture_attachment', EntityType::class, [
             'required' => false,
-            'label' => 'part.edit.master_attachment',
+            'label' => $this->trans->trans('part.edit.master_attachment'),
             'class' => PartAttachment::class,
             'attr' => ['class' => 'selectpicker'],
             'choice_attr' => function ($choice, $key, $value) {
@@ -200,8 +245,8 @@ class PartBaseType extends AbstractType
 
         $builder
             //Buttons
-            ->add('save', SubmitType::class, ['label' => 'part.edit.save'])
-            ->add('reset', ResetType::class, ['label' => 'part.edit.reset']);
+            ->add('save', SubmitType::class, ['label' => $this->trans->trans('part.edit.save')])
+            ->add('reset', ResetType::class, ['label' => $this->trans->trans('part.edit.reset')]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

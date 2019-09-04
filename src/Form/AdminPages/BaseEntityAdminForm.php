@@ -46,17 +46,21 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Translation\Reader\TranslationReader;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class BaseEntityAdminForm extends AbstractType
 {
 
     protected $security;
     protected $params;
+    protected $trans;
 
-    public function __construct(Security $security, ParameterBagInterface $params)
+    public function __construct(Security $security, ParameterBagInterface $params, TranslatorInterface $trans)
     {
         $this->security = $security;
         $this->params = $params;
+        $this->trans = $trans;
     }
 
 
@@ -67,26 +71,30 @@ class BaseEntityAdminForm extends AbstractType
         $is_new = $entity->getID() === null;
 
         $builder
-            ->add('name', TextType::class, ['empty_data' => '', 'label' => 'name.label',
-                'attr' => ['placeholder' => 'part.name.placeholder'],
+            ->add('name', TextType::class, ['empty_data' => '', 'label' => $this->trans->trans('name.label'),
+                'attr' => ['placeholder' => $this->trans->trans('part.name.placeholder')],
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ])
 
             ->add('parent', StructuralEntityType::class, ['class' => get_class($entity),
-                 'required' => false, 'label' => 'parent.label',
+                 'required' => false, 'label' =>  $this->trans->trans('parent.label'),
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity), ])
 
             ->add('not_selectable', CheckboxType::class, ['required' => false,
-                'label' => 'not_selectable.label', 'help' => 'not_selectable.help', 'label_attr'=> ['class' => 'checkbox-custom'],
+                'label' =>  $this->trans->trans('entity.edit.not_selectable'),
+                'help' =>  $this->trans->trans('entity.edit.not_selectable.help'),
+                'label_attr' => ['class' => 'checkbox-custom'],
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity) ])
 
             ->add('comment', CKEditorType::class, ['required' => false, 'empty_data' => '',
-                'label' => 'comment.label', 'attr' => ['rows' => 4], 'help' => 'bbcode.hint',
+                'label' =>  $this->trans->trans('comment.label'),
+                'attr' => ['rows' => 4], 'help' =>  $this->trans->trans('bbcode.hint'),
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
 
             $this->additionalFormElements($builder, $options, $entity);
 
             //Buttons
-            $builder->add('save', SubmitType::class, ['label' =>  $is_new ? 'entity.create' : 'entity.edit.save',
+            $builder->add('save', SubmitType::class, [
+                'label' =>  $is_new ?  $this->trans->trans('entity.create') :  $this->trans->trans('entity.edit.save'),
                 'attr' => ['class' => $is_new ? 'btn-success' : ''],
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)])
             ->add('reset', ResetType::class, ['label' => 'entity.edit.reset',

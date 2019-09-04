@@ -46,35 +46,37 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Url;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AttachmentFormType extends AbstractType
 {
     protected $attachment_helper;
+    protected $trans;
 
-    public function __construct(AttachmentHelper $attachmentHelper)
+    public function __construct(AttachmentHelper $attachmentHelper, TranslatorInterface $trans)
     {
         $this->attachment_helper = $attachmentHelper;
+        $this->trans = $trans;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::class,
-            [
-                'label' => 'attachment.edit.name'
-            ])
+        $builder->add('name', TextType::class, [
+            'label' => $this->trans->trans('attachment.edit.name')
+        ])
             ->add('attachment_type', StructuralEntityType::class, [
-                'label' => 'attachment.edit.attachment_type',
+                'label' =>  $this->trans->trans('attachment.edit.attachment_type'),
                 'class' => AttachmentType::class,
                 'disable_not_selectable' => true,
             ]);
 
         $builder->add('showInTable', CheckboxType::class, ['required' => false,
-            'label' => 'attachment.edit.show_in_table',
+            'label' =>  $this->trans->trans('attachment.edit.show_in_table'),
             'attr' => ['class' => 'form-control-sm'],
             'label_attr' => ['class' => 'checkbox-custom']]);
 
         $builder->add('url', UrlType::class, [
-            'label' => 'attachment.edit.url',
+            'label' =>  $this->trans->trans('attachment.edit.url'),
             'required' => false,
             'constraints' => [
                 new Url()
@@ -82,7 +84,7 @@ class AttachmentFormType extends AbstractType
         ]);
 
         $builder->add('file', FileType::class, [
-            'label' => 'attachment.edit.file',
+            'label' =>  $this->trans->trans('attachment.edit.file'),
             'mapped' => false,
             'required' => false,
             'attr' => ['class' => 'file', 'data-show-preview' => 'false', 'data-show-upload' => 'false'],

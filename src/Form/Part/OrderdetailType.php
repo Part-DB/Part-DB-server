@@ -45,36 +45,45 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use function foo\func;
 
 class OrderdetailType extends AbstractType
 {
+    protected $trans;
+
+    public function __construct(TranslatorInterface $trans)
+    {
+        $this->trans = $trans;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         /** @var Orderdetail $orderdetail */
         $orderdetail = $builder->getData();
 
         $builder->add('supplierpartnr', TextType::class, [
-            'label' => 'orderdetails.edit.supplierpartnr',
+            'label' => $this->trans->trans('orderdetails.edit.supplierpartnr'),
+            'attr' => ['placeholder' =>  $this->trans->trans('orderdetails.edit.supplierpartnr.placeholder')],
             'required' => false,
             'empty_data' => ""
         ]);
 
         $builder->add('supplier', StructuralEntityType::class, [
             'class' => Supplier::class, 'disable_not_selectable' => true,
-            'label' => 'orderdetails.edit.supplier'
+            'label' =>  $this->trans->trans('orderdetails.edit.supplier')
         ]);
 
         $builder->add('supplier_product_url', UrlType::class, [
             'required' => false,
             'empty_data' => "",
-            'label' => 'orderdetails.edit.url'
+            'label' =>  $this->trans->trans('orderdetails.edit.url')
         ]);
 
         $builder->add('obsolete', CheckboxType::class, [
             'required' => false,
             'label_attr' => ['class' => 'checkbox-custom'],
-            'label' => 'orderdetails.edit.obsolete'
+            'label' =>  $this->trans->trans('orderdetails.edit.obsolete')
         ]);
 
 
