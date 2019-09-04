@@ -1,0 +1,92 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light border-bottom shadow-sm fixed-top py-0" id="navbar">
+
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidebar-container">
+        <span class="sr-only">{% trans %}sidebar.toggle{% endtrans %}</span>
+        <!-- <span class="navbar-toggler-icon"></span> -->
+        <i class="fas fa-folder-open fa-lg fa-fw"></i>
+    </button>
+
+    <a class="navbar-brand" href="{{ path('homepage') }}"><i class="fa fa-microchip" aria-hidden="true"></i> {{ partdb_title }}</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- <span class="navbar-toggler-icon"></span> -->
+        <i class="fas fa-bars  fa-lg"></i>
+    </button>
+
+
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+        <div class="form-inline my-2 my-lg-0 ml-auto" id="searchbar">
+            <!-- Searchbar -->
+            <form action="{$relative_path}show_search_parts.php" method="get">
+                <div class="dropdown d-inline">
+                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        {% trans %}search.options.label{% endtrans %}
+                        <span class="caret"></span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="SearchOptions">
+                        <div class="abc-checkbox form-check-dropdown"><input type="checkbox" class="form-check-input" name="search_name" value="true" checked>
+                            <label for="search_name" class="form-check-label">{% trans %}name.label{% endtrans %}</label></div>
+                        <div class="abc-checkbox form-check-dropdown"><input type="checkbox" class="form-check-input" name="search_category" value="true" checked>
+                            <label for="search_category" class="form-check-label">{% trans %}category.label{% endtrans %}</label></div>
+                        <div class="abc-checkbox form-check-dropdown"><input type="checkbox" class="form-check-input" name="search_description" value="true" checked>
+                            <label for="search_description" class="form-check-label"></label>{% trans %}description.label{% endtrans %}</div>
+                        <div class="abc-checkbox form-check-dropdown"><input type="checkbox" class="form-check-input" name="search_storelocation" value="true" checked>
+                            <label for="search_storelocation" class="form-check-label">{% trans %}storelocation.label{% endtrans %}</label></div>
+                        <div class="form-check-dropdown abc-checkbox" class="form-check-label"><input type="checkbox" class="form-check-input" name="search_comment" value="true" checked>
+                            <label for="search_comment" class="form-check-label">{% trans %}comment.label{% endtrans %}</label></div>
+                        {% if true %}
+                            <div class="form-check-dropdown abc-checkbox"><input type="checkbox" class="form-check-input" name="search_supplierpartnr" value="true" checked>
+                                <label for="search_supplierpartnr" class="form-check-label">{% trans %}ordernumber.label.short{% endtrans %}</label></div>
+                            <li class="form-check-dropdown abc-checkbox"><input type="checkbox" class="form-check-input" name="search_supplier" value="true">
+                                <label for="search_supplier" class="form-check-label">{% trans %}supplier.label{% endtrans %}</label></li> {% endif %}
+                        {% if true %}
+                            <div class="form-check-dropdown abc-checkbox"><input type="checkbox"  class="form-check-input" name="search_manufacturer" value="true">
+                            <label for="search_manufacturer" class="form-check-label">{% trans %}manufacturer.label{% endtrans %}</label></div>{% endif %}
+                        {% if true %}
+                            <div class="form-check-dropdown abc-checkbox"><input type="checkbox" class="form-check-input" name="search_footprint" value="true">
+                            <label for="search_footprint" class="form-check-label">{% trans %}footprint.label{% endtrans %}</label></div>{% endif %}
+                        <div class="form-c heck-dropdown abc-checkbox"><input type="checkbox" class="form-check-input" name="disable_pid_input" value="false">
+                            <label for="disable_pid_input" class="form-check-label">{% trans %}search.deactivateBarcode{% endtrans %}</label></div>
+                        <div class="form-check-dropdown abc-checkbox"><input type="checkbox" class="form-check-input" name="regex" value="true">
+                            <label for="regex" class="form-check-label">{% trans %}search.regexmatching{% endtrans %}</label></div>
+                    </div>
+                </div>
+                <input type="search" class="form-control mr-sm-2" placeholder="{% trans %}search.placeholder{% endtrans %}" name="keyword" onkeyup="livesearch(event, this, 2);">
+                <button type="submit" id="search-submit" class="btn btn-outline-secondary my-2">{% trans %}go.exclamation{% endtrans %}</button>
+            </form>
+        </div>
+
+        <a class="d-block d-md-none  nav-link link-datasheet" style="color: black;"
+           href="zxing://scan/?ret={if isset($smarty.server.HTTPS)}https{else}http{/if}%3A%2F%2F{$smarty.server.HTTP_HOST|escape:'url'}{$relative_path|escape:'url'}show_search_parts.php%3Fkeyword%3D%7BCODE%7D&SCAN_FORMATS=EAN_8,CODE_39">
+            <i class="fa fa-barcode fa-fw fa-lg" aria-hidden="true"></i>
+            <span class="ml-2 text-muted">{% trans %}barcode.scan{% endtrans %}</span>
+        </a>
+
+        <ul class="navbar-nav ml-3" id="login-content">
+            <li class="nav-item dropdown">
+                <a href="#" class="dropdown-toggle link-anchor nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    {% if app.user %}<i class="fa fa-user" aria-hidden="true"></i>{% else %}<i class="far fa-user" aria-hidden="true"></i>{% endif %} <span class="caret"></span></a>
+                <ul class="dropdown-menu dropdown-menu-right" id="login-menu">
+                    {% if app.user %}
+                        <a class="dropdown-item disabled" href="#" >{% trans %}user.loggedin.label{% endtrans %} {{ app.user.firstName }} {{app.user.lastName}} ({{app.user.name}})</a>
+                        <a class="dropdown-item" href="{{ path("user_settings") }}"><i class="fa fa-cogs fa-fw" aria-hidden="true"></i> {% trans %}user.settings.label{% endtrans %}</a>
+                        <a class="dropdown-item" href="{{ path("user_info_self") }}"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> {% trans %}user.info.label{% endtrans %}</a>
+                        <li role="separator" class="dropdown-divider"></li>
+                        <a class="dropdown-item"  href="{{ path('logout') }}"><i class="fa fa-sign-out-alt fa-fw" aria-hidden="true"></i> {% trans %}user.logout{% endtrans %}</a>
+                    {% else %}
+                        <a class="dropdown-item" href="{{ path('login', {'_target_path':app.request.pathinfo}) }}" id="login-link"><i class="fa fa-sign-in-alt fa-fw" aria-hidden="true"></i> {% trans %}user.login{% endtrans %}</a>
+                    {% endif %}
+                    <li role="separator" class="dropdown-divider"></li>
+                    <a class="dropdown-item disabled" href="#">{% trans %}user.language_select{% endtrans %}</a>
+                    <a class="dropdown-item" data-no-ajax href="{{ path(app.request.attributes.get('_route'),
+                        app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}">
+                        {% trans %}language.english{% endtrans %}</a>
+                    <a class="dropdown-item" data-no-ajax href="{{ path(app.request.attributes.get('_route'),
+                        app.request.attributes.get('_route_params')|merge({'_locale': 'de'})) }}">
+                        {% trans %}language.german{% endtrans %}</a>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
