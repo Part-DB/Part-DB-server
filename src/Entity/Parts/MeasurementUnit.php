@@ -83,6 +83,11 @@ class MeasurementUnit extends PartsContainingDBElement
     protected $parent;
 
     /**
+     * @ORM\OneToMany(targetEntity="Part", mappedBy="partUnit", fetch="EXTRA_LAZY")
+     */
+    protected $parts;
+
+    /**
      * Returns the ID as an string, defined by the element class.
      * This should have a form like P000014, for a part with ID 14.
      *

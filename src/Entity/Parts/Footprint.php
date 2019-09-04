@@ -90,7 +90,7 @@ class Footprint extends PartsContainingDBElement
     protected $filename;
 
     /**
-     * @ORM\OneToMany(targetEntity="Part", mappedBy="footprint")
+     * @ORM\OneToMany(targetEntity="Part", mappedBy="footprint", fetch="EXTRA_LAZY")
      */
     protected $parts;
 

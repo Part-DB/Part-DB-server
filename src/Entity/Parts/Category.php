@@ -75,7 +75,7 @@ class Category extends PartsContainingDBElement
     protected $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="Part", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Part", mappedBy="category", fetch="EXTRA_LAZY")
      */
     protected $parts;
 

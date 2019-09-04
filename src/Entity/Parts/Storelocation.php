@@ -61,6 +61,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\Entity\Base\PartsContainingDBElement;
 use App\Entity\Base\StructuralDBElement;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -70,7 +71,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
  * @ORM\Table("`storelocations`")
  */
-class Storelocation extends StructuralDBElement
+class Storelocation extends PartsContainingDBElement
 {
     /**
      * @ORM\OneToMany(targetEntity="Storelocation", mappedBy="parent")
@@ -107,6 +108,15 @@ class Storelocation extends StructuralDBElement
      * @ORM\JoinColumn(name="storage_type_id", referencedColumnName="id")
      */
     protected $storage_type;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Part", fetch="EXTRA_LAZY")
+     * @ORM\JoinTable(name="part_lots",
+     *     joinColumns={@ORM\JoinColumn(name="id_store_location", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="id_part", referencedColumnName="id")}
+     * )
+     */
+    protected $parts;
 
     /********************************************************************************
      *

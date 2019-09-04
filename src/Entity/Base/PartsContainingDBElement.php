@@ -52,6 +52,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use App\Entity\Parts\Part;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -61,5 +64,23 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class PartsContainingDBElement extends StructuralDBElement
 {
+    /**
+     * @var Part[]|Collection
+     */
     protected $parts;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->parts = new ArrayCollection();
+    }
+
+    /**
+     * Returns the parts associated with this element.
+     * @return Collection|Part[]
+     */
+    public function getParts() : Collection
+    {
+        return $this->parts;
+    }
 }

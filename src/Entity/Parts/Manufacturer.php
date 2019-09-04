@@ -84,7 +84,7 @@ class Manufacturer extends Company
     protected $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="Part", mappedBy="manufacturer")
+     * @ORM\OneToMany(targetEntity="Part", mappedBy="manufacturer", fetch="EXTRA_LAZY")
      */
     protected $parts;
 
