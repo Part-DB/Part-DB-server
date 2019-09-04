@@ -1034,8 +1034,8 @@ Subelements will be moved upwards.]]></target>
         <source>m_status.unknown</source>
         <target state="translated">Unknown</target>
       </trans-unit>
-      <trans-unit id="q94.fW6" resname="m_status.announced">
-        <source>m_stauts.announced</source>
+      <trans-unit id="BEnlUff" resname="m_status.announced">
+        <source>m_status.announced</source>
         <target state="translated">Announced</target>
       </trans-unit>
       <trans-unit id="TN5xR7J" resname="m_status.active">
@@ -1221,6 +1221,401 @@ Subelements will be moved upwards.]]></target>
       <trans-unit id="CJHxw_e" resname="part.delete">
         <source>part.delete</source>
         <target state="translated">Delete part</target>
+      </trans-unit>
+      <trans-unit id="SDbrzIT" resname="entity.edit.not_selectable">
+        <source>entity.edit.not_selectable</source>
+        <target state="translated">Not selectable</target>
+      </trans-unit>
+      <trans-unit id="5aUSkZz" resname="entity.edit.not_selectable.help">
+        <source>entity.edit.not_selectable.help</source>
+        <target state="translated">If this option is activated, this element can not be assigned to a part property. Useful if this element is just used for grouping.</target>
+      </trans-unit>
+      <trans-unit id="en0DwC3" resname="bbcode.hint">
+        <source>bbcode.hint</source>
+        <target state="translated">You can use BBCode here (e.g. [b]Bold[/b])</target>
+      </trans-unit>
+      <trans-unit id="Q5hCjzL" resname="entity.create">
+        <source>entity.create</source>
+        <target state="translated">Create element</target>
+      </trans-unit>
+      <trans-unit id="bBoYWyf" resname="entity.edit.save">
+        <source>entity.edit.save</source>
+        <target state="translated">Save </target>
+      </trans-unit>
+      <trans-unit id="HeL2lAW" resname="category.edit.disable_footprints">
+        <source>category.edit.disable_footprints</source>
+        <target state="translated">Disable footprints</target>
+      </trans-unit>
+      <trans-unit id="lpS1zKs" resname="category.edit.disable_footprints.help">
+        <source>category.edit.disable_footprints.help</source>
+        <target state="translated">If this option is activated, the footprint property is disabled for all parts with this category.</target>
+      </trans-unit>
+      <trans-unit id="1w_nFL7" resname="category.edit.disable_manufacturers">
+        <source>category.edit.disable_manufacturers</source>
+        <target state="translated">Disable manufacturers</target>
+      </trans-unit>
+      <trans-unit id="tNK6Sfl" resname="category.edit.disable_manufacturers.help">
+        <source>category.edit.disable_manufacturers.help</source>
+        <target state="translated">If this option is activated, the manufacturer property is disabled for all parts with this category.</target>
+      </trans-unit>
+      <trans-unit id="HOZICfA" resname="category.edit.disable_autodatasheets">
+        <source>category.edit.disable_autodatasheets</source>
+        <target state="translated">Disable automatic datasheet links</target>
+      </trans-unit>
+      <trans-unit id="5HWLQAL" resname="category.edit.disable_autodatasheets.help">
+        <source>category.edit.disable_autodatasheets.help</source>
+        <target state="translated">If this option is activated, no automatic links to datasheets are created for parts with this category.</target>
+      </trans-unit>
+      <trans-unit id="lfFBz4D" resname="category.edit.disable_properties">
+        <source>category.edit.disable_properties</source>
+        <target state="translated">Disable properties</target>
+      </trans-unit>
+      <trans-unit id="gu7SqNR" resname="category.edit.disable_properties.help">
+        <source>category.edit.disable_properties.help</source>
+        <target state="translated">If this option is activated, the part properties are disabled for parts with this category.</target>
+      </trans-unit>
+      <trans-unit id="0FP6XeT" resname="category.edit.partname_hint">
+        <source>category.edit.partname_hint</source>
+        <target state="translated">Part name hint</target>
+      </trans-unit>
+      <trans-unit id="BG4G_f9" resname="category.edit.partname_hint.placeholder">
+        <source>category.edit.partname_hint.placeholder</source>
+        <target state="translated">e.g. 100nF</target>
+      </trans-unit>
+      <trans-unit id="LbTbeDm" resname="category.edit.partname_regex">
+        <source>category.edit.partname_regex</source>
+        <target state="translated">Name filter</target>
+      </trans-unit>
+      <trans-unit id="UH78POJ" resname="category.edit.default_description">
+        <source>category.edit.default_description</source>
+        <target state="translated">Default description</target>
+      </trans-unit>
+      <trans-unit id="8hlqVRs" resname="category.edit.default_description.placeholder">
+        <source>category.edit.default_description.placeholder</source>
+        <target state="translated">e.g. Capacitor, 10mm x 10mm, SMD</target>
+      </trans-unit>
+      <trans-unit id="QMPrbSY" resname="category.edit.default_comment">
+        <source>category.edit.default_comment</source>
+        <target state="translated">Default comment</target>
+      </trans-unit>
+      <trans-unit id="ths2hVl" resname="category.edit.default_comment.placeholder">
+        <source>category.edit.default_comment.placeholder</source>
+        <target state="translated">e.g. useful for switching</target>
+      </trans-unit>
+      <trans-unit id="KN33Vgx" resname="company.edit.address">
+        <source>company.edit.address</source>
+        <target state="translated">Address</target>
+      </trans-unit>
+      <trans-unit id="AMjZLA3" resname="company.edit.address.placeholder">
+        <source>company.edit.address.placeholder</source>
+        <target state="translated">e.g. Examplestreet 314
+Exampletown</target>
+      </trans-unit>
+      <trans-unit id="WoyE_3B" resname="company.edit.phone_number">
+        <source>company.edit.phone_number</source>
+        <target state="translated">Phone number</target>
+      </trans-unit>
+      <trans-unit id="VSMS9Jw" resname="company.edit.phone_number.placeholder">
+        <source>company.edit.phone_number.placeholder</source>
+        <target state="translated">+49 12345 6789</target>
+      </trans-unit>
+      <trans-unit id="khUB2so" resname="company.edit.fax_number">
+        <source>company.edit.fax_number</source>
+        <target state="translated">Fax number</target>
+      </trans-unit>
+      <trans-unit id="63TXMfg" resname="company.edit.email">
+        <source>company.edit.email</source>
+        <target state="translated">Email</target>
+      </trans-unit>
+      <trans-unit id="vTq5HxO" resname="company.edit.email.placeholder">
+        <source>company.edit.email.placeholder</source>
+        <target state="translated">e.g. contact@foo.bar</target>
+      </trans-unit>
+      <trans-unit id="jv3fl1U" resname="company.edit.website">
+        <source>company.edit.website</source>
+        <target state="translated">Website</target>
+      </trans-unit>
+      <trans-unit id="fCwuIQc" resname="company.edit.website.placeholder">
+        <source>company.edit.website.placeholder</source>
+        <target state="translated">https://www.foo.bar</target>
+      </trans-unit>
+      <trans-unit id="l4BUu.S" resname="company.edit.auto_product_url">
+        <source>company.edit.auto_product_url</source>
+        <target state="translated">Product url</target>
+      </trans-unit>
+      <trans-unit id="UaJhZGe" resname="company.edit.auto_product_url.help">
+        <source>company.edit.auto_product_url.help</source>
+        <target state="translated">This field is used to determine an link to the part on the company page. %PARTNR% will be replaced with the order number.</target>
+      </trans-unit>
+      <trans-unit id="22S3ulf" resname="company.edit.auto_product_url.placeholder">
+        <source>company.edit.auto_product_url.placeholder</source>
+        <target state="translated">https://foo.bar/product/%PARTNR%</target>
+      </trans-unit>
+      <trans-unit id="NZUfSAR" resname="currency.edit.iso_code">
+        <source>currency.edit.iso_code</source>
+        <target state="translated">ISO code</target>
+      </trans-unit>
+      <trans-unit id="9YIkqmF" resname="currency.edit.exchange_rate">
+        <source>currency.edit.exchange_rate</source>
+        <target state="translated">Exchange rate</target>
+      </trans-unit>
+      <trans-unit id="_JM6Jxg" resname="import.abort_on_validation.help">
+        <source>import.abort_on_validation.help</source>
+        <target state="translated">When this option is activated, the whole import process is aborted if invalid data is detected. If not selected, the invalid data is ignored and the importer will try to import the other elements.</target>
+      </trans-unit>
+      <trans-unit id="bxMaU3Y" resname="mass_creation.lines">
+        <source>mass_creation.lines</source>
+        <target state="translated">Input</target>
+      </trans-unit>
+      <trans-unit id="nIwyuSG" resname="mass_creation.lines.placeholder">
+        <source>mass_creation.lines.placeholder</source>
+        <target state="translated">Element 1
+Element 2
+Element 3</target>
+      </trans-unit>
+      <trans-unit id="yOi8.bI" resname="entity.mass_creation.btn">
+        <source>entity.mass_creation.btn</source>
+        <target state="translated">Create</target>
+      </trans-unit>
+      <trans-unit id="oqwo_n5" resname="measurement_unit.edit.is_integer">
+        <source>measurement_unit.edit.is_integer</source>
+        <target state="translated">Is integer</target>
+      </trans-unit>
+      <trans-unit id="ks8LoMb" resname="measurement_unit.edit.is_integer.help">
+        <source>measurement_unit.edit.is_integer.help</source>
+        <target state="translated">If this option is activated, all values with this unit will be rounded to whole numbers.</target>
+      </trans-unit>
+      <trans-unit id=".TAAW6t" resname="measurement_unit.edit.use_si_prefix">
+        <source>measurement_unit.edit.use_si_prefix</source>
+        <target state="translated">Use SI prefix</target>
+      </trans-unit>
+      <trans-unit id="EZh.nn7" resname="measurement_unit.edit.use_si_prefix.help">
+        <source>measurement_unit.edit.use_si_prefix.help</source>
+        <target state="translated">If this option is activated, values are outputted with SI prefixes (e.g. 1,2kg instead of 1200g)</target>
+      </trans-unit>
+      <trans-unit id="zha3lRe" resname="measurement_unit.edit.unit_symbol">
+        <source>measurement_unit.edit.unit_symbol</source>
+        <target state="translated">Unit symbol</target>
+      </trans-unit>
+      <trans-unit id="AxSvu9V" resname="measurement_unit.edit.unit_symbol.placeholder">
+        <source>measurement_unit.edit.unit_symbol.placeholder</source>
+        <target state="translated">e.g. m</target>
+      </trans-unit>
+      <trans-unit id="L68lNgx" resname="storelocation.edit.is_full.label">
+        <source>storelocation.edit.is_full.label</source>
+        <target state="translated">Storelocation full</target>
+      </trans-unit>
+      <trans-unit id="dsw_ivP" resname="storelocation.edit.is_full.help">
+        <source>storelocation.edit.is_full.help</source>
+        <target state="translated">If this option is selected, it is neither possible to add new parts to this storelocation or to increase the amount of existing parts.</target>
+      </trans-unit>
+      <trans-unit id="jenFqgq" resname="storelocation.limit_to_existing.label">
+        <source>storelocation.limit_to_existing.label</source>
+        <target state="translated">Limit to existing parts</target>
+      </trans-unit>
+      <trans-unit id="ftawtbm" resname="storelocation.limit_to_existing.help">
+        <source>storelocation.limit_to_existing.help</source>
+        <target state="translated">If this option is activated, it is not possible to add new parts to this storelocation, but the amount of existing parts can be increased.</target>
+      </trans-unit>
+      <trans-unit id="1DWk7ny" resname="storelocation.only_single_part.label">
+        <source>storelocation.only_single_part.label</source>
+        <target state="translated">Only single part</target>
+      </trans-unit>
+      <trans-unit id="np0unjZ" resname="storelocation.only_single_part.help">
+        <source>storelocation.only_single_part.help</source>
+        <target state="translated">If this option is activated, only a single part (with every amount) can be assigned to this store location. Useful for small SMD boxes or feeders.</target>
+      </trans-unit>
+      <trans-unit id="AE1UiRe" resname="storelocation.storage_type.label">
+        <source>storelocation.storage_type.label</source>
+        <target state="translated">Storage type</target>
+      </trans-unit>
+      <trans-unit id="3UBRYaM" resname="storelocation.storage_type.help">
+        <source>storelocation.storage_type.help</source>
+        <target state="translated">You can select a measurement unit here, which a part must have to be able to be assigned to this storage loaction</target>
+      </trans-unit>
+      <trans-unit id="xBJM0.O" resname="supplier.edit.default_currency">
+        <source>supplier.edit.default_currency</source>
+        <target state="translated">Default currency</target>
+      </trans-unit>
+      <trans-unit id="9o2s0eF" resname="supplier.shipping_costs.label">
+        <source>supplier.shipping_costs.label</source>
+        <target state="translated">Shipping Costs</target>
+      </trans-unit>
+      <trans-unit id="3ZnUiT_" resname="attachment.edit.name">
+        <source>attachment.edit.name</source>
+        <target state="translated">Name</target>
+      </trans-unit>
+      <trans-unit id="kAlm7LR" resname="attachment.edit.attachment_type">
+        <source>attachment.edit.attachment_type</source>
+        <target state="translated">Attachment type</target>
+      </trans-unit>
+      <trans-unit id="xUV7Oz9" resname="attachment.edit.show_in_table">
+        <source>attachment.edit.show_in_table</source>
+        <target state="translated">Show in table</target>
+      </trans-unit>
+      <trans-unit id="TRy0RSZ" resname="attachment.edit.url">
+        <source>attachment.edit.url</source>
+        <target state="translated">URL</target>
+      </trans-unit>
+      <trans-unit id="Pew.kQr" resname="attachment.edit.file">
+        <source>attachment.edit.file</source>
+        <target state="translated">Upload file</target>
+      </trans-unit>
+      <trans-unit id="jv6wCpP" resname="orderdetails.edit.supplierpartnr">
+        <source>orderdetails.edit.supplierpartnr</source>
+        <target state="translated">Order number</target>
+      </trans-unit>
+      <trans-unit id="7r_nI9R" resname="orderdetails.edit.supplierpartnr.placeholder">
+        <source>orderdetails.edit.supplierpartnr.placeholder</source>
+        <target state="translated">e.g. BC 547</target>
+      </trans-unit>
+      <trans-unit id="CimWRtu" resname="orderdetails.edit.supplier">
+        <source>orderdetails.edit.supplier</source>
+        <target state="translated">Supplier</target>
+      </trans-unit>
+      <trans-unit id="qfScBBj" resname="orderdetails.edit.url">
+        <source>orderdetails.edit.url</source>
+        <target state="translated">Link to offer</target>
+      </trans-unit>
+      <trans-unit id="D_288lV" resname="orderdetails.edit.obsolete">
+        <source>orderdetails.edit.obsolete</source>
+        <target state="translated">No longer available</target>
+      </trans-unit>
+      <trans-unit id="HZwLFnu" resname="part.edit.name">
+        <source>part.edit.name</source>
+        <target state="translated">Name</target>
+      </trans-unit>
+      <trans-unit id="wN.sxj3" resname="part.edit.name.placeholder">
+        <source>part.edit.name.placeholder</source>
+        <target state="translated">e.g. BC547</target>
+      </trans-unit>
+      <trans-unit id="9MhdLlK" resname="part.edit.description">
+        <source>part.edit.description</source>
+        <target state="translated">Description</target>
+      </trans-unit>
+      <trans-unit id="rMHwTBI" resname="part.edit.description.placeholder">
+        <source>part.edit.description.placeholder</source>
+        <target state="translated">e.g. NPN 45V, 0,1A, 0,5W</target>
+      </trans-unit>
+      <trans-unit id=".V3Lfkf" resname="part.editmininstock.placeholder">
+        <source>part.editmininstock.placeholder</source>
+        <target state="translated">e.g. 1</target>
+      </trans-unit>
+      <trans-unit id="Xzj9BP8" resname="part.edit.mininstock">
+        <source>part.edit.mininstock</source>
+        <target state="translated">Minimum stock</target>
+      </trans-unit>
+      <trans-unit id="1VN9ldj" resname="part.edit.category">
+        <source>part.edit.category</source>
+        <target state="translated">Category</target>
+      </trans-unit>
+      <trans-unit id="IROdosg" resname="part.edit.footprint">
+        <source>part.edit.footprint</source>
+        <target state="translated">Footprint</target>
+      </trans-unit>
+      <trans-unit id="KHkWjTz" resname="part.edit.tags">
+        <source>part.edit.tags</source>
+        <target state="translated">Tags</target>
+      </trans-unit>
+      <trans-unit id="4ok13kM" resname="part.edit.manufacturer.label">
+        <source>part.edit.manufacturer.label</source>
+        <target state="translated">Manufacturer</target>
+      </trans-unit>
+      <trans-unit id="0qS9528" resname="part.edit.manufacturer_url.label">
+        <source>part.edit.manufacturer_url.label</source>
+        <target state="translated">Link to product page</target>
+      </trans-unit>
+      <trans-unit id="tuRAA_9" resname="part.edit.mpn">
+        <source>part.edit.mpn</source>
+        <target state="translated">Manufacturer part number</target>
+      </trans-unit>
+      <trans-unit id="rcE_03k" resname="part.edit.manufacturing_status">
+        <source>part.edit.manufacturing_status</source>
+        <target state="translated">Manufacturing status</target>
+      </trans-unit>
+      <trans-unit id="tdUi2VV" resname="part.edit.needs_review">
+        <source>part.edit.needs_review</source>
+        <target state="translated">Needs review</target>
+      </trans-unit>
+      <trans-unit id="thxZ5LH" resname="part.edit.is_favorite">
+        <source>part.edit.is_favorite</source>
+        <target state="translated">Favorite</target>
+      </trans-unit>
+      <trans-unit id="epWuzE5" resname="part.edit.mass">
+        <source>part.edit.mass</source>
+        <target state="translated">Mass</target>
+      </trans-unit>
+      <trans-unit id="kpiGJo0" resname="part.edit.partUnit">
+        <source>part.edit.partUnit</source>
+        <target state="translated">Measuring unit</target>
+      </trans-unit>
+      <trans-unit id="LTZRVlq" resname="part.edit.comment">
+        <source>part.edit.comment</source>
+        <target state="translated">Comment</target>
+      </trans-unit>
+      <trans-unit id="cIVLqUs" resname="part.edit.master_attachment">
+        <source>part.edit.master_attachment</source>
+        <target state="translated">Preview image</target>
+      </trans-unit>
+      <trans-unit id="6QS4K7r" resname="part_lot.edit.description">
+        <source>part_lot.edit.description</source>
+        <target state="translated">Description</target>
+      </trans-unit>
+      <trans-unit id="IwPHYB0" resname="part_lot.edit.location">
+        <source>part_lot.edit.location</source>
+        <target state="translated">Storage location</target>
+      </trans-unit>
+      <trans-unit id="VEybZz7" resname="part_lot.edit.amount">
+        <source>part_lot.edit.amount</source>
+        <target state="translated">Amount</target>
+      </trans-unit>
+      <trans-unit id="OPwK3Lq" resname="part_lot.edit.instock_unknown">
+        <source>part_lot.edit.instock_unknown</source>
+        <target state="translated">Amount unknown</target>
+      </trans-unit>
+      <trans-unit id="uHBgsns" resname="part_lot.edit.needs_refill">
+        <source>part_lot.edit.needs_refill</source>
+        <target state="translated">Needs refill</target>
+      </trans-unit>
+      <trans-unit id="xorQnlc" resname="part_lot.edit.expiration_date">
+        <source>part_lot.edit.expiration_date</source>
+        <target state="translated">Expiration date</target>
+      </trans-unit>
+      <trans-unit id="OjwY78X" resname="part_lot.edit.comment">
+        <source>part_lot.edit.comment</source>
+        <target state="translated">Comment</target>
+      </trans-unit>
+      <trans-unit id="sG3lwwH" resname="user.username.placeholder">
+        <source>user.username.placeholder</source>
+        <target state="translated">e.g. j.doe</target>
+      </trans-unit>
+      <trans-unit id="birjZUl" resname="user.firstName.placeholder">
+        <source>user.firstName.placeholder</source>
+        <target state="translated">e.g John</target>
+      </trans-unit>
+      <trans-unit id="Z9pc7NJ" resname="user.lastName.placeholder">
+        <source>user.lastName.placeholder</source>
+        <target state="translated">e.g. Doe</target>
+      </trans-unit>
+      <trans-unit id="VLB.yla" resname="user.email.placeholder">
+        <source>user.email.placeholder</source>
+        <target state="translated">j.doe@ecorp.com</target>
+      </trans-unit>
+      <trans-unit id="UjUjKNF" resname="user.department.placeholder">
+        <source>user.department.placeholder</source>
+        <target state="translated">e.g. Development</target>
+      </trans-unit>
+      <trans-unit id="zPJhxi6" resname="user.create">
+        <source>user.create</source>
+        <target state="translated">Create user</target>
+      </trans-unit>
+      <trans-unit id="SxI0Jji" resname="user.edit.save">
+        <source>user.edit.save</source>
+        <target state="translated">Save</target>
+      </trans-unit>
+      <trans-unit id="oGnU8Jt" resname="entity.edit.reset">
+        <source>entity.edit.reset</source>
+        <target state="translated">Discard changes</target>
       </trans-unit>
     </body>
   </file>
