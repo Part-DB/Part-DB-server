@@ -67,8 +67,6 @@ class PartsDataTable implements DataTableTypeInterface
             $builder->andWhere('part.tags LIKE :tag')->setParameter('tag', '%' . $options['tag'] . '%');
         }
 
-        dump($options['search']);
-
         if (isset($options['search'])) {
             $builder->AndWhere('part.name LIKE :search')->orWhere('part.description LIKE :search')->orWhere('part.comment LIKE :search')
                 ->setParameter('search', '%' . $options['search'] . '%');
