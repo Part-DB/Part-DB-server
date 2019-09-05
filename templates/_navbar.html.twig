@@ -18,7 +18,7 @@
     <div class="collapse navbar-collapse" id="navbarContent">
         <div class="form-inline my-2 my-lg-0 ml-auto" id="searchbar">
             <!-- Searchbar -->
-            <form action="{$relative_path}show_search_parts.php" method="get">
+            <form action="" method="get">
                 <div class="dropdown d-inline">
                     <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         {% trans %}search.options.label{% endtrans %}
@@ -52,8 +52,10 @@
                             <label for="regex" class="form-check-label">{% trans %}search.regexmatching{% endtrans %}</label></div>
                     </div>
                 </div>
-                <input type="search" class="form-control mr-sm-2" placeholder="{% trans %}search.placeholder{% endtrans %}" name="keyword" onkeyup="livesearch(event, this, 2);">
-                <button type="submit" id="search-submit" class="btn btn-outline-secondary my-2">{% trans %}go.exclamation{% endtrans %}</button>
+
+                <input type="search" class="form-control mr-sm-2" placeholder="{% trans %}search.placeholder{% endtrans %}" name="keyword"
+                       onkeyup="$('#search-submit').attr('href', $('#search-submit').data('href') + '/' + $(this).val());">
+                <a id="search-submit" href="#" role="button" data-href="{{ url('parts_search', {'keyword': ''}) }}" class="btn btn-outline-secondary my-2">{% trans %}go.exclamation{% endtrans %}</a>
             </form>
         </div>
 

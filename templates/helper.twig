@@ -50,7 +50,7 @@
 
 {% macro string_to_tags(string, class="badge badge-info") %}
     {% for tag in string|split(',') %}
-        <a href="#" class="{{ class }}" >{{ tag | trim }}</a>
+        <a href="{{ url('part_list_tags', {'tag': tag | trim}) }}" class="{{ class }}" >{{ tag | trim }}</a>
     {% endfor %}
 {% endmacro %}
 

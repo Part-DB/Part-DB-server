@@ -29,6 +29,7 @@
 
 namespace App\DataTables;
 
+use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Services\EntityURLGenerator;
 use Doctrine\ORM\QueryBuilder;
@@ -50,6 +51,30 @@ class PartsDataTable implements DataTableTypeInterface
         $this->urlGenerator = $urlGenerator;
     }
 
+    protected function buildCriteria(QueryBuilder $builder, array $options)
+    {
+        if (isset($options['category'])) {
+            $em = $builder->getEntityManager();
+            $category = $options['category'];
+            $repo = $em->getRepository(Category::class);
+            $list = $repo->toNodesList($category);
+            $list[] = $category;
+
+            $builder->andWhere('part.category IN (:cid)')->setParameter('cid', $list);
+        }
+
+        if (isset($options['tag'])) {
+            $builder->andWhere('part.tags LIKE :tag')->setParameter('tag', '%' . $options['tag'] . '%');
+        }
+
+        dump($options['search']);
+
+        if (isset($options['search'])) {
+            $builder->AndWhere('part.name LIKE :search')->orWhere('part.description LIKE :search')->orWhere('part.comment LIKE :search')
+                ->setParameter('search', '%' . $options['search'] . '%');
+        }
+    }
+
     /**
      * @param DataTable $dataTable
      * @param array     $options
@@ -57,27 +82,24 @@ class PartsDataTable implements DataTableTypeInterface
     public function configure(DataTable $dataTable, array $options)
     {
         $dataTable//->add("id", TextColumn::class)
-            ->add('name', TextColumn::class, ['label' => 'name.label',
+        ->add('name', TextColumn::class, ['label' => 'name.label',
             'render' => function ($value, Part $context) {
                 return $this->urlGenerator->infoHTML($context);
             }, ])
             ->add('description', TextColumn::class, ['label' => 'description.label'])
             ->add('category', TextColumn::class, ['field' => 'category.name', 'label' => 'category.label'])
-            ->add('instock', TextColumn::class, ['label' => 'instock.label_short'])
-            ->add('mininstock', TextColumn::class, ['label' => 'mininstock.label_short'])
+            ->add('amountSum', TextColumn::class, ['label' => 'instock.label_short'])
+            ->add('minamount', TextColumn::class, ['label' => 'mininstock.label_short'])
             //->add('storelocation', TextColumn::class, ['field' => 'storelocation.name', 'label' => 'storelocation.label'])
             ->addOrderBy('name')
             ->createAdapter(ORMAdapter::class, [
                 'entity' => Part::class,
                 'criteria' => [
-                function (QueryBuilder $builder) use ($options) {
-                    if (isset($options['cid'])) {
-                        $builder->andWhere('part.category = :cid')
-                            ->setParameter('cid', $options['cid']);
-                    }
-                },
-                    new SearchCriteriaProvider(),
-                ],
+                    function (QueryBuilder $builder) use ($options) {
+                        $this->buildCriteria($builder, $options);
+                    },
+                    new SearchCriteriaProvider()
+                ]
             ]);
     }
 }

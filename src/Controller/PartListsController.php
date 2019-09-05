@@ -30,6 +30,7 @@
 namespace App\Controller;
 
 use App\DataTables\PartsDataTable;
+use App\Entity\Parts\Category;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,20 +45,47 @@ class PartListsController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function showCategory(int $id, Request $request, DataTableFactory $dataTable)
+    public function showCategory(Category $category, Request $request, DataTableFactory $dataTable)
     {
-        /*$table = $dataTable->create()
-            ->add("id", TextColumn::class)
-            ->add("name", TextColumn::class)
-            ->add("description", TextColumn::class)
-            ->add("category", TextColumn::class, ['field' => 'category.name'])
-            ->createAdapter(ORMAdapter::class, [
-                'entity' => Part::class
-            ])
-        ->handleRequest($request); */
-
-        $table = $dataTable->createFromType(PartsDataTable::class, ['cid' => $id])
+        $table = $dataTable->createFromType(PartsDataTable::class, ['category' => $category])
                     ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
+
+        return $this->render('parts_list.html.twig', ['datatable' => $table]);
+    }
+
+    /**
+     * @Route("/parts/by_tag/{tag}", name="part_list_tags")
+     * @param string $tag
+     * @param Request $request
+     * @param DataTableFactory $dataTable
+     * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function showTag(string $tag, Request $request, DataTableFactory $dataTable)
+    {
+        $table = $dataTable->createFromType(PartsDataTable::class, ['tag' => $tag])
+            ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
+
+        return $this->render('parts_list.html.twig', ['datatable' => $table]);
+    }
+
+    /**
+     * @Route("/parts/search/{keyword}", name="parts_search")
+     */
+    public function showSearch(Request $request, DataTableFactory $dataTable, string $keyword = "")
+    {
+        $search = $keyword;
+        dump($search);
+
+        $table = $dataTable->createFromType(PartsDataTable::class, ['search' => $search])
+            ->handleRequest($request);
 
         if ($table->isCallback()) {
             return $table->getResponse();
