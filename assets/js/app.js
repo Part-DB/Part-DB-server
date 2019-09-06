@@ -38,6 +38,7 @@ require( 'datatables.net-buttons/js/buttons.print.js' );
 //require( 'datatables.net-colreorder-bs4' )();
 require( 'datatables.net-fixedheader-bs4' );
 require( 'datatables.net-select-bs4' );
+require('datatables.net-colreorder-bs4');
 require('bootstrap-select');
 require('jquery-form');
 

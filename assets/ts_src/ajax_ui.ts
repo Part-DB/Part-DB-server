@@ -510,6 +510,7 @@ class AjaxUI {
             //@ts-ignore
             var promise = $('#part_list').initDataTables(settings,
                 {
+                    colReorder: true,
                     "fixedHeader": { header: $(window).width() >= 768, //Only enable fixedHeaders on devices with big screen. Fixes scrolling issues on smartphones.
                         headerOffset: $("#navbar").height()},
                     "buttons": [ {

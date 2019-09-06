@@ -2259,6 +2259,23 @@ datatables.net-buttons@1.5.6:
     datatables.net "^1.10.15"
     jquery ">=1.7"
 
+datatables.net-colreorder-bs4@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/datatables.net-colreorder-bs4/-/datatables.net-colreorder-bs4-1.5.1.tgz#7ded353a68296b85f0dbfb234b8cb5d8fc2bee3c"
+  integrity sha512-mi5wxkjnkI8fxGJ9e/Vu20E7MMZj7yK3xjLIzDrsHOHQupr6FF6eJnUoVH4gDo9Ynfb/yApVbnuW29v/YjnDKw==
+  dependencies:
+    datatables.net-bs4 "^1.10.15"
+    datatables.net-colreorder "1.5.1"
+    jquery ">=1.7"
+
+datatables.net-colreorder@1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/datatables.net-colreorder/-/datatables.net-colreorder-1.5.1.tgz#ee5eacd7178b5fd9396aab44d4907aae35086f8c"
+  integrity sha512-nKV0ZBOdOG+CCrtDZZlTOvhu9NC53pr4rYR8Xhd3KIKipLZohWWdBoOFGMu+VKDvllg2Xj79oS/wicYSiNyteA==
+  dependencies:
+    datatables.net "^1.10.15"
+    jquery ">=1.7"
+
 datatables.net-fixedheader-bs4@^3.1.5:
   version "3.1.5"
   resolved "https://registry.yarnpkg.com/datatables.net-fixedheader-bs4/-/datatables.net-fixedheader-bs4-3.1.5.tgz#60e060b721f46690a85e1acde634e75cc14e3cba"
