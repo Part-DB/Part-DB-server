@@ -223,6 +223,10 @@ class PartBaseType extends AbstractType
             },
             'choice_label' => 'name',
             'query_builder' => function (EntityRepository $er) use ($part) {
+                if ($part->getID() == null) {
+                    //This query is always false, so we get empty results
+                    return $er->createQueryBuilder('u')->where('0 = 2');
+                }
                 return $er->createQueryBuilder('u')
                     ->where('u.element = ?1')
                     ->andWhere("u.path <> ''")
