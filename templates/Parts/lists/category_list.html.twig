@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+
+
+    {# Set the title for the table here. It will be inserted into the table later.#}
+    <div style="display:none;" id="part-card-header-src">Test</div>
+    
+    <div id="part_list" class="table-responsive" data-datatable data-settings='{{ datatable_settings(datatable) }}'>
+        <div class="card-body">
+            <div class="card">
+                <div class="card-body">
+                    <h4>{% trans %}part_list.loading.caption{% endtrans %}</h4>
+                    <h6>{% trans %}part_list.loading.message{% endtrans %}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -54,7 +54,7 @@ class PartListsController extends AbstractController
             return $table->getResponse();
         }
 
-        return $this->render('parts_list.html.twig', ['datatable' => $table]);
+        return $this->render('Parts/lists/category_list.html.twig', ['datatable' => $table]);
     }
 
     /**

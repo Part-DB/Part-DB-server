@@ -511,7 +511,12 @@ class AjaxUI {
             var promise = $('#part_list').initDataTables(settings,
                 {
                     "fixedHeader": { header: $(window).width() >= 768, //Only enable fixedHeaders on devices with big screen. Fixes scrolling issues on smartphones.
-                        headerOffset: $("#navbar").height()}
+                        headerOffset: $("#navbar").height()},
+                    "buttons": [ {
+                        "extend": 'colvis',
+                        'className': 'mr-2 btn-light',
+                        "text": "<i class='fa fa-cog'></i>"
+                    }]
                 });
 
             //Register links.

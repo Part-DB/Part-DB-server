@@ -684,3 +684,7 @@ table.dataTable {
 .tab-content>form>.active {
     display: block;
 }
+
+.dataTables_length {
+    display: inline-flex;
+}

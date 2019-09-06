@@ -35,9 +35,13 @@ use App\Services\EntityURLGenerator;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
+use Omines\DataTablesBundle\Column\BoolColumn;
+use Omines\DataTablesBundle\Column\DateTimeColumn;
+use Omines\DataTablesBundle\Column\MapColumn;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartsDataTable implements DataTableTypeInterface
 {
@@ -45,10 +49,12 @@ class PartsDataTable implements DataTableTypeInterface
      * @var EntityURLGenerator
      */
     protected $urlGenerator;
+    protected $translator;
 
-    public function __construct(EntityURLGenerator $urlGenerator)
+    public function __construct(EntityURLGenerator $urlGenerator, TranslatorInterface $translator)
     {
         $this->urlGenerator = $urlGenerator;
+        $this->translator = $translator;
     }
 
     protected function buildCriteria(QueryBuilder $builder, array $options)
@@ -79,16 +85,84 @@ class PartsDataTable implements DataTableTypeInterface
      */
     public function configure(DataTable $dataTable, array $options)
     {
-        $dataTable//->add("id", TextColumn::class)
-        ->add('name', TextColumn::class, ['label' => 'name.label',
-            'render' => function ($value, Part $context) {
-                return $this->urlGenerator->infoHTML($context);
-            }, ])
-            ->add('description', TextColumn::class, ['label' => 'description.label'])
-            ->add('category', TextColumn::class, ['field' => 'category.name', 'label' => 'category.label'])
-            ->add('amountSum', TextColumn::class, ['label' => 'instock.label_short'])
-            ->add('minamount', TextColumn::class, ['label' => 'mininstock.label_short'])
+        $dataTable
+            ->add('name', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.name'),
+                'render' => function ($value, Part $context) {
+                    return $this->urlGenerator->infoHTML($context);
+                },
+            ])
+            ->add('id', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.id'),
+                'visible' => false
+            ])
+            ->add('description', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.description'),
+            ])
+            ->add('category', TextColumn::class, [
+                'field' => 'category.name',
+                'label' => $this->translator->trans('part.table.category')
+            ])
+            //->add('footprint', TextColumn::class, ['field' => 'footprint.name'])
+            //->add('manufacturer', TextColumn::class, ['field' => 'manufacturer.name' ])
+            //->add('amountSum', TextColumn::class, ['label' => 'instock.label_short'])
+            ->add('amount', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.amount'),
+                'propertyPath' => 'amountSum'
+            ])
+            ->add('minamount', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.minamount')
+            ])
             //->add('storelocation', TextColumn::class, ['field' => 'storelocation.name', 'label' => 'storelocation.label'])
+
+            ->add('addedDate', DateTimeColumn::class, [
+                'label' => $this->translator->trans('part.table.addedDate'),
+                'visible' => false
+            ])
+            ->add('lastModified', DateTimeColumn::class, [
+                'label' => $this->translator->trans('part.table.lastModified'),
+                'visible' => false
+            ])
+            ->add('needs_review', BoolColumn::class, [
+                'label' => $this->translator->trans('part.table.needsReview'),
+                'trueValue' => $this->translator->trans('true'),
+                'falseValue' => $this->translator->trans('false'),
+                'nullValue' => '',
+                'visible' => false
+            ])
+            ->add('favorite', BoolColumn::class, [
+                'label' => $this->translator->trans('part.table.favorite'),
+                'trueValue' => $this->translator->trans('true'),
+                'falseValue' => $this->translator->trans('false'),
+                'nullValue' => '',
+                'visible' => false
+            ])
+            ->add('manufacturing_status', MapColumn::class, [
+                'label' => $this->translator->trans('part.table.manufacturingStatus'),
+                'visible' => false,
+                'default' => $this->translator->trans('m_status.unknown'),
+                'map' => [
+                    '' => $this->translator->trans('m_status.unknown'),
+                    'announced' => $this->translator->trans('m_status.announced'),
+                    'active' => $this->translator->trans('m_status.active'),
+                    'nrfnd' => $this->translator->trans('m_status.nrfnd'),
+                    'eol' => $this->translator->trans('m_status.eol'),
+                    'discontinued' => $this->translator->trans('m_status.discontinued')
+                ]
+            ])
+            ->add('manufacturer_product_number', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.mpn'),
+                'visible' => false
+            ])
+            ->add('mass', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.mass'),
+                'visible' => false
+            ])
+            ->add('tags', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.tags'),
+                'visible' => false
+            ])
+
             ->addOrderBy('name')
             ->createAdapter(ORMAdapter::class, [
                 'entity' => Part::class,

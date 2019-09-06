@@ -1693,6 +1693,74 @@ Element 3</target>
         <source>flash.info</source>
         <target state="translated">Info</target>
       </trans-unit>
+      <trans-unit id="t2EE5cB" resname="part.table.name">
+        <source>part.table.name</source>
+        <target state="translated">Name</target>
+      </trans-unit>
+      <trans-unit id="eshqdG." resname="part.table.id">
+        <source>part.table.id</source>
+        <target state="translated">Id</target>
+      </trans-unit>
+      <trans-unit id="zKnTKYw" resname="part.table.description">
+        <source>part.table.description</source>
+        <target state="translated">Description</target>
+      </trans-unit>
+      <trans-unit id="2eOA0az" resname="part.table.category">
+        <source>part.table.category</source>
+        <target state="translated">Category</target>
+      </trans-unit>
+      <trans-unit id="rD.1skI" resname="part.table.amount">
+        <source>part.table.amount</source>
+        <target state="translated">Amount</target>
+      </trans-unit>
+      <trans-unit id="Mv9g23S" resname="part.table.minamount">
+        <source>part.table.minamount</source>
+        <target state="translated">Min. Amount</target>
+      </trans-unit>
+      <trans-unit id="pw75u4x" resname="part.table.addedDate">
+        <source>part.table.addedDate</source>
+        <target state="translated">Created at</target>
+      </trans-unit>
+      <trans-unit id="eDb7mzC" resname="part.table.lastModified">
+        <source>part.table.lastModified</source>
+        <target state="translated">Last modified</target>
+      </trans-unit>
+      <trans-unit id="DJ9YTs_" resname="part.table.needsReview">
+        <source>part.table.needsReview</source>
+        <target state="translated">Needs review</target>
+      </trans-unit>
+      <trans-unit id="tb6kG2x" resname="true">
+        <source>true</source>
+        <target state="translated">true</target>
+      </trans-unit>
+      <trans-unit id=".LzxZZC" resname="false">
+        <source>false</source>
+        <target state="translated">false</target>
+      </trans-unit>
+      <trans-unit id="TSiqJH6" resname="part.table.favorite">
+        <source>part.table.favorite</source>
+        <target state="translated">Favorite</target>
+      </trans-unit>
+      <trans-unit id="n0h1ozV" resname="part.table.manufacturingStatus">
+        <source>part.table.manufacturingStatus</source>
+        <target state="translated">Status</target>
+      </trans-unit>
+      <trans-unit id="HTkvjkE" resname="part.table.mpn">
+        <source>part.table.mpn</source>
+        <target state="translated">MPN</target>
+      </trans-unit>
+      <trans-unit id="q_AsQoZ" resname="part.table.mass">
+        <source>part.table.mass</source>
+        <target state="translated">Mass</target>
+      </trans-unit>
+      <trans-unit id="" resname="part.table.tags">
+                   <source>part.table.tags</source>
+                   <target state="translated">Tags</target>
+            </trans-unit>
+      <trans-unit id="pVVBLyB" resname="datatable.datatable.lengthMenu">
+              <source>datatable.datatable.lengthMenu</source>
+              <target>_MENU_</target>
+            </trans-unit>
     </body>
   </file>
 </xliff>
