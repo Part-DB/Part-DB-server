@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce7f2c4f8eb45f90abbc99599f3fbe83",
+    "content-hash": "d56578536a355ed2a030e791249f3d20",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -1809,16 +1809,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.24.0",
+            "version": "1.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266"
+                "reference": "c5dcc05defbaf8780c728c1ea31b1a0704d44f56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266",
-                "reference": "bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c5dcc05defbaf8780c728c1ea31b1a0704d44f56",
+                "reference": "c5dcc05defbaf8780c728c1ea31b1a0704d44f56",
                 "shasum": ""
             },
             "require": {
@@ -1883,7 +1883,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2018-11-05T09:00:11+00:00"
+            "time": "2019-09-06T12:21:24+00:00"
         },
         {
             "name": "nikolaposa/version",
@@ -1940,16 +1940,16 @@
         },
         {
             "name": "nyholm/psr7",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Nyholm/psr7.git",
-                "reference": "27c828a165ff936f9fe9056baa9cabe0c70a423c"
+                "reference": "55ff6b76573f5b242554c9775792bd59fb52e11c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Nyholm/psr7/zipball/27c828a165ff936f9fe9056baa9cabe0c70a423c",
-                "reference": "27c828a165ff936f9fe9056baa9cabe0c70a423c",
+                "url": "https://api.github.com/repos/Nyholm/psr7/zipball/55ff6b76573f5b242554c9775792bd59fb52e11c",
+                "reference": "55ff6b76573f5b242554c9775792bd59fb52e11c",
                 "shasum": ""
             },
             "require": {
@@ -1998,7 +1998,7 @@
                 "psr-17",
                 "psr-7"
             ],
-            "time": "2019-08-22T18:22:08+00:00"
+            "time": "2019-09-05T13:24:16+00:00"
         },
         {
             "name": "ocramius/package-versions",
@@ -2122,16 +2122,16 @@
         },
         {
             "name": "omines/datatables-bundle",
-            "version": "0.2.2",
+            "version": "0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/omines/datatables-bundle.git",
-                "reference": "37aaf560baabc8c621bfb6ae308eaa8933a85da1"
+                "reference": "5475a341e74b36f542758bb62010e08623b96553"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/omines/datatables-bundle/zipball/37aaf560baabc8c621bfb6ae308eaa8933a85da1",
-                "reference": "37aaf560baabc8c621bfb6ae308eaa8933a85da1",
+                "url": "https://api.github.com/repos/omines/datatables-bundle/zipball/5475a341e74b36f542758bb62010e08623b96553",
+                "reference": "5475a341e74b36f542758bb62010e08623b96553",
                 "shasum": ""
             },
             "require": {
@@ -2182,13 +2182,13 @@
             ],
             "authors": [
                 {
-                    "name": "Niels Keurentjes",
-                    "email": "niels.keurentjes@omines.com",
+                    "name": "Robbert Beesems",
+                    "email": "robbert.beesems@omines.com",
                     "homepage": "https://omines.nl/"
                 },
                 {
-                    "name": "Robbert Beesems",
-                    "email": "robbert.beesems@omines.com",
+                    "name": "Niels Keurentjes",
+                    "email": "niels.keurentjes@omines.com",
                     "homepage": "https://omines.nl/"
                 }
             ],
@@ -2204,7 +2204,7 @@
                 "orm",
                 "symfony"
             ],
-            "time": "2019-02-25T09:17:27+00:00"
+            "time": "2019-08-09T12:19:19+00:00"
         },
         {
             "name": "php-http/curl-client",

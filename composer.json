@@ -12,7 +12,7 @@
         "friendsofsymfony/ckeditor-bundle": "^2.0",
         "nyholm/psr7": "^1.1",
         "ocramius/proxy-manager": "2.1.*",
-        "omines/datatables-bundle": "^0.2.2",
+        "omines/datatables-bundle": "^0.3.1",
         "php-http/curl-client": "^2.0",
         "php-http/guzzle6-adapter": "^2.0",
         "php-http/message": "^1.8",
