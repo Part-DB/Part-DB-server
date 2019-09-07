@@ -29,6 +29,7 @@
 
 namespace App\DataTables;
 
+use App\DataTables\Column\LocaleDateTimeColumn;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Services\EntityURLGenerator;
@@ -115,11 +116,11 @@ class PartsDataTable implements DataTableTypeInterface
             ])
             //->add('storelocation', TextColumn::class, ['field' => 'storelocation.name', 'label' => 'storelocation.label'])
 
-            ->add('addedDate', DateTimeColumn::class, [
+            ->add('addedDate', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.addedDate'),
                 'visible' => false
             ])
-            ->add('lastModified', DateTimeColumn::class, [
+            ->add('lastModified', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.lastModified'),
                 'visible' => false
             ])
