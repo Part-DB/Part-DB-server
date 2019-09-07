@@ -29,6 +29,7 @@
 
 namespace App\DataTables;
 
+use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
@@ -114,16 +115,16 @@ class PartsDataTable implements DataTableTypeInterface
             ->add('description', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.description'),
             ])
-            ->add('category', TextColumn::class, [
-                'field' => 'category.name',
-                'label' => $this->translator->trans('part.table.category')
+            ->add('category', EntityColumn::class, [
+                'label' => $this->translator->trans('part.table.category'),
+                'property' => 'category'
             ])
-            ->add('footprint', TextColumn::class, [
-                'field' => 'footprint.name',
+            ->add('footprint', EntityColumn::class, [
+                'property' => 'footprint',
                 'label' => $this->translator->trans('part.table.footprint')
             ])
-            ->add('manufacturer', TextColumn::class, [
-                'field' => 'manufacturer.name',
+            ->add('manufacturer', EntityColumn::class, [
+                'property' => 'manufacturer',
                 'label' => $this->translator->trans('part.table.manufacturer')
             ])
             //->add('footprint', TextColumn::class, ['field' => 'footprint.name'])
