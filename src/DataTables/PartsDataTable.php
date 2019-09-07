@@ -61,16 +61,16 @@ class PartsDataTable implements DataTableTypeInterface
 
     protected function getQuery(QueryBuilder $builder)
     {
-        $builder->select('p')
+        $builder->select('part')
             ->addSelect('category')
             ->addSelect('footprint')
             ->addSelect('manufacturer')
             ->addSelect('partUnit')
-            ->from(Part::class, 'p')
-            ->leftJoin('p.category', 'category')
-            ->leftJoin('p.footprint', 'footprint')
-            ->leftJoin('p.manufacturer', 'manufacturer')
-            ->leftJoin('p.partUnit', 'partUnit');
+            ->from(Part::class, 'part')
+            ->leftJoin('part.category', 'category')
+            ->leftJoin('part.footprint', 'footprint')
+            ->leftJoin('part.manufacturer', 'manufacturer')
+            ->leftJoin('part.partUnit', 'partUnit');
     }
 
     protected function buildCriteria(QueryBuilder $builder, array $options)
