@@ -1809,16 +1809,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.25.0",
+            "version": "1.25.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "c5dcc05defbaf8780c728c1ea31b1a0704d44f56"
+                "reference": "70e65a5470a42cfec1a7da00d30edb6e617e8dcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c5dcc05defbaf8780c728c1ea31b1a0704d44f56",
-                "reference": "c5dcc05defbaf8780c728c1ea31b1a0704d44f56",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/70e65a5470a42cfec1a7da00d30edb6e617e8dcf",
+                "reference": "70e65a5470a42cfec1a7da00d30edb6e617e8dcf",
                 "shasum": ""
             },
             "require": {
@@ -1883,7 +1883,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2019-09-06T12:21:24+00:00"
+            "time": "2019-09-06T13:49:17+00:00"
         },
         {
             "name": "nikolaposa/version",
@@ -7106,12 +7106,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/twig-extra-bundle.git",
-                "reference": "695a3d1749265340642681fd48e30795752f7126"
+                "reference": "16a5bea6ed1bc50d6e55b0b3d7ec0f306cbe39ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/twig-extra-bundle/zipball/695a3d1749265340642681fd48e30795752f7126",
-                "reference": "695a3d1749265340642681fd48e30795752f7126",
+                "url": "https://api.github.com/repos/twigphp/twig-extra-bundle/zipball/16a5bea6ed1bc50d6e55b0b3d7ec0f306cbe39ca",
+                "reference": "16a5bea6ed1bc50d6e55b0b3d7ec0f306cbe39ca",
                 "shasum": ""
             },
             "require": {
@@ -7145,9 +7145,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "role": "Lead Developer",
                     "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org"
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "A Symfony bundle for extra Twig extensions",
@@ -7157,7 +7157,7 @@
                 "extra",
                 "twig"
             ],
-            "time": "2019-08-12T07:27:28+00:00"
+            "time": "2019-09-07T12:46:43+00:00"
         },
         {
             "name": "twig/intl-extra",
@@ -7165,12 +7165,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/intl-extra.git",
-                "reference": "6330d1cf99976605aa06c709fc382868b038ae9a"
+                "reference": "04258d0f78e3550a69eafae34ff8aa4bafc2b762"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/intl-extra/zipball/6330d1cf99976605aa06c709fc382868b038ae9a",
-                "reference": "6330d1cf99976605aa06c709fc382868b038ae9a",
+                "url": "https://api.github.com/repos/twigphp/intl-extra/zipball/04258d0f78e3550a69eafae34ff8aa4bafc2b762",
+                "reference": "04258d0f78e3550a69eafae34ff8aa4bafc2b762",
                 "shasum": ""
             },
             "require": {
@@ -7199,9 +7199,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "role": "Lead Developer",
                     "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org"
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 }
             ],
             "description": "A Twig extension for Intl",
@@ -7210,7 +7210,7 @@
                 "intl",
                 "twig"
             ],
-            "time": "2019-08-12T07:27:28+00:00"
+            "time": "2019-09-07T12:46:43+00:00"
         },
         {
             "name": "twig/twig",
