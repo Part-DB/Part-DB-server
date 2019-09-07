@@ -58,6 +58,20 @@ class PartsDataTable implements DataTableTypeInterface
         $this->translator = $translator;
     }
 
+    protected function getQuery(QueryBuilder $builder)
+    {
+        $builder->select('p')
+            ->addSelect('category')
+            ->addSelect('footprint')
+            ->addSelect('manufacturer')
+            ->addSelect('partUnit')
+            ->from(Part::class, 'p')
+            ->leftJoin('p.category', 'category')
+            ->leftJoin('p.footprint', 'footprint')
+            ->leftJoin('p.manufacturer', 'manufacturer')
+            ->leftJoin('p.partUnit', 'partUnit');
+    }
+
     protected function buildCriteria(QueryBuilder $builder, array $options)
     {
         if (isset($options['category'])) {
@@ -104,6 +118,14 @@ class PartsDataTable implements DataTableTypeInterface
                 'field' => 'category.name',
                 'label' => $this->translator->trans('part.table.category')
             ])
+            ->add('footprint', TextColumn::class, [
+                'field' => 'footprint.name',
+                'label' => $this->translator->trans('part.table.footprint')
+            ])
+            ->add('manufacturer', TextColumn::class, [
+                'field' => 'manufacturer.name',
+                'label' => $this->translator->trans('part.table.manufacturer')
+            ])
             //->add('footprint', TextColumn::class, ['field' => 'footprint.name'])
             //->add('manufacturer', TextColumn::class, ['field' => 'manufacturer.name' ])
             //->add('amountSum', TextColumn::class, ['label' => 'instock.label_short'])
@@ -112,10 +134,14 @@ class PartsDataTable implements DataTableTypeInterface
                 'propertyPath' => 'amountSum'
             ])
             ->add('minamount', TextColumn::class, [
-                'label' => $this->translator->trans('part.table.minamount')
+                'label' => $this->translator->trans('part.table.minamount'),
+                'visible' => false
             ])
-            //->add('storelocation', TextColumn::class, ['field' => 'storelocation.name', 'label' => 'storelocation.label'])
-
+            ->add('partUnit', TextColumn::class, [
+                'field' => 'partUnit.name',
+                'label' => $this->translator->trans('part.table.partUnit'),
+                'visible' => false
+            ])
             ->add('addedDate', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.addedDate'),
                 'visible' => false
@@ -166,6 +192,9 @@ class PartsDataTable implements DataTableTypeInterface
 
             ->addOrderBy('name')
             ->createAdapter(ORMAdapter::class, [
+                'query' => function(QueryBuilder $builder) {
+                    $this->getQuery($builder);
+                },
                 'entity' => Part::class,
                 'criteria' => [
                     function (QueryBuilder $builder) use ($options) {
