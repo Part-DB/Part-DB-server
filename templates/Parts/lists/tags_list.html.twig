@@ -1,0 +1,11 @@
+{% extends "base.html.twig" %}
+
+{% block  title %}
+{% trans %}parts_list.tags.title{% endtrans %} {{ tag }}
+{% endblock %}
+
+{% block content %}
+
+    {% include "Parts/lists/_parts_list.html.twig" %}
+
+{% endblock %}

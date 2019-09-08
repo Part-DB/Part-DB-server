@@ -50,7 +50,7 @@ class PartListsController extends AbstractController
     public function showCategory(Category $category, Request $request, DataTableFactory $dataTable)
     {
         $table = $dataTable->createFromType(PartsDataTable::class, ['category' => $category])
-                    ->handleRequest($request);
+            ->handleRequest($request);
 
         if ($table->isCallback()) {
             return $table->getResponse();
@@ -122,7 +122,10 @@ class PartListsController extends AbstractController
             return $table->getResponse();
         }
 
-        return $this->render('parts_list.html.twig', ['datatable' => $table]);
+        return $this->render('Parts/lists/tags_list.html.twig', [
+            'tag' => $tag,
+            'datatable' => $table
+        ]);
     }
 
     /**
@@ -139,7 +142,10 @@ class PartListsController extends AbstractController
             return $table->getResponse();
         }
 
-        return $this->render('parts_list.html.twig', ['datatable' => $table]);
+        return $this->render('Parts/lists/search_list.html.twig', [
+                'datatable' => $table,
+                'keyword' => $keyword
+            ]);
     }
 
     /**
@@ -159,6 +165,6 @@ class PartListsController extends AbstractController
             return $table->getResponse();
         }
 
-        return $this->render('parts_list.html.twig', ['datatable' => $table]);
+        return $this->render('Parts/lists/all_list.html.twig', ['datatable' => $table]);
     }
 }
