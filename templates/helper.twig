@@ -74,3 +74,22 @@
         </span>
     {% endif %}
 {% endmacro %}
+
+{% macro structural_entity_link(entity, link_type = "list_parts") %}
+    {# @var entity \App\Entity\Base\StructuralDBElement #}
+    {% if entity %}
+        <ul class="structural_link d-inline">
+            {% for e in entity.pathArray %}
+                <li>
+                    {% if link_type is not empty %}
+                        <a href="{{ e | entityURL(link_type) }}">{{ e.name }}</a>
+                    {% else %}
+                        {{ e.name }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        -
+    {% endif %}
+{% endmacro %}

@@ -103,12 +103,6 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     protected $comment = '';
 
     /**
-     * @var int
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    protected $parent_id;
-
-    /**
      * @var bool If this property is set, this element can not be selected for part properties.
      * Useful if this element should be used only for grouping, sorting.
      * @ORM\Column(type="boolean")
@@ -166,23 +160,20 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
             || $this->parent->isChildOf($another_element); //Otherwise, check recursivley
     }
 
+    /**
+     * Checks if this element is an root element (has no parent)
+     * @return bool True if the this element is an root element.
+     */
+    public function isRoot() : bool
+    {
+        return $this->parent === null;
+    }
+
     /******************************************************************************
      *
      * Getters
      *
      ******************************************************************************/
-
-    /**
-     * Get the parent-ID
-     *
-     * @return integer          * the ID of the parent element
-     *                          * NULL means, the parent is the root node
-     *                          * the parent ID of the root node is -1
-     */
-    protected function getParentID(): int
-    {
-        return $this->parent_id ?? self::ID_ROOT_ELEMENT; //Null means root element
-    }
 
     /**
      * Get the parent of this element.
@@ -257,6 +248,25 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
         }
 
         return implode($delimeter, $this->full_path_strings);
+    }
+
+
+    /**
+     * Gets the path to this element (including the element itself)
+     * @return self[] An array with all (recursivily) parent elements (including this one),
+     * ordered from the lowest levels (root node) first to the highest level (the element itself)
+     */
+    public function getPathArray(): array
+    {
+        $tmp = [];
+        $tmp[] = $this;
+
+        //We only allow 20 levels depth
+        while (!end($tmp)->isRoot() && count($tmp) < 20) {
+            $tmp[] = end($tmp)->parent;
+        }
+
+        return array_reverse($tmp);
     }
 
     /**

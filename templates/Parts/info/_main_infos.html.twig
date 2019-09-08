@@ -1,3 +1,5 @@
+{% import "helper.twig" as helper %}
+
 <div class="row">
     <div class="col-md-3">
         {% if part.masterPictureAttachment and part.masterPictureAttachment.picture %}
@@ -7,7 +9,10 @@
         {% endif %}
     </div>
     <div class="col-md-9">
-        <h5 class="text-muted pt-2" title="{% trans %}manufacturer.label{% endtrans %}">{{ part.manufacturer.name ?? ""}}
+        <h5 class="text-muted pt-2" title="{% trans %}manufacturer.label{% endtrans %}">
+            {% if part.manufacturer %}
+                <a href="{{ part.manufacturer | entityURL('list_parts') }}">{{ part.manufacturer.name}}</a>
+            {% endif %}
             {% if part.manufacturerProductUrl %}
                 <small>
                     <a class="link-external" href="{{ part.manufacturerProductUrl }}" target="_blank">{{ part.manufacturerProductNumber }}</a>
@@ -23,14 +28,10 @@
             {% endif %}
         </h3>
         <h6 class="text-muted"><span title="{% trans %}description.label{% endtrans %}">{{ part.description|bbCode }}</span></h6>
-        <h6 class=""  title="{% trans %}category.label{% endtrans %}">
-            <i class="fas fa-tag fa-fw"></i>
-            <span class="text-muted">{{  part.category.fullPath ?? "-"}}</span>
+        <h6 class="">
+            <i class="fas fa-tag fa-fw" title="{% trans %}category.label{% endtrans %}"></i>
+            <span class="text-muted">{{ helper.structural_entity_link(part.category) }}</span>
         </h6>
-        {# <h6 class=""  title="{% trans %}storelocation.label{% endtrans %}">
-            <i class="fas fa-cube fa-fw"></i>
-            <span class="text-muted">{{  part.storelocation.fullPath ?? "-"}}</span>
-        </h6> #}
         <h6><i class="fas fa-shapes fa-fw"></i>
             <span class="text-muted">
                                     <span title="{% trans %}instock.label{% endtrans %}">{{ part.amountSum | amountFormat(part.partUnit) }}</span>
@@ -38,9 +39,9 @@
                                     <span title="{% trans %}mininstock.label{% endtrans %}">{{ part.minAmount | amountFormat(part.partUnit) }}</span>
                                 </span>
         </h6>
-        <h6 class="" title="{% trans %}footprint.label{% endtrans %}">
-            <i class="fas fa-microchip fa-fw" ></i>
-            <span class="text-muted">{{ part.footprint.fullPath ?? "-"}}</span>
+        <h6 class="">
+            <i class="fas fa-microchip fa-fw" title="{% trans %}footprint.label{% endtrans %}"></i>
+            <span class="text-muted">{{ helper.structural_entity_link(part.footprint) }}</span>
         </h6>
         <h6>
             <i class="fas fa-money-bill-alt fa-fw"></i>

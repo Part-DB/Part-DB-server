@@ -77,9 +77,19 @@ class EntityURLGenerator
     {
         $class = get_class($entity);
 
-        //Check if we have an mapping for the given class
+        //Check if we have an direct mapping for the given class
         if (!array_key_exists($class, $map)) {
-            throw new EntityNotSupported('The given entity is not supported yet!');
+            //Check if we need to check inheritance by looping through our map
+            foreach ($map as $key => $value) {
+                if (is_a($entity, $key)) {
+                    return $map[$key];
+                }
+            }
+
+            throw new EntityNotSupported(sprintf(
+                'The given entity is not supported yet! Passed class type: %s',
+                get_class($entity)
+            ));
         }
 
         return $map[$class];
@@ -144,7 +154,10 @@ class EntityURLGenerator
         }
 
         //Otherwise throw an error
-        throw new EntityNotSupported('The given entity is not supported yet!');
+        throw new EntityNotSupported(sprintf(
+            'The given entity is not supported yet! Passed class type: %s',
+            get_class($entity)
+        ));
     }
 
     /**
