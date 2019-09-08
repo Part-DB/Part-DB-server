@@ -1782,13 +1782,85 @@ Element 3</target>
         <source>part.table.mass</source>
         <target state="translated">Gewicht</target>
       </trans-unit>
-      <trans-unit id="" resname="part.table.tags">
-             <source>part.table.tags</source>
-             <target state="translated">Tags</target>
+      <trans-unit id="Cwisdej" resname="part.table.tags">
+        <source>part.table.tags</source>
+        <target state="translated">Tags</target>
       </trans-unit>
       <trans-unit id="pVVBLyB" resname="datatable.datatable.lengthMenu">
         <source>datatable.datatable.lengthMenu</source>
         <target>_MENU_</target>
+      </trans-unit>
+      <trans-unit id="jCf96.O" resname="part.table.footprint">
+        <source>part.table.footprint</source>
+        <target state="translated">Footprint</target>
+      </trans-unit>
+      <trans-unit id="b46OytM" resname="part.table.manufacturer">
+        <source>part.table.manufacturer</source>
+        <target state="translated">Hersteller</target>
+      </trans-unit>
+      <trans-unit id="T0ifXD5" resname="part.table.storeLocations">
+        <source>part.table.storeLocations</source>
+        <target state="translated">Lagerorte</target>
+      </trans-unit>
+      <trans-unit id="GjwSknL" resname="part.table.partUnit">
+        <source>part.table.partUnit</source>
+        <target state="translated">Maßeinheit</target>
+      </trans-unit>
+      <trans-unit id="7BufWRt" resname="parts_list.all.title">
+        <source>parts_list.all.title</source>
+        <target state="translated">Alle Bauteile</target>
+      </trans-unit>
+      <trans-unit id="TOD4O3j" resname="parts_list.category.title">
+        <source>parts_list.category.title</source>
+        <target state="translated">Bauteile mit Kategorie</target>
+      </trans-unit>
+      <trans-unit id="yCsUZQZ" resname="parts_list.footprint.title">
+        <source>parts_list.footprint.title</source>
+        <target state="translated">Bauteile mit Footprint</target>
+      </trans-unit>
+      <trans-unit id="j4vXh3o" resname="parts_list.manufacturer.title">
+        <source>parts_list.manufacturer.title</source>
+        <target state="translated">Bauteile mit Hersteller</target>
+      </trans-unit>
+      <trans-unit id="6uogzri" resname="parts_list.search.title">
+        <source>parts_list.search.title</source>
+        <target state="translated">Bauteilesuche</target>
+      </trans-unit>
+      <trans-unit id="gwE_D3w" resname="parts_list.storelocation.title">
+        <source>parts_list.storelocation.title</source>
+        <target state="translated">Bauteile mit Lagerort</target>
+      </trans-unit>
+      <trans-unit id="K3Nj1UQ" resname="parts_list.supplier.title">
+        <source>parts_list.supplier.title</source>
+        <target state="translated">Bauteile mit Lieferant</target>
+      </trans-unit>
+      <trans-unit id="DBlWwba" resname="parts_list.tags.title">
+        <source>parts_list.tags.title</source>
+        <target state="translated">Bauteile mit Tag</target>
+      </trans-unit>
+      <trans-unit id="5tFcxpX" resname="entity.info.common.tab">
+        <source>entity.info.common.tab</source>
+        <target state="translated">Allgemein</target>
+      </trans-unit>
+      <trans-unit id="F0da8x0" resname="entity.info.statistics.tab">
+        <source>entity.info.statistics.tab</source>
+        <target state="translated">Statistik</target>
+      </trans-unit>
+      <trans-unit id="a0Bt1My" resname="entity.info.name">
+        <source>entity.info.name</source>
+        <target state="translated">Name</target>
+      </trans-unit>
+      <trans-unit id="pqMTPTv" resname="entity.info.parent">
+        <source>entity.info.parent</source>
+        <target state="translated">Übergeordnetes Element</target>
+      </trans-unit>
+      <trans-unit id="nDEGgY0" resname="entity.edit.btn">
+        <source>entity.edit.btn</source>
+        <target state="translated">Bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="Rsrawma" resname="entity.info.children_count">
+        <source>entity.info.children_count</source>
+        <target state="translated">Anzahl an Unterelementen</target>
       </trans-unit>
     </body>
   </file>
