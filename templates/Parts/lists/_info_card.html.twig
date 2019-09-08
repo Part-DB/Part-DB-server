@@ -1,7 +1,11 @@
+{% import "helper.twig" as helper %}
+
+{{ helper.breadcrumb_entity_link(entity) }}
+
 <div class="card mb-3">
     <div class="card-header">
         <a class="card-link" data-toggle="collapse" href="#entityInfo">
-            {{ header_label | trans }}: <b>{{ entity.fullPath }}</b>
+            {{ header_label | trans }}: <b>{{ entity.name }}</b>
         </a>
     </div>
     <div id="entityInfo" class="collapse">

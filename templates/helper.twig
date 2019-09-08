@@ -93,3 +93,19 @@
         -
     {% endif %}
 {% endmacro %}
+
+{% macro breadcrumb_entity_link(entity, link_type = "list_parts") %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            {% for e in entity.pathArray %}
+                <li class="breadcrumb-item {% if loop.last %}active{% endif %}">
+                    {% if link_type is not empty and not loop.last %}
+                        <a href="{{ e | entityURL(link_type) }}">{{ e.name }}</a>
+                    {% else %}
+                        {{ e.name }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ol>
+    </nav>
+{% endmacro %}
