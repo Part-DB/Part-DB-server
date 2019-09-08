@@ -126,7 +126,11 @@ class PartsDataTable implements DataTableTypeInterface
             ->add('name', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.name'),
                 'render' => function ($value, Part $context) {
-                    return $this->urlGenerator->infoHTML($context);
+                    return sprintf(
+                        '<a href="%s">%s</a>',
+                        $this->urlGenerator->infoURL($context),
+                        $context->getName()
+                    );
                 },
             ])
             ->add('id', TextColumn::class, [

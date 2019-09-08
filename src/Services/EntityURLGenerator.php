@@ -31,6 +31,7 @@ namespace App\Services;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\Base\DBElement;
 use App\Entity\Parts\Category;
 use App\Entity\Devices\Device;
 use App\Entity\Parts\Footprint;
@@ -46,6 +47,12 @@ use App\Exceptions\EntityNotSupported;
 use Symfony\Component\HttpKernel\HttpCache\Store;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * This service can be used to generate links to controllers for different aspects of an entity
+ * (like info, edit, delete, etc.)
+ * Useful for Twig, where you can generate a link to an entity using a filter.
+ * @package App\Services
+ */
 class EntityURLGenerator
 {
     /**
@@ -56,6 +63,26 @@ class EntityURLGenerator
     public function __construct(UrlGeneratorInterface $urlGenerator)
     {
         $this->urlGenerator = $urlGenerator;
+    }
+
+    /**
+     * Finds the controller name for the class of the entity using the given map.
+     * Throws an exception if the entity class is not known to the map.
+     * @param array $map The map that should be used for determing the controller
+     * @param $entity mixed The entity for which the controller name should be determined.
+     * @return string The name of the controller fitting the entity class
+     * @throws EntityNotSupported
+     */
+    protected function mapToController(array $map, $entity): string
+    {
+        $class = get_class($entity);
+
+        //Check if we have an mapping for the given class
+        if (!array_key_exists($class, $map)) {
+            throw new EntityNotSupported('The given entity is not supported yet!');
+        }
+
+        return $map[$class];
     }
 
     /**
@@ -94,7 +121,7 @@ class EntityURLGenerator
         throw new \InvalidArgumentException('Method is not supported!');
     }
 
-    public function viewURL($entity) : string
+    public function viewURL($entity): string
     {
         if ($entity instanceof Attachment) {
             if ($entity->isExternal()) { //For external attachments, return the link to external path
@@ -107,7 +134,7 @@ class EntityURLGenerator
         throw new EntityNotSupported('The given entity is not supported yet!');
     }
 
-    public function downloadURL($entity) : string
+    public function downloadURL($entity): string
     {
         if ($entity instanceof Attachment) {
             if ($entity->isExternal()) { //For external attachments, return the link to external path
@@ -127,14 +154,13 @@ class EntityURLGenerator
      * @return string The URL to the info page
      * @throws EntityNotSupported If the method is not supported for the given Entity
      */
-    public function infoURL($entity): string
+    public function infoURL(DBElement $entity): string
     {
-        if ($entity instanceof Part) {
-            return $this->urlGenerator->generate('part_info', ['id' => $entity->getID()]);
-        }
+        $map = [
+            Part::class => 'part_info'
+        ];
 
-        //Otherwise throw an error
-        throw new EntityNotSupported('The given entity is not supported yet!');
+        return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
     }
 
     /**
@@ -146,52 +172,21 @@ class EntityURLGenerator
      */
     public function editURL($entity): string
     {
-        if ($entity instanceof Part) {
-            return $this->urlGenerator->generate('part_edit', ['id' => $entity->getID()]);
-        }
+        $map = [
+            Part::class => 'part_edit',
+            AttachmentType::class => 'attachment_type_edit',
+            Category::class => 'category_edit',
+            Device::class => 'device_edit',
+            Supplier::class => 'supplier_edit',
+            Manufacturer::class => 'manufacturer_edit',
+            Storelocation::class => 'store_location_edit',
+            Footprint::class => 'footprint_edit',
+            User::class => 'user_edit',
+            Currency::class => 'currency_edit',
+            MeasurementUnit::class => 'measurement_unit_edit'
+        ];
 
-        if ($entity instanceof AttachmentType) {
-            return $this->urlGenerator->generate('attachment_type_edit', ['id' => $entity->getID()]);
-        }
-
-        if ($entity instanceof Category) {
-            return $this->urlGenerator->generate("category_edit", ['id' => $entity->getID()]);
-        }
-
-        if ($entity instanceof Device) {
-            return $this->urlGenerator->generate("device_edit", ['id' => $entity->getID()]);
-        }
-
-        if ($entity instanceof Supplier) {
-            return $this->urlGenerator->generate("supplier_edit", ['id' => $entity->getID()]);
-        }
-
-        if ($entity instanceof Manufacturer) {
-            return $this->urlGenerator->generate("manufacturer_edit", ['id' => $entity->getID()]);
-        }
-
-        if ($entity instanceof Storelocation) {
-            return $this->urlGenerator->generate("store_location_edit", ['id' => $entity->getID()]);
-        }
-
-        if ($entity instanceof Footprint) {
-            return $this->urlGenerator->generate("footprint_edit", ['id' => $entity->getID()]);
-        }
-
-        if ($entity instanceof User) {
-            return $this->urlGenerator->generate('user_edit', ['id' => $entity->getID()]);
-        }
-
-        if ($entity instanceof Currency) {
-            return $this->urlGenerator->generate('currency_edit', ['id' => $entity->getID()]);
-        }
-
-        if ($entity instanceof MeasurementUnit) {
-            return $this->urlGenerator->generate('measurement_unit_edit', ['id' => $entity->getID()]);
-        }
-
-        //Otherwise throw an error
-        throw new EntityNotSupported('The given entity is not supported yet!');
+        return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
     }
 
     /**
@@ -203,51 +198,21 @@ class EntityURLGenerator
      */
     public function createURL($entity): string
     {
-        if ($entity instanceof Part) {
-            return $this->urlGenerator->generate('part_new');
-        }
+        $map = [
+            Part::class => 'part_new',
+            AttachmentType::class => 'attachment_type_new',
+            Category::class => 'category_new',
+            Device::class => 'device_new',
+            Supplier::class => 'supplier_new',
+            Manufacturer::class => 'manufacturer_new',
+            Storelocation::class => 'store_location_new',
+            Footprint::class => 'footprint_new',
+            User::class => 'user_new',
+            Currency::class => 'currency_new',
+            MeasurementUnit::class => 'measurement_unit_new'
+        ];
 
-        if ($entity instanceof AttachmentType) {
-            return $this->urlGenerator->generate('attachment_type_new');
-        }
-
-        if ($entity instanceof Category) {
-            return $this->urlGenerator->generate('category_new');
-        }
-
-        if ($entity instanceof Device) {
-            return $this->urlGenerator->generate('device_new');
-        }
-
-        if ($entity instanceof Supplier) {
-            return $this->urlGenerator->generate('supplier_new');
-        }
-
-        if ($entity instanceof Manufacturer) {
-            return $this->urlGenerator->generate('manufacturer_new');
-        }
-
-        if ($entity instanceof Storelocation) {
-            return $this->urlGenerator->generate('store_location_new');
-        }
-
-        if ($entity instanceof Footprint) {
-            return $this->urlGenerator->generate('footprint_new');
-        }
-
-        if ($entity instanceof User) {
-            return $this->urlGenerator->generate('user_new');
-        }
-
-        if ($entity instanceof Currency) {
-            return $this->urlGenerator->generate('currency_new');
-        }
-
-        if ($entity instanceof MeasurementUnit) {
-            return $this->urlGenerator->generate('measurement_unit_new');
-        }
-
-        throw new EntityNotSupported('The given entity is not supported yet!');
+        return $this->urlGenerator->generate($this->mapToController($map, $entity));
     }
 
     /**
@@ -258,13 +223,13 @@ class EntityURLGenerator
      * @return string The URL to the page.
      * @throws EntityNotSupported If the method is not supported for the given Entity
      */
-    public function cloneURL($entity): string
+    public function cloneURL(DBElement $entity): string
     {
-        if ($entity instanceof Part) {
-            return $this->urlGenerator->generate('part_clone', ['id' => $entity->getID()]);
-        }
+        $map = [
+            Part::class => 'part_clone'
+        ];
 
-        throw new EntityNotSupported('The given entity is not supported yet!');
+        return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
     }
 
     /**
@@ -274,90 +239,33 @@ class EntityURLGenerator
      * @return string The URL to the page.
      * @throws EntityNotSupported If the method is not supported for the given Entity
      */
-    public function listPartsURL($entity) : string
+    public function listPartsURL(DBElement $entity): string
     {
-        if ($entity instanceof Category) {
-            return $this->urlGenerator->generate('part_list_category', ['id' => $entity->getID()]);
-        }
+        $map = [
+            Category::class => 'part_list_category',
+            Footprint::class => 'part_list_footprint',
+            Manufacturer::class => 'part_list_manufacturer'
+        ];
 
-        if ($entity instanceof Footprint) {
-            return $this->urlGenerator->generate('part_list_footprint', ['id' => $entity->getID()]);
-        }
-
-        if ($entity instanceof Manufacturer) {
-            return $this->urlGenerator->generate('part_list_manufacturer', ['id' => $entity->getID()]);
-        }
-
-        throw new EntityNotSupported('The given entity is not supported yet!');
-
+        return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
     }
 
-    public function deleteURL($entity) : string
+    public function deleteURL(DBElement $entity): string
     {
-        if ($entity instanceof Part) {
-            return $this->urlGenerator->generate('part_delete', ['id' => $entity->getID()]);
-        }
+        $map = [
+            Part::class => 'part_delete',
+            AttachmentType::class => 'attachment_type_delete',
+            Category::class => 'category_delete',
+            Device::class => 'device_delete',
+            Supplier::class => 'supplier_delete',
+            Manufacturer::class => 'manufacturer_delete',
+            Storelocation::class => 'store_location_delete',
+            Footprint::class => 'footprint_delete',
+            User::class => 'user_delete',
+            Currency::class => 'currency_delete',
+            MeasurementUnit::class => 'measurement_unit_delete'
+        ];
 
-        if ($entity instanceof AttachmentType) {
-            return $this->urlGenerator->generate('attachment_type_delete', ['id' => $entity->getID()]);
-        }
-
-        if ($entity instanceof Category) {
-            return $this->urlGenerator->generate('category_delete', ['id' => $entity->getID()]);
-        }
-
-        if ($entity instanceof Device) {
-            return $this->urlGenerator->generate('device_delete', ['id' => $entity->getID()]);
-        }
-
-        if ($entity instanceof Supplier) {
-            return $this->urlGenerator->generate('supplier_delete', ['id' => $entity->getID()]);
-        }
-
-        if ($entity instanceof Manufacturer) {
-            return $this->urlGenerator->generate('manufacturer_delete', ['id' => $entity->getID()]);
-        }
-
-        if ($entity instanceof Storelocation) {
-            return $this->urlGenerator->generate('store_location_delete', ['id' => $entity->getID()]);
-        }
-
-        if ($entity instanceof Footprint) {
-            return $this->urlGenerator->generate('footprint_delete', ['id' => $entity->getID()]);
-        }
-
-        if ($entity instanceof User) {
-            return $this->urlGenerator->generate('user_delete', ['id' => $entity->getID()]);
-        }
-
-        if ($entity instanceof Currency) {
-            return $this->urlGenerator->generate('currency_delete', ['id' => $entity->getID()]);
-        }
-
-        if ($entity instanceof MeasurementUnit) {
-            return $this->urlGenerator->generate('measurement_unit_delete', ['id' => $entity->getID()]);
-        }
-
-        throw new EntityNotSupported('The given entity is not supported yet!');
-    }
-
-    /**
-     * Generates an HTML link to the info page about the given entity.
-     *
-     * @param $entity mixed The entity for which the info link should be generated.
-     *
-     * @return string The HTML of the info page link
-     *
-     * @throws EntityNotSupported
-     */
-    public function infoHTML($entity): string
-    {
-        $href = $this->infoURL($entity);
-
-        if ($entity instanceof NamedDBElement) {
-            return sprintf('<a href="%s">%s</a>', $href, $entity->getName());
-        }
-
-        throw new EntityNotSupported('The given entity is not supported yet!');
+        return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
     }
 }
