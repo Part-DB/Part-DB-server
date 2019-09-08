@@ -2,10 +2,8 @@
 
 {% block content %}
 
+    {% include "Parts/lists/_info_card.html.twig" %}
 
-    {# Set the title for the table here. It will be inserted into the table later.#}
-    <div style="display:none;" id="part-card-header-src">Test</div>
-    
     <div id="part_list" class="table-responsive" data-datatable data-settings='{{ datatable_settings(datatable) }}'>
         <div class="card-body">
             <div class="card">

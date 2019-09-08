@@ -1,0 +1,74 @@
+<div class="card mb-3">
+    <div class="card-header">
+        <a class="card-link" data-toggle="collapse" href="#entityInfo">
+            {% trans %}category.label{% endtrans %}: <b>{{ entity.fullPath }}</b>
+        </a>
+    </div>
+    <div id="entityInfo" class="collapse">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-2">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                            {% trans %}entity.info.common.tab{% endtrans %}
+                        </a>
+                        <a class="nav-link" id="v-pills-statistics-tab" data-toggle="pill" href="#v-pills-statistics" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                            {% trans %}entity.info.statistics.tab{% endtrans %}
+                        </a>
+                    </div>
+                </div>
+                <div class="col-10">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                            <div class="row">
+                                <div class="col-8 form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-3">{% trans %}entity.info.name{% endtrans %}:</label>
+                                        <span class="col form-control-static">{{ entity.name }}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-3">{% trans %}entity.info.parent{% endtrans %}:</label>
+                                        <span class="col form-control-static">
+                                        {% if entity.parent %}
+                                            {{ entity.parent.fullPath }}
+                                        {% else  %}
+                                            -
+                                        {% endif %}
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <a class="btn btn-secondary btn-block mb-2" href="{{ entity | entityURL('edit') }}">
+                                        <i class="fas fa-edit"></i> {% trans %}entity.edit.btn{% endtrans %}
+                                    </a>
+                                    <div class="">
+                                        <span class="text-muted" title="{% trans %}lastModified{% endtrans %}">
+                                            <i class="fas fa-history fa-fw"></i> {{ entity.lastModified | localizeddate("short") }}
+                                        </span>
+                                        <br>
+                                        <span class="text-muted mt-1" title="{% trans %}createdAt{% endtrans %}">
+                                            <i class="fas fa-calendar-plus fa-fw"></i> {{ entity.addedDate | localizeddate("short") }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-statistics" role="tabpanel" aria-labelledby="v-pills-statistics-tab">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-3">{% trans %}entity.info.children_count{% endtrans %}:</label>
+                                    <span class="col form-control-static">{{ entity.children | length }}</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-3">{% trans %}entity.info.parent{% endtrans %}:</label>
+                                    <span class="col form-control-static">{{ entity.parts | length }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

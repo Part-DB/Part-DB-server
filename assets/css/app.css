@@ -433,12 +433,12 @@ table .input-group-btn:last-child>.btn, table .input-group-btn:last-child>.btn-g
 
 .card-header a[data-toggle=collapse]:after {
     /*noinspection CssNoGenericFontName*/
-    font-family: "FA5";
+    font-family: "Font Awesome 5 Free";
     content: "\f106";
     position: absolute;
     right: 20px;
     font-size: 20px;
-    font-weight: 400;
+    font-weight: 900;
     top: 50%;
     line-height: 1;
     margin-top: -10px;
