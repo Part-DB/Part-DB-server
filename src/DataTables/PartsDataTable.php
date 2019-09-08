@@ -35,6 +35,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Services\EntityURLGenerator;
@@ -173,9 +174,25 @@ class PartsDataTable implements DataTableTypeInterface
                 'property' => 'manufacturer',
                 'label' => $this->translator->trans('part.table.manufacturer')
             ])
-            //->add('footprint', TextColumn::class, ['field' => 'footprint.name'])
-            //->add('manufacturer', TextColumn::class, ['field' => 'manufacturer.name' ])
-            //->add('amountSum', TextColumn::class, ['label' => 'instock.label_short'])
+            ->add('storelocation', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.storeLocations'),
+                'render' => function ($value, Part $context) {
+                    $tmp = array();
+                    foreach ($context->getPartLots() as $lot) {
+                        //Ignore lots without storelocation
+                        if ($lot->getStorageLocation() === null) {
+                            continue;
+                        }
+                        $tmp[] = sprintf(
+                            '<a href="%s">%s</a>',
+                            $this->urlGenerator->listPartsURL($lot->getStorageLocation()),
+                            $lot->getStorageLocation()->getName()
+                        );
+
+                    }
+                    return implode('<br>', $tmp);
+                }
+            ])
             ->add('amount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.amount'),
                 'propertyPath' => 'amountSum'
