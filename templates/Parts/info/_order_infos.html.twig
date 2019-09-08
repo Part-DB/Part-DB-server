@@ -11,7 +11,9 @@
         <tbody>
         {% for order in part.orderdetails %}
             <tr class="{% if order.obsolete %}table-danger{% endif %}">
-                <td>{{ order.supplier.name }}</td>
+                <td>
+                    <a href="{{ order.supplier | entityURL('list_parts') }}">{{ order.supplier.name }}</a>
+                </td>
                 <td>{% if order.supplierProductUrl is not empty %}
                         <a href="{{ order.supplierProductUrl }}" target="_blank" class="link-external">{{ order.supplierPartNr }}</a>
                     {% else %}

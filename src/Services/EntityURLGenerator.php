@@ -257,7 +257,9 @@ class EntityURLGenerator
         $map = [
             Category::class => 'part_list_category',
             Footprint::class => 'part_list_footprint',
-            Manufacturer::class => 'part_list_manufacturer'
+            Manufacturer::class => 'part_list_manufacturer',
+            Supplier::class => 'part_list_supplier',
+            Storelocation::class => 'part_list_store_location'
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);

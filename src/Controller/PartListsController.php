@@ -33,6 +33,8 @@ use App\DataTables\PartsDataTable;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\Supplier;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -105,6 +107,51 @@ class PartListsController extends AbstractController
             'entity' => $manufacturer
         ]);
     }
+
+    /**
+     * @Route("/store_location/{id}/parts", name="part_list_store_location")
+     *
+     * @param $id int The id of the category
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function showStorelocation(Storelocation $storelocation, Request $request, DataTableFactory $dataTable)
+    {
+        $table = $dataTable->createFromType(PartsDataTable::class, ['storelocation' => $storelocation])
+            ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
+
+        return $this->render('Parts/lists/store_location_list.html.twig', [
+            'datatable' => $table,
+            'entity' => $storelocation
+        ]);
+    }
+
+    /**
+     * @Route("/supplier/{id}/parts", name="part_list_supplier")
+     *
+     * @param $id int The id of the category
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function showSupplier(Supplier $supplier, Request $request, DataTableFactory $dataTable)
+    {
+        $table = $dataTable->createFromType(PartsDataTable::class, ['supplier' => $supplier])
+            ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
+
+        return $this->render('Parts/lists/supplier_list.html.twig', [
+            'datatable' => $table,
+            'entity' => $supplier
+        ]);
+    }
+
 
     /**
      * @Route("/parts/by_tag/{tag}", name="part_list_tags")

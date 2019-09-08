@@ -35,6 +35,8 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\Supplier;
 use App\Services\EntityURLGenerator;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
@@ -63,15 +65,17 @@ class PartsDataTable implements DataTableTypeInterface
 
     protected function getQuery(QueryBuilder $builder)
     {
-        $builder->select('part')
+        $builder->distinct()->select('part')
             ->addSelect('category')
             ->addSelect('footprint')
             ->addSelect('manufacturer')
             ->addSelect('partUnit')
             ->from(Part::class, 'part')
             ->leftJoin('part.category', 'category')
+            ->leftJoin('part.partLots', 'partLots')
             ->leftJoin('part.footprint', 'footprint')
             ->leftJoin('part.manufacturer', 'manufacturer')
+            ->leftJoin('part.orderdetails', 'orderdetails')
             ->leftJoin('part.partUnit', 'partUnit');
     }
 
@@ -104,6 +108,24 @@ class PartsDataTable implements DataTableTypeInterface
             $list[] = $category;
 
             $builder->andWhere('part.manufacturer IN (:cid)')->setParameter('cid', $list);
+        }
+
+        if (isset($options['storelocation'])) {
+            $location = $options['storelocation'];
+            $repo = $em->getRepository(Storelocation::class);
+            $list = $repo->toNodesList($location);
+            $list[] = $location;
+
+            $builder->andWhere('partLots.storage_location IN (:cid)')->setParameter('cid', $list);
+        }
+
+        if (isset($options['supplier'])) {
+            $location = $options['supplier'];
+            $repo = $em->getRepository(Supplier::class);
+            $list = $repo->toNodesList($location);
+            $list[] = $location;
+
+            $builder->andWhere('orderdetails.supplier IN (:cid)')->setParameter('cid', $list);
         }
 
         if (isset($options['tag'])) {
