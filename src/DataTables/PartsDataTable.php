@@ -38,6 +38,8 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Services\EntityURLGenerator;
+use App\Services\ToolsTreeBuilder;
+use App\Services\TreeBuilder;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
@@ -56,11 +58,13 @@ class PartsDataTable implements DataTableTypeInterface
      */
     protected $urlGenerator;
     protected $translator;
+    protected $treeBuilder;
 
-    public function __construct(EntityURLGenerator $urlGenerator, TranslatorInterface $translator)
+    public function __construct(EntityURLGenerator $urlGenerator, TranslatorInterface $translator, TreeBuilder $treeBuilder)
     {
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
+        $this->treeBuilder = $treeBuilder;
     }
 
     protected function getQuery(QueryBuilder $builder)
@@ -85,8 +89,7 @@ class PartsDataTable implements DataTableTypeInterface
 
         if (isset($options['category'])) {
             $category = $options['category'];
-            $repo = $em->getRepository(Category::class);
-            $list = $repo->toNodesList($category);
+            $list = $this->treeBuilder->typeToNodesList(Category::class, $category);
             $list[] = $category;
 
             $builder->andWhere('part.category IN (:cid)')->setParameter('cid', $list);
@@ -94,8 +97,7 @@ class PartsDataTable implements DataTableTypeInterface
 
         if (isset($options['footprint'])) {
             $category = $options['footprint'];
-            $repo = $em->getRepository(Footprint::class);
-            $list = $repo->toNodesList($category);
+            $list = $this->treeBuilder->typeToNodesList(Footprint::class, $category);
             $list[] = $category;
 
             $builder->andWhere('part.footprint IN (:cid)')->setParameter('cid', $list);
@@ -103,8 +105,7 @@ class PartsDataTable implements DataTableTypeInterface
 
         if (isset($options['manufacturer'])) {
             $category = $options['manufacturer'];
-            $repo = $em->getRepository(Manufacturer::class);
-            $list = $repo->toNodesList($category);
+            $list = $this->treeBuilder->typeToNodesList(Manufacturer::class, $category);
             $list[] = $category;
 
             $builder->andWhere('part.manufacturer IN (:cid)')->setParameter('cid', $list);
@@ -112,18 +113,16 @@ class PartsDataTable implements DataTableTypeInterface
 
         if (isset($options['storelocation'])) {
             $location = $options['storelocation'];
-            $repo = $em->getRepository(Storelocation::class);
-            $list = $repo->toNodesList($location);
+            $list = $this->treeBuilder->typeToNodesList(Storelocation::class, $location);
             $list[] = $location;
 
             $builder->andWhere('partLots.storage_location IN (:cid)')->setParameter('cid', $list);
         }
 
         if (isset($options['supplier'])) {
-            $location = $options['supplier'];
-            $repo = $em->getRepository(Supplier::class);
-            $list = $repo->toNodesList($location);
-            $list[] = $location;
+            $supplier = $options['supplier'];
+            $list = $this->treeBuilder->typeToNodesList(Supplier::class, $supplier);
+            $list[] = $supplier;
 
             $builder->andWhere('orderdetails.supplier IN (:cid)')->setParameter('cid', $list);
         }

@@ -170,7 +170,6 @@ class TreeBuilder
      * @param string $class_name The class name of the entity you want to retrieve.
      * @param StructuralDBElement|null $parent This entity will be used as root element. Set to null, to use global root
      * @return StructuralDBElement[] A flattened list containing the tree elements.
-     * @throws \Psr\Cache\InvalidArgumentException
      */
     public function typeToNodesList(string $class_name, ?StructuralDBElement $parent = null): array
     {
