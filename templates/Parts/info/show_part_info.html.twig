@@ -82,7 +82,7 @@
             </ul>
             <div class="tab-content" id="myTabContent">
                 {% if part.comment is not empty %}
-                    <div class="tab-pane fade show active" id="comment" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="tab-pane fade show" id="comment" role="tabpanel" aria-labelledby="home-tab">
                         <div class="container-fluid mt-2">
                             {{ part.comment|bbCode }}
                         </div>
