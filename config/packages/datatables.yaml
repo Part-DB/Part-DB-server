@@ -13,7 +13,7 @@ datatables:
                             rt
                             <'card-footer card-footer-table text-muted' i >
                         >
-                        <'row'<'col mt-2' l> <'col mt-2'<'pull-right' p>>>"
+                        <'row'<'col mt-2 input-group' B l> <'col mt-2' <'pull-right' p>>>"
         pagingType: 'simple_numbers'
         searching: true
         stateSave: true
