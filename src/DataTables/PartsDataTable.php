@@ -142,7 +142,7 @@ class PartsDataTable implements DataTableTypeInterface
             ])
             ->add('category', EntityColumn::class, [
                 'label' => $this->translator->trans('part.table.category'),
-                'property' => 'category'
+                'property' => 'category',
             ])
             ->add('footprint', EntityColumn::class, [
                 'property' => 'footprint',

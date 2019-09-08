@@ -33,12 +33,24 @@ namespace App\DataTables\Column;
 
 
 use App\Entity\Base\NamedDBElement;
+use App\Entity\Parts\Part;
+use App\Services\EntityURLGenerator;
 use Omines\DataTablesBundle\Column\AbstractColumn;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 class EntityColumn extends AbstractColumn
 {
+
+    protected $urlGenerator;
+    protected $accessor;
+
+    public function __construct(EntityURLGenerator $URLGenerator, PropertyAccessorInterface $accessor)
+    {
+        $this->urlGenerator = $URLGenerator;
+        $this->accessor = $accessor;
+    }
 
     /**
      * The normalize function is responsible for converting parsed and processed data to a datatables-appropriate type.
@@ -60,6 +72,20 @@ class EntityColumn extends AbstractColumn
 
         $resolver->setDefault('field', function (Options $option) {
             return $option['property'] . '.name';
+        });
+
+        $resolver->setDefault('render', function (Options $options) {
+            return function ($value, Part $context) use ($options) {
+                $entity = $this->accessor->getValue($context, $options['property']);
+
+                if ($entity) {
+                    return sprintf(
+                        '<a href="%s">%s</a>',
+                        $this->urlGenerator->listPartsURL($entity),
+                        $value
+                    );
+                }
+            };
         });
     }
 }
