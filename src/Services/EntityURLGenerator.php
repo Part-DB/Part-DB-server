@@ -277,8 +277,17 @@ class EntityURLGenerator
     public function listPartsURL($entity) : string
     {
         if ($entity instanceof Category) {
-            return $this->urlGenerator->generate('app_partlists_showcategory', ['id' => $entity->getID()]);
+            return $this->urlGenerator->generate('part_list_category', ['id' => $entity->getID()]);
         }
+
+        if ($entity instanceof Footprint) {
+            return $this->urlGenerator->generate('part_list_footprint', ['id' => $entity->getID()]);
+        }
+
+        if ($entity instanceof Manufacturer) {
+            return $this->urlGenerator->generate('part_list_manufacturer', ['id' => $entity->getID()]);
+        }
+
         throw new EntityNotSupported('The given entity is not supported yet!');
 
     }

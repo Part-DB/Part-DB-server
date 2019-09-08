@@ -83,7 +83,7 @@ class TreeController extends AbstractController
         if ($footprint !== null) {
             $tree[] = $builder->elementToTreeNode($footprint);
         } else {
-            $tree = $builder->typeToTree(Footprint::class, null);
+            $tree = $builder->typeToTree(Footprint::class);
         }
 
 
@@ -115,7 +115,7 @@ class TreeController extends AbstractController
         if ($manufacturer !== null) {
             $tree[] = $builder->elementToTreeNode($manufacturer);
         } else {
-            $tree = $builder->typeToTree(Manufacturer::class, null);
+            $tree = $builder->typeToTree(Manufacturer::class);
         }
 
 

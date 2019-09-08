@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block  title %}
+{% trans %}parts_list.manufacturer.title{% endtrans %} {{ entity.name }}
+{% endblock %}
+
+{% block content %}
+
+    {% include "Parts/lists/_info_card.html.twig" with {'header_label': 'manufacturer.label'} %}
+
+    {% include "Parts/lists/_parts_list.html.twig" %}
+
+{% endblock %}

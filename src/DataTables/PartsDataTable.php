@@ -32,6 +32,8 @@ namespace App\DataTables;
 use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\Entity\Parts\Category;
+use App\Entity\Parts\Footprint;
+use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Services\EntityURLGenerator;
 use Doctrine\ORM\QueryBuilder;
@@ -75,14 +77,33 @@ class PartsDataTable implements DataTableTypeInterface
 
     protected function buildCriteria(QueryBuilder $builder, array $options)
     {
+        $em = $builder->getEntityManager();
+
         if (isset($options['category'])) {
-            $em = $builder->getEntityManager();
             $category = $options['category'];
             $repo = $em->getRepository(Category::class);
             $list = $repo->toNodesList($category);
             $list[] = $category;
 
             $builder->andWhere('part.category IN (:cid)')->setParameter('cid', $list);
+        }
+
+        if (isset($options['footprint'])) {
+            $category = $options['footprint'];
+            $repo = $em->getRepository(Footprint::class);
+            $list = $repo->toNodesList($category);
+            $list[] = $category;
+
+            $builder->andWhere('part.footprint IN (:cid)')->setParameter('cid', $list);
+        }
+
+        if (isset($options['manufacturer'])) {
+            $category = $options['manufacturer'];
+            $repo = $em->getRepository(Manufacturer::class);
+            $list = $repo->toNodesList($category);
+            $list[] = $category;
+
+            $builder->andWhere('part.manufacturer IN (:cid)')->setParameter('cid', $list);
         }
 
         if (isset($options['tag'])) {

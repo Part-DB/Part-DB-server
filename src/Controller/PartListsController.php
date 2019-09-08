@@ -31,6 +31,8 @@ namespace App\Controller;
 
 use App\DataTables\PartsDataTable;
 use App\Entity\Parts\Category;
+use App\Entity\Parts\Footprint;
+use App\Entity\Parts\Manufacturer;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,7 +41,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PartListsController extends AbstractController
 {
     /**
-     * @Route("/category/{id}/parts")
+     * @Route("/category/{id}/parts", name="part_list_category")
      *
      * @param $id int The id of the category
      *
@@ -57,6 +59,50 @@ class PartListsController extends AbstractController
         return $this->render('Parts/lists/category_list.html.twig', [
             'datatable' => $table,
             'entity' => $category
+        ]);
+    }
+
+    /**
+     * @Route("/footprint/{id}/parts", name="part_list_footprint")
+     *
+     * @param $id int The id of the category
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function showFootprint(Footprint $footprint, Request $request, DataTableFactory $dataTable)
+    {
+        $table = $dataTable->createFromType(PartsDataTable::class, ['footprint' => $footprint])
+            ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
+
+        return $this->render('Parts/lists/footprint_list.html.twig', [
+            'datatable' => $table,
+            'entity' => $footprint
+        ]);
+    }
+
+    /**
+     * @Route("/manufacturer/{id}/parts", name="part_list_manufacturer")
+     *
+     * @param $id int The id of the category
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function showManufacturer(Manufacturer $manufacturer, Request $request, DataTableFactory $dataTable)
+    {
+        $table = $dataTable->createFromType(PartsDataTable::class, ['manufacturer' => $manufacturer])
+            ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
+
+        return $this->render('Parts/lists/manufacturer_list.html.twig', [
+            'datatable' => $table,
+            'entity' => $manufacturer
         ]);
     }
 

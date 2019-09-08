@@ -1,7 +1,7 @@
 <div class="card mb-3">
     <div class="card-header">
         <a class="card-link" data-toggle="collapse" href="#entityInfo">
-            {% trans %}category.label{% endtrans %}: <b>{{ entity.fullPath }}</b>
+            {{ header_label | trans }}: <b>{{ entity.fullPath }}</b>
         </a>
     </div>
     <div id="entityInfo" class="collapse">
