@@ -105,7 +105,6 @@ class AmountFormatter
         if (!is_numeric($value)) {
             throw new \InvalidArgumentException('$value must be an numeric value!');
         }
-
         $value = (float) $value;
 
         //Find out what options to use

@@ -38,6 +38,7 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
+use App\Services\AmountFormatter;
 use App\Services\EntityURLGenerator;
 use App\Services\ToolsTreeBuilder;
 use App\Services\TreeBuilder;
@@ -60,12 +61,15 @@ class PartsDataTable implements DataTableTypeInterface
     protected $urlGenerator;
     protected $translator;
     protected $treeBuilder;
+    protected $amountFormatter;
 
-    public function __construct(EntityURLGenerator $urlGenerator, TranslatorInterface $translator, TreeBuilder $treeBuilder)
+    public function __construct(EntityURLGenerator $urlGenerator, TranslatorInterface $translator,
+                                TreeBuilder $treeBuilder, AmountFormatter $amountFormatter)
     {
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
         $this->treeBuilder = $treeBuilder;
+        $this->amountFormatter = $amountFormatter;
     }
 
     protected function getQuery(QueryBuilder $builder)
@@ -195,11 +199,17 @@ class PartsDataTable implements DataTableTypeInterface
             ])
             ->add('amount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.amount'),
-                'propertyPath' => 'amountSum'
+                'render' => function ($value, Part $context) {
+                    $amount = $context->getAmountSum();
+                    return $this->amountFormatter->format($amount, $context->getPartUnit());
+                }
             ])
             ->add('minamount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.minamount'),
-                'visible' => false
+                'visible' => false,
+                'render' => function ($value, Part $context) {
+                    return $this->amountFormatter->format($value, $context->getPartUnit());
+                }
             ])
             ->add('partUnit', TextColumn::class, [
                 'field' => 'partUnit.name',
