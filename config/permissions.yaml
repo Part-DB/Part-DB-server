@@ -1,23 +1,37 @@
 # In this file the possible permissions are defined.
 # This should be compatible with the legacy Part-DB
 
+groups:
+  parts:
+    label: "perm.group.parts"
+  structures:
+    label: "perm.group.structures"
+  system:
+    label: "perm.group.system"
+
+
 perms: # Here comes a list with all Permission names (they have a perm_[name] coloumn in DB)
 
 # Part related permissions
 
   parts: # e.g. this maps to perms_parts in User/Group database
-    # label: "perm.parts"
+    group: "parts"
+    label: "perm.parts"
     operations: # Here are all possible operations are listed => the op name is mapped to bit value
       read:
+        label: "perm.read"
         bit: 0
       edit:
-        # label: "perm.part.edit"
+        label: "perm.edit"
         bit: 2
       create:
+        label: "perm.create"
         bit: 4
       move:
+        label: "perm.part.move"
         bit: 6
       delete:
+        label: "perm.delete"
         bit: 8
       search:
         bit: 10
@@ -41,10 +55,13 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 30
 
   parts_name: &PART_ATTRIBUTE # We define a template here, that we can use for all part attributes.
+    group: "parts"
     operations:
       read:
+        label: "perm.read"
         bit: 0
       edit:
+        label: "perm.edit"
         bit: 2
 
   parts_description:
@@ -81,6 +98,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
     *PART_ATTRIBUTE
 
   storelocations: &PART_CONTAINING
+    group: "structures"
     operations:
       read:
         bit: 0
@@ -131,6 +149,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 10
 
   groups:
+    group: "system"
     operations:
       read:
         bit: 0
@@ -146,6 +165,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 10
 
   users:
+    group: "system"
     operations:
       read:
         bit: 0
@@ -167,6 +187,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 16
 
   database:
+    group: "system"
     operations:
       see_status:
         bit: 0
@@ -178,6 +199,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 2
 
   config:
+    group: "system"
     operations:
       read_config:
         bit: 0
@@ -187,6 +209,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 6
 
   system:
+    group: "system"
     operations:
       use_debug:
         bit: 0
@@ -196,6 +219,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 4
 
   devices_parts:
+    group: "parts"
     operations:
       read:
         bit: 0

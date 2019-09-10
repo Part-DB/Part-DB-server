@@ -45,10 +45,17 @@ class PermissionsConfiguration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('permissions');
 
         $rootNode->children()
+            ->arrayNode('groups')
+            ->arrayPrototype()
+            ->children()
+            ->scalarNode('label')->end();
+
+        $rootNode->children()
             ->arrayNode('perms')
             ->arrayPrototype()
             ->children()
                 ->scalarNode('label')->end()
+                ->scalarNode('group')->end()
                 ->arrayNode('operations')
                 ->arrayPrototype()
                 ->children()

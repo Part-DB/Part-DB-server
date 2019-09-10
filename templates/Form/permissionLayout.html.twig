@@ -1,0 +1,52 @@
+{% block permission_row %}
+    <tr>
+        <td>
+            <b>{{ form.vars.label | trans }}</b>
+            {{ form_errors(form) }}
+        </td>
+        <td>
+            {% for op in form %}
+                {{ form_widget(op) }}
+                {{ form_errors(op) }}
+            {% endfor %}
+        </td>
+    </tr>
+{% endblock %}
+
+{% block permission_group_row %}
+    {{ form_errors(form) }}
+    <table class="table table-bordered table-sm">
+        <thead>
+        <tr>
+            <th>{% trans %}permission.edit.permission{% endtrans %}</th>
+            <th>{% trans %}permission.edit.value{% endtrans %}</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for perm in form %}
+            {{ form_row(perm) }}
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block permissions_row %}
+    <ul class="nav nav-tabs">
+        {% for group in form %}
+            <li class="nav-item">
+                <a class="nav-link {% if loop.first %}active{% endif %}"
+                   data-toggle="tab" role="tab" href="#group_row_{{ group.vars.name }}">{{ group.vars.label | trans }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="tab-content mt-2">
+        {% for group in form %}
+            <div class="tab-pane {% if loop.first %}active{% endif %}" id="group_row_{{ group.vars.name }}">
+                {{ form_row(group) }}
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

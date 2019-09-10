@@ -55,7 +55,10 @@ window.bootbox = require('bootbox')
 
 // Includes required for tag input
 require('./tagsinput.js');
-require('../css/tagsinput.css')
+require('../css/tagsinput.css');
+
+//Tristate checkbox support
+require('./jquery.tristate.js');
 
 require('../ts_src/ajax_ui');
 import {ajaxUI} from "../ts_src/ajax_ui";

@@ -60,12 +60,17 @@ class PermissionResolver
 
 
 
-        $this->permission_structure = $this->getPermissionStructure();
+        $this->permission_structure = $this->generatePermissionStructure();
 
         //dump($this->permission_structure);
     }
 
-    protected function getPermissionStructure()
+    public function getPermissionStructure() : array
+    {
+        return $this->permission_structure;
+    }
+
+    protected function generatePermissionStructure()
     {
 
         $cache = new ConfigCache($this->cache_file, $this->is_debug);
@@ -164,6 +169,24 @@ class PermissionResolver
         }
 
         return null; //The inherited value is never resolved. Should be treat as false, in Voters.
+    }
+
+    /**
+     * Sets the new value for the operation
+     * @param HasPermissionsInterface $user The user or group for which the value should be changed.
+     * @param string $permission The name of the permission that should be changed.
+     * @param string $operation The name of the operation that should be changed.
+     * @param bool|null $new_val The new value for the permission. true = ALLOW, false = DISALLOW, null = INHERIT
+     */
+    public function setPermission(HasPermissionsInterface $user, string $permission, string $operation, ?bool $new_val) : void
+    {
+        //Get the permissions from the user
+        $perm_list = $user->getPermissions();
+
+        //Determine bit number using our configuration
+        $bit = $this->permission_structure['perms'][$permission]['operations'][$operation]['bit'];
+
+        $perm_list->setPermissionValue($permission, $bit, $new_val);
     }
 
     /**

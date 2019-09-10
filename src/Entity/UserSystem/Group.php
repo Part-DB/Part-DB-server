@@ -64,6 +64,12 @@ class Group extends StructuralDBElement implements HasPermissionsInterface
      */
     protected $permissions;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->permissions = new PermissionsEmbed();
+    }
+
     /**
      * Returns the ID as an string, defined by the element class.
      * This should have a form like P000014, for a part with ID 14.

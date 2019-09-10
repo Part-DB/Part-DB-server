@@ -260,7 +260,7 @@ class AjaxUI {
     {
         return  {
             success: this.onAjaxComplete,
-            beforeSerialize: function() : boolean {
+            beforeSerialize: function($form, options) : boolean {
 
                 //Update the content of textarea fields using CKEDITOR before submitting.
                 //@ts-ignore
@@ -271,6 +271,9 @@ class AjaxUI {
                         CKEDITOR.instances[name].updateElement();
                     }
                 }
+
+                //Check every checkbox field, so that it will be submitted (only valid fields are submitted)
+                $form.find("input[type=checkbox].tristate").prop('checked', true);
 
                 return true;
             },

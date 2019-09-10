@@ -186,6 +186,11 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
      */
     protected $instock_comment_a;
 
+    public function __construct()
+    {
+        $this->permissions = new PermissionsEmbed();
+    }
+
     /**
      * Checks if the current user, is the user which represents the not logged in (anonymous) users.
      *

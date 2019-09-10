@@ -35,6 +35,8 @@ namespace App\Form;
 use App\Entity\UserSystem\Group;
 use App\Entity\Base\NamedDBElement;
 use App\Entity\Base\StructuralDBElement;
+use App\Form\Permissions\PermissionsType;
+use App\Form\Permissions\PermissionType;
 use App\Form\Type\StructuralEntityType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -111,6 +113,11 @@ class UserAdminForm extends AbstractType
                 'disabled' => !$this->security->isGranted('edit_infos', $entity),
             ])
 
+            ->add('permissions', PermissionsType::class, [
+                'mapped' => false,
+                'data' => $builder->getData(),
+                //'user' => $builder->getData(),
+            ])
         ;
         /*->add('comment', CKEditorType::class, ['required' => false,
             'label' => 'comment.label', 'attr' => ['rows' => 4], 'help' => 'bbcode.hint',

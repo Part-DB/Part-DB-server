@@ -212,6 +212,15 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
     });
 });
 
+$(document).on("ajaxUI:start ajaxUI:reload", function() {
+    //@ts-ignore
+    $(".tristate").tristate( {
+        checked:            "true",
+        unchecked:          "false",
+        indeterminate:      "indeterminate",
+    });
+});
+
 //Re initialize fileinputs on reload
 $(document).on("ajaxUI:reload", function () {
     //@ts-ignore

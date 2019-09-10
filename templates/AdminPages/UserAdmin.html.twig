@@ -6,10 +6,21 @@
 
 {% block comment %}{% endblock %}
 
+{% block additional_pills %}
+    <li class="nav-item"><a data-toggle="tab" class="nav-link link-anchor" href="#tab_permissions">{% trans %}admin.options{% endtrans %}</a></li>
+{% endblock %}
+
+
 {% block additional_controls %}
     {{ form_row(form.group) }}
     {{ form_row(form.first_name) }}
     {{ form_row(form.last_name) }}
     {{ form_row(form.email) }}
     {{ form_row(form.department) }}
+{% endblock %}
+
+{% block additional_panes %}
+    <div class="tab-pane" id="tab_permissions">
+        {{ form_row(form.permissions) }}
+    </div>
 {% endblock %}
