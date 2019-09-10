@@ -170,6 +170,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
     label: "perm.part.attachment_types"
 
   tools:
+    label: "perm.part.tools"
     operations:
       import:
         label: "perm.tools.import"
@@ -191,6 +192,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 10
 
   groups:
+    label: "perm.groups"
     group: "system"
     operations:
       read:
@@ -213,6 +215,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 10
 
   users:
+    label: "perm.users"
     group: "system"
     operations:
       read:
@@ -244,6 +247,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 16
 
   database:
+    label: "perm.database"
     group: "system"
     operations:
       see_status:
@@ -260,6 +264,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 2
 
   config:
+    label: "perm.config"
     group: "system"
     operations:
       read_config:
@@ -273,6 +278,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 6
 
   system:
+    label: "perm.system"
     group: "system"
     operations:
       use_debug:
@@ -286,6 +292,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 4
 
   devices_parts:
+    label: "perm.device_parts"
     group: "parts"
     operations:
       read:
@@ -302,6 +309,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 8
 
   self:
+    label: "perm.self"
     operations:
       edit_infos:
         label: "perm.self.edit_infos"
@@ -317,6 +325,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 6
 
   labels:
+    label: "perm.labels"
     operations:
       create_labels:
         label: "perm.self.create_labels"

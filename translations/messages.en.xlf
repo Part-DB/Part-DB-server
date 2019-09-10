@@ -1833,6 +1833,338 @@ Element 3</target>
         <source>entity.info.children_count</source>
         <target state="translated">Count of children elements</target>
       </trans-unit>
+      <trans-unit id="P.GFwjI" resname="perm.group.parts">
+        <source>perm.group.parts</source>
+        <target state="translated">Parts</target>
+      </trans-unit>
+      <trans-unit id="WLb5wES" resname="perm.group.structures">
+        <source>perm.group.structures</source>
+        <target state="translated">Data structures</target>
+      </trans-unit>
+      <trans-unit id="ziA7M4Z" resname="perm.group.system">
+        <source>perm.group.system</source>
+        <target state="translated">System</target>
+      </trans-unit>
+      <trans-unit id="qPM1wy5" resname="perm.parts">
+        <source>perm.parts</source>
+        <target state="translated">Common</target>
+      </trans-unit>
+      <trans-unit id="eeUmOBN" resname="perm.read">
+        <source>perm.read</source>
+        <target state="translated">View</target>
+      </trans-unit>
+      <trans-unit id="lMypPBw" resname="perm.edit">
+        <source>perm.edit</source>
+        <target state="translated">Edit</target>
+      </trans-unit>
+      <trans-unit id="d8mILUm" resname="perm.create">
+        <source>perm.create</source>
+        <target state="translated">Create</target>
+      </trans-unit>
+      <trans-unit id="cPI6oKn" resname="perm.part.move">
+        <source>perm.part.move</source>
+        <target state="translated">Change category</target>
+      </trans-unit>
+      <trans-unit id="oCKKcDZ" resname="perm.delete">
+        <source>perm.delete</source>
+        <target state="translated">Delete</target>
+      </trans-unit>
+      <trans-unit id="blHcQm6" resname="perm.part.search">
+        <source>perm.part.search</source>
+        <target state="translated">Search</target>
+      </trans-unit>
+      <trans-unit id="YaLEthp" resname="perm.part.all_parts">
+        <source>perm.part.all_parts</source>
+        <target state="translated">List all parts</target>
+      </trans-unit>
+      <trans-unit id="QTbFLlT" resname="perm.part.no_price_parts">
+        <source>perm.part.no_price_parts</source>
+        <target state="translated">List parts without price infos</target>
+      </trans-unit>
+      <trans-unit id="ym76SPS" resname="perm.part.obsolete_parts">
+        <source>perm.part.obsolete_parts</source>
+        <target state="translated">List obsolete parts</target>
+      </trans-unit>
+      <trans-unit id="juT_zEM" resname="perm.part.unknown_instock_parts">
+        <source>perm.part.unknown_instock_parts</source>
+        <target state="translated">Show parts with unknown instock</target>
+      </trans-unit>
+      <trans-unit id="NiOXKwC" resname="perm.part.change_favorite">
+        <source>perm.part.change_favorite</source>
+        <target state="translated">Change favorite status</target>
+      </trans-unit>
+      <trans-unit id="TXG_vef" resname="perm.part.show_favorite">
+        <source>perm.part.show_favorite</source>
+        <target state="translated">List favorite parts</target>
+      </trans-unit>
+      <trans-unit id="GMNxlDb" resname="perm.part.show_last_edit_parts">
+        <source>perm.part.show_last_edit_parts</source>
+        <target state="translated">Show last edited/added parts</target>
+      </trans-unit>
+      <trans-unit id="7C4wYps" resname="perm.part.show_users">
+        <source>perm.part.show_users</source>
+        <target state="translated">Show last modifying user</target>
+      </trans-unit>
+      <trans-unit id="IOXC4wr" resname="perm.part.show_history">
+        <source>perm.part.show_history</source>
+        <target state="translated">Show history</target>
+      </trans-unit>
+      <trans-unit id="JnfedoQ" resname="perm.part.name">
+        <source>perm.part.name</source>
+        <target state="translated">Name</target>
+      </trans-unit>
+      <trans-unit id="5a.KkeU" resname="perm.part.description">
+        <source>perm.part.description</source>
+        <target state="translated">Description</target>
+      </trans-unit>
+      <trans-unit id="zLUHVDn" resname="perm.part.instock">
+        <source>perm.part.instock</source>
+        <target state="translated">Instock</target>
+      </trans-unit>
+      <trans-unit id="0woqdF9" resname="perm.part.mininstock">
+        <source>perm.part.mininstock</source>
+        <target state="translated">Minimum instock</target>
+      </trans-unit>
+      <trans-unit id="IXHxTEP" resname="perm.part.comment">
+        <source>perm.part.comment</source>
+        <target state="translated">Comment</target>
+      </trans-unit>
+      <trans-unit id="B_OF7Kn" resname="perm.part.storelocation">
+        <source>perm.part.storelocation</source>
+        <target state="translated">Storelocation</target>
+      </trans-unit>
+      <trans-unit id="yPQiYsi" resname="perm.part.manufacturer">
+        <source>perm.part.manufacturer</source>
+        <target state="translated">Manufacturer</target>
+      </trans-unit>
+      <trans-unit id="L2pl0H1" resname="perm.part.orderdetails">
+        <source>perm.part.orderdetails</source>
+        <target state="translated">Order informations</target>
+      </trans-unit>
+      <trans-unit id="4CedmDv" resname="perm.part.prices">
+        <source>perm.part.prices</source>
+        <target state="translated">Prices</target>
+      </trans-unit>
+      <trans-unit id="3.LGmWy" resname="perm.part.attachments">
+        <source>perm.part.attachments</source>
+        <target state="translated">File attachments</target>
+      </trans-unit>
+      <trans-unit id="VkclZwf" resname="perm.part.order">
+        <source>perm.part.order</source>
+        <target state="translated">Orders</target>
+      </trans-unit>
+      <trans-unit id="XPba.S5" resname="perm.storelocations">
+        <source>perm.storelocations</source>
+        <target state="translated">Storelocations</target>
+      </trans-unit>
+      <trans-unit id="1MkJQeq" resname="perm.move">
+        <source>perm.move</source>
+        <target state="translated">Move</target>
+      </trans-unit>
+      <trans-unit id="IRFIEMr" resname="perm.list_parts">
+        <source>perm.list_parts</source>
+        <target state="translated">List parts</target>
+      </trans-unit>
+      <trans-unit id="h6Bzdt0" resname="perm.part.footprints">
+        <source>perm.part.footprints</source>
+        <target state="translated">Footprints</target>
+      </trans-unit>
+      <trans-unit id="f6E.ER4" resname="perm.part.categories">
+        <source>perm.part.categories</source>
+        <target state="translated">Categories</target>
+      </trans-unit>
+      <trans-unit id="yYWackl" resname="perm.part.supplier">
+        <source>perm.part.supplier</source>
+        <target state="translated">Suppliers</target>
+      </trans-unit>
+      <trans-unit id="_dwi_1Y" resname="perm.part.manufacturers">
+        <source>perm.part.manufacturers</source>
+        <target state="translated">Manufacturers</target>
+      </trans-unit>
+      <trans-unit id="5_k9ofl" resname="perm.part.devices">
+        <source>perm.part.devices</source>
+        <target state="translated">Devices</target>
+      </trans-unit>
+      <trans-unit id="hgZrqP_" resname="perm.part.attachment_types">
+        <source>perm.part.attachment_types</source>
+        <target state="translated">Attachment types</target>
+      </trans-unit>
+      <trans-unit id="BEdSmOu" resname="perm.tools.import">
+        <source>perm.tools.import</source>
+        <target state="translated">Import</target>
+      </trans-unit>
+      <trans-unit id="PEyfknN" resname="perm.tools.labels">
+        <source>perm.tools.labels</source>
+        <target state="translated">Labels</target>
+      </trans-unit>
+      <trans-unit id="fWusD07" resname="perm.tools.calculator">
+        <source>perm.tools.calculator</source>
+        <target state="translated">Resistor calculator</target>
+      </trans-unit>
+      <trans-unit id="ripLPj1" resname="perm.tools.footprints">
+        <source>perm.tools.footprints</source>
+        <target state="translated">Footprints</target>
+      </trans-unit>
+      <trans-unit id="1bNm4cw" resname="perm.tools.ic_logos">
+        <source>perm.tools.ic_logos</source>
+        <target state="translated">IC logos</target>
+      </trans-unit>
+      <trans-unit id="soh_cnt" resname="perm.tools.statistics">
+        <source>perm.tools.statistics</source>
+        <target state="translated">Statistics</target>
+      </trans-unit>
+      <trans-unit id="2r3a5MK" resname="perm.edit_permissions">
+        <source>perm.edit_permissions</source>
+        <target state="translated">Edit permissions</target>
+      </trans-unit>
+      <trans-unit id="dURrIXD" resname="perm.users.edit_user_name">
+        <source>perm.users.edit_user_name</source>
+        <target state="translated">Edit user name</target>
+      </trans-unit>
+      <trans-unit id="w4ujxml" resname="perm.users.edit_change_group">
+        <source>perm.users.edit_change_group</source>
+        <target state="translated">Change group</target>
+      </trans-unit>
+      <trans-unit id="BBOEDsQ" resname="perm.users.edit_infos">
+        <source>perm.users.edit_infos</source>
+        <target state="translated">Edit infos</target>
+      </trans-unit>
+      <trans-unit id="Q1NDQfs" resname="perm.users.edit_permissions">
+        <source>perm.users.edit_permissions</source>
+        <target state="translated">Edit permissions</target>
+      </trans-unit>
+      <trans-unit id="d6eo3tF" resname="perm.users.set_password">
+        <source>perm.users.set_password</source>
+        <target state="translated">Set password</target>
+      </trans-unit>
+      <trans-unit id="tJ6RatH" resname="perm.users.change_user_settings">
+        <source>perm.users.change_user_settings</source>
+        <target state="translated">Change user settings</target>
+      </trans-unit>
+      <trans-unit id="X58DtVF" resname="perm.database.see_status">
+        <source>perm.database.see_status</source>
+        <target state="translated">Show status</target>
+      </trans-unit>
+      <trans-unit id="1KSFyeg" resname="perm.database.update_db">
+        <source>perm.database.update_db</source>
+        <target state="translated">Update DB</target>
+      </trans-unit>
+      <trans-unit id="7FNNcYZ" resname="perm.database.read_db_settings">
+        <source>perm.database.read_db_settings</source>
+        <target state="translated">Read DB settings</target>
+      </trans-unit>
+      <trans-unit id="ppPTck0" resname="perm.database.write_db_settings">
+        <source>perm.database.write_db_settings</source>
+        <target state="translated">Write DB settings</target>
+      </trans-unit>
+      <trans-unit id="h1iQLeD" resname="perm.config.read_config">
+        <source>perm.config.read_config</source>
+        <target state="translated">Read config</target>
+      </trans-unit>
+      <trans-unit id="xnOnBUH" resname="perm.config.edit_config">
+        <source>perm.config.edit_config</source>
+        <target state="translated">Edit config</target>
+      </trans-unit>
+      <trans-unit id="soLL1gr" resname="perm.config.server_info">
+        <source>perm.config.server_info</source>
+        <target state="translated">Server info</target>
+      </trans-unit>
+      <trans-unit id="P5OVHh2" resname="perm.config.use_debug">
+        <source>perm.config.use_debug</source>
+        <target state="translated">Use debug tools</target>
+      </trans-unit>
+      <trans-unit id="WsTnNCU" resname="perm.show_logs">
+        <source>perm.show_logs</source>
+        <target state="translated">Show logs</target>
+      </trans-unit>
+      <trans-unit id="zvV9XS2" resname="perm.delete_logs">
+        <source>perm.delete_logs</source>
+        <target state="translated">Delete logs</target>
+      </trans-unit>
+      <trans-unit id="aU9OJs5" resname="perm.self.edit_infos">
+        <source>perm.self.edit_infos</source>
+        <target state="translated">Edit infos</target>
+      </trans-unit>
+      <trans-unit id="tn675bY" resname="perm.self.edit_username">
+        <source>perm.self.edit_username</source>
+        <target state="translated">Edit username</target>
+      </trans-unit>
+      <trans-unit id="ON0SOmi" resname="perm.self.show_permissions">
+        <source>perm.self.show_permissions</source>
+        <target state="translated">View permissions</target>
+      </trans-unit>
+      <trans-unit id="7pWmKCP" resname="perm.self.show_logs">
+        <source>perm.self.show_logs</source>
+        <target state="translated">Show own log entries</target>
+      </trans-unit>
+      <trans-unit id="zgTB8dK" resname="perm.self.create_labels">
+        <source>perm.self.create_labels</source>
+        <target state="translated">Create labels</target>
+      </trans-unit>
+      <trans-unit id="grMFlqb" resname="perm.self.edit_options">
+        <source>perm.self.edit_options</source>
+        <target state="translated">Edit options</target>
+      </trans-unit>
+      <trans-unit id="aWY5kzX" resname="perm.self.delete_profiles">
+        <source>perm.self.delete_profiles</source>
+        <target state="translated">Delete profiles</target>
+      </trans-unit>
+      <trans-unit id="Qh9_teh" resname="perm.self.edit_profiles">
+        <source>perm.self.edit_profiles</source>
+        <target state="translated">Edit profiles</target>
+      </trans-unit>
+      <trans-unit id="yXZ1kdn" resname="permission.edit.permission">
+        <source>permission.edit.permission</source>
+        <target state="translated">Permissions</target>
+      </trans-unit>
+      <trans-unit id="tFYZZcS" resname="permission.edit.value">
+        <source>permission.edit.value</source>
+        <target state="translated">Value</target>
+      </trans-unit>
+      <trans-unit id=".8YTKod" resname="perm.group.other">
+        <source>perm.group.other</source>
+        <target state="translated">Miscellaneous</target>
+      </trans-unit>
+      <trans-unit id="iK5P0V5" resname="user.edit.permissions">
+        <source>user.edit.permissions</source>
+        <target state="translated">Permissions</target>
+      </trans-unit>
+      <trans-unit id="riADuzS" resname="perm.part.tools">
+        <source>perm.part.tools</source>
+        <target state="translated">Tools</target>
+      </trans-unit>
+      <trans-unit id="1TJffiQ" resname="perm.groups">
+        <source>perm.groups</source>
+        <target state="translated">Groups</target>
+      </trans-unit>
+      <trans-unit id="Ot4Pe7g" resname="perm.users">
+        <source>perm.users</source>
+        <target state="translated">Users</target>
+      </trans-unit>
+      <trans-unit id="hcV.ILa" resname="perm.database">
+        <source>perm.database</source>
+        <target state="translated">Database</target>
+      </trans-unit>
+      <trans-unit id="9XMk.TY" resname="perm.config">
+        <source>perm.config</source>
+        <target state="translated">Configuration</target>
+      </trans-unit>
+      <trans-unit id="YLLSA2T" resname="perm.system">
+        <source>perm.system</source>
+        <target state="translated">System</target>
+      </trans-unit>
+      <trans-unit id="0CRVznf" resname="perm.device_parts">
+        <source>perm.device_parts</source>
+        <target state="translated">Device parts</target>
+      </trans-unit>
+      <trans-unit id="LG3jpJo" resname="perm.self">
+        <source>perm.self</source>
+        <target state="translated">Own user</target>
+      </trans-unit>
+      <trans-unit id="VoHEScr" resname="perm.labels">
+        <source>perm.labels</source>
+        <target state="translated">Labels</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
