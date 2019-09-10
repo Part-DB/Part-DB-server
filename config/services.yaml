@@ -65,5 +65,6 @@ services:
       arguments:
         $base_currency: '%default_currency%'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    App\Services\TranslationExtractor\PermissionExtractor:
+        tags:
+            - { name: 'translation.extractor', alias: 'permissionExtractor'}

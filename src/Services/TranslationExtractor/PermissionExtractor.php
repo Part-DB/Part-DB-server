@@ -1,0 +1,104 @@
+<?php
+/**
+ *
+ * part-db version 0.1
+ * Copyright (C) 2005 Christoph Lechner
+ * http://www.cl-projects.de/
+ *
+ * part-db version 0.2+
+ * Copyright (C) 2009 K. Jacobs and others (see authors.php)
+ * http://code.google.com/p/part-db/
+ *
+ * Part-DB Version 0.4+
+ * Copyright (C) 2016 - 2019 Jan Böhmer
+ * https://github.com/jbtronics
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
+ *
+ */
+
+namespace App\Services\TranslationExtractor;
+
+
+use App\Services\PermissionResolver;
+use Symfony\Component\Translation\Extractor\ExtractorInterface;
+use Symfony\Component\Translation\MessageCatalogue;
+
+/**
+ * The purpose of this class is to extract label attributes out of our permissions.yaml structure,
+ * so they can be translated.
+ * @package App\Services\TranslationExtractor
+ */
+class PermissionExtractor implements ExtractorInterface
+{
+    protected $permission_structure;
+    protected $finished = false;
+
+    public function __construct(PermissionResolver $resolver)
+    {
+        $this->permission_structure = $resolver->getPermissionStructure();
+    }
+
+    /**
+     * Extracts translation messages from files, a file or a directory to the catalogue.
+     *
+     * @param string|array $resource Files, a file or a directory
+     * @param MessageCatalogue $catalogue The catalogue
+     */
+    public function extract($resource, MessageCatalogue $catalogue)
+    {
+        if (!$this->finished) {
+            //Extract for every group...
+            foreach ($this->permission_structure['groups'] as $group) {
+                if (isset($group['label'])) {
+                    $catalogue->add([
+                        $group['label'] => '__' . $group['label']
+                    ]);
+                }
+            }
+
+            //... every permission
+            foreach ($this->permission_structure['perms'] as $perm) {
+                if (isset($perm['label'])) {
+                    $catalogue->add([
+                        $perm['label'] => '__' . $perm['label']
+                    ]);
+                }
+
+                //... and all of their operations
+                foreach ($perm['operations'] as $op) {
+                    if (isset($op['label'])) {
+                        $catalogue->add([
+                            $op['label'] => '__' . $op['label']
+                        ]);
+                    }
+                }
+            }
+
+
+            $this->finished = true;
+        }
+    }
+
+    /**
+     * Sets the prefix that should be used for new found messages.
+     *
+     * @param string $prefix The prefix
+     */
+    public function setPrefix($prefix)
+    {
+        return '';
+    }
+}
