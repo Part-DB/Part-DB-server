@@ -34,27 +34,38 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         label: "perm.delete"
         bit: 8
       search:
+        label: "perm.part.search"
         bit: 10
       all_parts:
+        label: "perm.part.all_parts"
         bit: 12
       no_price_parts:
+        label: "perm.part.no_price_parts"
         bit: 14
       obsolete_parts:
+        label: "perm.part.obsolete_parts"
         bit: 16
       unknown_instock_parts:
+        label: "perm.part.unknown_instock_parts"
         bit: 18
       change_favorite:
+        label: "perm.part.change_favorite"
         bit: 20
       show_favorite_parts:
+        label: "perm.part.show_favorite"
         bit: 24
       show_last_edit_parts:
+        label: "perm.part.show_last_edit_parts"
         bit: 26
       show_users:
+        label: "perm.part.show_users"
         bit: 28
       show_history:
+        label: "perm.part.show_history"
         bit: 30
 
-  parts_name: &PART_ATTRIBUTE # We define a template here, that we can use for all part attributes.
+  parts_name:  &PART_ATTRIBUTE # We define a template here, that we can use for all part attributes.
+    label: "perm.part.name"
     group: "parts"
     operations:
       read:
@@ -65,191 +76,259 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 2
 
   parts_description:
-    *PART_ATTRIBUTE
+    <<: *PART_ATTRIBUTE
+    label: "perm.part.description"
 
   parts_instock:
-    *PART_ATTRIBUTE
+    <<: *PART_ATTRIBUTE
+    label: "perm.part.instock"
 
   parts_mininstock:
-    *PART_ATTRIBUTE
+    <<: *PART_ATTRIBUTE
+    label: "perm.part.mininstock"
 
   parts_footprint:
-    *PART_ATTRIBUTE
+    <<: *PART_ATTRIBUTE
+    label: "perm.part.mininstock"
 
   parts_comment:
-    *PART_ATTRIBUTE
+    <<: *PART_ATTRIBUTE
+    label: "perm.part.comment"
 
   parts_storelocation:
-    *PART_ATTRIBUTE
+    <<: *PART_ATTRIBUTE
+    label: "perm.part.storelocation"
 
   parts_manufacturer:
-    *PART_ATTRIBUTE
+    <<: *PART_ATTRIBUTE
+    label: "perm.part.manufacturer"
 
   parts_orderdetails:
-    *PART_ATTRIBUTE
+    <<: *PART_ATTRIBUTE
+    label: "perm.part.orderdetails"
 
   parts_prices:
-    *PART_ATTRIBUTE
+    <<: *PART_ATTRIBUTE
+    label: "perm.part.prices"
 
   parts_attachments:
-    *PART_ATTRIBUTE
+    <<: *PART_ATTRIBUTE
+    label: "perm.part.attachments"
 
   parts_order:
-    *PART_ATTRIBUTE
+    <<: *PART_ATTRIBUTE
+    label: "perm.part.order"
 
   storelocations: &PART_CONTAINING
+    label: "perm.storelocations"
     group: "structures"
     operations:
       read:
+        label: "perm.read"
         bit: 0
       edit:
+        label: "perm.edit"
         bit: 2
       create:
+        label: "perm.create"
         bit: 4
       move:
+        label: "perm.move"
         bit: 6
       delete:
+        label: "perm.delete"
         bit: 8
       list_parts:
+        label: "perm.list_parts"
         bit: 10
       show_users:
+        label: "perm.list_parts"
         bit: 12
 
   footprints:
-    *PART_CONTAINING
+    <<: *PART_CONTAINING
+    label: "perm.part.footprints"
 
   categories:
-    *PART_CONTAINING
+    <<: *PART_CONTAINING
+    label: "perm.part.categories"
 
   suppliers:
-    *PART_CONTAINING
+    <<: *PART_CONTAINING
+    label: "perm.part.supplier"
 
   manufacturers:
-    *PART_CONTAINING
+    <<: *PART_CONTAINING
+    label: "perm.part.manufacturers"
 
   devices:
-    *PART_CONTAINING
+    <<: *PART_CONTAINING
+    label: "perm.part.devices"
 
   attachment_types:
-    *PART_CONTAINING
+    <<: *PART_CONTAINING
+    label: "perm.part.attachment_types"
 
   tools:
     operations:
       import:
+        label: "perm.tools.import"
         bit: 0
       labels:
+        label: "perm.tools.labels"
         bit: 2
       calculator:
+        label: "perm.tools.calculator"
         bit: 4
       footprints:
+        label: "perm.tools.footprints"
         bit: 6
       ic_logos:
+        label: "perm.tools.ic_logos"
         bit: 8
       statistics:
+        label: "perm.tools.statistics"
         bit: 10
 
   groups:
     group: "system"
     operations:
       read:
+        label: "perm.read"
         bit: 0
       edit:
+        label: "perm.edit"
         bit: 2
       create:
+        label: "perm.create"
         bit: 4
       move:
+        label: "perm.move"
         bit: 6
       delete:
+        label: "perm.delete"
         bit: 8
       edit_permissions:
+        label: "perm.edit_permissions"
         bit: 10
 
   users:
     group: "system"
     operations:
       read:
+        label: "perm.read"
         bit: 0
       create:
+        label: "perm.create"
         bit: 4
       delete:
+        label: "perm.delete"
         bit: 8
       edit_username:
+        label: "perm.users.edit_user_name"
         bit: 2
       change_group:
+        label: "perm.users.edit_change_group"
         bit: 6
       edit_infos:
+        label: "perm.users.edit_infos"
         bit: 10
       edit_permissions:
+        label: "perm.users.edit_permissions"
         bit: 12
       set_password:
+        label: "perm.users.set_password"
         bit: 14
       change_user_settings:
+        label: "perm.users.change_user_settings"
         bit: 16
 
   database:
     group: "system"
     operations:
       see_status:
+        label: "perm.database.see_status"
         bit: 0
       update_db:
+        label: "perm.database.update_db"
         bit: 2
       read_db_settings:
+        label: "perm.database.read_db_settings"
         bit: 4
       write_db_settings:
+        label: "perm.database.write_db_settings"
         bit: 2
 
   config:
     group: "system"
     operations:
       read_config:
+        label: "perm.config.read_config"
         bit: 0
       edit_config:
+        label: "perm.config.edit_config"
         bit: 2
       server_info:
+        label: "perm.config.server_info"
         bit: 6
 
   system:
     group: "system"
     operations:
       use_debug:
+        label: "perm.config.use_debug"
         bit: 0
       show_logs:
+        label: "perm.show_logs"
         bit: 2
       delete_logs:
+        label: "perm.delete_logs"
         bit: 4
 
   devices_parts:
     group: "parts"
     operations:
       read:
+        label: "perm.read"
         bit: 0
       edit:
+        label: "perm.edit"
         bit: 2
       create:
+        label: "perm.create"
         bit: 6
       delete:
+        label: "perm.delete"
         bit: 8
 
   self:
     operations:
       edit_infos:
+        label: "perm.self.edit_infos"
         bit: 0
       edit_username:
+        label: "perm.self.edit_username"
         bit: 2
       show_permissions:
+        label: "perm.self.show_permissions"
         bit: 4
       show_logs:
+        label: "perm.self.show_logs"
         bit: 6
 
   labels:
     operations:
       create_labels:
+        label: "perm.self.create_labels"
         bit: 0
       edit_options:
+        label: "perm.self.edit_options"
         bit: 2
       delete_profiles:
+        label: "perm.self.delete_profiles"
         bit: 4
       edit_profiles:
+        label: "perm.self.edit_profiles"
         bit: 6
 
 
