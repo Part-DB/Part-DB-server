@@ -40,6 +40,7 @@ use Symfony\Component\Form\Exception;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -70,6 +71,10 @@ class PermissionType extends AbstractType implements DataMapperInterface
             return $options['name'];
         });
 
+        $resolver->setDefault('multi_checkbox', function (Options $options) {
+            return !$options['disabled'];
+        });
+
         $resolver->setDefaults([
         ]);
     }
@@ -88,6 +93,11 @@ class PermissionType extends AbstractType implements DataMapperInterface
         }
 
         $builder->setDataMapper($this);
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['multi_checkbox'] = $options['multi_checkbox'];
     }
 
     /**

@@ -1,7 +1,21 @@
 {% block permission_row %}
     <tr>
         <td>
-            <b>{{ form.vars.label | trans }}</b>
+            {% if multi_checkbox %}
+
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input tristate permission_multicheckbox" id="mulit_check_{{ form.vars.label }}">
+                    <label class="custom-control-label" for="mulit_check_{{ form.vars.label }}">
+                        <b>{{ form.vars.label | trans }}</b>
+                    </label>
+                </div>
+
+            {% else %}
+                <b>{{ form.vars.label | trans }}</b>
+            {% endif %}
+
+
+            {# #}
             {{ form_errors(form) }}
         </td>
         <td>

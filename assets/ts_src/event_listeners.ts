@@ -219,6 +219,17 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
         unchecked:          "false",
         indeterminate:      "indeterminate",
     });
+
+    $('.permission_multicheckbox:checkbox').change(function() {
+        //Find the other checkboxes in this row, and change their value
+        var $row = $(this).parents('tr');
+
+        //@ts-ignore
+        var new_state = $(this).tristate('state');
+
+        //@ts-ignore
+        $('.tristate:checkbox', $row).tristate('state', new_state;
+    });
 });
 
 //Re initialize fileinputs on reload
