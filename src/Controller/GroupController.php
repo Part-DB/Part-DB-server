@@ -33,17 +33,15 @@ namespace App\Controller;
 
 
 use App\Controller\AdminPages\BaseAdminController;
-use App\Entity\Parts\Category;
 use App\Entity\UserSystem\Group;
-use App\Form\AdminPages\CategoryAdminForm;
 use App\Form\AdminPages\GroupAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/group")

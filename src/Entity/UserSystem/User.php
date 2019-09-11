@@ -66,6 +66,7 @@ use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPermission;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -75,6 +76,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table("`users`")
+ * @UniqueEntity("name", message="validator.user.username_already_used")
  */
 class User extends NamedDBElement implements UserInterface, HasPermissionsInterface
 {
@@ -139,12 +141,14 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
     /**
      * @var string|null The language/locale the user prefers
      * @ORM\Column(type="string", name="config_language", nullable=true)
+     * @Assert\Locale(canonicalize=true)
      */
     protected $language = '';
 
     /**
      * @var string|null The timezone the user prefers
      * @ORM\Column(type="string", name="config_timezone", nullable=true)
+     * @Assert\Timezone()
      */
     protected $timezone = '';
 
@@ -171,22 +175,22 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
     /**
      * @ORM\Column(type="string", name="config_currency")
      */
-    protected $currency;
+    protected $currency = "";
 
     /**
      * @ORM\Column(type="text", name="config_image_path")
      */
-    protected $image_path;
+    protected $image_path = "";
 
     /**
      * @ORM\Column(type="text", name="config_instock_comment_w")
      */
-    protected $instock_comment_w;
+    protected $instock_comment_w = "";
 
     /**
      * @ORM\Column(type="text", name="config_instock_comment_a")
      */
-    protected $instock_comment_a;
+    protected $instock_comment_a = "";
 
     public function __construct()
     {
