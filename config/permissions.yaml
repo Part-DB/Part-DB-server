@@ -24,15 +24,19 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       edit:
         label: "perm.edit"
         bit: 2
+        alsoSet: 'read'
       create:
         label: "perm.create"
         bit: 4
+        alsoSet: ['read', 'edit']
       move:
         label: "perm.part.move"
         bit: 6
+        alsoSet: 'read'
       delete:
         label: "perm.delete"
         bit: 8
+        alsoSet: ['read', 'edit']
       search:
         label: "perm.part.search"
         bit: 10
@@ -74,6 +78,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       edit:
         label: "perm.edit"
         bit: 2
+        alsoSet: 'read'
 
   parts_description:
     <<: *PART_ATTRIBUTE
@@ -129,15 +134,18 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       edit:
         label: "perm.edit"
         bit: 2
+        alsoSet: 'read'
       create:
         label: "perm.create"
         bit: 4
+        alsoSet: ['read', 'edit']
       move:
         label: "perm.move"
         bit: 6
       delete:
         label: "perm.delete"
         bit: 8
+        alsoSet: ['read', 'edit']
       list_parts:
         label: "perm.list_parts"
         bit: 10
@@ -201,17 +209,21 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       edit:
         label: "perm.edit"
         bit: 2
+        alsoSet: 'read'
       create:
         label: "perm.create"
         bit: 4
+        alsoSet: ['read', 'edit']
       move:
         label: "perm.move"
         bit: 6
       delete:
         label: "perm.delete"
         bit: 8
+        alsoSet: ['read', 'delete']
       edit_permissions:
         label: "perm.edit_permissions"
+        alsoSet: ['read', 'edit']
         bit: 10
 
   users:
@@ -223,24 +235,31 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 0
       create:
         label: "perm.create"
+        alsoSet: ['read', 'edit_username', 'edit_infos']
         bit: 4
       delete:
         label: "perm.delete"
+        alsoSet: ['read', 'edit']
         bit: 8
       edit_username:
         label: "perm.users.edit_user_name"
+        alsoSet: ['read']
         bit: 2
       change_group:
         label: "perm.users.edit_change_group"
+        alsoSet: 'read'
         bit: 6
       edit_infos:
         label: "perm.users.edit_infos"
+        alsoSet: 'read'
         bit: 10
       edit_permissions:
         label: "perm.users.edit_permissions"
+        alsoSet: 'read'
         bit: 12
       set_password:
         label: "perm.users.set_password"
+        alsoSet: 'set_read'
         bit: 14
       change_user_settings:
         label: "perm.users.change_user_settings"
@@ -256,11 +275,13 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       update_db:
         label: "perm.database.update_db"
         bit: 2
+        alsoSet: 'see_status'
       read_db_settings:
         label: "perm.database.read_db_settings"
         bit: 4
       write_db_settings:
         label: "perm.database.write_db_settings"
+        alsoSet: ['read_db_settings', 'see_status']
         bit: 2
 
   config:
@@ -272,6 +293,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 0
       edit_config:
         label: "perm.config.edit_config"
+        alsoSet: 'read_config'
         bit: 2
       server_info:
         label: "perm.config.server_info"
@@ -289,6 +311,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 2
       delete_logs:
         label: "perm.delete_logs"
+        alsoSet: 'show_logs'
         bit: 4
 
   devices_parts:
@@ -300,12 +323,15 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 0
       edit:
         label: "perm.edit"
+        alsoSet: 'read'
         bit: 2
       create:
         label: "perm.create"
+        alsoSet: ['edit', 'read']
         bit: 6
       delete:
         label: "perm.delete"
+        alsoSet: ['edit', 'read']
         bit: 8
 
   self:

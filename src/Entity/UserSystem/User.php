@@ -64,6 +64,7 @@ namespace App\Entity\UserSystem;
 use App\Entity\Base\NamedDBElement;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\Selectable;
+use App\Validator\Constraints\ValidPermission;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -163,6 +164,7 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
 
     /** @var PermissionsEmbed
      * @ORM\Embedded(class="PermissionsEmbed", columnPrefix="perms_")
+     * @ValidPermission()
      */
     protected $permissions;
 

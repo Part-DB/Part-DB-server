@@ -32,6 +32,7 @@
 {% endblock %}
 
 {% block permissions_row %}
+    {{ form_errors(form) }}
     <ul class="nav nav-tabs">
         {% for group in form %}
             <li class="nav-item">

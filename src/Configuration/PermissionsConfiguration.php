@@ -61,7 +61,9 @@ class PermissionsConfiguration implements ConfigurationInterface
                 ->children()
                 ->scalarNode('name')->end()
                 ->scalarNode('label')->end()
-                ->scalarNode('bit')->end();
+                ->scalarNode('bit')->end()
+                ->arrayNode('alsoSet')
+                    ->beforeNormalization()->castToArray()->end()->scalarPrototype()->end();
 
         return $treeBuilder;
     }
