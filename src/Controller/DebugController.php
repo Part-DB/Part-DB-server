@@ -87,5 +87,7 @@ class DebugController extends AbstractController
         $translator->trans('flash.notice');
         $translator->trans('flash.info');
 
+        $translator->trans('validator.noLockout');
+
     }
 }

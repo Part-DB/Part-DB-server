@@ -19,6 +19,17 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+    /**
+     * Returns the anonymous user
+     * @return User|null
+     */
+    public function getAnonymousUser()
+    {
+        return $this->findOneBy([
+                'id' => User::ID_ANONYMOUS
+            ]);
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

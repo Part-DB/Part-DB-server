@@ -33,6 +33,7 @@ namespace App\Entity\UserSystem;
 
 use App\Entity\Base\StructuralDBElement;
 use App\Security\Interfaces\HasPermissionsInterface;
+use App\Validator\Constraints\ValidPermission;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -61,6 +62,7 @@ class Group extends StructuralDBElement implements HasPermissionsInterface
 
     /** @var PermissionsEmbed
      * @ORM\Embedded(class="PermissionsEmbed", columnPrefix="perms_")
+     * @ValidPermission()
      */
     protected $permissions;
 

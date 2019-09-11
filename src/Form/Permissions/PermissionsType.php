@@ -33,10 +33,12 @@ namespace App\Form\Permissions;
 
 
 use App\Services\PermissionResolver;
+use App\Validator\Constraints\NoLockout;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PermissionsType extends AbstractType
@@ -54,8 +56,16 @@ class PermissionsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'show_legend' => true
+            'show_legend' => true,
+            'constraints' => function (Options $options) {
+                if (!$options['disabled']) {
+                    return [new NoLockout()];
+                }
+                return [];
+            }
         ]);
+
+
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
