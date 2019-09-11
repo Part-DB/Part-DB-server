@@ -35,6 +35,9 @@ namespace App\Form\Permissions;
 use App\Services\PermissionResolver;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PermissionsType extends AbstractType
 {
@@ -47,6 +50,18 @@ class PermissionsType extends AbstractType
         $this->perm_structure = $resolver->getPermissionStructure();
     }
 
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'show_legend' => true
+        ]);
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['show_legend'] = $options['show_legend'];
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
