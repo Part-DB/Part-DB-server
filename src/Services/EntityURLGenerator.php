@@ -42,6 +42,7 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
+use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupported;
 use Symfony\Component\HttpKernel\HttpCache\Store;
@@ -196,7 +197,8 @@ class EntityURLGenerator
             Footprint::class => 'footprint_edit',
             User::class => 'user_edit',
             Currency::class => 'currency_edit',
-            MeasurementUnit::class => 'measurement_unit_edit'
+            MeasurementUnit::class => 'measurement_unit_edit',
+            Group::class => 'group_edit'
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
@@ -222,7 +224,8 @@ class EntityURLGenerator
             Footprint::class => 'footprint_new',
             User::class => 'user_new',
             Currency::class => 'currency_new',
-            MeasurementUnit::class => 'measurement_unit_new'
+            MeasurementUnit::class => 'measurement_unit_new',
+            Group::class => 'group_new'
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity));
@@ -278,7 +281,8 @@ class EntityURLGenerator
             Footprint::class => 'footprint_delete',
             User::class => 'user_delete',
             Currency::class => 'currency_delete',
-            MeasurementUnit::class => 'measurement_unit_delete'
+            MeasurementUnit::class => 'measurement_unit_delete',
+            Group::class => 'group_delete'
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);

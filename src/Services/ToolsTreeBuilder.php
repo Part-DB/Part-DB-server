@@ -136,12 +136,16 @@ class ToolsTreeBuilder
      */
     protected function getSystemNodes() : array
     {
-        $edit_nodes = array();
+        $nodes = array();
 
-        $edit_nodes[] = new TreeViewNode($this->translator->trans('tree.tools.system.users'),
+        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.system.users'),
             $this->urlGenerator->generate("user_new")
         );
 
-        return $edit_nodes;
+        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.system.groups'),
+            $this->urlGenerator->generate('group_new')
+        );
+
+        return $nodes;
     }
 }

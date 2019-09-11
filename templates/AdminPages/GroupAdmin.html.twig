@@ -1,0 +1,17 @@
+{% extends "AdminPages/EntityAdminBase.html.twig" %}
+
+{% block card_title %}
+    <i class="fas fa-users fa-fw"></i> {% trans %}group.edit.caption{% endtrans %}
+{% endblock %}
+
+
+{% block additional_pills %}
+    <li class="nav-item"><a data-toggle="tab" class="nav-link link-anchor" href="#tab_permissions">{% trans %}user.edit.permissions{% endtrans %}</a></li>
+{% endblock %}
+
+
+{% block additional_panes %}
+    <div class="tab-pane" id="tab_permissions">
+       {{ form_row(form.permissions) }}
+    </div>
+{% endblock %}
