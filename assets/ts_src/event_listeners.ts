@@ -228,7 +228,7 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
         var new_state = $(this).tristate('state');
 
         //@ts-ignore
-        $('.tristate:checkbox', $row).tristate('state', new_state;
+        $('.tristate:checkbox', $row).tristate('state', new_state);
     });
 });
 
