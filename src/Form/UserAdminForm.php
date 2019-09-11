@@ -116,7 +116,7 @@ class UserAdminForm extends AbstractType
             ->add('permissions', PermissionsType::class, [
                 'mapped' => false,
                 'data' => $builder->getData(),
-                //'user' => $builder->getData(),
+                'disabled' => !$this->security->isGranted('edit_permissions', $entity)
             ])
         ;
         /*->add('comment', CKEditorType::class, ['required' => false,

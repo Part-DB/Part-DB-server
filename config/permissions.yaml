@@ -239,7 +239,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 4
       delete:
         label: "perm.delete"
-        alsoSet: ['read', 'edit']
+        alsoSet: ['read', 'edit_username', 'edit_infos']
         bit: 8
       edit_username:
         label: "perm.users.edit_user_name"
@@ -259,7 +259,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 12
       set_password:
         label: "perm.users.set_password"
-        alsoSet: 'set_read'
+        alsoSet: 'read'
         bit: 14
       change_user_settings:
         label: "perm.users.change_user_settings"
