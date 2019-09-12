@@ -34,6 +34,7 @@ namespace App\Controller;
 use App\Entity\UserSystem\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RedirectController extends AbstractController
 {
@@ -57,7 +58,8 @@ class RedirectController extends AbstractController
            }
         }
 
-        $new_url = str_replace($request->getPathInfo(), '/' . $locale . $request->getPathInfo(), $request->getUri());
+        //$new_url = str_replace($request->getPathInfo(), '/' . $locale . $request->getPathInfo(), $request->getUri());
+        $new_url = $request->getUriForPath('/' . $locale . $request->getPathInfo());
 
         return $this->redirect($new_url);
     }
