@@ -68,6 +68,7 @@ class UserSettingsType extends AbstractType
                 'attr' => ['class' => 'selectpicker', 'data-live-search' => true],
                 'placeholder' => $this->trans->trans('user_settings.timezone.placeholder'),
                 'label' => $this->trans->trans('user.timezone.label'),
+                'preferred_choices' => ['Europe/Berlin']
                 ])
             ->add('theme', ChoiceType::class, [
                 'required' => false,

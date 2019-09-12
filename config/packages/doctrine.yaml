@@ -16,6 +16,9 @@ doctrine:
             collate: utf8mb4_unicode_ci
 
         url: '%env(resolve:DATABASE_URL)%'
+        types:
+            datetime: App\Helpers\UTCDateTimeType
+            date: App\Helpers\UTCDateTimeType
 
         schema_filter: ~^(?!internal|log)~
 
