@@ -141,7 +141,7 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
     /**
      * @var string|null The language/locale the user prefers
      * @ORM\Column(type="string", name="config_language", nullable=true)
-     * @Assert\Locale(canonicalize=true)
+     * @Assert\Language()
      */
     protected $language = '';
 

@@ -6,6 +6,7 @@ use App\Entity\UserSystem\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -55,11 +56,12 @@ class UserSettingsType extends AbstractType
                 'label' => $this->trans->trans('user.email.label'),
                 'disabled' => !$this->security->isGranted('edit_infos', $options['data']),
             ])
-            ->add('language', LocaleType::class, [
+            ->add('language', LanguageType::class, [
                 'required' => false,
                 'attr' => ['class' => 'selectpicker', 'data-live-search' => true],
                 'placeholder' => $this->trans->trans('user_settings.language.placeholder'),
                 'label' => $this->trans->trans('user.language_select'),
+                'preferred_choices' => ['en', 'de']
                 ])
             ->add('timezone', TimezoneType::class, [
                 'required' => false,

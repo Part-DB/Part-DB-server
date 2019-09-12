@@ -78,7 +78,8 @@ class AppExtension extends AbstractExtension
             new TwigFilter('bbCode', [$this, 'parseBBCode'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
             new TwigFilter('moneyFormat', [$this, 'formatCurrency']),
             new TwigFilter('siFormat', [$this, 'siFormat']),
-            new TwigFilter('amountFormat', [$this, 'amountFormat'])
+            new TwigFilter('amountFormat', [$this, 'amountFormat']),
+            new TwigFilter('loginPath', [$this, 'loginPath'])
         ];
     }
 
@@ -102,6 +103,19 @@ class AppExtension extends AbstractExtension
     {
         $tree = $this->treeBuilder->typeToTree(get_class($element), $type, $element);
         return $this->serializer->serialize($tree, 'json', ['skip_null_values' => true]);
+    }
+
+    /**
+     * This function/filter generates an path
+     * @param string $path
+     * @return string
+     */
+    public function loginPath(string $path) : string
+    {
+        $parts = explode("/" ,$path);
+        //Remove the part with
+        unset($parts[1]);
+        return implode("/", $parts);
     }
 
     public function generateEntityURL(DBElement $entity, string $method = 'info'): string

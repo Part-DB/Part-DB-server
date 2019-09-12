@@ -77,7 +77,7 @@
                         <li role="separator" class="dropdown-divider"></li>
                         <a class="dropdown-item"  href="{{ path('logout') }}"><i class="fa fa-sign-out-alt fa-fw" aria-hidden="true"></i> {% trans %}user.logout{% endtrans %}</a>
                     {% else %}
-                        <a class="dropdown-item" href="{{ path('login', {'_target_path':app.request.pathinfo}) }}" id="login-link"><i class="fa fa-sign-in-alt fa-fw" aria-hidden="true"></i> {% trans %}user.login{% endtrans %}</a>
+                        <a class="dropdown-item" href="{{ path('login', {'_target_path': app.request.pathinfo | loginPath}) }}" id="login-link"><i class="fa fa-sign-in-alt fa-fw" aria-hidden="true"></i> {% trans %}user.login{% endtrans %}</a>
                     {% endif %}
                     <li role="separator" class="dropdown-divider"></li>
                     <a class="dropdown-item disabled" href="#">{% trans %}user.language_select{% endtrans %}</a>

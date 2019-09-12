@@ -28,6 +28,7 @@ security:
                 check_path: login
                 csrf_token_generator: security.csrf.token_manager
                 use_referer: true
+                default_target_path: '/'
 
             logout:
                 path: logout

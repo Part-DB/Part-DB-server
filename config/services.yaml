@@ -49,6 +49,10 @@ services:
             - name: doctrine.orm.entity_listener
 
 
+    App\Controller\RedirectController:
+        arguments:
+            $default_locale: '%locale%'
+
     App\Command\UpdateExchangeRatesCommand:
         arguments:
             $base_current: '%default_currency%'

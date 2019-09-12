@@ -2,7 +2,4 @@ controllers:
     resource: ../../src/Controller/
     type: annotation
 
-    prefix:
-        en: '/en'
-        de: '/de'
-        '%locale%': '/'
+    prefix: '{_locale}'
