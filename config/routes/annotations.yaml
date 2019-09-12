@@ -3,3 +3,6 @@ controllers:
     type: annotation
 
     prefix: '{_locale}'
+    requirements:
+        # Match only locales like de_DE or de
+        _locale: "^[a-z]{2}(_[A-Z]{2})?$"
