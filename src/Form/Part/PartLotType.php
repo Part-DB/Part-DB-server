@@ -51,16 +51,19 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use function GuzzleHttp\Promise\queue;
 
 class PartLotType extends AbstractType
 {
     protected $trans;
+    protected $security;
 
-    public function __construct(TranslatorInterface $trans)
+    public function __construct(TranslatorInterface $trans, Security $security)
     {
         $this->trans = $trans;
+        $this->security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

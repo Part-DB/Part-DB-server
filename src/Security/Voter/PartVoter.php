@@ -26,10 +26,10 @@ class PartVoter extends ExtendedVoter
             if (false !== strpos($attribute, '.')) {
                 [$perm, $op] = explode('.', $attribute);
 
-                return in_array($op, $this->resolver->listOperationsForPermission('parts_'.$perm), false);
+                return $this->resolver->isValidOperation('parts_' . $perm, $op);
             }
 
-            return in_array($attribute, $this->resolver->listOperationsForPermission('parts'), false);
+            return $this->resolver->isValidOperation('parts', $attribute);
         }
 
         return false;

@@ -129,6 +129,11 @@ class PermissionsEmbed
      */
     protected $parts_name = 0;
 
+    /** @var int
+     * @ORM\Column(type="smallint")
+     */
+    protected $parts_category = 0;
+
     /**
      * @var int
      * @ORM\Column(type="smallint")
@@ -139,13 +144,7 @@ class PermissionsEmbed
      * @var int
      * @ORM\Column(type="smallint")
      */
-    protected $parts_instock = 0;
-
-    /**
-     * @var int
-     * @ORM\Column(type="smallint")
-     */
-    protected $parts_mininstock = 0;
+    protected $parts_minamount = 0;
 
     /**
      * @var int
@@ -157,13 +156,42 @@ class PermissionsEmbed
      * @var int
      * @ORM\Column(type="smallint")
      */
-    protected $parts_storelocation = 0;
+    protected $parts_lots = 0;
+
+    /**
+     * @var int
+     * @ORM\Column(type="smallint")
+     */
+    protected $parts_tags = 0;
+
+    /** @var int
+     * @ORM\Column(type="smallint")
+     */
+    protected $parts_unit = 0;
+
+    /**
+     * @var int
+     * @ORM\Column(type="smallint")
+     */
+    protected $parts_mass = 0;
 
     /**
      * @var int
      * @ORM\Column(type="smallint")
      */
     protected $parts_manufacturer = 0;
+
+    /**
+     * @var int
+     * @ORM\Column(type="smallint")
+     */
+    protected $parts_status = 0;
+
+    /**
+     * @var int
+     * @ORM\Column(type="smallint")
+     */
+    protected $parts_mpn = 0;
 
     /**
      * @var int
@@ -243,6 +271,17 @@ class PermissionsEmbed
      */
     protected $attachment_types = 0;
 
+    /** @var int
+     * @ORM\Column(type="integer")
+     */
+    protected $currencies = 0;
+
+    /**
+     * @var int
+     * @ORM\Column(type="integer")
+     */
+    protected $measurement_units = 0;
+
     /**
      * @var int
      * @ORM\Column(type="integer")
@@ -276,7 +315,7 @@ class PermissionsEmbed
     public function getBitValue(string $permission_name, int $bit_n): int
     {
         if(!$this->isValidPermissionName($permission_name)) {
-            throw new \InvalidArgumentException('No permission with the given name is existing!');
+            throw new \InvalidArgumentException(sprintf('No permission with the name "%s" is existing!', $permission_name));
         }
 
         $perm_int = $this->$permission_name;

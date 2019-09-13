@@ -130,7 +130,7 @@ class Part extends AttachmentContainingDBElement
      * @var Orderdetail[]
      * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
-     * @ColumnSecurity(prefix="orderdetails", type="object")
+     * @ColumnSecurity(prefix="orderdetails", type="collection")
      */
     protected $orderdetails;
 

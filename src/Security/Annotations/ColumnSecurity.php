@@ -30,6 +30,7 @@
 namespace App\Security\Annotations;
 
 use Doctrine\Common\Annotations\Annotation;
+use Doctrine\Common\Collections\ArrayCollection;
 use \InvalidArgumentException;
 
 /**
@@ -65,7 +66,7 @@ class ColumnSecurity
 
     /**
      * @var string The name of the property. This is used to determine the default placeholder.
-     * @Annotation\Enum({"integer", "string", "object", "boolean", "datetime"})
+     * @Annotation\Enum({"integer", "string", "object", "boolean", "datetime", "collection"})
      */
     public $type = 'string';
 
@@ -97,6 +98,8 @@ class ColumnSecurity
                     return '???';
                 case 'object':
                     return null;
+                case 'collection':
+                    return new ArrayCollection();
                 case 'boolean':
                     return false;
                 case 'datetime':

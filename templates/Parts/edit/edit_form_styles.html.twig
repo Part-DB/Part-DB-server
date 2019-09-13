@@ -53,7 +53,7 @@
             </button>
         </td>
         <td>
-            <button type="button" class="btn btn-danger order_btn_delete" onclick="delete_orderdetail_entry(this);" title="{% trans %}orderdetail.delete{% endtrans %}">
+            <button type="button" class="btn btn-danger order_btn_delete" onclick="delete_orderdetail_entry(this);" title="{% trans %}orderdetail.delete{% endtrans %}" {% if disable_delete %}disabled{% endif %}>
                 <i class="fas fa-trash-alt fa-fw"></i>
             </button>
             {{ form_errors(form) }}

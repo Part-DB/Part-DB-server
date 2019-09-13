@@ -12,7 +12,7 @@ groups:
 
 perms: # Here comes a list with all Permission names (they have a perm_[name] coloumn in DB)
 
-# Part related permissions
+  # Part related permissions
 
   parts: # e.g. this maps to perms_parts in User/Group database
     group: "parts"
@@ -29,10 +29,10 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         label: "perm.create"
         bit: 4
         alsoSet: ['read', 'edit']
-      move:
-        label: "perm.part.move"
-        bit: 6
-        alsoSet: 'read'
+      #move:
+      #  label: "perm.part.move"
+      #  bit: 6
+      #  alsoSet: 'read'
       delete:
         label: "perm.delete"
         bit: 8
@@ -80,15 +80,15 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         bit: 2
         alsoSet: 'read'
 
+  parts_category:
+    <<: *PART_ATTRIBUTE
+    label: "perm.part.category"
+
   parts_description:
     <<: *PART_ATTRIBUTE
     label: "perm.part.description"
 
-  parts_instock:
-    <<: *PART_ATTRIBUTE
-    label: "perm.part.instock"
-
-  parts_mininstock:
+  parts_minamount:
     <<: *PART_ATTRIBUTE
     label: "perm.part.mininstock"
 
@@ -100,24 +100,61 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
     <<: *PART_ATTRIBUTE
     label: "perm.part.comment"
 
-  parts_storelocation:
-    <<: *PART_ATTRIBUTE
-    label: "perm.part.storelocation"
-
   parts_manufacturer:
     <<: *PART_ATTRIBUTE
     label: "perm.part.manufacturer"
 
-  parts_orderdetails:
+  parts_mpn:
     <<: *PART_ATTRIBUTE
+    label: "perm.part.mpn"
+
+  parts_status:
+    <<: *PART_ATTRIBUTE
+    label: "perm.part.status"
+
+  parts_tags:
+    <<: *PART_ATTRIBUTE
+    label: "perm.part.tags"
+
+  parts_unit:
+    <<: *PART_ATTRIBUTE
+    label: "perm.part.unit"
+
+  parts_mass:
+    <<: *PART_ATTRIBUTE
+    label: "perm.part.mass"
+
+  parts_orderdetails: &PART_MULTI_ATTRIBUTE
     label: "perm.part.orderdetails"
+    group: "parts"
+    operations:
+      read:
+        label: "perm.read"
+        bit: 0
+      edit:
+        label: "perm.edit"
+        bit: 2
+        alsoSet: 'read'
+      create:
+        label: "perm.create"
+        bit: 4
+        alsoSet: ['read', 'edit']
+      delete:
+        label: "perm.delete"
+        bit: 6
+        alsoSet: ['read']
+
 
   parts_prices:
-    <<: *PART_ATTRIBUTE
+    <<: *PART_MULTI_ATTRIBUTE
     label: "perm.part.prices"
 
+  parts_lots:
+    <<: *PART_MULTI_ATTRIBUTE
+    label: "perm.part.lots"
+
   parts_attachments:
-    <<: *PART_ATTRIBUTE
+    <<: *PART_MULTI_ATTRIBUTE
     label: "perm.part.attachments"
 
   parts_order:
@@ -150,7 +187,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         label: "perm.list_parts"
         bit: 10
       show_users:
-        label: "perm.list_parts"
+        label: "perm.show_users"
         bit: 12
 
   footprints:
@@ -176,6 +213,14 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
   attachment_types:
     <<: *PART_CONTAINING
     label: "perm.part.attachment_types"
+
+  currencies:
+    <<: *PART_CONTAINING
+    label: "perm.currencies"
+
+  measurement_units:
+    <<: *PART_CONTAINING
+    label: "perm.measurement_units"
 
   tools:
     label: "perm.part.tools"

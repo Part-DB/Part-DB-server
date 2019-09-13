@@ -86,11 +86,9 @@ class StructureVoter extends ExtendedVoter
             case Supplier::class:
                 return 'suppliers';
             case Currency::class:
-                //TODO: Implement own permission
-                return 'suppliers';
+                return 'currencies';
             case MeasurementUnit::class:
-                //TODO: Implement own permission
-                return 'suppliers';
+                return 'measurement_units';
         }
         //When the class is not supported by this class return null
         return null;

@@ -166,6 +166,12 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
      */
     protected $group;
 
+    /**
+     * @var array
+     * @ORM\Column(type="json")
+     */
+    protected $settings = [];
+
     /** @var PermissionsEmbed
      * @ORM\Embedded(class="PermissionsEmbed", columnPrefix="perms_")
      * @ValidPermission()
@@ -173,7 +179,8 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
     protected $permissions;
 
     /**
-     * @ORM\Column(type="string", name="config_currency")
+     * @ORM\ManyToOne(targetEntity="App\Entity\PriceInformations\Currency", fetch="EAGER")
+     * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
      */
     protected $currency = "";
 

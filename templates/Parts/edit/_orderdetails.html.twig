@@ -1,14 +1,14 @@
 {% form_theme form with ['Parts/edit/edit_form_styles.html.twig', "bootstrap_4_layout.html.twig"] %}
 
-<table class="table table-striped table-sm" id="orderdetails_table" data-prototype="{{ form_widget(form.orderdetails.vars.prototype)|e('html_attr') }}">
+<table class="table table-striped table-sm" id="orderdetails_table" data-prototype="{% if form.orderdetails.vars.prototype is defined %}{{ form_widget(form.orderdetails.vars.prototype)|e('html_attr') }}{% endif %}">
     <tbody>
     {% for detail in form.orderdetails %}
-        {{ form_widget(detail) }}
+        {{ form_widget(detail, {'disable_delete' : not is_granted('orderdetails.delete', part)}) }}
     {% endfor %}
     </tbody>
 </table>
 
-<button type="button" class="btn btn-success" onclick="create_orderdetail_entry(this)">
+<button type="button" class="btn btn-success" onclick="create_orderdetail_entry(this)" {% if not is_granted('orderdetails.create', part) %}disabled{% endif %}>
     <i class="fas fa-plus-square fa-fw"></i>
     {% trans %}orderdetail.create{% endtrans %}
 </button>
