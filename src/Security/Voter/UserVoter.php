@@ -78,7 +78,9 @@ class UserVoter extends ExtendedVoter
                 }
             }
             //Else just check users permission:
-            return $this->resolver->inherit($user, 'users', $attribute) ?? false;
+            if ($this->resolver->isValidOperation('users', $attribute)) {
+                return $this->resolver->inherit($user, 'users', $attribute) ?? false;
+            }
         }
 
         return false;

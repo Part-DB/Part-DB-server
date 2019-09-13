@@ -62,7 +62,8 @@ class PermissionsType extends AbstractType
                     return [new NoLockout()];
                 }
                 return [];
-            }
+            },
+            'inherit' => false,
         ]);
 
 
@@ -82,7 +83,8 @@ class PermissionsType extends AbstractType
                 'group_name' => $key,
                 'mapped' => false,
                 'data' => $builder->getData(),
-                'disabled' => $options['disabled']
+                'disabled' => $options['disabled'],
+                'inherit' => $options['inherit']
             ]);
         }
 
@@ -91,7 +93,8 @@ class PermissionsType extends AbstractType
             'label' => 'perm.group.other',
             'mapped' => false,
             'data' => $builder->getData(),
-            'disabled' => $options['disabled']
+            'disabled' => $options['disabled'],
+            'inherit' => $options['inherit']
         ]);
     }
 }

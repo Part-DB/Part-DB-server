@@ -29,7 +29,7 @@
                 <div class="form-group row">
                     <label class="col-form-label col-md-4">{% trans %}user.email.label{% endtrans %}</label>
                     <div class="col-md-8">
-                       {# <p class="form-control-plaintext">{{ user.email }}</p>#}
+                        {# <p class="form-control-plaintext">{{ user.email }}</p>#}
                         <a class="form-control-link" href="mailto:{{ user.email }}">{{ user.email }}</a>
                     </div>
                 </div>
@@ -58,4 +58,18 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block additional_content %}
+    {% if is_granted('read', user) or is_granted('show_permissions', user) %}
+    <div class="card mt-3">
+        <div class="card-header"><i class="fas fa-gavel fa-fw"></i>
+            {% trans %}user.permissions{% endtrans %}</div>
+        <div class="card-body">
+            {{ form_start(form) }}
+            {{ form_row(form.permissions) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+    {% endif %}
 {% endblock %}

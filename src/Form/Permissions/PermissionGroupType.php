@@ -71,7 +71,8 @@ class PermissionGroupType extends AbstractType
                 'label' => $permission['label'] ?? $key,
                 'mapped' => false,
                 'data' => $builder->getData(),
-                'disabled' => $options['disabled']
+                'disabled' => $options['disabled'],
+                'inherit' => $options['inherit']
             ]);
         }
     }
@@ -83,6 +84,8 @@ class PermissionGroupType extends AbstractType
         $resolver->setDefault('group_name', function (Options $options) {
             return trim($options['name']);
         });
+
+        $resolver->setDefault('inherit', false);
 
         $resolver->setDefault('label', function (Options $options) {
             if (!empty($this->perm_structure['groups'][$options['group_name']]['label'])) {

@@ -31,6 +31,7 @@ namespace App\Controller;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\UserSystem\User;
+use App\Form\Permissions\PermissionsType;
 use App\Form\UserAdminForm;
 use App\Form\UserSettingsType;
 use App\Services\EntityExporter;
@@ -135,9 +136,18 @@ class UserController extends AdminPages\BaseAdminController
             $avatar = $packages->getUrl('/img/default_avatar.png');
         }
 
+        //Show permissions to user
+        $builder = $this->createFormBuilder()->add('permissions',PermissionsType::class, [
+            'mapped' => false,
+            'disabled' => true,
+            'inherit' => true,
+            'data' => $user
+        ]);
+
         return $this->render('Users/user_info.html.twig', [
             'user' => $user,
             'avatar' => $avatar,
+            'form' => $builder->getForm()->createView()
         ]);
     }
 
