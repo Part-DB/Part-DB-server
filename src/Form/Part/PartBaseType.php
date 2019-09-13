@@ -254,7 +254,7 @@ class PartBaseType extends AbstractType
             'prototype_data' => new Orderdetail(),
             'entry_options' => [
                 'measurement_unit' => $part->getPartUnit(),
-                'disabled' => !$this->security->isGranted('attachments.edit', $part),
+                'disabled' => !$this->security->isGranted('orderdetails.edit', $part),
             ]
         ]);
 

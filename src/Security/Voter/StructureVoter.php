@@ -56,9 +56,11 @@ class StructureVoter extends ExtendedVoter
      */
     protected function supports($attribute, $subject)
     {
-        $permission_name = $this->instanceToPermissionName($subject);
-        //If permission name is null, then the subject is not supported
-        return ($permission_name !== null) && $this->resolver->isValidOperation($permission_name, $attribute);
+        if(is_object($subject)) {
+            $permission_name = $this->instanceToPermissionName($subject);
+            //If permission name is null, then the subject is not supported
+            return ($permission_name !== null) && $this->resolver->isValidOperation($permission_name, $attribute);
+        }
 
     }
 

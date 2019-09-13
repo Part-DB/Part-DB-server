@@ -45,16 +45,19 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use function foo\func;
 
 class OrderdetailType extends AbstractType
 {
     protected $trans;
+    protected $security;
 
-    public function __construct(TranslatorInterface $trans)
+    public function __construct(TranslatorInterface $trans, Security $security)
     {
         $this->trans = $trans;
+        $this->security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -100,11 +103,13 @@ class OrderdetailType extends AbstractType
             //Attachment section
             $event->getForm()->add('pricedetails', CollectionType::class, [
                 'entry_type' => PricedetailType::class,
-                'allow_add' => true, 'allow_delete' => true,
+                'allow_add' => $this->security->isGranted('@parts_prices.create'),
+                'allow_delete' => $this->security->isGranted('@parts_prices.delete'),
                 'label' => false,
                 'prototype_data' => $dummy_pricedetail,
                 'by_reference' => false,
                 'entry_options' => [
+                    'disabled' => !$this->security->isGranted('@parts_prices.edit'),
                     'measurement_unit' => $options['measurement_unit']
                 ]
             ]);
