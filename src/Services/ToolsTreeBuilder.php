@@ -29,6 +29,18 @@
 
 namespace App\Services;
 
+use App\Entity\Attachments\AttachmentType;
+use App\Entity\Devices\Device;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Footprint;
+use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\MeasurementUnit;
+use App\Entity\Parts\Part;
+use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\Supplier;
+use App\Entity\PriceInformations\Currency;
+use App\Entity\UserSystem\Group;
+use App\Entity\UserSystem\User;
 use App\Helpers\TreeViewNode;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
@@ -47,9 +59,11 @@ class ToolsTreeBuilder
     protected $urlGenerator;
     protected $keyGenerator;
     protected $cache;
+    protected $security;
 
     public function __construct(TranslatorInterface $translator, UrlGeneratorInterface $urlGenerator,
-                                TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator)
+                                TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator,
+                                Security $security)
     {
         $this->translator = $translator;
         $this->urlGenerator = $urlGenerator;
@@ -57,6 +71,8 @@ class ToolsTreeBuilder
         $this->cache = $treeCache;
 
         $this->keyGenerator = $keyGenerator;
+
+        $this->security = $security;
     }
 
     /**
@@ -87,31 +103,67 @@ class ToolsTreeBuilder
     protected function getEditNodes() : array
     {
         $nodes = array();
-        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.attachment_types'),
-            $this->urlGenerator->generate('attachment_type_new'));
-        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.categories'),
-            $this->urlGenerator->generate('category_new'));
-        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.devices'),
-            $this->urlGenerator->generate('device_new'));
-        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.suppliers'),
-            $this->urlGenerator->generate('supplier_new'));
-        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.manufacturer'),
-            $this->urlGenerator->generate('manufacturer_new'));
 
-        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.storelocation'),
-            $this->urlGenerator->generate('store_location_new'));
-
-        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.footprint'),
-            $this->urlGenerator->generate('footprint_new'));
-
-        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.currency'),
-            $this->urlGenerator->generate('currency_new'));
-
-        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.measurement_unit'),
-            $this->urlGenerator->generate('measurement_unit_new'));
-
-        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.edit.part'),
-            $this->urlGenerator->generate('part_new'));
+        if ($this->security->isGranted('read', new AttachmentType())) {
+            $nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.edit.attachment_types'),
+                $this->urlGenerator->generate('attachment_type_new')
+            );
+        }
+        if ($this->security->isGranted('read', new Category())) {
+            $nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.edit.categories'),
+                $this->urlGenerator->generate('category_new')
+            );
+        }
+        if ($this->security->isGranted('read', new Device())) {
+            $nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.edit.devices'),
+                $this->urlGenerator->generate('device_new')
+            );
+        }
+        if ($this->security->isGranted('read', new Supplier())) {
+            $nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.edit.suppliers'),
+                $this->urlGenerator->generate('supplier_new')
+            );
+        }
+        if ($this->security->isGranted('read', new Manufacturer())) {
+            $nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.edit.manufacturer'),
+                $this->urlGenerator->generate('manufacturer_new')
+            );
+        }
+        if ($this->security->isGranted('read', new Storelocation())) {
+            $nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.edit.storelocation'),
+                $this->urlGenerator->generate('store_location_new')
+            );
+        }
+        if ($this->security->isGranted('read', new Footprint())) {
+            $nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.edit.footprint'),
+                $this->urlGenerator->generate('footprint_new')
+            );
+        }
+        if ($this->security->isGranted('read', new Currency())) {
+            $nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.edit.currency'),
+                $this->urlGenerator->generate('currency_new')
+            );
+        }
+        if ($this->security->isGranted('read', new MeasurementUnit())) {
+            $nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.edit.measurement_unit'),
+                $this->urlGenerator->generate('measurement_unit_new')
+            );
+        }
+        if ($this->security->isGranted('create', new Part())) {
+            $nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.edit.part'),
+                $this->urlGenerator->generate('part_new')
+            );
+        }
 
         return $nodes;
     }
@@ -138,13 +190,18 @@ class ToolsTreeBuilder
     {
         $nodes = array();
 
-        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.system.users'),
-            $this->urlGenerator->generate("user_new")
-        );
-
-        $nodes[] = new TreeViewNode($this->translator->trans('tree.tools.system.groups'),
-            $this->urlGenerator->generate('group_new')
-        );
+        if ($this->security->isGranted('read', new User())) {
+            $nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.system.users'),
+                $this->urlGenerator->generate("user_new")
+            );
+        }
+        if ($this->security->isGranted('read', new Group())) {
+            $nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.system.groups'),
+                $this->urlGenerator->generate('group_new')
+            );
+        }
 
         return $nodes;
     }
