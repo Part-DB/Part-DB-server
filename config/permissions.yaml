@@ -90,11 +90,11 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
 
   parts_minamount:
     <<: *PART_ATTRIBUTE
-    label: "perm.part.mininstock"
+    label: "perm.part.minamount"
 
   parts_footprint:
     <<: *PART_ATTRIBUTE
-    label: "perm.part.mininstock"
+    label: "perm.part.footprint"
 
   parts_comment:
     <<: *PART_ATTRIBUTE

@@ -26,6 +26,28 @@ final class Version20190913141126 extends AbstractMigration
         $this->addSql('ALTER TABLE users ADD currency_id INT DEFAULT NULL, ADD settings LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\', ADD perms_parts_category SMALLINT NOT NULL, ADD perms_parts_minamount SMALLINT NOT NULL, ADD perms_parts_lots SMALLINT NOT NULL, ADD perms_parts_tags SMALLINT NOT NULL, ADD perms_parts_unit SMALLINT NOT NULL, ADD perms_parts_mass SMALLINT NOT NULL, ADD perms_parts_status SMALLINT NOT NULL, ADD perms_parts_mpn SMALLINT NOT NULL, ADD perms_currencies INT NOT NULL, ADD perms_measurement_units INT NOT NULL, DROP config_currency, DROP perms_parts_instock, DROP perms_parts_mininstock, DROP perms_parts_storelocation');
         $this->addSql('ALTER TABLE users ADD CONSTRAINT FK_1483A5E938248176 FOREIGN KEY (currency_id) REFERENCES currencies (id)');
         $this->addSql('CREATE INDEX IDX_1483A5E938248176 ON users (currency_id)');
+
+        //Set some default permissions for the groups
+
+        $sql = 'UPDATE `groups`
+        SET perms_parts_category = 9, perms_parts_minamount = 9, perms_parts_lots = 169, perms_parts_tags= 9,
+            perms_parts_unit = 9, perms_parts_mass = 9, perms_parts_status = 9, perms_parts_mpn = 9,
+            perms_currencies = 9897, perms_measurement_units = 9897, perms_parts_attachements = 681,
+            perms_parts_orderdetails = 681, perms_parts_prices = 681
+        WHERE id = 2 AND name = "readonly";
+        
+        UPDATE `groups`
+        SET perms_parts_category = 5, perms_parts_minamount = 5, perms_parts_lots = 85, perms_parts_tags= 5,
+            perms_parts_unit = 5, perms_parts_mass = 5, perms_parts_status = 5, perms_parts_mpn = 5,
+            perms_currencies = 5461, perms_measurement_units = 5461, perms_parts_attachements = 341,
+            perms_parts_orderdetails = 341, perms_parts_prices = 341
+        WHERE (id = 1 AND name = "admins")
+            OR (id = 3 AND name = "users");        
+        ';
+
+        $this->addSql($sql);
+
+        $this->write('[!!!] Permissions were updated! Please check if they fit your expectations!');
     }
 
     public function down(Schema $schema) : void
