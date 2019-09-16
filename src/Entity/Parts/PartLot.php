@@ -34,6 +34,7 @@ namespace App\Entity\Parts;
 
 use App\Entity\Base\DBElement;
 use App\Entity\Base\TimestampTrait;
+use App\Entity\Parts\PartTraits\InstockTrait;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPartLot;
 use Doctrine\ORM\Mapping as ORM;
@@ -227,7 +228,7 @@ class PartLot extends DBElement
 
     /**
      * Sets the part that is stored in this part lot.
-     * @param Part $part
+     * @param Part|InstockTrait $part
      * @return PartLot
      */
     public function setPart(Part $part): PartLot
