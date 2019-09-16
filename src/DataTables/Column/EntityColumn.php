@@ -32,6 +32,7 @@
 namespace App\DataTables\Column;
 
 
+use App\Entity\Base\DBElement;
 use App\Entity\Base\NamedDBElement;
 use App\Entity\Parts\Part;
 use App\Services\EntityURLGenerator;
@@ -76,14 +77,19 @@ class EntityColumn extends AbstractColumn
 
         $resolver->setDefault('render', function (Options $options) {
             return function ($value, Part $context) use ($options) {
+                /** @var DBElement $entity */
                 $entity = $this->accessor->getValue($context, $options['property']);
 
                 if ($entity) {
-                    return sprintf(
-                        '<a href="%s">%s</a>',
-                        $this->urlGenerator->listPartsURL($entity),
-                        $value
-                    );
+                    if ($entity->getID() !== null) {
+                        return sprintf(
+                            '<a href="%s">%s</a>',
+                            $this->urlGenerator->listPartsURL($entity),
+                            $value
+                        );
+                    } else {
+                        return sprintf('<i>%s</i>', $value);
+                    }
                 }
             };
         });

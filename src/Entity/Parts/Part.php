@@ -74,7 +74,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Part.
+ * Part class.
+ *
+ * DONT USE orphanRemoval on properties with ColumnSecurity!! An empty collection will be created as placeholder,
+ * and the partlots are deleted, even if we want dont want that!
  *
  * @ORM\Entity(repositoryClass="App\Repository\PartRepository")
  * @ORM\Table("`parts`")
@@ -84,7 +87,8 @@ class Part extends AttachmentContainingDBElement
     public const INSTOCK_UNKNOWN = -2;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\PartAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\PartAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=false)
+     * @ColumnSecurity(type="collection", prefix="attachments")
      * @Assert\Valid()
      */
     protected $attachments;
@@ -93,6 +97,7 @@ class Part extends AttachmentContainingDBElement
      * @var Category
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="parts")
      * @ORM\JoinColumn(name="id_category", referencedColumnName="id", nullable=false)
+     * @ColumnSecurity(prefix="category", type="App\Entity\Parts\Category")
      * @Selectable()
      */
     protected $category;
@@ -101,8 +106,7 @@ class Part extends AttachmentContainingDBElement
      * @var Footprint|null
      * @ORM\ManyToOne(targetEntity="Footprint", inversedBy="parts")
      * @ORM\JoinColumn(name="id_footprint", referencedColumnName="id")
-     *
-     * @ColumnSecurity(prefix="footprint", type="object")
+     * @ColumnSecurity(prefix="footprint", type="App\Entity\Parts\Footprint")
      * @Selectable()
      */
     protected $footprint;
@@ -111,8 +115,7 @@ class Part extends AttachmentContainingDBElement
      * @var Manufacturer|null
      * @ORM\ManyToOne(targetEntity="Manufacturer", inversedBy="parts")
      * @ORM\JoinColumn(name="id_manufacturer", referencedColumnName="id")
-     *
-     * @ColumnSecurity(prefix="manufacturer", type="object")
+     * @ColumnSecurity(prefix="manufacturer", type="App\Entity\Parts\Manufacturer")
      * @Selectable()
      */
     protected $manufacturer;
@@ -128,7 +131,7 @@ class Part extends AttachmentContainingDBElement
 
     /**
      * @var Orderdetail[]
-     * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=false)
      * @Assert\Valid()
      * @ColumnSecurity(prefix="orderdetails", type="collection")
      */
@@ -174,15 +177,15 @@ class Part extends AttachmentContainingDBElement
     /**
      * @var string
      * @ORM\Column(type="text")
-     *
      * @ColumnSecurity(prefix="description")
      */
     protected $description = '';
 
     /**
      * @var ?PartLot[]
-     * @ORM\OneToMany(targetEntity="PartLot", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="PartLot", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=false)
      * @Assert\Valid()
+     * @ColumnSecurity(type="collection", prefix="lots")
      */
     protected $partLots;
 
@@ -233,14 +236,14 @@ class Part extends AttachmentContainingDBElement
      * @var string
      * @ORM\Column(type="string")
      * @Assert\Url()
-     * @ColumnSecurity(prefix="manufacturer", type="string", placeholder="")
+     * @ColumnSecurity(prefix="mpn", type="string", placeholder="")
      */
     protected $manufacturer_product_url = '';
 
     /**
      * @var string
      * @ORM\Column(type="string")
-     * @ColumnSecurity(prefix="manufacturer", type="string", placeholder="")
+     * @ColumnSecurity(prefix="mpn", type="string", placeholder="")
      */
     protected $manufacturer_product_number = '';
 
@@ -248,12 +251,14 @@ class Part extends AttachmentContainingDBElement
      * @var string
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Choice({"announced", "active", "nrfnd", "eol", "discontinued", ""})
+     * @ColumnSecurity(type="string", prefix="status", placeholder="")
      */
     protected $manufacturing_status = "";
 
     /**
      * @var bool Determines if this part entry needs review (for example, because it is work in progress)
      * @ORM\Column(type="boolean")
+     * @ColumnSecurity(type="boolean")
      */
     protected $needs_review = false;
 
@@ -261,18 +266,21 @@ class Part extends AttachmentContainingDBElement
      * @var ?MeasurementUnit The unit in which the part's amount is measured.
      * @ORM\ManyToOne(targetEntity="MeasurementUnit", inversedBy="parts")
      * @ORM\JoinColumn(name="id_part_unit", referencedColumnName="id", nullable=true)
+     * @ColumnSecurity(type="object", prefix="unit")
      */
     protected $partUnit;
 
     /**
      * @var string A comma seperated list of tags, assocciated with the part.
      * @ORM\Column(type="text")
+     * @ColumnSecurity(type="string", prefix="tags", placeholder="")
      */
     protected $tags = '';
 
     /**
      * @var float|null How much a single part unit weighs in gramms.
      * @ORM\Column(type="float", nullable=true)
+     * @ColumnSecurity(type="float", placeholder=null)
      * @Assert\PositiveOrZero()
      */
     protected $mass;
@@ -482,7 +490,7 @@ class Part extends AttachmentContainingDBElement
      *
      * @return Category the category of this part
      */
-    public function getCategory(): Category
+    public function getCategory(): ?Category
     {
         return $this->category;
     }

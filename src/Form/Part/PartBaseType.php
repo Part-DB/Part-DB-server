@@ -41,7 +41,6 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\Storelocation;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Form\AttachmentFormType;
-use App\Form\AttachmentType;
 use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
 use Doctrine\DBAL\Types\FloatType;
@@ -122,7 +121,7 @@ class PartBaseType extends AbstractType
                 'required' => false,
                 'label' => $this->trans->trans('part.edit.footprint'),
                 'disable_not_selectable' => true,
-                'disabled' => !$this->security->isGranted('move', $part),
+                'disabled' => !$this->security->isGranted('footprint.edit', $part),
             ])
             ->add('tags', TextType::class, [
                 'required' => false,

@@ -81,7 +81,7 @@
         <ul class="structural_link d-inline">
             {% for e in entity.pathArray %}
                 <li>
-                    {% if link_type is not empty %}
+                    {% if link_type is not empty and e.id is not null %}
                         <a href="{{ e | entityURL(link_type) }}">{{ e.name }}</a>
                     {% else %}
                         {{ e.name }}
@@ -99,7 +99,7 @@
         <ol class="breadcrumb">
             {% for e in entity.pathArray %}
                 <li class="breadcrumb-item {% if loop.last %}active{% endif %}">
-                    {% if link_type is not empty and not loop.last %}
+                    {% if link_type is not empty and not loop.last and e.id is not null %}
                         <a href="{{ e | entityURL(link_type) }}">{{ e.name }}</a>
                     {% else %}
                         {{ e.name }}

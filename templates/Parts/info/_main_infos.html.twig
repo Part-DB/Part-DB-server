@@ -11,7 +11,11 @@
     <div class="col-md-9">
         <h5 class="text-muted pt-2" title="{% trans %}manufacturer.label{% endtrans %}">
             {% if part.manufacturer %}
-                <a href="{{ part.manufacturer | entityURL('list_parts') }}">{{ part.manufacturer.name}}</a>
+                {% if part.manufacturer.id is not null %}
+                    <a href="{{ part.manufacturer | entityURL('list_parts') }}">{{ part.manufacturer.name}}</a>
+                {% else %}
+                    {{ part.manufacturer.name }}
+                {% endif %}
             {% endif %}
             {% if part.manufacturerProductUrl %}
                 <small>

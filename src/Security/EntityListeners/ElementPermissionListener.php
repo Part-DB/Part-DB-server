@@ -33,7 +33,11 @@ use App\Entity\Base\DBElement;
 use App\Security\Annotations\ColumnSecurity;
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\PostLoad;
 use Doctrine\ORM\Mapping\PreUpdate;
 use ReflectionClass;
@@ -50,11 +54,13 @@ class ElementPermissionListener
 {
     protected $security;
     protected $reader;
+    protected $em;
 
-    public function __construct(Security $security, Reader $reader)
+    public function __construct(Security $security, Reader $reader, EntityManagerInterface $em)
     {
         $this->security = $security;
         $this->reader = $reader;
+        $this->em = $em;
     }
 
     /**
@@ -80,7 +86,39 @@ class ElementPermissionListener
             //Check if user is allowed to read info, otherwise apply placeholder
             if ((null !== $annotation) && !$this->security->isGranted($annotation->getReadOperationName(), $element)) {
                 $property->setAccessible(true);
-                $property->setValue($element, $annotation->getPlaceholder());
+                $value = $annotation->getPlaceholder();
+                if($value instanceof DBElement) {
+                    $this->em->detach($value);
+                }
+                $property->setValue($element, $value);
+            }
+        }
+    }
+
+    /**
+     * @ORM\PreFlush()
+     * This function is called before flushing. We use it, to remove all placeholder DBElements (with name=???),
+     * so we dont get a no cascade persistance error.
+     */
+    public function preFlushHandler(DBElement $element, PreFlushEventArgs $eventArgs)
+    {
+        //$eventArgs->getEntityManager()->getUnitOfWork()->
+
+        $reflectionClass = new ReflectionClass($element);
+        $properties = $reflectionClass->getProperties();
+
+        foreach ($properties as $property) {
+            $annotation = $this->reader->getPropertyAnnotation(
+                $property,
+                ColumnSecurity::class
+            );
+            if (null !== $annotation) {
+                //Check if the current property is an DBElement
+                $property->setAccessible(true);
+                $value = $property->getValue($element);
+                if ($value instanceof DBElement && !$this->security->isGranted($annotation->getEditOperationName(), $element)) {
+                    $property->setValue($element, null);
+                }
             }
         }
     }
@@ -97,7 +135,7 @@ class ElementPermissionListener
 
         foreach ($properties as $property) {
             /**
-             * @var ColumnSecurity
+             * @var ColumnSecurity $annotation
              */
             $annotation = $this->reader->getPropertyAnnotation($property,
                 ColumnSecurity::class);
@@ -108,7 +146,8 @@ class ElementPermissionListener
                 //Check if user is allowed to edit info, otherwise overwrite the new value
                 // so that nothing is changed in the DB.
                 if ($event->hasChangedField($field_name) &&
-                    !$this->security->isGranted($annotation->getEditOperationName(), $element)) {
+                    (!$this->security->isGranted($annotation->getEditOperationName(), $element)
+                    || !$this->security->isGranted($annotation->getReadOperationName(), $element))) {
                     $event->setNewValue($field_name, $event->getOldValue($field_name));
                 }
             }

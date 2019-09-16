@@ -29,6 +29,7 @@
 
 namespace App\Security\Annotations;
 
+use App\Entity\Base\NamedDBElement;
 use Doctrine\Common\Annotations\Annotation;
 use Doctrine\Common\Collections\ArrayCollection;
 use \InvalidArgumentException;
@@ -90,10 +91,25 @@ class ColumnSecurity
 
     public function getPlaceholder()
     {
+        //Check if a class name was specified
+        if (class_exists($this->type)) {
+            $object = new $this->type();
+            if ($object instanceof NamedDBElement) {
+                if (is_string($this->placeholder) && $this->placeholder !== "") {
+                    $object->setName($this->placeholder);
+                }
+                $object->setName('???');
+            }
+            return $object;
+        }
+
+
         if (null === $this->placeholder) {
             switch ($this->type) {
                 case 'integer':
                     return 0;
+                case 'float':
+                    return 0.0;
                 case 'string':
                     return '???';
                 case 'object':
