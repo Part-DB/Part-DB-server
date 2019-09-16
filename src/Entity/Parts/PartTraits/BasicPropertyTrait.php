@@ -41,13 +41,6 @@ use App\Validator\Constraints\Selectable;
 trait BasicPropertyTrait
 {
     /**
-     * @var string The name of this part
-     * @ORM\Column(type="string")
-     * @ColumnSecurity(prefix="name")
-     */
-    protected $name = '';
-
-    /**
      * @var string A text describing what this part does
      * @ORM\Column(type="text")
      * @ColumnSecurity(prefix="description")
@@ -182,7 +175,7 @@ trait BasicPropertyTrait
      * @param Category $category The new category of this part
      * @return self
      */
-    public function setCategory(Category $category): Part
+    public function setCategory(Category $category): self
     {
         $this->category = $category;
         return $this;
@@ -196,7 +189,7 @@ trait BasicPropertyTrait
      *
      * @return self
      */
-    public function setFootprint(?Footprint $new_footprint): Part
+    public function setFootprint(?Footprint $new_footprint): self
     {
         $this->footprint = $new_footprint;
         return $this;

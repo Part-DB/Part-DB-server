@@ -158,7 +158,7 @@ trait OrderTrait
      *
      * @param bool     $new_manual_order          the new "manual_order" attribute
      * @param int      $new_order_quantity        the new order quantity
-     * @param int|null $new_order_orderdetails_id * the ID of the new order orderdetails
+     * @param Orderdetail|null $new_order_orderdetail * the ID of the new order orderdetails
      *                                            * or Zero for "no order orderdetails"
      *                                            * or NULL for automatic order orderdetails
      *                                            (if the part has exactly one orderdetails,
@@ -167,7 +167,7 @@ trait OrderTrait
      *
      * @return self
      */
-    public function setManualOrder(bool $new_manual_order, int $new_order_quantity = 1, ?Orderdetail $new_order_orderdetail = null): Part
+    public function setManualOrder(bool $new_manual_order, int $new_order_quantity = 1, ?Orderdetail $new_order_orderdetail = null): self
     {
         //Assert::greaterThan($new_order_quantity, 0, 'The new order quantity must be greater zero. Got %s!');
 

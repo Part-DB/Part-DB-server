@@ -108,7 +108,9 @@ abstract class BaseAdminController extends AbstractController
             $this->addFlash('success', $this->translator->trans('entity.created_flash'));
 
             return $this->redirectToRoute($this->route_base . '_edit', ['id' => $new_entity->getID()]);
-        } elseif ($form->isSubmitted() && ! $form->isValid()) {
+        }
+
+        if ($form->isSubmitted() && ! $form->isValid()) {
             $this->addFlash('error', $this->translator->trans('entity.created_flash.invalid'));
         }
 

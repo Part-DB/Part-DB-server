@@ -117,14 +117,16 @@ class Supplier extends Company
     protected $parts;
 
     /**
+     * Gets the currency that should be used by default, when creating a orderdetail with this supplier.
      * @return ?Currency
      */
-    public function getDefaultCurrency()
+    public function getDefaultCurrency() : ?Currency
     {
         return $this->default_currency;
     }
 
     /**
+     * Sets the default currency.
      * @param ?Currency $default_currency
      * @return Supplier
      */
@@ -135,16 +137,17 @@ class Supplier extends Company
     }
 
     /**
-     * @return ?string
+     * Gets the shipping costs for an order with this supplier, given in base currency.
+     * @return string|null A bcmath string with the shipping costs
      */
     public function getShippingCosts() : ?string
     {
-        dump($this);
         return $this->shipping_costs;
     }
 
     /**
-     * @param ?string $shipping_costs
+     * Sets the shipping costs for an order with this supplier.
+     * @param string|null $shipping_costs A bcmath string with the shipping costs.
      * @return Supplier
      */
     public function setShippingCosts(?string $shipping_costs) : Supplier

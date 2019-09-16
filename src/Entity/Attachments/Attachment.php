@@ -23,11 +23,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
-use App\Entity\Base\DBElement;
 use App\Entity\Base\NamedDBElement;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Attachment.
@@ -52,7 +50,7 @@ abstract class Attachment extends NamedDBElement
      * @var string The filename using the %BASE% variable
      * @ORM\Column(type="string", name="filename")
      */
-    protected $path = "";
+    protected $path = '';
 
     /**
      * ORM mapping is done in sub classes (like PartAttachment)
@@ -101,8 +99,8 @@ abstract class Attachment extends NamedDBElement
     {
         //return static::isUrl($this->getPath());
         //Treat all pathes without a filepath as external
-        return (strpos($this->getPath(), "%MEDIA%") === false)
-            && (strpos($this->getPath(), "%BASE") === false);
+        return (strpos($this->getPath(), '%MEDIA%') === false)
+            && (strpos($this->getPath(), '%BASE') === false);
     }
 
     /********************************************************************************
@@ -270,7 +268,7 @@ abstract class Attachment extends NamedDBElement
         //Only set if the URL is not empty
         if (!empty($url)) {
             if (strpos($url, '%BASE%') !== false || strpos($url, '%MEDIA%') !== false) {
-                throw new \InvalidArgumentException("You can not reference internal files via the url field! But nice try!");
+                throw new \InvalidArgumentException('You can not reference internal files via the url field! But nice try!');
             }
 
             $this->path = $url;

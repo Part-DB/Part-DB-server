@@ -142,7 +142,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      *
      * @throws \InvalidArgumentException if there was an error
      */
-    public function isChildOf(StructuralDBElement $another_element)
+    public function isChildOf(StructuralDBElement $another_element) : bool
     {
         $class_name = \get_class($this);
 

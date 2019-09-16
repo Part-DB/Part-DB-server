@@ -61,7 +61,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
-use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Devices\Device;
 use App\Entity\Parts\PartTraits\AdvancedPropertyTrait;
@@ -70,11 +69,8 @@ use App\Entity\Parts\PartTraits\BasicPropertyTrait;
 use App\Entity\Parts\PartTraits\InstockTrait;
 use App\Entity\Parts\PartTraits\ManufacturerTrait;
 use App\Entity\Parts\PartTraits\OrderTrait;
-use App\Entity\PriceInformations\Orderdetail;
 use App\Security\Annotations\ColumnSecurity;
-use App\Validator\Constraints\Selectable;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Validator\Constraints as Assert;
@@ -115,6 +111,18 @@ class Part extends AttachmentContainingDBElement
      * @ORM\Column(type="datetime", name="last_modified", options={"default"="CURRENT_TIMESTAMP"})
      */
     protected $lastModified;
+
+    /***************************************************************
+     * Overriden properties
+     * (They are defined here and not in a trait, to avoid conflicts)
+     ****************************************************************/
+
+    /**
+     * @var string The name of this part
+     * @ORM\Column(type="string")
+     * @ColumnSecurity(prefix="name")
+     */
+    protected $name = '';
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\PartAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=false)

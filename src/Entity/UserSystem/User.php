@@ -182,22 +182,22 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
      * @ORM\ManyToOne(targetEntity="App\Entity\PriceInformations\Currency", fetch="EAGER")
      * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
      */
-    protected $currency = "";
+    protected $currency = '';
 
     /**
      * @ORM\Column(type="text", name="config_image_path")
      */
-    protected $image_path = "";
+    protected $image_path = '';
 
     /**
      * @ORM\Column(type="text", name="config_instock_comment_w")
      */
-    protected $instock_comment_w = "";
+    protected $instock_comment_w = '';
 
     /**
      * @ORM\Column(type="text", name="config_instock_comment_a")
      */
-    protected $instock_comment_a = "";
+    protected $instock_comment_a = '';
 
     public function __construct()
     {

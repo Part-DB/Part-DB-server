@@ -30,15 +30,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Base\NamedDBElement;
-use App\Entity\Base\StructuralDBElement;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
-use App\Form\AttachmentFormType;
 use App\Form\Part\PartBaseType;
 use App\Services\AttachmentHelper;
 use App\Services\PricedetailHelper;
-use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -177,7 +173,9 @@ class PartController extends AbstractController
             $this->addFlash('success', $translator->trans('part.created_flash'));
 
             return $this->redirectToRoute('part_edit', ['id' => $new_part->getID()]);
-        } elseif ($form->isSubmitted() && ! $form->isValid()) {
+        }
+
+        if ($form->isSubmitted() && ! $form->isValid()) {
             $this->addFlash('error', $translator->trans('part.created_flash.invalid'));
         }
 

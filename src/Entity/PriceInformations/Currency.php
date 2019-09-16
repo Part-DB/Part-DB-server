@@ -34,7 +34,6 @@ namespace App\Entity\PriceInformations;
 
 use App\Entity\Base\StructuralDBElement;
 use Doctrine\ORM\Mapping as ORM;
-use s9e\TextFormatter\Configurator\TemplateNormalizations\AbstractChooseOptimization;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 

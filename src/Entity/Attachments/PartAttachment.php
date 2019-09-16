@@ -52,7 +52,7 @@ class PartAttachment extends Attachment
     public function setElement(AttachmentContainingDBElement $element): Attachment
     {
         if (!$element instanceof Part) {
-            throw new \InvalidArgumentException("The element associated with a PartAttachment must be a Part!");
+            throw new \InvalidArgumentException('The element associated with a PartAttachment must be a Part!');
         }
 
         $this->element = $element;

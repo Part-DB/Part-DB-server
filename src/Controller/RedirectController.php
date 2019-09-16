@@ -34,7 +34,6 @@ namespace App\Controller;
 use App\Entity\UserSystem\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RedirectController extends AbstractController
 {
@@ -52,10 +51,8 @@ class RedirectController extends AbstractController
 
         //Check if a user has set a preferred language setting:
         $user = $this->getUser();
-        if ($user instanceof User) {
-           if(!empty($user->getLanguage())) {
-               $locale = $user->getLanguage();
-           }
+        if (($user instanceof User) && !empty($user->getLanguage())) {
+            $locale = $user->getLanguage();
         }
 
         //$new_url = str_replace($request->getPathInfo(), '/' . $locale . $request->getPathInfo(), $request->getUri());

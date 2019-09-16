@@ -96,7 +96,7 @@ class Pricedetail extends DBElement
      * @ORM\Column(type="decimal", precision=11, scale=5)
      * @Assert\Positive()
      */
-    protected $price = "0.0";
+    protected $price = '0.0';
 
     /**
      * @var ?Currency The currency used for the current price information.
@@ -210,11 +210,9 @@ class Pricedetail extends DBElement
      */
     public function getPriceRelatedQuantity(): float
     {
-        if ($this->orderdetail && $this->orderdetail->getPart()) {
-            if (!$this->orderdetail->getPart()->useFloatAmount()) {
-                $tmp = round($this->price_related_quantity);
-                return $tmp < 1 ? 1 : $tmp;
-            }
+        if ($this->orderdetail && $this->orderdetail->getPart() && !$this->orderdetail->getPart()->useFloatAmount()) {
+            $tmp = round($this->price_related_quantity);
+            return $tmp < 1 ? 1 : $tmp;
         }
         return $this->price_related_quantity;
     }
@@ -227,17 +225,15 @@ class Pricedetail extends DBElement
      *
      * The amount is measured in part unit.
      *
-     * @return int the minimum discount quantity
+     * @return float the minimum discount quantity
      *
      * @see Pricedetail::setMinDiscountQuantity()
      */
     public function getMinDiscountQuantity(): float
     {
-        if ($this->orderdetail && $this->orderdetail->getPart()) {
-            if (!$this->orderdetail->getPart()->useFloatAmount()) {
-                $tmp = round($this->min_discount_quantity);
-                return $tmp < 1 ? 1 : $tmp;
-            }
+        if ($this->orderdetail && $this->orderdetail->getPart() && !$this->orderdetail->getPart()->useFloatAmount()) {
+            $tmp = round($this->min_discount_quantity);
+            return $tmp < 1 ? 1 : $tmp;
         }
 
         return $this->min_discount_quantity;
@@ -264,7 +260,7 @@ class Pricedetail extends DBElement
      * @param Orderdetail $orderdetail
      * @return $this
      */
-    public function setOrderdetail(Orderdetail $orderdetail)
+    public function setOrderdetail(Orderdetail $orderdetail) : self
     {
         $this->orderdetail = $orderdetail;
         return $this;
@@ -311,7 +307,7 @@ class Pricedetail extends DBElement
      * If 100pcs costs 20$, you have to set the price to 20$ and the price related
      * quantity to 100. The single price (20$/100 = 0.2$) will be calculated automatically.
      *
-     * @param int $new_price_related_quantity the price related quantity
+     * @param float $new_price_related_quantity the price related quantity
      *
      * @return self
      */
@@ -337,7 +333,7 @@ class Pricedetail extends DBElement
      * (Each of this examples would be an own Pricedetails-object.
      * So the orderdetails would have three Pricedetails for one supplier.)
      *
-     * @param int $new_min_discount_quantity the minimum discount quantity
+     * @param float $new_min_discount_quantity the minimum discount quantity
      *
      * @return self
      */

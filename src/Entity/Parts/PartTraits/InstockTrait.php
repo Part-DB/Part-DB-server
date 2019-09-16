@@ -33,7 +33,6 @@ namespace App\Entity\Parts\PartTraits;
 
 
 use App\Entity\Parts\MeasurementUnit;
-use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Security\Annotations\ColumnSecurity;
 use Doctrine\Common\Collections\Collection;
@@ -181,7 +180,7 @@ trait InstockTrait
     /**
      * Set the minimum amount of parts that have to be instock.
      * See getPartUnit() for the associated unit.
-     * @param int $new_minamount the new count of parts which should be in stock at least
+     * @param float $new_minamount the new count of parts which should be in stock at least
      * @return self
      */
     public function setMinAmount(float $new_minamount): self

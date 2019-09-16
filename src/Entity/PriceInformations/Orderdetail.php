@@ -68,9 +68,6 @@ use App\Entity\Parts\Supplier;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\PersistentCollection;
-use Exception;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -110,7 +107,7 @@ class Orderdetail extends DBElement
      * @var string
      * @ORM\Column(type="string")
      */
-    protected $supplierpartnr = "";
+    protected $supplierpartnr = '';
 
     /**
      * @var bool
@@ -123,7 +120,7 @@ class Orderdetail extends DBElement
      * @ORM\Column(type="string")
      * @Assert\Url()
      */
-    protected $supplier_product_url = "";
+    protected $supplier_product_url = '';
 
     public function __construct()
     {
@@ -205,8 +202,8 @@ class Orderdetail extends DBElement
             return $this->supplier_product_url;
         }
 
-        if ($this->supplier === null) {
-            return "";
+        if ($this->getSupplier() === null) {
+            return '';
         }
 
         return $this->getSupplier()->getAutoProductUrl($this->supplierpartnr); // maybe an automatic url is available...
@@ -282,10 +279,12 @@ class Orderdetail extends DBElement
     /**
      * Sets a new part with which this orderdetail is associated
      * @param Part $part
+     * @return Orderdetail
      */
-    public function setPart(Part $part)
+    public function setPart(Part $part) : Orderdetail
     {
         $this->part = $part;
+        return $this;
     }
 
     /**
@@ -330,12 +329,11 @@ class Orderdetail extends DBElement
      * Set this to "", if the function getSupplierProductURL should return the automatic generated URL.
      * @param $new_url string The new URL for the supplier URL.
      * @return Orderdetail
-     * @return Orderdetail
      */
-    public function setSupplierProductUrl(string $new_url)
+    public function setSupplierProductUrl(string $new_url) : Orderdetail
     {
         //Only change the internal URL if it is not the auto generated one
-        if ($new_url == $this->supplier->getAutoProductUrl($this->getSupplierPartNr())) {
+        if ($new_url === $this->supplier->getAutoProductUrl($this->getSupplierPartNr())) {
             return $this;
         }
 

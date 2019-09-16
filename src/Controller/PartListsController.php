@@ -178,7 +178,7 @@ class PartListsController extends AbstractController
     /**
      * @Route("/parts/search/{keyword}", name="parts_search")
      */
-    public function showSearch(Request $request, DataTableFactory $dataTable, string $keyword = "")
+    public function showSearch(Request $request, DataTableFactory $dataTable, string $keyword = '')
     {
         $search = $keyword;
 

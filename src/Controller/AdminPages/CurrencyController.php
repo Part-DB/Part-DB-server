@@ -32,7 +32,6 @@
 namespace App\Controller\AdminPages;
 
 
-use App\Entity\Attachments\AttachmentType;
 use App\Entity\PriceInformations\Currency;
 use App\Form\AdminPages\CurrencyAdminForm;
 use App\Services\EntityExporter;
@@ -42,7 +41,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/currency")
