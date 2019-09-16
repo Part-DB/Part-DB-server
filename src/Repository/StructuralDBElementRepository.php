@@ -59,6 +59,12 @@ class StructuralDBElementRepository extends EntityRepository
 
         $entities = $this->findBy(['parent' => $parent], ['name' => 'ASC']);
 
+        /**
+         * I think it is very difficult to replace this recursive array_merge,
+         * so if you want to change it you should have a better idea than adding each list to $result array
+         * and do an array_merge(...$result) at the end.
+         */
+
         foreach ($entities as $entity) {
             /** @var StructuralDBElement $entity */
             $result[] = $entity;
