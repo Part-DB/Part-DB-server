@@ -487,7 +487,7 @@ class AjaxUI {
             history.pushState(null, title, url);
         } else {
             //Clear pop state
-            ajaxUI.statePopped = true;
+            ajaxUI.statePopped = false;
         }
 
         //Do things on the new dom
