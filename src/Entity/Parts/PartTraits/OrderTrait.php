@@ -45,7 +45,7 @@ trait OrderTrait
 {
     /**
      * @var Orderdetail[] The details about how and where you can order this part.
-     * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=false)
+     * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      * @ColumnSecurity(prefix="orderdetails", type="collection")
      */

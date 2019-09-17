@@ -32,6 +32,7 @@ namespace App\Security\EntityListeners;
 use App\Entity\Base\DBElement;
 use App\Security\Annotations\ColumnSecurity;
 use Doctrine\Common\Annotations\Reader;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -65,10 +66,13 @@ class ElementPermissionListener
 
     /**
      * @PostLoad
-     *
+     * @ORM\PostUpdate()
      * This function is called after doctrine filled, the entity properties with db values.
      * We use this, to check if the user is allowed to access these properties, and if not, we write a placeholder
      * into the element properties, so that a user only gets non sensitve data.
+     *
+     * This function is also called after an entity was updated, so we dont show the original data to user,
+     * after an update.
      */
     public function postLoadHandler(DBElement $element, LifecycleEventArgs $event)
     {
@@ -80,16 +84,21 @@ class ElementPermissionListener
             /**
              * @var ColumnSecurity
              */
-            $annotation = $this->reader->getPropertyAnnotation($property,
-                ColumnSecurity::class);
+            $annotation = $this->reader->getPropertyAnnotation(
+                $property,
+                ColumnSecurity::class
+            );
 
             //Check if user is allowed to read info, otherwise apply placeholder
             if ((null !== $annotation) && !$this->security->isGranted($annotation->getReadOperationName(), $element)) {
                 $property->setAccessible(true);
                 $value = $annotation->getPlaceholder();
-                if($value instanceof DBElement) {
+
+                //Detach placeholder entities, so we dont get cascade errors
+                if ($value instanceof DBElement) {
                     $this->em->detach($value);
                 }
+
                 $property->setValue($element, $value);
             }
         }
@@ -97,58 +106,44 @@ class ElementPermissionListener
 
     /**
      * @ORM\PreFlush()
-     * This function is called before flushing. We use it, to remove all placeholder DBElements (with name=???),
-     * so we dont get a no cascade persistance error.
+     * This function is called before flushing. We use it, to remove all placeholders.
+     * We do it here and not in preupdate, because this is called before calculating the changeset,
+     * and so we dont get problems with orphan removal.
      */
     public function preFlushHandler(DBElement $element, PreFlushEventArgs $eventArgs)
     {
-        //$eventArgs->getEntityManager()->getUnitOfWork()->
+        $em = $eventArgs->getEntityManager();
+        $unitOfWork = $eventArgs->getEntityManager()->getUnitOfWork();
 
         $reflectionClass = new ReflectionClass($element);
         $properties = $reflectionClass->getProperties();
+
+        $old_data = $unitOfWork->getOriginalEntityData($element);
 
         foreach ($properties as $property) {
             $annotation = $this->reader->getPropertyAnnotation(
                 $property,
                 ColumnSecurity::class
             );
+
+            $changed = false;
+
+            //Only set the field if it has an annotation
             if (null !== $annotation) {
-                //Check if the current property is an DBElement
                 $property->setAccessible(true);
-                $value = $property->getValue($element);
-                if ($value instanceof DBElement && !$this->security->isGranted($annotation->getEditOperationName(), $element)) {
-                    $property->setValue($element, null);
+
+                //If the user is not allowed to edit or read this property, reset all values.
+                if ((!$this->security->isGranted($annotation->getEditOperationName(), $element)
+                        || !$this->security->isGranted($annotation->getReadOperationName(), $element))) {
+                    //Set value to old value, so that there a no change to this property
+                    $property->setValue($element, $old_data[$property->getName()]);
+                    $changed = true;
+
                 }
-            }
-        }
-    }
 
-    /**
-     * @PreUpdate
-     * This function is called before Doctrine saves the property values to the database.
-     * We use this function to revert the changes made in postLoadHandler(), so nothing gets changed persistently.
-     */
-    public function preUpdateHandler(DBElement $element, PreUpdateEventArgs $event)
-    {
-        $reflectionClass = new ReflectionClass($element);
-        $properties = $reflectionClass->getProperties();
-
-        foreach ($properties as $property) {
-            /**
-             * @var ColumnSecurity $annotation
-             */
-            $annotation = $this->reader->getPropertyAnnotation($property,
-                ColumnSecurity::class);
-
-            if (null !== $annotation) {
-                $field_name = $property->getName();
-
-                //Check if user is allowed to edit info, otherwise overwrite the new value
-                // so that nothing is changed in the DB.
-                if ($event->hasChangedField($field_name) &&
-                    (!$this->security->isGranted($annotation->getEditOperationName(), $element)
-                    || !$this->security->isGranted($annotation->getReadOperationName(), $element))) {
-                    $event->setNewValue($field_name, $event->getOldValue($field_name));
+                if ($changed) {
+                    //Schedule for update, so the post update method will be called
+                    $unitOfWork->scheduleForUpdate($element);
                 }
             }
         }

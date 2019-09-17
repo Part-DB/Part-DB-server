@@ -78,9 +78,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Part class.
  *
- * DONT USE orphanRemoval on properties with ColumnSecurity!! An empty collection will be created as placeholder,
- * and the partlots are deleted, even if we want dont want that!
- *
  * The class properties are split over various traits in directory PartTraits.
  * Otherwise this class would be too big, to be maintained.
  *
@@ -125,7 +122,7 @@ class Part extends AttachmentContainingDBElement
     protected $name = '';
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\PartAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=false)
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\PartAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ColumnSecurity(type="collection", prefix="attachments")
      * @Assert\Valid()
      */

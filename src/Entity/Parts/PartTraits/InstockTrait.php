@@ -45,7 +45,7 @@ trait InstockTrait
 {
     /**
      * @var ?PartLot[]|Collection A list of part lots where this part is stored
-     * @ORM\OneToMany(targetEntity="PartLot", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=false)
+     * @ORM\OneToMany(targetEntity="PartLot", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      * @ColumnSecurity(type="collection", prefix="lots")
      */
