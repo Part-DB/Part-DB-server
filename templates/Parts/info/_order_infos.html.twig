@@ -43,14 +43,14 @@
                             </td>
                             <td>
                                 {{ detail.price | moneyFormat(detail.currency) }} / {{ detail.PriceRelatedQuantity | amountFormat(part.partUnit) }}
-                                {% if detail.currency and pricedetail_helper.convertMoneyToCurrency(detail.price, detail.currency) > 0 %}
-                                    <span class="text-muted">({{ pricedetail_helper.convertMoneyToCurrency(detail.price, detail.currency) | moneyFormat() }})</span>
+                                {% if detail.currency != (app.user.currency ?? null) and pricedetail_helper.convertMoneyToCurrency(detail.price, detail.currency) > 0 %}
+                                    <span class="text-muted">({{ pricedetail_helper.convertMoneyToCurrency(detail.price, detail.currency, app.user.currency ?? null) | moneyFormat(app.user.currency ?? null) }})</span>
                                 {% endif %}
                             </td>
                             <td>
                                 {{ detail.PricePerUnit  | moneyFormat(detail.currency) }}
-                                {% if detail.currency and pricedetail_helper.convertMoneyToCurrency(detail.PricePerUnit, detail.currency) > 0 %}
-                                    <span class="text-muted">({{ pricedetail_helper.convertMoneyToCurrency(detail.PricePerUnit, detail.currency) | moneyFormat() }})</span>
+                                {% if detail.currency != (app.user.currency ?? null) and pricedetail_helper.convertMoneyToCurrency(detail.PricePerUnit, detail.currency) > 0 %}
+                                    <span class="text-muted">({{ pricedetail_helper.convertMoneyToCurrency(detail.PricePerUnit, detail.currency, app.user.currency ?? null) | moneyFormat(app.user.currency ?? null) }})</span>
                                 {% endif %}
                             </td>
                         </tr>

@@ -62,6 +62,7 @@ declare(strict_types=1);
 namespace App\Entity\UserSystem;
 
 use App\Entity\Base\NamedDBElement;
+use App\Entity\PriceInformations\Currency;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPermission;
@@ -172,17 +173,22 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
      */
     protected $settings = [];
 
+    /**
+     * @var Currency|null The currency the user wants to see prices in.
+     * Dont use fetch=EAGER here, this will cause problems with setting the currency setting.
+     * TODO: This is most likely a bug in doctrine/symfony related to the UniqueEntity constraint (it makes a db call).
+     * TODO: Find a way to use fetch EAGER (this improves performance a bit)
+     * @ORM\ManyToOne(targetEntity="App\Entity\PriceInformations\Currency")
+     * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
+     * @Selectable()
+     */
+    protected $currency = null;
+
     /** @var PermissionsEmbed
      * @ORM\Embedded(class="PermissionsEmbed", columnPrefix="perms_")
      * @ValidPermission()
      */
     protected $permissions;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\PriceInformations\Currency", fetch="EAGER")
-     * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
-     */
-    protected $currency = '';
 
     /**
      * @ORM\Column(type="text", name="config_image_path")
@@ -283,6 +289,28 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    /**
+     * Gets the currency the user prefers when showing him prices.
+     * @return Currency|null The currency the user prefers, or null if the global currency should be used.
+     */
+    public function getCurrency(): ?Currency
+    {
+        return $this->currency;
+    }
+
+    /**
+     * Sets the currency the users prefers to see prices in.
+     * @param Currency|null $currency
+     * @return User
+     */
+    public function setCurrency(?Currency $currency): User
+    {
+        $this->currency = $currency;
+        return $this;
+    }
+
+
 
     /**
      * Returns the ID as an string, defined by the element class.

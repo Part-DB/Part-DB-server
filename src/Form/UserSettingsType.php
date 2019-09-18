@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\User;
+use App\Form\Type\CurrencyEntityType;
+use App\Form\Type\StructuralEntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -75,6 +78,10 @@ class UserSettingsType extends AbstractType
                 'placeholder' => $this->trans->trans('user_settings.theme.placeholder'),
                 'label' => $this->trans->trans('user.theme.label'),
                 ])
+            ->add('currency', CurrencyEntityType::class, [
+                'required' => false,
+                'label' => $this->trans->trans('user.currency.label')
+            ])
 
             //Buttons
             ->add('save', SubmitType::class, ['label' => 'save'])

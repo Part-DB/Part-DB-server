@@ -173,7 +173,7 @@ class UserController extends AdminPages\BaseAdminController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($user);
+            //$em->persist($user);
             $em->flush();
             $this->addFlash('success', 'user.settings.saved_flash');
         }
