@@ -638,22 +638,6 @@ label:not(.form-check-label, custom-control-label) {
     padding: .1rem 1.5rem;
 }
 
-/* Font Awesome 5 with Checkbox support */
-.abc-checkbox input[type="checkbox"]:checked+label::after,
-.abc-checkbox input[type="radio"]:checked+label::after {
-    /*noinspection CssNoGenericFontName*/
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    content: "\f00c";
-    font-weight: 900;
-}
-
-.form-check-dropdown {
-    display: flex;
-    width: auto;
-    padding-left: 10%;
-}
-
 .btn-group-append {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0
