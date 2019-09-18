@@ -57,6 +57,9 @@
         "preferred-install": {
             "*": "dist"
         },
+        "platform": {
+            "php": "7.1.3"
+        },
         "sort-packages": true
     },
     "autoload": {
