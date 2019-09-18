@@ -25,6 +25,7 @@ doctrine:
                 commented: false
 
         schema_filter: ~^(?!internal|log)~
+        profiling_collect_backtrace: true
 
     orm:
         auto_generate_proxy_classes: true
