@@ -13,7 +13,7 @@
     <meta name="msapplication-config" content="{{ asset('icons/browserconfig.xml') }}">
     <meta name="theme-color" content="#ffffff">
 
-    <title>{% filter trim %}{% block title %}{{ partdb_title}}{% endblock %}{% endfilter %}</title>
+    <title>{% apply trim %}{% block title %}{{ partdb_title}}{% endblock %}{% endapply %}</title>
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
