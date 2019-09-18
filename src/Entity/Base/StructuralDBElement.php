@@ -146,8 +146,9 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     {
         $class_name = \get_class($this);
 
-        //Check if both elements compared, are from the same type:
-        if ($class_name !== \get_class($another_element)) {
+        //Check if both elements compared, are from the same type
+        // (we have to check inheritance, or we get exceptions when using doctrine entities (they have a proxy type):
+        if (!is_a($another_element, $class_name) && !is_a($this, get_class($another_element))) {
             throw new \InvalidArgumentException('isChildOf() only works for objects of the same type!');
         }
 
