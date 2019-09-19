@@ -89,6 +89,9 @@ class UserController extends AdminPages\BaseAdminController
      */
     public function delete(Request $request, User $entity, StructuralElementRecursionHelper $recursionHelper)
     {
+        if ($entity->getID() == User::ID_ANONYMOUS) {
+            throw new \InvalidArgumentException('You can not delete the anonymous user! It is needed for permission checking without a logged in user');
+        }
         return $this->_delete($request, $entity, $recursionHelper);
     }
 

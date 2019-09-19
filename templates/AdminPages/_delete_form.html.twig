@@ -6,7 +6,8 @@
     <div class="form-group">
         <div class=""></div>
         <div class="col offset-3 pl-2">
-            <button class="btn btn-danger" {% if not is_granted("delete", entity) %}disabled{% endif %}">{% trans %}entity.delete{% endtrans %}</button>
+            {% set delete_disabled = (not is_granted("delete", entity)) or (entity.group is defined and entity.id == 1) %}
+            <button class="btn btn-danger" {% if delete_disabled %}disabled{% endif %}>{% trans %}entity.delete{% endtrans %}</button>
             {% if entity.parent is defined  %}
             <div class="ml-2 custom-control custom-checkbox custom-control-inline">
                 <input type="checkbox" class="custom-control-input" id="recursive" name="delete_recursive">
