@@ -34,14 +34,20 @@ namespace App\Controller;
 use App\Entity\UserSystem\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RedirectController extends AbstractController
 {
     protected $default_locale;
+    protected $translator;
+    protected $session;
 
-    public function __construct(string $default_locale)
+    public function __construct(string $default_locale, TranslatorInterface $translator, SessionInterface $session)
     {
         $this->default_locale = $default_locale;
+        $this->session = $session;
+        $this->translator = $translator;
     }
 
     public function addLocalePart(Request $request)
@@ -55,9 +61,14 @@ class RedirectController extends AbstractController
             $locale = $user->getLanguage();
         }
 
+        //Check if the user needs to change the password. In that case redirect him to settings_page
+        if ($user instanceof User && $user->isNeedPwChange()) {
+            $this->session->getFlashBag()->add('warning', $this->translator->trans('flash.password_change_needed'));
+            return $this->redirectToRoute('user_settings', ['_locale' => $locale]);
+        }
+
         //$new_url = str_replace($request->getPathInfo(), '/' . $locale . $request->getPathInfo(), $request->getUri());
         $new_url = $request->getUriForPath('/' . $locale . $request->getPathInfo());
-
         return $this->redirect($new_url);
     }
 }

@@ -164,6 +164,10 @@ class UserController extends AdminPages\BaseAdminController
          */
         $user = $this->getUser();
 
+        if(!$user instanceof User) {
+            return new \RuntimeException("This controller only works only for Part-DB User objects!");
+        }
+
         //When user change its settings, he should be logged  in fully.
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
@@ -208,6 +212,10 @@ class UserController extends AdminPages\BaseAdminController
         if ($pw_form->isSubmitted() && $pw_form->isValid()) {
             $password = $passwordEncoder->encodePassword($user, $pw_form['new_password']->getData());
             $user->setPassword($password);
+
+            //After the change reset the password change needed setting
+            $user->setNeedPwChange(false);
+
             $em->persist($user);
             $em->flush();
             $this->addFlash('success', 'user.settings.pw_changed_flash');
