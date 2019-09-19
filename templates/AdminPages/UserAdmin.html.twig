@@ -7,7 +7,8 @@
 {% block comment %}{% endblock %}
 
 {% block additional_pills %}
-    <li class="nav-item"><a data-toggle="tab" class="nav-link link-anchor" href="#tab_permissions">{% trans %}user.edit.permissions{% endtrans %}</a></li>
+    <li class="nav-item"><a data-toggle="tab" class="nav-link link-anchor" href="#configuration">{% trans %}user.edit.configuration{% endtrans %}</a></li>
+    <li class="nav-item"><a data-toggle="tab" class="nav-link link-anchor" href="#permissions">{% trans %}user.edit.permissions{% endtrans %}</a></li>
 {% endblock %}
 
 
@@ -20,7 +21,14 @@
 {% endblock %}
 
 {% block additional_panes %}
-    <div class="tab-pane" id="tab_permissions">
+    <div class="tab-pane" id="configuration">
+        {{ form_row(form.language) }}
+        {{ form_row(form.timezone) }}
+        {{ form_row(form.theme) }}
+        {{ form_row(form.currency) }}
+    </div>
+
+    <div class="tab-pane" id="permissions">
         {{ form_row(form.permissions) }}
     </div>
 {% endblock %}

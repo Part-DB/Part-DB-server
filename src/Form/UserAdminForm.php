@@ -37,13 +37,17 @@ use App\Entity\Base\NamedDBElement;
 use App\Entity\Base\StructuralDBElement;
 use App\Form\Permissions\PermissionsType;
 use App\Form\Permissions\PermissionType;
+use App\Form\Type\CurrencyEntityType;
 use App\Form\Type\StructuralEntityType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -113,6 +117,36 @@ class UserAdminForm extends AbstractType
                 'disabled' => !$this->security->isGranted('edit_infos', $entity),
             ])
 
+            //Config section
+            ->add('language', LanguageType::class, [
+                'required' => false,
+                'attr' => ['class' => 'selectpicker', 'data-live-search' => true],
+                'placeholder' => $this->trans->trans('user_settings.language.placeholder'),
+                'label' => $this->trans->trans('user.language_select'),
+                'preferred_choices' => ['en', 'de'],
+                'disabled' => !$this->security->isGranted('change_user_settings', $entity)
+            ])
+            ->add('timezone', TimezoneType::class, [
+                'required' => false,
+                'attr' => ['class' => 'selectpicker', 'data-live-search' => true],
+                'placeholder' => $this->trans->trans('user_settings.timezone.placeholder'),
+                'label' => $this->trans->trans('user.timezone.label'),
+                'preferred_choices' => ['Europe/Berlin'],
+                'disabled' => !$this->security->isGranted('change_user_settings', $entity)
+            ])
+            ->add('theme', ChoiceType::class, [
+                'required' => false,
+                'placeholder' => $this->trans->trans('user_settings.theme.placeholder'),
+                'label' => $this->trans->trans('user.theme.label'),
+                'disabled' => !$this->security->isGranted('change_user_settings', $entity)
+            ])
+            ->add('currency', CurrencyEntityType::class, [
+                'required' => false,
+                'label' => $this->trans->trans('user.currency.label'),
+                'disabled' => !$this->security->isGranted('change_user_settings', $entity)
+            ])
+
+            //Permission section
             ->add('permissions', PermissionsType::class, [
                 'mapped' => false,
                 'data' => $builder->getData(),
