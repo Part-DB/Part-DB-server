@@ -42,14 +42,18 @@ use App\Form\Type\StructuralEntityType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserAdminForm extends AbstractType
@@ -144,6 +148,25 @@ class UserAdminForm extends AbstractType
                 'required' => false,
                 'label' => $this->trans->trans('user.currency.label'),
                 'disabled' => !$this->security->isGranted('change_user_settings', $entity)
+            ])
+
+            ->add('new_password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'first_options' => ['label' => $this->trans->trans('user.settings.pw_new.label')],
+                'second_options' => ['label' => $this->trans->trans('user.settings.pw_confirm.label')],
+                'invalid_message' => 'password_must_match',
+                'required' => false,
+                'mapped' => false,
+                'constraints' => [new Length([
+                    'min' => 6,
+                    'max' => 128,
+                ])]
+            ])
+
+            ->add('need_pw_change', CheckboxType::class, [
+                'required' => false,
+                'label_attr' => ['class' => 'checkbox-custom'],
+                'label' => $this->trans->trans('user.edit.needs_pw_change')
             ])
 
             //Permission section

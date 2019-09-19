@@ -328,9 +328,31 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
         return $this->permissions;
     }
 
+    /**
+     * Check if the user needs a password change
+     * @return bool
+     */
+    public function isNeedPwChange(): bool
+    {
+        return $this->need_pw_change;
+    }
+
+    /**
+     * Set the status, if the user needs a password change.
+     * @param bool $need_pw_change
+     * @return User
+     */
+    public function setNeedPwChange(bool $need_pw_change): User
+    {
+        $this->need_pw_change = $need_pw_change;
+        return $this;
+    }
+
     /************************************************
      * Getters
      ************************************************/
+
+
 
     /**
      * Returns the full name in the format FIRSTNAME LASTNAME [(USERNAME)].

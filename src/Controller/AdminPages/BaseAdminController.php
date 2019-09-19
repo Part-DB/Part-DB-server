@@ -33,6 +33,7 @@ namespace App\Controller\AdminPages;
 
 use App\Entity\Base\NamedDBElement;
 use App\Entity\Base\StructuralDBElement;
+use App\Entity\UserSystem\User;
 use App\Form\AdminPages\ImportType;
 use App\Form\AdminPages\MassCreationForm;
 use App\Services\EntityExporter;
@@ -42,6 +43,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Tests\Encoder\PasswordEncoder;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -53,15 +57,18 @@ abstract class BaseAdminController extends AbstractController
     protected $twig_template = '';
     protected $route_base = '';
 
+
+    protected $passwordEncoder;
     protected $translator;
 
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator, UserPasswordEncoderInterface $passwordEncoder)
     {
         if ($this->entity_class === '' || $this->form_class === '' || $this->twig_template === '' || $this->route_base === '') {
             throw new \InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');
         }
 
         $this->translator = $translator;
+        $this->passwordEncoder = $passwordEncoder;
     }
 
     protected function _edit(NamedDBElement $entity, Request $request, EntityManagerInterface $em)
@@ -73,6 +80,14 @@ abstract class BaseAdminController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            //Check if we editing a user and if we need to change the password of it
+            if ($entity instanceof User && !empty($form['new_password']->getData())) {
+                $password = $this->passwordEncoder->encodePassword($entity, $form['new_password']->getData());
+                $entity->setPassword($password);
+                //By default the user must change the password afterwards
+                $entity->setNeedPwChange(true);
+            }
+
             $em->persist($entity);
             $em->flush();
             $this->addFlash('success', $this->translator->trans('entity.edit_flash'));
@@ -103,6 +118,12 @@ abstract class BaseAdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($new_entity instanceof User && !empty($form['new_password']->getData())) {
+                $password = $this->passwordEncoder->encodePassword($new_entity, $form['new_password']->getData());
+                $new_entity->setPassword($password);
+                //By default the user must change the password afterwards
+                $new_entity->setNeedPwChange(true);
+            }
             $em->persist($new_entity);
             $em->flush();
             $this->addFlash('success', $this->translator->trans('entity.created_flash'));
@@ -172,12 +193,14 @@ abstract class BaseAdminController extends AbstractController
             if ($entity instanceof StructuralDBElement && $request->get('delete_recursive', false)) {
                 $recursionHelper->delete($entity, false);
             } else {
-                $parent = $entity->getParent();
+                if ($entity instanceof StructuralDBElement) {
+                    $parent = $entity->getParent();
 
-                //Move all sub entities to the current parent
-                foreach ($entity->getSubelements() as $subelement) {
-                    $subelement->setParent($parent);
-                    $entityManager->persist($subelement);
+                    //Move all sub entities to the current parent
+                    foreach ($entity->getSubelements() as $subelement) {
+                        $subelement->setParent($parent);
+                        $entityManager->persist($subelement);
+                    }
                 }
 
                 //Remove current element

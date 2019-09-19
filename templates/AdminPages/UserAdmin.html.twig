@@ -8,6 +8,7 @@
 
 {% block additional_pills %}
     <li class="nav-item"><a data-toggle="tab" class="nav-link link-anchor" href="#configuration">{% trans %}user.edit.configuration{% endtrans %}</a></li>
+    <li class="nav-item"><a data-toggle="tab" class="nav-link link-anchor" href="#password">{% trans %}user.edit.password{% endtrans %}</a></li>
     <li class="nav-item"><a data-toggle="tab" class="nav-link link-anchor" href="#permissions">{% trans %}user.edit.permissions{% endtrans %}</a></li>
 {% endblock %}
 
@@ -26,6 +27,11 @@
         {{ form_row(form.timezone) }}
         {{ form_row(form.theme) }}
         {{ form_row(form.currency) }}
+    </div>
+
+    <div class="tab-pane" id="password">
+        {{ form_row(form.new_password) }}
+        {{ form_row(form.need_pw_change) }}
     </div>
 
     <div class="tab-pane" id="permissions">
