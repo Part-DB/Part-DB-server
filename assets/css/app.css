@@ -139,6 +139,23 @@ body {
     filter: blur(2px);
 }
 
+/*
+The sidebar toggle button floats on the left side and is hidden when the viewport is to small for
+showing the sidebar (on devices with md or higher)
+ */
+#sidebar-toggle-button {
+    position: fixed;
+    left: 3px;
+    bottom: 50%;
+}
+
+@media (max-width: 576px) {
+    #sidebar-toggle-button {
+       display: none;
+    }
+}
+
+
 /********************************
 * Toasts
  ********************************/
@@ -655,6 +672,8 @@ label:not(.form-check-label, custom-control-label) {
 table.dataTable {
     margin-top: 0 !important;
 }
+
+
 
 /*********************************
     Workarounds
