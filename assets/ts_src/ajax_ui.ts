@@ -28,8 +28,6 @@
  *
  */
 
-import * as Cookies from "js-cookie";
-
 /**
  * Extract the title (The name between the <title> tags) of a HTML snippet.
  * @param {string} html The HTML code which should be searched.
@@ -114,19 +112,19 @@ class AjaxUI {
      */
     public fillTrees()
     {
-        let categories =  Cookies.get("tree_datasource_tree-categories");
-        let devices =  Cookies.get("tree_datasource_tree-devices");
-        let tools =  Cookies.get("tree_datasource_tree-tools");
+        let categories =  localStorage.getItem("tree_datasource_tree-categories");
+        let devices =  localStorage.getItem("tree_datasource_tree-devices");
+        let tools =  localStorage.getItem("tree_datasource_tree-tools");
 
-        if(typeof categories == "undefined") {
+        if(categories == null) {
             categories = "categories";
         }
 
-        if(typeof devices == "undefined") {
+        if(devices == null) {
             devices = "devices";
         }
 
-        if(typeof tools == "undefined") {
+        if(tools == null) {
             tools = "tools";
         }
 
@@ -154,7 +152,7 @@ class AjaxUI {
                 // @ts-ignore
                 $('#' + target).treeview('expandAll', { silent: true });
             } else {
-                Cookies.set("tree_datasource_" + target, mode);
+                localStorage.setItem("tree_datasource_" + target, mode);
                 ajaxUI.treeLoadDataSource(target, mode);
             }
 
