@@ -58,12 +58,11 @@ class SIFormatter
         $prefixes_pos = ['' ,'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
         $prefixes_neg = ['' ,'m', 'μ', 'n', 'p', 'f', 'a', 'z', 'y'];
 
-        //Determine nearest prefix index.
-        $nearest = (int) round(abs($magnitude) / 3);
-
         if ($magnitude >= 0) {
+            $nearest = (int) floor(abs($magnitude) / 3);
             $symbol = $prefixes_pos[$nearest];
         } else {
+            $nearest = (int) round(abs($magnitude) / 3);
             $symbol = $prefixes_neg[$nearest];
         }
 
@@ -105,7 +104,11 @@ class SIFormatter
         [$divisor, $symbol] = $this->getPrefixByMagnitude($this->getMagnitude($value));
         $value /= $divisor;
         //Build the format string, e.g.: %.2d km
-        $format_string = '%.' . $decimals . 'f ' . $symbol . $unit;
+        if ($unit !== '' || $symbol !== '') {
+            $format_string = '%.' . $decimals . 'f ' . $symbol . $unit;
+        } else {
+            $format_string = '%.' . $decimals . 'f';
+        }
 
         return sprintf($format_string, $value);
     }

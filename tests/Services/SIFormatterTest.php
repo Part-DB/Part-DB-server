@@ -74,9 +74,11 @@ class SIFormatterTest extends WebTestCase
 
     public function testgetPrefixByMagnitude()
     {
+        $this->assertSame([1, ''], $this->service->getPrefixByMagnitude(2));
+
         $this->assertSame([1000, 'k'], $this->service->getPrefixByMagnitude(3));
-        $this->assertSame([1000, 'k'], $this->service->getPrefixByMagnitude(2));
         $this->assertSame([1000, 'k'], $this->service->getPrefixByMagnitude(4));
+        $this->assertSame([1000, 'k'], $this->service->getPrefixByMagnitude(5));
 
         $this->assertSame([0.001, 'm'], $this->service->getPrefixByMagnitude(-3));
         $this->assertSame([0.001, 'm'], $this->service->getPrefixByMagnitude(-2));
@@ -86,6 +88,8 @@ class SIFormatterTest extends WebTestCase
     public function testFormat()
     {
         $this->assertSame("2.32 km", $this->service->format(2321, 'm'));
+        $this->assertEquals("230.45 km", $this->service->format(230450.3, 'm'));
         $this->assertSame("-98.20 mg", $this->service->format(-0.0982, 'g'));
+        $this->assertSame('-0.23 g', $this->service->format(-0.23, 'g'));
     }
 }

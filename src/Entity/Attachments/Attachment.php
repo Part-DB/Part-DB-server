@@ -103,10 +103,9 @@ abstract class Attachment extends NamedDBElement
      */
     public function isExternal() : bool
     {
-        //return static::isUrl($this->getPath());
         //Treat all pathes without a filepath as external
-        return (strpos($this->getPath(), '%MEDIA%') === false)
-            && (strpos($this->getPath(), '%BASE') === false);
+        return (strpos($this->getPath(), '%MEDIA%') !== 0)
+            && (strpos($this->getPath(), '%BASE%') !== 0);
     }
 
     /********************************************************************************
@@ -118,11 +117,15 @@ abstract class Attachment extends NamedDBElement
     /**
      * Returns the extension of the file referenced via the attachment.
      * For a path like %BASE/path/foo.bar, bar will be returned.
-     * @return string
+     * If this attachment is external null is returned.
+     * @return string|null The file extension in lower case.
      */
-    public function getExtension() : string
+    public function getExtension() : ?string
     {
-        return pathinfo($this->getPath(), PATHINFO_EXTENSION);
+        if ($this->isExternal()) {
+            return null;
+        }
+        return strtolower(pathinfo($this->getPath(), PATHINFO_EXTENSION));
     }
 
     /**

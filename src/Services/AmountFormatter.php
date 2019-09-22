@@ -124,7 +124,11 @@ class AmountFormatter
         }
 
         //Otherwise just output it
-        $format_string = '%.' . $options['decimals'] . 'f ' . $options['unit'];
+        if (!empty($options['unit'])) {
+            $format_string = '%.' . $options['decimals'] . 'f ' . $options['unit'];
+        } else { //Dont add space after number if no unit was specified
+            $format_string = '%.' . $options['decimals'] . 'f';
+        }
         return sprintf($format_string, $value);
     }
 }
