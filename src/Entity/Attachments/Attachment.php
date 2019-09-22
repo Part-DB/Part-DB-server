@@ -40,6 +40,15 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class Attachment extends NamedDBElement
 {
+
+    /**
+     * A list of file extensions, that browsers can show directly as image.
+     * Based on: https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
+     * It will be used to determine if a attachment is a picture and therefore will be shown to user as preview.
+     */
+    const PICTURE_EXTS = ['apng', 'bmp', 'gif', 'ico', 'cur', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png',
+                            'svg', 'webp'];
+
     /**
      * @var bool
      * @ORM\Column(type="boolean")
@@ -85,10 +94,7 @@ abstract class Attachment extends NamedDBElement
 
         $extension = pathinfo($this->getPath(), PATHINFO_EXTENSION);
 
-        // list all file extensions which are supported to display them by HTML code
-        $picture_extensions = array('gif', 'png', 'jpg', 'jpeg', 'bmp', 'svg', 'tif');
-
-        return in_array(strtolower($extension), $picture_extensions, true);
+        return in_array(strtolower($extension), static::PICTURE_EXTS, true);
     }
 
     /**
