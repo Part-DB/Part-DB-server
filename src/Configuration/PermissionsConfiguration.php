@@ -42,7 +42,7 @@ class PermissionsConfiguration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder('permissions');
-        $rootNode = $treeBuilder->root('permissions');
+        $rootNode = $treeBuilder->getRootNode();
 
         $rootNode->children()
             ->arrayNode('groups')
