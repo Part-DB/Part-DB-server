@@ -64,9 +64,8 @@ class PermissionsEmbedTest extends TestCase
         $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::PARTS_COMMENT, 0));
         $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::PARTS_DESCRIPTION, 0));
         $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::PARTS_FOOTPRINT, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::PARTS_INSTOCK, 0));
         $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::PARTS_MANUFACTURER, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::PARTS_MININSTOCK, 0));
+        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::PARTS_MINAMOUNT, 0));
         $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::PARTS_NAME, 0));
         $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::PARTS_ORDER, 0));
         $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::PARTS_ORDERDETAILS, 0));
