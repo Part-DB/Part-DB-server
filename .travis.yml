@@ -8,9 +8,17 @@ php:
   - '7.1'
   - '7.2'
   - '7.3'
+  - '7.4snapshot'
+  - 'nightly'
 
 install:
   - composer install
 
 script:
   - php bin/phpunit
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - php: 7.4snapshot
+    - php: nightly
