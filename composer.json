@@ -51,7 +51,8 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "^1.0",
-        "symfony/web-server-bundle": "4.3.*"
+        "symfony/web-server-bundle": "4.3.*",
+        "vimeo/psalm": "^3.5"
     },
     "config": {
         "preferred-install": {
