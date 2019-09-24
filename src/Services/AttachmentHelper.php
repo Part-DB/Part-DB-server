@@ -116,12 +116,9 @@ class AttachmentHelper
         $placeholders = ["%MEDIA%", "%BASE%/data/media", "%FOOTPRINTS%", "%FOOTPRINTS_3D"];
         $targets = [$this->base_path, $this->base_path, $this->footprints_path, $this->footprints_3d_path];
 
-
-        dump($placeholder_path);
         //The new attachments use %MEDIA% as placeholders, which is the directory set in media_directory
         //Older path entries are given via %BASE% which was the project root
         $placeholder_path = str_replace($placeholders, $targets, $placeholder_path);
-        dump($placeholder_path);
 
         //Normalize path
         $placeholder_path = str_replace('\\', '/', $placeholder_path);
