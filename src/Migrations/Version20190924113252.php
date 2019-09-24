@@ -51,14 +51,14 @@ final class Version20190924113252 extends AbstractMigration
         //Add a attachment for each footprint attachment
         $this->addSql(
             'INSERT INTO attachments (element_id, type_id, name, class_name, path, last_modified, datetime_added) ' .
-            "SELECT footprints.id, 1000, 'Footprint', 'Footprint',  footprints.filename, NOW(), NOW() FROM footprints " .
+            "SELECT footprints.id, 1000, 'Footprint', 'Footprint',  REPLACE(footprints.filename, '%BASE%/img/footprints', '%FOOTPRINTS%' ), NOW(), NOW() FROM footprints " .
             "WHERE footprints.filename <> ''"
         );
 
         //Do the same for 3D Footprints
         $this->addSql(
             'INSERT INTO attachments (element_id, type_id, name, class_name, path, last_modified, datetime_added) ' .
-            "SELECT footprints.id, 1001, 'Footprint 3D', 'Footprint',  footprints.filename_3d, NOW(), NOW() FROM footprints " .
+            "SELECT footprints.id, 1001, 'Footprint 3D', 'Footprint',  REPLACE(footprints.filename_3d, '%BASE%/models', '%FOOTPRINTS3D%' ), NOW(), NOW() FROM footprints " .
             "WHERE footprints.filename_3d <> ''"
         );
 
