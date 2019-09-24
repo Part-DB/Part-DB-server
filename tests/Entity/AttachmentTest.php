@@ -48,6 +48,12 @@ class AttachmentTest extends TestCase
         $this->setProtectedProperty($attachment, 'path', '%BASE%/foo/bar.jpg');
         $this->assertFalse($attachment->isExternal());
 
+        $this->setProtectedProperty($attachment, 'path', '%FOOTPRINTS%/foo/bar.jpg');
+        $this->assertFalse($attachment->isExternal());
+
+        $this->setProtectedProperty($attachment, 'path', '%FOOTPRINTS3D%/foo/bar.jpg');
+        $this->assertFalse($attachment->isExternal());
+
         //Every other string is not a external attachment
         $this->setProtectedProperty($attachment, 'path', '%test%/foo/bar.ghp');
         $this->assertTrue($attachment->isExternal());
@@ -67,6 +73,11 @@ class AttachmentTest extends TestCase
 
         $this->setProtectedProperty($attachment, 'path', '%MEDIA%/foo/bar.JPeg');
         $this->assertEquals('jpeg', $attachment->getExtension());
+
+        //Test if we can override the filename
+        $this->setProtectedProperty($attachment, 'path', '%MEDIA%/foo/bar.JPeg');
+        $this->setProtectedProperty($attachment, 'original_filename', 'test.txt');
+        $this->assertEquals('txt', $attachment->getExtension());
 
         $this->setProtectedProperty($attachment, 'path', 'https://foo.bar');
         $this->assertNull( $attachment->getExtension());
@@ -109,6 +120,10 @@ class AttachmentTest extends TestCase
         $attachment = new PartAttachment();
         $this->setProtectedProperty($attachment, 'path', '%MEDIA%/foo/bar.txt');
         $this->assertEquals('bar.txt', $attachment->getFilename());
+
+        $this->setProtectedProperty($attachment, 'path', '%MEDIA%/foo/bar.JPeg');
+        $this->setProtectedProperty($attachment, 'original_filename', 'test.txt');
+        $this->assertEquals('test.txt', $attachment->getFilename());
 
         $this->setProtectedProperty($attachment, 'path', 'https://www.google.de/test.txt');
         $this->assertNull($attachment->getFilename());

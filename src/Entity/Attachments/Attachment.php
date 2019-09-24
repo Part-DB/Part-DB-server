@@ -48,7 +48,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class Attachment extends NamedDBElement
 {
-
     /**
      * A list of file extensions, that browsers can show directly as image.
      * Based on: https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
@@ -56,6 +55,11 @@ abstract class Attachment extends NamedDBElement
      */
     const PICTURE_EXTS = ['apng', 'bmp', 'gif', 'ico', 'cur', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png',
                             'svg', 'webp'];
+
+    /**
+     * When the path begins with one of this placeholders
+     */
+    const INTERNAL_PLACEHOLDER = ['%BASE%', '%MEDIA%', '%FOOTPRINTS%', '%FOOTPRINTS3D%'];
 
     /**
      * @var bool
@@ -117,9 +121,14 @@ abstract class Attachment extends NamedDBElement
      */
     public function isExternal() : bool
     {
-        //Treat all pathes without a filepath as external
-        return (strpos($this->getPath(), '%MEDIA%') !== 0)
-            && (strpos($this->getPath(), '%BASE%') !== 0);
+        //After the %PLACEHOLDER% comes a slash, so we can check if we have a placholder via explode
+        $tmp = explode("/", $this->path);
+
+        if (empty($tmp)) {
+            return true;
+        }
+
+        return !in_array($tmp[0], static::INTERNAL_PLACEHOLDER, false);
     }
 
     /********************************************************************************
@@ -139,6 +148,11 @@ abstract class Attachment extends NamedDBElement
         if ($this->isExternal()) {
             return null;
         }
+
+        if (!empty($this->original_filename)) {
+            return strtolower(pathinfo($this->original_filename, PATHINFO_EXTENSION));
+        }
+
         return strtolower(pathinfo($this->getPath(), PATHINFO_EXTENSION));
     }
 
@@ -206,7 +220,23 @@ abstract class Attachment extends NamedDBElement
             return null;
         }
 
+        //If we have a stored original filename, then use it
+        if (!empty($this->original_filename)) {
+            return $this->original_filename;
+        }
+
         return pathinfo($this->getPath(), PATHINFO_BASENAME);
+    }
+
+    /**
+     * Sets the filename that is shown for this attachment. Useful when the internal path is some generated value.
+     * @param string|null $new_filename The filename that should be shown.
+     * Set to null to generate the filename from path.
+     * @return Attachment
+     */
+    public function setFilename(?string $new_filename): Attachment
+    {
+        $this->original_filename = $new_filename;
     }
 
     /**
