@@ -30,6 +30,7 @@
 namespace App\Controller;
 
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\Attachments\UserAttachment;
 use App\Entity\UserSystem\User;
 use App\Form\Permissions\PermissionsType;
 use App\Form\UserAdminForm;
@@ -62,6 +63,7 @@ class UserController extends AdminPages\BaseAdminController
     protected $twig_template = 'AdminPages/UserAdmin.html.twig';
     protected $form_class = UserAdminForm::class;
     protected $route_base = 'user';
+    protected $attachment_class = UserAttachment::class;
 
 
     /**

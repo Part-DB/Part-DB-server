@@ -57,16 +57,20 @@
 
                         {{ form_start(form) }}
 
-                        {% if block('additional_pills') is not empty %}
+
                         <ul class="nav nav-pills mb-2">
-                            <li class="nav-item"><a data-toggle="tab" class="nav-link link-anchor active" href="#home_common">{% trans %}admin.common{% endtrans %}</a></li>
+                            <li class="nav-item">
+                                <a data-toggle="tab" class="nav-link link-anchor active" href="#common">{% trans %}admin.common{% endtrans %}</a>
+                            </li>
                             {% block additional_pills %}{% endblock %}
+                            <li class="nav-item">
+                                <a data-toggle="tab" class="nav-link link-anchor" href="#attachments">{% trans %}admin.attachments{% endtrans %}</a>
+                            </li>
                         </ul>
-                        {% endif %}
 
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div class="tab-pane active" id="home_common">
+                            <div class="tab-pane active" id="common">
                                 {{ form_row(form.name) }}
                                 {% if form.parent%}
                                    {{ form_row(form.parent) }}
@@ -83,6 +87,10 @@
 
                             </div>
                             {% block additional_panes %}{% endblock %}
+
+                            <div class="tab-pane" id="attachments">
+                                {% include "AdminPages/_attachments.html.twig" %}
+                            </div>
                         </div>
 
                         {{ form_row(form.save) }}

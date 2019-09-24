@@ -34,6 +34,7 @@ namespace App\Controller\AdminPages;
 
 use App\Entity\Attachments\AttachmentType;
 
+use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Parts\Footprint;
 use App\Form\AdminPages\BaseEntityAdminForm;
 use App\Services\EntityExporter;
@@ -56,6 +57,7 @@ class FootprintController extends BaseAdminController
     protected $twig_template = 'AdminPages/FootprintAdmin.html.twig';
     protected $form_class = BaseEntityAdminForm::class;
     protected $route_base = 'footprint';
+    protected $attachment_class = FootprintAttachment::class;
 
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="footprint_edit")

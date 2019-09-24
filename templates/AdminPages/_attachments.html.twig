@@ -1,0 +1,94 @@
+{% set delete_btn %}
+    <button type="button" class="btn btn-danger lot_btn_delete" onclick="delete_attachment_entry(this);">
+        <i class="fas fa-trash-alt fa-fw"></i>
+        {% trans %}attachment.delete{% endtrans %}
+    </button>
+{% endset %}
+
+{#{{ form_row(form.master_picture_attachment) }} #}
+
+<table class="table table-striped table-sm" id="attachments_table" data-prototype="{% if form.attachments.vars.prototype is defined %}{{ form_widget(form.attachments.vars.prototype)|e('html_attr') }}{% endif %}">
+    <tbody>
+    {% for attachment in form.attachments %}
+        <tr>
+            <td>
+                {{ form_widget(attachment) }}
+            </td>
+            <td>
+                {{ delete_btn }}
+
+                {% set attach = attachment.vars.value %}
+
+                {% if attachment_helper.fileExisting(attach) %}
+                    {% if not attach.external %}
+                        <br><br>
+                        <h6>
+                        <span class="badge badge-primary">
+                            <i class="fas fa-fw fa-file"></i> {{ attach.filename }}
+                        </span>
+                            <br>
+                            <span class="badge badge-secondary">
+                            <i class="fas fa-hdd fa-fw"></i> {{ attachment_helper.humanFileSize(attach) }}
+                        </span>
+                        </h6>
+                    {% else %}
+                        <br><br>
+                        <h6>
+                        <span class="badge badge-primary">
+                            <i class="fas fa-fw fa-globe"></i> {% trans %}attachment.external{% endtrans %}
+                        </span>
+                        </h6>
+                    {% endif %}
+                {% else %}
+                    <br><br>
+                    <h6>
+                    <span class="badge badge-warning">
+                        <i class="fas fa-exclamation-circle fa-fw"></i> {% trans %}attachment.file_not_found{% endtrans %}
+                    </span>
+                    </h6>
+                {% endif %}
+
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<button type="button" class="btn btn-success" onclick="create_attachment_entry(this)">
+    <i class="fas fa-plus-square fa-fw"></i>
+    {% trans %}attachment.create{% endtrans %}
+</button>
+
+<script>
+    function delete_attachment_entry(btn) {
+        window.bootbox.confirm('{% trans %}part_lot.edit.delete.confirm{% endtrans %}', function (result) {
+            if(result) {
+                $(btn).parents("tr").remove();
+            }
+        })
+    }
+
+    function create_attachment_entry(btn) {
+        //Determine the table, so we can determine, how many entries there are already.
+        $holder = $("#attachments_table");
+
+        var index = $holder.find(":input").length;
+        var newForm = $holder.data("prototype");
+
+        //Increase the index
+        newForm = newForm.replace(/__name__/g, index);
+        newForm = '<td>' + newForm + '</td>';
+        $newFormRow = $('<tr></tr>').html(newForm);
+
+        //Add delete button
+        $btn = '<td>' + '{{ delete_btn|e('js') }}' + '</td>';
+        $newFormRow.append($btn);
+
+        $holder.append($newFormRow);
+
+        //Reinit the selectpickers
+        $(".selectpicker").selectpicker();
+        $(".file").fileinput();
+
+    }
+</script>

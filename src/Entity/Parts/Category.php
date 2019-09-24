@@ -68,7 +68,7 @@ class Category extends PartsContainingDBElement
 
     /**
      * @var Collection|CategoryAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CategoryAttachment", mappedBy="element")
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CategoryAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $attachments;
 

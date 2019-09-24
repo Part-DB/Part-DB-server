@@ -78,7 +78,7 @@ class Storelocation extends PartsContainingDBElement
 
     /**
      * @var Collection|StorelocationAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\StorelocationAttachment", mappedBy="element")
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\StorelocationAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $attachments;
 

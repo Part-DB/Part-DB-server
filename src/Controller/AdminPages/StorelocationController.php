@@ -55,6 +55,7 @@ class StorelocationController extends BaseAdminController
     protected $twig_template = 'AdminPages/StorelocationAdmin.html.twig';
     protected $form_class = StorelocationAdminForm::class;
     protected $route_base = 'store_location';
+    protected $attachment_class = StorelocationAdminForm::class;
 
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="store_location_edit")

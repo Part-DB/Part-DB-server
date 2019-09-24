@@ -78,7 +78,7 @@ class Device extends PartsContainingDBElement
 
     /**
      * @var Collection|DeviceAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\DeviceAttachment", mappedBy="element")
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\DeviceAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $attachments;
 

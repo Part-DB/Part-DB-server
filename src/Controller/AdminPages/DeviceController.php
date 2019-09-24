@@ -32,6 +32,7 @@
 namespace App\Controller\AdminPages;
 
 
+use App\Entity\Attachments\DeviceAttachment;
 use App\Entity\Devices\Device;
 use App\Form\AdminPages\BaseEntityAdminForm;
 use App\Services\EntityExporter;
@@ -53,6 +54,7 @@ class DeviceController extends BaseAdminController
     protected $twig_template = 'AdminPages/DeviceAdmin.html.twig';
     protected $form_class = BaseEntityAdminForm::class;
     protected $route_base = 'device';
+    protected $attachment_class = DeviceAttachment::class;
 
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="device_edit")

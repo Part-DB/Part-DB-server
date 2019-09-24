@@ -36,11 +36,13 @@ use App\Entity\Base\StructuralDBElement;
 use App\Entity\UserSystem\User;
 use App\Form\AdminPages\ImportType;
 use App\Form\AdminPages\MassCreationForm;
+use App\Services\AttachmentHelper;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
@@ -56,19 +58,26 @@ abstract class BaseAdminController extends AbstractController
     protected $form_class = '';
     protected $twig_template = '';
     protected $route_base = '';
+    protected $attachment_class = '';
 
 
     protected $passwordEncoder;
     protected $translator;
+    protected $attachmentHelper;
 
-    public function __construct(TranslatorInterface $translator, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(TranslatorInterface $translator, UserPasswordEncoderInterface $passwordEncoder, AttachmentHelper $attachmentHelper)
     {
         if ($this->entity_class === '' || $this->form_class === '' || $this->twig_template === '' || $this->route_base === '') {
             throw new \InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');
         }
 
+        if ($this->attachment_class === '') {
+            throw new \InvalidArgumentException('You have to override the $attachment_class value in your subclass!');
+        }
+
         $this->translator = $translator;
         $this->passwordEncoder = $passwordEncoder;
+        $this->attachmentHelper = $attachmentHelper;
     }
 
     protected function _edit(NamedDBElement $entity, Request $request, EntityManagerInterface $em)
@@ -76,7 +85,7 @@ abstract class BaseAdminController extends AbstractController
 
         $this->denyAccessUnlessGranted('read', $entity);
 
-        $form = $this->createForm($this->form_class, $entity);
+        $form = $this->createForm($this->form_class, $entity, ['attachment_class' => $this->attachment_class]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -88,20 +97,28 @@ abstract class BaseAdminController extends AbstractController
                 $entity->setNeedPwChange(true);
             }
 
+            //Upload passed files
+            $attachments = $form['attachments'];
+            foreach ($attachments as $attachment) {
+                /** @var $attachment FormInterface */
+                $this->attachmentHelper->upload( $attachment->getData(), $attachment['file']->getData());
+            }
+
             $em->persist($entity);
             $em->flush();
             $this->addFlash('success', $this->translator->trans('entity.edit_flash'));
 
             //Rebuild form, so it is based on the updated data. Important for the parent field!
             //We can not use dynamic form events here, because the parent entity list is build from database!
-            $form = $this->createForm($this->form_class, $entity);
+            $form = $this->createForm($this->form_class, $entity, ['attachment_class' => $this->attachment_class]);
         } elseif ($form->isSubmitted() && ! $form->isValid()) {
             $this->addFlash('error', $this->translator->trans('entity.edit_flash.invalid'));
         }
 
         return $this->render($this->twig_template, [
             'entity' => $entity,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'attachment_helper' => $this->attachmentHelper
         ]);
     }
 
@@ -113,7 +130,7 @@ abstract class BaseAdminController extends AbstractController
         $this->denyAccessUnlessGranted('read', $new_entity);
 
         //Basic edit form
-        $form = $this->createForm($this->form_class, $new_entity);
+        $form = $this->createForm($this->form_class, $new_entity, ['attachment_class' => $this->attachment_class]);
 
         $form->handleRequest($request);
 
@@ -124,6 +141,14 @@ abstract class BaseAdminController extends AbstractController
                 //By default the user must change the password afterwards
                 $new_entity->setNeedPwChange(true);
             }
+
+            //Upload passed files
+            $attachments = $form['attachments'];
+            foreach ($attachments as $attachment) {
+                /** @var $attachment FormInterface */
+                $this->attachmentHelper->upload( $attachment->getData(), $attachment['file']->getData());
+            }
+
             $em->persist($new_entity);
             $em->flush();
             $this->addFlash('success', $this->translator->trans('entity.created_flash'));
@@ -178,7 +203,8 @@ abstract class BaseAdminController extends AbstractController
             'entity' => $new_entity,
             'form' => $form->createView(),
             'import_form' => $import_form->createView(),
-            'mass_creation_form' => $mass_creation_form->createView()
+            'mass_creation_form' => $mass_creation_form->createView(),
+            'attachment_helper' => $this->attachmentHelper
         ]);
     }
 

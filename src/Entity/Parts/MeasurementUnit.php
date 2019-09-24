@@ -54,7 +54,7 @@ class MeasurementUnit extends PartsContainingDBElement
 
     /**
      * @var Collection|MeasurementUnitAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\MeasurementUnitAttachment", mappedBy="element")
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\MeasurementUnitAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $attachments;
 

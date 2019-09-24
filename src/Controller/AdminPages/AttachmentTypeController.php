@@ -33,6 +33,7 @@ namespace App\Controller\AdminPages;
 
 
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Form\AdminPages\BaseEntityAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
@@ -53,6 +54,7 @@ class AttachmentTypeController extends BaseAdminController
     protected $twig_template = 'AdminPages/AttachmentTypeAdmin.html.twig';
     protected $form_class = BaseEntityAdminForm::class;
     protected $route_base = 'attachment_type';
+    protected $attachment_class = AttachmentTypeAttachment::class;
 
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="attachment_type_edit")

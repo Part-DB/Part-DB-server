@@ -32,6 +32,7 @@
 namespace App\Controller\AdminPages;
 
 
+use App\Entity\Attachments\CategoryAttachment;
 use App\Entity\Parts\Category;
 use App\Form\AdminPages\CategoryAdminForm;
 use App\Services\EntityExporter;
@@ -53,6 +54,7 @@ class CategoryController extends BaseAdminController
     protected $twig_template = 'AdminPages/CategoryAdmin.html.twig';
     protected $form_class = CategoryAdminForm::class;
     protected $route_base = 'category';
+    protected $attachment_class = CategoryAttachment::class;
 
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="category_edit")

@@ -90,7 +90,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * @var Collection|UserAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\UserAttachment", mappedBy="element")
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\UserAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $attachments;
 

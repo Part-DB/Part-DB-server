@@ -32,6 +32,7 @@
 namespace App\Controller\AdminPages;
 
 
+use App\Entity\Attachments\ManufacturerAttachment;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Supplier;
 use App\Form\AdminPages\CompanyForm;
@@ -55,6 +56,7 @@ class ManufacturerController extends BaseAdminController
     protected $twig_template = 'AdminPages/ManufacturerAdmin.html.twig';
     protected $form_class = CompanyForm::class;
     protected $route_base = 'manufacturer';
+    protected $attachment_class = ManufacturerAttachment::class;
 
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="manufacturer_edit")

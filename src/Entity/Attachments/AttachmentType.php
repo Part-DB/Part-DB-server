@@ -67,7 +67,7 @@ class AttachmentType extends StructuralDBElement
 {
     /**
      * @var Collection|AttachmentTypeAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\AttachmentTypeAttachment", mappedBy="element")
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\AttachmentTypeAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $attachments;
 

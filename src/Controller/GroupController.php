@@ -33,6 +33,7 @@ namespace App\Controller;
 
 
 use App\Controller\AdminPages\BaseAdminController;
+use App\Entity\Attachments\GroupAttachment;
 use App\Entity\UserSystem\Group;
 use App\Form\AdminPages\GroupAdminForm;
 use App\Services\EntityExporter;
@@ -52,6 +53,7 @@ class GroupController extends BaseAdminController
     protected $twig_template = 'AdminPages/GroupAdmin.html.twig';
     protected $form_class = GroupAdminForm::class;
     protected $route_base = 'group';
+    protected $attachment_class = GroupAttachment::class;
 
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="group_edit")

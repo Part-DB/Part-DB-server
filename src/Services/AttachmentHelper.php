@@ -33,7 +33,21 @@ namespace App\Services;
 
 
 use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentTypeAttachment;
+use App\Entity\Attachments\CategoryAttachment;
+use App\Entity\Attachments\CurrencyAttachment;
+use App\Entity\Attachments\DeviceAttachment;
+use App\Entity\Attachments\FootprintAttachment;
+use App\Entity\Attachments\GroupAttachment;
+use App\Entity\Attachments\ManufacturerAttachment;
+use App\Entity\Attachments\MeasurementUnitAttachment;
 use App\Entity\Attachments\PartAttachment;
+use App\Entity\Attachments\StorelocationAttachment;
+use App\Entity\Attachments\SupplierAttachment;
+use App\Entity\Attachments\UserAttachment;
+use App\Entity\Parts\Part;
+use App\Entity\UserSystem\Group;
+use App\Entity\UserSystem\User;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -45,6 +59,10 @@ class AttachmentHelper
      * @var string The folder where the attachments are saved. By default this is data/media in the project root string
      */
     protected $base_path;
+
+    protected $footprints_path;
+
+    protected $footprints_3d_path;
 
     public function __construct(ParameterBagInterface $params, KernelInterface $kernel)
     {
@@ -58,6 +76,10 @@ class AttachmentHelper
         } else {
             $this->base_path = realpath($kernel->getProjectDir() . DIRECTORY_SEPARATOR . $tmp_base_path);
         }
+
+        $this->footprints_path = realpath($kernel->getProjectDir() . "/public/img/footprints");
+        //TODO
+        $this->footprints_3d_path = "TODO";
     }
 
     /**
@@ -91,11 +113,15 @@ class AttachmentHelper
      */
     public function placeholderToRealPath(string $placeholder_path) : string
     {
-        //The new attachments use %MEDIA% as placeholders, which is the directory set in media_directory
-        $placeholder_path = str_replace("%MEDIA%", $this->base_path, $placeholder_path);
+        $placeholders = ["%MEDIA%", "%BASE%/data/media", "%FOOTPRINTS%", "%FOOTPRINTS_3D"];
+        $targets = [$this->base_path, $this->base_path, $this->footprints_path, $this->footprints_3d_path];
 
+
+        dump($placeholder_path);
+        //The new attachments use %MEDIA% as placeholders, which is the directory set in media_directory
         //Older path entries are given via %BASE% which was the project root
-        $placeholder_path = str_replace("%BASE%/data/media", $this->base_path, $placeholder_path);
+        $placeholder_path = str_replace($placeholders, $targets, $placeholder_path);
+        dump($placeholder_path);
 
         //Normalize path
         $placeholder_path = str_replace('\\', '/', $placeholder_path);
@@ -207,7 +233,12 @@ class AttachmentHelper
      */
     public function generateFolderForAttachment(Attachment $attachment) : string
     {
-        $mapping = [PartAttachment::class => 'part'];
+        $mapping = [PartAttachment::class => 'part', AttachmentTypeAttachment::class => 'attachment_type',
+            CategoryAttachment::class => 'category', CurrencyAttachment::class => 'currency',
+            DeviceAttachment::class => 'device', FootprintAttachment::class => 'footprint',
+            GroupAttachment::class => 'group', ManufacturerAttachment::class => 'manufacturer',
+            MeasurementUnitAttachment::class => 'measurement_unit', StorelocationAttachment::class => 'storelocation',
+            SupplierAttachment::class => 'supplier', UserAttachment::class => 'user'];
 
         $path = $this->base_path . DIRECTORY_SEPARATOR . $mapping[get_class($attachment)] . DIRECTORY_SEPARATOR . $attachment->getElement()->getID();
         return $path;

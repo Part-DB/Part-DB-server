@@ -32,6 +32,7 @@
 namespace App\Controller\AdminPages;
 
 
+use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Parts\Supplier;
 use App\Form\AdminPages\SupplierForm;
 use App\Services\EntityExporter;
@@ -54,6 +55,7 @@ class SupplierController extends BaseAdminController
     protected $twig_template = 'AdminPages/SupplierAdmin.html.twig';
     protected $form_class = SupplierForm::class;
     protected $route_base = 'supplier';
+    protected $attachment_class = SupplierAttachment::class;
 
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="supplier_edit")

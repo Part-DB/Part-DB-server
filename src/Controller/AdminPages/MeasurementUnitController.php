@@ -33,6 +33,7 @@ namespace App\Controller\AdminPages;
 
 
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\Attachments\MeasurementUnitAttachment;
 use App\Entity\Parts\MeasurementUnit;
 use App\Form\AdminPages\MeasurementUnitAdminForm;
 use App\Services\EntityExporter;
@@ -55,6 +56,7 @@ class MeasurementUnitController extends BaseAdminController
     protected $twig_template = 'AdminPages/MeasurementUnitAdmin.html.twig';
     protected $form_class = MeasurementUnitAdminForm::class;
     protected $route_base = 'measurement_unit';
+    protected $attachment_class = MeasurementUnitAttachment::class;
 
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="measurement_unit_edit")

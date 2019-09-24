@@ -77,7 +77,7 @@ class Footprint extends PartsContainingDBElement
 {
     /**
      * @var Collection|FootprintAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\FootprintAttachment", mappedBy="element")
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\FootprintAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $attachments;
 

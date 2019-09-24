@@ -50,7 +50,7 @@ class Group extends StructuralDBElement implements HasPermissionsInterface
 
     /**
      * @var Collection|GroupAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ManufacturerAttachment", mappedBy="element")
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ManufacturerAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $attachments;
 

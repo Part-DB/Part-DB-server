@@ -54,7 +54,7 @@ class Currency extends StructuralDBElement
 
     /**
      * @var Collection|CurrencyAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CurrencyAttachment", mappedBy="element")
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CurrencyAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $attachments;
 
