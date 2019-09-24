@@ -37,11 +37,50 @@ final class Version20190924113252 extends AbstractMigration
         $this->addSql('ALTER TABLE devices ADD id_preview_attachement INT DEFAULT NULL');
         $this->addSql('ALTER TABLE devices ADD CONSTRAINT FK_11074E9A6DEDCEC2 FOREIGN KEY (id_preview_attachement) REFERENCES `attachments` (id)');
         $this->addSql('CREATE INDEX IDX_11074E9A6DEDCEC2 ON devices (id_preview_attachement)');
+
+        $this->addSql('ALTER TABLE attachments DROP FOREIGN KEY FK_47C4FAD61F1F2A24');
+        $this->addSql('ALTER TABLE attachments ADD original_filename VARCHAR(255) DEFAULT NULL, CHANGE filename path VARCHAR(255) NOT NULL');
+
+        //Before we drop the filename and filename_3d properties we have to migrate the data to attachments
+        $this->addSql("INSERT INTO `attachment_types` (`id`, `name`, `parent_id`, `comment`, `datetime_added`, `last_modified`, `filetype_filter`) 
+            VALUES 
+            (1000, 'Footprints', NULL, 'Created during automatic migration of the footprint files.', current_timestamp(), current_timestamp(), 'apng, bmp, gif, ico, cur, jpg, jpeg, jfif, pjpeg, pjp, png, svg, webp'),
+            (1001, 'Footprints (3D)', NULL, 'Created during automatic migration of the footprint files.', current_timestamp(), current_timestamp(), 'x3d')
+        ");
+
+        //Add a attachment for each footprint attachment
+        $this->addSql(
+            'INSERT INTO attachments (element_id, type_id, name, class_name, path, last_modified, datetime_added) ' .
+            "SELECT footprints.id, 1000, 'Footprint', 'Footprint',  footprints.filename, NOW(), NOW() FROM footprints " .
+            "WHERE footprints.filename <> ''"
+        );
+
+        //Do the same for 3D Footprints
+        $this->addSql(
+            'INSERT INTO attachments (element_id, type_id, name, class_name, path, last_modified, datetime_added) ' .
+            "SELECT footprints.id, 1001, 'Footprint 3D', 'Footprint',  footprints.filename_3d, NOW(), NOW() FROM footprints " .
+            "WHERE footprints.filename_3d <> ''"
+        );
+
         $this->addSql('ALTER TABLE footprints ADD id_footprint_3d INT DEFAULT NULL, ADD id_preview_attachement INT DEFAULT NULL, DROP filename, DROP filename_3d');
         $this->addSql('ALTER TABLE footprints ADD CONSTRAINT FK_A34D68A232A38C34 FOREIGN KEY (id_footprint_3d) REFERENCES `attachments` (id)');
         $this->addSql('ALTER TABLE footprints ADD CONSTRAINT FK_A34D68A26DEDCEC2 FOREIGN KEY (id_preview_attachement) REFERENCES `attachments` (id)');
         $this->addSql('CREATE INDEX IDX_A34D68A232A38C34 ON footprints (id_footprint_3d)');
         $this->addSql('CREATE INDEX IDX_A34D68A26DEDCEC2 ON footprints (id_preview_attachement)');
+
+        //Set the created footprint attachments as preview image / 3D footprint image
+        $this->addSql('UPDATE footprints, attachments
+            SET footprints.id_preview_attachement = attachments.id
+            WHERE attachments.class_name = "Footprint" AND attachments.element_id = footprints.id
+            AND attachments.type_id = 1000;
+        ');
+
+        $this->addSql('UPDATE footprints, attachments
+            SET footprints.id_footprint_3d = attachments.id
+            WHERE attachments.class_name = "Footprint" AND attachments.element_id = footprints.id
+            AND attachments.type_id = 1001;
+        ');
+
         $this->addSql('ALTER TABLE manufacturers ADD id_preview_attachement INT DEFAULT NULL');
         $this->addSql('ALTER TABLE manufacturers ADD CONSTRAINT FK_94565B126DEDCEC2 FOREIGN KEY (id_preview_attachement) REFERENCES `attachments` (id)');
         $this->addSql('CREATE INDEX IDX_94565B126DEDCEC2 ON manufacturers (id_preview_attachement)');
@@ -54,8 +93,6 @@ final class Version20190924113252 extends AbstractMigration
         $this->addSql('ALTER TABLE suppliers ADD id_preview_attachement INT DEFAULT NULL');
         $this->addSql('ALTER TABLE suppliers ADD CONSTRAINT FK_AC28B95C6DEDCEC2 FOREIGN KEY (id_preview_attachement) REFERENCES `attachments` (id)');
         $this->addSql('CREATE INDEX IDX_AC28B95C6DEDCEC2 ON suppliers (id_preview_attachement)');
-        $this->addSql('ALTER TABLE attachments DROP FOREIGN KEY FK_47C4FAD61F1F2A24');
-        $this->addSql('ALTER TABLE attachments ADD original_filename VARCHAR(255) DEFAULT NULL, CHANGE filename path VARCHAR(255) NOT NULL');
         $this->addSql('ALTER TABLE `groups` ADD id_preview_attachement INT DEFAULT NULL');
         $this->addSql('ALTER TABLE `groups` ADD CONSTRAINT FK_F06D39706DEDCEC2 FOREIGN KEY (id_preview_attachement) REFERENCES `attachments` (id)');
         $this->addSql('CREATE INDEX IDX_F06D39706DEDCEC2 ON `groups` (id_preview_attachement)');
