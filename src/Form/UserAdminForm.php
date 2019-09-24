@@ -198,7 +198,8 @@ class UserAdminForm extends AbstractType
             'entry_options' => [
                 'data_class' => $options['attachment_class'],
             ],
-            'by_reference' => false
+            'by_reference' => false,
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
         //Buttons

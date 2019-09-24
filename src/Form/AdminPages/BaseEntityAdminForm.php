@@ -109,6 +109,7 @@ class BaseEntityAdminForm extends AbstractType
             'allow_add' => true,
             'allow_delete' => true,
             'label' => false,
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'entry_options' => [
                 'data_class' => $options['attachment_class'],
             ],
