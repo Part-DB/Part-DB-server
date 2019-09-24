@@ -61,6 +61,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Devices\Device;
 use App\Entity\Parts\PartTraits\AdvancedPropertyTrait;
@@ -127,6 +128,14 @@ class Part extends AttachmentContainingDBElement
      * @Assert\Valid()
      */
     protected $attachments;
+
+    /**
+     * @var Attachment
+     * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\Attachment")
+     * @ORM\JoinColumn(name="id_preview_attachement", referencedColumnName="id")
+     * @Assert\Expression("value == null or value.isPicture()", message="part.master_attachment.must_be_picture")
+     */
+    protected $master_picture_attachment;
 
     public function __construct()
     {
