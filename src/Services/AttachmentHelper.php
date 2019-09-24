@@ -261,20 +261,7 @@ class AttachmentHelper
 
         //Sanatize filename
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-        $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-        $newFilename = $safeFilename . '.' . $file->getClientOriginalExtension();
-
-        //If a file with this name is already existing add a number to the filename
-        if (file_exists($folder . DIRECTORY_SEPARATOR . $newFilename)) {
-            $bak = $newFilename;
-
-            $number = 1;
-            $newFilename = $folder . DIRECTORY_SEPARATOR . $safeFilename . '-' . $number . '.' . $file->getClientOriginalExtension();
-            while (file_exists($newFilename)) {
-                $number++;
-                $newFilename = $folder . DIRECTORY_SEPARATOR . $safeFilename . '-' . $number . '.' . $file->getClientOriginalExtension();
-            }
-        }
+        $newFilename = $attachment->getName() . '-' . uniqid('', false) . '.' . $file->guessExtension();
 
         //Move our temporay attachment to its final location
         $file_path = $file->move($folder, $newFilename)->getRealPath();
@@ -284,6 +271,8 @@ class AttachmentHelper
 
         //Save the path to the attachment
         $attachment->setPath($file_path);
+        //And save original filename
+        $attachment->setFilename($file->getClientOriginalName());
 
         return $attachment;
     }
