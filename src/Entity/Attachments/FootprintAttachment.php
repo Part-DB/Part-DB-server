@@ -31,28 +31,30 @@
 
 namespace App\Entity\Attachments;
 
+use App\Entity\Devices\Device;
+use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * A attachment attached to a part element.
+ * A attachment attached to a footprint element.
  * @package App\Entity
  * @ORM\Entity()
  */
-class PartAttachment extends Attachment
+class FootprintAttachment extends Attachment
 {
 
     /**
-     * @var Part The element this attachment is associated with.
-     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part", inversedBy="attachments")
+     * @var Footprint The element this attachment is associated with.
+     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Footprint", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */
     protected $element;
 
     public function setElement(AttachmentContainingDBElement $element): Attachment
     {
-        if (!$element instanceof Part) {
-            throw new \InvalidArgumentException('The element associated with a PartAttachment must be a Part!');
+        if (!$element instanceof Footprint) {
+            throw new \InvalidArgumentException('The element associated with a FootprintAttachment must be a Footprint!');
         }
 
         $this->element = $element;

@@ -61,7 +61,10 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Base\PartsContainingDBElement;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -72,6 +75,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Footprint extends PartsContainingDBElement
 {
+    /**
+     * @var Collection|FootprintAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\FootprintAttachment", mappedBy="element")
+     */
+    protected $attachments;
+
     /**
      * @ORM\OneToMany(targetEntity="Footprint", mappedBy="parent")
      */
@@ -84,21 +93,16 @@ class Footprint extends PartsContainingDBElement
     protected $parent;
 
     /**
-     * @var string
-     * @ORM\Column(type="text")
-     */
-    protected $filename;
-
-    /**
      * @ORM\OneToMany(targetEntity="Part", mappedBy="footprint", fetch="EXTRA_LAZY")
      */
     protected $parts;
 
     /**
-     * @var string
-     * @ORM\Column(type="text")
+     * @var FootprintAttachment
+     * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\FootprintAttachment")
+     * @ORM\JoinColumn(name="id_footprint_3d", referencedColumnName="id")
      */
-    protected $filename_3d;
+    protected $footprint_3d;
 
     /**
      * Returns the ID as an string, defined by the element class.

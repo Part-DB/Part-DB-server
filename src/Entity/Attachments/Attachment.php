@@ -34,7 +34,15 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="`attachments`")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="class_name", type="string")
- * @ORM\DiscriminatorMap({"PartDB\Part" = "PartAttachment", "Part" = "PartAttachment"})
+ * @ORM\DiscriminatorMap({
+ *     "PartDB\Part" = "PartAttachment", "Part" = "PartAttachment",
+ *     "PartDB\Device" = "DeviceAttachment", "Device" = "DeviceAttachment",
+ *     "AttachmentType" = "AttachmentTypeAttachment", "Category" = "CategoryAttachment",
+ *     "Footprint" = "FootprintAttachment", "Manufacturer" = "ManufacturerAttachment",
+ *     "Currency" = "CurrencyAttachment", "Group" = "GroupAttachment",
+ *     "MeasurementUnit" = "MeasurementUnitAttachment", "Storelocation" = "StorelocationAttachment",
+ *     "Supplier" = "SupplierAttachment", "User" = "UserAttachment"
+ * })
  * @ORM\EntityListeners({"App\EntityListeners\AttachmentDeleteListener"})
  *
  */
@@ -56,10 +64,16 @@ abstract class Attachment extends NamedDBElement
     protected $show_in_table = false;
 
     /**
-     * @var string The filename using the %BASE% variable
-     * @ORM\Column(type="string", name="filename")
+     * @var string The path to the file relative to a placeholder path like %MEDIA%
+     * @ORM\Column(type="string", name="path")
      */
     protected $path = '';
+
+    /**
+     * @var string The original filenamethe file had, when the user uploaded it.
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $original_filename;
 
     /**
      * ORM mapping is done in sub classes (like PartAttachment)
@@ -68,7 +82,7 @@ abstract class Attachment extends NamedDBElement
 
     /**
      * @var AttachmentType
-     * @ORM\ManyToOne(targetEntity="AttachmentType", inversedBy="attachments")
+     * @ORM\ManyToOne(targetEntity="AttachmentType", inversedBy="attachments_with_type")
      * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
      * @Selectable()
      */

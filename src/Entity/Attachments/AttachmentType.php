@@ -66,10 +66,16 @@ use Doctrine\ORM\Mapping as ORM;
 class AttachmentType extends StructuralDBElement
 {
     /**
-     * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Attachment", mappedBy="attachment_type")
+     * @var Collection|AttachmentTypeAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\AttachmentTypeAttachment", mappedBy="element")
      */
     protected $attachments;
+
+    /**
+     * @var Collection|Attachment[]
+     * @ORM\OneToMany(targetEntity="Attachment", mappedBy="attachment_type")
+     */
+    protected $attachments_with_type;
 
     /**
      * @ORM\OneToMany(targetEntity="AttachmentType", mappedBy="parent", cascade={"persist"})

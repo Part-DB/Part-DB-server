@@ -61,9 +61,12 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\Entity\Attachments\ManufacturerAttachment;
+use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Base\Company;
 use App\Entity\PriceInformations\Currency;
 use App\Validator\Constraints\Selectable;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -75,6 +78,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Supplier extends Company
 {
+    /**
+     * @var Collection|SupplierAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ManufacturerAttachment", mappedBy="element")
+     */
+    protected $attachments;
+
     /**
      * @ORM\OneToMany(targetEntity="Supplier", mappedBy="parent")
      */

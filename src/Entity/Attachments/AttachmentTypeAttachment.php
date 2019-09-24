@@ -35,24 +35,24 @@ use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * A attachment attached to a part element.
+ * A attachment attached to an attachmentType element.
  * @package App\Entity
  * @ORM\Entity()
  */
-class PartAttachment extends Attachment
+class AttachmentTypeAttachment extends Attachment
 {
 
     /**
-     * @var Part The element this attachment is associated with.
-     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part", inversedBy="attachments")
+     * @var AttachmentType The element this attachment is associated with.
+     * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\AttachmentType", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */
     protected $element;
 
     public function setElement(AttachmentContainingDBElement $element): Attachment
     {
-        if (!$element instanceof Part) {
-            throw new \InvalidArgumentException('The element associated with a PartAttachment must be a Part!');
+        if (!$element instanceof AttachmentType) {
+            throw new \InvalidArgumentException('The element associated with a AttachmentTypeAttachment must be an AttachmentType!');
         }
 
         $this->element = $element;

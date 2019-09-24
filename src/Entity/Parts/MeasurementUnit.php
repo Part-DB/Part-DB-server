@@ -32,7 +32,10 @@
 namespace App\Entity\Parts;
 
 
+use App\Entity\Attachments\ManufacturerAttachment;
+use App\Entity\Attachments\MeasurementUnitAttachment;
 use App\Entity\Base\PartsContainingDBElement;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -48,6 +51,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class MeasurementUnit extends PartsContainingDBElement
 {
+
+    /**
+     * @var Collection|MeasurementUnitAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\MeasurementUnitAttachment", mappedBy="element")
+     */
+    protected $attachments;
 
     /**
      * @var string The unit symbol that should be used for the Unit. This could be something like "", g (for gramms)

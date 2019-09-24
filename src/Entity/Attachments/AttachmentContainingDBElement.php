@@ -52,16 +52,20 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
+use App\Entity\Base\MasterAttachmentTrait;
 use App\Entity\Base\NamedDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\MappedSuperclass()
  */
 abstract class AttachmentContainingDBElement extends NamedDBElement
 {
+    use MasterAttachmentTrait;
+
     /**
      * @var Attachment[]
      * //TODO

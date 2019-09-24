@@ -61,7 +61,10 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\Entity\Attachments\FootprintAttachment;
+use App\Entity\Attachments\ManufacturerAttachment;
 use App\Entity\Base\Company;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -72,6 +75,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Manufacturer extends Company
 {
+    /**
+     * @var Collection|ManufacturerAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ManufacturerAttachment", mappedBy="element")
+     */
+    protected $attachments;
+
+
     /**
      * @ORM\OneToMany(targetEntity="Manufacturer", mappedBy="parent")
      */

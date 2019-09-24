@@ -29,12 +29,13 @@
  *
  */
 
-namespace App\Entity\Parts\PartTraits;
+namespace App\Entity\Base;
 
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;
 use App\Security\Annotations\ColumnSecurity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * A entity with this class has a master attachment, which is used as a preview image for this object.
@@ -45,7 +46,7 @@ trait MasterAttachmentTrait
     /**
      * @var Attachment
      * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\Attachment")
-     * @ORM\JoinColumn(name="id_master_picture_attachement", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_preview_attachement", referencedColumnName="id")
      * @Assert\Expression("value == null or value.isPicture()", message="part.master_attachment.must_be_picture")
      * @ColumnSecurity(prefix="attachments", type="object")
      */

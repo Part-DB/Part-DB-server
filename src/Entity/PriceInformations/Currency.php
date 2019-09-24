@@ -32,7 +32,10 @@
 namespace App\Entity\PriceInformations;
 
 
+use App\Entity\Attachments\CurrencyAttachment;
+use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Base\StructuralDBElement;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -48,6 +51,12 @@ class Currency extends StructuralDBElement
 {
 
     public const PRICE_SCALE = 5;
+
+    /**
+     * @var Collection|CurrencyAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CurrencyAttachment", mappedBy="element")
+     */
+    protected $attachments;
 
     /**
      * @var string The 3 letter ISO code of the currency.

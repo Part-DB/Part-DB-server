@@ -52,7 +52,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\Entity\Attachments\CategoryAttachment;
 use App\Entity\Base\PartsContainingDBElement;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -63,6 +65,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category extends PartsContainingDBElement
 {
+
+    /**
+     * @var Collection|CategoryAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CategoryAttachment", mappedBy="element")
+     */
+    protected $attachments;
+
     /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
      */

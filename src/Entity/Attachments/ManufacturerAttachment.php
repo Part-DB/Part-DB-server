@@ -31,28 +31,30 @@
 
 namespace App\Entity\Attachments;
 
+use App\Entity\Devices\Device;
+use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * A attachment attached to a part element.
+ * A attachment attached to a manufacturer element.
  * @package App\Entity
  * @ORM\Entity()
  */
-class PartAttachment extends Attachment
+class ManufacturerAttachment extends Attachment
 {
 
     /**
-     * @var Part The element this attachment is associated with.
-     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part", inversedBy="attachments")
+     * @var Manufacturer The element this attachment is associated with.
+     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Manufacturer", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */
     protected $element;
 
     public function setElement(AttachmentContainingDBElement $element): Attachment
     {
-        if (!$element instanceof Part) {
-            throw new \InvalidArgumentException('The element associated with a PartAttachment must be a Part!');
+        if (!$element instanceof Manufacturer) {
+            throw new \InvalidArgumentException('The element associated with a ManufacturerAttachment must be a Manufacturer!');
         }
 
         $this->element = $element;

@@ -31,9 +31,12 @@
 
 namespace App\Entity\UserSystem;
 
+use App\Entity\Attachments\GroupAttachment;
+use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Base\StructuralDBElement;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\ValidPermission;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -44,6 +47,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Group extends StructuralDBElement implements HasPermissionsInterface
 {
+
+    /**
+     * @var Collection|GroupAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ManufacturerAttachment", mappedBy="element")
+     */
+    protected $attachments;
+
     /**
      * @ORM\OneToMany(targetEntity="Group", mappedBy="parent")
      */

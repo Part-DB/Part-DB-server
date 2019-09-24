@@ -61,11 +61,15 @@ declare(strict_types=1);
 
 namespace App\Entity\UserSystem;
 
+use App\Entity\Attachments\AttachmentContainingDBElement;
+use App\Entity\Attachments\SupplierAttachment;
+use App\Entity\Attachments\UserAttachment;
 use App\Entity\Base\NamedDBElement;
 use App\Entity\PriceInformations\Currency;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPermission;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -79,10 +83,16 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table("`users`")
  * @UniqueEntity("name", message="validator.user.username_already_used")
  */
-class User extends NamedDBElement implements UserInterface, HasPermissionsInterface
+class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface
 {
     /** The User id of the anonymous user */
     public const ID_ANONYMOUS = 1;
+
+    /**
+     * @var Collection|UserAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\UserAttachment", mappedBy="element")
+     */
+    protected $attachments;
 
     /**
      * @ORM\Id()
@@ -191,11 +201,6 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
     protected $permissions;
 
     /**
-     * @ORM\Column(type="text", name="config_image_path")
-     */
-    protected $image_path = '';
-
-    /**
      * @ORM\Column(type="text", name="config_instock_comment_w")
      */
     protected $instock_comment_w = '';
@@ -205,8 +210,28 @@ class User extends NamedDBElement implements UserInterface, HasPermissionsInterf
      */
     protected $instock_comment_a = '';
 
+    /**
+     * @var string|null The hash of a token the user must provide when he wants to reset his password.
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $pw_reset_token = null;
+
+    /**
+     * @var \DateTime The time until the password reset token is valid.
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $pw_reset_expires = null;
+
+    /**
+     * @var bool Determines if the user is disabled (user can not log in)
+     * @ORM\Column(type="boolean")
+     */
+    protected $disabled = false;
+
+
     public function __construct()
     {
+        parent::__construct();
         $this->permissions = new PermissionsEmbed();
     }
 

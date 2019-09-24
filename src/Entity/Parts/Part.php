@@ -64,7 +64,7 @@ namespace App\Entity\Parts;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Devices\Device;
 use App\Entity\Parts\PartTraits\AdvancedPropertyTrait;
-use App\Entity\Parts\PartTraits\MasterAttachmentTrait;
+use App\Entity\Base\MasterAttachmentTrait;
 use App\Entity\Parts\PartTraits\BasicPropertyTrait;
 use App\Entity\Parts\PartTraits\InstockTrait;
 use App\Entity\Parts\PartTraits\ManufacturerTrait;
@@ -87,7 +87,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Part extends AttachmentContainingDBElement
 {
     use AdvancedPropertyTrait;
-    use MasterAttachmentTrait;
+    //use MasterAttachmentTrait;
     use BasicPropertyTrait;
     use InstockTrait;
     use ManufacturerTrait;

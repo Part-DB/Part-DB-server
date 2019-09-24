@@ -61,7 +61,10 @@ declare(strict_types=1);
 
 namespace App\Entity\Devices;
 
+use App\Entity\Attachments\AttachmentTypeAttachment;
+use App\Entity\Attachments\DeviceAttachment;
 use App\Entity\Base\PartsContainingDBElement;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -72,6 +75,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Device extends PartsContainingDBElement
 {
+
+    /**
+     * @var Collection|DeviceAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\DeviceAttachment", mappedBy="element")
+     */
+    protected $attachments;
+
     /**
      * @ORM\OneToMany(targetEntity="Device", mappedBy="parent")
      */

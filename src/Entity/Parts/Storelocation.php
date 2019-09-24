@@ -61,7 +61,10 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
+use App\Entity\Attachments\ManufacturerAttachment;
+use App\Entity\Attachments\StorelocationAttachment;
 use App\Entity\Base\PartsContainingDBElement;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -72,6 +75,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Storelocation extends PartsContainingDBElement
 {
+
+    /**
+     * @var Collection|StorelocationAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\StorelocationAttachment", mappedBy="element")
+     */
+    protected $attachments;
+
     /**
      * @ORM\OneToMany(targetEntity="Storelocation", mappedBy="parent")
      */

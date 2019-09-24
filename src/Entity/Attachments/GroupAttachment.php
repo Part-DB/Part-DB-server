@@ -31,28 +31,36 @@
 
 namespace App\Entity\Attachments;
 
+use App\Entity\Devices\Device;
+use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\Supplier;
+use App\Entity\PriceInformations\Currency;
+use App\Entity\UserSystem\Group;
+use App\Entity\UserSystem\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * A attachment attached to a part element.
+ * A attachment attached to a Group element.
  * @package App\Entity
  * @ORM\Entity()
  */
-class PartAttachment extends Attachment
+class GroupAttachment extends Attachment
 {
 
     /**
-     * @var Part The element this attachment is associated with.
-     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part", inversedBy="attachments")
+     * @var Group The element this attachment is associated with.
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\Group", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */
     protected $element;
 
     public function setElement(AttachmentContainingDBElement $element): Attachment
     {
-        if (!$element instanceof Part) {
-            throw new \InvalidArgumentException('The element associated with a PartAttachment must be a Part!');
+        if (!$element instanceof Group) {
+            throw new \InvalidArgumentException('The element associated with a UserAttachment must be a User!');
         }
 
         $this->element = $element;
