@@ -37,6 +37,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\StructuralDBElement;
 use App\Form\Type\StructuralEntityType;
 use App\Services\AttachmentHelper;
+use App\Validator\Constraints\UrlOrBuiltin;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -75,11 +76,11 @@ class AttachmentFormType extends AbstractType
             'attr' => ['class' => 'form-control-sm'],
             'label_attr' => ['class' => 'checkbox-custom']]);
 
-        $builder->add('url', UrlType::class, [
+        $builder->add('url', TextType::class, [
             'label' =>  $this->trans->trans('attachment.edit.url'),
             'required' => false,
             'constraints' => [
-                new Url()
+                $options['allow_builtins'] ? new UrlOrBuiltin() : new Url()
             ]
         ]);
 
@@ -101,7 +102,8 @@ class AttachmentFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Attachment::class,
-            'max_file_size' => '16M'
+            'max_file_size' => '16M',
+            'allow_builtins' => true
         ]);
 
     }

@@ -105,6 +105,27 @@ class AttachmentTest extends TestCase
         $this->assertTrue($attachment->isPicture());
     }
 
+    public function testIsBuiltIn()
+    {
+        $attachment = new PartAttachment();
+        $this->setProtectedProperty($attachment, 'path', '%MEDIA%/foo/bar.txt');
+        $this->assertFalse($attachment->isBuiltIn());
+
+        $this->setProtectedProperty($attachment, 'path', '%BASE%/foo/bar.txt');
+        $this->assertFalse($attachment->isBuiltIn());
+
+        $this->setProtectedProperty($attachment, 'path', '/');
+        $this->assertFalse($attachment->isBuiltIn());
+
+        $this->setProtectedProperty($attachment, 'path', 'https://google.de');
+        $this->assertFalse($attachment->isBuiltIn());
+
+        $this->setProtectedProperty($attachment, 'path', '%FOOTPRINTS%/foo/bar.txt');
+        $this->assertTrue($attachment->isBuiltIn());
+
+
+    }
+
     public function testGetHost()
     {
         $attachment = new PartAttachment();

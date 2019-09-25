@@ -59,7 +59,10 @@ abstract class Attachment extends NamedDBElement
     /**
      * When the path begins with one of this placeholders
      */
-    const INTERNAL_PLACEHOLDER = ['%BASE%', '%MEDIA%', '%FOOTPRINTS%', '%FOOTPRINTS3D%'];
+    const INTERNAL_PLACEHOLDER = ['%BASE%', '%MEDIA%'];
+
+    /** @var array Placeholders for attachments which using built in files. */
+    const BUILTIN_PLACEHOLDER = ['%FOOTPRINTS%', '%FOOTPRINTS3D%'];
 
     /**
      * @var bool
@@ -128,7 +131,17 @@ abstract class Attachment extends NamedDBElement
             return true;
         }
 
-        return !in_array($tmp[0], static::INTERNAL_PLACEHOLDER, false);
+        return !in_array($tmp[0], array_merge(static::INTERNAL_PLACEHOLDER, static::BUILTIN_PLACEHOLDER), false);
+    }
+
+    /**
+     * Checks if the attachment file is using a builtin file. (see BUILTIN_PLACEHOLDERS const for possible placeholders)
+     * If a file is built in, the path is shown to user in url field (no sensitive infos are provided)
+     * @return bool True if the attachment is uning an builtin file.
+     */
+    public function isBuiltIn() : bool
+    {
+        return static::checkIfBuiltin($this->path);
     }
 
     /********************************************************************************
@@ -167,13 +180,13 @@ abstract class Attachment extends NamedDBElement
     }
 
     /**
-     * The URL to the external file.
-     * Returns null, if the file is not external.
+     * The URL to the external file, or the path to the built in file.
+     * Returns null, if the file is not external (and not builtin).
      * @return string|null
      */
     public function getURL(): ?string
     {
-        if (!$this->isExternal()) {
+        if (!$this->isExternal() && !$this->isBuiltIn()) {
             return null;
         }
 
@@ -203,8 +216,6 @@ abstract class Attachment extends NamedDBElement
     {
         return $this->path;
     }
-
-
 
     /**
      * Returns the filename of the attachment.
@@ -335,6 +346,22 @@ abstract class Attachment extends NamedDBElement
     /*****************************************************************************************************
      * Static functions
      *****************************************************************************************************/
+
+    /**
+     * Checks if the given path is a path to a builtin ressource.
+     * @param string $path The path that should be checked
+     * @return bool True if the path is pointing to a builtin ressource.
+     */
+    public static function checkIfBuiltin(string $path) : bool
+    {
+        //After the %PLACEHOLDER% comes a slash, so we can check if we have a placholder via explode
+        $tmp = explode('/', $path);
+        //Builtins must have a %PLACEHOLDER% construction
+        if (empty($tmp)) {
+            return false;
+        }
+        return in_array($tmp[0], static::BUILTIN_PLACEHOLDER, false);
+    }
 
     /**
      * Check if a string is a URL and is valid.
