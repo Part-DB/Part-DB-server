@@ -11,43 +11,51 @@
     <tbody>
     {% for attachment in form.attachments %}
         <tr>
-            <td>
-                {{ form_widget(attachment) }}
-            </td>
-            <td>
-                {{ delete_btn }}
+            <td class="row">
+                <div class="col-9">
+                    {{ form_widget(attachment) }}
+                </div>
+                <div class="pl-0 col-3">
+                    {{ delete_btn }}
 
-                {% set attach = attachment.vars.value %}
+                    {% set attach = attachment.vars.value %}
 
-                {% if attachment_helper.fileExisting(attach) %}
-                    {% if not attach.external %}
-                        <br><br>
-                        <h6>
+                    {% if attachment_helper.fileExisting(attach) %}
+                        {% if not attach.external %}
+                            <br><br>
+                            <h6>
                         <span class="badge badge-primary">
                             <i class="fas fa-fw fa-file"></i> {{ attach.filename }}
                         </span>
-                            <br>
-                            <span class="badge badge-secondary">
+                                <br>
+                                <span class="badge badge-secondary">
                             <i class="fas fa-hdd fa-fw"></i> {{ attachment_helper.humanFileSize(attach) }}
                         </span>
-                        </h6>
-                    {% else %}
-                        <br><br>
-                        <h6>
+                            </h6>
+                        {% else %}
+                            <br><br>
+                            <h6>
                         <span class="badge badge-primary">
                             <i class="fas fa-fw fa-globe"></i> {% trans %}attachment.external{% endtrans %}
                         </span>
-                        </h6>
-                    {% endif %}
-                {% else %}
-                    <br><br>
-                    <h6>
+                            </h6>
+                        {% endif %}
+                        {% if attach.picture %}
+                            <a href="{{ attach | entityURL('file_view') }}" target="_blank" data-no-ajax>
+                                <img class="img-fluid img-thumbnail" src="{{ attach | entityURL('file_view') }}" alt="{% trans %}attachment.preview.alt{% endtrans %}" />
+                            </a>
+                        {% else %}
+                            <a href="{{ attach | entityURL('file_view') }}" target="_blank" data-no-ajax class="link-external">{% trans %}attachment.view{% endtrans %}</a>
+                        {% endif %}
+                    {% else %}
+                        <br><br>
+                        <h6>
                     <span class="badge badge-warning">
                         <i class="fas fa-exclamation-circle fa-fw"></i> {% trans %}attachment.file_not_found{% endtrans %}
                     </span>
-                    </h6>
-                {% endif %}
-
+                        </h6>
+                    {% endif %}
+                </div>
             </td>
         </tr>
     {% endfor %}
@@ -77,12 +85,12 @@
 
         //Increase the index
         newForm = newForm.replace(/__name__/g, index);
-        newForm = '<td>' + newForm + '</td>';
-        $newFormRow = $('<tr></tr>').html(newForm);
+        newForm = '<div class="col-9">' + newForm + '</div>';
+        $newFormRow = $('<tr></tr>').html("<td class='row'>" + newForm + "</td>");
 
         //Add delete button
-        $btn = '<td>' + '{{ delete_btn|e('js') }}' + '</td>';
-        $newFormRow.append($btn);
+        $btn = '<div class="col-3">' + '{{ delete_btn|e('js') }}' + '</div>';
+        $('td' ,$newFormRow).append($btn);
 
         $holder.append($newFormRow);
 
