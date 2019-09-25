@@ -120,8 +120,8 @@ class AttachmentHelper
         //Older path entries are given via %BASE% which was the project root
         $placeholder_path = str_replace($placeholders, $targets, $placeholder_path);
 
-        //Normalize path
-        $placeholder_path = str_replace('\\', '/', $placeholder_path);
+        //Normalize path and remove ..
+        $placeholder_path = str_replace(['\\','..'], ['/',''], $placeholder_path);
 
         return $placeholder_path;
     }
