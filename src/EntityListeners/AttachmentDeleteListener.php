@@ -35,6 +35,7 @@ namespace App\EntityListeners;
 use App\Entity\Attachments\Attachment;
 use App\Services\AttachmentHelper;
 use App\Services\AttachmentReverseSearch;
+use App\Services\Attachments\AttachmentPathResolver;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping\PostRemove;
@@ -49,11 +50,13 @@ class AttachmentDeleteListener
 {
     protected $attachmentReverseSearch;
     protected $attachmentHelper;
+    protected $pathResolver;
 
-    public function __construct(AttachmentReverseSearch $attachmentReverseSearch, AttachmentHelper $attachmentHelper)
+    public function __construct(AttachmentReverseSearch $attachmentReverseSearch, AttachmentHelper $attachmentHelper, AttachmentPathResolver $pathResolver)
     {
         $this->attachmentReverseSearch = $attachmentReverseSearch;
         $this->attachmentHelper = $attachmentHelper;
+        $this->pathResolver = $pathResolver;
     }
 
     /**
@@ -71,7 +74,7 @@ class AttachmentDeleteListener
                 return;
             }
 
-            $file = new \SplFileInfo($this->attachmentHelper->placeholderToRealPath($event->getOldValue('path')));
+            $file = new \SplFileInfo($this->pathResolver->placeholderToRealPath($event->getOldValue('path')));
             $this->attachmentReverseSearch->deleteIfNotUsed($file);
         }
     }

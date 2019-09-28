@@ -45,50 +45,17 @@ use App\Entity\Attachments\PartAttachment;
 use App\Entity\Attachments\StorelocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
-use App\Entity\Parts\Part;
-use App\Entity\UserSystem\Group;
-use App\Entity\UserSystem\User;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\Filesystem\Filesystem;
+use App\Services\Attachments\AttachmentPathResolver;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 class AttachmentHelper
 {
-    /**
-     * @var string The folder where the attachments are saved. By default this is data/media in the project root string
-     */
-    protected $base_path;
 
-    protected $footprints_path;
+    protected $pathResolver;
 
-    protected $footprints_3d_path;
-
-    public function __construct(ParameterBagInterface $params, KernelInterface $kernel)
+    public function __construct(AttachmentPathResolver $pathResolver)
     {
-        $tmp_base_path = $params->get('media_directory');
-
-        $fs = new Filesystem();
-
-        //Determine if it is an absolute path, or if we need to create a real absolute one out of it
-        if ($fs->isAbsolutePath($tmp_base_path)) {
-            $this->base_path = $tmp_base_path;
-        } else {
-            $this->base_path = realpath($kernel->getProjectDir() . DIRECTORY_SEPARATOR . $tmp_base_path);
-        }
-
-        $this->footprints_path = realpath($kernel->getProjectDir() . "/public/img/footprints");
-        //TODO
-        $this->footprints_3d_path = "TODO";
-    }
-
-    /**
-     * Returns the absolute path to the folder where all attachments are saved.
-     * @return string
-     */
-    public function getMediaPath() : string
-    {
-        return $this->base_path;
+        $this->pathResolver = $pathResolver;
     }
 
     /**
@@ -107,46 +74,6 @@ class AttachmentHelper
     }
 
     /**
-     * Converts an relative placeholder filepath (with %MEDIA% or older %BASE%) to an absolute filepath on disk.
-     * @param string $placeholder_path The filepath with placeholder for which the real path should be determined.
-     * @return string The absolute real path of the file
-     */
-    public function placeholderToRealPath(string $placeholder_path) : string
-    {
-        $placeholders = ["%MEDIA%", "%BASE%/data/media", "%FOOTPRINTS%", "%FOOTPRINTS_3D"];
-        $targets = [$this->base_path, $this->base_path, $this->footprints_path, $this->footprints_3d_path];
-
-        //The new attachments use %MEDIA% as placeholders, which is the directory set in media_directory
-        //Older path entries are given via %BASE% which was the project root
-        $placeholder_path = str_replace($placeholders, $targets, $placeholder_path);
-
-        //Normalize path and remove ..
-        $placeholder_path = str_replace(['\\','..'], ['/',''], $placeholder_path);
-
-        return $placeholder_path;
-    }
-
-    /**
-     * Converts an real absolute filepath to a placeholder version.
-     * @param string $real_path The absolute path, for which the placeholder version should be generated.
-     * @param bool $old_version By default the %MEDIA% placeholder is used, which is directly replaced with the
-     * media directory. If set to true, the old version with %BASE% will be used, which is the project directory.
-     * @return string The placeholder version of the filepath
-     */
-    public function realPathToPlaceholder(string $real_path, bool $old_version = false) : string
-    {
-        if ($old_version) {
-            $real_path = str_replace($this->base_path, "%BASE%/data/media", $real_path);
-        } else {
-            $real_path = str_replace($this->base_path, "%MEDIA%", $real_path);
-        }
-
-        //Normalize path
-        $real_path = str_replace('\\', '/', $real_path);
-        return $real_path;
-    }
-
-    /**
      * Returns the absolute filepath of the attachment. Null is returned, if the attachment is externally saved.
      * @param Attachment $attachment The attachment for which the filepath should be determined
      * @return string|null
@@ -162,7 +89,7 @@ class AttachmentHelper
         }
 
         $path = $attachment->getPath();
-        $path = $this->placeholderToRealPath($path);
+        $path = $this->pathResolver->placeholderToRealPath($path);
         return realpath($path);
     }
 
@@ -264,7 +191,7 @@ class AttachmentHelper
         $file_path = $file->move($folder, $newFilename)->getRealPath();
 
         //Make our file path relative to %BASE%
-        $file_path = $this->realPathToPlaceholder($file_path);
+        $file_path = $this->pathResolver->realPathToPlaceholder($file_path);
 
         //Save the path to the attachment
         $attachment->setPath($file_path);

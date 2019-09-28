@@ -32,6 +32,7 @@
 namespace App\Services;
 
 use App\Entity\Attachments\Attachment;
+use App\Services\Attachments\AttachmentPathResolver;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
@@ -43,12 +44,12 @@ use Symfony\Component\HttpFoundation\File\File;
 class AttachmentReverseSearch
 {
     protected $em;
-    protected $attachment_helper;
+    protected $pathResolver;
 
-    public function __construct(EntityManagerInterface $em, AttachmentHelper $attachmentHelper)
+    public function __construct(EntityManagerInterface $em, AttachmentPathResolver $pathResolver)
     {
         $this->em = $em;
-        $this->attachment_helper = $attachmentHelper;
+        $this->pathResolver = $pathResolver;
     }
 
     /**
@@ -59,9 +60,9 @@ class AttachmentReverseSearch
     public function findAttachmentsByFile(\SplFileInfo $file) : array
     {
         //Path with %MEDIA%
-        $relative_path_new = $this->attachment_helper->realPathToPlaceholder($file->getPathname());
+        $relative_path_new = $this->pathResolver->realPathToPlaceholder($file->getPathname());
         //Path with %BASE%
-        $relative_path_old = $this->attachment_helper->realPathToPlaceholder($file->getPathname(), true);
+        $relative_path_old = $this->pathResolver->realPathToPlaceholder($file->getPathname(), true);
 
         $repo = $this->em->getRepository(Attachment::class);
         return $repo->findBy(['path' => [$relative_path_new, $relative_path_old]]);

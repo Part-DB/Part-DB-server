@@ -74,6 +74,13 @@ services:
         arguments:
             $timezone: '%timezone%'
 
+    App\Services\Attachments\AttachmentPathResolver:
+        arguments:
+            $project_dir: '%kernel.project_dir%'
+            $media_path: '%media_directory%'
+            $footprints_path: 'public/img/footprints'
+            $models_path: null
+
     App\Services\TranslationExtractor\PermissionExtractor:
         tags:
             - { name: 'translation.extractor', alias: 'permissionExtractor'}

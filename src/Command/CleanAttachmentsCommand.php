@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Services\AttachmentHelper;
 use App\Services\AttachmentReverseSearch;
+use App\Services\Attachments\AttachmentPathResolver;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
@@ -24,10 +25,12 @@ class CleanAttachmentsCommand extends Command
     protected $attachment_helper;
     protected $reverseSearch;
     protected $mimeTypeGuesser;
+    protected $pathResolver;
 
-    public function __construct(AttachmentHelper $attachmentHelper, AttachmentReverseSearch $reverseSearch)
+    public function __construct(AttachmentHelper $attachmentHelper, AttachmentReverseSearch $reverseSearch, AttachmentPathResolver $pathResolver)
     {
         $this->attachment_helper = $attachmentHelper;
+        $this->pathResolver = $pathResolver;
         $this->reverseSearch = $reverseSearch;
         $this->mimeTypeGuesser = new MimeTypes();
         parent::__construct();
@@ -45,7 +48,7 @@ class CleanAttachmentsCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $mediaPath = $this->attachment_helper->getMediaPath();
+        $mediaPath = $this->pathResolver->getMediaPath();
         $io->note("The media path is " . $mediaPath);
 
         $finder = new Finder();
