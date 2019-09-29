@@ -79,6 +79,11 @@ final class Version1 extends AbstractMigration
         $this->addSql('ALTER TABLE `pricedetails` ADD CONSTRAINT FK_C68C4459398D64AA FOREIGN KEY (id_currency) REFERENCES currencies (id)');
         $this->addSql('ALTER TABLE `groups` ADD CONSTRAINT FK_F06D3970727ACA70 FOREIGN KEY (parent_id) REFERENCES `groups` (id)');
 
+        /**
+         * IGNORE is important here, or we get errors on MySQL 5.7 or higher.
+         * TODO: Maybe find a better way (like explicitly define default value), so we can use the strict mode.
+         */
+
         //Create table for user logs:
         $sql =  $updateSteps[] = "CREATE TABLE `log` ".
             "( `id` INT NOT NULL AUTO_INCREMENT , `datetime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() ,".
@@ -94,7 +99,7 @@ final class Version1 extends AbstractMigration
         //Create first groups and users:
         //Add needed groups.
         $sql = <<<'EOD'
-                INSERT INTO `groups`
+                INSERT IGNORE INTO `groups`
                 (`id`,`name`,`parent_id`,`comment`,`perms_system`,`perms_groups`,
                 `perms_users`,
                 `perms_self`,`perms_system_config`,`perms_system_database`,
@@ -122,7 +127,7 @@ EOD;
         $this->addSql($sql);
         $admin_pw = "$2y$10$36AnqCBS.YnHlVdM4UQ0oOCV7BjU7NmE0qnAVEex65AyZw1cbcEjq";
         $sql = <<<EOD
-            INSERT INTO `users`
+            INSERT IGNORE INTO `users`
             (`id`,`name`,`password`,`first_name`,`last_name`,`department`,
              `email`,
              `need_pw_change`,`group_id`,`perms_system`,`perms_groups`,

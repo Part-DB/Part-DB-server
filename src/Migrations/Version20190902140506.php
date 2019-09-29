@@ -46,14 +46,14 @@ final class Version20190902140506 extends AbstractMigration
 
         /** Migrate the part locations for parts with known instock */
         $this->addSql(
-            'INSERT INTO part_lots (id_part, id_store_location, amount, instock_unknown, last_modified, datetime_added) ' .
+            'INSERT IGNORE INTO part_lots (id_part, id_store_location, amount, instock_unknown, last_modified, datetime_added) ' .
             'SELECT parts.id, parts.id_storelocation,  parts.instock, 0, NOW(), NOW() FROM parts ' .
             'WHERE parts.instock >= 0'
         );
 
         //Migrate part locations for parts with unknown instock
         $this->addSql(
-            'INSERT INTO part_lots (id_part, id_store_location, amount, instock_unknown, last_modified, datetime_added) ' .
+            'INSERT IGNORE INTO part_lots (id_part, id_store_location, amount, instock_unknown, last_modified, datetime_added) ' .
             'SELECT parts.id, parts.id_storelocation, 0, 1, NOW(), NOW() FROM parts ' .
             'WHERE parts.instock = -2'
         );
