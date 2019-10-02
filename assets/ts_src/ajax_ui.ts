@@ -76,7 +76,11 @@ class AjaxUI {
 
         console.info("AjaxUI started!");
 
-        this.BASE = $("body").data("base-url") + "/";
+        this.BASE = $("body").data("base-url");
+        //If path doesn't end with slash, add it.
+        if(this.BASE[this.BASE.length - 1] !== '/') {
+            this.BASE = this.BASE + '/';
+        }
         console.info("Base path is " + this.BASE);
 
         //Show flash messages

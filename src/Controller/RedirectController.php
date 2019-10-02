@@ -42,14 +42,22 @@ class RedirectController extends AbstractController
     protected $default_locale;
     protected $translator;
     protected $session;
+    protected $enforce_index_php;
 
-    public function __construct(string $default_locale, TranslatorInterface $translator, SessionInterface $session)
+    public function __construct(string $default_locale, TranslatorInterface $translator, SessionInterface $session, bool $enforce_index_php)
     {
         $this->default_locale = $default_locale;
         $this->session = $session;
         $this->translator = $translator;
+        $this->enforce_index_php = $enforce_index_php;
     }
 
+    /**
+     * This function is called whenever a route was not matching the localized routes.
+     * The purpose is to redirect the user to the localized version of the page.
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function addLocalePart(Request $request)
     {
         //By default we use the global default locale
@@ -69,6 +77,31 @@ class RedirectController extends AbstractController
 
         //$new_url = str_replace($request->getPathInfo(), '/' . $locale . $request->getPathInfo(), $request->getUri());
         $new_url = $request->getUriForPath('/' . $locale . $request->getPathInfo());
+
+        //If either mod_rewrite is not enabled or the index.php version is enforced, add index.php to the string
+        if (($this->enforce_index_php || !$this->checkIfModRewriteAvailable())
+            && strpos($new_url, 'index.php') === false) {
+            //Like Request::getUriForPath only with index.php
+            $new_url = $request->getSchemeAndHttpHost(). $request->getBaseUrl().'/index.php/' . $locale . $request->getPathInfo();
+        }
         return $this->redirect($new_url);
+    }
+
+    /**
+     * Check if mod_rewrite is availabe (URL rewriting is possible).
+     * If this is true, we can redirect to /en, otherwise we have to redirect to index.php/en.
+     * When the PHP is not used via Apache SAPI, we just assume that URL rewriting is available
+     * @return bool
+     */
+    public function checkIfModRewriteAvailable()
+    {
+        if (!function_exists('apache_get_modules')) {
+            //If we can not check for apache modules, we just hope for the best and assume url rewriting is available
+            //If you want to enforce index.php versions of the url, you can override this via ENV vars.
+            return true;
+        }
+
+        //Check if the mod_rewrite module is loaded
+        return in_array('mod_rewrite', apache_get_modules(), false);
     }
 }

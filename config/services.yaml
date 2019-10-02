@@ -53,6 +53,7 @@ services:
     App\Controller\RedirectController:
         arguments:
             $default_locale: '%locale%'
+            $enforce_index_php: '%env(bool:NO_URL_REWRITE_AVAILABLE)%'
 
     App\Command\UpdateExchangeRatesCommand:
         arguments:
