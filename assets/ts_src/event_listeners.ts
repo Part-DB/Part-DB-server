@@ -352,7 +352,9 @@ $(document).on("ajaxUI:reload ajaxUI:start", function () {
     $('input[data-autocomplete]').each(function() {
         //@ts-ignore
         var engine = new Bloodhound({
+            //@ts-ignore
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace(''),
+            //@ts-ignore
             queryTokenizer: Bloodhound.tokenizers.obj.whitespace(''),
             remote: {
                 url: $(this).data('autocomplete'),
