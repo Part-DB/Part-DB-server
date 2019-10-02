@@ -40,6 +40,8 @@ require( 'datatables.net-select-bs4' );
 require('datatables.net-colreorder-bs4');
 require('bootstrap-select');
 require('jquery-form');
+require('corejs-typeahead/dist/typeahead.bundle.min');
+window.Bloodhound =  require('corejs-typeahead/dist/bloodhound.js');
 
 //Define jquery globally
 window.$ = window.jQuery = require("jquery");

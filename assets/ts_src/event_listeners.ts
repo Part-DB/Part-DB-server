@@ -347,6 +347,31 @@ $(document).on("ajaxUI:start", function() {
 
 });
 
+//Register typeaheads
+$(document).on("ajaxUI:reload ajaxUI:start", function () {
+    $('input[data-autocomplete]').each(function() {
+        //@ts-ignore
+        var engine = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace(''),
+            queryTokenizer: Bloodhound.tokenizers.obj.whitespace(''),
+            remote: {
+                url: $(this).data('autocomplete'),
+                wildcard: 'QUERY'
+            }
+        });
+
+        $(this).typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1
+        },
+        {
+            name: 'states',
+            source: engine
+        });
+    })
+});
+
 
 //Need for proper body padding, with every navbar height
 $(window).resize(function () {

@@ -45,6 +45,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -53,11 +55,13 @@ class AttachmentFormType extends AbstractType
 {
     protected $attachment_helper;
     protected $trans;
+    protected $urlGenerator;
 
-    public function __construct(AttachmentHelper $attachmentHelper, TranslatorInterface $trans)
+    public function __construct(AttachmentHelper $attachmentHelper, TranslatorInterface $trans, UrlGeneratorInterface $urlGenerator)
     {
         $this->attachment_helper = $attachmentHelper;
         $this->trans = $trans;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -79,6 +83,8 @@ class AttachmentFormType extends AbstractType
         $builder->add('url', TextType::class, [
             'label' =>  $this->trans->trans('attachment.edit.url'),
             'required' => false,
+            'attr' => ['data-autocomplete' => $this->urlGenerator->generate('typeahead_builtInRessources', ['query' => 'QUERY'])
+            ],
             'constraints' => [
                 $options['allow_builtins'] ? new UrlOrBuiltin() : new Url()
             ]

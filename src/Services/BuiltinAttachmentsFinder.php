@@ -59,7 +59,7 @@ class BuiltinAttachmentsFinder
         ]);
     }
 
-    public function find(string $keyword, array $options) : array
+    public function find(string $keyword, array $options = []) : array
     {
         $finder = new Finder();
 
@@ -67,9 +67,20 @@ class BuiltinAttachmentsFinder
         $this->configureOptions($resolver);
         $options = $resolver->resolve($options);
 
+        if (empty($options['placeholders'])) {
+            return [];
+        }
+
         //We search only files
         $finder->files();
-        $finder->in($this->pathResolver->getFootprintsPath());
+        //Add the folder for each placeholder
+        foreach ($options['placeholders'] as $placeholder) {
+            $tmp = $this->pathResolver->placeholderToRealPath($placeholder);
+            //Ignore invalid/deactivated placeholders:
+            if ($tmp !== null) {
+                $finder->in($tmp);
+            }
+        }
 
         //Apply filter if needed
         if (!empty($options['filename_filter'])) {

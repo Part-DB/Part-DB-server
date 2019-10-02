@@ -43,7 +43,8 @@
         "twig/extra-bundle": "3.x-dev",
         "twig/intl-extra": "3.x-dev",
         "webmozart/assert": "^1.4",
-        "ext-bcmath": "*"
+        "ext-bcmath": "*",
+        "ext-json": "*"
     },
     "require-dev": {
         "roave/security-advisories": "dev-master",
