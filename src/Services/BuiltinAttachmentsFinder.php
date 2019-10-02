@@ -36,6 +36,7 @@ use App\Services\Attachments\AttachmentPathResolver;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Cache\CacheInterface;
 
 /**
  * This service is used to find builtin attachment ressources
@@ -44,64 +45,110 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class BuiltinAttachmentsFinder
 {
     protected $pathResolver;
+    protected $cache;
 
-    public function __construct(KernelInterface $kernel, AttachmentPathResolver $pathResolver)
+    public function __construct(CacheInterface $cache, AttachmentPathResolver $pathResolver)
     {
         $this->pathResolver = $pathResolver;
+        $this->cache = $cache;
     }
 
     protected function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'limit' => 15,  //Given only 15 entries
-            'filename_filter' => '', //Filter the filenames. For example *.jpg to only get jpegs. Can also be an array
-            'placeholders' => Attachment::BUILTIN_PLACEHOLDER, //By default use all builtin ressources
+            //'allowed_extensions' => [], //Filter the filenames. For example ['jpg', 'jpeg'] to only get jpegs.
+            //'placeholders' => Attachment::BUILTIN_PLACEHOLDER, //By default use all builtin ressources,
+            'empty_returns_all' => false //Return the whole list of ressources when empty keyword is given
         ]);
     }
 
-    public function find(string $keyword, array $options = []) : array
+    /**
+     * Returns a list of all builtin ressources.
+     * The array is a list of the relative filenames using the %PLACEHOLDERS%.
+     * The list contains the files from all configured valid ressoureces.
+     * @return array The list of the ressources, or an empty array if an error happened.
+     */
+    public function getListOfRessources() : array
     {
-        $finder = new Finder();
+        try {
+            return $this->cache->get('attachment_builtin_ressources', function () {
+                $results = [];
+
+                $finder = new Finder();
+                //We search only files
+                $finder->files();
+                //Add the folder for each placeholder
+                foreach (Attachment::BUILTIN_PLACEHOLDER as $placeholder) {
+                    $tmp = $this->pathResolver->placeholderToRealPath($placeholder);
+                    //Ignore invalid/deactivated placeholders:
+                    if ($tmp !== null) {
+                        $finder->in($tmp);
+                    }
+                }
+
+                foreach ($finder as $file) {
+                    $results[] = $this->pathResolver->realPathToPlaceholder($file->getPathname());
+                }
+
+                //Sort results ascending
+                sort($results);
+
+                return $results;
+            });
+        } catch (\Psr\Cache\InvalidArgumentException $ex) {
+            return [];
+        }
+    }
+
+    /**
+     * Find all ressources which are matching the given keyword and the specified options
+     * @param string $keyword The keyword you want to search for.
+     * @param array $options Here you can specify some options (see configureOptions for list of options)
+     * @param array|null $base_list The list from which should be used as base for filtering.
+     * @return array The list of the results matching the specified keyword and options
+     */
+    public function find(string $keyword, array $options = [], ?array $base_list = []) : array
+    {
+        if (empty($base_list)) {
+            $base_list = $this->getListOfRessources();
+        }
 
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
         $options = $resolver->resolve($options);
 
+
+
+        /*
         if (empty($options['placeholders'])) {
             return [];
-        }
+        } */
 
-        //We search only files
-        $finder->files();
-        //Add the folder for each placeholder
-        foreach ($options['placeholders'] as $placeholder) {
-            $tmp = $this->pathResolver->placeholderToRealPath($placeholder);
-            //Ignore invalid/deactivated placeholders:
-            if ($tmp !== null) {
-                $finder->in($tmp);
+        if ($keyword === '') {
+            if ($options['empty_returns_all']) {
+                $keyword = '.*';
+            } else {
+                return [];
             }
+        } else {
+            //Quote all values in the keyword (user is not allowed to use regex characters)
+            $keyword = preg_quote($keyword, '/');
         }
 
-        //Apply filter if needed
-        if (!empty($options['filename_filter'])) {
-            $finder->name($options['filename_filter']);
-        }
-
-        $finder->path($keyword);
-
-        $arr = [];
-
-        $limit = $options['limit'];
-
-        foreach ($finder as $file) {
-            if ($limit <= 0) {
-                break;
+         /*TODO: Implement placheolder and extension filter */
+        /* if (!empty($options['allowed_extensions'])) {
+            $keyword .= "\.(";
+            foreach ($options['allowed_extensions'] as $extension) {
+                $keyword .= preg_quote($extension, '/') . '|';
             }
-            $arr[] = $this->pathResolver->realPathToPlaceholder($file->getPathname());
-            $limit--;
-        }
+            $keyword .= ')$';
+        } */
 
-        return $arr;
+        //Ignore case
+        $regex = '/.*' . $keyword . '.*/i';
+
+        return preg_grep($regex, $base_list);
     }
 
 }

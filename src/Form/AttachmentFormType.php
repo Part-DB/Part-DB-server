@@ -83,7 +83,10 @@ class AttachmentFormType extends AbstractType
         $builder->add('url', TextType::class, [
             'label' =>  $this->trans->trans('attachment.edit.url'),
             'required' => false,
-            'attr' => ['data-autocomplete' => $this->urlGenerator->generate('typeahead_builtInRessources', ['query' => 'QUERY'])
+            'attr' => [
+                'data-autocomplete' => $this->urlGenerator->generate('typeahead_builtInRessources', ['query' => 'QUERY']),
+                //Disable browser autocomplete
+                'autocomplete' => 'off'
             ],
             'constraints' => [
                 $options['allow_builtins'] ? new UrlOrBuiltin() : new Url()
