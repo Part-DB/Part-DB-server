@@ -37,6 +37,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Parts\Footprint;
 use App\Form\AdminPages\BaseEntityAdminForm;
+use App\Form\AdminPages\FootprintAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
@@ -55,7 +56,7 @@ class FootprintController extends BaseAdminController
 
     protected $entity_class = Footprint::class;
     protected $twig_template = 'AdminPages/FootprintAdmin.html.twig';
-    protected $form_class = BaseEntityAdminForm::class;
+    protected $form_class = FootprintAdminForm::class;
     protected $route_base = 'footprint';
     protected $attachment_class = FootprintAttachment::class;
 

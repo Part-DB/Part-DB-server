@@ -90,6 +90,9 @@
 
                             <div class="tab-pane" id="attachments">
                                 {% include "AdminPages/_attachments.html.twig" %}
+                                {% block master_picture_block %}
+                                    {{ form_row(form.master_picture_attachment) }}
+                                {% endblock %}
                             </div>
                         </div>
 

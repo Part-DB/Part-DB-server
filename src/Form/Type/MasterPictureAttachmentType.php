@@ -58,6 +58,8 @@ class MasterPictureAttachmentType extends AbstractType
 
                     if ($options['filter'] === 'picture' && !$choice->isPicture()) {
                         $tmp += ['disabled' => 'disabled'];
+                    } elseif ($options['filter'] === '3d_model' && !$choice->is3DModel()) {
+                        $tmp += ['disabled' => 'disabled'];
                     }
 
                     return $tmp;
@@ -85,7 +87,7 @@ class MasterPictureAttachmentType extends AbstractType
             }
         ]);
 
-        $resolver->setAllowedValues('filter', ['', 'picture', '3d_models']);
+        $resolver->setAllowedValues('filter', ['', 'picture', '3d_model']);
     }
 
     public function getParent()

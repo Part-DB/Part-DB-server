@@ -53,16 +53,21 @@ abstract class Attachment extends NamedDBElement
      * Based on: https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Image_types
      * It will be used to determine if a attachment is a picture and therefore will be shown to user as preview.
      */
-    const PICTURE_EXTS = ['apng', 'bmp', 'gif', 'ico', 'cur', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png',
+    public const PICTURE_EXTS = ['apng', 'bmp', 'gif', 'ico', 'cur', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png',
                             'svg', 'webp'];
+
+    /**
+     * A list of extensions that will be treated as a 3D Model that can be shown to user directly in Part-DB.
+     */
+    public const MODEL_EXTS = ['x3d'];
 
     /**
      * When the path begins with one of this placeholders
      */
-    const INTERNAL_PLACEHOLDER = ['%BASE%', '%MEDIA%'];
+    public const INTERNAL_PLACEHOLDER = ['%BASE%', '%MEDIA%'];
 
     /** @var array Placeholders for attachments which using built in files. */
-    const BUILTIN_PLACEHOLDER = ['%FOOTPRINTS%', '%FOOTPRINTS3D%'];
+    public const BUILTIN_PLACEHOLDER = ['%FOOTPRINTS%', '%FOOTPRINTS3D%'];
 
     /**
      * @var bool
@@ -101,7 +106,7 @@ abstract class Attachment extends NamedDBElement
 
     /**
      * Check if this attachement is a picture (analyse the file's extension).
-     * If the link is external, it is assumed that this is false.
+     * If the link is external, it is assumed that this is true.
      *
      * @return bool * true if the file extension is a picture extension
      *              * otherwise false
@@ -116,6 +121,23 @@ abstract class Attachment extends NamedDBElement
         $extension = pathinfo($this->getPath(), PATHINFO_EXTENSION);
 
         return in_array(strtolower($extension), static::PICTURE_EXTS, true);
+    }
+
+    /**
+     * Check if this attachment is a 3D model and therfore can be directly shown to user.
+     * If the attachment is external, false is returned (3D Models must be internal).
+     * @return bool
+     */
+    public function is3DModel() : bool
+    {
+        //We just assume that 3D Models are internally saved, otherwise we get problems loading them.
+        if ($this->isExternal()) {
+            return false;
+        }
+
+        $extension = pathinfo($this->getPath(), PATHINFO_EXTENSION);
+
+        return in_array(strtolower($extension), static::MODEL_EXTS, true);
     }
 
     /**

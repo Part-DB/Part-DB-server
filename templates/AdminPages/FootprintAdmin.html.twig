@@ -3,3 +3,8 @@
 {% block card_title %}
     <i class="fas fa-microchip fa-fw"></i> {% trans %}footprint.labelp{% endtrans %}
 {% endblock %}
+
+{% block master_picture_block %}
+    {{ form_row(form.master_picture_attachment) }}
+    {{ form_row(form.footprint_3d) }}
+{% endblock %}

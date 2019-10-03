@@ -98,7 +98,7 @@ class Footprint extends PartsContainingDBElement
     protected $parts;
 
     /**
-     * @var FootprintAttachment
+     * @var FootprintAttachment|null
      * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\FootprintAttachment")
      * @ORM\JoinColumn(name="id_footprint_3d", referencedColumnName="id")
      */
@@ -120,24 +120,12 @@ class Footprint extends PartsContainingDBElement
      ****************************************/
 
     /**
-     * Get the filename of the picture (absolute path from filesystem root).
-     *
-     * @return string the saved filename in the DB
-     *                * an empty string if there is no picture
+     * Returns the 3D Model associated with this footprint.
+     * @return FootprintAttachment|null
      */
-    public function getFilename(): string
+    public function getFootprint3d() : ?FootprintAttachment
     {
-        return $this->filename;
-    }
-
-    /**
-     *   Get the filename of the 3d model (absolute path from filesystem root).
-     * @return string * the absolute path to the model (from filesystem root), as a UNIX path (with slashes)
-     *                * an empty string if there is no model
-     */
-    public function get3dFilename(): string
-    {
-        return $this->filename_3d;
+        return $this->footprint_3d;
     }
 
     /********************************************************************************
@@ -147,27 +135,14 @@ class Footprint extends PartsContainingDBElement
      *********************************************************************************/
 
     /**
-     *  Change the filename of this footprint.
-     *  @param string $new_filename The new file name
-     *  @return Footprint
-     */
-    public function setFilename(string $new_filename): self
-    {
-        $this->filename = $new_filename;
-
-        return $this;
-    }
-
-    /**
-     *  Change the 3d model filename of this footprint.
-     * @param string $new_filename The new filename
-     *
+     * Sets the 3D Model associated with this footprint.
+     * @param FootprintAttachment|null $new_attachment
      * @return Footprint
      */
-    public function set3dFilename(string $new_filename): self
+    public function setFootprint3d(?FootprintAttachment $new_attachment) : Footprint
     {
-        $this->filename = $new_filename;
-
+        $this->footprint_3d = $new_attachment;
         return $this;
     }
+
 }
