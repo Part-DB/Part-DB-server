@@ -33,6 +33,7 @@ namespace App\Services;
 
 
 use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Entity\Attachments\CategoryAttachment;
 use App\Entity\Attachments\CurrencyAttachment;
@@ -173,7 +174,7 @@ class AttachmentHelper
             MeasurementUnitAttachment::class => 'measurement_unit', StorelocationAttachment::class => 'storelocation',
             SupplierAttachment::class => 'supplier', UserAttachment::class => 'user'];
 
-        $path = $this->base_path . DIRECTORY_SEPARATOR . $mapping[get_class($attachment)] . DIRECTORY_SEPARATOR . $attachment->getElement()->getID();
+        $path = $this->pathResolver->getMediaPath() . DIRECTORY_SEPARATOR . $mapping[get_class($attachment)] . DIRECTORY_SEPARATOR . $attachment->getElement()->getID();
         return $path;
     }
 
@@ -181,9 +182,11 @@ class AttachmentHelper
      * Moves the given uploaded file to a permanent place and saves it into the attachment
      * @param Attachment $attachment The attachment in which the file should be saved
      * @param UploadedFile|null $file The file which was uploaded
+     * @param bool $become_preview_if_empty If this is true, the uploaded attachment can become the preview picture
+     * if the of the element, if no was set already.
      * @return Attachment The attachment with the new filepath
      */
-    public function upload(Attachment $attachment, ?UploadedFile $file) : Attachment
+    public function upload(Attachment $attachment, ?UploadedFile $file, bool $become_preview_if_empty = true) : Attachment
     {
         //If file is null, do nothing (helpful, so we dont have to check if the file was reuploaded in controller)
         if (!$file) {
@@ -194,7 +197,7 @@ class AttachmentHelper
 
         //Sanatize filename
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-        $newFilename = $attachment->getName() . '-' . uniqid('', false) . '.' . $file->guessExtension();
+        $newFilename = $attachment->getName() . '-' . uniqid('', false) . '.' . $file->getClientOriginalExtension();
 
         //Move our temporay attachment to its final location
         $file_path = $file->move($folder, $newFilename)->getRealPath();
@@ -206,6 +209,15 @@ class AttachmentHelper
         $attachment->setPath($file_path);
         //And save original filename
         $attachment->setFilename($file->getClientOriginalName());
+
+        //Check if we should assign this to master picture
+        //this is only possible if the attachment is new (not yet persisted to DB)
+        if ($become_preview_if_empty && $attachment->getID() === null && $attachment->isPicture()) {
+            $element = $attachment->getElement();
+            if ($element instanceof AttachmentContainingDBElement && $element->getMasterPictureAttachment() === null) {
+                $element->setMasterPictureAttachment($attachment);
+            }
+        }
 
         return $attachment;
     }
