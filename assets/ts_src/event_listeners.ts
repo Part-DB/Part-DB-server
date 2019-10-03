@@ -371,6 +371,9 @@ $(document).on("ajaxUI:reload ajaxUI:start", function () {
             name: 'states',
             source: engine
         });
+
+        //Make the typeahead input fill the container (remove block-inline attr)
+        $(this).parent(".twitter-typeahead").css('display', 'block');
     })
 });
 
