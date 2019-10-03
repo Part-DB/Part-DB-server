@@ -41,6 +41,7 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\Storelocation;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Form\AttachmentFormType;
+use App\Form\Type\MasterPictureAttachmentType;
 use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
 use Doctrine\DBAL\Types\FloatType;
@@ -219,28 +220,11 @@ class PartBaseType extends AbstractType
             'by_reference' => false
         ]);
 
-        $builder->add('master_picture_attachment', EntityType::class, [
+        $builder->add('master_picture_attachment', MasterPictureAttachmentType::class, [
             'required' => false,
             'disabled' => !$this->security->isGranted('attachments.edit', $part),
             'label' => $this->trans->trans('part.edit.master_attachment'),
-            'class' => PartAttachment::class,
-            'attr' => ['class' => 'selectpicker'],
-            'choice_attr' => function ($choice, $key, $value) {
-                /** @var Attachment $choice */
-                return ['data-subtext' => $choice->getFilename() ?? "URL"];
-            },
-            'choice_label' => 'name',
-            'query_builder' => function (EntityRepository $er) use ($part) {
-                if ($part->getID() == null) {
-                    //This query is always false, so we get empty results
-                    return $er->createQueryBuilder('u')->where('0 = 2');
-                }
-                return $er->createQueryBuilder('u')
-                    ->where('u.element = ?1')
-                    ->andWhere("u.path <> ''")
-                    ->orderBy('u.name', 'ASC')
-                    ->setParameter(1, $part);
-            }
+            'entity' => $part
         ]);
 
         //Orderdetails section

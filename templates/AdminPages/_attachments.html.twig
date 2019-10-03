@@ -67,6 +67,10 @@
     {% trans %}attachment.create{% endtrans %}
 </button>
 
+{% block master_picture_block %}
+    {{ form_row(form.master_picture_attachment) }}
+{% endblock %}
+
 <script>
     function delete_attachment_entry(btn) {
         window.bootbox.confirm('{% trans %}part_lot.edit.delete.confirm{% endtrans %}', function (result) {

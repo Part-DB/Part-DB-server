@@ -38,7 +38,9 @@ use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\NamedDBElement;
 use App\Entity\Base\StructuralDBElement;
 use App\Form\AttachmentFormType;
+use App\Form\Type\MasterPictureAttachmentType;
 use App\Form\Type\StructuralEntityType;
+use Doctrine\ORM\EntityRepository;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
@@ -87,7 +89,7 @@ class BaseEntityAdminForm extends AbstractType
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ])
 
             ->add('parent', StructuralEntityType::class, ['class' => get_class($entity),
-                 'required' => false, 'label' =>  $this->trans->trans('parent.label'),
+                'required' => false, 'label' =>  $this->trans->trans('parent.label'),
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity), ])
 
             ->add('not_selectable', CheckboxType::class, ['required' => false,
@@ -101,7 +103,7 @@ class BaseEntityAdminForm extends AbstractType
                 'attr' => ['rows' => 4], 'help' =>  $this->trans->trans('bbcode.hint'),
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
 
-            $this->additionalFormElements($builder, $options, $entity);
+        $this->additionalFormElements($builder, $options, $entity);
 
         //Attachment section
         $builder->add('attachments', CollectionType::class, [
@@ -116,11 +118,18 @@ class BaseEntityAdminForm extends AbstractType
             'by_reference' => false
         ]);
 
-            //Buttons
-            $builder->add('save', SubmitType::class, [
-                'label' =>  $is_new ?  $this->trans->trans('entity.create') :  $this->trans->trans('entity.edit.save'),
-                'attr' => ['class' => $is_new ? 'btn-success' : ''],
-                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)])
+        $builder->add('master_picture_attachment', MasterPictureAttachmentType::class, [
+            'required' => false,
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'label' => $this->trans->trans('part.edit.master_attachment'),
+            'entity' => $entity
+        ]);
+
+        //Buttons
+        $builder->add('save', SubmitType::class, [
+            'label' =>  $is_new ?  $this->trans->trans('entity.create') :  $this->trans->trans('entity.edit.save'),
+            'attr' => ['class' => $is_new ? 'btn-success' : ''],
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)])
             ->add('reset', ResetType::class, ['label' => 'entity.edit.reset',
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
     }

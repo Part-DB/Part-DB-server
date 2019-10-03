@@ -337,6 +337,8 @@ abstract class Attachment extends NamedDBElement
             }
 
             $this->path = $url;
+            //Reset internal filename
+            $this->original_filename = null;
         }
 
         return $this;
