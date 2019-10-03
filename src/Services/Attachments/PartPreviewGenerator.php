@@ -49,12 +49,69 @@ class PartPreviewGenerator
     }
 
     /**
+     * Returns a list of attachments that can be used for previewing the part ordered by priority.
+     * The priority is: Part MasterAttachment -> Footprint MasterAttachment -> Category MasterAttachment
+     * -> Storelocation Attachment -> MeasurementUnit Attachment -> ManufacturerAttachment
+     * @param Part $part The part for which the attachments should be determined.
+     * @return Attachment[]
+     */
+    public function getPreviewAttachments(Part $part) : array
+    {
+        $list = [];
+
+        //Master attachment has top priority
+        $attachment = $part->getMasterPictureAttachment();
+        if ($this->isAttachmentValidPicture($attachment)) {
+            $list[] = $attachment;
+        }
+
+        if ($part->getFootprint() !== null) {
+            $attachment = $part->getFootprint()->getMasterPictureAttachment();
+            if ($this->isAttachmentValidPicture($attachment)) {
+                $list[] = $attachment;
+            }
+        }
+
+        if ($part->getCategory() !== null) {
+            $attachment = $part->getCategory()->getMasterPictureAttachment();
+            if ($this->isAttachmentValidPicture($attachment)) {
+                $list[] = $attachment;
+            }
+        }
+
+        foreach ($part->getPartLots() as $lot) {
+            if ($lot->getStorageLocation() !== null) {
+                $attachment = $lot->getStorageLocation()->getMasterPictureAttachment();
+                if ($this->isAttachmentValidPicture($attachment)) {
+                    $list[] = $attachment;
+                }
+            }
+        }
+
+        if ($part->getPartUnit() !== null) {
+            $attachment = $part->getPartUnit()->getMasterPictureAttachment();
+            if ($this->isAttachmentValidPicture($attachment)) {
+                $list[] = $attachment;
+            }
+        }
+
+        if ($part->getManufacturer() !== null) {
+            $attachment = $part->getManufacturer()->getMasterPictureAttachment();
+            if ($this->isAttachmentValidPicture($attachment)) {
+                $list[] = $attachment;
+            }
+        }
+
+        return $list;
+    }
+
+    /**
      * Determines what attachment should be used for previewing a part (especially in part table).
      * The returned attachment is guaranteed to be existing and be a picture.
      * @param Part $part The part for which the attachment should be determined
      * @return Attachment|null
      */
-    public function previewAttachment(Part $part) : ?Attachment
+    public function getTablePreviewAttachment(Part $part) : ?Attachment
     {
         //First of all we check if the master attachment of the part is set (and a picture)
         $attachment = $part->getMasterPictureAttachment();

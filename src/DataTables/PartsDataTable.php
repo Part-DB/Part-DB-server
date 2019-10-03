@@ -156,7 +156,7 @@ class PartsDataTable implements DataTableTypeInterface
             ->add('picture', TextColumn::class, [
                 'label' => '',
                 'render' => function ($value, Part $context) {
-                    $preview_attachment = $this->previewGenerator->previewAttachment($context);
+                    $preview_attachment = $this->previewGenerator->getTablePreviewAttachment($context);
                     if ($preview_attachment === null) {
                         return '';
                     }

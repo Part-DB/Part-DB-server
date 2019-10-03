@@ -1,0 +1,26 @@
+{% if not pictures is empty %}
+    {#  <img src="{{ part.masterPictureAttachment | entityURL('file_view') }}" class="img-fluid img-thumbnail bg-light" alt="Part main image" height="300" width="300"> #}
+
+    <div id="pictureCarousel" class="carousel slide mb-2" data-interval="false">
+        <div class="carousel-inner">
+            {% for pic in pictures %}
+                <div class="carousel-item  {% if loop.first %}active{% endif %}">
+                    <img class="d-block w-100 img-fluid img-thumbnail bg-light" src="{{ pic | entityURL('file_view') }}" alt="">
+                </div>
+            {% endfor %}
+        </div>
+        {% if pictures | length > 1 %}
+            <a class="carousel-control-prev" href="#pictureCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">{% trans %}part.info.prev_picture{% endtrans %}</span>
+            </a>
+            <a class="carousel-control-next" href="#pictureCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">{% trans %}part.info.next_picture{% endtrans %}</span>
+            </a>
+        {% endif %}
+    </div>
+
+{% else %}
+    <img src="{{ asset('img/part_placeholder.svg') }}" class="img-fluid img-thumbnail bg-light mb-2" alt="Part main image" height="300" width="300">
+{% endif %}
