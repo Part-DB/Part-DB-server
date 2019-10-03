@@ -88,8 +88,12 @@ class AttachmentHelper
             return null;
         }
 
-        $path = $attachment->getPath();
-        $path = $this->pathResolver->placeholderToRealPath($path);
+        $path = $this->pathResolver->placeholderToRealPath($attachment->getPath());
+
+        //realpath does not work with null as argument
+        if ($path === null) {
+            return null;
+        }
         return realpath($path);
     }
 
@@ -112,7 +116,7 @@ class AttachmentHelper
 
     /**
      * Returns the filesize of the attachments in bytes.
-     * For external attachments, null is returned.
+     * For external attachments or not existing attachments, null is returned.
      *
      * @param Attachment $attachment The filesize for which the filesize should be calculated.
      * @return int|null
@@ -123,7 +127,12 @@ class AttachmentHelper
             return null;
         }
 
-        return filesize($this->toAbsoluteFilePath($attachment));
+        if (!$this->isFileExisting($attachment)) {
+            return null;
+        }
+
+        $tmp = filesize($this->toAbsoluteFilePath($attachment));
+        return  $tmp !== false ? $tmp : null;
     }
 
     /**
