@@ -88,6 +88,7 @@ class AttachmentFormType extends AbstractType
                 //Disable browser autocomplete
                 'autocomplete' => 'off'
             ],
+            'help' => $this->trans->trans('attachment.edit.url.help'),
             'constraints' => [
                 $options['allow_builtins'] ? new UrlOrBuiltin() : new Url()
             ]
