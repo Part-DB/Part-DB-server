@@ -348,7 +348,7 @@ $(document).on("ajaxUI:start", function() {
 });
 
 //Register typeaheads
-$(document).on("ajaxUI:reload ajaxUI:start", function () {
+$(document).on("ajaxUI:reload ajaxUI:start attachment:create", function () {
     $('input[data-autocomplete]').each(function() {
         //@ts-ignore
         var engine = new Bloodhound({
