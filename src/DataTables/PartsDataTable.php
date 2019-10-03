@@ -39,6 +39,7 @@ use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Services\AmountFormatter;
+use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\ToolsTreeBuilder;
 use App\Services\TreeBuilder;
@@ -51,6 +52,7 @@ use Omines\DataTablesBundle\Column\MapColumn;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
+use SebastianBergmann\CodeCoverage\Report\Text;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartsDataTable implements DataTableTypeInterface
@@ -62,14 +64,16 @@ class PartsDataTable implements DataTableTypeInterface
     protected $translator;
     protected $treeBuilder;
     protected $amountFormatter;
+    protected $previewGenerator;
 
     public function __construct(EntityURLGenerator $urlGenerator, TranslatorInterface $translator,
-                                TreeBuilder $treeBuilder, AmountFormatter $amountFormatter)
+                                TreeBuilder $treeBuilder, AmountFormatter $amountFormatter, PartPreviewGenerator $previewGenerator)
     {
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
         $this->treeBuilder = $treeBuilder;
         $this->amountFormatter = $amountFormatter;
+        $this->previewGenerator = $previewGenerator;
     }
 
     protected function getQuery(QueryBuilder $builder)
@@ -149,6 +153,22 @@ class PartsDataTable implements DataTableTypeInterface
     public function configure(DataTable $dataTable, array $options)
     {
         $dataTable
+            ->add('picture', TextColumn::class, [
+                'label' => '',
+                'render' => function ($value, Part $context) {
+                    $preview_attachment = $this->previewGenerator->previewAttachment($context);
+                    if ($preview_attachment === null) {
+                        return '';
+                    }
+
+                    return sprintf(
+                        '<img alt="%s" src="%s" class="%s">',
+                        'Part image',
+                        $this->urlGenerator->viewURL($preview_attachment),
+                        'img-fluid hoverpic'
+                    );
+                }
+            ])
             ->add('name', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.name'),
                 'render' => function ($value, Part $context) {
