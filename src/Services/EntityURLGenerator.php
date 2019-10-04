@@ -44,7 +44,7 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
-use App\Exceptions\EntityNotSupported;
+use App\Exceptions\EntityNotSupportedException;
 use Symfony\Component\HttpKernel\HttpCache\Store;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -72,7 +72,7 @@ class EntityURLGenerator
      * @param array $map The map that should be used for determing the controller
      * @param $entity mixed The entity for which the controller name should be determined.
      * @return string The name of the controller fitting the entity class
-     * @throws EntityNotSupported
+     * @throws EntityNotSupportedException
      */
     protected function mapToController(array $map, $entity): string
     {
@@ -87,7 +87,7 @@ class EntityURLGenerator
                 }
             }
 
-            throw new EntityNotSupported(sprintf(
+            throw new EntityNotSupportedException(sprintf(
                 'The given entity is not supported yet! Passed class type: %s',
                 get_class($entity)
             ));
@@ -104,7 +104,7 @@ class EntityURLGenerator
      * @param $entity mixed The element for which the page should be generated.
      * @param string $type The page type. Currently supported: 'info', 'edit', 'create', 'clone', 'list'/'list_parts'
      * @return string The link to the desired page.
-     * @throws EntityNotSupported Thrown if the entity is not supported for the given type.
+     * @throws EntityNotSupportedException Thrown if the entity is not supported for the given type.
      * @throws \InvalidArgumentException Thrown if the givent type is not existing.
      */
     public function getURL($entity, string $type)
@@ -142,7 +142,7 @@ class EntityURLGenerator
         }
 
         //Otherwise throw an error
-        throw new EntityNotSupported('The given entity is not supported yet!');
+        throw new EntityNotSupportedException('The given entity is not supported yet!');
     }
 
     public function downloadURL($entity): string
@@ -155,7 +155,7 @@ class EntityURLGenerator
         }
 
         //Otherwise throw an error
-        throw new EntityNotSupported(sprintf(
+        throw new EntityNotSupportedException(sprintf(
             'The given entity is not supported yet! Passed class type: %s',
             get_class($entity)
         ));
@@ -166,12 +166,25 @@ class EntityURLGenerator
      *
      * @param $entity mixed The entity for which the info should be generated.
      * @return string The URL to the info page
-     * @throws EntityNotSupported If the method is not supported for the given Entity
+     * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
     public function infoURL(DBElement $entity): string
     {
         $map = [
-            Part::class => 'part_info'
+            Part::class => 'part_info',
+
+            //As long we does not have own things for it use edit page
+            AttachmentType::class => 'attachment_type_edit',
+            Category::class => 'category_edit',
+            Device::class => 'device_edit',
+            Supplier::class => 'supplier_edit',
+            Manufacturer::class => 'manufacturer_edit',
+            Storelocation::class => 'store_location_edit',
+            Footprint::class => 'footprint_edit',
+            User::class => 'user_edit',
+            Currency::class => 'currency_edit',
+            MeasurementUnit::class => 'measurement_unit_edit',
+            Group::class => 'group_edit'
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
@@ -182,7 +195,7 @@ class EntityURLGenerator
      *
      * @param $entity mixed The entity for which the edit link should be generated.
      * @return string The URL to the edit page.
-     * @throws EntityNotSupported If the method is not supported for the given Entity
+     * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
     public function editURL($entity): string
     {
@@ -209,7 +222,7 @@ class EntityURLGenerator
      *
      * @param $entity mixed The entity for which the link should be generated.
      * @return string The URL to the page.
-     * @throws EntityNotSupported If the method is not supported for the given Entity
+     * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
     public function createURL($entity): string
     {
@@ -237,7 +250,7 @@ class EntityURLGenerator
      *
      * @param $entity mixed The entity for which the link should be generated.
      * @return string The URL to the page.
-     * @throws EntityNotSupported If the method is not supported for the given Entity
+     * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
     public function cloneURL(DBElement $entity): string
     {
@@ -253,7 +266,7 @@ class EntityURLGenerator
      *
      * @param $entity mixed The entity for which the link should be generated.
      * @return string The URL to the page.
-     * @throws EntityNotSupported If the method is not supported for the given Entity
+     * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
     public function listPartsURL(DBElement $entity): string
     {

@@ -29,6 +29,6 @@
 
 namespace App\Exceptions;
 
-class EntityNotSupported extends \Exception
+class EntityNotSupportedException extends \InvalidArgumentException
 {
 }

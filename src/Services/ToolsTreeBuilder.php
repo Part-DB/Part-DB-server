@@ -30,6 +30,7 @@
 namespace App\Services;
 
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\Attachments\PartAttachment;
 use App\Entity\Devices\Device;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -50,6 +51,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * This Service generates the tree structure for the tools.
+ * Whenever you change something here, you has to clear the cache, because the results are cached for performance reasons.
  * @package App\Services
  */
 class ToolsTreeBuilder
@@ -78,7 +80,7 @@ class ToolsTreeBuilder
     /**
      * Generates the tree for the tools menu.
      * The result is cached.
-     * @return TreeViewNode The array containing all Nodes for the tools menu.
+     * @return TreeViewNode[] The array containing all Nodes for the tools menu.
      */
     public function getTree() : array
     {
@@ -175,9 +177,17 @@ class ToolsTreeBuilder
     protected function getShowNodes() : array
     {
         $show_nodes = array();
-        $show_nodes[] = new TreeViewNode($this->translator->trans('tree.tools.show.all_parts'),
+        $show_nodes[] = new TreeViewNode(
+            $this->translator->trans('tree.tools.show.all_parts'),
             $this->urlGenerator->generate('parts_show_all')
         );
+
+        if ($this->security->isGranted('read', new PartAttachment())) {
+            $show_nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.show.all_attachments'),
+                $this->urlGenerator->generate('attachment_list')
+            );
+        }
 
         return $show_nodes;
     }

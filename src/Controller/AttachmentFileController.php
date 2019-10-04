@@ -32,10 +32,15 @@
 namespace App\Controller;
 
 
+use App\DataTables\AttachmentDataTable;
+use App\DataTables\PartsDataTable;
 use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\PartAttachment;
 use App\Services\AttachmentHelper;
+use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -102,6 +107,28 @@ class AttachmentFileController extends AbstractController
         $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE);
 
         return $response;
+    }
+
+    /**
+     * @Route("/attachment/list", name="attachment_list")
+     * @param DataTableFactory $dataTable
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function attachmentsTable(DataTableFactory $dataTable, Request $request)
+    {
+        $this->denyAccessUnlessGranted('read', new PartAttachment());
+
+        $table = $dataTable->createFromType(AttachmentDataTable::class)
+            ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
+
+        return $this->render('attachment_list.html.twig', [
+            'datatable' => $table
+        ]);
     }
 
 }

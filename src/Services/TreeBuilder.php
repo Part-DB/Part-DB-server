@@ -80,7 +80,7 @@ class TreeBuilder
      * @param DBElement|null $selectedElement When a element is given here, its tree node will be marked as selected in
      * the resulting tree. When $selectedElement is not existing in the tree, then nothing happens.
      * @return TreeViewNode The Node for the given Element.
-     * @throws \App\Exceptions\EntityNotSupported
+     * @throws \App\Exceptions\EntityNotSupportedException
      */
     public function elementToTreeNode(NamedDBElement $element, ?string $href_type = 'list_parts', DBElement $selectedElement = null) : TreeViewNode
     {
@@ -123,7 +123,7 @@ class TreeBuilder
      * @param DBElement|null $selectedElement When a element is given here, its tree node will be marked as selected in
      * the resulting tree. When $selectedElement is not existing in the tree, then nothing happens.
      * @return TreeViewNode[] Returns an array, containing all nodes. It is empty if the given class has no elements.
-     * @throws \App\Exceptions\EntityNotSupported
+     * @throws \App\Exceptions\EntityNotSupportedException
      */
     public function typeToTree(string $class_name, ?string $href_type = 'list_parts', DBElement $selectedElement = null) : array
     {
