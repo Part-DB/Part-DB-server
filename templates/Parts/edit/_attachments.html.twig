@@ -39,6 +39,14 @@
                         </span>
                         </h6>
                     {% endif %}
+
+                    {% if attach.picture %}
+                        <a href="{{ attach | entityURL('file_view') }}" target="_blank" data-no-ajax>
+                            <img class="img-fluid img-thumbnail thumbnail-sm" src="{{ attach | entityURL('file_view') }}" alt="{% trans %}attachment.preview.alt{% endtrans %}" />
+                        </a>
+                    {% else %}
+                        <a href="{{ attach | entityURL('file_view') }}" target="_blank" data-no-ajax class="link-external">{% trans %}attachment.view{% endtrans %}</a>
+                    {% endif %}
                 {% else %}
                     <br><br>
                     <h6>

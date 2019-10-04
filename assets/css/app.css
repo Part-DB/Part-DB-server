@@ -356,8 +356,9 @@ btn-xs
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
+
 .thumbnail-sm {
-    height: 100px;
+    max-height: 100px;
 }
 
 img.img-attachement {
