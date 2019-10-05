@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "634b7b41a97404c6278ed91d1926f853",
+    "content-hash": "bc74b96c71bb6399765187cc27f16a5d",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -7425,16 +7425,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v2.11.3",
+            "version": "v2.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "699ed2342557c88789a15402de5eb834dedd6792"
+                "reference": "c7a85fd08348ca04b4d8f234f49583d9910906aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/699ed2342557c88789a15402de5eb834dedd6792",
-                "reference": "699ed2342557c88789a15402de5eb834dedd6792",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/c7a85fd08348ca04b4d8f234f49583d9910906aa",
+                "reference": "c7a85fd08348ca04b4d8f234f49583d9910906aa",
                 "shasum": ""
             },
             "require": {
@@ -7444,13 +7444,13 @@
             },
             "require-dev": {
                 "psr/container": "^1.0",
-                "symfony/debug": "^2.7",
-                "symfony/phpunit-bridge": "^3.4.19|^4.1.8|^5.0"
+                "symfony/debug": "^3.4|^4.2",
+                "symfony/phpunit-bridge": "^4.4@dev|^5.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.11-dev"
+                    "dev-master": "2.12-dev"
                 }
             },
             "autoload": {
@@ -7473,14 +7473,14 @@
                     "role": "Lead Developer"
                 },
                 {
-                    "name": "Armin Ronacher",
-                    "email": "armin.ronacher@active-4.com",
-                    "role": "Project Founder"
-                },
-                {
                     "name": "Twig Team",
                     "homepage": "https://twig.symfony.com/contributors",
                     "role": "Contributors"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com",
+                    "role": "Project Founder"
                 }
             ],
             "description": "Twig, the flexible, fast, and secure template language for PHP",
@@ -7488,7 +7488,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2019-06-18T15:37:11+00:00"
+            "time": "2019-10-05T16:42:38+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -9243,7 +9243,8 @@
         "ext-iconv": "*",
         "ext-intl": "*",
         "ext-json": "*",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "ext-gd": "*"
     },
     "platform-dev": [],
     "platform-overrides": {
