@@ -11,7 +11,7 @@ parameters:
     banner: ''                  # The info text shown in the homepage
     use_gravatar: true          # Set to false, if no Gravatar images should be used for user profiles.
     default_currency: 'EUR'     # The currency that should be used
-    media_directory: 'data/media/'
+    media_directory: 'public/media/'
     db_version_fallback: '5.6' # Be sure to override this, in your .env with your real DB version
 
 services:
@@ -31,6 +31,9 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+    Liip\ImagineBundle\Service\FilterService:
+        alias: 'liip_imagine.service.filter'
 
     app.doctrine.elementListener:
         class: App\Security\EntityListeners\ElementPermissionListener

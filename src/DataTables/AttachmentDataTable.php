@@ -37,6 +37,7 @@ use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Parts\Part;
 use App\Services\AttachmentHelper;
+use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
 use Doctrine\ORM\QueryBuilder;
@@ -54,14 +55,17 @@ class AttachmentDataTable implements DataTableTypeInterface
     protected $entityURLGenerator;
     protected $attachmentHelper;
     protected $elementTypeNameGenerator;
+    protected $attachmentURLGenerator;
 
     public function __construct(TranslatorInterface $translator, EntityURLGenerator $entityURLGenerator,
-                                AttachmentHelper $attachmentHelper, ElementTypeNameGenerator $elementTypeNameGenerator)
+                                AttachmentHelper $attachmentHelper, AttachmentURLGenerator $attachmentURLGenerator,
+                                ElementTypeNameGenerator $elementTypeNameGenerator)
     {
         $this->translator = $translator;
         $this->entityURLGenerator = $entityURLGenerator;
         $this->attachmentHelper = $attachmentHelper;
         $this->elementTypeNameGenerator = $elementTypeNameGenerator;
+        $this->attachmentURLGenerator = $attachmentURLGenerator;
     }
 
     protected function getQuery(QueryBuilder $builder)
@@ -89,7 +93,7 @@ class AttachmentDataTable implements DataTableTypeInterface
                     return sprintf(
                         '<img alt="%s" src="%s" class="%s">',
                         'Part image',
-                        $this->entityURLGenerator->viewURL($context),
+                        $this->attachmentURLGenerator->getThumbnailURL($context),
                         'img-fluid hoverpic'
                     );
                 }

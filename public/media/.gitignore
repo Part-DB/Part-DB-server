@@ -1,0 +1,3 @@
+# Ignore everything except this .gitignore
+d274.gif
+!.gitignore

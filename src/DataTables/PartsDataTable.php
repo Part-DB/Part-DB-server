@@ -39,6 +39,7 @@ use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Services\AmountFormatter;
+use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\ToolsTreeBuilder;
@@ -65,15 +66,18 @@ class PartsDataTable implements DataTableTypeInterface
     protected $treeBuilder;
     protected $amountFormatter;
     protected $previewGenerator;
+    protected $attachmentURLGenerator;
 
     public function __construct(EntityURLGenerator $urlGenerator, TranslatorInterface $translator,
-                                TreeBuilder $treeBuilder, AmountFormatter $amountFormatter, PartPreviewGenerator $previewGenerator)
+                                TreeBuilder $treeBuilder, AmountFormatter $amountFormatter,
+                                PartPreviewGenerator $previewGenerator, AttachmentURLGenerator $attachmentURLGenerator)
     {
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
         $this->treeBuilder = $treeBuilder;
         $this->amountFormatter = $amountFormatter;
         $this->previewGenerator = $previewGenerator;
+        $this->attachmentURLGenerator = $attachmentURLGenerator;
     }
 
     protected function getQuery(QueryBuilder $builder)
@@ -164,7 +168,7 @@ class PartsDataTable implements DataTableTypeInterface
                     return sprintf(
                         '<img alt="%s" src="%s" class="%s">',
                         'Part image',
-                        $this->urlGenerator->viewURL($preview_attachment),
+                        $this->attachmentURLGenerator->getThumbnailURL($preview_attachment),
                         'img-fluid hoverpic'
                     );
                 }

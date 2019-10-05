@@ -64,7 +64,7 @@ abstract class Attachment extends NamedDBElement
     /**
      * When the path begins with one of this placeholders
      */
-    public const INTERNAL_PLACEHOLDER = ['%BASE%', '%MEDIA%'];
+    public const INTERNAL_PLACEHOLDER = ['%BASE%', '%MEDIA%', '%SECURE%'];
 
     /** @var array Placeholders for attachments which using built in files. */
     public const BUILTIN_PLACEHOLDER = ['%FOOTPRINTS%', '%FOOTPRINTS3D%'];
@@ -154,6 +154,23 @@ abstract class Attachment extends NamedDBElement
         }
 
         return !in_array($tmp[0], array_merge(static::INTERNAL_PLACEHOLDER, static::BUILTIN_PLACEHOLDER), false);
+    }
+
+    /**
+     * Check if this attachment is saved in a secure place.
+     * This means that it can not be accessed directly via a web request, but must be viewed via a controller.
+     * @return bool True, if the file is secure.
+     */
+    public function isSecure() : bool
+    {
+        //After the %PLACEHOLDER% comes a slash, so we can check if we have a placholder via explode
+        $tmp = explode("/", $this->path);
+
+        if (empty($tmp)) {
+            return false;
+        }
+
+        return $tmp[0] === '%SECURE%';
     }
 
     /**

@@ -56,7 +56,7 @@ class AttachmentPathResolverTest extends WebTestCase
         self::bootKernel();
         self::$projectDir_orig = realpath(self::$kernel->getProjectDir());
         self::$projectDir = str_replace('\\', '/', self::$projectDir_orig);
-        self::$media_path = self::$projectDir .  '/data/media';
+        self::$media_path = self::$projectDir .  '/public/media';
         self::$footprint_path = self::$projectDir . '/public/img/footprints';
     }
 

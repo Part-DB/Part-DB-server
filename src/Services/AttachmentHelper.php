@@ -75,7 +75,8 @@ class AttachmentHelper
     }
 
     /**
-     * Returns the absolute filepath of the attachment. Null is returned, if the attachment is externally saved.
+     * Returns the absolute filepath of the attachment. Null is returned, if the attachment is externally saved,
+     * or is not existing.
      * @param Attachment $attachment The attachment for which the filepath should be determined
      * @return string|null
      */
@@ -95,7 +96,13 @@ class AttachmentHelper
         if ($path === null) {
             return null;
         }
-        return realpath($path);
+
+        $tmp = realpath($path);
+        //If path is not existing realpath returns false.
+        if ($tmp === false) {
+            return null;
+        }
+        return $tmp;
     }
 
     /**

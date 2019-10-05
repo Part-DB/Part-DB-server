@@ -45,6 +45,7 @@ use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
+use App\Services\Attachments\AttachmentURLGenerator;
 use Symfony\Component\HttpKernel\HttpCache\Store;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -60,10 +61,12 @@ class EntityURLGenerator
      * @var UrlGeneratorInterface
      */
     protected $urlGenerator;
+    protected $attachmentURLGenerator;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    public function __construct(UrlGeneratorInterface $urlGenerator, AttachmentURLGenerator $attachmentURLGenerator)
     {
         $this->urlGenerator = $urlGenerator;
+        $this->attachmentURLGenerator = $attachmentURLGenerator;
     }
 
     /**
@@ -138,7 +141,8 @@ class EntityURLGenerator
             if ($entity->isExternal()) { //For external attachments, return the link to external path
                 return $entity->getURL();
             }
-            return $this->urlGenerator->generate('attachment_view', ['id' => $entity->getID()]);
+            //return $this->urlGenerator->generate('attachment_view', ['id' => $entity->getID()]);
+            return $this->attachmentURLGenerator->getViewURL($entity);
         }
 
         //Otherwise throw an error
@@ -151,7 +155,7 @@ class EntityURLGenerator
             if ($entity->isExternal()) { //For external attachments, return the link to external path
                 return $entity->getURL();
             }
-            return $this->urlGenerator->generate('attachment_download', ['id' => $entity->getID()]);
+            return $this->attachmentURLGenerator->getDownloadURL($entity);
         }
 
         //Otherwise throw an error

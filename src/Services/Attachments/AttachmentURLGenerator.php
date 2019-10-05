@@ -1,0 +1,156 @@
+<?php
+/**
+ *
+ * part-db version 0.1
+ * Copyright (C) 2005 Christoph Lechner
+ * http://www.cl-projects.de/
+ *
+ * part-db version 0.2+
+ * Copyright (C) 2009 K. Jacobs and others (see authors.php)
+ * http://code.google.com/p/part-db/
+ *
+ * Part-DB Version 0.4+
+ * Copyright (C) 2016 - 2019 Jan Böhmer
+ * https://github.com/jbtronics
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
+ *
+ */
+
+namespace App\Services\Attachments;
+
+
+use App\Entity\Attachments\Attachment;
+use App\Services\AttachmentHelper;
+use Liip\ImagineBundle\Service\FilterService;
+use Symfony\Component\Asset\Package;
+use Symfony\Component\Asset\Packages;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
+class AttachmentURLGenerator
+{
+    protected $assets;
+    protected $public_path;
+    protected $pathResolver;
+    protected $urlGenerator;
+    protected $attachmentHelper;
+    protected $filterService;
+
+    public function __construct(Packages $assets, AttachmentPathResolver $pathResolver,
+                                UrlGeneratorInterface $urlGenerator, AttachmentHelper $attachmentHelper,
+                                FilterService $filterService)
+    {
+        $this->assets = $assets;
+        $this->pathResolver = $pathResolver;
+        $this->urlGenerator = $urlGenerator;
+        $this->attachmentHelper = $attachmentHelper;
+        $this->filterService = $filterService;
+
+
+        //Determine a normalized path to the public folder (assets are relative to this folder)
+        $this->public_path = $this->pathResolver->parameterToAbsolutePath('public');
+    }
+
+    /**
+     * Converts the absolute file path to a version relative to the public folder, that can be passed to asset
+     * Asset Component functions.
+     * @param string $absolute_path The absolute path that should be converted.
+     * @param string|null $public_path The public path to which the relative pathes should be created.
+     * The path must NOT have a trailing slash!
+     * If this is set to null, the global public/ folder is used.
+     * @return string|null The relative version of the string. Null if the absolute path was not a child folder
+     * of public path
+     */
+    public function absolutePathToAssetPath(string $absolute_path, ?string $public_path = null) : ?string
+    {
+        if ($public_path === null) {
+            $public_path = $this->public_path;
+        }
+
+        //Our absolute path must begin with public path or we can not use it for asset pathes.
+        if (strpos($absolute_path, $public_path) !== 0) {
+            return null;
+        }
+
+        //Return the part relative after public path.
+        return substr($absolute_path, strlen($public_path) + 1);
+    }
+
+    /**
+     * Returns a URL under which the attachment file can be viewed.
+     * @param Attachment $attachment
+     * @return string
+     */
+    public function getViewURL(Attachment $attachment) : string
+    {
+        $absolute_path = $this->attachmentHelper->toAbsoluteFilePath($attachment);
+        if ($absolute_path === null) {
+            throw new \RuntimeException(
+                'The given attachment is external or has no valid file, so no URL can get generated for it!
+                Use Attachment::getURL() to get the external URL!'
+            );
+        }
+
+        $asset_path = $this->absolutePathToAssetPath($absolute_path);
+        //If path is not relative to public path or marked as secure, serve it via controller
+        if ($asset_path === null || $attachment->isSecure()) {
+            return $this->urlGenerator->generate('attachment_view', ['id' => $attachment->getID()]);
+        }
+
+        //Otherwise we can serve the relative path via Asset component
+        return $this->assets->getUrl($asset_path);
+    }
+
+    /**
+     * Returns a URL to an thumbnail of the attachment file.
+     * @param Attachment $attachment
+     * @param string $filter_name
+     * @return string
+     */
+    public function getThumbnailURL(Attachment $attachment, string $filter_name = 'thumbnail_sm') : string
+    {
+        if (!$attachment->isPicture()) {
+            throw new \InvalidArgumentException('Thumbnail creation only works for picture attachments!');
+        }
+
+        $absolute_path = $this->attachmentHelper->toAbsoluteFilePath($attachment);
+        if ($absolute_path === null) {
+            throw new \RuntimeException(
+                'The given attachment is external or has no valid file, so no URL can get generated for it!
+                Use Attachment::getURL() to get the external URL!'
+            );
+        }
+
+        $asset_path = $this->absolutePathToAssetPath($absolute_path);
+        //If path is not relative to public path or marked as secure, serve it via controller
+        if ($asset_path === null || $attachment->isSecure()) {
+            return $this->urlGenerator->generate('attachment_view', ['id' => $attachment->getID()]);
+        }
+
+        //Otherwise we can serve the relative path via Asset component
+        return $this->filterService->getUrlOfFilteredImage($asset_path, 'thumbnail_sm');
+    }
+
+    /**
+     * Returns a download link to the file associated with the attachment
+     * @param Attachment $attachment
+     * @return string
+     */
+    public function getDownloadURL(Attachment $attachment) : string
+    {
+        //Redirect always to download controller, which sets the correct headers for downloading:
+        $this->urlGenerator->generate('attachment_download', ['id' => $attachment->getID()]);
+    }
+}
