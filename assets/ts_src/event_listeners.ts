@@ -304,6 +304,15 @@ $(document).on("ajaxUI:reload ajaxUI:start", function () {
     });
 });
 
+/**
+ * Load the higher resolution version of hover pictures.
+ */
+$(document).on("ajaxUI:reload ajaxUI:start ajaxUI:dt_loaded", function () {
+    $(".hoverpic[data-thumbnail]").mouseenter(function() {
+        $(this).attr('src', $(this).data('thumbnail'));
+    });
+});
+
 /*
  * Register the button which is used to 
  */

@@ -34,6 +34,7 @@ use App\Entity\Base\DBElement;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\PriceInformations\Currency;
 use App\Services\AmountFormatter;
+use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\MoneyFormatter;
 use App\Services\SIFormatter;
@@ -56,11 +57,13 @@ class AppExtension extends AbstractExtension
     protected $moneyFormatter;
     protected $siformatter;
     protected $amountFormatter;
+    protected $attachmentURLGenerator;
 
     public function __construct(EntityURLGenerator $entityURLGenerator, AdapterInterface $cache,
                                 SerializerInterface $serializer, TreeBuilder $treeBuilder,
                                 MoneyFormatter $moneyFormatter,
-                                SIFormatter $SIFormatter, AmountFormatter $amountFormatter)
+                                SIFormatter $SIFormatter, AmountFormatter $amountFormatter,
+                                AttachmentURLGenerator $attachmentURLGenerator)
     {
         $this->entityURLGenerator = $entityURLGenerator;
         $this->cache = $cache;
@@ -69,6 +72,7 @@ class AppExtension extends AbstractExtension
         $this->moneyFormatter = $moneyFormatter;
         $this->siformatter = $SIFormatter;
         $this->amountFormatter = $amountFormatter;
+        $this->attachmentURLGenerator = $attachmentURLGenerator;
     }
 
     public function getFilters()
@@ -95,7 +99,8 @@ class AppExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('generateTreeData', [$this, 'treeData'])
+            new TwigFunction('generateTreeData', [$this, 'treeData']),
+            new TwigFunction('attachment_thumbnail', [$this->attachmentURLGenerator, 'getThumbnailURL'])
         ];
     }
 

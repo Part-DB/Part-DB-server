@@ -139,8 +139,14 @@ class AttachmentURLGenerator
             return $this->urlGenerator->generate('attachment_view', ['id' => $attachment->getID()]);
         }
 
+        //For builtin ressources it is not useful to create a thumbnail
+        //because the footprints images are small and highly optimized already.
+        if ($filter_name === 'thumbnail_md' && $attachment->isBuiltIn()) {
+            return $this->assets->getUrl($asset_path);
+        }
+
         //Otherwise we can serve the relative path via Asset component
-        return $this->filterService->getUrlOfFilteredImage($asset_path, 'thumbnail_sm');
+        return $this->filterService->getUrlOfFilteredImage($asset_path, $filter_name);
     }
 
     /**
@@ -151,6 +157,6 @@ class AttachmentURLGenerator
     public function getDownloadURL(Attachment $attachment) : string
     {
         //Redirect always to download controller, which sets the correct headers for downloading:
-        $this->urlGenerator->generate('attachment_download', ['id' => $attachment->getID()]);
+        return $this->urlGenerator->generate('attachment_download', ['id' => $attachment->getID()]);
     }
 }

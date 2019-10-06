@@ -532,10 +532,12 @@ class AjaxUI {
                 //Set the correct title in the table.
                 let title = $('#part-card-header-src');
                 $('#part-card-header').html(title.html());
+                $(document).trigger('ajaxUI:dt_loaded');
 
                 //Attach event listener to update links after new page selection:
                 $('#dt').on('draw.dt', function() {
                     ajaxUI.registerLinks();
+                    $(document).trigger('ajaxUI:dt_loaded');
                 });
             });
         });

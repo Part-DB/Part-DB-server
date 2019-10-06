@@ -91,9 +91,10 @@ class AttachmentDataTable implements DataTableTypeInterface
                     && !$context->isExternal()
                     && $this->attachmentHelper->isFileExisting($context)) {
                     return sprintf(
-                        '<img alt="%s" src="%s" class="%s">',
+                        '<img alt="%s" src="%s" data-thumbnail="%s" class="%s">',
                         'Part image',
                         $this->attachmentURLGenerator->getThumbnailURL($context),
+                        $this->attachmentURLGenerator->getThumbnailURL($context, 'thumbnail_md'),
                         'img-fluid hoverpic'
                     );
                 }

@@ -166,9 +166,10 @@ class PartsDataTable implements DataTableTypeInterface
                     }
 
                     return sprintf(
-                        '<img alt="%s" src="%s" class="%s">',
+                        '<img alt="%s" src="%s" data-thumbnail="%s" class="%s">',
                         'Part image',
                         $this->attachmentURLGenerator->getThumbnailURL($preview_attachment),
+                        $this->attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_md'),
                         'img-fluid hoverpic'
                     );
                 }
