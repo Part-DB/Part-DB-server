@@ -134,10 +134,12 @@ class ElementPermissionListener
 
                 //If the user is not allowed to edit or read this property, reset all values.
                 if ((!$this->security->isGranted($annotation->getEditOperationName(), $element)
-                        || !$this->security->isGranted($annotation->getReadOperationName(), $element))) {
+                    || !$this->security->isGranted($annotation->getReadOperationName(), $element))) {
                     //Set value to old value, so that there a no change to this property
-                    $property->setValue($element, $old_data[$property->getName()]);
-                    $changed = true;
+                    if (isset($old_data[$property->getName()])) {
+                        $property->setValue($element, $old_data[$property->getName()]);
+                        $changed = true;
+                    }
 
                 }
 
