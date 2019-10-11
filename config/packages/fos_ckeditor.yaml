@@ -8,13 +8,13 @@ fos_ck_editor:
     default_config: complex_config
     configs:
         complex_config:
-            extraPlugins: ["bbcode"]
+            extraPlugins: "markdown"
             toolbar: standard
         simple_config:
-            extraPlugins: "bbcode"
+            extraPlugins: "markdown"
             toolbar: basic
         description_config:
-            extraPlugins: "bbcode"
+            extraPlugins: "markdown"
             height: 60
             toolbar: description_toolbar
 
@@ -22,6 +22,9 @@ fos_ck_editor:
     plugins:
         bbcode:
             path:     "ckeditor/plugins/bbcode/" # with trailing slash
+            filename: "plugin.js"
+        markdown:
+            path:      "ckeditor/plugins/markdown/"
             filename: "plugin.js"
         specialchar:
             path:     "ckeditor/plugins/specialchar"
