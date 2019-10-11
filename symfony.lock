@@ -105,6 +105,9 @@
     "egulias/email-validator": {
         "version": "2.1.7"
     },
+    "erusev/parsedown": {
+        "version": "1.7.3"
+    },
     "felixfbecker/advanced-json-rpc": {
         "version": "v3.0.4"
     },

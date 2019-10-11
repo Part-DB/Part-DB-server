@@ -154,7 +154,7 @@ showing the sidebar (on devices with md or higher)
 
 @media (max-width: 576px) {
     #sidebar-toggle-button {
-       display: none;
+        display: none;
     }
 }
 
@@ -739,4 +739,59 @@ table.dataTable {
 
 .tt-suggestion p {
     margin: 0;
+}
+
+/***************************************************
+ * Markdown styles
+ ***************************************************/
+.markdown code {
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+
+.markdown pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.markdown table {
+    border-width: 1px 0 0 1px;
+    border-color: #bbb;
+    border-style: solid;
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+
+.markdown table td, .markdown table th {
+    border-width: 0 1px 1px 0;
+    border-color: #bbb;
+    border-style: solid;
+    padding: 10px;
+}
+
+.markdown table tbody tr:hover {
+    color: #212529;
+    background-color: rgba(0, 0, 0, 0.075);
+}
+
+.markdown table tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.markdown img {
+    max-width: 35%;
+    vertical-align: middle;
 }

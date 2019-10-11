@@ -27,7 +27,7 @@
                 <a href="{{ part|entityURL('edit') }}"><i class="fas fa-fw fa-sm fa-edit"></i></a>
             {% endif %}
         </h3>
-        <h6 class="text-muted"><span title="{% trans %}description.label{% endtrans %}">{{ part.description|bbCode }}</span></h6>
+        <h6 class="text-muted"><span title="{% trans %}description.label{% endtrans %}">{{ part.description|markdown(true) }}</span></h6>
         <h6 class="">
             <i class="fas fa-tag fa-fw" title="{% trans %}category.label{% endtrans %}"></i>
             <span class="text-muted">{{ helper.structural_entity_link(part.category) }}</span>

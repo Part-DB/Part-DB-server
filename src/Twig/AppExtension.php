@@ -36,12 +36,13 @@ use App\Entity\PriceInformations\Currency;
 use App\Services\AmountFormatter;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\EntityURLGenerator;
+use App\Services\MarkdownParser;
 use App\Services\MoneyFormatter;
 use App\Services\SIFormatter;
 use App\Services\TreeBuilder;
-use Money\Currencies;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Serializer\SerializerInterface;
+use Twig\Cache\CacheInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use s9e\TextFormatter\Bundles\Forum as TextFormatter;
@@ -51,7 +52,7 @@ use Twig\TwigTest;
 class AppExtension extends AbstractExtension
 {
     protected $entityURLGenerator;
-    protected $cache;
+    protected $markdownParser;
     protected $serializer;
     protected $treeBuilder;
     protected $moneyFormatter;
@@ -59,14 +60,14 @@ class AppExtension extends AbstractExtension
     protected $amountFormatter;
     protected $attachmentURLGenerator;
 
-    public function __construct(EntityURLGenerator $entityURLGenerator, AdapterInterface $cache,
+    public function __construct(EntityURLGenerator $entityURLGenerator, MarkdownParser $markdownParser,
                                 SerializerInterface $serializer, TreeBuilder $treeBuilder,
                                 MoneyFormatter $moneyFormatter,
                                 SIFormatter $SIFormatter, AmountFormatter $amountFormatter,
                                 AttachmentURLGenerator $attachmentURLGenerator)
     {
         $this->entityURLGenerator = $entityURLGenerator;
-        $this->cache = $cache;
+        $this->markdownParser = $markdownParser;
         $this->serializer = $serializer;
         $this->treeBuilder = $treeBuilder;
         $this->moneyFormatter = $moneyFormatter;
@@ -79,7 +80,7 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFilter('entityURL', [$this, 'generateEntityURL']),
-            new TwigFilter('bbCode', [$this, 'parseBBCode'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
+            new TwigFilter('markdown', [$this->markdownParser, 'parse'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
             new TwigFilter('moneyFormat', [$this, 'formatCurrency']),
             new TwigFilter('siFormat', [$this, 'siFormat']),
             new TwigFilter('amountFormat', [$this, 'amountFormat']),
@@ -126,22 +127,6 @@ class AppExtension extends AbstractExtension
     public function generateEntityURL(DBElement $entity, string $method = 'info'): string
     {
         return $this->entityURLGenerator->getURL($entity, $method);
-    }
-
-    public function parseBBCode(string $bbcode): string
-    {
-        if ('' === $bbcode) {
-            return '';
-        }
-
-        $item = $this->cache->getItem('bbcode_'.md5($bbcode));
-        if (!$item->isHit()) {
-            $xml = TextFormatter::parse($bbcode);
-            $item->set(TextFormatter::render($xml));
-            $this->cache->save($item);
-        }
-
-        return $item->get();
     }
 
     public function formatCurrency($amount, Currency $currency = null, int $decimals = 5)
