@@ -29,36 +29,35 @@
  *
  */
 
-namespace App\Services;
+namespace App\Helpers;
 
-use Symfony\Contracts\Translation\TranslatorInterface;
+use League\HTMLToMarkdown\HtmlConverter;
+use s9e\TextFormatter\Bundles\Forum as TextFormatter;
+use SebastianBergmann\CodeCoverage\Report\Text;
 
-/**
- * This class allows you to convert markdown text to HTML.
- * @package App\Services
- */
-class MarkdownParser
+
+class BBCodeToMarkdownConverter
 {
-    protected $translator;
+    protected $html_to_markdown;
 
-    public function __construct(TranslatorInterface $translator)
+    public function __construct()
     {
-        $this->translator = $translator;
+        $this->html_to_markdown = new HtmlConverter();
     }
 
     /**
-     * Mark the markdown for rendering.
-     * The rendering of markdown is done on client side
-     * @param string $markdown The markdown text that should be parsed to html.
-     * @param bool $inline_mode Only allow inline markdown codes like (*bold* or **italic**), not something like tables
-     * @return string The markdown in a version that can be parsed on client side.
+     * Converts the given BBCode to markdown.
+     * BBCode tags that does not have a markdown aequivalent are outputed as HTML tags.
+     * @param $bbcode string The Markdown that should be converted.
+     * @return string The markdown version of the text.
      */
-    public function markForRendering(string $markdown, bool $inline_mode = false) : string
+    public function convert(string $bbcode) : string
     {
-        return sprintf(
-            '<div class="markdown" data-markdown="%s">%s</div>',
-            htmlspecialchars($markdown),
-            $this->translator->trans('markdown.loading')
-        );
+        //Convert BBCode to html
+        $xml = TextFormatter::parse($bbcode);
+        $html = TextFormatter::render($xml);
+
+        //Now convert the HTML to markdown
+        return $this->html_to_markdown->convert($html);
     }
 }

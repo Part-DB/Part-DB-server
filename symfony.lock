@@ -105,9 +105,6 @@
     "egulias/email-validator": {
         "version": "2.1.7"
     },
-    "erusev/parsedown": {
-        "version": "1.7.3"
-    },
     "felixfbecker/advanced-json-rpc": {
         "version": "v3.0.4"
     },
@@ -149,6 +146,9 @@
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
+    },
+    "league/html-to-markdown": {
+        "version": "4.8.2"
     },
     "liip/imagine-bundle": {
         "version": "1.8",
@@ -269,7 +269,7 @@
         "version": "1.4.3"
     },
     "s9e/text-formatter": {
-        "version": "1.4.1"
+        "version": "2.1.2"
     },
     "sebastian/diff": {
         "version": "3.0.2"

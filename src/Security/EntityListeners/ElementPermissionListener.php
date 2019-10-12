@@ -42,11 +42,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\PostLoad;
 use Doctrine\ORM\Mapping\PreUpdate;
 use ReflectionClass;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Security\Core\Security;
 
 /**
  * The purpose of this class is to hook into the doctrine entity lifecycle and restrict access to entity informations
  * configured by ColoumnSecurity Annotation.
+ * If the current programm is running from CLI (like a CLI command), the security checks are disabled.
+ * (Commands should be able to do everything they like)
  *
  * If a user does not have access to an coloumn, it will be filled, with a placeholder, after doctrine loading is finished.
  * The edit process is also catched, so that these placeholders, does not get saved to database.
@@ -56,12 +59,29 @@ class ElementPermissionListener
     protected $security;
     protected $reader;
     protected $em;
+    protected $disabled;
 
-    public function __construct(Security $security, Reader $reader, EntityManagerInterface $em)
+    public function __construct(Security $security, Reader $reader, EntityManagerInterface $em, KernelInterface $kernel)
     {
         $this->security = $security;
         $this->reader = $reader;
         $this->em = $em;
+        //Disable security when the current program is running from CLI
+        $this->disabled = $this->isRunningFromCLI();
+    }
+
+    /**
+     * This function checks if the current script is run from web or from a terminal.
+     * @return bool Returns true if the current programm is running from CLI (terminal)
+     */
+    protected function isRunningFromCLI()
+    {
+
+        if (empty($_SERVER['REMOTE_ADDR']) && !isset($_SERVER['HTTP_USER_AGENT']) && count($_SERVER['argv']) > 0) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -76,6 +96,11 @@ class ElementPermissionListener
      */
     public function postLoadHandler(DBElement $element, LifecycleEventArgs $event)
     {
+        //Do nothing if security is disabled
+        if ($this->disabled) {
+            return;
+        }
+
         //Read Annotations and properties.
         $reflectionClass = new ReflectionClass($element);
         $properties = $reflectionClass->getProperties();
@@ -112,6 +137,11 @@ class ElementPermissionListener
      */
     public function preFlushHandler(DBElement $element, PreFlushEventArgs $eventArgs)
     {
+        //Do nothing if security is disabled
+        if ($this->disabled) {
+            return;
+        }
+
         $em = $eventArgs->getEntityManager();
         $unitOfWork = $eventArgs->getEntityManager()->getUnitOfWork();
 

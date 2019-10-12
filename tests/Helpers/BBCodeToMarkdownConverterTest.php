@@ -29,36 +29,42 @@
  *
  */
 
-namespace App\Services;
+namespace App\Tests\Helpers;
 
-use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * This class allows you to convert markdown text to HTML.
- * @package App\Services
- */
-class MarkdownParser
+use App\Helpers\BBCodeToMarkdownConverter;
+use PHPUnit\Framework\TestCase;
+
+class BBCodeToMarkdownConverterTest extends TestCase
 {
-    protected $translator;
+    protected $converter;
 
-    public function __construct(TranslatorInterface $translator)
+    public function setUp()
     {
-        $this->translator = $translator;
+        $this->converter = new BBCodeToMarkdownConverter();
+    }
+
+    public function dataProvider()
+    {
+        return [
+            ['[b]Bold[/b]', '**Bold**'],
+            ['[i]Italic[/i]', '*Italic*'],
+            ['[s]Strike[/s]', '<s>Strike</s>'],
+            ['[url]https://foo.bar[/url]', '<https://foo.bar>'],
+            ['[url=https://foo.bar]test[/url]', '[test](https://foo.bar)'],
+            ['[center]Centered[/center]', '<div style="text-align:center">Centered</div>'],
+            ['test no change', 'test no change'],
+            ['**Test**', '**Test**'],
+        ];
     }
 
     /**
-     * Mark the markdown for rendering.
-     * The rendering of markdown is done on client side
-     * @param string $markdown The markdown text that should be parsed to html.
-     * @param bool $inline_mode Only allow inline markdown codes like (*bold* or **italic**), not something like tables
-     * @return string The markdown in a version that can be parsed on client side.
+     * @dataProvider dataProvider
+     * @param $bbcode
+     * @param $expected
      */
-    public function markForRendering(string $markdown, bool $inline_mode = false) : string
+    public function testConvert($bbcode, $expected)
     {
-        return sprintf(
-            '<div class="markdown" data-markdown="%s">%s</div>',
-            htmlspecialchars($markdown),
-            $this->translator->trans('markdown.loading')
-        );
+        $this->assertEquals($expected, $this->converter->convert($bbcode));
     }
 }

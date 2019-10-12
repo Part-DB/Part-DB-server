@@ -80,7 +80,7 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFilter('entityURL', [$this, 'generateEntityURL']),
-            new TwigFilter('markdown', [$this->markdownParser, 'parse'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
+            new TwigFilter('markdown', [$this->markdownParser, 'markForRendering'], ['pre_escape' => 'html', 'is_safe' => ['html']]),
             new TwigFilter('moneyFormat', [$this, 'formatCurrency']),
             new TwigFilter('siFormat', [$this, 'siFormat']),
             new TwigFilter('amountFormat', [$this, 'amountFormat']),
