@@ -30,6 +30,7 @@
 
 namespace App\Controller;
 
+use App\Services\GitVersionInfo;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -38,11 +39,12 @@ class HomepageController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function homepage()
+    public function homepage(GitVersionInfo $versionInfo)
     {
-        return $this->render('homepage.html.twig',
-            [
-                'banner' => $this->getParameter('banner'),
-            ]);
+        return $this->render('homepage.html.twig', [
+            'banner' => $this->getParameter('banner'),
+            'git_branch' => $versionInfo->getGitBranchName(),
+            'git_commit' => $versionInfo->getGitCommitHash()
+        ]);
     }
 }

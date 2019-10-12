@@ -5,6 +5,9 @@
         <h1 class="display-3">{{ partdb_title }}</h1>
         <h4>
             {% trans %}version.caption{% endtrans %}: {{ shivas_app_version }}
+            {% if git_branch is not empty or git_commit is not empty %}
+                ({{ git_branch ?? '' }}/{{ git_commit ?? '' }})
+            {% endif %}
         </h4>
         {% if banner is not empty %}
             <hr>
