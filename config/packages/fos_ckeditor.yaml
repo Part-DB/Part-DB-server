@@ -9,7 +9,7 @@ fos_ck_editor:
     configs:
         complex_config:
             extraPlugins: "markdown"
-            toolbar: standard
+            toolbar: comment_toolbar
         simple_config:
             extraPlugins: "markdown"
             toolbar: basic
@@ -33,4 +33,20 @@ fos_ck_editor:
 
     toolbars:
         configs:
-            description_toolbar: [ ["Source", "-", 'Bold', 'Italic', "-", "RemoveFormat", "-", "Smiley", "SpecialChar"] ]
+            description_toolbar:
+                - [ 'Bold', 'Italic', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]
+                - ["SpecialChar"]
+                - ["Source"]
+            comment_toolbar:
+                - ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']
+                - [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ]
+                - [ 'Styles', 'Format']
+                - [ 'TextColor']
+                - [ 'Maximize', 'ShowBlocks' ]
+                - [ 'Source', '-', 'About']
+                - '/'
+                - [ 'Bold', 'Italic', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]
+                - [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
+                - [ 'Link', 'Unlink' ]
+                - [ 'Image', 'Table', 'HorizontalRule', 'SpecialChar' ]
+
