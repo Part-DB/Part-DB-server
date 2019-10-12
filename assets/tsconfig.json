@@ -4,7 +4,7 @@
     "target": "es5",
     "sourceMap": true,
     "typeRoots": ["../node_modules"],
-    "types": ["jquery", "bootstrap", "jquery.form", "bootstrap-treeview", "bootbox", "typeahead"]
+    "types": ["jquery", "bootstrap", "jquery.form", "bootstrap-treeview", "bootbox", "typeahead", "marked"]
   },
   "exclude": [
     "node_modules"

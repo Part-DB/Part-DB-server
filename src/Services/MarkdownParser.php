@@ -67,8 +67,13 @@ class MarkdownParser
      */
     public function parse(string $markdown, bool $inline_mode = false) : string
     {
+        return sprintf(
+            '<div class="markdown" data-markdown="%s">Markdown loading...</div>',
+            htmlspecialchars($markdown)
+        );
+
         //Generate key
-        if ($inline_mode) {
+        /*if ($inline_mode) {
             $key = 'markdown_i_' . md5($markdown);
         } else {
             $key = 'markdown_' . md5($markdown);
@@ -82,6 +87,6 @@ class MarkdownParser
             }
 
             return '<div class="markdown">' . $this->parsedown->text($markdown) . '</div>';
-        });
+        });*/
     }
 }

@@ -52,7 +52,10 @@ require('bootstrap-fileinput');
 
 require('./datatables.js');
 
-window.bootbox = require('bootbox')
+window.bootbox = require('bootbox');
+
+require("marked");
+window.DOMPurify = require("dompurify");
 
 // Includes required for tag input
 require('./tagsinput.js');

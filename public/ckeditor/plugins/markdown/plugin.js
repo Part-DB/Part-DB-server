@@ -26,22 +26,11 @@
 
 	var unchangedData = null;
 
-	/**
-	 * Remove html tags from given string.
-	 * Taken from here: https://stackoverflow.com/questions/822452/strip-html-from-text-javascript/47140708#47140708
-	 * @param html
-	 * @returns {string | string}
-	 */
-	function stripHtml(html)
-	{
-		var tmp = document.createElement("DIV");
-		tmp.innerHTML = html;
-		return tmp.textContent || tmp.innerText || "";
-	}
-
 	function overrideDataProcessor(editor)
 	{
+		//Both showdown and DOMPurify must be loaded
 		if(typeof(showdown) == 'undefined') return;
+		if (typeof(DOMPurify) == 'undefined') return;
 
 		var converter = new showdown.Converter();
 		//Set some useful options on Showdown
@@ -67,7 +56,7 @@
 				//Strip html tags from data.
 				//This is useful, to convert unsupported HTML feauters to plain text and adds an basic XSS protection
 				//The HTML is inside an iframe so an XSS attack can not do much harm.
-				data = stripHtml(data);
+				data = DOMPurify.sanitize(data);
 
 				return tmp = converter.makeHtml(data);
 			},
@@ -147,6 +136,12 @@
 				CKEDITOR.scriptLoader.load(rootPath + 'js/showdown.min.js', function() {
 					overrideDataProcessor(editor);
 					editor.setData(unchangedData);
+				});
+			}
+
+			if (typeof(DOMPurify) == 'undefined') {
+				CKEDITOR.scriptLoader.load(rootPath + 'js/purify.min.js', function() {
+					overrideDataProcessor(editor);
 				});
 			}
 		},

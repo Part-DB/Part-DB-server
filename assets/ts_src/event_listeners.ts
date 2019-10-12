@@ -30,6 +30,8 @@
 
 import {ajaxUI} from "./ajax_ui";
 import "bootbox";
+import "marked";
+import * as marked from "marked";
 
 /************************************
  *
@@ -202,11 +204,11 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
             message: message,
             title: title,
             callback: function(result) {
-            //If the dialog was confirmed, then submit the form.
-            if(result) {
-                ajaxUI.submitForm(form);
-            }
-        }});
+                //If the dialog was confirmed, then submit the form.
+                if(result) {
+                    ajaxUI.submitForm(form);
+                }
+            }});
 
         return false;
     });
@@ -275,7 +277,7 @@ $(document).on("ajaxUI:reload ajaxUI:start", function () {
     if (location.hash) {
         $activeTab = $('a[href=\'' + location.hash + '\']');
     } else if(localStorage.getItem('activeTab')) {
-       $activeTab = $('a[href="' + localStorage.getItem('activeTab') + '"]');
+        $activeTab = $('a[href="' + localStorage.getItem('activeTab') + '"]');
     }
 
     if($activeTab) {
@@ -372,20 +374,49 @@ $(document).on("ajaxUI:reload ajaxUI:start attachment:create", function () {
         });
 
         $(this).typeahead({
-            hint: true,
-            highlight: true,
-            minLength: 1
-        },
-        {
-            name: 'states',
-            source: engine
-        });
+                hint: true,
+                highlight: true,
+                minLength: 1
+            },
+            {
+                name: 'states',
+                source: engine
+            });
 
         //Make the typeahead input fill the container (remove block-inline attr)
         $(this).parent(".twitter-typeahead").css('display', 'block');
     })
 });
 
+$(document).on("ajaxUI:start", function () {
+    function decodeHTML(html) {
+        var txt = document.createElement('textarea');
+        txt.innerHTML = html;
+        return txt.value;
+    };
+
+    function parseMarkdown() {
+        $('.markdown').each(function() {
+            let unescaped = marked(decodeHTML( $(this).data('markdown')));
+            //@ts-ignore
+            let escaped = DOMPurify.sanitize(unescaped);
+            $(this).html(escaped);
+            //Remove markdown from DOM
+            $(this).removeAttr('data-markdown');
+
+            //Make all links external
+            $('a', this).addClass('link-external').attr('target', '_blank');
+        });
+    }
+
+    //Configure markdown
+    marked.setOptions({
+        gfm: true,
+    });
+
+    parseMarkdown();
+    $(document).on("ajaxUI:reload", parseMarkdown);
+});
 
 //Need for proper body padding, with every navbar height
 $(window).resize(function () {
