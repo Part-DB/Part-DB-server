@@ -1,5 +1,8 @@
 /**
- * This software is licensed under MIT License
+ * A markdown output plugin for CKEDITOR.
+ * Uses showdown.js for conversion and DOMPurifier for HTML filtering.
+ *
+ * This software is licensed under MIT License.
  *
  * Copyright (c) 2019 Jan Böhmer
  *
@@ -24,13 +27,14 @@
 
 (function() {
 
-	var unchangedData = null;
-
 	function overrideDataProcessor(editor)
 	{
 		//Both showdown and DOMPurify must be loaded
 		if(typeof(showdown) == 'undefined') return;
 		if (typeof(DOMPurify) == 'undefined') return;
+
+		//If the dataprocessor were already be overriden do nothing
+		if(editor.dataProcessor.markdown) return;
 
 		var converter = new showdown.Converter();
 		//Set some useful options on Showdown
@@ -42,25 +46,26 @@
 
 		editor.dataProcessor = {
 			toDataFormat: function(html, fixForBody) {
-				html = html.replace(/(\r\n|\n|\r)/gm,"");
+				//html = html.replace(/(\r\n|\n|\r)/gm,"");
 				html = html.replace('<br>', '\n');
-				//Support for strikethrough
+				//Support for strikethrough in markdown
 				html = html.replace('<s>', '<del>').replace('</s>', '</del>');
 				return converter.makeMarkdown(html);
 			},
-			toHtml: function(data) {
-				if(unchangedData) {
-					data = unchangedData;
-					unchangedData = null;
-				}
-				//Strip html tags from data.
-				//This is useful, to convert unsupported HTML feauters to plain text and adds an basic XSS protection
-				//The HTML is inside an iframe so an XSS attack can not do much harm.
-				data = DOMPurify.sanitize(data);
-
-				return tmp = converter.makeHtml(data);
+			toHtml: function(data){
+				//Convert markdown to HTML and remove unsafe things from it.
+				var unsafe = converter.makeHtml(data);
+				return DOMPurify.sanitize(unsafe);
 			},
+			//Mark this dataprocessor
+			markdown: true
 		};
+
+		//Set the original data
+		if(editor.markdown_unchangedData) {
+			editor.setData(editor.markdown_unchangedData);
+			editor.markdown_unchangedData = null;
+		}
 	}
 
 	CKEDITOR.plugins.add( 'markdown', {
@@ -129,20 +134,19 @@
 			var config = editor.config;
 
 			var rootPath = this.path;
-			//We override the dataprocessor later (after we loaded t
-			unchangedData = editor.getData();
+			//We override the dataprocessor later (after we loaded the needes scripts), sow we need the save untouched data now.
+			editor.markdown_unchangedData = editor.getData();
 
 			if (typeof(showdown) == 'undefined') {
 				CKEDITOR.scriptLoader.load(rootPath + 'js/showdown.min.js', function() {
 					overrideDataProcessor(editor);
-					editor.setData(unchangedData);
-				});
+				}, CKEDITOR, true);
 			}
 
 			if (typeof(DOMPurify) == 'undefined') {
 				CKEDITOR.scriptLoader.load(rootPath + 'js/purify.min.js', function() {
-					overrideDataProcessor(editor);
-				});
+					overrideDataProcessor()
+				}, CKEDITOR, true);
 			}
 		},
 
@@ -151,5 +155,4 @@
 			overrideDataProcessor(editor);
 		}
 	} );
-
 } )();
