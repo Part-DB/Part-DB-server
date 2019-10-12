@@ -9,7 +9,7 @@
         {% if banner is not empty %}
             <hr>
             <div>
-                <h5>{{ banner }}</h5>
+                <h5>{{ banner | markdown }}</h5>
             </div>
         {% endif %}
     </div>
