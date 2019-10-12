@@ -393,7 +393,7 @@ $(document).on("ajaxUI:start", function () {
         var txt = document.createElement('textarea');
         txt.innerHTML = html;
         return txt.value;
-    };
+    }
 
     function parseMarkdown() {
         $('.markdown').each(function() {
@@ -406,6 +406,8 @@ $(document).on("ajaxUI:start", function () {
 
             //Make all links external
             $('a', this).addClass('link-external').attr('target', '_blank');
+            //Bootstrapify objects
+            $('table', this).addClass('table table-hover table-striped table-bordered');
         });
     }
 

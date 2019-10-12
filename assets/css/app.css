@@ -766,31 +766,6 @@ table.dataTable {
     border-radius: 4px;
 }
 
-.markdown table {
-    border-width: 1px 0 0 1px;
-    border-color: #bbb;
-    border-style: solid;
-    width: 100%;
-    margin-bottom: 1rem;
-    color: #212529;
-}
-
-.markdown table td, .markdown table th {
-    border-width: 0 1px 1px 0;
-    border-color: #bbb;
-    border-style: solid;
-    padding: 10px;
-}
-
-.markdown table tbody tr:hover {
-    color: #212529;
-    background-color: rgba(0, 0, 0, 0.075);
-}
-
-.markdown table tbody tr:nth-of-type(odd) {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
 .markdown img {
     max-width: 35%;
     vertical-align: middle;
