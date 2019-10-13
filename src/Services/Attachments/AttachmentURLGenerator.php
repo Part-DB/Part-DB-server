@@ -125,11 +125,14 @@ class AttachmentURLGenerator
             throw new \InvalidArgumentException('Thumbnail creation only works for picture attachments!');
         }
 
+        if ($attachment->isExternal()) {
+            return $attachment->getURL();
+        }
+
         $absolute_path = $this->attachmentHelper->toAbsoluteFilePath($attachment);
         if ($absolute_path === null) {
             throw new \RuntimeException(
-                'The given attachment is external or has no valid file, so no URL can get generated for it!
-                Use Attachment::getURL() to get the external URL!'
+                'The given attachment is external or has no valid file, so no URL can get generated for it!'
             );
         }
 
