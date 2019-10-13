@@ -166,6 +166,8 @@ class UserController extends AdminPages\BaseAdminController
          */
         $user = $this->getUser();
 
+        $page_need_reload = false;
+
         if(!$user instanceof User) {
             return new \RuntimeException("This controller only works only for Part-DB User objects!");
         }
@@ -182,7 +184,11 @@ class UserController extends AdminPages\BaseAdminController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //$em->persist($user);
+            //Check if user theme setting has changed
+            if ($user->getTheme() !== $em->getUnitOfWork()->getOriginalEntityData($user)['theme']) {
+                $page_need_reload = true;
+            }
+
             $em->flush();
             $this->addFlash('success', 'user.settings.saved_flash');
         }
@@ -230,6 +236,7 @@ class UserController extends AdminPages\BaseAdminController
         return $this->render('Users/user_settings.html.twig', [
             'settings_form' => $form->createView(),
             'pw_form' => $pw_form->createView(),
+            'page_need_reload' => $page_need_reload
         ]);
     }
 
