@@ -203,8 +203,8 @@ class AttachmentHelper
         $folder = $this->generateFolderForAttachment($attachment);
 
         //Sanatize filename
-        $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-        $newFilename = $attachment->getName() . '-' . uniqid('', false) . '.' . $file->getClientOriginalExtension();
+        $safeName = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $attachment->getName());
+        $newFilename = $safeName . '-' . uniqid('', false) . '.' . $file->getClientOriginalExtension();
 
         //Move our temporay attachment to its final location
         $file_path = $file->move($folder, $newFilename)->getRealPath();
