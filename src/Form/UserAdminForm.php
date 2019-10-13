@@ -35,6 +35,7 @@ namespace App\Form;
 use App\Entity\UserSystem\Group;
 use App\Entity\Base\NamedDBElement;
 use App\Entity\Base\StructuralDBElement;
+use App\Entity\UserSystem\User;
 use App\Form\Permissions\PermissionsType;
 use App\Form\Permissions\PermissionType;
 use App\Form\Type\CurrencyEntityType;
@@ -147,6 +148,10 @@ class UserAdminForm extends AbstractType
             ])
             ->add('theme', ChoiceType::class, [
                 'required' => false,
+                'choices' => User::AVAILABLE_THEMES,
+                'choice_label' => function ($entity, $key, $value) {
+                    return $value;
+                },
                 'placeholder' => $this->trans->trans('user_settings.theme.placeholder'),
                 'label' => $this->trans->trans('user.theme.label'),
                 'disabled' => !$this->security->isGranted('change_user_settings', $entity)

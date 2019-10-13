@@ -88,6 +88,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /** The User id of the anonymous user */
     public const ID_ANONYMOUS = 1;
 
+    public const AVAILABLE_THEMES = ['bootstrap', 'cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal',
+        'litera', 'lumen', 'lux', 'materia', 'minty', 'pulse', 'sandstone', 'simplex', 'sketchy', 'slate', 'solar',
+        'spacelab', 'united', 'yeti'];
+
     /**
      * @var Collection|UserAttachment[]
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\UserAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -166,6 +170,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @var string|null The theme
      * @ORM\Column(type="string", name="config_theme", nullable=true)
+     * @Assert\Choice(choices=User::AVAILABLE_THEMES)
      */
     protected $theme = '';
 

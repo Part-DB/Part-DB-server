@@ -12,8 +12,9 @@ require('../css/app.css');
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 const $ = require('jquery');
 
-import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+//Only include javascript
+
+
 
 import '@fortawesome/fontawesome-free/css/all.css'
 
@@ -26,6 +27,8 @@ import 'bootstrap-select/dist/css/bootstrap-select.css'
 import "patternfly-bootstrap-treeview/src/css/bootstrap-treeview.css"
 
 import "bootstrap-fileinput/css/fileinput.css"
+
+require('bootstrap');
 
 //require( 'jszip' );
 //#require( 'pdfmake' );

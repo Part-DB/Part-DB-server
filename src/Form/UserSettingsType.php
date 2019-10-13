@@ -75,6 +75,10 @@ class UserSettingsType extends AbstractType
                 ])
             ->add('theme', ChoiceType::class, [
                 'required' => false,
+                'choices' => User::AVAILABLE_THEMES,
+                'choice_label' => function ($entity, $key, $value) {
+                    return $value;
+                },
                 'placeholder' => $this->trans->trans('user_settings.theme.placeholder'),
                 'label' => $this->trans->trans('user.theme.label'),
                 ])

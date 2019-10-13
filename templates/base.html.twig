@@ -15,7 +15,25 @@
 
     <title>{% apply trim %}{% block title %}{{ partdb_title}}{% endblock %}{% endapply %}</title>
     {% block stylesheets %}
+        {# Include the main bootstrap theme based on user/global setting #}
+
+
+
+        {% if not app.user.theme %}
+            {% set theme = global_theme %}
+        {% else %}
+            {% set theme = app.user.theme %}
+        {% endif %}
+
+        {% if theme %}
+            <link rel="stylesheet" href="{{ asset('build/themes/' ~ theme ~ '.css') }}">
+        {% else %}
+            <link rel="stylesheet" href="{{ asset('build/themes/bootstrap.css') }}">
+        {% endif %}
+
         {{ encore_entry_link_tags('app') }}
+
+
     {% endblock %}
 </head>
 <body data-base-url="{{ url('homepage', {'_locale': app.request.locale}) }}">

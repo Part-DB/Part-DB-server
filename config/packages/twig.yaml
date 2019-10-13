@@ -7,3 +7,4 @@ twig:
     globals:
         partdb_title: '%partdb_title%'
         default_currency: '%default_currency%'
+        global_theme: '%global_theme%'

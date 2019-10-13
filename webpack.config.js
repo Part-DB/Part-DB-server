@@ -1,4 +1,5 @@
 var Encore = require('@symfony/webpack-encore');
+const CopyPlugin = require('copy-webpack-plugin');
 
 Encore
     // directory where compiled assets will be stored
@@ -50,6 +51,18 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
+
+    .addPlugin(new CopyPlugin([
+        {
+            from: 'node_modules/bootswatch/dist/*/*.min.css',
+            to: 'themes/[2].[ext]',
+            test: /.*([\/\\])(.+)([\/\\]).*\.css$/
+        },
+        {
+            from: 'node_modules/bootstrap/dist/css/bootstrap.min.css',
+            to: 'themes/bootstrap.css'
+        }
+    ]))
 
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
