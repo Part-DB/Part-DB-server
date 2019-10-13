@@ -56,6 +56,14 @@
                     </h6>
                 {% endif %}
 
+                {% if attach.secure %}
+                    <h6>
+                           <span class="badge badge-primary">
+                                <i class="fas fa-fw fa-shield-alt"></i> {% trans %}attachment.secure{% endtrans %}
+                           </span>
+                    </h6>
+                {% endif %}
+
             </td>
         </tr>
     {% endfor %}
