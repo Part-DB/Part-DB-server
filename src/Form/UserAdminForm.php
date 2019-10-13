@@ -152,6 +152,7 @@ class UserAdminForm extends AbstractType
                 'choice_label' => function ($entity, $key, $value) {
                     return $value;
                 },
+                'attr' => ['class' => 'selectpicker'],
                 'placeholder' => $this->trans->trans('user_settings.theme.placeholder'),
                 'label' => $this->trans->trans('user.theme.label'),
                 'disabled' => !$this->security->isGranted('change_user_settings', $entity)

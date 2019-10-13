@@ -75,6 +75,7 @@ class UserSettingsType extends AbstractType
                 ])
             ->add('theme', ChoiceType::class, [
                 'required' => false,
+                'attr' => ['class' => 'selectpicker'],
                 'choices' => User::AVAILABLE_THEMES,
                 'choice_label' => function ($entity, $key, $value) {
                     return $value;
