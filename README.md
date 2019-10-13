@@ -1,5 +1,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Part-DB/Part-DB-symfony/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Part-DB/Part-DB-symfony/?branch=master)
 [![Build Status](https://travis-ci.org/Part-DB/Part-DB-symfony.svg?branch=master)](https://travis-ci.org/Part-DB/Part-DB-symfony)
+![GitHub License](https://img.shields.io/github/license/Part-DB/Part-DB-symfony)
+![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%207.1-green)
 
 # Part-DB
 Part-DB is an Open-Source inventory managment system for your electronic components.
@@ -42,6 +44,8 @@ for additional informations.
 5. Install client side dependencies and build it: `yarn install` and `yarn build`
 6. Optional (speeds up first load): Warmup cache: `php bin/console cache:warmup`
 7. Upgrade database to new scheme (or create it, when it was empty): `php bin/console doctrine:migrations:migrate` and follow the instructions given. **Caution**: This steps tamper with your database and could potentially destroy it. So make sure to make a backup of your database.
+8. (If you update from an older Part-DB Version (< 1.0) run `php bin/console app:convert-bbcode` to convert the BBCode
+used in comments and part description to the newly used markdown.)
 
 When you want to upgrade to a newer version, then just copy the new files into the folder
 and repeat the steps 4. to 7.
