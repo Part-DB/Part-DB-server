@@ -54,7 +54,6 @@ class BBCodeToMarkdownConverterTest extends TestCase
             ['[url=https://foo.bar]test[/url]', '[test](https://foo.bar)'],
             ['[center]Centered[/center]', '<div style="text-align:center">Centered</div>'],
             ['test no change', 'test no change'],
-            ['**Test**', '**Test**'],
         ];
     }
 
