@@ -50,10 +50,15 @@ class CleanAttachmentsCommand extends Command
 
         $mediaPath = $this->pathResolver->getMediaPath();
         $io->note("The media path is " . $mediaPath);
+        $securePath = $this->pathResolver->getSecurePath();
+        $io->note("The secure media path is ". $securePath);
 
         $finder = new Finder();
         //We look for files in the media folder only
-        $finder->files()->in($mediaPath);
+        $finder->files()->in([$mediaPath, $securePath]);
+        //Ignore image cache folder
+        $finder->exclude('cache');
+
         $fs = new Filesystem();
 
         $file_list = array();
@@ -62,8 +67,7 @@ class CleanAttachmentsCommand extends Command
         $table->setHeaders(['Filename', 'MIME Type', 'Last modified date']);
         $dateformatter = \IntlDateFormatter::create(null, \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT);
 
-        foreach ($finder as $file)
-        {
+        foreach ($finder as $file) {
             //If not attachment object uses this file, print it
             if (count($this->reverseSearch->findAttachmentsByFile($file)) == 0) {
                 $file_list[] = $file;
