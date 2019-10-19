@@ -33,7 +33,9 @@ namespace App\Services;
 
 use App\Entity\Attachments\Attachment;
 use App\Services\Attachments\AttachmentPathResolver;
+use App\Services\Attachments\AttachmentURLGenerator;
 use Doctrine\ORM\EntityManagerInterface;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -45,11 +47,16 @@ class AttachmentReverseSearch
 {
     protected $em;
     protected $pathResolver;
+    protected $cacheManager;
+    protected $attachmentURLGenerator;
 
-    public function __construct(EntityManagerInterface $em, AttachmentPathResolver $pathResolver)
+    public function __construct(EntityManagerInterface $em, AttachmentPathResolver $pathResolver,
+                                CacheManager $cacheManager, AttachmentURLGenerator $attachmentURLGenerator)
     {
         $this->em = $em;
         $this->pathResolver = $pathResolver;
+        $this->cacheManager = $cacheManager;
+        $this->attachmentURLGenerator = $attachmentURLGenerator;
     }
 
     /**
@@ -74,15 +81,21 @@ class AttachmentReverseSearch
      * @param int $threshold The threshold used, to determine if a file should be deleted or not.
      * @return bool True, if the file was delete. False if not.
      */
-    public function deleteIfNotUsed(\SplFileInfo $file, int $threshold = 0) : bool
+    public function deleteIfNotUsed(\SplFileInfo $file, int $threshold = 1) : bool
     {
+
         /* When the file is used more then $threshold times, don't delete it */
         if (count($this->findAttachmentsByFile($file)) > $threshold) {
             return false;
         }
 
+        //Remove file from liip image cache
+        $this->cacheManager->remove($this->attachmentURLGenerator->absolutePathToAssetPath($file->getPathname()));
+
         $fs = new Filesystem();
         $fs->remove($file);
+
+
 
         return true;
     }

@@ -90,7 +90,7 @@ class AttachmentDeleteListener
     public function postRemoveHandler(Attachment $attachment, LifecycleEventArgs $event)
     {
         //Dont delete file if the attachment uses a builtin ressource:
-        if (Attachment::checkIfBuiltin($event->getOldValue('path'))) {
+        if ($attachment->isBuiltIn()) {
             return;
         }
 
