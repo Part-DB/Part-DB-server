@@ -217,7 +217,7 @@ class AttachmentSubmitHandler
             ]);
 
             if (200 !== $response->getStatusCode()) {
-                throw new AttachmentDownloadException('Statuscode:' . $response->getStatusCode());
+                throw new AttachmentDownloadException('Status code: ' . $response->getStatusCode());
             }
 
             //Open a temporary file in the attachment folder

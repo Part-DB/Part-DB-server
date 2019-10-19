@@ -34,6 +34,7 @@ namespace App\Controller\AdminPages;
 use App\Entity\Base\NamedDBElement;
 use App\Entity\Base\StructuralDBElement;
 use App\Entity\UserSystem\User;
+use App\Exceptions\AttachmentDownloadException;
 use App\Form\AdminPages\ImportType;
 use App\Form\AdminPages\MassCreationForm;
 use App\Services\AttachmentHelper;
@@ -109,7 +110,14 @@ abstract class BaseAdminController extends AbstractController
                     'secure_attachment' => $attachment['secureFile']->getData(),
                     'download_url' => $attachment['downloadURL']->getData()
                 ];
-                $this->attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
+                try {
+                    $this->attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
+                } catch (AttachmentDownloadException $ex) {
+                    $this->addFlash(
+                        'error',
+                        $this->translator->trans('attachment.download_failed') . ' ' . $ex->getMessage()
+                    );
+                }
             }
 
             $em->persist($entity);
@@ -154,7 +162,18 @@ abstract class BaseAdminController extends AbstractController
             $attachments = $form['attachments'];
             foreach ($attachments as $attachment) {
                 /** @var $attachment FormInterface */
-                $this->attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData());
+                $options = [
+                    'secure_attachment' => $attachment['secureFile']->getData(),
+                    'download_url' => $attachment['downloadURL']->getData()
+                ];
+                try {
+                    $this->attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
+                } catch (AttachmentDownloadException $ex) {
+                    $this->addFlash(
+                        'error',
+                        $this->translator->trans('attachment.download_failed') . ' ' . $ex->getMessage()
+                    );
+                }
             }
 
             $em->persist($new_entity);

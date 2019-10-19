@@ -32,6 +32,7 @@ namespace App\Controller;
 
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
+use App\Exceptions\AttachmentDownloadException;
 use App\Form\Part\PartBaseType;
 use App\Services\AttachmentHelper;
 use App\Services\Attachments\AttachmentSubmitHandler;
@@ -94,7 +95,18 @@ class PartController extends AbstractController
             $attachments = $form['attachments'];
             foreach ($attachments as $attachment) {
                 /** @var $attachment FormInterface */
-                $attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData());
+                $options = [
+                    'secure_attachment' => $attachment['secureFile']->getData(),
+                    'download_url' => $attachment['downloadURL']->getData()
+                ];
+                try {
+                    $attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
+                } catch (AttachmentDownloadException $ex) {
+                    $this->addFlash(
+                        'error',
+                        $translator->trans('attachment.download_failed') . ' ' . $ex->getMessage()
+                    );
+                }
             }
 
 
@@ -169,7 +181,18 @@ class PartController extends AbstractController
             $attachments = $form['attachments'];
             foreach ($attachments as $attachment) {
                 /** @var $attachment FormInterface */
-                $attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData());
+                $options = [
+                    'secure_attachment' => $attachment['secureFile']->getData(),
+                    'download_url' => $attachment['downloadURL']->getData()
+                ];
+                try {
+                    $attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
+                } catch (AttachmentDownloadException $ex) {
+                    $this->addFlash(
+                        'error',
+                        $translator->trans('attachment.download_failed') . ' ' . $ex->getMessage()
+                    );
+                }
             }
 
             $em->persist($new_part);
