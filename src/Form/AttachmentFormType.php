@@ -36,7 +36,7 @@ use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\StructuralDBElement;
 use App\Form\Type\StructuralEntityType;
-use App\Services\AttachmentHelper;
+use App\Services\Attachments\AttachmentManager;
 use App\Validator\Constraints\UrlOrBuiltin;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -60,7 +60,7 @@ class AttachmentFormType extends AbstractType
     protected $urlGenerator;
     protected $allow_attachments_download;
 
-    public function __construct(AttachmentHelper $attachmentHelper, TranslatorInterface $trans,
+    public function __construct(AttachmentManager $attachmentHelper, TranslatorInterface $trans,
                                 UrlGeneratorInterface $urlGenerator, bool $allow_attachments_downloads)
     {
         $this->attachment_helper = $attachmentHelper;

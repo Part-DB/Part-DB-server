@@ -33,7 +33,7 @@ namespace App\Services\Attachments;
 
 
 use App\Entity\Attachments\Attachment;
-use App\Services\AttachmentHelper;
+use App\Services\Attachments\AttachmentManager;
 use Liip\ImagineBundle\Service\FilterService;
 use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\Packages;
@@ -49,7 +49,7 @@ class AttachmentURLGenerator
     protected $filterService;
 
     public function __construct(Packages $assets, AttachmentPathResolver $pathResolver,
-                                UrlGeneratorInterface $urlGenerator, AttachmentHelper $attachmentHelper,
+                                UrlGeneratorInterface $urlGenerator, AttachmentManager $attachmentHelper,
                                 FilterService $filterService)
     {
         $this->assets = $assets;

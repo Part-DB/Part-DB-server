@@ -34,7 +34,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Exceptions\AttachmentDownloadException;
 use App\Form\Part\PartBaseType;
-use App\Services\AttachmentHelper;
+use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\PricedetailHelper;
@@ -55,10 +55,10 @@ class PartController extends AbstractController
      * @Route("/{id}/info", name="part_info")
      * @Route("/{id}", requirements={"id"="\d+"})
      * @param Part $part
-     * @param AttachmentHelper $attachmentHelper
+     * @param AttachmentManager $attachmentHelper
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function show(Part $part, AttachmentHelper $attachmentHelper, PricedetailHelper $pricedetailHelper, PartPreviewGenerator $previewGenerator)
+    public function show(Part $part, AttachmentManager $attachmentHelper, PricedetailHelper $pricedetailHelper, PartPreviewGenerator $previewGenerator)
     {
         $this->denyAccessUnlessGranted('read', $part);
 
@@ -83,7 +83,7 @@ class PartController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function edit(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
-                         AttachmentHelper $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler)
+                         AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler)
     {
         $this->denyAccessUnlessGranted('edit', $part);
 
@@ -161,7 +161,7 @@ class PartController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
-                        AttachmentHelper $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler)
+                        AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler)
     {
         $new_part = new Part();
 

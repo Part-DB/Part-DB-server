@@ -34,7 +34,7 @@ namespace App\Services\Attachments;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;
-use App\Services\AttachmentHelper;
+use App\Services\Attachments\AttachmentManager;
 
 /**
  * @package App\Services\Attachments
@@ -43,7 +43,7 @@ class PartPreviewGenerator
 {
     protected $attachmentHelper;
 
-    public function __construct(AttachmentHelper $attachmentHelper)
+    public function __construct(AttachmentManager $attachmentHelper)
     {
         $this->attachmentHelper = $attachmentHelper;
     }

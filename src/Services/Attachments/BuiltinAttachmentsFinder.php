@@ -29,7 +29,7 @@
  *
  */
 
-namespace App\Services;
+namespace App\Services\Attachments;
 
 use App\Entity\Attachments\Attachment;
 use App\Services\Attachments\AttachmentPathResolver;

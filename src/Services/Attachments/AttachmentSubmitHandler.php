@@ -47,7 +47,7 @@ use App\Entity\Attachments\StorelocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
 use App\Exceptions\AttachmentDownloadException;
-use App\Services\AttachmentHelper;
+use App\Services\Attachments\AttachmentManager;
 use Doctrine\Common\Annotations\IndexedReader;
 use Nyholm\Psr7\Request;
 use Symfony\Component\Filesystem\Filesystem;

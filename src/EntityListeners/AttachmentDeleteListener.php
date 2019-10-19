@@ -33,8 +33,8 @@ namespace App\EntityListeners;
 
 
 use App\Entity\Attachments\Attachment;
-use App\Services\AttachmentHelper;
-use App\Services\AttachmentReverseSearch;
+use App\Services\Attachments\AttachmentManager;
+use App\Services\Attachments\AttachmentReverseSearch;
 use App\Services\Attachments\AttachmentPathResolver;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -52,7 +52,7 @@ class AttachmentDeleteListener
     protected $attachmentHelper;
     protected $pathResolver;
 
-    public function __construct(AttachmentReverseSearch $attachmentReverseSearch, AttachmentHelper $attachmentHelper, AttachmentPathResolver $pathResolver)
+    public function __construct(AttachmentReverseSearch $attachmentReverseSearch, AttachmentManager $attachmentHelper, AttachmentPathResolver $pathResolver)
     {
         $this->attachmentReverseSearch = $attachmentReverseSearch;
         $this->attachmentHelper = $attachmentHelper;

@@ -2,8 +2,8 @@
 
 namespace App\Command;
 
-use App\Services\AttachmentHelper;
-use App\Services\AttachmentReverseSearch;
+use App\Services\Attachments\AttachmentManager;
+use App\Services\Attachments\AttachmentReverseSearch;
 use App\Services\Attachments\AttachmentPathResolver;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -27,7 +27,7 @@ class CleanAttachmentsCommand extends Command
     protected $mimeTypeGuesser;
     protected $pathResolver;
 
-    public function __construct(AttachmentHelper $attachmentHelper, AttachmentReverseSearch $reverseSearch, AttachmentPathResolver $pathResolver)
+    public function __construct(AttachmentManager $attachmentHelper, AttachmentReverseSearch $reverseSearch, AttachmentPathResolver $pathResolver)
     {
         $this->attachment_helper = $attachmentHelper;
         $this->pathResolver = $pathResolver;

@@ -36,7 +36,7 @@ use App\DataTables\Column\LocaleDateTimeColumn;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Parts\Part;
-use App\Services\AttachmentHelper;
+use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
@@ -58,7 +58,7 @@ class AttachmentDataTable implements DataTableTypeInterface
     protected $attachmentURLGenerator;
 
     public function __construct(TranslatorInterface $translator, EntityURLGenerator $entityURLGenerator,
-                                AttachmentHelper $attachmentHelper, AttachmentURLGenerator $attachmentURLGenerator,
+                                AttachmentManager $attachmentHelper, AttachmentURLGenerator $attachmentURLGenerator,
                                 ElementTypeNameGenerator $elementTypeNameGenerator)
     {
         $this->translator = $translator;

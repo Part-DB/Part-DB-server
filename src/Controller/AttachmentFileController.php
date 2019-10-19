@@ -36,7 +36,7 @@ use App\DataTables\AttachmentDataTable;
 use App\DataTables\PartsDataTable;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\PartAttachment;
-use App\Services\AttachmentHelper;
+use App\Services\Attachments\AttachmentManager;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -52,11 +52,11 @@ class AttachmentFileController extends AbstractController
      *
      * @Route("/attachment/{id}/download", name="attachment_download")
      * @param Attachment $attachment
-     * @param AttachmentHelper $helper
+     * @param AttachmentManager $helper
      * @return BinaryFileResponse
      * @throws \Exception
      */
-    public function download(Attachment $attachment, AttachmentHelper $helper)
+    public function download(Attachment $attachment, AttachmentManager $helper)
     {
         $this->denyAccessUnlessGranted('read', $attachment);
 
@@ -83,11 +83,11 @@ class AttachmentFileController extends AbstractController
      *
      * @Route("/attachment/{id}/view", name="attachment_view")
      * @param Attachment $attachment
-     * @param AttachmentHelper $helper
+     * @param AttachmentManager $helper
      * @return BinaryFileResponse
      * @throws \Exception
      */
-    public function view(Attachment $attachment, AttachmentHelper $helper)
+    public function view(Attachment $attachment, AttachmentManager $helper)
     {
         $this->denyAccessUnlessGranted('read', $attachment);
 

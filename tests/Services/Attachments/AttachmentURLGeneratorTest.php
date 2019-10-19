@@ -33,7 +33,7 @@ namespace App\Tests\Services\Attachments;
 
 
 use App\Services\Attachments\AttachmentURLGenerator;
-use App\Services\BuiltinAttachmentsFinder;
+use App\Services\Attachments\BuiltinAttachmentsFinder;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class AttachmentURLGeneratorTest extends WebTestCase

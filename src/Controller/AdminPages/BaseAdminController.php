@@ -37,7 +37,7 @@ use App\Entity\UserSystem\User;
 use App\Exceptions\AttachmentDownloadException;
 use App\Form\AdminPages\ImportType;
 use App\Form\AdminPages\MassCreationForm;
-use App\Services\AttachmentHelper;
+use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
@@ -69,7 +69,7 @@ abstract class BaseAdminController extends AbstractController
     protected $attachmentSubmitHandler;
 
     public function __construct(TranslatorInterface $translator, UserPasswordEncoderInterface $passwordEncoder,
-                                AttachmentHelper $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler)
+                                AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler)
     {
         if ($this->entity_class === '' || $this->form_class === '' || $this->twig_template === '' || $this->route_base === '') {
             throw new \InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');

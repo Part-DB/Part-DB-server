@@ -32,7 +32,7 @@
 namespace App\Controller;
 
 
-use App\Services\BuiltinAttachmentsFinder;
+use App\Services\Attachments\BuiltinAttachmentsFinder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
