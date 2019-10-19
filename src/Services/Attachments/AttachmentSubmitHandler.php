@@ -72,7 +72,7 @@ class AttachmentSubmitHandler
     protected $httpClient;
     protected $mimeTypes;
 
-    public function __construct(AttachmentPathResolver $pathResolver, bool $allow_attachments_downloads,
+    public function __construct (AttachmentPathResolver $pathResolver, bool $allow_attachments_downloads,
                                 HttpClientInterface $httpClient, MimeTypesInterface $mimeTypes)
     {
         $this->pathResolver = $pathResolver;
@@ -179,6 +179,9 @@ class AttachmentSubmitHandler
             $this->downloadURL($attachment, $options);
         }
 
+        //Move the attachment files to secure location (and back) if needed
+        $this->moveFile($attachment, $options['secure_attachment']);
+
         //Check if we should assign this attachment to master picture
         //this is only possible if the attachment is new (not yet persisted to DB)
         if ($options['become_preview_if_empty'] && $attachment->getID() === null && $attachment->isPicture()) {
@@ -192,11 +195,56 @@ class AttachmentSubmitHandler
     }
 
     /**
+     * Move the given attachment to secure location (or back to public folder) if needed.
+     * @param Attachment $attachment The attachment for which the file should be moved.
+     * @param bool $secure_location This value determines, if the attachment is moved to the secure or public folder.
+     * @return Attachment The attachment with the updated filepath
+     */
+    protected function moveFile(Attachment $attachment, bool $secure_location) : Attachment
+    {
+        //We can not do anything on builtins or external ressources
+        if ($attachment->isBuiltIn() || $attachment->isExternal()) {
+            return $attachment;
+        }
+
+        //Check if we need to move the file
+        if ($secure_location === $attachment->isSecure()) {
+            return $attachment;
+        }
+
+        //Determine the old filepath
+        $old_path = $this->pathResolver->placeholderToRealPath($attachment->getPath());
+        if (!file_exists($old_path)) {
+            return $attachment;
+        }
+
+        $filename = basename($old_path);
+        //If the basename is not one of the new unique on, we have to save the old filename
+        if (!preg_match('/\w+-\w{13}\./', $filename)) {
+            //Save filename to attachment field
+            $attachment->setFilename($attachment->getFilename());
+        }
+
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        $new_path = $this->generateAttachmentPath($attachment, $secure_location)
+            . DIRECTORY_SEPARATOR . $this->generateAttachmentFilename($attachment, $ext);
+
+        //Move file to new directory
+        $fs = new Filesystem();
+        $fs->rename($old_path, $new_path);
+
+        //Save info to attachment entity
+        $new_path = $this->pathResolver->realPathToPlaceholder($new_path);
+        $attachment->setPath($new_path);
+
+        return $attachment;
+    }
+
+    /**
      * Download the URL set in the attachment and save it on the server
      * @param Attachment $attachment
      * @param array $options The options from the handleFormSubmit function
      * @return Attachment The attachment with the new filepath
-     * @throws AttachmentDownloadException
      */
     protected function downloadURL(Attachment $attachment, array $options) : Attachment
     {

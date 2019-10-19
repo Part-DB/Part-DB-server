@@ -44,6 +44,8 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -83,6 +85,13 @@ class AttachmentFormType extends AbstractType
             'attr' => ['class' => 'form-control-sm'],
             'label_attr' => ['class' => 'checkbox-custom']]);
 
+        $builder->add('secureFile', CheckboxType::class, ['required' => false,
+            'label' =>  $this->trans->trans('attachment.edit.secure_file'),
+            'mapped' => false,
+            'attr' => ['class' => 'form-control-sm'],
+            'help' => $this->trans->trans('attachment.edit.secure_file.help'),
+            'label_attr' => ['class' => 'checkbox-custom']]);
+
         $builder->add('url', TextType::class, [
             'label' =>  $this->trans->trans('attachment.edit.url'),
             'required' => false,
@@ -104,11 +113,6 @@ class AttachmentFormType extends AbstractType
             'attr' => ['class' => 'form-control-sm'],
             'label_attr' => ['class' => 'checkbox-custom']]);
 
-        $builder->add('secureFile', CheckboxType::class, ['required' => false,
-            'label' =>  $this->trans->trans('attachment.edit.secure_file'),
-            'mapped' => false,
-            'attr' => ['class' => 'form-control-sm'],
-            'label_attr' => ['class' => 'checkbox-custom']]);
 
         $builder->add('file', FileType::class, [
             'label' =>  $this->trans->trans('attachment.edit.file'),
@@ -120,8 +124,18 @@ class AttachmentFormType extends AbstractType
                     'maxSize' => $options['max_file_size']
                 ])
             ]
-
         ]);
+
+        //Check the secure file checkbox, if file is in securefile location
+        $builder->get('secureFile')->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) {
+                $attachment = $event->getForm()->getParent()->getData();
+                if ($attachment instanceof Attachment) {
+                    $event->setData($attachment->isSecure());
+                }
+            }
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver)
