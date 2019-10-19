@@ -32,6 +32,7 @@
         "symfony/flex": "^1.1",
         "symfony/form": "4.3.*",
         "symfony/framework-bundle": "4.3.*",
+        "symfony/http-client": "4.3.*",
         "symfony/monolog-bundle": "^3.1",
         "symfony/orm-pack": "*",
         "symfony/process": "4.3.*",

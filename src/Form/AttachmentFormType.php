@@ -104,6 +104,12 @@ class AttachmentFormType extends AbstractType
             'attr' => ['class' => 'form-control-sm'],
             'label_attr' => ['class' => 'checkbox-custom']]);
 
+        $builder->add('secureFile', CheckboxType::class, ['required' => false,
+            'label' =>  $this->trans->trans('attachment.edit.secure_file'),
+            'mapped' => false,
+            'attr' => ['class' => 'form-control-sm'],
+            'label_attr' => ['class' => 'checkbox-custom']]);
+
         $builder->add('file', FileType::class, [
             'label' =>  $this->trans->trans('attachment.edit.file'),
             'mapped' => false,

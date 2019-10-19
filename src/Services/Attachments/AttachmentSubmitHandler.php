@@ -46,10 +46,19 @@ use App\Entity\Attachments\PartAttachment;
 use App\Entity\Attachments\StorelocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
+use App\Exceptions\AttachmentDownloadException;
 use App\Services\AttachmentHelper;
 use Doctrine\Common\Annotations\IndexedReader;
+use Nyholm\Psr7\Request;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Mime\MimeTypeGuesserInterface;
+use Symfony\Component\Mime\MimeTypes;
+use Symfony\Component\Mime\MimeTypesInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
  * This service handles the form submitting of an attachment and handles things like file uploading and downloading.
@@ -60,11 +69,16 @@ class AttachmentSubmitHandler
     protected $pathResolver;
     protected $folder_mapping;
     protected $allow_attachments_downloads;
+    protected $httpClient;
+    protected $mimeTypes;
 
-    public function __construct(AttachmentPathResolver $pathResolver, bool $allow_attachments_downloads)
+    public function __construct(AttachmentPathResolver $pathResolver, bool $allow_attachments_downloads,
+                                HttpClientInterface $httpClient, MimeTypesInterface $mimeTypes)
     {
         $this->pathResolver = $pathResolver;
         $this->allow_attachments_downloads = $allow_attachments_downloads;
+        $this->httpClient = $httpClient;
+        $this->mimeTypes = $mimeTypes;
 
         //The mapping used to determine which folder will be used for an attachment type
         $this->folder_mapping = [PartAttachment::class => 'part', AttachmentTypeAttachment::class => 'attachment_type',
@@ -182,6 +196,7 @@ class AttachmentSubmitHandler
      * @param Attachment $attachment
      * @param array $options The options from the handleFormSubmit function
      * @return Attachment The attachment with the new filepath
+     * @throws AttachmentDownloadException
      */
     protected function downloadURL(Attachment $attachment, array $options) : Attachment
     {
@@ -189,6 +204,73 @@ class AttachmentSubmitHandler
         if (!$this->allow_attachments_downloads) {
             throw new \RuntimeException('Download of attachments is not allowed!');
         }
+
+        $url = $attachment->getURL();
+
+        $fs = new Filesystem();
+        $attachment_folder = $this->generateAttachmentPath($attachment, $options['secure_attachment']);
+        $tmp_path = $attachment_folder . DIRECTORY_SEPARATOR . $this->generateAttachmentFilename($attachment, 'tmp');
+
+        try {
+            $response = $this->httpClient->request('GET', $url, [
+                'buffer' => false,
+            ]);
+
+            if (200 !== $response->getStatusCode()) {
+                throw new AttachmentDownloadException('Statuscode:' . $response->getStatusCode());
+            }
+
+            //Open a temporary file in the attachment folder
+            $fs->mkdir($attachment_folder);
+            $fileHandler = fopen($tmp_path, 'wb');
+            //Write the downloaded data to file
+            foreach ($this->httpClient->stream($response) as $chunk) {
+                fwrite($fileHandler, $chunk->getContent());
+            }
+            fclose($fileHandler);
+
+            //File download should be finished here, so determine the new filename and extension
+            $headers = $response->getHeaders();
+            //Try to determine an filename
+            $filename = "";
+
+            //If an content disposition header was set try to extract the filename out of it
+            if (isset($headers['content-disposition'])) {
+                $tmp = [];
+                preg_match('/[^;\\n=]*=([\'\"])*(.*)(?(1)\1|)/', $headers['content-disposition'][0], $tmp);
+                $filename = $tmp[2];
+            }
+
+            //If we dont know filename yet, try to determine it out of url
+            if ($filename === "") {
+                $filename = basename(parse_url($url, PHP_URL_PATH));
+            }
+
+            //Set original file
+            $attachment->setFilename($filename);
+
+            //Check if we have a extension given
+            $pathinfo = pathinfo($filename);
+            if (!empty($pathinfo['extension'])) {
+                $new_ext = $pathinfo['extension'];
+            } else { //Otherwise we have to guess the extension for the new file, based on its content
+                $new_ext = $this->mimeTypes->getExtensions($this->mimeTypes->guessMimeType($tmp_path))[0] ?? 'tmp';
+            }
+
+            //Rename the file to its new name and save path to attachment entity
+            $new_path = $attachment_folder . DIRECTORY_SEPARATOR . $this->generateAttachmentFilename($attachment, $new_ext);
+            $fs->rename($tmp_path, $new_path);
+
+            //Make our file path relative to %BASE%
+            $new_path = $this->pathResolver->realPathToPlaceholder($new_path);
+            //Save the path to the attachment
+            $attachment->setPath($new_path);
+
+        } catch (TransportExceptionInterface $exception) {
+            throw new AttachmentDownloadException('Transport error!');
+        }
+
+        return $attachment;
     }
 
     /**
@@ -200,7 +282,6 @@ class AttachmentSubmitHandler
      */
     protected function upload(Attachment $attachment, UploadedFile $file, array $options) : Attachment
     {
-
         //Move our temporay attachment to its final location
         $file_path = $file->move(
             $this->generateAttachmentPath($attachment, $options['secure_attachment']),

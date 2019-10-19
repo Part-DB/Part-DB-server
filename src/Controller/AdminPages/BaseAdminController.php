@@ -105,7 +105,11 @@ abstract class BaseAdminController extends AbstractController
             $attachments = $form['attachments'];
             foreach ($attachments as $attachment) {
                 /** @var $attachment FormInterface */
-                $this->attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData());
+                $options = [
+                    'secure_attachment' => $attachment['secureFile']->getData(),
+                    'download_url' => $attachment['downloadURL']->getData()
+                ];
+                $this->attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
             }
 
             $em->persist($entity);

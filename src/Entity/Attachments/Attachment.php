@@ -291,6 +291,9 @@ abstract class Attachment extends NamedDBElement
      */
     public function setFilename(?string $new_filename): Attachment
     {
+        if ($new_filename === "") {
+            $new_filename = null;
+        }
         $this->original_filename = $new_filename;
         return $this;
     }
