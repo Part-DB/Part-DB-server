@@ -146,6 +146,11 @@ abstract class Attachment extends NamedDBElement
      */
     public function isExternal() : bool
     {
+        //When path is empty, this attachment can not be external
+        if (empty($this->path)) {
+            return false;
+        }
+
         //After the %PLACEHOLDER% comes a slash, so we can check if we have a placholder via explode
         $tmp = explode("/", $this->path);
 

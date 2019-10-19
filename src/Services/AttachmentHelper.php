@@ -48,6 +48,7 @@ use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
 use App\Services\Attachments\AttachmentPathResolver;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AttachmentHelper
 {
@@ -167,66 +168,7 @@ class AttachmentHelper
         return sprintf("%.{$decimals}f", $bytes / 1024 ** $factor) . @$sz[$factor];
     }
 
-    /**
-     * Generate a path to a folder, where this attachment can save its file.
-     * @param Attachment $attachment The attachment for which the folder should be generated
-     * @return string The path to the folder (without trailing slash)
-     */
-    public function generateFolderForAttachment(Attachment $attachment) : string
-    {
-        $mapping = [PartAttachment::class => 'part', AttachmentTypeAttachment::class => 'attachment_type',
-            CategoryAttachment::class => 'category', CurrencyAttachment::class => 'currency',
-            DeviceAttachment::class => 'device', FootprintAttachment::class => 'footprint',
-            GroupAttachment::class => 'group', ManufacturerAttachment::class => 'manufacturer',
-            MeasurementUnitAttachment::class => 'measurement_unit', StorelocationAttachment::class => 'storelocation',
-            SupplierAttachment::class => 'supplier', UserAttachment::class => 'user'];
 
-        $path = $this->pathResolver->getMediaPath() . DIRECTORY_SEPARATOR . $mapping[get_class($attachment)] . DIRECTORY_SEPARATOR . $attachment->getElement()->getID();
-        return $path;
-    }
 
-    /**
-     * Moves the given uploaded file to a permanent place and saves it into the attachment
-     * @param Attachment $attachment The attachment in which the file should be saved
-     * @param UploadedFile|null $file The file which was uploaded
-     * @param bool $become_preview_if_empty If this is true, the uploaded attachment can become the preview picture
-     * if the of the element, if no was set already.
-     * @return Attachment The attachment with the new filepath
-     */
-    public function upload(Attachment $attachment, ?UploadedFile $file, bool $become_preview_if_empty = true) : Attachment
-    {
-        //If file is null, do nothing (helpful, so we dont have to check if the file was reuploaded in controller)
-        if (!$file) {
-            return $attachment;
-        }
-
-        $folder = $this->generateFolderForAttachment($attachment);
-
-        //Sanatize filename
-        $safeName = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $attachment->getName());
-        $newFilename = $safeName . '-' . uniqid('', false) . '.' . $file->getClientOriginalExtension();
-
-        //Move our temporay attachment to its final location
-        $file_path = $file->move($folder, $newFilename)->getRealPath();
-
-        //Make our file path relative to %BASE%
-        $file_path = $this->pathResolver->realPathToPlaceholder($file_path);
-
-        //Save the path to the attachment
-        $attachment->setPath($file_path);
-        //And save original filename
-        $attachment->setFilename($file->getClientOriginalName());
-
-        //Check if we should assign this to master picture
-        //this is only possible if the attachment is new (not yet persisted to DB)
-        if ($become_preview_if_empty && $attachment->getID() === null && $attachment->isPicture()) {
-            $element = $attachment->getElement();
-            if ($element instanceof AttachmentContainingDBElement && $element->getMasterPictureAttachment() === null) {
-                $element->setMasterPictureAttachment($attachment);
-            }
-        }
-
-        return $attachment;
-    }
 
 }

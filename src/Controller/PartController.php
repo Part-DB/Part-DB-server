@@ -34,6 +34,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Form\Part\PartBaseType;
 use App\Services\AttachmentHelper;
+use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\PricedetailHelper;
 use Doctrine\ORM\EntityManagerInterface;
@@ -81,7 +82,7 @@ class PartController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function edit(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
-                         AttachmentHelper $attachmentHelper)
+                         AttachmentHelper $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler)
     {
         $this->denyAccessUnlessGranted('edit', $part);
 
@@ -93,7 +94,7 @@ class PartController extends AbstractController
             $attachments = $form['attachments'];
             foreach ($attachments as $attachment) {
                 /** @var $attachment FormInterface */
-                $attachmentHelper->upload( $attachment->getData(), $attachment['file']->getData());
+                $attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData());
             }
 
 
@@ -148,7 +149,7 @@ class PartController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
-                        AttachmentHelper $attachmentHelper)
+                        AttachmentHelper $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler)
     {
         $new_part = new Part();
 
@@ -168,7 +169,7 @@ class PartController extends AbstractController
             $attachments = $form['attachments'];
             foreach ($attachments as $attachment) {
                 /** @var $attachment FormInterface */
-                $attachmentHelper->upload( $attachment->getData(), $attachment['file']->getData());
+                $attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData());
             }
 
             $em->persist($new_part);

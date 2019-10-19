@@ -37,6 +37,7 @@ use App\Entity\UserSystem\User;
 use App\Form\AdminPages\ImportType;
 use App\Form\AdminPages\MassCreationForm;
 use App\Services\AttachmentHelper;
+use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
@@ -64,8 +65,10 @@ abstract class BaseAdminController extends AbstractController
     protected $passwordEncoder;
     protected $translator;
     protected $attachmentHelper;
+    protected $attachmentSubmitHandler;
 
-    public function __construct(TranslatorInterface $translator, UserPasswordEncoderInterface $passwordEncoder, AttachmentHelper $attachmentHelper)
+    public function __construct(TranslatorInterface $translator, UserPasswordEncoderInterface $passwordEncoder,
+                                AttachmentHelper $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler)
     {
         if ($this->entity_class === '' || $this->form_class === '' || $this->twig_template === '' || $this->route_base === '') {
             throw new \InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');
@@ -78,6 +81,7 @@ abstract class BaseAdminController extends AbstractController
         $this->translator = $translator;
         $this->passwordEncoder = $passwordEncoder;
         $this->attachmentHelper = $attachmentHelper;
+        $this->attachmentSubmitHandler = $attachmentSubmitHandler;
     }
 
     protected function _edit(NamedDBElement $entity, Request $request, EntityManagerInterface $em)
@@ -101,7 +105,7 @@ abstract class BaseAdminController extends AbstractController
             $attachments = $form['attachments'];
             foreach ($attachments as $attachment) {
                 /** @var $attachment FormInterface */
-                $this->attachmentHelper->upload( $attachment->getData(), $attachment['file']->getData());
+                $this->attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData());
             }
 
             $em->persist($entity);
@@ -146,7 +150,7 @@ abstract class BaseAdminController extends AbstractController
             $attachments = $form['attachments'];
             foreach ($attachments as $attachment) {
                 /** @var $attachment FormInterface */
-                $this->attachmentHelper->upload( $attachment->getData(), $attachment['file']->getData());
+                $this->attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData());
             }
 
             $em->persist($new_entity);

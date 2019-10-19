@@ -47,6 +47,7 @@ class AttachmentPathResolver
     protected $media_path;
     protected $footprints_path;
     protected $models_path;
+    protected $secure_path;
 
     protected $placeholders;
     protected $pathes;
@@ -61,21 +62,19 @@ class AttachmentPathResolver
      * Set to null if this ressource should be disabled.
      * @param string|null $models_path Set to null if this ressource should be disabled.
      */
-    public function __construct(string $project_dir, string $media_path, ?string $footprints_path, ?string $models_path)
+    public function __construct(string $project_dir, string $media_path, string $secure_path, ?string $footprints_path, ?string $models_path)
     {
         $this->project_dir = $project_dir;
 
         //Determine the path for our ressources
         $this->media_path = $this->parameterToAbsolutePath($media_path);
-        /* if ($this->media_path === null) {
-            throw new \RuntimeException("MediaPath is not existing/valid! This parameter is not allowed!");
-        } */
         $this->footprints_path = $this->parameterToAbsolutePath($footprints_path);
         $this->models_path = $this->parameterToAbsolutePath($models_path);
+        $this->secure_path = $this->parameterToAbsolutePath($secure_path);
 
         //Here we define the valid placeholders and their replacement values
-        $this->placeholders = ['%MEDIA%', '%BASE%/data/media', '%FOOTPRINTS%', '%FOOTPRINTS_3D%'];
-        $this->pathes = [$this->media_path, $this->media_path, $this->footprints_path, $this->models_path];
+        $this->placeholders = ['%MEDIA%', '%BASE%/data/media', '%FOOTPRINTS%', '%FOOTPRINTS_3D%', '%SECURE%'];
+        $this->pathes = [$this->media_path, $this->media_path, $this->footprints_path, $this->models_path, $this->secure_path];
 
         //Remove all disabled placeholders
         foreach ($this->pathes as $key => $path) {
@@ -223,6 +222,16 @@ class AttachmentPathResolver
     public function getMediaPath() : string
     {
         return $this->media_path;
+    }
+
+    /**
+     * The path where secured attachments are stored. Must not be located in public/ folder, so it can only be accessed
+     * via the attachment controller.
+     * @return string The absolute path to the secure path.
+     */
+    public function getSecurePath() : string
+    {
+        return $this->secure_path;
     }
 
     /**

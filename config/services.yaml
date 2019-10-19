@@ -12,8 +12,10 @@ parameters:
     use_gravatar: true          # Set to false, if no Gravatar images should be used for user profiles.
     default_currency: 'EUR'     # The currency that should be used
     media_directory: 'public/media/' # The folder where uploaded attachment files are saved
+    secure_media_directory: 'media/' # The folder where secured attachment files are saved (must not be in public/)
     db_version_fallback: '5.6'  # Be sure to override this, in your .env with your real DB version
     global_theme: ''            # The theme to use globally (see public/build/themes/ for choices). Set to '' for default bootstrap theme
+    allow_attachments_downloads: true # Allow users to download attachments to server
 
 services:
     # default configuration for services in *this* file
@@ -75,6 +77,15 @@ services:
       arguments:
         $base_currency: '%default_currency%'
 
+    App\Form\AttachmentFormType:
+        arguments:
+            $allow_attachments_downloads: '%allow_attachments_downloads%'
+
+    App\Services\Attachments\AttachmentSubmitHandler:
+        arguments:
+            $allow_attachments_downloads: '%allow_attachments_downloads%'
+
+
     App\EventSubscriber\TimezoneListener:
         arguments:
             $timezone: '%timezone%'
@@ -83,6 +94,7 @@ services:
         arguments:
             $project_dir: '%kernel.project_dir%'
             $media_path: '%media_directory%'
+            $secure_path: '%secure_media_directory%'
             $footprints_path: 'public/img/footprints'
             $models_path: null
 

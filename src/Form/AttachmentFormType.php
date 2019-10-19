@@ -56,12 +56,15 @@ class AttachmentFormType extends AbstractType
     protected $attachment_helper;
     protected $trans;
     protected $urlGenerator;
+    protected $allow_attachments_download;
 
-    public function __construct(AttachmentHelper $attachmentHelper, TranslatorInterface $trans, UrlGeneratorInterface $urlGenerator)
+    public function __construct(AttachmentHelper $attachmentHelper, TranslatorInterface $trans,
+                                UrlGeneratorInterface $urlGenerator, bool $allow_attachments_downloads)
     {
         $this->attachment_helper = $attachmentHelper;
         $this->trans = $trans;
         $this->urlGenerator = $urlGenerator;
+        $this->allow_attachments_download = $allow_attachments_downloads;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -93,6 +96,13 @@ class AttachmentFormType extends AbstractType
                 $options['allow_builtins'] ? new UrlOrBuiltin() : new Url()
             ]
         ]);
+
+        $builder->add('downloadURL', CheckboxType::class, ['required' => false,
+            'label' =>  $this->trans->trans('attachment.edit.download_url'),
+            'mapped' => false,
+            'disabled' => !$this->allow_attachments_download,
+            'attr' => ['class' => 'form-control-sm'],
+            'label_attr' => ['class' => 'checkbox-custom']]);
 
         $builder->add('file', FileType::class, [
             'label' =>  $this->trans->trans('attachment.edit.file'),

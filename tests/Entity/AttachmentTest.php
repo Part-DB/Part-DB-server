@@ -42,6 +42,10 @@ class AttachmentTest extends TestCase
     public function testIsExternal()
     {
         $attachment = new PartAttachment();
+
+        $this->setProtectedProperty($attachment, 'path', '');
+        $this->assertFalse($attachment->isExternal());
+
         $this->setProtectedProperty($attachment, 'path', '%MEDIA%/foo/bar.txt');
         $this->assertFalse($attachment->isExternal());
 
