@@ -15,7 +15,8 @@ parameters:
     secure_media_directory: 'uploads/' # The folder where secured attachment files are saved (must not be in public/)
     db_version_fallback: '5.6'  # Be sure to override this, in your .env with your real DB version
     global_theme: ''            # The theme to use globally (see public/build/themes/ for choices). Set to '' for default bootstrap theme
-    allow_attachments_downloads: true # Allow users to download attachments to server
+    # Allow users to download attachments to server. Warning: This can be dangerous, because via that feature attackers maybe can access ressources on your intranet!
+    allow_attachments_downloads: false
 
 services:
     # default configuration for services in *this* file
