@@ -39,119 +39,141 @@ use ReflectionClass;
 
 class AttachmentTest extends TestCase
 {
-    public function testIsExternal()
+    public function externalDataProvider()
     {
-        $attachment = new PartAttachment();
-
-        $this->setProtectedProperty($attachment, 'path', '');
-        $this->assertFalse($attachment->isExternal());
-
-        $this->setProtectedProperty($attachment, 'path', '%MEDIA%/foo/bar.txt');
-        $this->assertFalse($attachment->isExternal());
-
-        $this->setProtectedProperty($attachment, 'path', '%BASE%/foo/bar.jpg');
-        $this->assertFalse($attachment->isExternal());
-
-        $this->setProtectedProperty($attachment, 'path', '%FOOTPRINTS%/foo/bar.jpg');
-        $this->assertFalse($attachment->isExternal());
-
-        $this->setProtectedProperty($attachment, 'path', '%FOOTPRINTS3D%/foo/bar.jpg');
-        $this->assertFalse($attachment->isExternal());
-
-        //Every other string is not a external attachment
-        $this->setProtectedProperty($attachment, 'path', '%test%/foo/bar.ghp');
-        $this->assertTrue($attachment->isExternal());
-
-        $this->setProtectedProperty($attachment, 'path', 'foo%MEDIA%/foo.jpg');
-        $this->assertTrue($attachment->isExternal());
-
-        $this->setProtectedProperty($attachment, 'path', 'foo%MEDIA%/%BASE%foo.jpg');
-        $this->assertTrue($attachment->isExternal());
+        return [
+            ['', false],
+            ['%MEDIA%/foo/bar.txt', false],
+            ['%BASE%/foo/bar.jpg', false],
+            ['%FOOTPRINTS%/foo/bar.jpg', false],
+            ['%FOOTPRINTS3D%/foo/bar.jpg', false],
+            ['%SECURE%/test.txt', false],
+            ['%test%/foo/bar.ghp', true],
+            ['foo%MEDIA%/foo.jpg', true],
+            ['foo%MEDIA%/%BASE%foo.jpg', true]
+        ];
     }
 
-    public function testGetExtension()
+    /**
+     * @dataProvider externalDataProvider
+     */
+    public function testIsExternal($path, $expected)
     {
         $attachment = new PartAttachment();
-        $this->setProtectedProperty($attachment, 'path', '%MEDIA%/foo/bar.txt');
-        $this->assertEquals('txt', $attachment->getExtension());
-
-        $this->setProtectedProperty($attachment, 'path', '%MEDIA%/foo/bar.JPeg');
-        $this->assertEquals('jpeg', $attachment->getExtension());
-
-        //Test if we can override the filename
-        $this->setProtectedProperty($attachment, 'path', '%MEDIA%/foo/bar.JPeg');
-        $this->setProtectedProperty($attachment, 'original_filename', 'test.txt');
-        $this->assertEquals('txt', $attachment->getExtension());
-
-        $this->setProtectedProperty($attachment, 'path', 'https://foo.bar');
-        $this->assertNull( $attachment->getExtension());
-
-        $this->setProtectedProperty($attachment, 'path', 'https://foo.bar/test.jpeg');
-        $this->assertNull( $attachment->getExtension());
+        $this->setProtectedProperty($attachment, 'path', $path);
+        $this->assertEquals($expected, $attachment->isExternal());
     }
 
-    public function testIsPicture()
+    public function extensionDataProvider()
     {
-        $attachment = new PartAttachment();
-        $this->setProtectedProperty($attachment, 'path', '%MEDIA%/foo/bar.txt');
-        $this->assertFalse($attachment->isPicture());
-
-        $this->setProtectedProperty($attachment, 'path', 'https://test.de/picture.jpeg');
-        $this->assertTrue($attachment->isPicture());
-
-        $this->setProtectedProperty($attachment, 'path', 'https://test.de');
-        $this->assertTrue($attachment->isPicture());
-
-        $this->setProtectedProperty($attachment, 'path', '%MEDIA%/foo/bar.jpeg');
-        $this->assertTrue($attachment->isPicture());
-
-        $this->setProtectedProperty($attachment, 'path', '%MEDIA%/foo/bar.webp');
-        $this->assertTrue($attachment->isPicture());
+        return [
+            ['%MEDIA%/foo/bar.txt', null, 'txt'],
+            ['%MEDIA%/foo/bar.JPeg', null, 'jpeg'],
+            ['%MEDIA%/foo/bar.JPeg', 'test.txt', 'txt'],
+            ['%MEDIA%/foo/bar', null, ''],
+            ['%MEDIA%/foo.bar', 'bar', ''],
+            ['http://google.de', null, null],
+            ['https://foo.bar', null, null],
+            ['https://foo.bar/test.jpeg', null, null],
+            ['test', null, null],
+            ['test.txt', null, null],
+        ];
     }
 
-    public function testIsBuiltIn()
+    /**
+     * @dataProvider extensionDataProvider
+     */
+    public function testGetExtension($path, $originalFilename, $expected)
     {
         $attachment = new PartAttachment();
-        $this->setProtectedProperty($attachment, 'path', '%MEDIA%/foo/bar.txt');
-        $this->assertFalse($attachment->isBuiltIn());
-
-        $this->setProtectedProperty($attachment, 'path', '%BASE%/foo/bar.txt');
-        $this->assertFalse($attachment->isBuiltIn());
-
-        $this->setProtectedProperty($attachment, 'path', '/');
-        $this->assertFalse($attachment->isBuiltIn());
-
-        $this->setProtectedProperty($attachment, 'path', 'https://google.de');
-        $this->assertFalse($attachment->isBuiltIn());
-
-        $this->setProtectedProperty($attachment, 'path', '%FOOTPRINTS%/foo/bar.txt');
-        $this->assertTrue($attachment->isBuiltIn());
-
-
+        $this->setProtectedProperty($attachment, 'path', $path);
+        $this->setProtectedProperty($attachment, 'original_filename', $originalFilename);
+        $this->assertEquals($expected, $attachment->getExtension());
     }
 
-    public function testGetHost()
+    public function pictureDataProvider()
     {
-        $attachment = new PartAttachment();
-        $this->setProtectedProperty($attachment, 'path', '%MEDIA%/foo/bar.txt');
-        $this->assertNull($attachment->getHost());
-
-        $this->setProtectedProperty($attachment, 'path', 'https://www.google.de/test.txt');
-        $this->assertEquals('www.google.de', $attachment->getHost());
+        return [
+            ['%MEDIA%/foo/bar.txt', false],
+            ['https://test.de/picture.jpeg', true],
+            ['https://test.de', true],
+            ['http://test.de/google.de', true],
+            ['%MEDIA%/foo/bar.jpeg', true],
+            ['%MEDIA%/foo/bar.webp', true],
+            ['%MEDIA%/foo', false],
+            ['%SECURE%/foo.txt/test', false],
+        ];
     }
 
-    public function testGetFilename()
+    /**
+     * @dataProvider pictureDataProvider
+     */
+    public function testIsPicture($path, $expected)
     {
         $attachment = new PartAttachment();
-        $this->setProtectedProperty($attachment, 'path', '%MEDIA%/foo/bar.txt');
-        $this->assertEquals('bar.txt', $attachment->getFilename());
+        $this->setProtectedProperty($attachment, 'path', $path);
+        $this->assertEquals($expected, $attachment->isPicture());
+    }
 
-        $this->setProtectedProperty($attachment, 'path', '%MEDIA%/foo/bar.JPeg');
-        $this->setProtectedProperty($attachment, 'original_filename', 'test.txt');
-        $this->assertEquals('test.txt', $attachment->getFilename());
+    public function builtinDataProvider()
+    {
+        return [
+            ['', false],
+            ['%MEDIA%/foo/bar.txt', false],
+            ['%BASE%/foo/bar.txt', false],
+            ['/', false],
+            ['https://google.de', false],
+            ['%FOOTPRINTS%/foo/bar.txt', true]
+        ];
+    }
 
-        $this->setProtectedProperty($attachment, 'path', 'https://www.google.de/test.txt');
-        $this->assertNull($attachment->getFilename());
+    /**
+     * @dataProvider builtinDataProvider
+     */
+    public function testIsBuiltIn($path, $expected)
+    {
+        $attachment = new PartAttachment();
+        $this->setProtectedProperty($attachment, 'path', $path);
+        $this->assertEquals($expected, $attachment->isBuiltIn());
+    }
+
+    public function hostDataProvider()
+    {
+        return [
+            ['%MEDIA%/foo/bar.txt', null],
+            ['https://www.google.de/test.txt', 'www.google.de'],
+            ['https://foo.bar/test?txt=test', 'foo.bar'],
+        ];
+    }
+
+    /**
+     * @dataProvider hostDataProvider
+     */
+    public function testGetHost($path, $expected)
+    {
+        $attachment = new PartAttachment();
+        $this->setProtectedProperty($attachment, 'path', $path);
+        $this->assertEquals($expected, $attachment->getHost());
+    }
+
+    public function filenameProvider()
+    {
+        return [
+            ['%MEDIA%/foo/bar.txt', null, 'bar.txt'],
+            ['%MEDIA%/foo/bar.JPeg', 'test.txt', 'test.txt'],
+            ['https://www.google.de/test.txt', null, null]
+        ];
+    }
+
+    /**
+     * @dataProvider filenameProvider
+     */
+    public function testGetFilename($path, $original_filename, $expected)
+    {
+        $attachment = new PartAttachment();
+        $this->setProtectedProperty($attachment, 'path', $path);
+        $this->setProtectedProperty($attachment, 'original_filename', $original_filename);
+        $this->assertEquals($expected, $attachment->getFilename());
     }
 
     public function testIsURL()
