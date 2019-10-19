@@ -31,18 +31,45 @@
 namespace App\Controller;
 
 use App\Services\GitVersionInfo;
+use SebastianBergmann\CodeCoverage\Node\File;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\CacheItem;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\CacheInterface;
 
 class HomepageController extends AbstractController
 {
+    protected $cache;
+    protected $kernel;
+
+    public function __construct(CacheInterface $cache, KernelInterface $kernel)
+    {
+        $this->cache = $cache;
+        $this->kernel = $kernel;
+    }
+
+    public function getBanner() : string
+    {
+        $banner = $this->getParameter('banner');
+        if (empty($banner)) {
+            $banner_path = $this->kernel->getProjectDir()
+                . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'banner.md';
+
+            return file_get_contents($banner_path);
+        }
+
+        return $banner;
+    }
+
     /**
      * @Route("/", name="homepage")
      */
     public function homepage(GitVersionInfo $versionInfo)
     {
         return $this->render('homepage.html.twig', [
-            'banner' => $this->getParameter('banner'),
+            'banner' => $this->getBanner(),
             'git_branch' => $versionInfo->getGitBranchName(),
             'git_commit' => $versionInfo->getGitCommitHash()
         ]);

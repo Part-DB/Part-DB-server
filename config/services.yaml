@@ -8,7 +8,7 @@ parameters:
     locale: 'en'                # Set the default language to use her
     timezone: 'Europe/Berlin'
     partdb_title: 'Part-DB'     # The title shown inside of Part-DB (e.g. in the navbar and on homepage)
-    banner: ''                  # The info text shown in the homepage
+    banner: '%env(trim:string:BANNER)%'    # The info text shown in the homepage, if empty config/banner.md is used
     use_gravatar: true          # Set to false, if no Gravatar images should be used for user profiles.
     default_currency: 'EUR'     # The currency that should be used
     media_directory: 'public/media/' # The folder where uploaded attachment files are saved
