@@ -50,7 +50,15 @@ use App\Services\Attachments\AttachmentPathResolver;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AttachmentHelper
+/**
+ * This service contains basic commonly used functions to work with attachments.
+ * Especially this services gives you important infos about attachments, that can not be retrieved via the entities
+ * (like filesize or if a file is existing).
+ *
+ * Special operations like getting attachment urls or handling file uploading/downloading are in their own services.
+ * @package App\Services
+ */
+class AttachmentManager
 {
 
     protected $pathResolver;
@@ -167,8 +175,4 @@ class AttachmentHelper
         $factor = (int) floor((strlen($bytes) - 1) / 3);
         return sprintf("%.{$decimals}f", $bytes / 1024 ** $factor) . @$sz[$factor];
     }
-
-
-
-
 }

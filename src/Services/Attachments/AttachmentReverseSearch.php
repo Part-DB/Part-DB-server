@@ -61,8 +61,8 @@ class AttachmentReverseSearch
 
     /**
      * Find all attachments that use the given file
-     * @param File $file
-     * @return Attachment[]
+     * @param \SplFileInfo $file The file for which is searched
+     * @return Attachment[] An list of attachments that use the given file.
      */
     public function findAttachmentsByFile(\SplFileInfo $file) : array
     {
