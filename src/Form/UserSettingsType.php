@@ -6,6 +6,8 @@ use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\User;
 use App\Form\Type\CurrencyEntityType;
 use App\Form\Type\StructuralEntityType;
+use Doctrine\ORM\Query\Parameter;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -26,10 +28,13 @@ class UserSettingsType extends AbstractType
 
     protected $trans;
 
-    public function __construct(Security $security, TranslatorInterface $trans)
+    protected $demo_mode;
+
+    public function __construct(Security $security, TranslatorInterface $trans, bool $demo_mode)
     {
         $this->security = $security;
         $this->trans = $trans;
+        $this->demo_mode = $demo_mode;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -37,29 +42,30 @@ class UserSettingsType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => $this->trans->trans('user.username.label'),
-                'disabled' => !$this->security->isGranted('edit_username', $options['data']),
+                'disabled' => !$this->security->isGranted('edit_username', $options['data']) || $this->demo_mode,
             ])
             ->add('first_name', TextType::class, [
                 'required' => false,
                 'label' => $this->trans->trans('user.firstName.label'),
-                'disabled' => !$this->security->isGranted('edit_infos', $options['data']),
+                'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
             ->add('last_name', TextType::class, [
                 'required' => false,
                 'label' => $this->trans->trans('user.lastName.label'),
-                'disabled' => !$this->security->isGranted('edit_infos', $options['data']),
+                'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
             ->add('department', TextType::class, [
                 'required' => false,
                 'label' => $this->trans->trans('user.department.label'),
-                'disabled' => !$this->security->isGranted('edit_infos', $options['data']),
+                'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
             ->add('email', EmailType::class, [
                 'required' => false,
                 'label' => $this->trans->trans('user.email.label'),
-                'disabled' => !$this->security->isGranted('edit_infos', $options['data']),
+                'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
             ->add('language', LanguageType::class, [
+                'disabled' => $this->demo_mode,
                 'required' => false,
                 'attr' => ['class' => 'selectpicker', 'data-live-search' => true],
                 'placeholder' => $this->trans->trans('user_settings.language.placeholder'),
@@ -67,6 +73,7 @@ class UserSettingsType extends AbstractType
                 'preferred_choices' => ['en', 'de']
                 ])
             ->add('timezone', TimezoneType::class, [
+                'disabled' => $this->demo_mode,
                 'required' => false,
                 'attr' => ['class' => 'selectpicker', 'data-live-search' => true],
                 'placeholder' => $this->trans->trans('user_settings.timezone.placeholder'),
@@ -74,6 +81,7 @@ class UserSettingsType extends AbstractType
                 'preferred_choices' => ['Europe/Berlin']
                 ])
             ->add('theme', ChoiceType::class, [
+                'disabled' => $this->demo_mode,
                 'required' => false,
                 'attr' => ['class' => 'selectpicker'],
                 'choices' => User::AVAILABLE_THEMES,
@@ -84,6 +92,7 @@ class UserSettingsType extends AbstractType
                 'label' => $this->trans->trans('user.theme.label'),
                 ])
             ->add('currency', CurrencyEntityType::class, [
+                'disabled' => $this->demo_mode,
                 'required' => false,
                 'label' => $this->trans->trans('user.currency.label')
             ])

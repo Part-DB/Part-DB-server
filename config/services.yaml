@@ -17,6 +17,7 @@ parameters:
     global_theme: ''            # The theme to use globally (see public/build/themes/ for choices). Set to '' for default bootstrap theme
     # Allow users to download attachments to server. Warning: This can be dangerous, because via that feature attackers maybe can access ressources on your intranet!
     allow_attachments_downloads: false
+    demo_mode: '%env(bool:DEMO_MODE)%' # If set to true, all potentially dangerous things are disabled (like changing passwords of the own user)
 
 services:
     # default configuration for services in *this* file
@@ -87,6 +88,9 @@ services:
             $allow_attachments_downloads: '%allow_attachments_downloads%'
             $mimeTypes: '@mime_types'
 
+    App\Form\UserSettingsType:
+        arguments:
+            $demo_mode: '%demo_mode%'
 
     App\EventSubscriber\TimezoneListener:
         arguments:

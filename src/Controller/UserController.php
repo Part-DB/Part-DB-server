@@ -197,11 +197,15 @@ class UserController extends AdminPages\BaseAdminController
          * Password change form
          ****************************/
 
+        $demo_mode = $this->getParameter('demo_mode');
+
         $pw_form = $this->createFormBuilder()
             ->add('old_password', PasswordType::class, [
                 'label' => 'user.settings.pw_old.label',
+                'disabled' => $demo_mode,
                 'constraints' => [new UserPassword()], ]) //This constraint checks, if the current user pw was inputted.
             ->add('new_password', RepeatedType::class, [
+                'disabled' => $demo_mode,
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'user.settings.pw_new.label'],
                 'second_options' => ['label' => 'user.settings.pw_confirm.label'],
