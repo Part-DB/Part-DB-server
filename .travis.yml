@@ -18,8 +18,12 @@ php:
 install:
   - composer install
   - php bin/console --env test doctrine:database:create --if-not-exists -n
+# Migration is just for testing if it work, it is overwritten immediately
   - php bin/console --env test doctrine:migrations:migrate -n
-  - php bin/console --env test doctrine:fixtures:load -n
+# Load fixtures (workaround https://github.com/doctrine/DoctrineFixturesBundle/issues/50)
+  - bin/console --env test doctrine:schema:drop --force \
+    && bin/console --env test doctrine:schema:update --force \
+    && bin/console --env test doctrine:fixtures:load -n
 
 script:
   - php bin/phpunit
