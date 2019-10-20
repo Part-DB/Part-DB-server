@@ -20,8 +20,8 @@ before_install:
 
 install:
   - composer install
-  - php bin/console doctrine:migrations:migrate -n
-  - php bin/console doctrine:fixtures:load -n
+  - php bin/console --env test doctrine:migrations:migrate -n
+  - php bin/console --env test doctrine:fixtures:load -n
 
 script:
   - php bin/phpunit
