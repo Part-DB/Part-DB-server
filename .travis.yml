@@ -16,7 +16,7 @@ php:
   - 'nightly'
 
 before_install:
-  - mysql -e 'CREATE DATABASE partdb_test;
+  - mysql -e 'CREATE DATABASE partdb_test;'
 
 install:
   - composer install
