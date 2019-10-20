@@ -19,8 +19,10 @@ install:
   - php bin/console --env test doctrine:database:create --if-not-exists -n
   - php bin/console --env test doctrine:migrations:migrate -n
   # Load fixtures (we have to truncate database by ourselves or we get foreing key valiation errors
-  - php bin/console --env test doctrine:query:sql "SET foreign_key_checks = 0; TRUNCATE `groups`; TRUNCATE `users`;"
+  #- php bin/console --env test doctrine:query:sql "SET foreign_key_checks = 0; TRUNCATE `groups`; TRUNCATE `users`;"
+  - mysql -e "SET GLOBAL FOREIGN_KEY_CHECKS=0;"
   - php bin/console --env test doctrine:fixtures:load -n
+  - mysql -e "SET GLOBAL FOREIGN_KEY_CHECKS=1;"
 
 script:
   - php bin/phpunit
