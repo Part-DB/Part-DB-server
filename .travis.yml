@@ -15,11 +15,9 @@ php:
   - '7.4snapshot'
   - 'nightly'
 
-before_install:
-  - mysql -e 'CREATE DATABASE part-db_test;'
-
 install:
   - composer install
+  - php bin/console --env test doctrine:database:create --if-not-exists -n
   - php bin/console --env test doctrine:migrations:migrate -n
   - php bin/console --env test doctrine:fixtures:load -n
 
