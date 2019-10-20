@@ -51,9 +51,11 @@
         "webmozart/assert": "^1.4"
     },
     "require-dev": {
+        "dama/doctrine-test-bundle": "^5.0",
+        "doctrine/doctrine-fixtures-bundle": "^3.2",
         "roave/security-advisories": "dev-master",
         "symfony/debug-pack": "*",
-        "symfony/maker-bundle": "^1.0",
+        "symfony/maker-bundle": "^1.13",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "^1.0",
         "symfony/web-server-bundle": "4.3.*",

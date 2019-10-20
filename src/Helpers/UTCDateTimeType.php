@@ -42,12 +42,16 @@ use Doctrine\DBAL\Types\DateTimeType;
  */
 class UTCDateTimeType extends DateTimeType
 {
-    private static $utc;
+    private static $utc_timezone;
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
+        if (!self::$utc_timezone) {
+            self::$utc_timezone = new \DateTimeZone('UTC');
+        }
+
         if ($value instanceof \DateTime) {
-            $value->setTimezone(self::$utc);
+            $value->setTimezone(self::$utc_timezone);
         }
 
         return parent::convertToDatabaseValue($value, $platform);
@@ -55,6 +59,10 @@ class UTCDateTimeType extends DateTimeType
 
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
+        if (!self::$utc_timezone) {
+            self::$utc_timezone = new \DateTimeZone('UTC');
+        }
+
         if (null === $value || $value instanceof \DateTime) {
             return $value;
         }
@@ -62,7 +70,7 @@ class UTCDateTimeType extends DateTimeType
         $converted = \DateTime::createFromFormat(
             $platform->getDateTimeFormatString(),
             $value,
-            self::$utc ? self::$utc : self::$utc = new \DateTimeZone('UTC')
+            self::$utc_timezone
         );
 
         if (! $converted) {
