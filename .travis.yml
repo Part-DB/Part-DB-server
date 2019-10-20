@@ -17,11 +17,9 @@ php:
 install:
   - composer install
   - php bin/console --env test doctrine:database:create --if-not-exists -n
-# Migration is just for testing if it work, it is overwritten immediately
   - php bin/console --env test doctrine:migrations:migrate -n
-# Load fixtures (workaround https://github.com/doctrine/DoctrineFixturesBundle/issues/50)
-  - php bin/console --env test doctrine:schema:drop --force
-  - php bin/console --env test doctrine:schema:update --force
+  # Load fixtures (we have to truncate database by ourselves or we get foreing key valiation errors
+  - php bin/console --env test doctrine:query:sql "SET foreign_key_checks = 0; TRUNCATE `groups`; TRUNCATE `users`;"
   - php bin/console --env test doctrine:fixtures:load -n
 
 script:
