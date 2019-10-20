@@ -4,8 +4,7 @@ services:
   - mysql
 
 env:
-  - SYMFONY_DEPRECATIONS_HELPER=disabled # Disable deprecation warnings
-  - APP_ENV=test
+  - SYMFONY_DEPRECATIONS_HELPER=disabled APP_ENV=test # Disable deprecation warnings
 
 # Test for all supported PHP versions
 php:
@@ -21,9 +20,9 @@ install:
 # Migration is just for testing if it work, it is overwritten immediately
   - php bin/console --env test doctrine:migrations:migrate -n
 # Load fixtures (workaround https://github.com/doctrine/DoctrineFixturesBundle/issues/50)
-  - bin/console --env test doctrine:schema:drop --force
-  - bin/console --env test doctrine:schema:update --force
-  - bin/console --env test doctrine:fixtures:load -n
+  - php bin/console --env test doctrine:schema:drop --force
+  - php bin/console --env test doctrine:schema:update --force
+  - php bin/console --env test doctrine:fixtures:load -n
 
 script:
   - php bin/phpunit
