@@ -59,8 +59,16 @@ class MeasurementUnitController extends BaseAdminController
     protected $attachment_class = MeasurementUnitAttachment::class;
 
     /**
+     * @Route("/{id}", name="measurement_unit_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, MeasurementUnit $entity, StructuralElementRecursionHelper $recursionHelper)
+    {
+        return $this->_delete($request, $entity, $recursionHelper);
+    }
+
+    /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="measurement_unit_edit")
-     * @Route("/{id}/", requirements={"id"="\d+"})
+     * @Route("/{id}", requirements={"id"="\d+"})
      */
     public function edit(MeasurementUnit $entity, Request $request, EntityManagerInterface $em)
     {
@@ -76,14 +84,6 @@ class MeasurementUnitController extends BaseAdminController
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
     {
         return $this->_new($request, $em, $importer);
-    }
-
-    /**
-     * @Route("/{id}", name="measurement_unit_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, MeasurementUnit $entity, StructuralElementRecursionHelper $recursionHelper)
-    {
-        return $this->_delete($request, $entity, $recursionHelper);
     }
 
     /**

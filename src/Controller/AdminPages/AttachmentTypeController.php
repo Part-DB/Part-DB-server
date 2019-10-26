@@ -57,8 +57,21 @@ class AttachmentTypeController extends BaseAdminController
     protected $attachment_class = AttachmentTypeAttachment::class;
 
     /**
+     * @Route("/{id}", name="attachment_type_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param AttachmentType $entity
+     * @param StructuralElementRecursionHelper $recursionHelper
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function delete(Request $request, AttachmentType $entity, StructuralElementRecursionHelper $recursionHelper)
+    {
+        return $this->_delete($request, $entity, $recursionHelper);
+    }
+
+
+    /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="attachment_type_edit")
-     * @Route("/{id}/", requirements={"id"="\d+"})
+     * @Route("/{id}", requirements={"id"="\d+"})
      * @param AttachmentType $entity
      * @param Request $request
      * @param EntityManagerInterface $em
@@ -81,18 +94,6 @@ class AttachmentTypeController extends BaseAdminController
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
     {
         return $this->_new($request, $em, $importer);
-    }
-
-    /**
-     * @Route("/{id}", name="attachment_type_delete", methods={"DELETE"})
-     * @param Request $request
-     * @param AttachmentType $entity
-     * @param StructuralElementRecursionHelper $recursionHelper
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function delete(Request $request, AttachmentType $entity, StructuralElementRecursionHelper $recursionHelper)
-    {
-        return $this->_delete($request, $entity, $recursionHelper);
     }
 
     /**

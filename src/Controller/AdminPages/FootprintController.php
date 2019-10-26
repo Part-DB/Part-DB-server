@@ -61,8 +61,17 @@ class FootprintController extends BaseAdminController
     protected $attachment_class = FootprintAttachment::class;
 
     /**
+     * @Route("/{id}", name="footprint_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, Footprint $entity, StructuralElementRecursionHelper $recursionHelper)
+    {
+        return $this->_delete($request, $entity, $recursionHelper);
+    }
+
+
+    /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="footprint_edit")
-     * @Route("/{id}/", requirements={"id"="\d+"})
+     * @Route("/{id}", requirements={"id"="\d+"})
      */
     public function edit(Footprint $entity, Request $request, EntityManagerInterface $em)
     {
@@ -78,14 +87,6 @@ class FootprintController extends BaseAdminController
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
     {
         return $this->_new($request, $em, $importer);
-    }
-
-    /**
-     * @Route("/{id}", name="footprint_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Footprint $entity, StructuralElementRecursionHelper $recursionHelper)
-    {
-        return $this->_delete($request, $entity, $recursionHelper);
     }
 
     /**

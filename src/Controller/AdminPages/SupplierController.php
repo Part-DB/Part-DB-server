@@ -58,8 +58,16 @@ class SupplierController extends BaseAdminController
     protected $attachment_class = SupplierAttachment::class;
 
     /**
+     * @Route("/{id}", name="supplier_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, Supplier $entity, StructuralElementRecursionHelper $recursionHelper)
+    {
+        return $this->_delete($request, $entity, $recursionHelper);
+    }
+
+    /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="supplier_edit")
-     * @Route("/{id}/", requirements={"id"="\d+"})
+     * @Route("/{id}", requirements={"id"="\d+"})
      */
     public function edit(Supplier $entity, Request $request, EntityManagerInterface $em)
     {
@@ -77,13 +85,6 @@ class SupplierController extends BaseAdminController
         return $this->_new($request, $em, $importer);
     }
 
-    /**
-     * @Route("/{id}", name="supplier_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Supplier $entity, StructuralElementRecursionHelper $recursionHelper)
-    {
-        return $this->_delete($request, $entity, $recursionHelper);
-    }
 
     /**
      * @Route("/export", name="supplier_export_all")

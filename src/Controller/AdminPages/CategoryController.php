@@ -57,8 +57,20 @@ class CategoryController extends BaseAdminController
     protected $attachment_class = CategoryAttachment::class;
 
     /**
+     * @Route("/{id}", name="category_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Category $entity
+     * @param StructuralElementRecursionHelper $recursionHelper
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function delete(Request $request, Category $entity, StructuralElementRecursionHelper $recursionHelper)
+    {
+        return $this->_delete($request, $entity, $recursionHelper);
+    }
+
+    /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="category_edit")
-     * @Route("/{id}/", requirements={"id"="\d+"})
+     * @Route("/{id}", requirements={"id"="\d+"})
      * @param Category $entity
      * @param Request $request
      * @param EntityManagerInterface $em
@@ -81,18 +93,6 @@ class CategoryController extends BaseAdminController
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
     {
         return $this->_new($request, $em, $importer);
-    }
-
-    /**
-     * @Route("/{id}", name="category_delete", methods={"DELETE"})
-     * @param Request $request
-     * @param Category $entity
-     * @param StructuralElementRecursionHelper $recursionHelper
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function delete(Request $request, Category $entity, StructuralElementRecursionHelper $recursionHelper)
-    {
-        return $this->_delete($request, $entity, $recursionHelper);
     }
 
     /**

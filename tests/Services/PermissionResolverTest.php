@@ -47,6 +47,7 @@ class PermissionResolverTest extends WebTestCase
     protected $service;
 
     protected $user;
+    protected $user_withoutGroup;
     protected $group;
 
     public function setUp()
@@ -67,6 +68,10 @@ class PermissionResolverTest extends WebTestCase
 
         $this->user = $this->createMock(User::class);
         $this->user->method('getPermissions')->willReturn($user_embed);
+
+        $this->user_withoutGroup = $this->createMock(User::class);
+        $this->user_withoutGroup->method('getPermissions')->willReturn($user_embed);
+        $this->user_withoutGroup->method('getGroup')->willReturn(null);
 
         //Set up a faked group
         $group1_embed = new PermissionsEmbed();
@@ -92,7 +97,6 @@ class PermissionResolverTest extends WebTestCase
         $parent_group->method('getPermissions')->willReturn($parent_group_embed);
 
         $this->group->method('getParent')->willReturn($parent_group);
-
     }
 
 
@@ -167,15 +171,22 @@ class PermissionResolverTest extends WebTestCase
         $this->assertNull($this->service->dontInherit($this->user, 'parts', 'create'));
         $this->assertNull($this->service->dontInherit($this->user, 'parts', 'show_history'));
         $this->assertNull($this->service->dontInherit($this->user, 'parts', 'delete'));
+
+        //Test for user without group
+        $this->assertTrue($this->service->dontInherit($this->user_withoutGroup, 'parts', 'read'));
+        $this->assertFalse($this->service->dontInherit($this->user_withoutGroup, 'parts', 'edit'));
+        $this->assertNull($this->service->dontInherit($this->user_withoutGroup, 'parts', 'create'));
+        $this->assertNull($this->service->dontInherit($this->user_withoutGroup, 'parts', 'show_history'));
+        $this->assertNull($this->service->dontInherit($this->user_withoutGroup, 'parts', 'delete'));
     }
 
     public function testInherit()
     {
         //Not inherited values should be same as dont inherit:
-        $this->assertTrue($this->service->Inherit($this->user, 'parts', 'read'));
-        $this->assertFalse($this->service->Inherit($this->user, 'parts', 'edit'));
+        $this->assertTrue($this->service->inherit($this->user, 'parts', 'read'));
+        $this->assertFalse($this->service->inherit($this->user, 'parts', 'edit'));
         //When thing can not be resolved null should be returned
-        $this->assertNull($this->service->Inherit($this->user, 'parts', 'create'));
+        $this->assertNull($this->service->inherit($this->user, 'parts', 'create'));
 
         //Check for inherit from group
         $this->assertTrue($this->service->inherit($this->user, 'parts', 'show_history'));
@@ -186,6 +197,13 @@ class PermissionResolverTest extends WebTestCase
         $this->assertTrue($this->service->inherit($this->user, 'parts', 'all_parts'));
         $this->assertFalse($this->service->inherit($this->user, 'parts', 'no_price_parts'));
         $this->assertNull($this->service->inherit($this->user, 'parts', 'obsolete_parts'));
+
+        //Test for user without group
+        $this->assertTrue($this->service->inherit($this->user_withoutGroup, 'parts', 'read'));
+        $this->assertFalse($this->service->inherit($this->user_withoutGroup, 'parts', 'edit'));
+        $this->assertNull($this->service->inherit($this->user_withoutGroup, 'parts', 'create'));
+        $this->assertNull($this->service->inherit($this->user_withoutGroup, 'parts', 'show_history'));
+        $this->assertNull($this->service->inherit($this->user_withoutGroup, 'parts', 'delete'));
     }
 
 }

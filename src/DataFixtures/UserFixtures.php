@@ -28,12 +28,14 @@ class UserFixtures extends Fixture
         $anonymous = new User();
         $anonymous->setName('anonymous');
         $anonymous->setGroup($this->getReference(GroupFixtures::READONLY));
-
+        $anonymous->setNeedPwChange(false);
+        $anonymous->setPassword($this->encoder->encodePassword($anonymous, 'test'));
         $manager->persist($anonymous);
 
         $admin = new User();
         $admin->setName('admin');
         $admin->setPassword($this->encoder->encodePassword($admin, 'test'));
+        $admin->setNeedPwChange(false);
         $admin->setGroup($this->getReference(GroupFixtures::ADMINS));
         $manager->persist($admin);
 
@@ -44,6 +46,12 @@ class UserFixtures extends Fixture
         $user->setPassword($this->encoder->encodePassword($user, 'test'));
         $user->setGroup($this->getReference(GroupFixtures::USERS));
         $manager->persist($user);
+
+        $noread = new User();
+        $noread->setName('noread');
+        $noread->setNeedPwChange(false);
+        $noread->setPassword($this->encoder->encodePassword($noread, 'test'));
+        $manager->persist($noread);
 
         $manager->flush();
     }

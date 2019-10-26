@@ -92,7 +92,7 @@ class AttachmentType extends StructuralDBElement
      * @var string
      * @ORM\Column(type="text")
      */
-    protected $filetype_filter;
+    protected $filetype_filter = "";
 
     /**
      * Get all attachements ("Attachement" objects) with this type.

@@ -264,6 +264,8 @@ abstract class BaseAdminController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'attachment_type.deleted');
+        } else {
+            $this->addFlash('error', 'csfr_invalid');
         }
 
         return $this->redirectToRoute($this->route_base .  '_new');

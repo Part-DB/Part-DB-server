@@ -58,8 +58,17 @@ class StorelocationController extends BaseAdminController
     protected $attachment_class = StorelocationAdminForm::class;
 
     /**
+     * @Route("/{id}", name="store_location_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, Storelocation $entity, StructuralElementRecursionHelper $recursionHelper)
+    {
+        return $this->_delete($request, $entity, $recursionHelper);
+    }
+
+
+    /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="store_location_edit")
-     * @Route("/{id}/", requirements={"id"="\d+"})
+     * @Route("/{id}", requirements={"id"="\d+"})
      */
     public function edit(Storelocation $entity, Request $request, EntityManagerInterface $em)
     {
@@ -75,14 +84,6 @@ class StorelocationController extends BaseAdminController
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
     {
         return $this->_new($request, $em, $importer);
-    }
-
-    /**
-     * @Route("/{id}", name="store_location_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Storelocation $entity, StructuralElementRecursionHelper $recursionHelper)
-    {
-        return $this->_delete($request, $entity, $recursionHelper);
     }
 
     /**

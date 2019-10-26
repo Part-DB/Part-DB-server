@@ -320,7 +320,7 @@ class PermissionsEmbed
      */
     public function getBitValue(string $permission_name, int $bit_n): int
     {
-        if(!$this->isValidPermissionName($permission_name)) {
+        if (!$this->isValidPermissionName($permission_name)) {
             throw new \InvalidArgumentException(sprintf('No permission with the name "%s" is existing!', $permission_name));
         }
 
@@ -364,9 +364,9 @@ class PermissionsEmbed
     public function setPermissionValue(string $permission_name, int $bit_n, ?bool $new_value) : self
     {
         //Determine which bit value the given value is.
-        if($new_value === true) {
+        if ($new_value === true) {
             $bit_value = static::ALLOW;
-        } elseif($new_value === false) {
+        } elseif ($new_value === false) {
             $bit_value = static::DISALLOW;
         } else {
             $bit_value = static::INHERIT;
@@ -386,12 +386,64 @@ class PermissionsEmbed
      */
     public function setBitValue(string $permission_name, int $bit_n, int $new_value) : self
     {
-        if(!$this->isValidPermissionName($permission_name)) {
+        if (!$this->isValidPermissionName($permission_name)) {
             throw new \InvalidArgumentException('No permission with the given name is existing!');
         }
 
         $this->$permission_name = static::writeBitPair($this->$permission_name, $bit_n, $new_value);
 
+        return $this;
+    }
+
+    /**
+     * Returns the given permission as raw int (all bit at once)
+     * @param string $permission_name The name of the permission, which should be retrieved.
+     * If this is not existing an exception is thrown.
+     * @return int The raw permission value.
+     */
+    public function getRawPermissionValue(string $permission_name) : int
+    {
+        if (!$this->isValidPermissionName($permission_name)) {
+            throw new \InvalidArgumentException('No permission with the given name is existing!');
+        }
+
+        return $this->$permission_name;
+    }
+
+    /**
+     * Sets the given permission to the value.
+     * @param string $permission_name The name of the permission to that should be set.
+     * @param int $value The new value of the permsission
+     * @return $this
+     */
+    public function setRawPermissionValue(string $permission_name, int $value) : self
+    {
+        if (!$this->isValidPermissionName($permission_name)) {
+            throw new \InvalidArgumentException(
+                sprintf('No permission with the given name %s is existing!', $permission_name)
+            );
+        }
+
+        $this->$permission_name = $value;
+        return $this;
+    }
+
+    /**
+     * Sets multiple permissions at once.
+     * @param array $values An array in the form ['perm_name' => $value], containing the new data
+     * @param array|null $values2 If this array is not null, the first array will treated of list of perm names,
+     * and this array as an array of new values.
+     * @return $this
+     */
+    public function setRawPermissionValues(array $values, array $values2 = null) : self
+    {
+        if (!empty($values2)) {
+            $values = array_combine($values, $values2);
+        }
+
+        foreach ($values as $key => $value) {
+            $this->setRawPermissionValue($key, $value);
+        }
         return $this;
     }
 

@@ -34,6 +34,7 @@ namespace App\Tests\Entity;
 use App\Entity\UserSystem\PermissionsEmbed;
 use Doctrine\ORM\Mapping\Embedded;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Security\Http\RememberMe\PersistentTokenBasedRememberMeServices;
 
 class PermissionsEmbedTest extends TestCase
 {
@@ -181,6 +182,37 @@ class PermissionsEmbedTest extends TestCase
         //Check if it returns itself, for chaining.
         $this->assertEquals($embed, $embed->setPermissionValue(PermissionsEmbed::PARTS, 0, $value));
         $this->assertEquals($value, $embed->getPermissionValue(PermissionsEmbed::PARTS, 0));
+    }
+
+    public function testSetRawPermissionValue()
+    {
+        $embed = new PermissionsEmbed();
+        $embed->setRawPermissionValue(PermissionsEmbed::PARTS, 10);
+        $this->assertEquals(10, $embed->getRawPermissionValue(PermissionsEmbed::PARTS));
+    }
+
+    public function testSetRawPermissionValues()
+    {
+        $embed = new PermissionsEmbed();
+        $embed->setRawPermissionValues([
+            PermissionsEmbed::PARTS => 0,
+            PermissionsEmbed::USERS => 100,
+            PermissionsEmbed::CATEGORIES => 1304
+        ]);
+
+        $this->assertEquals(0, $embed->getRawPermissionValue(PermissionsEmbed::PARTS));
+        $this->assertEquals(100, $embed->getRawPermissionValue(PermissionsEmbed::USERS));
+        $this->assertEquals(1304, $embed->getRawPermissionValue(PermissionsEmbed::CATEGORIES));
+
+        //Test second method to pass perm names and values
+        $embed->setRawPermissionValues(
+            [PermissionsEmbed::PARTS, PermissionsEmbed::USERS, PermissionsEmbed::CATEGORIES],
+            [0, 100, 1304]
+        );
+
+        $this->assertEquals(0, $embed->getRawPermissionValue(PermissionsEmbed::PARTS));
+        $this->assertEquals(100, $embed->getRawPermissionValue(PermissionsEmbed::USERS));
+        $this->assertEquals(1304, $embed->getRawPermissionValue(PermissionsEmbed::CATEGORIES));
 
     }
 

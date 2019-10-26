@@ -59,8 +59,16 @@ class ManufacturerController extends BaseAdminController
     protected $attachment_class = ManufacturerAttachment::class;
 
     /**
+     * @Route("/{id}", name="manufacturer_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, Manufacturer $entity, StructuralElementRecursionHelper $recursionHelper)
+    {
+        return $this->_delete($request, $entity, $recursionHelper);
+    }
+
+    /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="manufacturer_edit")
-     * @Route("/{id}/", requirements={"id"="\d+"})
+     * @Route("/{id}", requirements={"id"="\d+"})
      */
     public function edit(Manufacturer $entity, Request $request, EntityManagerInterface $em)
     {
@@ -78,13 +86,7 @@ class ManufacturerController extends BaseAdminController
         return $this->_new($request, $em, $importer);
     }
 
-    /**
-     * @Route("/{id}", name="manufacturer_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Manufacturer $entity, StructuralElementRecursionHelper $recursionHelper)
-    {
-        return $this->_delete($request, $entity, $recursionHelper);
-    }
+
 
     /**
      * @Route("/export", name="manufacturer_export_all")
