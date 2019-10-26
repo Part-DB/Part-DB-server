@@ -56,6 +56,12 @@ abstract class ExtendedVoter extends Voter
     final protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
         $user = $token->getUser();
+
+        //An allowed user is not allowed to do anything...
+        if($user instanceof User && $user->isDisabled()) {
+            return false;
+        }
+
         // if the user is anonymous, we use the anonymous user.
         if (!$user instanceof User) {
             $user = $this->entityManager->find(User::class, User::ID_ANONYMOUS);

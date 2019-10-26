@@ -16,6 +16,7 @@ security:
             security: false
         main:
             anonymous: true
+            user_checker: App\Security\UserChecker
 
               # activate different ways to authenticate
 

@@ -129,6 +129,7 @@ class UserAdminForm extends AbstractType
                 'disabled' => !$this->security->isGranted('edit_infos', $entity),
             ])
 
+
             //Config section
             ->add('language', LanguageType::class, [
                 'required' => false,
@@ -170,6 +171,7 @@ class UserAdminForm extends AbstractType
                 'invalid_message' => 'password_must_match',
                 'required' => false,
                 'mapped' => false,
+                'disabled' => !$this->security->isGranted('set_password', $entity),
                 'constraints' => [new Length([
                     'min' => 6,
                     'max' => 128,
@@ -179,7 +181,17 @@ class UserAdminForm extends AbstractType
             ->add('need_pw_change', CheckboxType::class, [
                 'required' => false,
                 'label_attr' => ['class' => 'checkbox-custom'],
-                'label' => $this->trans->trans('user.edit.needs_pw_change')
+                'label' => $this->trans->trans('user.edit.needs_pw_change'),
+                'disabled' => !$this->security->isGranted('set_password', $entity)
+            ])
+
+            ->add('disabled', CheckboxType::class, [
+                'required' => false,
+                'label_attr' => ['class' => 'checkbox-custom'],
+                'label' => $this->trans->trans('user.edit.user_disabled'),
+                'disabled' => !$this->security->isGranted('set_password', $entity)
+                    || $entity === $this->security->getUser()
+
             ])
 
             //Permission section

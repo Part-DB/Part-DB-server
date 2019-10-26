@@ -78,6 +78,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * This entity represents a user, which can log in and have permissions.
  * Also this entity is able to save some informations about the user, like the names, email-address and other info.
+ * Also this entity is able to save some informations about the user, like the names, email-address and other info.
  *
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table("`users`")
@@ -340,6 +341,26 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         return $this;
     }
 
+    /**
+     * Checks if this user is disabled (user cannot login any more).
+     * @return bool True, if the user is disabled.
+     */
+    public function isDisabled(): bool
+    {
+        return $this->disabled;
+    }
+
+    /**
+     * Sets the status if a user is disabled.
+     * @param bool $disabled True if the user should be disabled.
+     * @return User
+     */
+    public function setDisabled(bool $disabled): User
+    {
+        $this->disabled = $disabled;
+        return $this;
+    }
+
 
 
     /**
@@ -566,6 +587,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     public function __toString()
     {
-        return $this->getFullName(true);
+        $tmp = $this->isDisabled() ? ' [DISABLED]' : '';
+        return $this->getFullName(true) . $tmp;
     }
 }
