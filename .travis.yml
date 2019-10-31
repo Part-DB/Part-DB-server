@@ -16,6 +16,9 @@ php:
 
 install:
   - composer install
+  # Compile assets
+  - yarn install
+  - yarn build
   - php bin/console --env test doctrine:database:create --if-not-exists -n
   - php bin/console --env test doctrine:migrations:migrate -n
   # Load fixtures (We have to disable foreign key checks or we get errors)
