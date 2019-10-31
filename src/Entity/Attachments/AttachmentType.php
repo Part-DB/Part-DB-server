@@ -56,6 +56,7 @@ use App\Entity\Base\StructuralDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Validator\Constraints\ValidFileFilter;
 
 /**
  * Class AttachmentType.
@@ -91,6 +92,7 @@ class AttachmentType extends StructuralDBElement
     /**
      * @var string
      * @ORM\Column(type="text")
+     * @ValidFileFilter
      */
     protected $filetype_filter = "";
 
@@ -112,6 +114,8 @@ class AttachmentType extends StructuralDBElement
 
     /**
      * Gets an filter, which file types are allowed for attachment files.
+     * Must be in the format of <input type=file> accept attribute
+     * (See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers).
      * @return string
      */
     public function getFiletypeFilter(): string
@@ -128,8 +132,6 @@ class AttachmentType extends StructuralDBElement
         $this->filetype_filter = $filetype_filter;
         return $this;
     }
-
-
 
     /**
      * Returns the ID as an string, defined by the element class.

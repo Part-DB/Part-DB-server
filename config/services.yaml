@@ -104,6 +104,10 @@ services:
             $footprints_path: 'public/img/footprints'
             $models_path: null
 
+    App\Services\Attachments\FileTypeFilterTools:
+        arguments:
+            $mimeTypes: '@mime_types'
+
     App\Services\TranslationExtractor\PermissionExtractor:
         tags:
             - { name: 'translation.extractor', alias: 'permissionExtractor'}

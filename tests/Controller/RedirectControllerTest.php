@@ -36,6 +36,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Proxies\__CG__\App\Entity\UserSystem\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * @group slow
+ * @package App\Tests\Controller
+ */
 class RedirectControllerTest extends WebTestCase
 {
     protected $em;
@@ -65,6 +69,7 @@ class RedirectControllerTest extends WebTestCase
     /**
      * Test if a certain request to an url will be redirected.
      * @dataProvider urlMatchDataProvider
+     * @group slow
      */
     public function testUrlMatch($url, $expect_redirect)
     {
@@ -95,6 +100,7 @@ class RedirectControllerTest extends WebTestCase
     /**
      * Test if the user is redirected to the localized version of a page, based on his settings.
      * @dataProvider urlAddLocaleDataProvider
+     * @group slow
      * @depends testUrlMatch
      * @param $user_locale
      * @param $input_path
@@ -124,6 +130,7 @@ class RedirectControllerTest extends WebTestCase
     /**
      * Test if the user is redirected to password change page if he should do that
      * @depends testAddLocale
+     * @group slow
      * @testWith    ["de"]
      *              ["en"]
      */

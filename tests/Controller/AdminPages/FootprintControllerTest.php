@@ -35,6 +35,10 @@ namespace App\Tests\Controller\AdminPages;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\Footprint;
 
+/**
+ * @group slow
+ * @package App\Tests\Controller\AdminPages
+ */
 class FootprintControllerTest extends AbstractAdminControllerTest
 {
     protected static $base_path = '/en' . '/footprint';

@@ -38,6 +38,10 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Storelocation;
 use Symfony\Component\HttpKernel\HttpCache\Store;
 
+/**
+ * @group slow
+ * @package App\Tests\Controller\AdminPages
+ */
 class StorelocationControllerTest extends AbstractAdminControllerTest
 {
     protected static $base_path = '/en' . '/store_location';

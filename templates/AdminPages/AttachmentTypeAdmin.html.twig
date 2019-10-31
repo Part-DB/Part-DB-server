@@ -3,3 +3,7 @@
 {% block card_title %}
     <i class="fas fa-file-alt fa-fw"></i> {% trans %}attachment_type.caption{% endtrans %}
 {% endblock %}
+
+{% block additional_controls %}
+    {{ form_row(form.filetype_filter) }}
+{% endblock %}

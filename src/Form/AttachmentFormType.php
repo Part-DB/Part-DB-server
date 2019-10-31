@@ -37,6 +37,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\StructuralDBElement;
 use App\Form\Type\StructuralEntityType;
 use App\Services\Attachments\AttachmentManager;
+use App\Validator\Constraints\AllowedFileExtension;
 use App\Validator\Constraints\UrlOrBuiltin;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -120,9 +121,10 @@ class AttachmentFormType extends AbstractType
             'required' => false,
             'attr' => ['class' => 'file', 'data-show-preview' => 'false', 'data-show-upload' => 'false'],
             'constraints' => [
+                new AllowedFileExtension(),
                 new File([
                     'maxSize' => $options['max_file_size']
-                ])
+                ]),
             ]
         ]);
 

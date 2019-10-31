@@ -37,6 +37,10 @@ use App\Entity\Devices\Device;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 
+/**
+ * @group slow
+ * @package App\Tests\Controller\AdminPages
+ */
 class MeasurementUnitControllerTest extends AbstractAdminControllerTest
 {
     protected static $base_path = '/en' . '/measurement_unit';

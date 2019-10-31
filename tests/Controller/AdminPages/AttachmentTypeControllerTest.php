@@ -34,6 +34,10 @@ namespace App\Tests\Controller\AdminPages;
 
 use App\Entity\Attachments\AttachmentType;
 
+/**
+ * @group slow
+ * @package App\Tests\Controller\AdminPages
+ */
 class AttachmentTypeControllerTest extends AbstractAdminControllerTest
 {
     protected static $base_path = '/en' . '/attachment_type';

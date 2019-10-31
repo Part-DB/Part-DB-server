@@ -33,6 +33,10 @@ namespace App\Tests\Controller\AdminPages;
 
 use App\Entity\Parts\Category;
 
+/**
+ * @group slow
+ * @package App\Tests\Controller\AdminPages
+ */
 class CategoryControllerTest extends AbstractAdminControllerTest
 {
     protected static $base_path = '/en' . '/category';

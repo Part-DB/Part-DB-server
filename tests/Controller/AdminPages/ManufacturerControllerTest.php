@@ -36,6 +36,10 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Devices\Device;
 use App\Entity\Parts\Manufacturer;
 
+/**
+ * @group slow
+ * @package App\Tests\Controller\AdminPages
+ */
 class ManufacturerControllerTest extends AbstractAdminControllerTest
 {
     protected static $base_path = '/en' . '/manufacturer';

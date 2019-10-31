@@ -35,11 +35,10 @@ namespace App\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 
 /**
- * This constraint restricts a user in that way that it can not lock itself out of the user system
- * @package App\Validator\Constraints
  * @Annotation
+ * @package App\Validator\Constraints
  */
-class NoLockout extends Constraint
+class ValidFileFilter extends Constraint
 {
-    public $message = "validator.noLockout";
+
 }

@@ -38,6 +38,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Security\Core\Security;
 
+/**
+ * @group slow
+ * @package App\Tests\Controller\AdminPages
+ */
 abstract class AbstractAdminControllerTest extends WebTestCase
 {
     protected static $base_path = 'not_valid';
@@ -62,6 +66,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
 
     /**
      * @dataProvider readDataProvider
+     * @group slow
      * Tests if you can access the /new part which is used to list all entities. Checks if permissions are working
      */
     public function testListEntries(string $user, bool $read)
@@ -81,6 +86,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
 
     /**
      * @dataProvider readDataProvider
+     * @group slow
      * Tests if it possible to access an specific entity. Checks if permissions are working.
      */
     public function testReadEntity(string $user, bool $read)
@@ -110,6 +116,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
 
     /**
      * Tests if deleting an entity is working.
+     * @group slow
      * @dataProvider deleteDataProvider
      */
     public function testDeleteEntity(string $user, bool $delete)
