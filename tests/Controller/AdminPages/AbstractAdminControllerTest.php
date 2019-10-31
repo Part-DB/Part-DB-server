@@ -36,6 +36,7 @@ use App\Entity\Attachments\AttachmentType;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
 
 /**
@@ -77,6 +78,12 @@ abstract class AbstractAdminControllerTest extends WebTestCase
             'PHP_AUTH_PW'   => 'test',
         ]);
 
+        if ($read == false) {
+            $this->expectException(AccessDeniedException::class);
+        }
+
+        $client->catchExceptions(false);
+
         //Test read/list access by access /new overview page
         $crawler = $client->request('GET', static::$base_path . '/new');
         $this->assertFalse($client->getResponse()->isRedirect());
@@ -96,6 +103,11 @@ abstract class AbstractAdminControllerTest extends WebTestCase
             'PHP_AUTH_USER' => $user,
             'PHP_AUTH_PW'   => 'test',
         ]);
+
+        $client->catchExceptions(false);
+        if ($read == false) {
+            $this->expectException(AccessDeniedException::class);
+        }
 
         //Test read/list access by access /new overview page
         $crawler = $client->request('GET', static::$base_path . '/1');
@@ -126,6 +138,11 @@ abstract class AbstractAdminControllerTest extends WebTestCase
             'PHP_AUTH_USER' => $user,
             'PHP_AUTH_PW'   => 'test',
         ]);
+
+        $client->catchExceptions(false);
+        if ($delete == false) {
+           $this->expectException(AccessDeniedException::class);
+        }
 
         //Test read/list access by access /new overview page
         $crawler = $client->request('DELETE', static::$base_path . '/7');
