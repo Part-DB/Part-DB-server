@@ -24,6 +24,7 @@ namespace App\Controller;
 
 
 use App\Services\Attachments\BuiltinAttachmentsFinder;
+use App\Services\TagFinder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,6 +47,24 @@ class TypeaheadController extends AbstractController
     {
         $array = $finder->find($query);
 
+
+        $normalizers = [
+            new ObjectNormalizer()
+        ];
+        $encoders =  [
+            new JsonEncoder()
+        ];
+        $serializer = new Serializer($normalizers, $encoders);
+        $data = $serializer->serialize($array, 'json');
+        return new JsonResponse($data, 200, [], true);
+    }
+
+    /**
+     * @Route("/tags/search/{query}", name="typeahead_tags", requirements={"query"= ".+"})
+     */
+    public function tags(string $query, TagFinder $finder)
+    {
+        $array = $finder->searchTags($query);
 
         $normalizers = [
             new ObjectNormalizer()

@@ -51,6 +51,7 @@ use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use function foo\func;
@@ -59,11 +60,13 @@ class PartBaseType extends AbstractType
 {
     protected $security;
     protected $trans;
+    protected $urlGenerator;
 
-    public function __construct(Security $security, TranslatorInterface $trans)
+    public function __construct(Security $security, TranslatorInterface $trans, UrlGeneratorInterface $urlGenerator)
     {
         $this->security = $security;
         $this->trans = $trans;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -119,7 +122,9 @@ class PartBaseType extends AbstractType
                 'required' => false,
                 'label' => $this->trans->trans('part.edit.tags'),
                 'empty_data' => "",
-                'attr' => ['data-role' => 'tagsinput'],
+                'attr' => [
+                    'class' => 'tagsinput',
+                    'data-autocomplete' => $this->urlGenerator->generate('typeahead_tags', ['query' => 'QUERY']),],
                 'disabled' => !$this->security->isGranted('tags.edit', $part)
             ]);
 

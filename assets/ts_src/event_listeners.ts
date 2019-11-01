@@ -231,9 +231,38 @@ $(document).on("ajaxUI:reload", function () {
     $(".file").fileinput();
 });
 
-$(document).on("ajaxUI:reload", function () {
-    //@ts-ignore
-    $("input[data-role='tagsinput']").tagsinput();
+$(document).on("ajaxUI:start ajaxUI:reload", function () {
+    $('input.tagsinput').each(function() {
+
+        //Use typeahead if an autocomplete url was specified.
+        if($(this).data('autocomplete')) {
+
+            //@ts-ignore
+            var engine = new Bloodhound({
+                //@ts-ignore
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace(''),
+                //@ts-ignore
+                queryTokenizer: Bloodhound.tokenizers.obj.whitespace(''),
+                remote: {
+                    url: $(this).data('autocomplete'),
+                    wildcard: 'QUERY'
+                }
+            });
+
+            //@ts-ignore
+            $(this).tagsinput({
+                typeaheadjs: {
+                    name: 'tags',
+                    source: engine.ttAdapter()
+                }
+            });
+
+
+        } else { //Init tagsinput without typeahead
+            //@ts-ignore
+            $(this).tagsinput();
+        }
+    })
 });
 
 /**
