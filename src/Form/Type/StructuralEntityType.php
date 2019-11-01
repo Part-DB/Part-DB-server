@@ -23,6 +23,7 @@
 namespace App\Form\Type;
 
 
+use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\StructuralDBElement;
 use App\Entity\Parts\Storelocation;
 use App\Repository\StructuralDBElementRepository;
@@ -114,6 +115,11 @@ class StructuralEntityType extends AbstractType
         if ($this->options['disable_not_selectable'] && $choice->isNotSelectable()) {
             $tmp += ['disabled' => 'disabled'];
         }
+
+        if ($choice instanceof AttachmentType) {
+            $tmp += ['data-filetype_filter' => $choice->getFiletypeFilter()];
+        }
+
         return $tmp;
     }
 

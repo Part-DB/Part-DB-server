@@ -70,6 +70,7 @@ class AttachmentFormType extends AbstractType
                 'label' =>  $this->trans->trans('attachment.edit.attachment_type'),
                 'class' => AttachmentType::class,
                 'disable_not_selectable' => true,
+                'attr' => ['class' => 'attachment_type_selector']
             ]);
 
         $builder->add('showInTable', CheckboxType::class, ['required' => false,

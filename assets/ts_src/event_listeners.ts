@@ -411,6 +411,22 @@ $(document).on("ajaxUI:start", function () {
     $(document).on("ajaxUI:reload", parseMarkdown);
 });
 
+$(document).on("ajaxUI:start ajaxUI:reload attachment:create", function() {
+    let updater = function() {
+        //@ts-ignore
+        let selected_option = $(this)[0].selectedOptions[0];
+        let filter_string =  $(selected_option).data('filetype_filter');
+        //Find associated file input
+
+        let $row = $(this).parents('tr');
+        //Set accept filter
+        $('input[type="file"]', $row).prop('accept', filter_string);
+    };
+
+    //Register a change handler on all change listeners, and update it when the events are triggered
+    $('select.attachment_type_selector').change(updater).each(updater);
+});
+
 //Need for proper body padding, with every navbar height
 $(window).resize(function () {
     let height : number = $('#navbar').height() + 10;
