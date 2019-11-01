@@ -36,7 +36,7 @@
 
 {% macro attachment_icon(attachment, attachment_helper, class = "fa-fw fas fa-3x", link = true) %}
     {% if not attachment_helper or attachment_helper.fileExisting(attachment) %}
-        <a target="_blank"  data-no-ajax href="{% if link %}{{ attachment|entityURL('file_view') }}{% endif %}">
+        <a target="_blank"  data-no-ajax rel="noopener" href="{% if link %}{{ attachment|entityURL('file_view') }}{% endif %}">
             {% if attachment.picture %}
                 <img class="hoverpic" src="{{ attachment|entityURL('file_view') }}">
             {% else %}

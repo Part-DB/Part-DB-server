@@ -24,7 +24,7 @@
             <td class="align-middle">{{ attachment.attachmentType.fullPath }}</td>
             <td class="align-middle">
                 {% if attachment.external %}
-                    <a href="{{ attachment.uRL }}" target="_blank" class="link-external">{{ attachment.host }}</a>
+                    <a href="{{ attachment.uRL }}" rel="noopener" target="_blank" class="link-external">{{ attachment.host }}</a>
                 {% else %}
                     {{ attachment.filename }}
                 {% endif %}
@@ -42,7 +42,7 @@
             <td><div class="btn-group" role="group" aria-label="">
                     <a {% if attachment_helper.fileExisting(attachment) %}href="{{ attachment|entityURL('file_view') }}"{% endif %} target="_blank"
                        class="btn btn-secondary {% if not attachment_helper.fileExisting(attachment)  %}disabled{% endif %}"
-                       data-no-ajax title="{% trans %}attachment.view{% endtrans %}">
+                       data-no-ajax title="{% trans %}attachment.view{% endtrans %}" rel="noopener">
                         <i class="fas fa-eye fa-fw"></i>
                     </a>
                     <a {% if attachment_helper.fileExisting(attachment)  %}href="{{ attachment|entityURL('file_download') }}"{% endif %} data-no-ajax

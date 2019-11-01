@@ -425,7 +425,7 @@ $(document).on("ajaxUI:start", function () {
             $(this).removeAttr('data-markdown');
 
             //Make all links external
-            $('a', this).addClass('link-external').attr('target', '_blank');
+            $('a', this).addClass('link-external').attr('target', '_blank').attr('rel', 'noopener');
             //Bootstrapify objects
             $('table', this).addClass('table table-hover table-striped table-bordered');
         });

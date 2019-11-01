@@ -15,7 +15,7 @@
             {% endif %}
             {% if part.manufacturerProductUrl %}
                 <small>
-                    <a class="link-external" href="{{ part.manufacturerProductUrl }}" target="_blank">{{ part.manufacturerProductNumber }}</a>
+                    <a class="link-external" href="{{ part.manufacturerProductUrl }}" rel="noopener" target="_blank">{{ part.manufacturerProductNumber }}</a>
                 </small>
             {% else %}
                 <small>{{ part.manufacturerProductNumber }}</small>

@@ -41,11 +41,11 @@
                     {% endif %}
 
                     {% if attach.picture %}
-                        <a href="{{ attach | entityURL('file_view') }}" target="_blank" data-no-ajax>
+                        <a href="{{ attach | entityURL('file_view') }}" rel="noopener" target="_blank" data-no-ajax>
                             <img class="img-fluid img-thumbnail thumbnail-sm" src="{{ attachment_thumbnail(attach, 'thumbnail_md') }}" alt="{% trans %}attachment.preview.alt{% endtrans %}" />
                         </a>
                     {% else %}
-                        <a href="{{ attach | entityURL('file_view') }}" target="_blank" data-no-ajax class="link-external">{% trans %}attachment.view{% endtrans %}</a>
+                        <a href="{{ attach | entityURL('file_view') }}" rel="noopener" target="_blank" data-no-ajax class="link-external">{% trans %}attachment.view{% endtrans %}</a>
                     {% endif %}
                 {% else %}
                     <br><br>

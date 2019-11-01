@@ -15,7 +15,7 @@
                     <a href="{{ order.supplier | entityURL('list_parts') }}">{{ order.supplier.name }}</a>
                 </td>
                 <td>{% if order.supplierProductUrl is not empty %}
-                        <a href="{{ order.supplierProductUrl }}" target="_blank" class="link-external">{{ order.supplierPartNr }}</a>
+                        <a href="{{ order.supplierProductUrl }}" rel="noopener" target="_blank" class="link-external">{{ order.supplierPartNr }}</a>
                     {% else %}
                         {{ order.supplierPartNr }}
                     {% endif %}
