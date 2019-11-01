@@ -64,8 +64,8 @@ final class Version20190924113252 extends AbstractMigration
         //Before we drop the filename and filename_3d properties we have to migrate the data to attachments
         $this->addSql("INSERT IGNORE INTO `attachment_types` (`id`, `name`, `parent_id`, `comment`, `datetime_added`, `last_modified`, `filetype_filter`) 
             VALUES 
-            (1000, 'Footprints', NULL, 'Created during automatic migration of the footprint files.', current_timestamp(), current_timestamp(), 'apng, bmp, gif, ico, cur, jpg, jpeg, jfif, pjpeg, pjp, png, svg, webp'),
-            (1001, 'Footprints (3D)', NULL, 'Created during automatic migration of the footprint files.', current_timestamp(), current_timestamp(), 'x3d')
+            (1000, 'Footprints', NULL, 'Created during automatic migration of the footprint files.', current_timestamp(), current_timestamp(), 'image/*'),
+            (1001, 'Footprints (3D)', NULL, 'Created during automatic migration of the footprint files.', current_timestamp(), current_timestamp(), '.x3d')
         ");
 
         //Add a attachment for each footprint attachment
