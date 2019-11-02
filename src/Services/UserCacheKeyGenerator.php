@@ -24,6 +24,9 @@ namespace App\Services;
 
 
 use App\Entity\UserSystem\User;
+use Nyholm\Psr7\Request;
+use Symfony\Component\Intl\Locale\Locale;
+use Symfony\Component\Intl\Locales;
 use Symfony\Component\Security\Core\Security;
 
 /**
@@ -47,6 +50,8 @@ class UserCacheKeyGenerator
      */
     public function generateKey(User $user = null) : string
     {
+        $locale = \Locale::getDefault();
+
         //If no user was specified, use the currently used one.
         if ($user === null) {
             $user = $this->security->getUser();
@@ -59,6 +64,6 @@ class UserCacheKeyGenerator
         }
 
         //In the most cases we can just use the username (its unique)
-        return "user_" . $user->getUsername();
+        return "user_" . $user->getUsername() . '_' . $locale;
     }
 }
