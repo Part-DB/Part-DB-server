@@ -2411,8 +2411,12 @@ Element 3</target>
       </trans-unit>
       <trans-unit id="A7LFSdc" resname="user.permissions">
         <source>user.permissions</source>
-        <target>__user.permissions</target>
+        <target>Permissions</target>
       </trans-unit>
+     <trans-unit id="" resname="user.settings.pw_old.label">
+             <source>user.settings.pw_old.label</source>
+             <target>Altes Passwort</target>
+           </trans-unit>
     </body>
   </file>
 </xliff>
