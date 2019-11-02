@@ -883,7 +883,7 @@ Subelements will be moved upwards.]]></target>
       </trans-unit>
       <trans-unit id="RRgi9vd" resname="tree.tools.show">
         <source>tree.tools.show</source>
-        <target>Zeige</target>
+        <target state="translated">Show</target>
         <note priority="1">src\Services\ToolsTreeBuilder.php:81</note>
       </trans-unit>
       <trans-unit id="0uWeEo4" resname="tree.tools.edit.storelocation">
@@ -2164,6 +2164,254 @@ Element 3</target>
       <trans-unit id="VoHEScr" resname="perm.labels">
         <source>perm.labels</source>
         <target state="translated">Labels</target>
+      </trans-unit>
+      <trans-unit id="zf2PGmg" resname="perm.part.category">
+        <source>perm.part.category</source>
+        <target state="translated">Category</target>
+      </trans-unit>
+      <trans-unit id="Ngq0_8b" resname="perm.part.minamount">
+        <source>perm.part.minamount</source>
+        <target state="translated">Minimum amount</target>
+      </trans-unit>
+      <trans-unit id="vZwyFdD" resname="perm.part.footprint">
+        <source>perm.part.footprint</source>
+        <target state="translated">Footprint</target>
+      </trans-unit>
+      <trans-unit id="cdrtuto" resname="perm.part.mpn">
+        <source>perm.part.mpn</source>
+        <target state="translated">MPN</target>
+      </trans-unit>
+      <trans-unit id="CjAJxQj" resname="perm.part.status">
+        <source>perm.part.status</source>
+        <target state="translated">Manufacturing status</target>
+      </trans-unit>
+      <trans-unit id="8vcZLOf" resname="perm.part.tags">
+        <source>perm.part.tags</source>
+        <target state="translated">Tags</target>
+      </trans-unit>
+      <trans-unit id="5PcGRLN" resname="perm.part.unit">
+        <source>perm.part.unit</source>
+        <target state="translated">Part unit</target>
+      </trans-unit>
+      <trans-unit id="64iRHQF" resname="perm.part.mass">
+        <source>perm.part.mass</source>
+        <target state="translated">Mass</target>
+      </trans-unit>
+      <trans-unit id="IWWN6u0" resname="perm.part.lots">
+        <source>perm.part.lots</source>
+        <target state="translated">Part lots</target>
+      </trans-unit>
+      <trans-unit id="cnJtmGW" resname="perm.show_users">
+        <source>perm.show_users</source>
+        <target state="translated">Show last modifying user</target>
+      </trans-unit>
+      <trans-unit id="nThiSBd" resname="perm.currencies">
+        <source>perm.currencies</source>
+        <target state="translated">Currencies</target>
+      </trans-unit>
+      <trans-unit id="Pa4k4ZQ" resname="perm.measurement_units">
+        <source>perm.measurement_units</source>
+        <target state="translated">Measurement unit</target>
+      </trans-unit>
+      <trans-unit id="EQgFD4g" resname="flash.password_change_needed">
+        <source>flash.password_change_needed</source>
+        <target state="translated">Password change needed!</target>
+      </trans-unit>
+      <trans-unit id="b_m6Jth" resname="attachment.table.element">
+        <source>attachment.table.element</source>
+        <target state="translated">Associated element</target>
+      </trans-unit>
+      <trans-unit id="QRmJnyi" resname="attachment.edit.isPicture">
+        <source>attachment.edit.isPicture</source>
+        <target state="translated">Picture?</target>
+      </trans-unit>
+      <trans-unit id="3lJuQED" resname="attachment.edit.is3DModel">
+        <source>attachment.edit.is3DModel</source>
+        <target state="translated">3D model?</target>
+      </trans-unit>
+      <trans-unit id="ogh2av7" resname="attachment.edit.isBuiltin">
+        <source>attachment.edit.isBuiltin</source>
+        <target state="translated">Builtin?</target>
+      </trans-unit>
+      <trans-unit id="ExjMUEE" resname="attachment.label">
+        <source>attachment.label</source>
+        <target state="translated">Attachment</target>
+      </trans-unit>
+      <trans-unit id="ASJkLeb" resname="attachment_type.label">
+        <source>attachment_type.label</source>
+        <target state="translated">Attachment type</target>
+      </trans-unit>
+      <trans-unit id="uR5eAkv" resname="device.label">
+        <source>device.label</source>
+        <target state="translated">Project</target>
+      </trans-unit>
+      <trans-unit id="QPnDbnv" resname="measurement_unit.label">
+        <source>measurement_unit.label</source>
+        <target state="translated">Measurement unit</target>
+      </trans-unit>
+      <trans-unit id="oZsKN5d" resname="part.label">
+        <source>part.label</source>
+        <target state="translated">Part</target>
+      </trans-unit>
+      <trans-unit id="ucI6a2E" resname="part_lot.label">
+        <source>part_lot.label</source>
+        <target state="translated">Part lot</target>
+      </trans-unit>
+      <trans-unit id="5lJftbn" resname="currency.label">
+        <source>currency.label</source>
+        <target state="translated">Currency</target>
+      </trans-unit>
+      <trans-unit id="zD9yfVF" resname="orderdetail.label">
+        <source>orderdetail.label</source>
+        <target state="translated">Order detail</target>
+      </trans-unit>
+      <trans-unit id="7_5mSa9" resname="pricedetail.label">
+        <source>pricedetail.label</source>
+        <target state="translated">Price detail</target>
+      </trans-unit>
+      <trans-unit id="S4Z.EZY" resname="user.label">
+        <source>user.label</source>
+        <target state="translated">User</target>
+      </trans-unit>
+      <trans-unit id="HISU3ZB" resname="flash.login_successful">
+        <source>flash.login_successful</source>
+        <target state="translated">Login successful</target>
+      </trans-unit>
+      <trans-unit id="dxkuAbb" resname="attachment_type.edit.filetype_filter">
+        <source>attachment_type.edit.filetype_filter</source>
+        <target state="translated">Allowed file extensions.</target>
+      </trans-unit>
+      <trans-unit id="1KMaa2P" resname="attachment_type.edit.filetype_filter.help">
+        <source>attachment_type.edit.filetype_filter.help</source>
+        <target state="translated">You can specify a comma separated list of file extension or mimetypes, which an uploaded file must have when assigned to this attachment type. To allow all supported image files you can use image/*.</target>
+      </trans-unit>
+      <trans-unit id="wkNc9Pm" resname="attachment_type.edit.filetype_filter.placeholder">
+        <source>attachment_type.edit.filetype_filter.placeholder</source>
+        <target state="translated">e.g. .txt, application/pdf, image/*</target>
+      </trans-unit>
+      <trans-unit id="n496LjY" resname="footprint.edit.3d_model">
+        <source>footprint.edit.3d_model</source>
+        <target state="translated">3D model</target>
+      </trans-unit>
+      <trans-unit id="v6FVutS" resname="attachment.edit.secure_file">
+        <source>attachment.edit.secure_file</source>
+        <target state="translated">Private attachment</target>
+      </trans-unit>
+      <trans-unit id="_z1YTpv" resname="attachment.edit.secure_file.help">
+        <source>attachment.edit.secure_file.help</source>
+        <target state="translated">An attachment marked private can only accessed by authenticated users with the proper permission. If this is activated no thumbnails are generated and access to file is less perfomant.</target>
+      </trans-unit>
+      <trans-unit id="pCsSiaz" resname="attachment.edit.url.help">
+        <source>attachment.edit.url.help</source>
+        <target state="translated">You can specify a url to an external file here, or input an keyword which is used to search in builtin ressources (e.g. footprints)</target>
+      </trans-unit>
+      <trans-unit id="ZZjrGgS" resname="attachment.edit.download_url">
+        <source>attachment.edit.download_url</source>
+        <target state="translated">Download external file</target>
+      </trans-unit>
+      <trans-unit id="uGQ16Yq" resname="user.currency.label">
+        <source>user.currency.label</source>
+        <target state="translated">Preferred currency</target>
+      </trans-unit>
+      <trans-unit id="C65DPNY" resname="user.settings.pw_new.label">
+        <source>user.settings.pw_new.label</source>
+        <target state="translated">New password</target>
+      </trans-unit>
+      <trans-unit id="isiBSF3" resname="user.settings.pw_confirm.label">
+        <source>user.settings.pw_confirm.label</source>
+        <target state="translated">Confirm new password</target>
+      </trans-unit>
+      <trans-unit id="coDk7Mi" resname="user.edit.needs_pw_change">
+        <source>user.edit.needs_pw_change</source>
+        <target state="translated">User needs to change password</target>
+      </trans-unit>
+      <trans-unit id="aU6FQLf" resname="user.edit.user_disabled">
+        <source>user.edit.user_disabled</source>
+        <target state="translated">User disbaled (no login possible)</target>
+      </trans-unit>
+      <trans-unit id="aGy9QbC" resname="tree.tools.show.all_attachments">
+        <source>tree.tools.show.all_attachments</source>
+        <target state="translated">Attachments</target>
+      </trans-unit>
+      <trans-unit id="7rI.aP2" resname="tree.tools.system.groups">
+        <source>tree.tools.system.groups</source>
+        <target state="translated">Groups</target>
+      </trans-unit>
+      <trans-unit id="jYAc6_i" resname="markdown.loading">
+        <source>markdown.loading</source>
+        <target state="translated">Loading markdown. If this message does not disappear, try to reload the page.</target>
+      </trans-unit>
+      <trans-unit id="hYFfpL7" resname="validator.noLockout">
+        <source>validator.noLockout</source>
+        <target state="translated">You can not withdraw yourself the "change permission" permission, to prevent that you lockout yourself accidentally.</target>
+      </trans-unit>
+      <trans-unit id="V1QubEL" resname="attachment.download_failed">
+        <source>attachment.download_failed</source>
+        <target state="translated">Download of the external attachment failed.</target>
+      </trans-unit>
+      <trans-unit id="NmnCJhH" resname="admin.attachments">
+        <source>admin.attachments</source>
+        <target state="translated">Attachments</target>
+      </trans-unit>
+      <trans-unit id="ZOZqHeB" resname="group.edit.caption">
+        <source>group.edit.caption</source>
+        <target state="translated">Groups</target>
+      </trans-unit>
+      <trans-unit id=".YoS4pi" resname="user.edit.caption">
+        <source>user.edit.caption</source>
+        <target state="translated">Users</target>
+      </trans-unit>
+      <trans-unit id="eDE4Z9X" resname="user.edit.configuration">
+        <source>user.edit.configuration</source>
+        <target state="translated">Configuration</target>
+      </trans-unit>
+      <trans-unit id="3HIFZxy" resname="user.edit.password">
+        <source>user.edit.password</source>
+        <target state="translated">Password</target>
+      </trans-unit>
+      <trans-unit id="vTU.j2g" resname="attachment.preview.alt">
+        <source>attachment.preview.alt</source>
+        <target state="translated">Attachment thumbnail</target>
+      </trans-unit>
+      <trans-unit id="vnfQKjk" resname="attachment.secure">
+        <source>attachment.secure</source>
+        <target state="translated">Private attachment</target>
+      </trans-unit>
+      <trans-unit id="rpzRyMx" resname="attachment.list.title">
+        <source>attachment.list.title</source>
+        <target state="translated">Attachments list</target>
+      </trans-unit>
+      <trans-unit id="0rLRD9e" resname="sidebar.big.toggle">
+        <source>sidebar.big.toggle</source>
+        <target state="translated">Show/Hide sidebar</target>
+      </trans-unit>
+      <trans-unit id="KzyDL60" resname="permission.legend.title">
+        <source>permission.legend.title</source>
+        <target state="translated">Explanation of the states:</target>
+      </trans-unit>
+      <trans-unit id="owrJ0Qw" resname="permission.legend.disallow">
+        <source>permission.legend.disallow</source>
+        <target state="translated">Forbidden</target>
+      </trans-unit>
+      <trans-unit id="1nY8d_O" resname="permission.legend.allow">
+        <source>permission.legend.allow</source>
+        <target state="translated">Allowed</target>
+      </trans-unit>
+      <trans-unit id="uNMtwn9" resname="permission.legend.inherit">
+        <source>permission.legend.inherit</source>
+        <target state="translated">Inherit from (parent) group</target>
+      </trans-unit>
+      <trans-unit id="E4S6Pvg" resname="part.info.prev_picture">
+        <source>part.info.prev_picture</source>
+        <target state="translated">Previous picture</target>
+      </trans-unit>
+      <trans-unit id="2PpQKL9" resname="part.info.next_picture">
+        <source>part.info.next_picture</source>
+        <target state="translated">Next picture</target>
+      </trans-unit>
+      <trans-unit id="A7LFSdc" resname="user.permissions">
+        <source>user.permissions</source>
+        <target>__user.permissions</target>
       </trans-unit>
     </body>
   </file>
