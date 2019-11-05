@@ -250,8 +250,12 @@ class UserController extends AdminPages\BaseAdminController
      * @return string containing either just a URL or a complete image tag
      * @source https://gravatar.com/site/implement/images/php/
      */
-    public function getGravatar(string $email, int $s = 80, string $d = 'mm', string $r = 'g', bool $img = false, array $atts = array())
+    public function getGravatar(?string $email, int $s = 80, string $d = 'mm', string $r = 'g', bool $img = false, array $atts = array())
     {
+        if ($email === null) {
+            return "";
+        }
+
         $url = 'https://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
         $url .= "?s=$s&d=$d&r=$r";
