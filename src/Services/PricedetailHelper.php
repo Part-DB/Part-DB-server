@@ -25,6 +25,8 @@ namespace App\Services;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Pricedetail;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 use Locale;
 
 class PricedetailHelper
@@ -53,20 +55,32 @@ class PricedetailHelper
         foreach ($orderdetails as $orderdetail) {
             $pricedetails = $orderdetail->getPricedetails();
             //The orderdetail must have pricedetails, otherwise this will not work!
-            if (empty($pricedetails)) {
+            if (count($pricedetails) === 0) {
                 continue;
             }
 
-            /* Pricedetails in orderdetails are ordered by min discount quantity,
-                so our first object is our min order amount for the current orderdetail */
-            $max_amount = $pricedetails->last()->getMinDiscountQuantity();
+            if ($pricedetails instanceof PersistentCollection) {
+                /* Pricedetails in orderdetails are ordered by min discount quantity,
+                    so our first object is our min order amount for the current orderdetail */
+                $max_amount = $pricedetails->last()->getMinDiscountQuantity();
+            } else {
+                // We have to sort the pricedetails manually
+                $array = $pricedetails->map(
+                    function (Pricedetail $pricedetail) {
+                        return $pricedetail->getMinDiscountQuantity();
+                    }
+                )->toArray();
+                sort($array);
+                $max_amount = end($array);
+            }
+
 
             if ($max_amount > $max) {
                 $max = $max_amount;
             }
         }
 
-        if ($max > 0) {
+        if ($max > 0.0) {
             return $max;
         }
 
