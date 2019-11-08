@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\DataTables;
@@ -28,25 +27,21 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
-use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Services\AmountFormatter;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\EntityURLGenerator;
-use App\Services\ToolsTreeBuilder;
 use App\Services\TreeBuilder;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 use Omines\DataTablesBundle\Column\BoolColumn;
-use Omines\DataTablesBundle\Column\DateTimeColumn;
 use Omines\DataTablesBundle\Column\MapColumn;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
-use SebastianBergmann\CodeCoverage\Report\Text;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartsDataTable implements DataTableTypeInterface
@@ -134,19 +129,15 @@ class PartsDataTable implements DataTableTypeInterface
         }
 
         if (isset($options['tag'])) {
-            $builder->andWhere('part.tags LIKE :tag')->setParameter('tag', '%' . $options['tag'] . '%');
+            $builder->andWhere('part.tags LIKE :tag')->setParameter('tag', '%'.$options['tag'].'%');
         }
 
         if (isset($options['search'])) {
             $builder->AndWhere('part.name LIKE :search')->orWhere('part.description LIKE :search')->orWhere('part.comment LIKE :search')
-                ->setParameter('search', '%' . $options['search'] . '%');
+                ->setParameter('search', '%'.$options['search'].'%');
         }
     }
 
-    /**
-     * @param DataTable $dataTable
-     * @param array     $options
-     */
     public function configure(DataTable $dataTable, array $options)
     {
         $dataTable
@@ -154,7 +145,7 @@ class PartsDataTable implements DataTableTypeInterface
                 'label' => '',
                 'render' => function ($value, Part $context) {
                     $preview_attachment = $this->previewGenerator->getTablePreviewAttachment($context);
-                    if ($preview_attachment === null) {
+                    if (null === $preview_attachment) {
                         return '';
                     }
 
@@ -165,7 +156,7 @@ class PartsDataTable implements DataTableTypeInterface
                         $this->attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_md'),
                         'img-fluid hoverpic'
                     );
-                }
+                },
             ])
             ->add('name', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.name'),
@@ -179,7 +170,7 @@ class PartsDataTable implements DataTableTypeInterface
             ])
             ->add('id', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.id'),
-                'visible' => false
+                'visible' => false,
             ])
             ->add('description', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.description'),
@@ -190,19 +181,19 @@ class PartsDataTable implements DataTableTypeInterface
             ])
             ->add('footprint', EntityColumn::class, [
                 'property' => 'footprint',
-                'label' => $this->translator->trans('part.table.footprint')
+                'label' => $this->translator->trans('part.table.footprint'),
             ])
             ->add('manufacturer', EntityColumn::class, [
                 'property' => 'manufacturer',
-                'label' => $this->translator->trans('part.table.manufacturer')
+                'label' => $this->translator->trans('part.table.manufacturer'),
             ])
             ->add('storelocation', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.storeLocations'),
                 'render' => function ($value, Part $context) {
-                    $tmp = array();
+                    $tmp = [];
                     foreach ($context->getPartLots() as $lot) {
                         //Ignore lots without storelocation
-                        if ($lot->getStorageLocation() === null) {
+                        if (null === $lot->getStorageLocation()) {
                             continue;
                         }
                         $tmp[] = sprintf(
@@ -210,51 +201,52 @@ class PartsDataTable implements DataTableTypeInterface
                             $this->urlGenerator->listPartsURL($lot->getStorageLocation()),
                             $lot->getStorageLocation()->getName()
                         );
-
                     }
+
                     return implode('<br>', $tmp);
-                }
+                },
             ])
             ->add('amount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.amount'),
                 'render' => function ($value, Part $context) {
                     $amount = $context->getAmountSum();
+
                     return $this->amountFormatter->format($amount, $context->getPartUnit());
-                }
+                },
             ])
             ->add('minamount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.minamount'),
                 'visible' => false,
                 'render' => function ($value, Part $context) {
                     return $this->amountFormatter->format($value, $context->getPartUnit());
-                }
+                },
             ])
             ->add('partUnit', TextColumn::class, [
                 'field' => 'partUnit.name',
                 'label' => $this->translator->trans('part.table.partUnit'),
-                'visible' => false
+                'visible' => false,
             ])
             ->add('addedDate', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.addedDate'),
-                'visible' => false
+                'visible' => false,
             ])
             ->add('lastModified', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.lastModified'),
-                'visible' => false
+                'visible' => false,
             ])
             ->add('needs_review', BoolColumn::class, [
                 'label' => $this->translator->trans('part.table.needsReview'),
                 'trueValue' => $this->translator->trans('true'),
                 'falseValue' => $this->translator->trans('false'),
                 'nullValue' => '',
-                'visible' => false
+                'visible' => false,
             ])
             ->add('favorite', BoolColumn::class, [
                 'label' => $this->translator->trans('part.table.favorite'),
                 'trueValue' => $this->translator->trans('true'),
                 'falseValue' => $this->translator->trans('false'),
                 'nullValue' => '',
-                'visible' => false
+                'visible' => false,
             ])
             ->add('manufacturing_status', MapColumn::class, [
                 'label' => $this->translator->trans('part.table.manufacturingStatus'),
@@ -266,25 +258,25 @@ class PartsDataTable implements DataTableTypeInterface
                     'active' => $this->translator->trans('m_status.active'),
                     'nrfnd' => $this->translator->trans('m_status.nrfnd'),
                     'eol' => $this->translator->trans('m_status.eol'),
-                    'discontinued' => $this->translator->trans('m_status.discontinued')
-                ]
+                    'discontinued' => $this->translator->trans('m_status.discontinued'),
+                ],
             ])
             ->add('manufacturer_product_number', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.mpn'),
-                'visible' => false
+                'visible' => false,
             ])
             ->add('mass', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.mass'),
-                'visible' => false
+                'visible' => false,
             ])
             ->add('tags', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.tags'),
-                'visible' => false
+                'visible' => false,
             ])
 
             ->addOrderBy('name')
             ->createAdapter(ORMAdapter::class, [
-                'query' => function(QueryBuilder $builder) {
+                'query' => function (QueryBuilder $builder) {
                     $this->getQuery($builder);
                 },
                 'entity' => Part::class,
@@ -292,8 +284,8 @@ class PartsDataTable implements DataTableTypeInterface
                     function (QueryBuilder $builder) use ($options) {
                         $this->buildCriteria($builder, $options);
                     },
-                    new SearchCriteriaProvider()
-                ]
+                    new SearchCriteriaProvider(),
+                ],
             ]);
     }
 }

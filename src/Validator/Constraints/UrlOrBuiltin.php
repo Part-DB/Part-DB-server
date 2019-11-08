@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,18 +17,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Validator\Constraints;
-
 
 use App\Entity\Attachments\Attachment;
 use Symfony\Component\Validator\Constraints\Url;
 
 /**
- * Constraints the field that way that the content is either a url or a path to a builtin ressource (like %FOOTPRINTS%)
- * @package App\Validator\Constraints
+ * Constraints the field that way that the content is either a url or a path to a builtin ressource (like %FOOTPRINTS%).
+ *
  * @Annotation
  */
 class UrlOrBuiltin extends Url

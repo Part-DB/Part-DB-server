@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Tests\Entity\UserSystem;
@@ -25,7 +24,6 @@ namespace App\Tests\Entity\UserSystem;
 use App\Entity\UserSystem\PermissionsEmbed;
 use Doctrine\ORM\Mapping\Embedded;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Security\Http\RememberMe\PersistentTokenBasedRememberMeServices;
 
 class PermissionsEmbedTest extends TestCase
 {
@@ -40,29 +38,28 @@ class PermissionsEmbedTest extends TestCase
         //For newly created embedded, all things should be set to inherit => null
         //Test both normal name and constants
 
-        $this->assertNull( $embed->getPermissionValue(PermissionsEmbed::PARTS, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::CONFIG, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::ATTACHMENT_TYPES, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::CATEGORIES, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::DATABASE, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::DEVICE_PARTS, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::DEVICES, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::FOOTRPINTS, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::GROUPS, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::DATABASE, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::LABELS, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::MANUFACTURERS, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::PARTS_ATTACHMENTS, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::PARTS_COMMENT, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::PARTS_DESCRIPTION, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::PARTS_FOOTPRINT, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::PARTS_MANUFACTURER, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::PARTS_MINAMOUNT, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::PARTS_NAME, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::PARTS_ORDER, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::PARTS_ORDERDETAILS, 0));
-        $this->assertEquals(null, $embed->getPermissionValue(PermissionsEmbed::USERS, 0));
-
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::PARTS, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::CONFIG, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::ATTACHMENT_TYPES, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::CATEGORIES, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::DATABASE, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::DEVICE_PARTS, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::DEVICES, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::FOOTRPINTS, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::GROUPS, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::DATABASE, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::LABELS, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::MANUFACTURERS, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::PARTS_ATTACHMENTS, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::PARTS_COMMENT, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::PARTS_DESCRIPTION, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::PARTS_FOOTPRINT, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::PARTS_MANUFACTURER, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::PARTS_MINAMOUNT, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::PARTS_NAME, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::PARTS_ORDER, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::PARTS_ORDERDETAILS, 0));
+        $this->assertNull($embed->getPermissionValue(PermissionsEmbed::USERS, 0));
 
         //Set a value for testing to the part property
         $reflection = new \ReflectionClass($embed);
@@ -77,13 +74,10 @@ class PermissionsEmbedTest extends TestCase
         $this->assertTrue($embed->getPermissionValue(PermissionsEmbed::PARTS, 4));
         // 11 is reserved, but it should be also treat as INHERIT.
         $this->assertNull($embed->getPermissionValue(PermissionsEmbed::PARTS, 6));
-
-
     }
 
     public function testGetBitValue()
     {
-
         $embed = new PermissionsEmbed();
 
         //Set a value for testing to the part property
@@ -94,11 +88,11 @@ class PermissionsEmbedTest extends TestCase
         $property->setValue($embed, 0b11011000); // 11 01 10 00
 
         //Test if function is working correctly
-        $this->assertEquals(PermissionsEmbed::INHERIT ,$embed->getBitValue(PermissionsEmbed::PARTS, 0));
-        $this->assertEquals(PermissionsEmbed::DISALLOW ,$embed->getBitValue(PermissionsEmbed::PARTS, 2));
-        $this->assertEquals(PermissionsEmbed::ALLOW ,$embed->getBitValue(PermissionsEmbed::PARTS, 4));
+        $this->assertEquals(PermissionsEmbed::INHERIT, $embed->getBitValue(PermissionsEmbed::PARTS, 0));
+        $this->assertEquals(PermissionsEmbed::DISALLOW, $embed->getBitValue(PermissionsEmbed::PARTS, 2));
+        $this->assertEquals(PermissionsEmbed::ALLOW, $embed->getBitValue(PermissionsEmbed::PARTS, 4));
         // 11 is reserved, but it should be also treat as INHERIT.
-        $this->assertEquals(0b11 ,$embed->getBitValue(PermissionsEmbed::PARTS, 6));
+        $this->assertEquals(0b11, $embed->getBitValue(PermissionsEmbed::PARTS, 6));
     }
 
     public function testInvalidPermissionName()
@@ -139,7 +133,7 @@ class PermissionsEmbedTest extends TestCase
             'ALLOW' => [PermissionsEmbed::ALLOW],
             'DISALLOW' => [PermissionsEmbed::DISALLOW],
             'INHERIT' => [PermissionsEmbed::INHERIT],
-            '0b11' => [0b11]
+            '0b11' => [0b11],
         ];
     }
 
@@ -149,7 +143,7 @@ class PermissionsEmbedTest extends TestCase
             'ALLOW' => [true],
             'DISALLOW' => [false],
             'INHERIT' => [null],
-            '0b11' => [null]
+            '0b11' => [null],
         ];
     }
 
@@ -188,7 +182,7 @@ class PermissionsEmbedTest extends TestCase
         $embed->setRawPermissionValues([
             PermissionsEmbed::PARTS => 0,
             PermissionsEmbed::USERS => 100,
-            PermissionsEmbed::CATEGORIES => 1304
+            PermissionsEmbed::CATEGORIES => 1304,
         ]);
 
         $this->assertEquals(0, $embed->getRawPermissionValue(PermissionsEmbed::PARTS));
@@ -204,7 +198,5 @@ class PermissionsEmbedTest extends TestCase
         $this->assertEquals(0, $embed->getRawPermissionValue(PermissionsEmbed::PARTS));
         $this->assertEquals(100, $embed->getRawPermissionValue(PermissionsEmbed::USERS));
         $this->assertEquals(1304, $embed->getRawPermissionValue(PermissionsEmbed::CATEGORIES));
-
     }
-
 }

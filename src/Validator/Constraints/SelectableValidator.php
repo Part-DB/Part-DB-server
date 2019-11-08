@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Validator\Constraints;
@@ -30,15 +29,13 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 /**
  * The validator for the Selectable constraint.
- * @package App\Validator\Constraints
  */
 class SelectableValidator extends ConstraintValidator
 {
-
     /**
      * Checks if the passed value is valid.
      *
-     * @param mixed $value The value that should be validated
+     * @param mixed                                   $value      The value that should be validated
      * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
      */
     public function validate($value, Constraint $constraint)

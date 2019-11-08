@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services;
@@ -41,8 +40,6 @@ class PermissionResolver
 
     /**
      * PermissionResolver constructor.
-     *
-     * @param ParameterBagInterface $params
      */
     public function __construct(ParameterBagInterface $params, ContainerInterface $container)
     {
@@ -51,21 +48,18 @@ class PermissionResolver
         $this->cache_file = $cache_dir.'/permissions.php.cache';
         $this->is_debug = $container->getParameter('kernel.debug');
 
-
-
         $this->permission_structure = $this->generatePermissionStructure();
 
         //dump($this->permission_structure);
     }
 
-    public function getPermissionStructure() : array
+    public function getPermissionStructure(): array
     {
         return $this->permission_structure;
     }
 
     protected function generatePermissionStructure()
     {
-
         $cache = new ConfigCache($this->cache_file, $this->is_debug);
 
         //Check if the cache is fresh, else regenerate it.
@@ -88,7 +82,7 @@ class PermissionResolver
             );
 
             //Permission file is our file resource (it is used to invalidate cache)
-            $resources = array();
+            $resources = [];
             $resources[] = new FileResource($permission_file);
 
             //Var export the structure and write it to cache file.
@@ -100,7 +94,6 @@ class PermissionResolver
         //In the most cases we just need to dump the cached PHP file.
         return require $this->cache_file;
     }
-
 
     /**
      * Check if a user/group is allowed to do the specified operation for the permission.
@@ -165,13 +158,14 @@ class PermissionResolver
     }
 
     /**
-     * Sets the new value for the operation
-     * @param HasPermissionsInterface $user The user or group for which the value should be changed.
-     * @param string $permission The name of the permission that should be changed.
-     * @param string $operation The name of the operation that should be changed.
-     * @param bool|null $new_val The new value for the permission. true = ALLOW, false = DISALLOW, null = INHERIT
+     * Sets the new value for the operation.
+     *
+     * @param HasPermissionsInterface $user       The user or group for which the value should be changed.
+     * @param string                  $permission The name of the permission that should be changed.
+     * @param string                  $operation  The name of the operation that should be changed.
+     * @param bool|null               $new_val    The new value for the permission. true = ALLOW, false = DISALLOW, null = INHERIT
      */
-    public function setPermission(HasPermissionsInterface $user, string $permission, string $operation, ?bool $new_val) : void
+    public function setPermission(HasPermissionsInterface $user, string $permission, string $operation, ?bool $new_val): void
     {
         //Get the permissions from the user
         $perm_list = $user->getPermissions();
@@ -195,11 +189,10 @@ class PermissionResolver
      */
     public function listOperationsForPermission(string $permission): array
     {
-        if(!$this->isValidPermission($permission)) {
+        if (!$this->isValidPermission($permission)) {
             throw new \InvalidArgumentException(sprintf('A permission with that name is not existing! Got %s.', $permission));
         }
         $operations = $this->permission_structure['perms'][$permission]['operations'];
-
 
         return array_keys($operations);
     }

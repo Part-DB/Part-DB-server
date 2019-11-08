@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,12 +17,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Twig;
 
-use App\Entity\Attachments\Attachment;
 use App\Entity\Base\DBElement;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\PriceInformations\Currency;
@@ -33,12 +31,9 @@ use App\Services\MarkdownParser;
 use App\Services\MoneyFormatter;
 use App\Services\SIFormatter;
 use App\Services\TreeBuilder;
-use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Serializer\SerializerInterface;
-use Twig\Cache\CacheInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-use s9e\TextFormatter\Bundles\Forum as TextFormatter;
 use Twig\TwigFunction;
 use Twig\TwigTest;
 
@@ -77,7 +72,7 @@ class AppExtension extends AbstractExtension
             new TwigFilter('moneyFormat', [$this, 'formatCurrency']),
             new TwigFilter('siFormat', [$this, 'siFormat']),
             new TwigFilter('amountFormat', [$this, 'amountFormat']),
-            new TwigFilter('loginPath', [$this, 'loginPath'])
+            new TwigFilter('loginPath', [$this, 'loginPath']),
         ];
     }
 
@@ -86,7 +81,7 @@ class AppExtension extends AbstractExtension
         return [
             new TwigTest('instanceof', function ($var, $instance) {
                 return $var instanceof $instance;
-            } )
+            }),
         ];
     }
 
@@ -94,27 +89,29 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFunction('generateTreeData', [$this, 'treeData']),
-            new TwigFunction('attachment_thumbnail', [$this->attachmentURLGenerator, 'getThumbnailURL'])
+            new TwigFunction('attachment_thumbnail', [$this->attachmentURLGenerator, 'getThumbnailURL']),
         ];
     }
 
-    public function treeData(DBElement $element, string $type = 'newEdit') : string
+    public function treeData(DBElement $element, string $type = 'newEdit'): string
     {
-        $tree = $this->treeBuilder->typeToTree(get_class($element), $type, $element);
+        $tree = $this->treeBuilder->typeToTree(\get_class($element), $type, $element);
+
         return $this->serializer->serialize($tree, 'json', ['skip_null_values' => true]);
     }
 
     /**
-     * This function/filter generates an path
-     * @param string $path
+     * This function/filter generates an path.
+     *
      * @return string
      */
-    public function loginPath(string $path) : string
+    public function loginPath(string $path): string
     {
-        $parts = explode("/" ,$path);
+        $parts = explode('/', $path);
         //Remove the part with
         unset($parts[1]);
-        return implode("/", $parts);
+
+        return implode('/', $parts);
     }
 
     public function generateEntityURL(DBElement $entity, string $method = 'info'): string

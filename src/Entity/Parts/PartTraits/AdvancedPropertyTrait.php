@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,18 +17,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity\Parts\PartTraits;
-
 
 use App\Entity\Parts\Part;
 use App\Security\Annotations\ColumnSecurity;
 
 /**
  * Advanced properties of a part, not related to a more specific group.
- * @package App\Entity\Parts\PartTraits
  */
 trait AdvancedPropertyTrait
 {
@@ -56,6 +53,7 @@ trait AdvancedPropertyTrait
 
     /**
      * Checks if this part is marked, for that it needs further review.
+     *
      * @return bool
      */
     public function isNeedsReview(): bool
@@ -65,18 +63,19 @@ trait AdvancedPropertyTrait
 
     /**
      * Sets the "needs review" status of this part.
-     * @param bool $needs_review
+     *
      * @return Part|self
      */
     public function setNeedsReview(bool $needs_review): self
     {
         $this->needs_review = $needs_review;
+
         return $this;
     }
 
-
     /**
-     * Gets a comma separated list, of tags, that are assigned to this part
+     * Gets a comma separated list, of tags, that are assigned to this part.
+     *
      * @return string
      */
     public function getTags(): string
@@ -86,18 +85,20 @@ trait AdvancedPropertyTrait
 
     /**
      * Sets a comma separated list of tags, that are assigned to this part.
-     * @param string $tags
+     *
      * @return self
      */
     public function setTags(string $tags): self
     {
         $this->tags = $tags;
+
         return $this;
     }
 
     /**
      * Returns the mass of a single part unit.
-     * Returns null, if the mass is unknown/not set yet
+     * Returns null, if the mass is unknown/not set yet.
+     *
      * @return float|null
      */
     public function getMass(): ?float
@@ -108,14 +109,13 @@ trait AdvancedPropertyTrait
     /**
      * Sets the mass of a single part unit.
      * Sett to null, if the mass is unknown.
-     * @param float|null $mass
+     *
      * @return self
      */
     public function setMass(?float $mass): self
     {
         $this->mass = $mass;
+
         return $this;
     }
-
-
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 declare(strict_types=1);
@@ -65,7 +64,6 @@ use Doctrine\ORM\Mapping as ORM;
  *     "Supplier" = "SupplierAttachment", "User" = "UserAttachment"
  * })
  * @ORM\EntityListeners({"App\EntityListeners\AttachmentDeleteListener"})
- *
  */
 abstract class Attachment extends NamedDBElement
 {
@@ -75,7 +73,7 @@ abstract class Attachment extends NamedDBElement
      * It will be used to determine if a attachment is a picture and therefore will be shown to user as preview.
      */
     public const PICTURE_EXTS = ['apng', 'bmp', 'gif', 'ico', 'cur', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png',
-        'svg', 'webp'];
+        'svg', 'webp', ];
 
     /**
      * A list of extensions that will be treated as a 3D Model that can be shown to user directly in Part-DB.
@@ -83,7 +81,7 @@ abstract class Attachment extends NamedDBElement
     public const MODEL_EXTS = ['x3d'];
 
     /**
-     * When the path begins with one of this placeholders
+     * When the path begins with one of this placeholders.
      */
     public const INTERNAL_PLACEHOLDER = ['%BASE%', '%MEDIA%', '%SECURE%'];
 
@@ -109,7 +107,7 @@ abstract class Attachment extends NamedDBElement
     protected $original_filename;
 
     /**
-     * ORM mapping is done in sub classes (like PartAttachment)
+     * ORM mapping is done in sub classes (like PartAttachment).
      */
     protected $element;
 
@@ -129,7 +127,7 @@ abstract class Attachment extends NamedDBElement
     public function __construct()
     {
         //parent::__construct();
-        if (static::ALLOWED_ELEMENT_CLASS === '') {
+        if ('' === static::ALLOWED_ELEMENT_CLASS) {
             throw new \LogicException('An *Attachment class must override the ALLOWED_ELEMENT_CLASS const!');
         }
     }
@@ -154,15 +152,16 @@ abstract class Attachment extends NamedDBElement
 
         $extension = pathinfo($this->getPath(), PATHINFO_EXTENSION);
 
-        return in_array(strtolower($extension), static::PICTURE_EXTS, true);
+        return \in_array(strtolower($extension), static::PICTURE_EXTS, true);
     }
 
     /**
      * Check if this attachment is a 3D model and therfore can be directly shown to user.
      * If the attachment is external, false is returned (3D Models must be internal).
+     *
      * @return bool
      */
-    public function is3DModel() : bool
+    public function is3DModel(): bool
     {
         //We just assume that 3D Models are internally saved, otherwise we get problems loading them.
         if ($this->isExternal()) {
@@ -171,14 +170,15 @@ abstract class Attachment extends NamedDBElement
 
         $extension = pathinfo($this->getPath(), PATHINFO_EXTENSION);
 
-        return in_array(strtolower($extension), static::MODEL_EXTS, true);
+        return \in_array(strtolower($extension), static::MODEL_EXTS, true);
     }
 
     /**
-     * Checks if the attachment file is externally saved (the database saves an URL)
+     * Checks if the attachment file is externally saved (the database saves an URL).
+     *
      * @return bool true, if the file is saved externally
      */
-    public function isExternal() : bool
+    public function isExternal(): bool
     {
         //When path is empty, this attachment can not be external
         if (empty($this->path)) {
@@ -186,38 +186,40 @@ abstract class Attachment extends NamedDBElement
         }
 
         //After the %PLACEHOLDER% comes a slash, so we can check if we have a placholder via explode
-        $tmp = explode("/", $this->path);
+        $tmp = explode('/', $this->path);
 
         if (empty($tmp)) {
             return true;
         }
 
-        return !in_array($tmp[0], array_merge(static::INTERNAL_PLACEHOLDER, static::BUILTIN_PLACEHOLDER), false);
+        return !\in_array($tmp[0], array_merge(static::INTERNAL_PLACEHOLDER, static::BUILTIN_PLACEHOLDER), false);
     }
 
     /**
      * Check if this attachment is saved in a secure place.
      * This means that it can not be accessed directly via a web request, but must be viewed via a controller.
+     *
      * @return bool True, if the file is secure.
      */
-    public function isSecure() : bool
+    public function isSecure(): bool
     {
         //After the %PLACEHOLDER% comes a slash, so we can check if we have a placholder via explode
-        $tmp = explode("/", $this->path);
+        $tmp = explode('/', $this->path);
 
         if (empty($tmp)) {
             return false;
         }
 
-        return $tmp[0] === '%SECURE%';
+        return '%SECURE%' === $tmp[0];
     }
 
     /**
      * Checks if the attachment file is using a builtin file. (see BUILTIN_PLACEHOLDERS const for possible placeholders)
-     * If a file is built in, the path is shown to user in url field (no sensitive infos are provided)
+     * If a file is built in, the path is shown to user in url field (no sensitive infos are provided).
+     *
      * @return bool True if the attachment is uning an builtin file.
      */
-    public function isBuiltIn() : bool
+    public function isBuiltIn(): bool
     {
         return static::checkIfBuiltin($this->path);
     }
@@ -232,9 +234,10 @@ abstract class Attachment extends NamedDBElement
      * Returns the extension of the file referenced via the attachment.
      * For a path like %BASE/path/foo.bar, bar will be returned.
      * If this attachment is external null is returned.
+     *
      * @return string|null The file extension in lower case.
      */
-    public function getExtension() : ?string
+    public function getExtension(): ?string
     {
         if ($this->isExternal()) {
             return null;
@@ -260,6 +263,7 @@ abstract class Attachment extends NamedDBElement
     /**
      * The URL to the external file, or the path to the built in file.
      * Returns null, if the file is not external (and not builtin).
+     *
      * @return string|null
      */
     public function getURL(): ?string
@@ -274,6 +278,7 @@ abstract class Attachment extends NamedDBElement
     /**
      * Returns the hostname where the external file is stored.
      * Returns null, if the file is not external.
+     *
      * @return string|null
      */
     public function getHost(): ?string
@@ -319,16 +324,19 @@ abstract class Attachment extends NamedDBElement
 
     /**
      * Sets the filename that is shown for this attachment. Useful when the internal path is some generated value.
+     *
      * @param string|null $new_filename The filename that should be shown.
-     * Set to null to generate the filename from path.
+     *                                  Set to null to generate the filename from path.
+     *
      * @return Attachment
      */
-    public function setFilename(?string $new_filename): Attachment
+    public function setFilename(?string $new_filename): self
     {
-        if ($new_filename === "") {
+        if ('' === $new_filename) {
             $new_filename = null;
         }
         $this->original_filename = $new_filename;
+
         return $this;
     }
 
@@ -347,7 +355,6 @@ abstract class Attachment extends NamedDBElement
      *  Get the type of this attachement.
      *
      * @return AttachmentType the type of this attachement
-     *
      */
     public function getAttachmentType(): ?AttachmentType
     {
@@ -370,8 +377,6 @@ abstract class Attachment extends NamedDBElement
      ****************************************************************************************************/
 
     /**
-     * @param bool $show_in_table
-     *
      * @return self
      */
     public function setShowInTable(bool $show_in_table): self
@@ -381,51 +386,48 @@ abstract class Attachment extends NamedDBElement
         return $this;
     }
 
-    public function setElement(AttachmentContainingDBElement $element) : Attachment
+    public function setElement(AttachmentContainingDBElement $element): self
     {
-        if (!is_a($element,static::ALLOWED_ELEMENT_CLASS)) {
-            throw new \InvalidArgumentException(sprintf(
-                'The element associated with a %s must be a %s!',
-                get_class($this),
-                static::ALLOWED_ELEMENT_CLASS
-            ));
+        if (!is_a($element, static::ALLOWED_ELEMENT_CLASS)) {
+            throw new \InvalidArgumentException(sprintf('The element associated with a %s must be a %s!', \get_class($this), static::ALLOWED_ELEMENT_CLASS));
         }
 
         $this->element = $element;
+
         return $this;
     }
 
     /**
-     * @param string $path
      * @return Attachment
      */
-    public function setPath(string $path): Attachment
+    public function setPath(string $path): self
     {
         $this->path = $path;
+
         return $this;
     }
 
     /**
-     * @param AttachmentType $attachement_type
      * @return Attachment
      */
-    public function setAttachmentType(AttachmentType $attachement_type): Attachment
+    public function setAttachmentType(AttachmentType $attachement_type): self
     {
         $this->attachment_type = $attachement_type;
+
         return $this;
     }
 
     /**
      * Sets the url associated with this attachment.
      * If the url is empty nothing is changed, to not override the file path.
-     * @param string|null $url
+     *
      * @return Attachment
      */
-    public function setURL(?string $url) : Attachment
+    public function setURL(?string $url): self
     {
         //Only set if the URL is not empty
         if (!empty($url)) {
-            if (strpos($url, '%BASE%') !== false || strpos($url, '%MEDIA%') !== false) {
+            if (false !== strpos($url, '%BASE%') || false !== strpos($url, '%MEDIA%')) {
                 throw new \InvalidArgumentException('You can not reference internal files via the url field! But nice try!');
             }
 
@@ -437,17 +439,18 @@ abstract class Attachment extends NamedDBElement
         return $this;
     }
 
-
     /*****************************************************************************************************
      * Static functions
      *****************************************************************************************************/
 
     /**
      * Checks if the given path is a path to a builtin ressource.
+     *
      * @param string $path The path that should be checked
+     *
      * @return bool True if the path is pointing to a builtin ressource.
      */
-    public static function checkIfBuiltin(string $path) : bool
+    public static function checkIfBuiltin(string $path): bool
     {
         //After the %PLACEHOLDER% comes a slash, so we can check if we have a placholder via explode
         $tmp = explode('/', $path);
@@ -455,22 +458,25 @@ abstract class Attachment extends NamedDBElement
         if (empty($tmp)) {
             return false;
         }
-        return in_array($tmp[0], static::BUILTIN_PLACEHOLDER, false);
+
+        return \in_array($tmp[0], static::BUILTIN_PLACEHOLDER, false);
     }
 
     /**
      * Check if a string is a URL and is valid.
+     *
      * @param $string string The string which should be checked.
      * @param bool $path_required If true, the string must contain a path to be valid. (e.g. foo.bar would be invalid, foo.bar/test.php would be valid).
      * @param $only_http bool Set this to true, if only HTTPS or HTTP schemata should be allowed.
      *  *Caution: When this is set to false, a attacker could use the file:// schema, to get internal server files, like /etc/passwd.*
+     *
      * @return bool True if the string is a valid URL. False, if the string is not an URL or invalid.
      */
-    public static function isURL(string $string, bool $path_required = true, bool $only_http = true) : bool
+    public static function isURL(string $string, bool $path_required = true, bool $only_http = true): bool
     {
         if ($only_http) {   //Check if scheme is HTTPS or HTTP
             $scheme = parse_url($string, PHP_URL_SCHEME);
-            if ($scheme !== 'http' && $scheme !== 'https') {
+            if ('http' !== $scheme && 'https' !== $scheme) {
                 return false;   //All other schemes are not valid.
             }
         }

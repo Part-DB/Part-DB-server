@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services;
@@ -26,7 +25,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * This class allows you to convert markdown text to HTML.
- * @package App\Services
  */
 class MarkdownParser
 {
@@ -39,12 +37,14 @@ class MarkdownParser
 
     /**
      * Mark the markdown for rendering.
-     * The rendering of markdown is done on client side
-     * @param string $markdown The markdown text that should be parsed to html.
-     * @param bool $inline_mode Only allow inline markdown codes like (*bold* or **italic**), not something like tables
+     * The rendering of markdown is done on client side.
+     *
+     * @param string $markdown    The markdown text that should be parsed to html.
+     * @param bool   $inline_mode Only allow inline markdown codes like (*bold* or **italic**), not something like tables
+     *
      * @return string The markdown in a version that can be parsed on client side.
      */
-    public function markForRendering(string $markdown, bool $inline_mode = false) : string
+    public function markForRendering(string $markdown, bool $inline_mode = false): string
     {
         return sprintf(
             '<div class="markdown" data-markdown="%s">%s</div>',

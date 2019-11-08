@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,16 +17,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\EntityListeners;
 
-
 use App\Entity\Attachments\Attachment;
 use App\Services\Attachments\AttachmentManager;
-use App\Services\Attachments\AttachmentReverseSearch;
 use App\Services\Attachments\AttachmentPathResolver;
+use App\Services\Attachments\AttachmentReverseSearch;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping\PostRemove;
@@ -35,7 +33,6 @@ use Doctrine\ORM\Mapping\PreUpdate;
 /**
  * This listener watches for changes on attachments and deletes the files associated with an attachment, that are not
  * used any more. This can happens after an attachment is delteted or the path is changed.
- * @package App\EntityListeners
  */
 class AttachmentDeleteListener
 {
@@ -52,8 +49,6 @@ class AttachmentDeleteListener
 
     /**
      * Removes the file associated with the attachment, if the file associated with the attachment changes.
-     * @param Attachment $attachment
-     * @param PreUpdateEventArgs $event
      *
      * @PreUpdate
      */
@@ -73,9 +68,6 @@ class AttachmentDeleteListener
     /**
      * Removes the file associated with the attachment, after the attachment was deleted.
      *
-     * @param Attachment $attachment
-     * @param LifecycleEventArgs $event
-     *
      * @PostRemove
      */
     public function postRemoveHandler(Attachment $attachment, LifecycleEventArgs $event)
@@ -87,9 +79,8 @@ class AttachmentDeleteListener
 
         $file = $this->attachmentHelper->attachmentToFile($attachment);
         //Only delete if the attachment has a valid file.
-        if ($file !== null) {
+        if (null !== $file) {
             $this->attachmentReverseSearch->deleteIfNotUsed($file);
         }
     }
-
 }

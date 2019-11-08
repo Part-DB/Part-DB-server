@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form\Part;
@@ -29,32 +28,25 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
-use App\Entity\Parts\Storelocation;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Form\AttachmentFormType;
 use App\Form\Type\MasterPictureAttachmentType;
 use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
-use Doctrine\DBAL\Types\FloatType;
-use Doctrine\ORM\EntityRepository;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use function foo\func;
 
 class PartBaseType extends AbstractType
 {
@@ -75,19 +67,19 @@ class PartBaseType extends AbstractType
         $part = $builder->getData();
 
         $status_choices = [
-            $this->trans->trans("m_status.unknown") => '',
+            $this->trans->trans('m_status.unknown') => '',
             $this->trans->trans('m_status.announced') => 'announced',
             $this->trans->trans('m_status.active') => 'active',
             $this->trans->trans('m_status.nrfnd') => 'nrfnd',
             $this->trans->trans('m_status.eol') => 'eol',
-            $this->trans->trans('m_status.discontinued') => 'discontinued'
+            $this->trans->trans('m_status.discontinued') => 'discontinued',
         ];
 
         //Common section
         $builder
             ->add('name', TextType::class, [
                 'empty_data' => '',
-                'label' =>  $this->trans->trans('part.edit.name'),
+                'label' => $this->trans->trans('part.edit.name'),
                 'attr' => ['placeholder' => $this->trans->trans('part.edit.name.placeholder')],
                 'disabled' => !$this->security->isGranted('name.edit', $part),
             ])
@@ -97,7 +89,7 @@ class PartBaseType extends AbstractType
                 'label' => $this->trans->trans('part.edit.description'),
                 'config_name' => 'description_config',
                 'attr' => ['placeholder' => $this->trans->trans('part.edit.description.placeholder'), 'rows' => 2],
-                'disabled' => !$this->security->isGranted('description.edit', $part)
+                'disabled' => !$this->security->isGranted('description.edit', $part),
             ])
             ->add('minAmount', SIUnitType::class, [
                 'attr' => ['min' => 0, 'placeholder' => $this->trans->trans('part.editmininstock.placeholder')],
@@ -121,11 +113,11 @@ class PartBaseType extends AbstractType
             ->add('tags', TextType::class, [
                 'required' => false,
                 'label' => $this->trans->trans('part.edit.tags'),
-                'empty_data' => "",
+                'empty_data' => '',
                 'attr' => [
                     'class' => 'tagsinput',
-                    'data-autocomplete' => $this->urlGenerator->generate('typeahead_tags', ['query' => 'QUERY']),],
-                'disabled' => !$this->security->isGranted('tags.edit', $part)
+                    'data-autocomplete' => $this->urlGenerator->generate('typeahead_tags', ['query' => 'QUERY']), ],
+                'disabled' => !$this->security->isGranted('tags.edit', $part),
             ]);
 
         //Manufacturer section
@@ -134,7 +126,7 @@ class PartBaseType extends AbstractType
             'required' => false,
             'label' => $this->trans->trans('part.edit.manufacturer.label'),
             'disable_not_selectable' => true,
-            'disabled' => !$this->security->isGranted('manufacturer.edit', $part)
+            'disabled' => !$this->security->isGranted('manufacturer.edit', $part),
             ])
             ->add('manufacturer_product_url', UrlType::class, [
                 'required' => false,
@@ -146,12 +138,12 @@ class PartBaseType extends AbstractType
                 'required' => false,
                 'empty_data' => '',
                 'label' => $this->trans->trans('part.edit.mpn'),
-                'disabled' => !$this->security->isGranted('mpn.edit', $part)])
+                'disabled' => !$this->security->isGranted('mpn.edit', $part), ])
             ->add('manufacturing_status', ChoiceType::class, [
                 'label' => $this->trans->trans('part.edit.manufacturing_status'),
                 'choices' => $status_choices,
                 'required' => false,
-                'disabled' => !$this->security->isGranted('status.edit', $part)
+                'disabled' => !$this->security->isGranted('status.edit', $part),
             ]);
 
         //Advanced section
@@ -159,35 +151,34 @@ class PartBaseType extends AbstractType
             'label_attr' => ['class' => 'checkbox-custom'],
             'required' => false,
             'label' => $this->trans->trans('part.edit.needs_review'),
-            'disabled' => !$this->security->isGranted('edit', $part)
+            'disabled' => !$this->security->isGranted('edit', $part),
         ])
             ->add('favorite', CheckboxType::class, [
                 'label_attr' => ['class' => 'checkbox-custom'],
                 'required' => false,
                 'label' => $this->trans->trans('part.edit.is_favorite'),
-                'disabled' => !$this->security->isGranted('change_favorite', $part)
+                'disabled' => !$this->security->isGranted('change_favorite', $part),
             ])
             ->add('mass', SIUnitType::class, [
                 'unit' => 'g',
                 'label' => $this->trans->trans('part.edit.mass'),
                 'required' => false,
-                'disabled' => !$this->security->isGranted('mass.edit', $part)
+                'disabled' => !$this->security->isGranted('mass.edit', $part),
             ])
             ->add('partUnit', StructuralEntityType::class, [
                 'class' => MeasurementUnit::class,
                 'required' => false,
                 'disable_not_selectable' => true,
                 'label' => $this->trans->trans('part.edit.partUnit'),
-                'disabled' => !$this->security->isGranted('unit.edit', $part)
+                'disabled' => !$this->security->isGranted('unit.edit', $part),
             ]);
-
 
         //Comment section
         $builder->add('comment', CKEditorType::class, [
             'required' => false,
             'label' => $this->trans->trans('part.edit.comment'),
             'attr' => ['rows' => 4],
-            'disabled' => !$this->security->isGranted('comment.edit', $part), 'empty_data' => ''
+            'disabled' => !$this->security->isGranted('comment.edit', $part), 'empty_data' => '',
         ]);
 
         //Part Lots section
@@ -200,7 +191,7 @@ class PartBaseType extends AbstractType
                 'measurement_unit' => $part->getPartUnit(),
                 'disabled' => !$this->security->isGranted('lots.edit', $part),
             ],
-            'by_reference' => false
+            'by_reference' => false,
         ]);
 
         //Attachment section
@@ -213,14 +204,14 @@ class PartBaseType extends AbstractType
                 'data_class' => PartAttachment::class,
                 'disabled' => !$this->security->isGranted('attachments.edit', $part),
             ],
-            'by_reference' => false
+            'by_reference' => false,
         ]);
 
         $builder->add('master_picture_attachment', MasterPictureAttachmentType::class, [
             'required' => false,
             'disabled' => !$this->security->isGranted('attachments.edit', $part),
             'label' => $this->trans->trans('part.edit.master_attachment'),
-            'entity' => $part
+            'entity' => $part,
         ]);
 
         //Orderdetails section
@@ -234,7 +225,7 @@ class PartBaseType extends AbstractType
             'entry_options' => [
                 'measurement_unit' => $part->getPartUnit(),
                 'disabled' => !$this->security->isGranted('orderdetails.edit', $part),
-            ]
+            ],
         ]);
 
         $builder

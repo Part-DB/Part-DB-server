@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Tests\Controller;
-
 
 use Doctrine\ORM\EntityManagerInterface;
 use Proxies\__CG__\App\Entity\UserSystem\User;
@@ -29,7 +27,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
  * @group slow
- * @package App\Tests\Controller
  */
 class RedirectControllerTest extends WebTestCase
 {
@@ -59,6 +56,7 @@ class RedirectControllerTest extends WebTestCase
 
     /**
      * Test if a certain request to an url will be redirected.
+     *
      * @dataProvider urlMatchDataProvider
      * @group slow
      */
@@ -67,7 +65,7 @@ class RedirectControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request('GET', $url);
         $response = $client->getResponse();
-        if($expect_redirect) {
+        if ($expect_redirect) {
             $this->assertEquals(302, $response->getStatusCode());
         }
         $this->assertEquals($expect_redirect, $response->isRedirect());
@@ -90,9 +88,11 @@ class RedirectControllerTest extends WebTestCase
 
     /**
      * Test if the user is redirected to the localized version of a page, based on his settings.
+     *
      * @dataProvider urlAddLocaleDataProvider
      * @group slow
      * @depends testUrlMatch
+     *
      * @param $user_locale
      * @param $input_path
      * @param $redirect_path
@@ -100,7 +100,7 @@ class RedirectControllerTest extends WebTestCase
     public function testAddLocale($user_locale, $input_path, $redirect_path)
     {
         //Redirect path is absolute
-        $redirect_path = 'http://localhost' . $redirect_path;
+        $redirect_path = 'http://localhost'.$redirect_path;
 
         /** @var User $user */
         $user = $this->userRepo->findOneBy(['name' => 'user']);
@@ -110,7 +110,7 @@ class RedirectControllerTest extends WebTestCase
 
         $client = static::createClient([], [
             'PHP_AUTH_USER' => 'user',
-            'PHP_AUTH_PW'   => 'test',
+            'PHP_AUTH_PW' => 'test',
         ]);
 
         $client->followRedirects(false);
@@ -119,7 +119,8 @@ class RedirectControllerTest extends WebTestCase
     }
 
     /**
-     * Test if the user is redirected to password change page if he should do that
+     * Test if the user is redirected to password change page if he should do that.
+     *
      * @depends testAddLocale
      * @group slow
      * @testWith    ["de"]
@@ -137,13 +138,11 @@ class RedirectControllerTest extends WebTestCase
 
         $client = static::createClient([], [
             'PHP_AUTH_USER' => 'user',
-            'PHP_AUTH_PW'   => 'test',
+            'PHP_AUTH_PW' => 'test',
         ]);
         $client->followRedirects(false);
 
         $client->request('GET', '/part/3');
         $this->assertEquals("/$locale/user/settings", $client->getResponse()->headers->get('Location'));
-
-
     }
 }

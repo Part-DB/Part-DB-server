@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,14 +17,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services\Attachments;
 
 use App\Entity\Attachments\Attachment;
-use App\Services\Attachments\AttachmentPathResolver;
-use App\Services\Attachments\AttachmentURLGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Component\Filesystem\Filesystem;
@@ -32,7 +29,6 @@ use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * This service provides functions to find attachments via an reverse search based on a file.
- * @package App\Services
  */
 class AttachmentReverseSearch
 {
@@ -51,11 +47,13 @@ class AttachmentReverseSearch
     }
 
     /**
-     * Find all attachments that use the given file
+     * Find all attachments that use the given file.
+     *
      * @param \SplFileInfo $file The file for which is searched
+     *
      * @return Attachment[] An list of attachments that use the given file.
      */
-    public function findAttachmentsByFile(\SplFileInfo $file) : array
+    public function findAttachmentsByFile(\SplFileInfo $file): array
     {
         //Path with %MEDIA%
         $relative_path_new = $this->pathResolver->realPathToPlaceholder($file->getPathname());
@@ -63,20 +61,22 @@ class AttachmentReverseSearch
         $relative_path_old = $this->pathResolver->realPathToPlaceholder($file->getPathname(), true);
 
         $repo = $this->em->getRepository(Attachment::class);
+
         return $repo->findBy(['path' => [$relative_path_new, $relative_path_old]]);
     }
 
     /**
-     * Deletes the given file if it is not used by more than $threshold attachments
-     * @param \SplFileInfo $file The file that should be removed
-     * @param int $threshold The threshold used, to determine if a file should be deleted or not.
+     * Deletes the given file if it is not used by more than $threshold attachments.
+     *
+     * @param \SplFileInfo $file      The file that should be removed
+     * @param int          $threshold The threshold used, to determine if a file should be deleted or not.
+     *
      * @return bool True, if the file was delete. False if not.
      */
-    public function deleteIfNotUsed(\SplFileInfo $file, int $threshold = 1) : bool
+    public function deleteIfNotUsed(\SplFileInfo $file, int $threshold = 1): bool
     {
-
         /* When the file is used more then $threshold times, don't delete it */
-        if (count($this->findAttachmentsByFile($file)) > $threshold) {
+        if (\count($this->findAttachmentsByFile($file)) > $threshold) {
             return false;
         }
 
@@ -85,8 +85,6 @@ class AttachmentReverseSearch
 
         $fs = new Filesystem();
         $fs->remove($file);
-
-
 
         return true;
     }

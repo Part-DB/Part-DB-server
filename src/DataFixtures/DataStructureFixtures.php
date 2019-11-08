@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\DataFixtures;
-
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\StructuralDBElement;
@@ -32,15 +30,12 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
-use App\Entity\PriceInformations\Currency;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class DataStructureFixtures extends Fixture
 {
-
     protected $em;
 
     public function __construct(EntityManagerInterface $entityManager)
@@ -49,15 +44,13 @@ class DataStructureFixtures extends Fixture
     }
 
     /**
-     * Load data fixtures with the passed EntityManager
-     *
-     * @param ObjectManager $manager
+     * Load data fixtures with the passed EntityManager.
      */
     public function load(ObjectManager $manager)
     {
         //Reset autoincrement
         $types = [AttachmentType::class, Device::class, Category::class, Footprint::class, Manufacturer::class,
-            MeasurementUnit::class, Storelocation::class, Supplier::class];
+            MeasurementUnit::class, Storelocation::class, Supplier::class, ];
 
         foreach ($types as $type) {
             $this->createNodesForClass($type, $manager);
@@ -68,7 +61,8 @@ class DataStructureFixtures extends Fixture
 
     /**
      * Creates a datafixture with serveral nodes for the given class.
-     * @param string $class The class for which the nodes should be generated (must be a StructuralDBElement child)
+     *
+     * @param string        $class   The class for which the nodes should be generated (must be a StructuralDBElement child)
      * @param ObjectManager $manager The ObjectManager that should be used to persist the nodes
      */
     public function createNodesForClass(string $class, ObjectManager $manager)

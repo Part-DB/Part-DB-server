@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,14 +17,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Validator\Constraints;
 
-
-use App\Entity\Parts\PartLot;
-use App\Entity\UserSystem\PermissionsEmbed;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Services\PermissionResolver;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
@@ -33,7 +29,6 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class ValidPermissionValidator extends ConstraintValidator
 {
-
     protected $resolver;
     protected $perm_structure;
 
@@ -46,7 +41,7 @@ class ValidPermissionValidator extends ConstraintValidator
     /**
      * Checks if the passed value is valid.
      *
-     * @param mixed $value The value that should be validated
+     * @param mixed      $value      The value that should be validated
      * @param Constraint $constraint The constraint for the validation
      */
     public function validate($value, Constraint $constraint)
@@ -62,7 +57,7 @@ class ValidPermissionValidator extends ConstraintValidator
         foreach ($this->perm_structure['perms'] as $perm_key => $permission) {
             foreach ($permission['operations'] as $op_key => $op) {
                 if (!empty($op['alsoSet']) &&
-                    $this->resolver->dontInherit($perm_holder, $perm_key, $op_key) === true) {
+                    true === $this->resolver->dontInherit($perm_holder, $perm_key, $op_key)) {
                     //Set every op listed in also Set
                     foreach ($op['alsoSet'] as $set_also) {
                         $this->resolver->setPermission($perm_holder, $perm_key, $set_also, true);

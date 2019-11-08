@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity\Parts\PartTraits;
-
 
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Orderdetail;
@@ -30,7 +28,6 @@ use Doctrine\Common\Collections\Collection;
 
 /**
  * This trait collects all aspects of a part related to orders and priceinformations.
- * @package App\Entity\Parts\PartTraits
  */
 trait OrderTrait
 {
@@ -67,6 +64,7 @@ trait OrderTrait
 
     /**
      * Get the selected order orderdetails of this part.
+     *
      * @return Orderdetail the selected order orderdetails
      */
     public function getOrderOrderdetails(): ?Orderdetail
@@ -76,6 +74,7 @@ trait OrderTrait
 
     /**
      * Get the order quantity of this part.
+     *
      * @return int the order quantity
      */
     public function getOrderQuantity(): int
@@ -99,11 +98,10 @@ trait OrderTrait
      * @param bool $hide_obsolete If true, obsolete orderdetails will NOT be returned
      *
      * @return Collection|Orderdetail[] * all orderdetails as a one-dimensional array of Orderdetails objects
-     *                        (empty array if there are no ones)
-     *                        * the array is sorted by the suppliers names / minimum order quantity
-     *
+     *                                  (empty array if there are no ones)
+     *                                  * the array is sorted by the suppliers names / minimum order quantity
      */
-    public function getOrderdetails(bool $hide_obsolete = false) : Collection
+    public function getOrderdetails(bool $hide_obsolete = false): Collection
     {
         //If needed hide the obsolete entries
         if ($hide_obsolete) {
@@ -123,38 +121,42 @@ trait OrderTrait
     /**
      * Adds the given orderdetail to list of orderdetails.
      * The orderdetail is assigned to this part.
+     *
      * @param Orderdetail $orderdetail The orderdetail that should be added.
+     *
      * @return self
      */
-    public function addOrderdetail(Orderdetail $orderdetail) : self
+    public function addOrderdetail(Orderdetail $orderdetail): self
     {
         $orderdetail->setPart($this);
         $this->orderdetails->add($orderdetail);
+
         return $this;
     }
 
     /**
      * Removes the given orderdetail from the list of orderdetails.
-     * @param Orderdetail $orderdetail
+     *
      * @return OrderTrait
      */
-    public function removeOrderdetail(Orderdetail $orderdetail) : self
+    public function removeOrderdetail(Orderdetail $orderdetail): self
     {
         $this->orderdetails->removeElement($orderdetail);
+
         return $this;
     }
 
     /**
      *  Set the "manual_order" attribute.
      *
-     * @param bool     $new_manual_order          the new "manual_order" attribute
-     * @param int      $new_order_quantity        the new order quantity
+     * @param bool             $new_manual_order      the new "manual_order" attribute
+     * @param int              $new_order_quantity    the new order quantity
      * @param Orderdetail|null $new_order_orderdetail * the ID of the new order orderdetails
-     *                                            * or Zero for "no order orderdetails"
-     *                                            * or NULL for automatic order orderdetails
-     *                                            (if the part has exactly one orderdetails,
-     *                                            set this orderdetails as order orderdetails.
-     *                                            Otherwise, set "no order orderdetails")
+     *                                                * or Zero for "no order orderdetails"
+     *                                                * or NULL for automatic order orderdetails
+     *                                                (if the part has exactly one orderdetails,
+     *                                                set this orderdetails as order orderdetails.
+     *                                                Otherwise, set "no order orderdetails")
      *
      * @return self
      */
@@ -183,7 +185,7 @@ trait OrderTrait
     {
         $all_orderdetails = $this->getOrderdetails();
 
-        if (0 === count($all_orderdetails)) {
+        if (0 === \count($all_orderdetails)) {
             return false;
         }
 
@@ -195,5 +197,4 @@ trait OrderTrait
 
         return true;
     }
-
 }

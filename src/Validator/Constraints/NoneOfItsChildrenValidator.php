@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,30 +17,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Validator\Constraints;
 
-
 use App\Entity\Base\StructuralDBElement;
-use Symfony\Bundle\MakerBundle\Str;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 /**
  * The validator for the NoneOfItsChildren annotation.
- * @package App\Validator\Constraints
  */
 class NoneOfItsChildrenValidator extends ConstraintValidator
 {
     /**
      * Checks if the passed value is valid.
      *
-     * @param mixed $value The value that should be validated
+     * @param mixed      $value      The value that should be validated
      * @param Constraint $constraint The constraint for the validation
      */
     public function validate($value, Constraint $constraint)
@@ -67,7 +62,7 @@ class NoneOfItsChildrenValidator extends ConstraintValidator
 
         // Check if the targeted parent is the object itself:
         $entity_id = $entity->getID();
-        if ($entity_id !== null && $entity_id === $value->getID()) {
+        if (null !== $entity_id && $entity_id === $value->getID()) {
             //Set the entity to a valid state
             $entity->setParent(null);
             $this->context->buildViolation($constraint->self_message)->addViolation();
@@ -80,6 +75,7 @@ class NoneOfItsChildrenValidator extends ConstraintValidator
             //Set the entity to a valid state
             $entity->setParent(null);
             $this->context->buildViolation($constraint->children_message)->addViolation();
+
             return;
         }
     }

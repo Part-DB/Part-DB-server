@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 declare(strict_types=1);
@@ -32,15 +31,15 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20190924113252 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE users ADD id_preview_attachement INT DEFAULT NULL, ADD pw_reset_token VARCHAR(255) DEFAULT NULL, ADD pw_reset_expires DATETIME DEFAULT NULL, ADD disabled TINYINT(1) NOT NULL, DROP config_image_path');
         $this->addSql('ALTER TABLE users ADD CONSTRAINT FK_1483A5E96DEDCEC2 FOREIGN KEY (id_preview_attachement) REFERENCES `attachments` (id)');
@@ -70,15 +69,15 @@ final class Version20190924113252 extends AbstractMigration
 
         //Add a attachment for each footprint attachment
         $this->addSql(
-            'INSERT IGNORE INTO attachments (element_id, type_id, name, class_name, path, last_modified, datetime_added) ' .
-            "SELECT footprints.id, 1000, 'Footprint', 'Footprint',  REPLACE(footprints.filename, '%BASE%/img/footprints', '%FOOTPRINTS%' ), NOW(), NOW() FROM footprints " .
+            'INSERT IGNORE INTO attachments (element_id, type_id, name, class_name, path, last_modified, datetime_added) '.
+            "SELECT footprints.id, 1000, 'Footprint', 'Footprint',  REPLACE(footprints.filename, '%BASE%/img/footprints', '%FOOTPRINTS%' ), NOW(), NOW() FROM footprints ".
             "WHERE footprints.filename <> ''"
         );
 
         //Do the same for 3D Footprints
         $this->addSql(
-            'INSERT IGNORE INTO attachments (element_id, type_id, name, class_name, path, last_modified, datetime_added) ' .
-            "SELECT footprints.id, 1001, 'Footprint 3D', 'Footprint',  REPLACE(footprints.filename_3d, '%BASE%/models', '%FOOTPRINTS3D%' ), NOW(), NOW() FROM footprints " .
+            'INSERT IGNORE INTO attachments (element_id, type_id, name, class_name, path, last_modified, datetime_added) '.
+            "SELECT footprints.id, 1001, 'Footprint 3D', 'Footprint',  REPLACE(footprints.filename_3d, '%BASE%/models', '%FOOTPRINTS3D%' ), NOW(), NOW() FROM footprints ".
             "WHERE footprints.filename_3d <> ''"
         );
 
@@ -123,10 +122,10 @@ final class Version20190924113252 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_6940A7FE6DEDCEC2 ON parts (id_preview_attachement)');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE `attachment_types` DROP FOREIGN KEY FK_EFAED7196DEDCEC2');
         $this->addSql('DROP INDEX IDX_EFAED7196DEDCEC2 ON `attachment_types`');

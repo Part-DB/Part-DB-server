@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 declare(strict_types=1);
@@ -52,7 +51,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
-use App\Entity\Attachments\ManufacturerAttachment;
 use App\Entity\Attachments\StorelocationAttachment;
 use App\Entity\Base\PartsContainingDBElement;
 use Doctrine\Common\Collections\Collection;
@@ -66,7 +64,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Storelocation extends PartsContainingDBElement
 {
-
     /**
      * @var Collection|StorelocationAttachment[]
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\StorelocationAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -148,12 +145,12 @@ class Storelocation extends PartsContainingDBElement
     }
 
     /**
-     * @param bool $only_single_part
      * @return Storelocation
      */
-    public function setOnlySinglePart(bool $only_single_part): Storelocation
+    public function setOnlySinglePart(bool $only_single_part): self
     {
         $this->only_single_part = $only_single_part;
+
         return $this;
     }
 
@@ -168,12 +165,12 @@ class Storelocation extends PartsContainingDBElement
     }
 
     /**
-     * @param bool $limit_to_existing_parts
      * @return Storelocation
      */
-    public function setLimitToExistingParts(bool $limit_to_existing_parts): Storelocation
+    public function setLimitToExistingParts(bool $limit_to_existing_parts): self
     {
         $this->limit_to_existing_parts = $limit_to_existing_parts;
+
         return $this;
     }
 
@@ -186,16 +183,14 @@ class Storelocation extends PartsContainingDBElement
     }
 
     /**
-     * @param MeasurementUnit|null $storage_type
      * @return Storelocation
      */
-    public function setStorageType(?MeasurementUnit $storage_type): Storelocation
+    public function setStorageType(?MeasurementUnit $storage_type): self
     {
         $this->storage_type = $storage_type;
+
         return $this;
     }
-
-
 
     /********************************************************************************
      *
@@ -211,9 +206,10 @@ class Storelocation extends PartsContainingDBElement
      *
      * @param bool $new_is_full * true means that the storelocation is full
      *                          * false means that the storelocation isn't full
+     *
      * @return Storelocation
      */
-    public function setIsFull(bool $new_is_full): Storelocation
+    public function setIsFull(bool $new_is_full): self
     {
         $this->is_full = $new_is_full;
 

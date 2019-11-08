@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,53 +17,48 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form\AdminPages;
 
-
 use App\Entity\Base\NamedDBElement;
 use App\Entity\Parts\MeasurementUnit;
-use App\Form\AdminPages\BaseEntityAdminForm;
 use App\Form\Type\StructuralEntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class StorelocationAdminForm extends BaseEntityAdminForm
 {
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity)
     {
-        $is_new = $entity->getID() === null;
+        $is_new = null === $entity->getID();
 
         $builder->add('is_full', CheckboxType::class, [
             'required' => false,
             'label' => $this->trans->trans('storelocation.edit.is_full.label'),
             'help' => $this->trans->trans('storelocation.edit.is_full.help'),
             'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity)]);
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
 
         $builder->add('limit_to_existing_parts', CheckboxType::class, [
             'required' => false,
             'label' => $this->trans->trans('storelocation.limit_to_existing.label'),
             'help' => $this->trans->trans('storelocation.limit_to_existing.help'),
             'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity)]);
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
 
         $builder->add('only_single_part', CheckboxType::class, [
             'required' => false,
             'label' => $this->trans->trans('storelocation.only_single_part.label'),
             'help' => $this->trans->trans('storelocation.only_single_part.help'),
             'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity)]);
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
 
         $builder->add('storage_type', StructuralEntityType::class, [
             'required' => false,
             'label' => $this->trans->trans('storelocation.storage_type.label'),
             'help' => $this->trans->trans('storelocation.storage_type.help'),
             'class' => MeasurementUnit::class, 'disable_not_selectable' => true,
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity)]);
-
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
     }
 }

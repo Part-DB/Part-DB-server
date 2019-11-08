@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 declare(strict_types=1);
@@ -44,8 +43,8 @@ declare(strict_types=1);
 namespace App\Entity\Base;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * All subclasses of this class have an attribute "name".
@@ -55,7 +54,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 abstract class NamedDBElement extends DBElement
 {
-
     use TimestampTrait;
 
     /**
@@ -73,7 +71,8 @@ abstract class NamedDBElement extends DBElement
      *********************************************************************************/
 
     /**
-     * Get the name of this element
+     * Get the name of this element.
+     *
      * @return string the name of this element
      */
     public function getName(): string
@@ -91,6 +90,7 @@ abstract class NamedDBElement extends DBElement
      * Change the name of this element.
      *
      * @param string $new_name the new name
+     *
      * @return self
      */
     public function setName(string $new_name): self

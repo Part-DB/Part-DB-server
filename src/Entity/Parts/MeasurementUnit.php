@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,13 +17,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity\Parts;
 
-
-use App\Entity\Attachments\ManufacturerAttachment;
 use App\Entity\Attachments\MeasurementUnitAttachment;
 use App\Entity\Base\PartsContainingDBElement;
 use Doctrine\Common\Collections\Collection;
@@ -35,14 +32,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  * This unit represents the unit in which the amount of parts in stock are measured.
  * This could be something like N, gramms, meters, etc...
  *
- * @package App\Entity
  * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
  * @ORM\Table(name="`measurement_units`")
  * @UniqueEntity("unit")
  */
 class MeasurementUnit extends PartsContainingDBElement
 {
-
     /**
      * @var Collection|MeasurementUnitAttachment[]
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\MeasurementUnitAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -51,7 +46,7 @@ class MeasurementUnit extends PartsContainingDBElement
 
     /**
      * @var string The unit symbol that should be used for the Unit. This could be something like "", g (for gramms)
-     * or m (for meters).
+     *             or m (for meters).
      * @ORM\Column(type="string", name="unit", nullable=true)
      * @Assert\Length(max=10)
      */
@@ -59,14 +54,14 @@ class MeasurementUnit extends PartsContainingDBElement
 
     /**
      * @var bool Determines if the amount value associated with this unit should be treated as integer.
-     * Set to false, to measure continuous sizes likes masses or lengthes.
+     *           Set to false, to measure continuous sizes likes masses or lengthes.
      * @ORM\Column(type="boolean", name="is_integer")
      */
     protected $is_integer = false;
 
     /**
      * @var bool Determines if the unit can be used with SI Prefixes (kilo, giga, milli, etc.).
-     * Useful for sizes like meters.
+     *           Useful for sizes like meters.
      * @ORM\Column(type="boolean", name="use_si_prefix")
      */
     protected $use_si_prefix = false;
@@ -92,11 +87,10 @@ class MeasurementUnit extends PartsContainingDBElement
      * This should have a form like P000014, for a part with ID 14.
      *
      * @return string The ID as a string;
-     *
      */
     public function getIDString(): string
     {
-        return 'MU' . $this->getID();
+        return 'MU'.$this->getID();
     }
 
     /**
@@ -109,11 +103,13 @@ class MeasurementUnit extends PartsContainingDBElement
 
     /**
      * @param string $unit
+     *
      * @return MeasurementUnit
      */
-    public function setUnit(?string $unit): MeasurementUnit
+    public function setUnit(?string $unit): self
     {
         $this->unit = $unit;
+
         return $this;
     }
 
@@ -126,12 +122,12 @@ class MeasurementUnit extends PartsContainingDBElement
     }
 
     /**
-     * @param bool $isInteger
      * @return MeasurementUnit
      */
-    public function setIsInteger(bool $isInteger): MeasurementUnit
+    public function setIsInteger(bool $isInteger): self
     {
         $this->is_integer = $isInteger;
+
         return $this;
     }
 
@@ -144,12 +140,12 @@ class MeasurementUnit extends PartsContainingDBElement
     }
 
     /**
-     * @param bool $usesSIPrefixes
      * @return MeasurementUnit
      */
-    public function setUseSIPrefix(bool $usesSIPrefixes): MeasurementUnit
+    public function setUseSIPrefix(bool $usesSIPrefixes): self
     {
         $this->use_si_prefix = $usesSIPrefixes;
+
         return $this;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 declare(strict_types=1);
@@ -52,7 +51,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Devices;
 
-use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Entity\Attachments\DeviceAttachment;
 use App\Entity\Base\PartsContainingDBElement;
 use Doctrine\Common\Collections\Collection;
@@ -66,7 +64,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Device extends PartsContainingDBElement
 {
-
     /**
      * @var Collection|DeviceAttachment[]
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\DeviceAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -137,8 +134,6 @@ class Device extends PartsContainingDBElement
      *  Set the order quantity.
      *
      * @param int $new_order_quantity the new order quantity
-     *
-     * @return self
      */
     public function setOrderQuantity(int $new_order_quantity): self
     {
@@ -154,8 +149,6 @@ class Device extends PartsContainingDBElement
      *  Set the "order_only_missing_parts" attribute.
      *
      * @param bool $new_order_only_missing_parts the new "order_only_missing_parts" attribute
-     *
-     * @return self
      */
     public function setOrderOnlyMissingParts(bool $new_order_only_missing_parts): self
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services;
-
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
@@ -42,7 +40,6 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
 use Proxies\__CG__\App\Entity\Parts\Supplier;
-use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ElementTypeNameGenerator
@@ -80,15 +77,18 @@ class ElementTypeNameGenerator
      * A part element becomes "Part" ("Bauteil" in german) and a category object becomes "Category".
      * Useful when the type should be shown to user.
      * Throws an exception if the class is not supported.
+     *
      * @param DBElement $entity The element for which the label should be generated
+     *
      * @return string The locatlized label for the entity type.
+     *
      * @throws EntityNotSupportedException When the passed entity is not supported.
      */
-    public function getLocalizedTypeLabel(DBElement $entity) : string
+    public function getLocalizedTypeLabel(DBElement $entity): string
     {
         //Check if we have an direct array entry for our entity class, then we can use it
-        if (isset($this->mapping[get_class($entity)])) {
-            return $this->mapping[get_class($entity)];
+        if (isset($this->mapping[\get_class($entity)])) {
+            return $this->mapping[\get_class($entity)];
         }
 
         //Otherwise iterate over array and check for inheritance (needed when the proxy element from doctrine are passed)
@@ -99,25 +99,26 @@ class ElementTypeNameGenerator
         }
 
         //When nothing was found throw an exception
-        throw new EntityNotSupportedException(
-            sprintf('No localized label for the element with type %s was found!', get_class($entity))
-        );
+        throw new EntityNotSupportedException(sprintf('No localized label for the element with type %s was found!', \get_class($entity)));
     }
 
     /**
      * Returns a string like in the format ElementType: ElementName.
      * For example this could be something like: "Part: BC547".
      * It uses getLocalizedLabel to determine the type.
-     * @param NamedDBElement $entity The entity for which the string should be generated.
-     * @param bool $use_html If set to true, a html string is returned, where the type is set italic
+     *
+     * @param NamedDBElement $entity   The entity for which the string should be generated.
+     * @param bool           $use_html If set to true, a html string is returned, where the type is set italic
+     *
      * @return string The localized string
      */
-    public function getTypeNameCombination(NamedDBElement $entity, bool $use_html = false) : string
+    public function getTypeNameCombination(NamedDBElement $entity, bool $use_html = false): string
     {
         $type = $this->getLocalizedTypeLabel($entity);
         if ($use_html) {
-            return '<i>' . $type . ':</i> ' . $entity->getName();
+            return '<i>'.$type.':</i> '.$entity->getName();
         }
-        return $type . ": " . htmlspecialchars($entity->getName());
+
+        return $type.': '.htmlspecialchars($entity->getName());
     }
 }

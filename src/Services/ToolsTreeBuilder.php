@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services;
@@ -45,11 +44,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * This Service generates the tree structure for the tools.
  * Whenever you change something here, you has to clear the cache, because the results are cached for performance reasons.
- * @package App\Services
  */
 class ToolsTreeBuilder
 {
-
     protected $translator;
     protected $urlGenerator;
     protected $keyGenerator;
@@ -73,31 +70,34 @@ class ToolsTreeBuilder
     /**
      * Generates the tree for the tools menu.
      * The result is cached.
+     *
      * @return TreeViewNode[] The array containing all Nodes for the tools menu.
      */
-    public function getTree() : array
+    public function getTree(): array
     {
-        $key = "tree_tools_" .  $this->keyGenerator->generateKey();
+        $key = 'tree_tools_'.$this->keyGenerator->generateKey();
 
         return $this->cache->get($key, function (ItemInterface $item) {
             //Invalidate tree, whenever group or the user changes
-            $item->tag(["tree_tools", "groups", $this->keyGenerator->generateKey()]);
+            $item->tag(['tree_tools', 'groups', $this->keyGenerator->generateKey()]);
 
-            $tree = array();
+            $tree = [];
             $tree[] = new TreeViewNode($this->translator->trans('tree.tools.edit'), null, $this->getEditNodes());
             $tree[] = new TreeViewNode($this->translator->trans('tree.tools.show'), null, $this->getShowNodes());
             $tree[] = new TreeViewNode($this->translator->trans('tree.tools.system'), null, $this->getSystemNodes());
+
             return $tree;
         });
     }
 
     /**
-     * This functions creates a tree entries for the "edit" node of the tool's tree
+     * This functions creates a tree entries for the "edit" node of the tool's tree.
+     *
      * @return TreeViewNode[]
      */
-    protected function getEditNodes() : array
+    protected function getEditNodes(): array
     {
-        $nodes = array();
+        $nodes = [];
 
         if ($this->security->isGranted('read', new AttachmentType())) {
             $nodes[] = new TreeViewNode(
@@ -164,12 +164,13 @@ class ToolsTreeBuilder
     }
 
     /**
-     * This function creates the tree entries for the "show" node of the tools tree
+     * This function creates the tree entries for the "show" node of the tools tree.
+     *
      * @return TreeViewNode[]
      */
-    protected function getShowNodes() : array
+    protected function getShowNodes(): array
     {
-        $show_nodes = array();
+        $show_nodes = [];
         $show_nodes[] = new TreeViewNode(
             $this->translator->trans('tree.tools.show.all_parts'),
             $this->urlGenerator->generate('parts_show_all')
@@ -187,16 +188,17 @@ class ToolsTreeBuilder
 
     /**
      * This function creates the tree entries for the "system" node of the tools tree.
+     *
      * @return array
      */
-    protected function getSystemNodes() : array
+    protected function getSystemNodes(): array
     {
-        $nodes = array();
+        $nodes = [];
 
         if ($this->security->isGranted('read', new User())) {
             $nodes[] = new TreeViewNode(
                 $this->translator->trans('tree.tools.system.users'),
-                $this->urlGenerator->generate("user_new")
+                $this->urlGenerator->generate('user_new')
             );
         }
         if ($this->security->isGranted('read', new Group())) {

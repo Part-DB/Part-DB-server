@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,17 +17,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form\Type;
-
 
 use App\Entity\Base\StructuralDBElement;
 use App\Entity\PriceInformations\Currency;
 use App\Services\TreeBuilder;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Intl\Currencies;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -75,10 +72,9 @@ class CurrencyEntityType extends StructuralEntityType
         /*** @var Currency $choice */
         $level = $choice->getLevel();
         //If our base entity is not the root level, we need to change the level, to get zero position
-        if ($this->options['subentities_of'] !== null) {
+        if (null !== $this->options['subentities_of']) {
             $level -= $parent->getLevel() - 1;
         }
-
 
         $tmp = str_repeat('&nbsp;&nbsp;&nbsp;', $choice->getLevel()); //Use 3 spaces for intendation
         if (empty($choice->getIsoCode())) {
@@ -86,14 +82,14 @@ class CurrencyEntityType extends StructuralEntityType
         } else {
             $tmp .= Currencies::getSymbol($choice->getIsoCode());
         }
+
         return $tmp;
     }
 
-    protected function generateChoiceAttr(StructuralDBElement $choice, $key, $value) : array
+    protected function generateChoiceAttr(StructuralDBElement $choice, $key, $value): array
     {
         /** @var Currency $choice */
-
-        $tmp = array();
+        $tmp = [];
 
         if (!empty($choice->getIsoCode())) {
             //Show the name of the currency
@@ -104,6 +100,7 @@ class CurrencyEntityType extends StructuralEntityType
         if ($this->options['disable_not_selectable'] && $choice->isNotSelectable()) {
             $tmp += ['disabled' => 'disabled'];
         }
+
         return $tmp;
     }
 }

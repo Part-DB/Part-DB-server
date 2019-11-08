@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Security\Annotations;
@@ -25,7 +24,7 @@ namespace App\Security\Annotations;
 use App\Entity\Base\NamedDBElement;
 use Doctrine\Common\Annotations\Annotation;
 use Doctrine\Common\Collections\ArrayCollection;
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 /**
  * @Annotation
@@ -52,7 +51,7 @@ class ColumnSecurity
     public $prefix = '';
 
     /**
-     * @var string The placeholder that should be used, when the access to the property is denied.
+     * @var string the placeholder that should be used, when the access to the property is denied
      */
     public $placeholder = null;
 
@@ -88,14 +87,14 @@ class ColumnSecurity
         if (class_exists($this->type)) {
             $object = new $this->type();
             if ($object instanceof NamedDBElement) {
-                if (is_string($this->placeholder) && $this->placeholder !== "") {
+                if (\is_string($this->placeholder) && '' !== $this->placeholder) {
                     $object->setName($this->placeholder);
                 }
                 $object->setName('???');
             }
+
             return $object;
         }
-
 
         if (null === $this->placeholder) {
             switch ($this->type) {
@@ -113,6 +112,7 @@ class ColumnSecurity
                     return false;
                 case 'datetime':
                     $date = new \DateTime();
+
                     return $date->setTimestamp(0);
                 default:
                     throw new InvalidArgumentException('Unknown type! You have to specify a placeholder!');

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -18,16 +18,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Controller;
 
 use App\Services\GitVersionInfo;
-use SebastianBergmann\CodeCoverage\Node\File;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Cache\CacheItem;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Cache\CacheInterface;
@@ -43,12 +39,12 @@ class HomepageController extends AbstractController
         $this->kernel = $kernel;
     }
 
-    public function getBanner() : string
+    public function getBanner(): string
     {
         $banner = $this->getParameter('banner');
         if (empty($banner)) {
             $banner_path = $this->kernel->getProjectDir()
-                . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'banner.md';
+                .\DIRECTORY_SEPARATOR.'config'.\DIRECTORY_SEPARATOR.'banner.md';
 
             return file_get_contents($banner_path);
         }
@@ -64,7 +60,7 @@ class HomepageController extends AbstractController
         return $this->render('homepage.html.twig', [
             'banner' => $this->getBanner(),
             'git_branch' => $versionInfo->getGitBranchName(),
-            'git_commit' => $versionInfo->getGitCommitHash()
+            'git_commit' => $versionInfo->getGitCommitHash(),
         ]);
     }
 }

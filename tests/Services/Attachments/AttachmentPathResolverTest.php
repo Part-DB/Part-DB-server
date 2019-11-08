@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,15 +17,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Tests\Services\Attachments;
 
-
 use App\Services\AmountFormatter;
 use App\Services\Attachments\AttachmentPathResolver;
-use ReflectionClass;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class AttachmentPathResolverTest extends WebTestCase
@@ -47,8 +44,8 @@ class AttachmentPathResolverTest extends WebTestCase
         self::bootKernel();
         self::$projectDir_orig = realpath(self::$kernel->getProjectDir());
         self::$projectDir = str_replace('\\', '/', self::$projectDir_orig);
-        self::$media_path = self::$projectDir .  '/public/media';
-        self::$footprint_path = self::$projectDir . '/public/img/footprints';
+        self::$media_path = self::$projectDir.'/public/media';
+        self::$footprint_path = self::$projectDir.'/public/img/footprints';
     }
 
     public static function setUpBeforeClass()
@@ -69,8 +66,8 @@ class AttachmentPathResolverTest extends WebTestCase
         $this->assertEquals(self::$projectDir_orig, self::$service->parameterToAbsolutePath(self::$projectDir));
 
         //Relative pathes should be resolved
-        $this->assertEquals(self::$projectDir_orig . DIRECTORY_SEPARATOR . 'src', self::$service->parameterToAbsolutePath('src'));
-        $this->assertEquals(self::$projectDir_orig . DIRECTORY_SEPARATOR . 'src', self::$service->parameterToAbsolutePath('./src'));
+        $this->assertEquals(self::$projectDir_orig.\DIRECTORY_SEPARATOR.'src', self::$service->parameterToAbsolutePath('src'));
+        $this->assertEquals(self::$projectDir_orig.\DIRECTORY_SEPARATOR.'src', self::$service->parameterToAbsolutePath('./src'));
 
         //Invalid pathes should return null
         $this->assertNull(self::$service->parameterToAbsolutePath('/this/path/does/not/exist'));
@@ -80,9 +77,9 @@ class AttachmentPathResolverTest extends WebTestCase
     public function placeholderDataProvider()
     {
         return [
-            ['%FOOTPRINTS%/test/test.jpg', self::$footprint_path . '/test/test.jpg'],
-            ['%FOOTPRINTS%/test/', self::$footprint_path . '/test/'],
-            ['%MEDIA%/test', self::$media_path . '/test'],
+            ['%FOOTPRINTS%/test/test.jpg', self::$footprint_path.'/test/test.jpg'],
+            ['%FOOTPRINTS%/test/', self::$footprint_path.'/test/'],
+            ['%MEDIA%/test', self::$media_path.'/test'],
             ['%MEDIA%', self::$media_path],
             ['%FOOTPRINTS%', self::$footprint_path],
             //Footprints 3D are disabled
@@ -95,24 +92,24 @@ class AttachmentPathResolverTest extends WebTestCase
             ['%FOOTPRINTS%/%MEDIA%', null], //No more than one placholder
             ['%FOOTPRINTS%/%FOOTPRINTS%', null],
             ['%FOOTPRINTS%/../../etc/passwd', null],
-            ['%FOOTPRINTS%/0\..\test', null]
+            ['%FOOTPRINTS%/0\..\test', null],
         ];
     }
 
     public function realPathDataProvider()
     {
         return [
-            [self::$media_path . '/test/img.jpg', '%MEDIA%/test/img.jpg'],
-            [self::$media_path . '/test/img.jpg', '%BASE%/data/media/test/img.jpg', true],
-            [self::$footprint_path . '/foo.jpg', '%FOOTPRINTS%/foo.jpg'],
-            [self::$footprint_path . '/foo.jpg', '%FOOTPRINTS%/foo.jpg', true],
+            [self::$media_path.'/test/img.jpg', '%MEDIA%/test/img.jpg'],
+            [self::$media_path.'/test/img.jpg', '%BASE%/data/media/test/img.jpg', true],
+            [self::$footprint_path.'/foo.jpg', '%FOOTPRINTS%/foo.jpg'],
+            [self::$footprint_path.'/foo.jpg', '%FOOTPRINTS%/foo.jpg', true],
             //Every kind of absolute path, that is not based with our placeholder dirs must be invald
             ['/etc/passwd', null],
             ['C:\\not\\existing.txt', null],
             //More then one placeholder is not allowed
-            [self::$footprint_path . '/test/' . self::$footprint_path, null],
+            [self::$footprint_path.'/test/'.self::$footprint_path, null],
             //Path must begin with path
-            ['/not/root' . self::$footprint_path, null]
+            ['/not/root'.self::$footprint_path, null],
         ];
     }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,18 +17,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services;
-
 
 use App\Entity\PriceInformations\Currency;
 use Locale;
 
 class MoneyFormatter
 {
-
     protected $base_currency;
     protected $locale;
 
@@ -39,17 +36,19 @@ class MoneyFormatter
     }
 
     /**
-     * Format the the given value in the given currency
-     * @param string|float $value The value that should be formatted.
-     * @param Currency|null $currency The currency that should be used for formatting. If null the global one is used
-     * @param int $decimals The number of decimals that should be shown.
-     * @param bool $show_all_digits If set to true, all digits are shown, even if they are null.
+     * Format the the given value in the given currency.
+     *
+     * @param string|float  $value           The value that should be formatted.
+     * @param Currency|null $currency        The currency that should be used for formatting. If null the global one is used
+     * @param int           $decimals        The number of decimals that should be shown.
+     * @param bool          $show_all_digits If set to true, all digits are shown, even if they are null.
+     *
      * @return string
      */
     public function format($value, ?Currency $currency = null, $decimals = 5, bool $show_all_digits = false)
     {
         $iso_code = $this->base_currency;
-        if ($currency !== null && !empty($currency->getIsoCode())) {
+        if (null !== $currency && !empty($currency->getIsoCode())) {
             $iso_code = $currency->getIsoCode();
         }
 
@@ -62,5 +61,4 @@ class MoneyFormatter
 
         return $number_formatter->formatCurrency((float) $value, $iso_code);
     }
-
 }

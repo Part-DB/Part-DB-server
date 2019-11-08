@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,14 +17,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form\AdminPages;
 
-
 use App\Entity\Base\NamedDBElement;
-use App\Form\AdminPages\BaseEntityAdminForm;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,50 +30,50 @@ class CategoryAdminForm extends BaseEntityAdminForm
 {
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity)
     {
-        $is_new = $entity->getID() === null;
+        $is_new = null === $entity->getID();
 
         $builder->add('disable_footprints', CheckboxType::class, ['required' => false,
-            'label' =>  $this->trans->trans('category.edit.disable_footprints'),
-            'help' =>  $this->trans->trans('category.edit.disable_footprints.help'),
+            'label' => $this->trans->trans('category.edit.disable_footprints'),
+            'help' => $this->trans->trans('category.edit.disable_footprints.help'),
             'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
 
         $builder->add('disable_manufacturers', CheckboxType::class, ['required' => false,
-            'label' =>  $this->trans->trans('category.edit.disable_manufacturers'),
-            'help' =>  $this->trans->trans('category.edit.disable_manufacturers.help'),
-            'label_attr'=> ['class' => 'checkbox-custom'],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
+            'label' => $this->trans->trans('category.edit.disable_manufacturers'),
+            'help' => $this->trans->trans('category.edit.disable_manufacturers.help'),
+            'label_attr' => ['class' => 'checkbox-custom'],
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
 
         $builder->add('disable_autodatasheets', CheckboxType::class, ['required' => false,
-            'label' =>  $this->trans->trans('category.edit.disable_autodatasheets'),
-            'help' =>  $this->trans->trans('category.edit.disable_autodatasheets.help'),
-            'label_attr'=> ['class' => 'checkbox-custom'],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
+            'label' => $this->trans->trans('category.edit.disable_autodatasheets'),
+            'help' => $this->trans->trans('category.edit.disable_autodatasheets.help'),
+            'label_attr' => ['class' => 'checkbox-custom'],
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
 
         $builder->add('disable_properties', CheckboxType::class, ['required' => false,
-            'label' =>  $this->trans->trans('category.edit.disable_properties'),
-            'help' =>  $this->trans->trans('category.edit.disable_properties.help'),
-            'label_attr'=> ['class' => 'checkbox-custom'],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
+            'label' => $this->trans->trans('category.edit.disable_properties'),
+            'help' => $this->trans->trans('category.edit.disable_properties.help'),
+            'label_attr' => ['class' => 'checkbox-custom'],
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
 
         $builder->add('partname_hint', TextType::class, ['required' => false, 'empty_data' => '',
-            'label' =>  $this->trans->trans('category.edit.partname_hint'),
-            'attr' => ['placeholder' =>  $this->trans->trans('category.edit.partname_hint.placeholder')],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
+            'label' => $this->trans->trans('category.edit.partname_hint'),
+            'attr' => ['placeholder' => $this->trans->trans('category.edit.partname_hint.placeholder')],
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
 
         $builder->add('partname_regex', TextType::class, ['required' => false, 'empty_data' => '',
             'label' => $this->trans->trans('category.edit.partname_regex'),
             'attr' => ['placeholder' => 'category.edit.partname_regex.placeholder'],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
 
         $builder->add('default_description', TextType::class, ['required' => false, 'empty_data' => '',
-            'label' =>  $this->trans->trans('category.edit.default_description'),
+            'label' => $this->trans->trans('category.edit.default_description'),
             'attr' => ['placeholder' => $this->trans->trans('category.edit.default_description.placeholder')],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
 
         $builder->add('default_comment', TextType::class, ['required' => false, 'empty_data' => '',
             'label' => $this->trans->trans('category.edit.default_comment'),
             'attr' => ['placeholder' => $this->trans->trans('category.edit.default_comment.placeholder')],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
     }
 }

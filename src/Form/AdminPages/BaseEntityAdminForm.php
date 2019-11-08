@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,24 +17,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form\AdminPages;
 
-
 use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\FootprintAttachment;
-use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\NamedDBElement;
 use App\Entity\Base\StructuralDBElement;
 use App\Form\AttachmentFormType;
 use App\Form\Type\MasterPictureAttachmentType;
 use App\Form\Type\StructuralEntityType;
-use Doctrine\ORM\EntityRepository;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -45,12 +38,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Translation\Reader\TranslationReader;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class BaseEntityAdminForm extends AbstractType
 {
-
     protected $security;
     protected $params;
     protected $trans;
@@ -72,27 +63,27 @@ class BaseEntityAdminForm extends AbstractType
     {
         /** @var StructuralDBElement $entity */
         $entity = $options['data'];
-        $is_new = $entity->getID() === null;
+        $is_new = null === $entity->getID();
 
         $builder
             ->add('name', TextType::class, ['empty_data' => '', 'label' => $this->trans->trans('name.label'),
                 'attr' => ['placeholder' => $this->trans->trans('part.name.placeholder')],
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ])
 
-            ->add('parent', StructuralEntityType::class, ['class' => get_class($entity),
-                'required' => false, 'label' =>  $this->trans->trans('parent.label'),
+            ->add('parent', StructuralEntityType::class, ['class' => \get_class($entity),
+                'required' => false, 'label' => $this->trans->trans('parent.label'),
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity), ])
 
             ->add('not_selectable', CheckboxType::class, ['required' => false,
-                'label' =>  $this->trans->trans('entity.edit.not_selectable'),
-                'help' =>  $this->trans->trans('entity.edit.not_selectable.help'),
+                'label' => $this->trans->trans('entity.edit.not_selectable'),
+                'help' => $this->trans->trans('entity.edit.not_selectable.help'),
                 'label_attr' => ['class' => 'checkbox-custom'],
-                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity) ])
+                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ])
 
             ->add('comment', CKEditorType::class, ['required' => false, 'empty_data' => '',
-                'label' =>  $this->trans->trans('comment.label'),
-                'attr' => ['rows' => 4], 'help' =>  $this->trans->trans('bbcode.hint'),
-                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
+                'label' => $this->trans->trans('comment.label'),
+                'attr' => ['rows' => 4], 'help' => $this->trans->trans('bbcode.hint'),
+                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
 
         $this->additionalFormElements($builder, $options, $entity);
 
@@ -106,23 +97,23 @@ class BaseEntityAdminForm extends AbstractType
             'entry_options' => [
                 'data_class' => $options['attachment_class'],
             ],
-            'by_reference' => false
+            'by_reference' => false,
         ]);
 
         $builder->add('master_picture_attachment', MasterPictureAttachmentType::class, [
             'required' => false,
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'label' => $this->trans->trans('part.edit.master_attachment'),
-            'entity' => $entity
+            'entity' => $entity,
         ]);
 
         //Buttons
         $builder->add('save', SubmitType::class, [
-            'label' =>  $is_new ?  $this->trans->trans('entity.create') :  $this->trans->trans('entity.edit.save'),
+            'label' => $is_new ? $this->trans->trans('entity.create') : $this->trans->trans('entity.edit.save'),
             'attr' => ['class' => $is_new ? 'btn-success' : ''],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)])
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ])
             ->add('reset', ResetType::class, ['label' => 'entity.edit.reset',
-                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
+                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
     }
 
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity)

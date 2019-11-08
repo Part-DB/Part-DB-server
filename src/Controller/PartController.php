@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -18,7 +18,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Controller;
@@ -40,15 +39,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/part")
- * @package App\Controller
  */
 class PartController extends AbstractController
 {
     /**
      * @Route("/{id}/info", name="part_info")
      * @Route("/{id}", requirements={"id"="\d+"})
-     * @param Part $part
-     * @param AttachmentManager $attachmentHelper
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function show(Part $part, AttachmentManager $attachmentHelper, PricedetailHelper $pricedetailHelper, PartPreviewGenerator $previewGenerator)
@@ -61,7 +58,7 @@ class PartController extends AbstractController
                 'part' => $part,
                 'attachment_helper' => $attachmentHelper,
                 'pricedetail_helper' => $pricedetailHelper,
-                'pictures' => $previewGenerator->getPreviewAttachments($part)
+                'pictures' => $previewGenerator->getPreviewAttachments($part),
             ]
         );
     }
@@ -69,10 +66,6 @@ class PartController extends AbstractController
     /**
      * @Route("/{id}/edit", name="part_edit")
      *
-     * @param Part $part
-     *
-     * @param Request $request
-     * @param EntityManagerInterface $em
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function edit(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
@@ -90,25 +83,24 @@ class PartController extends AbstractController
                 /** @var $attachment FormInterface */
                 $options = [
                     'secure_attachment' => $attachment['secureFile']->getData(),
-                    'download_url' => $attachment['downloadURL']->getData()
+                    'download_url' => $attachment['downloadURL']->getData(),
                 ];
                 try {
                     $attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
                 } catch (AttachmentDownloadException $ex) {
                     $this->addFlash(
                         'error',
-                        $translator->trans('attachment.download_failed') . ' ' . $ex->getMessage()
+                        $translator->trans('attachment.download_failed').' '.$ex->getMessage()
                     );
                 }
             }
-
 
             $em->persist($part);
             $em->flush();
             $this->addFlash('info', $translator->trans('part.edited_flash'));
             //Reload form, so the SIUnitType entries use the new part unit
             $form = $this->createForm(PartBaseType::class, $part);
-        } elseif ($form->isSubmitted() && ! $form->isValid()) {
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('error', $translator->trans('part.edited_flash.invalid'));
         }
 
@@ -122,15 +114,14 @@ class PartController extends AbstractController
 
     /**
      * @Route("/{id}/delete", name="part_delete", methods={"DELETE"})
-     * @param Request $request
-     * @param Part $part
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Request $request, Part $part)
     {
         $this->denyAccessUnlessGranted('delete', $part);
 
-        if ($this->isCsrfTokenValid('delete' . $part->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$part->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
 
             //Remove part
@@ -148,9 +139,6 @@ class PartController extends AbstractController
     /**
      * @Route("/new", name="part_new")
      *
-     * @param Request $request
-     * @param EntityManagerInterface $em
-     * @param TranslatorInterface $translator
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
@@ -176,14 +164,14 @@ class PartController extends AbstractController
                 /** @var $attachment FormInterface */
                 $options = [
                     'secure_attachment' => $attachment['secureFile']->getData(),
-                    'download_url' => $attachment['downloadURL']->getData()
+                    'download_url' => $attachment['downloadURL']->getData(),
                 ];
                 try {
                     $attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
                 } catch (AttachmentDownloadException $ex) {
                     $this->addFlash(
                         'error',
-                        $translator->trans('attachment.download_failed') . ' ' . $ex->getMessage()
+                        $translator->trans('attachment.download_failed').' '.$ex->getMessage()
                     );
                 }
             }
@@ -195,7 +183,7 @@ class PartController extends AbstractController
             return $this->redirectToRoute('part_edit', ['id' => $new_part->getID()]);
         }
 
-        if ($form->isSubmitted() && ! $form->isValid()) {
+        if ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('error', $translator->trans('part.created_flash.invalid'));
         }
 
@@ -203,16 +191,13 @@ class PartController extends AbstractController
             [
                 'part' => $new_part,
                 'form' => $form->createView(),
-                'attachment_helper' => $attachmentHelper
+                'attachment_helper' => $attachmentHelper,
             ]);
     }
 
     /**
      * @Route("/{id}/clone", name="part_clone")
-     * @param Part $part
-     * @param Request $request
-     * @param EntityManagerInterface $em
-     * @param TranslatorInterface $translator
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function clone(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator)

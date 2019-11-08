@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Validator\Constraints;
-
 
 use App\Entity\Attachments\Attachment;
 use App\Services\Attachments\FileTypeFilterTools;
@@ -33,7 +31,6 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class AllowedFileExtensionValidator extends ConstraintValidator
 {
-
     protected $filterTools;
 
     public function __construct(FileTypeFilterTools $filterTools)
@@ -44,7 +41,7 @@ class AllowedFileExtensionValidator extends ConstraintValidator
     /**
      * Checks if the passed value is valid.
      *
-     * @param mixed $value The value that should be validated
+     * @param mixed      $value      The value that should be validated
      * @param Constraint $constraint The constraint for the validation
      */
     public function validate($value, Constraint $constraint)
@@ -66,7 +63,7 @@ class AllowedFileExtensionValidator extends ConstraintValidator
             $attachment_type = $attachment->getAttachmentType();
 
             //Only validate if the attachment type has specified an filetype filter:
-            if ($attachment_type === null || empty($attachment_type->getFiletypeFilter())) {
+            if (null === $attachment_type || empty($attachment_type->getFiletypeFilter())) {
                 return;
             }
 
@@ -76,7 +73,6 @@ class AllowedFileExtensionValidator extends ConstraintValidator
             )) {
                 $this->context->buildViolation('validator.file_ext_not_allowed')->addViolation();
             }
-
         }
     }
 }

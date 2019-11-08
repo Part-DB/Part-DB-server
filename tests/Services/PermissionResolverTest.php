@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,16 +17,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Tests\Services;
 
-
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\PermissionsEmbed;
 use App\Entity\UserSystem\User;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use App\Services\PermissionResolver;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -90,7 +87,6 @@ class PermissionResolverTest extends WebTestCase
         $this->group->method('getParent')->willReturn($parent_group);
     }
 
-
     public function getPermissionNames()
     {
         //List all possible operation names.
@@ -116,7 +112,7 @@ class PermissionResolverTest extends WebTestCase
             [PermissionsEmbed::CATEGORIES],
             [PermissionsEmbed::PARTS_PRICES],
             [PermissionsEmbed::ATTACHMENT_TYPES],
-            [PermissionsEmbed::CONFIG]
+            [PermissionsEmbed::CONFIG],
         ];
     }
 
@@ -196,5 +192,4 @@ class PermissionResolverTest extends WebTestCase
         $this->assertNull($this->service->inherit($this->user_withoutGroup, 'parts', 'show_history'));
         $this->assertNull($this->service->inherit($this->user_withoutGroup, 'parts', 'delete'));
     }
-
 }

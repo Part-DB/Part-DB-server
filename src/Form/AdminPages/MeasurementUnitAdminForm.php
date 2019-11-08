@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,14 +17,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form\AdminPages;
 
-
 use App\Entity\Base\NamedDBElement;
-use App\Form\AdminPages\BaseEntityAdminForm;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,23 +30,23 @@ class MeasurementUnitAdminForm extends BaseEntityAdminForm
 {
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity)
     {
-        $is_new = $entity->getID() === null;
+        $is_new = null === $entity->getID();
 
         $builder->add('is_integer', CheckboxType::class, ['required' => false,
-            'label' =>  $this->trans->trans('measurement_unit.edit.is_integer'),
+            'label' => $this->trans->trans('measurement_unit.edit.is_integer'),
             'help' => $this->trans->trans('measurement_unit.edit.is_integer.help'),
             'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
 
         $builder->add('use_si_prefix', CheckboxType::class, ['required' => false,
             'label' => $this->trans->trans('measurement_unit.edit.use_si_prefix'),
             'help' => $this->trans->trans('measurement_unit.edit.use_si_prefix.help'),
             'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
 
         $builder->add('unit', TextType::class, ['required' => false,
             'label' => $this->trans->trans('measurement_unit.edit.unit_symbol'),
             'attr' => ['placeholder' => $this->trans->trans('measurement_unit.edit.unit_symbol.placeholder')],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)]);
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
     }
 }

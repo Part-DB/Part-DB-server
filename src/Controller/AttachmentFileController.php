@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,14 +17,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Controller;
 
-
 use App\DataTables\AttachmentDataTable;
-use App\DataTables\PartsDataTable;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\PartAttachment;
 use App\Services\Attachments\AttachmentManager;
@@ -37,14 +34,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AttachmentFileController extends AbstractController
 {
-
     /**
-     * Download the selected attachment
+     * Download the selected attachment.
      *
      * @Route("/attachment/{id}/download", name="attachment_download")
-     * @param Attachment $attachment
-     * @param AttachmentManager $helper
+     *
      * @return BinaryFileResponse
+     *
      * @throws \Exception
      */
     public function download(Attachment $attachment, AttachmentManager $helper)
@@ -59,7 +55,6 @@ class AttachmentFileController extends AbstractController
             throw new \RuntimeException('The file associated with the attachment is not existing!');
         }
 
-
         $file_path = $helper->toAbsoluteFilePath($attachment);
         $response = new BinaryFileResponse($file_path);
 
@@ -70,12 +65,12 @@ class AttachmentFileController extends AbstractController
     }
 
     /**
-     * View the attachment
+     * View the attachment.
      *
      * @Route("/attachment/{id}/view", name="attachment_view")
-     * @param Attachment $attachment
-     * @param AttachmentManager $helper
+     *
      * @return BinaryFileResponse
+     *
      * @throws \Exception
      */
     public function view(Attachment $attachment, AttachmentManager $helper)
@@ -90,7 +85,6 @@ class AttachmentFileController extends AbstractController
             throw new \RuntimeException('The file associated with the attachment is not existing!');
         }
 
-
         $file_path = $helper->toAbsoluteFilePath($attachment);
         $response = new BinaryFileResponse($file_path);
 
@@ -102,8 +96,7 @@ class AttachmentFileController extends AbstractController
 
     /**
      * @Route("/attachment/list", name="attachment_list")
-     * @param DataTableFactory $dataTable
-     * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function attachmentsTable(DataTableFactory $dataTable, Request $request)
@@ -118,8 +111,7 @@ class AttachmentFileController extends AbstractController
         }
 
         return $this->render('attachment_list.html.twig', [
-            'datatable' => $table
+            'datatable' => $table,
         ]);
     }
-
 }

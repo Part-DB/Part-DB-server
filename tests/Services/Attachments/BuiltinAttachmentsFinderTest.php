@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Tests\Services\Attachments;
@@ -32,7 +31,7 @@ class BuiltinAttachmentsFinderTest extends WebTestCase
 
     protected static $mock_list = [
         '%FOOTPRINTS%/test/test.jpg', '%FOOTPRINTS%/test/test.png', '%FOOTPRINTS%/123.jpg', '%FOOTPRINTS%/123.jpeg',
-        '%FOOTPRINTS_3D%/test.jpg', '%FOOTPRINTS_3D%/hallo.txt'
+        '%FOOTPRINTS_3D%/test.jpg', '%FOOTPRINTS_3D%/hallo.txt',
     ];
 
     public static function setUpBeforeClass()
@@ -51,11 +50,10 @@ class BuiltinAttachmentsFinderTest extends WebTestCase
             //Basic search for keyword
             ['test', [], ['%FOOTPRINTS%/test/test.jpg', '%FOOTPRINTS%/test/test.png', '%FOOTPRINTS_3D%/test.jpg']],
             ['%FOOTPRINTS_3D%', [], ['%FOOTPRINTS_3D%/test.jpg', '%FOOTPRINTS_3D%/hallo.txt']],
-            ['.txt', [], ['%FOOTPRINTS_3D%/hallo.txt'] ],
+            ['.txt', [], ['%FOOTPRINTS_3D%/hallo.txt']],
             //Filter extensions
             //['test', ['allowed_extensions' => ['jpeg', 'jpg']], ['%FOOTPRINTS%/test/test.jpg', '%FOOTPRINTS%/123.jpeg', '%FOOTPRINTS_3D%/test.jpg']],
             //['test.jpg', ['allowed_extensions' => ['jpeg', 'jpg']], ['%FOOTPRINTS%/test/test.jpg', '%FOOTPRINTS_3D%/test.jpg']]
-
         ];
     }
 

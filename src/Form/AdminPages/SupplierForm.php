@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,34 +17,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form\AdminPages;
 
-
 use App\Entity\Base\NamedDBElement;
 use App\Entity\PriceInformations\Currency;
-use App\Form\AdminPages\BaseEntityAdminForm;
 use App\Form\Type\StructuralEntityType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\TelType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class SupplierForm extends CompanyForm
 {
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity)
     {
-        $is_new = $entity->getID() === null;
+        $is_new = null === $entity->getID();
 
-       parent::additionalFormElements($builder, $options, $entity);
+        parent::additionalFormElements($builder, $options, $entity);
 
         $builder->add('default_currency', StructuralEntityType::class, [
             'class' => Currency::class,
@@ -58,7 +47,7 @@ class SupplierForm extends CompanyForm
             'currency' => $this->params->get('default_currency'),
             'scale' => 3,
             'label' => $this->trans->trans('supplier.shipping_costs.label'),
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity)
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
         ]);
     }
 }

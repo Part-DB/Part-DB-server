@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity\Parts;
-
 
 use App\Entity\Base\DBElement;
 use App\Entity\Base\TimestampTrait;
@@ -34,7 +32,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * This entity describes a lot where parts can be stored.
  * It is the connection between a part and its store locations.
- * @package App\Entity\Parts
+ *
  * @ORM\Entity()
  * @ORM\Table(name="part_lots")
  * @ORM\HasLifecycleCallbacks()
@@ -42,7 +40,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class PartLot extends DBElement
 {
-
     use TimestampTrait;
 
     /**
@@ -59,7 +56,7 @@ class PartLot extends DBElement
 
     /**
      * @var ?\DateTime Set a time until when the lot must be used.
-     * Set to null, if the lot can be used indefinitley.
+     *                 Set to null, if the lot can be used indefinitley.
      * @ORM\Column(type="datetime", name="expiration_date", nullable=true)
      */
     protected $expiration_date;
@@ -86,7 +83,6 @@ class PartLot extends DBElement
      */
     protected $instock_unknown = false;
 
-
     /**
      * @var float For continuos sizes (length, volume, etc.) the instock is saved here.
      * @ORM\Column(type="float")
@@ -95,7 +91,7 @@ class PartLot extends DBElement
     protected $amount = 0;
 
     /**
-     * @var boolean Determines if this lot was manually marked for refilling.
+     * @var bool Determines if this lot was manually marked for refilling.
      * @ORM\Column(type="boolean")
      */
     protected $needs_refill = false;
@@ -105,21 +101,21 @@ class PartLot extends DBElement
      * This should have a form like P000014, for a part with ID 14.
      *
      * @return string The ID as a string;
-     *
      */
     public function getIDString(): string
     {
-        return 'PL' . $this->getID();
+        return 'PL'.$this->getID();
     }
 
     /**
      * Check if the current part lot is expired.
      * This is the case, if the expiration date is greater the the current date.
+     *
      * @return bool|null True, if the part lot is expired. Returns null, if no expiration date was set.
      */
     public function isExpired(): ?bool
     {
-        if ($this->expiration_date === null) {
+        if (null === $this->expiration_date) {
             return null;
         }
 
@@ -129,6 +125,7 @@ class PartLot extends DBElement
 
     /**
      * Gets the description of the part lot. Similar to a "name" of the part lot.
+     *
      * @return string
      */
     public function getDescription(): string
@@ -138,17 +135,19 @@ class PartLot extends DBElement
 
     /**
      * Sets the description of the part lot.
-     * @param string $description
+     *
      * @return PartLot
      */
-    public function setDescription(string $description): PartLot
+    public function setDescription(string $description): self
     {
         $this->description = $description;
+
         return $this;
     }
 
     /**
      * Gets the comment for this part lot.
+     *
      * @return string
      */
     public function getComment(): string
@@ -158,17 +157,19 @@ class PartLot extends DBElement
 
     /**
      * Sets the comment for this part lot.
-     * @param string $comment
+     *
      * @return PartLot
      */
-    public function setComment(string $comment): PartLot
+    public function setComment(string $comment): self
     {
         $this->comment = $comment;
+
         return $this;
     }
 
     /**
      * Gets the expiration date for the part lot. Returns null, if no expiration date was set.
+     *
      * @return \DateTime|null
      */
     public function getExpirationDate(): ?\DateTime
@@ -178,17 +179,21 @@ class PartLot extends DBElement
 
     /**
      * Sets the expiration date for the part lot. Set to null, if the part lot does not expires.
+     *
      * @param \DateTime $expiration_date
+     *
      * @return PartLot
      */
-    public function setExpirationDate(?\DateTime $expiration_date): PartLot
+    public function setExpirationDate(?\DateTime $expiration_date): self
     {
         $this->expiration_date = $expiration_date;
+
         return $this;
     }
 
     /**
      * Gets the storage locatiion, where this part lot is stored.
+     *
      * @return Storelocation|null The store location where this part is stored
      */
     public function getStorageLocation(): ?Storelocation
@@ -197,18 +202,20 @@ class PartLot extends DBElement
     }
 
     /**
-     * Sets the storage location, where this part lot is stored
-     * @param Storelocation|null $storage_location
+     * Sets the storage location, where this part lot is stored.
+     *
      * @return PartLot
      */
-    public function setStorageLocation(?Storelocation $storage_location): PartLot
+    public function setStorageLocation(?Storelocation $storage_location): self
     {
         $this->storage_location = $storage_location;
+
         return $this;
     }
 
     /**
      * Return the part that is stored in this part lot.
+     *
      * @return Part
      */
     public function getPart(): Part
@@ -218,12 +225,15 @@ class PartLot extends DBElement
 
     /**
      * Sets the part that is stored in this part lot.
+     *
      * @param Part|InstockTrait $part
+     *
      * @return PartLot
      */
-    public function setPart(Part $part): PartLot
+    public function setPart(Part $part): self
     {
         $this->part = $part;
+
         return $this;
     }
 
@@ -239,12 +249,13 @@ class PartLot extends DBElement
 
     /**
      * Set the unknown instock status of this part lot.
-     * @param bool $instock_unknown
+     *
      * @return PartLot
      */
-    public function setInstockUnknown(bool $instock_unknown): PartLot
+    public function setInstockUnknown(bool $instock_unknown): self
     {
         $this->instock_unknown = $instock_unknown;
+
         return $this;
     }
 
@@ -256,16 +267,16 @@ class PartLot extends DBElement
         if ($this->part instanceof Part && !$this->part->useFloatAmount()) {
             return round($this->amount);
         }
+
         return (float) $this->amount;
     }
 
-    public function setAmount(float $new_amount): PartLot
+    public function setAmount(float $new_amount): self
     {
-        $this->amount  = $new_amount;
+        $this->amount = $new_amount;
+
         return $this;
     }
-
-
 
     /**
      * @return bool
@@ -276,14 +287,12 @@ class PartLot extends DBElement
     }
 
     /**
-     * @param bool $needs_refill
      * @return PartLot
      */
-    public function setNeedsRefill(bool $needs_refill): PartLot
+    public function setNeedsRefill(bool $needs_refill): self
     {
         $this->needs_refill = $needs_refill;
+
         return $this;
     }
-
-
 }

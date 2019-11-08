@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form\Permissions;
-
 
 use App\Services\PermissionResolver;
 use App\Validator\Constraints\NoLockout;
@@ -43,7 +41,6 @@ class PermissionsType extends AbstractType
         $this->perm_structure = $resolver->getPermissionStructure();
     }
 
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
@@ -52,12 +49,11 @@ class PermissionsType extends AbstractType
                 if (!$options['disabled']) {
                     return [new NoLockout()];
                 }
+
                 return [];
             },
             'inherit' => false,
         ]);
-
-
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
@@ -70,12 +66,12 @@ class PermissionsType extends AbstractType
         $groups = $this->perm_structure['groups'];
 
         foreach ($groups as $key => $group) {
-            $builder->add($key,PermissionGroupType::class, [
+            $builder->add($key, PermissionGroupType::class, [
                 'group_name' => $key,
                 'mapped' => false,
                 'data' => $builder->getData(),
                 'disabled' => $options['disabled'],
-                'inherit' => $options['inherit']
+                'inherit' => $options['inherit'],
             ]);
         }
 
@@ -85,7 +81,7 @@ class PermissionsType extends AbstractType
             'mapped' => false,
             'data' => $builder->getData(),
             'disabled' => $options['disabled'],
-            'inherit' => $options['inherit']
+            'inherit' => $options['inherit'],
         ]);
     }
 }

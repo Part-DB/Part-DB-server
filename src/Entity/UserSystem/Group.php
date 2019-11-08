@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,13 +17,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity\UserSystem;
 
 use App\Entity\Attachments\GroupAttachment;
-use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Base\StructuralDBElement;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\ValidPermission;
@@ -38,7 +36,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Group extends StructuralDBElement implements HasPermissionsInterface
 {
-
     /**
      * @var Collection|GroupAttachment[]
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ManufacturerAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)

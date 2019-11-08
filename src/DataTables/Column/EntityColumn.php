@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\DataTables\Column;
-
 
 use App\Entity\Base\DBElement;
 use App\Entity\Base\NamedDBElement;
@@ -34,7 +32,6 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 class EntityColumn extends AbstractColumn
 {
-
     protected $urlGenerator;
     protected $accessor;
 
@@ -48,11 +45,12 @@ class EntityColumn extends AbstractColumn
      * The normalize function is responsible for converting parsed and processed data to a datatables-appropriate type.
      *
      * @param mixed $value The single value of the column
+     *
      * @return mixed
      */
     public function normalize($value)
     {
-        /** @var NamedDBElement $value */
+        /* @var NamedDBElement $value */
         return $value;
     }
 
@@ -63,7 +61,7 @@ class EntityColumn extends AbstractColumn
         $resolver->setRequired('property');
 
         $resolver->setDefault('field', function (Options $option) {
-            return $option['property'] . '.name';
+            return $option['property'].'.name';
         });
 
         $resolver->setDefault('render', function (Options $options) {
@@ -72,7 +70,7 @@ class EntityColumn extends AbstractColumn
                 $entity = $this->accessor->getValue($context, $options['property']);
 
                 if ($entity) {
-                    if ($entity->getID() !== null) {
+                    if (null !== $entity->getID()) {
                         return sprintf(
                             '<a href="%s">%s</a>',
                             $this->urlGenerator->listPartsURL($entity),

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\DataTables\Column;
-
 
 use IntlDateFormatter;
 use Omines\DataTablesBundle\Column\AbstractColumn;
@@ -30,7 +28,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Similar to the built in DateTimeColumn, but the datetime is formatted using a IntlDateFormatter,
  * to get prettier locale based formatting.
- * @package App\DataTables\Column
  */
 class LocaleDateTimeColumn extends AbstractColumn
 {
@@ -45,13 +42,13 @@ class LocaleDateTimeColumn extends AbstractColumn
             $value = new \DateTime((string) $value);
         }
 
-        $formatValues = array(
+        $formatValues = [
             'none' => IntlDateFormatter::NONE,
             'short' => IntlDateFormatter::SHORT,
             'medium' => IntlDateFormatter::MEDIUM,
             'long' => IntlDateFormatter::LONG,
             'full' => IntlDateFormatter::FULL,
-        );
+        ];
 
         $formatter = IntlDateFormatter::create(
             \Locale::getDefault(),
@@ -74,7 +71,7 @@ class LocaleDateTimeColumn extends AbstractColumn
             ->setDefaults([
                 'dateFormat' => 'short',
                 'timeFormat' => 'short',
-                'nullValue' => ''
+                'nullValue' => '',
             ])
             ->setAllowedTypes('nullValue', 'string')
         ;

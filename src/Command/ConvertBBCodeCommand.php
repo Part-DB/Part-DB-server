@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Command;
-
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\NamedDBElement;
@@ -45,13 +43,12 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 /**
  * This command converts the BBCode used by old Part-DB versions (<1.0), to the current used markdown format.
- * @package App\Command
  */
 class ConvertBBCodeCommand extends Command
 {
     /** @var string The LIKE criteria used to detect on SQL server if a entry contains BBCode */
-    protected const BBCODE_CRITERIA = "%[%]%[/%]%";
-    /** @var string The regex (performed in PHP) used to check if a property really contains BBCODE  */
+    protected const BBCODE_CRITERIA = '%[%]%[/%]%';
+    /** @var string The regex (performed in PHP) used to check if a property really contains BBCODE */
     protected const BBCODE_REGEX = '/\\[.+\\].*\\[\\/.+\\]/';
 
     protected static $defaultName = 'app:convert-bbcode';
@@ -83,9 +80,10 @@ class ConvertBBCodeCommand extends Command
 
     /**
      * Returns a list which entities and which properties need to be checked.
+     *
      * @return array
      */
-    protected function getTargetsLists() : array
+    protected function getTargetsLists(): array
     {
         return [
             Part::class => ['description', 'comment'],
@@ -120,19 +118,19 @@ class ConvertBBCodeCommand extends Command
                 ->select('e');
             //Add fields criteria
             foreach ($properties as $key => $property) {
-                $qb->orWhere('e.' . $property . ' LIKE ?' . $key);
+                $qb->orWhere('e.'.$property.' LIKE ?'.$key);
                 $qb->setParameter($key, static::BBCODE_CRITERIA);
             }
 
             //Fetch resulting classes
             $results = $qb->getQuery()->getResult();
-            $io->note(sprintf('Found %d entities, that need to be converted!', count($results)));
+            $io->note(sprintf('Found %d entities, that need to be converted!', \count($results)));
 
             //In verbose mode print the names of the entities
             foreach ($results as $result) {
-                /** @var NamedDBElement $result */
+                /* @var NamedDBElement $result */
                 $io->writeln(
-                    'Convert entity: ' . $result->getName() . ' (' . $result->getIDString() . ')',
+                    'Convert entity: '.$result->getName().' ('.$result->getIDString().')',
                     OutputInterface::VERBOSITY_VERBOSE
                 );
                 foreach ($properties as $property) {
@@ -144,19 +142,18 @@ class ConvertBBCodeCommand extends Command
                     }
                     $io->writeln(
                         'BBCode (old): '
-                        . str_replace('\n', ' ', substr($bbcode, 0, 255)),
+                        .str_replace('\n', ' ', substr($bbcode, 0, 255)),
                         OutputInterface::VERBOSITY_VERY_VERBOSE
                     );
                     $markdown = $this->converter->convert($bbcode);
                     $io->writeln(
                         'Markdown (new): '
-                        . str_replace('\n', ' ', substr($markdown, 0, 255)),
+                        .str_replace('\n', ' ', substr($markdown, 0, 255)),
                         OutputInterface::VERBOSITY_VERY_VERBOSE
                     );
                     $io->writeln('', OutputInterface::VERBOSITY_VERY_VERBOSE);
                     $this->propertyAccessor->setValue($result, $property, $markdown);
                 }
-
             }
         }
 
@@ -166,6 +163,4 @@ class ConvertBBCodeCommand extends Command
             $io->success('Changes saved to DB successfully!');
         }
     }
-
-
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Controller\AdminPages;
-
 
 use App\Entity\Attachments\ManufacturerAttachment;
 use App\Entity\Parts\Manufacturer;
@@ -38,11 +36,9 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/manufacturer")
- * @package App\Controller
  */
 class ManufacturerController extends BaseAdminController
 {
-
     protected $entity_class = Manufacturer::class;
     protected $twig_template = 'AdminPages/ManufacturerAdmin.html.twig';
     protected $form_class = CompanyForm::class;
@@ -77,13 +73,11 @@ class ManufacturerController extends BaseAdminController
         return $this->_new($request, $em, $importer);
     }
 
-
-
     /**
      * @Route("/export", name="manufacturer_export_all")
-     * @param Request $request
+     *
      * @param SerializerInterface $serializer
-     * @param EntityManagerInterface $em
+     *
      * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request)
@@ -93,13 +87,13 @@ class ManufacturerController extends BaseAdminController
 
     /**
      * @Route("/{id}/export", name="manufacturer_export")
-     * @param Request $request
+     *
      * @param Supplier $entity
+     *
      * @return Response
      */
     public function exportEntity(Manufacturer $entity, EntityExporter $exporter, Request $request)
     {
         return $this->_exportEntity($entity, $exporter, $request);
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,18 +17,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services;
-
 
 use App\Entity\Base\StructuralDBElement;
 use Doctrine\ORM\EntityManagerInterface;
 
 class StructuralElementRecursionHelper
 {
-
     protected $em;
 
     public function __construct(EntityManagerInterface $em)
@@ -39,18 +36,18 @@ class StructuralElementRecursionHelper
     /**
      * Executes an function (callable) recursivly for $element and every of its children.
      *
-     * @param StructuralDBElement $element The element on which the func should be executed
-     * @param callable $func The function which should be executed for each element.
-     * $func has the signature function(StructuralDBElement $element) : void
-     * @param int $max_depth The maximum depth for which should be recursivly called. So if this is set to 5, after the
-     * 5th level the execution is stopped.
-     * @param bool $call_from_bottom If set to true the bottom elements (elements with high level) will be called first.
-     * Set to false if you want to call the top elements first.
+     * @param StructuralDBElement $element          The element on which the func should be executed
+     * @param callable            $func             The function which should be executed for each element.
+     *                                              $func has the signature function(StructuralDBElement $element) : void
+     * @param int                 $max_depth        The maximum depth for which should be recursivly called. So if this is set to 5, after the
+     *                                              5th level the execution is stopped.
+     * @param bool                $call_from_bottom If set to true the bottom elements (elements with high level) will be called first.
+     *                                              Set to false if you want to call the top elements first.
      */
-    public function execute(StructuralDBElement $element, callable $func, int $max_depth = -1, $call_from_bottom = true) : void
+    public function execute(StructuralDBElement $element, callable $func, int $max_depth = -1, $call_from_bottom = true): void
     {
         //Cancel if we reached our maximal allowed level. Must be zero because -1 is infinity levels
-        if ($max_depth == 0) {
+        if (0 == $max_depth) {
             return;
         }
 
@@ -74,19 +71,20 @@ class StructuralElementRecursionHelper
 
     /**
      * Deletes the $element and all its subelements recursivly.
+     *
      * @param StructuralDBElement $element The element which should be deleted.
-     * @param bool $flush When set to true the changes will also be flushed to DB. Set to false if you want to flush
-     * later.
+     * @param bool                $flush   When set to true the changes will also be flushed to DB. Set to false if you want to flush
+     *                                     later.
      */
-    public function delete(StructuralDBElement $element, bool $flush = true) : void
+    public function delete(StructuralDBElement $element, bool $flush = true): void
     {
         $em = $this->em;
 
-        $this->execute($element, static function(StructuralDBElement $element) use ($em) {
+        $this->execute($element, static function (StructuralDBElement $element) use ($em) {
             $em->remove($element);
         });
 
-        if($flush) {
+        if ($flush) {
             $em->flush();
         }
     }

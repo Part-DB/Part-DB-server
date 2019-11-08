@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 declare(strict_types=1);
@@ -193,7 +192,7 @@ class Orderdetail extends DBElement
             return $this->supplier_product_url;
         }
 
-        if ($this->getSupplier() === null) {
+        if (null === $this->getSupplier()) {
             return '';
         }
 
@@ -204,7 +203,7 @@ class Orderdetail extends DBElement
      * Get all pricedetails.
      *
      * @return Pricedetail[]|Collection all pricedetails as a one-dimensional array of Pricedetails objects,
-     *                        sorted by minimum discount quantity
+     *                                  sorted by minimum discount quantity
      */
     public function getPricedetails(): Collection
     {
@@ -212,36 +211,41 @@ class Orderdetail extends DBElement
     }
 
     /**
-     * Adds an pricedetail to this orderdetail
+     * Adds an pricedetail to this orderdetail.
+     *
      * @param Pricedetail $pricedetail The pricedetail to add
+     *
      * @return Orderdetail
      */
-    public function addPricedetail(Pricedetail $pricedetail) : Orderdetail
+    public function addPricedetail(Pricedetail $pricedetail): self
     {
         $pricedetail->setOrderdetail($this);
         $this->pricedetails->add($pricedetail);
+
         return $this;
     }
 
     /**
-     * Removes an pricedetail from this orderdetail
-     * @param Pricedetail $pricedetail
+     * Removes an pricedetail from this orderdetail.
+     *
      * @return Orderdetail
      */
-    public function removePricedetail(Pricedetail $pricedetail) : Orderdetail
+    public function removePricedetail(Pricedetail $pricedetail): self
     {
         $this->pricedetails->removeElement($pricedetail);
+
         return $this;
     }
 
     /**
      * Find the pricedetail that is correct for the desired amount (the one with the greatest discount value with a
-     * minimum order amount of the wished quantity)
-     * @param float     $quantity        this is the quantity to choose the correct pricedetails
+     * minimum order amount of the wished quantity).
+     *
+     * @param float $quantity this is the quantity to choose the correct pricedetails
      *
      * @return Pricedetail|null: the price as a bcmath string. Null if there are no orderdetails for the given quantity
      */
-    public function findPriceForQty(float $quantity = 1) : ?Pricedetail
+    public function findPriceForQty(float $quantity = 1): ?Pricedetail
     {
         if ($quantity <= 0) {
             return null;
@@ -269,30 +273,34 @@ class Orderdetail extends DBElement
      *********************************************************************************/
 
     /**
-     * Sets a new part with which this orderdetail is associated
-     * @param Part $part
+     * Sets a new part with which this orderdetail is associated.
+     *
      * @return Orderdetail
      */
-    public function setPart(Part $part) : Orderdetail
+    public function setPart(Part $part): self
     {
         $this->part = $part;
+
         return $this;
     }
 
     /**
      * Sets the new supplier associated with this orderdetail.
-     * @param Supplier $new_supplier
+     *
      * @return Orderdetail
      */
-    public function setSupplier(Supplier $new_supplier) : Orderdetail
+    public function setSupplier(Supplier $new_supplier): self
     {
         $this->supplier = $new_supplier;
+
         return $this;
     }
 
     /**
      * Set the supplier part-nr.
+     *
      * @param string $new_supplierpartnr the new supplier-part-nr
+     *
      * @return Orderdetail
      * @return Orderdetail
      */
@@ -305,7 +313,9 @@ class Orderdetail extends DBElement
 
     /**
      * Set if the part is obsolete at the supplier of that orderdetails.
+     *
      * @param bool $new_obsolete true means that this part is obsolete
+     *
      * @return Orderdetail
      * @return Orderdetail
      */
@@ -319,10 +329,12 @@ class Orderdetail extends DBElement
     /**
      * Sets the custom product supplier URL for this order detail.
      * Set this to "", if the function getSupplierProductURL should return the automatic generated URL.
+     *
      * @param $new_url string The new URL for the supplier URL.
+     *
      * @return Orderdetail
      */
-    public function setSupplierProductUrl(string $new_url) : Orderdetail
+    public function setSupplierProductUrl(string $new_url): self
     {
         //Only change the internal URL if it is not the auto generated one
         if ($new_url === $this->supplier->getAutoProductUrl($this->getSupplierPartNr())) {

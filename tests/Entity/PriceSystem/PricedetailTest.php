@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,13 +17,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Tests\Entity\PriceSystem;
 
-
-use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
@@ -42,7 +39,6 @@ class PricedetailTest extends TestCase
         $this->assertEquals('43.58000', $pricedetail->getPricePerUnit());
         $this->assertEquals('139.45600', $pricedetail->getPricePerUnit('3.2'));
 
-
         $pricedetail->setPrice('10000000.2345'); //Ten million
         $pricedetail->setPriceRelatedQuantity(1.234e9); //100 billion
         $this->assertEquals('0.00810', $pricedetail->getPricePerUnit());
@@ -60,7 +56,6 @@ class PricedetailTest extends TestCase
         $part2->method('useFloatAmount')->willReturn(true);
         $orderdetail2 = $this->createMock(Orderdetail::class);
         $orderdetail2->method('getPart')->willReturn($part2);
-
 
         //By default a price detail returns 1
         $this->assertEquals(1, $pricedetail->getPriceRelatedQuantity());
@@ -89,7 +84,6 @@ class PricedetailTest extends TestCase
         $part2->method('useFloatAmount')->willReturn(true);
         $orderdetail2 = $this->createMock(Orderdetail::class);
         $orderdetail2->method('getPart')->willReturn($part2);
-
 
         //By default a price detail returns 1
         $this->assertEquals(1, $pricedetail->getMinDiscountQuantity());

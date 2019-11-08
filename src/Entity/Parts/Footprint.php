@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 declare(strict_types=1);
@@ -52,7 +51,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
-use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Base\PartsContainingDBElement;
 use Doctrine\Common\Collections\Collection;
@@ -112,9 +110,10 @@ class Footprint extends PartsContainingDBElement
 
     /**
      * Returns the 3D Model associated with this footprint.
+     *
      * @return FootprintAttachment|null
      */
-    public function getFootprint3d() : ?FootprintAttachment
+    public function getFootprint3d(): ?FootprintAttachment
     {
         return $this->footprint_3d;
     }
@@ -127,13 +126,13 @@ class Footprint extends PartsContainingDBElement
 
     /**
      * Sets the 3D Model associated with this footprint.
-     * @param FootprintAttachment|null $new_attachment
+     *
      * @return Footprint
      */
-    public function setFootprint3d(?FootprintAttachment $new_attachment) : Footprint
+    public function setFootprint3d(?FootprintAttachment $new_attachment): self
     {
         $this->footprint_3d = $new_attachment;
+
         return $this;
     }
-
 }

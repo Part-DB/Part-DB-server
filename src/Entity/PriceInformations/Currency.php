@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,14 +17,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity\PriceInformations;
 
-
 use App\Entity\Attachments\CurrencyAttachment;
-use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Base\StructuralDBElement;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -33,14 +30,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This entity describes a currency that can be used for price informations.
- * @package App\Entity
+ *
  * @UniqueEntity("iso_code")
  * @ORM\Entity()
  * @ORM\Table(name="currencies")
  */
 class Currency extends StructuralDBElement
 {
-
     public const PRICE_SCALE = 5;
 
     /**
@@ -58,7 +54,7 @@ class Currency extends StructuralDBElement
 
     /**
      * @var string|null The exchange rate between this currency and the base currency
-     * (how many base units the current currency is worth)
+     *                  (how many base units the current currency is worth)
      * @ORM\Column(type="decimal", precision=11, scale=5, nullable=true)
      * @Assert\Positive()
      */
@@ -76,7 +72,8 @@ class Currency extends StructuralDBElement
     protected $parent;
 
     /**
-     * Returns the 3 letter ISO code of this currency
+     * Returns the 3 letter ISO code of this currency.
+     *
      * @return string
      */
     public function getIsoCode(): ?string
@@ -86,23 +83,26 @@ class Currency extends StructuralDBElement
 
     /**
      * @param string $iso_code
+     *
      * @return Currency
      */
-    public function setIsoCode(?string $iso_code): Currency
+    public function setIsoCode(?string $iso_code): self
     {
         $this->iso_code = $iso_code;
+
         return $this;
     }
 
     /**
-     * Returns the inverse exchange rate (how many of the current currency the base unit is worth)
+     * Returns the inverse exchange rate (how many of the current currency the base unit is worth).
+     *
      * @return string|null
      */
     public function getInverseExchangeRate(): ?string
     {
         $tmp = $this->getExchangeRate();
 
-        if ($tmp === null || $tmp === "0") {
+        if (null === $tmp || '0' === $tmp) {
             return null;
         }
 
@@ -111,7 +111,8 @@ class Currency extends StructuralDBElement
 
     /**
      * Returns The exchange rate between this currency and the base currency
-     * (how many base units the current currency is worth)
+     * (how many base units the current currency is worth).
+     *
      * @return string|null
      */
     public function getExchangeRate(): ?string
@@ -120,25 +121,23 @@ class Currency extends StructuralDBElement
     }
 
     /**
-     * @param string|null $exchange_rate
      * @return Currency
      */
-    public function setExchangeRate(?string $exchange_rate): Currency
+    public function setExchangeRate(?string $exchange_rate): self
     {
         $this->exchange_rate = $exchange_rate;
+
         return $this;
     }
-
 
     /**
      * Returns the ID as an string, defined by the element class.
      * This should have a form like P000014, for a part with ID 14.
      *
      * @return string The ID as a string;
-     *
      */
     public function getIDString(): string
     {
-        return 'C' . $this->getID();
+        return 'C'.$this->getID();
     }
 }

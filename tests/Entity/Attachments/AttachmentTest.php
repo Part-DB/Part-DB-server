@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Tests\Entity\Attachments;
-
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
@@ -50,11 +48,10 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
-use Symfony\Component\HttpKernel\HttpCache\Store;
 
 class AttachmentTest extends TestCase
 {
-    public function testEmptyState() : void
+    public function testEmptyState(): void
     {
         $attachment = new PartAttachment();
 
@@ -73,7 +70,7 @@ class AttachmentTest extends TestCase
         $this->assertEmpty($attachment->getFilename());
     }
 
-    public function subClassesDataProvider() : array
+    public function subClassesDataProvider(): array
     {
         return [
             [AttachmentTypeAttachment::class, AttachmentType::class],
@@ -87,16 +84,14 @@ class AttachmentTest extends TestCase
             [PartAttachment::class, Part::class],
             [StorelocationAttachment::class, Storelocation::class],
             [SupplierAttachment::class, Supplier::class],
-            [UserAttachment::class, User::class]
+            [UserAttachment::class, User::class],
         ];
     }
 
     /**
      * @dataProvider subClassesDataProvider
-     * @param string $attachment_class
-     * @param string $allowed_class
      */
-    public function testSetElement(string $attachment_class, string $allowed_class) : void
+    public function testSetElement(string $attachment_class, string $allowed_class): void
     {
         /** @var Attachment $attachment */
         $attachment = new $attachment_class();
@@ -110,16 +105,17 @@ class AttachmentTest extends TestCase
     /**
      * Test that all attachment subclasses like PartAttachment or similar returns an exception, when an not allowed
      * element is passed.
+     *
      * @dataProvider subClassesDataProvider
      * @depends  testSetElement
      */
-    public function testSetElementExceptionOnSubClasses(string $attachment_class, string $allowed_class) : void
+    public function testSetElementExceptionOnSubClasses(string $attachment_class, string $allowed_class): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
         /** @var Attachment $attachment */
         $attachment = new $attachment_class();
-        if ($allowed_class !== Device::class) {
+        if (Device::class !== $allowed_class) {
             $element = new Device();
         } else {
             $element = new Category();
@@ -138,7 +134,7 @@ class AttachmentTest extends TestCase
             ['%SECURE%/test.txt', false],
             ['%test%/foo/bar.ghp', true],
             ['foo%MEDIA%/foo.jpg', true],
-            ['foo%MEDIA%/%BASE%foo.jpg', true]
+            ['foo%MEDIA%/%BASE%foo.jpg', true],
         ];
     }
 
@@ -211,7 +207,7 @@ class AttachmentTest extends TestCase
             ['%BASE%/foo/bar.txt', false],
             ['/', false],
             ['https://google.de', false],
-            ['%FOOTPRINTS%/foo/bar.txt', true]
+            ['%FOOTPRINTS%/foo/bar.txt', true],
         ];
     }
 
@@ -249,7 +245,7 @@ class AttachmentTest extends TestCase
         return [
             ['%MEDIA%/foo/bar.txt', null, 'bar.txt'],
             ['%MEDIA%/foo/bar.JPeg', 'test.txt', 'test.txt'],
-            ['https://www.google.de/test.txt', null, null]
+            ['https://www.google.de/test.txt', null, null],
         ];
     }
 
@@ -278,11 +274,11 @@ class AttachmentTest extends TestCase
     }
 
     /**
-     * Sets a protected property on a given object via reflection
+     * Sets a protected property on a given object via reflection.
      *
-     * @param object $object - instance in which protected value is being modified
+     * @param object $object   - instance in which protected value is being modified
      * @param string $property - property on instance being modified
-     * @param mixed $value - new value of the property being modified
+     * @param mixed  $value    - new value of the property being modified
      *
      * @return void
      */
@@ -293,5 +289,4 @@ class AttachmentTest extends TestCase
         $reflection_property->setAccessible(true);
         $reflection_property->setValue($object, $value);
     }
-
 }

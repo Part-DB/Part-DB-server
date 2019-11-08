@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,22 +17,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity\Attachments;
 
-use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * A attachment attached to an attachmentType element.
- * @package App\Entity
+ *
  * @ORM\Entity()
  */
 class AttachmentTypeAttachment extends Attachment
 {
-
     /**
      * @var AttachmentType The element this attachment is associated with.
      * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\AttachmentType", inversedBy="attachments")
@@ -40,5 +37,5 @@ class AttachmentTypeAttachment extends Attachment
      */
     protected $element;
 
-    public const ALLOWED_ELEMENT_CLASS =  AttachmentType::class;
+    public const ALLOWED_ELEMENT_CLASS = AttachmentType::class;
 }

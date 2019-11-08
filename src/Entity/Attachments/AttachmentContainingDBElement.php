@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 declare(strict_types=1);
@@ -48,7 +47,6 @@ use App\Entity\Base\NamedDBElement;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\MappedSuperclass()
@@ -59,8 +57,8 @@ abstract class AttachmentContainingDBElement extends NamedDBElement
 
     /**
      * @var Attachment[]
-     * //TODO
-     * //@ORM\OneToMany(targetEntity="Attachment", mappedBy="element")
+     *                   //TODO
+     *                   //@ORM\OneToMany(targetEntity="Attachment", mappedBy="element")
      *
      * Mapping is done in sub classes like part
      */
@@ -79,34 +77,39 @@ abstract class AttachmentContainingDBElement extends NamedDBElement
 
     /**
      * Gets all attachments associated with this element.
+     *
      * @return Attachment[]|Collection
      */
-    public function getAttachments() : Collection
+    public function getAttachments(): Collection
     {
         return $this->attachments;
     }
 
     /**
-     * Adds an attachment to this element
+     * Adds an attachment to this element.
+     *
      * @param Attachment $attachment Attachment
+     *
      * @return $this
      */
-    public function addAttachment(Attachment $attachment) : self
+    public function addAttachment(Attachment $attachment): self
     {
         //Attachment must be associated with this element
         $attachment->setElement($this);
         $this->attachments->add($attachment);
+
         return $this;
     }
 
     /**
-     * Removes the given attachment from this element
-     * @param Attachment $attachment
+     * Removes the given attachment from this element.
+     *
      * @return $this
      */
-    public function removeAttachment(Attachment $attachment) : self
+    public function removeAttachment(Attachment $attachment): self
     {
         $this->attachments->removeElement($attachment);
+
         return $this;
     }
 }

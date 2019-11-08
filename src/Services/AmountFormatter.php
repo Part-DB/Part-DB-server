@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services;
-
 
 use App\Entity\Parts\MeasurementUnit;
 use Symfony\Component\OptionsResolver\Options;
@@ -29,7 +27,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * This service formats an part amout using a Measurement Unit.
- * @package App\Services
  */
 class AmountFormatter
 {
@@ -44,31 +41,37 @@ class AmountFormatter
     {
         $resolver->setDefaults([
             'show_prefix' => function (Options $options) {
-                if ($options['measurement_unit'] !== null) {
+                if (null !== $options['measurement_unit']) {
                     /** @var MeasurementUnit $unit */
                     $unit = $options['measurement_unit'];
+
                     return $unit->isUseSIPrefix();
                 }
+
                 return false;
             },
             'is_integer' => function (Options $options) {
-                if ($options['measurement_unit'] !== null) {
+                if (null !== $options['measurement_unit']) {
                     /** @var MeasurementUnit $unit */
                     $unit = $options['measurement_unit'];
+
                     return $unit->isInteger();
                 }
+
                 return true;
             },
             'unit' => function (Options $options) {
-                if ($options['measurement_unit'] !== null) {
+                if (null !== $options['measurement_unit']) {
                     /** @var MeasurementUnit $unit */
                     $unit = $options['measurement_unit'];
+
                     return $unit->getUnit();
                 }
+
                 return '';
             },
             'decimals' => 2,
-            'error_mapping' => [ '.' => 'value']
+            'error_mapping' => ['.' => 'value'],
         ]);
 
         $resolver->setAllowedTypes('decimals', 'int');
@@ -78,17 +81,20 @@ class AmountFormatter
             if ($options['is_integer']) {
                 return 0;
             }
+
             return $value;
         });
     }
 
     /**
      * Formats the given value using the measurement unit and options.
+     *
      * @param $value float|int The value that should be formatted. Must be numeric.
      * @param MeasurementUnit|null $unit The measurement unit, whose unit symbol should be used for formatting.
-     *              If set to null, it is assumed that the part amount is measured in pieces.
-     * @param array $options
+     *                                   If set to null, it is assumed that the part amount is measured in pieces.
+     *
      * @return string The formatted string
+     *
      * @throws \InvalidArgumentException Thrown if $value is not numeric.
      */
     public function format($value, ?MeasurementUnit $unit = null, array $options = [])
@@ -116,10 +122,11 @@ class AmountFormatter
 
         //Otherwise just output it
         if (!empty($options['unit'])) {
-            $format_string = '%.' . $options['decimals'] . 'f ' . $options['unit'];
+            $format_string = '%.'.$options['decimals'].'f '.$options['unit'];
         } else { //Dont add space after number if no unit was specified
-            $format_string = '%.' . $options['decimals'] . 'f';
+            $format_string = '%.'.$options['decimals'].'f';
         }
+
         return sprintf($format_string, $value);
     }
 }

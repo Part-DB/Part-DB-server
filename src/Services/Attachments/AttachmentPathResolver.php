@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,19 +17,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services\Attachments;
 
-
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * This service converts the relative pathes for attachments saved in database (like %MEDIA%/img.jpg) to real pathes
  * an vice versa.
- * @package App\Services\Attachments
  */
 class AttachmentPathResolver
 {
@@ -47,11 +43,12 @@ class AttachmentPathResolver
 
     /**
      * AttachmentPathResolver constructor.
-     * @param string $project_dir The kernel that should be used to resolve the project dir.
-     * @param string $media_path The path where uploaded attachments should be stored.
+     *
+     * @param string      $project_dir     The kernel that should be used to resolve the project dir.
+     * @param string      $media_path      The path where uploaded attachments should be stored.
      * @param string|null $footprints_path The path where builtin attachments are stored.
-     * Set to null if this ressource should be disabled.
-     * @param string|null $models_path Set to null if this ressource should be disabled.
+     *                                     Set to null if this ressource should be disabled.
+     * @param string|null $models_path     Set to null if this ressource should be disabled.
      */
     public function __construct(string $project_dir, string $media_path, string $secure_path, ?string $footprints_path, ?string $models_path)
     {
@@ -69,7 +66,7 @@ class AttachmentPathResolver
 
         //Remove all disabled placeholders
         foreach ($this->pathes as $key => $path) {
-            if ($path === null) {
+            if (null === $path) {
                 unset($this->placeholders[$key], $this->pathes[$key]);
             }
         }
@@ -82,13 +79,16 @@ class AttachmentPathResolver
     /**
      * Converts a path passed by parameter from services.yaml (which can be an absolute path or relative to project dir)
      * to an absolute path. When a relative path is passed, the directory must exist or null is returned.
+     *
      * @internal
+     *
      * @param string|null $param_path The parameter value that should be converted to a absolute path
+     *
      * @return string|null
      */
-    public function parameterToAbsolutePath(?string $param_path) : ?string
+    public function parameterToAbsolutePath(?string $param_path): ?string
     {
-        if ($param_path === null) {
+        if (null === $param_path) {
             return null;
         }
 
@@ -97,17 +97,18 @@ class AttachmentPathResolver
         if ($fs->isAbsolutePath($param_path)) {
             $tmp = realpath($param_path);
             //Disable ressource if path is not existing
-            if ($tmp === false) {
+            if (false === $tmp) {
                 return null;
             }
+
             return $tmp;
         }
 
         //Otherwise prepend the project path
-        $tmp = realpath($this->project_dir . DIRECTORY_SEPARATOR . $param_path);
+        $tmp = realpath($this->project_dir.\DIRECTORY_SEPARATOR.$param_path);
 
         //If path does not exist then disable the placeholder
-        if ($tmp === false) {
+        if (false === $tmp) {
             return null;
         }
 
@@ -119,38 +120,39 @@ class AttachmentPathResolver
      * Create an array usable for preg_replace out of an array of placeholders or pathes.
      * Slashes and other chars become escaped.
      * For example: '%TEST%' becomes '/^%TEST%/'.
-     * @param array $array
+     *
      * @return array
      */
-    protected function arrayToRegexArray(array $array) : array
+    protected function arrayToRegexArray(array $array): array
     {
         $ret = [];
 
         foreach ($array as $item) {
             $item = str_replace(['\\'], ['/'], $item);
-            $ret[] = '/' . preg_quote($item, '/') . '/';
+            $ret[] = '/'.preg_quote($item, '/').'/';
         }
 
         return $ret;
     }
 
-
     /**
      * Converts an relative placeholder filepath (with %MEDIA% or older %BASE%) to an absolute filepath on disk.
-     * The directory separator is always /. Relative pathes are not realy possible (.. is striped)
+     * The directory separator is always /. Relative pathes are not realy possible (.. is striped).
+     *
      * @param string $placeholder_path The filepath with placeholder for which the real path should be determined.
+     *
      * @return string|null The absolute real path of the file, or null if the placeholder path is invalid
      */
-    public function placeholderToRealPath(string $placeholder_path) : ?string
+    public function placeholderToRealPath(string $placeholder_path): ?string
     {
         //The new attachments use %MEDIA% as placeholders, which is the directory set in media_directory
         //Older path entries are given via %BASE% which was the project root
 
         $count = 0;
-        $placeholder_path = preg_replace($this->placeholders_regex, $this->pathes, $placeholder_path,-1,$count);
+        $placeholder_path = preg_replace($this->placeholders_regex, $this->pathes, $placeholder_path, -1, $count);
 
         //A valid placeholder can have only one
-        if ($count !== 1) {
+        if (1 !== $count) {
             return null;
         }
 
@@ -160,7 +162,7 @@ class AttachmentPathResolver
         }
 
         //Path is invalid if path is directory traversal
-        if (strpos($placeholder_path, '..') !== false) {
+        if (false !== strpos($placeholder_path, '..')) {
             return null;
         }
 
@@ -172,12 +174,14 @@ class AttachmentPathResolver
 
     /**
      * Converts an real absolute filepath to a placeholder version.
-     * @param string $real_path The absolute path, for which the placeholder version should be generated.
-     * @param bool $old_version By default the %MEDIA% placeholder is used, which is directly replaced with the
-     * media directory. If set to true, the old version with %BASE% will be used, which is the project directory.
+     *
+     * @param string $real_path   The absolute path, for which the placeholder version should be generated.
+     * @param bool   $old_version By default the %MEDIA% placeholder is used, which is directly replaced with the
+     *                            media directory. If set to true, the old version with %BASE% will be used, which is the project directory.
+     *
      * @return string The placeholder version of the filepath
      */
-    public function realPathToPlaceholder(string $real_path, bool $old_version = false) : ?string
+    public function realPathToPlaceholder(string $real_path, bool $old_version = false): ?string
     {
         $count = 0;
 
@@ -194,7 +198,7 @@ class AttachmentPathResolver
             $real_path = preg_replace($this->pathes_regex, $this->placeholders, $real_path, -1, $count);
         }
 
-        if ($count !== 1) {
+        if (1 !== $count) {
             return null;
         }
 
@@ -208,9 +212,10 @@ class AttachmentPathResolver
 
     /**
      * The path where uploaded attachments is stored.
+     *
      * @return string The absolute path to the media folder.
      */
-    public function getMediaPath() : string
+    public function getMediaPath(): string
     {
         return $this->media_path;
     }
@@ -218,27 +223,30 @@ class AttachmentPathResolver
     /**
      * The path where secured attachments are stored. Must not be located in public/ folder, so it can only be accessed
      * via the attachment controller.
+     *
      * @return string The absolute path to the secure path.
      */
-    public function getSecurePath() : string
+    public function getSecurePath(): string
     {
         return $this->secure_path;
     }
 
     /**
-     * The string where the builtin footprints are stored
+     * The string where the builtin footprints are stored.
+     *
      * @return string|null The absolute path to the footprints folder. Null if built footprints were disabled.
      */
-    public function getFootprintsPath() : ?string
+    public function getFootprintsPath(): ?string
     {
         return $this->footprints_path;
     }
 
     /**
-     * The string where the builtin 3D models are stored
+     * The string where the builtin 3D models are stored.
+     *
      * @return string|null The absolute path to the models folder. Null if builtin models were disabled.
      */
-    public function getModelsPath() : ?string
+    public function getModelsPath(): ?string
     {
         return $this->models_path;
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Validator\Constraints;
-
 
 use Symfony\Component\Validator\Constraint;
 
@@ -29,7 +27,6 @@ use Symfony\Component\Validator\Constraint;
  * If a property is marked with this constraint, the choosen value (of type StructuralDBElement)
  * must NOT be marked as not selectable.
  *
- * @package App\Validator\Constraints
  * @Annotation
  */
 class Selectable extends Constraint

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Tests\Services;
@@ -50,7 +49,6 @@ class SIFormatterTest extends WebTestCase
         $this->assertSame(0, $this->service->getMagnitude(-1.0));
         $this->assertSame(0, $this->service->getMagnitude(-9.9));
 
-
         $this->assertSame(3, $this->service->getMagnitude(9999.99));
         $this->assertSame(3, $this->service->getMagnitude(1000.0));
         $this->assertSame(3, $this->service->getMagnitude(-9999.99));
@@ -59,7 +57,7 @@ class SIFormatterTest extends WebTestCase
         $this->assertSame(-1, $this->service->getMagnitude(0.1));
         $this->assertSame(-1, $this->service->getMagnitude(-0.9999));
 
-        $this->assertSame(-25, $this->service->getMagnitude(- 1.246e-25));
+        $this->assertSame(-25, $this->service->getMagnitude(-1.246e-25));
         $this->assertSame(12, $this->service->getMagnitude(9.99e12));
     }
 
@@ -78,9 +76,9 @@ class SIFormatterTest extends WebTestCase
 
     public function testFormat()
     {
-        $this->assertSame("2.32 km", $this->service->format(2321, 'm'));
-        $this->assertEquals("230.45 km", $this->service->format(230450.3, 'm'));
-        $this->assertSame("-98.20 mg", $this->service->format(-0.0982, 'g'));
+        $this->assertSame('2.32 km', $this->service->format(2321, 'm'));
+        $this->assertEquals('230.45 km', $this->service->format(230450.3, 'm'));
+        $this->assertSame('-98.20 mg', $this->service->format(-0.0982, 'g'));
         $this->assertSame('-0.23 g', $this->service->format(-0.23, 'g'));
     }
 }

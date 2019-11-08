@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity\UserSystem;
@@ -293,10 +292,12 @@ class PermissionsEmbed
 
     /**
      * Checks whether a permission with the given name is valid for this object.
-     * @param string $permission_name The name of the permission which should be checked for.
-     * @return bool True if the permission is existing on this object.
+     *
+     * @param string $permission_name the name of the permission which should be checked for
+     *
+     * @return bool true if the permission is existing on this object
      */
-    public function isValidPermissionName(string $permission_name) : bool
+    public function isValidPermissionName(string $permission_name): bool
     {
         return isset($this->$permission_name);
     }
@@ -304,8 +305,8 @@ class PermissionsEmbed
     /**
      * Returns the bit pair value of the given permission.
      *
-     * @param string $permission_name The name of the permission, for which the bit pair should be returned.
-     * @param int    $bit_n           The (lower) bit number of the bit pair, which should be read.
+     * @param string $permission_name the name of the permission, for which the bit pair should be returned
+     * @param int    $bit_n           the (lower) bit number of the bit pair, which should be read
      *
      * @return int The value of the bit pair. Compare to the INHERIT, ALLOW, and DISALLOW consts in this class.
      */
@@ -323,8 +324,8 @@ class PermissionsEmbed
     /**
      * Returns the value of the operation for the given permission.
      *
-     * @param string $permission_name The name of the permission, for which the operation should be returned.
-     * @param int    $bit_n           The (lower) bit number of the bit pair for the operation.
+     * @param string $permission_name the name of the permission, for which the operation should be returned
+     * @param int    $bit_n           the (lower) bit number of the bit pair for the operation
      *
      * @return bool|null The value of the operation. True, if the given operation is allowed, false if disallowed
      *                   and null if it should inherit from parent.
@@ -345,19 +346,21 @@ class PermissionsEmbed
 
     /**
      * Sets the value of the given permission and operation.
-     * @param string $permission_name The name of the permission, for which the bit pair should be written.
-     * @param int    $bit_n           The (lower) bit number of the bit pair, which should be written.
-     * @param bool|null $new_value    The new value for the operation:
-     *                                True, if the given operation is allowed, false if disallowed
-     *                                and null if it should inherit from parent.
-     * @return PermissionsEmbed       The instance itself.
+     *
+     * @param string    $permission_name the name of the permission, for which the bit pair should be written
+     * @param int       $bit_n           the (lower) bit number of the bit pair, which should be written
+     * @param bool|null $new_value       the new value for the operation:
+     *                                   True, if the given operation is allowed, false if disallowed
+     *                                   and null if it should inherit from parent
+     *
+     * @return PermissionsEmbed the instance itself
      */
-    public function setPermissionValue(string $permission_name, int $bit_n, ?bool $new_value) : self
+    public function setPermissionValue(string $permission_name, int $bit_n, ?bool $new_value): self
     {
         //Determine which bit value the given value is.
-        if ($new_value === true) {
+        if (true === $new_value) {
             $bit_value = static::ALLOW;
-        } elseif ($new_value === false) {
+        } elseif (false === $new_value) {
             $bit_value = static::DISALLOW;
         } else {
             $bit_value = static::INHERIT;
@@ -370,12 +373,14 @@ class PermissionsEmbed
 
     /**
      * Sets the bit value of the given permission and operation.
-     * @param string $permission_name The name of the permission, for which the bit pair should be written.
-     * @param int    $bit_n           The (lower) bit number of the bit pair, which should be written.
-     * @param int $new_value          The new (bit) value of the bit pair, which should be written.
-     * @return PermissionsEmbed       The instance itself.
+     *
+     * @param string $permission_name the name of the permission, for which the bit pair should be written
+     * @param int    $bit_n           the (lower) bit number of the bit pair, which should be written
+     * @param int    $new_value       the new (bit) value of the bit pair, which should be written
+     *
+     * @return PermissionsEmbed the instance itself
      */
-    public function setBitValue(string $permission_name, int $bit_n, int $new_value) : self
+    public function setBitValue(string $permission_name, int $bit_n, int $new_value): self
     {
         if (!$this->isValidPermissionName($permission_name)) {
             throw new \InvalidArgumentException('No permission with the given name is existing!');
@@ -387,12 +392,14 @@ class PermissionsEmbed
     }
 
     /**
-     * Returns the given permission as raw int (all bit at once)
+     * Returns the given permission as raw int (all bit at once).
+     *
      * @param string $permission_name The name of the permission, which should be retrieved.
-     * If this is not existing an exception is thrown.
-     * @return int The raw permission value.
+     *                                If this is not existing an exception is thrown.
+     *
+     * @return int the raw permission value
      */
-    public function getRawPermissionValue(string $permission_name) : int
+    public function getRawPermissionValue(string $permission_name): int
     {
         if (!$this->isValidPermissionName($permission_name)) {
             throw new \InvalidArgumentException('No permission with the given name is existing!');
@@ -403,30 +410,33 @@ class PermissionsEmbed
 
     /**
      * Sets the given permission to the value.
-     * @param string $permission_name The name of the permission to that should be set.
-     * @param int $value The new value of the permsission
+     *
+     * @param string $permission_name the name of the permission to that should be set
+     * @param int    $value           The new value of the permsission
+     *
      * @return $this
      */
-    public function setRawPermissionValue(string $permission_name, int $value) : self
+    public function setRawPermissionValue(string $permission_name, int $value): self
     {
         if (!$this->isValidPermissionName($permission_name)) {
-            throw new \InvalidArgumentException(
-                sprintf('No permission with the given name %s is existing!', $permission_name)
-            );
+            throw new \InvalidArgumentException(sprintf('No permission with the given name %s is existing!', $permission_name));
         }
 
         $this->$permission_name = $value;
+
         return $this;
     }
 
     /**
      * Sets multiple permissions at once.
-     * @param array $values An array in the form ['perm_name' => $value], containing the new data
-     * @param array|null $values2 If this array is not null, the first array will treated of list of perm names,
-     * and this array as an array of new values.
+     *
+     * @param array      $values  An array in the form ['perm_name' => $value], containing the new data
+     * @param array|null $values2 if this array is not null, the first array will treated of list of perm names,
+     *                            and this array as an array of new values
+     *
      * @return $this
      */
-    public function setRawPermissionValues(array $values, array $values2 = null) : self
+    public function setRawPermissionValues(array $values, array $values2 = null): self
     {
         if (!empty($values2)) {
             $values = array_combine($values, $values2);
@@ -435,16 +445,17 @@ class PermissionsEmbed
         foreach ($values as $key => $value) {
             $this->setRawPermissionValue($key, $value);
         }
+
         return $this;
     }
 
     /**
      * Reads a bit pair from $data.
      *
-     * @param $data int The data from where the bits should be extracted from.
+     * @param $data int The data from where the bits should be extracted from
      * @param $n int The number of the lower bit (of the pair) that should be read. Starting from zero.
      *
-     * @return int The value of the bit pair.
+     * @return int the value of the bit pair
      */
     final protected static function readBitPair(int $data, int $n): int
     {
@@ -460,11 +471,11 @@ class PermissionsEmbed
     /**
      * Writes a bit pair in the given $data and returns it.
      *
-     * @param $data int The data which should be modified.
-     * @param $n int The number of the lower bit of the pair which should be written.
-     * @param $new int The new value of the pair.
+     * @param $data int The data which should be modified
+     * @param $n int The number of the lower bit of the pair which should be written
+     * @param $new int The new value of the pair
      *
-     * @return int The new data with the modified pair.
+     * @return int the new data with the modified pair
      */
     final protected static function writeBitPair(int $data, int $n, int $new): int
     {

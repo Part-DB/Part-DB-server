@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,24 +17,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Helpers;
 
-
 class TreeViewNodeState
 {
-    /** @var null|bool */
+    /** @var bool|null */
     protected $checked = null;
 
-    /** @var null|bool */
+    /** @var bool|null */
     protected $disabled = null;
 
-    /** @var null|bool */
+    /** @var bool|null */
     protected $expanded = null;
 
-    /** @var null|bool */
+    /** @var bool|null */
     protected $selected = null;
 
     /**
@@ -45,9 +43,6 @@ class TreeViewNodeState
         return $this->disabled;
     }
 
-    /**
-     * @param bool|null $disabled
-     */
     public function setDisabled(?bool $disabled): void
     {
         $this->disabled = $disabled;
@@ -61,9 +56,6 @@ class TreeViewNodeState
         return $this->expanded;
     }
 
-    /**
-     * @param bool|null $expanded
-     */
     public function setExpanded(?bool $expanded): void
     {
         $this->expanded = $expanded;
@@ -77,13 +69,8 @@ class TreeViewNodeState
         return $this->selected;
     }
 
-    /**
-     * @param bool|null $selected
-     */
     public function setSelected(?bool $selected): void
     {
         $this->selected = $selected;
     }
-
-
 }

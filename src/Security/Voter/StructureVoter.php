@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Security\Voter;
-
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Devices\Device;
@@ -36,33 +34,33 @@ use App\Entity\UserSystem\User;
 
 class StructureVoter extends ExtendedVoter
 {
-
     /**
      * Determines if the attribute and subject are supported by this voter.
      *
      * @param string $attribute An attribute
-     * @param mixed $subject The subject to secure, e.g. an object the user wants to access or any other PHP type
+     * @param mixed  $subject   The subject to secure, e.g. an object the user wants to access or any other PHP type
      *
      * @return bool True if the attribute and subject are supported, false otherwise
      */
     protected function supports($attribute, $subject)
     {
-        if(is_object($subject)) {
+        if (\is_object($subject)) {
             $permission_name = $this->instanceToPermissionName($subject);
             //If permission name is null, then the subject is not supported
-            return ($permission_name !== null) && $this->resolver->isValidOperation($permission_name, $attribute);
+            return (null !== $permission_name) && $this->resolver->isValidOperation($permission_name, $attribute);
         }
-
     }
 
     /**
      * Maps a instance type to the permission name.
+     *
      * @param $subject mixed The subject for which the permission name should be generated.
+     *
      * @return string|null The name of the permission for the subject's type or null, if the subject is not supported.
      */
-    protected function instanceToPermissionName($subject) : ?string
+    protected function instanceToPermissionName($subject): ?string
     {
-        $class_name = get_class($subject);
+        $class_name = \get_class($subject);
         switch ($class_name) {
             case AttachmentType::class:
                 return 'attachment_types';
@@ -93,7 +91,6 @@ class StructureVoter extends ExtendedVoter
      *
      * @param $attribute
      * @param $subject
-     * @param User $user
      *
      * @return bool
      */
@@ -103,6 +100,4 @@ class StructureVoter extends ExtendedVoter
         //Just resolve the permission
         return $this->resolver->inherit($user, $permission_name, $attribute) ?? false;
     }
-
-
 }

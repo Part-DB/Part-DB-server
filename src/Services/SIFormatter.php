@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,37 +17,39 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services;
 
 /**
  * A service that helps you to format values using the SI prefixes.
- * @package App\Services
  */
 class SIFormatter
 {
     /**
      * Returns the magnitude of a value (the count of decimal place of the highest decimal place).
      * For example, for 100 (=10^2) this function returns 2. For -2500 (=-2.5*10^3) this function returns 3.
+     *
      * @param float $value The value of which the magnitude should be determined.
+     *
      * @return int The magnitude of the value
      */
-    public function getMagnitude(float $value) : int
+    public function getMagnitude(float $value): int
     {
         return (int) floor(log10(abs($value)));
     }
 
     /**
      * Returns the best SI prefix (and its corresponding divisor) for the given magnitude.
+     *
      * @param int $magnitude The magnitude for which the prefix should be determined.
+     *
      * @return array A array, containing the divisor in first element, and the prefix symbol in second. For example, [1000, "k"].
      */
-    public function getPrefixByMagnitude(int $magnitude) : array
+    public function getPrefixByMagnitude(int $magnitude): array
     {
-        $prefixes_pos = ['' ,'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
-        $prefixes_neg = ['' ,'m', 'μ', 'n', 'p', 'f', 'a', 'z', 'y'];
+        $prefixes_pos = ['', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
+        $prefixes_neg = ['', 'm', 'μ', 'n', 'p', 'f', 'a', 'z', 'y'];
 
         if ($magnitude >= 0) {
             $nearest = (int) floor(abs($magnitude) / 3);
@@ -65,43 +67,42 @@ class SIFormatter
     }
 
     /**
-     *
-     * @param float $value
      * @return array
      */
-    public function convertValue(float $value) : array
+    public function convertValue(float $value): array
     {
         //Choose the prefix to use
         $tmp = $this->getPrefixByMagnitude($this->getMagnitude($value));
 
-        $ret = array(
+        $ret = [
             'value' => $value / $tmp[0],
             'prefix_magnitude' => log10($tmp[0]),
-            'prefix' => $tmp[1]
-        );
+            'prefix' => $tmp[1],
+        ];
 
         return $ret;
     }
 
     /**
-     * Formats the given value to a string, using the given options
-     * @param float $value The value that should be converted
-     * @param string $unit The unit that should be appended after the prefix
-     * @param int $decimals The number of decimals (after decimal dot) that should be outputed.
+     * Formats the given value to a string, using the given options.
+     *
+     * @param float  $value    The value that should be converted
+     * @param string $unit     The unit that should be appended after the prefix
+     * @param int    $decimals The number of decimals (after decimal dot) that should be outputed.
+     *
      * @return string
      */
-    public function format(float $value, string $unit = '', int $decimals = 2) : string
+    public function format(float $value, string $unit = '', int $decimals = 2): string
     {
         [$divisor, $symbol] = $this->getPrefixByMagnitude($this->getMagnitude($value));
         $value /= $divisor;
         //Build the format string, e.g.: %.2d km
-        if ($unit !== '' || $symbol !== '') {
-            $format_string = '%.' . $decimals . 'f ' . $symbol . $unit;
+        if ('' !== $unit || '' !== $symbol) {
+            $format_string = '%.'.$decimals.'f '.$symbol.$unit;
         } else {
-            $format_string = '%.' . $decimals . 'f';
+            $format_string = '%.'.$decimals.'f';
         }
 
         return sprintf($format_string, $value);
     }
-
 }

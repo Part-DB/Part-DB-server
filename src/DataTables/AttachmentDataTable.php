@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,16 +17,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\DataTables;
 
-
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\FootprintAttachment;
-use App\Entity\Parts\Part;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\ElementTypeNameGenerator;
@@ -41,7 +37,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AttachmentDataTable implements DataTableTypeInterface
 {
-
     protected $translator;
     protected $entityURLGenerator;
     protected $attachmentHelper;
@@ -69,10 +64,6 @@ class AttachmentDataTable implements DataTableTypeInterface
         //->leftJoin('attachment.element', 'element');
     }
 
-    /**
-     * @param DataTable $dataTable
-     * @param array $options
-     */
     public function configure(DataTable $dataTable, array $options)
     {
         $dataTable->add('picture', TextColumn::class, [
@@ -91,7 +82,7 @@ class AttachmentDataTable implements DataTableTypeInterface
                 }
 
                 return '';
-            }
+            },
         ]);
 
         $dataTable->add('name', TextColumn::class, [
@@ -115,7 +106,7 @@ class AttachmentDataTable implements DataTableTypeInterface
                 }
 
                 return $value;
-            }
+            },
         ]);
 
         $dataTable->add('attachment_type', TextColumn::class, [
@@ -126,7 +117,7 @@ class AttachmentDataTable implements DataTableTypeInterface
                     $this->entityURLGenerator->editURL($context->getAttachmentType()),
                     htmlspecialchars($value)
                 );
-            }
+            },
         ]);
 
         $dataTable->add('element', TextColumn::class, [
@@ -138,11 +129,11 @@ class AttachmentDataTable implements DataTableTypeInterface
                     $this->entityURLGenerator->infoURL($context->getElement()),
                     $this->elementTypeNameGenerator->getTypeNameCombination($context->getElement(), true)
                 );
-            }
+            },
         ]);
 
         $dataTable->add('filename', TextColumn::class, [
-            'propertyPath' => 'filename'
+            'propertyPath' => 'filename',
         ]);
 
         $dataTable->add('filesize', TextColumn::class, [
@@ -151,7 +142,7 @@ class AttachmentDataTable implements DataTableTypeInterface
                     return $this->attachmentHelper->getHumanFileSize($context);
                 }
                 if ($context->isExternal()) {
-                    return '<i>' . $this->translator->trans('attachment.external') . '</i>';
+                    return '<i>'.$this->translator->trans('attachment.external').'</i>';
                 }
 
                 return sprintf(
@@ -160,17 +151,17 @@ class AttachmentDataTable implements DataTableTypeInterface
                         </span>',
                     $this->translator->trans('attachment.file_not_found')
                 );
-            }
+            },
         ]);
 
         $dataTable
             ->add('addedDate', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.addedDate'),
-                'visible' => false
+                'visible' => false,
             ])
             ->add('lastModified', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.lastModified'),
-                'visible' => false
+                'visible' => false,
             ]);
 
         $dataTable->add('show_in_table', BoolColumn::class, [
@@ -178,7 +169,7 @@ class AttachmentDataTable implements DataTableTypeInterface
             'trueValue' => $this->translator->trans('true'),
             'falseValue' => $this->translator->trans('false'),
             'nullValue' => '',
-            'visible' => false
+            'visible' => false,
         ]);
 
         $dataTable->add('isPicture', BoolColumn::class, [
@@ -187,7 +178,7 @@ class AttachmentDataTable implements DataTableTypeInterface
             'falseValue' => $this->translator->trans('false'),
             'nullValue' => '',
             'visible' => false,
-            'propertyPath' => 'picture'
+            'propertyPath' => 'picture',
         ]);
 
         $dataTable->add('is3DModel', BoolColumn::class, [
@@ -196,7 +187,7 @@ class AttachmentDataTable implements DataTableTypeInterface
             'falseValue' => $this->translator->trans('false'),
             'nullValue' => '',
             'visible' => false,
-            'propertyPath' => '3dmodel'
+            'propertyPath' => '3dmodel',
         ]);
 
         $dataTable->add('isBuiltin', BoolColumn::class, [
@@ -205,7 +196,7 @@ class AttachmentDataTable implements DataTableTypeInterface
             'falseValue' => $this->translator->trans('false'),
             'nullValue' => '',
             'visible' => false,
-            'propertyPath' => 'builtin'
+            'propertyPath' => 'builtin',
         ]);
 
         $dataTable->createAdapter(ORMAdapter::class, [

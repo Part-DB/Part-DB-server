@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 declare(strict_types=1);
@@ -53,7 +52,6 @@ declare(strict_types=1);
 namespace App\Entity\UserSystem;
 
 use App\Entity\Attachments\AttachmentContainingDBElement;
-use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\Base\NamedDBElement;
 use App\Entity\PriceInformations\Currency;
@@ -82,7 +80,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     public const AVAILABLE_THEMES = ['bootstrap', 'cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal',
         'litera', 'lumen', 'lux', 'materia', 'minty', 'pulse', 'sandstone', 'simplex', 'sketchy', 'slate', 'solar',
-        'spacelab', 'united', 'yeti'];
+        'spacelab', 'united', 'yeti', ];
 
     /**
      * @var Collection|UserAttachment[]
@@ -182,9 +180,9 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * @var Currency|null The currency the user wants to see prices in.
-     * Dont use fetch=EAGER here, this will cause problems with setting the currency setting.
-     * TODO: This is most likely a bug in doctrine/symfony related to the UniqueEntity constraint (it makes a db call).
-     * TODO: Find a way to use fetch EAGER (this improves performance a bit)
+     *                    Dont use fetch=EAGER here, this will cause problems with setting the currency setting.
+     *                    TODO: This is most likely a bug in doctrine/symfony related to the UniqueEntity constraint (it makes a db call).
+     *                    TODO: Find a way to use fetch EAGER (this improves performance a bit)
      * @ORM\ManyToOne(targetEntity="App\Entity\PriceInformations\Currency")
      * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
      * @Selectable()
@@ -224,7 +222,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @ORM\Column(type="boolean")
      */
     protected $disabled = false;
-
 
     public function __construct()
     {
@@ -284,8 +281,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Sets the password hash for this user.
      *
-     * @param string $password
-     *
      * @return User
      */
     public function setPassword(string $password): self
@@ -314,6 +309,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Gets the currency the user prefers when showing him prices.
+     *
      * @return Currency|null The currency the user prefers, or null if the global currency should be used.
      */
     public function getCurrency(): ?Currency
@@ -323,17 +319,19 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Sets the currency the users prefers to see prices in.
-     * @param Currency|null $currency
+     *
      * @return User
      */
-    public function setCurrency(?Currency $currency): User
+    public function setCurrency(?Currency $currency): self
     {
         $this->currency = $currency;
+
         return $this;
     }
 
     /**
      * Checks if this user is disabled (user cannot login any more).
+     *
      * @return bool True, if the user is disabled.
      */
     public function isDisabled(): bool
@@ -343,16 +341,17 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Sets the status if a user is disabled.
+     *
      * @param bool $disabled True if the user should be disabled.
+     *
      * @return User
      */
-    public function setDisabled(bool $disabled): User
+    public function setDisabled(bool $disabled): self
     {
         $this->disabled = $disabled;
+
         return $this;
     }
-
-
 
     /**
      * Returns the ID as an string, defined by the element class.
@@ -371,7 +370,8 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
-     * Check if the user needs a password change
+     * Check if the user needs a password change.
+     *
      * @return bool
      */
     public function isNeedPwChange(): bool
@@ -381,20 +381,19 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Set the status, if the user needs a password change.
-     * @param bool $need_pw_change
+     *
      * @return User
      */
-    public function setNeedPwChange(bool $need_pw_change): User
+    public function setNeedPwChange(bool $need_pw_change): self
     {
         $this->need_pw_change = $need_pw_change;
+
         return $this;
     }
 
     /************************************************
      * Getters
      ************************************************/
-
-
 
     /**
      * Returns the full name in the format FIRSTNAME LASTNAME [(USERNAME)].
@@ -436,7 +435,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *
      * @return User
      */
-    public function setFirstName(?string $first_name): User
+    public function setFirstName(?string $first_name): self
     {
         $this->first_name = $first_name;
 
@@ -456,7 +455,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *
      * @return User
      */
-    public function setLastName(?string $last_name): User
+    public function setLastName(?string $last_name): self
     {
         $this->last_name = $last_name;
 
@@ -476,7 +475,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *
      * @return User
      */
-    public function setDepartment(?string $department): User
+    public function setDepartment(?string $department): self
     {
         $this->department = $department;
 
@@ -496,7 +495,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *
      * @return User
      */
-    public function setEmail(?string $email): User
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -516,7 +515,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *
      * @return User
      */
-    public function setLanguage(?string $language): User
+    public function setLanguage(?string $language): self
     {
         $this->language = $language;
 
@@ -536,7 +535,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *
      * @return User
      */
-    public function setTimezone(?string $timezone): User
+    public function setTimezone(?string $timezone): self
     {
         $this->timezone = $timezone;
 
@@ -556,7 +555,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *
      * @return User
      */
-    public function setTheme(?string $theme): User
+    public function setTheme(?string $theme): self
     {
         $this->theme = $theme;
 
@@ -578,6 +577,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     public function __toString()
     {
         $tmp = $this->isDisabled() ? ' [DISABLED]' : '';
-        return $this->getFullName(true) . $tmp;
+
+        return $this->getFullName(true).$tmp;
     }
 }

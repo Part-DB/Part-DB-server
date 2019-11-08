@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,24 +17,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity\Attachments;
 
-use App\Entity\Devices\Device;
 use App\Entity\Parts\Category;
-use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * A attachment attached to a category element.
- * @package App\Entity
+ *
  * @ORM\Entity()
  */
 class CategoryAttachment extends Attachment
 {
-
     /**
      * @var Category The element this attachment is associated with.
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Category", inversedBy="attachments")

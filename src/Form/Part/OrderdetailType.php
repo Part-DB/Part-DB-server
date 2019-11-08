@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form\Part;
@@ -38,7 +37,6 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use function foo\func;
 
 class OrderdetailType extends AbstractType
 {
@@ -58,28 +56,27 @@ class OrderdetailType extends AbstractType
 
         $builder->add('supplierpartnr', TextType::class, [
             'label' => $this->trans->trans('orderdetails.edit.supplierpartnr'),
-            'attr' => ['placeholder' =>  $this->trans->trans('orderdetails.edit.supplierpartnr.placeholder')],
+            'attr' => ['placeholder' => $this->trans->trans('orderdetails.edit.supplierpartnr.placeholder')],
             'required' => false,
-            'empty_data' => ""
+            'empty_data' => '',
         ]);
 
         $builder->add('supplier', StructuralEntityType::class, [
             'class' => Supplier::class, 'disable_not_selectable' => true,
-            'label' =>  $this->trans->trans('orderdetails.edit.supplier')
+            'label' => $this->trans->trans('orderdetails.edit.supplier'),
         ]);
 
         $builder->add('supplier_product_url', UrlType::class, [
             'required' => false,
-            'empty_data' => "",
-            'label' =>  $this->trans->trans('orderdetails.edit.url')
+            'empty_data' => '',
+            'label' => $this->trans->trans('orderdetails.edit.url'),
         ]);
 
         $builder->add('obsolete', CheckboxType::class, [
             'required' => false,
             'label_attr' => ['class' => 'checkbox-custom'],
-            'label' =>  $this->trans->trans('orderdetails.edit.obsolete')
+            'label' => $this->trans->trans('orderdetails.edit.obsolete'),
         ]);
-
 
         //Add pricedetails after we know the data, so we can set the default currency
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options) {
@@ -87,7 +84,7 @@ class OrderdetailType extends AbstractType
             $orderdetail = $event->getData();
 
             $dummy_pricedetail = new Pricedetail();
-            if ($orderdetail !== null && $orderdetail->getSupplier() !== null) {
+            if (null !== $orderdetail && null !== $orderdetail->getSupplier()) {
                 $dummy_pricedetail->setCurrency($orderdetail->getSupplier()->getDefaultCurrency());
             }
 
@@ -101,10 +98,9 @@ class OrderdetailType extends AbstractType
                 'by_reference' => false,
                 'entry_options' => [
                     'disabled' => !$this->security->isGranted('@parts_prices.edit'),
-                    'measurement_unit' => $options['measurement_unit']
-                ]
+                    'measurement_unit' => $options['measurement_unit'],
+                ],
             ]);
-
         });
     }
 

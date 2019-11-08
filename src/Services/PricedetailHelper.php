@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services;
@@ -25,7 +24,6 @@ namespace App\Services;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Pricedetail;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\PersistentCollection;
 use Locale;
 
@@ -43,10 +41,10 @@ class PricedetailHelper
     /**
      * Determines the highest amount, for which you get additional discount.
      * This function determines the highest min_discount_quantity for the given part.
-     * @param Part $part
+     *
      * @return float|null
      */
-    public function getMaxDiscountAmount(Part $part) : ?float
+    public function getMaxDiscountAmount(Part $part): ?float
     {
         $orderdetails = $part->getOrderdetails(true);
 
@@ -55,7 +53,7 @@ class PricedetailHelper
         foreach ($orderdetails as $orderdetail) {
             $pricedetails = $orderdetail->getPricedetails();
             //The orderdetail must have pricedetails, otherwise this will not work!
-            if (count($pricedetails) === 0) {
+            if (0 === \count($pricedetails)) {
                 continue;
             }
 
@@ -74,7 +72,6 @@ class PricedetailHelper
                 $max_amount = end($array);
             }
 
-
             if ($max_amount > $max) {
                 $max = $max_amount;
             }
@@ -88,11 +85,13 @@ class PricedetailHelper
     }
 
     /**
-     * Determines the minimum amount of the part that can be ordered
+     * Determines the minimum amount of the part that can be ordered.
+     *
      * @param Part $part The part for which the minimum order amount should be determined.
+     *
      * @return float
      */
-    public function getMinOrderAmount(Part $part) : ?float
+    public function getMinOrderAmount(Part $part): ?float
     {
         $orderdetails = $part->getOrderdetails(true);
 
@@ -101,7 +100,7 @@ class PricedetailHelper
         foreach ($orderdetails as $orderdetail) {
             $pricedetails = $orderdetail->getPricedetails();
             //The orderdetail must have pricedetails, otherwise this will not work!
-            if (count($pricedetails) === 0) {
+            if (0 === \count($pricedetails)) {
                 continue;
             }
 
@@ -123,26 +122,28 @@ class PricedetailHelper
 
     /**
      * Calculates the average price of a part, when ordering the amount $amount.
-     * @param Part $part The part for which the average price should be calculated.
-     * @param float $amount The order amount for which the average price should be calculated.
-     * If set to null, the mininmum order amount for the part is used.
+     *
+     * @param Part          $part     The part for which the average price should be calculated.
+     * @param float         $amount   The order amount for which the average price should be calculated.
+     *                                If set to null, the mininmum order amount for the part is used.
      * @param Currency|null $currency The currency in which the average price should be calculated
+     *
      * @return string|null The Average price as bcmath string. Returns null, if it was not possible to calculate the
-     * price for the given
+     *                     price for the given
      */
-    public function calculateAvgPrice(Part $part, ?float $amount = null, ?Currency $currency = null) : ?string
+    public function calculateAvgPrice(Part $part, ?float $amount = null, ?Currency $currency = null): ?string
     {
-        if ($amount === null) {
+        if (null === $amount) {
             $amount = $this->getMinOrderAmount($part);
         }
 
-        if ($amount === null) {
+        if (null === $amount) {
             return null;
         }
 
         $orderdetails = $part->getOrderdetails(true);
 
-        $avg = "0";
+        $avg = '0';
         $count = 0;
 
         //Find the price for the amount, for the given
@@ -150,15 +151,15 @@ class PricedetailHelper
             $pricedetail = $orderdetail->findPriceForQty($amount);
 
             //When we dont have informations about this amount, ignore it
-            if ($pricedetail === null) {
+            if (null === $pricedetail) {
                 continue;
             }
 
             $avg = bcadd($avg, $this->convertMoneyToCurrency($pricedetail->getPricePerUnit(), $pricedetail->getCurrency(), $currency), Pricedetail::PRICE_PRECISION);
-            $count++;
+            ++$count;
         }
 
-        if ($count === 0) {
+        if (0 === $count) {
             return null;
         }
 
@@ -166,16 +167,18 @@ class PricedetailHelper
     }
 
     /**
-     * Converts the given value in origin currency to the choosen target currency
+     * Converts the given value in origin currency to the choosen target currency.
+     *
      * @param $value float|string The value that should be converted
      * @param Currency|null $originCurrency The currency the $value is given in.
-     * Set to null, to use global base currency.
+     *                                      Set to null, to use global base currency.
      * @param Currency|null $targetCurrency The target currency, to which $value should be converted.
-     * Set to null, to use global base currency.
+     *                                      Set to null, to use global base currency.
+     *
      * @return string|null The value in $targetCurrency given as bcmath string.
-     * Returns null, if it was not possible to convert between both values (e.g. when the exchange rates are missing)
+     *                     Returns null, if it was not possible to convert between both values (e.g. when the exchange rates are missing)
      */
-    public function convertMoneyToCurrency($value, ?Currency $originCurrency = null, ?Currency $targetCurrency = null) : ?string
+    public function convertMoneyToCurrency($value, ?Currency $originCurrency = null, ?Currency $targetCurrency = null): ?string
     {
         //Skip conversion, if both currencies are same
         if ($originCurrency === $targetCurrency) {
@@ -186,9 +189,9 @@ class PricedetailHelper
 
         //Convert value to base currency
         $val_base = $value;
-        if ($originCurrency !== null) {
+        if (null !== $originCurrency) {
             //Without an exchange rate we can not calculate the exchange rate
-            if ((float) $originCurrency->getExchangeRate() === 0) {
+            if (0 === (float) $originCurrency->getExchangeRate()) {
                 return null;
             }
 
@@ -197,9 +200,9 @@ class PricedetailHelper
 
         //Convert value in base currency to target currency
         $val_target = $val_base;
-        if ($targetCurrency !== null) {
+        if (null !== $targetCurrency) {
             //Without an exchange rate we can not calculate the exchange rate
-            if ($targetCurrency->getExchangeRate() === null) {
+            if (null === $targetCurrency->getExchangeRate()) {
                 return null;
             }
 

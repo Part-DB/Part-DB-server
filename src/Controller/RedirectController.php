@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Controller;
@@ -46,7 +45,7 @@ class RedirectController extends AbstractController
     /**
      * This function is called whenever a route was not matching the localized routes.
      * The purpose is to redirect the user to the localized version of the page.
-     * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function addLocalePart(Request $request)
@@ -63,36 +62,39 @@ class RedirectController extends AbstractController
         //Check if the user needs to change the password. In that case redirect him to settings_page
         if ($user instanceof User && $user->isNeedPwChange()) {
             $this->session->getFlashBag()->add('warning', $this->translator->trans('flash.password_change_needed'));
+
             return $this->redirectToRoute('user_settings', ['_locale' => $locale]);
         }
 
         //$new_url = str_replace($request->getPathInfo(), '/' . $locale . $request->getPathInfo(), $request->getUri());
-        $new_url = $request->getUriForPath('/' . $locale . $request->getPathInfo());
+        $new_url = $request->getUriForPath('/'.$locale.$request->getPathInfo());
 
         //If either mod_rewrite is not enabled or the index.php version is enforced, add index.php to the string
         if (($this->enforce_index_php || !$this->checkIfModRewriteAvailable())
-            && strpos($new_url, 'index.php') === false) {
+            && false === strpos($new_url, 'index.php')) {
             //Like Request::getUriForPath only with index.php
-            $new_url = $request->getSchemeAndHttpHost(). $request->getBaseUrl().'/index.php/' . $locale . $request->getPathInfo();
+            $new_url = $request->getSchemeAndHttpHost().$request->getBaseUrl().'/index.php/'.$locale.$request->getPathInfo();
         }
+
         return $this->redirect($new_url);
     }
 
     /**
      * Check if mod_rewrite is availabe (URL rewriting is possible).
      * If this is true, we can redirect to /en, otherwise we have to redirect to index.php/en.
-     * When the PHP is not used via Apache SAPI, we just assume that URL rewriting is available
+     * When the PHP is not used via Apache SAPI, we just assume that URL rewriting is available.
+     *
      * @return bool
      */
     public function checkIfModRewriteAvailable()
     {
-        if (!function_exists('apache_get_modules')) {
+        if (!\function_exists('apache_get_modules')) {
             //If we can not check for apache modules, we just hope for the best and assume url rewriting is available
             //If you want to enforce index.php versions of the url, you can override this via ENV vars.
             return true;
         }
 
         //Check if the mod_rewrite module is loaded
-        return in_array('mod_rewrite', apache_get_modules(), false);
+        return \in_array('mod_rewrite', apache_get_modules(), false);
     }
 }

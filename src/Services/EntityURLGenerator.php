@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services;
@@ -25,11 +24,10 @@ namespace App\Services;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\DBElement;
-use App\Entity\Parts\Category;
 use App\Entity\Devices\Device;
+use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
-use App\Entity\Base\NamedDBElement;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Storelocation;
@@ -39,14 +37,12 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
 use App\Services\Attachments\AttachmentURLGenerator;
-use Symfony\Component\HttpKernel\HttpCache\Store;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * This service can be used to generate links to controllers for different aspects of an entity
  * (like info, edit, delete, etc.)
  * Useful for Twig, where you can generate a link to an entity using a filter.
- * @package App\Services
  */
 class EntityURLGenerator
 {
@@ -65,17 +61,20 @@ class EntityURLGenerator
     /**
      * Finds the controller name for the class of the entity using the given map.
      * Throws an exception if the entity class is not known to the map.
+     *
      * @param array $map The map that should be used for determing the controller
      * @param $entity mixed The entity for which the controller name should be determined.
+     *
      * @return string The name of the controller fitting the entity class
+     *
      * @throws EntityNotSupportedException
      */
     protected function mapToController(array $map, $entity): string
     {
-        $class = get_class($entity);
+        $class = \get_class($entity);
 
         //Check if we have an direct mapping for the given class
-        if (!array_key_exists($class, $map)) {
+        if (!\array_key_exists($class, $map)) {
             //Check if we need to check inheritance by looping through our map
             foreach ($map as $key => $value) {
                 if (is_a($entity, $key)) {
@@ -83,10 +82,7 @@ class EntityURLGenerator
                 }
             }
 
-            throw new EntityNotSupportedException(sprintf(
-                'The given entity is not supported yet! Passed class type: %s',
-                get_class($entity)
-            ));
+            throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', \get_class($entity)));
         }
 
         return $map[$class];
@@ -99,9 +95,11 @@ class EntityURLGenerator
      *
      * @param $entity mixed The element for which the page should be generated.
      * @param string $type The page type. Currently supported: 'info', 'edit', 'create', 'clone', 'list'/'list_parts'
+     *
      * @return string The link to the desired page.
+     *
      * @throws EntityNotSupportedException Thrown if the entity is not supported for the given type.
-     * @throws \InvalidArgumentException Thrown if the givent type is not existing.
+     * @throws \InvalidArgumentException   Thrown if the givent type is not existing.
      */
     public function getURL($entity, string $type)
     {
@@ -148,21 +146,21 @@ class EntityURLGenerator
             if ($entity->isExternal()) { //For external attachments, return the link to external path
                 return $entity->getURL();
             }
+
             return $this->attachmentURLGenerator->getDownloadURL($entity);
         }
 
         //Otherwise throw an error
-        throw new EntityNotSupportedException(sprintf(
-            'The given entity is not supported yet! Passed class type: %s',
-            get_class($entity)
-        ));
+        throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', \get_class($entity)));
     }
 
     /**
      * Generates an URL to a page, where info about this entity can be viewed.
      *
      * @param $entity mixed The entity for which the info should be generated.
+     *
      * @return string The URL to the info page
+     *
      * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
     public function infoURL(DBElement $entity): string
@@ -181,7 +179,7 @@ class EntityURLGenerator
             User::class => 'user_edit',
             Currency::class => 'currency_edit',
             MeasurementUnit::class => 'measurement_unit_edit',
-            Group::class => 'group_edit'
+            Group::class => 'group_edit',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
@@ -191,7 +189,9 @@ class EntityURLGenerator
      * Generates an URL to a page, where this entity can be edited.
      *
      * @param $entity mixed The entity for which the edit link should be generated.
+     *
      * @return string The URL to the edit page.
+     *
      * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
     public function editURL($entity): string
@@ -208,7 +208,7 @@ class EntityURLGenerator
             User::class => 'user_edit',
             Currency::class => 'currency_edit',
             MeasurementUnit::class => 'measurement_unit_edit',
-            Group::class => 'group_edit'
+            Group::class => 'group_edit',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
@@ -218,7 +218,9 @@ class EntityURLGenerator
      * Generates an URL to a page, where a entity of this type can be created.
      *
      * @param $entity mixed The entity for which the link should be generated.
+     *
      * @return string The URL to the page.
+     *
      * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
     public function createURL($entity): string
@@ -235,7 +237,7 @@ class EntityURLGenerator
             User::class => 'user_new',
             Currency::class => 'currency_new',
             MeasurementUnit::class => 'measurement_unit_new',
-            Group::class => 'group_new'
+            Group::class => 'group_new',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity));
@@ -243,16 +245,18 @@ class EntityURLGenerator
 
     /**
      * Generates an URL to a page, where a new entity can be created, that has the same informations as the
-     * given entity (element cloning)
+     * given entity (element cloning).
      *
      * @param $entity mixed The entity for which the link should be generated.
+     *
      * @return string The URL to the page.
+     *
      * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
     public function cloneURL(DBElement $entity): string
     {
         $map = [
-            Part::class => 'part_clone'
+            Part::class => 'part_clone',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
@@ -262,7 +266,9 @@ class EntityURLGenerator
      * Generates an URL to a page, where all parts are listed, which are contained in the given element.
      *
      * @param $entity mixed The entity for which the link should be generated.
+     *
      * @return string The URL to the page.
+     *
      * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
     public function listPartsURL(DBElement $entity): string
@@ -272,7 +278,7 @@ class EntityURLGenerator
             Footprint::class => 'part_list_footprint',
             Manufacturer::class => 'part_list_manufacturer',
             Supplier::class => 'part_list_supplier',
-            Storelocation::class => 'part_list_store_location'
+            Storelocation::class => 'part_list_store_location',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
@@ -292,7 +298,7 @@ class EntityURLGenerator
             User::class => 'user_delete',
             Currency::class => 'currency_delete',
             MeasurementUnit::class => 'measurement_unit_delete',
-            Group::class => 'group_delete'
+            Group::class => 'group_delete',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);

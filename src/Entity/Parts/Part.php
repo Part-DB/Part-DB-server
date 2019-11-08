@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 declare(strict_types=1);
@@ -54,9 +53,9 @@ namespace App\Entity\Parts;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
+use App\Entity\Base\MasterAttachmentTrait;
 use App\Entity\Devices\Device;
 use App\Entity\Parts\PartTraits\AdvancedPropertyTrait;
-use App\Entity\Base\MasterAttachmentTrait;
 use App\Entity\Parts\PartTraits\BasicPropertyTrait;
 use App\Entity\Parts\PartTraits\InstockTrait;
 use App\Entity\Parts\PartTraits\ManufacturerTrait;
@@ -64,7 +63,6 @@ use App\Entity\Parts\PartTraits\OrderTrait;
 use App\Security\Annotations\ColumnSecurity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -143,7 +141,7 @@ class Part extends AttachmentContainingDBElement
      */
     public function getIDString(): string
     {
-        return 'P' . sprintf('%06d', $this->getID());
+        return 'P'.sprintf('%06d', $this->getID());
     }
 
     /**
@@ -152,11 +150,9 @@ class Part extends AttachmentContainingDBElement
      * @return Device[] * all devices which uses this part as a one-dimensional array of Device objects
      *                  (empty array if there are no ones)
      *                  * the array is sorted by the devices names
-     *
      */
     public function getDevices(): array
     {
         return $this->devices;
     }
-
 }

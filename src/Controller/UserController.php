@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Controller;
@@ -47,17 +46,14 @@ use Symfony\Component\Validator\Constraints\Length;
 /**
  * @Route("/user")
  * Class UserController
- * @package App\Controller
  */
 class UserController extends AdminPages\BaseAdminController
 {
-
     protected $entity_class = User::class;
     protected $twig_template = 'AdminPages/UserAdmin.html.twig';
     protected $form_class = UserAdminForm::class;
     protected $route_base = 'user';
     protected $attachment_class = UserAttachment::class;
-
 
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="user_edit")
@@ -84,17 +80,18 @@ class UserController extends AdminPages\BaseAdminController
      */
     public function delete(Request $request, User $entity, StructuralElementRecursionHelper $recursionHelper)
     {
-        if ($entity->getID() == User::ID_ANONYMOUS) {
+        if (User::ID_ANONYMOUS == $entity->getID()) {
             throw new \InvalidArgumentException('You can not delete the anonymous user! It is needed for permission checking without a logged in user');
         }
+
         return $this->_delete($request, $entity, $recursionHelper);
     }
 
     /**
      * @Route("/export", name="user_export_all")
-     * @param Request $request
+     *
      * @param SerializerInterface $serializer
-     * @param EntityManagerInterface $em
+     *
      * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request)
@@ -104,15 +101,15 @@ class UserController extends AdminPages\BaseAdminController
 
     /**
      * @Route("/{id}/export", name="user_export")
-     * @param Request $request
+     *
      * @param AttachmentType $entity
+     *
      * @return Response
      */
     public function exportEntity(User $entity, EntityExporter $exporter, Request $request)
     {
         return $this->_exportEntity($entity, $exporter, $request);
     }
-
 
     /**
      * @Route("/info", name="user_info_self")
@@ -135,17 +132,17 @@ class UserController extends AdminPages\BaseAdminController
         }
 
         //Show permissions to user
-        $builder = $this->createFormBuilder()->add('permissions',PermissionsType::class, [
+        $builder = $this->createFormBuilder()->add('permissions', PermissionsType::class, [
             'mapped' => false,
             'disabled' => true,
             'inherit' => true,
-            'data' => $user
+            'data' => $user,
         ]);
 
         return $this->render('Users/user_info.html.twig', [
             'user' => $user,
             'avatar' => $avatar,
-            'form' => $builder->getForm()->createView()
+            'form' => $builder->getForm()->createView(),
         ]);
     }
 
@@ -161,8 +158,8 @@ class UserController extends AdminPages\BaseAdminController
 
         $page_need_reload = false;
 
-        if(!$user instanceof User) {
-            return new \RuntimeException("This controller only works only for Part-DB User objects!");
+        if (!$user instanceof User) {
+            return new \RuntimeException('This controller only works only for Part-DB User objects!');
         }
 
         //When user change its settings, he should be logged  in fully.
@@ -233,7 +230,7 @@ class UserController extends AdminPages\BaseAdminController
         return $this->render('Users/user_settings.html.twig', [
             'settings_form' => $form->createView(),
             'pw_form' => $pw_form->createView(),
-            'page_need_reload' => $page_need_reload
+            'page_need_reload' => $page_need_reload,
         ]);
     }
 
@@ -250,10 +247,10 @@ class UserController extends AdminPages\BaseAdminController
      * @return string containing either just a URL or a complete image tag
      * @source https://gravatar.com/site/implement/images/php/
      */
-    public function getGravatar(?string $email, int $s = 80, string $d = 'mm', string $r = 'g', bool $img = false, array $atts = array())
+    public function getGravatar(?string $email, int $s = 80, string $d = 'mm', string $r = 'g', bool $img = false, array $atts = [])
     {
-        if ($email === null) {
-            return "";
+        if (null === $email) {
+            return '';
         }
 
         $url = 'https://www.gravatar.com/avatar/';

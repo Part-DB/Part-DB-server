@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,19 +17,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\EventSubscriber;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\EventDispatcher\Tests\Debug\EventSubscriber;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 
 class SymfonyDebugToolbarSubscriber implements EventSubscriberInterface
 {
-
     protected $kernel;
 
     public function __construct(ContainerInterface $kernel)
@@ -60,7 +57,6 @@ class SymfonyDebugToolbarSubscriber implements EventSubscriberInterface
         return ['kernel.response' => 'onKernelResponse'];
     }
 
-
     public function onKernelResponse(FilterResponseEvent $event)
     {
         if (!$this->kernel->getParameter('kernel.debug')) {
@@ -70,5 +66,4 @@ class SymfonyDebugToolbarSubscriber implements EventSubscriberInterface
         $response = $event->getResponse();
         $response->headers->set('Symfony-Debug-Toolbar-Replace', 1);
     }
-
 }

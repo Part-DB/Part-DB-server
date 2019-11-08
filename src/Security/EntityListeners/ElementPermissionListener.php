@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Security\EntityListeners;
@@ -25,12 +24,9 @@ namespace App\Security\EntityListeners;
 use App\Entity\Base\DBElement;
 use App\Security\Annotations\ColumnSecurity;
 use Doctrine\Common\Annotations\Reader;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\PreFlushEventArgs;
-use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\PostLoad;
 use Doctrine\ORM\Mapping\PreUpdate;
@@ -42,7 +38,7 @@ use Symfony\Component\Security\Core\Security;
  * The purpose of this class is to hook into the doctrine entity lifecycle and restrict access to entity informations
  * configured by ColoumnSecurity Annotation.
  * If the current programm is running from CLI (like a CLI command), the security checks are disabled.
- * (Commands should be able to do everything they like)
+ * (Commands should be able to do everything they like).
  *
  * If a user does not have access to an coloumn, it will be filled, with a placeholder, after doctrine loading is finished.
  * The edit process is also catched, so that these placeholders, does not get saved to database.
@@ -65,12 +61,12 @@ class ElementPermissionListener
 
     /**
      * This function checks if the current script is run from web or from a terminal.
+     *
      * @return bool Returns true if the current programm is running from CLI (terminal)
      */
     protected function isRunningFromCLI()
     {
-
-        if (empty($_SERVER['REMOTE_ADDR']) && !isset($_SERVER['HTTP_USER_AGENT']) && count($_SERVER['argv']) > 0) {
+        if (empty($_SERVER['REMOTE_ADDR']) && !isset($_SERVER['HTTP_USER_AGENT']) && \count($_SERVER['argv']) > 0) {
             return true;
         }
 
@@ -163,7 +159,6 @@ class ElementPermissionListener
                         $property->setValue($element, $old_data[$property->getName()]);
                         $changed = true;
                     }
-
                 }
 
                 if ($changed) {

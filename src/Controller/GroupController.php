@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Controller;
-
 
 use App\Controller\AdminPages\BaseAdminController;
 use App\Entity\Attachments\GroupAttachment;
@@ -49,9 +47,7 @@ class GroupController extends BaseAdminController
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="group_edit")
      * @Route("/{id}/", requirements={"id"="\d+"})
-     * @param Group $entity
-     * @param Request $request
-     * @param EntityManagerInterface $em
+     *
      * @return Response
      */
     public function edit(Group $entity, Request $request, EntityManagerInterface $em)
@@ -62,9 +58,7 @@ class GroupController extends BaseAdminController
     /**
      * @Route("/new", name="group_new")
      * @Route("/")
-     * @param Request $request
-     * @param EntityManagerInterface $em
-     * @param EntityImporter $importer
+     *
      * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
@@ -74,9 +68,7 @@ class GroupController extends BaseAdminController
 
     /**
      * @Route("/{id}", name="group_delete", methods={"DELETE"})
-     * @param Request $request
-     * @param Group $entity
-     * @param StructuralElementRecursionHelper $recursionHelper
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Request $request, Group $entity, StructuralElementRecursionHelper $recursionHelper)
@@ -86,9 +78,7 @@ class GroupController extends BaseAdminController
 
     /**
      * @Route("/export", name="group_export_all")
-     * @param EntityManagerInterface $em
-     * @param EntityExporter $exporter
-     * @param Request $request
+     *
      * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request)
@@ -98,9 +88,7 @@ class GroupController extends BaseAdminController
 
     /**
      * @Route("/{id}/export", name="group_export")
-     * @param Group $entity
-     * @param EntityExporter $exporter
-     * @param Request $request
+     *
      * @return Response
      */
     public function exportEntity(Group $entity, EntityExporter $exporter, Request $request)

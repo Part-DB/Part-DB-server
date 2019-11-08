@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services;
-
 
 use App\Entity\Base\NamedDBElement;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +29,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Use this class to export an entity to multiple file formats.
- * @package App\Services
  */
 class EntityExporter
 {
@@ -47,21 +44,23 @@ class EntityExporter
      *
      * @param $entity NamedDBElement|NamedDBElement[] The element/elements[] that should be exported
      * @param Request $request The request that should be used for option resolving.
+     *
      * @return Response The generated response containing the exported data.
+     *
      * @throws \ReflectionException
      */
-    public function exportEntityFromRequest($entity, Request $request) : Response
+    public function exportEntityFromRequest($entity, Request $request): Response
     {
-        $format = $request->get('format') ?? "json";
+        $format = $request->get('format') ?? 'json';
 
         //Check if we have one of the supported formats
-        if (!in_array($format, ['json', 'csv', 'yaml', 'xml'])) {
-            throw new \InvalidArgumentException("Given format is not supported!");
+        if (!\in_array($format, ['json', 'csv', 'yaml', 'xml'])) {
+            throw new \InvalidArgumentException('Given format is not supported!');
         }
 
         //Check export verbosity level
         $level = $request->get('level') ?? 'extended';
-        if (!in_array($level, ['simple', 'extended', 'full'])) {
+        if (!\in_array($level, ['simple', 'extended', 'full'])) {
             throw new \InvalidArgumentException('Given level is not supported!');
         }
 
@@ -69,26 +68,26 @@ class EntityExporter
         $include_children = $request->get('include_children') ?? false;
 
         //Check which groups we need to export, based on level and include_children
-        $groups = array($level);
+        $groups = [$level];
         if ($include_children) {
             $groups[] = 'include_children';
         }
 
         //Plain text should work for all types
-        $content_type = "text/plain";
+        $content_type = 'text/plain';
 
         //Try to use better content types based on the format
         switch ($format) {
             case 'xml':
-                $content_type = "application/xml";
+                $content_type = 'application/xml';
                 break;
             case 'json':
-                $content_type = "application/json";
+                $content_type = 'application/json';
                 break;
         }
 
         //Ensure that we always serialize an array. This makes it easier to import the data again.
-        if(is_array($entity)) {
+        if (\is_array($entity)) {
             $entity_array = $entity;
         } else {
             $entity_array = [$entity];
@@ -99,7 +98,7 @@ class EntityExporter
                 'groups' => $groups,
                 'as_collection' => true,
                 'csv_delimiter' => ';', //Better for Excel
-                'xml_root_node_name' => 'PartDBExport'
+                'xml_root_node_name' => 'PartDBExport',
             ]));
 
         $response->headers->set('Content-Type', $content_type);
@@ -108,7 +107,7 @@ class EntityExporter
         if (!$request->get('view')) {
             if ($entity instanceof NamedDBElement) {
                 $entity_name = $entity->getName();
-            } elseif (is_array($entity)) {
+            } elseif (\is_array($entity)) {
                 if (empty($entity)) {
                     throw new \InvalidArgumentException('$entity must not be empty!');
                 }
@@ -120,8 +119,7 @@ class EntityExporter
                 throw new \InvalidArgumentException('$entity type is not supported!');
             }
 
-
-            $filename = "export_" . $entity_name . "_" . $level . "." . $format;
+            $filename = 'export_'.$entity_name.'_'.$level.'.'.$format;
 
             // Create the disposition of the file
             $disposition = $response->headers->makeDisposition(

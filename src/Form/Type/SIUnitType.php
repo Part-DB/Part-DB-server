@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form\Type;
-
 
 use App\Entity\Parts\MeasurementUnit;
 use App\Services\SIFormatter;
@@ -50,30 +48,36 @@ class SIUnitType extends AbstractType implements DataMapperInterface
         $resolver->setDefaults([
             'measurement_unit' => null,
             'show_prefix' => function (Options $options) {
-                if ($options['measurement_unit'] !== null) {
+                if (null !== $options['measurement_unit']) {
                     /** @var MeasurementUnit $unit */
                     $unit = $options['measurement_unit'];
+
                     return $unit->isUseSIPrefix();
                 }
+
                 return false;
             },
             'is_integer' => function (Options $options) {
-                if ($options['measurement_unit'] !== null) {
+                if (null !== $options['measurement_unit']) {
                     /** @var MeasurementUnit $unit */
                     $unit = $options['measurement_unit'];
+
                     return $unit->isInteger();
                 }
+
                 return false;
             },
             'unit' => function (Options $options) {
-                if ($options['measurement_unit'] !== null) {
+                if (null !== $options['measurement_unit']) {
                     /** @var MeasurementUnit $unit */
                     $unit = $options['measurement_unit'];
+
                     return $unit->getUnit();
                 }
+
                 return null;
             },
-            'error_mapping' => [ '.' => 'value']
+            'error_mapping' => ['.' => 'value'],
         ]);
 
         $resolver->setAllowedTypes('measurement_unit', [MeasurementUnit::class, 'null']);
@@ -84,13 +88,13 @@ class SIUnitType extends AbstractType implements DataMapperInterface
                 'min' => 0,
                 'max' => '',
                 'step' => function (Options $options) {
-                    if ($options['is_integer'] === true) {
+                    if (true === $options['is_integer']) {
                         return 1;
                     }
 
-                    return "any";
+                    return 'any';
                 },
-                'html5' => true
+                'html5' => true,
             ]);
     }
 
@@ -102,13 +106,13 @@ class SIUnitType extends AbstractType implements DataMapperInterface
                 'attr' => [
                     'min' => (string) $options['min'],
                     'max' => (string) $options['max'],
-                    'step' => (string) $options['step']
-                ]
+                    'step' => (string) $options['step'],
+                ],
             ]);
 
         if ($options['show_prefix']) {
             $builder->add('prefix', ChoiceType::class, [
-                'choices' => ['M' => 6, 'k' => 3, '' => 0, 'm' => -3, 'µ' => -6 ]
+                'choices' => ['M' => 6, 'k' => 3, '' => 0, 'm' => -3, 'µ' => -6],
             ]);
         }
 
@@ -121,7 +125,7 @@ class SIUnitType extends AbstractType implements DataMapperInterface
 
         //Check if we need to make this thing small
         if (isset($options['attr']['class'])) {
-            $view->vars['sm'] = (strpos($options['attr']['class'], 'form-control-sm') !== false);
+            $view->vars['sm'] = (false !== strpos($options['attr']['class'], 'form-control-sm'));
         }
 
         $view->vars['unit'] = $options['unit'];
@@ -134,8 +138,8 @@ class SIUnitType extends AbstractType implements DataMapperInterface
      * The method is responsible for calling {@link FormInterface::setData()}
      * on the children of compound forms, defining their underlying model data.
      *
-     * @param mixed $viewData View data of the compound form being initialized
-     * @param FormInterface[]|\Traversable $forms A list of {@link FormInterface} instances
+     * @param mixed                        $viewData View data of the compound form being initialized
+     * @param FormInterface[]|\Traversable $forms    A list of {@link FormInterface} instances
      *
      * @throws Exception\UnexpectedTypeException if the type of the data parameter is not supported
      */
@@ -143,7 +147,7 @@ class SIUnitType extends AbstractType implements DataMapperInterface
     {
         $forms = iterator_to_array($forms);
 
-        if ($viewData === null) {
+        if (null === $viewData) {
             if (isset($forms['prefix'])) {
                 $forms['prefix']->setData(0);
             }
@@ -154,7 +158,7 @@ class SIUnitType extends AbstractType implements DataMapperInterface
         $data = $this->si_formatter->convertValue($viewData);
 
         if (isset($forms['prefix'])) {
-            $forms['value']->setData($data["value"]);
+            $forms['value']->setData($data['value']);
             $forms['prefix']->setData($data['prefix_magnitude']);
         } else {
             $forms['value']->setData($viewData);
@@ -184,8 +188,8 @@ class SIUnitType extends AbstractType implements DataMapperInterface
      * The model data can be an array or an object, so this second argument is always passed
      * by reference.
      *
-     * @param FormInterface[]|\Traversable $forms A list of {@link FormInterface} instances
-     * @param mixed $viewData The compound form's view data that get mapped
+     * @param FormInterface[]|\Traversable $forms    A list of {@link FormInterface} instances
+     * @param mixed                        $viewData The compound form's view data that get mapped
      *                                               its children model data
      *
      * @throws Exception\UnexpectedTypeException if the type of the data parameter is not supported

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity\Parts\PartTraits;
-
 
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
@@ -30,7 +28,6 @@ use App\Validator\Constraints\Selectable;
 
 /**
  * In this trait all manufacturer related properties of a part are collected (like MPN, manufacturer URL).
- * @package App\Entity\Parts\PartTraits
  */
 trait ManufacturerTrait
 {
@@ -70,6 +67,7 @@ trait ManufacturerTrait
      * Get the link to the website of the article on the manufacturers website
      * When no this part has no explicit url set, then it is tried to generate one from the Manufacturer of this part
      * automatically.
+     *
      * @return string the link to the article
      */
     public function getManufacturerProductUrl(): string
@@ -87,6 +85,7 @@ trait ManufacturerTrait
 
     /**
      * Similar to getManufacturerProductUrl, but here only the database value is returned.
+     *
      * @return string The manufacturer url saved in DB for this part.
      */
     public function getCustomProductURL(): string
@@ -103,7 +102,8 @@ trait ManufacturerTrait
      * * "active": Part is in production and will be for the forseeable future
      * * "nrfnd": Not recommended for new designs.
      * * "eol": Part will become discontinued soon
-     * * "discontinued": Part is obsolete/discontinued by the manufacturer
+     * * "discontinued": Part is obsolete/discontinued by the manufacturer.
+     *
      * @return string
      */
     public function getManufacturingStatus(): ?string
@@ -114,12 +114,13 @@ trait ManufacturerTrait
     /**
      * Sets the manufacturing status for this part
      * See getManufacturingStatus() for valid values.
-     * @param string $manufacturing_status
+     *
      * @return Part
      */
     public function setManufacturingStatus(string $manufacturing_status): self
     {
         $this->manufacturing_status = $manufacturing_status;
+
         return $this;
     }
 
@@ -133,9 +134,9 @@ trait ManufacturerTrait
         return $this->manufacturer;
     }
 
-
     /**
      * Returns the assigned manufacturer product number (MPN) for this part.
+     *
      * @return string
      */
     public function getManufacturerProductNumber(): string
@@ -145,19 +146,22 @@ trait ManufacturerTrait
 
     /**
      * Sets the manufacturer product number (MPN) for this part.
-     * @param string $manufacturer_product_number
+     *
      * @return Part
      */
     public function setManufacturerProductNumber(string $manufacturer_product_number): self
     {
         $this->manufacturer_product_number = $manufacturer_product_number;
+
         return $this;
     }
 
     /**
      * Sets the URL to the manufacturer site about this Part.
      * Set to "" if this part should use the automatically URL based on its manufacturer.
+     *
      * @param string $new_url The new url
+     *
      * @return self
      */
     public function setManufacturerProductURL(string $new_url): self
@@ -181,5 +185,4 @@ trait ManufacturerTrait
 
         return $this;
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity\Parts\PartTraits;
-
 
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -60,7 +58,7 @@ trait BasicPropertyTrait
 
     /**
      * @var Category The category this part belongs too (e.g. Resistors). Use tags, for more complex grouping.
-     * Every part must have a category.
+     *               Every part must have a category.
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="parts")
      * @ORM\JoinColumn(name="id_category", referencedColumnName="id", nullable=false)
      * @ColumnSecurity(prefix="category", type="App\Entity\Parts\Category")
@@ -80,6 +78,7 @@ trait BasicPropertyTrait
     /**
      * Get the description string like it is saved in the database.
      * This can contain BBCode, it is not parsed yet.
+     *
      * @return string the description
      */
     public function getDescription(): string
@@ -89,6 +88,7 @@ trait BasicPropertyTrait
 
     /**
      * Get the comment associated with this part.
+     *
      * @return string The raw/unparsed comment
      */
     public function getComment(): string
@@ -99,6 +99,7 @@ trait BasicPropertyTrait
     /**
      * Get if this part is visible.
      * This property is not used yet.
+     *
      * @return bool true if this part is visible
      *              false if this part isn't visible
      */
@@ -109,6 +110,7 @@ trait BasicPropertyTrait
 
     /**
      * Check if this part is a favorite.
+     *
      * @return bool * true if this part is a favorite
      *              * false if this part is not a favorite.
      */
@@ -117,10 +119,10 @@ trait BasicPropertyTrait
         return $this->favorite;
     }
 
-
     /**
      * Get the category of this part (e.g. Resistors).
      * There is always a category, for each part!
+     *
      * @return Category the category of this part
      */
     public function getCategory(): ?Category
@@ -129,7 +131,8 @@ trait BasicPropertyTrait
     }
 
     /**
-     * Gets the Footprint of this part (e.g. DIP8)
+     * Gets the Footprint of this part (e.g. DIP8).
+     *
      * @return Footprint|null The footprint of this part. Null if this part should no have a footprint.
      */
     public function getFootprint(): ?Footprint
@@ -139,36 +142,44 @@ trait BasicPropertyTrait
 
     /**
      * Sets the description of this part.
+     *
      * @param string $new_description the new description
+     *
      * @return self
      */
     public function setDescription(?string $new_description): self
     {
         $this->description = $new_description;
+
         return $this;
     }
 
     /**
      * Sets the comment property of this part.
+     *
      * @param string $new_comment the new comment
+     *
      * @return self
      */
     public function setComment(string $new_comment): self
     {
         $this->comment = $new_comment;
+
         return $this;
     }
 
-
     /**
      * Set the category of this Part.
-     * The category property is required for every part, so you can not pass null like the other properties (footprints)
+     * The category property is required for every part, so you can not pass null like the other properties (footprints).
+     *
      * @param Category $category The new category of this part
+     *
      * @return self
      */
     public function setCategory(Category $category): self
     {
         $this->category = $category;
+
         return $this;
     }
 
@@ -183,6 +194,7 @@ trait BasicPropertyTrait
     public function setFootprint(?Footprint $new_footprint): self
     {
         $this->footprint = $new_footprint;
+
         return $this;
     }
 
@@ -197,7 +209,7 @@ trait BasicPropertyTrait
     public function setFavorite(bool $new_favorite_status): self
     {
         $this->favorite = $new_favorite_status;
+
         return $this;
     }
-
 }

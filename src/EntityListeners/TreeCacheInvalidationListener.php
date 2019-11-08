@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\EntityListeners;
-
 
 use App\Entity\Base\DBElement;
 use App\Entity\Base\StructuralDBElement;
@@ -29,8 +27,6 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Services\UserCacheKeyGenerator;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\ORM\Event\PostFlushEventArgs;
-use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
@@ -49,15 +45,12 @@ class TreeCacheInvalidationListener
      * @ORM\PostUpdate()
      * @ORM\PostPersist()
      * @ORM\PostRemove()
-     *
-     * @param DBElement $element
-     * @param LifecycleEventArgs $event
      */
     public function invalidate(DBElement $element, LifecycleEventArgs $event)
     {
         //If an element was changed, then invalidate all cached trees with this element class
         if ($element instanceof StructuralDBElement) {
-            $secure_class_name = str_replace("\\", '_', get_class($element));
+            $secure_class_name = str_replace('\\', '_', \get_class($element));
             $this->cache->invalidateTags([$secure_class_name]);
         }
 
@@ -69,10 +62,9 @@ class TreeCacheInvalidationListener
 
         /* If any group change, then invalidate all cached trees. Users Permissions can be inherited from groups,
             so a change in any group can cause big permisssion changes for users. So to be sure, invalidate all trees */
-        if($element instanceof Group) {
-            $tag = "groups";
+        if ($element instanceof Group) {
+            $tag = 'groups';
             $this->cache->invalidateTags([$tag]);
         }
-
     }
 }

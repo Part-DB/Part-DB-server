@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form\AdminPages;
-
 
 use App\Entity\Base\NamedDBElement;
 use App\Form\Permissions\PermissionsType;
@@ -34,7 +32,7 @@ class GroupAdminForm extends BaseEntityAdminForm
         $builder->add('permissions', PermissionsType::class, [
             'mapped' => false,
             'data' => $builder->getData(),
-            'disabled' => !$this->security->isGranted('edit_permissions', $entity)
+            'disabled' => !$this->security->isGranted('edit_permissions', $entity),
         ]);
     }
 }

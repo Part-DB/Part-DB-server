@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Controller;
@@ -53,7 +52,7 @@ class PartListsController extends AbstractController
 
         return $this->render('Parts/lists/category_list.html.twig', [
             'datatable' => $table,
-            'entity' => $category
+            'entity' => $category,
         ]);
     }
 
@@ -75,7 +74,7 @@ class PartListsController extends AbstractController
 
         return $this->render('Parts/lists/footprint_list.html.twig', [
             'datatable' => $table,
-            'entity' => $footprint
+            'entity' => $footprint,
         ]);
     }
 
@@ -97,7 +96,7 @@ class PartListsController extends AbstractController
 
         return $this->render('Parts/lists/manufacturer_list.html.twig', [
             'datatable' => $table,
-            'entity' => $manufacturer
+            'entity' => $manufacturer,
         ]);
     }
 
@@ -119,7 +118,7 @@ class PartListsController extends AbstractController
 
         return $this->render('Parts/lists/store_location_list.html.twig', [
             'datatable' => $table,
-            'entity' => $storelocation
+            'entity' => $storelocation,
         ]);
     }
 
@@ -141,16 +140,13 @@ class PartListsController extends AbstractController
 
         return $this->render('Parts/lists/supplier_list.html.twig', [
             'datatable' => $table,
-            'entity' => $supplier
+            'entity' => $supplier,
         ]);
     }
 
-
     /**
      * @Route("/parts/by_tag/{tag}", name="part_list_tags")
-     * @param string $tag
-     * @param Request $request
-     * @param DataTableFactory $dataTable
+     *
      * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function showTag(string $tag, Request $request, DataTableFactory $dataTable)
@@ -164,7 +160,7 @@ class PartListsController extends AbstractController
 
         return $this->render('Parts/lists/tags_list.html.twig', [
             'tag' => $tag,
-            'datatable' => $table
+            'datatable' => $table,
         ]);
     }
 
@@ -184,15 +180,12 @@ class PartListsController extends AbstractController
 
         return $this->render('Parts/lists/search_list.html.twig', [
                 'datatable' => $table,
-                'keyword' => $keyword
+                'keyword' => $keyword,
             ]);
     }
 
     /**
      * @Route("/parts", name="parts_show_all")
-     *
-     * @param Request          $request
-     * @param DataTableFactory $dataTable
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,16 +17,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Tests\Services;
 
-
 use App\Entity\Parts\MeasurementUnit;
 use App\Services\AmountFormatter;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\Intl\Locale\Locale;
 
 class AmountFormatterTest extends WebTestCase
 {
@@ -46,23 +43,23 @@ class AmountFormatterTest extends WebTestCase
 
     public function testFormatWithoutUnit()
     {
-        $this->assertEquals("2", $this->service->format(2.321));
-        $this->assertEquals("1002", $this->service->format(1002.356));
-        $this->assertEquals("1000454", $this->service->format(1000454.0));
-        $this->assertEquals("0", $this->service->format(0.01));
-        $this->assertEquals("0", $this->service->format(0));
+        $this->assertEquals('2', $this->service->format(2.321));
+        $this->assertEquals('1002', $this->service->format(1002.356));
+        $this->assertEquals('1000454', $this->service->format(1000454.0));
+        $this->assertEquals('0', $this->service->format(0.01));
+        $this->assertEquals('0', $this->service->format(0));
     }
 
     public function testInvalidInput()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->service->format("test");
+        $this->service->format('test');
     }
 
     public function testFormatUnitWithoutSI()
     {
         $meters = new MeasurementUnit();
-        $meters->setIsInteger(false)->setUseSIPrefix(false)->setUnit("m");
+        $meters->setIsInteger(false)->setUseSIPrefix(false)->setUnit('m');
 
         $this->assertEquals('0.32 m', $this->service->format(0.3245, $meters));
         $this->assertEquals('10003.56 m', $this->service->format(10003.556, $meters));

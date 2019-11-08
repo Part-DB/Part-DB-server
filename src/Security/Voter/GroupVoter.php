@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,32 +17,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Security\Voter;
-
 
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 
 class GroupVoter extends ExtendedVoter
 {
-
     /**
      * Similar to voteOnAttribute, but checking for the anonymous user is already done.
      * The current user (or the anonymous user) is passed by $user.
      *
      * @param $attribute
      * @param $subject
-     * @param User $user
      *
      * @return bool
      */
     protected function voteOnUser($attribute, $subject, User $user): bool
     {
         if ($subject instanceof Group) {
-            return $this->resolver->inherit($user,'groups', $attribute) ?? false;
+            return $this->resolver->inherit($user, 'groups', $attribute) ?? false;
         }
 
         return false;
@@ -52,7 +48,7 @@ class GroupVoter extends ExtendedVoter
      * Determines if the attribute and subject are supported by this voter.
      *
      * @param string $attribute An attribute
-     * @param mixed $subject The subject to secure, e.g. an object the user wants to access or any other PHP type
+     * @param mixed  $subject   The subject to secure, e.g. an object the user wants to access or any other PHP type
      *
      * @return bool True if the attribute and subject are supported, false otherwise
      */

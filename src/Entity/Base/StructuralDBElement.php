@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 declare(strict_types=1);
@@ -44,9 +43,9 @@ declare(strict_types=1);
 namespace App\Entity\Base;
 
 use App\Entity\Attachments\AttachmentContainingDBElement;
+use App\Validator\Constraints\NoneOfItsChildren;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Validator\Constraints\NoneOfItsChildren;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -95,7 +94,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
 
     /**
      * @var bool If this property is set, this element can not be selected for part properties.
-     * Useful if this element should be used only for grouping, sorting.
+     *           Useful if this element should be used only for grouping, sorting.
      * @ORM\Column(type="boolean")
      */
     protected $not_selectable = false;
@@ -107,11 +106,8 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
 
     /** @var string[] all names of all parent elements as a array of strings,
      *  the last array element is the name of the element itself
-     *
      */
     private $full_path_strings;
-
-
 
     public function __construct()
     {
@@ -127,19 +123,19 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      * Check if this element is a child of another element (recursive).
      *
      * @param StructuralDBElement $another_element the object to compare
-     *     IMPORTANT: both objects to compare must be from the same class (for example two "Device" objects)!
+     *                                             IMPORTANT: both objects to compare must be from the same class (for example two "Device" objects)!
      *
      * @return bool True, if this element is child of $another_element.
      *
      * @throws \InvalidArgumentException if there was an error
      */
-    public function isChildOf(StructuralDBElement $another_element) : bool
+    public function isChildOf(self $another_element): bool
     {
         $class_name = \get_class($this);
 
         //Check if both elements compared, are from the same type
         // (we have to check inheritance, or we get exceptions when using doctrine entities (they have a proxy type):
-        if (!is_a($another_element, $class_name) && !is_a($this, get_class($another_element))) {
+        if (!is_a($another_element, $class_name) && !is_a($this, \get_class($another_element))) {
             throw new \InvalidArgumentException('isChildOf() only works for objects of the same type!');
         }
 
@@ -153,12 +149,13 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     }
 
     /**
-     * Checks if this element is an root element (has no parent)
+     * Checks if this element is an root element (has no parent).
+     *
      * @return bool True if the this element is an root element.
      */
-    public function isRoot() : bool
+    public function isRoot(): bool
     {
-        return $this->parent === null;
+        return null === $this->parent;
     }
 
     /******************************************************************************
@@ -180,6 +177,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     /**
      *  Get the comment of the element.
 
+     *
      * @return string the comment
      */
     public function getComment(): ?string
@@ -194,21 +192,21 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      *
      * @return int the level of this element (zero means a most top element
      *             [a subelement of the root node])
-     *
      */
     public function getLevel(): int
     {
-        /**
+        /*
          * Only check for nodes that have a parent. In the other cases zero is correct.
          */
-        if (0 === $this->level && $this->parent !== null) {
+        if (0 === $this->level && null !== $this->parent) {
             $element = $this->parent;
-            while ($element !== null) {
+            while (null !== $element) {
                 /** @var StructuralDBElement $element */
                 $element = $element->parent;
                 ++$this->level;
             }
         }
+
         return $this->level;
     }
 
@@ -218,12 +216,11 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      * @param string $delimeter the delimeter of the returned string
      *
      * @return string the full path (incl. the name of this element), delimeted by $delimeter
-     *
      */
     public function getFullPath(string $delimeter = self::PATH_DELIMITER_ARROW): string
     {
         if (!\is_array($this->full_path_strings)) {
-            $this->full_path_strings = array();
+            $this->full_path_strings = [];
             $this->full_path_strings[] = $this->getName();
             $element = $this;
 
@@ -233,7 +230,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
                 $element = $element->parent;
                 $this->full_path_strings[] = $element->getName();
                 //Decrement to prevent mem overflow.
-                $overflow--;
+                --$overflow;
             }
 
             $this->full_path_strings = array_reverse($this->full_path_strings);
@@ -242,11 +239,11 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
         return implode($delimeter, $this->full_path_strings);
     }
 
-
     /**
-     * Gets the path to this element (including the element itself)
+     * Gets the path to this element (including the element itself).
+     *
      * @return self[] An array with all (recursivily) parent elements (including this one),
-     * ordered from the lowest levels (root node) first to the highest level (the element itself)
+     *                ordered from the lowest levels (root node) first to the highest level (the element itself)
      */
     public function getPathArray(): array
     {
@@ -254,7 +251,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
         $tmp[] = $this;
 
         //We only allow 20 levels depth
-        while (!end($tmp)->isRoot() && count($tmp) < 20) {
+        while (!end($tmp)->isRoot() && \count($tmp) < 20) {
             $tmp[] = end($tmp)->parent;
         }
 
@@ -293,11 +290,13 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      ******************************************************************************/
 
     /**
-     * Sets the new parent object
+     * Sets the new parent object.
+     *
      * @param self $new_parent The new parent object
+     *
      * @return StructuralDBElement
      */
-    public function setParent(?self $new_parent) : self
+    public function setParent(?self $new_parent): self
     {
         /*
         if ($new_parent->isChildOf($this)) {
@@ -311,7 +310,9 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
 
     /**
      *  Set the comment.
+     *
      * @param string $new_comment the new comment
+     *
      * @return StructuralDBElement
      */
     public function setComment(?string $new_comment): self
@@ -321,7 +322,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
         return $this;
     }
 
-    public function setChildren(array $element) : self
+    public function setChildren(array $element): self
     {
         $this->children = $element;
 
@@ -329,16 +330,16 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     }
 
     /**
-     * @param bool $not_selectable
      * @return StructuralDBElement
      */
-    public function setNotSelectable(bool $not_selectable): StructuralDBElement
+    public function setNotSelectable(bool $not_selectable): self
     {
         $this->not_selectable = $not_selectable;
+
         return $this;
     }
 
-    public function clearChildren() : self
+    public function clearChildren(): self
     {
         $this->children = new ArrayCollection();
 

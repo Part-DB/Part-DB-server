@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,16 +17,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form\Type;
 
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -34,7 +31,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TriStateCheckboxType extends AbstractType implements DataTransformerInterface
 {
-    public function buildForm(FormBuilderInterface $builder, array $options) : void
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addViewTransformer($this);
     }
@@ -44,7 +41,7 @@ class TriStateCheckboxType extends AbstractType implements DataTransformerInterf
         $resolver->setDefaults([
             'label_attr' => ['class' => 'checkbox-custom checkbox-inline'],
             'attr' => ['class' => 'tristate'],
-            'compound' => false
+            'compound' => false,
         ]);
     }
 
@@ -61,7 +58,7 @@ class TriStateCheckboxType extends AbstractType implements DataTransformerInterf
         $view->vars = array_replace($view->vars, [
             'value' => $form->getViewData(),
             'checked' => true === $form->getData(),
-            'indeterminate' => null === $form->getData()
+            'indeterminate' => null === $form->getData(),
         ]);
     }
 
@@ -106,19 +103,19 @@ class TriStateCheckboxType extends AbstractType implements DataTransformerInterf
      */
     public function transform($value)
     {
-        if ($value === true) {
-            return "true";
+        if (true === $value) {
+            return 'true';
         }
 
-        if ($value === false) {
-            return "false";
+        if (false === $value) {
+            return 'false';
         }
 
-        if ($value === null) {
-            return "indeterminate";
+        if (null === $value) {
+            return 'indeterminate';
         }
 
-        throw new \InvalidArgumentException('Invalid value encountered!: ' . $value);
+        throw new \InvalidArgumentException('Invalid value encountered!: '.$value);
     }
 
     /**
@@ -151,15 +148,15 @@ class TriStateCheckboxType extends AbstractType implements DataTransformerInterf
     public function reverseTransform($value)
     {
         switch ($value) {
-            case "true":
+            case 'true':
                 return true;
-            case "false":
+            case 'false':
             case '':
                 return false;
-            case "indeterminate":
+            case 'indeterminate':
                 return null;
             default:
-                throw new \InvalidArgumentException('Invalid value encountered!: ' . $value);
+                throw new \InvalidArgumentException('Invalid value encountered!: '.$value);
         }
     }
 }

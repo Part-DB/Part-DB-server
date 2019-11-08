@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 declare(strict_types=1);
@@ -33,25 +32,24 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20190902140506 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return 'Upgrade database from old Part-DB 0.5 Version (dbVersion 26)';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         try {
             //Check if we can use this migration method:
-            $version = (int)$this->connection->fetchColumn("SELECT keyValue AS version FROM `internal` WHERE `keyName` = 'dbVersion'");
-            $this->abortIf($version !== 26, "This database migration can only be used if the database version is 26! Install Part-DB 0.5.6 and update database there!");
+            $version = (int) $this->connection->fetchColumn("SELECT keyValue AS version FROM `internal` WHERE `keyName` = 'dbVersion'");
+            $this->abortIf(26 !== $version, 'This database migration can only be used if the database version is 26! Install Part-DB 0.5.6 and update database there!');
         } catch (DBALException $ex) {
             //when the table was not found, then you can not use this migration
-            $this->skipIf(true, "Empty database detected. Skip migration.");
+            $this->skipIf(true, 'Empty database detected. Skip migration.');
         }
-
 
         //Deactive SQL Modes (especially NO_ZERO_DATE, which prevents updating)
         $this->addSql("SET sql_mode = ''");
@@ -64,17 +62,17 @@ final class Version20190902140506 extends AbstractMigration
         $this->addSql('CREATE TABLE `measurement_units` (id INT AUTO_INCREMENT NOT NULL, parent_id INT DEFAULT NULL, unit VARCHAR(255) DEFAULT NULL, is_integer TINYINT(1) NOT NULL, use_si_prefix TINYINT(1) NOT NULL, comment LONGTEXT NOT NULL, not_selectable TINYINT(1) NOT NULL, name VARCHAR(255) NOT NULL, last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, datetime_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, INDEX IDX_F5AF83CF727ACA70 (parent_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE part_lots (id INT AUTO_INCREMENT NOT NULL, id_store_location INT DEFAULT NULL, id_part INT NOT NULL, description LONGTEXT NOT NULL, comment LONGTEXT NOT NULL, expiration_date DATETIME DEFAULT NULL, instock_unknown TINYINT(1) NOT NULL, amount DOUBLE PRECISION NOT NULL, needs_refill TINYINT(1) NOT NULL, last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, datetime_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, INDEX IDX_EBC8F9435D8F4B37 (id_store_location), INDEX IDX_EBC8F943C22F6CC4 (id_part), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
 
-        /** Migrate the part locations for parts with known instock */
+        /* Migrate the part locations for parts with known instock */
         $this->addSql(
-            'INSERT IGNORE INTO part_lots (id_part, id_store_location, amount, instock_unknown, last_modified, datetime_added) ' .
-            'SELECT parts.id, parts.id_storelocation,  parts.instock, 0, NOW(), NOW() FROM parts ' .
+            'INSERT IGNORE INTO part_lots (id_part, id_store_location, amount, instock_unknown, last_modified, datetime_added) '.
+            'SELECT parts.id, parts.id_storelocation,  parts.instock, 0, NOW(), NOW() FROM parts '.
             'WHERE parts.instock >= 0'
         );
 
         //Migrate part locations for parts with unknown instock
         $this->addSql(
-            'INSERT IGNORE INTO part_lots (id_part, id_store_location, amount, instock_unknown, last_modified, datetime_added) ' .
-            'SELECT parts.id, parts.id_storelocation, 0, 1, NOW(), NOW() FROM parts ' .
+            'INSERT IGNORE INTO part_lots (id_part, id_store_location, amount, instock_unknown, last_modified, datetime_added) '.
+            'SELECT parts.id, parts.id_storelocation, 0, 1, NOW(), NOW() FROM parts '.
             'WHERE parts.instock = -2'
         );
 
@@ -183,8 +181,8 @@ final class Version20190902140506 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_F06D3970727ACA70 ON groups (parent_id)');
 
         //Fill empty timestamps with current date
-        $tables = ["attachments", "attachment_types", "categories", "devices", "footprints", "manufacturers",
-            "orderdetails", "pricedetails", "storelocations", "suppliers"];
+        $tables = ['attachments', 'attachment_types', 'categories', 'devices', 'footprints', 'manufacturers',
+            'orderdetails', 'pricedetails', 'storelocations', 'suppliers', ];
 
         foreach ($tables as $table) {
             $this->addSql("UPDATE $table SET datetime_added = NOW() WHERE datetime_added = '0000-00-00 00:00:00'");
@@ -195,10 +193,10 @@ final class Version20190902140506 extends AbstractMigration
         $this->addSql("UPDATE `internal` SET `keyValue` = '99' WHERE `internal`.`keyName` = 'dbVersion'");
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE currencies DROP FOREIGN KEY FK_37C44693727ACA70');
         $this->addSql('ALTER TABLE `suppliers` DROP FOREIGN KEY FK_AC28B95CECD792C0');

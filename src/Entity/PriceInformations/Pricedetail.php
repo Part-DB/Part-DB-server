@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 declare(strict_types=1);
@@ -69,7 +68,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Pricedetail extends DBElement
 {
-
     public const PRICE_PRECISION = 5;
 
     use TimestampTrait;
@@ -91,7 +89,7 @@ class Pricedetail extends DBElement
 
     /**
      * @var ?Currency The currency used for the current price information.
-     * If this is null, the global base unit is assumed.
+     *                If this is null, the global base unit is assumed.
      * @ORM\ManyToOne(targetEntity="Currency")
      * @ORM\JoinColumn(name="id_currency", referencedColumnName="id", nullable=true)
      * @Selectable()
@@ -142,9 +140,10 @@ class Pricedetail extends DBElement
     /**
      * Returns the price associated with this pricedetail.
      * It is given in current currency and for the price related quantity.
+     *
      * @return string The price as string, like returned raw from DB.
      */
-    public function getPrice() : string
+    public function getPrice(): string
     {
         return $this->price;
     }
@@ -152,18 +151,19 @@ class Pricedetail extends DBElement
     /**
      * Get the price for a single unit in the currency associated with this price detail.
      *
-     * @param float|string $multiplier      The returned price (float or string) will be multiplied
-     *                              with this multiplier.
+     * @param float|string $multiplier The returned price (float or string) will be multiplied
+     *                                 with this multiplier.
      *
      *     You will get the price for $multiplier parts. If you want the price which is stored
      *          in the database, you have to pass the "price_related_quantity" count as $multiplier.
      *
-     * @return string  the price as a bcmath string
+     * @return string the price as a bcmath string
      */
-    public function getPricePerUnit($multiplier = 1.0) : string
+    public function getPricePerUnit($multiplier = 1.0): string
     {
         $multiplier = (string) $multiplier;
         $tmp = bcmul($this->price, $multiplier, static::PRICE_PRECISION);
+
         return bcdiv($tmp, (string) $this->price_related_quantity, static::PRICE_PRECISION);
         //return ($this->price * $multiplier) / $this->price_related_quantity;
     }
@@ -180,10 +180,12 @@ class Pricedetail extends DBElement
      */
     public function getPriceRelatedQuantity(): float
     {
-        if ($this->orderdetail  && $this->orderdetail->getPart() && !$this->orderdetail->getPart()->useFloatAmount()) {
+        if ($this->orderdetail && $this->orderdetail->getPart() && !$this->orderdetail->getPart()->useFloatAmount()) {
             $tmp = round($this->price_related_quantity);
+
             return $tmp < 1 ? 1 : $tmp;
         }
+
         return $this->price_related_quantity;
     }
 
@@ -203,6 +205,7 @@ class Pricedetail extends DBElement
     {
         if ($this->orderdetail && $this->orderdetail->getPart() && !$this->orderdetail->getPart()->useFloatAmount()) {
             $tmp = round($this->min_discount_quantity);
+
             return $tmp < 1 ? 1 : $tmp;
         }
 
@@ -212,6 +215,7 @@ class Pricedetail extends DBElement
     /**
      * Returns the currency associated with this price information.
      * Returns null, if no specific currency is selected and the global base currency should be assumed.
+     *
      * @return Currency|null
      */
     public function getCurrency(): ?Currency
@@ -227,24 +231,26 @@ class Pricedetail extends DBElement
 
     /**
      * Sets the orderdetail to which this pricedetail belongs to.
-     * @param Orderdetail $orderdetail
+     *
      * @return $this
      */
-    public function setOrderdetail(Orderdetail $orderdetail) : self
+    public function setOrderdetail(Orderdetail $orderdetail): self
     {
         $this->orderdetail = $orderdetail;
+
         return $this;
     }
 
     /**
      * Sets the currency associated with the price informations.
      * Set to null, to use the global base currency.
-     * @param Currency|null $currency
+     *
      * @return Pricedetail
      */
-    public function setCurrency(?Currency $currency): Pricedetail
+    public function setCurrency(?Currency $currency): self
     {
         $this->currency = $currency;
+
         return $this;
     }
 
@@ -259,7 +265,7 @@ class Pricedetail extends DBElement
      *
      * @return self
      */
-    public function setPrice(string $new_price): Pricedetail
+    public function setPrice(string $new_price): self
     {
         //Assert::natural($new_price, 'The new price must be positive! Got %s!');
 
@@ -322,6 +328,6 @@ class Pricedetail extends DBElement
      */
     public function getIDString(): string
     {
-        return 'PD' . sprintf('%06d', $this->getID());
+        return 'PD'.sprintf('%06d', $this->getID());
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,26 +17,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Command;
 
 use App\Services\Attachments\AttachmentManager;
-use App\Services\Attachments\AttachmentReverseSearch;
 use App\Services\Attachments\AttachmentPathResolver;
+use App\Services\Attachments\AttachmentReverseSearch;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Mime\FileinfoMimeTypeGuesser;
 use Symfony\Component\Mime\MimeTypes;
-use Symfony\Component\Mime\MimeTypesInterface;
 
 class CleanAttachmentsCommand extends Command
 {
@@ -69,9 +64,9 @@ class CleanAttachmentsCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $mediaPath = $this->pathResolver->getMediaPath();
-        $io->note("The media path is " . $mediaPath);
+        $io->note('The media path is '.$mediaPath);
         $securePath = $this->pathResolver->getSecurePath();
-        $io->note("The secure media path is ". $securePath);
+        $io->note('The secure media path is '.$securePath);
 
         $finder = new Finder();
         //We look for files in the media folder only
@@ -81,7 +76,7 @@ class CleanAttachmentsCommand extends Command
 
         $fs = new Filesystem();
 
-        $file_list = array();
+        $file_list = [];
 
         $table = new Table($output);
         $table->setHeaders(['Filename', 'MIME Type', 'Last modified date']);
@@ -89,20 +84,20 @@ class CleanAttachmentsCommand extends Command
 
         foreach ($finder as $file) {
             //If not attachment object uses this file, print it
-            if (count($this->reverseSearch->findAttachmentsByFile($file)) == 0) {
+            if (0 == \count($this->reverseSearch->findAttachmentsByFile($file))) {
                 $file_list[] = $file;
                 $table->addRow([
                     $fs->makePathRelative($file->getPathname(), $mediaPath),
                     $this->mimeTypeGuesser->guessMimeType($file->getPathname()),
-                    $dateformatter->format($file->getMTime())
+                    $dateformatter->format($file->getMTime()),
                 ]);
             }
         }
 
-        if (count($file_list) > 0) {
+        if (\count($file_list) > 0) {
             $table->render();
 
-            $continue = $io->confirm(sprintf("Found %d abandoned files. Do you want to delete them? This can not be undone!", count($file_list)), false);
+            $continue = $io->confirm(sprintf('Found %d abandoned files. Do you want to delete them? This can not be undone!', \count($file_list)), false);
 
             if (!$continue) {
                 //We are finished here, when no files should be deleted
@@ -114,27 +109,26 @@ class CleanAttachmentsCommand extends Command
             //Delete empty folders:
             $this->removeEmptySubFolders($mediaPath);
 
-            $io->success("All abandoned files were removed.");
-
+            $io->success('All abandoned files were removed.');
         } else {
-            $io->success("No abandoned files found.");
+            $io->success('No abandoned files found.');
         }
-
-
     }
 
     /**
-     * This function removes all empty folders inside $path. Taken from https://stackoverflow.com/a/1833681
+     * This function removes all empty folders inside $path. Taken from https://stackoverflow.com/a/1833681.
+     *
      * @param string $path The path in which the empty folders should be deleted
+     *
      * @return bool
      */
     protected function removeEmptySubFolders($path)
     {
-        $empty=true;
-        foreach (glob($path . DIRECTORY_SEPARATOR . "*") as $file)
-        {
+        $empty = true;
+        foreach (glob($path.\DIRECTORY_SEPARATOR.'*') as $file) {
             $empty &= is_dir($file) && $this->removeEmptySubFolders($file);
         }
+
         return $empty && rmdir($path);
     }
 }

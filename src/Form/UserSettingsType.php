@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,22 +17,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form;
 
-use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\User;
 use App\Form\Type\CurrencyEntityType;
-use App\Form\Type\StructuralEntityType;
-use Doctrine\ORM\Query\Parameter;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
-use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -90,7 +84,7 @@ class UserSettingsType extends AbstractType
                 'attr' => ['class' => 'selectpicker', 'data-live-search' => true],
                 'placeholder' => $this->trans->trans('user_settings.language.placeholder'),
                 'label' => $this->trans->trans('user.language_select'),
-                'preferred_choices' => ['en', 'de']
+                'preferred_choices' => ['en', 'de'],
                 ])
             ->add('timezone', TimezoneType::class, [
                 'disabled' => $this->demo_mode,
@@ -98,7 +92,7 @@ class UserSettingsType extends AbstractType
                 'attr' => ['class' => 'selectpicker', 'data-live-search' => true],
                 'placeholder' => $this->trans->trans('user_settings.timezone.placeholder'),
                 'label' => $this->trans->trans('user.timezone.label'),
-                'preferred_choices' => ['Europe/Berlin']
+                'preferred_choices' => ['Europe/Berlin'],
                 ])
             ->add('theme', ChoiceType::class, [
                 'disabled' => $this->demo_mode,
@@ -114,7 +108,7 @@ class UserSettingsType extends AbstractType
             ->add('currency', CurrencyEntityType::class, [
                 'disabled' => $this->demo_mode,
                 'required' => false,
-                'label' => $this->trans->trans('user.currency.label')
+                'label' => $this->trans->trans('user.currency.label'),
             ])
 
             //Buttons

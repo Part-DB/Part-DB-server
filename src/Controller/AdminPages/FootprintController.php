@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,17 +17,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Controller\AdminPages;
 
-
 use App\Entity\Attachments\AttachmentType;
-
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Parts\Footprint;
-use App\Form\AdminPages\BaseEntityAdminForm;
 use App\Form\AdminPages\FootprintAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
@@ -40,11 +36,9 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/footprint")
- * @package App\Controller
  */
 class FootprintController extends BaseAdminController
 {
-
     protected $entity_class = Footprint::class;
     protected $twig_template = 'AdminPages/FootprintAdmin.html.twig';
     protected $form_class = FootprintAdminForm::class;
@@ -58,7 +52,6 @@ class FootprintController extends BaseAdminController
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
-
 
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="footprint_edit")
@@ -82,9 +75,9 @@ class FootprintController extends BaseAdminController
 
     /**
      * @Route("/export", name="footprint_export_all")
-     * @param Request $request
+     *
      * @param SerializerInterface $serializer
-     * @param EntityManagerInterface $em
+     *
      * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request)
@@ -94,13 +87,11 @@ class FootprintController extends BaseAdminController
 
     /**
      * @Route("/{id}/export", name="footprint_export")
-     * @param Request $request
-     * @param AttachmentType $entity
+     *
      * @return Response
      */
     public function exportEntity(AttachmentType $entity, EntityExporter $exporter, Request $request)
     {
         return $this->_exportEntity($entity, $exporter, $request);
     }
-
 }

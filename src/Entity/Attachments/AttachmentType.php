@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 declare(strict_types=1);
@@ -44,10 +43,10 @@ declare(strict_types=1);
 namespace App\Entity\Attachments;
 
 use App\Entity\Base\StructuralDBElement;
+use App\Validator\Constraints\ValidFileFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Validator\Constraints\ValidFileFilter;
 
 /**
  * Class AttachmentType.
@@ -85,7 +84,7 @@ class AttachmentType extends StructuralDBElement
      * @ORM\Column(type="text")
      * @ValidFileFilter
      */
-    protected $filetype_filter = "";
+    protected $filetype_filter = '';
 
     public function __construct()
     {
@@ -97,7 +96,7 @@ class AttachmentType extends StructuralDBElement
      * Get all attachments ("Attachment" objects) with this type.
      *
      * @return Collection|Attachment[] all attachements with this type, as a one-dimensional array of Attachements
-     *                      (sorted by their names)
+     *                                 (sorted by their names)
      */
     public function getAttachmentsForType(): Collection
     {
@@ -108,6 +107,7 @@ class AttachmentType extends StructuralDBElement
      * Gets an filter, which file types are allowed for attachment files.
      * Must be in the format of <input type=file> accept attribute
      * (See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers).
+     *
      * @return string
      */
     public function getFiletypeFilter(): string
@@ -116,12 +116,12 @@ class AttachmentType extends StructuralDBElement
     }
 
     /**
-     * @param string $filetype_filter
      * @return AttachmentType
      */
-    public function setFiletypeFilter(string $filetype_filter): AttachmentType
+    public function setFiletypeFilter(string $filetype_filter): self
     {
         $this->filetype_filter = $filetype_filter;
+
         return $this;
     }
 
@@ -133,6 +133,6 @@ class AttachmentType extends StructuralDBElement
      */
     public function getIDString(): string
     {
-        return 'AT' . sprintf('%09d', $this->getID());
+        return 'AT'.sprintf('%09d', $this->getID());
     }
 }

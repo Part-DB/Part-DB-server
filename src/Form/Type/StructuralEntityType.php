@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,23 +17,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form\Type;
 
-
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\StructuralDBElement;
-use App\Entity\Parts\Storelocation;
 use App\Repository\StructuralDBElementRepository;
 use App\Services\TreeBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
-use Symfony\Component\Form\DataMapperInterface;
-use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -43,18 +38,16 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Choice;
-use function foo\func;
 
 /**
  * This class provides a choice form type similar to EntityType, with the difference, that the tree structure
- * of the StructuralDBElementRepository will be shown to user
- * @package App\Form\Type
+ * of the StructuralDBElementRepository will be shown to user.
  */
 class StructuralEntityType extends AbstractType
 {
     protected $em;
     protected $options;
-    /** @var TreeBuilder  */
+    /** @var TreeBuilder */
     protected $builder;
 
     public function __construct(EntityManagerInterface $em, TreeBuilder $builder)
@@ -66,11 +59,11 @@ class StructuralEntityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->addModelTransformer(new CallbackTransformer(
-            function ($value) use ($options){
+            function ($value) use ($options) {
                 return $this->transform($value, $options);
             }, function ($value) use ($options) {
-            return $this->reverseTransform($value, $options);
-        }));
+                return $this->reverseTransform($value, $options);
+            }));
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -89,25 +82,26 @@ class StructuralEntityType extends AbstractType
                 return $this->generateChoiceLabels($choice, $key, $value);
             }, 'choice_attr' => function ($choice, $key, $value) {
                 return $this->generateChoiceAttr($choice, $key, $value);
-            }
+            },
         ]);
 
         $resolver->setDefault('empty_message', null);
 
         $resolver->setDefault('attr', function (Options $options) {
-            $tmp =  ['class' => 'selectpicker', 'data-live-search' => true];
+            $tmp = ['class' => 'selectpicker', 'data-live-search' => true];
             if ($options['empty_message']) {
                 $tmp['data-none-Selected-Text'] = $options['empty_message'];
             }
+
             return $tmp;
         });
     }
 
-    protected function generateChoiceAttr(StructuralDBElement $choice, $key, $value) : array
+    protected function generateChoiceAttr(StructuralDBElement $choice, $key, $value): array
     {
-        $tmp = array();
+        $tmp = [];
 
-        if ($this->options['show_fullpath_in_subtext'] && $choice->getParent() != null) {
+        if ($this->options['show_fullpath_in_subtext'] && null != $choice->getParent()) {
             $tmp += ['data-subtext' => $choice->getParent()->getFullPath()];
         }
 
@@ -123,7 +117,7 @@ class StructuralEntityType extends AbstractType
         return $tmp;
     }
 
-    protected function generateChoiceLabels(StructuralDBElement $choice, $key, $value) : string
+    protected function generateChoiceLabels(StructuralDBElement $choice, $key, $value): string
     {
         /** @var StructuralDBElement|null $parent */
         $parent = $this->options['subentities_of'];
@@ -131,33 +125,32 @@ class StructuralEntityType extends AbstractType
         /*** @var StructuralDBElement $choice */
         $level = $choice->getLevel();
         //If our base entity is not the root level, we need to change the level, to get zero position
-        if ($this->options['subentities_of'] !== null) {
+        if (null !== $this->options['subentities_of']) {
             $level -= $parent->getLevel() - 1;
         }
 
-
         $tmp = str_repeat('&nbsp;&nbsp;&nbsp;', $choice->getLevel()); //Use 3 spaces for intendation
-        $tmp .=  htmlspecialchars($choice->getName());
+        $tmp .= htmlspecialchars($choice->getName());
+
         return $tmp;
     }
 
     /**
-     * Gets the entries from database and return an array of them
-     * @param Options $options
+     * Gets the entries from database and return an array of them.
+     *
      * @return array
      */
-    public function getEntries(Options $options) : array
+    public function getEntries(Options $options): array
     {
         $this->options = $options;
 
         $choices = $this->builder->typeToNodesList($options['class'], null);
 
-        /** @var StructuralDBElementRepository $repo */
+        /* @var StructuralDBElementRepository $repo */
         /*$repo = $this->em->getRepository($options['class']);
         $choices = $repo->toNodesList(null); */
         return $choices;
     }
-
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
@@ -254,7 +247,7 @@ class StructuralEntityType extends AbstractType
            The performance impact of this should be very small in comparison of the boost, caused by the caching.
         */
 
-        if ($value === null) {
+        if (null === $value) {
             return null;
         }
 

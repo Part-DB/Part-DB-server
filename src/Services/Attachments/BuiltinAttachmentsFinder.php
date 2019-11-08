@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,21 +17,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services\Attachments;
 
 use App\Entity\Attachments\Attachment;
-use App\Services\Attachments\AttachmentPathResolver;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Cache\CacheInterface;
 
 /**
- * This service is used to find builtin attachment ressources
- * @package App\Services
+ * This service is used to find builtin attachment ressources.
  */
 class BuiltinAttachmentsFinder
 {
@@ -50,7 +46,7 @@ class BuiltinAttachmentsFinder
             'limit' => 15,  //Given only 15 entries
             //'allowed_extensions' => [], //Filter the filenames. For example ['jpg', 'jpeg'] to only get jpegs.
             //'placeholders' => Attachment::BUILTIN_PLACEHOLDER, //By default use all builtin ressources,
-            'empty_returns_all' => false //Return the whole list of ressources when empty keyword is given
+            'empty_returns_all' => false, //Return the whole list of ressources when empty keyword is given
         ]);
     }
 
@@ -58,9 +54,10 @@ class BuiltinAttachmentsFinder
      * Returns a list of all builtin ressources.
      * The array is a list of the relative filenames using the %PLACEHOLDERS%.
      * The list contains the files from all configured valid ressoureces.
+     *
      * @return array The list of the ressources, or an empty array if an error happened.
      */
-    public function getListOfRessources() : array
+    public function getListOfRessources(): array
     {
         try {
             return $this->cache->get('attachment_builtin_ressources', function () {
@@ -73,7 +70,7 @@ class BuiltinAttachmentsFinder
                 foreach (Attachment::BUILTIN_PLACEHOLDER as $placeholder) {
                     $tmp = $this->pathResolver->placeholderToRealPath($placeholder);
                     //Ignore invalid/deactivated placeholders:
-                    if ($tmp !== null) {
+                    if (null !== $tmp) {
                         $finder->in($tmp);
                     }
                 }
@@ -93,13 +90,15 @@ class BuiltinAttachmentsFinder
     }
 
     /**
-     * Find all ressources which are matching the given keyword and the specified options
-     * @param string $keyword The keyword you want to search for.
-     * @param array $options Here you can specify some options (see configureOptions for list of options)
+     * Find all ressources which are matching the given keyword and the specified options.
+     *
+     * @param string     $keyword   The keyword you want to search for.
+     * @param array      $options   Here you can specify some options (see configureOptions for list of options)
      * @param array|null $base_list The list from which should be used as base for filtering.
+     *
      * @return array The list of the results matching the specified keyword and options
      */
-    public function find(string $keyword, array $options = [], ?array $base_list = []) : array
+    public function find(string $keyword, array $options = [], ?array $base_list = []): array
     {
         if (empty($base_list)) {
             $base_list = $this->getListOfRessources();
@@ -109,14 +108,12 @@ class BuiltinAttachmentsFinder
         $this->configureOptions($resolver);
         $options = $resolver->resolve($options);
 
-
-
         /*
         if (empty($options['placeholders'])) {
             return [];
         } */
 
-        if ($keyword === '') {
+        if ('' === $keyword) {
             if ($options['empty_returns_all']) {
                 $keyword = '.*';
             } else {
@@ -127,7 +124,7 @@ class BuiltinAttachmentsFinder
             $keyword = preg_quote($keyword, '/');
         }
 
-         /*TODO: Implement placheolder and extension filter */
+        /*TODO: Implement placheolder and extension filter */
         /* if (!empty($options['allowed_extensions'])) {
             $keyword .= "\.(";
             foreach ($options['allowed_extensions'] as $extension) {
@@ -137,9 +134,8 @@ class BuiltinAttachmentsFinder
         } */
 
         //Ignore case
-        $regex = '/.*' . $keyword . '.*/i';
+        $regex = '/.*'.$keyword.'.*/i';
 
         return preg_grep($regex, $base_list);
     }
-
 }

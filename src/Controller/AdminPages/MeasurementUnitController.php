@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Controller\AdminPages;
-
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\MeasurementUnitAttachment;
@@ -38,11 +36,9 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/measurement_unit")
- * @package App\Controller
  */
 class MeasurementUnitController extends BaseAdminController
 {
-
     protected $entity_class = MeasurementUnit::class;
     protected $twig_template = 'AdminPages/MeasurementUnitAdmin.html.twig';
     protected $form_class = MeasurementUnitAdminForm::class;
@@ -79,9 +75,9 @@ class MeasurementUnitController extends BaseAdminController
 
     /**
      * @Route("/export", name="measurement_unit_export_all")
-     * @param Request $request
+     *
      * @param SerializerInterface $serializer
-     * @param EntityManagerInterface $em
+     *
      * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request)
@@ -91,13 +87,11 @@ class MeasurementUnitController extends BaseAdminController
 
     /**
      * @Route("/{id}/export", name="measurement_unit_export")
-     * @param Request $request
-     * @param AttachmentType $entity
+     *
      * @return Response
      */
     public function exportEntity(AttachmentType $entity, EntityExporter $exporter, Request $request)
     {
         return $this->_exportEntity($entity, $exporter, $request);
     }
-
 }

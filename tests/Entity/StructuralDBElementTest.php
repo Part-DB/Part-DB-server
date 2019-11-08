@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Tests\Entity;
-
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\Category;
@@ -31,7 +29,6 @@ use Symfony\Component\Yaml\Tests\A;
 /**
  * Test StructuralDBElement entities.
  * Note: Because StructuralDBElement is abstract we use AttachmentType here as a placeholder.
- * @package App\Tests\Entity
  */
 class StructuralDBElementTest extends TestCase
 {
@@ -92,7 +89,8 @@ class StructuralDBElementTest extends TestCase
     public function testChildOfExtendedClass()
     {
         //Doctrine extends the entities for proxy classes so the isChildOf mus also work for inheritance types
-        $inheritance = new class extends AttachmentType {};
+        $inheritance = new class() extends AttachmentType {
+        };
         $inheritance->setParent($this->root);
         $this->assertTrue($inheritance->isChildOf($this->root));
         $this->assertFalse($this->root->isChildOf($inheritance));
@@ -119,5 +117,4 @@ class StructuralDBElementTest extends TestCase
         $this->assertEquals([$this->root, $this->child1], $this->child1->getPathArray());
         $this->assertEquals([$this->root], $this->root->getPathArray());
     }
-
 }

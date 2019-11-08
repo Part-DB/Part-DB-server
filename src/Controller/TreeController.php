@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Controller;
@@ -35,8 +34,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * This controller has the purpose to provide the data for all treeviews.
- *
- * @package App\Controller
  */
 class TreeController extends AbstractController
 {
@@ -57,12 +54,11 @@ class TreeController extends AbstractController
      */
     public function categoryTree(TreeBuilder $builder, Category $category = null)
     {
-        if ($category !== null) {
+        if (null !== $category) {
             $tree[] = $builder->elementToTreeNode($category);
         } else {
             $tree = $builder->typeToTree(Category::class);
         }
-
 
         return $this->json($tree, 200, [], ['skip_null_values' => true]);
     }
@@ -73,12 +69,11 @@ class TreeController extends AbstractController
      */
     public function footprintTree(TreeBuilder $builder, Footprint $footprint = null)
     {
-        if ($footprint !== null) {
+        if (null !== $footprint) {
             $tree[] = $builder->elementToTreeNode($footprint);
         } else {
             $tree = $builder->typeToTree(Footprint::class);
         }
-
 
         return $this->json($tree, 200, [], ['skip_null_values' => true]);
     }
@@ -89,12 +84,11 @@ class TreeController extends AbstractController
      */
     public function locationTree(TreeBuilder $builder, Storelocation $location = null)
     {
-        if ($location !== null) {
+        if (null !== $location) {
             $tree[] = $builder->elementToTreeNode($location);
         } else {
             $tree = $builder->typeToTree(Storelocation::class);
         }
-
 
         return $this->json($tree, 200, [], ['skip_null_values' => true]);
     }
@@ -105,12 +99,11 @@ class TreeController extends AbstractController
      */
     public function manufacturerTree(TreeBuilder $builder, Manufacturer $manufacturer = null)
     {
-        if ($manufacturer !== null) {
+        if (null !== $manufacturer) {
             $tree[] = $builder->elementToTreeNode($manufacturer);
         } else {
             $tree = $builder->typeToTree(Manufacturer::class);
         }
-
 
         return $this->json($tree, 200, [], ['skip_null_values' => true]);
     }
@@ -121,12 +114,11 @@ class TreeController extends AbstractController
      */
     public function supplierTree(TreeBuilder $builder, Supplier $supplier = null)
     {
-        if ($supplier !== null) {
+        if (null !== $supplier) {
             $tree[] = $builder->elementToTreeNode($supplier);
         } else {
             $tree = $builder->typeToTree(Supplier::class);
         }
-
 
         return $this->json($tree, 200, [], ['skip_null_values' => true]);
     }
@@ -137,15 +129,12 @@ class TreeController extends AbstractController
      */
     public function deviceTree(TreeBuilder $builder, Device $device = null)
     {
-        if ($device !== null) {
+        if (null !== $device) {
             $tree[] = $builder->elementToTreeNode($device);
         } else {
             $tree = $builder->typeToTree(Device::class, null);
         }
 
-
         return $this->json($tree, 200, [], ['skip_null_values' => true]);
     }
-
-
 }

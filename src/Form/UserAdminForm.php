@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,22 +17,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form;
 
-
-use App\Entity\UserSystem\Group;
 use App\Entity\Base\NamedDBElement;
 use App\Entity\Base\StructuralDBElement;
+use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Form\Permissions\PermissionsType;
-use App\Form\Permissions\PermissionType;
 use App\Form\Type\CurrencyEntityType;
 use App\Form\Type\StructuralEntityType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -52,7 +48,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserAdminForm extends AbstractType
 {
-
     protected $security;
     protected $trans;
 
@@ -72,12 +67,12 @@ class UserAdminForm extends AbstractType
     {
         /** @var StructuralDBElement $entity */
         $entity = $options['data'];
-        $is_new = $entity->getID() === null;
+        $is_new = null === $entity->getID();
 
         $builder
             ->add('name', TextType::class, [
                 'empty_data' => '',
-                'label' =>  $this->trans->trans('user.username.label'),
+                'label' => $this->trans->trans('user.username.label'),
                 'attr' => ['placeholder' => $this->trans->trans('user.username.placeholder')],
                 'disabled' => !$this->security->isGranted('edit_username', $entity),
             ])
@@ -111,7 +106,6 @@ class UserAdminForm extends AbstractType
                 'required' => false,
                 'disabled' => !$this->security->isGranted('edit_infos', $entity), ])
 
-
             ->add('department', TextType::class, [
                 'empty_data' => '',
                 'label' => $this->trans->trans('user.department.label'),
@@ -120,7 +114,6 @@ class UserAdminForm extends AbstractType
                 'disabled' => !$this->security->isGranted('edit_infos', $entity),
             ])
 
-
             //Config section
             ->add('language', LanguageType::class, [
                 'required' => false,
@@ -128,7 +121,7 @@ class UserAdminForm extends AbstractType
                 'placeholder' => $this->trans->trans('user_settings.language.placeholder'),
                 'label' => $this->trans->trans('user.language_select'),
                 'preferred_choices' => ['en', 'de'],
-                'disabled' => !$this->security->isGranted('change_user_settings', $entity)
+                'disabled' => !$this->security->isGranted('change_user_settings', $entity),
             ])
             ->add('timezone', TimezoneType::class, [
                 'required' => false,
@@ -136,7 +129,7 @@ class UserAdminForm extends AbstractType
                 'placeholder' => $this->trans->trans('user_settings.timezone.placeholder'),
                 'label' => $this->trans->trans('user.timezone.label'),
                 'preferred_choices' => ['Europe/Berlin'],
-                'disabled' => !$this->security->isGranted('change_user_settings', $entity)
+                'disabled' => !$this->security->isGranted('change_user_settings', $entity),
             ])
             ->add('theme', ChoiceType::class, [
                 'required' => false,
@@ -147,12 +140,12 @@ class UserAdminForm extends AbstractType
                 'attr' => ['class' => 'selectpicker'],
                 'placeholder' => $this->trans->trans('user_settings.theme.placeholder'),
                 'label' => $this->trans->trans('user.theme.label'),
-                'disabled' => !$this->security->isGranted('change_user_settings', $entity)
+                'disabled' => !$this->security->isGranted('change_user_settings', $entity),
             ])
             ->add('currency', CurrencyEntityType::class, [
                 'required' => false,
                 'label' => $this->trans->trans('user.currency.label'),
-                'disabled' => !$this->security->isGranted('change_user_settings', $entity)
+                'disabled' => !$this->security->isGranted('change_user_settings', $entity),
             ])
 
             ->add('new_password', RepeatedType::class, [
@@ -166,14 +159,14 @@ class UserAdminForm extends AbstractType
                 'constraints' => [new Length([
                     'min' => 6,
                     'max' => 128,
-                ])]
+                ])],
             ])
 
             ->add('need_pw_change', CheckboxType::class, [
                 'required' => false,
                 'label_attr' => ['class' => 'checkbox-custom'],
                 'label' => $this->trans->trans('user.edit.needs_pw_change'),
-                'disabled' => !$this->security->isGranted('set_password', $entity)
+                'disabled' => !$this->security->isGranted('set_password', $entity),
             ])
 
             ->add('disabled', CheckboxType::class, [
@@ -181,15 +174,14 @@ class UserAdminForm extends AbstractType
                 'label_attr' => ['class' => 'checkbox-custom'],
                 'label' => $this->trans->trans('user.edit.user_disabled'),
                 'disabled' => !$this->security->isGranted('set_password', $entity)
-                    || $entity === $this->security->getUser()
-
+                    || $entity === $this->security->getUser(),
             ])
 
             //Permission section
             ->add('permissions', PermissionsType::class, [
                 'mapped' => false,
                 'data' => $builder->getData(),
-                'disabled' => !$this->security->isGranted('edit_permissions', $entity)
+                'disabled' => !$this->security->isGranted('edit_permissions', $entity),
             ])
         ;
         /*->add('comment', CKEditorType::class, ['required' => false,
@@ -213,11 +205,11 @@ class UserAdminForm extends AbstractType
 
         //Buttons
         $builder->add('save', SubmitType::class, [
-            'label' =>  $is_new ? $this->trans->trans('user.create') : $this->trans->trans('user.edit.save'),
-            'attr' => ['class' => $is_new ? 'btn-success' : '']
+            'label' => $is_new ? $this->trans->trans('user.create') : $this->trans->trans('user.edit.save'),
+            'attr' => ['class' => $is_new ? 'btn-success' : ''],
         ])
             ->add('reset', ResetType::class, [
-                'label' => $this->trans->trans('entity.edit.reset')
+                'label' => $this->trans->trans('entity.edit.reset'),
             ]);
     }
 

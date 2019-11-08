@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services\Attachments;
-
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
@@ -38,14 +36,8 @@ use App\Entity\Attachments\StorelocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
 use App\Exceptions\AttachmentDownloadException;
-use App\Services\Attachments\AttachmentManager;
-use Doctrine\Common\Annotations\IndexedReader;
-use Nyholm\Psr7\Request;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Mime\MimeTypeGuesserInterface;
-use Symfony\Component\Mime\MimeTypes;
 use Symfony\Component\Mime\MimeTypesInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
@@ -53,7 +45,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
  * This service handles the form submitting of an attachment and handles things like file uploading and downloading.
- * @package App\Services\Attachments
  */
 class AttachmentSubmitHandler
 {
@@ -63,7 +54,7 @@ class AttachmentSubmitHandler
     protected $httpClient;
     protected $mimeTypes;
 
-    public function __construct (AttachmentPathResolver $pathResolver, bool $allow_attachments_downloads,
+    public function __construct(AttachmentPathResolver $pathResolver, bool $allow_attachments_downloads,
                                 HttpClientInterface $httpClient, MimeTypesInterface $mimeTypes)
     {
         $this->pathResolver = $pathResolver;
@@ -77,10 +68,10 @@ class AttachmentSubmitHandler
             DeviceAttachment::class => 'device', FootprintAttachment::class => 'footprint',
             GroupAttachment::class => 'group', ManufacturerAttachment::class => 'manufacturer',
             MeasurementUnitAttachment::class => 'measurement_unit', StorelocationAttachment::class => 'storelocation',
-            SupplierAttachment::class => 'supplier', UserAttachment::class => 'user'];
+            SupplierAttachment::class => 'supplier', UserAttachment::class => 'user', ];
     }
 
-    protected function configureOptions(OptionsResolver $resolver) : void
+    protected function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             //If no preview image was set yet, the new uploaded file will become the preview image
@@ -94,11 +85,13 @@ class AttachmentSubmitHandler
     /**
      * Generates a filename for the given attachment and extension.
      * The filename contains a random id, so every time this function is called you get an unique name.
+     *
      * @param Attachment $attachment The attachment that should be used for generating an attachment
-     * @param string $extension The extension that the new file should have (must only contain chars allowed in pathes)
+     * @param string     $extension  The extension that the new file should have (must only contain chars allowed in pathes)
+     *
      * @return string The new filename.
      */
-    public function generateAttachmentFilename(Attachment $attachment, string $extension) : string
+    public function generateAttachmentFilename(Attachment $attachment, string $extension): string
     {
         //Normalize extension
         $extension = transliterator_transliterate(
@@ -112,16 +105,18 @@ class AttachmentSubmitHandler
             $attachment->getName()
         );
 
-        return $safeName . '-' . uniqid('', false) . '.' . $extension;
+        return $safeName.'-'.uniqid('', false).'.'.$extension;
     }
 
     /**
      * Generates an (absolute) path to a folder where the given attachment should be stored.
-     * @param Attachment $attachment The attachment that should be used for
-     * @param bool $secure_upload True if the file path should be located in a safe location
+     *
+     * @param Attachment $attachment    The attachment that should be used for
+     * @param bool       $secure_upload True if the file path should be located in a safe location
+     *
      * @return string The absolute path for the attachment folder.
      */
-    public function generateAttachmentPath(Attachment $attachment, bool $secure_upload = false) : string
+    public function generateAttachmentPath(Attachment $attachment, bool $secure_upload = false): string
     {
         if ($secure_upload) {
             $base_path = $this->pathResolver->getSecurePath();
@@ -130,34 +125,32 @@ class AttachmentSubmitHandler
         }
 
         //Ensure the given attachment class is known to mapping
-        if (!isset($this->folder_mapping[get_class($attachment)])) {
-            throw new \InvalidArgumentException(
-                'The given attachment class is not known! The passed class was: ' . get_class($attachment)
-            );
+        if (!isset($this->folder_mapping[\get_class($attachment)])) {
+            throw new \InvalidArgumentException('The given attachment class is not known! The passed class was: '.\get_class($attachment));
         }
         //Ensure the attachment has an assigned element
-        if ($attachment->getElement() === null) {
-            throw new \InvalidArgumentException(
-                'The given attachment is not assigned to an element! An element is needed to generate a path!'
-            );
+        if (null === $attachment->getElement()) {
+            throw new \InvalidArgumentException('The given attachment is not assigned to an element! An element is needed to generate a path!');
         }
 
         //Build path
         return
-            $base_path . DIRECTORY_SEPARATOR //Base path
-            . $this->folder_mapping[get_class($attachment)] . DIRECTORY_SEPARATOR . $attachment->getElement()->getID();
+            $base_path.\DIRECTORY_SEPARATOR //Base path
+            .$this->folder_mapping[\get_class($attachment)].\DIRECTORY_SEPARATOR.$attachment->getElement()->getID();
     }
 
     /**
      * Handle the submit of an attachment form.
      * This function will move the uploaded file or download the URL file to server, if needed.
-     * @param Attachment $attachment The attachment that should be used for handling.
-     * @param UploadedFile|null $file If given, that file will be moved to the right location
-     * @param array $options The options to use with the upload. Here you can specify that an URL should be downloaded,
-     * or an file should be moved to a secure location.
+     *
+     * @param Attachment        $attachment The attachment that should be used for handling.
+     * @param UploadedFile|null $file       If given, that file will be moved to the right location
+     * @param array             $options    The options to use with the upload. Here you can specify that an URL should be downloaded,
+     *                                      or an file should be moved to a secure location.
+     *
      * @return Attachment The attachment with the new filename (same instance as passed $attachment)
      */
-    public function handleFormSubmit(Attachment $attachment, ?UploadedFile $file, array $options = []) : Attachment
+    public function handleFormSubmit(Attachment $attachment, ?UploadedFile $file, array $options = []): Attachment
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -175,9 +168,9 @@ class AttachmentSubmitHandler
 
         //Check if we should assign this attachment to master picture
         //this is only possible if the attachment is new (not yet persisted to DB)
-        if ($options['become_preview_if_empty'] && $attachment->getID() === null && $attachment->isPicture()) {
+        if ($options['become_preview_if_empty'] && null === $attachment->getID() && $attachment->isPicture()) {
             $element = $attachment->getElement();
-            if ($element instanceof AttachmentContainingDBElement && $element->getMasterPictureAttachment() === null) {
+            if ($element instanceof AttachmentContainingDBElement && null === $element->getMasterPictureAttachment()) {
                 $element->setMasterPictureAttachment($attachment);
             }
         }
@@ -187,11 +180,13 @@ class AttachmentSubmitHandler
 
     /**
      * Move the given attachment to secure location (or back to public folder) if needed.
-     * @param Attachment $attachment The attachment for which the file should be moved.
-     * @param bool $secure_location This value determines, if the attachment is moved to the secure or public folder.
+     *
+     * @param Attachment $attachment      The attachment for which the file should be moved.
+     * @param bool       $secure_location This value determines, if the attachment is moved to the secure or public folder.
+     *
      * @return Attachment The attachment with the updated filepath
      */
-    protected function moveFile(Attachment $attachment, bool $secure_location) : Attachment
+    protected function moveFile(Attachment $attachment, bool $secure_location): Attachment
     {
         //We can not do anything on builtins or external ressources
         if ($attachment->isBuiltIn() || $attachment->isExternal()) {
@@ -218,7 +213,7 @@ class AttachmentSubmitHandler
 
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
         $new_path = $this->generateAttachmentPath($attachment, $secure_location)
-            . DIRECTORY_SEPARATOR . $this->generateAttachmentFilename($attachment, $ext);
+            .\DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, $ext);
 
         //Move file to new directory
         $fs = new Filesystem();
@@ -232,12 +227,13 @@ class AttachmentSubmitHandler
     }
 
     /**
-     * Download the URL set in the attachment and save it on the server
-     * @param Attachment $attachment
+     * Download the URL set in the attachment and save it on the server.
+     *
      * @param array $options The options from the handleFormSubmit function
+     *
      * @return Attachment The attachment with the new filepath
      */
-    protected function downloadURL(Attachment $attachment, array $options) : Attachment
+    protected function downloadURL(Attachment $attachment, array $options): Attachment
     {
         //Check if we are allowed to download files
         if (!$this->allow_attachments_downloads) {
@@ -248,7 +244,7 @@ class AttachmentSubmitHandler
 
         $fs = new Filesystem();
         $attachment_folder = $this->generateAttachmentPath($attachment, $options['secure_attachment']);
-        $tmp_path = $attachment_folder . DIRECTORY_SEPARATOR . $this->generateAttachmentFilename($attachment, 'tmp');
+        $tmp_path = $attachment_folder.\DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, 'tmp');
 
         try {
             $response = $this->httpClient->request('GET', $url, [
@@ -256,7 +252,7 @@ class AttachmentSubmitHandler
             ]);
 
             if (200 !== $response->getStatusCode()) {
-                throw new AttachmentDownloadException('Status code: ' . $response->getStatusCode());
+                throw new AttachmentDownloadException('Status code: '.$response->getStatusCode());
             }
 
             //Open a temporary file in the attachment folder
@@ -271,7 +267,7 @@ class AttachmentSubmitHandler
             //File download should be finished here, so determine the new filename and extension
             $headers = $response->getHeaders();
             //Try to determine an filename
-            $filename = "";
+            $filename = '';
 
             //If an content disposition header was set try to extract the filename out of it
             if (isset($headers['content-disposition'])) {
@@ -281,7 +277,7 @@ class AttachmentSubmitHandler
             }
 
             //If we dont know filename yet, try to determine it out of url
-            if ($filename === "") {
+            if ('' === $filename) {
                 $filename = basename(parse_url($url, PHP_URL_PATH));
             }
 
@@ -297,14 +293,13 @@ class AttachmentSubmitHandler
             }
 
             //Rename the file to its new name and save path to attachment entity
-            $new_path = $attachment_folder . DIRECTORY_SEPARATOR . $this->generateAttachmentFilename($attachment, $new_ext);
+            $new_path = $attachment_folder.\DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, $new_ext);
             $fs->rename($tmp_path, $new_path);
 
             //Make our file path relative to %BASE%
             $new_path = $this->pathResolver->realPathToPlaceholder($new_path);
             //Save the path to the attachment
             $attachment->setPath($new_path);
-
         } catch (TransportExceptionInterface $exception) {
             throw new AttachmentDownloadException('Transport error!');
         }
@@ -313,13 +308,15 @@ class AttachmentSubmitHandler
     }
 
     /**
-     * Moves the given uploaded file to a permanent place and saves it into the attachment
-     * @param Attachment $attachment The attachment in which the file should be saved
-     * @param UploadedFile $file The file which was uploaded
-     * @param array $options The options from the handleFormSubmit function
+     * Moves the given uploaded file to a permanent place and saves it into the attachment.
+     *
+     * @param Attachment   $attachment The attachment in which the file should be saved
+     * @param UploadedFile $file       The file which was uploaded
+     * @param array        $options    The options from the handleFormSubmit function
+     *
      * @return Attachment The attachment with the new filepath
      */
-    protected function upload(Attachment $attachment, UploadedFile $file, array $options) : Attachment
+    protected function upload(Attachment $attachment, UploadedFile $file, array $options): Attachment
     {
         //Move our temporay attachment to its final location
         $file_path = $file->move(

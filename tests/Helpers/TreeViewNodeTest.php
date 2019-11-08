@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,18 +17,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Tests\Helpers;
-
 
 use App\Helpers\TreeViewNode;
 use PHPUnit\Framework\TestCase;
 
 class TreeViewNodeTest extends TestCase
 {
-
     /**
      * @var TreeViewNode
      */
@@ -40,18 +37,17 @@ class TreeViewNodeTest extends TestCase
 
     public function setUp()
     {
-        $sub_nodes = array();
-        $sub_nodes[] = new TreeViewNode("Subnode 1");
-        $sub_sub_nodes[] = array();
+        $sub_nodes = [];
+        $sub_nodes[] = new TreeViewNode('Subnode 1');
+        $sub_sub_nodes[] = [];
         $sub_sub_nodes[] = new TreeViewNode('Sub Subnode 1');
         $sub_sub_nodes[] = new TreeViewNode('Sub Subnode 2');
-        $sub_nodes[] = new TreeViewNode("Subnode 2");
+        $sub_nodes[] = new TreeViewNode('Subnode 2');
 
         //Init node1 with default arguments;
         $this->node1 = new TreeViewNode('Name');
         //Node 2 gets values for all arguments
         $this->node2 = new TreeViewNode('Name', 'www.foo.bar', $sub_nodes);
-
     }
 
     public function testConstructor()
@@ -62,10 +58,8 @@ class TreeViewNodeTest extends TestCase
         $this->assertEquals('Name', $this->node1->getText());
 
         //The second node must have the given things as properties.
-        $this->assertEquals('Name',$this->node2->getText());
+        $this->assertEquals('Name', $this->node2->getText());
         $this->assertEquals('www.foo.bar', $this->node2->getHref());
         $this->assertNotEmpty($this->node2->getNodes());
     }
-
-
 }

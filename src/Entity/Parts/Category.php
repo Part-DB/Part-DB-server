@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 declare(strict_types=1);
@@ -56,7 +55,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Category extends PartsContainingDBElement
 {
-
     /**
      * @var Collection|CategoryAttachment[]
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CategoryAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -147,12 +145,12 @@ class Category extends PartsContainingDBElement
     }
 
     /**
-     * @param string $partname_hint
      * @return Category
      */
-    public function setPartnameHint(string $partname_hint): Category
+    public function setPartnameHint(string $partname_hint): self
     {
         $this->partname_hint = $partname_hint;
+
         return $this;
     }
 
@@ -165,12 +163,12 @@ class Category extends PartsContainingDBElement
     }
 
     /**
-     * @param string $partname_regex
      * @return Category
      */
-    public function setPartnameRegex(string $partname_regex): Category
+    public function setPartnameRegex(string $partname_regex): self
     {
         $this->partname_regex = $partname_regex;
+
         return $this;
     }
 
@@ -183,12 +181,12 @@ class Category extends PartsContainingDBElement
     }
 
     /**
-     * @param bool $disable_footprints
      * @return Category
      */
-    public function setDisableFootprints(bool $disable_footprints): Category
+    public function setDisableFootprints(bool $disable_footprints): self
     {
         $this->disable_footprints = $disable_footprints;
+
         return $this;
     }
 
@@ -201,12 +199,12 @@ class Category extends PartsContainingDBElement
     }
 
     /**
-     * @param bool $disable_manufacturers
      * @return Category
      */
-    public function setDisableManufacturers(bool $disable_manufacturers): Category
+    public function setDisableManufacturers(bool $disable_manufacturers): self
     {
         $this->disable_manufacturers = $disable_manufacturers;
+
         return $this;
     }
 
@@ -219,12 +217,12 @@ class Category extends PartsContainingDBElement
     }
 
     /**
-     * @param bool $disable_autodatasheets
      * @return Category
      */
-    public function setDisableAutodatasheets(bool $disable_autodatasheets): Category
+    public function setDisableAutodatasheets(bool $disable_autodatasheets): self
     {
         $this->disable_autodatasheets = $disable_autodatasheets;
+
         return $this;
     }
 
@@ -237,12 +235,12 @@ class Category extends PartsContainingDBElement
     }
 
     /**
-     * @param bool $disable_properties
      * @return Category
      */
-    public function setDisableProperties(bool $disable_properties): Category
+    public function setDisableProperties(bool $disable_properties): self
     {
         $this->disable_properties = $disable_properties;
+
         return $this;
     }
 
@@ -255,12 +253,12 @@ class Category extends PartsContainingDBElement
     }
 
     /**
-     * @param string $default_description
      * @return Category
      */
-    public function setDefaultDescription(string $default_description): Category
+    public function setDefaultDescription(string $default_description): self
     {
         $this->default_description = $default_description;
+
         return $this;
     }
 
@@ -273,14 +271,12 @@ class Category extends PartsContainingDBElement
     }
 
     /**
-     * @param string $default_comment
      * @return Category
      */
-    public function setDefaultComment(string $default_comment): Category
+    public function setDefaultComment(string $default_comment): self
     {
         $this->default_comment = $default_comment;
+
         return $this;
     }
-
-
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,15 +17,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Command;
 
 use App\Entity\PriceInformations\Currency;
-use App\Form\AdminPages\CurrencyAdminForm;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\Runner\Exception;
 use Swap\Builder;
 use Swap\Swap;
 use Symfony\Component\Console\Command\Command;
@@ -70,12 +67,13 @@ class UpdateExchangeRatesCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         //Check for valid base current
-        if (strlen($this->base_current) !== 3) {
-            $io->error("Choosen Base current is not valid. Check your settings!");
+        if (3 !== \strlen($this->base_current)) {
+            $io->error('Choosen Base current is not valid. Check your settings!');
+
             return;
         }
 
-        $io->note('Update currency exchange rates with base currency: ' . $this->base_current);
+        $io->note('Update currency exchange rates with base currency: '.$this->base_current);
 
         $service = $input->getOption('service');
         $api_key = $input->getOption('api_key');
@@ -88,7 +86,7 @@ class UpdateExchangeRatesCommand extends Command
         //Check what currencies we need to update:
         $iso_code = $input->getArgument('iso_code');
         $repo = $this->em->getRepository(Currency::class);
-        $candidates = array();
+        $candidates = [];
 
         if (!empty($iso_code)) {
             $candidates = $repo->findBy(['iso_code' => $iso_code]);
@@ -101,22 +99,21 @@ class UpdateExchangeRatesCommand extends Command
         //Iterate over each candidate and update exchange rate
         foreach ($candidates as $currency) {
             try {
-                $rate = $swap->latest($currency->getIsoCode() . '/' . $this->base_current);
+                $rate = $swap->latest($currency->getIsoCode().'/'.$this->base_current);
                 $currency->setExchangeRate($rate->getValue());
                 $io->note(sprintf('Set exchange rate of %s to %f', $currency->getIsoCode(), $currency->getExchangeRate()));
                 $this->em->persist($currency);
 
-                $success_counter++;
+                ++$success_counter;
             } catch (\Exchanger\Exception\Exception $ex) {
                 $io->warning(sprintf('Error updating %s:', $currency->getIsoCode()));
                 $io->warning($ex->getMessage());
             }
-
         }
 
         //Save to database
         $this->em->flush();
 
-        $io->success(sprintf('%d (of %d) currency exchange rates were updated.', $success_counter, count($candidates)));
+        $io->success(sprintf('%d (of %d) currency exchange rates were updated.', $success_counter, \count($candidates)));
     }
 }

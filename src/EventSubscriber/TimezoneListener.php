@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\EventSubscriber;
-
 
 use App\Entity\UserSystem\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -31,11 +29,9 @@ use Symfony\Component\Security\Core\Security;
 
 /**
  * The purpose of this event listener is to set the timezone to the one preferred by the user.
- * @package App\EventSubscriber
  */
 class TimezoneListener implements EventSubscriberInterface
 {
-
     protected $default_timezone;
     protected $security;
 
@@ -56,14 +52,13 @@ class TimezoneListener implements EventSubscriberInterface
         }
 
         //Fill with default value if needed
-        if ($timezone === null && !empty($this->default_timezone)) {
+        if (null === $timezone && !empty($this->default_timezone)) {
             $timezone = $this->default_timezone;
         }
 
         //If timezone was configured anywhere set it, otherwise just use the one from php.ini
-        if ($timezone !== null) {
+        if (null !== $timezone) {
             date_default_timezone_set($timezone);
-
         }
     }
 
@@ -89,7 +84,7 @@ class TimezoneListener implements EventSubscriberInterface
     {
         //Set the timezone shortly before executing the controller
         return [
-            KernelEvents::CONTROLLER => 'setTimeZone'
+            KernelEvents::CONTROLLER => 'setTimeZone',
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services\Attachments;
@@ -31,11 +30,9 @@ use Symfony\Contracts\Cache\ItemInterface;
  * An servive that helps working with filetype filters (based on the format <input type=file> accept uses.
  * See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers for
  * more details.
- * @package App\Services\Attachments
  */
 class FileTypeFilterTools
 {
-
     //The file extensions that will be used for the 'video/*', 'image/*', 'audio/*' placeholders
     //These file formats can be directly played in common browesers
     //Source: https://www.chromium.org/audio-video
@@ -53,17 +50,18 @@ class FileTypeFilterTools
         $this->cache = $cache;
     }
 
-
     /**
      * Check if a filetype filter string is valid.
+     *
      * @param string $filter The filter string that should be validated.
+     *
      * @return bool Returns true, if the string is valid.
      */
-    public function validateFilterString(string $filter) : bool
+    public function validateFilterString(string $filter): bool
     {
         $filter = trim($filter);
         //An empty filter is valid (means no filter applied)
-        if ($filter === '') {
+        if ('' === $filter) {
             return true;
         }
 
@@ -73,7 +71,7 @@ class FileTypeFilterTools
             $element = trim($element);
             if (!preg_match('/^\.\w+$/', $element) // .ext is allowed
                 && !preg_match('/^[-\w.]+\/[-\w.]+/', $element) //Explicit MIME type is allowed
-                && !in_array($element, static::ALLOWED_MIME_PLACEHOLDERS, false)) { //image/* is allowed
+                && !\in_array($element, static::ALLOWED_MIME_PLACEHOLDERS, false)) { //image/* is allowed
                 return false;
             }
         }
@@ -85,10 +83,12 @@ class FileTypeFilterTools
     /**
      * Normalize a filter string. All extensions are converted to lowercase, too much whitespaces are removed.
      * The filter string is not validated.
+     *
      * @param string $filter The filter string that should be normalized.
+     *
      * @return string The normalized filter string
      */
-    public function normalizeFilterString(string $filter) : string
+    public function normalizeFilterString(string $filter): string
     {
         $filter = trim($filter);
         //Replace other separators, with , so we can split it properly
@@ -101,75 +101,80 @@ class FileTypeFilterTools
         foreach ($elements as $key => &$element) {
             $element = trim($element);
             //Remove empty elements
-            if ($element === '') {
+            if ('' === $element) {
                 unset($elements[$key]);
             }
 
             //Convert *.jpg to .jpg
-            if (strpos($element, '*.') === 0) {
+            if (0 === strpos($element, '*.')) {
                 $element = str_replace('*.', '.', $element);
             }
 
             //Convert image to image/*
-            if ($element === 'image' || $element === 'image/') {
+            if ('image' === $element || 'image/' === $element) {
                 $element = 'image/*';
-            } elseif ($element === 'video' || $element === 'video/') {
+            } elseif ('video' === $element || 'video/' === $element) {
                 $element = 'video/*';
-            } elseif ($element === 'audio' || $element === 'audio/') {
+            } elseif ('audio' === $element || 'audio/' === $element) {
                 $element = 'audio/*';
-            } elseif (!preg_match('/^[-\w.]+\/[-\w.*]+/', $element) && strpos($element, '.') !== 0) {
+            } elseif (!preg_match('/^[-\w.]+\/[-\w.*]+/', $element) && 0 !== strpos($element, '.')) {
                 //Convert jpg to .jpg
-                $element = '.' . $element;
+                $element = '.'.$element;
             }
-
         }
 
         $elements = array_unique($elements);
 
-        return implode($elements, ',');
+        return implode(',', $elements);
     }
 
     /**
-     * Get a list of all file extensions that matches the given filter string
+     * Get a list of all file extensions that matches the given filter string.
+     *
      * @param string $filter A valid filetype filter string.
+     *
      * @return string[] An array of allowed extensions ['txt', 'csv', 'gif']
      */
-    public function resolveFileExtensions(string $filter) : array
+    public function resolveFileExtensions(string $filter): array
     {
         $filter = trim($filter);
 
-        return $this->cache->get('filter_exts_' . md5($filter), function (ItemInterface $item) use ($filter) {
+        return $this->cache->get('filter_exts_'.md5($filter), function (ItemInterface $item) use ($filter) {
             $elements = explode(',', $filter);
             $extensions = [];
 
             foreach ($elements as $element) {
                 $element = trim($element);
-                if (strpos($element, '.') === 0) {
+                if (0 === strpos($element, '.')) {
                     //We found an explicit specified file extension -> add it to list
                     $extensions[] = substr($element, 1);
-                } elseif ($element === 'image/*') {
+                } elseif ('image/*' === $element) {
                     $extensions = array_merge($extensions, static::IMAGE_EXTS);
-                } elseif ($element === 'audio/*') {
+                } elseif ('audio/*' === $element) {
                     $extensions = array_merge($extensions, static::AUDIO_EXTS);
-                } elseif ($element === 'image/*') {
+                } elseif ('image/*' === $element) {
                     $extensions = array_merge($extensions, static::VIDEO_EXTS);
                 } elseif (preg_match('/^[-\w.]+\/[-\w.*]+/', $element)) {
                     $extensions = array_merge($extensions, $this->mimeTypes->getExtensions($element));
                 }
             }
+
             return array_unique($extensions);
         });
     }
 
     /**
      * Check if the given extension matches the filter.
-     * @param string $filter The filter which should be used for checking.
+     *
+     * @param string $filter    The filter which should be used for checking.
      * @param string $extension The extension that should be checked.
+     *
      * @return bool Returns true, if the extension is allowed with the given filter.
      */
-    public function isExtensionAllowed(string $filter, string $extension) : bool
+    public function isExtensionAllowed(string $filter, string $extension): bool
     {
         $extension = strtolower($extension);
-        return empty($filter) || in_array($extension, $this->resolveFileExtensions($filter), false);
+
+        return empty($filter) || \in_array($extension, $this->resolveFileExtensions($filter), false);
     }
 }

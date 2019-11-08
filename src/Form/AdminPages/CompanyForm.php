@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,19 +17,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form\AdminPages;
 
-
 use App\Entity\Base\NamedDBElement;
-use App\Form\AdminPages\BaseEntityAdminForm;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -37,13 +32,13 @@ class CompanyForm extends BaseEntityAdminForm
 {
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity)
     {
-        $is_new = $entity->getID() === null;
+        $is_new = null === $entity->getID();
 
         $builder->add('address', TextareaType::class, [
             'label' => $this->trans->trans('company.edit.address'),
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'attr' => ['placeholder' => $this->trans->trans('company.edit.address.placeholder')], 'required' => false,
-            'empty_data' => ''
+            'empty_data' => '',
         ]);
 
         $builder->add('phone_number', TelType::class, [
@@ -51,28 +46,28 @@ class CompanyForm extends BaseEntityAdminForm
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'attr' => ['placeholder' => $this->trans->trans('company.edit.phone_number.placeholder')],
             'required' => false,
-            'empty_data' => ''
+            'empty_data' => '',
         ]);
 
         $builder->add('fax_number', TelType::class, [
             'label' => $this->trans->trans('company.edit.fax_number'),
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'attr' => ['placeholder' => 'company.fax_number.placeholder'], 'required' => false,
-            'empty_data' => ''
+            'empty_data' => '',
         ]);
 
         $builder->add('email_address', EmailType::class, [
             'label' => $this->trans->trans('company.edit.email'),
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'attr' => ['placeholder' => $this->trans->trans('company.edit.email.placeholder')], 'required' => false,
-            'empty_data' => ''
+            'empty_data' => '',
         ]);
 
         $builder->add('website', UrlType::class, [
             'label' => $this->trans->trans('company.edit.website'),
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'attr' => ['placeholder' => $this->trans->trans('company.edit.website.placeholder')], 'required' => false,
-            'empty_data' => ''
+            'empty_data' => '',
         ]);
 
         $builder->add('auto_product_url', UrlType::class, [
@@ -81,7 +76,7 @@ class CompanyForm extends BaseEntityAdminForm
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'attr' => ['placeholder' => $this->trans->trans('company.edit.auto_product_url.placeholder')],
             'required' => false,
-            'empty_data' => ''
+            'empty_data' => '',
         ]);
     }
 }

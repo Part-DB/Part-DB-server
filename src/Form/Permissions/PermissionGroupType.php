@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form\Permissions;
-
 
 use App\Services\PermissionResolver;
 use Symfony\Component\Form\AbstractType;
@@ -52,7 +50,7 @@ class PermissionGroupType extends AbstractType
                 }
             } else {
                 //Skip perrmissions without groups unless we have this as blanko group
-                if ($options['group_name'] !== "*") {
+                if ('*' !== $options['group_name']) {
                     continue;
                 }
             }
@@ -63,7 +61,7 @@ class PermissionGroupType extends AbstractType
                 'mapped' => false,
                 'data' => $builder->getData(),
                 'disabled' => $options['disabled'],
-                'inherit' => $options['inherit']
+                'inherit' => $options['inherit'],
             ]);
         }
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 declare(strict_types=1);
@@ -33,24 +32,23 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version1 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return 'Creates an inital empty database';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         try {
             //Check if we can use this migration method:
-            $version = (int)$this->connection->fetchColumn("SELECT keyValue AS version FROM `internal` WHERE `keyName` = 'dbVersion'");
-            $this->skipIf(true, "Old Part-DB Database detected! Continue with upgrade...");
+            $version = (int) $this->connection->fetchColumn("SELECT keyValue AS version FROM `internal` WHERE `keyName` = 'dbVersion'");
+            $this->skipIf(true, 'Old Part-DB Database detected! Continue with upgrade...');
         } catch (DBALException $ex) {
             //when the table was not found, we can proceed, because we have an empty DB!
         }
 
-
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE TABLE `attachment_types` (id INT AUTO_INCREMENT NOT NULL, parent_id INT DEFAULT NULL, filetype_filter LONGTEXT NOT NULL, comment LONGTEXT NOT NULL, not_selectable TINYINT(1) NOT NULL, name VARCHAR(255) NOT NULL, last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, datetime_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, INDEX IDX_EFAED719727ACA70 (parent_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE `categories` (id INT AUTO_INCREMENT NOT NULL, parent_id INT DEFAULT NULL, partname_hint LONGTEXT NOT NULL, partname_regex LONGTEXT NOT NULL, disable_footprints TINYINT(1) NOT NULL, disable_manufacturers TINYINT(1) NOT NULL, disable_autodatasheets TINYINT(1) NOT NULL, disable_properties TINYINT(1) NOT NULL, default_description LONGTEXT NOT NULL, default_comment LONGTEXT NOT NULL, comment LONGTEXT NOT NULL, not_selectable TINYINT(1) NOT NULL, name VARCHAR(255) NOT NULL, last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, datetime_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, INDEX IDX_3AF34668727ACA70 (parent_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
@@ -105,16 +103,16 @@ final class Version1 extends AbstractMigration
          */
 
         //Create table for user logs:
-        $sql =  $updateSteps[] = "CREATE TABLE `log` ".
-            "( `id` INT NOT NULL AUTO_INCREMENT , `datetime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() ,".
-            " `id_user` INT NOT NULL ,".
-            " `level` TINYINT NOT NULL ,".
-            " `type` SMALLINT NOT NULL ,".
-            " `target_id` INT NOT NULL ,".
-            " `target_type` SMALLINT NOT NULL ,".
-            " `extra` MEDIUMTEXT NOT NULL ,".
-            " PRIMARY KEY (`id`),".
-            " INDEX (`id_user`)) ENGINE = InnoDB;";
+        $sql = $updateSteps[] = 'CREATE TABLE `log` '.
+            '( `id` INT NOT NULL AUTO_INCREMENT , `datetime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() ,'.
+            ' `id_user` INT NOT NULL ,'.
+            ' `level` TINYINT NOT NULL ,'.
+            ' `type` SMALLINT NOT NULL ,'.
+            ' `target_id` INT NOT NULL ,'.
+            ' `target_type` SMALLINT NOT NULL ,'.
+            ' `extra` MEDIUMTEXT NOT NULL ,'.
+            ' PRIMARY KEY (`id`),'.
+            ' INDEX (`id_user`)) ENGINE = InnoDB;';
         $this->addSql($sql);
         //Create first groups and users:
         //Add needed groups.
@@ -145,7 +143,7 @@ final class Version1 extends AbstractMigration
                     5461, 5461, 1365, 1365); 
 EOD;
         $this->addSql($sql);
-        $admin_pw = "$2y$10$36AnqCBS.YnHlVdM4UQ0oOCV7BjU7NmE0qnAVEex65AyZw1cbcEjq";
+        $admin_pw = '$2y$10$36AnqCBS.YnHlVdM4UQ0oOCV7BjU7NmE0qnAVEex65AyZw1cbcEjq';
         $sql = <<<EOD
             INSERT IGNORE INTO `users`
             (`id`,`name`,`password`,`first_name`,`last_name`,`department`,
@@ -177,13 +175,12 @@ EOD;
         $this->addSql("UPDATE `groups` SET `perms_labels` = '85' WHERE `groups`.`id` = 1;");
         $this->addSql("UPDATE `groups` SET `perms_labels` = '165' WHERE `groups`.`id` = 2;");
         $this->addSql("UPDATE `groups` SET `perms_labels` = '85' WHERE `groups`.`id` = 3;");
-
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE `attachment_types` DROP FOREIGN KEY FK_EFAED719727ACA70');
         $this->addSql('ALTER TABLE `attachments` DROP FOREIGN KEY FK_47C4FAD6C54C8C93');

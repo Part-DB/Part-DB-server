@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Controller\AdminPages;
-
 
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Parts\Supplier;
@@ -37,11 +35,9 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/supplier")
- * @package App\Controller
  */
 class SupplierController extends BaseAdminController
 {
-
     protected $entity_class = Supplier::class;
     protected $twig_template = 'AdminPages/SupplierAdmin.html.twig';
     protected $form_class = SupplierForm::class;
@@ -76,12 +72,11 @@ class SupplierController extends BaseAdminController
         return $this->_new($request, $em, $importer);
     }
 
-
     /**
      * @Route("/export", name="supplier_export_all")
-     * @param Request $request
+     *
      * @param SerializerInterface $serializer
-     * @param EntityManagerInterface $em
+     *
      * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request)
@@ -91,13 +86,11 @@ class SupplierController extends BaseAdminController
 
     /**
      * @Route("/{id}/export", name="supplier_export")
-     * @param Request $request
-     * @param Supplier $entity
+     *
      * @return Response
      */
     public function exportEntity(Supplier $entity, EntityExporter $exporter, Request $request)
     {
         return $this->_exportEntity($entity, $exporter, $request);
     }
-
 }

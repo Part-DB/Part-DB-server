@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Entity\Parts\PartTraits;
-
 
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\PartLot;
@@ -30,7 +28,6 @@ use Doctrine\Common\Collections\Collection;
 
 /**
  * This trait collects all aspects of a part related to instock, part lots.
- * @package App\Entity\Parts\PartTraits
  */
 trait InstockTrait
 {
@@ -44,7 +41,7 @@ trait InstockTrait
 
     /**
      * @var float The minimum amount of the part that has to be instock, otherwise more is ordered.
-     * Given in the partUnit.
+     *            Given in the partUnit.
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero()
      * @ColumnSecurity(prefix="mininstock", type="integer")
@@ -61,9 +58,10 @@ trait InstockTrait
 
     /**
      * Get all part lots where this part is stored.
+     *
      * @return PartLot[]|Collection
      */
-    public function getPartLots() : Collection
+    public function getPartLots(): Collection
     {
         return $this->partLots;
     }
@@ -71,30 +69,35 @@ trait InstockTrait
     /**
      * Adds the given part lot, to the list of part lots.
      * The part lot is assigned to this part.
-     * @param PartLot $lot
+     *
      * @return self
      */
     public function addPartLot(PartLot $lot): self
     {
         $lot->setPart($this);
         $this->partLots->add($lot);
+
         return $this;
     }
 
     /**
      * Removes the given part lot from the list of part lots.
+     *
      * @param PartLot $lot The part lot that should be deleted.
+     *
      * @return self
      */
     public function removePartLot(PartLot $lot): self
     {
         $this->partLots->removeElement($lot);
+
         return $this;
     }
 
     /**
      * Gets the measurement unit in which the part's amount should be measured.
      * Returns null if no specific unit was that. That means the parts are measured simply in quantity numbers.
+     *
      * @return MeasurementUnit|null
      */
     public function getPartUnit(): ?MeasurementUnit
@@ -105,18 +108,19 @@ trait InstockTrait
     /**
      * Sets the measurement unit in which the part's amount should be measured.
      * Set to null, if the part should be measured in quantities.
-     * @param MeasurementUnit|null $partUnit
+     *
      * @return self
      */
     public function setPartUnit(?MeasurementUnit $partUnit): self
     {
         $this->partUnit = $partUnit;
+
         return $this;
     }
 
     /**
      *  Get the count of parts which must be in stock at least.
-     * If a integer-based part unit is selected, the value will be rounded to integers
+     * If a integer-based part unit is selected, the value will be rounded to integers.
      *
      * @return float count of parts which must be in stock at least
      */
@@ -132,6 +136,7 @@ trait InstockTrait
     /**
      * Checks if this part uses the float amount .
      * This setting is based on the part unit (see MeasurementUnit->isInteger()).
+     *
      * @return bool True if the float amount field should be used. False if the integer instock field should be used.
      */
     public function useFloatAmount(): bool
@@ -146,10 +151,11 @@ trait InstockTrait
 
     /**
      * Returns the summed amount of this part (over all part lots)
-     * Part Lots that have unknown value or are expired, are not used for this value
+     * Part Lots that have unknown value or are expired, are not used for this value.
+     *
      * @return float The amount of parts given in partUnit
      */
-    public function getAmountSum() : float
+    public function getAmountSum(): float
     {
         //TODO: Find a method to do this natively in SQL, the current method could be a bit slow
         $sum = 0;
@@ -172,12 +178,15 @@ trait InstockTrait
     /**
      * Set the minimum amount of parts that have to be instock.
      * See getPartUnit() for the associated unit.
+     *
      * @param float $new_minamount the new count of parts which should be in stock at least
+     *
      * @return self
      */
     public function setMinAmount(float $new_minamount): self
     {
         $this->minamount = $new_minamount;
+
         return $this;
     }
 }

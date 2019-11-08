@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,28 +17,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Tests\Controller\AdminPages;
 
-
-use App\Entity\Attachments\AttachmentType;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Security;
 
 /**
  * @group slow
- * @package App\Tests\Controller\AdminPages
  */
 abstract class AbstractAdminControllerTest extends WebTestCase
 {
     protected static $base_path = 'not_valid';
     protected static $entity_class = 'not valid';
-
 
     public function setUp()
     {
@@ -52,7 +44,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
             ['noread', false],
             ['anonymous', true],
             ['user', true],
-            ['admin', true]
+            ['admin', true],
         ];
     }
 
@@ -66,20 +58,20 @@ abstract class AbstractAdminControllerTest extends WebTestCase
         //Test read access
         $client = static::createClient([], [
             'PHP_AUTH_USER' => $user,
-            'PHP_AUTH_PW'   => 'test',
+            'PHP_AUTH_PW' => 'test',
         ]);
 
-        if ($read == false) {
+        if (false == $read) {
             $this->expectException(AccessDeniedException::class);
         }
 
         $client->catchExceptions(false);
 
         //Test read/list access by access /new overview page
-        $crawler = $client->request('GET', static::$base_path . '/new');
+        $crawler = $client->request('GET', static::$base_path.'/new');
         $this->assertFalse($client->getResponse()->isRedirect());
-        $this->assertEquals($read, $client->getResponse()->isSuccessful(), "Controller was not successful!");
-        $this->assertEquals($read, !$client->getResponse()->isForbidden(), "Permission Checking not working!");
+        $this->assertEquals($read, $client->getResponse()->isSuccessful(), 'Controller was not successful!');
+        $this->assertEquals($read, !$client->getResponse()->isForbidden(), 'Permission Checking not working!');
     }
 
     /**
@@ -92,19 +84,19 @@ abstract class AbstractAdminControllerTest extends WebTestCase
         //Test read access
         $client = static::createClient([], [
             'PHP_AUTH_USER' => $user,
-            'PHP_AUTH_PW'   => 'test',
+            'PHP_AUTH_PW' => 'test',
         ]);
 
         $client->catchExceptions(false);
-        if ($read == false) {
+        if (false == $read) {
             $this->expectException(AccessDeniedException::class);
         }
 
         //Test read/list access by access /new overview page
-        $crawler = $client->request('GET', static::$base_path . '/1');
+        $crawler = $client->request('GET', static::$base_path.'/1');
         $this->assertFalse($client->getResponse()->isRedirect());
-        $this->assertEquals($read, $client->getResponse()->isSuccessful(), "Controller was not successful!");
-        $this->assertEquals($read, !$client->getResponse()->isForbidden(), "Permission Checking not working!");
+        $this->assertEquals($read, $client->getResponse()->isSuccessful(), 'Controller was not successful!');
+        $this->assertEquals($read, !$client->getResponse()->isForbidden(), 'Permission Checking not working!');
     }
 
     public function deleteDataProvider()
@@ -113,12 +105,13 @@ abstract class AbstractAdminControllerTest extends WebTestCase
             ['noread', false],
             ['anonymous', false],
             ['user', true],
-            ['admin', true]
+            ['admin', true],
         ];
     }
 
     /**
      * Tests if deleting an entity is working.
+     *
      * @group slow
      * @dataProvider deleteDataProvider
      */
@@ -127,20 +120,19 @@ abstract class AbstractAdminControllerTest extends WebTestCase
         //Test read access
         $client = static::createClient([], [
             'PHP_AUTH_USER' => $user,
-            'PHP_AUTH_PW'   => 'test',
+            'PHP_AUTH_PW' => 'test',
         ]);
 
         $client->catchExceptions(false);
-        if ($delete == false) {
-           $this->expectException(AccessDeniedException::class);
+        if (false == $delete) {
+            $this->expectException(AccessDeniedException::class);
         }
 
         //Test read/list access by access /new overview page
-        $crawler = $client->request('DELETE', static::$base_path . '/7');
+        $crawler = $client->request('DELETE', static::$base_path.'/7');
 
         //Page is redirected to '/new', when delete was successful
-        $this->assertEquals($delete, $client->getResponse()->isRedirect(static::$base_path . '/new'));
-        $this->assertEquals($delete, !$client->getResponse()->isForbidden(), "Permission Checking not working!");
+        $this->assertEquals($delete, $client->getResponse()->isRedirect(static::$base_path.'/new'));
+        $this->assertEquals($delete, !$client->getResponse()->isForbidden(), 'Permission Checking not working!');
     }
-
 }

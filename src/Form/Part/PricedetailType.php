@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,52 +17,45 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form\Part;
 
-
 use App\Entity\Parts\MeasurementUnit;
-use App\Entity\PriceInformations\Currency;
-use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
 use App\Form\Type\CurrencyEntityType;
 use App\Form\Type\SIUnitType;
-use App\Form\Type\StructuralEntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PricedetailType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         //No labels needed, we define translation in templates
-        $builder->add("min_discount_quantity", SIUnitType::class, [
+        $builder->add('min_discount_quantity', SIUnitType::class, [
             'measurement_unit' => $options['measurement_unit'],
-            'attr' => ['class' => 'form-control-sm']
+            'attr' => ['class' => 'form-control-sm'],
         ]);
-        $builder->add("price_related_quantity", SIUnitType::class, [
+        $builder->add('price_related_quantity', SIUnitType::class, [
             'measurement_unit' => $options['measurement_unit'],
-            'attr' => ['class' => 'form-control-sm']
+            'attr' => ['class' => 'form-control-sm'],
         ]);
-        $builder->add("price", NumberType::class, [
+        $builder->add('price', NumberType::class, [
             'scale' => 5,
             'html5' => true,
-            'attr' => ['min' => 0, 'step' => "any"]
+            'attr' => ['min' => 0, 'step' => 'any'],
         ]);
-        $builder->add("currency", CurrencyEntityType::class, ['required' => false]);
+        $builder->add('currency', CurrencyEntityType::class, ['required' => false]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Pricedetail::class,
-            'error_bubbling' => false
+            'error_bubbling' => false,
         ]);
 
         $resolver->setRequired('measurement_unit');

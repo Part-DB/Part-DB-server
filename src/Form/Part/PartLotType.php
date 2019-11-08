@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,34 +17,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form\Part;
 
-
 use App\Entity\Parts\MeasurementUnit;
-use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\DataMapperInterface;
-use Symfony\Component\Form\Exception;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use function GuzzleHttp\Promise\queue;
 
 class PartLotType extends AbstractType
 {
@@ -62,48 +51,46 @@ class PartLotType extends AbstractType
         $builder->add('description', TextType::class, [
             'label' => $this->trans->trans('part_lot.edit.description'),
             'required' => false,
-            'empty_data' => "",
-            'attr' => ['class' => 'form-control-sm']
+            'empty_data' => '',
+            'attr' => ['class' => 'form-control-sm'],
         ]);
 
         $builder->add('storage_location', StructuralEntityType::class, ['class' => Storelocation::class,
             'label' => $this->trans->trans('part_lot.edit.location'),
             'required' => false,
             'disable_not_selectable' => true,
-            'attr' => ['class' => 'selectpicker form-control-sm', 'data-live-search' => true]
+            'attr' => ['class' => 'selectpicker form-control-sm', 'data-live-search' => true],
         ]);
-
 
         $builder->add('amount', SIUnitType::class, [
             'measurement_unit' => $options['measurement_unit'],
             'label' => $this->trans->trans('part_lot.edit.amount'),
-            'attr' => ['class' => 'form-control-sm']
+            'attr' => ['class' => 'form-control-sm'],
         ]);
 
         $builder->add('instock_unknown', CheckboxType::class, ['required' => false,
             'label' => $this->trans->trans('part_lot.edit.instock_unknown'),
             'attr' => ['class' => 'form-control-sm'],
-            'label_attr' => ['class' => 'checkbox-custom']
+            'label_attr' => ['class' => 'checkbox-custom'],
         ]);
 
         $builder->add('needs_refill', CheckboxType::class, ['label_attr' => ['class' => 'checkbox-custom'],
             'label' => $this->trans->trans('part_lot.edit.needs_refill'),
             'attr' => ['class' => 'form-control-sm'],
-            'required' => false
+            'required' => false,
         ]);
 
         $builder->add('expirationDate', DateTimeType::class, [
             'label' => $this->trans->trans('part_lot.edit.expiration_date'),
             'attr' => [],
-            'required' => false]);
+            'required' => false, ]);
 
         $builder->add('comment', TextType::class, [
             'label' => $this->trans->trans('part_lot.edit.comment'),
             'attr' => ['class' => 'form-control-sm'],
-            'required' => false, 'empty_data' => ""
+            'required' => false, 'empty_data' => '',
         ]);
     }
-
 
     public function configureOptions(OptionsResolver $resolver)
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 declare(strict_types=1);
@@ -52,7 +51,6 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
-use App\Entity\Attachments\ManufacturerAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Base\Company;
 use App\Entity\PriceInformations\Currency;
@@ -93,7 +91,7 @@ class Supplier extends Company
 
     /**
      * @var Currency|null The currency that should be used by default for order informations with this supplier.
-     * Set to null, to use global base currency.
+     *                    Set to null, to use global base currency.
      * @ORM\ManyToOne(targetEntity="App\Entity\PriceInformations\Currency")
      * @ORM\JoinColumn(name="default_currency_id", referencedColumnName="id", nullable=true)
      * @Selectable()
@@ -101,7 +99,7 @@ class Supplier extends Company
     protected $default_currency;
 
     /**
-     * @var float|null The shipping costs that have to be paid, when ordering via this supplier.
+     * @var float|null the shipping costs that have to be paid, when ordering via this supplier
      * @ORM\Column(name="shipping_costs", nullable=true, type="decimal", precision=11, scale=5)
      * @Assert\PositiveOrZero()
      */
@@ -118,44 +116,47 @@ class Supplier extends Company
 
     /**
      * Gets the currency that should be used by default, when creating a orderdetail with this supplier.
+     *
      * @return ?Currency
      */
-    public function getDefaultCurrency() : ?Currency
+    public function getDefaultCurrency(): ?Currency
     {
         return $this->default_currency;
     }
 
     /**
      * Sets the default currency.
+     *
      * @param ?Currency $default_currency
-     * @return Supplier
      */
-    public function setDefaultCurrency(?Currency $default_currency) : Supplier
+    public function setDefaultCurrency(?Currency $default_currency): self
     {
         $this->default_currency = $default_currency;
+
         return $this;
     }
 
     /**
      * Gets the shipping costs for an order with this supplier, given in base currency.
+     *
      * @return string|null A bcmath string with the shipping costs
      */
-    public function getShippingCosts() : ?string
+    public function getShippingCosts(): ?string
     {
         return $this->shipping_costs;
     }
 
     /**
      * Sets the shipping costs for an order with this supplier.
-     * @param string|null $shipping_costs A bcmath string with the shipping costs.
-     * @return Supplier
+     *
+     * @param string|null $shipping_costs a bcmath string with the shipping costs
      */
-    public function setShippingCosts(?string $shipping_costs) : Supplier
+    public function setShippingCosts(?string $shipping_costs): self
     {
         $this->shipping_costs = $shipping_costs;
+
         return $this;
     }
-
 
     /**
      * Returns the ID as an string, defined by the element class.

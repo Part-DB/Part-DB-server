@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Form\Permissions;
-
 
 use App\Services\PermissionResolver;
 use Symfony\Component\Form\DataMapperInterface;
@@ -48,9 +46,8 @@ class PermissionsMapper implements DataMapperInterface
      * The method is responsible for calling {@link FormInterface::setData()}
      * on the children of compound forms, defining their underlying model data.
      *
-     * @param mixed $viewData View data of the compound form being initialized
-     * @param FormInterface[]|\Traversable $forms A list of {@link FormInterface} instances
-     *
+     * @param mixed                        $viewData View data of the compound form being initialized
+     * @param FormInterface[]|\Traversable $forms    A list of {@link FormInterface} instances
      */
     public function mapDataToForms($viewData, $forms)
     {
@@ -95,10 +92,9 @@ class PermissionsMapper implements DataMapperInterface
      * The model data can be an array or an object, so this second argument is always passed
      * by reference.
      *
-     * @param FormInterface[]|\Traversable $forms A list of {@link FormInterface} instances
-     * @param mixed $viewData The compound form's view data that get mapped
+     * @param FormInterface[]|\Traversable $forms    A list of {@link FormInterface} instances
+     * @param mixed                        $viewData The compound form's view data that get mapped
      *                                               its children model data
-     *
      */
     public function mapFormsToData($forms, &$viewData)
     {

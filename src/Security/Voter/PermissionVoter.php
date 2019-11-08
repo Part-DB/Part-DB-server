@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,29 +17,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Security\Voter;
-
 
 use App\Entity\UserSystem\User;
 
 /**
  * This voter allows you to directly check permissions from the permission structure, without passing an object.
  * However you should use the "normal" object based voters if possible, because they are needed for a future ACL system.
- * @package App\Security\Voter
  */
 class PermissionVoter extends ExtendedVoter
 {
-
     /**
      * Similar to voteOnAttribute, but checking for the anonymous user is already done.
      * The current user (or the anonymous user) is passed by $user.
      *
      * @param $attribute
      * @param $subject
-     * @param User $user
      *
      * @return bool
      */
@@ -47,6 +42,7 @@ class PermissionVoter extends ExtendedVoter
     {
         $attribute = ltrim($attribute, '@');
         [$perm, $op] = explode('.', $attribute);
+
         return $this->resolver->inherit($user, $perm, $op);
     }
 
@@ -54,7 +50,7 @@ class PermissionVoter extends ExtendedVoter
      * Determines if the attribute and subject are supported by this voter.
      *
      * @param string $attribute An attribute
-     * @param mixed $subject The subject to secure, e.g. an object the user wants to access or any other PHP type
+     * @param mixed  $subject   The subject to secure, e.g. an object the user wants to access or any other PHP type
      *
      * @return bool True if the attribute and subject are supported, false otherwise
      */
@@ -64,6 +60,7 @@ class PermissionVoter extends ExtendedVoter
         if (preg_match('/^@\\w+\\.\\w+$/', $attribute)) {
             $attribute = ltrim($attribute, '@');
             [$perm, $op] = explode('.', $attribute);
+
             return $this->resolver->isValidOperation($perm, $op);
         }
 

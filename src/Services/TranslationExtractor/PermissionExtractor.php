@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,11 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Services\TranslationExtractor;
-
 
 use App\Services\PermissionResolver;
 use Symfony\Component\Translation\Extractor\ExtractorInterface;
@@ -30,7 +28,6 @@ use Symfony\Component\Translation\MessageCatalogue;
 /**
  * The purpose of this class is to extract label attributes out of our permissions.yaml structure,
  * so they can be translated.
- * @package App\Services\TranslationExtractor
  */
 class PermissionExtractor implements ExtractorInterface
 {
@@ -45,7 +42,7 @@ class PermissionExtractor implements ExtractorInterface
     /**
      * Extracts translation messages from files, a file or a directory to the catalogue.
      *
-     * @param string|array $resource Files, a file or a directory
+     * @param string|array     $resource  Files, a file or a directory
      * @param MessageCatalogue $catalogue The catalogue
      */
     public function extract($resource, MessageCatalogue $catalogue)
@@ -55,7 +52,7 @@ class PermissionExtractor implements ExtractorInterface
             foreach ($this->permission_structure['groups'] as $group) {
                 if (isset($group['label'])) {
                     $catalogue->add([
-                        $group['label'] => '__' . $group['label']
+                        $group['label'] => '__'.$group['label'],
                     ]);
                 }
             }
@@ -64,7 +61,7 @@ class PermissionExtractor implements ExtractorInterface
             foreach ($this->permission_structure['perms'] as $perm) {
                 if (isset($perm['label'])) {
                     $catalogue->add([
-                        $perm['label'] => '__' . $perm['label']
+                        $perm['label'] => '__'.$perm['label'],
                     ]);
                 }
 
@@ -72,12 +69,11 @@ class PermissionExtractor implements ExtractorInterface
                 foreach ($perm['operations'] as $op) {
                     if (isset($op['label'])) {
                         $catalogue->add([
-                            $op['label'] => '__' . $op['label']
+                            $op['label'] => '__'.$op['label'],
                         ]);
                     }
                 }
             }
-
 
             $this->finished = true;
         }

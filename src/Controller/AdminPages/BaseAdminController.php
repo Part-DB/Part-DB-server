@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
  * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
  *
@@ -17,7 +17,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- *
  */
 
 namespace App\Controller\AdminPages;
@@ -38,21 +37,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Tests\Encoder\PasswordEncoder;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 abstract class BaseAdminController extends AbstractController
 {
-
     protected $entity_class = '';
     protected $form_class = '';
     protected $twig_template = '';
     protected $route_base = '';
     protected $attachment_class = '';
-
 
     protected $passwordEncoder;
     protected $translator;
@@ -62,11 +57,11 @@ abstract class BaseAdminController extends AbstractController
     public function __construct(TranslatorInterface $translator, UserPasswordEncoderInterface $passwordEncoder,
                                 AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler)
     {
-        if ($this->entity_class === '' || $this->form_class === '' || $this->twig_template === '' || $this->route_base === '') {
+        if ('' === $this->entity_class || '' === $this->form_class || '' === $this->twig_template || '' === $this->route_base) {
             throw new \InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');
         }
 
-        if ($this->attachment_class === '') {
+        if ('' === $this->attachment_class) {
             throw new \InvalidArgumentException('You have to override the $attachment_class value in your subclass!');
         }
 
@@ -78,7 +73,6 @@ abstract class BaseAdminController extends AbstractController
 
     protected function _edit(NamedDBElement $entity, Request $request, EntityManagerInterface $em)
     {
-
         $this->denyAccessUnlessGranted('read', $entity);
 
         $form = $this->createForm($this->form_class, $entity, ['attachment_class' => $this->attachment_class]);
@@ -99,14 +93,14 @@ abstract class BaseAdminController extends AbstractController
                 /** @var $attachment FormInterface */
                 $options = [
                     'secure_attachment' => $attachment['secureFile']->getData(),
-                    'download_url' => $attachment['downloadURL']->getData()
+                    'download_url' => $attachment['downloadURL']->getData(),
                 ];
                 try {
                     $this->attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
                 } catch (AttachmentDownloadException $ex) {
                     $this->addFlash(
                         'error',
-                        $this->translator->trans('attachment.download_failed') . ' ' . $ex->getMessage()
+                        $this->translator->trans('attachment.download_failed').' '.$ex->getMessage()
                     );
                 }
             }
@@ -118,14 +112,14 @@ abstract class BaseAdminController extends AbstractController
             //Rebuild form, so it is based on the updated data. Important for the parent field!
             //We can not use dynamic form events here, because the parent entity list is build from database!
             $form = $this->createForm($this->form_class, $entity, ['attachment_class' => $this->attachment_class]);
-        } elseif ($form->isSubmitted() && ! $form->isValid()) {
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('error', $this->translator->trans('entity.edit_flash.invalid'));
         }
 
         return $this->render($this->twig_template, [
             'entity' => $entity,
             'form' => $form->createView(),
-            'attachment_helper' => $this->attachmentHelper
+            'attachment_helper' => $this->attachmentHelper,
         ]);
     }
 
@@ -155,14 +149,14 @@ abstract class BaseAdminController extends AbstractController
                 /** @var $attachment FormInterface */
                 $options = [
                     'secure_attachment' => $attachment['secureFile']->getData(),
-                    'download_url' => $attachment['downloadURL']->getData()
+                    'download_url' => $attachment['downloadURL']->getData(),
                 ];
                 try {
                     $this->attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
                 } catch (AttachmentDownloadException $ex) {
                     $this->addFlash(
                         'error',
-                        $this->translator->trans('attachment.download_failed') . ' ' . $ex->getMessage()
+                        $this->translator->trans('attachment.download_failed').' '.$ex->getMessage()
                     );
                 }
             }
@@ -171,10 +165,10 @@ abstract class BaseAdminController extends AbstractController
             $em->flush();
             $this->addFlash('success', $this->translator->trans('entity.created_flash'));
 
-            return $this->redirectToRoute($this->route_base . '_edit', ['id' => $new_entity->getID()]);
+            return $this->redirectToRoute($this->route_base.'_edit', ['id' => $new_entity->getID()]);
         }
 
-        if ($form->isSubmitted() && ! $form->isValid()) {
+        if ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('error', $this->translator->trans('entity.created_flash.invalid'));
         }
 
@@ -187,14 +181,14 @@ abstract class BaseAdminController extends AbstractController
             $file = $import_form['file']->getData();
             $data = $import_form->getData();
 
-            $options = array('parent' => $data['parent'], 'preserve_children' => $data['preserve_children'],
-                'format' => $data['format'], 'csv_separator' => $data['csv_separator']);
+            $options = ['parent' => $data['parent'], 'preserve_children' => $data['preserve_children'],
+                'format' => $data['format'], 'csv_separator' => $data['csv_separator'], ];
 
             $errors = $importer->fileToDBEntities($file, $this->entity_class, $options);
 
             foreach ($errors as $name => $error) {
-                /** @var $error ConstraintViolationList */
-                $this->addFlash('error', $name . ':' . $error);
+                /* @var $error ConstraintViolationList */
+                $this->addFlash('error', $name.':'.$error);
             }
         }
 
@@ -212,8 +206,8 @@ abstract class BaseAdminController extends AbstractController
 
             //Show errors to user:
             foreach ($errors as $name => $error) {
-                /** @var $error ConstraintViolationList */
-                $this->addFlash('error', $name . ':' . $error);
+                /* @var $error ConstraintViolationList */
+                $this->addFlash('error', $name.':'.$error);
             }
         }
 
@@ -222,7 +216,7 @@ abstract class BaseAdminController extends AbstractController
             'form' => $form->createView(),
             'import_form' => $import_form->createView(),
             'mass_creation_form' => $mass_creation_form->createView(),
-            'attachment_helper' => $this->attachmentHelper
+            'attachment_helper' => $this->attachmentHelper,
         ]);
     }
 
@@ -259,7 +253,7 @@ abstract class BaseAdminController extends AbstractController
             $this->addFlash('error', 'csfr_invalid');
         }
 
-        return $this->redirectToRoute($this->route_base .  '_new');
+        return $this->redirectToRoute($this->route_base.'_new');
     }
 
     protected function _exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request)
@@ -270,7 +264,7 @@ abstract class BaseAdminController extends AbstractController
 
         $entities = $em->getRepository($this->entity_class)->findAll();
 
-        return $exporter->exportEntityFromRequest($entities,$request);
+        return $exporter->exportEntityFromRequest($entities, $request);
     }
 
     protected function _exportEntity(NamedDBElement $entity, EntityExporter $exporter, Request $request)
