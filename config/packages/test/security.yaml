@@ -1,5 +1,11 @@
 # config/packages/test/security.yaml
 security:
+
+  # Disable password hashing during testing. This speeds up tests a lot
+  encoders:
+    App\Entity\UserSystem\User:
+      algorithm: plaintext
+
   firewalls:
     # replace 'main' by the name of your own firewall
     main:
