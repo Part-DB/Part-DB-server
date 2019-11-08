@@ -33,7 +33,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class DeviceAttachment extends Attachment
 {
-
     /**
      * @var Device The element this attachment is associated with.
      * @ORM\ManyToOne(targetEntity="App\Entity\Devices\Device", inversedBy="attachments")
@@ -41,13 +40,5 @@ class DeviceAttachment extends Attachment
      */
     protected $element;
 
-    public function setElement(AttachmentContainingDBElement $element): Attachment
-    {
-        if (!$element instanceof Device) {
-            throw new \InvalidArgumentException('The element associated with a PartAttachment must be a Device!');
-        }
-
-        $this->element = $element;
-        return $this;
-    }
+    public const ALLOWED_ELEMENT_CLASS = Device::class;
 }

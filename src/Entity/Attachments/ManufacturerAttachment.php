@@ -42,13 +42,5 @@ class ManufacturerAttachment extends Attachment
      */
     protected $element;
 
-    public function setElement(AttachmentContainingDBElement $element): Attachment
-    {
-        if (!$element instanceof Manufacturer) {
-            throw new \InvalidArgumentException('The element associated with a ManufacturerAttachment must be a Manufacturer!');
-        }
-
-        $this->element = $element;
-        return $this;
-    }
+    public const ALLOWED_ELEMENT_CLASS = Manufacturer::class;
 }

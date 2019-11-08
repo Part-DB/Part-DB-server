@@ -42,13 +42,5 @@ class CategoryAttachment extends Attachment
      */
     protected $element;
 
-    public function setElement(AttachmentContainingDBElement $element): Attachment
-    {
-        if (!$element instanceof Category) {
-            throw new \InvalidArgumentException('The element associated with a CategoryAttachment must be a Category!');
-        }
-
-        $this->element = $element;
-        return $this;
-    }
+    public const ALLOWED_ELEMENT_CLASS = Category::class;
 }

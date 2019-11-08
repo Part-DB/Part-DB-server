@@ -45,13 +45,5 @@ class SupplierAttachment extends Attachment
      */
     protected $element;
 
-    public function setElement(AttachmentContainingDBElement $element): Attachment
-    {
-        if (!$element instanceof Supplier) {
-            throw new \InvalidArgumentException('The element associated with a SupplierAttachment must be a Supplier!');
-        }
-
-        $this->element = $element;
-        return $this;
-    }
+    public const ALLOWED_ELEMENT_CLASS = Supplier::class;
 }

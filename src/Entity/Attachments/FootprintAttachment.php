@@ -42,13 +42,5 @@ class FootprintAttachment extends Attachment
      */
     protected $element;
 
-    public function setElement(AttachmentContainingDBElement $element): Attachment
-    {
-        if (!$element instanceof Footprint) {
-            throw new \InvalidArgumentException('The element associated with a FootprintAttachment must be a Footprint!');
-        }
-
-        $this->element = $element;
-        return $this;
-    }
+    public const ALLOWED_ELEMENT_CLASS = Footprint::class;
 }

@@ -44,6 +44,7 @@ declare(strict_types=1);
 namespace App\Entity\Attachments;
 
 use App\Entity\Base\NamedDBElement;
+use App\Entity\Parts\Category;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -74,7 +75,7 @@ abstract class Attachment extends NamedDBElement
      * It will be used to determine if a attachment is a picture and therefore will be shown to user as preview.
      */
     public const PICTURE_EXTS = ['apng', 'bmp', 'gif', 'ico', 'cur', 'jpg', 'jpeg', 'jfif', 'pjpeg', 'pjp', 'png',
-                            'svg', 'webp'];
+        'svg', 'webp'];
 
     /**
      * A list of extensions that will be treated as a 3D Model that can be shown to user directly in Part-DB.
@@ -119,6 +120,19 @@ abstract class Attachment extends NamedDBElement
      * @Selectable()
      */
     protected $attachment_type;
+
+    /**
+     * @var string The class of the element that can be passed to this attachment. Must be overriden in subclasses.
+     */
+    public const ALLOWED_ELEMENT_CLASS = '';
+
+    public function __construct()
+    {
+        //parent::__construct();
+        if (static::ALLOWED_ELEMENT_CLASS === '') {
+            throw new \LogicException('An *Attachment class must override the ALLOWED_ELEMENT_CLASS const!');
+        }
+    }
 
     /***********************************************************
      * Various function
@@ -367,7 +381,19 @@ abstract class Attachment extends NamedDBElement
         return $this;
     }
 
-    abstract public function setElement(AttachmentContainingDBElement $element) : Attachment;
+    public function setElement(AttachmentContainingDBElement $element) : Attachment
+    {
+        if (!is_a($element,static::ALLOWED_ELEMENT_CLASS)) {
+            throw new \InvalidArgumentException(sprintf(
+                'The element associated with a %s must be a %s!',
+                get_class($this),
+                static::ALLOWED_ELEMENT_CLASS
+            ));
+        }
+
+        $this->element = $element;
+        return $this;
+    }
 
     /**
      * @param string $path

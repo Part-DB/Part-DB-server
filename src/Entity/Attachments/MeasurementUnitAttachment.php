@@ -43,13 +43,5 @@ class MeasurementUnitAttachment extends Attachment
      */
     protected $element;
 
-    public function setElement(AttachmentContainingDBElement $element): Attachment
-    {
-        if (!$element instanceof MeasurementUnit) {
-            throw new \InvalidArgumentException('The element associated with a MeasurementUnitAttachmentAttachment must be a MeasurementUnit!');
-        }
-
-        $this->element = $element;
-        return $this;
-    }
+    public const ALLOWED_ELEMENT_CLASS = MeasurementUnit::class;
 }

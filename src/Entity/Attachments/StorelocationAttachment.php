@@ -28,6 +28,7 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Storelocation;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpKernel\HttpCache\Store;
 
 /**
  * A attachment attached to a measurement unit element.
@@ -44,13 +45,5 @@ class StorelocationAttachment extends Attachment
      */
     protected $element;
 
-    public function setElement(AttachmentContainingDBElement $element): Attachment
-    {
-        if (!$element instanceof Storelocation) {
-            throw new \InvalidArgumentException('The element associated with a StorelocationAttachment must be a Storelocation!');
-        }
-
-        $this->element = $element;
-        return $this;
-    }
+    public const ALLOWED_ELEMENT_CLASS = Storelocation::class;
 }

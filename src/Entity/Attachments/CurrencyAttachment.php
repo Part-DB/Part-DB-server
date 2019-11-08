@@ -46,13 +46,5 @@ class CurrencyAttachment extends Attachment
      */
     protected $element;
 
-    public function setElement(AttachmentContainingDBElement $element): Attachment
-    {
-        if (!$element instanceof Currency) {
-            throw new \InvalidArgumentException('The element associated with a CurrencyAttachment must be a Currency!');
-        }
-
-        $this->element = $element;
-        return $this;
-    }
+    public const ALLOWED_ELEMENT_CLASS = Currency::class;
 }

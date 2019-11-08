@@ -47,13 +47,5 @@ class UserAttachment extends Attachment
      */
     protected $element;
 
-    public function setElement(AttachmentContainingDBElement $element): Attachment
-    {
-        if (!$element instanceof User) {
-            throw new \InvalidArgumentException('The element associated with a UserAttachment must be a User!');
-        }
-
-        $this->element = $element;
-        return $this;
-    }
+    public const ALLOWED_ELEMENT_CLASS = User::class;
 }

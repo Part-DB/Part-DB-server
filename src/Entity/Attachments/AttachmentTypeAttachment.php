@@ -40,13 +40,5 @@ class AttachmentTypeAttachment extends Attachment
      */
     protected $element;
 
-    public function setElement(AttachmentContainingDBElement $element): Attachment
-    {
-        if (!$element instanceof AttachmentType) {
-            throw new \InvalidArgumentException('The element associated with a AttachmentTypeAttachment must be an AttachmentType!');
-        }
-
-        $this->element = $element;
-        return $this;
-    }
+    public const ALLOWED_ELEMENT_CLASS =  AttachmentType::class;
 }

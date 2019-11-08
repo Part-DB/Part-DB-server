@@ -20,16 +20,113 @@
  *
  */
 
-namespace App\Tests\Entity;
+namespace App\Tests\Entity\Attachments;
 
 
 use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentType;
+use App\Entity\Attachments\AttachmentTypeAttachment;
+use App\Entity\Attachments\CategoryAttachment;
+use App\Entity\Attachments\CurrencyAttachment;
+use App\Entity\Attachments\DeviceAttachment;
+use App\Entity\Attachments\FootprintAttachment;
+use App\Entity\Attachments\GroupAttachment;
+use App\Entity\Attachments\ManufacturerAttachment;
+use App\Entity\Attachments\MeasurementUnitAttachment;
 use App\Entity\Attachments\PartAttachment;
+use App\Entity\Attachments\StorelocationAttachment;
+use App\Entity\Attachments\SupplierAttachment;
+use App\Entity\Attachments\UserAttachment;
+use App\Entity\Devices\Device;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Footprint;
+use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\MeasurementUnit;
+use App\Entity\Parts\Part;
+use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\Supplier;
+use App\Entity\PriceInformations\Currency;
+use App\Entity\UserSystem\Group;
+use App\Entity\UserSystem\User;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
+use Symfony\Component\HttpKernel\HttpCache\Store;
 
 class AttachmentTest extends TestCase
 {
+    public function testEmptyState() : void
+    {
+        $attachment = new PartAttachment();
+
+        $this->assertNull($attachment->getAttachmentType());
+        $this->assertFalse($attachment->isPicture());
+        $this->assertFalse($attachment->isExternal());
+        $this->assertFalse($attachment->isSecure());
+        $this->assertFalse($attachment->isBuiltIn());
+        $this->assertFalse($attachment->is3DModel());
+        $this->assertFalse($attachment->getShowInTable());
+        $this->assertEmpty($attachment->getPath());
+        $this->assertEmpty($attachment->getName());
+        $this->assertEmpty($attachment->getURL());
+        $this->assertEmpty($attachment->getExtension());
+        $this->assertNull($attachment->getElement());
+        $this->assertEmpty($attachment->getFilename());
+    }
+
+    public function subClassesDataProvider() : array
+    {
+        return [
+            [AttachmentTypeAttachment::class, AttachmentType::class],
+            [CategoryAttachment::class, Category::class],
+            [CurrencyAttachment::class, Currency::class],
+            [DeviceAttachment::class, Device::class],
+            [FootprintAttachment::class, Footprint::class],
+            [GroupAttachment::class, Group::class],
+            [ManufacturerAttachment::class, Manufacturer::class],
+            [MeasurementUnitAttachment::class, MeasurementUnit::class],
+            [PartAttachment::class, Part::class],
+            [StorelocationAttachment::class, Storelocation::class],
+            [SupplierAttachment::class, Supplier::class],
+            [UserAttachment::class, User::class]
+        ];
+    }
+
+    /**
+     * @dataProvider subClassesDataProvider
+     * @param string $attachment_class
+     * @param string $allowed_class
+     */
+    public function testSetElement(string $attachment_class, string $allowed_class) : void
+    {
+        /** @var Attachment $attachment */
+        $attachment = new $attachment_class();
+        $element = new $allowed_class();
+
+        //This must not throw an exception
+        $attachment->setElement($element);
+        $this->assertEquals($element, $attachment->getElement());
+    }
+
+    /**
+     * Test that all attachment subclasses like PartAttachment or similar returns an exception, when an not allowed
+     * element is passed.
+     * @dataProvider subClassesDataProvider
+     * @depends  testSetElement
+     */
+    public function testSetElementExceptionOnSubClasses(string $attachment_class, string $allowed_class) : void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        /** @var Attachment $attachment */
+        $attachment = new $attachment_class();
+        if ($allowed_class !== Device::class) {
+            $element = new Device();
+        } else {
+            $element = new Category();
+        }
+        $attachment->setElement($element);
+    }
+
     public function externalDataProvider()
     {
         return [
