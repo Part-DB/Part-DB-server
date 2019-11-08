@@ -73,15 +73,11 @@ abstract class NamedDBElement extends DBElement
      *********************************************************************************/
 
     /**
-     * Get the name.
-     *
+     * Get the name of this element
      * @return string the name of this element
      */
     public function getName(): string
     {
-        /*
-        //Strip HTML from Name, so no XSS injection is possible.
-        return strip_tags($this->name); */
         return $this->name;
     }
 
@@ -94,12 +90,7 @@ abstract class NamedDBElement extends DBElement
     /**
      * Change the name of this element.
      *
-     *     Spaces at the begin and at the end of the string will be removed
-     *          automatically in NamedDBElement::check_values_validity().
-     *          So you don't have to do this yourself.
-     *
      * @param string $new_name the new name
-     *
      * @return self
      */
     public function setName(string $new_name): self
@@ -114,8 +105,6 @@ abstract class NamedDBElement extends DBElement
      * Helpers
      *
      ******************************************************************************/
-
-
 
     public function __toString()
     {

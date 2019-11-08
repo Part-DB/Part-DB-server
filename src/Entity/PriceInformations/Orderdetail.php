@@ -138,9 +138,9 @@ class Orderdetail extends DBElement
     /**
      * Get the part.
      *
-     * @return Part the part of this orderdetails
+     * @return Part|null the part of this orderdetails
      */
-    public function getPart(): Part
+    public function getPart(): ?Part
     {
         return $this->part;
     }
@@ -235,12 +235,13 @@ class Orderdetail extends DBElement
     }
 
     /**
-     * Get the pricedetail for a specific quantity.
+     * Find the pricedetail that is correct for the desired amount (the one with the greatest discount value with a
+     * minimum order amount of the wished quantity)
      * @param float     $quantity        this is the quantity to choose the correct pricedetails
      *
      * @return Pricedetail|null: the price as a bcmath string. Null if there are no orderdetails for the given quantity
      */
-    public function getPrice(float $quantity = 1) : ?Pricedetail
+    public function findPriceForQty(float $quantity = 1) : ?Pricedetail
     {
         if ($quantity <= 0) {
             return null;

@@ -406,12 +406,11 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     public function getFullName(bool $including_username = false): string
     {
-        $str = $this->getFirstName().' '.$this->getLastName();
         if ($including_username) {
-            $str .= ' ('.$this->getName().')';
+            return sprintf('%s %s (%s)', $this->getFirstName(), $this->getLastName(), $this->getName());
         }
 
-        return $str;
+        return sprintf('%s %s', $this->getFirstName(), $this->getLastName());
     }
 
     public function setName(string $new_name): NamedDBElement

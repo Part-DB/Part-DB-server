@@ -35,7 +35,7 @@ use Doctrine\Common\Collections\Collection;
 trait InstockTrait
 {
     /**
-     * @var ?PartLot[]|Collection A list of part lots where this part is stored
+     * @var Collection|PartLot[] A list of part lots where this part is stored
      * @ORM\OneToMany(targetEntity="PartLot", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      * @ColumnSecurity(type="collection", prefix="lots")
@@ -146,6 +146,7 @@ trait InstockTrait
 
     /**
      * Returns the summed amount of this part (over all part lots)
+     * Part Lots that have unknown value or are expired, are not used for this value
      * @return float The amount of parts given in partUnit
      */
     public function getAmountSum() : float
@@ -154,7 +155,7 @@ trait InstockTrait
         $sum = 0;
         foreach ($this->getPartLots() as $lot) {
             //Dont use the instock value, if it is unkown
-            if ($lot->isInstockUnknown()) {
+            if ($lot->isInstockUnknown() || $lot->isExpired() ?? false) {
                 continue;
             }
 

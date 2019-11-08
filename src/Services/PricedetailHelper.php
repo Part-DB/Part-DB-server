@@ -147,7 +147,7 @@ class PricedetailHelper
 
         //Find the price for the amount, for the given
         foreach ($orderdetails as $orderdetail) {
-            $pricedetail = $orderdetail->getPrice($amount);
+            $pricedetail = $orderdetail->findPriceForQty($amount);
 
             //When we dont have informations about this amount, ignore it
             if ($pricedetail === null) {

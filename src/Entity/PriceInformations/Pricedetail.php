@@ -130,23 +130,13 @@ class Pricedetail extends DBElement
      *********************************************************************************/
 
     /**
-     * Get the orderdetails of this pricedetails.
+     * Get the orderdetail to which this pricedetail belongs to this pricedetails.
      *
-     * @return Orderdetail the orderdetails object
+     * @return Orderdetail The orderdetail this price belongs to.
      */
-    public function getOrderdetails(): Orderdetail
+    public function getOrderdetail(): Orderdetail
     {
         return $this->orderdetail;
-    }
-
-    /**
-     * Returns the price associated with this pricedetail.
-     * It is given in current currency and for the price related quantity.
-     * @return float
-     */
-    public function getPriceFloat() : float
-    {
-        return (float) $this->price;
     }
 
     /**
@@ -160,16 +150,6 @@ class Pricedetail extends DBElement
     }
 
     /**
-     * Returns the price associated with this pricedetail as integer.
-     * It is given in current currency and for the price related quantity, in parts of 0.00001 (5 digits)
-     * @return int
-     */
-    public function getPriceInt() : int
-    {
-        return (int) str_replace('.', '', $this->price);
-    }
-
-    /**
      * Get the price for a single unit in the currency associated with this price detail.
      *
      * @param float|string $multiplier      The returned price (float or string) will be multiplied
@@ -179,7 +159,6 @@ class Pricedetail extends DBElement
      *          in the database, you have to pass the "price_related_quantity" count as $multiplier.
      *
      * @return string  the price as a bcmath string
-
      */
     public function getPricePerUnit($multiplier = 1.0) : string
     {
@@ -201,7 +180,7 @@ class Pricedetail extends DBElement
      */
     public function getPriceRelatedQuantity(): float
     {
-        if ($this->orderdetail && $this->orderdetail->getPart() && !$this->orderdetail->getPart()->useFloatAmount()) {
+        if ($this->orderdetail  && $this->orderdetail->getPart() && !$this->orderdetail->getPart()->useFloatAmount()) {
             $tmp = round($this->price_related_quantity);
             return $tmp < 1 ? 1 : $tmp;
         }

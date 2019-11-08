@@ -116,7 +116,6 @@ class PartLot extends DBElement
      * Check if the current part lot is expired.
      * This is the case, if the expiration date is greater the the current date.
      * @return bool|null True, if the part lot is expired. Returns null, if no expiration date was set.
-     * @throws \Exception
      */
     public function isExpired(): ?bool
     {
@@ -125,7 +124,7 @@ class PartLot extends DBElement
         }
 
         //Check if the expiration date is bigger then current time
-        return $this->expiration_date < new \DateTime();
+        return $this->expiration_date < new \DateTime('now');
     }
 
     /**

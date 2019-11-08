@@ -20,7 +20,7 @@
  *
  */
 
-namespace App\Tests\Entity;
+namespace App\Tests\Entity\UserSystem;
 
 use App\Entity\UserSystem\PermissionsEmbed;
 use Doctrine\ORM\Mapping\Embedded;

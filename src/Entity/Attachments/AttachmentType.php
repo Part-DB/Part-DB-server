@@ -87,19 +87,20 @@ class AttachmentType extends StructuralDBElement
      */
     protected $filetype_filter = "";
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->attachments = new ArrayCollection();
+    }
+
     /**
-     * Get all attachements ("Attachement" objects) with this type.
+     * Get all attachments ("Attachment" objects) with this type.
      *
-     * @return Collection|Attachment[] all attachements with this type, as a one-dimensional array of Attachement-objects
+     * @return Collection|Attachment[] all attachements with this type, as a one-dimensional array of Attachements
      *                      (sorted by their names)
      */
-    public function getAttachementsForType(): Collection
+    public function getAttachmentsForType(): Collection
     {
-        // the attribute $this->attachements is used from class "AttachementsContainingDBELement"
-        if (null === $this->attachments) {
-            $this->attachments = new ArrayCollection();
-        }
-
         return $this->attachments;
     }
 
