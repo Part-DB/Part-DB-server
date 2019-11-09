@@ -1,6 +1,7 @@
-filter:
-  excluded_pathes:
-    - "public/"
-    - "assets/js/datatables.js"
-    - "assets/js/tagsinput.js"
-    - "assets/js/jquery.tristate.js"
+build:
+  filter:
+    excluded_pathes:
+      - "public/"
+      - "assets/js/datatables.js"
+      - "assets/js/tagsinput.js"
+      - "assets/js/jquery.tristate.js"
