@@ -21,6 +21,7 @@
 
 namespace App\Services;
 
+use App\Entity\Base\DBElement;
 use App\Entity\Base\StructuralDBElement;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\File;
@@ -44,7 +45,7 @@ class EntityImporter
     protected function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-           'csv_separator' => ';',
+            'csv_separator' => ';',
             'format' => 'json',
             'preserve_children' => true,
             'parent' => null,
@@ -53,24 +54,37 @@ class EntityImporter
     }
 
     /**
-     * Creates many entries at once, based on a (text) list of names.
+     * Creates many entries at once, based on a (text) list of name.
+     * The created enties are not persisted to database yet, so you have to do it yourself.
      *
      * @param string                   $lines      The list of names seperated by \n
      * @param string                   $class_name The name of the class for which the entities should be created
      * @param StructuralDBElement|null $parent     The element which will be used as parent element for new elements.
+     * @param array                    $errors     An associative array containing all validation errors.
      *
-     * @return array An associative array containing an ConstraintViolationList and the entity name as key are returned,
-     *               if an error happened during validation. When everything was successfull, the array should be empty.
+     * @return StructuralDBElement[]  An array containing all valid imported entities (with the type $class_name)
      */
-    public function massCreation(string $lines, string $class_name, ?StructuralDBElement $parent): array
+    public function massCreation(string $lines, string $class_name, ?StructuralDBElement $parent = null, array &$errors = []): array
     {
         //Expand every line to a single entry:
         $names = explode("\n", $lines);
 
+        if (!is_a($class_name, StructuralDBElement::class, true)) {
+            throw new \InvalidArgumentException('$class_name must be a StructuralDBElement type!');
+        }
+        if ($parent !== null && !is_a($parent, $class_name)) {
+            throw new \InvalidArgumentException('$parent must have the same type as specified in $class_name!');
+        }
+
         $errors = [];
+        $valid_entities = [];
 
         foreach ($names as $name) {
             $name = trim($name);
+            if ($name === '') {
+                //Skip empty lines (StrucuralDBElements must have a name)
+                continue;
+            }
             /** @var $entity StructuralDBElement */
             //Create new element with given name
             $entity = new $class_name();
@@ -81,17 +95,13 @@ class EntityImporter
             $tmp = $this->validator->validate($entity);
             //If no error occured, write entry to DB:
             if (0 === \count($tmp)) {
-                $this->em->persist($entity);
+                $valid_entities[] = $entity;
             } else { //Otherwise log error
-                dump($tmp);
-                $errors[$entity->getFullPath()] = $tmp;
+                $errors[] = ['entity' => $entity, 'violations' => $tmp];
             }
         }
 
-        //Save changes to database
-        $this->em->flush();
-
-        return $errors;
+        return $valid_entities;
     }
 
     /**

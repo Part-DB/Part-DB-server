@@ -199,16 +199,21 @@ abstract class BaseAdminController extends AbstractController
         if ($mass_creation_form->isSubmitted() && $mass_creation_form->isValid()) {
             $data = $mass_creation_form->getData();
 
-            dump($data);
-
             //Create entries based on input
-            $errors = $importer->massCreation($data['lines'], $this->entity_class, $data['parent']);
+            $errors = [];
+            $results = $importer->massCreation($data['lines'], $this->entity_class, $data['parent'], $errors);
 
             //Show errors to user:
-            foreach ($errors as $name => $error) {
-                /* @var $error ConstraintViolationList */
-                $this->addFlash('error', $name.':'.$error);
+            foreach ($errors as $error) {
+                dump($error);
+                $this->addFlash('error', $error['entity']->getFullPath().':'.$error['violations']);
             }
+
+            //Persist valid entities to DB
+            foreach ($results as $result) {
+                $em->persist($result);
+            }
+            $em->flush();
         }
 
         return $this->render($this->twig_template, [

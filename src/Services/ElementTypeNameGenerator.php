@@ -111,14 +111,15 @@ class ElementTypeNameGenerator
      * @param bool           $use_html If set to true, a html string is returned, where the type is set italic
      *
      * @return string The localized string
+     * @throws EntityNotSupportedException When the passed entity is not supported.
      */
     public function getTypeNameCombination(NamedDBElement $entity, bool $use_html = false): string
     {
         $type = $this->getLocalizedTypeLabel($entity);
         if ($use_html) {
-            return '<i>'.$type.':</i> '.$entity->getName();
+            return '<i>'.$type.':</i> '.htmlspecialchars($entity->getName());
         }
 
-        return $type.': '.htmlspecialchars($entity->getName());
+        return $type.': '.$entity->getName();
     }
 }
