@@ -38,7 +38,7 @@ class PartAttachmentsColumn extends AbstractColumn
     protected $FAIconGenerator;
     protected $urlGenerator;
 
-    public function __construct(FAIconGenerator $FAIconGenerator, AttachmentURLGenerator $urlGenerator)
+    public function __construct(FAIconGenerator $FAIconGenerator, EntityURLGenerator $urlGenerator)
     {
         $this->FAIconGenerator = $FAIconGenerator;
         $this->urlGenerator = $urlGenerator;
@@ -74,7 +74,7 @@ class PartAttachmentsColumn extends AbstractColumn
             /** @var Attachment $attachment */
             $tmp .= sprintf(
                 '<a href="%s" title="%s" class="attach-table-icon" target="_blank" rel="noopener" data-no-ajax>%s</a>',
-                $this->urlGenerator->getViewURL($attachment),
+                $this->urlGenerator->viewURL($attachment),
                 htmlspecialchars($attachment->getName()) . ': ' . htmlspecialchars($attachment->getFilename()),
                 $this->FAIconGenerator->generateIconHTML(
                     $this->FAIconGenerator->fileExtensionToFAType($attachment->getExtension()),
