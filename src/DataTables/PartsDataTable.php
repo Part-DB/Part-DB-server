@@ -33,6 +33,7 @@ use App\Services\AmountFormatter;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\EntityURLGenerator;
+use App\Services\FAIconGenerator;
 use App\Services\TreeBuilder;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
@@ -58,7 +59,8 @@ class PartsDataTable implements DataTableTypeInterface
 
     public function __construct(EntityURLGenerator $urlGenerator, TranslatorInterface $translator,
                                 TreeBuilder $treeBuilder, AmountFormatter $amountFormatter,
-                                PartPreviewGenerator $previewGenerator, AttachmentURLGenerator $attachmentURLGenerator)
+                                PartPreviewGenerator $previewGenerator, AttachmentURLGenerator $attachmentURLGenerator,
+                                FAIconGenerator $FAIconGenerator)
     {
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;

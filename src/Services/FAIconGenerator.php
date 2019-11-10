@@ -1,0 +1,88 @@
+<?php
+/**
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
+ *
+ * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
+ */
+
+namespace App\Services;
+
+
+use App\Entity\Attachments\Attachment;
+
+class FAIconGenerator
+{
+    protected const EXT_MAPPING = [
+        'fa-file-pdf' => ['pdf'],
+        'fa-file-image' => Attachment::PICTURE_EXTS,
+        'fa-file-alt' => ['txt', 'md', 'rtf', 'log', 'rst', 'tex'],
+        'fa-file-csv' => ['csv'],
+        'fa-file-word' => ['doc', 'docx', 'odt'],
+        'fa-file-archive' => ['zip', 'rar', 'bz2', 'tar', '7z', 'gz'],
+        'fa-file-audio' => ['mp3', 'wav', 'aac', 'm4a', 'wma'],
+        'fa-file-powerpoint' => ['ppt', 'pptx', 'odp', 'pps', 'key'],
+        'fa-file-excel' => ['xls', 'xlr', 'xlsx', 'ods'],
+        'fa-file-code' => ['php', 'xml', 'html', 'js', 'ts', 'htm', 'c', 'cpp'],
+        'fa-file-video' => ['webm', 'avi', 'mp4', 'mkv', 'wmv'],
+    ];
+
+    /**
+     * Gets the Font awesome icon class for a file with the specified extension.
+     * For example 'pdf' gives you 'fa-file-pdf'
+     * @param string $extension The file extension (without dot). Must be ASCII chars only!
+     * @return string The fontawesome class with leading 'fa-'
+     */
+    public function fileExtensionToFAType(string $extension) : string
+    {
+        if ($extension === '') {
+            throw new \InvalidArgumentException('You must specify an extension!');
+        }
+        //Normalize file extension
+        $extension = strtolower($extension);
+        foreach (self::EXT_MAPPING as $fa => $exts) {
+            if (in_array($extension, $exts, true)) {
+                return $fa;
+            }
+        }
+
+        // When the extension is not found in the mapping array, we return the generic icon
+        return 'fa-file';
+    }
+
+    /**
+     * Returns HTML code to show the given fontawesome icon.
+     * E.g. <i class="fas fa-file-text"></i>
+     * @param string $icon_class The icon which should be shown (e.g. fa-file-text)
+     * @param string $style The style of the icon 'fas'
+     * @param string $options Any other css class attributes like size, etc.
+     * @return string The final html
+     */
+    public function generateIconHTML(string $icon_class, string $style = 'fas', string $options = '') : string
+    {
+        //XSS protection
+        $icon_class = htmlspecialchars($icon_class);
+        $style = htmlspecialchars($style);
+        $options = htmlspecialchars($options);
+
+        return sprintf(
+            '<i class="%s %s %s"></i>',
+            $style,
+            $icon_class,
+            $options
+        );
+    }
+}

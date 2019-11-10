@@ -27,6 +27,7 @@ use App\Entity\PriceInformations\Currency;
 use App\Services\AmountFormatter;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\EntityURLGenerator;
+use App\Services\FAIconGenerator;
 use App\Services\MarkdownParser;
 use App\Services\MoneyFormatter;
 use App\Services\SIFormatter;
@@ -47,12 +48,14 @@ class AppExtension extends AbstractExtension
     protected $siformatter;
     protected $amountFormatter;
     protected $attachmentURLGenerator;
+    protected $FAIconGenerator;
 
     public function __construct(EntityURLGenerator $entityURLGenerator, MarkdownParser $markdownParser,
                                 SerializerInterface $serializer, TreeBuilder $treeBuilder,
                                 MoneyFormatter $moneyFormatter,
                                 SIFormatter $SIFormatter, AmountFormatter $amountFormatter,
-                                AttachmentURLGenerator $attachmentURLGenerator)
+                                AttachmentURLGenerator $attachmentURLGenerator,
+                                FAIconGenerator $FAIconGenerator)
     {
         $this->entityURLGenerator = $entityURLGenerator;
         $this->markdownParser = $markdownParser;
@@ -62,6 +65,7 @@ class AppExtension extends AbstractExtension
         $this->siformatter = $SIFormatter;
         $this->amountFormatter = $amountFormatter;
         $this->attachmentURLGenerator = $attachmentURLGenerator;
+        $this->FAIconGenerator = $FAIconGenerator;
     }
 
     public function getFilters()
@@ -90,6 +94,7 @@ class AppExtension extends AbstractExtension
         return [
             new TwigFunction('generateTreeData', [$this, 'treeData']),
             new TwigFunction('attachment_thumbnail', [$this->attachmentURLGenerator, 'getThumbnailURL']),
+            new TwigFunction('ext_to_fa_icon', [$this->FAIconGenerator, 'fileExtensionToFAType']),
         ];
     }
 
