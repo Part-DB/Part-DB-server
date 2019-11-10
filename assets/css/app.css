@@ -689,6 +689,9 @@ table.dataTable {
 .attach-table-icon:hover {
     color: var(--gray-dark);
 }
+.badge-table {
+    margin-right: 0.2em;
+}
 
 /*********************************
     Workarounds

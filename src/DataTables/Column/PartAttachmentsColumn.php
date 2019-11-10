@@ -68,14 +68,14 @@ class PartAttachmentsColumn extends AbstractColumn
         $count = 5;
         foreach ($attachments as $attachment) {
             //Only show the first 5 attachments
-            if (--$count <= 0) {
-                continue;
+            if (--$count < 0) {
+                break;
             }
             /** @var Attachment $attachment */
             $tmp .= sprintf(
                 '<a href="%s" title="%s" class="attach-table-icon" target="_blank" rel="noopener" data-no-ajax>%s</a>',
                 $this->urlGenerator->getViewURL($attachment),
-                $attachment->getName() . ': ' . $attachment->getFilename(),
+                htmlspecialchars($attachment->getName()) . ': ' . htmlspecialchars($attachment->getFilename()),
                 $this->FAIconGenerator->generateIconHTML(
                     $this->FAIconGenerator->fileExtensionToFAType($attachment->getExtension()),
                     'fas',

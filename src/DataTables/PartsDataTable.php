@@ -24,6 +24,7 @@ namespace App\DataTables;
 use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\PartAttachmentsColumn;
+use App\DataTables\Column\TagsColumn;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -273,7 +274,7 @@ class PartsDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.mass'),
                 'visible' => false,
             ])
-            ->add('tags', TextColumn::class, [
+            ->add('tags', TagsColumn::class, [
                 'label' => $this->translator->trans('part.table.tags'),
                 'visible' => false,
             ])
