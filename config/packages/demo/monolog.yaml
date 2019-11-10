@@ -10,6 +10,7 @@ monolog:
             type: stream
             path: "php://stderr"
             level: debug
+            include_stacktraces: true
         console:
             type: console
             process_psr_3_messages: false
