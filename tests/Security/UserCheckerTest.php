@@ -19,34 +19,34 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\Repository;
+namespace App\Tests\Security;
+
 
 use App\Entity\UserSystem\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use App\Security\UserChecker;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Security\Core\Exception\DisabledException;
 
-/**
- * @method User|null find($id, $lockMode = null, $lockVersion = null)
- * @method User|null findOneBy(array $criteria, array $orderBy = null)
- * @method User[]    findAll()
- * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-class UserRepository extends ServiceEntityRepository
+class UserCheckerTest extends TestCase
 {
-    public function __construct(RegistryInterface $registry)
+    protected $service;
+
+    public function setUp()
     {
-        parent::__construct($registry, User::class);
+        $this->service = new UserChecker();
     }
 
-    /**
-     * Returns the anonymous user.
-     *
-     * @return User|null
-     */
-    public function getAnonymousUser()
+    public function testThrowDisabledException()
     {
-        return $this->findOneBy([
-                'id' => User::ID_ANONYMOUS,
-            ]);
+        $user = new User();
+        $user->setDisabled(false);
+
+        //An user that is not disabled should not throw an exception
+        $this->service->checkPostAuth($user);
+
+        //An disabled user must throw an exception
+        $user->setDisabled(true);
+        $this->expectException(DisabledException::class);
+        $this->service->checkPostAuth($user);
     }
 }

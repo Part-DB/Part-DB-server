@@ -30,11 +30,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserChecker implements UserCheckerInterface
 {
-    protected $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct()
     {
-        $this->translator = $translator;
+
     }
 
     /**

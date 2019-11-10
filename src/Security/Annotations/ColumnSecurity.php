@@ -89,8 +89,9 @@ class ColumnSecurity
             if ($object instanceof NamedDBElement) {
                 if (\is_string($this->placeholder) && '' !== $this->placeholder) {
                     $object->setName($this->placeholder);
+                } else {
+                    $object->setName('???');
                 }
-                $object->setName('???');
             }
 
             return $object;
@@ -99,6 +100,7 @@ class ColumnSecurity
         if (null === $this->placeholder) {
             switch ($this->type) {
                 case 'integer':
+                case 'int':
                     return 0;
                 case 'float':
                     return 0.0;
@@ -109,11 +111,10 @@ class ColumnSecurity
                 case 'collection':
                     return new ArrayCollection();
                 case 'boolean':
+                case 'bool':
                     return false;
                 case 'datetime':
-                    $date = new \DateTime();
-
-                    return $date->setTimestamp(0);
+                    return (new \DateTime())->setTimestamp(0);
                 default:
                     throw new InvalidArgumentException('Unknown type! You have to specify a placeholder!');
             }
