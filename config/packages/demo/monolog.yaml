@@ -5,6 +5,7 @@ monolog:
             action_level: error
             handler: nested
             excluded_http_codes: [404, 405]
+            include_stacktraces: true
         nested:
             type: stream
             path: "php://stderr"
