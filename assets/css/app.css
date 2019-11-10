@@ -679,6 +679,16 @@ table.dataTable {
 }
 
 
+/*******************************
+    Parts datatable styling
+ ******************************/
+.attach-table-icon {
+    margin-right: 0.7em;
+    color: var(--gray);
+}
+.attach-table-icon:hover {
+    color: var(--gray-dark);
+}
 
 /*********************************
     Workarounds

@@ -23,6 +23,8 @@ namespace App\DataTables;
 
 use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
+use App\DataTables\Column\PartAttachmentsColumn;
+use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -44,6 +46,7 @@ use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use function foo\func;
 
 class PartsDataTable implements DataTableTypeInterface
 {
@@ -59,8 +62,7 @@ class PartsDataTable implements DataTableTypeInterface
 
     public function __construct(EntityURLGenerator $urlGenerator, TranslatorInterface $translator,
                                 TreeBuilder $treeBuilder, AmountFormatter $amountFormatter,
-                                PartPreviewGenerator $previewGenerator, AttachmentURLGenerator $attachmentURLGenerator,
-                                FAIconGenerator $FAIconGenerator)
+                                PartPreviewGenerator $previewGenerator, AttachmentURLGenerator $attachmentURLGenerator)
     {
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
@@ -273,6 +275,10 @@ class PartsDataTable implements DataTableTypeInterface
             ])
             ->add('tags', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.tags'),
+                'visible' => false,
+            ])
+            ->add('attachments', PartAttachmentsColumn::class, [
+                'label' => $this->translator->trans('part.table.attachments'),
                 'visible' => false,
             ])
 

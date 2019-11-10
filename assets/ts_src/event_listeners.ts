@@ -116,7 +116,7 @@ $(document).on("ajaxUI:reload", function () {
 });
 
 //Use bootstrap tooltips for the most tooltips
-$(document).on("ajaxUI:start ajaxUI:reload", function () {
+$(document).on("ajaxUI:start ajaxUI:reload ajaxUI:dt_loaded", function () {
     $(".tooltip").remove();
     $('a[title], button[title], span[title], h6[title], i.fas[title]')
     //@ts-ignore

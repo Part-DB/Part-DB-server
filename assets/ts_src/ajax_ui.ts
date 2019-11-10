@@ -526,13 +526,12 @@ class AjaxUI {
                 $(document).trigger('ajaxUI:dt_loaded');
 
                 //Attach event listener to update links after new page selection:
-                $('#dt').on('draw.dt', function() {
+                $('#dt').on('draw.dt column-visibility.dt', function() {
                     ajaxUI.registerLinks();
                     $(document).trigger('ajaxUI:dt_loaded');
                 });
             });
         });
-
 
         console.debug('Datatables inited.');
     }
