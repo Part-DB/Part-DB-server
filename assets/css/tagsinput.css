@@ -41,7 +41,7 @@
   box-shadow: none;
 }
 .bootstrap-tagsinput .badge {
-  margin: 2px 0;
+  margin: 2px 0.2em;
   padding:5px 8px;
 }
 .bootstrap-tagsinput .badge [data-role="remove"] {
