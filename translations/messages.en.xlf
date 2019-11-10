@@ -777,32 +777,32 @@ Subelements will be moved upwards.]]></target>
       </trans-unit>
       <trans-unit id="6IyG_kn" resname="Success Flash Message!">
         <source>Success Flash Message!</source>
-        <target/>
+        <target></target>
         <note priority="1">src\Controller\DebugController.php:45</note>
       </trans-unit>
       <trans-unit id="Efur0Zp" resname="Error Flash Message!">
         <source>Error Flash Message!</source>
-        <target/>
+        <target></target>
         <note priority="1">src\Controller\DebugController.php:46</note>
       </trans-unit>
       <trans-unit id="BRCmXY4" resname="Warning Flash Message!">
         <source>Warning Flash Message!</source>
-        <target/>
+        <target></target>
         <note priority="1">src\Controller\DebugController.php:47</note>
       </trans-unit>
       <trans-unit id="Upm6RvH" resname="Notice Flash Message!">
         <source>Notice Flash Message!</source>
-        <target/>
+        <target></target>
         <note priority="1">src\Controller\DebugController.php:48</note>
       </trans-unit>
       <trans-unit id="p1634fX" resname="Info Flash Message! &lt;b&gt;Test&lt;/b&gt;">
         <source>Info Flash Message! &lt;b&gt;Test&lt;/b&gt;</source>
-        <target/>
+        <target></target>
         <note priority="1">src\Controller\DebugController.php:49</note>
       </trans-unit>
       <trans-unit id="UJki1El" resname="Blabla. This message type should be not know to template!">
         <source>Blabla. This message type should be not know to template!</source>
-        <target/>
+        <target></target>
         <note priority="1">src\Controller\DebugController.php:51</note>
       </trans-unit>
       <trans-unit id="6xOvKkk" resname="part.edited_flash">
@@ -2413,10 +2413,14 @@ Element 3</target>
         <source>user.permissions</source>
         <target>Permissions</target>
       </trans-unit>
-     <trans-unit id="" resname="user.settings.pw_old.label">
-             <source>user.settings.pw_old.label</source>
-             <target>Altes Passwort</target>
-           </trans-unit>
+      <trans-unit id="ZrVNh2o" resname="user.settings.pw_old.label">
+        <source>user.settings.pw_old.label</source>
+        <target>Altes Passwort</target>
+      </trans-unit>
+      <trans-unit id="gGfALE0" resname="part.table.attachments">
+        <source>part.table.attachments</source>
+        <target>Attachments</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

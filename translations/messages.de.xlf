@@ -808,37 +808,37 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </trans-unit>
       <trans-unit id="6IyG_kn" resname="Success Flash Message!">
         <source>Success Flash Message!</source>
-        <target/>
+        <target></target>
         <note priority="1">src\Controller\DebugController.php:45</note>
         <note priority="1">new</note>
       </trans-unit>
       <trans-unit id="Efur0Zp" resname="Error Flash Message!">
         <source>Error Flash Message!</source>
-        <target/>
+        <target></target>
         <note priority="1">src\Controller\DebugController.php:46</note>
         <note priority="1">new</note>
       </trans-unit>
       <trans-unit id="BRCmXY4" resname="Warning Flash Message!">
         <source>Warning Flash Message!</source>
-        <target/>
+        <target></target>
         <note priority="1">src\Controller\DebugController.php:47</note>
         <note priority="1">new</note>
       </trans-unit>
       <trans-unit id="Upm6RvH" resname="Notice Flash Message!">
         <source>Notice Flash Message!</source>
-        <target/>
+        <target></target>
         <note priority="1">src\Controller\DebugController.php:48</note>
         <note priority="1">new</note>
       </trans-unit>
       <trans-unit id="p1634fX" resname="Info Flash Message! &lt;b&gt;Test&lt;/b&gt;">
         <source>Info Flash Message! &lt;b&gt;Test&lt;/b&gt;</source>
-        <target/>
+        <target></target>
         <note priority="1">src\Controller\DebugController.php:49</note>
         <note priority="1">new</note>
       </trans-unit>
       <trans-unit id="UJki1El" resname="Blabla. This message type should be not know to template!">
         <source>Blabla. This message type should be not know to template!</source>
-        <target/>
+        <target></target>
         <note priority="1">src\Controller\DebugController.php:51</note>
         <note priority="1">new</note>
       </trans-unit>
@@ -2442,10 +2442,14 @@ Element 3</target>
         <source>user.permissions</source>
         <target state="translated">Berechtigungen</target>
       </trans-unit>
-      <trans-unit id="" resname="user.settings.pw_old.label">
-                   <source>user.settings.pw_old.label</source>
-                   <target>Old password</target>
-                 </trans-unit>
+      <trans-unit id="ZrVNh2o" resname="user.settings.pw_old.label">
+        <source>user.settings.pw_old.label</source>
+        <target>Old password</target>
+      </trans-unit>
+      <trans-unit id="gGfALE0" resname="part.table.attachments">
+        <source>part.table.attachments</source>
+        <target>Dateianhänge</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
