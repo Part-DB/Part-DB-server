@@ -24,6 +24,7 @@ namespace App\DataTables\Column;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;
+use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\FAIconGenerator;
@@ -37,11 +38,13 @@ class PartAttachmentsColumn extends AbstractColumn
 
     protected $FAIconGenerator;
     protected $urlGenerator;
+    protected $attachmentManager;
 
-    public function __construct(FAIconGenerator $FAIconGenerator, EntityURLGenerator $urlGenerator)
+    public function __construct(FAIconGenerator $FAIconGenerator, EntityURLGenerator $urlGenerator, AttachmentManager $attachmentManager)
     {
         $this->FAIconGenerator = $FAIconGenerator;
         $this->urlGenerator = $urlGenerator;
+        $this->attachmentManager = $attachmentManager;
     }
 
     /**
@@ -62,7 +65,7 @@ class PartAttachmentsColumn extends AbstractColumn
         }
         $tmp = "";
         $attachments = $context->getAttachments()->filter(function (Attachment $attachment) {
-            return $attachment->getShowInTable();
+            return $attachment->getShowInTable() && $this->attachmentManager->isFileExisting($attachment);
         });
 
         $count = 5;
