@@ -57,7 +57,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Storelocation.
+ * Class Store location.
  *
  * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
  * @ORM\Table("`storelocations`")
@@ -126,8 +126,8 @@ class Storelocation extends PartsContainingDBElement
      *
      * When this attribute is set, it is not possible to add additional parts or increase the instock of existing parts.
      *
-     * @return bool * true if the storelocation is full
-     *              * false if the storelocation isn't full
+     * @return bool * true if the store location is full
+     *              * false if the store location isn't full
      */
     public function isFull(): bool
     {
@@ -145,6 +145,7 @@ class Storelocation extends PartsContainingDBElement
     }
 
     /**
+     * @param bool $only_single_part
      * @return Storelocation
      */
     public function setOnlySinglePart(bool $only_single_part): self
@@ -165,6 +166,7 @@ class Storelocation extends PartsContainingDBElement
     }
 
     /**
+     * @param bool $limit_to_existing_parts
      * @return Storelocation
      */
     public function setLimitToExistingParts(bool $limit_to_existing_parts): self
@@ -183,6 +185,7 @@ class Storelocation extends PartsContainingDBElement
     }
 
     /**
+     * @param MeasurementUnit|null $storage_type
      * @return Storelocation
      */
     public function setStorageType(?MeasurementUnit $storage_type): self
@@ -199,7 +202,7 @@ class Storelocation extends PartsContainingDBElement
      *********************************************************************************/
 
     /**
-     * Change the "is full" attribute of this storelocation.
+     * Change the "is full" attribute of this store location.
      *
      *     "is_full" = true means that there is no more space in this storelocation.
      *     This attribute is only for information, it has no effect.

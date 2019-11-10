@@ -39,9 +39,9 @@ use Symfony\Component\Serializer\Serializer;
 class TypeaheadController extends AbstractController
 {
     /**
-     * @Route("/builtInRessources/search/{query}", name="typeahead_builtInRessources", requirements={"query"= ".+"})
+     * @Route("/builtInResources/search/{query}", name="typeahead_builtInRessources", requirements={"query"= ".+"})
      */
-    public function builtInRessources(Request $request, string $query, BuiltinAttachmentsFinder $finder)
+    public function builtInResources(Request $request, string $query, BuiltinAttachmentsFinder $finder)
     {
         $array = $finder->find($query);
 

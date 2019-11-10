@@ -412,7 +412,7 @@ class PermissionsEmbed
      * Sets the given permission to the value.
      *
      * @param string $permission_name the name of the permission to that should be set
-     * @param int    $value           The new value of the permsission
+     * @param int    $value           The new value of the permissions
      *
      * @return $this
      */
@@ -487,7 +487,7 @@ class PermissionsEmbed
             throw new \InvalidArgumentException('$n must be dividable by 2, because we address bit pairs here!');
         }
 
-        $mask = 0b11 << $n; //Mask all bits that should be writen
+        $mask = 0b11 << $n; //Mask all bits that should be written
         $newval = $new << $n; //The new value.
         $data = ($data & ~$mask) | ($newval & $mask);
 

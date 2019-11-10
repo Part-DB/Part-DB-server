@@ -121,6 +121,9 @@ class Currency extends StructuralDBElement
     }
 
     /**
+     * Sets the exchange rate of the currency.
+     * @param string|null $exchange_rate The new exchange rate of the currency.
+     * Set to null, if the exchange rate is unknown.
      * @return Currency
      */
     public function setExchangeRate(?string $exchange_rate): self

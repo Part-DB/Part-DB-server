@@ -37,14 +37,14 @@ trait AdvancedPropertyTrait
     protected $needs_review = false;
 
     /**
-     * @var string A comma seperated list of tags, assocciated with the part.
+     * @var string A comma separated list of tags, associated with the part.
      * @ORM\Column(type="text")
      * @ColumnSecurity(type="string", prefix="tags", placeholder="")
      */
     protected $tags = '';
 
     /**
-     * @var float|null How much a single part unit weighs in gramms.
+     * @var float|null How much a single part unit weighs in grams.
      * @ORM\Column(type="float", nullable=true)
      * @ColumnSecurity(type="float", placeholder=null)
      * @Assert\PositiveOrZero()
@@ -63,7 +63,7 @@ trait AdvancedPropertyTrait
 
     /**
      * Sets the "needs review" status of this part.
-     *
+     * @param bool $needs_review The new status
      * @return Part|self
      */
     public function setNeedsReview(bool $needs_review): self
@@ -86,6 +86,7 @@ trait AdvancedPropertyTrait
     /**
      * Sets a comma separated list of tags, that are assigned to this part.
      *
+     * @param string $tags The new tags
      * @return self
      */
     public function setTags(string $tags): self
@@ -110,6 +111,7 @@ trait AdvancedPropertyTrait
      * Sets the mass of a single part unit.
      * Sett to null, if the mass is unknown.
      *
+     * @param float|null $mass The new mass.
      * @return self
      */
     public function setMass(?float $mass): self

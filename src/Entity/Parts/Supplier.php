@@ -117,7 +117,7 @@ class Supplier extends Company
     /**
      * Gets the currency that should be used by default, when creating a orderdetail with this supplier.
      *
-     * @return ?Currency
+     * @return Currency|null
      */
     public function getDefaultCurrency(): ?Currency
     {
@@ -127,7 +127,8 @@ class Supplier extends Company
     /**
      * Sets the default currency.
      *
-     * @param ?Currency $default_currency
+     * @param Currency|null $default_currency
+     * @return Supplier
      */
     public function setDefaultCurrency(?Currency $default_currency): self
     {
@@ -150,6 +151,7 @@ class Supplier extends Company
      * Sets the shipping costs for an order with this supplier.
      *
      * @param string|null $shipping_costs a bcmath string with the shipping costs
+     * @return Supplier
      */
     public function setShippingCosts(?string $shipping_costs): self
     {

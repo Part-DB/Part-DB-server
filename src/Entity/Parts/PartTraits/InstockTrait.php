@@ -70,6 +70,7 @@ trait InstockTrait
      * Adds the given part lot, to the list of part lots.
      * The part lot is assigned to this part.
      *
+     * @param PartLot $lot
      * @return self
      */
     public function addPartLot(PartLot $lot): self
@@ -109,6 +110,7 @@ trait InstockTrait
      * Sets the measurement unit in which the part's amount should be measured.
      * Set to null, if the part should be measured in quantities.
      *
+     * @param MeasurementUnit|null $partUnit
      * @return self
      */
     public function setPartUnit(?MeasurementUnit $partUnit): self

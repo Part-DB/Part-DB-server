@@ -32,7 +32,7 @@ use Doctrine\Common\Collections\Collection;
 trait OrderTrait
 {
     /**
-     * @var Orderdetail[] The details about how and where you can order this part.
+     * @var Orderdetail[]|Collection The details about how and where you can order this part.
      * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      * @ColumnSecurity(prefix="orderdetails", type="collection")
@@ -137,6 +137,7 @@ trait OrderTrait
     /**
      * Removes the given orderdetail from the list of orderdetails.
      *
+     * @param Orderdetail $orderdetail
      * @return OrderTrait
      */
     public function removeOrderdetail(Orderdetail $orderdetail): self

@@ -149,6 +149,7 @@ class Device extends PartsContainingDBElement
      *  Set the "order_only_missing_parts" attribute.
      *
      * @param bool $new_order_only_missing_parts the new "order_only_missing_parts" attribute
+     * @return Device
      */
     public function setOrderOnlyMissingParts(bool $new_order_only_missing_parts): self
     {

@@ -99,7 +99,7 @@ trait ManufacturerTrait
      * (Similar to https://designspark.zendesk.com/hc/en-us/articles/213584805-What-are-the-Lifecycle-Status-definitions-)
      * * "": Status unknown
      * * "announced": Part has been announced, but is not in production yet
-     * * "active": Part is in production and will be for the forseeable future
+     * * "active": Part is in production and will be for the foreseeable future
      * * "nrfnd": Not recommended for new designs.
      * * "eol": Part will become discontinued soon
      * * "discontinued": Part is obsolete/discontinued by the manufacturer.
@@ -115,6 +115,7 @@ trait ManufacturerTrait
      * Sets the manufacturing status for this part
      * See getManufacturingStatus() for valid values.
      *
+     * @param string $manufacturing_status
      * @return Part
      */
     public function setManufacturingStatus(string $manufacturing_status): self
@@ -147,6 +148,7 @@ trait ManufacturerTrait
     /**
      * Sets the manufacturer product number (MPN) for this part.
      *
+     * @param string $manufacturer_product_number
      * @return Part
      */
     public function setManufacturerProductNumber(string $manufacturer_product_number): self

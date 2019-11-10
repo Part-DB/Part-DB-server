@@ -42,7 +42,7 @@ trait MasterAttachmentTrait
      * Get the master picture "Attachment"-object of this part (if there is one).
      * The master picture should be used as a visual description/representation of this part.
      *
-     * @return Attachment the master picture Attachement of this part (if there is one)
+     * @return Attachment the master picture Attachment of this part (if there is one)
      */
     public function getMasterPictureAttachment(): ?Attachment
     {
@@ -52,6 +52,7 @@ trait MasterAttachmentTrait
     /**
      * Sets the new master picture for this part.
      *
+     * @param Attachment|null $new_master_attachment
      * @return Part
      */
     public function setMasterPictureAttachment(?Attachment $new_master_attachment): self

@@ -228,6 +228,7 @@ class Orderdetail extends DBElement
     /**
      * Removes an pricedetail from this orderdetail.
      *
+     * @param Pricedetail $pricedetail
      * @return Orderdetail
      */
     public function removePricedetail(Pricedetail $pricedetail): self
@@ -255,7 +256,7 @@ class Orderdetail extends DBElement
 
         $correct_pricedetail = null;
         foreach ($all_pricedetails as $pricedetail) {
-            // choose the correct pricedetails for the choosed quantity ($quantity)
+            // choose the correct pricedetails for the chosen quantity ($quantity)
             if ($quantity < $pricedetail->getMinDiscountQuantity()) {
                 break;
             }
@@ -275,6 +276,7 @@ class Orderdetail extends DBElement
     /**
      * Sets a new part with which this orderdetail is associated.
      *
+     * @param Part $part
      * @return Orderdetail
      */
     public function setPart(Part $part): self
@@ -287,6 +289,7 @@ class Orderdetail extends DBElement
     /**
      * Sets the new supplier associated with this orderdetail.
      *
+     * @param Supplier $new_supplier
      * @return Orderdetail
      */
     public function setSupplier(Supplier $new_supplier): self

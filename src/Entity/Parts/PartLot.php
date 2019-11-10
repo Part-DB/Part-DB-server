@@ -56,7 +56,7 @@ class PartLot extends DBElement
 
     /**
      * @var ?\DateTime Set a time until when the lot must be used.
-     *                 Set to null, if the lot can be used indefinitley.
+     *                 Set to null, if the lot can be used indefinitely.
      * @ORM\Column(type="datetime", name="expiration_date", nullable=true)
      */
     protected $expiration_date;
@@ -84,7 +84,7 @@ class PartLot extends DBElement
     protected $instock_unknown = false;
 
     /**
-     * @var float For continuos sizes (length, volume, etc.) the instock is saved here.
+     * @var float For continuous sizes (length, volume, etc.) the instock is saved here.
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero()
      */
@@ -136,6 +136,7 @@ class PartLot extends DBElement
     /**
      * Sets the description of the part lot.
      *
+     * @param string $description
      * @return PartLot
      */
     public function setDescription(string $description): self
@@ -158,6 +159,7 @@ class PartLot extends DBElement
     /**
      * Sets the comment for this part lot.
      *
+     * @param string $comment
      * @return PartLot
      */
     public function setComment(string $comment): self
@@ -192,7 +194,7 @@ class PartLot extends DBElement
     }
 
     /**
-     * Gets the storage locatiion, where this part lot is stored.
+     * Gets the storage location, where this part lot is stored.
      *
      * @return Storelocation|null The store location where this part is stored
      */
@@ -204,6 +206,7 @@ class PartLot extends DBElement
     /**
      * Sets the storage location, where this part lot is stored.
      *
+     * @param Storelocation|null $storage_location
      * @return PartLot
      */
     public function setStorageLocation(?Storelocation $storage_location): self
@@ -250,6 +253,7 @@ class PartLot extends DBElement
     /**
      * Set the unknown instock status of this part lot.
      *
+     * @param bool $instock_unknown
      * @return PartLot
      */
     public function setInstockUnknown(bool $instock_unknown): self
@@ -287,6 +291,7 @@ class PartLot extends DBElement
     }
 
     /**
+     * @param bool $needs_refill
      * @return PartLot
      */
     public function setNeedsRefill(bool $needs_refill): self

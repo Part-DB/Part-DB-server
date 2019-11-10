@@ -232,6 +232,7 @@ class Pricedetail extends DBElement
     /**
      * Sets the orderdetail to which this pricedetail belongs to.
      *
+     * @param Orderdetail $orderdetail
      * @return $this
      */
     public function setOrderdetail(Orderdetail $orderdetail): self
@@ -245,6 +246,7 @@ class Pricedetail extends DBElement
      * Sets the currency associated with the price informations.
      * Set to null, to use the global base currency.
      *
+     * @param Currency|null $currency
      * @return Pricedetail
      */
     public function setCurrency(?Currency $currency): self

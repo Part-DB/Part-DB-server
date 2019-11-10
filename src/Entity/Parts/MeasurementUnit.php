@@ -30,7 +30,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This unit represents the unit in which the amount of parts in stock are measured.
- * This could be something like N, gramms, meters, etc...
+ * This could be something like N, grams, meters, etc...
  *
  * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
  * @ORM\Table(name="`measurement_units`")
@@ -45,7 +45,7 @@ class MeasurementUnit extends PartsContainingDBElement
     protected $attachments;
 
     /**
-     * @var string The unit symbol that should be used for the Unit. This could be something like "", g (for gramms)
+     * @var string The unit symbol that should be used for the Unit. This could be something like "", g (for grams)
      *             or m (for meters).
      * @ORM\Column(type="string", name="unit", nullable=true)
      * @Assert\Length(max=10)
@@ -54,7 +54,7 @@ class MeasurementUnit extends PartsContainingDBElement
 
     /**
      * @var bool Determines if the amount value associated with this unit should be treated as integer.
-     *           Set to false, to measure continuous sizes likes masses or lengthes.
+     *           Set to false, to measure continuous sizes likes masses or lengths.
      * @ORM\Column(type="boolean", name="is_integer")
      */
     protected $is_integer = false;
@@ -122,6 +122,7 @@ class MeasurementUnit extends PartsContainingDBElement
     }
 
     /**
+     * @param bool $isInteger
      * @return MeasurementUnit
      */
     public function setIsInteger(bool $isInteger): self
@@ -140,6 +141,7 @@ class MeasurementUnit extends PartsContainingDBElement
     }
 
     /**
+     * @param bool $usesSIPrefixes
      * @return MeasurementUnit
      */
     public function setUseSIPrefix(bool $usesSIPrefixes): self

@@ -281,6 +281,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Sets the password hash for this user.
      *
+     * @param string $password
      * @return User
      */
     public function setPassword(string $password): self
@@ -320,6 +321,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Sets the currency the users prefers to see prices in.
      *
+     * @param Currency|null $currency
      * @return User
      */
     public function setCurrency(?Currency $currency): self
@@ -382,6 +384,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Set the status, if the user needs a password change.
      *
+     * @param bool $need_pw_change
      * @return User
      */
     public function setNeedPwChange(bool $need_pw_change): self

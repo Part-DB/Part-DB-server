@@ -37,7 +37,7 @@ class StructuralDBElementRepository extends EntityRepository
     }
 
     /**
-     * Gets a flattened hierachical tree. Useful for generating option lists.
+     * Gets a flattened hierarchical tree. Useful for generating option lists.
      *
      * @param StructuralDBElement|null $parent This entity will be used as root element. Set to null, to use global root
      *

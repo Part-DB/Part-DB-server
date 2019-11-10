@@ -41,7 +41,6 @@ class AttachmentFileController extends AbstractController
      *
      * @return BinaryFileResponse
      *
-     * @throws \Exception
      */
     public function download(Attachment $attachment, AttachmentManager $helper)
     {

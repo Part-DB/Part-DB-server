@@ -205,7 +205,6 @@ abstract class BaseAdminController extends AbstractController
 
             //Show errors to user:
             foreach ($errors as $error) {
-                dump($error);
                 $this->addFlash('error', $error['entity']->getFullPath().':'.$error['violations']);
             }
 

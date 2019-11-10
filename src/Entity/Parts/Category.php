@@ -20,25 +20,6 @@
  */
 
 declare(strict_types=1);
-/**
- * Part-DB Version 0.4+ "nextgen"
- * Copyright (C) 2016 - 2019 Jan Böhmer
- * https://github.com/jbtronics.
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- */
 
 namespace App\Entity\Parts;
 
@@ -145,6 +126,7 @@ class Category extends PartsContainingDBElement
     }
 
     /**
+     * @param string $partname_hint
      * @return Category
      */
     public function setPartnameHint(string $partname_hint): self
@@ -163,6 +145,7 @@ class Category extends PartsContainingDBElement
     }
 
     /**
+     * @param string $partname_regex
      * @return Category
      */
     public function setPartnameRegex(string $partname_regex): self
@@ -181,6 +164,7 @@ class Category extends PartsContainingDBElement
     }
 
     /**
+     * @param bool $disable_footprints
      * @return Category
      */
     public function setDisableFootprints(bool $disable_footprints): self
@@ -199,6 +183,7 @@ class Category extends PartsContainingDBElement
     }
 
     /**
+     * @param bool $disable_manufacturers
      * @return Category
      */
     public function setDisableManufacturers(bool $disable_manufacturers): self
@@ -217,6 +202,7 @@ class Category extends PartsContainingDBElement
     }
 
     /**
+     * @param bool $disable_autodatasheets
      * @return Category
      */
     public function setDisableAutodatasheets(bool $disable_autodatasheets): self
@@ -235,6 +221,7 @@ class Category extends PartsContainingDBElement
     }
 
     /**
+     * @param bool $disable_properties
      * @return Category
      */
     public function setDisableProperties(bool $disable_properties): self
@@ -253,6 +240,7 @@ class Category extends PartsContainingDBElement
     }
 
     /**
+     * @param string $default_description
      * @return Category
      */
     public function setDefaultDescription(string $default_description): self
@@ -271,6 +259,7 @@ class Category extends PartsContainingDBElement
     }
 
     /**
+     * @param string $default_comment
      * @return Category
      */
     public function setDefaultComment(string $default_comment): self

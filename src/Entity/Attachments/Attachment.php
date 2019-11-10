@@ -20,25 +20,6 @@
  */
 
 declare(strict_types=1);
-/**
- * Part-DB Version 0.4+ "nextgen"
- * Copyright (C) 2016 - 2019 Jan Böhmer
- * https://github.com/jbtronics.
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- */
 
 namespace App\Entity\Attachments;
 
@@ -101,7 +82,7 @@ abstract class Attachment extends NamedDBElement
     protected $path = '';
 
     /**
-     * @var string The original filenamethe file had, when the user uploaded it.
+     * @var string The original filename the file had, when the user uploaded it.
      * @ORM\Column(type="string", nullable=true)
      */
     protected $original_filename;
@@ -120,7 +101,7 @@ abstract class Attachment extends NamedDBElement
     protected $attachment_type;
 
     /**
-     * @var string The class of the element that can be passed to this attachment. Must be overriden in subclasses.
+     * @var string The class of the element that can be passed to this attachment. Must be overridden in subclasses.
      */
     public const ALLOWED_ELEMENT_CLASS = '';
 
@@ -137,7 +118,7 @@ abstract class Attachment extends NamedDBElement
      ***********************************************************/
 
     /**
-     * Check if this attachement is a picture (analyse the file's extension).
+     * Check if this attachment is a picture (analyse the file's extension).
      * If the link is external, it is assumed that this is true.
      *
      * @return bool * true if the file extension is a picture extension
@@ -156,7 +137,7 @@ abstract class Attachment extends NamedDBElement
     }
 
     /**
-     * Check if this attachment is a 3D model and therfore can be directly shown to user.
+     * Check if this attachment is a 3D model and therefore can be directly shown to user.
      * If the attachment is external, false is returned (3D Models must be internal).
      *
      * @return bool
@@ -185,7 +166,7 @@ abstract class Attachment extends NamedDBElement
             return false;
         }
 
-        //After the %PLACEHOLDER% comes a slash, so we can check if we have a placholder via explode
+        //After the %PLACEHOLDER% comes a slash, so we can check if we have a placeholder via explode
         $tmp = explode('/', $this->path);
 
         if (empty($tmp)) {
@@ -203,7 +184,7 @@ abstract class Attachment extends NamedDBElement
      */
     public function isSecure(): bool
     {
-        //After the %PLACEHOLDER% comes a slash, so we can check if we have a placholder via explode
+        //After the %PLACEHOLDER% comes a slash, so we can check if we have a placeholder via explode
         $tmp = explode('/', $this->path);
 
         if (empty($tmp)) {
@@ -217,7 +198,7 @@ abstract class Attachment extends NamedDBElement
      * Checks if the attachment file is using a builtin file. (see BUILTIN_PLACEHOLDERS const for possible placeholders)
      * If a file is built in, the path is shown to user in url field (no sensitive infos are provided).
      *
-     * @return bool True if the attachment is uning an builtin file.
+     * @return bool True if the attachment is using an builtin file.
      */
     public function isBuiltIn(): bool
     {
@@ -251,7 +232,7 @@ abstract class Attachment extends NamedDBElement
     }
 
     /**
-     * Get the element, associated with this Attachement (for example a "Part" object).
+     * Get the element, associated with this Attachment (for example a "Part" object).
      *
      * @return AttachmentContainingDBElement The associated Element.
      */
@@ -343,8 +324,8 @@ abstract class Attachment extends NamedDBElement
     /**
      * Get the show_in_table attribute.
      *
-     * @return bool true means, this attachement will be listed in the "Attachements" column of the HTML tables
-     *              false means, this attachement won't be listed in the "Attachements" column of the HTML tables
+     * @return bool true means, this attachment will be listed in the "Attachments" column of the HTML tables
+     *              false means, this attachment won't be listed in the "Attachments" column of the HTML tables
      */
     public function getShowInTable(): bool
     {
@@ -377,6 +358,7 @@ abstract class Attachment extends NamedDBElement
      ****************************************************************************************************/
 
     /**
+     * @param bool $show_in_table
      * @return self
      */
     public function setShowInTable(bool $show_in_table): self
@@ -386,6 +368,11 @@ abstract class Attachment extends NamedDBElement
         return $this;
     }
 
+    /**
+     * Sets the element that is associated with this attachment.
+     * @param AttachmentContainingDBElement $element
+     * @return $this
+     */
     public function setElement(AttachmentContainingDBElement $element): self
     {
         if (!is_a($element, static::ALLOWED_ELEMENT_CLASS)) {
@@ -398,6 +385,8 @@ abstract class Attachment extends NamedDBElement
     }
 
     /**
+     * Sets the filepath (with relative placeholder) for this attachment
+     * @param string $path The new filepath of the attachment.
      * @return Attachment
      */
     public function setPath(string $path): self
@@ -408,7 +397,8 @@ abstract class Attachment extends NamedDBElement
     }
 
     /**
-     * @return Attachment
+     * @param AttachmentType $attachement_type
+     * @return $this
      */
     public function setAttachmentType(AttachmentType $attachement_type): self
     {
@@ -421,6 +411,7 @@ abstract class Attachment extends NamedDBElement
      * Sets the url associated with this attachment.
      * If the url is empty nothing is changed, to not override the file path.
      *
+     * @param string|null $url
      * @return Attachment
      */
     public function setURL(?string $url): self
@@ -444,15 +435,15 @@ abstract class Attachment extends NamedDBElement
      *****************************************************************************************************/
 
     /**
-     * Checks if the given path is a path to a builtin ressource.
+     * Checks if the given path is a path to a builtin resource.
      *
      * @param string $path The path that should be checked
      *
-     * @return bool True if the path is pointing to a builtin ressource.
+     * @return bool True if the path is pointing to a builtin resource.
      */
     public static function checkIfBuiltin(string $path): bool
     {
-        //After the %PLACEHOLDER% comes a slash, so we can check if we have a placholder via explode
+        //After the %PLACEHOLDER% comes a slash, so we can check if we have a placeholder via explode
         $tmp = explode('/', $path);
         //Builtins must have a %PLACEHOLDER% construction
         if (empty($tmp)) {

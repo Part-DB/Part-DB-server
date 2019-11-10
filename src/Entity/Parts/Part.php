@@ -100,7 +100,7 @@ class Part extends AttachmentContainingDBElement
     protected $lastModified;
 
     /***************************************************************
-     * Overriden properties
+     * Overridden properties
      * (They are defined here and not in a trait, to avoid conflicts)
      ****************************************************************/
 

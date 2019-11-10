@@ -20,25 +20,6 @@
  */
 
 declare(strict_types=1);
-/**
- * Part-DB Version 0.4+ "nextgen"
- * Copyright (C) 2016 - 2019 Jan Böhmer
- * https://github.com/jbtronics.
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
- */
 
 namespace App\Entity\Base;
 
@@ -71,7 +52,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     //This is a not standard character, so build a const, so a dev can easily use it
     public const PATH_DELIMITER_ARROW = ' → ';
 
-    // We can not define the mapping here or we will get an exception. Unfortunatly we have to do the mapping in the
+    // We can not define the mapping here or we will get an exception. Unfortunately we have to do the mapping in the
     // subclasses
     /**
      * @var StructuralDBElement[]
@@ -145,7 +126,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
 
         //If this' parents element, is $another_element, then we are finished
         return ($this->parent->getID() === $another_element->getID())
-            || $this->parent->isChildOf($another_element); //Otherwise, check recursivley
+            || $this->parent->isChildOf($another_element); //Otherwise, check recursively
     }
 
     /**
@@ -191,7 +172,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      * The level of the root node is -1.
      *
      * @return int the level of this element (zero means a most top element
-     *             [a subelement of the root node])
+     *             [a sub element of the root node])
      */
     public function getLevel(): int
     {
@@ -213,11 +194,11 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     /**
      * Get the full path.
      *
-     * @param string $delimeter the delimeter of the returned string
+     * @param string $delimiter the delimiter of the returned string
      *
-     * @return string the full path (incl. the name of this element), delimeted by $delimeter
+     * @return string the full path (incl. the name of this element), delimited by $delimiter
      */
-    public function getFullPath(string $delimeter = self::PATH_DELIMITER_ARROW): string
+    public function getFullPath(string $delimiter = self::PATH_DELIMITER_ARROW): string
     {
         if (!\is_array($this->full_path_strings)) {
             $this->full_path_strings = [];
@@ -236,13 +217,13 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
             $this->full_path_strings = array_reverse($this->full_path_strings);
         }
 
-        return implode($delimeter, $this->full_path_strings);
+        return implode($delimiter, $this->full_path_strings);
     }
 
     /**
      * Gets the path to this element (including the element itself).
      *
-     * @return self[] An array with all (recursivily) parent elements (including this one),
+     * @return self[] An array with all (recursively) parent elements (including this one),
      *                ordered from the lowest levels (root node) first to the highest level (the element itself)
      */
     public function getPathArray(): array
@@ -259,7 +240,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     }
 
     /**
-     * Get all subelements of this element.
+     * Get all sub elements of this element.
      *
      * @param bool $recursive if true, the search is recursive
      *
