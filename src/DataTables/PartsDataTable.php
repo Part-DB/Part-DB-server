@@ -23,6 +23,7 @@ namespace App\DataTables;
 
 use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
+use App\DataTables\Column\MarkdownColumn;
 use App\DataTables\Column\PartAttachmentsColumn;
 use App\DataTables\Column\TagsColumn;
 use App\Entity\Attachments\Attachment;
@@ -37,6 +38,7 @@ use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\FAIconGenerator;
+use App\Services\MarkdownParser;
 use App\Services\TreeBuilder;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
@@ -177,7 +179,7 @@ class PartsDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.id'),
                 'visible' => false,
             ])
-            ->add('description', TextColumn::class, [
+            ->add('description', MarkdownColumn::class, [
                 'label' => $this->translator->trans('part.table.description'),
             ])
             ->add('category', EntityColumn::class, [

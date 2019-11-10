@@ -23,6 +23,7 @@ import {ajaxUI} from "./ajax_ui";
 import "bootbox";
 import "marked";
 import * as marked from "marked";
+import {parse} from "marked";
 
 /************************************
  *
@@ -438,6 +439,7 @@ $(document).on("ajaxUI:start", function () {
 
     parseMarkdown();
     $(document).on("ajaxUI:reload", parseMarkdown);
+    $(document).on("ajaxUI:dt_loaded", parseMarkdown);
 });
 
 $(document).on("ajaxUI:start ajaxUI:reload attachment:create", function() {
