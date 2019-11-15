@@ -33,20 +33,28 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class UserRepository extends ServiceEntityRepository
 {
+    protected $anonymous_user;
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, User::class);
+        $this->anonymous_user = null;
     }
 
     /**
      * Returns the anonymous user.
+     * The result is cached, so the database is only called once, after the anonymous user was found.
      *
      * @return User|null
      */
     public function getAnonymousUser()
     {
-        return $this->findOneBy([
+        if ($this->anonymous_user === null) {
+            $this->anonymous_user = $this->findOneBy([
                 'id' => User::ID_ANONYMOUS,
             ]);
+        }
+
+        return $this->anonymous_user;
     }
 }
