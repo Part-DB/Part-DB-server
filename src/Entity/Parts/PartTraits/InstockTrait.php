@@ -44,7 +44,7 @@ trait InstockTrait
      *            Given in the partUnit.
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero()
-     * @ColumnSecurity(prefix="mininstock", type="integer")
+     * @ColumnSecurity(prefix="minamount", type="integer")
      */
     protected $minamount = 0;
 
