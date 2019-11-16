@@ -21,6 +21,7 @@
 
 namespace App\DataTables;
 
+use App\DataTables\Adapter\CustomORMAdapter;
 use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
@@ -84,14 +85,20 @@ class PartsDataTable implements DataTableTypeInterface
             ->addSelect('partUnit')
             ->addSelect('master_picture_attachment')
             ->addSelect('footprint_attachment')
+            ->addSelect('partLots')
+            ->addSelect('orderdetails')
+            ->addSelect('attachments')
+            ->addSelect('storelocations')
             ->from(Part::class, 'part')
             ->leftJoin('part.category', 'category')
             ->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
             ->leftJoin('part.partLots', 'partLots')
+            ->leftJoin('partLots.storage_location', 'storelocations')
             ->leftJoin('part.footprint', 'footprint')
             ->leftJoin('footprint.master_picture_attachment', 'footprint_attachment')
             ->leftJoin('part.manufacturer', 'manufacturer')
             ->leftJoin('part.orderdetails', 'orderdetails')
+            ->leftJoin('part.attachments', 'attachments')
             ->leftJoin('part.partUnit', 'partUnit');
     }
 
@@ -290,7 +297,7 @@ class PartsDataTable implements DataTableTypeInterface
             ])
 
             ->addOrderBy('name')
-            ->createAdapter(ORMAdapter::class, [
+            ->createAdapter(CustomORMAdapter::class, [
                 'query' => function (QueryBuilder $builder) {
                     $this->getQuery($builder);
                 },
