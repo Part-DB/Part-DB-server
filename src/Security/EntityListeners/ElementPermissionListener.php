@@ -52,7 +52,6 @@ class ElementPermissionListener
     protected $disabled;
 
     protected $perm_cache;
-    protected $annotation_cache;
 
     public function __construct(Security $security, Reader $reader, EntityManagerInterface $em, KernelInterface $kernel)
     {
@@ -62,7 +61,6 @@ class ElementPermissionListener
         //Disable security when the current program is running from CLI
         $this->disabled = $this->isRunningFromCLI();
         $this->perm_cache = [];
-        $this->annotation_cache = [];
     }
 
     /**
@@ -108,25 +106,7 @@ class ElementPermissionListener
         }
 
         return $this->perm_cache[$mode][get_class($element)][$operation];
-    }
 
-    /**
-     * Gets the ColumnSecurity Annotation for a given and its property.
-     * Adds an additional cache layer, where AnnotationReader::gerPropertyAnnotation is only called once for a class.
-     * @param DBElement $element The element for which the annotation should be determined.
-     * @param \ReflectionProperty $property The property on which the annotation should be determined.
-     * @return ColumnSecurity|null
-     */
-    protected function getAnnotation(DBElement $element, \ReflectionProperty $property) : ?ColumnSecurity
-    {
-        if (!isset($this->annotation_cache[get_class($element)][$property->getName()])) {
-            $this->annotation_cache[get_class($element)][$property->getName()] = $this->reader->getPropertyAnnotation(
-                $property,
-                ColumnSecurity::class
-            );
-        }
-
-        return $this->annotation_cache[get_class($element)][$property->getName()];
     }
 
     /**
@@ -154,7 +134,10 @@ class ElementPermissionListener
             /**
              * @var ColumnSecurity
              */
-            $annotation = $this->getAnnotation($element, $property);
+            $annotation = $this->reader->getPropertyAnnotation(
+                $property,
+                ColumnSecurity::class
+            );
 
             //Check if user is allowed to read info, otherwise apply placeholder
             if ((null !== $annotation) && !$this->isGranted('read', $annotation, $element)) {
@@ -193,7 +176,10 @@ class ElementPermissionListener
         $old_data = $unitOfWork->getOriginalEntityData($element);
 
         foreach ($properties as $property) {
-            $annotation = $this->getAnnotation($element, $property);
+            $annotation = $this->reader->getPropertyAnnotation(
+                $property,
+                ColumnSecurity::class
+            );
 
             $changed = false;
 
@@ -203,7 +189,7 @@ class ElementPermissionListener
 
                 //If the user is not allowed to edit or read this property, reset all values.
                 if ((!$this->isGranted('read', $annotation, $element)
-                    || !$this->isGranted('edit', $annotation, $element))) {
+                    || !$this->isGranted('edit', $annotation->getReadOperationName(), $element))) {
                     //Set value to old value, so that there a no change to this property
                     if (isset($old_data[$property->getName()])) {
                         $property->setValue($element, $old_data[$property->getName()]);
