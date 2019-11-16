@@ -22,6 +22,7 @@
 namespace App\Security\EntityListeners;
 
 use App\Entity\Base\DBElement;
+use App\Entity\UserSystem\User;
 use App\Security\Annotations\ColumnSecurity;
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
@@ -50,6 +51,8 @@ class ElementPermissionListener
     protected $em;
     protected $disabled;
 
+    protected $perm_cache;
+
     public function __construct(Security $security, Reader $reader, EntityManagerInterface $em, KernelInterface $kernel)
     {
         $this->security = $security;
@@ -57,6 +60,7 @@ class ElementPermissionListener
         $this->em = $em;
         //Disable security when the current program is running from CLI
         $this->disabled = $this->isRunningFromCLI();
+        $this->perm_cache = [];
     }
 
     /**
@@ -71,6 +75,38 @@ class ElementPermissionListener
         }
 
         return false;
+    }
+
+    /**
+     * Checks if access to the property of the given element is granted.
+     * This function adds an additional cache layer, where the voters are called only once (to improve performance).
+     * @param string $mode What operation should be checked. Must be 'read' or 'edit'
+     * @param ColumnSecurity $annotation The annotation of the property that should be checked
+     * @param DBElement $element The element that should for which should be checked
+     * @return bool True if the user is allowed to read that property
+     */
+    protected function isGranted(string $mode, ColumnSecurity $annotation, DBElement $element) : bool
+    {
+        if ($mode === 'read') {
+            $operation = $annotation->getReadOperationName();
+        } elseif ($mode === 'edit') {
+            $operation = $annotation->getEditOperationName();
+        } else {
+            throw new \InvalidArgumentException('$mode must be either "read" or "edit"!');
+        }
+
+        //Users must always be checked, because its return value can differ if it is the user itself or something else
+        if ($element instanceof User) {
+            return $this->security->isGranted($operation, $element);
+        }
+
+        //Check if we have already have saved the permission, otherwise save it to cache
+        if (!isset($this->perm_cache[$mode][get_class($element)][$operation])) {
+            $this->perm_cache[$mode][get_class($element)][$operation] = $this->security->isGranted($operation, $element);
+        }
+
+        return $this->perm_cache[$mode][get_class($element)][$operation];
+
     }
 
     /**
@@ -104,7 +140,7 @@ class ElementPermissionListener
             );
 
             //Check if user is allowed to read info, otherwise apply placeholder
-            if ((null !== $annotation) && !$this->security->isGranted($annotation->getReadOperationName(), $element)) {
+            if ((null !== $annotation) && !$this->isGranted('read', $annotation, $element)) {
                 $property->setAccessible(true);
                 $value = $annotation->getPlaceholder();
 
@@ -152,8 +188,8 @@ class ElementPermissionListener
                 $property->setAccessible(true);
 
                 //If the user is not allowed to edit or read this property, reset all values.
-                if ((!$this->security->isGranted($annotation->getEditOperationName(), $element)
-                    || !$this->security->isGranted($annotation->getReadOperationName(), $element))) {
+                if ((!$this->isGranted('read', $annotation, $element)
+                    || !$this->isGranted('edit', $annotation->getReadOperationName(), $element))) {
                     //Set value to old value, so that there a no change to this property
                     if (isset($old_data[$property->getName()])) {
                         $property->setValue($element, $old_data[$property->getName()]);
