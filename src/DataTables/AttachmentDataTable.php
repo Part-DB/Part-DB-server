@@ -110,6 +110,7 @@ class AttachmentDataTable implements DataTableTypeInterface
         ]);
 
         $dataTable->add('attachment_type', TextColumn::class, [
+            'label' => $this->translator->trans('attachment.table.type'),
             'field' => 'attachment_type.name',
             'render' => function ($value, Attachment $context) {
                 return sprintf(
