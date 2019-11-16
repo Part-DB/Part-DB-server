@@ -80,7 +80,8 @@ class PartAttachmentsColumn extends AbstractColumn
                 $this->urlGenerator->viewURL($attachment),
                 htmlspecialchars($attachment->getName()) . ': ' . htmlspecialchars($attachment->getFilename()),
                 $this->FAIconGenerator->generateIconHTML(
-                    $this->FAIconGenerator->fileExtensionToFAType($attachment->getExtension()),
+                    // Sometimes the extension can not be determined, so ensure a generic icon is shown
+                    $this->FAIconGenerator->fileExtensionToFAType($attachment->getExtension() ?? 'file'),
                     'fas',
                     'fa-2x'
                 )
