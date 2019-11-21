@@ -129,17 +129,11 @@
             "./config/packages/dev/easy_log_handler.yaml"
         ]
     },
-    "egulias/email-validator": {
-        "version": "2.1.7"
-    },
     "felixfbecker/advanced-json-rpc": {
         "version": "v3.0.4"
     },
     "felixfbecker/language-server-protocol": {
         "version": "v1.4.0"
-    },
-    "fig/link-util": {
-        "version": "1.0.0"
     },
     "florianv/exchanger": {
         "version": "1.4.1"
@@ -316,9 +310,6 @@
     "shivas/versioning-bundle": {
         "version": "3.1.3"
     },
-    "swiftmailer/swiftmailer": {
-        "version": "v6.1.3"
-    },
     "symfony/apache-pack": {
         "version": "1.0",
         "recipe": {
@@ -391,6 +382,9 @@
     },
     "symfony/dotenv": {
         "version": "v4.2.3"
+    },
+    "symfony/error-handler": {
+        "version": "v4.4.0"
     },
     "symfony/event-dispatcher": {
         "version": "v4.2.3"
@@ -588,20 +582,6 @@
     "symfony/stopwatch": {
         "version": "v4.2.3"
     },
-    "symfony/swiftmailer-bundle": {
-        "version": "2.5",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "2.5",
-            "ref": "3db029c03e452b4a23f7fc45cec7c922c2247eb8"
-        },
-        "files": [
-            "./config/packages/dev/swiftmailer.yaml",
-            "./config/packages/swiftmailer.yaml",
-            "./config/packages/test/swiftmailer.yaml"
-        ]
-    },
     "symfony/templating": {
         "version": "v4.3.4"
     },
@@ -675,15 +655,6 @@
             "./config/packages/test/web_profiler.yaml",
             "./config/routes/dev/web_profiler.yaml"
         ]
-    },
-    "symfony/web-server-bundle": {
-        "version": "3.3",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "3.3",
-            "ref": "dae9b39fd6717970be7601101ce5aa960bf53d9a"
-        }
     },
     "symfony/webpack-encore-bundle": {
         "version": "1.0",
