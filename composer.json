@@ -23,6 +23,7 @@
         "php-http/message": "^1.8",
         "s9e/text-formatter": "^2.1",
         "sensio/framework-extra-bundle": "^5.1",
+        "sensiolabs/security-checker": "^6.0",
         "shivas/versioning-bundle": "^3.1",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "4.4.*",
@@ -90,7 +91,8 @@
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "ckeditor:install --clear=drop": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
+            "security-checker security:check": "script"
         },
         "post-install-cmd": [
             "@auto-scripts"
