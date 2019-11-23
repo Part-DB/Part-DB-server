@@ -1,5 +1,5 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Part-DB/Part-DB-symfony/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Part-DB/Part-DB-symfony/?branch=master)
-[![Build Status](https://travis-ci.org/Part-DB/Part-DB-symfony.svg?branch=master)](https://travis-ci.org/Part-DB/Part-DB-symfony)
+[![Build Status](https://travis-ci.com/Part-DB/Part-DB-symfony.svg?branch=master)](https://travis-ci.com/Part-DB/Part-DB-symfony)
 [![codecov](https://codecov.io/gh/Part-DB/Part-DB-symfony/branch/master/graph/badge.svg)](https://codecov.io/gh/Part-DB/Part-DB-symfony)
 ![GitHub License](https://img.shields.io/github/license/Part-DB/Part-DB-symfony)
 ![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%207.1-green)
