@@ -4,7 +4,7 @@ services:
   - mysql
 
 env:
-  - APP_ENV=test
+  - SYMFONY_DEPRECATIONS_HELPER=disabled APP_ENV=test # Disable deprecation warnings
 
 # Test for all supported PHP versions
 php:
