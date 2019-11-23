@@ -32,10 +32,15 @@ class RedirectControllerTest extends WebTestCase
 {
     protected $em;
     protected $userRepo;
+    protected $client;
 
     public function setUp()
     {
-        self::bootKernel();
+        $this->client = static::createClient([], [
+            'PHP_AUTH_USER' => 'user',
+            'PHP_AUTH_PW' => 'test',
+        ]);
+        $this->client->disableReboot();
         $this->em = self::$container->get(EntityManagerInterface::class);
         $this->userRepo = $this->em->getRepository(User::class);
     }
@@ -62,9 +67,9 @@ class RedirectControllerTest extends WebTestCase
      */
     public function testUrlMatch($url, $expect_redirect)
     {
-        $client = static::createClient();
-        $client->request('GET', $url);
-        $response = $client->getResponse();
+        //$client = static::createClient();
+        $this->client->request('GET', $url);
+        $response = $this->client->getResponse();
         if ($expect_redirect) {
             $this->assertEquals(302, $response->getStatusCode());
         }
@@ -108,14 +113,11 @@ class RedirectControllerTest extends WebTestCase
         $user->setLanguage($user_locale);
         $this->em->flush();
 
-        $client = static::createClient([], [
-            'PHP_AUTH_USER' => 'user',
-            'PHP_AUTH_PW' => 'test',
-        ]);
 
-        $client->followRedirects(false);
-        $client->request('GET', $input_path);
-        $this->assertEquals($redirect_path, $client->getResponse()->headers->get('Location'));
+
+        $this->client->followRedirects(false);
+        $this->client->request('GET', $input_path);
+        $this->assertEquals($redirect_path, $this->client->getResponse()->headers->get('Location'));
     }
 
     /**
@@ -136,13 +138,9 @@ class RedirectControllerTest extends WebTestCase
         $user->setNeedPwChange(true);
         $this->em->flush();
 
-        $client = static::createClient([], [
-            'PHP_AUTH_USER' => 'user',
-            'PHP_AUTH_PW' => 'test',
-        ]);
-        $client->followRedirects(false);
+        $this->client->followRedirects(false);
 
-        $client->request('GET', '/part/3');
-        $this->assertEquals("/$locale/user/settings", $client->getResponse()->headers->get('Location'));
+        $this->client->request('GET', '/part/3');
+        $this->assertEquals("/$locale/user/settings", $this->client->getResponse()->headers->get('Location'));
     }
 }

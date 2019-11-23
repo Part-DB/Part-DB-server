@@ -35,7 +35,6 @@ abstract class AbstractAdminControllerTest extends WebTestCase
     public function setUp()
     {
         parent::setUp();
-        self::bootKernel();
     }
 
     public function readDataProvider()
@@ -55,6 +54,8 @@ abstract class AbstractAdminControllerTest extends WebTestCase
      */
     public function testListEntries(string $user, bool $read)
     {
+        static::ensureKernelShutdown();
+
         //Test read access
         $client = static::createClient([], [
             'PHP_AUTH_USER' => $user,
