@@ -32,11 +32,6 @@ abstract class AbstractAdminControllerTest extends WebTestCase
     protected static $base_path = 'not_valid';
     protected static $entity_class = 'not valid';
 
-    public function setUp()
-    {
-        parent::setUp();
-    }
-
     public function readDataProvider()
     {
         return [

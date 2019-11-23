@@ -40,7 +40,7 @@ class ElementTypeNameGeneratorTest extends WebTestCase
      */
     protected $service;
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
