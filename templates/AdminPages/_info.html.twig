@@ -11,7 +11,7 @@
         <p class="form-control-plaintext">
 
             {% if date(entity.addedDate) > date('1900/01/01') %}
-                {{ entity.addedDate | localizeddate("long") }}
+                {{ entity.addedDate | format_datetime("long") }}
             {% else %}
                 -
             {% endif %}
@@ -24,7 +24,7 @@
     <div class="col-md-9">
         <p class="form-control-plaintext">
             {% if date(entity.lastModified) > date('1900/01/01') %}
-                {{ entity.lastModified | localizeddate("long") }}
+                {{ entity.lastModified | format_datetime("long") }}
             {% else %}
                 -
             {% endif %}

@@ -47,11 +47,11 @@
                                     </a>
                                     <div class="">
                                         <span class="text-muted" title="{% trans %}lastModified{% endtrans %}">
-                                            <i class="fas fa-history fa-fw"></i> {{ entity.lastModified | localizeddate("short") }}
+                                            <i class="fas fa-history fa-fw"></i> {{ entity.lastModified | format_datetime("short") }}
                                         </span>
                                         <br>
                                         <span class="text-muted mt-1" title="{% trans %}createdAt{% endtrans %}">
-                                            <i class="fas fa-calendar-plus fa-fw"></i> {{ entity.addedDate | localizeddate("short") }}
+                                            <i class="fas fa-calendar-plus fa-fw"></i> {{ entity.addedDate | format_datetime("short") }}
                                         </span>
                                     </div>
                                 </div>

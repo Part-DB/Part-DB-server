@@ -56,8 +56,8 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                             <span class="text-muted dropdown-item-text" ><i class="fas fa-lightbulb fa-fw"></i> <b>ID:</b> {{ attachment.iD }}</span>
-                            <span class="text-muted dropdown-item-text" ><i class="fas fa-calendar fa-fw"></i> <b>{% trans %}createdAt{% endtrans %}:</b> {{ attachment.addedDate | localizeddate("short")}}</span>
-                            <span class="text-muted dropdown-item-text" ><i class="fas fa-history fa-fw"></i> <b>{% trans %}createdAt{% endtrans %}:</b> {{ attachment.addedDate | localizeddate("short")}}</span>
+                            <span class="text-muted dropdown-item-text" ><i class="fas fa-calendar fa-fw"></i> <b>{% trans %}createdAt{% endtrans %}:</b> {{ attachment.addedDate | format_datetime("short")}}</span>
+                            <span class="text-muted dropdown-item-text" ><i class="fas fa-history fa-fw"></i> <b>{% trans %}createdAt{% endtrans %}:</b> {{ attachment.addedDate | format_datetime("short")}}</span>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">{% trans %}attachment.edit{% endtrans %}</a>
                             <a class="dropdown-item" href="#">{% trans %}attachment.delete{% endtrans %}</a>

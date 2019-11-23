@@ -4,12 +4,12 @@
     <tbody>
     <tr> {# Creation date #}
         <td>{% trans %}createdAt{% endtrans %}</td>
-        <td>{{ part.addedDate | localizeddate("long")}}</td>
+        <td>{{ part.addedDate | format_datetime("long")}}</td>
     </tr>
 
     <tr> {# Last modified date #}
         <td>{% trans %}lastModified{% endtrans %}</td>
-        <td>{{ part.lastModified | localizeddate("long")}}</td>
+        <td>{{ part.lastModified | format_datetime("long")}}</td>
     </tr>
 
     <tr> {# ID #}

@@ -45,9 +45,8 @@
         "symfony/web-link": "4.4.*",
         "symfony/webpack-encore-bundle": "^1.1",
         "symfony/yaml": "4.4.*",
-        "twig/extensions": "^1.5",
-        "twig/extra-bundle": "3.x-dev",
-        "twig/intl-extra": "3.x-dev",
+        "twig/extra-bundle": "^3.0",
+        "twig/intl-extra": "^3.0",
         "webmozart/assert": "^1.4"
     },
     "require-dev": {
