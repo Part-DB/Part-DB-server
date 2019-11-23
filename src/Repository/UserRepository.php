@@ -23,6 +23,9 @@ namespace App\Repository;
 
 use App\Entity\UserSystem\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -31,15 +34,9 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserRepository extends ServiceEntityRepository
+class UserRepository extends EntityRepository
 {
     protected $anonymous_user;
-
-    public function __construct(RegistryInterface $registry)
-    {
-        parent::__construct($registry, User::class);
-        $this->anonymous_user = null;
-    }
 
     /**
      * Returns the anonymous user.
