@@ -13,7 +13,6 @@ parameters:
     default_currency: 'EUR'     # The currency that should be used
     media_directory: 'public/media/' # The folder where uploaded attachment files are saved
     secure_media_directory: 'uploads/' # The folder where secured attachment files are saved (must not be in public/)
-    db_version_fallback: '5.6'  # Be sure to override this, in your .env with your real DB version
     global_theme: ''            # The theme to use globally (see public/build/themes/ for choices). Set to '' for default bootstrap theme
     # Allow users to download attachments to server. Warning: This can be dangerous, because via that feature attackers maybe can access ressources on your intranet!
     allow_attachments_downloads: false
