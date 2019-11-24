@@ -1,0 +1,30 @@
+{% extends "mail/base.html.twig" %}
+
+{% block content %}
+<row>
+    <columns>
+        <h4>Hi {{ user.fullName }},</h4>
+        somebody (hopefully you) requested an reset of your password.
+        If this request was not made by you, ignore this email.
+        <br>
+        <button class="large expand" href="{{ url('pw_reset_new_pw', {user: user.name, token: token}) }}">Click here to reset password</button>
+        <br>
+        If this dont work for you. Go to <a href="{{ url('pw_reset_new_pw') }}">{{ url('pw_reset_new_pw') }}</a>
+        and enter the following info:
+        <callout class="secondary">
+            <row>
+                <columns>
+                    <p>
+                        <b>Username: </b> {{ user.name }}
+                    </p>
+                    <p>
+                        <b>Token:</b> {{ token }}
+                    </p>
+                </columns>
+            </row>
+        </callout>
+        The reset token will be valid until <i>{{ expiration_date|format_datetime }}</i>.
+    </columns>
+</row>
+
+{% endblock %}

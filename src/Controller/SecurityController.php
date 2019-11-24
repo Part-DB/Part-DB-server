@@ -21,12 +21,31 @@
 
 namespace App\Controller;
 
+use App\Services\PasswordResetManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SecurityController extends AbstractController
 {
+    protected $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * @Route("/login", name="login", methods={"GET", "POST"})
      */
@@ -41,6 +60,88 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
+        ]);
+    }
+
+    /**
+     * @Route("/pw_reset/request", name="pw_reset_request")
+     */
+    public function requestPwReset(PasswordResetManager $passwordReset, Request $request)
+    {
+        $builder = $this->createFormBuilder();
+        $builder->add('user', TextType::class, [
+            'label' => $this->translator->trans('pw_reset.user_or_password'),
+            'constraints' => [new NotBlank()]
+        ]);
+        $builder->add('captcha', CaptchaType::class, [
+            'width' => 200,
+            'height' => 50,
+            'length' => 6,
+        ]);
+        $builder->add('submit', SubmitType::class, [
+            'label' => 'pw_reset.submit'
+        ]);
+
+        $form = $builder->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $passwordReset->request($form->getData()['user']);
+            $this->addFlash('success', $this->translator->trans('pw_reset.request.success'));
+            //return $this->redirectToRoute('login');
+        }
+
+        return $this->render('security/pw_reset_request.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/pw_reset/new_pw/{user}/{token}", name="pw_reset_new_pw")
+     */
+    public function pwResetNewPw(PasswordResetManager $passwordReset, Request $request, string $user = null, string $token = null)
+    {
+        $data = ['username' => $user, 'token' => $token];
+        $builder = $this->createFormBuilder($data);
+        $builder->add('username', TextType::class, [
+            'label' => $this->translator->trans('pw_reset.username')
+        ]);
+        $builder->add('token', TextType::class, [
+            'label' => $this->translator->trans('pw_reset.token')
+        ]);
+        $builder->add('new_password', RepeatedType::class, [
+            'type' => PasswordType::class,
+            'first_options' => ['label' => 'user.settings.pw_new.label'],
+            'second_options' => ['label' => 'user.settings.pw_confirm.label'],
+            'invalid_message' => 'password_must_match',
+            'constraints' => [new Length([
+                'min' => 6,
+                'max' => 128,
+            ])],
+        ]);
+
+        $builder->add('submit', SubmitType::class, [
+            'label' => 'pw_reset.submit'
+        ]);
+
+        $form = $builder->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            //Try to set the new password
+            $success = $passwordReset->setNewPassword($data['username'], $data['token'], $data['new_password']);
+            if (!$success) {
+                $this->addFlash('error', $this->translator->trans('pw_reset.new_pw.error'));
+            } else {
+                $this->addFlash('success', $this->translator->trans('pw_reset.new_pw.success'));
+                return $this->redirectToRoute('login');
+            }
+        }
+
+
+        return $this->render('security/pw_reset_new_pw.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 

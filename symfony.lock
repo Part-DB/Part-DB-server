@@ -129,6 +129,9 @@
             "./config/packages/dev/easy_log_handler.yaml"
         ]
     },
+    "egulias/email-validator": {
+        "version": "2.1.11"
+    },
     "felixfbecker/advanced-json-rpc": {
         "version": "v3.0.4"
     },
@@ -152,6 +155,12 @@
         "files": [
             "./config/packages/fos_ckeditor.yaml"
         ]
+    },
+    "gregwar/captcha": {
+        "version": "v1.1.7"
+    },
+    "gregwar/captcha-bundle": {
+        "version": "v2.0.6"
     },
     "guzzlehttp/guzzle": {
         "version": "6.3.3"
@@ -183,6 +192,9 @@
             "./config/packages/liip_imagine.yaml",
             "./config/routes/liip_imagine.yaml"
         ]
+    },
+    "lorenzo/pinky": {
+        "version": "1.0.5"
     },
     "monolog/monolog": {
         "version": "1.24.0"
@@ -465,6 +477,18 @@
     "symfony/intl": {
         "version": "v4.2.3"
     },
+    "symfony/mailer": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "15658c2a0176cda2e7dba66276a2030b52bd81b2"
+        },
+        "files": [
+            "./config/packages/mailer.yaml"
+        ]
+    },
     "symfony/maker-bundle": {
         "version": "1.0",
         "recipe": {
@@ -688,7 +712,16 @@
     "symfony/yaml": {
         "version": "v4.2.3"
     },
+    "tijsverkoyen/css-to-inline-styles": {
+        "version": "2.2.2"
+    },
+    "twig/cssinliner-extra": {
+        "version": "v3.0.0"
+    },
     "twig/extra-bundle": {
+        "version": "v3.0.0"
+    },
+    "twig/inky-extra": {
         "version": "v3.0.0"
     },
     "twig/intl-extra": {

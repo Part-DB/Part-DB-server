@@ -394,6 +394,48 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         return $this;
     }
 
+    /**
+     * Returns the encrypted password reset token
+     * @return string|null
+     */
+    public function getPwResetToken(): ?string
+    {
+        return $this->pw_reset_token;
+    }
+
+    /**
+     * Sets the encrypted password reset token
+     * @param string|null $pw_reset_token
+     * @return User
+     */
+    public function setPwResetToken(?string $pw_reset_token): User
+    {
+        $this->pw_reset_token = $pw_reset_token;
+        return $this;
+    }
+
+    /**
+     * Gets the datetime when the password reset token expires
+     * @return \DateTime
+     */
+    public function getPwResetExpires(): \DateTime
+    {
+        return $this->pw_reset_expires;
+    }
+
+    /**
+     * Sets the datetime when the password reset token expires
+     * @param \DateTime $pw_reset_expires
+     * @return User
+     */
+    public function setPwResetExpires(\DateTime $pw_reset_expires): User
+    {
+        $this->pw_reset_expires = $pw_reset_expires;
+        return $this;
+    }
+
+
+
     /************************************************
      * Getters
      ************************************************/

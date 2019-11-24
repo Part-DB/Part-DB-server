@@ -17,6 +17,8 @@ parameters:
     # Allow users to download attachments to server. Warning: This can be dangerous, because via that feature attackers maybe can access ressources on your intranet!
     allow_attachments_downloads: false
     demo_mode: '%env(bool:DEMO_MODE)%' # If set to true, all potentially dangerous things are disabled (like changing passwords of the own user)
+    sender_email: 'noreply@partdb.changeme'
+    sender_name: 'Part-DB Mailer'
 
 services:
     # default configuration for services in *this* file
@@ -35,6 +37,12 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+    App\EventSubscriber\MailFromListener:
+        tags: ['kernel.event_subscriber']
+        arguments:
+            $email: '%sender_email%'
+            $name: '%sender_name%'
 
     Liip\ImagineBundle\Service\FilterService:
         alias: 'liip_imagine.service.filter'

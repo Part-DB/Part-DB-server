@@ -26,6 +26,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -44,7 +45,7 @@ class UserRepository extends EntityRepository
      *
      * @return User|null
      */
-    public function getAnonymousUser()
+    public function getAnonymousUser() : ?User
     {
         if ($this->anonymous_user === null) {
             $this->anonymous_user = $this->findOneBy([
@@ -53,5 +54,30 @@ class UserRepository extends EntityRepository
         }
 
         return $this->anonymous_user;
+    }
+
+    /**
+     * Find a user by its name or its email. Useful for login or password reset purposes.
+     * @param string $name_or_password The username or the email of the user that should be found
+     * @return User|null The user if it is existing, null if no one matched the criteria
+     */
+    public function findByEmailOrName(string $name_or_password) : ?User
+    {
+        if (empty($name_or_password)) {
+            return null;
+        }
+
+        $qb = $this->createQueryBuilder('u');
+        $qb->select('u')
+            ->where('u.name = (:name)')
+            ->orWhere('u.email = (:email)');
+
+        $qb->setParameters(['email' => $name_or_password, 'name' => $name_or_password]);
+
+        try {
+            return $qb->getQuery()->getOneOrNullResult();
+        } catch (NonUniqueResultException $exception) {
+            return null;
+        }
     }
 }

@@ -1,0 +1,30 @@
+{% apply inky_to_html|inline_css(source('@css/foundation-emails.css'), source('@css/email.css')) %}
+
+    <container>
+        <spacer size="16"></spacer>
+        <row class="header">
+            <columns>
+                <spacer size="16"></spacer>
+                <h4 class="text-center"><a href="{{ url('homepage') }}">{{ partdb_title }}</a></h4>
+            </columns>
+        </row>
+
+        <row>
+            <columns>
+
+                <spacer size="32"></spacer>
+                {% block content %}
+
+                {% endblock %}
+            </columns>
+        </row>
+
+        <row>
+            <columns>
+                <p><small>This email was send automatically by <a href="{{ url('homepage') }}">Part-DB</a>. Dont answer to this email.</small></p>
+            </columns>
+        </row>
+
+        <spacer size="16"></spacer>
+    </container>
+{% endapply %}
