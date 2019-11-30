@@ -165,7 +165,7 @@ showing the sidebar (on devices with md or higher)
 .toast-container {
     position: fixed;
     top: auto;
-    z-index: 1;
+    z-index: 3000; /* Over darkmode layer for correct colors! */
     right: 25px;
 }
 
@@ -347,13 +347,16 @@ btn-xs
     display: block;
     margin-left: auto;
     margin-right: auto;
-
 }
 
 .hoverpic:hover {
     transform: scale(6);
     background: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.darkmode--activated .hoverpic:hover {
+    background: black;
 }
 
 
@@ -789,4 +792,12 @@ table.dataTable {
     margin: 0 0 10px;
     font-size: 17.5px;
     border-left: 5px solid #eee;
+}
+
+.darkmode-layer {
+    z-index: 2020;
+}
+
+.darkmode--activated img {
+    mix-blend-mode: difference;
 }

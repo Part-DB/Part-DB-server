@@ -58,13 +58,13 @@
                         {% if true %}
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="search_manufacturer" name="search_manufacturer" value="true">
-                            <label for="search_manufacturer" class="custom-control-label">{% trans %}manufacturer.label{% endtrans %}</label>
+                                <label for="search_manufacturer" class="custom-control-label">{% trans %}manufacturer.label{% endtrans %}</label>
                             </div>
                         {% endif %}
                         {% if true %}
                             <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="search_footprint" name="search_footprint" value="true">
-                            <label for="search_footprint" class="custom-control-label">{% trans %}footprint.label{% endtrans %}</label>
+                                <input type="checkbox" class="custom-control-input" id="search_footprint" name="search_footprint" value="true">
+                                <label for="search_footprint" class="custom-control-label">{% trans %}footprint.label{% endtrans %}</label>
                             </div>
                         {% endif %}
                         <div class="custom-control custom-checkbox">
@@ -104,8 +104,15 @@
                     {% else %}
                         <a class="dropdown-item" href="{{ path('login', {'_target_path': app.request.pathinfo | loginPath}) }}" id="login-link"><i class="fa fa-sign-in-alt fa-fw" aria-hidden="true"></i> {% trans %}user.login{% endtrans %}</a>
                     {% endif %}
+                    <li role="separator" class="dropdown-divider" id="toggleDarkmodeSeparator" hidden></li>
+                    <div class="px-4 px-3" id="toggleDarkmodeContainer" hidden>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="toggleDarkmode">
+                            <label class="custom-control-label" for="toggleDarkmode">{% trans %}ui.toggle_darkmode{% endtrans %}</label>
+                        </div>
+                    </div>
                     <li role="separator" class="dropdown-divider"></li>
-                    <a class="dropdown-item disabled" href="#">{% trans %}user.language_select{% endtrans %}</a>
+                    <h6 class="dropdown-header">{% trans %}user.language_select{% endtrans %}</h6>
                     <a class="dropdown-item" data-no-ajax href="{{ path(app.request.attributes.get('_route'),
                         app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}">
                         {% trans %}language.english{% endtrans %}</a>

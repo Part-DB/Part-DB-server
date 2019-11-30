@@ -88,6 +88,8 @@ require('../css/tagsinput.css');
 //Tristate checkbox support
 require('./jquery.tristate.js');
 
+require('darkmode-js');
+
 require('../ts_src/ajax_ui');
 import {ajaxUI} from "../ts_src/ajax_ui";
 
@@ -96,6 +98,26 @@ window.ajaxUI = ajaxUI;
 //Require all events;
 require('../ts_src/event_listeners');
 
+
+
+//Register darkmode (we must do it here, TS does not support ES6 constructor...
+try {
+    //The browser needs to support mix blend mode
+    if(typeof window.getComputedStyle(document.body).mixBlendMode !== 'undefined') {
+        const darkmode = new Darkmode();
+
+        $(document).on("ajaxUI:start ajaxUI:reload", function () {
+            //Show darkmode toggle to user
+            $('#toggleDarkmodeContainer, #toggleDarkmodeSeparator').removeAttr('hidden');
+            $('#toggleDarkmode').prop('checked', darkmode.isActivated());
+            $('#toggleDarkmode').change(function () {
+                darkmode.toggle();
+            });
+        });
+    }
+} catch (e) {
+    //Ignore all errors (for compatibiltiy with old browsers)
+}
 
 //Start AjaxUI AFTER all event has been registered
 $(document).ready(ajaxUI.start());
