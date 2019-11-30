@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="manifest" href="{{ asset('manifest.json') }}">
+    <link rel="manifest" href="{{ preload(asset('manifest.json'), {as: 'manifest'}) }}">
 
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -37,14 +37,17 @@
             {% set theme = app.user.theme %}
         {% endif %}
 
+
+
         {% if theme %}
-            <link rel="stylesheet" href="{{ asset('build/themes/' ~ theme ~ '.css') }}">
+            <link rel="stylesheet" href="{{ preload(asset('build/themes/' ~ theme ~ '.css'), {as: 'style'}) }}">
         {% else %}
-            <link rel="stylesheet" href="{{ asset('build/themes/bootstrap.css') }}">
+            <link rel="stylesheet" href="{{ preload(asset('build/themes/bootstrap.css'), {as: 'style'}) }}">
         {% endif %}
 
-        {{ encore_entry_link_tags('app') }}
-
+        {% for css in encore_entry_css_files('app') %}
+           <link rel="stylesheet" href="{{ preload(asset(css), {as: 'style'}) }}">
+        {% endfor %}
 
     {% endblock %}
 </head>
@@ -116,8 +119,9 @@
 
 {% endblock %}
 {% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
-
+    {% for js in encore_entry_js_files('app') %}
+        <script src="{{ preload(asset(js), {as: 'script'}) }}"></script>
+    {% endfor %}
 
 {% endblock %}
 

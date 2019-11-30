@@ -11,6 +11,7 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "doctrine/annotations": "^1.6",
+        "doctrine/doctrine-bundle": "^1.12",
         "florianv/swap": "^4.0",
         "friendsofsymfony/ckeditor-bundle": "^2.0",
         "gregwar/captcha-bundle": "dev-master",
@@ -51,8 +52,7 @@
         "twig/extra-bundle": "^3.0",
         "twig/inky-extra": "^3.0",
         "twig/intl-extra": "^3.0",
-        "webmozart/assert": "^1.4",
-        "doctrine/doctrine-bundle": "^1.12"
+        "webmozart/assert": "^1.4"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^5.0",
