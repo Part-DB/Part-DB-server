@@ -1,22 +1,19 @@
 {
-	"manifest_version": 2,
-	"version": "1.0.0",
 	"name": "Part-DB",
-    "default_locale": "en",
-    "author": "Jan Böhmer",
-    "homepage_url": "https://github.com/jbtronics/Part-DB",
-	"description": "A managment tool for electronical parts.",
+	"short_name": "Part-DB",
+	"description": "Inventory managment for electronic components.",
+	"lang": "en",
+	"start_url": "/en/?source=pwa",
+	"display": "standalone",
+	"theme_color": "#ffffff",
 	"icons": [
 		{
-			"src": "\/icons\/android-chrome-192x192.png",
-			"sizes": "192x192",
-			"type": "image\/png"
+			"src": "/icons/android-chrome-192x192.png",
+			"sizes": "192x192"
 		},
 		{
-			"src": "\/icons\/android-chrome-384x384.png",
-			"sizes": "384x384",
-			"type": "image\/png"
+			"src": "/icons/android-chrome-384x384.png",
+			"sizes": "384x384"
 		}
-	],
-	"theme_color": "#ffffff"
+	]
 }
