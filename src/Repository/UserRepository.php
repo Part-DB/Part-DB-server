@@ -28,6 +28,8 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -35,7 +37,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserRepository extends EntityRepository
+class UserRepository extends EntityRepository implements PasswordUpgraderInterface
 {
     protected $anonymous_user;
 
@@ -78,6 +80,17 @@ class UserRepository extends EntityRepository
             return $qb->getQuery()->getOneOrNullResult();
         } catch (NonUniqueResultException $exception) {
             return null;
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
+    {
+        if ($user instanceof User) {
+            $user->setPassword($newEncodedPassword);
+            $this->getEntityManager()->flush($user);
         }
     }
 }
