@@ -12,7 +12,6 @@ php:
   - '7.2'
   - '7.3'
   - '7.4snapshot'
- # - 'nightly'
 
 install:
   - composer install
@@ -27,8 +26,7 @@ install:
   - mysql -e "SET GLOBAL FOREIGN_KEY_CHECKS=1;"
 
 script:
-  #- php bin/phpunit --coverage-clover=coverage.xml
-  - php bin/phpunit
+  - php bin/phpunit --coverage-clover=coverage.xml
   # Perform some simple linting if everything is correct
   - ./bin/console lint:yaml config --parse-tags
   - ./bin/console lint:twig templates --env=prod
@@ -43,6 +41,3 @@ after_success:
 
 matrix:
   fast_finish: true
-  allow_failures:
-    - php: 7.4snapshot
-   # - php: nightly

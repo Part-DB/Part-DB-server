@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9660d2f97bab13484c770ab738af0e6c",
+    "content-hash": "733245d6c57c1dc9a4ebe51098d64efe",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -5299,16 +5299,16 @@
         },
         {
             "name": "symfony/http-kernel",
-            "version": "v4.4.0",
+            "version": "4.4.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-kernel.git",
-                "reference": "5a5e7237d928aa98ff8952050cbbf0135899b6b0"
+                "reference": "2dd418fc0be40808f2bbe8f63e1fafe7182e5cf3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/5a5e7237d928aa98ff8952050cbbf0135899b6b0",
-                "reference": "5a5e7237d928aa98ff8952050cbbf0135899b6b0",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/2dd418fc0be40808f2bbe8f63e1fafe7182e5cf3",
+                "reference": "2dd418fc0be40808f2bbe8f63e1fafe7182e5cf3",
                 "shasum": ""
             },
             "require": {
@@ -5385,7 +5385,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-            "time": "2019-11-21T07:08:15+00:00"
+            "time": "2019-11-28T08:08:13+00:00"
         },
         {
             "name": "symfony/inflector",
@@ -9835,6 +9835,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "gregwar/captcha-bundle": 20,
+        "symfony/http-kernel": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
