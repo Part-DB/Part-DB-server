@@ -30,8 +30,10 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -40,10 +42,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class SecurityController extends AbstractController
 {
     protected $translator;
+    protected $allow_email_pw_reset;
 
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator, bool $allow_email_pw_reset)
     {
         $this->translator = $translator;
+        $this->allow_email_pw_reset = $allow_email_pw_reset;
     }
 
     /**
@@ -68,6 +72,14 @@ class SecurityController extends AbstractController
      */
     public function requestPwReset(PasswordResetManager $passwordReset, Request $request)
     {
+        if (!$this->allow_email_pw_reset) {
+            throw new AccessDeniedHttpException("The password reset via email is disabled!");
+        }
+
+        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedHttpException("You are already logged in, so you can not reset your password!");
+        }
+
         $builder = $this->createFormBuilder();
         $builder->add('user', TextType::class, [
             'label' => $this->translator->trans('pw_reset.user_or_password'),
@@ -88,7 +100,7 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $passwordReset->request($form->getData()['user']);
             $this->addFlash('success', $this->translator->trans('pw_reset.request.success'));
-            //return $this->redirectToRoute('login');
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('security/pw_reset_request.html.twig', [
@@ -101,6 +113,14 @@ class SecurityController extends AbstractController
      */
     public function pwResetNewPw(PasswordResetManager $passwordReset, Request $request, string $user = null, string $token = null)
     {
+        if (!$this->allow_email_pw_reset) {
+            throw new AccessDeniedHttpException("The password reset via email is disabled!");
+        }
+
+        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            throw new AccessDeniedHttpException("You are already logged in, so you can not reset your password!");
+        }
+
         $data = ['username' => $user, 'token' => $token];
         $builder = $this->createFormBuilder($data);
         $builder->add('username', TextType::class, [

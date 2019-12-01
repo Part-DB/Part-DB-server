@@ -17,8 +17,9 @@ parameters:
     # Allow users to download attachments to server. Warning: This can be dangerous, because via that feature attackers maybe can access ressources on your intranet!
     allow_attachments_downloads: false
     demo_mode: '%env(bool:DEMO_MODE)%' # If set to true, all potentially dangerous things are disabled (like changing passwords of the own user)
-    sender_email: 'noreply@partdb.changeme'
-    sender_name: 'Part-DB Mailer'
+    sender_email: 'noreply@partdb.changeme' # The email address from which all emails are sent from
+    sender_name: 'Part-DB Mailer' # The name that will be used for all mails sent by Part-DB
+    allow_email_pw_reset: '%env(validMailDSN:MAILER_DSN)%' # Config if users are able, to reset their password by email. By default this enabled, when a mail server is configured.
 
 services:
     # default configuration for services in *this* file
@@ -102,6 +103,10 @@ services:
     App\EventSubscriber\TimezoneListener:
         arguments:
             $timezone: '%timezone%'
+
+    App\Controller\SecurityController:
+        arguments:
+            $allow_email_pw_reset: '%allow_email_pw_reset%'
 
     App\Services\Attachments\AttachmentPathResolver:
         arguments:

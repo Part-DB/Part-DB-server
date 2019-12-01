@@ -5,7 +5,7 @@
 {% block card_title %}<h5>
     <i class="fa fa-sign-in-alt fa-fw" aria-hidden="true"></i>
     {% trans %}login.card_title{% endtrans %}
-</h5>
+    </h5>
 {% endblock %}
 
 {% block  content %}
@@ -20,7 +20,7 @@
 {% endblock %}
 
 {% block card_content %}
-    <form action="{{ path('login') }}" method="post" class="form-hor">
+    <form action="{{ path('login') }}" method="post" class="form-horizontal">
 
         <input type="hidden" name="_csrf_token"
                value="{{ csrf_token('authenticate') }}">
@@ -60,5 +60,7 @@
         </div>
     </form>
 
-    <a class="offset-2" href="{{ url('pw_reset_request') }}">{% trans %}pw_reset.password_forget{% endtrans %}</a>
+    {% if allow_email_pw_reset %}
+        <a class="offset-2" href="{{ url('pw_reset_request') }}">{% trans %}pw_reset.password_forget{% endtrans %}</a>
+    {% endif %}
 {% endblock %}
