@@ -53,6 +53,7 @@
         "twig/extra-bundle": "^3.0",
         "twig/inky-extra": "^3.0",
         "twig/intl-extra": "^3.0",
+        "twig/markdown-extra": "^3.0",
         "webmozart/assert": "^1.4"
     },
     "require-dev": {

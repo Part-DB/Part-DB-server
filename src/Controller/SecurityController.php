@@ -82,7 +82,7 @@ class SecurityController extends AbstractController
 
         $builder = $this->createFormBuilder();
         $builder->add('user', TextType::class, [
-            'label' => $this->translator->trans('pw_reset.user_or_password'),
+            'label' => $this->translator->trans('pw_reset.user_or_email'),
             'constraints' => [new NotBlank()]
         ]);
         $builder->add('captcha', CaptchaType::class, [

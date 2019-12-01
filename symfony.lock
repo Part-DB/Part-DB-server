@@ -730,6 +730,9 @@
     "twig/intl-extra": {
         "version": "3.x-dev"
     },
+    "twig/markdown-extra": {
+        "version": "v3.0.0"
+    },
     "twig/twig": {
         "version": "v2.6.2"
     },

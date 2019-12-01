@@ -3,27 +3,25 @@
 {% block content %}
 <row>
     <columns>
-        <h4>Hi {{ user.fullName }},</h4>
-        somebody (hopefully you) requested an reset of your password.
-        If this request was not made by you, ignore this email.
+        <h4>{% trans with {'%name%': user.fullName} %}email.hi %name%{% endtrans %},</h4>
+        {% trans %}email.pw_reset.message{% endtrans %}
         <br>
-        <button class="large expand" href="{{ url('pw_reset_new_pw', {user: user.name, token: token}) }}">Click here to reset password</button>
+        <button class="large expand" href="{{ url('pw_reset_new_pw', {user: user.name, token: token}) }}">{% trans %}email.pw_reset.button{% endtrans %}</button>
         <br>
-        If this dont work for you. Go to <a href="{{ url('pw_reset_new_pw') }}">{{ url('pw_reset_new_pw') }}</a>
-        and enter the following info:
+        {% trans with {'%url%': url('pw_reset_new_pw') } %}email.pw_reset.fallback{% endtrans %}:
         <callout class="secondary">
             <row>
                 <columns>
                     <p>
-                        <b>Username: </b> {{ user.name }}
+                        <b>{% trans %}email.pw_reset.username{% endtrans %}: </b> {{ user.name }}
                     </p>
                     <p>
-                        <b>Token:</b> {{ token }}
+                        <b>{% trans %}email.pw_reset.token{% endtrans %}:</b> {{ token }}
                     </p>
                 </columns>
             </row>
         </callout>
-        The reset token will be valid until <i>{{ expiration_date|format_datetime }}</i>.
+        {% trans with {'%date%' : expiration_date|format_datetime} %}email.pw_reset.valid_unit %date%{% endtrans %}
     </columns>
 </row>
 

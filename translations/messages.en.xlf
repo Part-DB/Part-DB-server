@@ -777,32 +777,32 @@ Subelements will be moved upwards.]]></target>
       </trans-unit>
       <trans-unit id="6IyG_kn" resname="Success Flash Message!">
         <source>Success Flash Message!</source>
-        <target></target>
+        <target/>
         <note priority="1">src\Controller\DebugController.php:45</note>
       </trans-unit>
       <trans-unit id="Efur0Zp" resname="Error Flash Message!">
         <source>Error Flash Message!</source>
-        <target></target>
+        <target/>
         <note priority="1">src\Controller\DebugController.php:46</note>
       </trans-unit>
       <trans-unit id="BRCmXY4" resname="Warning Flash Message!">
         <source>Warning Flash Message!</source>
-        <target></target>
+        <target/>
         <note priority="1">src\Controller\DebugController.php:47</note>
       </trans-unit>
       <trans-unit id="Upm6RvH" resname="Notice Flash Message!">
         <source>Notice Flash Message!</source>
-        <target></target>
+        <target/>
         <note priority="1">src\Controller\DebugController.php:48</note>
       </trans-unit>
       <trans-unit id="p1634fX" resname="Info Flash Message! &lt;b&gt;Test&lt;/b&gt;">
         <source>Info Flash Message! &lt;b&gt;Test&lt;/b&gt;</source>
-        <target></target>
+        <target/>
         <note priority="1">src\Controller\DebugController.php:49</note>
       </trans-unit>
       <trans-unit id="UJki1El" resname="Blabla. This message type should be not know to template!">
         <source>Blabla. This message type should be not know to template!</source>
-        <target></target>
+        <target/>
         <note priority="1">src\Controller\DebugController.php:51</note>
       </trans-unit>
       <trans-unit id="6xOvKkk" resname="part.edited_flash">
@@ -2420,6 +2420,94 @@ Element 3</target>
       <trans-unit id="gGfALE0" resname="part.table.attachments">
         <source>part.table.attachments</source>
         <target>Attachments</target>
+      </trans-unit>
+      <trans-unit id="B1T9Kt6" resname="pw_reset.user_or_email">
+        <source>pw_reset.user_or_email</source>
+        <target state="translated">Username / Email</target>
+      </trans-unit>
+      <trans-unit id="C_43E5l" resname="pw_reset.request.success">
+        <source>pw_reset.request.success</source>
+        <target state="translated">Reset request was successful! Please check your emails for further instructions.</target>
+      </trans-unit>
+      <trans-unit id="Ytlen4L" resname="pw_reset.username">
+        <source>pw_reset.username</source>
+        <target state="translated">Username</target>
+      </trans-unit>
+      <trans-unit id="kCND5gR" resname="pw_reset.token">
+        <source>pw_reset.token</source>
+        <target state="translated">Token</target>
+      </trans-unit>
+      <trans-unit id="Kz.sA0j" resname="pw_reset.new_pw.error">
+        <source>pw_reset.new_pw.error</source>
+        <target state="translated">Username or Token invalid! Please check your input.</target>
+      </trans-unit>
+      <trans-unit id="Uy8yPX1" resname="pw_reset.new_pw.success">
+        <source>pw_reset.new_pw.success</source>
+        <target state="translated">Password was reset successfully. You can now login with your new password.</target>
+      </trans-unit>
+      <trans-unit id="ya0_S7f" resname="attachment.table.type">
+        <source>attachment.table.type</source>
+        <target state="translated">Attachment type</target>
+      </trans-unit>
+      <trans-unit id="JVlktlG" resname="pw_reset.email.subject">
+        <source>pw_reset.email.subject</source>
+        <target state="translated">Password reset for your Part-DB account</target>
+      </trans-unit>
+      <trans-unit id="Rc1M3PN" resname="mail.footer.email_sent_by">
+        <source>mail.footer.email_sent_by</source>
+        <target state="translated">This email was sent automatically by</target>
+      </trans-unit>
+      <trans-unit id="AchaWxK" resname="mail.footer.dont_reply">
+        <source>mail.footer.dont_reply</source>
+        <target state="translated">Do not answer to this email.</target>
+      </trans-unit>
+      <trans-unit id="S6Fot75" resname="email.hi %name%">
+        <source>email.hi %name%</source>
+        <target state="translated">Hi %name%</target>
+      </trans-unit>
+      <trans-unit id="VKSPbrb" resname="email.pw_reset.message">
+        <source>email.pw_reset.message</source>
+        <target state="translated">somebody (hopefully you) requested a reset of your password. If this request was not made by you, ignore this mail.</target>
+      </trans-unit>
+      <trans-unit id="lu8bcCN" resname="email.pw_reset.button">
+        <source>email.pw_reset.button</source>
+        <target state="translated">Click here to reset password</target>
+      </trans-unit>
+      <trans-unit id="tS_htiy" resname="email.pw_reset.fallback">
+        <source>email.pw_reset.fallback</source>
+        <target state="translated"><![CDATA[If this does not work for you, go to <a href="%url%">%url%</a> and enter the following info]]></target>
+      </trans-unit>
+      <trans-unit id="QBTV5KP" resname="email.pw_reset.username">
+        <source>email.pw_reset.username</source>
+        <target state="translated">Username</target>
+      </trans-unit>
+      <trans-unit id="6UyKd6G" resname="email.pw_reset.token">
+        <source>email.pw_reset.token</source>
+        <target state="translated">Token</target>
+      </trans-unit>
+      <trans-unit id="3Rl4ELy" resname="email.pw_reset.valid_unit %date%">
+        <source>email.pw_reset.valid_unit %date%</source>
+        <target state="translated"><![CDATA[The reset token will be valid until <i>%date%</i>.]]></target>
+      </trans-unit>
+      <trans-unit id="GO.ZhTX" resname="pw_reset.password_forget">
+        <source>pw_reset.password_forget</source>
+        <target state="translated">Forgot username/password?</target>
+      </trans-unit>
+      <trans-unit id="hbW2JJr" resname="pw_reset.new_pw.header.title">
+        <source>pw_reset.new_pw.header.title</source>
+        <target state="translated">Set new password</target>
+      </trans-unit>
+      <trans-unit id="3Tgn6io" resname="pw_reset.request.header.title">
+        <source>pw_reset.request.header.title</source>
+        <target state="translated">Request a new password</target>
+      </trans-unit>
+      <trans-unit id="Eorzg9b" resname="ui.toggle_darkmode">
+        <source>ui.toggle_darkmode</source>
+        <target state="translated">Darkmode</target>
+      </trans-unit>
+      <trans-unit id="Ed3ydow" resname="pw_reset.submit">
+        <source>pw_reset.submit</source>
+        <target state="translated">Reset password</target>
       </trans-unit>
     </body>
   </file>

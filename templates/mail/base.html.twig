@@ -21,7 +21,7 @@
 
         <row>
             <columns>
-                <p><small>This email was send automatically by <a href="{{ url('homepage') }}">Part-DB</a>. Dont answer to this email.</small></p>
+                <p><small>{% trans %}mail.footer.email_sent_by{% endtrans %} <a href="{{ url('homepage') }}">Part-DB</a>. {% trans %}mail.footer.dont_reply{% endtrans %}</small></p>
             </columns>
         </row>
 
