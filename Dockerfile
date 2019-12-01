@@ -1,8 +1,8 @@
 FROM php:7-apache
 
-RUN apt-get update &&  apt-get install -y curl libcurl4-openssl-dev libicu-dev libpng-dev gnupg zip libzip-dev libonig-dev
+RUN apt-get update &&  apt-get install -y curl libcurl4-openssl-dev libicu-dev libpng-dev gnupg zip libzip-dev libonig-dev libxslt-dev
 
-RUN docker-php-ext-install pdo_mysql curl intl mbstring bcmath gd zip
+RUN docker-php-ext-install pdo_mysql curl intl mbstring bcmath gd zip xml xsl
 
 # Install composer
 #RUN curl --silent --show-error https://getcomposer.org/installer | php
