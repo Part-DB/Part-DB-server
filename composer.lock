@@ -1333,16 +1333,16 @@
         },
         {
             "name": "florianv/exchanger",
-            "version": "2.3.0",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/florianv/exchanger.git",
-                "reference": "a2f76cedfeed1b424a1b7e001574b72ff5b6d94e"
+                "reference": "b5253a34c661aa4f316f7c81bff2615de5709e86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/florianv/exchanger/zipball/a2f76cedfeed1b424a1b7e001574b72ff5b6d94e",
-                "reference": "a2f76cedfeed1b424a1b7e001574b72ff5b6d94e",
+                "url": "https://api.github.com/repos/florianv/exchanger/zipball/b5253a34c661aa4f316f7c81bff2615de5709e86",
+                "reference": "b5253a34c661aa4f316f7c81bff2615de5709e86",
                 "shasum": ""
             },
             "require": {
@@ -1394,7 +1394,7 @@
                 "exchange rates",
                 "money"
             ],
-            "time": "2019-11-04T09:16:39+00:00"
+            "time": "2019-12-02T14:00:30+00:00"
         },
         {
             "name": "florianv/swap",
@@ -1589,20 +1589,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Gregwar/CaptchaBundle.git",
-                "reference": "3ccfdf1c9324acbdfbcccea2c454075115741b3a"
+                "reference": "eeb01bdca51d75dd75b270f6089e2ceb39fd0834"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Gregwar/CaptchaBundle/zipball/3ccfdf1c9324acbdfbcccea2c454075115741b3a",
-                "reference": "3ccfdf1c9324acbdfbcccea2c454075115741b3a",
+                "url": "https://api.github.com/repos/Gregwar/CaptchaBundle/zipball/eeb01bdca51d75dd75b270f6089e2ceb39fd0834",
+                "reference": "eeb01bdca51d75dd75b270f6089e2ceb39fd0834",
                 "shasum": ""
             },
             "require": {
                 "gregwar/captcha": "~1.1",
                 "php": ">=5.3.9",
-                "symfony/form": "~2.8|~3.0|~4.0",
-                "symfony/framework-bundle": "~2.8|~3.0|~4.0",
-                "twig/twig": "^1.40|^2.9"
+                "symfony/form": "~3.0|~4.0|~5.0",
+                "symfony/framework-bundle": "~3.0|~4.0|~5.0",
+                "twig/twig": "^1.40|^2.9|^3"
             },
             "type": "captcha-bundle",
             "autoload": {
@@ -1634,22 +1634,23 @@
                 "code",
                 "security",
                 "spam",
+                "symfony",
                 "visual"
             ],
-            "time": "2019-09-23T13:07:46+00:00"
+            "time": "2019-12-02T09:24:14+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "6.4.1",
+            "version": "6.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "0895c932405407fd3a7368b6910c09a24d26db11"
+                "reference": "dbc2bc3a293ed6b1ae08a3651e2bfd213d19b6a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/0895c932405407fd3a7368b6910c09a24d26db11",
-                "reference": "0895c932405407fd3a7368b6910c09a24d26db11",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/dbc2bc3a293ed6b1ae08a3651e2bfd213d19b6a5",
+                "reference": "dbc2bc3a293ed6b1ae08a3651e2bfd213d19b6a5",
                 "shasum": ""
             },
             "require": {
@@ -1664,12 +1665,13 @@
                 "psr/log": "^1.1"
             },
             "suggest": {
+                "ext-intl": "Required for Internationalized Domain Name (IDN) support",
                 "psr/log": "Required for using the Log middleware"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.3-dev"
+                    "dev-master": "6.5-dev"
                 }
             },
             "autoload": {
@@ -1702,7 +1704,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2019-10-23T15:58:00+00:00"
+            "time": "2019-12-07T18:20:45+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -1828,16 +1830,16 @@
         },
         {
             "name": "imagine/imagine",
-            "version": "1.2.2",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/avalanche123/Imagine.git",
-                "reference": "eec39b2092bc8008a92b8d63824476413dbe7511"
+                "reference": "cb2361e5bb4410b681462d8e4f912bc5dabf84ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/eec39b2092bc8008a92b8d63824476413dbe7511",
-                "reference": "eec39b2092bc8008a92b8d63824476413dbe7511",
+                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/cb2361e5bb4410b681462d8e4f912bc5dabf84ab",
+                "reference": "cb2361e5bb4410b681462d8e4f912bc5dabf84ab",
                 "shasum": ""
             },
             "require": {
@@ -1845,7 +1847,7 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "2.2.*",
-                "phpunit/phpunit": "^4.8 || ^5.7 || ^6.5 || ^7.4"
+                "phpunit/phpunit": "^4.8 || ^5.7 || ^6.5 || ^7.5 || ^8.4"
             },
             "suggest": {
                 "ext-gd": "to use the GD implementation",
@@ -1882,7 +1884,7 @@
                 "image manipulation",
                 "image processing"
             ],
-            "time": "2019-07-09T06:55:48+00:00"
+            "time": "2019-12-04T09:55:33+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -3779,24 +3781,24 @@
         },
         {
             "name": "shivas/versioning-bundle",
-            "version": "3.2.2",
+            "version": "3.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shivas/versioning-bundle.git",
-                "reference": "368c5741f9980cac4b83df966df10b7b3737e3af"
+                "reference": "44611dbbeeef81376baa32d65ac8c263fe307f62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shivas/versioning-bundle/zipball/368c5741f9980cac4b83df966df10b7b3737e3af",
-                "reference": "368c5741f9980cac4b83df966df10b7b3737e3af",
+                "url": "https://api.github.com/repos/shivas/versioning-bundle/zipball/44611dbbeeef81376baa32d65ac8c263fe307f62",
+                "reference": "44611dbbeeef81376baa32d65ac8c263fe307f62",
                 "shasum": ""
             },
             "require": {
-                "nikolaposa/version": "^2.2 || ^3.0",
+                "nikolaposa/version": "^2.2 || ^3",
                 "php": "^7.0",
-                "symfony/console": "^3.4 || ^4.0",
-                "symfony/framework-bundle": "^3.4 || ^4.0",
-                "symfony/process": "^3.4 || ^4.0"
+                "symfony/console": "^3.4 || ^4 || ^5",
+                "symfony/framework-bundle": "^3.4 || ^4 || ^5",
+                "symfony/process": "^3.4 || ^4 || ^5"
             },
             "require-dev": {
                 "mikey179/vfsstream": "^1.6",
@@ -3828,7 +3830,7 @@
                 "version",
                 "versioning"
             ],
-            "time": "2019-11-21T17:34:48+00:00"
+            "time": "2019-12-08T15:52:26+00:00"
         },
         {
             "name": "symfony/apache-pack",
@@ -4854,16 +4856,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.5.2",
+            "version": "v1.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "45ec0287c13fb8383d61bc8486ee5da5c43556fe"
+                "reference": "59b42aa1d3385a21683601c15e63eb35d2ebe8a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/45ec0287c13fb8383d61bc8486ee5da5c43556fe",
-                "reference": "45ec0287c13fb8383d61bc8486ee5da5c43556fe",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/59b42aa1d3385a21683601c15e63eb35d2ebe8a4",
+                "reference": "59b42aa1d3385a21683601c15e63eb35d2ebe8a4",
                 "shasum": ""
             },
             "require": {
@@ -4899,7 +4901,7 @@
                 }
             ],
             "description": "Composer plugin for Symfony",
-            "time": "2019-12-01T09:24:34+00:00"
+            "time": "2019-12-01T15:56:52+00:00"
         },
         {
             "name": "symfony/form",
@@ -8201,24 +8203,27 @@
         },
         {
             "name": "zendframework/zend-code",
-            "version": "3.4.0",
+            "version": "3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-code.git",
-                "reference": "46feaeecea14161734b56c1ace74f28cb329f194"
+                "reference": "268040548f92c2bfcba164421c1add2ba43abaaa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-code/zipball/46feaeecea14161734b56c1ace74f28cb329f194",
-                "reference": "46feaeecea14161734b56c1ace74f28cb329f194",
+                "url": "https://api.github.com/repos/zendframework/zend-code/zipball/268040548f92c2bfcba164421c1add2ba43abaaa",
+                "reference": "268040548f92c2bfcba164421c1add2ba43abaaa",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1",
                 "zendframework/zend-eventmanager": "^2.6 || ^3.0"
             },
+            "conflict": {
+                "phpspec/prophecy": "<1.9.0"
+            },
             "require-dev": {
-                "doctrine/annotations": "^1.0",
+                "doctrine/annotations": "^1.7",
                 "ext-phar": "*",
                 "phpunit/phpunit": "^7.5.16 || ^8.4",
                 "zendframework/zend-coding-standard": "^1.0",
@@ -8232,7 +8237,8 @@
             "extra": {
                 "branch-alias": {
                     "dev-master": "3.4.x-dev",
-                    "dev-develop": "3.5.x-dev"
+                    "dev-develop": "3.5.x-dev",
+                    "dev-dev-4.0": "4.0.x-dev"
                 }
             },
             "autoload": {
@@ -8250,7 +8256,7 @@
                 "code",
                 "zf"
             ],
-            "time": "2019-10-05T23:18:22+00:00"
+            "time": "2019-12-10T19:21:15+00:00"
         },
         {
             "name": "zendframework/zend-eventmanager",
@@ -8967,12 +8973,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "9986511fcd47e8b8ec491884cc18beee1773548a"
+                "reference": "e4ee2c8e4ccd908debc64069faf023c684a76760"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/9986511fcd47e8b8ec491884cc18beee1773548a",
-                "reference": "9986511fcd47e8b8ec491884cc18beee1773548a",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/e4ee2c8e4ccd908debc64069faf023c684a76760",
+                "reference": "e4ee2c8e4ccd908debc64069faf023c684a76760",
                 "shasum": ""
             },
             "conflict": {
@@ -9177,7 +9183,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2019-11-29T17:22:08+00:00"
+            "time": "2019-12-02T13:03:15+00:00"
         },
         {
             "name": "sebastian/diff",
@@ -9706,16 +9712,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "3.7.0",
+            "version": "3.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "a154191922d14dcdde8ef348520a88d735d82304"
+                "reference": "d9cae720c1af31db9ba27c2bc1fcf9b0dd092fb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/a154191922d14dcdde8ef348520a88d735d82304",
-                "reference": "a154191922d14dcdde8ef348520a88d735d82304",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/d9cae720c1af31db9ba27c2bc1fcf9b0dd092fb0",
+                "reference": "d9cae720c1af31db9ba27c2bc1fcf9b0dd092fb0",
                 "shasum": ""
             },
             "require": {
@@ -9745,7 +9751,7 @@
                 "phpunit/phpunit": "^7.5 || ^8.0",
                 "psalm/plugin-phpunit": "^0.6",
                 "slevomat/coding-standard": "^5.0",
-                "squizlabs/php_codesniffer": "3.4.0",
+                "squizlabs/php_codesniffer": "^3.5",
                 "symfony/process": "^4.3"
             },
             "suggest": {
@@ -9790,7 +9796,7 @@
                 "inspection",
                 "php"
             ],
-            "time": "2019-11-27T14:18:47+00:00"
+            "time": "2019-12-03T13:33:31+00:00"
         },
         {
             "name": "webmozart/glob",
