@@ -363,6 +363,11 @@ class AjaxUI {
             return;
         }
 
+        //Ignore ajax errors with 200 code (like the ones during 2FA authentication)
+        if(request.status == 200) {
+            return;
+        }
+
         console.error("Error getting the ajax data from server!");
         console.log(event);
         console.log(request);

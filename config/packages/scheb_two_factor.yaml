@@ -11,6 +11,7 @@ scheb_two_factor:
         issuer: 'Part-DB'               # Issuer name used in QR code
         digits: 6                       # Number of digits in authentication code
         window: 1                       # How many codes before/after the current one would be accepted as valid
+        template: security/2fa_form.html.twig
 
     backup_codes:
         enabled: true  # If the backup code feature should be enabled
