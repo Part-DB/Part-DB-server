@@ -43,6 +43,7 @@
         "marked": "^0.7.0",
         "patternfly-bootstrap-treeview": "^2.1.8",
         "pdfmake": "^0.1.53",
+        "qrcode": "^1.4.4",
         "ts-loader": "^5.3.3",
         "typescript": "^3.3.4000"
     }

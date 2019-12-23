@@ -1,0 +1,44 @@
+<div class="card mt-4">
+    <div class="card-header">
+        <i class="fa fa-shield-alt fa-fw" aria-hidden="true"></i>
+        {% trans %}user.settings.2fa_settings{% endtrans %}
+    </div>
+    <div class="card-body">
+        {{ form_start(tfa_form) }}
+        <ul class="nav nav-tabs" id="tfa-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="google-tab" data-toggle="tab" href="#tfa-google" role="tab"
+                   aria-controls="home" aria-selected="true">{% trans %}tfa.settings.google.tab{% endtrans %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="backup-tab" data-toggle="tab" href="#tfa-backup" role="tab"
+                   aria-controls="profile" aria-selected="false">{% trans %}tfa.settings.bakup.tab{% endtrans %}</a>
+            </li>
+        </ul>
+        <div class="tab-content mt-3 mb-3" id="tfa-tabs-content">
+            <div class="tab-pane fade show active" id="tfa-google" role="tabpanel" aria-labelledby="google-tab">
+                <div class="offset-3 row">
+                    <div class="col-3">
+                        <canvas class="qrcode" data-content="{{ tfa_google.qrContent }}"></canvas>
+                    </div>
+                    <div class="col-9 my-auto">
+                        <ol class="">
+                            <li>{% trans %}tfa_google.step.download{% endtrans %}</li>
+                            <li>{% trans %}tfa_google.step.scan{% endtrans %}</li>
+                            <li>{% trans %}tfa_google.step.input_code{% endtrans %}</li>
+                        </ol>
+                    </div>
+                </div>
+
+                {{ form_row(tfa_form.google_confirmation) }}
+            </div>
+            <div class="tab-pane fade" id="tfa-backup" role="tabpanel" aria-labelledby="backup-tab">
+
+            </div>
+        </div>
+
+        {{ form_row(tfa_form.submit) }}
+        {{ form_row(tfa_form.cancel) }}
+        {{ form_end(tfa_form) }}
+    </div>
+</div>

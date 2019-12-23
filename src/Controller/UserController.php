@@ -25,12 +25,14 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\UserSystem\User;
 use App\Form\Permissions\PermissionsType;
+use App\Form\TFASettingsType;
 use App\Form\UserAdminForm;
 use App\Form\UserSettingsType;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -150,7 +152,7 @@ class UserController extends AdminPages\BaseAdminController
     /**
      * @Route("/settings", name="user_settings")
      */
-    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
+    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator)
     {
         /**
          * @var User
@@ -224,6 +226,22 @@ class UserController extends AdminPages\BaseAdminController
             $this->addFlash('success', 'user.settings.pw_changed_flash');
         }
 
+        //Handle 2FA things
+        $tfa_form = $this->createForm(TFASettingsType::class, $user);
+        $tfa_form->handleRequest($request);
+        if (!$user->getGoogleAuthenticatorSecret()) {
+            $user->setGoogleAuthenticatorSecret($googleAuthenticator->generateSecret());
+            $tfa_form->setData($user);
+        }
+
+        if ($tfa_form->isSubmitted() && $tfa_form->isValid()) {
+            //Save 2FA settings (save secrets)
+            $user->setGoogleAuthenticatorSecret($tfa_form->get('googleAuthenticatorSecret')->getData());
+            $em->flush();
+            $this->addFlash('success', 'user.settings.2fa.google.activated');
+        }
+
+
         /******************************
          * Output both forms
          *****************************/
@@ -232,6 +250,13 @@ class UserController extends AdminPages\BaseAdminController
             'settings_form' => $form->createView(),
             'pw_form' => $pw_form->createView(),
             'page_need_reload' => $page_need_reload,
+
+            'tfa_form' => $tfa_form->createView(),
+            'tfa_google' => [
+                'qrContent' => $googleAuthenticator->getQRContent($user),
+                'secret' => $user->getGoogleAuthenticatorSecret(),
+                'username' => $user->getGoogleAuthenticatorUsername()
+            ]
         ]);
     }
 
