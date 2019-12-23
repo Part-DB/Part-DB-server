@@ -34,9 +34,11 @@ use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
 use Symfony\Component\Asset\Packages;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -193,9 +195,17 @@ class UserController extends AdminPages\BaseAdminController
         $demo_mode = $this->getParameter('demo_mode');
 
         $pw_form = $this->createFormBuilder()
+            //Username field for autocomplete
+            ->add('username', TextType::class, [
+                'data' => $user->getName(),
+                'attr' => ['autocomplete' => 'username'],
+                'disabled' => true,
+                'row_attr' => ['class' => 'd-none']
+            ])
             ->add('old_password', PasswordType::class, [
                 'label' => 'user.settings.pw_old.label',
                 'disabled' => $demo_mode,
+                'attr' => ['autocomplete' => 'current-password'],
                 'constraints' => [new UserPassword()], ]) //This constraint checks, if the current user pw was inputted.
             ->add('new_password', RepeatedType::class, [
                 'disabled' => $demo_mode,
@@ -203,10 +213,13 @@ class UserController extends AdminPages\BaseAdminController
                 'first_options' => ['label' => 'user.settings.pw_new.label'],
                 'second_options' => ['label' => 'user.settings.pw_confirm.label'],
                 'invalid_message' => 'password_must_match',
+                'options' => [
+                    'attr' => ['autocomplete' => 'new-password']
+                ],
                 'constraints' => [new Length([
-                    'min' => 6,
-                    'max' => 128,
-                ])],
+                                                 'min' => 6,
+                                                 'max' => 128,
+                                             ])],
             ])
             ->add('submit', SubmitType::class, ['label' => 'save'])
             ->getForm();
