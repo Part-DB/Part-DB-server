@@ -68,7 +68,7 @@ class Group extends StructuralDBElement implements HasPermissionsInterface
      * @var bool If true all users associated with this group must have enabled some kind of 2 factor authentication
      * @ORM\Column(type="boolean", name="enforce_2fa")
      */
-    protected $enforce2FA;
+    protected $enforce2FA = false;
 
     public function __construct()
     {
