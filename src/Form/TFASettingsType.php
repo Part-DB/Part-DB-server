@@ -20,7 +20,7 @@ class TFASettingsType extends AbstractType
     {
         $builder->add('google_confirmation', TextType::class, [
             'mapped' => false,
-            'attr' => ['maxlength' => '6', 'minlength' => '6', 'pattern' => '\d*'],
+            'attr' => ['maxlength' => '6', 'minlength' => '6', 'pattern' => '\d*', 'autocomplete' => 'off'],
             'constraints' => [new ValidGoogleAuthCode()]
         ]);
 

@@ -26,7 +26,23 @@
                             <li>{% trans %}tfa_google.step.download{% endtrans %}</li>
                             <li>{% trans %}tfa_google.step.scan{% endtrans %}</li>
                             <li>{% trans %}tfa_google.step.input_code{% endtrans %}</li>
+                            <li>{% trans %}tfa_google.step.download_backup{% endtrans %}</li>
                         </ol>
+                    </div>
+                </div>
+
+                <div class="offset-3">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#manualSetupCollapse" aria-expanded="false" aria-controls="manualSetupCollapse">
+                        {% trans %}tfa_google.manual_setup{% endtrans %}
+                    </button>
+                    <div class="collapse" id="manualSetupCollapse">
+                        <div class="card card-body mb-2">
+                            <p><b>{% trans %}tfa_google.manual_setup.type</b>{% endtrans %}: TOTP</p>
+                            <p><b>{% trans %}tfa_google.manual_setup.username</b>{% endtrans %}: {{ tfa_google.username }}</p>
+                            <p><b>{% trans %}tfa_google.manual_setup.secret</b>{% endtrans %}: {{ tfa_google.secret }}</p>
+                            <p><b>{% trans %}tfa_google.manual_setup.digit_count</b>{% endtrans %}: 6</p>
+
+                        </div>
                     </div>
                 </div>
 
