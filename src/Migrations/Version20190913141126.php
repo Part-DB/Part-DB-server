@@ -53,9 +53,11 @@ final class Version20190913141126 extends AbstractMigration
             perms_parts_unit = 9, perms_parts_mass = 9, perms_parts_status = 9, perms_parts_mpn = 9,
             perms_currencies = 9897, perms_measurement_units = 9897, perms_parts_attachements = 681,
             perms_parts_orderdetails = 681, perms_parts_prices = 681
-        WHERE id = 2 AND name = "readonly";
+        WHERE id = 2 AND name = "readonly";';
+
+        $this->addSql($sql);
         
-        UPDATE `groups`
+        $sql = 'UPDATE `groups`
         SET perms_parts_category = 5, perms_parts_minamount = 5, perms_parts_lots = 85, perms_parts_tags= 5,
             perms_parts_unit = 5, perms_parts_mass = 5, perms_parts_status = 5, perms_parts_mpn = 5,
             perms_currencies = 5461, perms_measurement_units = 5461, perms_parts_attachements = 341,
