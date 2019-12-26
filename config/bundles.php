@@ -23,4 +23,5 @@ return [
     Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle::class => ['all' => true],
     Scheb\TwoFactorBundle\SchebTwoFactorBundle::class => ['all' => true],
     R\U2FTwoFactorBundle\RU2FTwoFactorBundle::class => ['all' => true],
+    Translation\Bundle\TranslationBundle::class => ['all' => true],
 ];

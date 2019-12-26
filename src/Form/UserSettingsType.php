@@ -39,15 +39,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class UserSettingsType extends AbstractType
 {
     protected $security;
-
-    protected $trans;
-
     protected $demo_mode;
 
-    public function __construct(Security $security, TranslatorInterface $trans, bool $demo_mode)
+    public function __construct(Security $security, bool $demo_mode)
     {
         $this->security = $security;
-        $this->trans = $trans;
         $this->demo_mode = $demo_mode;
     }
 
@@ -55,43 +51,43 @@ class UserSettingsType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => $this->trans->trans('user.username.label'),
+                'label' => 'user.username.label',
                 'disabled' => !$this->security->isGranted('edit_username', $options['data']) || $this->demo_mode,
             ])
             ->add('first_name', TextType::class, [
                 'required' => false,
-                'label' => $this->trans->trans('user.firstName.label'),
+                'label' => 'user.firstName.label',
                 'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
             ->add('last_name', TextType::class, [
                 'required' => false,
-                'label' => $this->trans->trans('user.lastName.label'),
+                'label' => 'user.lastName.label',
                 'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
             ->add('department', TextType::class, [
                 'required' => false,
-                'label' => $this->trans->trans('user.department.label'),
+                'label' => 'user.department.label',
                 'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
             ->add('email', EmailType::class, [
                 'required' => false,
-                'label' => $this->trans->trans('user.email.label'),
+                'label' => 'user.email.label',
                 'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
             ->add('language', LanguageType::class, [
                 'disabled' => $this->demo_mode,
                 'required' => false,
                 'attr' => ['class' => 'selectpicker', 'data-live-search' => true],
-                'placeholder' => $this->trans->trans('user_settings.language.placeholder'),
-                'label' => $this->trans->trans('user.language_select'),
+                'placeholder' => 'user_settings.language.placeholder',
+                'label' => 'user.language_select',
                 'preferred_choices' => ['en', 'de'],
                 ])
             ->add('timezone', TimezoneType::class, [
                 'disabled' => $this->demo_mode,
                 'required' => false,
                 'attr' => ['class' => 'selectpicker', 'data-live-search' => true],
-                'placeholder' => $this->trans->trans('user_settings.timezone.placeholder'),
-                'label' => $this->trans->trans('user.timezone.label'),
+                'placeholder' => 'user_settings.timezone.placeholder',
+                'label' => 'user.timezone.label',
                 'preferred_choices' => ['Europe/Berlin'],
                 ])
             ->add('theme', ChoiceType::class, [
@@ -102,13 +98,13 @@ class UserSettingsType extends AbstractType
                 'choice_label' => function ($entity, $key, $value) {
                     return $value;
                 },
-                'placeholder' => $this->trans->trans('user_settings.theme.placeholder'),
-                'label' => $this->trans->trans('user.theme.label'),
+                'placeholder' => 'user_settings.theme.placeholder',
+                'label' => 'user.theme.label',
                 ])
             ->add('currency', CurrencyEntityType::class, [
                 'disabled' => $this->demo_mode,
                 'required' => false,
-                'label' => $this->trans->trans('user.currency.label'),
+                'label' => 'user.currency.label',
             ])
 
             //Buttons

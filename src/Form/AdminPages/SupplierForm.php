@@ -38,7 +38,7 @@ class SupplierForm extends CompanyForm
         $builder->add('default_currency', StructuralEntityType::class, [
             'class' => Currency::class,
             'required' => false,
-            'label' => $this->trans->trans('supplier.edit.default_currency'),
+            'label' => 'supplier.edit.default_currency',
             'disable_not_selectable' => true,
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
 
@@ -46,7 +46,7 @@ class SupplierForm extends CompanyForm
             'required' => false,
             'currency' => $this->params->get('default_currency'),
             'scale' => 3,
-            'label' => $this->trans->trans('supplier.shipping_costs.label'),
+            'label' => 'supplier.shipping_costs.label',
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
         ]);
     }

@@ -102,6 +102,7 @@ class SIUnitType extends AbstractType implements DataMapperInterface
     {
         $builder
             ->add('value', NumberType::class, [
+                'label' => false,
                 'html5' => $options['html5'],
                 'attr' => [
                     'min' => (string) $options['min'],
@@ -112,6 +113,7 @@ class SIUnitType extends AbstractType implements DataMapperInterface
 
         if ($options['show_prefix']) {
             $builder->add('prefix', ChoiceType::class, [
+                'label' => 'false',
                 'choices' => ['M' => 6, 'k' => 3, '' => 0, 'm' => -3, 'µ' => -6],
             ]);
         }

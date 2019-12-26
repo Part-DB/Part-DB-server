@@ -97,11 +97,11 @@ class PartController extends AbstractController
 
             $em->persist($part);
             $em->flush();
-            $this->addFlash('info', $translator->trans('part.edited_flash'));
+            $this->addFlash('info', 'part.edited_flash');
             //Reload form, so the SIUnitType entries use the new part unit
             $form = $this->createForm(PartBaseType::class, $part);
         } elseif ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash('error', $translator->trans('part.edited_flash.invalid'));
+            $this->addFlash('error', 'part.edited_flash.invalid');
         }
 
         return $this->render('Parts/edit/edit_part_info.html.twig',
@@ -180,13 +180,13 @@ class PartController extends AbstractController
 
             $em->persist($new_part);
             $em->flush();
-            $this->addFlash('success', $translator->trans('part.created_flash'));
+            $this->addFlash('success', 'part.created_flash');
 
             return $this->redirectToRoute('part_edit', ['id' => $new_part->getID()]);
         }
 
         if ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash('error', $translator->trans('part.created_flash.invalid'));
+            $this->addFlash('error', 'part.created_flash.invalid');
         }
 
         return $this->render('Parts/edit/new_part.html.twig',
@@ -216,7 +216,7 @@ class PartController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($new_part);
             $em->flush();
-            $this->addFlash('success', $translator->trans('part.created_flash'));
+            $this->addFlash('success', 'part.created_flash');
 
             return $this->redirectToRoute('part_edit', ['id' => $new_part->getID()]);
         }

@@ -1,0 +1,6 @@
+_translation_webui:
+    resource: "@TranslationBundle/Resources/config/routing_webui.yml"
+    prefix:  /admin
+  
+_translation_profiler:
+    resource: '@TranslationBundle/Resources/config/routing_symfony_profiler.yml'

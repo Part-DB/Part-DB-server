@@ -32,7 +32,7 @@ class FootprintAdminForm extends BaseEntityAdminForm
         $builder->add('footprint_3d', MasterPictureAttachmentType::class, [
             'required' => false,
             'disabled' => !$this->security->isGranted(null === $entity->getID() ? 'create' : 'edit', $entity),
-            'label' => $this->trans->trans('footprint.edit.3d_model'),
+            'label' => 'footprint.edit.3d_model',
             'filter' => '3d_model',
             'entity' => $entity,
         ]);

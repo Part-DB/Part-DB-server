@@ -49,12 +49,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class UserAdminForm extends AbstractType
 {
     protected $security;
-    protected $trans;
 
-    public function __construct(Security $security, TranslatorInterface $trans)
+    public function __construct(Security $security)
     {
         $this->security = $security;
-        $this->trans = $trans;
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -72,44 +70,44 @@ class UserAdminForm extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'empty_data' => '',
-                'label' => $this->trans->trans('user.username.label'),
-                'attr' => ['placeholder' => $this->trans->trans('user.username.placeholder')],
+                'label' => 'user.username.label',
+                'attr' => ['placeholder' => 'user.username.placeholder'],
                 'disabled' => !$this->security->isGranted('edit_username', $entity),
             ])
 
             ->add('group', StructuralEntityType::class, [
                 'class' => Group::class,
                 'required' => false,
-                'label' => $this->trans->trans('group.label'),
+                'label' => 'group.label',
                 'disable_not_selectable' => true,
                 'disabled' => !$this->security->isGranted('change_group', $entity), ])
 
             ->add('first_name', TextType::class, [
                 'empty_data' => '',
-                'label' => $this->trans->trans('user.firstName.label'),
-                'attr' => ['placeholder' => $this->trans->trans('user.firstName.placeholder')], 'required' => false,
+                'label' => 'user.firstName.label',
+                'attr' => ['placeholder' => 'user.firstName.placeholder'], 'required' => false,
                 'disabled' => !$this->security->isGranted('edit_infos', $entity),
             ])
 
             ->add('last_name', TextType::class, [
                 'empty_data' => '',
-                'label' => $this->trans->trans('user.lastName.label'),
-                'attr' => ['placeholder' => $this->trans->trans('user.lastName.placeholder')],
+                'label' => 'user.lastName.label',
+                'attr' => ['placeholder' => 'user.lastName.placeholder'],
                 'required' => false,
                 'disabled' => !$this->security->isGranted('edit_infos', $entity),
             ])
 
             ->add('email', TextType::class, [
                 'empty_data' => '',
-                'label' => $this->trans->trans('user.email.label'),
-                'attr' => ['placeholder' => $this->trans->trans('user.email.placeholder')],
+                'label' => 'user.email.label',
+                'attr' => ['placeholder' => 'user.email.placeholder'],
                 'required' => false,
                 'disabled' => !$this->security->isGranted('edit_infos', $entity), ])
 
             ->add('department', TextType::class, [
                 'empty_data' => '',
-                'label' => $this->trans->trans('user.department.label'),
-                'attr' => ['placeholder' => $this->trans->trans('user.department.placeholder')],
+                'label' => 'user.department.label',
+                'attr' => ['placeholder' => 'user.department.placeholder'],
                 'required' => false,
                 'disabled' => !$this->security->isGranted('edit_infos', $entity),
             ])
@@ -118,16 +116,16 @@ class UserAdminForm extends AbstractType
             ->add('language', LanguageType::class, [
                 'required' => false,
                 'attr' => ['class' => 'selectpicker', 'data-live-search' => true],
-                'placeholder' => $this->trans->trans('user_settings.language.placeholder'),
-                'label' => $this->trans->trans('user.language_select'),
+                'placeholder' => 'user_settings.language.placeholder',
+                'label' => 'user.language_select',
                 'preferred_choices' => ['en', 'de'],
                 'disabled' => !$this->security->isGranted('change_user_settings', $entity),
             ])
             ->add('timezone', TimezoneType::class, [
                 'required' => false,
                 'attr' => ['class' => 'selectpicker', 'data-live-search' => true],
-                'placeholder' => $this->trans->trans('user_settings.timezone.placeholder'),
-                'label' => $this->trans->trans('user.timezone.label'),
+                'placeholder' => 'user_settings.timezone.placeholder',
+                'label' => 'user.timezone.label',
                 'preferred_choices' => ['Europe/Berlin'],
                 'disabled' => !$this->security->isGranted('change_user_settings', $entity),
             ])
@@ -138,20 +136,20 @@ class UserAdminForm extends AbstractType
                     return $value;
                 },
                 'attr' => ['class' => 'selectpicker'],
-                'placeholder' => $this->trans->trans('user_settings.theme.placeholder'),
-                'label' => $this->trans->trans('user.theme.label'),
+                'placeholder' => 'user_settings.theme.placeholder',
+                'label' => 'user.theme.label',
                 'disabled' => !$this->security->isGranted('change_user_settings', $entity),
             ])
             ->add('currency', CurrencyEntityType::class, [
                 'required' => false,
-                'label' => $this->trans->trans('user.currency.label'),
+                'label' => 'user.currency.label',
                 'disabled' => !$this->security->isGranted('change_user_settings', $entity),
             ])
 
             ->add('new_password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options' => ['label' => $this->trans->trans('user.settings.pw_new.label')],
-                'second_options' => ['label' => $this->trans->trans('user.settings.pw_confirm.label')],
+                'first_options' => ['label' => 'user.settings.pw_new.label'],
+                'second_options' => ['label' => 'user.settings.pw_confirm.label'],
                 'invalid_message' => 'password_must_match',
                 'required' => false,
                 'mapped' => false,
@@ -165,14 +163,14 @@ class UserAdminForm extends AbstractType
             ->add('need_pw_change', CheckboxType::class, [
                 'required' => false,
                 'label_attr' => ['class' => 'checkbox-custom'],
-                'label' => $this->trans->trans('user.edit.needs_pw_change'),
+                'label' => 'user.edit.needs_pw_change',
                 'disabled' => !$this->security->isGranted('set_password', $entity),
             ])
 
             ->add('disabled', CheckboxType::class, [
                 'required' => false,
                 'label_attr' => ['class' => 'checkbox-custom'],
-                'label' => $this->trans->trans('user.edit.user_disabled'),
+                'label' => 'user.edit.user_disabled',
                 'disabled' => !$this->security->isGranted('set_password', $entity)
                     || $entity === $this->security->getUser(),
             ])
@@ -205,11 +203,11 @@ class UserAdminForm extends AbstractType
 
         //Buttons
         $builder->add('save', SubmitType::class, [
-            'label' => $is_new ? $this->trans->trans('user.create') : $this->trans->trans('user.edit.save'),
+            'label' => $is_new ? 'user.create' : 'user.edit.save',
             'attr' => ['class' => $is_new ? 'btn-success' : ''],
         ])
             ->add('reset', ResetType::class, [
-                'label' => $this->trans->trans('entity.edit.reset'),
+                'label' => 'entity.edit.reset',
             ]);
     }
 

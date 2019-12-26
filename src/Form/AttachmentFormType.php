@@ -43,15 +43,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class AttachmentFormType extends AbstractType
 {
     protected $attachment_helper;
-    protected $trans;
     protected $urlGenerator;
     protected $allow_attachments_download;
 
-    public function __construct(AttachmentManager $attachmentHelper, TranslatorInterface $trans,
+    public function __construct(AttachmentManager $attachmentHelper,
                                 UrlGeneratorInterface $urlGenerator, bool $allow_attachments_downloads)
     {
         $this->attachment_helper = $attachmentHelper;
-        $this->trans = $trans;
         $this->urlGenerator = $urlGenerator;
         $this->allow_attachments_download = $allow_attachments_downloads;
     }
@@ -59,50 +57,50 @@ class AttachmentFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', TextType::class, [
-            'label' => $this->trans->trans('attachment.edit.name'),
+            'label' => 'attachment.edit.name',
         ])
             ->add('attachment_type', StructuralEntityType::class, [
-                'label' => $this->trans->trans('attachment.edit.attachment_type'),
+                'label' => 'attachment.edit.attachment_type',
                 'class' => AttachmentType::class,
                 'disable_not_selectable' => true,
                 'attr' => ['class' => 'attachment_type_selector'],
             ]);
 
         $builder->add('showInTable', CheckboxType::class, ['required' => false,
-            'label' => $this->trans->trans('attachment.edit.show_in_table'),
+            'label' => 'attachment.edit.show_in_table',
             'attr' => ['class' => 'form-control-sm'],
             'label_attr' => ['class' => 'checkbox-custom'], ]);
 
         $builder->add('secureFile', CheckboxType::class, ['required' => false,
-            'label' => $this->trans->trans('attachment.edit.secure_file'),
+            'label' => 'attachment.edit.secure_file',
             'mapped' => false,
             'attr' => ['class' => 'form-control-sm'],
-            'help' => $this->trans->trans('attachment.edit.secure_file.help'),
+            'help' => 'attachment.edit.secure_file.help',
             'label_attr' => ['class' => 'checkbox-custom'], ]);
 
         $builder->add('url', TextType::class, [
-            'label' => $this->trans->trans('attachment.edit.url'),
+            'label' => 'attachment.edit.url',
             'required' => false,
             'attr' => [
                 'data-autocomplete' => $this->urlGenerator->generate('typeahead_builtInRessources', ['query' => 'QUERY']),
                 //Disable browser autocomplete
                 'autocomplete' => 'off',
             ],
-            'help' => $this->trans->trans('attachment.edit.url.help'),
+            'help' => 'attachment.edit.url.help',
             'constraints' => [
                 $options['allow_builtins'] ? new UrlOrBuiltin() : new Url(),
             ],
         ]);
 
         $builder->add('downloadURL', CheckboxType::class, ['required' => false,
-            'label' => $this->trans->trans('attachment.edit.download_url'),
+            'label' => 'attachment.edit.download_url',
             'mapped' => false,
             'disabled' => !$this->allow_attachments_download,
             'attr' => ['class' => 'form-control-sm'],
             'label_attr' => ['class' => 'checkbox-custom'], ]);
 
         $builder->add('file', FileType::class, [
-            'label' => $this->trans->trans('attachment.edit.file'),
+            'label' => 'attachment.edit.file',
             'mapped' => false,
             'required' => false,
             'attr' => ['class' => 'file', 'data-show-preview' => 'false', 'data-show-upload' => 'false'],

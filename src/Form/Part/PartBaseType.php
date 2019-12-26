@@ -54,10 +54,9 @@ class PartBaseType extends AbstractType
     protected $trans;
     protected $urlGenerator;
 
-    public function __construct(Security $security, TranslatorInterface $trans, UrlGeneratorInterface $urlGenerator)
+    public function __construct(Security $security, UrlGeneratorInterface $urlGenerator)
     {
         $this->security = $security;
-        $this->trans = $trans;
         $this->urlGenerator = $urlGenerator;
     }
 
@@ -67,52 +66,52 @@ class PartBaseType extends AbstractType
         $part = $builder->getData();
 
         $status_choices = [
-            $this->trans->trans('m_status.unknown') => '',
-            $this->trans->trans('m_status.announced') => 'announced',
-            $this->trans->trans('m_status.active') => 'active',
-            $this->trans->trans('m_status.nrfnd') => 'nrfnd',
-            $this->trans->trans('m_status.eol') => 'eol',
-            $this->trans->trans('m_status.discontinued') => 'discontinued',
+            'm_status.unknown' => '',
+            'm_status.announced' => 'announced',
+            'm_status.active' => 'active',
+            'm_status.nrfnd' => 'nrfnd',
+            'm_status.eol' => 'eol',
+            'm_status.discontinued' => 'discontinued',
         ];
 
         //Common section
         $builder
             ->add('name', TextType::class, [
                 'empty_data' => '',
-                'label' => $this->trans->trans('part.edit.name'),
-                'attr' => ['placeholder' => $this->trans->trans('part.edit.name.placeholder')],
+                'label' => 'part.edit.name',
+                'attr' => ['placeholder' => 'part.edit.name.placeholder'],
                 'disabled' => !$this->security->isGranted('name.edit', $part),
             ])
             ->add('description', CKEditorType::class, [
                 'required' => false,
                 'empty_data' => '',
-                'label' => $this->trans->trans('part.edit.description'),
+                'label' => 'part.edit.description',
                 'config_name' => 'description_config',
-                'attr' => ['placeholder' => $this->trans->trans('part.edit.description.placeholder'), 'rows' => 2],
+                'attr' => ['placeholder' => 'part.edit.description.placeholder', 'rows' => 2],
                 'disabled' => !$this->security->isGranted('description.edit', $part),
             ])
             ->add('minAmount', SIUnitType::class, [
-                'attr' => ['min' => 0, 'placeholder' => $this->trans->trans('part.editmininstock.placeholder')],
-                'label' => $this->trans->trans('part.edit.mininstock'),
+                'attr' => ['min' => 0, 'placeholder' => 'part.editmininstock.placeholder'],
+                'label' => 'part.edit.mininstock',
                 'measurement_unit' => $part->getPartUnit(),
                 'disabled' => !$this->security->isGranted('minamount.edit', $part),
             ])
             ->add('category', StructuralEntityType::class, [
                 'class' => Category::class,
-                'label' => $this->trans->trans('part.edit.category'),
+                'label' => 'part.edit.category',
                 'disable_not_selectable' => true,
                 'disabled' => !$this->security->isGranted('category.edit', $part),
             ])
             ->add('footprint', StructuralEntityType::class, [
                 'class' => Footprint::class,
                 'required' => false,
-                'label' => $this->trans->trans('part.edit.footprint'),
+                'label' => 'part.edit.footprint',
                 'disable_not_selectable' => true,
                 'disabled' => !$this->security->isGranted('footprint.edit', $part),
             ])
             ->add('tags', TextType::class, [
                 'required' => false,
-                'label' => $this->trans->trans('part.edit.tags'),
+                'label' => 'part.edit.tags',
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'tagsinput',
@@ -124,23 +123,23 @@ class PartBaseType extends AbstractType
         $builder->add('manufacturer', StructuralEntityType::class, [
             'class' => Manufacturer::class,
             'required' => false,
-            'label' => $this->trans->trans('part.edit.manufacturer.label'),
+            'label' => 'part.edit.manufacturer.label',
             'disable_not_selectable' => true,
             'disabled' => !$this->security->isGranted('manufacturer.edit', $part),
             ])
             ->add('manufacturer_product_url', UrlType::class, [
                 'required' => false,
                 'empty_data' => '',
-                'label' => $this->trans->trans('part.edit.manufacturer_url.label'),
+                'label' => 'part.edit.manufacturer_url.label',
                 'disabled' => !$this->security->isGranted('mpn.edit', $part),
             ])
             ->add('manufacturer_product_number', TextType::class, [
                 'required' => false,
                 'empty_data' => '',
-                'label' => $this->trans->trans('part.edit.mpn'),
+                'label' => 'part.edit.mpn',
                 'disabled' => !$this->security->isGranted('mpn.edit', $part), ])
             ->add('manufacturing_status', ChoiceType::class, [
-                'label' => $this->trans->trans('part.edit.manufacturing_status'),
+                'label' => 'part.edit.manufacturing_status',
                 'choices' => $status_choices,
                 'required' => false,
                 'disabled' => !$this->security->isGranted('status.edit', $part),
@@ -150,18 +149,18 @@ class PartBaseType extends AbstractType
         $builder->add('needsReview', CheckboxType::class, [
             'label_attr' => ['class' => 'checkbox-custom'],
             'required' => false,
-            'label' => $this->trans->trans('part.edit.needs_review'),
+            'label' => 'part.edit.needs_review',
             'disabled' => !$this->security->isGranted('edit', $part),
         ])
             ->add('favorite', CheckboxType::class, [
                 'label_attr' => ['class' => 'checkbox-custom'],
                 'required' => false,
-                'label' => $this->trans->trans('part.edit.is_favorite'),
+                'label' => 'part.edit.is_favorite',
                 'disabled' => !$this->security->isGranted('change_favorite', $part),
             ])
             ->add('mass', SIUnitType::class, [
                 'unit' => 'g',
-                'label' => $this->trans->trans('part.edit.mass'),
+                'label' => 'part.edit.mass',
                 'required' => false,
                 'disabled' => !$this->security->isGranted('mass.edit', $part),
             ])
@@ -169,14 +168,14 @@ class PartBaseType extends AbstractType
                 'class' => MeasurementUnit::class,
                 'required' => false,
                 'disable_not_selectable' => true,
-                'label' => $this->trans->trans('part.edit.partUnit'),
+                'label' => 'part.edit.partUnit',
                 'disabled' => !$this->security->isGranted('unit.edit', $part),
             ]);
 
         //Comment section
         $builder->add('comment', CKEditorType::class, [
             'required' => false,
-            'label' => $this->trans->trans('part.edit.comment'),
+            'label' => 'part.edit.comment',
             'attr' => ['rows' => 4],
             'disabled' => !$this->security->isGranted('comment.edit', $part), 'empty_data' => '',
         ]);
@@ -210,7 +209,7 @@ class PartBaseType extends AbstractType
         $builder->add('master_picture_attachment', MasterPictureAttachmentType::class, [
             'required' => false,
             'disabled' => !$this->security->isGranted('attachments.edit', $part),
-            'label' => $this->trans->trans('part.edit.master_attachment'),
+            'label' => 'part.edit.master_attachment',
             'entity' => $part,
         ]);
 
@@ -230,8 +229,8 @@ class PartBaseType extends AbstractType
 
         $builder
             //Buttons
-            ->add('save', SubmitType::class, ['label' => $this->trans->trans('part.edit.save')])
-            ->add('reset', ResetType::class, ['label' => $this->trans->trans('part.edit.reset')]);
+            ->add('save', SubmitType::class, ['label' => 'part.edit.save'])
+            ->add('reset', ResetType::class, ['label' => 'part.edit.reset']);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -107,13 +107,13 @@ abstract class BaseAdminController extends AbstractController
 
             $em->persist($entity);
             $em->flush();
-            $this->addFlash('success', $this->translator->trans('entity.edit_flash'));
+            $this->addFlash('success', 'entity.edit_flash');
 
             //Rebuild form, so it is based on the updated data. Important for the parent field!
             //We can not use dynamic form events here, because the parent entity list is build from database!
             $form = $this->createForm($this->form_class, $entity, ['attachment_class' => $this->attachment_class]);
         } elseif ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash('error', $this->translator->trans('entity.edit_flash.invalid'));
+            $this->addFlash('error', 'entity.edit_flash.invalid');
         }
 
         return $this->render($this->twig_template, [
@@ -163,13 +163,13 @@ abstract class BaseAdminController extends AbstractController
 
             $em->persist($new_entity);
             $em->flush();
-            $this->addFlash('success', $this->translator->trans('entity.created_flash'));
+            $this->addFlash('success', 'entity.created_flash');
 
             return $this->redirectToRoute($this->route_base.'_edit', ['id' => $new_entity->getID()]);
         }
 
         if ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash('error', $this->translator->trans('entity.created_flash.invalid'));
+            $this->addFlash('error', 'entity.created_flash.invalid');
         }
 
         //Import form

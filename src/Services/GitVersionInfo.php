@@ -52,7 +52,7 @@ class GitVersionInfo
     /**
      * Get hash of the last git commit (on remote "origin"!).
      *
-     * @note    If this method does not work, try to make a "git pull" first!
+     * If this method does not work, try to make a "git pull" first!
      *
      * @param int $length if this is smaller than 40, only the first $length characters will be returned
      *
