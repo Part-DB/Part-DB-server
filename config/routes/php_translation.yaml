@@ -1,0 +1,3 @@
+_translation_edit_in_place:
+    resource: '@TranslationBundle/Resources/config/routing_edit_in_place.yml'
+    prefix:  /admin
