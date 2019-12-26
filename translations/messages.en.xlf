@@ -2280,7 +2280,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">src\Controller\AdminPages\BaseAdminController.php:110</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>entity.edit_flash</source>
         <target>Changes saved successful.</target>
       </segment>
@@ -2289,7 +2289,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">src\Controller\AdminPages\BaseAdminController.php:116</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>entity.edit_flash.invalid</source>
         <target>Can not save changed. Please check your input!</target>
       </segment>
@@ -2298,7 +2298,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">src\Controller\AdminPages\BaseAdminController.php:166</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>entity.created_flash</source>
         <target>Element created.</target>
       </segment>
@@ -2307,7 +2307,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">src\Controller\AdminPages\BaseAdminController.php:172</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>entity.created_flash.invalid</source>
         <target>Could not create element. Please check your input!</target>
       </segment>
@@ -2326,180 +2326,9 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">src\Controller\AdminPages\BaseAdminController.php:257</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>csfr_invalid</source>
         <target>CSFR Token invalid. Please reload this page or contact an administrator if this message stays.</target>
-      </segment>
-    </unit>
-    <unit id="lZvhKYu" name="validator.noneofitschild.self">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:57</note>
-      </notes>
-      <segment>
-        <source>validator.noneofitschild.self</source>
-        <target state="translated">A element can not be its own parent.</target>
-      </segment>
-    </unit>
-    <unit id="pr07aV4" name="validator.noneofitschild.children">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:58</note>
-      </notes>
-      <segment>
-        <source>validator.noneofitschild.children</source>
-        <target state="translated">The parent can not be one of the children of itself.</target>
-      </segment>
-    </unit>
-    <unit id="0IF0VIF" name="validator.isSelectable">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:59</note>
-      </notes>
-      <segment>
-        <source>validator.isSelectable</source>
-        <target state="translated">The element must be selectable.</target>
-      </segment>
-    </unit>
-    <unit id="nd207H6" name="validator.part_lot.location_full.no_increasment">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:60</note>
-      </notes>
-      <segment>
-        <source>validator.part_lot.location_full.no_increasment</source>
-        <target state="translated">The storage location was marked as full, so you can not increase the instock amount. (New amount max. {{ old_amount }})</target>
-      </segment>
-    </unit>
-    <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:61</note>
-      </notes>
-      <segment>
-        <source>validator.part_lot.location_full</source>
-        <target state="translated">The storage location was marked as full, so you can not add a new part to it.</target>
-      </segment>
-    </unit>
-    <unit id="6vIlN5q" name="validator.part_lot.only_existing">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:62</note>
-      </notes>
-      <segment>
-        <source>validator.part_lot.only_existing</source>
-        <target state="translated">The storage location was marked as "only existing", so you can not add new part to it.</target>
-      </segment>
-    </unit>
-    <unit id="BNQk2e7" name="validator.part_lot.single_part">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:63</note>
-      </notes>
-      <segment>
-        <source>validator.part_lot.single_part</source>
-        <target state="translated">The storage location was marked as "single part", so you can not add a new part to it.</target>
-      </segment>
-    </unit>
-    <unit id="7yhBzTg" name="m_status.active.help">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:66</note>
-      </notes>
-      <segment>
-        <source>m_status.active.help</source>
-        <target state="translated">The part is currently and in forseeable future in production</target>
-      </segment>
-    </unit>
-    <unit id="UsEaNqy" name="m_status.announced.help">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:67</note>
-      </notes>
-      <segment>
-        <source>m_status.announced.help</source>
-        <target state="translated">The part was announced but is not available yet.</target>
-      </segment>
-    </unit>
-    <unit id="huj6JXj" name="m_status.discontinued.help">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:68</note>
-      </notes>
-      <segment>
-        <source>m_status.discontinued.help</source>
-        <target state="translated">The part is discontinued and not produced anymore.</target>
-      </segment>
-    </unit>
-    <unit id="xytsZcE" name="m_status.eol.help">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:69</note>
-      </notes>
-      <segment>
-        <source>m_status.eol.help</source>
-        <target state="translated">The product has reached its end-of-life and the production will be stopped soon.</target>
-      </segment>
-    </unit>
-    <unit id="t8VuM2P" name="m_status.nrfnd.help">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:70</note>
-      </notes>
-      <segment>
-        <source>m_status.nrfnd.help</source>
-        <target state="translated">The part is currently in production but is not recommended for new designs.</target>
-      </segment>
-    </unit>
-    <unit id="8x._AWi" name="m_status.unknown.help">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:71</note>
-      </notes>
-      <segment>
-        <source>m_status.unknown.help</source>
-        <target state="translated">The manufacturing status of the part is not known.</target>
-      </segment>
-    </unit>
-    <unit id="g4ahva6" name="flash.success">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:74</note>
-      </notes>
-      <segment>
-        <source>flash.success</source>
-        <target state="translated">Success</target>
-      </segment>
-    </unit>
-    <unit id="NehzWgk" name="flash.error">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:75</note>
-      </notes>
-      <segment>
-        <source>flash.error</source>
-        <target state="translated">Error</target>
-      </segment>
-    </unit>
-    <unit id="h8vhq_r" name="flash.warning">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:76</note>
-      </notes>
-      <segment>
-        <source>flash.warning</source>
-        <target state="translated">Warning</target>
-      </segment>
-    </unit>
-    <unit id="m5p2YEz" name="flash.notice">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:77</note>
-      </notes>
-      <segment>
-        <source>flash.notice</source>
-        <target state="translated">Notice</target>
-      </segment>
-    </unit>
-    <unit id="YA5xZMy" name="flash.info">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:78</note>
-      </notes>
-      <segment>
-        <source>flash.info</source>
-        <target state="translated">Info</target>
-      </segment>
-    </unit>
-    <unit id="hYFfpL7" name="validator.noLockout">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:80</note>
-      </notes>
-      <segment>
-        <source>validator.noLockout</source>
-        <target state="translated">You can not withdraw yourself the "change permission" permission, to prevent that you lockout yourself accidentally.</target>
       </segment>
     </unit>
     <unit id="6xOvKkk" name="part.edited_flash">
@@ -2525,7 +2354,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">src\Controller\PartController.php:133</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>part.deleted</source>
         <target>Part deleted successful.</target>
       </segment>
@@ -2714,6 +2543,7 @@ Subelements will be moved upwards.]]></target>
         <note category="file-source" priority="1">src\DataTables\AttachmentDataTable.php:197</note>
         <note category="file-source" priority="1">src\DataTables\PartsDataTable.php:258</note>
         <note category="file-source" priority="1">src\DataTables\PartsDataTable.php:265</note>
+        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:115</note>
       </notes>
       <segment>
         <source>false</source>
@@ -3461,42 +3291,42 @@ Subelements will be moved upwards.]]></target>
     </unit>
     <unit id="CPJxiHz" name="M">
       <notes>
-        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:115</note>
+        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:117</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>M</source>
         <target>M</target>
       </segment>
     </unit>
     <unit id="glTDKak" name="k">
       <notes>
-        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:115</note>
+        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:117</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>k</source>
         <target>k</target>
       </segment>
     </unit>
     <unit id="47DEQpj" name="">
-      <segment state="translated">
-        <source/>
+      <segment>
+        <source></source>
         <target> </target>
       </segment>
     </unit>
     <unit id="YsZqel3" name="m">
       <notes>
-        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:115</note>
+        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:117</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>m</source>
         <target>m</target>
       </segment>
     </unit>
     <unit id="WgcvG_T" name="µ">
       <notes>
-        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:115</note>
+        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:117</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>µ</source>
         <target>µ</target>
       </segment>
@@ -3857,6 +3687,177 @@ Subelements will be moved upwards.]]></target>
       <segment>
         <source>entity.tree.new</source>
         <target>New Element</target>
+      </segment>
+    </unit>
+    <unit id="lZvhKYu" name="validator.noneofitschild.self">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>validator.noneofitschild.self</source>
+        <target state="translated">A element can not be its own parent.</target>
+      </segment>
+    </unit>
+    <unit id="pr07aV4" name="validator.noneofitschild.children">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>validator.noneofitschild.children</source>
+        <target state="translated">The parent can not be one of the children of itself.</target>
+      </segment>
+    </unit>
+    <unit id="0IF0VIF" name="validator.isSelectable">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>validator.isSelectable</source>
+        <target state="translated">The element must be selectable.</target>
+      </segment>
+    </unit>
+    <unit id="nd207H6" name="validator.part_lot.location_full.no_increasment">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>validator.part_lot.location_full.no_increasment</source>
+        <target state="translated">The storage location was marked as full, so you can not increase the instock amount. (New amount max. {{ old_amount }})</target>
+      </segment>
+    </unit>
+    <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>validator.part_lot.location_full</source>
+        <target state="translated">The storage location was marked as full, so you can not add a new part to it.</target>
+      </segment>
+    </unit>
+    <unit id="6vIlN5q" name="validator.part_lot.only_existing">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>validator.part_lot.only_existing</source>
+        <target state="translated">The storage location was marked as "only existing", so you can not add new part to it.</target>
+      </segment>
+    </unit>
+    <unit id="BNQk2e7" name="validator.part_lot.single_part">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>validator.part_lot.single_part</source>
+        <target state="translated">The storage location was marked as "single part", so you can not add a new part to it.</target>
+      </segment>
+    </unit>
+    <unit id="7yhBzTg" name="m_status.active.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>m_status.active.help</source>
+        <target state="translated">The part is currently and in forseeable future in production</target>
+      </segment>
+    </unit>
+    <unit id="UsEaNqy" name="m_status.announced.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>m_status.announced.help</source>
+        <target state="translated">The part was announced but is not available yet.</target>
+      </segment>
+    </unit>
+    <unit id="huj6JXj" name="m_status.discontinued.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>m_status.discontinued.help</source>
+        <target state="translated">The part is discontinued and not produced anymore.</target>
+      </segment>
+    </unit>
+    <unit id="xytsZcE" name="m_status.eol.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>m_status.eol.help</source>
+        <target state="translated">The product has reached its end-of-life and the production will be stopped soon.</target>
+      </segment>
+    </unit>
+    <unit id="t8VuM2P" name="m_status.nrfnd.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>m_status.nrfnd.help</source>
+        <target state="translated">The part is currently in production but is not recommended for new designs.</target>
+      </segment>
+    </unit>
+    <unit id="8x._AWi" name="m_status.unknown.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>m_status.unknown.help</source>
+        <target state="translated">The manufacturing status of the part is not known.</target>
+      </segment>
+    </unit>
+    <unit id="g4ahva6" name="flash.success">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>flash.success</source>
+        <target state="translated">Success</target>
+      </segment>
+    </unit>
+    <unit id="NehzWgk" name="flash.error">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>flash.error</source>
+        <target state="translated">Error</target>
+      </segment>
+    </unit>
+    <unit id="h8vhq_r" name="flash.warning">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>flash.warning</source>
+        <target state="translated">Warning</target>
+      </segment>
+    </unit>
+    <unit id="m5p2YEz" name="flash.notice">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>flash.notice</source>
+        <target state="translated">Notice</target>
+      </segment>
+    </unit>
+    <unit id="YA5xZMy" name="flash.info">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>flash.info</source>
+        <target state="translated">Info</target>
+      </segment>
+    </unit>
+    <unit id="hYFfpL7" name="validator.noLockout">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>validator.noLockout</source>
+        <target state="translated">You can not withdraw yourself the "change permission" permission, to prevent that you lockout yourself accidentally.</target>
       </segment>
     </unit>
     <unit id="dxkuAbb" name="attachment_type.edit.filetype_filter">

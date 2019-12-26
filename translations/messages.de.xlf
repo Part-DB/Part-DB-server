@@ -2289,7 +2289,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">src\Controller\AdminPages\BaseAdminController.php:110</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>entity.edit_flash</source>
         <target>Änderungen erfolgreich gespeichert.</target>
       </segment>
@@ -2298,7 +2298,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">src\Controller\AdminPages\BaseAdminController.php:116</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>entity.edit_flash.invalid</source>
         <target>Änderungen konnten nicht gespeichert werden! Prüfen Sie ihre Eingaben!</target>
       </segment>
@@ -2307,7 +2307,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">src\Controller\AdminPages\BaseAdminController.php:166</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>entity.created_flash</source>
         <target>Element erfolgreich angelegt!</target>
       </segment>
@@ -2316,7 +2316,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">src\Controller\AdminPages\BaseAdminController.php:172</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>entity.created_flash.invalid</source>
         <target>Element konnte nicht angelegt werden! Prüfen Sie ihre Eingaben!</target>
       </segment>
@@ -2336,180 +2336,9 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">src\Controller\AdminPages\BaseAdminController.php:257</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>csfr_invalid</source>
         <target>CSFR-Token ungültig! Laden Sie diese Seite erneut oder kontaktieren Sie einen Administrator, wenn das Problem bestehen bleibt!</target>
-      </segment>
-    </unit>
-    <unit id="lZvhKYu" name="validator.noneofitschild.self">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:57</note>
-      </notes>
-      <segment>
-        <source>validator.noneofitschild.self</source>
-        <target state="translated">Ein Element kann nicht sich selbst als übergeordnet sein!</target>
-      </segment>
-    </unit>
-    <unit id="pr07aV4" name="validator.noneofitschild.children">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:58</note>
-      </notes>
-      <segment>
-        <source>validator.noneofitschild.children</source>
-        <target state="translated">Ein Kindelement kann nicht das übergeordnete Element sein!</target>
-      </segment>
-    </unit>
-    <unit id="0IF0VIF" name="validator.isSelectable">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:59</note>
-      </notes>
-      <segment>
-        <source>validator.isSelectable</source>
-        <target state="translated">Das Element muss auswählbar sein!</target>
-      </segment>
-    </unit>
-    <unit id="nd207H6" name="validator.part_lot.location_full.no_increasment">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:60</note>
-      </notes>
-      <segment>
-        <source>validator.part_lot.location_full.no_increasment</source>
-        <target state="translated">Der verwendete Lagerort wurde als voll markiert, daher kann der Bestand nicht erhöht werden. (Neuer Bestand maximal {{ old_amount }})</target>
-      </segment>
-    </unit>
-    <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:61</note>
-      </notes>
-      <segment>
-        <source>validator.part_lot.location_full</source>
-        <target state="translated">Der Lagerort ist voll, daher können keine neue Teile hinzugefügt werden.</target>
-      </segment>
-    </unit>
-    <unit id="6vIlN5q" name="validator.part_lot.only_existing">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:62</note>
-      </notes>
-      <segment>
-        <source>validator.part_lot.only_existing</source>
-        <target state="translated">Der Lagerort wurde als "nur bestehende Teile" markiert, daher können keine neuen Teile hinzugefügt werden.</target>
-      </segment>
-    </unit>
-    <unit id="BNQk2e7" name="validator.part_lot.single_part">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:63</note>
-      </notes>
-      <segment>
-        <source>validator.part_lot.single_part</source>
-        <target state="translated">Der Lagerort wurde als "Nur ein Bauteil" markiert, daher kann kein neues Bauteil hinzugefügt werden.</target>
-      </segment>
-    </unit>
-    <unit id="7yhBzTg" name="m_status.active.help">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:66</note>
-      </notes>
-      <segment>
-        <source>m_status.active.help</source>
-        <target state="translated">Das Bauteil wird momentan und in absehbarer Zukunft produziert.</target>
-      </segment>
-    </unit>
-    <unit id="UsEaNqy" name="m_status.announced.help">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:67</note>
-      </notes>
-      <segment>
-        <source>m_status.announced.help</source>
-        <target state="translated">Das Bauteil wurde angekündigt, ist aber noch nicht erhältlich.</target>
-      </segment>
-    </unit>
-    <unit id="huj6JXj" name="m_status.discontinued.help">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:68</note>
-      </notes>
-      <segment>
-        <source>m_status.discontinued.help</source>
-        <target state="translated">Das Bauteil wird nicht mehr hergestellt.</target>
-      </segment>
-    </unit>
-    <unit id="xytsZcE" name="m_status.eol.help">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:69</note>
-      </notes>
-      <segment>
-        <source>m_status.eol.help</source>
-        <target state="translated">Die Produktion des Bauteils wird bald eingestellt.</target>
-      </segment>
-    </unit>
-    <unit id="t8VuM2P" name="m_status.nrfnd.help">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:70</note>
-      </notes>
-      <segment>
-        <source>m_status.nrfnd.help</source>
-        <target state="translated">Im Moment wird das Bauteil noch hergestellt, die Verwendung für neue Designs ist nicht mehr empfohlen.</target>
-      </segment>
-    </unit>
-    <unit id="8x._AWi" name="m_status.unknown.help">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:71</note>
-      </notes>
-      <segment>
-        <source>m_status.unknown.help</source>
-        <target state="translated">Der Produktionstatus ist nicht bekannt.</target>
-      </segment>
-    </unit>
-    <unit id="g4ahva6" name="flash.success">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:74</note>
-      </notes>
-      <segment>
-        <source>flash.success</source>
-        <target state="translated">Erfolg</target>
-      </segment>
-    </unit>
-    <unit id="NehzWgk" name="flash.error">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:75</note>
-      </notes>
-      <segment>
-        <source>flash.error</source>
-        <target state="translated">Fehler</target>
-      </segment>
-    </unit>
-    <unit id="h8vhq_r" name="flash.warning">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:76</note>
-      </notes>
-      <segment>
-        <source>flash.warning</source>
-        <target state="translated">Warnung</target>
-      </segment>
-    </unit>
-    <unit id="m5p2YEz" name="flash.notice">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:77</note>
-      </notes>
-      <segment>
-        <source>flash.notice</source>
-        <target state="translated">Hinweis</target>
-      </segment>
-    </unit>
-    <unit id="YA5xZMy" name="flash.info">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:78</note>
-      </notes>
-      <segment>
-        <source>flash.info</source>
-        <target state="translated">Info</target>
-      </segment>
-    </unit>
-    <unit id="hYFfpL7" name="validator.noLockout">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:80</note>
-      </notes>
-      <segment>
-        <source>validator.noLockout</source>
-        <target state="translated">Sie können sich nicht selbst die Berechtigung Berechtigungen zu bearbeiten entziehen, um sich nicht versehentlich auszusperren!</target>
       </segment>
     </unit>
     <unit id="6xOvKkk" name="part.edited_flash">
@@ -2536,7 +2365,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">src\Controller\PartController.php:133</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>part.deleted</source>
         <target>Bauteil erfolgreich gelöscht.</target>
       </segment>
@@ -2728,6 +2557,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <note category="file-source" priority="1">src\DataTables\AttachmentDataTable.php:197</note>
         <note category="file-source" priority="1">src\DataTables\PartsDataTable.php:258</note>
         <note category="file-source" priority="1">src\DataTables\PartsDataTable.php:265</note>
+        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:115</note>
       </notes>
       <segment>
         <source>false</source>
@@ -3464,15 +3294,6 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target state="translated">Kommentar</target>
       </segment>
     </unit>
-    <unit id="Rm5bnNV" name="currency">
-      <notes>
-        <note category="file-source" priority="1">src\Form\Part\PricedetailType.php:54</note>
-      </notes>
-      <segment state="translated">
-        <source>currency</source>
-        <target>Währung</target>
-      </segment>
-    </unit>
     <unit id=".8YTKod" name="perm.group.other">
       <notes>
         <note category="file-source" priority="1">src\Form\Permissions\PermissionsType.php:78</note>
@@ -3484,42 +3305,42 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="CPJxiHz" name="M">
       <notes>
-        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:115</note>
+        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:117</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>M</source>
         <target>M</target>
       </segment>
     </unit>
     <unit id="glTDKak" name="k">
       <notes>
-        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:115</note>
+        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:117</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>k</source>
         <target>k</target>
       </segment>
     </unit>
     <unit id="47DEQpj" name="">
-      <segment state="translated">
-        <source/>
+      <segment>
+        <source></source>
         <target> </target>
       </segment>
     </unit>
     <unit id="YsZqel3" name="m">
       <notes>
-        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:115</note>
+        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:117</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>m</source>
         <target>m</target>
       </segment>
     </unit>
     <unit id="WgcvG_T" name="µ">
       <notes>
-        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:115</note>
+        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:117</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>µ</source>
         <target>µ</target>
       </segment>
@@ -3888,6 +3709,186 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <segment>
         <source>entity.tree.new</source>
         <target>Neues Element</target>
+      </segment>
+    </unit>
+    <unit id="lZvhKYu" name="validator.noneofitschild.self">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>validator.noneofitschild.self</source>
+        <target state="translated">Ein Element kann nicht sich selbst als übergeordnet sein!</target>
+      </segment>
+    </unit>
+    <unit id="pr07aV4" name="validator.noneofitschild.children">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>validator.noneofitschild.children</source>
+        <target state="translated">Ein Kindelement kann nicht das übergeordnete Element sein!</target>
+      </segment>
+    </unit>
+    <unit id="0IF0VIF" name="validator.isSelectable">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>validator.isSelectable</source>
+        <target state="translated">Das Element muss auswählbar sein!</target>
+      </segment>
+    </unit>
+    <unit id="nd207H6" name="validator.part_lot.location_full.no_increasment">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>validator.part_lot.location_full.no_increasment</source>
+        <target state="translated">Der verwendete Lagerort wurde als voll markiert, daher kann der Bestand nicht erhöht werden. (Neuer Bestand maximal {{ old_amount }})</target>
+      </segment>
+    </unit>
+    <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>validator.part_lot.location_full</source>
+        <target state="translated">Der Lagerort ist voll, daher können keine neue Teile hinzugefügt werden.</target>
+      </segment>
+    </unit>
+    <unit id="6vIlN5q" name="validator.part_lot.only_existing">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>validator.part_lot.only_existing</source>
+        <target state="translated">Der Lagerort wurde als "nur bestehende Teile" markiert, daher können keine neuen Teile hinzugefügt werden.</target>
+      </segment>
+    </unit>
+    <unit id="BNQk2e7" name="validator.part_lot.single_part">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>validator.part_lot.single_part</source>
+        <target state="translated">Der Lagerort wurde als "Nur ein Bauteil" markiert, daher kann kein neues Bauteil hinzugefügt werden.</target>
+      </segment>
+    </unit>
+    <unit id="7yhBzTg" name="m_status.active.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>m_status.active.help</source>
+        <target state="translated">Das Bauteil wird momentan und in absehbarer Zukunft produziert.</target>
+      </segment>
+    </unit>
+    <unit id="UsEaNqy" name="m_status.announced.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>m_status.announced.help</source>
+        <target state="translated">Das Bauteil wurde angekündigt, ist aber noch nicht erhältlich.</target>
+      </segment>
+    </unit>
+    <unit id="huj6JXj" name="m_status.discontinued.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>m_status.discontinued.help</source>
+        <target state="translated">Das Bauteil wird nicht mehr hergestellt.</target>
+      </segment>
+    </unit>
+    <unit id="xytsZcE" name="m_status.eol.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>m_status.eol.help</source>
+        <target state="translated">Die Produktion des Bauteils wird bald eingestellt.</target>
+      </segment>
+    </unit>
+    <unit id="t8VuM2P" name="m_status.nrfnd.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>m_status.nrfnd.help</source>
+        <target state="translated">Im Moment wird das Bauteil noch hergestellt, die Verwendung für neue Designs ist nicht mehr empfohlen.</target>
+      </segment>
+    </unit>
+    <unit id="8x._AWi" name="m_status.unknown.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>m_status.unknown.help</source>
+        <target state="translated">Der Produktionstatus ist nicht bekannt.</target>
+      </segment>
+    </unit>
+    <unit id="g4ahva6" name="flash.success">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>flash.success</source>
+        <target state="translated">Erfolg</target>
+      </segment>
+    </unit>
+    <unit id="NehzWgk" name="flash.error">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>flash.error</source>
+        <target state="translated">Fehler</target>
+      </segment>
+    </unit>
+    <unit id="h8vhq_r" name="flash.warning">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>flash.warning</source>
+        <target state="translated">Warnung</target>
+      </segment>
+    </unit>
+    <unit id="m5p2YEz" name="flash.notice">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>flash.notice</source>
+        <target state="translated">Hinweis</target>
+      </segment>
+    </unit>
+    <unit id="YA5xZMy" name="flash.info">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>flash.info</source>
+        <target state="translated">Info</target>
+      </segment>
+    </unit>
+    <unit id="hYFfpL7" name="validator.noLockout">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>validator.noLockout</source>
+        <target state="translated">Sie können sich nicht selbst die Berechtigung Berechtigungen zu bearbeiten entziehen, um sich nicht versehentlich auszusperren!</target>
+      </segment>
+    </unit>
+    <unit id="Rm5bnNV" name="currency">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>currency</source>
+        <target>Währung</target>
       </segment>
     </unit>
     <unit id="dxkuAbb" name="attachment_type.edit.filetype_filter">

@@ -51,7 +51,10 @@ class PricedetailType extends AbstractType
             'html5' => true,
             'attr' => ['min' => 0, 'step' => 'any'],
         ]);
-        $builder->add('currency', CurrencyEntityType::class, ['required' => false]);
+        $builder->add('currency', CurrencyEntityType::class, [
+            'required' => false,
+            'label' => false
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
