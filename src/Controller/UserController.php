@@ -254,11 +254,13 @@ class UserController extends AdminPages\BaseAdminController
                 $user->setGoogleAuthenticatorSecret($google_form->get('googleAuthenticatorSecret')->getData());
                 $em->flush();
                 $this->addFlash('success', 'user.settings.2fa.google.activated');
+                return $this->redirectToRoute('user_settings');
             } elseif ($google_enabled) {
                 //Remove secret to disable google authenticator
                 $user->setGoogleAuthenticatorSecret(null);
                 $em->flush();
                 $this->addFlash('success', 'user.settings.2fa.google.disabled');
+                return $this->redirectToRoute('user_settings');
             }
         }
 
