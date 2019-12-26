@@ -471,7 +471,7 @@ Subelements will be moved upwards.]]></target>
     <unit id="4_pqNGT" name="export.format">
       <notes>
         <note category="file-source" priority="1">templates\AdminPages\_export_form.html.twig:4</note>
-        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:60</note>
+        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:56</note>
         <note priority="1">templates\AdminPages\_export_form.html.twig:4</note>
         <note priority="1">src\Form\ImportType.php:67</note>
       </notes>
@@ -1167,7 +1167,6 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">templates\Parts\info\show_part_info.html.twig:46</note>
         <note category="file-source" priority="1">templates\_navbar.html.twig:46</note>
-        <note category="file-source" priority="1">src\Form\AdminPages\BaseEntityAdminForm.php:84</note>
         <note priority="1">templates\base.html.twig:62</note>
         <note priority="1">templates\Parts\show_part_info.html.twig:74</note>
         <note priority="1">src\Form\PartType.php:86</note>
@@ -1906,8 +1905,7 @@ Subelements will be moved upwards.]]></target>
     <unit id="PwI64fM" name="user.firstName.label">
       <notes>
         <note category="file-source" priority="1">templates\Users\user_info.html.twig:18</note>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:89</note>
-        <note category="file-source" priority="1">src\Form\UserSettingsType.php:63</note>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:57</note>
         <note priority="1">templates\Users\user_info.html.twig:18</note>
         <note priority="1">src\Form\UserSettingsType.php:32</note>
       </notes>
@@ -1919,8 +1917,7 @@ Subelements will be moved upwards.]]></target>
     <unit id="u2ayBIA" name="user.lastName.label">
       <notes>
         <note category="file-source" priority="1">templates\Users\user_info.html.twig:24</note>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:96</note>
-        <note category="file-source" priority="1">src\Form\UserSettingsType.php:68</note>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:62</note>
         <note priority="1">templates\Users\user_info.html.twig:24</note>
         <note priority="1">src\Form\UserSettingsType.php:35</note>
       </notes>
@@ -1932,8 +1929,7 @@ Subelements will be moved upwards.]]></target>
     <unit id="cDu6Rok" name="user.email.label">
       <notes>
         <note category="file-source" priority="1">templates\Users\user_info.html.twig:30</note>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:104</note>
-        <note category="file-source" priority="1">src\Form\UserSettingsType.php:78</note>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:72</note>
         <note priority="1">templates\Users\user_info.html.twig:30</note>
         <note priority="1">src\Form\UserSettingsType.php:41</note>
       </notes>
@@ -1945,8 +1941,7 @@ Subelements will be moved upwards.]]></target>
     <unit id="8GGUFm1" name="user.department.label">
       <notes>
         <note category="file-source" priority="1">templates\Users\user_info.html.twig:37</note>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:111</note>
-        <note category="file-source" priority="1">src\Form\UserSettingsType.php:73</note>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:67</note>
         <note priority="1">templates\Users\user_info.html.twig:37</note>
         <note priority="1">src\Form\UserSettingsType.php:38</note>
       </notes>
@@ -1958,8 +1953,7 @@ Subelements will be moved upwards.]]></target>
     <unit id="oX4P2rM" name="user.username.label">
       <notes>
         <note category="file-source" priority="1">templates\Users\user_info.html.twig:47</note>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:75</note>
-        <note category="file-source" priority="1">src\Form\UserSettingsType.php:58</note>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:53</note>
         <note priority="1">templates\Users\user_info.html.twig:47</note>
         <note priority="1">src\Form\UserSettingsType.php:30</note>
       </notes>
@@ -1971,7 +1965,6 @@ Subelements will be moved upwards.]]></target>
     <unit id="QK5x4IY" name="group.label">
       <notes>
         <note category="file-source" priority="1">templates\Users\user_info.html.twig:53</note>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:83</note>
         <note category="file-source" priority="1">src\Services\ElementTypeNameGenerator.php:70</note>
         <note priority="1">templates\Users\user_info.html.twig:53</note>
       </notes>
@@ -2056,7 +2049,6 @@ Subelements will be moved upwards.]]></target>
     <unit id="kTRK6H_" name="name.label">
       <notes>
         <note category="file-source" priority="1">templates\_navbar.html.twig:30</note>
-        <note category="file-source" priority="1">src\Form\AdminPages\BaseEntityAdminForm.php:69</note>
         <note priority="1">templates\base.html.twig:54</note>
         <note priority="1">src\Form\PartType.php:62</note>
       </notes>
@@ -2181,8 +2173,7 @@ Subelements will be moved upwards.]]></target>
     <unit id="oabvQfM" name="user.language_select">
       <notes>
         <note category="file-source" priority="1">templates\_navbar.html.twig:115</note>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:122</note>
-        <note category="file-source" priority="1">src\Form\UserSettingsType.php:86</note>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:77</note>
         <note priority="1">templates\base.html.twig:106</note>
         <note priority="1">src\Form\UserSettingsType.php:44</note>
       </notes>
@@ -2289,36 +2280,36 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">src\Controller\AdminPages\BaseAdminController.php:110</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>entity.edit_flash</source>
-        <target></target>
+        <target>Changes saved successful.</target>
       </segment>
     </unit>
     <unit id="AoZHore" name="entity.edit_flash.invalid">
       <notes>
         <note category="file-source" priority="1">src\Controller\AdminPages\BaseAdminController.php:116</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>entity.edit_flash.invalid</source>
-        <target></target>
+        <target>Can not save changed. Please check your input!</target>
       </segment>
     </unit>
     <unit id="8MJvWmd" name="entity.created_flash">
       <notes>
         <note category="file-source" priority="1">src\Controller\AdminPages\BaseAdminController.php:166</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>entity.created_flash</source>
-        <target></target>
+        <target>Element created.</target>
       </segment>
     </unit>
     <unit id="zZdZuYS" name="entity.created_flash.invalid">
       <notes>
         <note category="file-source" priority="1">src\Controller\AdminPages\BaseAdminController.php:172</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>entity.created_flash.invalid</source>
-        <target></target>
+        <target>Could not create element. Please check your input!</target>
       </segment>
     </unit>
     <unit id="lSfR7sD" name="attachment_type.deleted">
@@ -2335,69 +2326,9 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">src\Controller\AdminPages\BaseAdminController.php:257</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>csfr_invalid</source>
-        <target></target>
-      </segment>
-    </unit>
-    <unit id="6IyG_kn" name="Success Flash Message!">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:38</note>
-        <note priority="1">src\Controller\DebugController.php:45</note>
-      </notes>
-      <segment>
-        <source>Success Flash Message!</source>
-        <target></target>
-      </segment>
-    </unit>
-    <unit id="Efur0Zp" name="Error Flash Message!">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:39</note>
-        <note priority="1">src\Controller\DebugController.php:46</note>
-      </notes>
-      <segment>
-        <source>Error Flash Message!</source>
-        <target></target>
-      </segment>
-    </unit>
-    <unit id="BRCmXY4" name="Warning Flash Message!">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:40</note>
-        <note priority="1">src\Controller\DebugController.php:47</note>
-      </notes>
-      <segment>
-        <source>Warning Flash Message!</source>
-        <target></target>
-      </segment>
-    </unit>
-    <unit id="Upm6RvH" name="Notice Flash Message!">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:41</note>
-        <note priority="1">src\Controller\DebugController.php:48</note>
-      </notes>
-      <segment>
-        <source>Notice Flash Message!</source>
-        <target></target>
-      </segment>
-    </unit>
-    <unit id="p1634fX" name="Info Flash Message! &lt;b&gt;Test&lt;/b&gt;">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:42</note>
-        <note priority="1">src\Controller\DebugController.php:49</note>
-      </notes>
-      <segment>
-        <source>Info Flash Message! &lt;b&gt;Test&lt;/b&gt;</source>
-        <target></target>
-      </segment>
-    </unit>
-    <unit id="UJki1El" name="Blabla. This message type should be not know to template!">
-      <notes>
-        <note category="file-source" priority="1">src\Controller\DebugController.php:44</note>
-        <note priority="1">src\Controller\DebugController.php:51</note>
-      </notes>
-      <segment>
-        <source>Blabla. This message type should be not know to template!</source>
-        <target></target>
+        <target>CSFR Token invalid. Please reload this page or contact an administrator if this message stays.</target>
       </segment>
     </unit>
     <unit id="lZvhKYu" name="validator.noneofitschild.self">
@@ -2594,9 +2525,9 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">src\Controller\PartController.php:133</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>part.deleted</source>
-        <target></target>
+        <target>Part deleted successful.</target>
       </segment>
     </unit>
     <unit id="tG.Jfwp" name="part.created_flash">
@@ -2706,7 +2637,7 @@ Subelements will be moved upwards.]]></target>
     <unit id="3ZnUiT_" name="attachment.edit.name">
       <notes>
         <note category="file-source" priority="1">src\DataTables\AttachmentDataTable.php:89</note>
-        <note category="file-source" priority="1">src\Form\AttachmentFormType.php:62</note>
+        <note category="file-source" priority="1">src\Form\AttachmentFormType.php:59</note>
       </notes>
       <segment>
         <source>attachment.edit.name</source>
@@ -2754,7 +2685,7 @@ Subelements will be moved upwards.]]></target>
     <unit id="xUV7Oz9" name="attachment.edit.show_in_table">
       <notes>
         <note category="file-source" priority="1">src\DataTables\AttachmentDataTable.php:169</note>
-        <note category="file-source" priority="1">src\Form\AttachmentFormType.php:72</note>
+        <note category="file-source" priority="1">src\Form\AttachmentFormType.php:69</note>
       </notes>
       <segment>
         <source>attachment.edit.show_in_table</source>
@@ -2937,7 +2868,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">src\DataTables\PartsDataTable.php:272</note>
         <note category="file-source" priority="1">src\DataTables\PartsDataTable.php:274</note>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:70</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:68</note>
       </notes>
       <segment>
         <source>m_status.unknown</source>
@@ -2947,7 +2878,7 @@ Subelements will be moved upwards.]]></target>
     <unit id="BEnlUff" name="m_status.announced">
       <notes>
         <note category="file-source" priority="1">src\DataTables\PartsDataTable.php:275</note>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:71</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:68</note>
       </notes>
       <segment>
         <source>m_status.announced</source>
@@ -2957,7 +2888,7 @@ Subelements will be moved upwards.]]></target>
     <unit id="TN5xR7J" name="m_status.active">
       <notes>
         <note category="file-source" priority="1">src\DataTables\PartsDataTable.php:276</note>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:72</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:68</note>
       </notes>
       <segment>
         <source>m_status.active</source>
@@ -2967,7 +2898,7 @@ Subelements will be moved upwards.]]></target>
     <unit id="0McKh_8" name="m_status.nrfnd">
       <notes>
         <note category="file-source" priority="1">src\DataTables\PartsDataTable.php:277</note>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:73</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:68</note>
       </notes>
       <segment>
         <source>m_status.nrfnd</source>
@@ -2977,7 +2908,7 @@ Subelements will be moved upwards.]]></target>
     <unit id="L7yLwn0" name="m_status.eol">
       <notes>
         <note category="file-source" priority="1">src\DataTables\PartsDataTable.php:278</note>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:74</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:68</note>
       </notes>
       <segment>
         <source>m_status.eol</source>
@@ -2987,7 +2918,7 @@ Subelements will be moved upwards.]]></target>
     <unit id="5jxVP1H" name="m_status.discontinued">
       <notes>
         <note category="file-source" priority="1">src\DataTables\PartsDataTable.php:279</note>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:75</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:68</note>
       </notes>
       <segment>
         <source>m_status.discontinued</source>
@@ -3039,236 +2970,6 @@ Subelements will be moved upwards.]]></target>
         <target state="translated">Login successful</target>
       </segment>
     </unit>
-    <unit id="dxkuAbb" name="attachment_type.edit.filetype_filter">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\AttachmentTypeAdminForm.php:48</note>
-      </notes>
-      <segment>
-        <source>attachment_type.edit.filetype_filter</source>
-        <target state="translated">Allowed file extensions.</target>
-      </segment>
-    </unit>
-    <unit id="1KMaa2P" name="attachment_type.edit.filetype_filter.help">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\AttachmentTypeAdminForm.php:49</note>
-      </notes>
-      <segment>
-        <source>attachment_type.edit.filetype_filter.help</source>
-        <target state="translated">You can specify a comma separated list of file extension or mimetypes, which an uploaded file must have when assigned to this attachment type. To allow all supported image files you can use image/*.</target>
-      </segment>
-    </unit>
-    <unit id="wkNc9Pm" name="attachment_type.edit.filetype_filter.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\AttachmentTypeAdminForm.php:50</note>
-      </notes>
-      <segment>
-        <source>attachment_type.edit.filetype_filter.placeholder</source>
-        <target state="translated">e.g. .txt, application/pdf, image/*</target>
-      </segment>
-    </unit>
-    <unit id="nEC2Xzw" name="part.name.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\BaseEntityAdminForm.php:70</note>
-        <note priority="1">src\Form\PartType.php:63</note>
-      </notes>
-      <segment>
-        <source>part.name.placeholder</source>
-        <target>e.g. BC547</target>
-      </segment>
-    </unit>
-    <unit id="dmNi.3b" name="parent.label">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\BaseEntityAdminForm.php:74</note>
-        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:70</note>
-        <note category="file-source" priority="1">src\Form\AdminPages\MassCreationForm.php:66</note>
-        <note priority="1">src\Form\ImportType.php:72</note>
-      </notes>
-      <segment>
-        <source>parent.label</source>
-        <target>Parent element</target>
-      </segment>
-    </unit>
-    <unit id="SDbrzIT" name="entity.edit.not_selectable">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\BaseEntityAdminForm.php:78</note>
-      </notes>
-      <segment>
-        <source>entity.edit.not_selectable</source>
-        <target state="translated">Not selectable</target>
-      </segment>
-    </unit>
-    <unit id="5aUSkZz" name="entity.edit.not_selectable.help">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\BaseEntityAdminForm.php:79</note>
-      </notes>
-      <segment>
-        <source>entity.edit.not_selectable.help</source>
-        <target state="translated">If this option is activated, this element can not be assigned to a part property. Useful if this element is just used for grouping.</target>
-      </segment>
-    </unit>
-    <unit id="en0DwC3" name="bbcode.hint">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\BaseEntityAdminForm.php:85</note>
-      </notes>
-      <segment>
-        <source>bbcode.hint</source>
-        <target state="translated">You can use BBCode here (e.g. [b]Bold[/b])</target>
-      </segment>
-    </unit>
-    <unit id="cIVLqUs" name="part.edit.master_attachment">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\BaseEntityAdminForm.php:106</note>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:213</note>
-      </notes>
-      <segment>
-        <source>part.edit.master_attachment</source>
-        <target state="translated">Preview image</target>
-      </segment>
-    </unit>
-    <unit id="Q5hCjzL" name="entity.create">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\BaseEntityAdminForm.php:112</note>
-      </notes>
-      <segment>
-        <source>entity.create</source>
-        <target state="translated">Create element</target>
-      </segment>
-    </unit>
-    <unit id="bBoYWyf" name="entity.edit.save">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\BaseEntityAdminForm.php:112</note>
-      </notes>
-      <segment>
-        <source>entity.edit.save</source>
-        <target state="translated">Save </target>
-      </segment>
-    </unit>
-    <unit id="HeL2lAW" name="category.edit.disable_footprints">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CategoryAdminForm.php:36</note>
-      </notes>
-      <segment>
-        <source>category.edit.disable_footprints</source>
-        <target state="translated">Disable footprints</target>
-      </segment>
-    </unit>
-    <unit id="lpS1zKs" name="category.edit.disable_footprints.help">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CategoryAdminForm.php:37</note>
-      </notes>
-      <segment>
-        <source>category.edit.disable_footprints.help</source>
-        <target state="translated">If this option is activated, the footprint property is disabled for all parts with this category.</target>
-      </segment>
-    </unit>
-    <unit id="1w_nFL7" name="category.edit.disable_manufacturers">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CategoryAdminForm.php:42</note>
-      </notes>
-      <segment>
-        <source>category.edit.disable_manufacturers</source>
-        <target state="translated">Disable manufacturers</target>
-      </segment>
-    </unit>
-    <unit id="tNK6Sfl" name="category.edit.disable_manufacturers.help">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CategoryAdminForm.php:43</note>
-      </notes>
-      <segment>
-        <source>category.edit.disable_manufacturers.help</source>
-        <target state="translated">If this option is activated, the manufacturer property is disabled for all parts with this category.</target>
-      </segment>
-    </unit>
-    <unit id="HOZICfA" name="category.edit.disable_autodatasheets">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CategoryAdminForm.php:48</note>
-      </notes>
-      <segment>
-        <source>category.edit.disable_autodatasheets</source>
-        <target state="translated">Disable automatic datasheet links</target>
-      </segment>
-    </unit>
-    <unit id="5HWLQAL" name="category.edit.disable_autodatasheets.help">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CategoryAdminForm.php:49</note>
-      </notes>
-      <segment>
-        <source>category.edit.disable_autodatasheets.help</source>
-        <target state="translated">If this option is activated, no automatic links to datasheets are created for parts with this category.</target>
-      </segment>
-    </unit>
-    <unit id="lfFBz4D" name="category.edit.disable_properties">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CategoryAdminForm.php:54</note>
-      </notes>
-      <segment>
-        <source>category.edit.disable_properties</source>
-        <target state="translated">Disable properties</target>
-      </segment>
-    </unit>
-    <unit id="gu7SqNR" name="category.edit.disable_properties.help">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CategoryAdminForm.php:55</note>
-      </notes>
-      <segment>
-        <source>category.edit.disable_properties.help</source>
-        <target state="translated">If this option is activated, the part properties are disabled for parts with this category.</target>
-      </segment>
-    </unit>
-    <unit id="0FP6XeT" name="category.edit.partname_hint">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CategoryAdminForm.php:60</note>
-      </notes>
-      <segment>
-        <source>category.edit.partname_hint</source>
-        <target state="translated">Part name hint</target>
-      </segment>
-    </unit>
-    <unit id="BG4G_f9" name="category.edit.partname_hint.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CategoryAdminForm.php:61</note>
-      </notes>
-      <segment>
-        <source>category.edit.partname_hint.placeholder</source>
-        <target state="translated">e.g. 100nF</target>
-      </segment>
-    </unit>
-    <unit id="LbTbeDm" name="category.edit.partname_regex">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CategoryAdminForm.php:65</note>
-      </notes>
-      <segment>
-        <source>category.edit.partname_regex</source>
-        <target state="translated">Name filter</target>
-      </segment>
-    </unit>
-    <unit id="UH78POJ" name="category.edit.default_description">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CategoryAdminForm.php:70</note>
-      </notes>
-      <segment>
-        <source>category.edit.default_description</source>
-        <target state="translated">Default description</target>
-      </segment>
-    </unit>
-    <unit id="8hlqVRs" name="category.edit.default_description.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CategoryAdminForm.php:71</note>
-      </notes>
-      <segment>
-        <source>category.edit.default_description.placeholder</source>
-        <target state="translated">e.g. Capacitor, 10mm x 10mm, SMD</target>
-      </segment>
-    </unit>
-    <unit id="QMPrbSY" name="category.edit.default_comment">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CategoryAdminForm.php:75</note>
-      </notes>
-      <segment>
-        <source>category.edit.default_comment</source>
-        <target state="translated">Default comment</target>
-      </segment>
-    </unit>
     <unit id="ths2hVl" name="category.edit.default_comment.placeholder">
       <notes>
         <note category="file-source" priority="1">src\Form\AdminPages\CategoryAdminForm.php:76</note>
@@ -3278,194 +2979,9 @@ Subelements will be moved upwards.]]></target>
         <target state="translated">e.g. useful for switching</target>
       </segment>
     </unit>
-    <unit id="KN33Vgx" name="company.edit.address">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CompanyForm.php:38</note>
-      </notes>
-      <segment>
-        <source>company.edit.address</source>
-        <target state="translated">Address</target>
-      </segment>
-    </unit>
-    <unit id="AMjZLA3" name="company.edit.address.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CompanyForm.php:40</note>
-      </notes>
-      <segment>
-        <source>company.edit.address.placeholder</source>
-        <target state="translated">e.g. Examplestreet 314
-Exampletown</target>
-      </segment>
-    </unit>
-    <unit id="WoyE_3B" name="company.edit.phone_number">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CompanyForm.php:45</note>
-      </notes>
-      <segment>
-        <source>company.edit.phone_number</source>
-        <target state="translated">Phone number</target>
-      </segment>
-    </unit>
-    <unit id="VSMS9Jw" name="company.edit.phone_number.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CompanyForm.php:47</note>
-      </notes>
-      <segment>
-        <source>company.edit.phone_number.placeholder</source>
-        <target state="translated">+49 12345 6789</target>
-      </segment>
-    </unit>
-    <unit id="khUB2so" name="company.edit.fax_number">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CompanyForm.php:53</note>
-      </notes>
-      <segment>
-        <source>company.edit.fax_number</source>
-        <target state="translated">Fax number</target>
-      </segment>
-    </unit>
-    <unit id="63TXMfg" name="company.edit.email">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CompanyForm.php:60</note>
-      </notes>
-      <segment>
-        <source>company.edit.email</source>
-        <target state="translated">Email</target>
-      </segment>
-    </unit>
-    <unit id="vTq5HxO" name="company.edit.email.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CompanyForm.php:62</note>
-      </notes>
-      <segment>
-        <source>company.edit.email.placeholder</source>
-        <target state="translated">e.g. contact@foo.bar</target>
-      </segment>
-    </unit>
-    <unit id="jv3fl1U" name="company.edit.website">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CompanyForm.php:67</note>
-      </notes>
-      <segment>
-        <source>company.edit.website</source>
-        <target state="translated">Website</target>
-      </segment>
-    </unit>
-    <unit id="fCwuIQc" name="company.edit.website.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CompanyForm.php:69</note>
-      </notes>
-      <segment>
-        <source>company.edit.website.placeholder</source>
-        <target state="translated">https://www.foo.bar</target>
-      </segment>
-    </unit>
-    <unit id="l4BUu.S" name="company.edit.auto_product_url">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CompanyForm.php:74</note>
-      </notes>
-      <segment>
-        <source>company.edit.auto_product_url</source>
-        <target state="translated">Product url</target>
-      </segment>
-    </unit>
-    <unit id="UaJhZGe" name="company.edit.auto_product_url.help">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CompanyForm.php:75</note>
-      </notes>
-      <segment>
-        <source>company.edit.auto_product_url.help</source>
-        <target state="translated">This field is used to determine an link to the part on the company page. %PARTNR% will be replaced with the order number.</target>
-      </segment>
-    </unit>
-    <unit id="22S3ulf" name="company.edit.auto_product_url.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CompanyForm.php:77</note>
-      </notes>
-      <segment>
-        <source>company.edit.auto_product_url.placeholder</source>
-        <target state="translated">https://foo.bar/product/%PARTNR%</target>
-      </segment>
-    </unit>
-    <unit id="NZUfSAR" name="currency.edit.iso_code">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CurrencyAdminForm.php:37</note>
-      </notes>
-      <segment>
-        <source>currency.edit.iso_code</source>
-        <target state="translated">ISO code</target>
-      </segment>
-    </unit>
-    <unit id="9YIkqmF" name="currency.edit.exchange_rate">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\CurrencyAdminForm.php:44</note>
-      </notes>
-      <segment>
-        <source>currency.edit.exchange_rate</source>
-        <target state="translated">Exchange rate</target>
-      </segment>
-    </unit>
-    <unit id="n496LjY" name="footprint.edit.3d_model">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\FootprintAdminForm.php:35</note>
-      </notes>
-      <segment>
-        <source>footprint.edit.3d_model</source>
-        <target state="translated">3D model</target>
-      </segment>
-    </unit>
-    <unit id="Peaf8Qu" name="import.csv_separator">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:63</note>
-        <note priority="1">src\Form\ImportType.php:70</note>
-      </notes>
-      <segment>
-        <source>import.csv_separator</source>
-        <target>CSV separator</target>
-      </segment>
-    </unit>
-    <unit id="VteZCnR" name="import.file">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:76</note>
-        <note priority="1">src\Form\ImportType.php:75</note>
-      </notes>
-      <segment>
-        <source>import.file</source>
-        <target>File</target>
-      </segment>
-    </unit>
-    <unit id="0ybwwKw" name="import.preserve_children">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:82</note>
-        <note priority="1">src\Form\ImportType.php:78</note>
-      </notes>
-      <segment>
-        <source>import.preserve_children</source>
-        <target>Preserve child elements on import</target>
-      </segment>
-    </unit>
-    <unit id="yyIAudL" name="import.abort_on_validation">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:85</note>
-        <note priority="1">src\Form\ImportType.php:80</note>
-      </notes>
-      <segment>
-        <source>import.abort_on_validation</source>
-        <target>Abort on invalid data</target>
-      </segment>
-    </unit>
-    <unit id="_JM6Jxg" name="import.abort_on_validation.help">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:86</note>
-      </notes>
-      <segment>
-        <source>import.abort_on_validation.help</source>
-        <target state="translated">When this option is activated, the whole import process is aborted if invalid data is detected. If not selected, the invalid data is ignored and the importer will try to import the other elements.</target>
-      </segment>
-    </unit>
     <unit id="2xohoLw" name="JSON">
       <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:59</note>
+        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:57</note>
         <note priority="1">src\Form\ImportType.php:68</note>
       </notes>
       <segment>
@@ -3475,7 +2991,7 @@ Exampletown</target>
     </unit>
     <unit id="QGWOmvj" name="XML">
       <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:59</note>
+        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:57</note>
         <note priority="1">src\Form\ImportType.php:68</note>
       </notes>
       <segment>
@@ -3485,7 +3001,7 @@ Exampletown</target>
     </unit>
     <unit id="62tC9Ux" name="CSV">
       <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:59</note>
+        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:57</note>
         <note priority="1">src\Form\ImportType.php:68</note>
       </notes>
       <segment>
@@ -3495,7 +3011,7 @@ Exampletown</target>
     </unit>
     <unit id="m26KvkJ" name="YAML">
       <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:59</note>
+        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:57</note>
         <note priority="1">src\Form\ImportType.php:68</note>
       </notes>
       <segment>
@@ -3503,9 +3019,68 @@ Exampletown</target>
         <target>YAML</target>
       </segment>
     </unit>
+    <unit id="_JM6Jxg" name="import.abort_on_validation.help">
+      <notes>
+        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:84</note>
+      </notes>
+      <segment>
+        <source>import.abort_on_validation.help</source>
+        <target state="translated">When this option is activated, the whole import process is aborted if invalid data is detected. If not selected, the invalid data is ignored and the importer will try to import the other elements.</target>
+      </segment>
+    </unit>
+    <unit id="Peaf8Qu" name="import.csv_separator">
+      <notes>
+        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:60</note>
+        <note priority="1">src\Form\ImportType.php:70</note>
+      </notes>
+      <segment>
+        <source>import.csv_separator</source>
+        <target>CSV separator</target>
+      </segment>
+    </unit>
+    <unit id="dmNi.3b" name="parent.label">
+      <notes>
+        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:65</note>
+        <note priority="1">src\Form\ImportType.php:72</note>
+      </notes>
+      <segment>
+        <source>parent.label</source>
+        <target>Parent element</target>
+      </segment>
+    </unit>
+    <unit id="VteZCnR" name="import.file">
+      <notes>
+        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:73</note>
+        <note priority="1">src\Form\ImportType.php:75</note>
+      </notes>
+      <segment>
+        <source>import.file</source>
+        <target>File</target>
+      </segment>
+    </unit>
+    <unit id="0ybwwKw" name="import.preserve_children">
+      <notes>
+        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:79</note>
+        <note priority="1">src\Form\ImportType.php:78</note>
+      </notes>
+      <segment>
+        <source>import.preserve_children</source>
+        <target>Preserve child elements on import</target>
+      </segment>
+    </unit>
+    <unit id="yyIAudL" name="import.abort_on_validation">
+      <notes>
+        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:82</note>
+        <note priority="1">src\Form\ImportType.php:80</note>
+      </notes>
+      <segment>
+        <source>import.abort_on_validation</source>
+        <target>Abort on invalid data</target>
+      </segment>
+    </unit>
     <unit id="d0GsgCW" name="import.btn">
       <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:90</note>
+        <note category="file-source" priority="1">src\Form\AdminPages\ImportType.php:88</note>
         <note priority="1">src\Form\ImportType.php:85</note>
       </notes>
       <segment>
@@ -3513,182 +3088,27 @@ Exampletown</target>
         <target>Import</target>
       </segment>
     </unit>
-    <unit id="bxMaU3Y" name="mass_creation.lines">
+    <unit id="_z1YTpv" name="attachment.edit.secure_file.help">
       <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\MassCreationForm.php:55</note>
+        <note category="file-source" priority="1">src\Form\AttachmentFormType.php:78</note>
       </notes>
       <segment>
-        <source>mass_creation.lines</source>
-        <target state="translated">Input</target>
+        <source>attachment.edit.secure_file.help</source>
+        <target state="translated">An attachment marked private can only accessed by authenticated users with the proper permission. If this is activated no thumbnails are generated and access to file is less perfomant.</target>
       </segment>
     </unit>
-    <unit id="nIwyuSG" name="mass_creation.lines.placeholder">
+    <unit id="pCsSiaz" name="attachment.edit.url.help">
       <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\MassCreationForm.php:58</note>
+        <note category="file-source" priority="1">src\Form\AttachmentFormType.php:89</note>
       </notes>
       <segment>
-        <source>mass_creation.lines.placeholder</source>
-        <target state="translated">Element 1
-Element 2
-Element 3</target>
-      </segment>
-    </unit>
-    <unit id="yOi8.bI" name="entity.mass_creation.btn">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\MassCreationForm.php:72</note>
-      </notes>
-      <segment>
-        <source>entity.mass_creation.btn</source>
-        <target state="translated">Create</target>
-      </segment>
-    </unit>
-    <unit id="oqwo_n5" name="measurement_unit.edit.is_integer">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\MeasurementUnitAdminForm.php:36</note>
-      </notes>
-      <segment>
-        <source>measurement_unit.edit.is_integer</source>
-        <target state="translated">Is integer</target>
-      </segment>
-    </unit>
-    <unit id="ks8LoMb" name="measurement_unit.edit.is_integer.help">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\MeasurementUnitAdminForm.php:37</note>
-      </notes>
-      <segment>
-        <source>measurement_unit.edit.is_integer.help</source>
-        <target state="translated">If this option is activated, all values with this unit will be rounded to whole numbers.</target>
-      </segment>
-    </unit>
-    <unit id=".TAAW6t" name="measurement_unit.edit.use_si_prefix">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\MeasurementUnitAdminForm.php:42</note>
-      </notes>
-      <segment>
-        <source>measurement_unit.edit.use_si_prefix</source>
-        <target state="translated">Use SI prefix</target>
-      </segment>
-    </unit>
-    <unit id="EZh.nn7" name="measurement_unit.edit.use_si_prefix.help">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\MeasurementUnitAdminForm.php:43</note>
-      </notes>
-      <segment>
-        <source>measurement_unit.edit.use_si_prefix.help</source>
-        <target state="translated">If this option is activated, values are outputted with SI prefixes (e.g. 1,2kg instead of 1200g)</target>
-      </segment>
-    </unit>
-    <unit id="zha3lRe" name="measurement_unit.edit.unit_symbol">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\MeasurementUnitAdminForm.php:48</note>
-      </notes>
-      <segment>
-        <source>measurement_unit.edit.unit_symbol</source>
-        <target state="translated">Unit symbol</target>
-      </segment>
-    </unit>
-    <unit id="AxSvu9V" name="measurement_unit.edit.unit_symbol.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\MeasurementUnitAdminForm.php:49</note>
-      </notes>
-      <segment>
-        <source>measurement_unit.edit.unit_symbol.placeholder</source>
-        <target state="translated">e.g. m</target>
-      </segment>
-    </unit>
-    <unit id="L68lNgx" name="storelocation.edit.is_full.label">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\StorelocationAdminForm.php:38</note>
-      </notes>
-      <segment>
-        <source>storelocation.edit.is_full.label</source>
-        <target state="translated">Storelocation full</target>
-      </segment>
-    </unit>
-    <unit id="dsw_ivP" name="storelocation.edit.is_full.help">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\StorelocationAdminForm.php:39</note>
-      </notes>
-      <segment>
-        <source>storelocation.edit.is_full.help</source>
-        <target state="translated">If this option is selected, it is neither possible to add new parts to this storelocation or to increase the amount of existing parts.</target>
-      </segment>
-    </unit>
-    <unit id="jenFqgq" name="storelocation.limit_to_existing.label">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\StorelocationAdminForm.php:45</note>
-      </notes>
-      <segment>
-        <source>storelocation.limit_to_existing.label</source>
-        <target state="translated">Limit to existing parts</target>
-      </segment>
-    </unit>
-    <unit id="ftawtbm" name="storelocation.limit_to_existing.help">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\StorelocationAdminForm.php:46</note>
-      </notes>
-      <segment>
-        <source>storelocation.limit_to_existing.help</source>
-        <target state="translated">If this option is activated, it is not possible to add new parts to this storelocation, but the amount of existing parts can be increased.</target>
-      </segment>
-    </unit>
-    <unit id="1DWk7ny" name="storelocation.only_single_part.label">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\StorelocationAdminForm.php:52</note>
-      </notes>
-      <segment>
-        <source>storelocation.only_single_part.label</source>
-        <target state="translated">Only single part</target>
-      </segment>
-    </unit>
-    <unit id="np0unjZ" name="storelocation.only_single_part.help">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\StorelocationAdminForm.php:53</note>
-      </notes>
-      <segment>
-        <source>storelocation.only_single_part.help</source>
-        <target state="translated">If this option is activated, only a single part (with every amount) can be assigned to this store location. Useful for small SMD boxes or feeders.</target>
-      </segment>
-    </unit>
-    <unit id="AE1UiRe" name="storelocation.storage_type.label">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\StorelocationAdminForm.php:59</note>
-      </notes>
-      <segment>
-        <source>storelocation.storage_type.label</source>
-        <target state="translated">Storage type</target>
-      </segment>
-    </unit>
-    <unit id="3UBRYaM" name="storelocation.storage_type.help">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\StorelocationAdminForm.php:60</note>
-      </notes>
-      <segment>
-        <source>storelocation.storage_type.help</source>
-        <target state="translated">You can select a measurement unit here, which a part must have to be able to be assigned to this storage loaction</target>
-      </segment>
-    </unit>
-    <unit id="xBJM0.O" name="supplier.edit.default_currency">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\SupplierForm.php:41</note>
-      </notes>
-      <segment>
-        <source>supplier.edit.default_currency</source>
-        <target state="translated">Default currency</target>
-      </segment>
-    </unit>
-    <unit id="9o2s0eF" name="supplier.shipping_costs.label">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AdminPages\SupplierForm.php:49</note>
-      </notes>
-      <segment>
-        <source>supplier.shipping_costs.label</source>
-        <target state="translated">Shipping Costs</target>
+        <source>attachment.edit.url.help</source>
+        <target state="translated">You can specify a url to an external file here, or input an keyword which is used to search in builtin ressources (e.g. footprints)</target>
       </segment>
     </unit>
     <unit id="kAlm7LR" name="attachment.edit.attachment_type">
       <notes>
-        <note category="file-source" priority="1">src\Form\AttachmentFormType.php:65</note>
+        <note category="file-source" priority="1">src\Form\AttachmentFormType.php:62</note>
       </notes>
       <segment>
         <source>attachment.edit.attachment_type</source>
@@ -3697,43 +3117,25 @@ Element 3</target>
     </unit>
     <unit id="v6FVutS" name="attachment.edit.secure_file">
       <notes>
-        <note category="file-source" priority="1">src\Form\AttachmentFormType.php:77</note>
+        <note category="file-source" priority="1">src\Form\AttachmentFormType.php:74</note>
       </notes>
       <segment>
         <source>attachment.edit.secure_file</source>
         <target state="translated">Private attachment</target>
       </segment>
     </unit>
-    <unit id="_z1YTpv" name="attachment.edit.secure_file.help">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AttachmentFormType.php:80</note>
-      </notes>
-      <segment>
-        <source>attachment.edit.secure_file.help</source>
-        <target state="translated">An attachment marked private can only accessed by authenticated users with the proper permission. If this is activated no thumbnails are generated and access to file is less perfomant.</target>
-      </segment>
-    </unit>
     <unit id="TRy0RSZ" name="attachment.edit.url">
       <notes>
-        <note category="file-source" priority="1">src\Form\AttachmentFormType.php:84</note>
+        <note category="file-source" priority="1">src\Form\AttachmentFormType.php:81</note>
       </notes>
       <segment>
         <source>attachment.edit.url</source>
         <target state="translated">URL</target>
       </segment>
     </unit>
-    <unit id="pCsSiaz" name="attachment.edit.url.help">
-      <notes>
-        <note category="file-source" priority="1">src\Form\AttachmentFormType.php:91</note>
-      </notes>
-      <segment>
-        <source>attachment.edit.url.help</source>
-        <target state="translated">You can specify a url to an external file here, or input an keyword which is used to search in builtin ressources (e.g. footprints)</target>
-      </segment>
-    </unit>
     <unit id="ZZjrGgS" name="attachment.edit.download_url">
       <notes>
-        <note category="file-source" priority="1">src\Form\AttachmentFormType.php:98</note>
+        <note category="file-source" priority="1">src\Form\AttachmentFormType.php:95</note>
       </notes>
       <segment>
         <source>attachment.edit.download_url</source>
@@ -3742,7 +3144,7 @@ Element 3</target>
     </unit>
     <unit id="Pew.kQr" name="attachment.edit.file">
       <notes>
-        <note category="file-source" priority="1">src\Form\AttachmentFormType.php:105</note>
+        <note category="file-source" priority="1">src\Form\AttachmentFormType.php:102</note>
       </notes>
       <segment>
         <source>attachment.edit.file</source>
@@ -3751,25 +3153,16 @@ Element 3</target>
     </unit>
     <unit id="jv6wCpP" name="orderdetails.edit.supplierpartnr">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\OrderdetailType.php:58</note>
+        <note category="file-source" priority="1">src\Form\Part\OrderdetailType.php:55</note>
       </notes>
       <segment>
         <source>orderdetails.edit.supplierpartnr</source>
         <target state="translated">Order number</target>
       </segment>
     </unit>
-    <unit id="7r_nI9R" name="orderdetails.edit.supplierpartnr.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\Part\OrderdetailType.php:59</note>
-      </notes>
-      <segment>
-        <source>orderdetails.edit.supplierpartnr.placeholder</source>
-        <target state="translated">e.g. BC 547</target>
-      </segment>
-    </unit>
     <unit id="CimWRtu" name="orderdetails.edit.supplier">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\OrderdetailType.php:66</note>
+        <note category="file-source" priority="1">src\Form\Part\OrderdetailType.php:62</note>
       </notes>
       <segment>
         <source>orderdetails.edit.supplier</source>
@@ -3778,7 +3171,7 @@ Element 3</target>
     </unit>
     <unit id="qfScBBj" name="orderdetails.edit.url">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\OrderdetailType.php:72</note>
+        <note category="file-source" priority="1">src\Form\Part\OrderdetailType.php:67</note>
       </notes>
       <segment>
         <source>orderdetails.edit.url</source>
@@ -3787,61 +3180,43 @@ Element 3</target>
     </unit>
     <unit id="D_288lV" name="orderdetails.edit.obsolete">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\OrderdetailType.php:78</note>
+        <note category="file-source" priority="1">src\Form\Part\OrderdetailType.php:73</note>
       </notes>
       <segment>
         <source>orderdetails.edit.obsolete</source>
         <target state="translated">No longer available</target>
       </segment>
     </unit>
+    <unit id="7r_nI9R" name="orderdetails.edit.supplierpartnr.placeholder">
+      <notes>
+        <note category="file-source" priority="1">src\Form\Part\OrderdetailType.php:57</note>
+      </notes>
+      <segment>
+        <source>orderdetails.edit.supplierpartnr.placeholder</source>
+        <target state="translated">e.g. BC 547</target>
+      </segment>
+    </unit>
     <unit id="HZwLFnu" name="part.edit.name">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:82</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:79</note>
       </notes>
       <segment>
         <source>part.edit.name</source>
         <target state="translated">Name</target>
       </segment>
     </unit>
-    <unit id="wN.sxj3" name="part.edit.name.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:83</note>
-      </notes>
-      <segment>
-        <source>part.edit.name.placeholder</source>
-        <target state="translated">e.g. BC547</target>
-      </segment>
-    </unit>
     <unit id="9MhdLlK" name="part.edit.description">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:89</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:85</note>
       </notes>
       <segment>
         <source>part.edit.description</source>
         <target state="translated">Description</target>
       </segment>
     </unit>
-    <unit id="rMHwTBI" name="part.edit.description.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:91</note>
-      </notes>
-      <segment>
-        <source>part.edit.description.placeholder</source>
-        <target state="translated">e.g. NPN 45V, 0,1A, 0,5W</target>
-      </segment>
-    </unit>
-    <unit id=".V3Lfkf" name="part.editmininstock.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:95</note>
-      </notes>
-      <segment>
-        <source>part.editmininstock.placeholder</source>
-        <target state="translated">e.g. 1</target>
-      </segment>
-    </unit>
     <unit id="Xzj9BP8" name="part.edit.mininstock">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:96</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:93</note>
       </notes>
       <segment>
         <source>part.edit.mininstock</source>
@@ -3850,7 +3225,7 @@ Element 3</target>
     </unit>
     <unit id="1VN9ldj" name="part.edit.category">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:102</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:99</note>
       </notes>
       <segment>
         <source>part.edit.category</source>
@@ -3859,7 +3234,7 @@ Element 3</target>
     </unit>
     <unit id="IROdosg" name="part.edit.footprint">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:109</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:105</note>
       </notes>
       <segment>
         <source>part.edit.footprint</source>
@@ -3868,7 +3243,7 @@ Element 3</target>
     </unit>
     <unit id="KHkWjTz" name="part.edit.tags">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:115</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:112</note>
       </notes>
       <segment>
         <source>part.edit.tags</source>
@@ -3877,7 +3252,7 @@ Element 3</target>
     </unit>
     <unit id="4ok13kM" name="part.edit.manufacturer.label">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:127</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:123</note>
       </notes>
       <segment>
         <source>part.edit.manufacturer.label</source>
@@ -3886,7 +3261,7 @@ Element 3</target>
     </unit>
     <unit id="0qS9528" name="part.edit.manufacturer_url.label">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:134</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:130</note>
       </notes>
       <segment>
         <source>part.edit.manufacturer_url.label</source>
@@ -3895,7 +3270,7 @@ Element 3</target>
     </unit>
     <unit id="tuRAA_9" name="part.edit.mpn">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:140</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:136</note>
       </notes>
       <segment>
         <source>part.edit.mpn</source>
@@ -3904,7 +3279,7 @@ Element 3</target>
     </unit>
     <unit id="rcE_03k" name="part.edit.manufacturing_status">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:143</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:141</note>
       </notes>
       <segment>
         <source>part.edit.manufacturing_status</source>
@@ -3913,7 +3288,7 @@ Element 3</target>
     </unit>
     <unit id="tdUi2VV" name="part.edit.needs_review">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:153</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:149</note>
       </notes>
       <segment>
         <source>part.edit.needs_review</source>
@@ -3922,7 +3297,7 @@ Element 3</target>
     </unit>
     <unit id="thxZ5LH" name="part.edit.is_favorite">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:159</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:155</note>
       </notes>
       <segment>
         <source>part.edit.is_favorite</source>
@@ -3931,7 +3306,7 @@ Element 3</target>
     </unit>
     <unit id="epWuzE5" name="part.edit.mass">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:164</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:161</note>
       </notes>
       <segment>
         <source>part.edit.mass</source>
@@ -3940,7 +3315,7 @@ Element 3</target>
     </unit>
     <unit id="kpiGJo0" name="part.edit.partUnit">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:172</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:167</note>
       </notes>
       <segment>
         <source>part.edit.partUnit</source>
@@ -3949,16 +3324,25 @@ Element 3</target>
     </unit>
     <unit id="LTZRVlq" name="part.edit.comment">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:179</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:176</note>
       </notes>
       <segment>
         <source>part.edit.comment</source>
         <target state="translated">Comment</target>
       </segment>
     </unit>
+    <unit id="cIVLqUs" name="part.edit.master_attachment">
+      <notes>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:209</note>
+      </notes>
+      <segment>
+        <source>part.edit.master_attachment</source>
+        <target state="translated">Preview image</target>
+      </segment>
+    </unit>
     <unit id="vZwa6za" name="part.edit.save">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:233</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:232</note>
         <note priority="1">src\Form\PartType.php:91</note>
       </notes>
       <segment>
@@ -3968,7 +3352,7 @@ Element 3</target>
     </unit>
     <unit id="_GqPyC3" name="part.edit.reset">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:234</note>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:233</note>
         <note priority="1">src\Form\PartType.php:92</note>
       </notes>
       <segment>
@@ -3976,9 +3360,36 @@ Element 3</target>
         <target>Reset changes</target>
       </segment>
     </unit>
+    <unit id="wN.sxj3" name="part.edit.name.placeholder">
+      <notes>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:82</note>
+      </notes>
+      <segment>
+        <source>part.edit.name.placeholder</source>
+        <target state="translated">e.g. BC547</target>
+      </segment>
+    </unit>
+    <unit id="rMHwTBI" name="part.edit.description.placeholder">
+      <notes>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:90</note>
+      </notes>
+      <segment>
+        <source>part.edit.description.placeholder</source>
+        <target state="translated">e.g. NPN 45V, 0,1A, 0,5W</target>
+      </segment>
+    </unit>
+    <unit id=".V3Lfkf" name="part.editmininstock.placeholder">
+      <notes>
+        <note category="file-source" priority="1">src\Form\Part\PartBaseType.php:94</note>
+      </notes>
+      <segment>
+        <source>part.editmininstock.placeholder</source>
+        <target state="translated">e.g. 1</target>
+      </segment>
+    </unit>
     <unit id="6QS4K7r" name="part_lot.edit.description">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartLotType.php:52</note>
+        <note category="file-source" priority="1">src\Form\Part\PartLotType.php:49</note>
       </notes>
       <segment>
         <source>part_lot.edit.description</source>
@@ -3987,7 +3398,7 @@ Element 3</target>
     </unit>
     <unit id="IwPHYB0" name="part_lot.edit.location">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartLotType.php:59</note>
+        <note category="file-source" priority="1">src\Form\Part\PartLotType.php:56</note>
       </notes>
       <segment>
         <source>part_lot.edit.location</source>
@@ -3996,7 +3407,7 @@ Element 3</target>
     </unit>
     <unit id="VEybZz7" name="part_lot.edit.amount">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartLotType.php:67</note>
+        <note category="file-source" priority="1">src\Form\Part\PartLotType.php:63</note>
       </notes>
       <segment>
         <source>part_lot.edit.amount</source>
@@ -4005,7 +3416,7 @@ Element 3</target>
     </unit>
     <unit id="OPwK3Lq" name="part_lot.edit.instock_unknown">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartLotType.php:72</note>
+        <note category="file-source" priority="1">src\Form\Part\PartLotType.php:69</note>
       </notes>
       <segment>
         <source>part_lot.edit.instock_unknown</source>
@@ -4014,7 +3425,7 @@ Element 3</target>
     </unit>
     <unit id="uHBgsns" name="part_lot.edit.needs_refill">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartLotType.php:78</note>
+        <note category="file-source" priority="1">src\Form\Part\PartLotType.php:75</note>
       </notes>
       <segment>
         <source>part_lot.edit.needs_refill</source>
@@ -4023,7 +3434,7 @@ Element 3</target>
     </unit>
     <unit id="xorQnlc" name="part_lot.edit.expiration_date">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartLotType.php:84</note>
+        <note category="file-source" priority="1">src\Form\Part\PartLotType.php:81</note>
       </notes>
       <segment>
         <source>part_lot.edit.expiration_date</source>
@@ -4032,47 +3443,11 @@ Element 3</target>
     </unit>
     <unit id="OjwY78X" name="part_lot.edit.comment">
       <notes>
-        <note category="file-source" priority="1">src\Form\Part\PartLotType.php:89</note>
+        <note category="file-source" priority="1">src\Form\Part\PartLotType.php:86</note>
       </notes>
       <segment>
         <source>part_lot.edit.comment</source>
         <target state="translated">Comment</target>
-      </segment>
-    </unit>
-    <unit id="Qkmb2rF" name="min_discount_quantity">
-      <notes>
-        <note category="file-source" priority="1">src\Form\Part\PricedetailType.php:38</note>
-      </notes>
-      <segment>
-        <source>min_discount_quantity</source>
-        <target></target>
-      </segment>
-    </unit>
-    <unit id="pOOpLdD" name="price_related_quantity">
-      <notes>
-        <note category="file-source" priority="1">src\Form\Part\PricedetailType.php:42</note>
-      </notes>
-      <segment>
-        <source>price_related_quantity</source>
-        <target></target>
-      </segment>
-    </unit>
-    <unit id="aDtTH0H" name="price">
-      <notes>
-        <note category="file-source" priority="1">src\Form\Part\PricedetailType.php:46</note>
-      </notes>
-      <segment>
-        <source>price</source>
-        <target></target>
-      </segment>
-    </unit>
-    <unit id="Rm5bnNV" name="currency">
-      <notes>
-        <note category="file-source" priority="1">src\Form\Part\PricedetailType.php:51</note>
-      </notes>
-      <segment>
-        <source>currency</source>
-        <target></target>
       </segment>
     </unit>
     <unit id=".8YTKod" name="perm.group.other">
@@ -4088,133 +3463,47 @@ Element 3</target>
       <notes>
         <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:115</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>M</source>
-        <target></target>
+        <target>M</target>
       </segment>
     </unit>
     <unit id="glTDKak" name="k">
       <notes>
         <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:115</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>k</source>
-        <target></target>
+        <target>k</target>
       </segment>
     </unit>
     <unit id="47DEQpj" name="">
-      <segment>
-        <source></source>
-        <target></target>
+      <segment state="translated">
+        <source/>
+        <target> </target>
       </segment>
     </unit>
     <unit id="YsZqel3" name="m">
       <notes>
         <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:115</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>m</source>
-        <target></target>
+        <target>m</target>
       </segment>
     </unit>
     <unit id="WgcvG_T" name="µ">
       <notes>
         <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:115</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>µ</source>
-        <target></target>
-      </segment>
-    </unit>
-    <unit id="zUJATVK" name="value">
-      <notes>
-        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:103</note>
-      </notes>
-      <segment>
-        <source>value</source>
-        <target></target>
-      </segment>
-    </unit>
-    <unit id="56Loshb" name="prefix">
-      <notes>
-        <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:114</note>
-      </notes>
-      <segment>
-        <source>prefix</source>
-        <target></target>
-      </segment>
-    </unit>
-    <unit id="sG3lwwH" name="user.username.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:76</note>
-      </notes>
-      <segment>
-        <source>user.username.placeholder</source>
-        <target state="translated">e.g. j.doe</target>
-      </segment>
-    </unit>
-    <unit id="birjZUl" name="user.firstName.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:90</note>
-      </notes>
-      <segment>
-        <source>user.firstName.placeholder</source>
-        <target state="translated">e.g John</target>
-      </segment>
-    </unit>
-    <unit id="Z9pc7NJ" name="user.lastName.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:97</note>
-      </notes>
-      <segment>
-        <source>user.lastName.placeholder</source>
-        <target state="translated">e.g. Doe</target>
-      </segment>
-    </unit>
-    <unit id="VLB.yla" name="user.email.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:105</note>
-      </notes>
-      <segment>
-        <source>user.email.placeholder</source>
-        <target state="translated">j.doe@ecorp.com</target>
-      </segment>
-    </unit>
-    <unit id="UjUjKNF" name="user.department.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:112</note>
-      </notes>
-      <segment>
-        <source>user.department.placeholder</source>
-        <target state="translated">e.g. Development</target>
-      </segment>
-    </unit>
-    <unit id="lx12TjD" name="user_settings.language.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:121</note>
-        <note category="file-source" priority="1">src\Form\UserSettingsType.php:85</note>
-        <note priority="1">src\Form\UserSettingsType.php:45</note>
-      </notes>
-      <segment>
-        <source>user_settings.language.placeholder</source>
-        <target>Serverwide language</target>
-      </segment>
-    </unit>
-    <unit id="JROUC8Y" name="user_settings.timezone.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:129</note>
-        <note category="file-source" priority="1">src\Form\UserSettingsType.php:93</note>
-        <note priority="1">src\Form\UserSettingsType.php:48</note>
-      </notes>
-      <segment>
-        <source>user_settings.timezone.placeholder</source>
-        <target>Serverwide Timezone</target>
+        <target>µ</target>
       </segment>
     </unit>
     <unit id="Lq0fGXJ" name="user.timezone.label">
       <notes>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:130</note>
-        <note category="file-source" priority="1">src\Form\UserSettingsType.php:94</note>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:85</note>
         <note priority="1">src\Form\UserSettingsType.php:46</note>
       </notes>
       <segment>
@@ -4222,21 +3511,9 @@ Element 3</target>
         <target>Timezone</target>
       </segment>
     </unit>
-    <unit id="Dpfk52." name="user_settings.theme.placeholder">
-      <notes>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:141</note>
-        <note category="file-source" priority="1">src\Form\UserSettingsType.php:105</note>
-        <note priority="1">src\Form\UserSettingsType.php:50</note>
-      </notes>
-      <segment>
-        <source>user_settings.theme.placeholder</source>
-        <target>Serverwide Theme</target>
-      </segment>
-    </unit>
     <unit id="HhQjrkN" name="user.theme.label">
       <notes>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:142</note>
-        <note category="file-source" priority="1">src\Form\UserSettingsType.php:106</note>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:93</note>
         <note priority="1">src\Form\UserSettingsType.php:49</note>
       </notes>
       <segment>
@@ -4246,80 +3523,16 @@ Element 3</target>
     </unit>
     <unit id="uGQ16Yq" name="user.currency.label">
       <notes>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:147</note>
-        <note category="file-source" priority="1">src\Form\UserSettingsType.php:111</note>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:104</note>
       </notes>
       <segment>
         <source>user.currency.label</source>
         <target state="translated">Preferred currency</target>
       </segment>
     </unit>
-    <unit id="C65DPNY" name="user.settings.pw_new.label">
-      <notes>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:153</note>
-      </notes>
-      <segment>
-        <source>user.settings.pw_new.label</source>
-        <target state="translated">New password</target>
-      </segment>
-    </unit>
-    <unit id="isiBSF3" name="user.settings.pw_confirm.label">
-      <notes>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:154</note>
-      </notes>
-      <segment>
-        <source>user.settings.pw_confirm.label</source>
-        <target state="translated">Confirm new password</target>
-      </segment>
-    </unit>
-    <unit id="coDk7Mi" name="user.edit.needs_pw_change">
-      <notes>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:168</note>
-      </notes>
-      <segment>
-        <source>user.edit.needs_pw_change</source>
-        <target state="translated">User needs to change password</target>
-      </segment>
-    </unit>
-    <unit id="aU6FQLf" name="user.edit.user_disabled">
-      <notes>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:175</note>
-      </notes>
-      <segment>
-        <source>user.edit.user_disabled</source>
-        <target state="translated">User disbaled (no login possible)</target>
-      </segment>
-    </unit>
-    <unit id="zPJhxi6" name="user.create">
-      <notes>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:208</note>
-      </notes>
-      <segment>
-        <source>user.create</source>
-        <target state="translated">Create user</target>
-      </segment>
-    </unit>
-    <unit id="SxI0Jji" name="user.edit.save">
-      <notes>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:208</note>
-      </notes>
-      <segment>
-        <source>user.edit.save</source>
-        <target state="translated">Save</target>
-      </segment>
-    </unit>
-    <unit id="oGnU8Jt" name="entity.edit.reset">
-      <notes>
-        <note category="file-source" priority="1">src\Form\UserAdminForm.php:212</note>
-      </notes>
-      <segment>
-        <source>entity.edit.reset</source>
-        <target state="translated">Discard changes</target>
-      </segment>
-    </unit>
     <unit id="FX3KkuQ" name="save">
       <notes>
-        <note category="file-source" priority="1">src\Form\UserSettingsType.php:115</note>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:111</note>
         <note priority="1">src\Form\UserSettingsType.php:53</note>
       </notes>
       <segment>
@@ -4329,12 +3542,42 @@ Element 3</target>
     </unit>
     <unit id="Ab4wu0o" name="reset">
       <notes>
-        <note category="file-source" priority="1">src\Form\UserSettingsType.php:116</note>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:112</note>
         <note priority="1">src\Form\UserSettingsType.php:54</note>
       </notes>
       <segment>
         <source>reset</source>
         <target>Discard changes</target>
+      </segment>
+    </unit>
+    <unit id="lx12TjD" name="user_settings.language.placeholder">
+      <notes>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:81</note>
+        <note priority="1">src\Form\UserSettingsType.php:45</note>
+      </notes>
+      <segment>
+        <source>user_settings.language.placeholder</source>
+        <target>Serverwide language</target>
+      </segment>
+    </unit>
+    <unit id="JROUC8Y" name="user_settings.timezone.placeholder">
+      <notes>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:89</note>
+        <note priority="1">src\Form\UserSettingsType.php:48</note>
+      </notes>
+      <segment>
+        <source>user_settings.timezone.placeholder</source>
+        <target>Serverwide Timezone</target>
+      </segment>
+    </unit>
+    <unit id="Dpfk52." name="user_settings.theme.placeholder">
+      <notes>
+        <note category="file-source" priority="1">src\Form\UserSettingsType.php:101</note>
+        <note priority="1">src\Form\UserSettingsType.php:50</note>
+      </notes>
+      <segment>
+        <source>user_settings.theme.placeholder</source>
+        <target>Serverwide Theme</target>
       </segment>
     </unit>
     <unit id="ExjMUEE" name="attachment.label">
@@ -4616,13 +3859,629 @@ Element 3</target>
         <target>New Element</target>
       </segment>
     </unit>
-    <unit id="EdCmW4z" name="FormExtractorTest">
+    <unit id="dxkuAbb" name="attachment_type.edit.filetype_filter">
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
-        <source>FormExtractorTest</source>
-        <target></target>
+        <source>attachment_type.edit.filetype_filter</source>
+        <target state="translated">Allowed file extensions.</target>
+      </segment>
+    </unit>
+    <unit id="1KMaa2P" name="attachment_type.edit.filetype_filter.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>attachment_type.edit.filetype_filter.help</source>
+        <target state="translated">You can specify a comma separated list of file extension or mimetypes, which an uploaded file must have when assigned to this attachment type. To allow all supported image files you can use image/*.</target>
+      </segment>
+    </unit>
+    <unit id="wkNc9Pm" name="attachment_type.edit.filetype_filter.placeholder">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>attachment_type.edit.filetype_filter.placeholder</source>
+        <target state="translated">e.g. .txt, application/pdf, image/*</target>
+      </segment>
+    </unit>
+    <unit id="nEC2Xzw" name="part.name.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:63</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>part.name.placeholder</source>
+        <target>e.g. BC547</target>
+      </segment>
+    </unit>
+    <unit id="SDbrzIT" name="entity.edit.not_selectable">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>entity.edit.not_selectable</source>
+        <target state="translated">Not selectable</target>
+      </segment>
+    </unit>
+    <unit id="5aUSkZz" name="entity.edit.not_selectable.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>entity.edit.not_selectable.help</source>
+        <target state="translated">If this option is activated, this element can not be assigned to a part property. Useful if this element is just used for grouping.</target>
+      </segment>
+    </unit>
+    <unit id="en0DwC3" name="bbcode.hint">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>bbcode.hint</source>
+        <target state="translated">You can use BBCode here (e.g. [b]Bold[/b])</target>
+      </segment>
+    </unit>
+    <unit id="Q5hCjzL" name="entity.create">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>entity.create</source>
+        <target state="translated">Create element</target>
+      </segment>
+    </unit>
+    <unit id="bBoYWyf" name="entity.edit.save">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>entity.edit.save</source>
+        <target state="translated">Save </target>
+      </segment>
+    </unit>
+    <unit id="HeL2lAW" name="category.edit.disable_footprints">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>category.edit.disable_footprints</source>
+        <target state="translated">Disable footprints</target>
+      </segment>
+    </unit>
+    <unit id="lpS1zKs" name="category.edit.disable_footprints.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>category.edit.disable_footprints.help</source>
+        <target state="translated">If this option is activated, the footprint property is disabled for all parts with this category.</target>
+      </segment>
+    </unit>
+    <unit id="1w_nFL7" name="category.edit.disable_manufacturers">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>category.edit.disable_manufacturers</source>
+        <target state="translated">Disable manufacturers</target>
+      </segment>
+    </unit>
+    <unit id="tNK6Sfl" name="category.edit.disable_manufacturers.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>category.edit.disable_manufacturers.help</source>
+        <target state="translated">If this option is activated, the manufacturer property is disabled for all parts with this category.</target>
+      </segment>
+    </unit>
+    <unit id="HOZICfA" name="category.edit.disable_autodatasheets">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>category.edit.disable_autodatasheets</source>
+        <target state="translated">Disable automatic datasheet links</target>
+      </segment>
+    </unit>
+    <unit id="5HWLQAL" name="category.edit.disable_autodatasheets.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>category.edit.disable_autodatasheets.help</source>
+        <target state="translated">If this option is activated, no automatic links to datasheets are created for parts with this category.</target>
+      </segment>
+    </unit>
+    <unit id="lfFBz4D" name="category.edit.disable_properties">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>category.edit.disable_properties</source>
+        <target state="translated">Disable properties</target>
+      </segment>
+    </unit>
+    <unit id="gu7SqNR" name="category.edit.disable_properties.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>category.edit.disable_properties.help</source>
+        <target state="translated">If this option is activated, the part properties are disabled for parts with this category.</target>
+      </segment>
+    </unit>
+    <unit id="0FP6XeT" name="category.edit.partname_hint">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>category.edit.partname_hint</source>
+        <target state="translated">Part name hint</target>
+      </segment>
+    </unit>
+    <unit id="BG4G_f9" name="category.edit.partname_hint.placeholder">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>category.edit.partname_hint.placeholder</source>
+        <target state="translated">e.g. 100nF</target>
+      </segment>
+    </unit>
+    <unit id="LbTbeDm" name="category.edit.partname_regex">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>category.edit.partname_regex</source>
+        <target state="translated">Name filter</target>
+      </segment>
+    </unit>
+    <unit id="UH78POJ" name="category.edit.default_description">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>category.edit.default_description</source>
+        <target state="translated">Default description</target>
+      </segment>
+    </unit>
+    <unit id="8hlqVRs" name="category.edit.default_description.placeholder">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>category.edit.default_description.placeholder</source>
+        <target state="translated">e.g. Capacitor, 10mm x 10mm, SMD</target>
+      </segment>
+    </unit>
+    <unit id="QMPrbSY" name="category.edit.default_comment">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>category.edit.default_comment</source>
+        <target state="translated">Default comment</target>
+      </segment>
+    </unit>
+    <unit id="KN33Vgx" name="company.edit.address">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>company.edit.address</source>
+        <target state="translated">Address</target>
+      </segment>
+    </unit>
+    <unit id="AMjZLA3" name="company.edit.address.placeholder">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>company.edit.address.placeholder</source>
+        <target state="translated">e.g. Examplestreet 314
+Exampletown</target>
+      </segment>
+    </unit>
+    <unit id="WoyE_3B" name="company.edit.phone_number">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>company.edit.phone_number</source>
+        <target state="translated">Phone number</target>
+      </segment>
+    </unit>
+    <unit id="VSMS9Jw" name="company.edit.phone_number.placeholder">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>company.edit.phone_number.placeholder</source>
+        <target state="translated">+49 12345 6789</target>
+      </segment>
+    </unit>
+    <unit id="khUB2so" name="company.edit.fax_number">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>company.edit.fax_number</source>
+        <target state="translated">Fax number</target>
+      </segment>
+    </unit>
+    <unit id="63TXMfg" name="company.edit.email">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>company.edit.email</source>
+        <target state="translated">Email</target>
+      </segment>
+    </unit>
+    <unit id="vTq5HxO" name="company.edit.email.placeholder">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>company.edit.email.placeholder</source>
+        <target state="translated">e.g. contact@foo.bar</target>
+      </segment>
+    </unit>
+    <unit id="jv3fl1U" name="company.edit.website">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>company.edit.website</source>
+        <target state="translated">Website</target>
+      </segment>
+    </unit>
+    <unit id="fCwuIQc" name="company.edit.website.placeholder">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>company.edit.website.placeholder</source>
+        <target state="translated">https://www.foo.bar</target>
+      </segment>
+    </unit>
+    <unit id="l4BUu.S" name="company.edit.auto_product_url">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>company.edit.auto_product_url</source>
+        <target state="translated">Product url</target>
+      </segment>
+    </unit>
+    <unit id="UaJhZGe" name="company.edit.auto_product_url.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>company.edit.auto_product_url.help</source>
+        <target state="translated">This field is used to determine an link to the part on the company page. %PARTNR% will be replaced with the order number.</target>
+      </segment>
+    </unit>
+    <unit id="22S3ulf" name="company.edit.auto_product_url.placeholder">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>company.edit.auto_product_url.placeholder</source>
+        <target state="translated">https://foo.bar/product/%PARTNR%</target>
+      </segment>
+    </unit>
+    <unit id="NZUfSAR" name="currency.edit.iso_code">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>currency.edit.iso_code</source>
+        <target state="translated">ISO code</target>
+      </segment>
+    </unit>
+    <unit id="9YIkqmF" name="currency.edit.exchange_rate">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>currency.edit.exchange_rate</source>
+        <target state="translated">Exchange rate</target>
+      </segment>
+    </unit>
+    <unit id="n496LjY" name="footprint.edit.3d_model">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>footprint.edit.3d_model</source>
+        <target state="translated">3D model</target>
+      </segment>
+    </unit>
+    <unit id="bxMaU3Y" name="mass_creation.lines">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>mass_creation.lines</source>
+        <target state="translated">Input</target>
+      </segment>
+    </unit>
+    <unit id="nIwyuSG" name="mass_creation.lines.placeholder">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>mass_creation.lines.placeholder</source>
+        <target state="translated">Element 1
+Element 2
+Element 3</target>
+      </segment>
+    </unit>
+    <unit id="yOi8.bI" name="entity.mass_creation.btn">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>entity.mass_creation.btn</source>
+        <target state="translated">Create</target>
+      </segment>
+    </unit>
+    <unit id="oqwo_n5" name="measurement_unit.edit.is_integer">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>measurement_unit.edit.is_integer</source>
+        <target state="translated">Is integer</target>
+      </segment>
+    </unit>
+    <unit id="ks8LoMb" name="measurement_unit.edit.is_integer.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>measurement_unit.edit.is_integer.help</source>
+        <target state="translated">If this option is activated, all values with this unit will be rounded to whole numbers.</target>
+      </segment>
+    </unit>
+    <unit id=".TAAW6t" name="measurement_unit.edit.use_si_prefix">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>measurement_unit.edit.use_si_prefix</source>
+        <target state="translated">Use SI prefix</target>
+      </segment>
+    </unit>
+    <unit id="EZh.nn7" name="measurement_unit.edit.use_si_prefix.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>measurement_unit.edit.use_si_prefix.help</source>
+        <target state="translated">If this option is activated, values are outputted with SI prefixes (e.g. 1,2kg instead of 1200g)</target>
+      </segment>
+    </unit>
+    <unit id="zha3lRe" name="measurement_unit.edit.unit_symbol">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>measurement_unit.edit.unit_symbol</source>
+        <target state="translated">Unit symbol</target>
+      </segment>
+    </unit>
+    <unit id="AxSvu9V" name="measurement_unit.edit.unit_symbol.placeholder">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>measurement_unit.edit.unit_symbol.placeholder</source>
+        <target state="translated">e.g. m</target>
+      </segment>
+    </unit>
+    <unit id="L68lNgx" name="storelocation.edit.is_full.label">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>storelocation.edit.is_full.label</source>
+        <target state="translated">Storelocation full</target>
+      </segment>
+    </unit>
+    <unit id="dsw_ivP" name="storelocation.edit.is_full.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>storelocation.edit.is_full.help</source>
+        <target state="translated">If this option is selected, it is neither possible to add new parts to this storelocation or to increase the amount of existing parts.</target>
+      </segment>
+    </unit>
+    <unit id="jenFqgq" name="storelocation.limit_to_existing.label">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>storelocation.limit_to_existing.label</source>
+        <target state="translated">Limit to existing parts</target>
+      </segment>
+    </unit>
+    <unit id="ftawtbm" name="storelocation.limit_to_existing.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>storelocation.limit_to_existing.help</source>
+        <target state="translated">If this option is activated, it is not possible to add new parts to this storelocation, but the amount of existing parts can be increased.</target>
+      </segment>
+    </unit>
+    <unit id="1DWk7ny" name="storelocation.only_single_part.label">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>storelocation.only_single_part.label</source>
+        <target state="translated">Only single part</target>
+      </segment>
+    </unit>
+    <unit id="np0unjZ" name="storelocation.only_single_part.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>storelocation.only_single_part.help</source>
+        <target state="translated">If this option is activated, only a single part (with every amount) can be assigned to this store location. Useful for small SMD boxes or feeders.</target>
+      </segment>
+    </unit>
+    <unit id="AE1UiRe" name="storelocation.storage_type.label">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>storelocation.storage_type.label</source>
+        <target state="translated">Storage type</target>
+      </segment>
+    </unit>
+    <unit id="3UBRYaM" name="storelocation.storage_type.help">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>storelocation.storage_type.help</source>
+        <target state="translated">You can select a measurement unit here, which a part must have to be able to be assigned to this storage loaction</target>
+      </segment>
+    </unit>
+    <unit id="xBJM0.O" name="supplier.edit.default_currency">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>supplier.edit.default_currency</source>
+        <target state="translated">Default currency</target>
+      </segment>
+    </unit>
+    <unit id="9o2s0eF" name="supplier.shipping_costs.label">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>supplier.shipping_costs.label</source>
+        <target state="translated">Shipping Costs</target>
+      </segment>
+    </unit>
+    <unit id="sG3lwwH" name="user.username.placeholder">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>user.username.placeholder</source>
+        <target state="translated">e.g. j.doe</target>
+      </segment>
+    </unit>
+    <unit id="birjZUl" name="user.firstName.placeholder">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>user.firstName.placeholder</source>
+        <target state="translated">e.g John</target>
+      </segment>
+    </unit>
+    <unit id="Z9pc7NJ" name="user.lastName.placeholder">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>user.lastName.placeholder</source>
+        <target state="translated">e.g. Doe</target>
+      </segment>
+    </unit>
+    <unit id="VLB.yla" name="user.email.placeholder">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>user.email.placeholder</source>
+        <target state="translated">j.doe@ecorp.com</target>
+      </segment>
+    </unit>
+    <unit id="UjUjKNF" name="user.department.placeholder">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>user.department.placeholder</source>
+        <target state="translated">e.g. Development</target>
+      </segment>
+    </unit>
+    <unit id="C65DPNY" name="user.settings.pw_new.label">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>user.settings.pw_new.label</source>
+        <target state="translated">New password</target>
+      </segment>
+    </unit>
+    <unit id="isiBSF3" name="user.settings.pw_confirm.label">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>user.settings.pw_confirm.label</source>
+        <target state="translated">Confirm new password</target>
+      </segment>
+    </unit>
+    <unit id="coDk7Mi" name="user.edit.needs_pw_change">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>user.edit.needs_pw_change</source>
+        <target state="translated">User needs to change password</target>
+      </segment>
+    </unit>
+    <unit id="aU6FQLf" name="user.edit.user_disabled">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>user.edit.user_disabled</source>
+        <target state="translated">User disbaled (no login possible)</target>
+      </segment>
+    </unit>
+    <unit id="zPJhxi6" name="user.create">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>user.create</source>
+        <target state="translated">Create user</target>
+      </segment>
+    </unit>
+    <unit id="SxI0Jji" name="user.edit.save">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>user.edit.save</source>
+        <target state="translated">Save</target>
+      </segment>
+    </unit>
+    <unit id="oGnU8Jt" name="entity.edit.reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>entity.edit.reset</source>
+        <target state="translated">Discard changes</target>
       </segment>
     </unit>
     <unit id="eG9UnaY" name="part.withdraw.caption:">

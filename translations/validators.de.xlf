@@ -20,7 +20,6 @@
         <note category="file-source" priority="1">src\Entity\PriceInformations\Currency.php:0</note>
         <note category="file-source" priority="1">src\Entity\UserSystem\Group.php:0</note>
         <note category="file-source" priority="1">src\Entity\UserSystem\User.php:0</note>
-        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>part.master_attachment.must_be_picture</source>
@@ -62,7 +61,6 @@
     <unit id="isXL.ie" name="validator.user.username_already_used">
       <notes>
         <note category="file-source" priority="1">src\Entity\UserSystem\User.php:0</note>
-        <note category="state" priority="1">new</note>
       </notes>
       <segment>
         <source>validator.user.username_already_used</source>

@@ -37,26 +37,24 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PartLotType extends AbstractType
 {
-    protected $trans;
     protected $security;
 
-    public function __construct(TranslatorInterface $trans, Security $security)
+    public function __construct(Security $security)
     {
-        $this->trans = $trans;
         $this->security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('description', TextType::class, [
-            'label' => $this->trans->trans('part_lot.edit.description'),
+            'label' => 'part_lot.edit.description',
             'required' => false,
             'empty_data' => '',
             'attr' => ['class' => 'form-control-sm'],
         ]);
 
         $builder->add('storage_location', StructuralEntityType::class, ['class' => Storelocation::class,
-            'label' => $this->trans->trans('part_lot.edit.location'),
+            'label' => 'part_lot.edit.location',
             'required' => false,
             'disable_not_selectable' => true,
             'attr' => ['class' => 'selectpicker form-control-sm', 'data-live-search' => true],
@@ -64,29 +62,29 @@ class PartLotType extends AbstractType
 
         $builder->add('amount', SIUnitType::class, [
             'measurement_unit' => $options['measurement_unit'],
-            'label' => $this->trans->trans('part_lot.edit.amount'),
+            'label' => 'part_lot.edit.amount',
             'attr' => ['class' => 'form-control-sm'],
         ]);
 
         $builder->add('instock_unknown', CheckboxType::class, ['required' => false,
-            'label' => $this->trans->trans('part_lot.edit.instock_unknown'),
+            'label' => 'part_lot.edit.instock_unknown',
             'attr' => ['class' => 'form-control-sm'],
             'label_attr' => ['class' => 'checkbox-custom'],
         ]);
 
         $builder->add('needs_refill', CheckboxType::class, ['label_attr' => ['class' => 'checkbox-custom'],
-            'label' => $this->trans->trans('part_lot.edit.needs_refill'),
+            'label' => 'part_lot.edit.needs_refill',
             'attr' => ['class' => 'form-control-sm'],
             'required' => false,
         ]);
 
         $builder->add('expirationDate', DateTimeType::class, [
-            'label' => $this->trans->trans('part_lot.edit.expiration_date'),
+            'label' => 'part_lot.edit.expiration_date',
             'attr' => [],
             'required' => false, ]);
 
         $builder->add('comment', TextType::class, [
-            'label' => $this->trans->trans('part_lot.edit.comment'),
+            'label' => 'part_lot.edit.comment',
             'attr' => ['class' => 'form-control-sm'],
             'required' => false, 'empty_data' => '',
         ]);

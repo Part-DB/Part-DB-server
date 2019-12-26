@@ -40,12 +40,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class OrderdetailType extends AbstractType
 {
-    protected $trans;
     protected $security;
 
-    public function __construct(TranslatorInterface $trans, Security $security)
+    public function __construct( Security $security)
     {
-        $this->trans = $trans;
         $this->security = $security;
     }
 
@@ -55,27 +53,27 @@ class OrderdetailType extends AbstractType
         $orderdetail = $builder->getData();
 
         $builder->add('supplierpartnr', TextType::class, [
-            'label' => $this->trans->trans('orderdetails.edit.supplierpartnr'),
-            'attr' => ['placeholder' => $this->trans->trans('orderdetails.edit.supplierpartnr.placeholder')],
+            'label' => 'orderdetails.edit.supplierpartnr',
+            'attr' => ['placeholder' => 'orderdetails.edit.supplierpartnr.placeholder'],
             'required' => false,
             'empty_data' => '',
         ]);
 
         $builder->add('supplier', StructuralEntityType::class, [
             'class' => Supplier::class, 'disable_not_selectable' => true,
-            'label' => $this->trans->trans('orderdetails.edit.supplier'),
+            'label' => 'orderdetails.edit.supplier',
         ]);
 
         $builder->add('supplier_product_url', UrlType::class, [
             'required' => false,
             'empty_data' => '',
-            'label' => $this->trans->trans('orderdetails.edit.url'),
+            'label' => 'orderdetails.edit.url',
         ]);
 
         $builder->add('obsolete', CheckboxType::class, [
             'required' => false,
             'label_attr' => ['class' => 'checkbox-custom'],
-            'label' => $this->trans->trans('orderdetails.edit.obsolete'),
+            'label' => 'orderdetails.edit.obsolete',
         ]);
 
         //Add pricedetails after we know the data, so we can set the default currency

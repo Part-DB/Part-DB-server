@@ -99,7 +99,7 @@ class SecurityController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $passwordReset->request($form->getData()['user']);
-            $this->addFlash('success', $this->translator->trans('pw_reset.request.success'));
+            $this->addFlash('success', 'pw_reset.request.success');
             return $this->redirectToRoute('login');
         }
 
@@ -152,9 +152,9 @@ class SecurityController extends AbstractController
             //Try to set the new password
             $success = $passwordReset->setNewPassword($data['username'], $data['token'], $data['new_password']);
             if (!$success) {
-                $this->addFlash('error', $this->translator->trans('pw_reset.new_pw.error'));
+                $this->addFlash('error', 'pw_reset.new_pw.error');
             } else {
-                $this->addFlash('success', $this->translator->trans('pw_reset.new_pw.success'));
+                $this->addFlash('success', 'pw_reset.new_pw.success');
                 return $this->redirectToRoute('login');
             }
         }

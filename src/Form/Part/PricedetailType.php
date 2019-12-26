@@ -36,14 +36,17 @@ class PricedetailType extends AbstractType
     {
         //No labels needed, we define translation in templates
         $builder->add('min_discount_quantity', SIUnitType::class, [
+            'label' => false,
             'measurement_unit' => $options['measurement_unit'],
             'attr' => ['class' => 'form-control-sm'],
         ]);
         $builder->add('price_related_quantity', SIUnitType::class, [
+            'label' => false,
             'measurement_unit' => $options['measurement_unit'],
             'attr' => ['class' => 'form-control-sm'],
         ]);
         $builder->add('price', NumberType::class, [
+            'label' => false,
             'scale' => 5,
             'html5' => true,
             'attr' => ['min' => 0, 'step' => 'any'],

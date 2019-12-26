@@ -33,12 +33,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class MassCreationForm extends AbstractType
 {
     protected $security;
-    protected $translator;
 
-    public function __construct(Security $security, TranslatorInterface $translator)
+    public function __construct(Security $security)
     {
         $this->security = $security;
-        $this->translator = $translator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -52,10 +50,10 @@ class MassCreationForm extends AbstractType
 
         $builder
             ->add('lines', TextareaType::class, ['data' => '',
-                'label' => $this->translator->trans('mass_creation.lines'),
+                'label' => 'mass_creation.lines',
                 'disabled' => $disabled, 'required' => true,
                 'attr' => [
-                    'placeholder' => $this->translator->trans('mass_creation.lines.placeholder'),
+                    'placeholder' => 'mass_creation.lines.placeholder',
                     'rows' => 10,
                 ],
             ]);
@@ -63,13 +61,13 @@ class MassCreationForm extends AbstractType
             $builder->add('parent', StructuralEntityType::class, [
                 'class' => $data['entity_class'],
                 'required' => false,
-                'label' => $this->translator->trans('parent.label'),
+                'label' => 'parent.label',
                 'disabled' => $disabled, ]);
         }
 
         //Buttons
         $builder->add('create', SubmitType::class, [
-                'label' => $this->translator->trans('entity.mass_creation.btn'),
+                'label' => 'entity.mass_creation.btn',
                 'disabled' => $disabled,
             ]);
     }

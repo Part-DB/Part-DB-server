@@ -33,20 +33,20 @@ class MeasurementUnitAdminForm extends BaseEntityAdminForm
         $is_new = null === $entity->getID();
 
         $builder->add('is_integer', CheckboxType::class, ['required' => false,
-            'label' => $this->trans->trans('measurement_unit.edit.is_integer'),
-            'help' => $this->trans->trans('measurement_unit.edit.is_integer.help'),
+            'label' => 'measurement_unit.edit.is_integer',
+            'help' => 'measurement_unit.edit.is_integer.help',
             'label_attr' => ['class' => 'checkbox-custom'],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
 
         $builder->add('use_si_prefix', CheckboxType::class, ['required' => false,
-            'label' => $this->trans->trans('measurement_unit.edit.use_si_prefix'),
-            'help' => $this->trans->trans('measurement_unit.edit.use_si_prefix.help'),
+            'label' => 'measurement_unit.edit.use_si_prefix',
+            'help' => 'measurement_unit.edit.use_si_prefix.help',
             'label_attr' => ['class' => 'checkbox-custom'],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
 
         $builder->add('unit', TextType::class, ['required' => false,
-            'label' => $this->trans->trans('measurement_unit.edit.unit_symbol'),
-            'attr' => ['placeholder' => $this->trans->trans('measurement_unit.edit.unit_symbol.placeholder')],
+            'label' => 'measurement_unit.edit.unit_symbol',
+            'attr' => ['placeholder' => 'measurement_unit.edit.unit_symbol.placeholder'],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
     }
 }

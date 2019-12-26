@@ -34,10 +34,10 @@ class AttachmentTypeAdminForm extends BaseEntityAdminForm
 {
     protected $filterTools;
 
-    public function __construct(Security $security, ParameterBagInterface $params, TranslatorInterface $trans, FileTypeFilterTools $filterTools)
+    public function __construct(Security $security, ParameterBagInterface $params, FileTypeFilterTools $filterTools)
     {
         $this->filterTools = $filterTools;
-        parent::__construct($security, $params, $trans);
+        parent::__construct($security, $params);
     }
 
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity)
@@ -45,9 +45,9 @@ class AttachmentTypeAdminForm extends BaseEntityAdminForm
         $is_new = null === $entity->getID();
 
         $builder->add('filetype_filter', TextType::class, ['required' => false,
-            'label' => $this->trans->trans('attachment_type.edit.filetype_filter'),
-            'help' => $this->trans->trans('attachment_type.edit.filetype_filter.help'),
-            'attr' => ['placeholder' => $this->trans->trans('attachment_type.edit.filetype_filter.placeholder')],
+            'label' => 'attachment_type.edit.filetype_filter',
+            'help' => 'attachment_type.edit.filetype_filter.help',
+            'attr' => ['placeholder' => 'attachment_type.edit.filetype_filter.placeholder'],
             'empty_data' => '',
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
 
