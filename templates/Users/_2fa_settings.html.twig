@@ -4,7 +4,7 @@
         {% trans %}user.settings.2fa_settings{% endtrans %}
     </div>
     <div class="card-body">
-        {{ form_start(tfa_form) }}
+
         <ul class="nav nav-tabs" id="tfa-tabs" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="google-tab" data-toggle="tab" href="#tfa-google" role="tab"
@@ -17,44 +17,49 @@
         </ul>
         <div class="tab-content mt-3 mb-3" id="tfa-tabs-content">
             <div class="tab-pane fade show active" id="tfa-google" role="tabpanel" aria-labelledby="google-tab">
-                <div class="offset-3 row">
-                    <div class="col-3">
-                        <canvas class="qrcode" data-content="{{ tfa_google.qrContent }}"></canvas>
-                    </div>
-                    <div class="col-9 my-auto">
-                        <ol class="">
-                            <li>{% trans %}tfa_google.step.download{% endtrans %}</li>
-                            <li>{% trans %}tfa_google.step.scan{% endtrans %}</li>
-                            <li>{% trans %}tfa_google.step.input_code{% endtrans %}</li>
-                            <li>{% trans %}tfa_google.step.download_backup{% endtrans %}</li>
-                        </ol>
-                    </div>
-                </div>
-
-                <div class="offset-3">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#manualSetupCollapse" aria-expanded="false" aria-controls="manualSetupCollapse">
-                        {% trans %}tfa_google.manual_setup{% endtrans %}
-                    </button>
-                    <div class="collapse" id="manualSetupCollapse">
-                        <div class="card card-body mb-2">
-                            <p><b>{% trans %}tfa_google.manual_setup.type</b>{% endtrans %}: TOTP</p>
-                            <p><b>{% trans %}tfa_google.manual_setup.username</b>{% endtrans %}: {{ tfa_google.username }}</p>
-                            <p><b>{% trans %}tfa_google.manual_setup.secret</b>{% endtrans %}: {{ tfa_google.secret }}</p>
-                            <p><b>{% trans %}tfa_google.manual_setup.digit_count</b>{% endtrans %}: 6</p>
-
+                {{ form_start(google_form) }}
+                {% if not tfa_google.enabled %}
+                    <div class="offset-3 row">
+                        <div class="col-3">
+                            <canvas class="qrcode" data-content="{{ tfa_google.qrContent }}"></canvas>
+                        </div>
+                        <div class="col-9 my-auto">
+                            <ol class="">
+                                <li>{% trans %}tfa_google.step.download{% endtrans %}</li>
+                                <li>{% trans %}tfa_google.step.scan{% endtrans %}</li>
+                                <li>{% trans %}tfa_google.step.input_code{% endtrans %}</li>
+                                <li>{% trans %}tfa_google.step.download_backup{% endtrans %}</li>
+                            </ol>
                         </div>
                     </div>
-                </div>
 
-                {{ form_row(tfa_form.google_confirmation) }}
+                    <div class="offset-3">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#manualSetupCollapse" aria-expanded="false" aria-controls="manualSetupCollapse">
+                            {% trans %}tfa_google.manual_setup{% endtrans %}
+                        </button>
+                        <div class="collapse" id="manualSetupCollapse">
+                            <div class="card card-body mb-2">
+                                <p><b>{% trans %}tfa_google.manual_setup.type</b>{% endtrans %}: TOTP</p>
+                                <p><b>{% trans %}tfa_google.manual_setup.username</b>{% endtrans %}: {{ tfa_google.username }}</p>
+                                <p><b>{% trans %}tfa_google.manual_setup.secret</b>{% endtrans %}: {{ tfa_google.secret }}</p>
+                                <p><b>{% trans %}tfa_google.manual_setup.digit_count</b>{% endtrans %}: 6</p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    {{ form_row(google_form.google_confirmation) }}
+                {% else %}
+                    Google Authenticator is enabled! TODO
+                {% endif %}
+                {{ form_row(google_form.submit) }}
+                {{ form_end(google_form) }}
             </div>
             <div class="tab-pane fade" id="tfa-backup" role="tabpanel" aria-labelledby="backup-tab">
 
             </div>
         </div>
 
-        {{ form_row(tfa_form.submit) }}
-        {{ form_row(tfa_form.cancel) }}
-        {{ form_end(tfa_form) }}
+
     </div>
 </div>

@@ -25,7 +25,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\UserSystem\User;
 use App\Form\Permissions\PermissionsType;
-use App\Form\TFASettingsType;
+use App\Form\TFAGoogleSettingsType;
 use App\Form\UserAdminForm;
 use App\Form\UserSettingsType;
 use App\Services\EntityExporter;
@@ -240,18 +240,26 @@ class UserController extends AdminPages\BaseAdminController
         }
 
         //Handle 2FA things
-        $tfa_form = $this->createForm(TFASettingsType::class, $user);
-        $tfa_form->handleRequest($request);
-        if (!$user->getGoogleAuthenticatorSecret()) {
+        $google_form = $this->createForm(TFAGoogleSettingsType::class, $user);
+        $google_enabled = $user->isGoogleAuthenticatorEnabled();
+        if (!$form->isSubmitted() && !$google_enabled) {
             $user->setGoogleAuthenticatorSecret($googleAuthenticator->generateSecret());
-            $tfa_form->setData($user);
+            $google_form->get('googleAuthenticatorSecret')->setData($user->getGoogleAuthenticatorSecret());
         }
+        $google_form->handleRequest($request);
 
-        if ($tfa_form->isSubmitted() && $tfa_form->isValid()) {
-            //Save 2FA settings (save secrets)
-            $user->setGoogleAuthenticatorSecret($tfa_form->get('googleAuthenticatorSecret')->getData());
-            $em->flush();
-            $this->addFlash('success', 'user.settings.2fa.google.activated');
+        if($google_form->isSubmitted() && $google_form->isValid()) {
+            if (!$google_enabled) {
+                //Save 2FA settings (save secrets)
+                $user->setGoogleAuthenticatorSecret($google_form->get('googleAuthenticatorSecret')->getData());
+                $em->flush();
+                $this->addFlash('success', 'user.settings.2fa.google.activated');
+            } elseif ($google_enabled) {
+                //Remove secret to disable google authenticator
+                $user->setGoogleAuthenticatorSecret(null);
+                $em->flush();
+                $this->addFlash('success', 'user.settings.2fa.google.disabled');
+            }
         }
 
 
@@ -264,8 +272,9 @@ class UserController extends AdminPages\BaseAdminController
             'pw_form' => $pw_form->createView(),
             'page_need_reload' => $page_need_reload,
 
-            'tfa_form' => $tfa_form->createView(),
+            'google_form' => $google_form->createView(),
             'tfa_google' => [
+                'enabled' => $google_enabled,
                 'qrContent' => $googleAuthenticator->getQRContent($user),
                 'secret' => $user->getGoogleAuthenticatorSecret(),
                 'username' => $user->getGoogleAuthenticatorUsername()
