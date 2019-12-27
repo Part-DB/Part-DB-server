@@ -70,6 +70,7 @@
                         <span>{% trans %}tfa_backup.explanation{% endtrans %}</span>
                     </div>
                 {% else %}
+                    {{ form_start(backup_form) }}
                     <div class="offset-3">
                         <h6>{% trans %}tfa_backup.enabled{% endtrans %}</h6>
                         <span>{% trans %}tfa_backup.explanation{% endtrans %}</span>
@@ -81,6 +82,11 @@
                     <div class="offset-3">
                         <a href="{{ url('show_backup_codes') }}" target="_blank" data-no-ajax class="btn btn-primary">{% trans %}tfa_backup.show_codes{% endtrans %}</a>
                     </div>
+
+                    <div class="offset-3 mt-2">
+                        {{ form_widget(backup_form.reset_codes) }}
+                    </div>
+                    {{ form_end(backup_form) }}
 
                 {% endif %}
             </div>

@@ -33,7 +33,7 @@ use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
 use App\Services\TFA\BackupCodeManager;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\Util\Exception;
+use \Exception;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -291,6 +291,19 @@ class UserController extends AdminPages\BaseAdminController
             }
         }
 
+        $backup_form = $this->get('form.factory')->createNamedBuilder('backup_codes')->add('reset_codes', SubmitType::class,[
+           'label' => 'tfa_backup.regenerate_codes',
+            'attr' => ['class' => 'btn-danger'],
+            'disabled' => empty($user->getBackupCodes())
+        ])->getForm();
+
+        $backup_form->handleRequest($request);
+        if ($backup_form->isSubmitted() && $backup_form->isValid()) {
+           $backupCodeManager->regenerateBackupCodes($user);
+           $em->flush();
+           $this->addFlash('success', 'user.settings.2fa.backup_codes.regenerated');
+        }
+
 
         /******************************
          * Output both forms
@@ -303,6 +316,7 @@ class UserController extends AdminPages\BaseAdminController
             'page_need_reload' => $page_need_reload,
 
             'google_form' => $google_form->createView(),
+            'backup_form' => $backup_form->createView(),
             'tfa_google' => [
                 'enabled' => $google_enabled,
                 'qrContent' => $googleAuthenticator->getQRContent($user),
