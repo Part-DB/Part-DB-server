@@ -25,6 +25,7 @@ use App\Entity\Devices\Device;
 
 /**
  * @group slow
+ * @group DB
  */
 class DeviceControllerTest extends AbstractAdminControllerTest
 {

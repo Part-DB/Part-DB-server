@@ -120,6 +120,11 @@ services:
         arguments:
             $mimeTypes: '@mime_types'
 
+    App\Services\TFA\BackupCodeGenerator:
+        arguments:
+            $code_length: 8
+            $code_count: 10
+
     App\Services\TranslationExtractor\PermissionExtractor:
         tags:
             - { name: 'translation.extractor', alias: 'permissionExtractor'}

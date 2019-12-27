@@ -25,6 +25,7 @@ use App\Entity\Parts\Category;
 
 /**
  * @group slow
+ * @group DB
  */
 class CategoryControllerTest extends AbstractAdminControllerTest
 {

@@ -26,6 +26,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * @group slow
+ * @group DB
  */
 abstract class AbstractAdminControllerTest extends WebTestCase
 {

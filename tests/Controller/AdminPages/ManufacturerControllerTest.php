@@ -25,6 +25,7 @@ use App\Entity\Parts\Manufacturer;
 
 /**
  * @group slow
+ * @group DB
  */
 class ManufacturerControllerTest extends AbstractAdminControllerTest
 {

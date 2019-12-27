@@ -191,7 +191,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var string[]|null A list of backup codes that can be used, if the user has no access to its Google Authenticator device
      * @ORM\Column(type="json")
      */
-    protected $backupCodes;
+    protected $backupCodes = [];
 
     /** @var \DateTime The time when the backup codes were generated
      * @ORM\Column(type="datetime", nullable=true)
@@ -201,7 +201,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /** @var int The version of the trusted device cookie. Used to invalidate all trusted device cookies at once.
      *  @ORM\Column(type="integer")
      */
-    protected $trustedDeviceCookieVersion;
+    protected $trustedDeviceCookieVersion = 0;
 
     /** @var Collection<TwoFactorKeyInterface>
       * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\U2FKey", mappedBy="user")
@@ -775,15 +775,19 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     public function setBackupCodes(array $codes) : self
     {
         $this->backupCodes = $codes;
-        $this->backupCodesGenerationDate = new \DateTime();
+        if(empty($codes)) {
+            $this->backupCodesGenerationDate = null;
+        } else {
+            $this->backupCodesGenerationDate = new \DateTime();
+        }
         return $this;
     }
 
     /**
      * Return the date when the backup codes were generated.
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getBackupCodesGenerationDate() : \DateTime
+    public function getBackupCodesGenerationDate() : ?\DateTime
     {
         return $this->backupCodesGenerationDate;
     }
@@ -806,24 +810,39 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         $this->trustedDeviceCookieVersion++;
     }
 
+    /**
+     * Check if U2F is enabled
+     * @return bool
+     */
     public function isU2FAuthEnabled(): bool
     {
         return count($this->u2fKeys) > 0;
     }
 
-    /** @return Collection<TwoFactorKeyInterface> */
+    /**
+     * Get all U2F Keys that are associated with this user
+     * @return Collection<TwoFactorKeyInterface>
+     */
     public function getU2FKeys(): Collection
     {
         return $this->u2fKeys;
     }
 
+    /**
+     * Add a U2F key to this user.
+     * @param  TwoFactorKeyInterface  $key
+     */
     public function addU2FKey(TwoFactorKeyInterface $key): void
     {
         $this->u2fKeys->add($key);
     }
 
+    /**
+     * Remove a U2F key from this user.
+     * @param  TwoFactorKeyInterface  $key
+     */
     public function removeU2FKey(TwoFactorKeyInterface $key): void
     {
-        $this->u2fKeys->remove($key);
+        $this->u2fKeys->removeElement($key);
     }
 }

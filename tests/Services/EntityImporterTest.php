@@ -28,6 +28,9 @@ use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityImporter;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * @group DB
+ */
 class EntityImporterTest extends WebTestCase
 {
     /**

@@ -25,6 +25,7 @@ use App\Entity\Attachments\AttachmentType;
 
 /**
  * @group slow
+ * @group DB
  */
 class AttachmentTypeControllerTest extends AbstractAdminControllerTest
 {
