@@ -31,7 +31,9 @@ use App\Form\UserSettingsType;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
+use App\Services\TFA\BackupCodeManager;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Util\Exception;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -152,9 +154,32 @@ class UserController extends AdminPages\BaseAdminController
     }
 
     /**
+     * @Route("/2fa_backup_codes", name="show_backup_codes")
+     */
+    public function showBackupCodes()
+    {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return new \RuntimeException('This controller only works only for Part-DB User objects!');
+        }
+
+        //When user change its settings, he should be logged  in fully.
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        if (empty($user->getBackupCodes())) {
+            $this->addFlash('error', 'You do not have any backup codes enabled, therefore you can not view them!');
+            throw new Exception('You do not have any backup codes enabled, therefore you can not view them!');
+        }
+
+        return $this->render('Users/backup_codes.html.twig', [
+            'user' => $user
+        ]);
+    }
+
+    /**
      * @Route("/settings", name="user_settings")
      */
-    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator)
+    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator, BackupCodeManager $backupCodeManager)
     {
         /**
          * @var User
@@ -252,12 +277,14 @@ class UserController extends AdminPages\BaseAdminController
             if (!$google_enabled) {
                 //Save 2FA settings (save secrets)
                 $user->setGoogleAuthenticatorSecret($google_form->get('googleAuthenticatorSecret')->getData());
+                $backupCodeManager->enableBackupCodes($user);
                 $em->flush();
                 $this->addFlash('success', 'user.settings.2fa.google.activated');
                 return $this->redirectToRoute('user_settings');
             } elseif ($google_enabled) {
                 //Remove secret to disable google authenticator
                 $user->setGoogleAuthenticatorSecret(null);
+                $backupCodeManager->disableBackupCodesIfUnused($user);
                 $em->flush();
                 $this->addFlash('success', 'user.settings.2fa.google.disabled');
                 return $this->redirectToRoute('user_settings');
@@ -270,6 +297,7 @@ class UserController extends AdminPages\BaseAdminController
          *****************************/
 
         return $this->render('Users/user_settings.html.twig', [
+            'user' => $user,
             'settings_form' => $form->createView(),
             'pw_form' => $pw_form->createView(),
             'page_need_reload' => $page_need_reload,

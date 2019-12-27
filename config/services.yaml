@@ -123,7 +123,7 @@ services:
     App\Services\TFA\BackupCodeGenerator:
         arguments:
             $code_length: 8
-            $code_count: 10
+            $code_count: 15
 
     App\Services\TranslationExtractor\PermissionExtractor:
         tags:

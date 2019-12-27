@@ -46,7 +46,6 @@ class BackupCodeGenerator
     /**
      * Returns a full backup code set. The code count can be configured in the constructor
      * @return string[] An array containing different backup codes.
-     * @throws \Exception If no entropy source is available
      */
     public function generateCodeSet() : array
     {

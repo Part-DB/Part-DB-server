@@ -764,7 +764,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     public function getBackupCodes() : array
     {
-        return $this->backupCodes;
+        return $this->backupCodes ?? [];
     }
 
     /**

@@ -57,13 +57,16 @@ class UserTest extends TestCase
         $this->assertSame($expected ,$user->isGoogleAuthenticatorEnabled());
     }
 
+    /**
+     * @requires PHPUnit 8
+     */
     public function testSetBackupCodes()
     {
         $user = new User();
         $codes = ["test", "invalid", "test"];
         $user->setBackupCodes($codes);
         // Backup Codes generation date must be changed!
-        $this->assertEquals(new \DateTime(), $user->getBackupCodesGenerationDate(), '', 0.1);
+        $this->assertEqualsWithDelta(new \DateTime(), $user->getBackupCodesGenerationDate(), 0.1);
         $this->assertEquals($codes, $user->getBackupCodes());
 
         //Test what happens if we delete the backup keys

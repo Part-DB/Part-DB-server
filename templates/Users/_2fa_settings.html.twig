@@ -1,3 +1,5 @@
+{# @var user \App\Entity\UserSystem\User #}
+
 <div class="card mt-4">
     <div class="card-header">
         <i class="fa fa-shield-alt fa-fw" aria-hidden="true"></i>
@@ -19,6 +21,10 @@
             <div class="tab-pane fade show active" id="tfa-google" role="tabpanel" aria-labelledby="google-tab">
                 {{ form_start(google_form) }}
                 {% if not tfa_google.enabled %}
+                    <div class="offset-3">
+                        <h6>{% trans %}tfa_google.disabled_message{% endtrans %}</h6>
+                    </div>
+
                     <div class="offset-3 row">
                         <div class="col-3">
                             <canvas class="qrcode" data-content="{{ tfa_google.qrContent }}"></canvas>
@@ -50,13 +56,33 @@
 
                     {{ form_row(google_form.google_confirmation) }}
                 {% else %}
-                    Google Authenticator is enabled! TODO
+                    <div class="offset-3">
+                        <h6>{% trans %}tfa_google.enabled_message{% endtrans %}</h6>
+                    </div>
                 {% endif %}
                 {{ form_row(google_form.submit) }}
                 {{ form_end(google_form) }}
             </div>
             <div class="tab-pane fade" id="tfa-backup" role="tabpanel" aria-labelledby="backup-tab">
+                {% if user.backupCodes is empty %}
+                    <div class="offset-3">
+                        <h6>{% trans %}tfa_backup.disabled{% endtrans %}</h6>
+                        <span>{% trans %}tfa_backup.explanation{% endtrans %}</span>
+                    </div>
+                {% else %}
+                    <div class="offset-3">
+                        <h6>{% trans %}tfa_backup.enabled{% endtrans %}</h6>
+                        <span>{% trans %}tfa_backup.explanation{% endtrans %}</span>
+                    </div>
+                    <div class="offset-3 mt-2">
+                        <p class="mb-0"><b>{% trans %}tfa_backup.remaining_tokens{% endtrans %}:</b> {{ user.backupCodes | length }}</p>
+                        <p><b>{% trans %}tfa_backup.generation_date{% endtrans %}:</b> {{ user.backupCodesGenerationDate | format_datetime }}</p>
+                    </div>
+                    <div class="offset-3">
+                        <a href="{{ url('show_backup_codes') }}" target="_blank" data-no-ajax class="btn btn-primary">{% trans %}tfa_backup.show_codes{% endtrans %}</a>
+                    </div>
 
+                {% endif %}
             </div>
         </div>
 

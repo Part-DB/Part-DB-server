@@ -28,6 +28,7 @@
         "bootstrap-fileinput": "^5.0.1",
         "bootstrap-select": "^1.13.8",
         "bootswatch": "^4.3.1",
+        "clipboard": "^2.0.4",
         "copy-webpack-plugin": "^5.0.4",
         "corejs-typeahead": "^1.2.1",
         "darkmode-js": "^1.5.3",

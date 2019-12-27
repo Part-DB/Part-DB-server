@@ -469,6 +469,32 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
     });
 });
 
+$(document).on("ajaxUI:start ajaxUI:reload", function() {
+    function setTooltip(btn, message) {
+        $(btn).tooltip('hide')
+            .attr('data-original-title', message)
+            .tooltip('show');
+    }
+
+    function hideTooltip(btn) {
+        setTimeout(function() {
+            $(btn).tooltip('hide');
+        }, 1000);
+    }
+
+    //@ts-ignore
+    var clipboard = new ClipboardJS('.btn');
+    clipboard.on('success', function(e) {
+        setTooltip(e.trigger, 'Copied!');
+        hideTooltip(e.trigger);
+    });
+
+    clipboard.on('error', function(e) {
+        setTooltip(e.trigger, 'Failed!');
+        hideTooltip(e.trigger);
+    });
+});
+
 //Need for proper body padding, with every navbar height
 $(window).resize(function () {
     let height : number = $('#navbar').height() + 10;
