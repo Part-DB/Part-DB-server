@@ -73,7 +73,7 @@ class CategoryAdminForm extends BaseEntityAdminForm
 
         $builder->add('default_comment', TextType::class, ['required' => false, 'empty_data' => '',
             'label' => 'category.edit.default_comment',
-            'attr' => ['placeholder' => $this->trans->trans('category.edit.default_comment.placeholder')],
+            'attr' => ['placeholder' => 'category.edit.default_comment.placeholder'],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
     }
 }
