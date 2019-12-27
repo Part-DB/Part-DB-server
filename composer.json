@@ -55,7 +55,7 @@
         "webmozart/assert": "^1.4"
     },
     "require-dev": {
-        "dama/doctrine-test-bundle": "^5.0",
+        "dama/doctrine-test-bundle": "^6.0",
         "doctrine/doctrine-fixtures-bundle": "^3.2",
         "roave/security-advisories": "dev-master",
         "symfony/debug-pack": "*",

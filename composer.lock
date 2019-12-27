@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6f3d372964973168a3192e89ce839e1e",
+    "content-hash": "a59dc06a43af8bf7a925d52f820f8774",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2410,16 +2410,16 @@
         },
         {
             "name": "php-http/discovery",
-            "version": "1.7.0",
+            "version": "1.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/discovery.git",
-                "reference": "e822f86a6983790aa17ab13aa7e69631e86806b6"
+                "reference": "16a3327861ae291006a2df8fc22e991806f720d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/discovery/zipball/e822f86a6983790aa17ab13aa7e69631e86806b6",
-                "reference": "e822f86a6983790aa17ab13aa7e69631e86806b6",
+                "url": "https://api.github.com/repos/php-http/discovery/zipball/16a3327861ae291006a2df8fc22e991806f720d7",
+                "reference": "16a3327861ae291006a2df8fc22e991806f720d7",
                 "shasum": ""
             },
             "require": {
@@ -2471,20 +2471,20 @@
                 "message",
                 "psr7"
             ],
-            "time": "2019-06-30T09:04:27+00:00"
+            "time": "2019-12-27T09:22:53+00:00"
         },
         {
             "name": "php-http/httplug",
-            "version": "v2.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/httplug.git",
-                "reference": "b3842537338c949f2469557ef4ad4bdc47b58603"
+                "reference": "72d2b129a48f0490d55b7f89be0d6aa0597ffb06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/httplug/zipball/b3842537338c949f2469557ef4ad4bdc47b58603",
-                "reference": "b3842537338c949f2469557ef4ad4bdc47b58603",
+                "url": "https://api.github.com/repos/php-http/httplug/zipball/72d2b129a48f0490d55b7f89be0d6aa0597ffb06",
+                "reference": "72d2b129a48f0490d55b7f89be0d6aa0597ffb06",
                 "shasum": ""
             },
             "require": {
@@ -2494,13 +2494,13 @@
                 "psr/http-message": "^1.0"
             },
             "require-dev": {
-                "henrikbjorn/phpspec-code-coverage": "^1.0",
-                "phpspec/phpspec": "^2.4"
+                "friends-of-phpspec/phpspec-code-coverage": "^4.1",
+                "phpspec/phpspec": "^4.3.4|^5.0|^6.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "2.x-dev"
                 }
             },
             "autoload": {
@@ -2528,7 +2528,7 @@
                 "client",
                 "http"
             ],
-            "time": "2018-10-31T09:14:44+00:00"
+            "time": "2019-12-27T10:07:11+00:00"
         },
         {
             "name": "php-http/message-factory",
@@ -3422,16 +3422,16 @@
         },
         {
             "name": "s9e/text-formatter",
-            "version": "2.3.0",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/s9e/TextFormatter.git",
-                "reference": "26d6ee3a931a25acfea3096f62f0cc42172f3859"
+                "reference": "65a0605f163b8ffcf7145357f167b153f31cd168"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/s9e/TextFormatter/zipball/26d6ee3a931a25acfea3096f62f0cc42172f3859",
-                "reference": "26d6ee3a931a25acfea3096f62f0cc42172f3859",
+                "url": "https://api.github.com/repos/s9e/TextFormatter/zipball/65a0605f163b8ffcf7145357f167b153f31cd168",
+                "reference": "65a0605f163b8ffcf7145357f167b153f31cd168",
                 "shasum": ""
             },
             "require": {
@@ -3456,7 +3456,7 @@
             },
             "type": "library",
             "extra": {
-                "version": "2.3.0"
+                "version": "2.3.1"
             },
             "autoload": {
                 "psr-4": {
@@ -3486,7 +3486,7 @@
                 "parser",
                 "shortcodes"
             ],
-            "time": "2019-11-17T16:03:56+00:00"
+            "time": "2019-12-26T19:14:01+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -8332,33 +8332,34 @@
         },
         {
             "name": "dama/doctrine-test-bundle",
-            "version": "v5.0.5",
+            "version": "v6.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmaicher/doctrine-test-bundle.git",
-                "reference": "a60b0712f4659eab710c49783713b4b43e3c3149"
+                "reference": "13eaeacf5bda4fd716c5d6d8ec6bf7bac89d3947"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmaicher/doctrine-test-bundle/zipball/a60b0712f4659eab710c49783713b4b43e3c3149",
-                "reference": "a60b0712f4659eab710c49783713b4b43e3c3149",
+                "url": "https://api.github.com/repos/dmaicher/doctrine-test-bundle/zipball/13eaeacf5bda4fd716c5d6d8ec6bf7bac89d3947",
+                "reference": "13eaeacf5bda4fd716c5d6d8ec6bf7bac89d3947",
                 "shasum": ""
             },
             "require": {
                 "doctrine/dbal": "^2.9,>=2.9.3",
-                "doctrine/doctrine-bundle": "~1.4|~2.0",
+                "doctrine/doctrine-bundle": "^1.11 || ^2.0",
                 "php": "^7.1",
-                "symfony/framework-bundle": "~3.4|~4.0"
+                "symfony/framework-bundle": "^3.4 || ^4.3 || ^5.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~7.0|~8.0",
-                "symfony/phpunit-bridge": "^4.3",
-                "symfony/yaml": "~2.8|~3.0|~4.0"
+                "phpstan/phpstan": "^0.12",
+                "phpunit/phpunit": "^7.0 || ^8.0",
+                "symfony/phpunit-bridge": "^4.3 || ^5.0",
+                "symfony/yaml": "^3.4 || ^4.3 || ^5.0"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.1.x-dev"
+                    "dev-master": "7.0.x-dev"
                 }
             },
             "autoload": {
@@ -8378,16 +8379,13 @@
             ],
             "description": "Symfony bundle to isolate doctrine database tests and improve test performance",
             "keywords": [
-                "Symfony 3",
-                "Symfony 4",
                 "doctrine",
                 "isolation",
                 "performance",
                 "symfony",
-                "symfony 2",
                 "tests"
             ],
-            "time": "2019-11-25T10:12:28+00:00"
+            "time": "2019-12-09T22:53:03+00:00"
         },
         {
             "name": "doctrine/data-fixtures",
@@ -8757,12 +8755,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "181dd66fd666ed397991ded7b725fe90a8a00413"
+                "reference": "44a677c8e06241a66409ae6e4820dc166fc09ab2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/181dd66fd666ed397991ded7b725fe90a8a00413",
-                "reference": "181dd66fd666ed397991ded7b725fe90a8a00413",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/44a677c8e06241a66409ae6e4820dc166fc09ab2",
+                "reference": "44a677c8e06241a66409ae6e4820dc166fc09ab2",
                 "shasum": ""
             },
             "conflict": {
@@ -8853,7 +8851,7 @@
                 "pusher/pusher-php-server": "<2.2.1",
                 "robrichards/xmlseclibs": ">=1,<3.0.4",
                 "sabre/dav": ">=1.6,<1.6.99|>=1.7,<1.7.11|>=1.8,<1.8.9",
-                "scheb/two-factor-bundle": "<3.26|>=4,<4.11",
+                "scheb/two-factor-bundle": ">=0,<3.26|>=4,<4.11",
                 "sensiolabs/connect": "<4.2.3",
                 "serluck/phpwhois": "<=4.2.6",
                 "shopware/shopware": "<5.3.7",
@@ -8968,7 +8966,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2019-12-21T14:43:42+00:00"
+            "time": "2019-12-26T14:16:40+00:00"
         },
         {
             "name": "sebastian/diff",
