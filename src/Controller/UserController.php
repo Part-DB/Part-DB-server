@@ -82,7 +82,7 @@ class UserController extends AdminPages\BaseAdminController
     }
 
     /**
-     * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     * @Route("/{id}", name="user_delete", methods={"DELETE"}, requirements={"id"="\d+"})
      */
     public function delete(Request $request, User $entity, StructuralElementRecursionHelper $recursionHelper)
     {
@@ -152,7 +152,6 @@ class UserController extends AdminPages\BaseAdminController
             'form' => $builder->getForm()->createView(),
         ]);
     }
-
 
     /**
      * Get either a Gravatar URL or complete image tag for a specified email address.

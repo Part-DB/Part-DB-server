@@ -65,6 +65,7 @@ use Doctrine\ORM\Mapping as ORM;
 use R\U2FTwoFactorBundle\Model\U2F\TwoFactorKeyInterface;
 use Scheb\TwoFactorBundle\Model\BackupCodeInterface;
 use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
+use Scheb\TwoFactorBundle\Model\PreferredProviderInterface;
 use Scheb\TwoFactorBundle\Model\TrustedDeviceInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -80,7 +81,7 @@ use R\U2FTwoFactorBundle\Model\U2F\TwoFactorInterface as U2FTwoFactorInterface;
  * @UniqueEntity("name", message="validator.user.username_already_used")
  */
 class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface,
-    TwoFactorInterface, BackupCodeInterface, TrustedDeviceInterface, U2FTwoFactorInterface
+    TwoFactorInterface, BackupCodeInterface, TrustedDeviceInterface, U2FTwoFactorInterface, PreferredProviderInterface
 {
     use MasterAttachmentTrait;
 
@@ -844,5 +845,19 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     public function removeU2FKey(TwoFactorKeyInterface $key): void
     {
         $this->u2fKeys->removeElement($key);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPreferredTwoFactorProvider(): ?string
+    {
+        //If U2F is available then prefer it
+        if($this->isU2FAuthEnabled()) {
+            return 'u2f_two_factor';
+        }
+
+        //Otherwise use other methods
+        return null;
     }
 }

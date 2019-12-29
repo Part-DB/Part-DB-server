@@ -35,12 +35,13 @@ class UserSettingsController extends AbstractController
     public function showBackupCodes()
     {
         $user = $this->getUser();
-        if (!$user instanceof User) {
-            return new \RuntimeException('This controller only works only for Part-DB User objects!');
-        }
 
         //When user change its settings, he should be logged  in fully.
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        if (!$user instanceof User) {
+            return new \RuntimeException('This controller only works only for Part-DB User objects!');
+        }
 
         if (empty($user->getBackupCodes())) {
             $this->addFlash('error', 'You do not have any backup codes enabled, therefore you can not view them!');
@@ -60,11 +61,14 @@ class UserSettingsController extends AbstractController
     public function removeU2FToken(Request $request, EntityManagerInterface $entityManager, BackupCodeManager $backupCodeManager)
     {
         $user = $this->getUser();
+
+        //When user change its settings, he should be logged  in fully.
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         if (!$user instanceof User) {
             throw new \RuntimeException('This controller only works only for Part-DB User objects!');
         }
-        //When user change its settings, he should be logged  in fully.
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
 
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             if($request->request->has('key_id')) {
@@ -101,11 +105,14 @@ class UserSettingsController extends AbstractController
     public function resetTrustedDevices(Request $request, EntityManagerInterface $entityManager)
     {
         $user = $this->getUser();
+
+        //When user change its settings, he should be logged  in fully.
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         if (!$user instanceof User) {
             return new \RuntimeException('This controller only works only for Part-DB User objects!');
         }
-        //When user change its settings, he should be logged  in fully.
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
 
         if ($this->isCsrfTokenValid('devices_reset'.$user->getId(), $request->request->get('_token'))) {
             $user->invalidateTrustedDeviceTokens();
@@ -130,12 +137,12 @@ class UserSettingsController extends AbstractController
 
         $page_need_reload = false;
 
-        if (!$user instanceof User) {
-            return new \RuntimeException('This controller only works only for Part-DB User objects!');
-        }
-
         //When user change its settings, he should be logged  in fully.
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        if (!$user instanceof User) {
+            throw new \RuntimeException('This controller only works only for Part-DB User objects!');
+        }
 
         /***************************
          * User settings form
