@@ -20,6 +20,10 @@
                 <a class="nav-link" id="u2f-tab" data-toggle="tab" href="#tfa-u2f" role="tab"
                    aria-controls="profile" aria-selected="false">{% trans %}tfa.settings.u2f.tab{% endtrans %}</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" id="trustedDevices-tab" data-toggle="tab" href="#tfa-trustedDevices" role="tab"
+                   aria-controls="profile" aria-selected="false">{% trans %}tfa.settings.trustedDevices.tab{% endtrans %}</a>
+            </li>
         </ul>
         <div class="tab-content mt-3 mb-3" id="tfa-tabs-content">
             <div class="tab-pane fade show active" id="tfa-google" role="tabpanel" aria-labelledby="google-tab">
@@ -130,6 +134,17 @@
                 {% endif %}
 
                 <a href="{{ url('club_base_register_u2f') }}" class="btn btn-success"><i class="fas fa-plus-square fa-fw"></i> {% trans %}tfa_u2f.add_new_key{% endtrans %}</a>
+            </div>
+
+            <div class="tab-pane fade" id="tfa-trustedDevices" role="tabpanel" aria-labelledby="trustedDevices-tab-tab">
+                <p>{% trans %}tfa_trustedDevices.explanation{% endtrans %}</p>
+                <form action="{{ url('tfa_trustedDevices_invalidate') }}" method="post" data-delete-form data-title="{% trans %}tfa_trustedDevices.invalidate.confirm_title{% endtrans %}"
+                      data-message="{% trans %}tfa_trustedDevices.invalidate.confirm_message{% endtrans %}">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="{{ csrf_token('devices_reset' ~ user.id) }}">
+
+                    <button class="btn btn-danger" type="submit">{% trans %}tfa_trustedDevices.invalidate.btn{% endtrans %}</button>
+                </form>
             </div>
 
         </div>

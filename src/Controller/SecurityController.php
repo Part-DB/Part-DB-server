@@ -205,8 +205,33 @@ class SecurityController extends AbstractController
                 $entityManager->flush();
                 $this->addFlash('success', 'tfa.u2f.u2f_delete.success');
             }
+        } else {
+            $this->addFlash('error','csfr_invalid');
         }
         
+        return $this->redirectToRoute('user_settings');
+    }
+
+    /**
+     * @Route("/user/invalidate_trustedDevices", name="tfa_trustedDevices_invalidate", methods={"DELETE"})
+     */
+    public function resetTrustedDevices(Request $request, EntityManagerInterface $entityManager)
+    {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return new \RuntimeException('This controller only works only for Part-DB User objects!');
+        }
+        //When user change its settings, he should be logged  in fully.
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        if ($this->isCsrfTokenValid('devices_reset'.$user->getId(), $request->request->get('_token'))) {
+            $user->invalidateTrustedDeviceTokens();
+            $entityManager->flush();
+            $this->addFlash('success', 'tfa_trustedDevice.invalidate.success');
+        } else {
+            $this->addFlash('error','csfr_invalid');
+        }
+
         return $this->redirectToRoute('user_settings');
     }
 
