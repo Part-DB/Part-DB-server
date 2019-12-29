@@ -495,6 +495,29 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
     });
 });
 
+//Register U2F on page reload too...
+$(document).on("ajaxUI:reload", function() {
+    //@ts-ignore
+    window.u2fauth.ready(function () {
+        const form = document.getElementById('u2fForm')
+        if (!form) {
+            return
+        }
+        const type = form.dataset.action
+
+        if (type === 'auth') {
+            //@ts-ignore
+            u2fauth.authenticate()
+        } else if (type === 'reg' && form.addEventListener) {
+            form.addEventListener('submit', function (event) {
+                event.preventDefault()
+                //@ts-ignore
+                u2fauth.register()
+            }, false)
+        }
+    })
+});
+
 //Need for proper body padding, with every navbar height
 $(window).resize(function () {
     let height : number = $('#navbar').height() + 10;

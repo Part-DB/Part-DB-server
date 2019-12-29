@@ -6702,6 +6702,11 @@ typescript@^3.3.4000:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.3.tgz#b36840668a16458a7025b9eabfad11b66ab85c69"
   integrity sha512-Mcr/Qk7hXqFBXMN7p7Lusj1ktCBydylfQM/FZCk5glCNQJrCUKPkMHdo9R0MTFWsC/4kPFvDS0fDPvukfCkFsw==
 
+u2f-api@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/u2f-api/-/u2f-api-1.1.1.tgz#594f600ff7bb49e8bb03e9f533e1f7bfc95f2e0f"
+  integrity sha512-tbmMBmg9eaFv+cdcBwja/hbpdXwcvBV0YSQh674nmP3HI0hNWcNAp9LRJ0jl9HGWLF7gF/3UKHzIxlXCW8j7kw==
+
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/unicode-canonical-property-names-ecmascript/-/unicode-canonical-property-names-ecmascript-1.0.4.tgz#2619800c4c825800efdd8343af7dd9933cbe2818"

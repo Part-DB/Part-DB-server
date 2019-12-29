@@ -123,6 +123,10 @@
         <script src="{{ preload(asset(js), {as: 'script'}) }}"></script>
     {% endfor %}
 
+    {% for js in encore_entry_js_files('ru2ftwofactor') %}
+    <script src="{{ preload(asset(js), {as: 'script'}) }}"></script>
+    {% endfor %}
+
 {% endblock %}
 
 {% block scripts %}

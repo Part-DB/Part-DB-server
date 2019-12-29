@@ -16,6 +16,10 @@
                 <a class="nav-link" id="backup-tab" data-toggle="tab" href="#tfa-backup" role="tab"
                    aria-controls="profile" aria-selected="false">{% trans %}tfa.settings.bakup.tab{% endtrans %}</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" id="u2f-tab" data-toggle="tab" href="#tfa-u2f" role="tab"
+                   aria-controls="profile" aria-selected="false">{% trans %}tfa.settings.u2f.tab{% endtrans %}</a>
+            </li>
         </ul>
         <div class="tab-content mt-3 mb-3" id="tfa-tabs-content">
             <div class="tab-pane fade show active" id="tfa-google" role="tabpanel" aria-labelledby="google-tab">
@@ -90,6 +94,37 @@
 
                 {% endif %}
             </div>
+
+            <div class="tab-pane fade" id="tfa-u2f" role="tabpanel" aria-labelledby="u2f-tab">
+                <p>{% trans %}tfa_u2f.explanation{% endtrans %}</p>
+
+                {% if user.u2FKeys is not empty %}
+                    <b>{% trans %}tfa_u2f.table_caption{% endtrans %}:</b>
+                    <table class="table table-striped table-bordered table-sm mt-2">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>{% trans %}tfa_u2f.keys.name{% endtrans %}</th>
+                            <th>{% trans %}tfa_u2f.keys.added_date{% endtrans %}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for key in user.u2FKeys %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ key.name }}</td>
+                                <td>{{ key.addedDate | format_datetime }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p><b>{% trans %}tfa_u2f.no_keys_registered{% endtrans %}</b></p>
+                {% endif %}
+
+                <a href="{{ url('club_base_register_u2f') }}" class="btn btn-success"><i class="fas fa-plus-square fa-fw"></i> {% trans %}tfa_u2f.add_new_key{% endtrans %}</a>
+            </div>
+
         </div>
 
 

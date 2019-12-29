@@ -24,6 +24,7 @@ namespace App\Entity\UserSystem;
 
 use App\Entity\Base\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
+use R\U2FTwoFactorBundle\Model\U2F\TwoFactorInterface;
 use R\U2FTwoFactorBundle\Model\U2F\TwoFactorKeyInterface;
 use u2flib_server\Registration;
 
@@ -49,25 +50,25 @@ class U2FKey implements TwoFactorKeyInterface
      * @ORM\Column(type="string")
      * @var string
      **/
-    protected $keyHandle;
+    public $keyHandle;
 
     /**
      * @ORM\Column(type="string")
      * @var string
      **/
-    protected $publicKey;
+    public $publicKey;
 
     /**
      * @ORM\Column(type="text")
      * @var string
      **/
-    protected $certificate;
+    public $certificate;
 
     /**
      * @ORM\Column(type="string")
      * @var int
      **/
-    protected $counter;
+    public $counter;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User", inversedBy="u2fKeys")
@@ -149,5 +150,25 @@ class U2FKey implements TwoFactorKeyInterface
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * Gets the user, this U2F key belongs to.
+     * @return User
+     */
+    public function getUser() : User
+    {
+        return $this->user;
+    }
+
+    /**
+     * Sets the user this U2F key belongs to.
+     * @param  TwoFactorInterface  $new_user
+     * @return $this
+     */
+    public function setUser(TwoFactorInterface $new_user) : self
+    {
+        $this->user = $new_user;
+        return $this;
     }
 }

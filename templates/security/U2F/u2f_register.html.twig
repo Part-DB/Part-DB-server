@@ -1,0 +1,28 @@
+{% extends "main_card.html.twig" %}
+
+{% block card_title %}<i class="fas fa-plus-square fa-fw"></i> {% trans %}tfa_u2f.add_key.title{% endtrans %}{% endblock %}
+
+{% block card_content %}
+    <p>{% trans %}tfa_u2f.explanation{% endtrans %}</p>
+    <p><b>{% trans %}tfa_u2f.add_key.backup_hint{% endtrans %}</b></p>
+
+    {% if not app.request.secure %}
+        <p class="text-warning"><b><i class="fas fa-exclamation-triangle fa-fw"></i> {% trans %}tfa_u2f.http_warning{% endtrans %}</b></p>
+    {% endif %}
+
+    <form method="post" class="form" action="{{ path('club_base_register_u2f') }}" id="u2fForm" data-action="reg" data-request='{{ registrationRequest|raw }}'>
+        <div id="u2fkeyname" class="form-group row">
+            <div class="col-9">
+                <input type="text" class="form-control " name="keyName" id="keyName" placeholder="{{ 'r_u2f_two_factor.name'|trans }}"/>
+            </div>
+            <div class="col-3">
+                <button type="button" class="btn btn-success" onclick="u2fauth.register()">{% trans %}tfa_u2f.add_key.add_button{% endtrans %}</button>
+            </div>
+        </div>
+        <div id="u2fpressbutton" style="display: none;" class="text-center h4">{{ 'r_u2f_two_factor.pressbutton'|trans }}</div>
+        <input type="hidden" name="_auth_code" id="_auth_code" />
+        <div id="u2fError" style="display: none;" class="text-center h4"></div>
+    </form>
+
+    <a href="{{ url('user_settings') }}">{% trans %}tfa_u2f.add_key.back_to_settings{% endtrans %}</a>
+{% endblock %}

@@ -1,61 +1,14 @@
-{% extends "main_card.html.twig" %}
+{% extends "security/2fa_base_form.html.twig" %}
 
-{% block title %}{% trans %}tfa.check.title{% endtrans %}{% endblock %}
 
-{% block card_title %}<i class="fas fa-shield-alt"></i> {% trans %}tfa.check.title{% endtrans %}{% endblock %}
-
-{% block  content %}
-    {% if authenticationError %}
-        <div class="alert alert-danger" role="alert">
-            <strong>{{ authenticationError|trans(authenticationErrorData, 'SchebTwoFactorBundle') }}}</strong>
+{% block form %}
+    <div class="form-group row">
+        <label for="_auth_code" class="col-form-label col-3">{% trans %}tfa.check.code.label{% endtrans %}</label>
+        <div class="col-9">
+            <input id="_auth_code" class="form-control" type="text" autocomplete="off" name="{{ authCodeParameterName }}" autofocus />
+            <small id="passwordHelpBlock" class="form-text text-muted">
+                {% trans %}tfa.check.code.help{% endtrans %}
+            </small>
         </div>
-    {% endif %}
-
-    {{ parent() }}
-{% endblock %}
-
-{% block card_content %}
-    <ul class="nav nav-pills mb-4">
-        {% for provider in availableTwoFactorProviders %}
-        <li class="nav-item">
-            <a class="nav-link {% if provider == twoFactorProvider %}active{% endif %}"
-               href="{{ path("2fa_login", {"preferProvider": provider}) }}">{{ 'tfa.provider.'~provider | trans }}</a>
-        </li>
-        {% endfor %}
-    </ul>
-
-    {# Display current two-factor provider #}
-
-    <form class="form form-horizontal" action="{{ path("2fa_login_check") }}" method="post">
-        <div class="form-group row">
-            <label for="_auth_code" class="col-form-label col-3">{% trans %}tfa.check.code.label{% endtrans %}</label>
-            <div class="col-9">
-                <input id="_auth_code" class="form-control" type="text" autocomplete="off" name="{{ authCodeParameterName }}" autofocus />
-                <small id="passwordHelpBlock" class="form-text text-muted">
-                    {% trans %}tfa.check.code.help{% endtrans %}
-                </small>
-            </div>
-        </div>
-        {% if displayTrustedOption %}
-            <div class="form-group row mt-3">
-                <div class="offset-3">
-                    <div class="custom-checkbox custom-control ml-2">
-                        <input id="_trusted" class="custom-control-input" type="checkbox" name="{{ trustedParameterName }}" />
-                        <label class="custom-control-label" for="_trusted">{% trans %}tfa.code.trusted_pc{% endtrans %}</label>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-
-
-        {% if isCsrfProtectionEnabled %}
-            <input type="hidden" name="{{ csrfParameterName }}" value="{{ csrf_token(csrfTokenId) }}">
-        {% endif %}
-        <div class="form-group-row">
-            <div class="offset-3">
-                <button type="submit" class="btn btn-primary" value="{{ "login"|trans({}, 'SchebTwoFactorBundle') }}">{% trans %}login.btn{% endtrans %}</button>
-                <a class="ml-2" href="{{ logoutPath }}">{% trans %}user.logout{% endtrans %}</a>
-            </div>
-        </div>
-    </form>
+    </div>
 {% endblock %}
