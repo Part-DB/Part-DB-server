@@ -60,10 +60,5 @@ class BackupCodeManagerTest extends WebTestCase
         $user->setGoogleAuthenticatorSecret('jskf');
         $this->service->disableBackupCodesIfUnused($user);
         $this->assertEquals($codes, $user->getBackupCodes());
-
-        $user->setGoogleAuthenticatorSecret('');
-        $user->addU2FKey(new U2FKey());
-        $this->service->disableBackupCodesIfUnused($user);
-        $this->assertEquals($codes, $user->getBackupCodes());
     }
 }

@@ -37,7 +37,7 @@ class BackupCodeManager
      */
     public function disableBackupCodesIfUnused(User $user)
     {
-        if($user->isU2FAuthEnabled() || $user->isGoogleAuthenticatorEnabled()) {
+        if($user->isGoogleAuthenticatorEnabled()) {
             return;
         }
 

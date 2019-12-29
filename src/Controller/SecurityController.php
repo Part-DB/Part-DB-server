@@ -21,7 +21,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Parts\Part;
+use App\Entity\UserSystem\U2FKey;
+use App\Entity\UserSystem\User;
 use App\Services\PasswordResetManager;
+use App\Services\TFA\BackupCodeManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,6 +33,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Mailer\MailerInterface;
@@ -163,6 +168,46 @@ class SecurityController extends AbstractController
         return $this->render('security/pw_reset_new_pw.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+    /**
+     * @Route("/user/u2f_delete", name="u2f_delete", methods={"DELETE"})
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function removeU2FToken(Request $request, EntityManagerInterface $entityManager, BackupCodeManager $backupCodeManager)
+    {
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return new \RuntimeException('This controller only works only for Part-DB User objects!');
+        }
+        //When user change its settings, he should be logged  in fully.
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            if($request->request->has('key_id')) {
+                $key_id = $request->request->get('key_id');
+                $key_repo = $entityManager->getRepository(U2FKey::class);
+                /** @var U2FKey|null $u2f */
+                $u2f = $key_repo->find($key_id);
+                if($u2f === null) {
+                    $this->addFlash('danger','tfa_u2f.u2f_delete.not_existing');
+                    throw new \RuntimeException('Key not existing!');
+                }
+
+                //User can only delete its own U2F keys
+                if ($u2f->getUser() !== $user) {
+                    $this->addFlash('danger', 'tfa_u2f.u2f_delete.access_denied');
+                    throw new \RuntimeException('You can only delete your own U2F keys!');
+                }
+
+                $backupCodeManager->disableBackupCodesIfUnused($user);
+                $entityManager->remove($u2f);
+                $entityManager->flush();
+                $this->addFlash('success', 'tfa.u2f.u2f_delete.success');
+            }
+        }
+        
+        return $this->redirectToRoute('user_settings');
     }
 
     /**

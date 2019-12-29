@@ -190,6 +190,9 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
 
         let form = this;
 
+        //Get the submit button
+        let btn = document.activeElement;
+
         let title = $(this).data("title");
         let message = $(this).data("message");
 
@@ -199,7 +202,7 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
             callback: function(result) {
                 //If the dialog was confirmed, then submit the form.
                 if(result) {
-                    ajaxUI.submitForm(form);
+                    ajaxUI.submitForm(form, btn);
                 }
             }});
 

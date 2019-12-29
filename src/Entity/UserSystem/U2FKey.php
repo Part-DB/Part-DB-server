@@ -162,6 +162,15 @@ class U2FKey implements TwoFactorKeyInterface
     }
 
     /**
+     * The primary key ID of this key
+     * @return int
+     */
+    public function getID() : int
+    {
+        return $this->id;
+    }
+
+    /**
      * Sets the user this U2F key belongs to.
      * @param  TwoFactorInterface  $new_user
      * @return $this

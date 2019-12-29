@@ -297,10 +297,16 @@ class AjaxUI {
     /**
      * Submits the given form via ajax.
      * @param form The form that will be submmitted.
+     * @param btn The btn via which the form is submitted
      */
-    public submitForm(form)
+    public submitForm(form, btn = null)
     {
         let options = ajaxUI.getFormOptions();
+
+        if(btn) {
+            options.data = {};
+            options.data[$(btn).attr('name')] = $(btn).attr('value');
+        }
 
         $(form).ajaxSubmit(options);
     }
