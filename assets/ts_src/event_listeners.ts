@@ -218,6 +218,11 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
         let title = $(btn).data("title");
         let message = $(btn).data("message");
 
+        //If not the button with the message was pressed, then simply submit the form.
+        if(!btn.hasAttribute('data-delete-btn')) {
+            ajaxUI.submitForm(form, btn);
+        }
+
         bootbox.confirm({
             message: message, title: title, callback: function (result) {
                 //If the dialog was confirmed, then submit the form.
