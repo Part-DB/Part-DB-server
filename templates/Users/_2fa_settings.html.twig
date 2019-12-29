@@ -27,7 +27,13 @@
         </ul>
         <div class="tab-content mt-3 mb-3" id="tfa-tabs-content">
             <div class="tab-pane fade show active" id="tfa-google" role="tabpanel" aria-labelledby="google-tab">
-                {{ form_start(google_form) }}
+                {% set google_form_attr = {}  %}
+                {% if tfa_google.enabled %}
+                    {% set google_form_attr = { 'data-delete-form': true,
+                        'data-title': 'tfa_google.disable.confirm_title' | trans, 'data-message': 'tfa_google.disable.confirm_message'|trans} %}
+                {% endif %}
+
+                {{ form_start(google_form, { 'attr': google_form_attr}) }}
                 {% if not tfa_google.enabled %}
                     <div class="offset-3">
                         <h6>{% trans %}tfa_google.disabled_message{% endtrans %}</h6>
@@ -78,7 +84,9 @@
                         <span>{% trans %}tfa_backup.explanation{% endtrans %}</span>
                     </div>
                 {% else %}
-                    {{ form_start(backup_form) }}
+                    {% set backup_form_attr = { 'data-delete-form': true,
+                        'data-title': 'tfa_backup.reset_codes.confirm_title' | trans, 'data-message': 'tfa_backup.reset_codes.confirm_message'} %}
+                    {{ form_start(backup_form, { 'attr': backup_form_attr}) }}
                     <div class="offset-3">
                         <h6>{% trans %}tfa_backup.enabled{% endtrans %}</h6>
                         <span>{% trans %}tfa_backup.explanation{% endtrans %}</span>
