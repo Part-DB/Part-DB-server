@@ -81,3 +81,11 @@
         </ol>
     </nav>
 {% endmacro %}
+
+{% macro bool_icon(bool) %}
+    {% if bool %}
+        <i class="fas fa-check-circle fa-fw" title="{% trans %}Yes{% endtrans %}"></i>
+    {% else %}
+        <i class="fas fa-times-circle fa-fw" title="{% trans %}No{% endtrans %}"></i>
+    {% endif %}
+{% endmacro %}

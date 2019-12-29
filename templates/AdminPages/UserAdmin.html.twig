@@ -1,5 +1,9 @@
 {% extends "AdminPages/EntityAdminBase.html.twig" %}
 
+{% import "helper.twig" as helper %}
+
+{# @var entity \App\Entity\UserSystem\User #}
+
 {% block card_title %}
     <i class="fas fa-user fa-fw"></i> {% trans %}user.edit.caption{% endtrans %}
 {% endblock %}
@@ -34,6 +38,42 @@
         {{ form_row(form.new_password) }}
         {{ form_row(form.need_pw_change) }}
         {{ form_row(form.disabled) }}
+
+        {% if entity.id is not null %}
+            <div class="offset-3 mb-3">
+                <hr>
+                <h6>{% trans %}user.edit.tfa.caption{% endtrans %}</h6>
+
+                <p><b>{% trans %}user.edit.tfa.google_active{% endtrans %}:</b> {{ helper.boolean(entity.googleAuthenticatorEnabled) }}</p>
+                <p class="mb-0"><b>{% trans %}tfa_backup.remaining_tokens{% endtrans %}:</b> {{ entity.backupCodes | length }}</p>
+                <p><b>{% trans %}tfa_backup.generation_date{% endtrans %}:</b>
+                    {% if entity.backupCodesGenerationDate is not null %}
+                        {{ entity.backupCodesGenerationDate | format_datetime }}
+                    {% else %}
+                        {% trans %}user.edit.tfa.disabled{% endtrans %}
+                    {% endif %}
+                </p>
+                <p><b>{% trans %}user.edit.tfa.u2f_keys_count{% endtrans %}:</b>
+                    {% if entity.u2FAuthEnabled %}
+                        {{ entity.u2FKeys | length }}
+                    {% else %}
+                        {% trans %}user.edit.tfa.disabled{% endtrans %}
+                    {% endif %}
+                </p>
+
+                {% set tfa_disable_disabled = not is_granted('set_password', entity) %}
+                {# Disable button when he has no 2FA activated #}
+                {% if not entity.u2FAuthEnabled and not entity.googleAuthenticatorEnabled and entity.backupCodes is empty %}
+                    {% set tfa_disable_disabled = true %}
+                {% endif %}
+
+                <input type="hidden" name="_token" value="{{ csrf_token('reset_2fa' ~ entity.id) }}">
+                <button class="btn btn-warning" {% if tfa_disable_disabled %}disabled="disabled"{% endif %}
+                        data-delete-btn data-title="{% trans %}user.edit.tfa.disable_tfa_title{% endtrans %}" data-message="{% trans %}user.edit.tfa.disable_tfa_message{% endtrans %}"
+                        type="submit" name="reset_2fa">{% trans %}user.edit.tfa.disable_tfa.btn{% endtrans %}</button>
+            </div>
+        {% endif %}
+
     </div>
 
     <div class="tab-pane" id="permissions">

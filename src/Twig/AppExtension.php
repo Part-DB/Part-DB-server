@@ -33,6 +33,7 @@ use App\Services\MoneyFormatter;
 use App\Services\SIFormatter;
 use App\Services\TreeBuilder;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -49,13 +50,14 @@ class AppExtension extends AbstractExtension
     protected $amountFormatter;
     protected $attachmentURLGenerator;
     protected $FAIconGenerator;
+    protected $translator;
 
     public function __construct(EntityURLGenerator $entityURLGenerator, MarkdownParser $markdownParser,
-                                SerializerInterface $serializer, TreeBuilder $treeBuilder,
-                                MoneyFormatter $moneyFormatter,
-                                SIFormatter $SIFormatter, AmountFormatter $amountFormatter,
-                                AttachmentURLGenerator $attachmentURLGenerator,
-                                FAIconGenerator $FAIconGenerator)
+        SerializerInterface $serializer, TreeBuilder $treeBuilder,
+        MoneyFormatter $moneyFormatter,
+        SIFormatter $SIFormatter, AmountFormatter $amountFormatter,
+        AttachmentURLGenerator $attachmentURLGenerator,
+        FAIconGenerator $FAIconGenerator, TranslatorInterface $translator)
     {
         $this->entityURLGenerator = $entityURLGenerator;
         $this->markdownParser = $markdownParser;
@@ -66,6 +68,7 @@ class AppExtension extends AbstractExtension
         $this->amountFormatter = $amountFormatter;
         $this->attachmentURLGenerator = $attachmentURLGenerator;
         $this->FAIconGenerator = $FAIconGenerator;
+        $this->translator = $translator;
     }
 
     public function getFilters()

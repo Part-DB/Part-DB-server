@@ -185,7 +185,7 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
 });
 
 $(document).on("ajaxUI:start ajaxUI:reload", function() {
-    $("[data-delete-form]").unbind('submit').submit(function(event) {
+    $("[data-delete-form]").unbind('submit').submit(function (event) {
         event.preventDefault();
 
         let form = this;
@@ -197,17 +197,38 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
         let message = $(this).data("message");
 
         bootbox.confirm({
-            message: message,
-            title: title,
-            callback: function(result) {
+            message: message, title: title, callback: function (result) {
                 //If the dialog was confirmed, then submit the form.
-                if(result) {
+                if (result) {
                     ajaxUI.submitForm(form, btn);
                 }
-            }});
+            }
+        });
 
         return false;
     });
+
+    //Register for forms with delete-buttons
+    $("[data-delete-btn]").parents('form').unbind('submit').submit(function (event) {
+        event.preventDefault();
+        let form = this;
+        //Get the submit button
+        let btn = document.activeElement;
+
+        let title = $(btn).data("title");
+        let message = $(btn).data("message");
+
+        bootbox.confirm({
+            message: message, title: title, callback: function (result) {
+                //If the dialog was confirmed, then submit the form.
+                if (result) {
+                    ajaxUI.submitForm(form, btn);
+                }
+            }
+        });
+
+    });
+
 });
 
 $(document).on("ajaxUI:start ajaxUI:reload", function() {

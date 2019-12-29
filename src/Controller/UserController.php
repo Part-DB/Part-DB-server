@@ -67,6 +67,29 @@ class UserController extends AdminPages\BaseAdminController
      */
     public function edit(User $entity, Request $request, EntityManagerInterface $em)
     {
+        //Handle 2FA disabling
+
+        if($request->request->has('reset_2fa')) {
+            //Check if the admin has the needed permissions
+            $this->denyAccessUnlessGranted('set_password', $entity);
+            if ($this->isCsrfTokenValid('reset_2fa'.$entity->getId(), $request->request->get('_token'))) {
+                //Disable Google authenticator
+                $entity->setGoogleAuthenticatorSecret(null);
+                $entity->setBackupCodes([]);
+                //Remove all U2F keys
+                foreach($entity->getU2FKeys() as $key) {
+                    $em->remove($key);
+                }
+                //Invalidate trusted devices
+                $entity->invalidateTrustedDeviceTokens();
+                $em->flush();
+
+                $this->addFlash('success', 'user.edit.reset_success');
+            } else {
+                $this->addFlash('danger', 'csfr_invalid');
+            }
+        }
+
         return $this->_edit($entity, $request, $em);
     }
 
