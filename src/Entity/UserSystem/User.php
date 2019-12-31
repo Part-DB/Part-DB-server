@@ -205,7 +205,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected $trustedDeviceCookieVersion = 0;
 
     /** @var Collection<TwoFactorKeyInterface>
-      * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\U2FKey", mappedBy="user")
+      * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\U2FKey", mappedBy="user", cascade={"REMOVE"}, orphanRemoval=true)
       */
     protected $u2fKeys;
 
