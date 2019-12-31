@@ -70,7 +70,7 @@
                 <input type="hidden" name="_token" value="{{ csrf_token('reset_2fa' ~ entity.id) }}">
                 <button class="btn btn-warning" {% if tfa_disable_disabled %}disabled="disabled"{% endif %}
                         data-delete-btn data-title="{% trans %}user.edit.tfa.disable_tfa_title{% endtrans %}" data-message="{% trans %}user.edit.tfa.disable_tfa_message{% endtrans %}"
-                        type="submit" name="reset_2fa">{% trans %}user.edit.tfa.disable_tfa.btn{% endtrans %}</button>
+                        type="submit" name="reset_2fa" value="reset_2fa">{% trans %}user.edit.tfa.disable_tfa.btn{% endtrans %}</button>
             </div>
         {% endif %}
 
