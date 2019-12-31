@@ -27,6 +27,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use R\U2FTwoFactorBundle\Event\RegisterEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class U2FRegistrationSubscriber implements EventSubscriberInterface
@@ -36,13 +37,16 @@ class U2FRegistrationSubscriber implements EventSubscriberInterface
 
     protected $em;
 
-    public function __construct(UrlGeneratorInterface $router, EntityManagerInterface $entityManager)
+    protected $demo_mode;
+    protected $flashBag;
+
+    public function __construct(UrlGeneratorInterface $router, EntityManagerInterface $entityManager, FlashBagInterface $flashBag, bool $demo_mode)
     {
         $this->router = $router;
         $this->em = $entityManager;
+        $this->demo_mode = $demo_mode;
+        $this->flashBag = $flashBag;
     }
-
-    // ..
 
     /** @return string[] **/
     public static function getSubscribedEvents(): array
@@ -54,16 +58,20 @@ class U2FRegistrationSubscriber implements EventSubscriberInterface
 
     public function onRegister(RegisterEvent $event): void
     {
-        $user = $event->getUser();
-        $registration = $event->getRegistration();
-        $newKey = new U2FKey();
-        $newKey->fromRegistrationData($registration);
-        $newKey->setUser($user);
-        $newKey->setName($event->getKeyName());
+        //Skip adding of U2F key on demo mode
+        if (!$this->demo_mode) {
+            $user = $event->getUser();
+            $registration = $event->getRegistration();
+            $newKey = new U2FKey();
+            $newKey->fromRegistrationData($registration);
+            $newKey->setUser($user);
+            $newKey->setName($event->getKeyName());
 
-        // persist the new key
-        $this->em->persist($newKey);
-        $this->em->flush();
+            // persist the new key
+            $this->em->persist($newKey);
+            $this->em->flush();
+            $this->flashBag->add('success', 'tfa_u2f.key_added_successful');
+        }
 
         // generate new response, here we redirect the user to the fos user
         // profile

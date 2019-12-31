@@ -47,6 +47,13 @@ use Symfony\Component\Validator\Constraints\Length;
  */
 class UserSettingsController extends AbstractController
 {
+    protected $demo_mode;
+
+    public function __construct(bool $demo_mode)
+    {
+        $this->demo_mode = $demo_mode;
+    }
+
     /**
      * @Route("/2fa_backup_codes", name="show_backup_codes")
      */
@@ -78,6 +85,10 @@ class UserSettingsController extends AbstractController
      */
     public function removeU2FToken(Request $request, EntityManagerInterface $entityManager, BackupCodeManager $backupCodeManager)
     {
+        if($this->demo_mode) {
+            throw new \RuntimeException('You can not do 2FA things in demo mode');
+        }
+
         $user = $this->getUser();
 
         //When user change its settings, he should be logged  in fully.
@@ -122,6 +133,10 @@ class UserSettingsController extends AbstractController
      */
     public function resetTrustedDevices(Request $request, EntityManagerInterface $entityManager)
     {
+        if($this->demo_mode) {
+            throw new \RuntimeException('You can not do 2FA things in demo mode');
+        }
+
         $user = $this->getUser();
 
         //When user change its settings, he should be logged  in fully.
@@ -170,7 +185,7 @@ class UserSettingsController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && !$this->demo_mode) {
             //Check if user theme setting has changed
             if ($user->getTheme() !== $em->getUnitOfWork()->getOriginalEntityData($user)['theme']) {
                 $page_need_reload = true;
@@ -184,8 +199,6 @@ class UserSettingsController extends AbstractController
          * Password change form
          ****************************/
 
-        $demo_mode = $this->getParameter('demo_mode');
-
         $pw_form = $this->createFormBuilder()
             //Username field for autocomplete
             ->add('username', TextType::class, [
@@ -196,11 +209,11 @@ class UserSettingsController extends AbstractController
             ])
             ->add('old_password', PasswordType::class, [
                 'label' => 'user.settings.pw_old.label',
-                'disabled' => $demo_mode,
+                'disabled' => $this->demo_mode,
                 'attr' => ['autocomplete' => 'current-password'],
                 'constraints' => [new UserPassword()], ]) //This constraint checks, if the current user pw was inputted.
             ->add('new_password', RepeatedType::class, [
-                'disabled' => $demo_mode,
+                'disabled' => $this->demo_mode,
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'user.settings.pw_new.label'],
                 'second_options' => ['label' => 'user.settings.pw_confirm.label'],
@@ -219,7 +232,7 @@ class UserSettingsController extends AbstractController
         $pw_form->handleRequest($request);
 
         //Check if password if everything was correct, then save it to User and DB
-        if ($pw_form->isSubmitted() && $pw_form->isValid()) {
+        if ($pw_form->isSubmitted() && $pw_form->isValid() && !$this->demo_mode) {
             $password = $passwordEncoder->encodePassword($user, $pw_form['new_password']->getData());
             $user->setPassword($password);
 
@@ -240,7 +253,7 @@ class UserSettingsController extends AbstractController
         }
         $google_form->handleRequest($request);
 
-        if($google_form->isSubmitted() && $google_form->isValid()) {
+        if($google_form->isSubmitted() && $google_form->isValid() && !$this->demo_mode) {
             if (!$google_enabled) {
                 //Save 2FA settings (save secrets)
                 $user->setGoogleAuthenticatorSecret($google_form->get('googleAuthenticatorSecret')->getData());
@@ -265,7 +278,7 @@ class UserSettingsController extends AbstractController
         ])->getForm();
 
         $backup_form->handleRequest($request);
-        if ($backup_form->isSubmitted() && $backup_form->isValid()) {
+        if ($backup_form->isSubmitted() && $backup_form->isValid() && !$this->demo_mode) {
             $backupCodeManager->regenerateBackupCodes($user);
             $em->flush();
             $this->addFlash('success', 'user.settings.2fa.backup_codes.regenerated');
