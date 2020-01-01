@@ -1,4 +1,5 @@
 language: php
+dist: bionic
 
 services:
   - mysql
@@ -14,7 +15,7 @@ php:
   - '7.4'
 
 install:
-  - composer install
+  - composer install -o
   # Compile assets
   - yarn install
   - yarn build
