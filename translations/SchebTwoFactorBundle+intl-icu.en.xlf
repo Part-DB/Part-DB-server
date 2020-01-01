@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="en">
+  <file id="SchebTwoFactorBundle.en">
+    <unit id="QoghNQ6" name="login">
+      <segment>
+        <source>login</source>
+        <target>Login</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

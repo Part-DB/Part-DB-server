@@ -47,6 +47,8 @@
 {% block content %}
     {{ parent() }}
 
+    {% include "Users/_2fa_settings.html.twig" %}
+
     <div class="card mt-4">
         <div class="card-header">
             <i class="fa fa-key fa-fw" aria-hidden="true"></i>

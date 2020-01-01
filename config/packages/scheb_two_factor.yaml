@@ -1,0 +1,25 @@
+# See the configuration reference at https://github.com/scheb/two-factor-bundle/blob/master/Resources/doc/configuration.md
+scheb_two_factor:
+    security_tokens:
+        - Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken
+        # If you're using guard-based authentication, you have to use this one:
+        # - Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken
+
+    google:
+        enabled: true                   # If Google Authenticator should be enabled, default false
+        server_name: '%partdb_title%'   # Server name used in QR code
+        issuer: 'Part-DB'               # Issuer name used in QR code
+        digits: 6                       # Number of digits in authentication code
+        window: 1                       # How many codes before/after the current one would be accepted as valid
+        template: security/2fa_form.html.twig
+
+    backup_codes:
+        enabled: true  # If the backup code feature should be enabled
+
+    trusted_device:
+        enabled: true                  # If the trusted device feature should be enabled
+        lifetime: 5184000              # Lifetime of the trusted device token
+        extend_lifetime: false         # Automatically extend lifetime of the trusted cookie on re-login
+        cookie_name: trusted_device    # Name of the trusted device cookie
+        cookie_secure: false           # Set the 'Secure' (HTTPS Only) flag on the trusted device cookie
+        cookie_same_site: "lax"        # The same-site option of the cookie, can be "lax" or "strict"

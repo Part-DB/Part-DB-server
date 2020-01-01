@@ -5,6 +5,9 @@
     "amphp/byte-stream": {
         "version": "v1.6.1"
     },
+    "beberlei/assert": {
+        "version": "v3.2.6"
+    },
     "composer/xdebug-handler": {
         "version": "1.3.3"
     },
@@ -165,6 +168,9 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "lcobucci/jwt": {
+        "version": "3.3.1"
+    },
     "league/html-to-markdown": {
         "version": "4.8.2"
     },
@@ -228,6 +234,9 @@
     },
     "openlss/lib-array2xml": {
         "version": "1.0.0"
+    },
+    "paragonie/constant_time_encoding": {
+        "version": "v2.3.0"
     },
     "php": {
         "version": "7.1.3"
@@ -301,6 +310,9 @@
     "psr/simple-cache": {
         "version": "1.0.1"
     },
+    "r/u2f-two-factor-bundle": {
+        "version": "0.7.0"
+    },
     "roave/security-advisories": {
         "version": "dev-master"
     },
@@ -309,6 +321,19 @@
     },
     "s9e/text-formatter": {
         "version": "2.1.2"
+    },
+    "scheb/two-factor-bundle": {
+        "version": "3.16",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.16",
+            "ref": "b5789cd9710e2ee555bf361079b991068a0f640b"
+        },
+        "files": [
+            "./config/packages/scheb_two_factor.yaml",
+            "./config/routes/scheb_two_factor.yaml"
+        ]
     },
     "sebastian/diff": {
         "version": "3.0.2"
@@ -339,6 +364,9 @@
     },
     "shivas/versioning-bundle": {
         "version": "3.1.3"
+    },
+    "spomky-labs/otphp": {
+        "version": "v9.1.4"
     },
     "symfony/apache-pack": {
         "version": "1.0",
@@ -750,6 +778,9 @@
     },
     "webmozart/path-util": {
         "version": "2.3.0"
+    },
+    "yubico/u2flib-server": {
+        "version": "1.0.2"
     },
     "zendframework/zend-code": {
         "version": "3.3.1"

@@ -23,12 +23,22 @@ namespace App\Form\AdminPages;
 
 use App\Entity\Base\NamedDBElement;
 use App\Form\Permissions\PermissionsType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class GroupAdminForm extends BaseEntityAdminForm
 {
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity)
     {
+        $is_new = null === $entity->getID();
+
+        $builder->add('enforce2FA', CheckboxType::class, ['required' => false,
+            'label' => 'group.edit.enforce_2fa',
+            'help' => 'entity.edit.enforce_2fa.help',
+            'label_attr' => ['class' => 'checkbox-custom'],
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)
+        ]);
+
         $builder->add('permissions', PermissionsType::class, [
             'mapped' => false,
             'data' => $builder->getData(),

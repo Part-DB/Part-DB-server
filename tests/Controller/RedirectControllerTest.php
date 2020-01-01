@@ -27,6 +27,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
  * @group slow
+ * @group DB
  */
 class RedirectControllerTest extends WebTestCase
 {

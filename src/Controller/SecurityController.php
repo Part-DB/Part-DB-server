@@ -21,7 +21,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Parts\Part;
+use App\Entity\UserSystem\U2FKey;
+use App\Entity\UserSystem\User;
 use App\Services\PasswordResetManager;
+use App\Services\TFA\BackupCodeManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,6 +33,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Mailer\MailerInterface;

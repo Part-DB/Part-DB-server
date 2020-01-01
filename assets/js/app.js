@@ -90,6 +90,10 @@ require('./jquery.tristate.js');
 
 require('darkmode-js');
 
+window.ClipboardJS = require('clipboard');
+
+window.QRCode = require('qrcode');
+
 require('../ts_src/ajax_ui');
 import {ajaxUI} from "../ts_src/ajax_ui";
 

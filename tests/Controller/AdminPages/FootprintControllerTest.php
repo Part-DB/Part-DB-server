@@ -25,6 +25,7 @@ use App\Entity\Parts\Footprint;
 
 /**
  * @group slow
+ * @group DB
  */
 class FootprintControllerTest extends AbstractAdminControllerTest
 {

@@ -25,6 +25,7 @@ use App\Entity\Parts\MeasurementUnit;
 
 /**
  * @group slow
+ * @group DB
  */
 class MeasurementUnitControllerTest extends AbstractAdminControllerTest
 {

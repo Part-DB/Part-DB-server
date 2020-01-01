@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ partdb_title }} {% trans %}tfa_backup.codes.title{% endtrans %}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                {{ partdb_title }} {% trans %}tfa_backup.codes.title{% endtrans %}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{% trans %}tfa_backup.codes.explanation{% endtrans %}</h5>
+                <p class="card-text">{% trans %}tfa_backup.codes.help{% endtrans %}</p>
+
+                <p class="mb-0"><b>{% trans %}tfa_backup.remaining_tokens{% endtrans %}:</b> {{ user.backupCodes | length }}</p>
+                <p class="mb-0"><b>{% trans %}tfa_backup.username{% endtrans %}:</b> {{ user.name }}</p>
+                <p><b>{% trans %}tfa_backup.generation_date{% endtrans %}:</b> {{ user.backupCodesGenerationDate | format_datetime }}</p>
+
+                <div class="alert border-dark">
+                    <div class="card-body">
+                        <ul class="row list-unstyled" id="backup_codes_list">
+                        {% for code in user.backupCodes %}
+                            <h4 class="col-6"><li><i class="far fa-square fa-fw"></i><span class="text-monospace text-dark ml-1">{{ code }}</span></li></h4>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <p><small>{% trans with {'%date%': "now" | format_datetime}  %}tfa_backup.codes.page_generated_on{% endtrans %}</small></p>
+
+                <a href="javascript:window.print()" class="btn btn-outline-dark d-print-none">
+                    <i class="fas fa-print fa-fw"></i> {% trans %}tfa_backup.codes.print{% endtrans %}
+                </a>
+                <button class="btn btn-outline-dark d-print-none" data-clipboard-text="{{ user.backupCodes | join('\n') }}">
+                    <i class="fas fa-copy"></i> {% trans %}tfa_backup.codes.copy_clipboard{% endtrans %}
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

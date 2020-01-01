@@ -25,16 +25,22 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\UserSystem\User;
 use App\Form\Permissions\PermissionsType;
+use App\Form\TFAGoogleSettingsType;
 use App\Form\UserAdminForm;
 use App\Form\UserSettingsType;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
+use App\Services\TFA\BackupCodeManager;
 use Doctrine\ORM\EntityManagerInterface;
+use \Exception;
+use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
 use Symfony\Component\Asset\Packages;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -61,6 +67,29 @@ class UserController extends AdminPages\BaseAdminController
      */
     public function edit(User $entity, Request $request, EntityManagerInterface $em)
     {
+        //Handle 2FA disabling
+
+        if($request->request->has('reset_2fa')) {
+            //Check if the admin has the needed permissions
+            $this->denyAccessUnlessGranted('set_password', $entity);
+            if ($this->isCsrfTokenValid('reset_2fa'.$entity->getId(), $request->request->get('_token'))) {
+                //Disable Google authenticator
+                $entity->setGoogleAuthenticatorSecret(null);
+                $entity->setBackupCodes([]);
+                //Remove all U2F keys
+                foreach($entity->getU2FKeys() as $key) {
+                    $em->remove($key);
+                }
+                //Invalidate trusted devices
+                $entity->invalidateTrustedDeviceTokens();
+                $em->flush();
+
+                $this->addFlash('success', 'user.edit.reset_success');
+            } else {
+                $this->addFlash('danger', 'csfr_invalid');
+            }
+        }
+
         return $this->_edit($entity, $request, $em);
     }
 
@@ -76,7 +105,7 @@ class UserController extends AdminPages\BaseAdminController
     }
 
     /**
-     * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     * @Route("/{id}", name="user_delete", methods={"DELETE"}, requirements={"id"="\d+"})
      */
     public function delete(Request $request, User $entity, StructuralElementRecursionHelper $recursionHelper)
     {
@@ -144,94 +173,6 @@ class UserController extends AdminPages\BaseAdminController
             'user' => $user,
             'avatar' => $avatar,
             'form' => $builder->getForm()->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/settings", name="user_settings")
-     */
-    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder)
-    {
-        /**
-         * @var User
-         */
-        $user = $this->getUser();
-
-        $page_need_reload = false;
-
-        if (!$user instanceof User) {
-            return new \RuntimeException('This controller only works only for Part-DB User objects!');
-        }
-
-        //When user change its settings, he should be logged  in fully.
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
-        /***************************
-         * User settings form
-         ***************************/
-
-        $form = $this->createForm(UserSettingsType::class, $user);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            //Check if user theme setting has changed
-            if ($user->getTheme() !== $em->getUnitOfWork()->getOriginalEntityData($user)['theme']) {
-                $page_need_reload = true;
-            }
-
-            $em->flush();
-            $this->addFlash('success', 'user.settings.saved_flash');
-        }
-
-        /*****************************
-         * Password change form
-         ****************************/
-
-        $demo_mode = $this->getParameter('demo_mode');
-
-        $pw_form = $this->createFormBuilder()
-            ->add('old_password', PasswordType::class, [
-                'label' => 'user.settings.pw_old.label',
-                'disabled' => $demo_mode,
-                'constraints' => [new UserPassword()], ]) //This constraint checks, if the current user pw was inputted.
-            ->add('new_password', RepeatedType::class, [
-                'disabled' => $demo_mode,
-                'type' => PasswordType::class,
-                'first_options' => ['label' => 'user.settings.pw_new.label'],
-                'second_options' => ['label' => 'user.settings.pw_confirm.label'],
-                'invalid_message' => 'password_must_match',
-                'constraints' => [new Length([
-                    'min' => 6,
-                    'max' => 128,
-                ])],
-            ])
-            ->add('submit', SubmitType::class, ['label' => 'save'])
-            ->getForm();
-
-        $pw_form->handleRequest($request);
-
-        //Check if password if everything was correct, then save it to User and DB
-        if ($pw_form->isSubmitted() && $pw_form->isValid()) {
-            $password = $passwordEncoder->encodePassword($user, $pw_form['new_password']->getData());
-            $user->setPassword($password);
-
-            //After the change reset the password change needed setting
-            $user->setNeedPwChange(false);
-
-            $em->persist($user);
-            $em->flush();
-            $this->addFlash('success', 'user.settings.pw_changed_flash');
-        }
-
-        /******************************
-         * Output both forms
-         *****************************/
-
-        return $this->render('Users/user_settings.html.twig', [
-            'settings_form' => $form->createView(),
-            'pw_form' => $pw_form->createView(),
-            'page_need_reload' => $page_need_reload,
         ]);
     }
 

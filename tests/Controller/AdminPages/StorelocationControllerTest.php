@@ -25,6 +25,7 @@ use App\Entity\Parts\Storelocation;
 
 /**
  * @group slow
+ * @group DB
  */
 class StorelocationControllerTest extends AbstractAdminControllerTest
 {

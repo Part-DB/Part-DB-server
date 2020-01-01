@@ -1,0 +1,17 @@
+{% extends "security/2fa_base_form.html.twig" %}
+
+{% block form_attributes %}id="u2fForm" data-action="auth" data-request='{{ authenticationData|raw }}'{% endblock %}
+
+{% block form %}
+    {% if not app.request.secure %}
+        <p class="text-warning"><b><i class="fas fa-exclamation-triangle fa-fw"></i> {% trans %}tfa_u2f.http_warning{% endtrans %}</b></p>
+    {% endif %}
+
+    <div id="u2fpressbutton" style="display: none;" class="h4 text-center">{{ 'r_u2f_two_factor.pressbutton'|trans }}</div>
+    <div id="u2fError"></div>
+    <p class="widget"><input id="_auth_code" type="hidden" autocomplete="off" name="_auth_code" /></p>
+    <a class="ml-2" href="{{ logoutPath }}">{% trans %}user.logout{% endtrans %}</a>
+{% endblock %}
+
+{% block submit_btn %}
+{% endblock %}

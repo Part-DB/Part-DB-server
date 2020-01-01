@@ -4,8 +4,70 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a59dc06a43af8bf7a925d52f820f8774",
+    "content-hash": "8aa86f40d5466e5d6f91f15664f3b633",
     "packages": [
+        {
+            "name": "beberlei/assert",
+            "version": "v3.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beberlei/assert.git",
+                "reference": "d63a6943fc4fd1a2aedb65994e3548715105abcf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beberlei/assert/zipball/d63a6943fc4fd1a2aedb65994e3548715105abcf",
+                "reference": "d63a6943fc4fd1a2aedb65994e3548715105abcf",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "ext-simplexml": "*",
+                "php": "^7"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "*",
+                "phpstan/phpstan-shim": "*",
+                "phpunit/phpunit": ">=6.0.0 <8"
+            },
+            "suggest": {
+                "ext-intl": "Needed to allow Assertion::count(), Assertion::isCountable(), Assertion::minCount(), and Assertion::maxCount() to operate on ResourceBundles"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Assert\\": "lib/Assert"
+                },
+                "files": [
+                    "lib/Assert/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Richard Quadling",
+                    "email": "rquadling@gmail.com",
+                    "role": "Collaborator"
+                }
+            ],
+            "description": "Thin assertion library for input validation in business models.",
+            "keywords": [
+                "assert",
+                "assertion",
+                "validation"
+            ],
+            "time": "2019-12-19T17:51:41+00:00"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.8.0",
@@ -1227,27 +1289,26 @@
         },
         {
             "name": "egulias/email-validator",
-            "version": "2.1.12",
+            "version": "2.1.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "a6255605af39f2db7f5cb62e672bd8a7bad8d208"
+                "reference": "834593d5900615639208417760ba6a17299e2497"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/a6255605af39f2db7f5cb62e672bd8a7bad8d208",
-                "reference": "a6255605af39f2db7f5cb62e672bd8a7bad8d208",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/834593d5900615639208417760ba6a17299e2497",
+                "reference": "834593d5900615639208417760ba6a17299e2497",
                 "shasum": ""
             },
             "require": {
                 "doctrine/lexer": "^1.0.1",
-                "php": ">= 5.5"
+                "php": ">=5.5"
             },
             "require-dev": {
-                "dominicsayers/isemail": "dev-master",
-                "phpunit/phpunit": "^4.8.35||^5.7||^6.0",
-                "satooshi/php-coveralls": "^1.0.1",
-                "symfony/phpunit-bridge": "^4.4@dev"
+                "dominicsayers/isemail": "^3.0.7",
+                "phpunit/phpunit": "^4.8.36|^7.5.15",
+                "satooshi/php-coveralls": "^1.0.1"
             },
             "suggest": {
                 "ext-intl": "PHP Internationalization Libraries are required to use the SpoofChecking validation"
@@ -1281,7 +1342,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2019-12-20T12:49:39+00:00"
+            "time": "2019-12-30T08:14:25+00:00"
         },
         {
             "name": "florianv/exchanger",
@@ -1406,35 +1467,35 @@
         },
         {
             "name": "friendsofsymfony/ckeditor-bundle",
-            "version": "2.1.0",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSCKEditorBundle.git",
-                "reference": "7ba78735ea75b9a6d4de403d7aced6c993a0557a"
+                "reference": "7e1cfe2a83faba0be02661d44289d35e940bb5ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSCKEditorBundle/zipball/7ba78735ea75b9a6d4de403d7aced6c993a0557a",
-                "reference": "7ba78735ea75b9a6d4de403d7aced6c993a0557a",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSCKEditorBundle/zipball/7e1cfe2a83faba0be02661d44289d35e940bb5ea",
+                "reference": "7e1cfe2a83faba0be02661d44289d35e940bb5ea",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "ext-zip": "*",
                 "php": "^7.1",
-                "symfony/asset": "^3.4 || ^4.0",
-                "symfony/config": "^3.4 || ^4.0",
-                "symfony/dependency-injection": "^3.4 || ^4.0",
-                "symfony/expression-language": "^3.4 || ^4.0",
-                "symfony/form": "^3.4 || ^4.0",
-                "symfony/framework-bundle": "^3.4 || ^4.0",
-                "symfony/http-foundation": "^3.4 || ^4.0",
-                "symfony/http-kernel": "^3.4 || ^4.0",
-                "symfony/options-resolver": "^3.4 || ^4.0",
-                "symfony/property-access": "^3.4 || ^4.0",
-                "symfony/routing": "^3.4 || ^4.0",
-                "symfony/twig-bundle": "^3.4 || ^4.0",
-                "twig/twig": "^2.0"
+                "symfony/asset": "^3.4 || ^4.0 || ^5.0",
+                "symfony/config": "^3.4 || ^4.0 || ^5.0",
+                "symfony/dependency-injection": "^3.4 || ^4.0 || ^5.0",
+                "symfony/expression-language": "^3.4 || ^4.0 || ^5.0",
+                "symfony/form": "^3.4 || ^4.0 || ^5.0",
+                "symfony/framework-bundle": "^3.4 || ^4.0 || ^5.0",
+                "symfony/http-foundation": "^3.4 || ^4.0 || ^5.0",
+                "symfony/http-kernel": "^3.4 || ^4.0 || ^5.0",
+                "symfony/options-resolver": "^3.4 || ^4.0 || ^5.0",
+                "symfony/property-access": "^3.4 || ^4.0 || ^5.0",
+                "symfony/routing": "^3.4 || ^4.0 || ^5.0",
+                "symfony/twig-bundle": "^3.4 || ^4.0 || ^5.0",
+                "twig/twig": "^2.4 || ^3.0"
             },
             "conflict": {
                 "sebastian/environment": "<1.3.4",
@@ -1444,9 +1505,9 @@
                 "friendsofphp/php-cs-fixer": "^2.0",
                 "matthiasnoback/symfony-dependency-injection-test": "^1.0 || ^2.0",
                 "phpunit/phpunit": "^6.0",
-                "symfony/console": "^3.4 || ^4.0",
-                "symfony/phpunit-bridge": "^4.1",
-                "symfony/yaml": "^3.4 || ^4.0"
+                "symfony/console": "^3.4 || ^4.0 || ^5.0",
+                "symfony/phpunit-bridge": "^4.1 || ^5.0",
+                "symfony/yaml": "^3.4 || ^4.0 || ^5.0"
             },
             "suggest": {
                 "egeloen/form-extra-bundle": "Allows to load CKEditor asynchronously"
@@ -1480,7 +1541,7 @@
             "keywords": [
                 "CKEditor"
             ],
-            "time": "2019-04-15T16:29:43+00:00"
+            "time": "2019-12-23T15:31:36+00:00"
         },
         {
             "name": "gregwar/captcha",
@@ -1700,17 +1761,72 @@
             "time": "2014-01-12T16:20:24+00:00"
         },
         {
-            "name": "league/html-to-markdown",
-            "version": "4.9.0",
+            "name": "lcobucci/jwt",
+            "version": "3.3.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/thephpleague/html-to-markdown.git",
-                "reference": "71319108e3db506250b8987721b13568fd9fa446"
+                "url": "https://github.com/lcobucci/jwt.git",
+                "reference": "a11ec5f4b4d75d1fcd04e133dede4c317aac9e18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/html-to-markdown/zipball/71319108e3db506250b8987721b13568fd9fa446",
-                "reference": "71319108e3db506250b8987721b13568fd9fa446",
+                "url": "https://api.github.com/repos/lcobucci/jwt/zipball/a11ec5f4b4d75d1fcd04e133dede4c317aac9e18",
+                "reference": "a11ec5f4b4d75d1fcd04e133dede4c317aac9e18",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "ext-openssl": "*",
+                "php": "^5.6 || ^7.0"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "~1.5",
+                "phpmd/phpmd": "~2.2",
+                "phpunit/php-invoker": "~1.1",
+                "phpunit/phpunit": "^5.7 || ^7.3",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Lcobucci\\JWT\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Luís Otávio Cobucci Oblonczyk",
+                    "email": "lcobucci@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple library to work with JSON Web Token and JSON Web Signature",
+            "keywords": [
+                "JWS",
+                "jwt"
+            ],
+            "time": "2019-05-24T18:30:49+00:00"
+        },
+        {
+            "name": "league/html-to-markdown",
+            "version": "4.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/html-to-markdown.git",
+                "reference": "1dcd0f85de786f46a7f224a27cc3d709ddd2a68c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/html-to-markdown/zipball/1dcd0f85de786f46a7f224a27cc3d709ddd2a68c",
+                "reference": "1dcd0f85de786f46a7f224a27cc3d709ddd2a68c",
                 "shasum": ""
             },
             "require": {
@@ -1761,7 +1877,7 @@
                 "html",
                 "markdown"
             ],
-            "time": "2019-11-02T14:54:14+00:00"
+            "time": "2019-12-28T01:32:28+00:00"
         },
         {
             "name": "liip/imagine-bundle",
@@ -2409,17 +2525,79 @@
             "time": "2019-08-09T12:19:19+00:00"
         },
         {
-            "name": "php-http/discovery",
-            "version": "1.7.2",
+            "name": "paragonie/constant_time_encoding",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/php-http/discovery.git",
-                "reference": "16a3327861ae291006a2df8fc22e991806f720d7"
+                "url": "https://github.com/paragonie/constant_time_encoding.git",
+                "reference": "47a1cedd2e4d52688eb8c96469c05ebc8fd28fa2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/discovery/zipball/16a3327861ae291006a2df8fc22e991806f720d7",
-                "reference": "16a3327861ae291006a2df8fc22e991806f720d7",
+                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/47a1cedd2e4d52688eb8c96469c05ebc8fd28fa2",
+                "reference": "47a1cedd2e4d52688eb8c96469c05ebc8fd28fa2",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7|^8"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6|^7",
+                "vimeo/psalm": "^1|^2|^3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ParagonIE\\ConstantTime\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "security@paragonie.com",
+                    "homepage": "https://paragonie.com",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Steve 'Sc00bz' Thomas",
+                    "email": "steve@tobtu.com",
+                    "homepage": "https://www.tobtu.com",
+                    "role": "Original Developer"
+                }
+            ],
+            "description": "Constant-time Implementations of RFC 4648 Encoding (Base-64, Base-32, Base-16)",
+            "keywords": [
+                "base16",
+                "base32",
+                "base32_decode",
+                "base32_encode",
+                "base64",
+                "base64_decode",
+                "base64_encode",
+                "bin2hex",
+                "encoding",
+                "hex",
+                "hex2bin",
+                "rfc4648"
+            ],
+            "time": "2019-11-06T19:20:29+00:00"
+        },
+        {
+            "name": "php-http/discovery",
+            "version": "1.7.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-http/discovery.git",
+                "reference": "2e0ad94833ec8473280454590a9011a0cd2dfc56"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-http/discovery/zipball/2e0ad94833ec8473280454590a9011a0cd2dfc56",
+                "reference": "2e0ad94833ec8473280454590a9011a0cd2dfc56",
                 "shasum": ""
             },
             "require": {
@@ -2471,7 +2649,7 @@
                 "message",
                 "psr7"
             ],
-            "time": "2019-12-27T09:22:53+00:00"
+            "time": "2019-12-27T19:51:10+00:00"
         },
         {
             "name": "php-http/httplug",
@@ -2896,16 +3074,16 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "4.3.3",
+            "version": "4.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "2ecaa9fef01634c83bfa8dc1fe35fb5cef223a62"
+                "reference": "da3fd972d6bafd628114f7e7e036f45944b62e9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/2ecaa9fef01634c83bfa8dc1fe35fb5cef223a62",
-                "reference": "2ecaa9fef01634c83bfa8dc1fe35fb5cef223a62",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/da3fd972d6bafd628114f7e7e036f45944b62e9c",
+                "reference": "da3fd972d6bafd628114f7e7e036f45944b62e9c",
                 "shasum": ""
             },
             "require": {
@@ -2917,6 +3095,7 @@
             "require-dev": {
                 "doctrine/instantiator": "^1.0.5",
                 "mockery/mockery": "^1.0",
+                "phpdocumentor/type-resolver": "0.4.*",
                 "phpunit/phpunit": "^6.4"
             },
             "type": "library",
@@ -2943,7 +3122,7 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2019-12-20T13:40:23+00:00"
+            "time": "2019-12-28T18:55:12+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -3383,6 +3562,71 @@
             "time": "2017-10-23T01:57:42+00:00"
         },
         {
+            "name": "r/u2f-two-factor-bundle",
+            "version": "dev-u2f-api",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stephanvierkant/u2f-two-factor-bundle.git",
+                "reference": "81212afd7897911eb6bbf3f8b315ae336cb3e45b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stephanvierkant/u2f-two-factor-bundle/zipball/81212afd7897911eb6bbf3f8b315ae336cb3e45b",
+                "reference": "81212afd7897911eb6bbf3f8b315ae336cb3e45b",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/collections": "^1.6",
+                "doctrine/common": "*",
+                "ext-json": "*",
+                "php": "^7.1.3",
+                "scheb/two-factor-bundle": "^3.2.0|^4.0.0",
+                "symfony/framework-bundle": "^3.4|^4.0",
+                "symfony/templating": "^3.4|^4.0",
+                "yubico/u2flib-server": "^1.0.0"
+            },
+            "conflict": {
+                "godzillante/u2f-two-factor-bundle": "*",
+                "tubssz/u2f-two-factor-bundle": "*"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.11.6"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "R\\U2FTwoFactorBundle\\": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nils Uliczka",
+                    "email": "nils.uliczka@darookee.net"
+                },
+                {
+                    "name": "Francesco De Francesco",
+                    "email": "francesco.defrancesco@gmail.com"
+                }
+            ],
+            "description": "Use U2F-Keys as 2FA for Symfony2, using scheb/two-factor-bundle",
+            "homepage": "https://github.com/darookee/u2f-two-factor-bundle",
+            "keywords": [
+                "authentication",
+                "fido",
+                "symfony2",
+                "two-factor",
+                "two-step",
+                "yubikey"
+            ],
+            "support": {
+                "source": "https://github.com/stephanvierkant/u2f-two-factor-bundle/tree/u2f-api"
+            },
+            "time": "2019-07-17T10:00:04+00:00"
+        },
+        {
             "name": "s9e/regexp-builder",
             "version": "1.4.3",
             "source": {
@@ -3489,17 +3733,85 @@
             "time": "2019-12-26T19:14:01+00:00"
         },
         {
-            "name": "sensio/framework-extra-bundle",
-            "version": "v5.5.2",
+            "name": "scheb/two-factor-bundle",
+            "version": "v4.11.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "92acfcc610e2180c52790ec3ff2e893f67e76b32"
+                "url": "https://github.com/scheb/two-factor-bundle.git",
+                "reference": "f9198cfcd5b2a92691926fd10406e8817232ac16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/92acfcc610e2180c52790ec3ff2e893f67e76b32",
-                "reference": "92acfcc610e2180c52790ec3ff2e893f67e76b32",
+                "url": "https://api.github.com/repos/scheb/two-factor-bundle/zipball/f9198cfcd5b2a92691926fd10406e8817232ac16",
+                "reference": "f9198cfcd5b2a92691926fd10406e8817232ac16",
+                "shasum": ""
+            },
+            "require": {
+                "lcobucci/jwt": "^3.2",
+                "paragonie/constant_time_encoding": "^2.2",
+                "php": "^7.1.3",
+                "spomky-labs/otphp": "^9.1|^10.0",
+                "symfony/config": "^3.4|^4.0|^5.0",
+                "symfony/dependency-injection": "^3.4|^4.0|^5.0",
+                "symfony/event-dispatcher": "^3.4|^4.0|^5.0",
+                "symfony/framework-bundle": "^3.4|^4.0|^5.0",
+                "symfony/http-foundation": "^3.4|^4.0|^5.0",
+                "symfony/http-kernel": "^3.4|^4.0|^5.0",
+                "symfony/property-access": "^3.4|^4.0|^5.0",
+                "symfony/security-bundle": "^3.4|^4.0|^5.0",
+                "symfony/twig-bundle": "^3.4|^4.0|^5.0"
+            },
+            "require-dev": {
+                "doctrine/lexer": "^1.0.1",
+                "doctrine/orm": "^2.6",
+                "escapestudios/symfony2-coding-standard": "^3.9",
+                "phpunit/phpunit": "^7.0|^8.0",
+                "squizlabs/php_codesniffer": "^3.5",
+                "swiftmailer/swiftmailer": "^6.0",
+                "symfony/yaml": "^3.4|^4.0|^5.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Scheb\\TwoFactorBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Scheb",
+                    "email": "me@christianscheb.de"
+                }
+            ],
+            "description": "Provides two-factor authentication for Symfony applications",
+            "homepage": "https://github.com/scheb/two-factor-bundle",
+            "keywords": [
+                "Authentication",
+                "security",
+                "symfony",
+                "two-factor",
+                "two-step"
+            ],
+            "time": "2019-12-19T12:07:42+00:00"
+        },
+        {
+            "name": "sensio/framework-extra-bundle",
+            "version": "v5.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
+                "reference": "98f0807137b13d0acfdf3c255a731516e97015de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/98f0807137b13d0acfdf3c255a731516e97015de",
+                "reference": "98f0807137b13d0acfdf3c255a731516e97015de",
                 "shasum": ""
             },
             "require": {
@@ -3564,7 +3876,7 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2019-12-12T16:21:49+00:00"
+            "time": "2019-12-27T08:57:19+00:00"
         },
         {
             "name": "sensiolabs/security-checker",
@@ -3666,6 +3978,67 @@
                 "versioning"
             ],
             "time": "2019-12-08T15:52:26+00:00"
+        },
+        {
+            "name": "spomky-labs/otphp",
+            "version": "v9.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Spomky-Labs/otphp.git",
+                "reference": "48d463cf909320399fe08eab2e1cd18d899d5068"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Spomky-Labs/otphp/zipball/48d463cf909320399fe08eab2e1cd18d899d5068",
+                "reference": "48d463cf909320399fe08eab2e1cd18d899d5068",
+                "shasum": ""
+            },
+            "require": {
+                "beberlei/assert": "^2.4|^3.0",
+                "paragonie/constant_time_encoding": "^2.0",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.0",
+                "satooshi/php-coveralls": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "9.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "OTPHP\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Florent Morselli",
+                    "homepage": "https://github.com/Spomky"
+                },
+                {
+                    "name": "All contributors",
+                    "homepage": "https://github.com/Spomky-Labs/otphp/contributors"
+                }
+            ],
+            "description": "A PHP library for generating one time passwords according to RFC 4226 (HOTP Algorithm) and the RFC 6238 (TOTP Algorithm) and compatible with Google Authenticator",
+            "homepage": "https://github.com/Spomky-Labs/otphp",
+            "keywords": [
+                "FreeOTP",
+                "RFC 4226",
+                "RFC 6238",
+                "google authenticator",
+                "hotp",
+                "otp",
+                "totp"
+            ],
+            "time": "2019-03-18T10:08:51+00:00"
         },
         {
             "name": "symfony/apache-pack",
@@ -7646,16 +8019,16 @@
         },
         {
             "name": "twig/cssinliner-extra",
-            "version": "v3.0.0",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/cssinliner-extra.git",
-                "reference": "431402520025e077268de4978a4206e5fb8c0103"
+                "reference": "d7c951e935d65c0cfd9a63bb08541a297f230f3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/cssinliner-extra/zipball/431402520025e077268de4978a4206e5fb8c0103",
-                "reference": "431402520025e077268de4978a4206e5fb8c0103",
+                "url": "https://api.github.com/repos/twigphp/cssinliner-extra/zipball/d7c951e935d65c0cfd9a63bb08541a297f230f3a",
+                "reference": "d7c951e935d65c0cfd9a63bb08541a297f230f3a",
                 "shasum": ""
             },
             "require": {
@@ -7664,7 +8037,7 @@
                 "twig/twig": "^2.4|^3.0"
             },
             "require-dev": {
-                "symfony/phpunit-bridge": "^4.4@dev"
+                "symfony/phpunit-bridge": "^4.4|^5.0"
             },
             "type": "library",
             "extra": {
@@ -7696,20 +8069,20 @@
                 "inlining",
                 "twig"
             ],
-            "time": "2019-10-17T07:27:07+00:00"
+            "time": "2019-12-27T07:33:44+00:00"
         },
         {
             "name": "twig/extra-bundle",
-            "version": "v3.0.0",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/twig-extra-bundle.git",
-                "reference": "c56821429490e351003a09b7ed0c917feec2355f"
+                "reference": "ce5c97dd566d9acd5d1fbd5eb76b6d264614725a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/twig-extra-bundle/zipball/c56821429490e351003a09b7ed0c917feec2355f",
-                "reference": "c56821429490e351003a09b7ed0c917feec2355f",
+                "url": "https://api.github.com/repos/twigphp/twig-extra-bundle/zipball/ce5c97dd566d9acd5d1fbd5eb76b6d264614725a",
+                "reference": "ce5c97dd566d9acd5d1fbd5eb76b6d264614725a",
                 "shasum": ""
             },
             "require": {
@@ -7719,11 +8092,11 @@
                 "twig/twig": "^2.4|^3.0"
             },
             "require-dev": {
-                "twig/cssinliner-extra": "^2.12|^3.0@dev",
-                "twig/html-extra": "^2.12@dev|^3.0@dev",
-                "twig/inky-extra": "^2.12@dev|^3.0@dev",
-                "twig/intl-extra": "^2.12@dev|^3.0@dev",
-                "twig/markdown-extra": "^2.12@dev|^3.0@dev"
+                "twig/cssinliner-extra": "^2.12|^3.0",
+                "twig/html-extra": "^2.12|^3.0",
+                "twig/inky-extra": "^2.12|^3.0",
+                "twig/intl-extra": "^2.12|^3.0",
+                "twig/markdown-extra": "^2.12|^3.0"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -7755,20 +8128,20 @@
                 "extra",
                 "twig"
             ],
-            "time": "2019-10-17T07:30:08+00:00"
+            "time": "2019-12-28T07:09:27+00:00"
         },
         {
             "name": "twig/inky-extra",
-            "version": "v3.0.0",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/inky-extra.git",
-                "reference": "7e33cb931f29e8cbc1f68eafa30e0ca7f7c6ad3b"
+                "reference": "68d7e3a00cb66dab07093c0c88059f4e02d71b39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/inky-extra/zipball/7e33cb931f29e8cbc1f68eafa30e0ca7f7c6ad3b",
-                "reference": "7e33cb931f29e8cbc1f68eafa30e0ca7f7c6ad3b",
+                "url": "https://api.github.com/repos/twigphp/inky-extra/zipball/68d7e3a00cb66dab07093c0c88059f4e02d71b39",
+                "reference": "68d7e3a00cb66dab07093c0c88059f4e02d71b39",
                 "shasum": ""
             },
             "require": {
@@ -7777,7 +8150,7 @@
                 "twig/twig": "^2.4|^3.0"
             },
             "require-dev": {
-                "symfony/phpunit-bridge": "^4.4@dev"
+                "symfony/phpunit-bridge": "^4.4|^5.0"
             },
             "type": "library",
             "extra": {
@@ -7810,20 +8183,20 @@
                 "inky",
                 "twig"
             ],
-            "time": "2019-10-17T07:27:12+00:00"
+            "time": "2019-12-27T07:33:44+00:00"
         },
         {
             "name": "twig/intl-extra",
-            "version": "v3.0.0",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/intl-extra.git",
-                "reference": "642552fa2834d9f56a727645f63e73d59672fb52"
+                "reference": "291d79ef98891da3efe14f0771fbe03a25fe6bec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/intl-extra/zipball/642552fa2834d9f56a727645f63e73d59672fb52",
-                "reference": "642552fa2834d9f56a727645f63e73d59672fb52",
+                "url": "https://api.github.com/repos/twigphp/intl-extra/zipball/291d79ef98891da3efe14f0771fbe03a25fe6bec",
+                "reference": "291d79ef98891da3efe14f0771fbe03a25fe6bec",
                 "shasum": ""
             },
             "require": {
@@ -7832,7 +8205,7 @@
                 "twig/twig": "^2.4|^3.0"
             },
             "require-dev": {
-                "symfony/phpunit-bridge": "^4.4@dev"
+                "symfony/phpunit-bridge": "^4.4|^5.0"
             },
             "type": "library",
             "extra": {
@@ -7863,20 +8236,20 @@
                 "intl",
                 "twig"
             ],
-            "time": "2019-11-15T20:33:33+00:00"
+            "time": "2019-12-28T07:09:27+00:00"
         },
         {
             "name": "twig/markdown-extra",
-            "version": "v3.0.0",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/markdown-extra.git",
-                "reference": "609989e5bdc8cdb282e37fdc54e3591c244b5501"
+                "reference": "e3f6eb3f65eb2c165451c8417d918fb96fbd6d4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/markdown-extra/zipball/609989e5bdc8cdb282e37fdc54e3591c244b5501",
-                "reference": "609989e5bdc8cdb282e37fdc54e3591c244b5501",
+                "url": "https://api.github.com/repos/twigphp/markdown-extra/zipball/e3f6eb3f65eb2c165451c8417d918fb96fbd6d4d",
+                "reference": "e3f6eb3f65eb2c165451c8417d918fb96fbd6d4d",
                 "shasum": ""
             },
             "require": {
@@ -7888,7 +8261,7 @@
                 "league/commonmark": "^1.0",
                 "league/html-to-markdown": "^4.8",
                 "michelf/php-markdown": "^1.8",
-                "symfony/phpunit-bridge": "^4.4@dev"
+                "symfony/phpunit-bridge": "^4.4|^5.0"
             },
             "type": "library",
             "extra": {
@@ -7920,20 +8293,20 @@
                 "markdown",
                 "twig"
             ],
-            "time": "2019-10-17T07:30:08+00:00"
+            "time": "2019-12-28T07:09:27+00:00"
         },
         {
             "name": "twig/twig",
-            "version": "v2.12.2",
+            "version": "v2.12.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "d761fd1f1c6b867ae09a7d8119a6d95d06dc44ed"
+                "reference": "97b6311585cae66a26833b14b33785f5797f7d39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/d761fd1f1c6b867ae09a7d8119a6d95d06dc44ed",
-                "reference": "d761fd1f1c6b867ae09a7d8119a6d95d06dc44ed",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/97b6311585cae66a26833b14b33785f5797f7d39",
+                "reference": "97b6311585cae66a26833b14b33785f5797f7d39",
                 "shasum": ""
             },
             "require": {
@@ -7943,8 +8316,7 @@
             },
             "require-dev": {
                 "psr/container": "^1.0",
-                "symfony/debug": "^3.4|^4.2",
-                "symfony/phpunit-bridge": "^4.4@dev|^5.0"
+                "symfony/phpunit-bridge": "^4.4|^5.0"
             },
             "type": "library",
             "extra": {
@@ -7973,7 +8345,6 @@
                 },
                 {
                     "name": "Twig Team",
-                    "homepage": "https://twig.symfony.com/contributors",
                     "role": "Contributors"
                 },
                 {
@@ -7987,7 +8358,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2019-11-11T16:52:09+00:00"
+            "time": "2019-12-28T07:12:03+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -8036,6 +8407,43 @@
                 "validate"
             ],
             "time": "2019-11-24T13:36:37+00:00"
+        },
+        {
+            "name": "yubico/u2flib-server",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Yubico/php-u2flib-server.git",
+                "reference": "55d813acf68212ad2cadecde07551600d6971939"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Yubico/php-u2flib-server/zipball/55d813acf68212ad2cadecde07551600d6971939",
+                "reference": "55d813acf68212ad2cadecde07551600d6971939",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "paragonie/random_compat": ">= 1",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~5.7",
+                "vimeo/psalm": "^0|^1|^2"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "description": "Library for U2F implementation",
+            "homepage": "https://developers.yubico.com/php-u2flib-server",
+            "time": "2018-09-07T08:16:44+00:00"
         },
         {
             "name": "zendframework/zend-code",
@@ -8092,6 +8500,7 @@
                 "code",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-code",
             "time": "2019-12-10T19:21:15+00:00"
         },
         {
@@ -8146,6 +8555,7 @@
                 "events",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-eventmanager",
             "time": "2018-04-25T15:33:34+00:00"
         }
     ],
@@ -9495,22 +9905,23 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "3.7.2",
+            "version": "3.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "d9cae720c1af31db9ba27c2bc1fcf9b0dd092fb0"
+                "reference": "8e54e3aa060fc490d86d0e2abbf62750516d40fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/d9cae720c1af31db9ba27c2bc1fcf9b0dd092fb0",
-                "reference": "d9cae720c1af31db9ba27c2bc1fcf9b0dd092fb0",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/8e54e3aa060fc490d86d0e2abbf62750516d40fd",
+                "reference": "8e54e3aa060fc490d86d0e2abbf62750516d40fd",
                 "shasum": ""
             },
             "require": {
                 "amphp/amp": "^2.1",
                 "amphp/byte-stream": "^1.5",
                 "composer/xdebug-handler": "^1.1",
+                "ext-dom": "*",
                 "felixfbecker/advanced-json-rpc": "^3.0.3",
                 "felixfbecker/language-server-protocol": "^1.4",
                 "netresearch/jsonmapper": "^1.0",
@@ -9531,6 +9942,7 @@
                 "ext-curl": "*",
                 "friendsofphp/php-cs-fixer": "^2.15",
                 "phpmyadmin/sql-parser": "^5.0",
+                "phpspec/prophecy": ">=1.9.0",
                 "phpunit/phpunit": "^7.5 || ^8.0",
                 "psalm/plugin-phpunit": "^0.6",
                 "slevomat/coding-standard": "^5.0",
@@ -9561,7 +9973,8 @@
                     "Psalm\\": "src/Psalm"
                 },
                 "files": [
-                    "src/functions.php"
+                    "src/functions.php",
+                    "src/spl_object_id.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -9579,7 +9992,7 @@
                 "inspection",
                 "php"
             ],
-            "time": "2019-12-03T13:33:31+00:00"
+            "time": "2019-12-29T16:11:07+00:00"
         },
         {
             "name": "webmozart/glob",
@@ -9679,6 +10092,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "gregwar/captcha-bundle": 20,
+        "r/u2f-two-factor-bundle": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,

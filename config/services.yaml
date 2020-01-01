@@ -26,6 +26,8 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            bool $demo_mode: '%demo_mode%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -119,6 +121,11 @@ services:
     App\Services\Attachments\FileTypeFilterTools:
         arguments:
             $mimeTypes: '@mime_types'
+
+    App\Services\TFA\BackupCodeGenerator:
+        arguments:
+            $code_length: 8
+            $code_count: 15
 
     App\Services\TranslationExtractor\PermissionExtractor:
         tags:

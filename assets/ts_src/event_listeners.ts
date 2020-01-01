@@ -23,6 +23,7 @@ import {ajaxUI} from "./ajax_ui";
 import "bootbox";
 import "marked";
 import * as marked from "marked";
+import "qrcode";
 import {parse} from "marked";
 
 /************************************
@@ -184,26 +185,55 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
 });
 
 $(document).on("ajaxUI:start ajaxUI:reload", function() {
-    $("[data-delete-form]").unbind('submit').submit(function(event) {
+    $("[data-delete-form]").unbind('submit').submit(function (event) {
         event.preventDefault();
 
         let form = this;
+
+        //Get the submit button
+        let btn = document.activeElement;
 
         let title = $(this).data("title");
         let message = $(this).data("message");
 
         bootbox.confirm({
-            message: message,
-            title: title,
-            callback: function(result) {
+            message: message, title: title, callback: function (result) {
                 //If the dialog was confirmed, then submit the form.
-                if(result) {
-                    ajaxUI.submitForm(form);
+                if (result) {
+                    ajaxUI.submitForm(form, btn);
                 }
-            }});
+            }
+        });
 
         return false;
     });
+
+    //Register for forms with delete-buttons
+    $("[data-delete-btn]").parents('form').unbind('submit').submit(function (event) {
+        event.preventDefault();
+        let form = this;
+        //Get the submit button
+        let btn = document.activeElement;
+
+        let title = $(btn).data("title");
+        let message = $(btn).data("message");
+
+        //If not the button with the message was pressed, then simply submit the form.
+        if(!btn.hasAttribute('data-delete-btn')) {
+            ajaxUI.submitForm(form, btn);
+        }
+
+        bootbox.confirm({
+            message: message, title: title, callback: function (result) {
+                //If the dialog was confirmed, then submit the form.
+                if (result) {
+                    ajaxUI.submitForm(form, btn);
+                }
+            }
+        });
+
+    });
+
 });
 
 $(document).on("ajaxUI:start ajaxUI:reload", function() {
@@ -456,6 +486,65 @@ $(document).on("ajaxUI:start ajaxUI:reload attachment:create", function() {
 
     //Register a change handler on all change listeners, and update it when the events are triggered
     $('select.attachment_type_selector').change(updater).each(updater);
+});
+
+$(document).on("ajaxUI:start ajaxUI:reload", function() {
+    $('.qrcode').each(function() {
+        let canvas = $(this);
+        //@ts-ignore
+        QRCode.toCanvas(canvas[0], canvas.data('content'), function(error) {
+            if(error) console.error(error);
+        })
+    });
+});
+
+$(document).on("ajaxUI:start ajaxUI:reload", function() {
+    function setTooltip(btn, message) {
+        $(btn).tooltip('hide')
+            .attr('data-original-title', message)
+            .tooltip('show');
+    }
+
+    function hideTooltip(btn) {
+        setTimeout(function() {
+            $(btn).tooltip('hide');
+        }, 1000);
+    }
+
+    //@ts-ignore
+    var clipboard = new ClipboardJS('.btn');
+    clipboard.on('success', function(e) {
+        setTooltip(e.trigger, 'Copied!');
+        hideTooltip(e.trigger);
+    });
+
+    clipboard.on('error', function(e) {
+        setTooltip(e.trigger, 'Failed!');
+        hideTooltip(e.trigger);
+    });
+});
+
+//Register U2F on page reload too...
+$(document).on("ajaxUI:reload", function() {
+    //@ts-ignore
+    window.u2fauth.ready(function () {
+        const form = document.getElementById('u2fForm')
+        if (!form) {
+            return
+        }
+        const type = form.dataset.action
+
+        if (type === 'auth') {
+            //@ts-ignore
+            u2fauth.authenticate()
+        } else if (type === 'reg' && form.addEventListener) {
+            form.addEventListener('submit', function (event) {
+                event.preventDefault()
+                //@ts-ignore
+                u2fauth.register()
+            }, false)
+        }
+    })
 });
 
 //Need for proper body padding, with every navbar height

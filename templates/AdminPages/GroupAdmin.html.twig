@@ -12,6 +12,10 @@
 
 {% block additional_panes %}
     <div class="tab-pane" id="tab_permissions">
-       {{ form_row(form.permissions) }}
+        {{ form_row(form.permissions) }}
     </div>
+{% endblock %}
+
+{% block additional_controls %}
+    {{ form_row(form.enforce2FA) }}
 {% endblock %}

@@ -1,0 +1,58 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}tfa.check.title{% endtrans %}{% endblock %}
+
+{% block card_title %}<i class="fas fa-shield-alt"></i> {% trans %}tfa.check.title{% endtrans %}{% endblock %}
+
+{% block  content %}
+    {% if authenticationError %}
+        <div class="alert alert-danger" role="alert">
+            <strong>{{ authenticationError|trans(authenticationErrorData, 'SchebTwoFactorBundle') }}}</strong>
+        </div>
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %}
+
+{% block card_content %}
+    <ul class="nav nav-pills mb-4">
+        {% for provider in availableTwoFactorProviders %}
+        <li class="nav-item">
+            <a class="nav-link {% if provider == twoFactorProvider %}active{% endif %}"
+               href="{{ path("2fa_login", {"preferProvider": provider}) }}">{{ ('tfa.provider.'~provider) | trans }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    {# Display current two-factor provider #}
+
+    <form class="form form-horizontal" action="{{ path("2fa_login_check") }}" method="post" {% block form_attributes %}{% endblock %}>
+        {% block form %}
+
+        {% endblock %}
+
+        {% if displayTrustedOption %}
+            <div class="form-group row mt-3">
+                <div class="offset-3">
+                    <div class="custom-checkbox custom-control ml-2">
+                        <input id="_trusted" class="custom-control-input" type="checkbox" name="{{ trustedParameterName }}" />
+                        <label class="custom-control-label" for="_trusted">{% trans %}tfa.code.trusted_pc{% endtrans %}</label>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if isCsrfProtectionEnabled %}
+            <input type="hidden" name="{{ csrfParameterName }}" value="{{ csrf_token(csrfTokenId) }}">
+        {% endif %}
+
+        {% block submit_btn %}
+        <div class="form-group-row">
+            <div class="offset-3">
+                <button type="submit" class="btn btn-primary" value="{{ "login"|trans({}, 'SchebTwoFactorBundle') }}">{% trans %}login.btn{% endtrans %}</button>
+                <a class="ml-2" href="{{ logoutPath }}">{% trans %}user.logout{% endtrans %}</a>
+            </div>
+        </div>
+        {% endblock %}
+    </form>
+{% endblock %}

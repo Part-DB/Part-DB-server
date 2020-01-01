@@ -28,6 +28,7 @@
         "bootstrap-fileinput": "^5.0.1",
         "bootstrap-select": "^1.13.8",
         "bootswatch": "^4.3.1",
+        "clipboard": "^2.0.4",
         "copy-webpack-plugin": "^5.0.4",
         "corejs-typeahead": "^1.2.1",
         "darkmode-js": "^1.5.3",
@@ -43,7 +44,9 @@
         "marked": "^0.7.0",
         "patternfly-bootstrap-treeview": "^2.1.8",
         "pdfmake": "^0.1.53",
+        "qrcode": "^1.4.4",
         "ts-loader": "^5.3.3",
-        "typescript": "^3.3.4000"
+        "typescript": "^3.3.4000",
+        "u2f-api": "^1.1.1"
     }
 }

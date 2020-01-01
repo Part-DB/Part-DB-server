@@ -265,7 +265,7 @@
     <unit id="iK5P0V5" name="user.edit.permissions">
       <notes>
         <note category="file-source" priority="1">templates\AdminPages\GroupAdmin.html.twig:9</note>
-        <note category="file-source" priority="1">templates\AdminPages\UserAdmin.html.twig:12</note>
+        <note category="file-source" priority="1">templates\AdminPages\UserAdmin.html.twig:16</note>
       </notes>
       <segment>
         <source>user.edit.permissions</source>
@@ -318,7 +318,7 @@
     </unit>
     <unit id=".YoS4pi" name="user.edit.caption">
       <notes>
-        <note category="file-source" priority="1">templates\AdminPages\UserAdmin.html.twig:4</note>
+        <note category="file-source" priority="1">templates\AdminPages\UserAdmin.html.twig:8</note>
       </notes>
       <segment>
         <source>user.edit.caption</source>
@@ -327,7 +327,7 @@
     </unit>
     <unit id="eDE4Z9X" name="user.edit.configuration">
       <notes>
-        <note category="file-source" priority="1">templates\AdminPages\UserAdmin.html.twig:10</note>
+        <note category="file-source" priority="1">templates\AdminPages\UserAdmin.html.twig:14</note>
       </notes>
       <segment>
         <source>user.edit.configuration</source>
@@ -336,11 +336,99 @@
     </unit>
     <unit id="3HIFZxy" name="user.edit.password">
       <notes>
-        <note category="file-source" priority="1">templates\AdminPages\UserAdmin.html.twig:11</note>
+        <note category="file-source" priority="1">templates\AdminPages\UserAdmin.html.twig:15</note>
       </notes>
       <segment>
         <source>user.edit.password</source>
         <target state="translated">Passwort</target>
+      </segment>
+    </unit>
+    <unit id="CpSdWDM" name="user.edit.tfa.caption">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\UserAdmin.html.twig:45</note>
+      </notes>
+      <segment>
+        <source>user.edit.tfa.caption</source>
+        <target>Zwei-Faktor-Authentifizierung</target>
+      </segment>
+    </unit>
+    <unit id="QAuf3JI" name="user.edit.tfa.google_active">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\UserAdmin.html.twig:47</note>
+      </notes>
+      <segment>
+        <source>user.edit.tfa.google_active</source>
+        <target>Authentifizierungsapp aktiv</target>
+      </segment>
+    </unit>
+    <unit id="7v_PSOf" name="tfa_backup.remaining_tokens">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\UserAdmin.html.twig:48</note>
+        <note category="file-source" priority="1">templates\Users\backup_codes.html.twig:15</note>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:95</note>
+      </notes>
+      <segment>
+        <source>tfa_backup.remaining_tokens</source>
+        <target>Verbleibende Backupcodes</target>
+      </segment>
+    </unit>
+    <unit id="xhNIm7L" name="tfa_backup.generation_date">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\UserAdmin.html.twig:49</note>
+        <note category="file-source" priority="1">templates\Users\backup_codes.html.twig:17</note>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:96</note>
+      </notes>
+      <segment>
+        <source>tfa_backup.generation_date</source>
+        <target>Erzeugungsdatum der Backupcodes</target>
+      </segment>
+    </unit>
+    <unit id="_m6S_4Y" name="user.edit.tfa.disabled">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\UserAdmin.html.twig:53</note>
+        <note category="file-source" priority="1">templates\AdminPages\UserAdmin.html.twig:60</note>
+      </notes>
+      <segment>
+        <source>user.edit.tfa.disabled</source>
+        <target>Methode deaktiviert</target>
+      </segment>
+    </unit>
+    <unit id="TagZ6I5" name="user.edit.tfa.u2f_keys_count">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\UserAdmin.html.twig:56</note>
+      </notes>
+      <segment>
+        <source>user.edit.tfa.u2f_keys_count</source>
+        <target>Aktive Sicherheitsschlüssel</target>
+      </segment>
+    </unit>
+    <unit id=".K9hu_c" name="user.edit.tfa.disable_tfa_title">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\UserAdmin.html.twig:72</note>
+      </notes>
+      <segment>
+        <source>user.edit.tfa.disable_tfa_title</source>
+        <target>Wirklich fortfahren?</target>
+      </segment>
+    </unit>
+    <unit id="xORuIU4" name="user.edit.tfa.disable_tfa_message">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\UserAdmin.html.twig:72</note>
+      </notes>
+      <segment>
+        <source>user.edit.tfa.disable_tfa_message</source>
+        <target><![CDATA[Dies wird <b>alle aktiven Zwei-Faktor-Authentifizierungsmethoden des Nutzers deaktivieren</b> und die <b>Backupcodes löschen</b>! <br>
+Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müssen und neue Backupcodes ausdrucken müssen! <br><br>
+<b>Führen sie dies nur durch, wenn Sie über die Identität des (um Hilfe suchenden) Benutzers absolut sicher sind, da ansonsten eine Kompromittierung des Accounts durch einen Angreifer erfolgen könnte!</b>]]></target>
+      </segment>
+    </unit>
+    <unit id="02HvwiS" name="user.edit.tfa.disable_tfa.btn">
+      <notes>
+        <note category="file-source" priority="1">templates\AdminPages\UserAdmin.html.twig:73</note>
+      </notes>
+      <segment>
+        <source>user.edit.tfa.disable_tfa.btn</source>
+        <target>Alle Zwei-Faktor-Authentifizierungsmethoden deaktivieren</target>
       </segment>
     </unit>
     <unit id="0EjI8FY" name="attachment.delete">
@@ -759,6 +847,24 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <segment>
         <source>bool.false</source>
         <target state="translated">Nein</target>
+      </segment>
+    </unit>
+    <unit id="haOas0X" name="Yes">
+      <notes>
+        <note category="file-source" priority="1">templates\helper.twig:87</note>
+      </notes>
+      <segment>
+        <source>Yes</source>
+        <target>Ja</target>
+      </segment>
+    </unit>
+    <unit id="HqRCoTS" name="No">
+      <notes>
+        <note category="file-source" priority="1">templates\helper.twig:89</note>
+      </notes>
+      <segment>
+        <source>No</source>
+        <target>Nein</target>
       </segment>
     </unit>
     <unit id="Qj.Hpb." name="version.caption">
@@ -1790,6 +1896,63 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target state="translated">Anzahl an Unterelementen</target>
       </segment>
     </unit>
+    <unit id="3WtQFdr" name="tfa.check.title">
+      <notes>
+        <note category="file-source" priority="1">templates\security\2fa_base_form.html.twig:3</note>
+        <note category="file-source" priority="1">templates\security\2fa_base_form.html.twig:5</note>
+      </notes>
+      <segment>
+        <source>tfa.check.title</source>
+        <target>Zwei-Faktor-Authentifizierung benötigt</target>
+      </segment>
+    </unit>
+    <unit id="FPvJfPr" name="tfa.code.trusted_pc">
+      <notes>
+        <note category="file-source" priority="1">templates\security\2fa_base_form.html.twig:39</note>
+      </notes>
+      <segment>
+        <source>tfa.code.trusted_pc</source>
+        <target>Dies ist ein vertrauenswürdiger Computer (wenn dies aktiviert ist, werden auf diesem Computer keine weiteren Zwei-Faktor-Abfragen durchgeführt)</target>
+      </segment>
+    </unit>
+    <unit id="XtrGxkd" name="login.btn">
+      <notes>
+        <note category="file-source" priority="1">templates\security\2fa_base_form.html.twig:52</note>
+        <note category="file-source" priority="1">templates\security\login.html.twig:58</note>
+      </notes>
+      <segment>
+        <source>login.btn</source>
+        <target>Login</target>
+      </segment>
+    </unit>
+    <unit id="okzpfQC" name="user.logout">
+      <notes>
+        <note category="file-source" priority="1">templates\security\2fa_base_form.html.twig:53</note>
+        <note category="file-source" priority="1">templates\_navbar.html.twig:103</note>
+      </notes>
+      <segment>
+        <source>user.logout</source>
+        <target state="translated">Ausloggen</target>
+      </segment>
+    </unit>
+    <unit id="INlwXoR" name="tfa.check.code.label">
+      <notes>
+        <note category="file-source" priority="1">templates\security\2fa_form.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>tfa.check.code.label</source>
+        <target>Authenticator App Code</target>
+      </segment>
+    </unit>
+    <unit id="TUbr0_A" name="tfa.check.code.help">
+      <notes>
+        <note category="file-source" priority="1">templates\security\2fa_form.html.twig:10</note>
+      </notes>
+      <segment>
+        <source>tfa.check.code.help</source>
+        <target>Geben Sie hier den 6-stelligen Code aus ihrer Authenticator App ein oder einen ihrer Backupcodes, wenn der Authenticator nicht verfügbar ist.</target>
+      </segment>
+    </unit>
     <unit id="Kd99AFq" name="login.title">
       <notes>
         <note category="file-source" priority="1">templates\security\login.html.twig:3</note>
@@ -1860,16 +2023,6 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Eingeloggt bleiben (nicht empfohlen auf geteilten Computern)</target>
       </segment>
     </unit>
-    <unit id="XtrGxkd" name="login.btn">
-      <notes>
-        <note category="file-source" priority="1">templates\security\login.html.twig:58</note>
-        <note priority="1">templates\security\login.html.twig:58</note>
-      </notes>
-      <segment>
-        <source>login.btn</source>
-        <target>Login</target>
-      </segment>
-    </unit>
     <unit id="GO.ZhTX" name="pw_reset.password_forget">
       <notes>
         <note category="file-source" priority="1">templates\security\login.html.twig:64</note>
@@ -1895,6 +2048,145 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <segment>
         <source>pw_reset.request.header.title</source>
         <target state="translated">Neues Passwort anfordern</target>
+      </segment>
+    </unit>
+    <unit id="J1aHED." name="tfa_u2f.http_warning">
+      <notes>
+        <note category="file-source" priority="1">templates\security\U2F\u2f_login.html.twig:7</note>
+        <note category="file-source" priority="1">templates\security\U2F\u2f_register.html.twig:10</note>
+      </notes>
+      <segment>
+        <source>tfa_u2f.http_warning</source>
+        <target>Sie greifen auf diese Seite über das unsichere HTTP-Verfahren zu, daher wird U2F sehr wahrscheinlich nicht funktionieren (Fehlermeldung Bad Request). Bitten Sie einen Adminstrator das sichere HTTPS Verfahren einzurichten, wenn Sie Sicherheitsschlüssel benutzen möchten.</target>
+      </segment>
+    </unit>
+    <unit id="Do6QuMa" name="r_u2f_two_factor.pressbutton">
+      <notes>
+        <note category="file-source" priority="1">templates\security\U2F\u2f_login.html.twig:10</note>
+        <note category="file-source" priority="1">templates\security\U2F\u2f_register.html.twig:22</note>
+      </notes>
+      <segment>
+        <source>r_u2f_two_factor.pressbutton</source>
+        <target>Bitte Sicherheitsschlüssel einstecken und Button drücken!</target>
+      </segment>
+    </unit>
+    <unit id="T4i5SE4" name="tfa_u2f.add_key.title">
+      <notes>
+        <note category="file-source" priority="1">templates\security\U2F\u2f_register.html.twig:3</note>
+      </notes>
+      <segment>
+        <source>tfa_u2f.add_key.title</source>
+        <target>Sicherheitsschlüssel hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="rIJ.Flq" name="tfa_u2f.explanation">
+      <notes>
+        <note category="file-source" priority="1">templates\security\U2F\u2f_register.html.twig:6</note>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:111</note>
+      </notes>
+      <segment>
+        <source>tfa_u2f.explanation</source>
+        <target>Mithilfe eines U2F/FIDO kompatiblem Sicherheitsschlüssel (z.B. YubiKey oder NitroKey) kann eine benutzerfreundliche und sichere Zwei-Faktor-Authentifizierung ermöglicht. Die Sicherheitsschlüssel können hier registriert werden, und wird eine Zwei-Faktor-Überprüfung benötigt, so muss der Schlüssel nur per USB angesteckt oder per NFC gegen das Gerät getippt werden.</target>
+      </segment>
+    </unit>
+    <unit id="DMC2yTT" name="tfa_u2f.add_key.backup_hint">
+      <notes>
+        <note category="file-source" priority="1">templates\security\U2F\u2f_register.html.twig:7</note>
+      </notes>
+      <segment>
+        <source>tfa_u2f.add_key.backup_hint</source>
+        <target>Um den Zugang auch bei Verlust des Schlüssels zu gewährleisten, ist es empfehlenswert einen zweiten Schlüssel als Backup zu registrieren und diesen an einem sicherem Ort zu lagern!</target>
+      </segment>
+    </unit>
+    <unit id="ktQ_kY9" name="r_u2f_two_factor.name">
+      <notes>
+        <note category="file-source" priority="1">templates\security\U2F\u2f_register.html.twig:16</note>
+      </notes>
+      <segment>
+        <source>r_u2f_two_factor.name</source>
+        <target>Anzeigename des Schlüssels (z.B. Backup)</target>
+      </segment>
+    </unit>
+    <unit id="HI4_6dF" name="tfa_u2f.add_key.add_button">
+      <notes>
+        <note category="file-source" priority="1">templates\security\U2F\u2f_register.html.twig:19</note>
+      </notes>
+      <segment>
+        <source>tfa_u2f.add_key.add_button</source>
+        <target>Schlüssel hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="JyEfylJ" name="tfa_u2f.add_key.back_to_settings">
+      <notes>
+        <note category="file-source" priority="1">templates\security\U2F\u2f_register.html.twig:27</note>
+      </notes>
+      <segment>
+        <source>tfa_u2f.add_key.back_to_settings</source>
+        <target>Zurück zu den Einstellungen</target>
+      </segment>
+    </unit>
+    <unit id="xd6VhOm" name="tfa_backup.codes.title">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\backup_codes.html.twig:3</note>
+        <note category="file-source" priority="1">templates\Users\backup_codes.html.twig:9</note>
+      </notes>
+      <segment>
+        <source>tfa_backup.codes.title</source>
+        <target>Backupcodes</target>
+      </segment>
+    </unit>
+    <unit id="DE6_hcj" name="tfa_backup.codes.explanation">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\backup_codes.html.twig:12</note>
+      </notes>
+      <segment>
+        <source>tfa_backup.codes.explanation</source>
+        <target>Drucken Sie diese Codes aus und bewahren Sie sie an einem sicherem Ort auf!</target>
+      </segment>
+    </unit>
+    <unit id="q3Apy0z" name="tfa_backup.codes.help">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\backup_codes.html.twig:13</note>
+      </notes>
+      <segment>
+        <source>tfa_backup.codes.help</source>
+        <target>Wenn Sie keinen Zugriff auf ihr Gerät mit der Authenticator App mehr haben sollten (Smartphone verloren, Datenverlust, etc.) können Sie einen dieser Codes benutzen, um Zugriff auf ihren Account zu erhalten und evtl. eine neue Authenticator App einzurichten. Jeder dieser Codes lässt sich einmal einsetzen, es empfiehlt sich benutzte Codes zu streichen. Jeder mit Zugriff auf diese Codes kann potentiell auf ihren Account zugreifen, daher bewahren Sie sie an einem sicheren Ort auf.</target>
+      </segment>
+    </unit>
+    <unit id="iPcPo4t" name="tfa_backup.username">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\backup_codes.html.twig:16</note>
+      </notes>
+      <segment>
+        <source>tfa_backup.username</source>
+        <target>Benutzername</target>
+      </segment>
+    </unit>
+    <unit id="g7XKOBR" name="tfa_backup.codes.page_generated_on">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\backup_codes.html.twig:29</note>
+      </notes>
+      <segment>
+        <source>tfa_backup.codes.page_generated_on</source>
+        <target>Codes abgerufen am %date%</target>
+      </segment>
+    </unit>
+    <unit id="3Qg6WkA" name="tfa_backup.codes.print">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\backup_codes.html.twig:32</note>
+      </notes>
+      <segment>
+        <source>tfa_backup.codes.print</source>
+        <target>Drucken</target>
+      </segment>
+    </unit>
+    <unit id="CJiKz6Q" name="tfa_backup.codes.copy_clipboard">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\backup_codes.html.twig:35</note>
+      </notes>
+      <segment>
+        <source>tfa_backup.codes.copy_clipboard</source>
+        <target>In die Zwischenablage kopieren</target>
       </segment>
     </unit>
     <unit id="_M8LV3f" name="user.info.label">
@@ -2027,12 +2319,339 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="v3ayVni" name="user.settings.change_pw">
       <notes>
-        <note category="file-source" priority="1">templates\Users\user_settings.html.twig:53</note>
+        <note category="file-source" priority="1">templates\Users\user_settings.html.twig:55</note>
         <note priority="1">templates\Users\user_settings.html.twig:48</note>
       </notes>
       <segment>
         <source>user.settings.change_pw</source>
         <target>Passwort ändern</target>
+      </segment>
+    </unit>
+    <unit id="2g9WpFv" name="user.settings.2fa_settings">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:6</note>
+      </notes>
+      <segment>
+        <source>user.settings.2fa_settings</source>
+        <target>Zwei-Faktor-Authentifizierung</target>
+      </segment>
+    </unit>
+    <unit id="4Ubnv0V" name="tfa.settings.google.tab">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:13</note>
+      </notes>
+      <segment>
+        <source>tfa.settings.google.tab</source>
+        <target>Authenticator App</target>
+      </segment>
+    </unit>
+    <unit id="A0dMe4r" name="tfa.settings.bakup.tab">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:17</note>
+      </notes>
+      <segment>
+        <source>tfa.settings.bakup.tab</source>
+        <target>Backupcodes</target>
+      </segment>
+    </unit>
+    <unit id="dxSnk50" name="tfa.settings.u2f.tab">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:21</note>
+      </notes>
+      <segment>
+        <source>tfa.settings.u2f.tab</source>
+        <target>Sicherheitsschlüssel (U2F)</target>
+      </segment>
+    </unit>
+    <unit id="6nafcsi" name="tfa.settings.trustedDevices.tab">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:25</note>
+      </notes>
+      <segment>
+        <source>tfa.settings.trustedDevices.tab</source>
+        <target>Vertrauenswürdige Geräte</target>
+      </segment>
+    </unit>
+    <unit id="AYt4Z2k" name="tfa_google.disable.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:33</note>
+      </notes>
+      <segment>
+        <source>tfa_google.disable.confirm_title</source>
+        <target>Möchten Sie die Authenticator App wirklich deaktivieren?</target>
+      </segment>
+    </unit>
+    <unit id="lTwm.J0" name="tfa_google.disable.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:33</note>
+      </notes>
+      <segment>
+        <source>tfa_google.disable.confirm_message</source>
+        <target><![CDATA[Wenn Sie die Authenticator App deaktivieren, werden alle Backupcodes gelöscht, daher sie müssen sie evtl. neu ausdrucken.<br>
+Beachten Sie außerdem, dass ihr Account ohne Zwei-Faktor-Authentifizierung nicht mehr so gut gegen Angreifer geschützt ist!]]></target>
+      </segment>
+    </unit>
+    <unit id="VYOAO2c" name="tfa_google.disabled_message">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:39</note>
+      </notes>
+      <segment>
+        <source>tfa_google.disabled_message</source>
+        <target>Authenticator App deaktiviert</target>
+      </segment>
+    </unit>
+    <unit id="cW3GnIC" name="tfa_google.step.download">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:48</note>
+      </notes>
+      <segment>
+        <source>tfa_google.step.download</source>
+        <target><![CDATA[Laden Sie eine Authenticator App herunter (z.B. <a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">Google Authenticator</a> oder <a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp">FreeOTP Authenticator</a>)]]></target>
+      </segment>
+    </unit>
+    <unit id="TXv.pXw" name="tfa_google.step.scan">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:49</note>
+      </notes>
+      <segment>
+        <source>tfa_google.step.scan</source>
+        <target>Scannen Sie den nebenstehenden QR-Code mit der App oder geben Sie die Daten manuell ein</target>
+      </segment>
+    </unit>
+    <unit id="A9Ex8CO" name="tfa_google.step.input_code">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:50</note>
+      </notes>
+      <segment>
+        <source>tfa_google.step.input_code</source>
+        <target>Geben Sie den erzeugten Code in das untere Feld ein und bestätigen Sie</target>
+      </segment>
+    </unit>
+    <unit id="RqoGsnx" name="tfa_google.step.download_backup">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:51</note>
+      </notes>
+      <segment>
+        <source>tfa_google.step.download_backup</source>
+        <target>Drucken Sie ihre Backupcodes aus und lagern sie an einem sicherem Ort</target>
+      </segment>
+    </unit>
+    <unit id="EygadTb" name="tfa_google.manual_setup">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:58</note>
+      </notes>
+      <segment>
+        <source>tfa_google.manual_setup</source>
+        <target>Manuelle Einrichtung</target>
+      </segment>
+    </unit>
+    <unit id="4jE4fvm" name="tfa_google.manual_setup.type">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:62</note>
+      </notes>
+      <segment>
+        <source>tfa_google.manual_setup.type</source>
+        <target>Typ</target>
+      </segment>
+    </unit>
+    <unit id="NqQTgh6" name="tfa_google.manual_setup.username">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:63</note>
+      </notes>
+      <segment>
+        <source>tfa_google.manual_setup.username</source>
+        <target>Benutzername</target>
+      </segment>
+    </unit>
+    <unit id="pkupOqy" name="tfa_google.manual_setup.secret">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:64</note>
+      </notes>
+      <segment>
+        <source>tfa_google.manual_setup.secret</source>
+        <target>Secret</target>
+      </segment>
+    </unit>
+    <unit id="zabzs3X" name="tfa_google.manual_setup.digit_count">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:65</note>
+      </notes>
+      <segment>
+        <source>tfa_google.manual_setup.digit_count</source>
+        <target>Anzahl Stellen</target>
+      </segment>
+    </unit>
+    <unit id="FvB0dIm" name="tfa_google.enabled_message">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:74</note>
+      </notes>
+      <segment>
+        <source>tfa_google.enabled_message</source>
+        <target>Authenticator App aktiv</target>
+      </segment>
+    </unit>
+    <unit id="atzHEe7" name="tfa_backup.disabled">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:83</note>
+      </notes>
+      <segment>
+        <source>tfa_backup.disabled</source>
+        <target>Backupcodes deaktiviert. Authenticator App einrichten, um Backupcodes zu aktivieren.</target>
+      </segment>
+    </unit>
+    <unit id=".T4.dPM" name="tfa_backup.explanation">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:84</note>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:92</note>
+      </notes>
+      <segment>
+        <source>tfa_backup.explanation</source>
+        <target>Mithilfe dieser Backupcodes können Sie auf ihren Account zugreifen, selbst wenn Sie das Gerät mit der Authenticator App verlieren sollten. Drucken Sie die Codes aus und bewahren Sie sie an einem sicherem Ort auf.</target>
+      </segment>
+    </unit>
+    <unit id="H10CC4E" name="tfa_backup.reset_codes.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:88</note>
+      </notes>
+      <segment>
+        <source>tfa_backup.reset_codes.confirm_title</source>
+        <target>Codes wirklich zurücksetzen?</target>
+      </segment>
+    </unit>
+    <unit id="5Fu2DpJ" name="tfa_backup.reset_codes.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:88</note>
+      </notes>
+      <segment>
+        <source>tfa_backup.reset_codes.confirm_message</source>
+        <target>Dies wird alle bisherigen Codes löschen und einen Satz neuer Codes generieren. Dies lässt sich nicht rückgängig machen. Denken Sie daran die neuen Codes auszudrucken und an einem sicheren Ort zu hinterlegen!</target>
+      </segment>
+    </unit>
+    <unit id="o5LtJ9_" name="tfa_backup.enabled">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:91</note>
+      </notes>
+      <segment>
+        <source>tfa_backup.enabled</source>
+        <target>Backupcodes aktiviert</target>
+      </segment>
+    </unit>
+    <unit id="kqmz5H_" name="tfa_backup.show_codes">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:99</note>
+      </notes>
+      <segment>
+        <source>tfa_backup.show_codes</source>
+        <target>Backupcodes anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="7g11_KD" name="tfa_u2f.table_caption">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:114</note>
+      </notes>
+      <segment>
+        <source>tfa_u2f.table_caption</source>
+        <target>Registrierte Sicherheitsschlüssel</target>
+      </segment>
+    </unit>
+    <unit id="UUr4y_o" name="tfa_u2f.delete_u2f.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:115</note>
+      </notes>
+      <segment>
+        <source>tfa_u2f.delete_u2f.confirm_title</source>
+        <target>Diesen Sicherheitsschlüssel wirklich entfernen?</target>
+      </segment>
+    </unit>
+    <unit id="5ggwjiF" name="tfa_u2f.delete_u2f.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:116</note>
+      </notes>
+      <segment>
+        <source>tfa_u2f.delete_u2f.confirm_message</source>
+        <target>Wenn Sie diesen Schlüssel entfernen, dann wird kein Login mehr mit diesem möglich sein. Wenn keine Sicherheitsschlüssel verleiben, wird die Zwei-Faktor-Authentifizierung deaktiviert.</target>
+      </segment>
+    </unit>
+    <unit id="QS7fv4V" name="tfa_u2f.keys.name">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:123</note>
+      </notes>
+      <segment>
+        <source>tfa_u2f.keys.name</source>
+        <target>Name des Schlüssels</target>
+      </segment>
+    </unit>
+    <unit id="4qB9rjg" name="tfa_u2f.keys.added_date">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:124</note>
+      </notes>
+      <segment>
+        <source>tfa_u2f.keys.added_date</source>
+        <target>Datum der Registrierung</target>
+      </segment>
+    </unit>
+    <unit id="EDTcMLO" name="tfa_u2f.key_delete">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:134</note>
+      </notes>
+      <segment>
+        <source>tfa_u2f.key_delete</source>
+        <target>Schlüssel löschen</target>
+      </segment>
+    </unit>
+    <unit id="h0wV1h2" name="tfa_u2f.no_keys_registered">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:141</note>
+      </notes>
+      <segment>
+        <source>tfa_u2f.no_keys_registered</source>
+        <target>Keine Sicherheitsschlüssel registriert</target>
+      </segment>
+    </unit>
+    <unit id="HuO06yQ" name="tfa_u2f.add_new_key">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:144</note>
+      </notes>
+      <segment>
+        <source>tfa_u2f.add_new_key</source>
+        <target>Neuen Sicherheitsschlüssel registrieren</target>
+      </segment>
+    </unit>
+    <unit id="JNqROE2" name="tfa_trustedDevices.explanation">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:148</note>
+      </notes>
+      <segment>
+        <source>tfa_trustedDevices.explanation</source>
+        <target><![CDATA[Bei der Überprüfung des zweiten Faktors, kann der aktuelle Computer als vertrauenswürdig gekennzeichnet werden, daher es werden keine Zwei-Faktor-Überprüfungen mehr an diesem Computer benötigt.
+Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertrauenswürdig ist, können Sie hier den Status <i>aller </i>Computer zurücksetzen.]]></target>
+      </segment>
+    </unit>
+    <unit id="xRB9q2I" name="tfa_trustedDevices.invalidate.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:149</note>
+      </notes>
+      <segment>
+        <source>tfa_trustedDevices.invalidate.confirm_title</source>
+        <target>Wirklich alle vertrauenswürdigen Computer entfernen?</target>
+      </segment>
+    </unit>
+    <unit id="r7Z3.L4" name="tfa_trustedDevices.invalidate.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:150</note>
+      </notes>
+      <segment>
+        <source>tfa_trustedDevices.invalidate.confirm_message</source>
+        <target>Sie werden auf allen Rechnern erneut eine Zwei-Faktor-Authentifizierung durchführen müssen. Achten Sie darauf, dass Sie ihr Zwei-Faktor-Gerät zur Hand haben.</target>
+      </segment>
+    </unit>
+    <unit id="jiNvzqA" name="tfa_trustedDevices.invalidate.btn">
+      <notes>
+        <note category="file-source" priority="1">templates\Users\_2fa_settings.html.twig:154</note>
+      </notes>
+      <segment>
+        <source>tfa_trustedDevices.invalidate.btn</source>
+        <target>Alle vertrauenswürdigen Geräte entfernen</target>
       </segment>
     </unit>
     <unit id="cElTSD4" name="sidebar.toggle">
@@ -2148,16 +2767,6 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <segment>
         <source>user.loggedin.label</source>
         <target state="translated">Eingeloggt als</target>
-      </segment>
-    </unit>
-    <unit id="okzpfQC" name="user.logout">
-      <notes>
-        <note category="file-source" priority="1">templates\_navbar.html.twig:103</note>
-        <note priority="1">templates\base.html.twig:101</note>
-      </notes>
-      <segment>
-        <source>user.logout</source>
-        <target state="translated">Ausloggen</target>
       </segment>
     </unit>
     <unit id="rruB2OR" name="user.login">
@@ -2335,6 +2944,9 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     <unit id="2bvWUoo" name="csfr_invalid">
       <notes>
         <note category="file-source" priority="1">src\Controller\AdminPages\BaseAdminController.php:257</note>
+        <note category="file-source" priority="1">src\Controller\UserController.php:89</note>
+        <note category="file-source" priority="1">src\Controller\UserSettingsController.php:125</note>
+        <note category="file-source" priority="1">src\Controller\UserSettingsController.php:155</note>
       </notes>
       <segment>
         <source>csfr_invalid</source>
@@ -2403,7 +3015,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="B1T9Kt6" name="pw_reset.user_or_email">
       <notes>
-        <note category="file-source" priority="1">src\Controller\SecurityController.php:85</note>
+        <note category="file-source" priority="1">src\Controller\SecurityController.php:90</note>
       </notes>
       <segment>
         <source>pw_reset.user_or_email</source>
@@ -2412,7 +3024,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="C_43E5l" name="pw_reset.request.success">
       <notes>
-        <note category="file-source" priority="1">src\Controller\SecurityController.php:102</note>
+        <note category="file-source" priority="1">src\Controller\SecurityController.php:107</note>
       </notes>
       <segment>
         <source>pw_reset.request.success</source>
@@ -2421,7 +3033,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="Ytlen4L" name="pw_reset.username">
       <notes>
-        <note category="file-source" priority="1">src\Controller\SecurityController.php:127</note>
+        <note category="file-source" priority="1">src\Controller\SecurityController.php:132</note>
       </notes>
       <segment>
         <source>pw_reset.username</source>
@@ -2430,7 +3042,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="kCND5gR" name="pw_reset.token">
       <notes>
-        <note category="file-source" priority="1">src\Controller\SecurityController.php:130</note>
+        <note category="file-source" priority="1">src\Controller\SecurityController.php:135</note>
       </notes>
       <segment>
         <source>pw_reset.token</source>
@@ -2439,7 +3051,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="Kz.sA0j" name="pw_reset.new_pw.error">
       <notes>
-        <note category="file-source" priority="1">src\Controller\SecurityController.php:155</note>
+        <note category="file-source" priority="1">src\Controller\SecurityController.php:160</note>
       </notes>
       <segment>
         <source>pw_reset.new_pw.error</source>
@@ -2448,16 +3060,70 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="Uy8yPX1" name="pw_reset.new_pw.success">
       <notes>
-        <note category="file-source" priority="1">src\Controller\SecurityController.php:157</note>
+        <note category="file-source" priority="1">src\Controller\SecurityController.php:162</note>
       </notes>
       <segment>
         <source>pw_reset.new_pw.success</source>
         <target state="translated">Passwort wurde erfolgreich zurückgesetzt. Sie können sich nun mit dem neuen Passwort einloggen.</target>
       </segment>
     </unit>
+    <unit id="L8g8bFy" name="user.edit.reset_success">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\UserController.php:87</note>
+      </notes>
+      <segment>
+        <source>user.edit.reset_success</source>
+        <target>Alle Zwei-Faktor-Authentisierungsmethoden wurden erfolgreich deaktiviert.</target>
+      </segment>
+    </unit>
+    <unit id="_OcjXRe" name="tfa_backup.no_codes_enabled">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\UserSettingsController.php:72</note>
+      </notes>
+      <segment>
+        <source>tfa_backup.no_codes_enabled</source>
+        <target>Es sind keine Backupcodes aktiviert!</target>
+      </segment>
+    </unit>
+    <unit id="9UBDL1p" name="tfa_u2f.u2f_delete.not_existing">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\UserSettingsController.php:109</note>
+      </notes>
+      <segment>
+        <source>tfa_u2f.u2f_delete.not_existing</source>
+        <target>Es existiert kein Sicherheitsschlüssel mit dieser ID!</target>
+      </segment>
+    </unit>
+    <unit id="6waUw7j" name="tfa_u2f.u2f_delete.access_denied">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\UserSettingsController.php:115</note>
+      </notes>
+      <segment>
+        <source>tfa_u2f.u2f_delete.access_denied</source>
+        <target>Sie können nur ihre eigenen Sicherheitsschlüssel löschen!</target>
+      </segment>
+    </unit>
+    <unit id="Kn9dPI5" name="tfa.u2f.u2f_delete.success">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\UserSettingsController.php:122</note>
+      </notes>
+      <segment>
+        <source>tfa.u2f.u2f_delete.success</source>
+        <target>Sicherheitsschlüssel erfolgreich entfernt.</target>
+      </segment>
+    </unit>
+    <unit id="h.BcrtU" name="tfa_trustedDevice.invalidate.success">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\UserSettingsController.php:153</note>
+      </notes>
+      <segment>
+        <source>tfa_trustedDevice.invalidate.success</source>
+        <target>Vertrauenswürdige Geräte erfolgreich zurückgesetzt.</target>
+      </segment>
+    </unit>
     <unit id="PBKICdd" name="user.settings.saved_flash">
       <notes>
-        <note category="file-source" priority="1">src\Controller\UserController.php:184</note>
+        <note category="file-source" priority="1">src\Controller\UserSettingsController.php:195</note>
         <note priority="1">src\Controller\UserController.php:98</note>
         <note priority="1">new</note>
       </notes>
@@ -2468,13 +3134,40 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="mPAd5JY" name="user.settings.pw_changed_flash">
       <notes>
-        <note category="file-source" priority="1">src\Controller\UserController.php:224</note>
+        <note category="file-source" priority="1">src\Controller\UserSettingsController.php:244</note>
         <note priority="1">src\Controller\UserController.php:130</note>
         <note priority="1">new</note>
       </notes>
       <segment>
         <source>user.settings.pw_changed_flash</source>
         <target>Passwort geändert!</target>
+      </segment>
+    </unit>
+    <unit id="xy.2mkA" name="user.settings.2fa.google.activated">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\UserSettingsController.php:262</note>
+      </notes>
+      <segment>
+        <source>user.settings.2fa.google.activated</source>
+        <target>Authenticator App erfolgreich aktiviert.</target>
+      </segment>
+    </unit>
+    <unit id="RXjFD7H" name="user.settings.2fa.google.disabled">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\UserSettingsController.php:269</note>
+      </notes>
+      <segment>
+        <source>user.settings.2fa.google.disabled</source>
+        <target>Authenticator App erfolgreich deaktiviert.</target>
+      </segment>
+    </unit>
+    <unit id="4ZUxld3" name="user.settings.2fa.backup_codes.regenerated">
+      <notes>
+        <note category="file-source" priority="1">src\Controller\UserSettingsController.php:284</note>
+      </notes>
+      <segment>
+        <source>user.settings.2fa.backup_codes.regenerated</source>
+        <target>Neue Backupcodes erfolgreich erzeugt.</target>
       </segment>
     </unit>
     <unit id="3ZnUiT_" name="attachment.edit.name">
@@ -3303,6 +3996,33 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target state="translated">Verschiedene</target>
       </segment>
     </unit>
+    <unit id="wPnvtWt" name="tfa_google.enable">
+      <notes>
+        <note category="file-source" priority="1">src\Form\TFAGoogleSettingsType.php:74</note>
+      </notes>
+      <segment>
+        <source>tfa_google.enable</source>
+        <target>Authenticator App aktivieren</target>
+      </segment>
+    </unit>
+    <unit id="g7Bwb96" name="tfa_google.disable">
+      <notes>
+        <note category="file-source" priority="1">src\Form\TFAGoogleSettingsType.php:78</note>
+      </notes>
+      <segment>
+        <source>tfa_google.disable</source>
+        <target>Authenticator App deaktivieren</target>
+      </segment>
+    </unit>
+    <unit id="j7YxSXm" name="google_confirmation">
+      <notes>
+        <note category="file-source" priority="1">src\Form\TFAGoogleSettingsType.php:56</note>
+      </notes>
+      <segment>
+        <source>google_confirmation</source>
+        <target>Bestätigungscode</target>
+      </segment>
+    </unit>
     <unit id="CPJxiHz" name="M">
       <notes>
         <note category="file-source" priority="1">src\Form\Type\SIUnitType.php:117</note>
@@ -3709,6 +4429,15 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <segment>
         <source>entity.tree.new</source>
         <target>Neues Element</target>
+      </segment>
+    </unit>
+    <unit id="n13qerD" name="tfa_backup.regenerate_codes">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>tfa_backup.regenerate_codes</source>
+        <target>Neue Backupcodes erzeugen</target>
       </segment>
     </unit>
     <unit id="lZvhKYu" name="validator.noneofitschild.self">
@@ -5497,7 +6226,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>user.settings.pw_old.label</source>
-        <target>Old password</target>
+        <target>Altes Passwort</target>
       </segment>
     </unit>
     <unit id="Ed3ydow" name="pw_reset.submit">
@@ -5507,6 +6236,30 @@ Element 3</target>
       <segment>
         <source>pw_reset.submit</source>
         <target state="translated">Passwort zurücksetzen</target>
+      </segment>
+    </unit>
+    <unit id="MzwE3RU" name="bootstrap">
+      <segment>
+        <source>bootstrap</source>
+        <target>bootstrap</target>
+      </segment>
+    </unit>
+    <unit id="Gb0vp3u" name="cerulean">
+      <segment>
+        <source>cerulean</source>
+        <target>cerulean</target>
+      </segment>
+    </unit>
+    <unit id="XTe6pUU" name="tfa.provider.google">
+      <segment>
+        <source>tfa.provider.google</source>
+        <target>Authenticator App</target>
+      </segment>
+    </unit>
+    <unit id="tST2X1R" name="tfa.provider.u2f_two_factor">
+      <segment>
+        <source>tfa.provider.u2f_two_factor</source>
+        <target>Sicherheitsschlüssel</target>
       </segment>
     </unit>
   </file>

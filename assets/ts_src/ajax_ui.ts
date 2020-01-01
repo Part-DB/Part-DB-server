@@ -297,10 +297,16 @@ class AjaxUI {
     /**
      * Submits the given form via ajax.
      * @param form The form that will be submmitted.
+     * @param btn The btn via which the form is submitted
      */
-    public submitForm(form)
+    public submitForm(form, btn = null)
     {
         let options = ajaxUI.getFormOptions();
+
+        if(btn) {
+            options.data = {};
+            options.data[$(btn).attr('name')] = $(btn).attr('value');
+        }
 
         $(form).ajaxSubmit(options);
     }
@@ -360,6 +366,11 @@ class AjaxUI {
         'use strict';
         //Ignore aborted requests.
         if (request.statusText =='abort') {
+            return;
+        }
+
+        //Ignore ajax errors with 200 code (like the ones during 2FA authentication)
+        if(request.status == 200) {
             return;
         }
 
