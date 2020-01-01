@@ -106,11 +106,11 @@ class Supplier extends Company
     protected $shipping_costs;
 
     /**
-     * //@ORM\ManyToMany(targetEntity="Part", fetch="EXTRA_LAZY")
-     * //@ORM\JoinTable(name="orderdetails",
-     * //    joinColumns={@ORM\JoinColumn(name="id_supplier", referencedColumnName="id")},
-     * //    inverseJoinColumns={@ORM\JoinColumn(name="part_id", referencedColumnName="id")}
-     * //)
+     * @ORM\ManyToMany(targetEntity="Part", fetch="EXTRA_LAZY")
+     * @ORM\JoinTable(name="orderdetails",
+     *     joinColumns={@ORM\JoinColumn(name="id_supplier", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="part_id", referencedColumnName="id")}
+     * )
      */
     protected $parts;
 

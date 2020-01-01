@@ -107,11 +107,11 @@ class Storelocation extends PartsContainingDBElement
     protected $storage_type;
 
     /**
-     * //@ORM\ManyToMany(targetEntity="Part", fetch="EXTRA_LAZY")
-     * //@ORM\JoinTable(name="part_lots",
-     * //    joinColumns={@ORM\JoinColumn(name="id_store_location", referencedColumnName="id")},
-     * //    inverseJoinColumns={@ORM\JoinColumn(name="id_part", referencedColumnName="id")}
-     * //)
+     * @ORM\ManyToMany(targetEntity="Part", fetch="EXTRA_LAZY")
+     * @ORM\JoinTable(name="part_lots",
+     *    joinColumns={@ORM\JoinColumn(name="id_store_location", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="id_part", referencedColumnName="id")}
+     * )
      */
     protected $parts;
 

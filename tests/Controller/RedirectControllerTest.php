@@ -142,6 +142,6 @@ class RedirectControllerTest extends WebTestCase
         $this->client->followRedirects(false);
 
         $this->client->request('GET', '/part/3');
-        $this->assertEquals("/$locale/user/settings", $this->client->getResponse()->headers->get('Location'));
+        $this->assertEquals('http://localhost' . "/$locale/user/settings", $this->client->getResponse()->headers->get('Location'));
     }
 }
