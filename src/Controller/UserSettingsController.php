@@ -69,7 +69,7 @@ class UserSettingsController extends AbstractController
         }
 
         if (empty($user->getBackupCodes())) {
-            $this->addFlash('error', 'You do not have any backup codes enabled, therefore you can not view them!');
+            $this->addFlash('error', 'tfa_backup.no_codes_enabled');
             throw new Exception('You do not have any backup codes enabled, therefore you can not view them!');
         }
 

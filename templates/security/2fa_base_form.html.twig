@@ -19,7 +19,7 @@
         {% for provider in availableTwoFactorProviders %}
         <li class="nav-item">
             <a class="nav-link {% if provider == twoFactorProvider %}active{% endif %}"
-               href="{{ path("2fa_login", {"preferProvider": provider}) }}">{{ 'tfa.provider.'~provider | trans }}</a>
+               href="{{ path("2fa_login", {"preferProvider": provider}) }}">{{ ('tfa.provider.'~provider) | trans }}</a>
         </li>
         {% endfor %}
     </ul>

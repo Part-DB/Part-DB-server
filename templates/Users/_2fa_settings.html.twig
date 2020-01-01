@@ -59,10 +59,10 @@
                         </button>
                         <div class="collapse" id="manualSetupCollapse">
                             <div class="card card-body mb-2">
-                                <p><b>{% trans %}tfa_google.manual_setup.type</b>{% endtrans %}: TOTP</p>
-                                <p><b>{% trans %}tfa_google.manual_setup.username</b>{% endtrans %}: {{ tfa_google.username }}</p>
-                                <p><b>{% trans %}tfa_google.manual_setup.secret</b>{% endtrans %}: {{ tfa_google.secret }}</p>
-                                <p><b>{% trans %}tfa_google.manual_setup.digit_count</b>{% endtrans %}: 6</p>
+                                <p><b>{% trans %}tfa_google.manual_setup.type{% endtrans %}</b>: TOTP</p>
+                                <p><b>{% trans %}tfa_google.manual_setup.username{% endtrans %}</b>: {{ tfa_google.username }}</p>
+                                <p><b>{% trans %}tfa_google.manual_setup.secret{% endtrans %}</b>: {{ tfa_google.secret }}</p>
+                                <p><b>{% trans %}tfa_google.manual_setup.digit_count{% endtrans %}</b>: 6</p>
 
                             </div>
                         </div>
@@ -85,7 +85,7 @@
                     </div>
                 {% else %}
                     {% set backup_form_attr = { 'data-delete-form': true,
-                        'data-title': 'tfa_backup.reset_codes.confirm_title' | trans, 'data-message': 'tfa_backup.reset_codes.confirm_message'} %}
+                        'data-title': 'tfa_backup.reset_codes.confirm_title' | trans, 'data-message': 'tfa_backup.reset_codes.confirm_message' | trans} %}
                     {{ form_start(backup_form, { 'attr': backup_form_attr}) }}
                     <div class="offset-3">
                         <h6>{% trans %}tfa_backup.enabled{% endtrans %}</h6>

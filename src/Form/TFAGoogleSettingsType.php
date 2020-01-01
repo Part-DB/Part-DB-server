@@ -40,9 +40,8 @@ class TFAGoogleSettingsType extends AbstractType
 
     protected $translator;
 
-    public function __construct(TranslatorInterface $translator)
+    public function __construct()
     {
-        $this->translator = $translator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -73,11 +72,11 @@ class TFAGoogleSettingsType extends AbstractType
                 );
 
                 $form->add('submit', SubmitType::class, [
-                    'label' => $this->translator->trans('tfa_google.enable')
+                    'label' => 'tfa_google.enable'
                 ]);
             } else {
                 $form->add('submit', SubmitType::class, [
-                    'label' => $this->translator->trans('tfa_google.disable'),
+                    'label' =>'tfa_google.disable',
                     'attr' => ['class' => 'btn-danger']
                 ]);
             }
