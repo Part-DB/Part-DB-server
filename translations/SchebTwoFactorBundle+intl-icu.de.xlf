@@ -2,6 +2,9 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
   <file id="SchebTwoFactorBundle.de">
     <unit id="QoghNQ6" name="login">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:52</note>
+      </notes>
       <segment>
         <source>login</source>
         <target>Login</target>

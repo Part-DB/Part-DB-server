@@ -3,23 +3,23 @@
   <file id="validators.en">
     <unit id="xevSdCK" name="part.master_attachment.must_be_picture">
       <notes>
-        <note category="file-source" priority="1">src\Entity\Attachments\AttachmentContainingDBElement.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Attachments\AttachmentType.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Base\Company.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Base\PartsContainingDBElement.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Base\StructuralDBElement.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Devices\Device.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Parts\Category.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Parts\Footprint.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Parts\Manufacturer.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Parts\MeasurementUnit.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Parts\Part.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Parts\Part.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Parts\Storelocation.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Parts\Supplier.php:0</note>
-        <note category="file-source" priority="1">src\Entity\PriceInformations\Currency.php:0</note>
-        <note category="file-source" priority="1">src\Entity\UserSystem\Group.php:0</note>
-        <note category="file-source" priority="1">src\Entity\UserSystem\User.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentContainingDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\Company.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\PartsContainingDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\StructuralDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Manufacturer.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\MeasurementUnit.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Part.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Part.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Storelocation.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Supplier.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
       </notes>
       <segment>
         <source>part.master_attachment.must_be_picture</source>
@@ -28,19 +28,19 @@
     </unit>
     <unit id="VJHTkxx" name="structural.entity.unique_name">
       <notes>
-        <note category="file-source" priority="1">src\Entity\Attachments\AttachmentType.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Base\Company.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Base\PartsContainingDBElement.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Base\StructuralDBElement.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Devices\Device.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Parts\Category.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Parts\Footprint.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Parts\Manufacturer.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Parts\MeasurementUnit.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Parts\Storelocation.php:0</note>
-        <note category="file-source" priority="1">src\Entity\Parts\Supplier.php:0</note>
-        <note category="file-source" priority="1">src\Entity\PriceInformations\Currency.php:0</note>
-        <note category="file-source" priority="1">src\Entity\UserSystem\Group.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\Company.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\PartsContainingDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\StructuralDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Manufacturer.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\MeasurementUnit.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Storelocation.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Supplier.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
         <note priority="1">src\Entity\AttachmentType.php:0</note>
         <note priority="1">src\Entity\Category.php:0</note>
         <note priority="1">src\Entity\Company.php:0</note>
@@ -60,7 +60,7 @@
     </unit>
     <unit id="isXL.ie" name="validator.user.username_already_used">
       <notes>
-        <note category="file-source" priority="1">src\Entity\UserSystem\User.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
       </notes>
       <segment>
         <source>validator.user.username_already_used</source>
@@ -919,7 +919,7 @@
       </notes>
       <segment>
         <source>validator.noneofitschild.self</source>
-        <target >A element can not be its own parent.</target>
+        <target>A element can not be its own parent.</target>
       </segment>
     </unit>
     <unit id="pr07aV4" name="validator.noneofitschild.children">
@@ -928,7 +928,7 @@
       </notes>
       <segment>
         <source>validator.noneofitschild.children</source>
-        <target >The parent can not be one of the children of itself.</target>
+        <target>The parent can not be one of the children of itself.</target>
       </segment>
     </unit>
     <unit id="0IF0VIF" name="validator.isSelectable">
@@ -937,7 +937,7 @@
       </notes>
       <segment>
         <source>validator.isSelectable</source>
-        <target >The element must be selectable.</target>
+        <target>The element must be selectable.</target>
       </segment>
     </unit>
     <unit id="nd207H6" name="validator.part_lot.location_full.no_increasment">
@@ -946,7 +946,7 @@
       </notes>
       <segment>
         <source>validator.part_lot.location_full.no_increasment</source>
-        <target >The storage location was marked as full, so you can not increase the instock amount. (New amount max. {{ old_amount }})</target>
+        <target>The storage location was marked as full, so you can not increase the instock amount. (New amount max. {{ old_amount }})</target>
       </segment>
     </unit>
     <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
@@ -955,7 +955,7 @@
       </notes>
       <segment>
         <source>validator.part_lot.location_full</source>
-        <target >The storage location was marked as full, so you can not add a new part to it.</target>
+        <target>The storage location was marked as full, so you can not add a new part to it.</target>
       </segment>
     </unit>
     <unit id="6vIlN5q" name="validator.part_lot.only_existing">
@@ -964,7 +964,7 @@
       </notes>
       <segment>
         <source>validator.part_lot.only_existing</source>
-        <target >The storage location was marked as "only existing", so you can not add new part to it.</target>
+        <target>The storage location was marked as "only existing", so you can not add new part to it.</target>
       </segment>
     </unit>
     <unit id="BNQk2e7" name="validator.part_lot.single_part">
@@ -973,7 +973,7 @@
       </notes>
       <segment>
         <source>validator.part_lot.single_part</source>
-        <target >The storage location was marked as "single part", so you can not add a new part to it.</target>
+        <target>The storage location was marked as "single part", so you can not add a new part to it.</target>
       </segment>
     </unit>
   </file>

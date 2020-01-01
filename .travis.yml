@@ -30,7 +30,7 @@ script:
   # Perform some simple linting if everything is correct
   - ./bin/console lint:yaml config --parse-tags
   - ./bin/console lint:twig templates --env=prod
-  # - ./bin/console lint:xliff translations
+  - ./bin/console lint:xliff translations
   # Check if we dont use dependencies with known vulnerabilities
   - ./bin/console security:check
   # Check doctrine mapping
