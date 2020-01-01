@@ -11,7 +11,7 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "doctrine/annotations": "^1.6",
-        "doctrine/doctrine-bundle": "^1.12",
+        "doctrine/doctrine-bundle": "^2.0",
         "florianv/swap": "^4.0",
         "friendsofsymfony/ckeditor-bundle": "^2.0",
         "gregwar/captcha-bundle": "dev-master",
