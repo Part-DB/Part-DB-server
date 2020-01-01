@@ -1931,18 +1931,18 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">templates\security\2fa_form.html.twig:6</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>tfa.check.code.label</source>
-        <target>Enter the 6-digit code from your Authenticator App or one of your backup codes if the Authenticator is not available.</target>
+        <target>Authenticator app code</target>
       </segment>
     </unit>
     <unit id="TUbr0_A" name="tfa.check.code.help">
       <notes>
         <note category="file-source" priority="1">templates\security\2fa_form.html.twig:10</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>tfa.check.code.help</source>
-        <target>Authenticator app code</target>
+        <target>Enter the 6-digit code from your Authenticator App or one of your backup codes if the Authenticator is not available.</target>
       </segment>
     </unit>
     <unit id="Kd99AFq" name="login.title">
