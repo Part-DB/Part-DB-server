@@ -24,7 +24,7 @@
       </notes>
       <segment>
         <source>category.labelp</source>
-        <target state="translated">Categories</target>
+        <target >Categories</target>
       </segment>
     </unit>
     <unit id="lnjU5yu" name="admin.options">
@@ -55,7 +55,7 @@
       </notes>
       <segment>
         <source>currency.caption</source>
-        <target state="translated">Currency</target>
+        <target >Currency</target>
       </segment>
     </unit>
     <unit id="dzfYFww" name="currency.iso_code.caption">
@@ -64,7 +64,7 @@
       </notes>
       <segment>
         <source>currency.iso_code.caption</source>
-        <target state="translated">ISO code</target>
+        <target >ISO code</target>
       </segment>
     </unit>
     <unit id="lrCa3tF" name="currency.symbol.caption">
@@ -73,7 +73,7 @@
       </notes>
       <segment>
         <source>currency.symbol.caption</source>
-        <target state="translated">Currency symbol</target>
+        <target >Currency symbol</target>
       </segment>
     </unit>
     <unit id="tlgOYB5" name="device.caption">
@@ -101,7 +101,7 @@
       </notes>
       <segment>
         <source>search.placeholder</source>
-        <target state="translated">Search</target>
+        <target >Search</target>
       </segment>
     </unit>
     <unit id="10f_Ka3" name="expandAll">
@@ -115,7 +115,7 @@
       </notes>
       <segment>
         <source>expandAll</source>
-        <target state="translated">Expand All</target>
+        <target >Expand All</target>
       </segment>
     </unit>
     <unit id="eS_kUcS" name="reduceAll">
@@ -129,7 +129,7 @@
       </notes>
       <segment>
         <source>reduceAll</source>
-        <target state="translated">Reduce All</target>
+        <target >Reduce All</target>
       </segment>
     </unit>
     <unit id="a5.CFfq" name="edit.caption">
@@ -198,7 +198,7 @@
       </notes>
       <segment>
         <source>mass_creation.label</source>
-        <target state="translated">Mass creation</target>
+        <target >Mass creation</target>
       </segment>
     </unit>
     <unit id="wTQX7oE" name="admin.common">
@@ -217,7 +217,7 @@
       </notes>
       <segment>
         <source>admin.attachments</source>
-        <target state="translated">Attachments</target>
+        <target >Attachments</target>
       </segment>
     </unit>
     <unit id="R949JGz" name="export_all.label">
@@ -236,7 +236,7 @@
       </notes>
       <segment>
         <source>mass_creation.help</source>
-        <target state="translated">Each line will be interpreted as a name of a element, which will be created.</target>
+        <target >Each line will be interpreted as a name of a element, which will be created.</target>
       </segment>
     </unit>
     <unit id="ZJ9SPOS" name="footprint.labelp">
@@ -249,7 +249,7 @@
       </notes>
       <segment>
         <source>footprint.labelp</source>
-        <target state="translated">Footprints</target>
+        <target >Footprints</target>
       </segment>
     </unit>
     <unit id="ZOZqHeB" name="group.edit.caption">
@@ -258,7 +258,7 @@
       </notes>
       <segment>
         <source>group.edit.caption</source>
-        <target state="translated">Groups</target>
+        <target >Groups</target>
       </segment>
     </unit>
     <unit id="iK5P0V5" name="user.edit.permissions">
@@ -268,7 +268,7 @@
       </notes>
       <segment>
         <source>user.edit.permissions</source>
-        <target state="translated">Permissions</target>
+        <target >Permissions</target>
       </segment>
     </unit>
     <unit id="Fum_mCX" name="manufacturer.caption">
@@ -287,7 +287,7 @@
       </notes>
       <segment>
         <source>measurement_unit.caption</source>
-        <target state="translated">Measurement Unit</target>
+        <target >Measurement Unit</target>
       </segment>
     </unit>
     <unit id="vZGwiMS" name="storelocation.labelp">
@@ -300,7 +300,7 @@
       </notes>
       <segment>
         <source>storelocation.labelp</source>
-        <target state="translated">Storelocations</target>
+        <target >Storelocations</target>
       </segment>
     </unit>
     <unit id="ykqfBBp" name="supplier.caption">
@@ -319,7 +319,7 @@
       </notes>
       <segment>
         <source>user.edit.caption</source>
-        <target state="translated">Users</target>
+        <target >Users</target>
       </segment>
     </unit>
     <unit id="eDE4Z9X" name="user.edit.configuration">
@@ -328,7 +328,7 @@
       </notes>
       <segment>
         <source>user.edit.configuration</source>
-        <target state="translated">Configuration</target>
+        <target >Configuration</target>
       </segment>
     </unit>
     <unit id="3HIFZxy" name="user.edit.password">
@@ -337,7 +337,7 @@
       </notes>
       <segment>
         <source>user.edit.password</source>
-        <target state="translated">Password</target>
+        <target >Password</target>
       </segment>
     </unit>
     <unit id="CpSdWDM" name="user.edit.tfa.caption">
@@ -437,7 +437,7 @@ The user will have to set up all two-factor authentication methods again and pri
       </notes>
       <segment>
         <source>attachment.delete</source>
-        <target state="translated">Delete</target>
+        <target >Delete</target>
       </segment>
     </unit>
     <unit id="ffvhms1" name="attachment.external">
@@ -448,7 +448,7 @@ The user will have to set up all two-factor authentication methods again and pri
       </notes>
       <segment>
         <source>attachment.external</source>
-        <target state="translated">External</target>
+        <target >External</target>
       </segment>
     </unit>
     <unit id="vTU.j2g" name="attachment.preview.alt">
@@ -458,7 +458,7 @@ The user will have to set up all two-factor authentication methods again and pri
       </notes>
       <segment>
         <source>attachment.preview.alt</source>
-        <target state="translated">Attachment thumbnail</target>
+        <target >Attachment thumbnail</target>
       </segment>
     </unit>
     <unit id="CNqXx.c" name="attachment.view">
@@ -469,7 +469,7 @@ The user will have to set up all two-factor authentication methods again and pri
       </notes>
       <segment>
         <source>attachment.view</source>
-        <target state="translated">View</target>
+        <target >View</target>
       </segment>
     </unit>
     <unit id="HnHc.HV" name="attachment.file_not_found">
@@ -481,7 +481,7 @@ The user will have to set up all two-factor authentication methods again and pri
       </notes>
       <segment>
         <source>attachment.file_not_found</source>
-        <target state="translated">File not found</target>
+        <target >File not found</target>
       </segment>
     </unit>
     <unit id="vnfQKjk" name="attachment.secure">
@@ -491,7 +491,7 @@ The user will have to set up all two-factor authentication methods again and pri
       </notes>
       <segment>
         <source>attachment.secure</source>
-        <target state="translated">Private attachment</target>
+        <target >Private attachment</target>
       </segment>
     </unit>
     <unit id="NCjSwVs" name="attachment.create">
@@ -501,7 +501,7 @@ The user will have to set up all two-factor authentication methods again and pri
       </notes>
       <segment>
         <source>attachment.create</source>
-        <target state="translated">Add attachment</target>
+        <target >Add attachment</target>
       </segment>
     </unit>
     <unit id="kxhr8KP" name="part_lot.edit.delete.confirm">
@@ -512,7 +512,7 @@ The user will have to set up all two-factor authentication methods again and pri
       </notes>
       <segment>
         <source>part_lot.edit.delete.confirm</source>
-        <target state="translated">Do you really want to delete this stock? This can not be undone!</target>
+        <target >Do you really want to delete this stock? This can not be undone!</target>
       </segment>
     </unit>
     <unit id="RqM7iAG" name="entity.delete.confirm_title">
@@ -641,7 +641,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>id.label</source>
-        <target state="translated">ID</target>
+        <target >ID</target>
       </segment>
     </unit>
     <unit id="cMLFYZw" name="createdAt">
@@ -658,7 +658,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>createdAt</source>
-        <target state="translated">Created At</target>
+        <target >Created At</target>
       </segment>
     </unit>
     <unit id="ZcUFNEJ" name="lastModified">
@@ -672,7 +672,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>lastModified</source>
-        <target state="translated">Last modified</target>
+        <target >Last modified</target>
       </segment>
     </unit>
     <unit id="noZi5aQ" name="entity.info.parts_count">
@@ -681,7 +681,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>entity.info.parts_count</source>
-        <target state="translated">Count of parts with this element</target>
+        <target >Count of parts with this element</target>
       </segment>
     </unit>
     <unit id="rpzRyMx" name="attachment.list.title">
@@ -690,7 +690,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>attachment.list.title</source>
-        <target state="translated">Attachments list</target>
+        <target >Attachments list</target>
       </segment>
     </unit>
     <unit id="79bMpjW" name="part_list.loading.caption">
@@ -701,7 +701,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part_list.loading.caption</source>
-        <target state="translated">Loading</target>
+        <target >Loading</target>
       </segment>
     </unit>
     <unit id="dJ3yFo4" name="part_list.loading.message">
@@ -712,7 +712,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part_list.loading.message</source>
-        <target state="translated">This can take a moment. If this message do not disappear, try to reload the page.</target>
+        <target >This can take a moment. If this message do not disappear, try to reload the page.</target>
       </segment>
     </unit>
     <unit id="ZQMol4U" name="vendor.base.javascript_hint">
@@ -722,7 +722,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>vendor.base.javascript_hint</source>
-        <target state="translated">Please activate Javascript to use all features!</target>
+        <target >Please activate Javascript to use all features!</target>
       </segment>
     </unit>
     <unit id="0rLRD9e" name="sidebar.big.toggle">
@@ -731,7 +731,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>sidebar.big.toggle</source>
-        <target state="translated">Show/Hide sidebar</target>
+        <target >Show/Hide sidebar</target>
       </segment>
     </unit>
     <unit id="jgfKRbc" name="loading.caption">
@@ -780,7 +780,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>permission.edit.permission</source>
-        <target state="translated">Permissions</target>
+        <target >Permissions</target>
       </segment>
     </unit>
     <unit id="tFYZZcS" name="permission.edit.value">
@@ -789,7 +789,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>permission.edit.value</source>
-        <target state="translated">Value</target>
+        <target >Value</target>
       </segment>
     </unit>
     <unit id="KzyDL60" name="permission.legend.title">
@@ -798,7 +798,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>permission.legend.title</source>
-        <target state="translated">Explanation of the states:</target>
+        <target >Explanation of the states:</target>
       </segment>
     </unit>
     <unit id="owrJ0Qw" name="permission.legend.disallow">
@@ -807,7 +807,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>permission.legend.disallow</source>
-        <target state="translated">Forbidden</target>
+        <target >Forbidden</target>
       </segment>
     </unit>
     <unit id="1nY8d_O" name="permission.legend.allow">
@@ -816,7 +816,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>permission.legend.allow</source>
-        <target state="translated">Allowed</target>
+        <target >Allowed</target>
       </segment>
     </unit>
     <unit id="uNMtwn9" name="permission.legend.inherit">
@@ -825,7 +825,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>permission.legend.inherit</source>
-        <target state="translated">Inherit from (parent) group</target>
+        <target >Inherit from (parent) group</target>
       </segment>
     </unit>
     <unit id="QSE9MT9" name="bool.true">
@@ -834,7 +834,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>bool.true</source>
-        <target state="translated">True</target>
+        <target >True</target>
       </segment>
     </unit>
     <unit id="UlrxUmI" name="bool.false">
@@ -843,7 +843,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>bool.false</source>
-        <target state="translated">False</target>
+        <target >False</target>
       </segment>
     </unit>
     <unit id="haOas0X" name="Yes">
@@ -871,7 +871,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>version.caption</source>
-        <target state="translated">Version</target>
+        <target >Version</target>
       </segment>
     </unit>
     <unit id="GDYG7.b" name="homepage.license">
@@ -881,7 +881,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>homepage.license</source>
-        <target state="translated">License information</target>
+        <target >License information</target>
       </segment>
     </unit>
     <unit id="5nDb2pj" name="homepage.github.caption">
@@ -891,7 +891,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>homepage.github.caption</source>
-        <target state="translated">Project page</target>
+        <target >Project page</target>
       </segment>
     </unit>
     <unit id="7nCeHg7" name="homepage.github.text">
@@ -901,7 +901,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>homepage.github.text</source>
-        <target state="translated"><![CDATA[Downloads, bugreports, to-do-list etc. can be found on <a href="%href%" class="link-external" target="_blank">GitHub project page</a>]]></target>
+        <target ><![CDATA[Downloads, bugreports, to-do-list etc. can be found on <a href="%href%" class="link-external" target="_blank">GitHub project page</a>]]></target>
       </segment>
     </unit>
     <unit id="9pp.6vF" name="homepage.help.caption">
@@ -911,7 +911,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>homepage.help.caption</source>
-        <target state="translated">Help</target>
+        <target >Help</target>
       </segment>
     </unit>
     <unit id="exp3iqv" name="homepage.help.text">
@@ -921,7 +921,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>homepage.help.text</source>
-        <target state="translated"><![CDATA[Help and tips can be found in Wiki the <a href="%href%" class="link-external" target="_blank">GitHub page</a> ]]></target>
+        <target ><![CDATA[Help and tips can be found in Wiki the <a href="%href%" class="link-external" target="_blank">GitHub page</a> ]]></target>
       </segment>
     </unit>
     <unit id="R2g.45a" name="homepage.forum.caption">
@@ -931,7 +931,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>homepage.forum.caption</source>
-        <target state="translated">Forum</target>
+        <target >Forum</target>
       </segment>
     </unit>
     <unit id="nfBdkzp" name="homepage.forum.text">
@@ -941,7 +941,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>homepage.forum.text</source>
-        <target state="translated"><![CDATA[For questions about the Part-DB there is a thread on <a href="%href%" class="link-external" target="_blank">mikrocontroller.net</a>]]></target>
+        <target ><![CDATA[For questions about the Part-DB there is a thread on <a href="%href%" class="link-external" target="_blank">mikrocontroller.net</a>]]></target>
       </segment>
     </unit>
     <unit id="exDsVQ3" name="homepage.wiki.caption">
@@ -951,7 +951,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>homepage.wiki.caption</source>
-        <target state="translated">Wiki</target>
+        <target >Wiki</target>
       </segment>
     </unit>
     <unit id="tdI0IlW" name="homepage.wiki.text">
@@ -961,7 +961,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>homepage.wiki.text</source>
-        <target state="translated"><![CDATA[Further information is available in <a href="%href%" class="link-external" target="_blank">mikrocontroller.net Article</a>]]></target>
+        <target ><![CDATA[Further information is available in <a href="%href%" class="link-external" target="_blank">mikrocontroller.net Article</a>]]></target>
       </segment>
     </unit>
     <unit id="SV0IxK0" name=" homepage.basedOn ">
@@ -990,7 +990,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>mail.footer.email_sent_by</source>
-        <target state="translated">This email was sent automatically by</target>
+        <target >This email was sent automatically by</target>
       </segment>
     </unit>
     <unit id="AchaWxK" name="mail.footer.dont_reply">
@@ -999,7 +999,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>mail.footer.dont_reply</source>
-        <target state="translated">Do not answer to this email.</target>
+        <target >Do not answer to this email.</target>
       </segment>
     </unit>
     <unit id="S6Fot75" name="email.hi %name%">
@@ -1008,7 +1008,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>email.hi %name%</source>
-        <target state="translated">Hi %name%</target>
+        <target >Hi %name%</target>
       </segment>
     </unit>
     <unit id="VKSPbrb" name="email.pw_reset.message">
@@ -1017,7 +1017,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>email.pw_reset.message</source>
-        <target state="translated">somebody (hopefully you) requested a reset of your password. If this request was not made by you, ignore this mail.</target>
+        <target >somebody (hopefully you) requested a reset of your password. If this request was not made by you, ignore this mail.</target>
       </segment>
     </unit>
     <unit id="lu8bcCN" name="email.pw_reset.button">
@@ -1026,7 +1026,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>email.pw_reset.button</source>
-        <target state="translated">Click here to reset password</target>
+        <target >Click here to reset password</target>
       </segment>
     </unit>
     <unit id="tS_htiy" name="email.pw_reset.fallback">
@@ -1035,7 +1035,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>email.pw_reset.fallback</source>
-        <target state="translated"><![CDATA[If this does not work for you, go to <a href="%url%">%url%</a> and enter the following info]]></target>
+        <target ><![CDATA[If this does not work for you, go to <a href="%url%">%url%</a> and enter the following info]]></target>
       </segment>
     </unit>
     <unit id="QBTV5KP" name="email.pw_reset.username">
@@ -1044,7 +1044,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>email.pw_reset.username</source>
-        <target state="translated">Username</target>
+        <target >Username</target>
       </segment>
     </unit>
     <unit id="6UyKd6G" name="email.pw_reset.token">
@@ -1053,7 +1053,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>email.pw_reset.token</source>
-        <target state="translated">Token</target>
+        <target >Token</target>
       </segment>
     </unit>
     <unit id="3Rl4ELy" name="email.pw_reset.valid_unit %date%">
@@ -1062,7 +1062,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>email.pw_reset.valid_unit %date%</source>
-        <target state="translated"><![CDATA[The reset token will be valid until <i>%date%</i>.]]></target>
+        <target ><![CDATA[The reset token will be valid until <i>%date%</i>.]]></target>
       </segment>
     </unit>
     <unit id="ItQbhLs" name="orderdetail.delete">
@@ -1072,7 +1072,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>orderdetail.delete</source>
-        <target state="translated">Delete</target>
+        <target >Delete</target>
       </segment>
     </unit>
     <unit id="uUvRF8P" name="pricedetails.edit.min_qty">
@@ -1081,7 +1081,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>pricedetails.edit.min_qty</source>
-        <target state="translated">Minimum discount quantity</target>
+        <target >Minimum discount quantity</target>
       </segment>
     </unit>
     <unit id="3meOpdA" name="pricedetails.edit.price">
@@ -1090,7 +1090,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>pricedetails.edit.price</source>
-        <target state="translated">Price</target>
+        <target >Price</target>
       </segment>
     </unit>
     <unit id="1gzHhnJ" name="pricedetails.edit.price_qty">
@@ -1099,7 +1099,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>pricedetails.edit.price_qty</source>
-        <target state="translated">for amount</target>
+        <target >for amount</target>
       </segment>
     </unit>
     <unit id="8BF.OZR" name="pricedetail.create">
@@ -1108,7 +1108,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>pricedetail.create</source>
-        <target state="translated">Add price</target>
+        <target >Add price</target>
       </segment>
     </unit>
     <unit id="nS44Iqv" name="part.edit.title">
@@ -1137,7 +1137,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.edit.tab.common</source>
-        <target state="translated">Common</target>
+        <target >Common</target>
       </segment>
     </unit>
     <unit id="RjPp2bd" name="part.edit.tab.manufacturer">
@@ -1146,7 +1146,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.edit.tab.manufacturer</source>
-        <target state="translated">Manufacturer</target>
+        <target >Manufacturer</target>
       </segment>
     </unit>
     <unit id="e9FzmOU" name="part.edit.tab.advanced">
@@ -1155,7 +1155,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.edit.tab.advanced</source>
-        <target state="translated">Advanced</target>
+        <target >Advanced</target>
       </segment>
     </unit>
     <unit id="uc9NwcF" name="part.edit.tab.part_lots">
@@ -1164,7 +1164,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.edit.tab.part_lots</source>
-        <target state="translated">Stocks</target>
+        <target >Stocks</target>
       </segment>
     </unit>
     <unit id="9HrMrf1" name="part.edit.tab.attachments">
@@ -1173,7 +1173,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.edit.tab.attachments</source>
-        <target state="translated">Attachments</target>
+        <target >Attachments</target>
       </segment>
     </unit>
     <unit id="tkdBTwZ" name="part.edit.tab.orderdetails">
@@ -1182,7 +1182,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.edit.tab.orderdetails</source>
-        <target state="translated">Purchase informations</target>
+        <target >Purchase informations</target>
       </segment>
     </unit>
     <unit id="LgSgFFj" name="part.edit.tab.comment">
@@ -1191,7 +1191,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.edit.tab.comment</source>
-        <target state="translated">Comment</target>
+        <target >Comment</target>
       </segment>
     </unit>
     <unit id="h0g53U_" name="part.new.card_title">
@@ -1210,7 +1210,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part_lot.delete</source>
-        <target state="translated">Delete</target>
+        <target >Delete</target>
       </segment>
     </unit>
     <unit id="Ey2BEY6" name="part_lot.create">
@@ -1219,7 +1219,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part_lot.create</source>
-        <target state="translated">Add stock</target>
+        <target >Add stock</target>
       </segment>
     </unit>
     <unit id="D7h1rMv" name="orderdetail.create">
@@ -1228,7 +1228,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>orderdetail.create</source>
-        <target state="translated">Add distributor</target>
+        <target >Add distributor</target>
       </segment>
     </unit>
     <unit id="uKZiiFJ" name="pricedetails.edit.delete.confirm">
@@ -1237,7 +1237,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>pricedetails.edit.delete.confirm</source>
-        <target state="translated">Do you really want to delete this price? This can not be undone.</target>
+        <target >Do you really want to delete this price? This can not be undone.</target>
       </segment>
     </unit>
     <unit id="FIw9JVr" name="orderdetails.edit.delete.confirm">
@@ -1246,7 +1246,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>orderdetails.edit.delete.confirm</source>
-        <target state="translated">Do you really want to delete this distributor info? This can not be undone!</target>
+        <target >Do you really want to delete this distributor info? This can not be undone!</target>
       </segment>
     </unit>
     <unit id="UoflU8w" name="part.info.title">
@@ -1258,7 +1258,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.info.title</source>
-        <target state="translated">Detail info for part</target>
+        <target >Detail info for part</target>
       </segment>
     </unit>
     <unit id="ZrzEsc_" name="part.part_lots.label">
@@ -1267,7 +1267,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.part_lots.label</source>
-        <target state="translated">Stocks</target>
+        <target >Stocks</target>
       </segment>
     </unit>
     <unit id="BWS7Lck" name="comment.label">
@@ -1280,7 +1280,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>comment.label</source>
-        <target state="translated">Comment</target>
+        <target >Comment</target>
       </segment>
     </unit>
     <unit id="MZz0rtU" name="attachment.labelp">
@@ -1290,7 +1290,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>attachment.labelp</source>
-        <target state="translated">Attachments</target>
+        <target >Attachments</target>
       </segment>
     </unit>
     <unit id="b5.SSzx" name="vendor.partinfo.shopping_infos">
@@ -1300,7 +1300,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>vendor.partinfo.shopping_infos</source>
-        <target state="translated">Shopping informations</target>
+        <target >Shopping informations</target>
       </segment>
     </unit>
     <unit id="1Soir6U" name="vendor.partinfo.history">
@@ -1310,7 +1310,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>vendor.partinfo.history</source>
-        <target state="translated">History</target>
+        <target >History</target>
       </segment>
     </unit>
     <unit id="__OuWRw" name="tools.label">
@@ -1326,7 +1326,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>tools.label</source>
-        <target state="translated">Tools</target>
+        <target >Tools</target>
       </segment>
     </unit>
     <unit id="BnHnqwK" name="extended_info.label">
@@ -1335,7 +1335,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>extended_info.label</source>
-        <target state="translated">Extended infos</target>
+        <target >Extended infos</target>
       </segment>
     </unit>
     <unit id="vMya34Z" name="attachment.name">
@@ -1344,7 +1344,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>attachment.name</source>
-        <target state="translated">Name</target>
+        <target >Name</target>
       </segment>
     </unit>
     <unit id="wFzihuM" name="attachment.attachment_type">
@@ -1353,7 +1353,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>attachment.attachment_type</source>
-        <target state="translated">Attachment Type</target>
+        <target >Attachment Type</target>
       </segment>
     </unit>
     <unit id="qbywfNk" name="attachment.file_name">
@@ -1362,7 +1362,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>attachment.file_name</source>
-        <target state="translated">File name</target>
+        <target >File name</target>
       </segment>
     </unit>
     <unit id="MUTx89j" name="attachment.file_size">
@@ -1371,7 +1371,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>attachment.file_size</source>
-        <target state="translated">File size</target>
+        <target >File size</target>
       </segment>
     </unit>
     <unit id="3Vc5_D2" name="attachment.external_file">
@@ -1380,7 +1380,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>attachment.external_file</source>
-        <target state="translated">External file</target>
+        <target >External file</target>
       </segment>
     </unit>
     <unit id="GSjs0LU" name="attachment.download">
@@ -1389,7 +1389,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>attachment.download</source>
-        <target state="translated">Download</target>
+        <target >Download</target>
       </segment>
     </unit>
     <unit id="gexfRxf" name="attachment.edit">
@@ -1398,7 +1398,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>attachment.edit</source>
-        <target state="translated">Edit</target>
+        <target >Edit</target>
       </segment>
     </unit>
     <unit id="xQkqdM5" name="part.isFavorite">
@@ -1407,7 +1407,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.isFavorite</source>
-        <target state="translated">Favorite</target>
+        <target >Favorite</target>
       </segment>
     </unit>
     <unit id="qwRgUmm" name="part.minOrderAmount">
@@ -1416,7 +1416,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.minOrderAmount</source>
-        <target state="translated">Minimum order amount</target>
+        <target >Minimum order amount</target>
       </segment>
     </unit>
     <unit id="t2TNwOq" name="Unknown">
@@ -1425,7 +1425,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>Unknown</source>
-        <target state="translated">Unknown</target>
+        <target >Unknown</target>
       </segment>
     </unit>
     <unit id="WB3sH1G" name="manufacturer.label">
@@ -1439,7 +1439,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>manufacturer.label</source>
-        <target state="translated">Manufacturer</target>
+        <target >Manufacturer</target>
       </segment>
     </unit>
     <unit id="LSnWIG7" name="description.label">
@@ -1452,7 +1452,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>description.label</source>
-        <target state="translated">Description</target>
+        <target >Description</target>
       </segment>
     </unit>
     <unit id="ZY57BXc" name="category.label">
@@ -1466,7 +1466,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>category.label</source>
-        <target state="translated">Category</target>
+        <target >Category</target>
       </segment>
     </unit>
     <unit id="J.AXbaM" name="instock.label">
@@ -1477,7 +1477,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>instock.label</source>
-        <target state="translated">Instock</target>
+        <target >Instock</target>
       </segment>
     </unit>
     <unit id="VYcxdrz" name="mininstock.label">
@@ -1488,7 +1488,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>mininstock.label</source>
-        <target state="translated">Minimum Instock</target>
+        <target >Minimum Instock</target>
       </segment>
     </unit>
     <unit id="griVyRf" name="footprint.label">
@@ -1501,7 +1501,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>footprint.label</source>
-        <target state="translated">Footprint</target>
+        <target >Footprint</target>
       </segment>
     </unit>
     <unit id="LL2dt8U" name="part.avg_price.label">
@@ -1512,7 +1512,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.avg_price.label</source>
-        <target state="translated">Average Price</target>
+        <target >Average Price</target>
       </segment>
     </unit>
     <unit id="3tdTZVD" name="part.supplier.name">
@@ -1521,7 +1521,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.supplier.name</source>
-        <target state="translated">Name</target>
+        <target >Name</target>
       </segment>
     </unit>
     <unit id="RiciNp5" name="part.supplier.partnr">
@@ -1530,7 +1530,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.supplier.partnr</source>
-        <target state="translated">Partnr.</target>
+        <target >Partnr.</target>
       </segment>
     </unit>
     <unit id="_SpdO.3" name="part.order.minamount">
@@ -1539,7 +1539,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.order.minamount</source>
-        <target state="translated">Minimum amount</target>
+        <target >Minimum amount</target>
       </segment>
     </unit>
     <unit id="4RsODVR" name="part.order.price">
@@ -1548,7 +1548,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.order.price</source>
-        <target state="translated">Price</target>
+        <target >Price</target>
       </segment>
     </unit>
     <unit id="Lr0c8K3" name="part.order.single_price">
@@ -1557,7 +1557,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.order.single_price</source>
-        <target state="translated">Unit Price</target>
+        <target >Unit Price</target>
       </segment>
     </unit>
     <unit id="EKnfKFl" name="edit.caption_short">
@@ -1566,7 +1566,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>edit.caption_short</source>
-        <target state="translated">Edit</target>
+        <target >Edit</target>
       </segment>
     </unit>
     <unit id="qNZM46r" name="delete.caption">
@@ -1575,7 +1575,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>delete.caption</source>
-        <target state="translated">Delete</target>
+        <target >Delete</target>
       </segment>
     </unit>
     <unit id="aUihK3c" name="part_lots.description">
@@ -1584,7 +1584,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part_lots.description</source>
-        <target state="translated">Description</target>
+        <target >Description</target>
       </segment>
     </unit>
     <unit id="SOcXkyd" name="part_lots.storage_location">
@@ -1593,7 +1593,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part_lots.storage_location</source>
-        <target state="translated">Storage location</target>
+        <target >Storage location</target>
       </segment>
     </unit>
     <unit id="jVYrm0U" name="part_lots.amount">
@@ -1602,7 +1602,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part_lots.amount</source>
-        <target state="translated">Amount</target>
+        <target >Amount</target>
       </segment>
     </unit>
     <unit id="upshmqD" name="part_lots.location_unknown">
@@ -1611,7 +1611,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part_lots.location_unknown</source>
-        <target state="translated">Storage location unknown</target>
+        <target >Storage location unknown</target>
       </segment>
     </unit>
     <unit id="BTUni9r" name="part_lots.instock_unknown">
@@ -1620,7 +1620,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part_lots.instock_unknown</source>
-        <target state="translated">Amount unknown</target>
+        <target >Amount unknown</target>
       </segment>
     </unit>
     <unit id="NFa2bFQ" name="part_lots.expiration_date">
@@ -1629,7 +1629,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part_lots.expiration_date</source>
-        <target state="translated">Expiration date</target>
+        <target >Expiration date</target>
       </segment>
     </unit>
     <unit id="axp.g13" name="part_lots.is_expired">
@@ -1638,7 +1638,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part_lots.is_expired</source>
-        <target state="translated">Expired</target>
+        <target >Expired</target>
       </segment>
     </unit>
     <unit id="EWX1Sti" name="part_lots.need_refill">
@@ -1647,7 +1647,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part_lots.need_refill</source>
-        <target state="translated">Needs refill</target>
+        <target >Needs refill</target>
       </segment>
     </unit>
     <unit id="E4S6Pvg" name="part.info.prev_picture">
@@ -1656,7 +1656,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.info.prev_picture</source>
-        <target state="translated">Previous picture</target>
+        <target >Previous picture</target>
       </segment>
     </unit>
     <unit id="2PpQKL9" name="part.info.next_picture">
@@ -1665,7 +1665,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.info.next_picture</source>
-        <target state="translated">Next picture</target>
+        <target >Next picture</target>
       </segment>
     </unit>
     <unit id="8zIQiUL" name="part.mass.tooltip">
@@ -1674,7 +1674,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.mass.tooltip</source>
-        <target state="translated">Mass</target>
+        <target >Mass</target>
       </segment>
     </unit>
     <unit id="9o2FQD1" name="part.needs_review.badge">
@@ -1683,7 +1683,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.needs_review.badge</source>
-        <target state="translated">Needs review</target>
+        <target >Needs review</target>
       </segment>
     </unit>
     <unit id="dF6ZXKR" name="part.favorite.badge">
@@ -1692,7 +1692,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.favorite.badge</source>
-        <target state="translated">Favorite</target>
+        <target >Favorite</target>
       </segment>
     </unit>
     <unit id="EgLR013" name="part.obsolete.badge">
@@ -1701,7 +1701,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.obsolete.badge</source>
-        <target state="translated">No longer available</target>
+        <target >No longer available</target>
       </segment>
     </unit>
     <unit id="cTsojYo" name="part.edit.btn">
@@ -1740,7 +1740,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.delete.confirm_title</source>
-        <target state="translated">Do you really want to delete this part?</target>
+        <target >Do you really want to delete this part?</target>
       </segment>
     </unit>
     <unit id="v4cgmfN" name="part.delete.message">
@@ -1749,7 +1749,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.delete.message</source>
-        <target state="translated">This part and any associated information (like attachments, price informations, etc.) will be deleted. This can not be undone!</target>
+        <target >This part and any associated information (like attachments, price informations, etc.) will be deleted. This can not be undone!</target>
       </segment>
     </unit>
     <unit id="CJHxw_e" name="part.delete">
@@ -1758,7 +1758,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>part.delete</source>
-        <target state="translated">Delete part</target>
+        <target >Delete part</target>
       </segment>
     </unit>
     <unit id="7BufWRt" name="parts_list.all.title">
@@ -1767,7 +1767,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>parts_list.all.title</source>
-        <target state="translated">All parts</target>
+        <target >All parts</target>
       </segment>
     </unit>
     <unit id="TOD4O3j" name="parts_list.category.title">
@@ -1776,7 +1776,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>parts_list.category.title</source>
-        <target state="translated">Parts with category</target>
+        <target >Parts with category</target>
       </segment>
     </unit>
     <unit id="yCsUZQZ" name="parts_list.footprint.title">
@@ -1785,7 +1785,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>parts_list.footprint.title</source>
-        <target state="translated">Parts with footprint</target>
+        <target >Parts with footprint</target>
       </segment>
     </unit>
     <unit id="j4vXh3o" name="parts_list.manufacturer.title">
@@ -1794,7 +1794,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>parts_list.manufacturer.title</source>
-        <target state="translated">Parts with manufacturer</target>
+        <target >Parts with manufacturer</target>
       </segment>
     </unit>
     <unit id="6uogzri" name="parts_list.search.title">
@@ -1803,7 +1803,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>parts_list.search.title</source>
-        <target state="translated">Search Parts</target>
+        <target >Search Parts</target>
       </segment>
     </unit>
     <unit id="gwE_D3w" name="parts_list.storelocation.title">
@@ -1812,7 +1812,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>parts_list.storelocation.title</source>
-        <target state="translated">Parts with store locations</target>
+        <target >Parts with store locations</target>
       </segment>
     </unit>
     <unit id="K3Nj1UQ" name="parts_list.supplier.title">
@@ -1821,7 +1821,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>parts_list.supplier.title</source>
-        <target state="translated">Parts with supplier</target>
+        <target >Parts with supplier</target>
       </segment>
     </unit>
     <unit id="DBlWwba" name="parts_list.tags.title">
@@ -1830,7 +1830,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>parts_list.tags.title</source>
-        <target state="translated">Parts with tag</target>
+        <target >Parts with tag</target>
       </segment>
     </unit>
     <unit id="5tFcxpX" name="entity.info.common.tab">
@@ -1839,7 +1839,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>entity.info.common.tab</source>
-        <target state="translated">Common</target>
+        <target >Common</target>
       </segment>
     </unit>
     <unit id="F0da8x0" name="entity.info.statistics.tab">
@@ -1848,7 +1848,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>entity.info.statistics.tab</source>
-        <target state="translated">Statistics</target>
+        <target >Statistics</target>
       </segment>
     </unit>
     <unit id="a0Bt1My" name="entity.info.name">
@@ -1857,7 +1857,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>entity.info.name</source>
-        <target state="translated">Name</target>
+        <target >Name</target>
       </segment>
     </unit>
     <unit id="pqMTPTv" name="entity.info.parent">
@@ -1867,7 +1867,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>entity.info.parent</source>
-        <target state="translated">Parent</target>
+        <target >Parent</target>
       </segment>
     </unit>
     <unit id="nDEGgY0" name="entity.edit.btn">
@@ -1876,7 +1876,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>entity.edit.btn</source>
-        <target state="translated">Edit</target>
+        <target >Edit</target>
       </segment>
     </unit>
     <unit id="Rsrawma" name="entity.info.children_count">
@@ -1885,7 +1885,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>entity.info.children_count</source>
-        <target state="translated">Count of children elements</target>
+        <target >Count of children elements</target>
       </segment>
     </unit>
     <unit id="3WtQFdr" name="tfa.check.title">
@@ -1924,14 +1924,14 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>user.logout</source>
-        <target state="translated">Logout</target>
+        <target >Logout</target>
       </segment>
     </unit>
     <unit id="INlwXoR" name="tfa.check.code.label">
       <notes>
         <note category="file-source" priority="1">templates\security\2fa_form.html.twig:6</note>
       </notes>
-      <segment state="translated">
+      <segment >
         <source>tfa.check.code.label</source>
         <target>Authenticator app code</target>
       </segment>
@@ -1940,7 +1940,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">templates\security\2fa_form.html.twig:10</note>
       </notes>
-      <segment state="translated">
+      <segment >
         <source>tfa.check.code.help</source>
         <target>Enter the 6-digit code from your Authenticator App or one of your backup codes if the Authenticator is not available.</target>
       </segment>
@@ -2021,7 +2021,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>pw_reset.password_forget</source>
-        <target state="translated">Forgot username/password?</target>
+        <target >Forgot username/password?</target>
       </segment>
     </unit>
     <unit id="hbW2JJr" name="pw_reset.new_pw.header.title">
@@ -2030,7 +2030,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>pw_reset.new_pw.header.title</source>
-        <target state="translated">Set new password</target>
+        <target >Set new password</target>
       </segment>
     </unit>
     <unit id="3Tgn6io" name="pw_reset.request.header.title">
@@ -2039,7 +2039,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>pw_reset.request.header.title</source>
-        <target state="translated">Request a new password</target>
+        <target >Request a new password</target>
       </segment>
     </unit>
     <unit id="J1aHED." name="tfa_u2f.http_warning">
@@ -2192,7 +2192,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>user.info.label</source>
-        <target state="translated">User informations</target>
+        <target >User informations</target>
       </segment>
     </unit>
     <unit id="PwI64fM" name="user.firstName.label">
@@ -2286,7 +2286,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>user.settings.label</source>
-        <target state="translated">User settings</target>
+        <target >User settings</target>
       </segment>
     </unit>
     <unit id="zqcVMWA" name="user_settings.data.label">
@@ -2653,7 +2653,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>sidebar.toggle</source>
-        <target state="translated">Toggle Sidebar</target>
+        <target >Toggle Sidebar</target>
       </segment>
     </unit>
     <unit id="el2uFyW" name="search.options.label">
@@ -2663,7 +2663,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>search.options.label</source>
-        <target state="translated">Search options</target>
+        <target >Search options</target>
       </segment>
     </unit>
     <unit id="kTRK6H_" name="name.label">
@@ -2674,7 +2674,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>name.label</source>
-        <target state="translated">Name</target>
+        <target >Name</target>
       </segment>
     </unit>
     <unit id="RezjOdV" name="storelocation.label">
@@ -2687,7 +2687,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>storelocation.label</source>
-        <target state="translated">Store location</target>
+        <target >Store location</target>
       </segment>
     </unit>
     <unit id="z1DQ7QF" name="ordernumber.label.short">
@@ -2697,7 +2697,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>ordernumber.label.short</source>
-        <target state="translated">Ordernr.</target>
+        <target >Ordernr.</target>
       </segment>
     </unit>
     <unit id="zT4k8ZJ" name="supplier.label">
@@ -2708,7 +2708,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>supplier.label</source>
-        <target state="translated">Supplier</target>
+        <target >Supplier</target>
       </segment>
     </unit>
     <unit id="Bs5QvO0" name="search.deactivateBarcode">
@@ -2718,7 +2718,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>search.deactivateBarcode</source>
-        <target state="translated">Deact. Barcode</target>
+        <target >Deact. Barcode</target>
       </segment>
     </unit>
     <unit id="biFM.cv" name="search.regexmatching">
@@ -2728,7 +2728,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>search.regexmatching</source>
-        <target state="translated">Reg.Ex. Matching</target>
+        <target >Reg.Ex. Matching</target>
       </segment>
     </unit>
     <unit id="rOLpDSq" name="go.exclamation">
@@ -2738,7 +2738,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>go.exclamation</source>
-        <target state="translated">Go!</target>
+        <target >Go!</target>
       </segment>
     </unit>
     <unit id="iqU5ScK" name="barcode.scan">
@@ -2748,7 +2748,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>barcode.scan</source>
-        <target state="translated">Scan Barcode</target>
+        <target >Scan Barcode</target>
       </segment>
     </unit>
     <unit id="PRvW.EI" name="user.loggedin.label">
@@ -2758,7 +2758,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>user.loggedin.label</source>
-        <target state="translated">Logged in as</target>
+        <target >Logged in as</target>
       </segment>
     </unit>
     <unit id="rruB2OR" name="user.login">
@@ -2768,7 +2768,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>user.login</source>
-        <target state="translated">Login</target>
+        <target >Login</target>
       </segment>
     </unit>
     <unit id="Eorzg9b" name="ui.toggle_darkmode">
@@ -2777,7 +2777,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>ui.toggle_darkmode</source>
-        <target state="translated">Darkmode</target>
+        <target >Darkmode</target>
       </segment>
     </unit>
     <unit id="oabvQfM" name="user.language_select">
@@ -2789,7 +2789,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>user.language_select</source>
-        <target state="translated">Switch Language</target>
+        <target >Switch Language</target>
       </segment>
     </unit>
     <unit id="rMCnZt." name="language.english">
@@ -2799,7 +2799,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>language.english</source>
-        <target state="translated">English</target>
+        <target >English</target>
       </segment>
     </unit>
     <unit id="OmHgIys" name="language.german">
@@ -2809,7 +2809,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>language.german</source>
-        <target state="translated">German</target>
+        <target >German</target>
       </segment>
     </unit>
     <unit id="g6tt4u1" name="device.labelp">
@@ -2823,7 +2823,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>device.labelp</source>
-        <target state="translated">Devices</target>
+        <target >Devices</target>
       </segment>
     </unit>
     <unit id="Kw3N1AA" name="actions">
@@ -2835,7 +2835,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>actions</source>
-        <target state="translated">Actions</target>
+        <target >Actions</target>
       </segment>
     </unit>
     <unit id=".x0rFcf" name="datasource">
@@ -2847,7 +2847,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>datasource</source>
-        <target state="translated">Datasource</target>
+        <target >Datasource</target>
       </segment>
     </unit>
     <unit id="NSnSQf4" name="manufacturer.labelp">
@@ -2859,7 +2859,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>manufacturer.labelp</source>
-        <target state="translated">Manufacturers</target>
+        <target >Manufacturers</target>
       </segment>
     </unit>
     <unit id="DQQjhS_" name="supplier.labelp">
@@ -2871,7 +2871,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>supplier.labelp</source>
-        <target state="translated">Suppliers</target>
+        <target >Suppliers</target>
       </segment>
     </unit>
     <unit id="V1QubEL" name="attachment.download_failed">
@@ -2883,7 +2883,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment.download_failed</source>
-        <target state="translated">Download of the external attachment failed.</target>
+        <target >Download of the external attachment failed.</target>
       </segment>
     </unit>
     <unit id="A7i8za4" name="entity.edit_flash">
@@ -2960,7 +2960,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.edited_flash.invalid</source>
-        <target state="translated">Error during saving: Please check your inputs!</target>
+        <target >Error during saving: Please check your inputs!</target>
       </segment>
     </unit>
     <unit id="suYw2UL" name="part.deleted">
@@ -2990,7 +2990,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.created_flash.invalid</source>
-        <target state="translated">Error during creation: Please check your inputs!</target>
+        <target >Error during creation: Please check your inputs!</target>
       </segment>
     </unit>
     <unit id="EQgFD4g" name="flash.password_change_needed">
@@ -2999,7 +2999,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>flash.password_change_needed</source>
-        <target state="translated">Password change needed!</target>
+        <target >Password change needed!</target>
       </segment>
     </unit>
     <unit id="B1T9Kt6" name="pw_reset.user_or_email">
@@ -3008,7 +3008,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>pw_reset.user_or_email</source>
-        <target state="translated">Username / Email</target>
+        <target >Username / Email</target>
       </segment>
     </unit>
     <unit id="C_43E5l" name="pw_reset.request.success">
@@ -3017,7 +3017,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>pw_reset.request.success</source>
-        <target state="translated">Reset request was successful! Please check your emails for further instructions.</target>
+        <target >Reset request was successful! Please check your emails for further instructions.</target>
       </segment>
     </unit>
     <unit id="Ytlen4L" name="pw_reset.username">
@@ -3026,7 +3026,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>pw_reset.username</source>
-        <target state="translated">Username</target>
+        <target >Username</target>
       </segment>
     </unit>
     <unit id="kCND5gR" name="pw_reset.token">
@@ -3035,7 +3035,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>pw_reset.token</source>
-        <target state="translated">Token</target>
+        <target >Token</target>
       </segment>
     </unit>
     <unit id="Kz.sA0j" name="pw_reset.new_pw.error">
@@ -3044,7 +3044,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>pw_reset.new_pw.error</source>
-        <target state="translated">Username or Token invalid! Please check your input.</target>
+        <target >Username or Token invalid! Please check your input.</target>
       </segment>
     </unit>
     <unit id="Uy8yPX1" name="pw_reset.new_pw.success">
@@ -3053,7 +3053,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>pw_reset.new_pw.success</source>
-        <target state="translated">Password was reset successfully. You can now login with your new password.</target>
+        <target >Password was reset successfully. You can now login with your new password.</target>
       </segment>
     </unit>
     <unit id="L8g8bFy" name="user.edit.reset_success">
@@ -3164,7 +3164,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment.edit.name</source>
-        <target state="translated">Name</target>
+        <target >Name</target>
       </segment>
     </unit>
     <unit id="ya0_S7f" name="attachment.table.type">
@@ -3173,7 +3173,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment.table.type</source>
-        <target state="translated">Attachment type</target>
+        <target >Attachment type</target>
       </segment>
     </unit>
     <unit id="b_m6Jth" name="attachment.table.element">
@@ -3182,7 +3182,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment.table.element</source>
-        <target state="translated">Associated element</target>
+        <target >Associated element</target>
       </segment>
     </unit>
     <unit id="pw75u4x" name="part.table.addedDate">
@@ -3192,7 +3192,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.table.addedDate</source>
-        <target state="translated">Created at</target>
+        <target >Created at</target>
       </segment>
     </unit>
     <unit id="eDb7mzC" name="part.table.lastModified">
@@ -3202,7 +3202,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.table.lastModified</source>
-        <target state="translated">Last modified</target>
+        <target >Last modified</target>
       </segment>
     </unit>
     <unit id="xUV7Oz9" name="attachment.edit.show_in_table">
@@ -3212,7 +3212,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment.edit.show_in_table</source>
-        <target state="translated">Show in table</target>
+        <target >Show in table</target>
       </segment>
     </unit>
     <unit id="tb6kG2x" name="true">
@@ -3226,7 +3226,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>true</source>
-        <target state="translated">true</target>
+        <target >true</target>
       </segment>
     </unit>
     <unit id=".LzxZZC" name="false">
@@ -3241,7 +3241,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>false</source>
-        <target state="translated">false</target>
+        <target >false</target>
       </segment>
     </unit>
     <unit id="QRmJnyi" name="attachment.edit.isPicture">
@@ -3250,7 +3250,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment.edit.isPicture</source>
-        <target state="translated">Picture?</target>
+        <target >Picture?</target>
       </segment>
     </unit>
     <unit id="3lJuQED" name="attachment.edit.is3DModel">
@@ -3259,7 +3259,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment.edit.is3DModel</source>
-        <target state="translated">3D model?</target>
+        <target >3D model?</target>
       </segment>
     </unit>
     <unit id="ogh2av7" name="attachment.edit.isBuiltin">
@@ -3268,7 +3268,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment.edit.isBuiltin</source>
-        <target state="translated">Builtin?</target>
+        <target >Builtin?</target>
       </segment>
     </unit>
     <unit id="t2EE5cB" name="part.table.name">
@@ -3277,7 +3277,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.table.name</source>
-        <target state="translated">Name</target>
+        <target >Name</target>
       </segment>
     </unit>
     <unit id="eshqdG." name="part.table.id">
@@ -3286,7 +3286,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.table.id</source>
-        <target state="translated">Id</target>
+        <target >Id</target>
       </segment>
     </unit>
     <unit id="zKnTKYw" name="part.table.description">
@@ -3295,7 +3295,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.table.description</source>
-        <target state="translated">Description</target>
+        <target >Description</target>
       </segment>
     </unit>
     <unit id="2eOA0az" name="part.table.category">
@@ -3304,7 +3304,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.table.category</source>
-        <target state="translated">Category</target>
+        <target >Category</target>
       </segment>
     </unit>
     <unit id="jCf96.O" name="part.table.footprint">
@@ -3313,7 +3313,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.table.footprint</source>
-        <target state="translated">Footprint</target>
+        <target >Footprint</target>
       </segment>
     </unit>
     <unit id="b46OytM" name="part.table.manufacturer">
@@ -3322,7 +3322,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.table.manufacturer</source>
-        <target state="translated">Manufacturer</target>
+        <target >Manufacturer</target>
       </segment>
     </unit>
     <unit id="T0ifXD5" name="part.table.storeLocations">
@@ -3331,7 +3331,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.table.storeLocations</source>
-        <target state="translated">Store locations</target>
+        <target >Store locations</target>
       </segment>
     </unit>
     <unit id="rD.1skI" name="part.table.amount">
@@ -3340,7 +3340,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.table.amount</source>
-        <target state="translated">Amount</target>
+        <target >Amount</target>
       </segment>
     </unit>
     <unit id="Mv9g23S" name="part.table.minamount">
@@ -3349,7 +3349,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.table.minamount</source>
-        <target state="translated">Min. Amount</target>
+        <target >Min. Amount</target>
       </segment>
     </unit>
     <unit id="GjwSknL" name="part.table.partUnit">
@@ -3358,7 +3358,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.table.partUnit</source>
-        <target state="translated">Measurement Unit</target>
+        <target >Measurement Unit</target>
       </segment>
     </unit>
     <unit id="DJ9YTs_" name="part.table.needsReview">
@@ -3367,7 +3367,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.table.needsReview</source>
-        <target state="translated">Needs review</target>
+        <target >Needs review</target>
       </segment>
     </unit>
     <unit id="TSiqJH6" name="part.table.favorite">
@@ -3376,7 +3376,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.table.favorite</source>
-        <target state="translated">Favorite</target>
+        <target >Favorite</target>
       </segment>
     </unit>
     <unit id="n0h1ozV" name="part.table.manufacturingStatus">
@@ -3385,7 +3385,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.table.manufacturingStatus</source>
-        <target state="translated">Status</target>
+        <target >Status</target>
       </segment>
     </unit>
     <unit id="MBCdfAy" name="m_status.unknown">
@@ -3396,7 +3396,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>m_status.unknown</source>
-        <target state="translated">Unknown</target>
+        <target >Unknown</target>
       </segment>
     </unit>
     <unit id="BEnlUff" name="m_status.announced">
@@ -3406,7 +3406,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>m_status.announced</source>
-        <target state="translated">Announced</target>
+        <target >Announced</target>
       </segment>
     </unit>
     <unit id="TN5xR7J" name="m_status.active">
@@ -3416,7 +3416,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>m_status.active</source>
-        <target state="translated">Active</target>
+        <target >Active</target>
       </segment>
     </unit>
     <unit id="0McKh_8" name="m_status.nrfnd">
@@ -3426,7 +3426,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>m_status.nrfnd</source>
-        <target state="translated">Not recommended for new designs</target>
+        <target >Not recommended for new designs</target>
       </segment>
     </unit>
     <unit id="L7yLwn0" name="m_status.eol">
@@ -3436,7 +3436,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>m_status.eol</source>
-        <target state="translated">End of life</target>
+        <target >End of life</target>
       </segment>
     </unit>
     <unit id="5jxVP1H" name="m_status.discontinued">
@@ -3446,7 +3446,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>m_status.discontinued</source>
-        <target state="translated">Discontinued</target>
+        <target >Discontinued</target>
       </segment>
     </unit>
     <unit id="HTkvjkE" name="part.table.mpn">
@@ -3455,7 +3455,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.table.mpn</source>
-        <target state="translated">MPN</target>
+        <target >MPN</target>
       </segment>
     </unit>
     <unit id="q_AsQoZ" name="part.table.mass">
@@ -3464,7 +3464,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.table.mass</source>
-        <target state="translated">Mass</target>
+        <target >Mass</target>
       </segment>
     </unit>
     <unit id="Cwisdej" name="part.table.tags">
@@ -3473,7 +3473,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.table.tags</source>
-        <target state="translated">Tags</target>
+        <target >Tags</target>
       </segment>
     </unit>
     <unit id="gGfALE0" name="part.table.attachments">
@@ -3491,7 +3491,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>flash.login_successful</source>
-        <target state="translated">Login successful</target>
+        <target >Login successful</target>
       </segment>
     </unit>
     <unit id="ths2hVl" name="category.edit.default_comment.placeholder">
@@ -3500,7 +3500,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>category.edit.default_comment.placeholder</source>
-        <target state="translated">e.g. useful for switching</target>
+        <target >e.g. useful for switching</target>
       </segment>
     </unit>
     <unit id="2xohoLw" name="JSON">
@@ -3549,7 +3549,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>import.abort_on_validation.help</source>
-        <target state="translated">When this option is activated, the whole import process is aborted if invalid data is detected. If not selected, the invalid data is ignored and the importer will try to import the other elements.</target>
+        <target >When this option is activated, the whole import process is aborted if invalid data is detected. If not selected, the invalid data is ignored and the importer will try to import the other elements.</target>
       </segment>
     </unit>
     <unit id="Peaf8Qu" name="import.csv_separator">
@@ -3618,7 +3618,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment.edit.secure_file.help</source>
-        <target state="translated">An attachment marked private can only accessed by authenticated users with the proper permission. If this is activated no thumbnails are generated and access to file is less perfomant.</target>
+        <target >An attachment marked private can only accessed by authenticated users with the proper permission. If this is activated no thumbnails are generated and access to file is less perfomant.</target>
       </segment>
     </unit>
     <unit id="pCsSiaz" name="attachment.edit.url.help">
@@ -3627,7 +3627,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment.edit.url.help</source>
-        <target state="translated">You can specify a url to an external file here, or input an keyword which is used to search in builtin ressources (e.g. footprints)</target>
+        <target >You can specify a url to an external file here, or input an keyword which is used to search in builtin ressources (e.g. footprints)</target>
       </segment>
     </unit>
     <unit id="kAlm7LR" name="attachment.edit.attachment_type">
@@ -3636,7 +3636,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment.edit.attachment_type</source>
-        <target state="translated">Attachment type</target>
+        <target >Attachment type</target>
       </segment>
     </unit>
     <unit id="v6FVutS" name="attachment.edit.secure_file">
@@ -3645,7 +3645,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment.edit.secure_file</source>
-        <target state="translated">Private attachment</target>
+        <target >Private attachment</target>
       </segment>
     </unit>
     <unit id="TRy0RSZ" name="attachment.edit.url">
@@ -3654,7 +3654,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment.edit.url</source>
-        <target state="translated">URL</target>
+        <target >URL</target>
       </segment>
     </unit>
     <unit id="ZZjrGgS" name="attachment.edit.download_url">
@@ -3663,7 +3663,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment.edit.download_url</source>
-        <target state="translated">Download external file</target>
+        <target >Download external file</target>
       </segment>
     </unit>
     <unit id="Pew.kQr" name="attachment.edit.file">
@@ -3672,7 +3672,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment.edit.file</source>
-        <target state="translated">Upload file</target>
+        <target >Upload file</target>
       </segment>
     </unit>
     <unit id="jv6wCpP" name="orderdetails.edit.supplierpartnr">
@@ -3681,7 +3681,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>orderdetails.edit.supplierpartnr</source>
-        <target state="translated">Order number</target>
+        <target >Order number</target>
       </segment>
     </unit>
     <unit id="CimWRtu" name="orderdetails.edit.supplier">
@@ -3690,7 +3690,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>orderdetails.edit.supplier</source>
-        <target state="translated">Supplier</target>
+        <target >Supplier</target>
       </segment>
     </unit>
     <unit id="qfScBBj" name="orderdetails.edit.url">
@@ -3699,7 +3699,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>orderdetails.edit.url</source>
-        <target state="translated">Link to offer</target>
+        <target >Link to offer</target>
       </segment>
     </unit>
     <unit id="D_288lV" name="orderdetails.edit.obsolete">
@@ -3708,7 +3708,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>orderdetails.edit.obsolete</source>
-        <target state="translated">No longer available</target>
+        <target >No longer available</target>
       </segment>
     </unit>
     <unit id="7r_nI9R" name="orderdetails.edit.supplierpartnr.placeholder">
@@ -3717,7 +3717,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>orderdetails.edit.supplierpartnr.placeholder</source>
-        <target state="translated">e.g. BC 547</target>
+        <target >e.g. BC 547</target>
       </segment>
     </unit>
     <unit id="HZwLFnu" name="part.edit.name">
@@ -3726,7 +3726,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.edit.name</source>
-        <target state="translated">Name</target>
+        <target >Name</target>
       </segment>
     </unit>
     <unit id="9MhdLlK" name="part.edit.description">
@@ -3735,7 +3735,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.edit.description</source>
-        <target state="translated">Description</target>
+        <target >Description</target>
       </segment>
     </unit>
     <unit id="Xzj9BP8" name="part.edit.mininstock">
@@ -3744,7 +3744,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.edit.mininstock</source>
-        <target state="translated">Minimum stock</target>
+        <target >Minimum stock</target>
       </segment>
     </unit>
     <unit id="1VN9ldj" name="part.edit.category">
@@ -3753,7 +3753,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.edit.category</source>
-        <target state="translated">Category</target>
+        <target >Category</target>
       </segment>
     </unit>
     <unit id="IROdosg" name="part.edit.footprint">
@@ -3762,7 +3762,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.edit.footprint</source>
-        <target state="translated">Footprint</target>
+        <target >Footprint</target>
       </segment>
     </unit>
     <unit id="KHkWjTz" name="part.edit.tags">
@@ -3771,7 +3771,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.edit.tags</source>
-        <target state="translated">Tags</target>
+        <target >Tags</target>
       </segment>
     </unit>
     <unit id="4ok13kM" name="part.edit.manufacturer.label">
@@ -3780,7 +3780,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.edit.manufacturer.label</source>
-        <target state="translated">Manufacturer</target>
+        <target >Manufacturer</target>
       </segment>
     </unit>
     <unit id="0qS9528" name="part.edit.manufacturer_url.label">
@@ -3789,7 +3789,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.edit.manufacturer_url.label</source>
-        <target state="translated">Link to product page</target>
+        <target >Link to product page</target>
       </segment>
     </unit>
     <unit id="tuRAA_9" name="part.edit.mpn">
@@ -3798,7 +3798,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.edit.mpn</source>
-        <target state="translated">Manufacturer part number</target>
+        <target >Manufacturer part number</target>
       </segment>
     </unit>
     <unit id="rcE_03k" name="part.edit.manufacturing_status">
@@ -3807,7 +3807,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.edit.manufacturing_status</source>
-        <target state="translated">Manufacturing status</target>
+        <target >Manufacturing status</target>
       </segment>
     </unit>
     <unit id="tdUi2VV" name="part.edit.needs_review">
@@ -3816,7 +3816,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.edit.needs_review</source>
-        <target state="translated">Needs review</target>
+        <target >Needs review</target>
       </segment>
     </unit>
     <unit id="thxZ5LH" name="part.edit.is_favorite">
@@ -3825,7 +3825,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.edit.is_favorite</source>
-        <target state="translated">Favorite</target>
+        <target >Favorite</target>
       </segment>
     </unit>
     <unit id="epWuzE5" name="part.edit.mass">
@@ -3834,7 +3834,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.edit.mass</source>
-        <target state="translated">Mass</target>
+        <target >Mass</target>
       </segment>
     </unit>
     <unit id="kpiGJo0" name="part.edit.partUnit">
@@ -3843,7 +3843,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.edit.partUnit</source>
-        <target state="translated">Measuring unit</target>
+        <target >Measuring unit</target>
       </segment>
     </unit>
     <unit id="LTZRVlq" name="part.edit.comment">
@@ -3852,7 +3852,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.edit.comment</source>
-        <target state="translated">Comment</target>
+        <target >Comment</target>
       </segment>
     </unit>
     <unit id="cIVLqUs" name="part.edit.master_attachment">
@@ -3861,7 +3861,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.edit.master_attachment</source>
-        <target state="translated">Preview image</target>
+        <target >Preview image</target>
       </segment>
     </unit>
     <unit id="vZwa6za" name="part.edit.save">
@@ -3890,7 +3890,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.edit.name.placeholder</source>
-        <target state="translated">e.g. BC547</target>
+        <target >e.g. BC547</target>
       </segment>
     </unit>
     <unit id="rMHwTBI" name="part.edit.description.placeholder">
@@ -3899,7 +3899,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.edit.description.placeholder</source>
-        <target state="translated">e.g. NPN 45V, 0,1A, 0,5W</target>
+        <target >e.g. NPN 45V, 0,1A, 0,5W</target>
       </segment>
     </unit>
     <unit id=".V3Lfkf" name="part.editmininstock.placeholder">
@@ -3908,7 +3908,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.editmininstock.placeholder</source>
-        <target state="translated">e.g. 1</target>
+        <target >e.g. 1</target>
       </segment>
     </unit>
     <unit id="6QS4K7r" name="part_lot.edit.description">
@@ -3917,7 +3917,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part_lot.edit.description</source>
-        <target state="translated">Description</target>
+        <target >Description</target>
       </segment>
     </unit>
     <unit id="IwPHYB0" name="part_lot.edit.location">
@@ -3926,7 +3926,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part_lot.edit.location</source>
-        <target state="translated">Storage location</target>
+        <target >Storage location</target>
       </segment>
     </unit>
     <unit id="VEybZz7" name="part_lot.edit.amount">
@@ -3935,7 +3935,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part_lot.edit.amount</source>
-        <target state="translated">Amount</target>
+        <target >Amount</target>
       </segment>
     </unit>
     <unit id="OPwK3Lq" name="part_lot.edit.instock_unknown">
@@ -3944,7 +3944,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part_lot.edit.instock_unknown</source>
-        <target state="translated">Amount unknown</target>
+        <target >Amount unknown</target>
       </segment>
     </unit>
     <unit id="uHBgsns" name="part_lot.edit.needs_refill">
@@ -3953,7 +3953,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part_lot.edit.needs_refill</source>
-        <target state="translated">Needs refill</target>
+        <target >Needs refill</target>
       </segment>
     </unit>
     <unit id="xorQnlc" name="part_lot.edit.expiration_date">
@@ -3962,7 +3962,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part_lot.edit.expiration_date</source>
-        <target state="translated">Expiration date</target>
+        <target >Expiration date</target>
       </segment>
     </unit>
     <unit id="OjwY78X" name="part_lot.edit.comment">
@@ -3971,7 +3971,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part_lot.edit.comment</source>
-        <target state="translated">Comment</target>
+        <target >Comment</target>
       </segment>
     </unit>
     <unit id=".8YTKod" name="perm.group.other">
@@ -3980,7 +3980,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>perm.group.other</source>
-        <target state="translated">Miscellaneous</target>
+        <target >Miscellaneous</target>
       </segment>
     </unit>
     <unit id="wPnvtWt" name="tfa_google.enable">
@@ -4078,7 +4078,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>user.currency.label</source>
-        <target state="translated">Preferred currency</target>
+        <target >Preferred currency</target>
       </segment>
     </unit>
     <unit id="FX3KkuQ" name="save">
@@ -4137,7 +4137,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment.label</source>
-        <target state="translated">Attachment</target>
+        <target >Attachment</target>
       </segment>
     </unit>
     <unit id="ASJkLeb" name="attachment_type.label">
@@ -4146,7 +4146,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment_type.label</source>
-        <target state="translated">Attachment type</target>
+        <target >Attachment type</target>
       </segment>
     </unit>
     <unit id="uR5eAkv" name="device.label">
@@ -4155,7 +4155,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>device.label</source>
-        <target state="translated">Project</target>
+        <target >Project</target>
       </segment>
     </unit>
     <unit id="QPnDbnv" name="measurement_unit.label">
@@ -4164,7 +4164,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>measurement_unit.label</source>
-        <target state="translated">Measurement unit</target>
+        <target >Measurement unit</target>
       </segment>
     </unit>
     <unit id="oZsKN5d" name="part.label">
@@ -4173,7 +4173,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part.label</source>
-        <target state="translated">Part</target>
+        <target >Part</target>
       </segment>
     </unit>
     <unit id="ucI6a2E" name="part_lot.label">
@@ -4182,7 +4182,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>part_lot.label</source>
-        <target state="translated">Part lot</target>
+        <target >Part lot</target>
       </segment>
     </unit>
     <unit id="5lJftbn" name="currency.label">
@@ -4191,7 +4191,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>currency.label</source>
-        <target state="translated">Currency</target>
+        <target >Currency</target>
       </segment>
     </unit>
     <unit id="zD9yfVF" name="orderdetail.label">
@@ -4200,7 +4200,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>orderdetail.label</source>
-        <target state="translated">Order detail</target>
+        <target >Order detail</target>
       </segment>
     </unit>
     <unit id="7_5mSa9" name="pricedetail.label">
@@ -4209,7 +4209,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>pricedetail.label</source>
-        <target state="translated">Price detail</target>
+        <target >Price detail</target>
       </segment>
     </unit>
     <unit id="S4Z.EZY" name="user.label">
@@ -4218,7 +4218,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>user.label</source>
-        <target state="translated">User</target>
+        <target >User</target>
       </segment>
     </unit>
     <unit id="jYAc6_i" name="markdown.loading">
@@ -4227,7 +4227,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>markdown.loading</source>
-        <target state="translated">Loading markdown. If this message does not disappear, try to reload the page.</target>
+        <target >Loading markdown. If this message does not disappear, try to reload the page.</target>
       </segment>
     </unit>
     <unit id="JVlktlG" name="pw_reset.email.subject">
@@ -4236,7 +4236,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>pw_reset.email.subject</source>
-        <target state="translated">Password reset for your Part-DB account</target>
+        <target >Password reset for your Part-DB account</target>
       </segment>
     </unit>
     <unit id="sgHHET2" name="tree.tools.edit">
@@ -4256,7 +4256,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>tree.tools.show</source>
-        <target state="translated">Show</target>
+        <target >Show</target>
       </segment>
     </unit>
     <unit id="nQkvo2A" name="tree.tools.system">
@@ -4265,7 +4265,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>tree.tools.system</source>
-        <target state="translated">System</target>
+        <target >System</target>
       </segment>
     </unit>
     <unit id="Umzi6EP" name="tree.tools.edit.attachment_types">
@@ -4324,7 +4324,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>tree.tools.edit.storelocation</source>
-        <target state="translated">Storage locations</target>
+        <target >Storage locations</target>
       </segment>
     </unit>
     <unit id="AQHSEDZ" name="tree.tools.edit.footprint">
@@ -4333,7 +4333,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>tree.tools.edit.footprint</source>
-        <target state="translated">Footprints</target>
+        <target >Footprints</target>
       </segment>
     </unit>
     <unit id="RBBr5gI" name="tree.tools.edit.currency">
@@ -4342,7 +4342,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>tree.tools.edit.currency</source>
-        <target state="translated">Currencies</target>
+        <target >Currencies</target>
       </segment>
     </unit>
     <unit id="624h27t" name="tree.tools.edit.measurement_unit">
@@ -4351,7 +4351,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>tree.tools.edit.measurement_unit</source>
-        <target state="translated">Measurement Unit</target>
+        <target >Measurement Unit</target>
       </segment>
     </unit>
     <unit id="CBX7i_1" name="tree.tools.edit.part">
@@ -4360,7 +4360,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>tree.tools.edit.part</source>
-        <target state="translated">Part</target>
+        <target >Part</target>
       </segment>
     </unit>
     <unit id="cMe4sAM" name="tree.tools.show.all_parts">
@@ -4379,7 +4379,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>tree.tools.show.all_attachments</source>
-        <target state="translated">Attachments</target>
+        <target >Attachments</target>
       </segment>
     </unit>
     <unit id="D1it4FK" name="tree.tools.system.users">
@@ -4388,7 +4388,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>tree.tools.system.users</source>
-        <target state="translated">Users</target>
+        <target >Users</target>
       </segment>
     </unit>
     <unit id="7rI.aP2" name="tree.tools.system.groups">
@@ -4397,7 +4397,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>tree.tools.system.groups</source>
-        <target state="translated">Groups</target>
+        <target >Groups</target>
       </segment>
     </unit>
     <unit id="Y7FfSJt" name="entity.tree.new">
@@ -4425,7 +4425,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>validator.noneofitschild.self</source>
-        <target state="translated">A element can not be its own parent.</target>
+        <target >A element can not be its own parent.</target>
       </segment>
     </unit>
     <unit id="pr07aV4" name="validator.noneofitschild.children">
@@ -4434,7 +4434,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>validator.noneofitschild.children</source>
-        <target state="translated">The parent can not be one of the children of itself.</target>
+        <target >The parent can not be one of the children of itself.</target>
       </segment>
     </unit>
     <unit id="0IF0VIF" name="validator.isSelectable">
@@ -4443,7 +4443,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>validator.isSelectable</source>
-        <target state="translated">The element must be selectable.</target>
+        <target >The element must be selectable.</target>
       </segment>
     </unit>
     <unit id="nd207H6" name="validator.part_lot.location_full.no_increasment">
@@ -4452,7 +4452,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>validator.part_lot.location_full.no_increasment</source>
-        <target state="translated">The storage location was marked as full, so you can not increase the instock amount. (New amount max. {{ old_amount }})</target>
+        <target >The storage location was marked as full, so you can not increase the instock amount. (New amount max. {{ old_amount }})</target>
       </segment>
     </unit>
     <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
@@ -4461,7 +4461,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>validator.part_lot.location_full</source>
-        <target state="translated">The storage location was marked as full, so you can not add a new part to it.</target>
+        <target >The storage location was marked as full, so you can not add a new part to it.</target>
       </segment>
     </unit>
     <unit id="6vIlN5q" name="validator.part_lot.only_existing">
@@ -4470,7 +4470,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>validator.part_lot.only_existing</source>
-        <target state="translated">The storage location was marked as "only existing", so you can not add new part to it.</target>
+        <target >The storage location was marked as "only existing", so you can not add new part to it.</target>
       </segment>
     </unit>
     <unit id="BNQk2e7" name="validator.part_lot.single_part">
@@ -4479,7 +4479,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>validator.part_lot.single_part</source>
-        <target state="translated">The storage location was marked as "single part", so you can not add a new part to it.</target>
+        <target >The storage location was marked as "single part", so you can not add a new part to it.</target>
       </segment>
     </unit>
     <unit id="7yhBzTg" name="m_status.active.help">
@@ -4488,7 +4488,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>m_status.active.help</source>
-        <target state="translated">The part is currently and in forseeable future in production</target>
+        <target >The part is currently and in forseeable future in production</target>
       </segment>
     </unit>
     <unit id="UsEaNqy" name="m_status.announced.help">
@@ -4497,7 +4497,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>m_status.announced.help</source>
-        <target state="translated">The part was announced but is not available yet.</target>
+        <target >The part was announced but is not available yet.</target>
       </segment>
     </unit>
     <unit id="huj6JXj" name="m_status.discontinued.help">
@@ -4506,7 +4506,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>m_status.discontinued.help</source>
-        <target state="translated">The part is discontinued and not produced anymore.</target>
+        <target >The part is discontinued and not produced anymore.</target>
       </segment>
     </unit>
     <unit id="xytsZcE" name="m_status.eol.help">
@@ -4515,7 +4515,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>m_status.eol.help</source>
-        <target state="translated">The product has reached its end-of-life and the production will be stopped soon.</target>
+        <target >The product has reached its end-of-life and the production will be stopped soon.</target>
       </segment>
     </unit>
     <unit id="t8VuM2P" name="m_status.nrfnd.help">
@@ -4524,7 +4524,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>m_status.nrfnd.help</source>
-        <target state="translated">The part is currently in production but is not recommended for new designs.</target>
+        <target >The part is currently in production but is not recommended for new designs.</target>
       </segment>
     </unit>
     <unit id="8x._AWi" name="m_status.unknown.help">
@@ -4533,7 +4533,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>m_status.unknown.help</source>
-        <target state="translated">The manufacturing status of the part is not known.</target>
+        <target >The manufacturing status of the part is not known.</target>
       </segment>
     </unit>
     <unit id="g4ahva6" name="flash.success">
@@ -4542,7 +4542,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>flash.success</source>
-        <target state="translated">Success</target>
+        <target >Success</target>
       </segment>
     </unit>
     <unit id="NehzWgk" name="flash.error">
@@ -4551,7 +4551,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>flash.error</source>
-        <target state="translated">Error</target>
+        <target >Error</target>
       </segment>
     </unit>
     <unit id="h8vhq_r" name="flash.warning">
@@ -4560,7 +4560,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>flash.warning</source>
-        <target state="translated">Warning</target>
+        <target >Warning</target>
       </segment>
     </unit>
     <unit id="m5p2YEz" name="flash.notice">
@@ -4569,7 +4569,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>flash.notice</source>
-        <target state="translated">Notice</target>
+        <target >Notice</target>
       </segment>
     </unit>
     <unit id="YA5xZMy" name="flash.info">
@@ -4578,7 +4578,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>flash.info</source>
-        <target state="translated">Info</target>
+        <target >Info</target>
       </segment>
     </unit>
     <unit id="hYFfpL7" name="validator.noLockout">
@@ -4587,7 +4587,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>validator.noLockout</source>
-        <target state="translated">You can not withdraw yourself the "change permission" permission, to prevent that you lockout yourself accidentally.</target>
+        <target >You can not withdraw yourself the "change permission" permission, to prevent that you lockout yourself accidentally.</target>
       </segment>
     </unit>
     <unit id="dxkuAbb" name="attachment_type.edit.filetype_filter">
@@ -4596,7 +4596,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment_type.edit.filetype_filter</source>
-        <target state="translated">Allowed file extensions.</target>
+        <target >Allowed file extensions.</target>
       </segment>
     </unit>
     <unit id="1KMaa2P" name="attachment_type.edit.filetype_filter.help">
@@ -4605,7 +4605,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment_type.edit.filetype_filter.help</source>
-        <target state="translated">You can specify a comma separated list of file extension or mimetypes, which an uploaded file must have when assigned to this attachment type. To allow all supported image files you can use image/*.</target>
+        <target >You can specify a comma separated list of file extension or mimetypes, which an uploaded file must have when assigned to this attachment type. To allow all supported image files you can use image/*.</target>
       </segment>
     </unit>
     <unit id="wkNc9Pm" name="attachment_type.edit.filetype_filter.placeholder">
@@ -4614,7 +4614,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment_type.edit.filetype_filter.placeholder</source>
-        <target state="translated">e.g. .txt, application/pdf, image/*</target>
+        <target >e.g. .txt, application/pdf, image/*</target>
       </segment>
     </unit>
     <unit id="nEC2Xzw" name="part.name.placeholder">
@@ -4633,7 +4633,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>entity.edit.not_selectable</source>
-        <target state="translated">Not selectable</target>
+        <target >Not selectable</target>
       </segment>
     </unit>
     <unit id="5aUSkZz" name="entity.edit.not_selectable.help">
@@ -4642,7 +4642,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>entity.edit.not_selectable.help</source>
-        <target state="translated">If this option is activated, this element can not be assigned to a part property. Useful if this element is just used for grouping.</target>
+        <target >If this option is activated, this element can not be assigned to a part property. Useful if this element is just used for grouping.</target>
       </segment>
     </unit>
     <unit id="en0DwC3" name="bbcode.hint">
@@ -4651,7 +4651,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>bbcode.hint</source>
-        <target state="translated">You can use BBCode here (e.g. [b]Bold[/b])</target>
+        <target >You can use BBCode here (e.g. [b]Bold[/b])</target>
       </segment>
     </unit>
     <unit id="Q5hCjzL" name="entity.create">
@@ -4660,7 +4660,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>entity.create</source>
-        <target state="translated">Create element</target>
+        <target >Create element</target>
       </segment>
     </unit>
     <unit id="bBoYWyf" name="entity.edit.save">
@@ -4669,7 +4669,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>entity.edit.save</source>
-        <target state="translated">Save </target>
+        <target >Save </target>
       </segment>
     </unit>
     <unit id="HeL2lAW" name="category.edit.disable_footprints">
@@ -4678,7 +4678,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>category.edit.disable_footprints</source>
-        <target state="translated">Disable footprints</target>
+        <target >Disable footprints</target>
       </segment>
     </unit>
     <unit id="lpS1zKs" name="category.edit.disable_footprints.help">
@@ -4687,7 +4687,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>category.edit.disable_footprints.help</source>
-        <target state="translated">If this option is activated, the footprint property is disabled for all parts with this category.</target>
+        <target >If this option is activated, the footprint property is disabled for all parts with this category.</target>
       </segment>
     </unit>
     <unit id="1w_nFL7" name="category.edit.disable_manufacturers">
@@ -4696,7 +4696,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>category.edit.disable_manufacturers</source>
-        <target state="translated">Disable manufacturers</target>
+        <target >Disable manufacturers</target>
       </segment>
     </unit>
     <unit id="tNK6Sfl" name="category.edit.disable_manufacturers.help">
@@ -4705,7 +4705,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>category.edit.disable_manufacturers.help</source>
-        <target state="translated">If this option is activated, the manufacturer property is disabled for all parts with this category.</target>
+        <target >If this option is activated, the manufacturer property is disabled for all parts with this category.</target>
       </segment>
     </unit>
     <unit id="HOZICfA" name="category.edit.disable_autodatasheets">
@@ -4714,7 +4714,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>category.edit.disable_autodatasheets</source>
-        <target state="translated">Disable automatic datasheet links</target>
+        <target >Disable automatic datasheet links</target>
       </segment>
     </unit>
     <unit id="5HWLQAL" name="category.edit.disable_autodatasheets.help">
@@ -4723,7 +4723,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>category.edit.disable_autodatasheets.help</source>
-        <target state="translated">If this option is activated, no automatic links to datasheets are created for parts with this category.</target>
+        <target >If this option is activated, no automatic links to datasheets are created for parts with this category.</target>
       </segment>
     </unit>
     <unit id="lfFBz4D" name="category.edit.disable_properties">
@@ -4732,7 +4732,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>category.edit.disable_properties</source>
-        <target state="translated">Disable properties</target>
+        <target >Disable properties</target>
       </segment>
     </unit>
     <unit id="gu7SqNR" name="category.edit.disable_properties.help">
@@ -4741,7 +4741,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>category.edit.disable_properties.help</source>
-        <target state="translated">If this option is activated, the part properties are disabled for parts with this category.</target>
+        <target >If this option is activated, the part properties are disabled for parts with this category.</target>
       </segment>
     </unit>
     <unit id="0FP6XeT" name="category.edit.partname_hint">
@@ -4750,7 +4750,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>category.edit.partname_hint</source>
-        <target state="translated">Part name hint</target>
+        <target >Part name hint</target>
       </segment>
     </unit>
     <unit id="BG4G_f9" name="category.edit.partname_hint.placeholder">
@@ -4759,7 +4759,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>category.edit.partname_hint.placeholder</source>
-        <target state="translated">e.g. 100nF</target>
+        <target >e.g. 100nF</target>
       </segment>
     </unit>
     <unit id="LbTbeDm" name="category.edit.partname_regex">
@@ -4768,7 +4768,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>category.edit.partname_regex</source>
-        <target state="translated">Name filter</target>
+        <target >Name filter</target>
       </segment>
     </unit>
     <unit id="UH78POJ" name="category.edit.default_description">
@@ -4777,7 +4777,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>category.edit.default_description</source>
-        <target state="translated">Default description</target>
+        <target >Default description</target>
       </segment>
     </unit>
     <unit id="8hlqVRs" name="category.edit.default_description.placeholder">
@@ -4786,7 +4786,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>category.edit.default_description.placeholder</source>
-        <target state="translated">e.g. Capacitor, 10mm x 10mm, SMD</target>
+        <target >e.g. Capacitor, 10mm x 10mm, SMD</target>
       </segment>
     </unit>
     <unit id="QMPrbSY" name="category.edit.default_comment">
@@ -4795,7 +4795,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>category.edit.default_comment</source>
-        <target state="translated">Default comment</target>
+        <target >Default comment</target>
       </segment>
     </unit>
     <unit id="KN33Vgx" name="company.edit.address">
@@ -4804,7 +4804,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>company.edit.address</source>
-        <target state="translated">Address</target>
+        <target >Address</target>
       </segment>
     </unit>
     <unit id="AMjZLA3" name="company.edit.address.placeholder">
@@ -4813,7 +4813,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>company.edit.address.placeholder</source>
-        <target state="translated">e.g. Examplestreet 314
+        <target >e.g. Examplestreet 314
 Exampletown</target>
       </segment>
     </unit>
@@ -4823,7 +4823,7 @@ Exampletown</target>
       </notes>
       <segment>
         <source>company.edit.phone_number</source>
-        <target state="translated">Phone number</target>
+        <target >Phone number</target>
       </segment>
     </unit>
     <unit id="VSMS9Jw" name="company.edit.phone_number.placeholder">
@@ -4832,7 +4832,7 @@ Exampletown</target>
       </notes>
       <segment>
         <source>company.edit.phone_number.placeholder</source>
-        <target state="translated">+49 12345 6789</target>
+        <target >+49 12345 6789</target>
       </segment>
     </unit>
     <unit id="khUB2so" name="company.edit.fax_number">
@@ -4841,7 +4841,7 @@ Exampletown</target>
       </notes>
       <segment>
         <source>company.edit.fax_number</source>
-        <target state="translated">Fax number</target>
+        <target >Fax number</target>
       </segment>
     </unit>
     <unit id="63TXMfg" name="company.edit.email">
@@ -4850,7 +4850,7 @@ Exampletown</target>
       </notes>
       <segment>
         <source>company.edit.email</source>
-        <target state="translated">Email</target>
+        <target >Email</target>
       </segment>
     </unit>
     <unit id="vTq5HxO" name="company.edit.email.placeholder">
@@ -4859,7 +4859,7 @@ Exampletown</target>
       </notes>
       <segment>
         <source>company.edit.email.placeholder</source>
-        <target state="translated">e.g. contact@foo.bar</target>
+        <target >e.g. contact@foo.bar</target>
       </segment>
     </unit>
     <unit id="jv3fl1U" name="company.edit.website">
@@ -4868,7 +4868,7 @@ Exampletown</target>
       </notes>
       <segment>
         <source>company.edit.website</source>
-        <target state="translated">Website</target>
+        <target >Website</target>
       </segment>
     </unit>
     <unit id="fCwuIQc" name="company.edit.website.placeholder">
@@ -4877,7 +4877,7 @@ Exampletown</target>
       </notes>
       <segment>
         <source>company.edit.website.placeholder</source>
-        <target state="translated">https://www.foo.bar</target>
+        <target >https://www.foo.bar</target>
       </segment>
     </unit>
     <unit id="l4BUu.S" name="company.edit.auto_product_url">
@@ -4886,7 +4886,7 @@ Exampletown</target>
       </notes>
       <segment>
         <source>company.edit.auto_product_url</source>
-        <target state="translated">Product url</target>
+        <target >Product url</target>
       </segment>
     </unit>
     <unit id="UaJhZGe" name="company.edit.auto_product_url.help">
@@ -4895,7 +4895,7 @@ Exampletown</target>
       </notes>
       <segment>
         <source>company.edit.auto_product_url.help</source>
-        <target state="translated">This field is used to determine an link to the part on the company page. %PARTNR% will be replaced with the order number.</target>
+        <target >This field is used to determine an link to the part on the company page. %PARTNR% will be replaced with the order number.</target>
       </segment>
     </unit>
     <unit id="22S3ulf" name="company.edit.auto_product_url.placeholder">
@@ -4904,7 +4904,7 @@ Exampletown</target>
       </notes>
       <segment>
         <source>company.edit.auto_product_url.placeholder</source>
-        <target state="translated">https://foo.bar/product/%PARTNR%</target>
+        <target >https://foo.bar/product/%PARTNR%</target>
       </segment>
     </unit>
     <unit id="NZUfSAR" name="currency.edit.iso_code">
@@ -4913,7 +4913,7 @@ Exampletown</target>
       </notes>
       <segment>
         <source>currency.edit.iso_code</source>
-        <target state="translated">ISO code</target>
+        <target >ISO code</target>
       </segment>
     </unit>
     <unit id="9YIkqmF" name="currency.edit.exchange_rate">
@@ -4922,7 +4922,7 @@ Exampletown</target>
       </notes>
       <segment>
         <source>currency.edit.exchange_rate</source>
-        <target state="translated">Exchange rate</target>
+        <target >Exchange rate</target>
       </segment>
     </unit>
     <unit id="n496LjY" name="footprint.edit.3d_model">
@@ -4931,7 +4931,7 @@ Exampletown</target>
       </notes>
       <segment>
         <source>footprint.edit.3d_model</source>
-        <target state="translated">3D model</target>
+        <target >3D model</target>
       </segment>
     </unit>
     <unit id="bxMaU3Y" name="mass_creation.lines">
@@ -4940,7 +4940,7 @@ Exampletown</target>
       </notes>
       <segment>
         <source>mass_creation.lines</source>
-        <target state="translated">Input</target>
+        <target >Input</target>
       </segment>
     </unit>
     <unit id="nIwyuSG" name="mass_creation.lines.placeholder">
@@ -4949,7 +4949,7 @@ Exampletown</target>
       </notes>
       <segment>
         <source>mass_creation.lines.placeholder</source>
-        <target state="translated">Element 1
+        <target >Element 1
 Element 2
 Element 3</target>
       </segment>
@@ -4960,7 +4960,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>entity.mass_creation.btn</source>
-        <target state="translated">Create</target>
+        <target >Create</target>
       </segment>
     </unit>
     <unit id="oqwo_n5" name="measurement_unit.edit.is_integer">
@@ -4969,7 +4969,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>measurement_unit.edit.is_integer</source>
-        <target state="translated">Is integer</target>
+        <target >Is integer</target>
       </segment>
     </unit>
     <unit id="ks8LoMb" name="measurement_unit.edit.is_integer.help">
@@ -4978,7 +4978,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>measurement_unit.edit.is_integer.help</source>
-        <target state="translated">If this option is activated, all values with this unit will be rounded to whole numbers.</target>
+        <target >If this option is activated, all values with this unit will be rounded to whole numbers.</target>
       </segment>
     </unit>
     <unit id=".TAAW6t" name="measurement_unit.edit.use_si_prefix">
@@ -4987,7 +4987,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>measurement_unit.edit.use_si_prefix</source>
-        <target state="translated">Use SI prefix</target>
+        <target >Use SI prefix</target>
       </segment>
     </unit>
     <unit id="EZh.nn7" name="measurement_unit.edit.use_si_prefix.help">
@@ -4996,7 +4996,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>measurement_unit.edit.use_si_prefix.help</source>
-        <target state="translated">If this option is activated, values are outputted with SI prefixes (e.g. 1,2kg instead of 1200g)</target>
+        <target >If this option is activated, values are outputted with SI prefixes (e.g. 1,2kg instead of 1200g)</target>
       </segment>
     </unit>
     <unit id="zha3lRe" name="measurement_unit.edit.unit_symbol">
@@ -5005,7 +5005,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>measurement_unit.edit.unit_symbol</source>
-        <target state="translated">Unit symbol</target>
+        <target >Unit symbol</target>
       </segment>
     </unit>
     <unit id="AxSvu9V" name="measurement_unit.edit.unit_symbol.placeholder">
@@ -5014,7 +5014,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>measurement_unit.edit.unit_symbol.placeholder</source>
-        <target state="translated">e.g. m</target>
+        <target >e.g. m</target>
       </segment>
     </unit>
     <unit id="L68lNgx" name="storelocation.edit.is_full.label">
@@ -5023,7 +5023,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>storelocation.edit.is_full.label</source>
-        <target state="translated">Storelocation full</target>
+        <target >Storelocation full</target>
       </segment>
     </unit>
     <unit id="dsw_ivP" name="storelocation.edit.is_full.help">
@@ -5032,7 +5032,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>storelocation.edit.is_full.help</source>
-        <target state="translated">If this option is selected, it is neither possible to add new parts to this storelocation or to increase the amount of existing parts.</target>
+        <target >If this option is selected, it is neither possible to add new parts to this storelocation or to increase the amount of existing parts.</target>
       </segment>
     </unit>
     <unit id="jenFqgq" name="storelocation.limit_to_existing.label">
@@ -5041,7 +5041,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>storelocation.limit_to_existing.label</source>
-        <target state="translated">Limit to existing parts</target>
+        <target >Limit to existing parts</target>
       </segment>
     </unit>
     <unit id="ftawtbm" name="storelocation.limit_to_existing.help">
@@ -5050,7 +5050,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>storelocation.limit_to_existing.help</source>
-        <target state="translated">If this option is activated, it is not possible to add new parts to this storelocation, but the amount of existing parts can be increased.</target>
+        <target >If this option is activated, it is not possible to add new parts to this storelocation, but the amount of existing parts can be increased.</target>
       </segment>
     </unit>
     <unit id="1DWk7ny" name="storelocation.only_single_part.label">
@@ -5059,7 +5059,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>storelocation.only_single_part.label</source>
-        <target state="translated">Only single part</target>
+        <target >Only single part</target>
       </segment>
     </unit>
     <unit id="np0unjZ" name="storelocation.only_single_part.help">
@@ -5068,7 +5068,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>storelocation.only_single_part.help</source>
-        <target state="translated">If this option is activated, only a single part (with every amount) can be assigned to this store location. Useful for small SMD boxes or feeders.</target>
+        <target >If this option is activated, only a single part (with every amount) can be assigned to this store location. Useful for small SMD boxes or feeders.</target>
       </segment>
     </unit>
     <unit id="AE1UiRe" name="storelocation.storage_type.label">
@@ -5077,7 +5077,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>storelocation.storage_type.label</source>
-        <target state="translated">Storage type</target>
+        <target >Storage type</target>
       </segment>
     </unit>
     <unit id="3UBRYaM" name="storelocation.storage_type.help">
@@ -5086,7 +5086,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>storelocation.storage_type.help</source>
-        <target state="translated">You can select a measurement unit here, which a part must have to be able to be assigned to this storage loaction</target>
+        <target >You can select a measurement unit here, which a part must have to be able to be assigned to this storage loaction</target>
       </segment>
     </unit>
     <unit id="xBJM0.O" name="supplier.edit.default_currency">
@@ -5095,7 +5095,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>supplier.edit.default_currency</source>
-        <target state="translated">Default currency</target>
+        <target >Default currency</target>
       </segment>
     </unit>
     <unit id="9o2s0eF" name="supplier.shipping_costs.label">
@@ -5104,7 +5104,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>supplier.shipping_costs.label</source>
-        <target state="translated">Shipping Costs</target>
+        <target >Shipping Costs</target>
       </segment>
     </unit>
     <unit id="sG3lwwH" name="user.username.placeholder">
@@ -5113,7 +5113,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>user.username.placeholder</source>
-        <target state="translated">e.g. j.doe</target>
+        <target >e.g. j.doe</target>
       </segment>
     </unit>
     <unit id="birjZUl" name="user.firstName.placeholder">
@@ -5122,7 +5122,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>user.firstName.placeholder</source>
-        <target state="translated">e.g John</target>
+        <target >e.g John</target>
       </segment>
     </unit>
     <unit id="Z9pc7NJ" name="user.lastName.placeholder">
@@ -5131,7 +5131,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>user.lastName.placeholder</source>
-        <target state="translated">e.g. Doe</target>
+        <target >e.g. Doe</target>
       </segment>
     </unit>
     <unit id="VLB.yla" name="user.email.placeholder">
@@ -5140,7 +5140,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>user.email.placeholder</source>
-        <target state="translated">j.doe@ecorp.com</target>
+        <target >j.doe@ecorp.com</target>
       </segment>
     </unit>
     <unit id="UjUjKNF" name="user.department.placeholder">
@@ -5149,7 +5149,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>user.department.placeholder</source>
-        <target state="translated">e.g. Development</target>
+        <target >e.g. Development</target>
       </segment>
     </unit>
     <unit id="C65DPNY" name="user.settings.pw_new.label">
@@ -5158,7 +5158,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>user.settings.pw_new.label</source>
-        <target state="translated">New password</target>
+        <target >New password</target>
       </segment>
     </unit>
     <unit id="isiBSF3" name="user.settings.pw_confirm.label">
@@ -5167,7 +5167,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>user.settings.pw_confirm.label</source>
-        <target state="translated">Confirm new password</target>
+        <target >Confirm new password</target>
       </segment>
     </unit>
     <unit id="coDk7Mi" name="user.edit.needs_pw_change">
@@ -5176,7 +5176,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>user.edit.needs_pw_change</source>
-        <target state="translated">User needs to change password</target>
+        <target >User needs to change password</target>
       </segment>
     </unit>
     <unit id="aU6FQLf" name="user.edit.user_disabled">
@@ -5185,7 +5185,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>user.edit.user_disabled</source>
-        <target state="translated">User disbaled (no login possible)</target>
+        <target >User disbaled (no login possible)</target>
       </segment>
     </unit>
     <unit id="zPJhxi6" name="user.create">
@@ -5194,7 +5194,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>user.create</source>
-        <target state="translated">Create user</target>
+        <target >Create user</target>
       </segment>
     </unit>
     <unit id="SxI0Jji" name="user.edit.save">
@@ -5203,7 +5203,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>user.edit.save</source>
-        <target state="translated">Save</target>
+        <target >Save</target>
       </segment>
     </unit>
     <unit id="oGnU8Jt" name="entity.edit.reset">
@@ -5212,7 +5212,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>entity.edit.reset</source>
-        <target state="translated">Discard changes</target>
+        <target >Discard changes</target>
       </segment>
     </unit>
     <unit id="eG9UnaY" name="part.withdraw.caption:">
@@ -5222,7 +5222,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>part.withdraw.caption:</source>
-        <target state="translated">Withdraw parts:</target>
+        <target >Withdraw parts:</target>
       </segment>
     </unit>
     <unit id="7TiUzGF" name="part.withdraw.btn">
@@ -5232,7 +5232,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>part.withdraw.btn</source>
-        <target state="translated">Withdraw</target>
+        <target >Withdraw</target>
       </segment>
     </unit>
     <unit id="RVKdVNt" name="part.withdraw.comment:">
@@ -5242,7 +5242,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>part.withdraw.comment:</source>
-        <target state="translated">Comment/Purpose</target>
+        <target >Comment/Purpose</target>
       </segment>
     </unit>
     <unit id="kXcojTi" name="part.add.caption">
@@ -5252,7 +5252,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>part.add.caption</source>
-        <target state="translated">Add parts</target>
+        <target >Add parts</target>
       </segment>
     </unit>
     <unit id="rYoCVp9" name="part.add.btn">
@@ -5262,7 +5262,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>part.add.btn</source>
-        <target state="translated">Add</target>
+        <target >Add</target>
       </segment>
     </unit>
     <unit id="4CUEJg5" name="part.add.comment">
@@ -5272,7 +5272,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>part.add.comment</source>
-        <target state="translated">Comment/Purpose</target>
+        <target >Comment/Purpose</target>
       </segment>
     </unit>
     <unit id="zIFsIyd" name="admin.comment">
@@ -5331,7 +5331,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>homepage.basedOn</source>
-        <target state="translated">Based on work of</target>
+        <target >Based on work of</target>
       </segment>
     </unit>
     <unit id="PlY3xmo" name="homepage.others">
@@ -5340,7 +5340,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>homepage.others</source>
-        <target state="translated">and others</target>
+        <target >and others</target>
       </segment>
     </unit>
     <unit id="cpRdMwo" name="part.order.price_per">
@@ -5349,7 +5349,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>part.order.price_per</source>
-        <target state="translated">Price per</target>
+        <target >Price per</target>
       </segment>
     </unit>
     <unit id="1n22zD9" name="part.withdraw.caption">
@@ -5358,7 +5358,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>part.withdraw.caption</source>
-        <target state="translated">Withdraw parts</target>
+        <target >Withdraw parts</target>
       </segment>
     </unit>
     <unit id="pVVBLyB" name="datatable.datatable.lengthMenu">
@@ -5376,7 +5376,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.group.parts</source>
-        <target state="translated">Parts</target>
+        <target >Parts</target>
       </segment>
     </unit>
     <unit id="WLb5wES" name="perm.group.structures">
@@ -5385,7 +5385,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.group.structures</source>
-        <target state="translated">Data structures</target>
+        <target >Data structures</target>
       </segment>
     </unit>
     <unit id="ziA7M4Z" name="perm.group.system">
@@ -5394,7 +5394,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.group.system</source>
-        <target state="translated">System</target>
+        <target >System</target>
       </segment>
     </unit>
     <unit id="qPM1wy5" name="perm.parts">
@@ -5403,7 +5403,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.parts</source>
-        <target state="translated">Common</target>
+        <target >Common</target>
       </segment>
     </unit>
     <unit id="eeUmOBN" name="perm.read">
@@ -5412,7 +5412,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.read</source>
-        <target state="translated">View</target>
+        <target >View</target>
       </segment>
     </unit>
     <unit id="lMypPBw" name="perm.edit">
@@ -5421,7 +5421,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.edit</source>
-        <target state="translated">Edit</target>
+        <target >Edit</target>
       </segment>
     </unit>
     <unit id="d8mILUm" name="perm.create">
@@ -5430,7 +5430,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.create</source>
-        <target state="translated">Create</target>
+        <target >Create</target>
       </segment>
     </unit>
     <unit id="cPI6oKn" name="perm.part.move">
@@ -5439,7 +5439,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.move</source>
-        <target state="translated">Change category</target>
+        <target >Change category</target>
       </segment>
     </unit>
     <unit id="oCKKcDZ" name="perm.delete">
@@ -5448,7 +5448,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.delete</source>
-        <target state="translated">Delete</target>
+        <target >Delete</target>
       </segment>
     </unit>
     <unit id="blHcQm6" name="perm.part.search">
@@ -5457,7 +5457,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.search</source>
-        <target state="translated">Search</target>
+        <target >Search</target>
       </segment>
     </unit>
     <unit id="YaLEthp" name="perm.part.all_parts">
@@ -5466,7 +5466,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.all_parts</source>
-        <target state="translated">List all parts</target>
+        <target >List all parts</target>
       </segment>
     </unit>
     <unit id="QTbFLlT" name="perm.part.no_price_parts">
@@ -5475,7 +5475,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.no_price_parts</source>
-        <target state="translated">List parts without price infos</target>
+        <target >List parts without price infos</target>
       </segment>
     </unit>
     <unit id="ym76SPS" name="perm.part.obsolete_parts">
@@ -5484,7 +5484,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.obsolete_parts</source>
-        <target state="translated">List obsolete parts</target>
+        <target >List obsolete parts</target>
       </segment>
     </unit>
     <unit id="juT_zEM" name="perm.part.unknown_instock_parts">
@@ -5493,7 +5493,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.unknown_instock_parts</source>
-        <target state="translated">Show parts with unknown instock</target>
+        <target >Show parts with unknown instock</target>
       </segment>
     </unit>
     <unit id="NiOXKwC" name="perm.part.change_favorite">
@@ -5502,7 +5502,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.change_favorite</source>
-        <target state="translated">Change favorite status</target>
+        <target >Change favorite status</target>
       </segment>
     </unit>
     <unit id="TXG_vef" name="perm.part.show_favorite">
@@ -5511,7 +5511,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.show_favorite</source>
-        <target state="translated">List favorite parts</target>
+        <target >List favorite parts</target>
       </segment>
     </unit>
     <unit id="GMNxlDb" name="perm.part.show_last_edit_parts">
@@ -5520,7 +5520,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.show_last_edit_parts</source>
-        <target state="translated">Show last edited/added parts</target>
+        <target >Show last edited/added parts</target>
       </segment>
     </unit>
     <unit id="7C4wYps" name="perm.part.show_users">
@@ -5529,7 +5529,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.show_users</source>
-        <target state="translated">Show last modifying user</target>
+        <target >Show last modifying user</target>
       </segment>
     </unit>
     <unit id="IOXC4wr" name="perm.part.show_history">
@@ -5538,7 +5538,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.show_history</source>
-        <target state="translated">Show history</target>
+        <target >Show history</target>
       </segment>
     </unit>
     <unit id="JnfedoQ" name="perm.part.name">
@@ -5547,7 +5547,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.name</source>
-        <target state="translated">Name</target>
+        <target >Name</target>
       </segment>
     </unit>
     <unit id="5a.KkeU" name="perm.part.description">
@@ -5556,7 +5556,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.description</source>
-        <target state="translated">Description</target>
+        <target >Description</target>
       </segment>
     </unit>
     <unit id="zLUHVDn" name="perm.part.instock">
@@ -5565,7 +5565,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.instock</source>
-        <target state="translated">Instock</target>
+        <target >Instock</target>
       </segment>
     </unit>
     <unit id="0woqdF9" name="perm.part.mininstock">
@@ -5574,7 +5574,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.mininstock</source>
-        <target state="translated">Minimum instock</target>
+        <target >Minimum instock</target>
       </segment>
     </unit>
     <unit id="IXHxTEP" name="perm.part.comment">
@@ -5583,7 +5583,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.comment</source>
-        <target state="translated">Comment</target>
+        <target >Comment</target>
       </segment>
     </unit>
     <unit id="B_OF7Kn" name="perm.part.storelocation">
@@ -5592,7 +5592,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.storelocation</source>
-        <target state="translated">Storelocation</target>
+        <target >Storelocation</target>
       </segment>
     </unit>
     <unit id="yPQiYsi" name="perm.part.manufacturer">
@@ -5601,7 +5601,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.manufacturer</source>
-        <target state="translated">Manufacturer</target>
+        <target >Manufacturer</target>
       </segment>
     </unit>
     <unit id="L2pl0H1" name="perm.part.orderdetails">
@@ -5610,7 +5610,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.orderdetails</source>
-        <target state="translated">Order informations</target>
+        <target >Order informations</target>
       </segment>
     </unit>
     <unit id="4CedmDv" name="perm.part.prices">
@@ -5619,7 +5619,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.prices</source>
-        <target state="translated">Prices</target>
+        <target >Prices</target>
       </segment>
     </unit>
     <unit id="3.LGmWy" name="perm.part.attachments">
@@ -5628,7 +5628,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.attachments</source>
-        <target state="translated">File attachments</target>
+        <target >File attachments</target>
       </segment>
     </unit>
     <unit id="VkclZwf" name="perm.part.order">
@@ -5637,7 +5637,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.order</source>
-        <target state="translated">Orders</target>
+        <target >Orders</target>
       </segment>
     </unit>
     <unit id="XPba.S5" name="perm.storelocations">
@@ -5646,7 +5646,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.storelocations</source>
-        <target state="translated">Storelocations</target>
+        <target >Storelocations</target>
       </segment>
     </unit>
     <unit id="1MkJQeq" name="perm.move">
@@ -5655,7 +5655,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.move</source>
-        <target state="translated">Move</target>
+        <target >Move</target>
       </segment>
     </unit>
     <unit id="IRFIEMr" name="perm.list_parts">
@@ -5664,7 +5664,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.list_parts</source>
-        <target state="translated">List parts</target>
+        <target >List parts</target>
       </segment>
     </unit>
     <unit id="h6Bzdt0" name="perm.part.footprints">
@@ -5673,7 +5673,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.footprints</source>
-        <target state="translated">Footprints</target>
+        <target >Footprints</target>
       </segment>
     </unit>
     <unit id="f6E.ER4" name="perm.part.categories">
@@ -5682,7 +5682,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.categories</source>
-        <target state="translated">Categories</target>
+        <target >Categories</target>
       </segment>
     </unit>
     <unit id="yYWackl" name="perm.part.supplier">
@@ -5691,7 +5691,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.supplier</source>
-        <target state="translated">Suppliers</target>
+        <target >Suppliers</target>
       </segment>
     </unit>
     <unit id="_dwi_1Y" name="perm.part.manufacturers">
@@ -5700,7 +5700,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.manufacturers</source>
-        <target state="translated">Manufacturers</target>
+        <target >Manufacturers</target>
       </segment>
     </unit>
     <unit id="5_k9ofl" name="perm.part.devices">
@@ -5709,7 +5709,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.devices</source>
-        <target state="translated">Devices</target>
+        <target >Devices</target>
       </segment>
     </unit>
     <unit id="hgZrqP_" name="perm.part.attachment_types">
@@ -5718,7 +5718,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.attachment_types</source>
-        <target state="translated">Attachment types</target>
+        <target >Attachment types</target>
       </segment>
     </unit>
     <unit id="BEdSmOu" name="perm.tools.import">
@@ -5727,7 +5727,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.tools.import</source>
-        <target state="translated">Import</target>
+        <target >Import</target>
       </segment>
     </unit>
     <unit id="PEyfknN" name="perm.tools.labels">
@@ -5736,7 +5736,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.tools.labels</source>
-        <target state="translated">Labels</target>
+        <target >Labels</target>
       </segment>
     </unit>
     <unit id="fWusD07" name="perm.tools.calculator">
@@ -5745,7 +5745,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.tools.calculator</source>
-        <target state="translated">Resistor calculator</target>
+        <target >Resistor calculator</target>
       </segment>
     </unit>
     <unit id="ripLPj1" name="perm.tools.footprints">
@@ -5754,7 +5754,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.tools.footprints</source>
-        <target state="translated">Footprints</target>
+        <target >Footprints</target>
       </segment>
     </unit>
     <unit id="1bNm4cw" name="perm.tools.ic_logos">
@@ -5763,7 +5763,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.tools.ic_logos</source>
-        <target state="translated">IC logos</target>
+        <target >IC logos</target>
       </segment>
     </unit>
     <unit id="soh_cnt" name="perm.tools.statistics">
@@ -5772,7 +5772,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.tools.statistics</source>
-        <target state="translated">Statistics</target>
+        <target >Statistics</target>
       </segment>
     </unit>
     <unit id="2r3a5MK" name="perm.edit_permissions">
@@ -5781,7 +5781,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.edit_permissions</source>
-        <target state="translated">Edit permissions</target>
+        <target >Edit permissions</target>
       </segment>
     </unit>
     <unit id="dURrIXD" name="perm.users.edit_user_name">
@@ -5790,7 +5790,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.users.edit_user_name</source>
-        <target state="translated">Edit user name</target>
+        <target >Edit user name</target>
       </segment>
     </unit>
     <unit id="w4ujxml" name="perm.users.edit_change_group">
@@ -5799,7 +5799,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.users.edit_change_group</source>
-        <target state="translated">Change group</target>
+        <target >Change group</target>
       </segment>
     </unit>
     <unit id="BBOEDsQ" name="perm.users.edit_infos">
@@ -5808,7 +5808,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.users.edit_infos</source>
-        <target state="translated">Edit infos</target>
+        <target >Edit infos</target>
       </segment>
     </unit>
     <unit id="Q1NDQfs" name="perm.users.edit_permissions">
@@ -5817,7 +5817,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.users.edit_permissions</source>
-        <target state="translated">Edit permissions</target>
+        <target >Edit permissions</target>
       </segment>
     </unit>
     <unit id="d6eo3tF" name="perm.users.set_password">
@@ -5826,7 +5826,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.users.set_password</source>
-        <target state="translated">Set password</target>
+        <target >Set password</target>
       </segment>
     </unit>
     <unit id="tJ6RatH" name="perm.users.change_user_settings">
@@ -5835,7 +5835,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.users.change_user_settings</source>
-        <target state="translated">Change user settings</target>
+        <target >Change user settings</target>
       </segment>
     </unit>
     <unit id="X58DtVF" name="perm.database.see_status">
@@ -5844,7 +5844,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.database.see_status</source>
-        <target state="translated">Show status</target>
+        <target >Show status</target>
       </segment>
     </unit>
     <unit id="1KSFyeg" name="perm.database.update_db">
@@ -5853,7 +5853,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.database.update_db</source>
-        <target state="translated">Update DB</target>
+        <target >Update DB</target>
       </segment>
     </unit>
     <unit id="7FNNcYZ" name="perm.database.read_db_settings">
@@ -5862,7 +5862,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.database.read_db_settings</source>
-        <target state="translated">Read DB settings</target>
+        <target >Read DB settings</target>
       </segment>
     </unit>
     <unit id="ppPTck0" name="perm.database.write_db_settings">
@@ -5871,7 +5871,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.database.write_db_settings</source>
-        <target state="translated">Write DB settings</target>
+        <target >Write DB settings</target>
       </segment>
     </unit>
     <unit id="h1iQLeD" name="perm.config.read_config">
@@ -5880,7 +5880,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.config.read_config</source>
-        <target state="translated">Read config</target>
+        <target >Read config</target>
       </segment>
     </unit>
     <unit id="xnOnBUH" name="perm.config.edit_config">
@@ -5889,7 +5889,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.config.edit_config</source>
-        <target state="translated">Edit config</target>
+        <target >Edit config</target>
       </segment>
     </unit>
     <unit id="soLL1gr" name="perm.config.server_info">
@@ -5898,7 +5898,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.config.server_info</source>
-        <target state="translated">Server info</target>
+        <target >Server info</target>
       </segment>
     </unit>
     <unit id="P5OVHh2" name="perm.config.use_debug">
@@ -5907,7 +5907,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.config.use_debug</source>
-        <target state="translated">Use debug tools</target>
+        <target >Use debug tools</target>
       </segment>
     </unit>
     <unit id="WsTnNCU" name="perm.show_logs">
@@ -5916,7 +5916,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.show_logs</source>
-        <target state="translated">Show logs</target>
+        <target >Show logs</target>
       </segment>
     </unit>
     <unit id="zvV9XS2" name="perm.delete_logs">
@@ -5925,7 +5925,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.delete_logs</source>
-        <target state="translated">Delete logs</target>
+        <target >Delete logs</target>
       </segment>
     </unit>
     <unit id="aU9OJs5" name="perm.self.edit_infos">
@@ -5934,7 +5934,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.self.edit_infos</source>
-        <target state="translated">Edit infos</target>
+        <target >Edit infos</target>
       </segment>
     </unit>
     <unit id="tn675bY" name="perm.self.edit_username">
@@ -5943,7 +5943,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.self.edit_username</source>
-        <target state="translated">Edit username</target>
+        <target >Edit username</target>
       </segment>
     </unit>
     <unit id="ON0SOmi" name="perm.self.show_permissions">
@@ -5952,7 +5952,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.self.show_permissions</source>
-        <target state="translated">View permissions</target>
+        <target >View permissions</target>
       </segment>
     </unit>
     <unit id="7pWmKCP" name="perm.self.show_logs">
@@ -5961,7 +5961,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.self.show_logs</source>
-        <target state="translated">Show own log entries</target>
+        <target >Show own log entries</target>
       </segment>
     </unit>
     <unit id="zgTB8dK" name="perm.self.create_labels">
@@ -5970,7 +5970,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.self.create_labels</source>
-        <target state="translated">Create labels</target>
+        <target >Create labels</target>
       </segment>
     </unit>
     <unit id="grMFlqb" name="perm.self.edit_options">
@@ -5979,7 +5979,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.self.edit_options</source>
-        <target state="translated">Edit options</target>
+        <target >Edit options</target>
       </segment>
     </unit>
     <unit id="aWY5kzX" name="perm.self.delete_profiles">
@@ -5988,7 +5988,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.self.delete_profiles</source>
-        <target state="translated">Delete profiles</target>
+        <target >Delete profiles</target>
       </segment>
     </unit>
     <unit id="Qh9_teh" name="perm.self.edit_profiles">
@@ -5997,7 +5997,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.self.edit_profiles</source>
-        <target state="translated">Edit profiles</target>
+        <target >Edit profiles</target>
       </segment>
     </unit>
     <unit id="riADuzS" name="perm.part.tools">
@@ -6006,7 +6006,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.tools</source>
-        <target state="translated">Tools</target>
+        <target >Tools</target>
       </segment>
     </unit>
     <unit id="1TJffiQ" name="perm.groups">
@@ -6015,7 +6015,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.groups</source>
-        <target state="translated">Groups</target>
+        <target >Groups</target>
       </segment>
     </unit>
     <unit id="Ot4Pe7g" name="perm.users">
@@ -6024,7 +6024,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.users</source>
-        <target state="translated">Users</target>
+        <target >Users</target>
       </segment>
     </unit>
     <unit id="hcV.ILa" name="perm.database">
@@ -6033,7 +6033,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.database</source>
-        <target state="translated">Database</target>
+        <target >Database</target>
       </segment>
     </unit>
     <unit id="9XMk.TY" name="perm.config">
@@ -6042,7 +6042,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.config</source>
-        <target state="translated">Configuration</target>
+        <target >Configuration</target>
       </segment>
     </unit>
     <unit id="YLLSA2T" name="perm.system">
@@ -6051,7 +6051,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.system</source>
-        <target state="translated">System</target>
+        <target >System</target>
       </segment>
     </unit>
     <unit id="0CRVznf" name="perm.device_parts">
@@ -6060,7 +6060,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.device_parts</source>
-        <target state="translated">Device parts</target>
+        <target >Device parts</target>
       </segment>
     </unit>
     <unit id="LG3jpJo" name="perm.self">
@@ -6069,7 +6069,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.self</source>
-        <target state="translated">Own user</target>
+        <target >Own user</target>
       </segment>
     </unit>
     <unit id="VoHEScr" name="perm.labels">
@@ -6078,7 +6078,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.labels</source>
-        <target state="translated">Labels</target>
+        <target >Labels</target>
       </segment>
     </unit>
     <unit id="zf2PGmg" name="perm.part.category">
@@ -6087,7 +6087,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.category</source>
-        <target state="translated">Category</target>
+        <target >Category</target>
       </segment>
     </unit>
     <unit id="Ngq0_8b" name="perm.part.minamount">
@@ -6096,7 +6096,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.minamount</source>
-        <target state="translated">Minimum amount</target>
+        <target >Minimum amount</target>
       </segment>
     </unit>
     <unit id="vZwyFdD" name="perm.part.footprint">
@@ -6105,7 +6105,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.footprint</source>
-        <target state="translated">Footprint</target>
+        <target >Footprint</target>
       </segment>
     </unit>
     <unit id="cdrtuto" name="perm.part.mpn">
@@ -6114,7 +6114,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.mpn</source>
-        <target state="translated">MPN</target>
+        <target >MPN</target>
       </segment>
     </unit>
     <unit id="CjAJxQj" name="perm.part.status">
@@ -6123,7 +6123,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.status</source>
-        <target state="translated">Manufacturing status</target>
+        <target >Manufacturing status</target>
       </segment>
     </unit>
     <unit id="8vcZLOf" name="perm.part.tags">
@@ -6132,7 +6132,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.tags</source>
-        <target state="translated">Tags</target>
+        <target >Tags</target>
       </segment>
     </unit>
     <unit id="5PcGRLN" name="perm.part.unit">
@@ -6141,7 +6141,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.unit</source>
-        <target state="translated">Part unit</target>
+        <target >Part unit</target>
       </segment>
     </unit>
     <unit id="64iRHQF" name="perm.part.mass">
@@ -6150,7 +6150,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.mass</source>
-        <target state="translated">Mass</target>
+        <target >Mass</target>
       </segment>
     </unit>
     <unit id="IWWN6u0" name="perm.part.lots">
@@ -6159,7 +6159,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.part.lots</source>
-        <target state="translated">Part lots</target>
+        <target >Part lots</target>
       </segment>
     </unit>
     <unit id="cnJtmGW" name="perm.show_users">
@@ -6168,7 +6168,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.show_users</source>
-        <target state="translated">Show last modifying user</target>
+        <target >Show last modifying user</target>
       </segment>
     </unit>
     <unit id="nThiSBd" name="perm.currencies">
@@ -6177,7 +6177,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.currencies</source>
-        <target state="translated">Currencies</target>
+        <target >Currencies</target>
       </segment>
     </unit>
     <unit id="Pa4k4ZQ" name="perm.measurement_units">
@@ -6186,14 +6186,14 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.measurement_units</source>
-        <target state="translated">Measurement unit</target>
+        <target >Measurement unit</target>
       </segment>
     </unit>
     <unit id="ZrVNh2o" name="user.settings.pw_old.label">
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="translated">
+      <segment >
         <source>user.settings.pw_old.label</source>
         <target>Old password</target>
       </segment>
@@ -6204,7 +6204,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>pw_reset.submit</source>
-        <target state="translated">Reset password</target>
+        <target >Reset password</target>
       </segment>
     </unit>
     <unit id="E8uyrqE" name="u2f_two_factor">
