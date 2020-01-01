@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.com/Part-DB/Part-DB-symfony.svg?branch=master)](https://travis-ci.com/Part-DB/Part-DB-symfony)
 [![codecov](https://codecov.io/gh/Part-DB/Part-DB-symfony/branch/master/graph/badge.svg)](https://codecov.io/gh/Part-DB/Part-DB-symfony)
 ![GitHub License](https://img.shields.io/github/license/Part-DB/Part-DB-symfony)
-![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%207.1-green)
+![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%207.2-green)
 
 # Part-DB
 Part-DB is an Open-Source inventory managment system for your electronic components.
@@ -27,7 +27,7 @@ for the first time.
  
 ## Requirements
  * A **web server** (like Apache2 or nginx) that is capable of running [Symfony 4](https://symfony.com/doc/current/reference/requirements.html),
- this includes a minimum PHP version of **PHP 7.1.3**
+ this includes a minimum PHP version of **PHP 7.2.5**
  * A **MySQL**/**MariaDB** database server
  * Shell access to your server is highly suggested!
  * For building the client side assets **yarn** and **nodejs** is needed.
