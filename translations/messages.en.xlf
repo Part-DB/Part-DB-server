@@ -4030,7 +4030,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="47DEQpj" name="">
       <segment>
-        <source></source>
+        <source/>
         <target> </target>
       </segment>
     </unit>
@@ -6193,9 +6193,9 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>user.settings.pw_old.label</source>
-        <target>Altes Passwort</target>
+        <target>Old password</target>
       </segment>
     </unit>
     <unit id="Ed3ydow" name="pw_reset.submit">
