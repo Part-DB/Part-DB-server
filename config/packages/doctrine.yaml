@@ -21,10 +21,8 @@ doctrine:
         types:
             datetime:
                 class: App\Helpers\UTCDateTimeType
-                commented: false
             date:
                 class: App\Helpers\UTCDateTimeType
-                commented: false
 
         schema_filter: ~^(?!internal|log)~
         profiling_collect_backtrace: true
