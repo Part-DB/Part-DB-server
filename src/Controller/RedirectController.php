@@ -59,13 +59,6 @@ class RedirectController extends AbstractController
             $locale = $user->getLanguage();
         }
 
-        //Check if the user needs to change the password. In that case redirect him to settings_page
-        if ($user instanceof User && $user->isNeedPwChange()) {
-            $this->session->getFlashBag()->add('warning', $this->translator->trans('flash.password_change_needed'));
-
-            return $this->redirectToRoute('user_settings', ['_locale' => $locale]);
-        }
-
         //$new_url = str_replace($request->getPathInfo(), '/' . $locale . $request->getPathInfo(), $request->getUri());
         $new_url = $request->getUriForPath('/'.$locale.$request->getPathInfo());
 

@@ -120,28 +120,4 @@ class RedirectControllerTest extends WebTestCase
         $this->client->request('GET', $input_path);
         $this->assertEquals($redirect_path, $this->client->getResponse()->headers->get('Location'));
     }
-
-    /**
-     * Test if the user is redirected to password change page if he should do that.
-     *
-     * @depends testAddLocale
-     * @group slow
-     * @testWith    ["de"]
-     *              ["en"]
-     */
-    public function testRedirectToPasswordChange(string $locale)
-    {
-        /** @var User $user */
-        $user = $this->userRepo->findOneBy(['name' => 'user']);
-
-        //Test for german user
-        $user->setLanguage($locale);
-        $user->setNeedPwChange(true);
-        $this->em->flush();
-
-        $this->client->followRedirects(false);
-
-        $this->client->request('GET', '/part/3');
-        $this->assertEquals('http://localhost' . "/$locale/user/settings", $this->client->getResponse()->headers->get('Location'));
-    }
 }
