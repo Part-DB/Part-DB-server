@@ -19,11 +19,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\Helpers;
+namespace App\Helpers\Trees;
 
 use App\Entity\Base\DBElement;
 use App\Entity\Base\NamedDBElement;
 use App\Entity\Base\StructuralDBElement;
+use App\Helpers\Trees\TreeViewNodeState;
 
 /**
  * This class represents a node for the bootstrap treeview node.

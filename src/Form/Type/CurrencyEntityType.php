@@ -23,7 +23,7 @@ namespace App\Form\Type;
 
 use App\Entity\Base\StructuralDBElement;
 use App\Entity\PriceInformations\Currency;
-use App\Services\TreeBuilder;
+use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Intl\Currencies;
 use Symfony\Component\OptionsResolver\Options;
@@ -33,7 +33,7 @@ class CurrencyEntityType extends StructuralEntityType
 {
     protected $base_currency;
 
-    public function __construct(EntityManagerInterface $em, TreeBuilder $builder, $base_currency)
+    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder, $base_currency)
     {
         parent::__construct($em, $builder);
         $this->base_currency = $base_currency;

@@ -21,7 +21,7 @@
 
 namespace App\Tests\Helpers;
 
-use App\Helpers\TreeViewNode;
+use App\Helpers\Trees\TreeViewNode;
 use PHPUnit\Framework\TestCase;
 
 class TreeViewNodeTest extends TestCase

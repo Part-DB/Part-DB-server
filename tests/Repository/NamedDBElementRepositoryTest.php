@@ -23,7 +23,7 @@ namespace App\Tests\Repository;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\UserSystem\User;
-use App\Helpers\TreeViewNode;
+use App\Helpers\Trees\TreeViewNode;
 use App\Repository\NamedDBElementRepository;
 use App\Repository\StructuralDBElementRepository;
 use PHPUnit\Framework\TestCase;

@@ -22,7 +22,7 @@
 namespace App\Tests\Repository;
 
 use App\Entity\Attachments\AttachmentType;
-use App\Helpers\TreeViewNode;
+use App\Helpers\Trees\TreeViewNode;
 use App\Repository\StructuralDBElementRepository;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;

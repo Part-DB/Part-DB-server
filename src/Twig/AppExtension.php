@@ -31,7 +31,8 @@ use App\Services\FAIconGenerator;
 use App\Services\MarkdownParser;
 use App\Services\MoneyFormatter;
 use App\Services\SIFormatter;
-use App\Services\TreeBuilder;
+use App\Services\Trees\NodesListBuilder;
+use App\Services\Trees\TreeViewGenerator;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
@@ -53,7 +54,7 @@ class AppExtension extends AbstractExtension
     protected $translator;
 
     public function __construct(EntityURLGenerator $entityURLGenerator, MarkdownParser $markdownParser,
-        SerializerInterface $serializer, TreeBuilder $treeBuilder,
+        SerializerInterface $serializer, TreeViewGenerator $treeBuilder,
         MoneyFormatter $moneyFormatter,
         SIFormatter $SIFormatter, AmountFormatter $amountFormatter,
         AttachmentURLGenerator $attachmentURLGenerator,
@@ -103,7 +104,7 @@ class AppExtension extends AbstractExtension
 
     public function treeData(DBElement $element, string $type = 'newEdit'): string
     {
-        $tree = $this->treeBuilder->typeToTree(\get_class($element), $type, $element);
+        $tree = $this->treeBuilder->getTreeView(\get_class($element), null, $type, $element);
 
         return $this->serializer->serialize($tree, 'json', ['skip_null_values' => true]);
     }

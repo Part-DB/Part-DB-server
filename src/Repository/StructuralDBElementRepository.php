@@ -23,7 +23,7 @@ namespace App\Repository;
 
 use App\Entity\Base\StructuralDBElement;
 use App\Helpers\Trees\StructuralDBElementIterator;
-use App\Helpers\TreeViewNode;
+use App\Helpers\Trees\TreeViewNode;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Stopwatch\Stopwatch;
 

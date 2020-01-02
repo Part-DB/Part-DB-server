@@ -21,7 +21,7 @@
 
 namespace App\Helpers\Trees;
 
-use App\Helpers\TreeViewNode;
+use App\Helpers\Trees\TreeViewNode;
 
 class TreeViewNodeIterator extends \ArrayIterator implements \RecursiveIterator
 {

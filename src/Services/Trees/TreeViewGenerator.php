@@ -23,15 +23,17 @@ namespace App\Services\Trees;
 
 
 use App\Entity\Base\DBElement;
+use App\Entity\Base\NamedDBElement;
 use App\Entity\Base\StructuralDBElement;
 use App\Helpers\Trees\TreeViewNodeIterator;
-use App\Helpers\TreeViewNode;
+use App\Helpers\Trees\TreeViewNode;
 use App\Repository\StructuralDBElementRepository;
 use App\Services\EntityURLGenerator;
 use App\Services\UserCacheKeyGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TreeViewGenerator
 {
@@ -40,21 +42,51 @@ class TreeViewGenerator
     protected $em;
     protected $cache;
     protected $keyGenerator;
+    protected $translator;
 
     public function __construct(EntityURLGenerator $URLGenerator, EntityManagerInterface $em,
-        TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator)
+        TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator, TranslatorInterface $translator)
     {
         $this->urlGenerator = $URLGenerator;
         $this->em = $em;
         $this->cache = $treeCache;
         $this->keyGenerator = $keyGenerator;
+        $this->translator = $translator;
     }
 
-    public function getTreeView(string $class, ?StructuralDBElement $parent = null, string $href_type = 'list_parts', DBElement $selectedElement = null)
+    /**
+     * Gets a TreeView list for the entities of the given class.
+     * @param  string  $class The class for which the treeView should be generated
+     * @param  StructuralDBElement|null  $parent The root nodes in the tree should have this element as parent (use null, if you want to get all entities)
+     * @param  string  $href_type The link type that will be generated for the hyperlink section of each node (see EntityURLGenerator for possible values).
+     * Set to empty string, to disable href field.
+     * @param  DBElement|null  $selectedElement The element that should be selected. If set to null, no element will be selected.
+     * @return TreeViewNode[] An array of TreeViewNode[] elements of the root elements.
+     */
+    public function getTreeView(string $class, ?StructuralDBElement $parent = null, string $href_type = 'list_parts', DBElement $selectedElement = null) : array
     {
+        $head = [];
+
+        //When we use the newEdit type, add the New Element node.
+        if ('newEdit' === $href_type) {
+            //Generate the url for the new node
+            $href = $this->urlGenerator->createURL(new $class());
+            $new_node = new TreeViewNode($this->translator->trans('entity.tree.new'), $href);
+            //When the id of the selected element is null, then we have a new element, and we need to select "new" node
+            if (null == $selectedElement || null == $selectedElement->getID()) {
+                $new_node->setSelected(true);
+            }
+            $head[] = $new_node;
+            //Add spacing
+            $head[] = (new TreeViewNode(''))->setDisabled(true);
+
+            //Every other treeNode will be used for edit
+            $href_type = 'edit';
+        }
+
         $generic = $this->getGenericTree($class, $parent);
         $treeIterator = new TreeViewNodeIterator($generic);
-        $recursiveIterator = new \RecursiveIteratorIterator($treeIterator);
+        $recursiveIterator = new \RecursiveIteratorIterator($treeIterator, \RecursiveIteratorIterator::SELF_FIRST);
         foreach ($recursiveIterator as $item) {
             /** @var $item TreeViewNode */
             if ($selectedElement !== null && $item->getId() === $selectedElement->getID()) {
@@ -71,7 +103,7 @@ class TreeViewGenerator
             }
         }
 
-        return $generic;
+        return array_merge($head, $generic);
     }
 
     /**
@@ -85,11 +117,11 @@ class TreeViewGenerator
      */
     public function getGenericTree(string $class, ?StructuralDBElement $parent = null) : array
     {
-        if(!is_a($class, StructuralDBElement::class, true)) {
-            throw new \InvalidArgumentException('$class must be a class string that implements StructuralDBElement!');
+        if(!is_a($class, NamedDBElement::class, true)) {
+            throw new \InvalidArgumentException('$class must be a class string that implements StructuralDBElement or NamedDBElement!');
         }
         if($parent !== null && !is_a($parent, $class)) {
-            throw new \InvalidArgumentException('$parent must be of the type class!');
+            throw new \InvalidArgumentException('$parent must be of the type $class!');
         }
 
         /** @var StructuralDBElementRepository $repo */

@@ -24,7 +24,7 @@ namespace App\Form\Type;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\StructuralDBElement;
 use App\Repository\StructuralDBElementRepository;
-use App\Services\TreeBuilder;
+use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
@@ -47,10 +47,10 @@ class StructuralEntityType extends AbstractType
 {
     protected $em;
     protected $options;
-    /** @var TreeBuilder */
+    /** @var NodesListBuilder */
     protected $builder;
 
-    public function __construct(EntityManagerInterface $em, TreeBuilder $builder)
+    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder)
     {
         $this->em = $em;
         $this->builder = $builder;

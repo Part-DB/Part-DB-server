@@ -22,21 +22,24 @@
 namespace App\Tests\Services\Trees;
 
 use App\Entity\Attachments\AttachmentType;
-use App\Helpers\TreeViewNode;
+use App\Entity\Parts\Category;
+use App\Helpers\Trees\TreeViewNode;
 use App\Services\AmountFormatter;
 use App\Services\Trees\TreeViewGenerator;
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
  * @group DB
  */
-class TreeGeneratorTest extends WebTestCase
+class TreeViewGeneratorTest extends WebTestCase
 {
     /**
      * @var TreeViewGenerator
      */
     protected $service;
+    protected $em;
 
     public function setUp() : void
     {
@@ -45,6 +48,7 @@ class TreeGeneratorTest extends WebTestCase
         //Get an service instance.
         self::bootKernel();
         $this->service = self::$container->get(TreeViewGenerator::class);
+        $this->em = self::$container->get(EntityManagerInterface::class);
     }
 
     public function testGetGenericTree()
@@ -71,6 +75,49 @@ class TreeGeneratorTest extends WebTestCase
         $this->assertEquals(1, $tree[0]->getId());
         $this->assertEquals(2, $tree[1]->getId());
         $this->assertEquals(7, $tree[0]->getNodes()[0]->getNodes()[0]->getId());
+    }
 
+    public function testGetTreeViewBasic()
+    {
+        $tree = $this->service->getTreeView(Category::class);
+        $this->assertIsArray($tree);
+        $this->assertContainsOnlyInstancesOf(TreeViewNode::class, $tree);
+
+        $this->assertCount(3, $tree);
+        $this->assertCount(2, $tree[0]->getNodes());
+        $this->assertCount(1, $tree[0]->getNodes()[0]->getNodes());
+
+        //Assert that the nodes contain the correct links
+        $this->assertEquals('/en/category/1/parts', $tree[0]->getHref());
+        $this->assertEquals('/en/category/2/parts', $tree[1]->getHref());
+        $this->assertEquals('/en/category/7/parts', $tree[0]->getNodes()[0]->getNodes()[0]->getHref());
+    }
+
+    public function testGetTreeViewNewEdit()
+    {
+        $tree = $this->service->getTreeView(Category::class, null, 'newEdit');
+
+        //First element should link to new category
+        $this->assertStringContainsStringIgnoringCase('New', $tree[0]->getText());
+        $this->assertEquals('/en/category/new', $tree[0]->getHref());
+        //By default the new element node is selected
+        $this->assertTrue($tree[0]->getState()->getSelected());
+
+        //Next element is spacing
+        $this->assertEquals('', $tree[1]->getText());
+        $this->assertTrue($tree[1]->getState()->getDisabled());
+
+        //All other elements should be normal
+        $this->assertCount(5, $tree);
+    }
+
+    public function testGetTreeViewSelectedNode()
+    {
+        $selected = $this->em->find(Category::class, 2);
+        $tree = $this->service->getTreeView(Category::class, null, 'edit', $selected);
+
+        $this->assertNull($tree[0]->getState());
+        //Only second element must be selected
+        $this->assertTrue($tree[1]->getState()->getSelected());
     }
 }

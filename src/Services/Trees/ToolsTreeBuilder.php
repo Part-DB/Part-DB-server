@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\Services;
+namespace App\Services\Trees;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
@@ -34,7 +34,8 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
-use App\Helpers\TreeViewNode;
+use App\Helpers\Trees\TreeViewNode;
+use App\Services\UserCacheKeyGenerator;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Cache\ItemInterface;
