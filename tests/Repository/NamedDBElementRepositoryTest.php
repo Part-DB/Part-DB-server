@@ -60,7 +60,7 @@ class NamedDBElementRepositoryTest extends WebTestCase
         $this->assertIsArray($tree);
         $this->assertContainsOnlyInstancesOf(TreeViewNode::class, $tree);
         $this->assertCount(4, $tree);
-        $this->assertEquals('anonymous', $tree[0]->getText());
+        $this->assertEquals('admin', $tree[0]->getText());
         $this->assertEmpty($tree[0]->getNodes());
     }
 }

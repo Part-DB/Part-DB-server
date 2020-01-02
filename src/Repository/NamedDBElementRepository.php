@@ -40,7 +40,7 @@ class NamedDBElementRepository extends EntityRepository
     {
         $result = [];
 
-        $entities = $this->findAll();
+        $entities = $this->findBy([], ['name' => 'ASC']);
         foreach ($entities as $entity) {
             /** @var $entity NamedDBElement */
             $node = new TreeViewNode($entity->getName(), null, null);
