@@ -30,7 +30,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * All subclasses of this class have an attribute "name".
  *
- * @ORM\MappedSuperclass()
+ * @ORM\MappedSuperclass(repositoryClass="App\Repository\UserRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 abstract class NamedDBElement extends DBElement

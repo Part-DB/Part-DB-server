@@ -26,6 +26,7 @@ namespace App\Entity\Base;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Validator\Constraints\NoneOfItsChildren;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -244,13 +245,16 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      *
      * @param bool $recursive if true, the search is recursive
      *
-     * @return static[] all subelements as an array of objects (sorted by their full path)
+     * @return Collection<static> all subelements as an array of objects (sorted by their full path)
      */
     public function getSubelements(): iterable
     {
         return $this->children;
     }
 
+    /**
+     * @return Collection<static>
+     */
     public function getChildren(): iterable
     {
         return $this->children;

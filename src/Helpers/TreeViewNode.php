@@ -21,6 +21,10 @@
 
 namespace App\Helpers;
 
+use App\Entity\Base\DBElement;
+use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\StructuralDBElement;
+
 /**
  * This class represents a node for the bootstrap treeview node.
  * When you serialize an array of these objects to JSON, you can use the serialized data in data for the treeview.
@@ -34,6 +38,8 @@ class TreeViewNode
     protected $state = null;
 
     protected $tags;
+
+    protected $id;
 
     /**
      * Creates a new TreeView node with the given parameters.
@@ -51,6 +57,28 @@ class TreeViewNode
         $this->nodes = $nodes;
 
         //$this->state = new TreeViewNodeState();
+    }
+
+    /**
+     * Return the ID of the entity associated with this node.
+     * Null if this node is not connected with an entity.
+     * @return int|null
+     */
+    public function getId() : ?int
+    {
+        return $this->id;
+    }
+
+    /**
+     * Sets the ID of the entity associated with this node.
+     * Null if this node is not connected with an entity.
+     * @param  int|null  $id
+     * @return $this
+     */
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+        return $this;
     }
 
     /**
@@ -104,7 +132,7 @@ class TreeViewNode
     /**
      * Returns the children nodes of this node.
      *
-     * @return array|null
+     * @return TreeViewNode[]|null
      */
     public function getNodes(): ?array
     {

@@ -27,114 +27,94 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\UserSystem\U2FKey;
+use App\Entity\UserSystem\User;
 use App\Services\ToolsTreeBuilder;
 use App\Services\TreeBuilder;
+use App\Services\Trees\TreeViewGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * This controller has the purpose to provide the data for all treeviews.
+ * @Route("/tree")
  */
 class TreeController extends AbstractController
 {
+    protected $treeGenerator;
+
+    public function __construct(TreeViewGenerator $treeGenerator)
+    {
+        $this->treeGenerator = $treeGenerator;
+    }
+
     /**
-     * @Route("/tree/tools", name="tree_tools")
+     * @Route("/tools", name="tree_tools")
      */
     public function tools(ToolsTreeBuilder $builder)
     {
         $tree = $builder->getTree();
-
         //Ignore null values, to save data
         return $this->json($tree, 200, [], ['skip_null_values' => true]);
     }
 
     /**
-     * @Route("/tree/category/{id}", name="tree_category")
-     * @Route("/tree/categories")
+     * @Route("/category/{id}", name="tree_category")
+     * @Route("/categories")
      */
-    public function categoryTree(TreeBuilder $builder, Category $category = null)
+    public function categoryTree(Category $category = null)
     {
-        if (null !== $category) {
-            $tree[] = $builder->elementToTreeNode($category);
-        } else {
-            $tree = $builder->typeToTree(Category::class);
-        }
-
+        $tree = $this->treeGenerator->getTreeView(Category::class, $category);
         return $this->json($tree, 200, [], ['skip_null_values' => true]);
     }
 
     /**
-     * @Route("/tree/footprint/{id}", name="tree_footprint")
-     * @Route("/tree/footprints")
+     * @Route("/footprint/{id}", name="tree_footprint")
+     * @Route("/footprints")
      */
-    public function footprintTree(TreeBuilder $builder, Footprint $footprint = null)
+    public function footprintTree(Footprint $footprint = null)
     {
-        if (null !== $footprint) {
-            $tree[] = $builder->elementToTreeNode($footprint);
-        } else {
-            $tree = $builder->typeToTree(Footprint::class);
-        }
-
+        $tree = $this->treeGenerator->getTreeView(Footprint::class, $footprint);
         return $this->json($tree, 200, [], ['skip_null_values' => true]);
     }
 
     /**
-     * @Route("/tree/location/{id}", name="tree_location")
-     * @Route("/tree/locations")
+     * @Route("/location/{id}", name="tree_location")
+     * @Route("/locations")
      */
-    public function locationTree(TreeBuilder $builder, Storelocation $location = null)
+    public function locationTree(Storelocation $location = null)
     {
-        if (null !== $location) {
-            $tree[] = $builder->elementToTreeNode($location);
-        } else {
-            $tree = $builder->typeToTree(Storelocation::class);
-        }
-
+        $tree = $this->treeGenerator->getTreeView(Storelocation::class, $location);
         return $this->json($tree, 200, [], ['skip_null_values' => true]);
     }
 
     /**
-     * @Route("/tree/manufacturer/{id}", name="tree_manufacturer")
-     * @Route("/tree/manufacturers")
+     * @Route("/manufacturer/{id}", name="tree_manufacturer")
+     * @Route("/manufacturers")
      */
-    public function manufacturerTree(TreeBuilder $builder, Manufacturer $manufacturer = null)
+    public function manufacturerTree(Manufacturer $manufacturer = null)
     {
-        if (null !== $manufacturer) {
-            $tree[] = $builder->elementToTreeNode($manufacturer);
-        } else {
-            $tree = $builder->typeToTree(Manufacturer::class);
-        }
-
+        $tree = $this->treeGenerator->getTreeView(Manufacturer::class, $manufacturer);
         return $this->json($tree, 200, [], ['skip_null_values' => true]);
     }
 
     /**
-     * @Route("/tree/supplier/{id}", name="tree_supplier")
-     * @Route("/tree/suppliers")
+     * @Route("/supplier/{id}", name="tree_supplier")
+     * @Route("/suppliers")
      */
-    public function supplierTree(TreeBuilder $builder, Supplier $supplier = null)
+    public function supplierTree(Supplier $supplier = null)
     {
-        if (null !== $supplier) {
-            $tree[] = $builder->elementToTreeNode($supplier);
-        } else {
-            $tree = $builder->typeToTree(Supplier::class);
-        }
-
+        $tree = $this->treeGenerator->getTreeView(Supplier::class, $supplier);
         return $this->json($tree, 200, [], ['skip_null_values' => true]);
     }
 
     /**
-     * @Route("/tree/device/{id}", name="tree_device")
-     * @Route("/tree/devices")
+     * @Route("/device/{id}", name="tree_device")
+     * @Route("/devices")
      */
-    public function deviceTree(TreeBuilder $builder, Device $device = null)
+    public function deviceTree(Device $device = null)
     {
-        if (null !== $device) {
-            $tree[] = $builder->elementToTreeNode($device);
-        } else {
-            $tree = $builder->typeToTree(Device::class, null);
-        }
-
+        $tree = $this->treeGenerator->getTreeView(Device::class, $device, '');
         return $this->json($tree, 200, [], ['skip_null_values' => true]);
     }
 }
