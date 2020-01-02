@@ -30,7 +30,7 @@ use App\Helpers\Trees\TreeViewNodeState;
  * This class represents a node for the bootstrap treeview node.
  * When you serialize an array of these objects to JSON, you can use the serialized data in data for the treeview.
  */
-class TreeViewNode
+class TreeViewNode implements \JsonSerializable
 {
     protected $text;
     protected $href;
@@ -205,5 +205,33 @@ class TreeViewNode
         $this->tags[] = $new_tag;
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        $ret = [
+            'text' => $this->text
+        ];
+
+        if($this->href !== null) {
+            $ret['href'] = $this->href;
+        }
+
+        if($this->tags !== null) {
+            $ret['tags'] = $this->tags;
+        }
+
+        if($this->nodes !== null) {
+            $ret['nodes'] = $this->nodes;
+        }
+
+        if($this->state !== null) {
+            $ret['state'] = $this->state;
+        }
+
+        return $ret;
     }
 }

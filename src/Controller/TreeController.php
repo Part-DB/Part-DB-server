@@ -33,6 +33,7 @@ use App\Services\Trees\ToolsTreeBuilder;
 use App\Services\Trees\NodesListBuilder;
 use App\Services\Trees\TreeViewGenerator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -54,8 +55,7 @@ class TreeController extends AbstractController
     public function tools(ToolsTreeBuilder $builder)
     {
         $tree = $builder->getTree();
-        //Ignore null values, to save data
-        return $this->json($tree, 200, [], ['skip_null_values' => true]);
+        return new JsonResponse($tree);
     }
 
     /**
@@ -65,7 +65,7 @@ class TreeController extends AbstractController
     public function categoryTree(Category $category = null)
     {
         $tree = $this->treeGenerator->getTreeView(Category::class, $category);
-        return $this->json($tree, 200, [], ['skip_null_values' => true]);
+        return new JsonResponse($tree);
     }
 
     /**
@@ -75,7 +75,7 @@ class TreeController extends AbstractController
     public function footprintTree(Footprint $footprint = null)
     {
         $tree = $this->treeGenerator->getTreeView(Footprint::class, $footprint);
-        return $this->json($tree, 200, [], ['skip_null_values' => true]);
+        return new JsonResponse($tree);
     }
 
     /**
@@ -85,7 +85,7 @@ class TreeController extends AbstractController
     public function locationTree(Storelocation $location = null)
     {
         $tree = $this->treeGenerator->getTreeView(Storelocation::class, $location);
-        return $this->json($tree, 200, [], ['skip_null_values' => true]);
+        return new JsonResponse($tree);
     }
 
     /**
@@ -95,7 +95,7 @@ class TreeController extends AbstractController
     public function manufacturerTree(Manufacturer $manufacturer = null)
     {
         $tree = $this->treeGenerator->getTreeView(Manufacturer::class, $manufacturer);
-        return $this->json($tree, 200, [], ['skip_null_values' => true]);
+        return new JsonResponse($tree);
     }
 
     /**
@@ -105,7 +105,7 @@ class TreeController extends AbstractController
     public function supplierTree(Supplier $supplier = null)
     {
         $tree = $this->treeGenerator->getTreeView(Supplier::class, $supplier);
-        return $this->json($tree, 200, [], ['skip_null_values' => true]);
+        return new JsonResponse($tree);
     }
 
     /**
@@ -115,6 +115,6 @@ class TreeController extends AbstractController
     public function deviceTree(Device $device = null)
     {
         $tree = $this->treeGenerator->getTreeView(Device::class, $device, '');
-        return $this->json($tree, 200, [], ['skip_null_values' => true]);
+        return new JsonResponse($tree);
     }
 }

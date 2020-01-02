@@ -21,7 +21,7 @@
 
 namespace App\Helpers\Trees;
 
-class TreeViewNodeState
+class TreeViewNodeState implements \JsonSerializable
 {
     /** @var bool|null */
     protected $checked = null;
@@ -72,5 +72,26 @@ class TreeViewNodeState
     public function setSelected(?bool $selected): void
     {
         $this->selected = $selected;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize()
+    {
+        $ret = [];
+        if ($this->selected !== null) {
+            $ret['selected'] = $this->selected;
+        }
+
+        if($this->disabled !== null) {
+            $ret['disabled'] = $this->disabled;
+        }
+
+        if($this->expanded !== null) {
+            $ret['expanded'] = $this->expanded;
+        }
+
+        return $ret;
     }
 }

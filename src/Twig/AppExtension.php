@@ -106,7 +106,7 @@ class AppExtension extends AbstractExtension
     {
         $tree = $this->treeBuilder->getTreeView(\get_class($element), null, $type, $element);
 
-        return $this->serializer->serialize($tree, 'json', ['skip_null_values' => true]);
+        return json_encode($tree);
     }
 
     /**
