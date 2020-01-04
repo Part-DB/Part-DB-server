@@ -2,7 +2,7 @@
 
     <div class="form-row">
         <label class="col-form-label col-md-3">{% trans %}export.format{% endtrans %}</label>
-        <div class="col">
+        <div class="col-sm">
             <select class="form-control" name="format">
                 <option value="json">JSON</option>
                 <option value="xml">XML</option>
@@ -14,7 +14,7 @@
 
     <div class="form-row mt-2">
         <label class="col-form-label col-md-3">{% trans %}export.level{% endtrans %}</label>
-        <div class="col">
+        <div class="col-sm">
             <select class="form-control" name="level">
                 <option value="simple">{% trans %}export.level.simple{% endtrans %}</option>
                 <option value="extended" selected>{% trans %}export.level.extended{% endtrans %}</option>
@@ -24,7 +24,7 @@
     </div>
 
     <div class="form-row mt-2">
-        <div class="offset-3 col">
+        <div class="offset-sm-3 col-sm">
             <div class="custom-control custom-checkbox">
                 <input class="form-check-input custom-control-input" name="include_children" id="include_children" type="checkbox" checked>
                 <label class="form-check-label custom-control-label" for="include_children">
@@ -35,7 +35,7 @@
     </div>
 
     <div class="form-row mt-2">
-        <div class="offset-3 col">
+        <div class="offset-sm-3 col-sm">
             <button type="submit" class="btn btn-primary">{% trans %}export.btn{% endtrans %}</button>
         </div>
     </div>

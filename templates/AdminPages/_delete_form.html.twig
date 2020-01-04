@@ -5,7 +5,7 @@
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ entity.id) }}">
     <div class="form-group">
         <div class=""></div>
-        <div class="col offset-3 pl-2">
+        <div class="col-sm offset-sm-3 pl-2">
             {% set delete_disabled = (not is_granted("delete", entity)) or (entity.group is defined and entity.id == 1) %}
             <button class="btn btn-danger" {% if delete_disabled %}disabled{% endif %}>{% trans %}entity.delete{% endtrans %}</button>
             {% if entity.parent is defined  %}
