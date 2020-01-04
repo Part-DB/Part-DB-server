@@ -81,8 +81,7 @@ body {
         top: 56px;
         right: 0;
         left: 0;
-        background-color: inherit;
-        /* z-index: 1000; */
+        z-index: 1000;
         width: inherit;
         overflow-x: hidden;
         overflow-y: auto;
@@ -93,17 +92,27 @@ body {
         padding: 7px 15px 50px;
         margin-top: -10px;
 
+        /* Fill window */
+        height: 100%;
+
         /** Hide scrollbar in Firefox and Edge **/
         -ms-overflow-style: none;
         overflow: -moz-scrollbars-none;
         /* Use standard version for hiding the scrollbar */
         scrollbar-width: none;
+
+        background-color: var(--light);
     }
 
     .sidebar-container {
         margin-top: 0;
         padding-top: 5px;
         background-color: #F8F8F8;
+    }
+
+    /* Hide devices menu */
+    #treeBox-devices {
+        display: none;
     }
 }
 
@@ -645,7 +654,8 @@ BS 4 overrides
     }
 }
 
-.form-group > label {
+.form-group > label,
+.form-group > .col-form-label {
     font-weight: bold;
 }
 

@@ -2207,10 +2207,10 @@ d@1, d@^1.0.1:
     es5-ext "^0.10.50"
     type "^1.0.1"
 
-darkmode-js@^1.5.3:
-  version "1.5.4"
-  resolved "https://registry.yarnpkg.com/darkmode-js/-/darkmode-js-1.5.4.tgz#c15d981b518d1a50f6ebecc362434d11e8fa38ce"
-  integrity sha512-Wr//3IDfHLnLIPsC6f9+26BG3dH7sqtJ/kIKaeR8yGCW6Nm7vTiEvUA3lm7eiUwqt+yXyPHrnfpanWo+rEtp7Q==
+darkmode-js@1.5.3:
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/darkmode-js/-/darkmode-js-1.5.3.tgz#89a5b72681d58a9b11b079fdeba7abc7c7b75ee9"
+  integrity sha512-Az6X5E6RJ72TQls1v3wIWuknb6J7XjRReMMOpMM8SXXbeO4bxGKJeJDtf7GdcIgmiTQ/cPqqObpr7LRzsAJDow==
 
 datatables.net-bs4@^1.10.15, datatables.net-bs4@^1.10.19:
   version "1.10.20"

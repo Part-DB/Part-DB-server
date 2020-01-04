@@ -103,7 +103,6 @@ window.ajaxUI = ajaxUI;
 require('../ts_src/event_listeners');
 
 
-
 //Register darkmode (we must do it here, TS does not support ES6 constructor...
 try {
     //The browser needs to support mix blend mode
