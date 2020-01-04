@@ -6281,5 +6281,17 @@ Element 3</target>
         <target>Los!</target>
       </segment>
     </unit>
+    <unit id="zC0oO.O" name="attachment.table.filename">
+      <segment>
+        <source>attachment.table.filename</source>
+        <target>Dateiname</target>
+      </segment>
+    </unit>
+    <unit id="dNey6.4" name="attachment.table.filesize">
+      <segment>
+        <source>attachment.table.filesize</source>
+        <target>Dateigröße</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

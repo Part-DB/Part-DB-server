@@ -86,7 +86,7 @@ class AttachmentDataTable implements DataTableTypeInterface
         ]);
 
         $dataTable->add('name', TextColumn::class, [
-            'label' => $this->translator->trans('attachment.edit.name'),
+            'label' => 'attachment.edit.name',
             'render' => function ($value, Attachment $context) {
                 //Link to external source
                 if ($context->isExternal()) {
@@ -110,7 +110,7 @@ class AttachmentDataTable implements DataTableTypeInterface
         ]);
 
         $dataTable->add('attachment_type', TextColumn::class, [
-            'label' => $this->translator->trans('attachment.table.type'),
+            'label' => 'attachment.table.type',
             'field' => 'attachment_type.name',
             'render' => function ($value, Attachment $context) {
                 return sprintf(
@@ -122,7 +122,7 @@ class AttachmentDataTable implements DataTableTypeInterface
         ]);
 
         $dataTable->add('element', TextColumn::class, [
-            'label' => $this->translator->trans('attachment.table.element'),
+            'label' => 'attachment.table.element',
             //'propertyPath' => 'element.name',
             'render' => function ($value, Attachment $context) {
                 return sprintf(
@@ -134,10 +134,12 @@ class AttachmentDataTable implements DataTableTypeInterface
         ]);
 
         $dataTable->add('filename', TextColumn::class, [
+            'label' => $this->translator->trans('attachment.table.filename'),
             'propertyPath' => 'filename',
         ]);
 
         $dataTable->add('filesize', TextColumn::class, [
+            'label' => $this->translator->trans('attachment.table.filesize'),
             'render' => function ($value, Attachment $context) {
                 if ($this->attachmentHelper->isFileExisting($context)) {
                     return $this->attachmentHelper->getHumanFileSize($context);
@@ -157,16 +159,16 @@ class AttachmentDataTable implements DataTableTypeInterface
 
         $dataTable
             ->add('addedDate', LocaleDateTimeColumn::class, [
-                'label' => $this->translator->trans('part.table.addedDate'),
+                'label' => 'part.table.addedDate',
                 'visible' => false,
             ])
             ->add('lastModified', LocaleDateTimeColumn::class, [
-                'label' => $this->translator->trans('part.table.lastModified'),
+                'label' => 'part.table.lastModified',
                 'visible' => false,
             ]);
 
         $dataTable->add('show_in_table', BoolColumn::class, [
-            'label' => $this->translator->trans('attachment.edit.show_in_table'),
+            'label' => 'attachment.edit.show_in_table',
             'trueValue' => $this->translator->trans('true'),
             'falseValue' => $this->translator->trans('false'),
             'nullValue' => '',
@@ -174,7 +176,7 @@ class AttachmentDataTable implements DataTableTypeInterface
         ]);
 
         $dataTable->add('isPicture', BoolColumn::class, [
-            'label' => $this->translator->trans('attachment.edit.isPicture'),
+            'label' => 'attachment.edit.isPicture',
             'trueValue' => $this->translator->trans('true'),
             'falseValue' => $this->translator->trans('false'),
             'nullValue' => '',
@@ -183,7 +185,7 @@ class AttachmentDataTable implements DataTableTypeInterface
         ]);
 
         $dataTable->add('is3DModel', BoolColumn::class, [
-            'label' => $this->translator->trans('attachment.edit.is3DModel'),
+            'label' => 'attachment.edit.is3DModel',
             'trueValue' => $this->translator->trans('true'),
             'falseValue' => $this->translator->trans('false'),
             'nullValue' => '',
@@ -192,7 +194,7 @@ class AttachmentDataTable implements DataTableTypeInterface
         ]);
 
         $dataTable->add('isBuiltin', BoolColumn::class, [
-            'label' => $this->translator->trans('attachment.edit.isBuiltin'),
+            'label' => 'attachment.edit.isBuiltin',
             'trueValue' => $this->translator->trans('true'),
             'falseValue' => $this->translator->trans('false'),
             'nullValue' => '',
