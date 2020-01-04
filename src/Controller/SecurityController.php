@@ -21,24 +21,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Parts\Part;
-use App\Entity\UserSystem\U2FKey;
-use App\Entity\UserSystem\User;
 use App\Services\PasswordResetManager;
-use App\Services\TFA\BackupCodeManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -78,11 +70,11 @@ class SecurityController extends AbstractController
     public function requestPwReset(PasswordResetManager $passwordReset, Request $request)
     {
         if (!$this->allow_email_pw_reset) {
-            throw new AccessDeniedHttpException("The password reset via email is disabled!");
+            throw new AccessDeniedHttpException('The password reset via email is disabled!');
         }
 
         if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            throw new AccessDeniedHttpException("You are already logged in, so you can not reset your password!");
+            throw new AccessDeniedHttpException('You are already logged in, so you can not reset your password!');
         }
 
         $builder = $this->createFormBuilder();
@@ -119,11 +111,11 @@ class SecurityController extends AbstractController
     public function pwResetNewPw(PasswordResetManager $passwordReset, Request $request, string $user = null, string $token = null)
     {
         if (!$this->allow_email_pw_reset) {
-            throw new AccessDeniedHttpException("The password reset via email is disabled!");
+            throw new AccessDeniedHttpException('The password reset via email is disabled!');
         }
 
         if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            throw new AccessDeniedHttpException("You are already logged in, so you can not reset your password!");
+            throw new AccessDeniedHttpException('You are already logged in, so you can not reset your password!');
         }
 
         $data = ['username' => $user, 'token' => $token];

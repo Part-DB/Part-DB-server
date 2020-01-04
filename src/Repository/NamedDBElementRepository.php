@@ -23,10 +23,8 @@ namespace App\Repository;
 
 
 use App\Entity\Base\NamedDBElement;
-use App\Entity\Base\StructuralDBElement;
 use App\Helpers\Trees\TreeViewNode;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Mapping\Entity;
 
 
 class NamedDBElementRepository extends EntityRepository

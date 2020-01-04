@@ -22,7 +22,6 @@
 namespace App\Entity\Base;
 
 use App\Entity\Attachments\Attachment;
-use App\Entity\Parts\Part;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

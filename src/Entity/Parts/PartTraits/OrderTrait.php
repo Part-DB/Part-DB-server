@@ -21,7 +21,6 @@
 
 namespace App\Entity\Parts\PartTraits;
 
-use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Security\Annotations\ColumnSecurity;
 use Doctrine\Common\Collections\Collection;

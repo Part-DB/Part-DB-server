@@ -25,29 +25,16 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\UserSystem\User;
 use App\Form\Permissions\PermissionsType;
-use App\Form\TFAGoogleSettingsType;
 use App\Form\UserAdminForm;
-use App\Form\UserSettingsType;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
-use App\Services\TFA\BackupCodeManager;
 use Doctrine\ORM\EntityManagerInterface;
-use \Exception;
-use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
 use Symfony\Component\Asset\Packages;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Validator\Constraints\Length;
 
 /**
  * @Route("/user")

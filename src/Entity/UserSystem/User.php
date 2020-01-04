@@ -770,8 +770,9 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Set the backup codes for this user. Existing backup codes are overridden.
-     * @param string[] $codes A
+     * @param  string[]  $codes  An array containing the backup codes
      * @return $this
+     * @throws \Exception If an error with the datetime occurs
      */
     public function setBackupCodes(array $codes) : self
     {

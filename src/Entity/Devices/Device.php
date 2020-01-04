@@ -133,7 +133,8 @@ class Device extends PartsContainingDBElement
     /**
      *  Set the order quantity.
      *
-     * @param int $new_order_quantity the new order quantity
+     * @param  int  $new_order_quantity  the new order quantity
+     * @return $this
      */
     public function setOrderQuantity(int $new_order_quantity): self
     {

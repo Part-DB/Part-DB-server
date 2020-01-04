@@ -24,8 +24,6 @@ namespace App\Repository;
 use App\Entity\Base\StructuralDBElement;
 use App\Helpers\Trees\StructuralDBElementIterator;
 use App\Helpers\Trees\TreeViewNode;
-use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Stopwatch\Stopwatch;
 
 class StructuralDBElementRepository extends NamedDBElementRepository
 {

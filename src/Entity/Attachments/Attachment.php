@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace App\Entity\Attachments;
 
 use App\Entity\Base\NamedDBElement;
-use App\Entity\Parts\Category;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
 

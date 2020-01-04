@@ -70,7 +70,7 @@ class UserSettingsController extends AbstractController
 
         if (empty($user->getBackupCodes())) {
             $this->addFlash('error', 'tfa_backup.no_codes_enabled');
-            throw new Exception('You do not have any backup codes enabled, therefore you can not view them!');
+            throw new \RuntimeException('You do not have any backup codes enabled, therefore you can not view them!');
         }
 
         return $this->render('Users/backup_codes.html.twig', [
@@ -253,7 +253,7 @@ class UserSettingsController extends AbstractController
         }
         $google_form->handleRequest($request);
 
-        if($google_form->isSubmitted() && $google_form->isValid() && !$this->demo_mode) {
+        if ($google_form->isSubmitted() && $google_form->isValid() && !$this->demo_mode) {
             if (!$google_enabled) {
                 //Save 2FA settings (save secrets)
                 $user->setGoogleAuthenticatorSecret($google_form->get('googleAuthenticatorSecret')->getData());
@@ -261,7 +261,9 @@ class UserSettingsController extends AbstractController
                 $em->flush();
                 $this->addFlash('success', 'user.settings.2fa.google.activated');
                 return $this->redirectToRoute('user_settings');
-            } elseif ($google_enabled) {
+            }
+
+            if ($google_enabled) {
                 //Remove secret to disable google authenticator
                 $user->setGoogleAuthenticatorSecret(null);
                 $backupCodeManager->disableBackupCodesIfUnused($user);

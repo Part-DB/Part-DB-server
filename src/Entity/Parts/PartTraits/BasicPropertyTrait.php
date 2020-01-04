@@ -23,7 +23,6 @@ namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
-use App\Entity\Parts\Part;
 use App\Security\Annotations\ColumnSecurity;
 use App\Validator\Constraints\Selectable;
 
