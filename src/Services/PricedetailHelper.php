@@ -41,8 +41,6 @@ class PricedetailHelper
     /**
      * Determines the highest amount, for which you get additional discount.
      * This function determines the highest min_discount_quantity for the given part.
-     *
-     * @return float|null
      */
     public function getMaxDiscountAmount(Part $part): ?float
     {
@@ -87,7 +85,7 @@ class PricedetailHelper
     /**
      * Determines the minimum amount of the part that can be ordered.
      *
-     * @param Part $part The part for which the minimum order amount should be determined.
+     * @param Part $part the part for which the minimum order amount should be determined
      *
      * @return float
      */
@@ -123,7 +121,7 @@ class PricedetailHelper
     /**
      * Calculates the average price of a part, when ordering the amount $amount.
      *
-     * @param Part          $part     The part for which the average price should be calculated.
+     * @param Part          $part     the part for which the average price should be calculated
      * @param float         $amount   The order amount for which the average price should be calculated.
      *                                If set to null, the mininmum order amount for the part is used.
      * @param Currency|null $currency The currency in which the average price should be calculated

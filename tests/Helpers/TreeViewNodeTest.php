@@ -35,7 +35,7 @@ class TreeViewNodeTest extends TestCase
      */
     protected $node2;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $sub_nodes = [];
         $sub_nodes[] = new TreeViewNode('Subnode 1');

@@ -31,7 +31,7 @@ use Doctrine\ORM\Mapping as ORM;
 class AttachmentTypeAttachment extends Attachment
 {
     /**
-     * @var AttachmentType The element this attachment is associated with.
+     * @var AttachmentType the element this attachment is associated with
      * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\AttachmentType", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */

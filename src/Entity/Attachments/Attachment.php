@@ -81,7 +81,7 @@ abstract class Attachment extends NamedDBElement
     protected $path = '';
 
     /**
-     * @var string The original filename the file had, when the user uploaded it.
+     * @var string the original filename the file had, when the user uploaded it
      * @ORM\Column(type="string", nullable=true)
      */
     protected $original_filename;
@@ -138,8 +138,6 @@ abstract class Attachment extends NamedDBElement
     /**
      * Check if this attachment is a 3D model and therefore can be directly shown to user.
      * If the attachment is external, false is returned (3D Models must be internal).
-     *
-     * @return bool
      */
     public function is3DModel(): bool
     {
@@ -179,7 +177,7 @@ abstract class Attachment extends NamedDBElement
      * Check if this attachment is saved in a secure place.
      * This means that it can not be accessed directly via a web request, but must be viewed via a controller.
      *
-     * @return bool True, if the file is secure.
+     * @return bool true, if the file is secure
      */
     public function isSecure(): bool
     {
@@ -197,7 +195,7 @@ abstract class Attachment extends NamedDBElement
      * Checks if the attachment file is using a builtin file. (see BUILTIN_PLACEHOLDERS const for possible placeholders)
      * If a file is built in, the path is shown to user in url field (no sensitive infos are provided).
      *
-     * @return bool True if the attachment is using an builtin file.
+     * @return bool true if the attachment is using an builtin file
      */
     public function isBuiltIn(): bool
     {
@@ -215,7 +213,7 @@ abstract class Attachment extends NamedDBElement
      * For a path like %BASE/path/foo.bar, bar will be returned.
      * If this attachment is external null is returned.
      *
-     * @return string|null The file extension in lower case.
+     * @return string|null the file extension in lower case
      */
     public function getExtension(): ?string
     {
@@ -233,7 +231,7 @@ abstract class Attachment extends NamedDBElement
     /**
      * Get the element, associated with this Attachment (for example a "Part" object).
      *
-     * @return AttachmentContainingDBElement The associated Element.
+     * @return AttachmentContainingDBElement the associated Element
      */
     public function getElement(): ?AttachmentContainingDBElement
     {
@@ -243,8 +241,6 @@ abstract class Attachment extends NamedDBElement
     /**
      * The URL to the external file, or the path to the built in file.
      * Returns null, if the file is not external (and not builtin).
-     *
-     * @return string|null
      */
     public function getURL(): ?string
     {
@@ -258,8 +254,6 @@ abstract class Attachment extends NamedDBElement
     /**
      * Returns the hostname where the external file is stored.
      * Returns null, if the file is not external.
-     *
-     * @return string|null
      */
     public function getHost(): ?string
     {
@@ -285,8 +279,6 @@ abstract class Attachment extends NamedDBElement
      * For a path like %BASE/path/foo.bar, foo.bar will be returned.
      *
      * If the path is a URL (can be checked via isExternal()), null will be returned.
-     *
-     * @return string|null
      */
     public function getFilename(): ?string
     {
@@ -356,10 +348,6 @@ abstract class Attachment extends NamedDBElement
      * Setters
      ****************************************************************************************************/
 
-    /**
-     * @param bool $show_in_table
-     * @return self
-     */
     public function setShowInTable(bool $show_in_table): self
     {
         $this->show_in_table = $show_in_table;
@@ -369,7 +357,7 @@ abstract class Attachment extends NamedDBElement
 
     /**
      * Sets the element that is associated with this attachment.
-     * @param AttachmentContainingDBElement $element
+     *
      * @return $this
      */
     public function setElement(AttachmentContainingDBElement $element): self
@@ -384,8 +372,10 @@ abstract class Attachment extends NamedDBElement
     }
 
     /**
-     * Sets the filepath (with relative placeholder) for this attachment
-     * @param string $path The new filepath of the attachment.
+     * Sets the filepath (with relative placeholder) for this attachment.
+     *
+     * @param string $path the new filepath of the attachment
+     *
      * @return Attachment
      */
     public function setPath(string $path): self
@@ -396,7 +386,6 @@ abstract class Attachment extends NamedDBElement
     }
 
     /**
-     * @param AttachmentType $attachement_type
      * @return $this
      */
     public function setAttachmentType(AttachmentType $attachement_type): self
@@ -410,7 +399,6 @@ abstract class Attachment extends NamedDBElement
      * Sets the url associated with this attachment.
      * If the url is empty nothing is changed, to not override the file path.
      *
-     * @param string|null $url
      * @return Attachment
      */
     public function setURL(?string $url): self
@@ -438,7 +426,7 @@ abstract class Attachment extends NamedDBElement
      *
      * @param string $path The path that should be checked
      *
-     * @return bool True if the path is pointing to a builtin resource.
+     * @return bool true if the path is pointing to a builtin resource
      */
     public static function checkIfBuiltin(string $path): bool
     {
@@ -455,7 +443,7 @@ abstract class Attachment extends NamedDBElement
     /**
      * Check if a string is a URL and is valid.
      *
-     * @param $string string The string which should be checked.
+     * @param $string string The string which should be checked
      * @param bool $path_required If true, the string must contain a path to be valid. (e.g. foo.bar would be invalid, foo.bar/test.php would be valid).
      * @param $only_http bool Set this to true, if only HTTPS or HTTP schemata should be allowed.
      *  *Caution: When this is set to false, a attacker could use the file:// schema, to get internal server files, like /etc/passwd.*

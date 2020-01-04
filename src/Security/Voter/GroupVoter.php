@@ -32,8 +32,6 @@ class GroupVoter extends ExtendedVoter
      *
      * @param $attribute
      * @param $subject
-     *
-     * @return bool
      */
     protected function voteOnUser($attribute, $subject, User $user): bool
     {

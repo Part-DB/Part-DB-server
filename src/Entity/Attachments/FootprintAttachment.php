@@ -32,7 +32,7 @@ use Doctrine\ORM\Mapping as ORM;
 class FootprintAttachment extends Attachment
 {
     /**
-     * @var Footprint The element this attachment is associated with.
+     * @var Footprint the element this attachment is associated with
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Footprint", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */

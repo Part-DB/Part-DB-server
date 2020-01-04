@@ -38,7 +38,7 @@ class PartPreviewGenerator
      * The priority is: Part MasterAttachment -> Footprint MasterAttachment -> Category MasterAttachment
      * -> Storelocation Attachment -> MeasurementUnit Attachment -> ManufacturerAttachment.
      *
-     * @param Part $part The part for which the attachments should be determined.
+     * @param Part $part the part for which the attachments should be determined
      *
      * @return Attachment[]
      */
@@ -97,8 +97,6 @@ class PartPreviewGenerator
      * The returned attachment is guaranteed to be existing and be a picture.
      *
      * @param Part $part The part for which the attachment should be determined
-     *
-     * @return Attachment|null
      */
     public function getTablePreviewAttachment(Part $part): ?Attachment
     {
@@ -123,9 +121,9 @@ class PartPreviewGenerator
     /**
      * Checks if a attachment is exising and a valid picture.
      *
-     * @param Attachment|null $attachment The attachment that should be checked.
+     * @param Attachment|null $attachment the attachment that should be checked
      *
-     * @return bool True if the attachment is valid.
+     * @return bool true if the attachment is valid
      */
     protected function isAttachmentValidPicture(?Attachment $attachment): bool
     {

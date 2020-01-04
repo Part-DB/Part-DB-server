@@ -21,7 +21,6 @@
 
 namespace App\EventSubscriber;
 
-
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mailer\Event\MessageEvent;
 use Symfony\Component\Mime\Address;
@@ -34,7 +33,7 @@ class MailFromListener implements EventSubscriberInterface
 
     public function __construct(string $email, string $name)
     {
-        $this->email =  $email;
+        $this->email = $email;
         $this->name = $name;
     }
 

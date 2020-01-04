@@ -32,7 +32,7 @@ use Doctrine\ORM\Mapping as ORM;
 class DeviceAttachment extends Attachment
 {
     /**
-     * @var Device The element this attachment is associated with.
+     * @var Device the element this attachment is associated with
      * @ORM\ManyToOne(targetEntity="App\Entity\Devices\Device", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */

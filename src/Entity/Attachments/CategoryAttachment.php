@@ -32,7 +32,7 @@ use Doctrine\ORM\Mapping as ORM;
 class CategoryAttachment extends Attachment
 {
     /**
-     * @var Category The element this attachment is associated with.
+     * @var Category the element this attachment is associated with
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Category", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */

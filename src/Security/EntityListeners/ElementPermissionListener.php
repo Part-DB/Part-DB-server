@@ -80,16 +80,18 @@ class ElementPermissionListener
     /**
      * Checks if access to the property of the given element is granted.
      * This function adds an additional cache layer, where the voters are called only once (to improve performance).
-     * @param string $mode What operation should be checked. Must be 'read' or 'edit'
+     *
+     * @param string         $mode       What operation should be checked. Must be 'read' or 'edit'
      * @param ColumnSecurity $annotation The annotation of the property that should be checked
-     * @param DBElement $element The element that should for which should be checked
+     * @param DBElement      $element    The element that should for which should be checked
+     *
      * @return bool True if the user is allowed to read that property
      */
-    protected function isGranted(string $mode, ColumnSecurity $annotation, DBElement $element) : bool
+    protected function isGranted(string $mode, ColumnSecurity $annotation, DBElement $element): bool
     {
-        if ($mode === 'read') {
+        if ('read' === $mode) {
             $operation = $annotation->getReadOperationName();
-        } elseif ($mode === 'edit') {
+        } elseif ('edit' === $mode) {
             $operation = $annotation->getEditOperationName();
         } else {
             throw new \InvalidArgumentException('$mode must be either "read" or "edit"!');
@@ -101,12 +103,11 @@ class ElementPermissionListener
         }
 
         //Check if we have already have saved the permission, otherwise save it to cache
-        if (!isset($this->perm_cache[$mode][get_class($element)][$operation])) {
-            $this->perm_cache[$mode][get_class($element)][$operation] = $this->security->isGranted($operation, $element);
+        if (!isset($this->perm_cache[$mode][\get_class($element)][$operation])) {
+            $this->perm_cache[$mode][\get_class($element)][$operation] = $this->security->isGranted($operation, $element);
         }
 
-        return $this->perm_cache[$mode][get_class($element)][$operation];
-
+        return $this->perm_cache[$mode][\get_class($element)][$operation];
     }
 
     /**

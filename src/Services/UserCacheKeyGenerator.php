@@ -41,8 +41,6 @@ class UserCacheKeyGenerator
      *
      * @param User|null $user The user for which the key should be generated. When set to null, the currently logged in
      *                        user is used.
-     *
-     * @return string
      */
     public function generateKey(User $user = null): string
     {

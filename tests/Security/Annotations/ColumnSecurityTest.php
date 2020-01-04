@@ -21,7 +21,6 @@
 
 namespace App\Tests\Security\Annotations;
 
-
 use App\Entity\Attachments\AttachmentType;
 use App\Security\Annotations\ColumnSecurity;
 use PHPUnit\Framework\TestCase;
@@ -48,7 +47,7 @@ class ColumnSecurityTest extends TestCase
         $this->assertEquals('prefix.overwritten', $annotation->getEditOperationName());
     }
 
-    public function placeholderScalarDataProvider() : array
+    public function placeholderScalarDataProvider(): array
     {
         return [
             ['string', '???'],
@@ -64,7 +63,7 @@ class ColumnSecurityTest extends TestCase
 
     /**
      * @dataProvider placeholderScalarDataProvider
-     * @param string $type
+     *
      * @param $expected_value
      */
     public function testGetPlaceholderScalar(string $type, $expected_value)
@@ -84,7 +83,7 @@ class ColumnSecurityTest extends TestCase
         $this->assertCount(1, $annotation->getPlaceholder());
 
         //If a placeholder is specified we allow every type
-        $annotation->type = "type2";
+        $annotation->type = 'type2';
         $annotation->placeholder = 'invalid';
         $this->assertEquals('invalid', $annotation->getPlaceholder());
     }

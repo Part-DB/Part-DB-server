@@ -31,7 +31,7 @@ use Doctrine\Common\Collections\Collection;
 trait OrderTrait
 {
     /**
-     * @var Orderdetail[]|Collection The details about how and where you can order this part.
+     * @var Orderdetail[]|Collection the details about how and where you can order this part
      * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      * @ColumnSecurity(prefix="orderdetails", type="collection")
@@ -121,9 +121,7 @@ trait OrderTrait
      * Adds the given orderdetail to list of orderdetails.
      * The orderdetail is assigned to this part.
      *
-     * @param Orderdetail $orderdetail The orderdetail that should be added.
-     *
-     * @return self
+     * @param Orderdetail $orderdetail the orderdetail that should be added
      */
     public function addOrderdetail(Orderdetail $orderdetail): self
     {
@@ -136,7 +134,6 @@ trait OrderTrait
     /**
      * Removes the given orderdetail from the list of orderdetails.
      *
-     * @param Orderdetail $orderdetail
      * @return OrderTrait
      */
     public function removeOrderdetail(Orderdetail $orderdetail): self
@@ -157,8 +154,6 @@ trait OrderTrait
      *                                                (if the part has exactly one orderdetails,
      *                                                set this orderdetails as order orderdetails.
      *                                                Otherwise, set "no order orderdetails")
-     *
-     * @return self
      */
     public function setManualOrder(bool $new_manual_order, int $new_order_quantity = 1, ?Orderdetail $new_order_orderdetail = null): self
     {

@@ -88,8 +88,6 @@ class AttachmentType extends StructuralDBElement
      * Gets an filter, which file types are allowed for attachment files.
      * Must be in the format of <input type=file> accept attribute
      * (See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#Unique_file_type_specifiers).
-     *
-     * @return string
      */
     public function getFiletypeFilter(): string
     {
@@ -98,7 +96,9 @@ class AttachmentType extends StructuralDBElement
 
     /**
      * Sets the filetype filter pattern.
+     *
      * @param string $filetype_filter The new filetype filter
+     *
      * @return $this
      */
     public function setFiletypeFilter(string $filetype_filter): self

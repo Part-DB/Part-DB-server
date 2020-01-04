@@ -32,7 +32,7 @@ use Doctrine\ORM\Mapping as ORM;
 class GroupAttachment extends Attachment
 {
     /**
-     * @var Group The element this attachment is associated with.
+     * @var Group the element this attachment is associated with
      * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\Group", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */

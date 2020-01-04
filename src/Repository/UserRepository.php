@@ -42,9 +42,9 @@ class UserRepository extends NamedDBElementRepository implements PasswordUpgrade
      *
      * @return User|null
      */
-    public function getAnonymousUser() : ?User
+    public function getAnonymousUser(): ?User
     {
-        if ($this->anonymous_user === null) {
+        if (null === $this->anonymous_user) {
             $this->anonymous_user = $this->findOneBy([
                 'id' => User::ID_ANONYMOUS,
             ]);
@@ -55,10 +55,12 @@ class UserRepository extends NamedDBElementRepository implements PasswordUpgrade
 
     /**
      * Find a user by its name or its email. Useful for login or password reset purposes.
+     *
      * @param string $name_or_password The username or the email of the user that should be found
+     *
      * @return User|null The user if it is existing, null if no one matched the criteria
      */
-    public function findByEmailOrName(string $name_or_password) : ?User
+    public function findByEmailOrName(string $name_or_password): ?User
     {
         if (empty($name_or_password)) {
             return null;
@@ -79,7 +81,7 @@ class UserRepository extends NamedDBElementRepository implements PasswordUpgrade
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
     {

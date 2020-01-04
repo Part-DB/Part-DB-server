@@ -63,7 +63,7 @@ class EntityURLGenerator
      * Throws an exception if the entity class is not known to the map.
      *
      * @param array $map The map that should be used for determing the controller
-     * @param $entity mixed The entity for which the controller name should be determined.
+     * @param $entity mixed The entity for which the controller name should be determined
      *
      * @return string The name of the controller fitting the entity class
      *
@@ -93,13 +93,13 @@ class EntityURLGenerator
      * For the given types, the [type]URL() functions are called (e.g. infoURL()).
      * Not all entity class and $type combinations are supported.
      *
-     * @param $entity mixed The element for which the page should be generated.
+     * @param $entity mixed The element for which the page should be generated
      * @param string $type The page type. Currently supported: 'info', 'edit', 'create', 'clone', 'list'/'list_parts'
      *
-     * @return string The link to the desired page.
+     * @return string the link to the desired page
      *
-     * @throws EntityNotSupportedException Thrown if the entity is not supported for the given type.
-     * @throws \InvalidArgumentException   Thrown if the givent type is not existing.
+     * @throws EntityNotSupportedException thrown if the entity is not supported for the given type
+     * @throws \InvalidArgumentException   thrown if the givent type is not existing
      */
     public function getURL($entity, string $type)
     {
@@ -157,7 +157,7 @@ class EntityURLGenerator
     /**
      * Generates an URL to a page, where info about this entity can be viewed.
      *
-     * @param $entity mixed The entity for which the info should be generated.
+     * @param $entity mixed The entity for which the info should be generated
      *
      * @return string The URL to the info page
      *
@@ -188,9 +188,9 @@ class EntityURLGenerator
     /**
      * Generates an URL to a page, where this entity can be edited.
      *
-     * @param $entity mixed The entity for which the edit link should be generated.
+     * @param $entity mixed The entity for which the edit link should be generated
      *
-     * @return string The URL to the edit page.
+     * @return string the URL to the edit page
      *
      * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
@@ -217,9 +217,9 @@ class EntityURLGenerator
     /**
      * Generates an URL to a page, where a entity of this type can be created.
      *
-     * @param $entity mixed The entity for which the link should be generated.
+     * @param $entity mixed The entity for which the link should be generated
      *
-     * @return string The URL to the page.
+     * @return string the URL to the page
      *
      * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
@@ -247,9 +247,9 @@ class EntityURLGenerator
      * Generates an URL to a page, where a new entity can be created, that has the same informations as the
      * given entity (element cloning).
      *
-     * @param $entity mixed The entity for which the link should be generated.
+     * @param $entity mixed The entity for which the link should be generated
      *
-     * @return string The URL to the page.
+     * @return string the URL to the page
      *
      * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
@@ -265,9 +265,9 @@ class EntityURLGenerator
     /**
      * Generates an URL to a page, where all parts are listed, which are contained in the given element.
      *
-     * @param $entity mixed The entity for which the link should be generated.
+     * @param $entity mixed The entity for which the link should be generated
      *
-     * @return string The URL to the page.
+     * @return string the URL to the page
      *
      * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */

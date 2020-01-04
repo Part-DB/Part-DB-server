@@ -21,7 +21,6 @@
 
 namespace App\Tests\Services;
 
-
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\DBElement;
 use App\Entity\Base\NamedDBElement;
@@ -30,7 +29,6 @@ use App\Entity\Parts\Part;
 use App\Exceptions\EntityNotSupportedException;
 use App\Services\AmountFormatter;
 use App\Services\ElementTypeNameGenerator;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ElementTypeNameGeneratorTest extends WebTestCase
@@ -40,7 +38,7 @@ class ElementTypeNameGeneratorTest extends WebTestCase
      */
     protected $service;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -60,7 +58,7 @@ class ElementTypeNameGeneratorTest extends WebTestCase
 
         //Test exception for unknpwn type
         $this->expectException(EntityNotSupportedException::class);
-        $this->service->getLocalizedTypeLabel(new class extends DBElement {
+        $this->service->getLocalizedTypeLabel(new class() extends DBElement {
             public function getIDString(): string
             {
                 return 'Stub';
@@ -79,7 +77,7 @@ class ElementTypeNameGeneratorTest extends WebTestCase
 
         //Test exception
         $this->expectException(EntityNotSupportedException::class);
-        $this->service->getTypeNameCombination(new class extends NamedDBElement {
+        $this->service->getTypeNameCombination(new class() extends NamedDBElement {
             public function getIDString(): string
             {
                 return 'Stub';

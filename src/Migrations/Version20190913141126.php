@@ -56,7 +56,7 @@ final class Version20190913141126 extends AbstractMigration
         WHERE id = 2 AND name = "readonly";';
 
         $this->addSql($sql);
-        
+
         $sql = 'UPDATE `groups`
         SET perms_parts_category = 5, perms_parts_minamount = 5, perms_parts_lots = 85, perms_parts_tags= 5,
             perms_parts_unit = 5, perms_parts_mass = 5, perms_parts_status = 5, perms_parts_mpn = 5,

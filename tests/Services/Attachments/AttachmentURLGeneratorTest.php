@@ -30,7 +30,7 @@ class AttachmentURLGeneratorTest extends WebTestCase
 
     protected static $service;
 
-    public static function setUpBeforeClass() : void
+    public static function setUpBeforeClass(): void
     {
         //Get an service instance.
         self::bootKernel();

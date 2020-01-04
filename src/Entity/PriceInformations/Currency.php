@@ -46,7 +46,7 @@ class Currency extends StructuralDBElement
     protected $attachments;
 
     /**
-     * @var string The 3 letter ISO code of the currency.
+     * @var string the 3 letter ISO code of the currency
      * @ORM\Column(type="string")
      * @Assert\Currency()
      */
@@ -95,8 +95,6 @@ class Currency extends StructuralDBElement
 
     /**
      * Returns the inverse exchange rate (how many of the current currency the base unit is worth).
-     *
-     * @return string|null
      */
     public function getInverseExchangeRate(): ?string
     {
@@ -112,8 +110,6 @@ class Currency extends StructuralDBElement
     /**
      * Returns The exchange rate between this currency and the base currency
      * (how many base units the current currency is worth).
-     *
-     * @return string|null
      */
     public function getExchangeRate(): ?string
     {
@@ -122,8 +118,10 @@ class Currency extends StructuralDBElement
 
     /**
      * Sets the exchange rate of the currency.
+     *
      * @param string|null $exchange_rate The new exchange rate of the currency.
-     * Set to null, if the exchange rate is unknown.
+     *                                   Set to null, if the exchange rate is unknown.
+     *
      * @return Currency
      */
     public function setExchangeRate(?string $exchange_rate): self

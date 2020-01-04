@@ -112,6 +112,7 @@ class PartLot extends DBElement
      * This is the case, if the expiration date is greater the the current date.
      *
      * @return bool|null True, if the part lot is expired. Returns null, if no expiration date was set.
+     *
      * @throws \Exception If an error with the DateTime occurs
      */
     public function isExpired(): ?bool
@@ -137,7 +138,6 @@ class PartLot extends DBElement
     /**
      * Sets the description of the part lot.
      *
-     * @param string $description
      * @return PartLot
      */
     public function setDescription(string $description): self
@@ -160,7 +160,6 @@ class PartLot extends DBElement
     /**
      * Sets the comment for this part lot.
      *
-     * @param string $comment
      * @return PartLot
      */
     public function setComment(string $comment): self
@@ -207,7 +206,6 @@ class PartLot extends DBElement
     /**
      * Sets the storage location, where this part lot is stored.
      *
-     * @param Storelocation|null $storage_location
      * @return PartLot
      */
     public function setStorageLocation(?Storelocation $storage_location): self
@@ -254,7 +252,6 @@ class PartLot extends DBElement
     /**
      * Set the unknown instock status of this part lot.
      *
-     * @param bool $instock_unknown
      * @return PartLot
      */
     public function setInstockUnknown(bool $instock_unknown): self
@@ -292,7 +289,6 @@ class PartLot extends DBElement
     }
 
     /**
-     * @param bool $needs_refill
      * @return PartLot
      */
     public function setNeedsRefill(bool $needs_refill): self

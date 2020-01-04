@@ -44,7 +44,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserAdminForm extends AbstractType
 {

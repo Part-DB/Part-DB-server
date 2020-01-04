@@ -29,7 +29,6 @@ use PHPUnit\Framework\TestCase;
 
 class PasswordChangeNeededSubscriberTest extends TestCase
 {
-
     public function testTFARedirectNeeded()
     {
         $user = new User();
@@ -55,6 +54,5 @@ class PasswordChangeNeededSubscriberTest extends TestCase
         $user->setGoogleAuthenticatorSecret(null);
         $user->addU2FKey(new U2FKey());
         $this->assertFalse(PasswordChangeNeededSubscriber::TFARedirectNeeded($user));
-
     }
 }

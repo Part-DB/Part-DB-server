@@ -21,21 +21,16 @@
 
 namespace App\DataTables\Column;
 
-
 use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;
 use App\Services\Attachments\AttachmentManager;
-use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\FAIconGenerator;
 use Omines\DataTablesBundle\Column\AbstractColumn;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-
 
 class PartAttachmentsColumn extends AbstractColumn
 {
-
     protected $FAIconGenerator;
     protected $urlGenerator;
     protected $attachmentManager;
@@ -51,6 +46,7 @@ class PartAttachmentsColumn extends AbstractColumn
      * The normalize function is responsible for converting parsed and processed data to a datatables-appropriate type.
      *
      * @param mixed $value The single value of the column
+     *
      * @return mixed
      */
     public function normalize($value)
@@ -63,7 +59,7 @@ class PartAttachmentsColumn extends AbstractColumn
         if (!$context instanceof Part) {
             throw new \RuntimeException('$context must be a Part object!');
         }
-        $tmp = "";
+        $tmp = '';
         $attachments = $context->getAttachments()->filter(function (Attachment $attachment) {
             return $attachment->getShowInTable() && $this->attachmentManager->isFileExisting($attachment);
         });
@@ -74,11 +70,11 @@ class PartAttachmentsColumn extends AbstractColumn
             if (--$count < 0) {
                 break;
             }
-            /** @var Attachment $attachment */
+            /* @var Attachment $attachment */
             $tmp .= sprintf(
                 '<a href="%s" title="%s" class="attach-table-icon" target="_blank" rel="noopener" data-no-ajax>%s</a>',
                 $this->urlGenerator->viewURL($attachment),
-                htmlspecialchars($attachment->getName()) . ': ' . htmlspecialchars($attachment->getFilename()),
+                htmlspecialchars($attachment->getName()).': '.htmlspecialchars($attachment->getFilename()),
                 $this->FAIconGenerator->generateIconHTML(
                     // Sometimes the extension can not be determined, so ensure a generic icon is shown
                     $this->FAIconGenerator->fileExtensionToFAType($attachment->getExtension() ?? 'file'),

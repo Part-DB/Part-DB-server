@@ -28,7 +28,7 @@ class FileTypeFilterToolsTest extends WebTestCase
 {
     protected static $service;
 
-    public static function setUpBeforeClass() : void
+    public static function setUpBeforeClass(): void
     {
         self::bootKernel();
         self::$service = self::$container->get(FileTypeFilterTools::class);

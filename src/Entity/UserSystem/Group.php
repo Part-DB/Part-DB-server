@@ -78,6 +78,7 @@ class Group extends StructuralDBElement implements HasPermissionsInterface
 
     /**
      * Check if the users of this group are enforced to have two factor authentification (2FA) enabled.
+     *
      * @return bool
      */
     public function isEnforce2FA(): bool
@@ -87,16 +88,17 @@ class Group extends StructuralDBElement implements HasPermissionsInterface
 
     /**
      * Sets if the user of this group are enforced to have two factor authentification enabled.
+     *
      * @param bool $enforce2FA True, if the users of this group are enforced to have 2FA enabled.
+     *
      * @return $this
      */
-    public function setEnforce2FA(bool $enforce2FA): Group
+    public function setEnforce2FA(bool $enforce2FA): self
     {
         $this->enforce2FA = $enforce2FA;
+
         return $this;
     }
-
-
 
     /**
      * Returns the ID as an string, defined by the element class.

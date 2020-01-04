@@ -21,7 +21,6 @@
 
 namespace App\Services;
 
-use App\Entity\Base\DBElement;
 use App\Entity\Base\StructuralDBElement;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\File;
@@ -59,10 +58,10 @@ class EntityImporter
      *
      * @param string                   $lines      The list of names seperated by \n
      * @param string                   $class_name The name of the class for which the entities should be created
-     * @param StructuralDBElement|null $parent     The element which will be used as parent element for new elements.
-     * @param array                    $errors     An associative array containing all validation errors.
+     * @param StructuralDBElement|null $parent     the element which will be used as parent element for new elements
+     * @param array                    $errors     an associative array containing all validation errors
      *
-     * @return StructuralDBElement[]  An array containing all valid imported entities (with the type $class_name)
+     * @return StructuralDBElement[] An array containing all valid imported entities (with the type $class_name)
      */
     public function massCreation(string $lines, string $class_name, ?StructuralDBElement $parent = null, array &$errors = []): array
     {
@@ -72,7 +71,7 @@ class EntityImporter
         if (!is_a($class_name, StructuralDBElement::class, true)) {
             throw new \InvalidArgumentException('$class_name must be a StructuralDBElement type!');
         }
-        if ($parent !== null && !is_a($parent, $class_name)) {
+        if (null !== $parent && !is_a($parent, $class_name)) {
             throw new \InvalidArgumentException('$parent must have the same type as specified in $class_name!');
         }
 
@@ -81,7 +80,7 @@ class EntityImporter
 
         foreach ($names as $name) {
             $name = trim($name);
-            if ($name === '') {
+            if ('' === $name) {
                 //Skip empty lines (StrucuralDBElements must have a name)
                 continue;
             }
@@ -108,9 +107,9 @@ class EntityImporter
      * This methods deserializes the given file and saves it database.
      * The imported elements will be checked (validated) before written to database.
      *
-     * @param File   $file       The file that should be used for importing.
-     * @param string $class_name The class name of the enitity that should be imported.
-     * @param array  $options    Options for the import process.
+     * @param File   $file       the file that should be used for importing
+     * @param string $class_name the class name of the enitity that should be imported
+     * @param array  $options    options for the import process
      *
      * @return array An associative array containing an ConstraintViolationList and the entity name as key are returned,
      *               if an error happened during validation. When everything was successfull, the array should be empty.
@@ -156,11 +155,11 @@ class EntityImporter
      *
      * The imported elements will NOT be validated. If you want to use the result array, you have to validate it by yourself.
      *
-     * @param File   $file       The file that should be used for importing.
-     * @param string $class_name The class name of the enitity that should be imported.
-     * @param array  $options    Options for the import process.
+     * @param File   $file       the file that should be used for importing
+     * @param string $class_name the class name of the enitity that should be imported
+     * @param array  $options    options for the import process
      *
-     * @return array An array containing the deserialized elements.
+     * @return array an array containing the deserialized elements
      */
     public function fileToEntityArray(File $file, string $class_name, array $options = []): array
     {
@@ -198,8 +197,8 @@ class EntityImporter
     /**
      * This functions corrects the parent setting based on the children value of the parent.
      *
-     * @param iterable $entities The list of entities that should be fixed.
-     * @param null     $parent   The parent, to which the entity should be set.
+     * @param iterable $entities the list of entities that should be fixed
+     * @param null     $parent   the parent, to which the entity should be set
      */
     protected function correctParentEntites(iterable $entities, $parent = null)
     {

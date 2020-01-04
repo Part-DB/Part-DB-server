@@ -55,7 +55,7 @@ class BuiltinAttachmentsFinder
      * The array is a list of the relative filenames using the %PLACEHOLDERS%.
      * The list contains the files from all configured valid ressoureces.
      *
-     * @return array The list of the ressources, or an empty array if an error happened.
+     * @return array the list of the ressources, or an empty array if an error happened
      */
     public function getListOfRessources(): array
     {
@@ -92,9 +92,9 @@ class BuiltinAttachmentsFinder
     /**
      * Find all ressources which are matching the given keyword and the specified options.
      *
-     * @param string     $keyword   The keyword you want to search for.
+     * @param string     $keyword   the keyword you want to search for
      * @param array      $options   Here you can specify some options (see configureOptions for list of options)
-     * @param array|null $base_list The list from which should be used as base for filtering.
+     * @param array|null $base_list the list from which should be used as base for filtering
      *
      * @return array The list of the results matching the specified keyword and options
      */

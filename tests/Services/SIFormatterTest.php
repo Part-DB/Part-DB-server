@@ -31,7 +31,7 @@ class SIFormatterTest extends WebTestCase
      */
     protected $service;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         //Get an service instance.
         self::bootKernel();

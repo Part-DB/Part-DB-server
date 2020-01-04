@@ -21,13 +21,11 @@
 
 namespace App\DataTables\Column;
 
-
 use Omines\DataTablesBundle\Column\AbstractColumn;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class TagsColumn extends AbstractColumn
 {
-
     protected $urlGenerator;
 
     public function __construct(UrlGeneratorInterface $urlGenerator)
@@ -39,6 +37,7 @@ class TagsColumn extends AbstractColumn
      * The normalize function is responsible for converting parsed and processed data to a datatables-appropriate type.
      *
      * @param mixed $value The single value of the column
+     *
      * @return mixed
      */
     public function normalize($value)
@@ -46,6 +45,7 @@ class TagsColumn extends AbstractColumn
         if (empty($value)) {
             return [];
         }
+
         return explode(',', $value);
     }
 

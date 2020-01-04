@@ -2,9 +2,8 @@
 
 /**
  * Based on the .php_cs.dist of the symfony project
- * https://github.com/symfony/symfony/blob/4.4/.php_cs.dist
+ * https://github.com/symfony/symfony/blob/4.4/.php_cs.dist.
  */
-
 if (!file_exists(__DIR__.'/src')) {
     exit(0);
 }

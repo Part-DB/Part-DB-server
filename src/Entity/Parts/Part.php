@@ -92,7 +92,7 @@ class Part extends AttachmentContainingDBElement
     protected $addedDate;
 
     /**
-     * @var \DateTime The date when this element was modified the last time.
+     * @var \DateTime the date when this element was modified the last time
      * @ColumnSecurity(type="datetime")
      * @ORM\Column(type="datetime", name="last_modified", options={"default"="CURRENT_TIMESTAMP"})
      */

@@ -41,7 +41,7 @@ trait ManufacturerTrait
     protected $manufacturer;
 
     /**
-     * @var string The url to the part on the manufacturer's homepage.
+     * @var string the url to the part on the manufacturer's homepage
      * @ORM\Column(type="string")
      * @Assert\Url()
      * @ColumnSecurity(prefix="mpn", type="string", placeholder="")
@@ -86,7 +86,7 @@ trait ManufacturerTrait
     /**
      * Similar to getManufacturerProductUrl, but here only the database value is returned.
      *
-     * @return string The manufacturer url saved in DB for this part.
+     * @return string the manufacturer url saved in DB for this part
      */
     public function getCustomProductURL(): string
     {
@@ -115,7 +115,6 @@ trait ManufacturerTrait
      * Sets the manufacturing status for this part
      * See getManufacturingStatus() for valid values.
      *
-     * @param string $manufacturing_status
      * @return Part
      */
     public function setManufacturingStatus(string $manufacturing_status): self
@@ -137,8 +136,6 @@ trait ManufacturerTrait
 
     /**
      * Returns the assigned manufacturer product number (MPN) for this part.
-     *
-     * @return string
      */
     public function getManufacturerProductNumber(): string
     {
@@ -148,7 +145,6 @@ trait ManufacturerTrait
     /**
      * Sets the manufacturer product number (MPN) for this part.
      *
-     * @param string $manufacturer_product_number
      * @return Part
      */
     public function setManufacturerProductNumber(string $manufacturer_product_number): self
@@ -163,8 +159,6 @@ trait ManufacturerTrait
      * Set to "" if this part should use the automatically URL based on its manufacturer.
      *
      * @param string $new_url The new url
-     *
-     * @return self
      */
     public function setManufacturerProductURL(string $new_url): self
     {
@@ -178,8 +172,6 @@ trait ManufacturerTrait
      *
      * @param Manufacturer|null $new_manufacturer The new Manufacturer of this part. Set to null, if this part should
      *                                            not have a manufacturer.
-     *
-     * @return self
      */
     public function setManufacturer(?Manufacturer $new_manufacturer): self
     {

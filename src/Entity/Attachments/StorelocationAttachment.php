@@ -32,7 +32,7 @@ use Doctrine\ORM\Mapping as ORM;
 class StorelocationAttachment extends Attachment
 {
     /**
-     * @var Storelocation The element this attachment is associated with.
+     * @var Storelocation the element this attachment is associated with
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Storelocation", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */

@@ -21,22 +21,21 @@
 
 namespace App\Services;
 
-
 use Symfony\Component\DependencyInjection\EnvVarProcessorInterface;
 use Symfony\Component\DependencyInjection\Exception\EnvNotFoundException;
 
 class CustomEnvVarProcessor implements EnvVarProcessorInterface
 {
-
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getEnv($prefix, $name, \Closure $getEnv)
     {
         if ('validMailDSN' === $prefix) {
             try {
                 $env = $getEnv($name);
-                return !empty($env)  && $env !== 'null://null';
+
+                return !empty($env) && 'null://null' !== $env;
             } catch (EnvNotFoundException $exception) {
                 return false;
             }
@@ -44,7 +43,7 @@ class CustomEnvVarProcessor implements EnvVarProcessorInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function getProvidedTypes()
     {

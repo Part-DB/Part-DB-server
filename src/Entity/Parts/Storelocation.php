@@ -145,7 +145,6 @@ class Storelocation extends PartsContainingDBElement
     }
 
     /**
-     * @param bool $only_single_part
      * @return Storelocation
      */
     public function setOnlySinglePart(bool $only_single_part): self
@@ -166,7 +165,6 @@ class Storelocation extends PartsContainingDBElement
     }
 
     /**
-     * @param bool $limit_to_existing_parts
      * @return Storelocation
      */
     public function setLimitToExistingParts(bool $limit_to_existing_parts): self
@@ -185,7 +183,6 @@ class Storelocation extends PartsContainingDBElement
     }
 
     /**
-     * @param MeasurementUnit|null $storage_type
      * @return Storelocation
      */
     public function setStorageType(?MeasurementUnit $storage_type): self

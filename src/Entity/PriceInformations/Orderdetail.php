@@ -157,7 +157,7 @@ class Orderdetail extends DBElement
     /**
      * Get the supplier part-nr.
      *
-     * @return string the part-nr.
+     * @return string the part-nr
      */
     public function getSupplierPartNr(): string
     {
@@ -228,7 +228,6 @@ class Orderdetail extends DBElement
     /**
      * Removes an pricedetail from this orderdetail.
      *
-     * @param Pricedetail $pricedetail
      * @return Orderdetail
      */
     public function removePricedetail(Pricedetail $pricedetail): self
@@ -276,7 +275,6 @@ class Orderdetail extends DBElement
     /**
      * Sets a new part with which this orderdetail is associated.
      *
-     * @param Part $part
      * @return Orderdetail
      */
     public function setPart(Part $part): self
@@ -289,7 +287,6 @@ class Orderdetail extends DBElement
     /**
      * Sets the new supplier associated with this orderdetail.
      *
-     * @param Supplier $new_supplier
      * @return Orderdetail
      */
     public function setSupplier(Supplier $new_supplier): self
@@ -333,7 +330,7 @@ class Orderdetail extends DBElement
      * Sets the custom product supplier URL for this order detail.
      * Set this to "", if the function getSupplierProductURL should return the automatic generated URL.
      *
-     * @param $new_url string The new URL for the supplier URL.
+     * @param $new_url string The new URL for the supplier URL
      *
      * @return Orderdetail
      */

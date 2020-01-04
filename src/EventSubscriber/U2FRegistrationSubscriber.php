@@ -21,7 +21,6 @@
 
 namespace App\EventSubscriber;
 
-
 use App\Entity\UserSystem\U2FKey;
 use Doctrine\ORM\EntityManagerInterface;
 use R\U2FTwoFactorBundle\Event\RegisterEvent;
@@ -51,9 +50,9 @@ class U2FRegistrationSubscriber implements EventSubscriberInterface
     /** @return string[] **/
     public static function getSubscribedEvents(): array
     {
-        return array(
+        return [
             'r_u2f_two_factor.register' => 'onRegister',
-        );
+        ];
     }
 
     public function onRegister(RegisterEvent $event): void

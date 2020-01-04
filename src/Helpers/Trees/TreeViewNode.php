@@ -21,11 +21,6 @@
 
 namespace App\Helpers\Trees;
 
-use App\Entity\Base\DBElement;
-use App\Entity\Base\NamedDBElement;
-use App\Entity\Base\StructuralDBElement;
-use App\Helpers\Trees\TreeViewNodeState;
-
 /**
  * This class represents a node for the bootstrap treeview node.
  * When you serialize an array of these objects to JSON, you can use the serialized data in data for the treeview.
@@ -63,9 +58,10 @@ class TreeViewNode implements \JsonSerializable
     /**
      * Return the ID of the entity associated with this node.
      * Null if this node is not connected with an entity.
+     *
      * @return int|null
      */
-    public function getId() : ?int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -73,12 +69,13 @@ class TreeViewNode implements \JsonSerializable
     /**
      * Sets the ID of the entity associated with this node.
      * Null if this node is not connected with an entity.
-     * @param  int|null  $id
+     *
      * @return $this
      */
     public function setId(?int $id): self
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -208,27 +205,27 @@ class TreeViewNode implements \JsonSerializable
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {
         $ret = [
-            'text' => $this->text
+            'text' => $this->text,
         ];
 
-        if($this->href !== null) {
+        if (null !== $this->href) {
             $ret['href'] = $this->href;
         }
 
-        if($this->tags !== null) {
+        if (null !== $this->tags) {
             $ret['tags'] = $this->tags;
         }
 
-        if($this->nodes !== null) {
+        if (null !== $this->nodes) {
             $ret['nodes'] = $this->nodes;
         }
 
-        if($this->state !== null) {
+        if (null !== $this->state) {
             $ret['state'] = $this->state;
         }
 

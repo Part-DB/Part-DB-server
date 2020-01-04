@@ -36,13 +36,12 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class OrderdetailType extends AbstractType
 {
     protected $security;
 
-    public function __construct( Security $security)
+    public function __construct(Security $security)
     {
         $this->security = $security;
     }

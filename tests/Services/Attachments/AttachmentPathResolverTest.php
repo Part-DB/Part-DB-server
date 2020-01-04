@@ -48,7 +48,7 @@ class AttachmentPathResolverTest extends WebTestCase
         self::$footprint_path = self::$projectDir.'/public/img/footprints';
     }
 
-    public static function setUpBeforeClass() : void
+    public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
 

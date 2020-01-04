@@ -21,7 +21,6 @@
 
 namespace App\Tests\Services\TFA;
 
-use App\Entity\UserSystem\U2FKey;
 use App\Entity\UserSystem\User;
 use App\Services\TFA\BackupCodeManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -29,7 +28,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class BackupCodeManagerTest extends WebTestCase
 {
     /**
-     * @var BackupCodeManager $service
+     * @var BackupCodeManager
      */
     protected $service;
 

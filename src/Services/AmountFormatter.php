@@ -95,7 +95,7 @@ class AmountFormatter
      *
      * @return string The formatted string
      *
-     * @throws \InvalidArgumentException Thrown if $value is not numeric.
+     * @throws \InvalidArgumentException thrown if $value is not numeric
      */
     public function format($value, ?MeasurementUnit $unit = null, array $options = [])
     {

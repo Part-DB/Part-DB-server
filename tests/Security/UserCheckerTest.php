@@ -21,7 +21,6 @@
 
 namespace App\Tests\Security;
 
-
 use App\Entity\UserSystem\User;
 use App\Security\UserChecker;
 use PHPUnit\Framework\TestCase;
@@ -31,7 +30,7 @@ class UserCheckerTest extends TestCase
 {
     protected $service;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->service = new UserChecker();
     }

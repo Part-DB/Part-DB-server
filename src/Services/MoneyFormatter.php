@@ -38,10 +38,10 @@ class MoneyFormatter
     /**
      * Format the the given value in the given currency.
      *
-     * @param string|float  $value           The value that should be formatted.
+     * @param string|float  $value           the value that should be formatted
      * @param Currency|null $currency        The currency that should be used for formatting. If null the global one is used
-     * @param int           $decimals        The number of decimals that should be shown.
-     * @param bool          $show_all_digits If set to true, all digits are shown, even if they are null.
+     * @param int           $decimals        the number of decimals that should be shown
+     * @param bool          $show_all_digits if set to true, all digits are shown, even if they are null
      *
      * @return string
      */

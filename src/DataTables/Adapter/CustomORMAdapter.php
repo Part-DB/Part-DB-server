@@ -21,7 +21,6 @@
 
 namespace App\DataTables\Adapter;
 
-
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\AdapterQuery;
@@ -31,24 +30,25 @@ use Omines\DataTablesBundle\Column\AbstractColumn;
 /**
  * Override default ORM Adapter, to allow fetch joins (allow addSelect with ManyToOne Collections).
  * This should improves performance for Part Tables.
- * Based on: https://github.com/omines/datatables-bundle/blob/master/tests/Fixtures/AppBundle/DataTable/Adapter/CustomORMAdapter.php
- * @package App\DataTables\Adapter
+ * Based on: https://github.com/omines/datatables-bundle/blob/master/tests/Fixtures/AppBundle/DataTable/Adapter/CustomORMAdapter.php.
  */
 class CustomORMAdapter extends ORMAdapter
 {
     protected $hydrationMode;
+
     public function configure(array $options)
     {
         parent::configure($options);
         $this->hydrationMode = isset($options['hydrate']) ? $options['hydrate'] : Query::HYDRATE_OBJECT;
     }
+
     protected function prepareQuery(AdapterQuery $query)
     {
         parent::prepareQuery($query);
         $query->setIdentifierPropertyPath(null);
     }
+
     /**
-     * @param AdapterQuery $query
      * @return \Traversable
      */
     protected function getResults(AdapterQuery $query): \Traversable

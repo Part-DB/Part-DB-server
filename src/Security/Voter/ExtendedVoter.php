@@ -72,7 +72,6 @@ abstract class ExtendedVoter extends Voter
      *
      * @param $attribute
      * @param $subject
-     * @return bool
      */
     abstract protected function voteOnUser($attribute, $subject, User $user): bool;
 }

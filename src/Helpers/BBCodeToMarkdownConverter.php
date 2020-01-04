@@ -38,9 +38,9 @@ class BBCodeToMarkdownConverter
      * Converts the given BBCode to markdown.
      * BBCode tags that does not have a markdown aequivalent are outputed as HTML tags.
      *
-     * @param $bbcode string The Markdown that should be converted.
+     * @param $bbcode string The Markdown that should be converted
      *
-     * @return string The markdown version of the text.
+     * @return string the markdown version of the text
      */
     public function convert(string $bbcode): string
     {

@@ -21,10 +21,8 @@
 
 namespace App\Tests\Services;
 
-
 use App\Entity\Attachments\AttachmentType;
 use App\Services\AmountFormatter;
-use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityImporter;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -38,7 +36,7 @@ class EntityImporterTest extends WebTestCase
      */
     protected $service;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 

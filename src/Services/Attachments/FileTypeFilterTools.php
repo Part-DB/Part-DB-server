@@ -53,9 +53,9 @@ class FileTypeFilterTools
     /**
      * Check if a filetype filter string is valid.
      *
-     * @param string $filter The filter string that should be validated.
+     * @param string $filter the filter string that should be validated
      *
-     * @return bool Returns true, if the string is valid.
+     * @return bool returns true, if the string is valid
      */
     public function validateFilterString(string $filter): bool
     {
@@ -84,7 +84,7 @@ class FileTypeFilterTools
      * Normalize a filter string. All extensions are converted to lowercase, too much whitespaces are removed.
      * The filter string is not validated.
      *
-     * @param string $filter The filter string that should be normalized.
+     * @param string $filter the filter string that should be normalized
      *
      * @return string The normalized filter string
      */
@@ -131,7 +131,7 @@ class FileTypeFilterTools
     /**
      * Get a list of all file extensions that matches the given filter string.
      *
-     * @param string $filter A valid filetype filter string.
+     * @param string $filter a valid filetype filter string
      *
      * @return string[] An array of allowed extensions ['txt', 'csv', 'gif']
      */
@@ -166,10 +166,10 @@ class FileTypeFilterTools
     /**
      * Check if the given extension matches the filter.
      *
-     * @param string $filter    The filter which should be used for checking.
-     * @param string $extension The extension that should be checked.
+     * @param string $filter    the filter which should be used for checking
+     * @param string $extension the extension that should be checked
      *
-     * @return bool Returns true, if the extension is allowed with the given filter.
+     * @return bool returns true, if the extension is allowed with the given filter
      */
     public function isExtensionAllowed(string $filter, string $extension): bool
     {

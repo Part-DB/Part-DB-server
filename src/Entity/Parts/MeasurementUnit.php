@@ -113,16 +113,12 @@ class MeasurementUnit extends PartsContainingDBElement
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isInteger(): bool
     {
         return $this->is_integer;
     }
 
     /**
-     * @param bool $isInteger
      * @return MeasurementUnit
      */
     public function setIsInteger(bool $isInteger): self
@@ -132,16 +128,12 @@ class MeasurementUnit extends PartsContainingDBElement
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isUseSIPrefix(): bool
     {
         return $this->use_si_prefix;
     }
 
     /**
-     * @param bool $usesSIPrefixes
      * @return MeasurementUnit
      */
     public function setUseSIPrefix(bool $usesSIPrefixes): self

@@ -32,7 +32,7 @@ use Doctrine\ORM\Mapping as ORM;
 class CurrencyAttachment extends Attachment
 {
     /**
-     * @var Currency The element this attachment is associated with.
+     * @var Currency the element this attachment is associated with
      * @ORM\ManyToOne(targetEntity="App\Entity\PriceInformations\Currency", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */

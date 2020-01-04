@@ -21,10 +21,8 @@
 
 namespace App\Helpers\Trees;
 
-
 use App\Entity\Base\StructuralDBElement;
 use Doctrine\Common\Collections\Collection;
-use RecursiveIterator;
 
 class StructuralDBElementIterator extends \ArrayIterator implements \RecursiveIterator
 {
@@ -37,22 +35,24 @@ class StructuralDBElementIterator extends \ArrayIterator implements \RecursiveIt
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function hasChildren()
     {
         /** @var StructuralDBElement $element */
         $element = $this->current();
+
         return !empty($element->getSubelements());
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getChildren()
     {
         /** @var StructuralDBElement $element */
         $element = $this->current();
-        return new StructuralDBElementIterator($element->getSubelements()->toArray());
+
+        return new self($element->getSubelements()->toArray());
     }
 }

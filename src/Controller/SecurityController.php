@@ -80,7 +80,7 @@ class SecurityController extends AbstractController
         $builder = $this->createFormBuilder();
         $builder->add('user', TextType::class, [
             'label' => $this->translator->trans('pw_reset.user_or_email'),
-            'constraints' => [new NotBlank()]
+            'constraints' => [new NotBlank()],
         ]);
         $builder->add('captcha', CaptchaType::class, [
             'width' => 200,
@@ -88,7 +88,7 @@ class SecurityController extends AbstractController
             'length' => 6,
         ]);
         $builder->add('submit', SubmitType::class, [
-            'label' => 'pw_reset.submit'
+            'label' => 'pw_reset.submit',
         ]);
 
         $form = $builder->getForm();
@@ -97,11 +97,12 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $passwordReset->request($form->getData()['user']);
             $this->addFlash('success', 'pw_reset.request.success');
+
             return $this->redirectToRoute('login');
         }
 
         return $this->render('security/pw_reset_request.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -121,10 +122,10 @@ class SecurityController extends AbstractController
         $data = ['username' => $user, 'token' => $token];
         $builder = $this->createFormBuilder($data);
         $builder->add('username', TextType::class, [
-            'label' => $this->translator->trans('pw_reset.username')
+            'label' => $this->translator->trans('pw_reset.username'),
         ]);
         $builder->add('token', TextType::class, [
-            'label' => $this->translator->trans('pw_reset.token')
+            'label' => $this->translator->trans('pw_reset.token'),
         ]);
         $builder->add('new_password', RepeatedType::class, [
             'type' => PasswordType::class,
@@ -138,7 +139,7 @@ class SecurityController extends AbstractController
         ]);
 
         $builder->add('submit', SubmitType::class, [
-            'label' => 'pw_reset.submit'
+            'label' => 'pw_reset.submit',
         ]);
 
         $form = $builder->getForm();
@@ -152,13 +153,13 @@ class SecurityController extends AbstractController
                 $this->addFlash('error', 'pw_reset.new_pw.error');
             } else {
                 $this->addFlash('success', 'pw_reset.new_pw.success');
+
                 return $this->redirectToRoute('login');
             }
         }
 
-
         return $this->render('security/pw_reset_new_pw.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 

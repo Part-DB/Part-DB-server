@@ -38,12 +38,12 @@ class UserTest extends TestCase
         $this->assertEquals('John Doe (username)', $user->getFullName(true));
     }
 
-    public function googleAuthenticatorEnabledDataProvider() : array
+    public function googleAuthenticatorEnabledDataProvider(): array
     {
         return [
             [null, false],
             ['', false],
-            ['SSSk38498', true]
+            ['SSSk38498', true],
         ];
     }
 
@@ -54,7 +54,7 @@ class UserTest extends TestCase
     {
         $user = new User();
         $user->setGoogleAuthenticatorSecret($secret);
-        $this->assertSame($expected ,$user->isGoogleAuthenticatorEnabled());
+        $this->assertSame($expected, $user->isGoogleAuthenticatorEnabled());
     }
 
     /**
@@ -63,7 +63,7 @@ class UserTest extends TestCase
     public function testSetBackupCodes()
     {
         $user = new User();
-        $codes = ["test", "invalid", "test"];
+        $codes = ['test', 'invalid', 'test'];
         $user->setBackupCodes($codes);
         // Backup Codes generation date must be changed!
         $this->assertEqualsWithDelta(new \DateTime(), $user->getBackupCodesGenerationDate(), 0.1);

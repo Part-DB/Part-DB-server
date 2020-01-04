@@ -85,7 +85,6 @@ abstract class AttachmentContainingDBElement extends NamedDBElement
     /**
      * Removes the given attachment from this element.
      *
-     * @param Attachment $attachment
      * @return $this
      */
     public function removeAttachment(Attachment $attachment): self

@@ -32,7 +32,7 @@ use Doctrine\ORM\Mapping as ORM;
 class UserAttachment extends Attachment
 {
     /**
-     * @var User The element this attachment is associated with.
+     * @var User the element this attachment is associated with
      * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */

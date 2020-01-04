@@ -34,7 +34,7 @@ class BuiltinAttachmentsFinderTest extends WebTestCase
         '%FOOTPRINTS_3D%/test.jpg', '%FOOTPRINTS_3D%/hallo.txt',
     ];
 
-    public static function setUpBeforeClass() : void
+    public static function setUpBeforeClass(): void
     {
         //Get an service instance.
         self::bootKernel();

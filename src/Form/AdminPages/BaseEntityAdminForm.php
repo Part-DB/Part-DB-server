@@ -38,7 +38,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class BaseEntityAdminForm extends AbstractType
 {
@@ -65,7 +64,7 @@ class BaseEntityAdminForm extends AbstractType
 
         $builder
             ->add('name', TextType::class, ['empty_data' => '', 'label' => 'name.label',
-                'attr' => ['placeholder' =>'part.name.placeholder'],
+                'attr' => ['placeholder' => 'part.name.placeholder'],
                 'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ])
 
             ->add('parent', StructuralEntityType::class, ['class' => \get_class($entity),

@@ -151,7 +151,7 @@ class PartController extends AbstractController
         $cid = $request->get('cid', 1);
 
         $category = $em->find(Category::class, $cid);
-        if($category !== null) {
+        if (null !== $category) {
             $new_part->setCategory($category);
         }
 

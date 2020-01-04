@@ -54,9 +54,9 @@ class StructureVoter extends ExtendedVoter
     /**
      * Maps a instance type to the permission name.
      *
-     * @param $subject mixed The subject for which the permission name should be generated.
+     * @param $subject mixed The subject for which the permission name should be generated
      *
-     * @return string|null The name of the permission for the subject's type or null, if the subject is not supported.
+     * @return string|null the name of the permission for the subject's type or null, if the subject is not supported
      */
     protected function instanceToPermissionName($subject): ?string
     {
@@ -91,8 +91,6 @@ class StructureVoter extends ExtendedVoter
      *
      * @param $attribute
      * @param $subject
-     *
-     * @return bool
      */
     protected function voteOnUser($attribute, $subject, User $user): bool
     {

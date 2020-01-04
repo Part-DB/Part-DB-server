@@ -21,11 +21,8 @@
 
 namespace App\Helpers\Trees;
 
-use App\Helpers\Trees\TreeViewNode;
-
 class TreeViewNodeIterator extends \ArrayIterator implements \RecursiveIterator
 {
-
     /**
      * @param $nodes TreeViewNode[]
      */
@@ -35,22 +32,24 @@ class TreeViewNodeIterator extends \ArrayIterator implements \RecursiveIterator
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function hasChildren()
     {
         /** @var TreeViewNode $element */
         $element = $this->current();
+
         return !empty($element->getNodes());
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getChildren()
     {
         /** @var TreeViewNode $element */
         $element = $this->current();
-        return new TreeViewNodeIterator($element->getNodes());
+
+        return new self($element->getNodes());
     }
 }

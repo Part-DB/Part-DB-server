@@ -53,7 +53,7 @@ class AttachmentURLGenerator
      * Converts the absolute file path to a version relative to the public folder, that can be passed to asset
      * Asset Component functions.
      *
-     * @param string      $absolute_path The absolute path that should be converted.
+     * @param string      $absolute_path the absolute path that should be converted
      * @param string|null $public_path   The public path to which the relative pathes should be created.
      *                                   The path must NOT have a trailing slash!
      *                                   If this is set to null, the global public/ folder is used.
@@ -78,8 +78,6 @@ class AttachmentURLGenerator
 
     /**
      * Returns a URL under which the attachment file can be viewed.
-     *
-     * @return string
      */
     public function getViewURL(Attachment $attachment): string
     {
@@ -101,8 +99,6 @@ class AttachmentURLGenerator
 
     /**
      * Returns a URL to an thumbnail of the attachment file.
-     *
-     * @return string
      */
     public function getThumbnailURL(Attachment $attachment, string $filter_name = 'thumbnail_sm'): string
     {
@@ -137,8 +133,6 @@ class AttachmentURLGenerator
 
     /**
      * Returns a download link to the file associated with the attachment.
-     *
-     * @return string
      */
     public function getDownloadURL(Attachment $attachment): string
     {

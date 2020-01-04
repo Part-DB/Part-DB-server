@@ -27,7 +27,7 @@ use PHPUnit\Framework\TestCase;
 class BackupCodeGeneratorTest extends TestCase
 {
     /**
-     * Test if an exception is thrown if you are using a too high code length
+     * Test if an exception is thrown if you are using a too high code length.
      */
     public function testLengthUpperLimit()
     {
@@ -36,14 +36,13 @@ class BackupCodeGeneratorTest extends TestCase
     }
 
     /**
-     * Test if an exception is thrown if you are using a too high code length
+     * Test if an exception is thrown if you are using a too high code length.
      */
     public function testLengthLowerLimit()
     {
         $this->expectException(\RuntimeException::class);
         new BackupCodeGenerator(4, 10);
     }
-
 
     public function codeLengthDataProvider()
     {

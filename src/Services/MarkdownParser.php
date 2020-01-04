@@ -39,10 +39,10 @@ class MarkdownParser
      * Mark the markdown for rendering.
      * The rendering of markdown is done on client side.
      *
-     * @param string $markdown    The markdown text that should be parsed to html.
+     * @param string $markdown    the markdown text that should be parsed to html
      * @param bool   $inline_mode Only allow inline markdown codes like (*bold* or **italic**), not something like tables
      *
-     * @return string The markdown in a version that can be parsed on client side.
+     * @return string the markdown in a version that can be parsed on client side
      */
     public function markForRendering(string $markdown, bool $inline_mode = false): string
     {

@@ -27,7 +27,6 @@ use PHPUnit\Framework\TestCase;
 
 class PermissionsEmbedTest extends TestCase
 {
-
     public function testGetPermissionValue()
     {
         $embed = new PermissionsEmbed();

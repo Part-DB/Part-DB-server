@@ -173,8 +173,6 @@ abstract class Company extends PartsContainingDBElement
      * Set the addres.
      *
      * @param string $new_address the new address (with "\n" as line break)
-     *
-     * @return self
      */
     public function setAddress(string $new_address): self
     {
@@ -187,8 +185,6 @@ abstract class Company extends PartsContainingDBElement
      * Set the phone number.
      *
      * @param string $new_phone_number the new phone number
-     *
-     * @return self
      */
     public function setPhoneNumber(string $new_phone_number): self
     {
@@ -201,8 +197,6 @@ abstract class Company extends PartsContainingDBElement
      * Set the fax number.
      *
      * @param string $new_fax_number the new fax number
-     *
-     * @return self
      */
     public function setFaxNumber(string $new_fax_number): self
     {
@@ -215,8 +209,6 @@ abstract class Company extends PartsContainingDBElement
      * Set the e-mail address.
      *
      * @param string $new_email_address the new e-mail address
-     *
-     * @return self
      */
     public function setEmailAddress(string $new_email_address): self
     {
@@ -229,8 +221,6 @@ abstract class Company extends PartsContainingDBElement
      * Set the website.
      *
      * @param string $new_website the new website
-     *
-     * @return self
      */
     public function setWebsite(string $new_website): self
     {
@@ -243,8 +233,6 @@ abstract class Company extends PartsContainingDBElement
      * Set the link to the website of an article.
      *
      * @param string $new_url the new URL with the placeholder %PARTNUMBER% for the part number
-     *
-     * @return self
      */
     public function setAutoProductUrl(string $new_url): self
     {

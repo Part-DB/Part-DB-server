@@ -21,7 +21,6 @@
 
 namespace App\Entity\UserSystem;
 
-
 use App\Entity\Base\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
 use R\U2FTwoFactorBundle\Model\U2F\TwoFactorInterface;
@@ -48,40 +47,45 @@ class U2FKey implements TwoFactorKeyInterface
 
     /**
      * @ORM\Column(type="string", length=64)
+     *
      * @var string
      **/
     public $keyHandle;
 
     /**
      * @ORM\Column(type="string")
+     *
      * @var string
      **/
     public $publicKey;
 
     /**
      * @ORM\Column(type="text")
+     *
      * @var string
      **/
     public $certificate;
 
     /**
      * @ORM\Column(type="string")
+     *
      * @var int
      **/
     public $counter;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User", inversedBy="u2fKeys")
+     *
      * @var User
      **/
     protected $user;
 
     /**
      * @ORM\Column(type="string")
+     *
      * @var string
      **/
     protected $name;
-
 
     public function fromRegistrationData(Registration $data): void
     {
@@ -91,62 +95,61 @@ class U2FKey implements TwoFactorKeyInterface
         $this->counter = $data->counter;
     }
 
-    /** @inheritDoc */
+    /** {@inheritdoc} */
     public function getKeyHandle()
     {
         return $this->keyHandle;
     }
 
-    /** @inheritDoc */
+    /** {@inheritdoc} */
     public function setKeyHandle($keyHandle)
     {
         $this->keyHandle = $keyHandle;
     }
 
-    /** @inheritDoc */
+    /** {@inheritdoc} */
     public function getPublicKey()
     {
         return $this->publicKey;
     }
 
-    /** @inheritDoc */
+    /** {@inheritdoc} */
     public function setPublicKey($publicKey)
     {
         $this->publicKey = $publicKey;
     }
 
-    /** @inheritDoc */
+    /** {@inheritdoc} */
     public function getCertificate()
     {
         return $this->certificate;
     }
 
-
-    /** @inheritDoc */
+    /** {@inheritdoc} */
     public function setCertificate($certificate)
     {
         $this->certificate = $certificate;
     }
 
-    /** @inheritDoc */
+    /** {@inheritdoc} */
     public function getCounter()
     {
         return $this->counter;
     }
 
-    /** @inheritDoc */
+    /** {@inheritdoc} */
     public function setCounter($counter)
     {
         $this->counter = $counter;
     }
 
-    /** @inheritDoc */
+    /** {@inheritdoc} */
     public function getName()
     {
         return $this->name;
     }
 
-    /** @inheritDoc */
+    /** {@inheritdoc} */
     public function setName($name)
     {
         $this->name = $name;
@@ -154,30 +157,33 @@ class U2FKey implements TwoFactorKeyInterface
 
     /**
      * Gets the user, this U2F key belongs to.
+     *
      * @return User
      */
-    public function getUser() : User
+    public function getUser(): User
     {
         return $this->user;
     }
 
     /**
-     * The primary key ID of this key
+     * The primary key ID of this key.
+     *
      * @return int
      */
-    public function getID() : int
+    public function getID(): int
     {
         return $this->id;
     }
 
     /**
      * Sets the user this U2F key belongs to.
-     * @param  TwoFactorInterface  $new_user
+     *
      * @return $this
      */
-    public function setUser(TwoFactorInterface $new_user) : self
+    public function setUser(TwoFactorInterface $new_user): self
     {
         $this->user = $new_user;
+
         return $this;
     }
 }

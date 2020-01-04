@@ -56,7 +56,7 @@ class UserController extends AdminPages\BaseAdminController
     {
         //Handle 2FA disabling
 
-        if($request->request->has('reset_2fa')) {
+        if ($request->request->has('reset_2fa')) {
             //Check if the admin has the needed permissions
             $this->denyAccessUnlessGranted('set_password', $entity);
             if ($this->isCsrfTokenValid('reset_2fa'.$entity->getId(), $request->request->get('_token'))) {
@@ -64,7 +64,7 @@ class UserController extends AdminPages\BaseAdminController
                 $entity->setGoogleAuthenticatorSecret(null);
                 $entity->setBackupCodes([]);
                 //Remove all U2F keys
-                foreach($entity->getU2FKeys() as $key) {
+                foreach ($entity->getU2FKeys() as $key) {
                     $em->remove($key);
                 }
                 //Invalidate trusted devices
@@ -136,7 +136,6 @@ class UserController extends AdminPages\BaseAdminController
         //If no user id was passed, then we show info about the current user
         if (null === $user) {
             $user = $this->getUser();
-
         } else {
             //Else we must check, if the current user is allowed to access $user
             $this->denyAccessUnlessGranted('read', $user);

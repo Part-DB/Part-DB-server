@@ -40,7 +40,6 @@ class AttachmentFileController extends AbstractController
      * @Route("/attachment/{id}/download", name="attachment_download")
      *
      * @return BinaryFileResponse
-     *
      */
     public function download(Attachment $attachment, AttachmentManager $helper)
     {

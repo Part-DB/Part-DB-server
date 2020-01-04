@@ -89,7 +89,7 @@ class AttachmentSubmitHandler
      * @param Attachment $attachment The attachment that should be used for generating an attachment
      * @param string     $extension  The extension that the new file should have (must only contain chars allowed in pathes)
      *
-     * @return string The new filename.
+     * @return string the new filename
      */
     public function generateAttachmentFilename(Attachment $attachment, string $extension): string
     {
@@ -114,7 +114,7 @@ class AttachmentSubmitHandler
      * @param Attachment $attachment    The attachment that should be used for
      * @param bool       $secure_upload True if the file path should be located in a safe location
      *
-     * @return string The absolute path for the attachment folder.
+     * @return string the absolute path for the attachment folder
      */
     public function generateAttachmentPath(Attachment $attachment, bool $secure_upload = false): string
     {
@@ -143,7 +143,7 @@ class AttachmentSubmitHandler
      * Handle the submit of an attachment form.
      * This function will move the uploaded file or download the URL file to server, if needed.
      *
-     * @param Attachment        $attachment The attachment that should be used for handling.
+     * @param Attachment        $attachment the attachment that should be used for handling
      * @param UploadedFile|null $file       If given, that file will be moved to the right location
      * @param array             $options    The options to use with the upload. Here you can specify that an URL should be downloaded,
      *                                      or an file should be moved to a secure location.
@@ -181,8 +181,8 @@ class AttachmentSubmitHandler
     /**
      * Move the given attachment to secure location (or back to public folder) if needed.
      *
-     * @param Attachment $attachment      The attachment for which the file should be moved.
-     * @param bool       $secure_location This value determines, if the attachment is moved to the secure or public folder.
+     * @param Attachment $attachment      the attachment for which the file should be moved
+     * @param bool       $secure_location this value determines, if the attachment is moved to the secure or public folder
      *
      * @return Attachment The attachment with the updated filepath
      */

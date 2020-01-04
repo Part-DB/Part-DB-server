@@ -62,6 +62,7 @@ use App\Validator\Constraints\ValidPermission;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use R\U2FTwoFactorBundle\Model\U2F\TwoFactorInterface as U2FTwoFactorInterface;
 use R\U2FTwoFactorBundle\Model\U2F\TwoFactorKeyInterface;
 use Scheb\TwoFactorBundle\Model\BackupCodeInterface;
 use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
@@ -70,7 +71,6 @@ use Scheb\TwoFactorBundle\Model\TrustedDeviceInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use R\U2FTwoFactorBundle\Model\U2F\TwoFactorInterface as U2FTwoFactorInterface;
 
 /**
  * This entity represents a user, which can log in and have permissions.
@@ -80,8 +80,7 @@ use R\U2FTwoFactorBundle\Model\U2F\TwoFactorInterface as U2FTwoFactorInterface;
  * @ORM\Table("`users`")
  * @UniqueEntity("name", message="validator.user.username_already_used")
  */
-class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface,
-    TwoFactorInterface, BackupCodeInterface, TrustedDeviceInterface, U2FTwoFactorInterface, PreferredProviderInterface
+class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface, BackupCodeInterface, TrustedDeviceInterface, U2FTwoFactorInterface, PreferredProviderInterface
 {
     use MasterAttachmentTrait;
 
@@ -205,8 +204,8 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected $trustedDeviceCookieVersion = 0;
 
     /** @var Collection<TwoFactorKeyInterface>
-      * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\U2FKey", mappedBy="user", cascade={"REMOVE"}, orphanRemoval=true)
-      */
+     * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\U2FKey", mappedBy="user", cascade={"REMOVE"}, orphanRemoval=true)
+     */
     protected $u2fKeys;
 
     /**
@@ -319,7 +318,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Sets the password hash for this user.
      *
-     * @param string $password
      * @return User
      */
     public function setPassword(string $password): self
@@ -359,7 +357,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Sets the currency the users prefers to see prices in.
      *
-     * @param Currency|null $currency
      * @return User
      */
     public function setCurrency(?Currency $currency): self
@@ -422,7 +419,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Set the status, if the user needs a password change.
      *
-     * @param bool $need_pw_change
      * @return User
      */
     public function setNeedPwChange(bool $need_pw_change): self
@@ -433,7 +429,8 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
-     * Returns the encrypted password reset token
+     * Returns the encrypted password reset token.
+     *
      * @return string|null
      */
     public function getPwResetToken(): ?string
@@ -442,18 +439,20 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
-     * Sets the encrypted password reset token
-     * @param string|null $pw_reset_token
+     * Sets the encrypted password reset token.
+     *
      * @return User
      */
-    public function setPwResetToken(?string $pw_reset_token): User
+    public function setPwResetToken(?string $pw_reset_token): self
     {
         $this->pw_reset_token = $pw_reset_token;
+
         return $this;
     }
 
     /**
-     * Gets the datetime when the password reset token expires
+     * Gets the datetime when the password reset token expires.
+     *
      * @return \DateTime
      */
     public function getPwResetExpires(): \DateTime
@@ -462,17 +461,16 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
-     * Sets the datetime when the password reset token expires
-     * @param \DateTime $pw_reset_expires
+     * Sets the datetime when the password reset token expires.
+     *
      * @return User
      */
-    public function setPwResetExpires(\DateTime $pw_reset_expires): User
+    public function setPwResetExpires(\DateTime $pw_reset_expires): self
     {
         $this->pw_reset_expires = $pw_reset_expires;
+
         return $this;
     }
-
-
 
     /************************************************
      * Getters
@@ -496,8 +494,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
-     * Change the username of this user
+     * Change the username of this user.
+     *
      * @param string $new_name The new username.
+     *
      * @return $this
      */
     public function setName(string $new_name): NamedDBElement
@@ -512,6 +512,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Get the first name of the user.
+     *
      * @return string|null
      */
     public function getFirstName(): ?string
@@ -520,7 +521,8 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
-     * Change the first name of the user
+     * Change the first name of the user.
+     *
      * @param string $first_name The new first name
      *
      * @return $this
@@ -533,7 +535,8 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
-     * Get the last name of the user
+     * Get the last name of the user.
+     *
      * @return string|null
      */
     public function getLastName(): ?string
@@ -542,7 +545,8 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
-     * Change the last name of the user
+     * Change the last name of the user.
+     *
      * @param string $last_name The new last name
      *
      * @return $this
@@ -555,7 +559,8 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
-     * Gets the department of this user
+     * Gets the department of this user.
+     *
      * @return string
      */
     public function getDepartment(): ?string
@@ -564,8 +569,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
-     * Change the department of the user
+     * Change the department of the user.
+     *
      * @param string $department The new department
+     *
      * @return User
      */
     public function setDepartment(?string $department): self
@@ -577,6 +584,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Get the email of the user.
+     *
      * @return string
      */
     public function getEmail(): ?string
@@ -585,8 +593,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
-     * Change the email of the user
+     * Change the email of the user.
+     *
      * @param string $email The new email adress
+     *
      * @return $this
      */
     public function setEmail(?string $email): self
@@ -598,8 +608,9 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Gets the language the user prefers (as 2 letter ISO code).
+     *
      * @return string|null The 2 letter ISO code of the preferred language (e.g. 'en' or 'de').
-     *  If null is returned, the user has not specified a language and the server wide language should be used.
+     *                     If null is returned, the user has not specified a language and the server wide language should be used.
      */
     public function getLanguage(): ?string
     {
@@ -608,20 +619,24 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Change the language the user prefers.
+     *
      * @param string|null $language The new language as 2 letter ISO code (e.g. 'en' or 'de').
-     * Set to null, to use the system wide language.
+     *                              Set to null, to use the system wide language.
+     *
      * @return User
      */
     public function setLanguage(?string $language): self
     {
         $this->language = $language;
+
         return $this;
     }
 
     /**
-     * Gets the timezone of the user
+     * Gets the timezone of the user.
+     *
      * @return string|null The timezone of the user (e.g. 'Europe/Berlin') or null if the user has not specified
-     * a timezone (then the global one should be used)
+     *                     a timezone (then the global one should be used)
      */
     public function getTimezone(): ?string
     {
@@ -630,7 +645,9 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Change the timezone of this user.
+     *
      * @param string $timezone|null The new timezone (e.g. 'Europe/Berlin') or null to use the system wide one.
+     *
      * @return $this
      */
     public function setTimezone(?string $timezone): self
@@ -642,6 +659,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Gets the theme the users wants to see. See self::AVAILABLE_THEMES for valid values.
+     *
      * @return string|null The name of the theme the user wants to see, or null if the system wide should be used.
      */
     public function getTheme(): ?string
@@ -651,8 +669,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Change the theme the user wants to see.
+     *
      * @param string|null $theme The name of the theme (See See self::AVAILABLE_THEMES for valid values). Set to null
-     * if the system wide theme should be used.
+     *                           if the system wide theme should be used.
+     *
      * @return $this
      */
     public function setTheme(?string $theme): self
@@ -664,6 +684,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Gets the group to which this user belongs to.
+     *
      * @return Group|null The group of this user. Null if this user does not have a group.
      */
     public function getGroup(): ?Group
@@ -673,7 +694,9 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Sets the group of this user.
+     *
      * @param Group|null $group The new group of this user. Set to null if this user should not have a group.
+     *
      * @return $this
      */
     public function setGroup(?Group $group): self
@@ -685,12 +708,14 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Returns a string representation of this user (the full name).
-     * E.g. 'Jane Doe (j.doe) [DISABLED]
+     * E.g. 'Jane Doe (j.doe) [DISABLED].
+     *
      * @return string
      */
     public function __toString()
     {
         $tmp = $this->isDisabled() ? ' [DISABLED]' : '';
+
         return $this->getFullName(true).$tmp;
     }
 
@@ -706,6 +731,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Return the user name that should be shown in Google Authenticator.
+     *
      * @return string
      */
     public function getGoogleAuthenticatorUsername(): string
@@ -726,12 +752,13 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Sets the secret used for Google Authenticator. Set to null to disable Google Authenticator.
-     * @param string|null $googleAuthenticatorSecret
+     *
      * @return $this
      */
     public function setGoogleAuthenticatorSecret(?string $googleAuthenticatorSecret): self
     {
         $this->googleAuthenticatorSecret = $googleAuthenticatorSecret;
+
         return $this;
     }
 
@@ -739,11 +766,12 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * Check if the given code is a valid backup code.
      *
      * @param string $code The code that should be checked.
+     *
      * @return bool True if the backup code is valid.
      */
     public function isBackupCode(string $code): bool
     {
-        return in_array($code, $this->backupCodes);
+        return \in_array($code, $this->backupCodes);
     }
 
     /**
@@ -754,48 +782,55 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     public function invalidateBackupCode(string $code): void
     {
         $key = array_search($code, $this->backupCodes);
-        if ($key !== false){
+        if (false !== $key) {
             unset($this->backupCodes[$key]);
         }
     }
 
     /**
-     * Returns the list of all valid backup codes
+     * Returns the list of all valid backup codes.
+     *
      * @return string[] An array with all backup codes
      */
-    public function getBackupCodes() : array
+    public function getBackupCodes(): array
     {
         return $this->backupCodes ?? [];
     }
 
     /**
      * Set the backup codes for this user. Existing backup codes are overridden.
-     * @param  string[]  $codes  An array containing the backup codes
+     *
+     * @param string[] $codes An array containing the backup codes
+     *
      * @return $this
+     *
      * @throws \Exception If an error with the datetime occurs
      */
-    public function setBackupCodes(array $codes) : self
+    public function setBackupCodes(array $codes): self
     {
         $this->backupCodes = $codes;
-        if(empty($codes)) {
+        if (empty($codes)) {
             $this->backupCodesGenerationDate = null;
         } else {
             $this->backupCodesGenerationDate = new \DateTime();
         }
+
         return $this;
     }
 
     /**
      * Return the date when the backup codes were generated.
+     *
      * @return \DateTime|null
      */
-    public function getBackupCodesGenerationDate() : ?\DateTime
+    public function getBackupCodesGenerationDate(): ?\DateTime
     {
         return $this->backupCodesGenerationDate;
     }
 
     /**
      * Return version for the trusted device token. Increase version to invalidate all trusted token of the user.
+     *
      * @return int The version of trusted device token
      */
     public function getTrustedTokenVersion(): int
@@ -807,22 +842,24 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * Invalidate all trusted device tokens at once, by incrementing the token version.
      * You have to flush the changes to database afterwards.
      */
-    public function invalidateTrustedDeviceTokens() : void
+    public function invalidateTrustedDeviceTokens(): void
     {
-        $this->trustedDeviceCookieVersion++;
+        ++$this->trustedDeviceCookieVersion;
     }
 
     /**
-     * Check if U2F is enabled
+     * Check if U2F is enabled.
+     *
      * @return bool
      */
     public function isU2FAuthEnabled(): bool
     {
-        return count($this->u2fKeys) > 0;
+        return \count($this->u2fKeys) > 0;
     }
 
     /**
-     * Get all U2F Keys that are associated with this user
+     * Get all U2F Keys that are associated with this user.
+     *
      * @return Collection<TwoFactorKeyInterface>
      */
     public function getU2FKeys(): Collection
@@ -832,7 +869,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Add a U2F key to this user.
-     * @param  TwoFactorKeyInterface  $key
      */
     public function addU2FKey(TwoFactorKeyInterface $key): void
     {
@@ -841,7 +877,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Remove a U2F key from this user.
-     * @param  TwoFactorKeyInterface  $key
      */
     public function removeU2FKey(TwoFactorKeyInterface $key): void
     {
@@ -849,12 +884,12 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getPreferredTwoFactorProvider(): ?string
     {
         //If U2F is available then prefer it
-        if($this->isU2FAuthEnabled()) {
+        if ($this->isU2FAuthEnabled()) {
             return 'u2f_two_factor';
         }
 

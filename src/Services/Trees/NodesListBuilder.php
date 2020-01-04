@@ -21,17 +21,12 @@
 
 namespace App\Services\Trees;
 
-use App\Entity\Base\DBElement;
-use App\Entity\Base\NamedDBElement;
 use App\Entity\Base\StructuralDBElement;
-use App\Helpers\Trees\TreeViewNode;
 use App\Repository\StructuralDBElementRepository;
-use App\Services\EntityURLGenerator;
 use App\Services\UserCacheKeyGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  *  This service gives you a flat list containing all structured entities in the order of the structure.
@@ -42,7 +37,7 @@ class NodesListBuilder
     protected $cache;
     protected $keyGenerator;
 
-    public function __construct( EntityManagerInterface $em, TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator)
+    public function __construct(EntityManagerInterface $em, TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator)
     {
         $this->em = $em;
         $this->keyGenerator = $keyGenerator;

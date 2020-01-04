@@ -30,7 +30,7 @@ class SIFormatter
      * Returns the magnitude of a value (the count of decimal place of the highest decimal place).
      * For example, for 100 (=10^2) this function returns 2. For -2500 (=-2.5*10^3) this function returns 3.
      *
-     * @param float $value The value of which the magnitude should be determined.
+     * @param float $value the value of which the magnitude should be determined
      *
      * @return int The magnitude of the value
      */
@@ -42,7 +42,7 @@ class SIFormatter
     /**
      * Returns the best SI prefix (and its corresponding divisor) for the given magnitude.
      *
-     * @param int $magnitude The magnitude for which the prefix should be determined.
+     * @param int $magnitude the magnitude for which the prefix should be determined
      *
      * @return array A array, containing the divisor in first element, and the prefix symbol in second. For example, [1000, "k"].
      */
@@ -66,9 +66,6 @@ class SIFormatter
         return [10 ** (3 * $nearest), $symbol];
     }
 
-    /**
-     * @return array
-     */
     public function convertValue(float $value): array
     {
         //Choose the prefix to use
@@ -88,9 +85,7 @@ class SIFormatter
      *
      * @param float  $value    The value that should be converted
      * @param string $unit     The unit that should be appended after the prefix
-     * @param int    $decimals The number of decimals (after decimal dot) that should be outputed.
-     *
-     * @return string
+     * @param int    $decimals the number of decimals (after decimal dot) that should be outputed
      */
     public function format(float $value, string $unit = '', int $decimals = 2): string
     {

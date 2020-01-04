@@ -160,9 +160,9 @@ class PermissionResolver
     /**
      * Sets the new value for the operation.
      *
-     * @param HasPermissionsInterface $user       The user or group for which the value should be changed.
-     * @param string                  $permission The name of the permission that should be changed.
-     * @param string                  $operation  The name of the operation that should be changed.
+     * @param HasPermissionsInterface $user       the user or group for which the value should be changed
+     * @param string                  $permission the name of the permission that should be changed
+     * @param string                  $operation  the name of the operation that should be changed
      * @param bool|null               $new_val    The new value for the permission. true = ALLOW, false = DISALLOW, null = INHERIT
      */
     public function setPermission(HasPermissionsInterface $user, string $permission, string $operation, ?bool $new_val): void

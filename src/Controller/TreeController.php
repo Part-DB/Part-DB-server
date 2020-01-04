@@ -35,6 +35,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * This controller has the purpose to provide the data for all treeviews.
+ *
  * @Route("/tree")
  */
 class TreeController extends AbstractController
@@ -52,6 +53,7 @@ class TreeController extends AbstractController
     public function tools(ToolsTreeBuilder $builder)
     {
         $tree = $builder->getTree();
+
         return new JsonResponse($tree);
     }
 
@@ -62,6 +64,7 @@ class TreeController extends AbstractController
     public function categoryTree(Category $category = null)
     {
         $tree = $this->treeGenerator->getTreeView(Category::class, $category);
+
         return new JsonResponse($tree);
     }
 
@@ -72,6 +75,7 @@ class TreeController extends AbstractController
     public function footprintTree(Footprint $footprint = null)
     {
         $tree = $this->treeGenerator->getTreeView(Footprint::class, $footprint);
+
         return new JsonResponse($tree);
     }
 
@@ -82,6 +86,7 @@ class TreeController extends AbstractController
     public function locationTree(Storelocation $location = null)
     {
         $tree = $this->treeGenerator->getTreeView(Storelocation::class, $location);
+
         return new JsonResponse($tree);
     }
 
@@ -92,6 +97,7 @@ class TreeController extends AbstractController
     public function manufacturerTree(Manufacturer $manufacturer = null)
     {
         $tree = $this->treeGenerator->getTreeView(Manufacturer::class, $manufacturer);
+
         return new JsonResponse($tree);
     }
 
@@ -102,6 +108,7 @@ class TreeController extends AbstractController
     public function supplierTree(Supplier $supplier = null)
     {
         $tree = $this->treeGenerator->getTreeView(Supplier::class, $supplier);
+
         return new JsonResponse($tree);
     }
 
@@ -112,6 +119,7 @@ class TreeController extends AbstractController
     public function deviceTree(Device $device = null)
     {
         $tree = $this->treeGenerator->getTreeView(Device::class, $device, '');
+
         return new JsonResponse($tree);
     }
 }

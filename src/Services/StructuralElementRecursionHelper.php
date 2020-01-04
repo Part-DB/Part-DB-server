@@ -72,7 +72,7 @@ class StructuralElementRecursionHelper
     /**
      * Deletes the $element and all its subelements recursivly.
      *
-     * @param StructuralDBElement $element The element which should be deleted.
+     * @param StructuralDBElement $element the element which should be deleted
      * @param bool                $flush   When set to true the changes will also be flushed to DB. Set to false if you want to flush
      *                                     later.
      */

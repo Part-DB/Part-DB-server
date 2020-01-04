@@ -21,7 +21,6 @@
 
 namespace App\Form;
 
-
 use App\Entity\UserSystem\User;
 use App\Validator\Constraints\ValidGoogleAuthCode;
 use Symfony\Component\Form\AbstractType;
@@ -33,11 +32,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TFAGoogleSettingsType extends AbstractType
 {
-
     protected $translator;
 
     public function __construct()
@@ -46,20 +43,20 @@ class TFAGoogleSettingsType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             $form = $event->getForm();
             /** @var User $user */
             $user = $event->getData();
 
             //Only show setup fields, when google authenticator is not enabled
-            if(!$user->isGoogleAuthenticatorEnabled()) {
+            if (!$user->isGoogleAuthenticatorEnabled()) {
                 $form->add(
                     'google_confirmation',
                     TextType::class,
                     [
                         'mapped' => false,
                         'attr' => ['maxlength' => '6', 'minlength' => '6', 'pattern' => '\d*', 'autocomplete' => 'off'],
-                        'constraints' => [new ValidGoogleAuthCode()]
+                        'constraints' => [new ValidGoogleAuthCode()],
                     ]
                 );
 
@@ -72,12 +69,12 @@ class TFAGoogleSettingsType extends AbstractType
                 );
 
                 $form->add('submit', SubmitType::class, [
-                    'label' => 'tfa_google.enable'
+                    'label' => 'tfa_google.enable',
                 ]);
             } else {
                 $form->add('submit', SubmitType::class, [
-                    'label' =>'tfa_google.disable',
-                    'attr' => ['class' => 'btn-danger']
+                    'label' => 'tfa_google.disable',
+                    'attr' => ['class' => 'btn-danger'],
                 ]);
             }
         });

@@ -21,7 +21,6 @@
 
 namespace App\Services;
 
-
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -46,20 +45,20 @@ class PasswordResetManager
     {
         $this->em = $em;
         $this->mailer = $mailer;
-        /** @var PasswordEncoderInterface passwordEncoder */
+        /* @var PasswordEncoderInterface passwordEncoder */
         $this->passwordEncoder = $encoderFactory->getEncoder(User::class);
         $this->translator = $translator;
         $this->userPasswordEncoder = $userPasswordEncoder;
     }
 
-    public function request(string $name_or_email) : void
+    public function request(string $name_or_email): void
     {
         $repo = $this->em->getRepository(User::class);
 
         //Try to find a user by the given string
         $user = $repo->findByEmailOrName($name_or_email);
         //Do nothing if no user was found
-        if ($user === null) {
+        if (null === $user) {
             return;
         }
 
@@ -76,11 +75,11 @@ class PasswordResetManager
             $mail = new TemplatedEmail();
             $mail->to($address);
             $mail->subject($this->translator->trans('pw_reset.email.subject'));
-            $mail->htmlTemplate("mail/pw_reset.html.twig");
+            $mail->htmlTemplate('mail/pw_reset.html.twig');
             $mail->context([
                 'expiration_date' => $expiration_date,
                 'token' => $unencrypted_token,
-                'user' => $user
+                'user' => $user,
             ]);
 
             //Send email
@@ -93,13 +92,15 @@ class PasswordResetManager
 
     /**
      * Sets the new password of the user with the given name, if the token is valid.
-     * @param string $user The name of the user, which password should be reset
-     * @param string $token The token that should be used to reset the password
+     *
+     * @param string $user         The name of the user, which password should be reset
+     * @param string $token        The token that should be used to reset the password
      * @param string $new_password The new password that should be applied to user
+     *
      * @return bool Returns true, if the new password was applied. False, if either the username is unknown or the
-     * token is invalid or expired.
+     *              token is invalid or expired.
      */
-    public function setNewPassword(string $user, string $token, string $new_password) : bool
+    public function setNewPassword(string $user, string $token, string $new_password): bool
     {
         //Try to find the user
         $repo = $this->em->getRepository(User::class);
@@ -107,7 +108,7 @@ class PasswordResetManager
         $user = $repo->findOneBy(['name' => $user]);
 
         //If no user matching the name, show an error message
-        if ($user === null) {
+        if (null === $user) {
             return false;
         }
 
@@ -130,6 +131,7 @@ class PasswordResetManager
 
         //Save to DB
         $this->em->flush();
+
         return true;
     }
 }

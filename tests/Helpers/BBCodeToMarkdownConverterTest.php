@@ -28,7 +28,7 @@ class BBCodeToMarkdownConverterTest extends TestCase
 {
     protected $converter;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->converter = new BBCodeToMarkdownConverter();
     }

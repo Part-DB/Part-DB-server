@@ -21,12 +21,10 @@
 
 namespace App\Services\TFA;
 
-
 use App\Entity\UserSystem\User;
 
 /**
- * This services offers methods to manage backup codes for two factor authentication
- * @package App\Services\TFA
+ * This services offers methods to manage backup codes for two factor authentication.
  */
 class BackupCodeManager
 {
@@ -39,23 +37,21 @@ class BackupCodeManager
 
     /**
      * Enable backup codes for the given user, by generating a set of backup codes.
-     * If the backup codes were already enabled before, they a
-     * @param  User  $user
+     * If the backup codes were already enabled before, they a.
      */
     public function enableBackupCodes(User $user)
     {
-        if(empty($user->getBackupCodes())) {
-           $this->regenerateBackupCodes($user);
+        if (empty($user->getBackupCodes())) {
+            $this->regenerateBackupCodes($user);
         }
     }
 
     /**
      * Disable (remove) the backup codes when no other 2 factor authentication methods are enabled.
-     * @param  User  $user
      */
     public function disableBackupCodesIfUnused(User $user)
     {
-        if($user->isGoogleAuthenticatorEnabled()) {
+        if ($user->isGoogleAuthenticatorEnabled()) {
             return;
         }
 
@@ -65,7 +61,8 @@ class BackupCodeManager
     /**
      * Generates a new set of backup codes for the user. If no backup codes were available before, new ones are
      * generated.
-     * @param  User  $user The user for which the backup codes should be regenerated
+     *
+     * @param User $user The user for which the backup codes should be regenerated
      */
     public function regenerateBackupCodes(User $user)
     {

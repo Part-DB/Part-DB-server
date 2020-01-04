@@ -37,14 +37,15 @@ class StructuralDBElementRepository extends NamedDBElementRepository
         return $this->findBy(['parent' => null], ['name' => 'ASC']);
     }
 
-
     /**
      * Gets a tree of TreeViewNode elements. The root elements has $parent as parent.
      * The treeview is generic, that means the href are null and ID values are set.
-     * @param  StructuralDBElement|null  $parent The parent the root elements should have.
+     *
+     * @param StructuralDBElement|null $parent The parent the root elements should have.
+     *
      * @return TreeViewNode[]
      */
-    public function getGenericNodeTree(?StructuralDBElement $parent = null) : array
+    public function getGenericNodeTree(?StructuralDBElement $parent = null): array
     {
         $result = [];
 
@@ -80,7 +81,7 @@ class StructuralDBElementRepository extends NamedDBElementRepository
         //$result = iterator_to_array($recursiveIterator);
 
         //We can not use iterator_to_array here or we get only the parent elements
-        foreach($recursiveIterator as $item) {
+        foreach ($recursiveIterator as $item) {
             $result[] = $item;
         }
 

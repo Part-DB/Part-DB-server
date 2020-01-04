@@ -61,8 +61,6 @@ class AttachmentManager
      * or is not existing.
      *
      * @param Attachment $attachment The attachment for which the filepath should be determined
-     *
-     * @return string|null
      */
     public function toAbsoluteFilePath(Attachment $attachment): ?string
     {
@@ -96,7 +94,7 @@ class AttachmentManager
      *
      * @param Attachment $attachment The attachment for which the existence should be checked
      *
-     * @return bool True if the file is existing.
+     * @return bool true if the file is existing
      */
     public function isFileExisting(Attachment $attachment): bool
     {
@@ -111,9 +109,7 @@ class AttachmentManager
      * Returns the filesize of the attachments in bytes.
      * For external attachments or not existing attachments, null is returned.
      *
-     * @param Attachment $attachment The filesize for which the filesize should be calculated.
-     *
-     * @return int|null
+     * @param Attachment $attachment the filesize for which the filesize should be calculated
      */
     public function getFileSize(Attachment $attachment): ?int
     {

@@ -35,7 +35,7 @@ class RedirectControllerTest extends WebTestCase
     protected $userRepo;
     protected $client;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->client = static::createClient([], [
             'PHP_AUTH_USER' => 'user',
@@ -113,8 +113,6 @@ class RedirectControllerTest extends WebTestCase
         //Set user locale
         $user->setLanguage($user_locale);
         $this->em->flush();
-
-
 
         $this->client->followRedirects(false);
         $this->client->request('GET', $input_path);

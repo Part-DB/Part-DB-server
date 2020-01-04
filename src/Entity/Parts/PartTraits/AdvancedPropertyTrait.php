@@ -37,14 +37,14 @@ trait AdvancedPropertyTrait
     protected $needs_review = false;
 
     /**
-     * @var string A comma separated list of tags, associated with the part.
+     * @var string a comma separated list of tags, associated with the part
      * @ORM\Column(type="text")
      * @ColumnSecurity(type="string", prefix="tags", placeholder="")
      */
     protected $tags = '';
 
     /**
-     * @var float|null How much a single part unit weighs in grams.
+     * @var float|null how much a single part unit weighs in grams
      * @ORM\Column(type="float", nullable=true)
      * @ColumnSecurity(type="float", placeholder=null)
      * @Assert\PositiveOrZero()
@@ -53,8 +53,6 @@ trait AdvancedPropertyTrait
 
     /**
      * Checks if this part is marked, for that it needs further review.
-     *
-     * @return bool
      */
     public function isNeedsReview(): bool
     {
@@ -63,7 +61,9 @@ trait AdvancedPropertyTrait
 
     /**
      * Sets the "needs review" status of this part.
+     *
      * @param bool $needs_review The new status
+     *
      * @return Part|self
      */
     public function setNeedsReview(bool $needs_review): self
@@ -75,8 +75,6 @@ trait AdvancedPropertyTrait
 
     /**
      * Gets a comma separated list, of tags, that are assigned to this part.
-     *
-     * @return string
      */
     public function getTags(): string
     {
@@ -87,7 +85,6 @@ trait AdvancedPropertyTrait
      * Sets a comma separated list of tags, that are assigned to this part.
      *
      * @param string $tags The new tags
-     * @return self
      */
     public function setTags(string $tags): self
     {
@@ -99,8 +96,6 @@ trait AdvancedPropertyTrait
     /**
      * Returns the mass of a single part unit.
      * Returns null, if the mass is unknown/not set yet.
-     *
-     * @return float|null
      */
     public function getMass(): ?float
     {
@@ -111,8 +106,7 @@ trait AdvancedPropertyTrait
      * Sets the mass of a single part unit.
      * Sett to null, if the mass is unknown.
      *
-     * @param float|null $mass The new mass.
-     * @return self
+     * @param float|null $mass the new mass
      */
     public function setMass(?float $mass): self
     {

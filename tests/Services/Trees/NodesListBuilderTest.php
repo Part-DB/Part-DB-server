@@ -28,13 +28,11 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
  * @Group DB
- * @package App\Tests\Services\Trees
  */
 class NodesListBuilderTest extends WebTestCase
 {
-
     /**
-     * @var NodesListBuilder $service
+     * @var NodesListBuilder
      */
     protected $service;
     protected $em;
@@ -47,9 +45,9 @@ class NodesListBuilderTest extends WebTestCase
     }
 
     /**
-     * Test $repo->toNodesList() for null as parameter
+     * Test $repo->toNodesList() for null as parameter.
      */
-    public function testTypeToNodesListtRoot() : void
+    public function testTypeToNodesListtRoot(): void
     {
         //List all root nodes and their children
         $nodes = $this->service->typeToNodesList(AttachmentType::class);
@@ -65,7 +63,7 @@ class NodesListBuilderTest extends WebTestCase
         $this->assertEquals('Node 3', $nodes[6]->getName());
     }
 
-    public function testTypeToNodesListElement() : void
+    public function testTypeToNodesListElement(): void
     {
         //List all nodes that are children to Node 1
         $node1 = $this->em->find(AttachmentType::class, 1);

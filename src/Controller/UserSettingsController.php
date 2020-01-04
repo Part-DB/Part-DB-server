@@ -21,14 +21,12 @@
 
 namespace App\Controller;
 
-
 use App\Entity\UserSystem\U2FKey;
 use App\Entity\UserSystem\User;
 use App\Form\TFAGoogleSettingsType;
 use App\Form\UserSettingsType;
 use App\Services\TFA\BackupCodeManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -43,7 +41,6 @@ use Symfony\Component\Validator\Constraints\Length;
 
 /**
  * @Route("/user")
- * @package App\Controller
  */
 class UserSettingsController extends AbstractController
 {
@@ -74,7 +71,7 @@ class UserSettingsController extends AbstractController
         }
 
         return $this->render('Users/backup_codes.html.twig', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
@@ -85,7 +82,7 @@ class UserSettingsController extends AbstractController
      */
     public function removeU2FToken(Request $request, EntityManagerInterface $entityManager, BackupCodeManager $backupCodeManager)
     {
-        if($this->demo_mode) {
+        if ($this->demo_mode) {
             throw new \RuntimeException('You can not do 2FA things in demo mode');
         }
 
@@ -98,15 +95,14 @@ class UserSettingsController extends AbstractController
             throw new \RuntimeException('This controller only works only for Part-DB User objects!');
         }
 
-
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            if($request->request->has('key_id')) {
+            if ($request->request->has('key_id')) {
                 $key_id = $request->request->get('key_id');
                 $key_repo = $entityManager->getRepository(U2FKey::class);
                 /** @var U2FKey|null $u2f */
                 $u2f = $key_repo->find($key_id);
-                if($u2f === null) {
-                    $this->addFlash('danger','tfa_u2f.u2f_delete.not_existing');
+                if (null === $u2f) {
+                    $this->addFlash('danger', 'tfa_u2f.u2f_delete.not_existing');
                     throw new \RuntimeException('Key not existing!');
                 }
 
@@ -122,7 +118,7 @@ class UserSettingsController extends AbstractController
                 $this->addFlash('success', 'tfa.u2f.u2f_delete.success');
             }
         } else {
-            $this->addFlash('error','csfr_invalid');
+            $this->addFlash('error', 'csfr_invalid');
         }
 
         return $this->redirectToRoute('user_settings');
@@ -133,7 +129,7 @@ class UserSettingsController extends AbstractController
      */
     public function resetTrustedDevices(Request $request, EntityManagerInterface $entityManager)
     {
-        if($this->demo_mode) {
+        if ($this->demo_mode) {
             throw new \RuntimeException('You can not do 2FA things in demo mode');
         }
 
@@ -146,13 +142,12 @@ class UserSettingsController extends AbstractController
             return new \RuntimeException('This controller only works only for Part-DB User objects!');
         }
 
-
         if ($this->isCsrfTokenValid('devices_reset'.$user->getId(), $request->request->get('_token'))) {
             $user->invalidateTrustedDeviceTokens();
             $entityManager->flush();
             $this->addFlash('success', 'tfa_trustedDevice.invalidate.success');
         } else {
-            $this->addFlash('error','csfr_invalid');
+            $this->addFlash('error', 'csfr_invalid');
         }
 
         return $this->redirectToRoute('user_settings');
@@ -205,7 +200,7 @@ class UserSettingsController extends AbstractController
                 'data' => $user->getName(),
                 'attr' => ['autocomplete' => 'username'],
                 'disabled' => true,
-                'row_attr' => ['class' => 'd-none']
+                'row_attr' => ['class' => 'd-none'],
             ])
             ->add('old_password', PasswordType::class, [
                 'label' => 'user.settings.pw_old.label',
@@ -219,7 +214,7 @@ class UserSettingsController extends AbstractController
                 'second_options' => ['label' => 'user.settings.pw_confirm.label'],
                 'invalid_message' => 'password_must_match',
                 'options' => [
-                    'attr' => ['autocomplete' => 'new-password']
+                    'attr' => ['autocomplete' => 'new-password'],
                 ],
                 'constraints' => [new Length([
                                                  'min' => 6,
@@ -260,6 +255,7 @@ class UserSettingsController extends AbstractController
                 $backupCodeManager->enableBackupCodes($user);
                 $em->flush();
                 $this->addFlash('success', 'user.settings.2fa.google.activated');
+
                 return $this->redirectToRoute('user_settings');
             }
 
@@ -269,14 +265,15 @@ class UserSettingsController extends AbstractController
                 $backupCodeManager->disableBackupCodesIfUnused($user);
                 $em->flush();
                 $this->addFlash('success', 'user.settings.2fa.google.disabled');
+
                 return $this->redirectToRoute('user_settings');
             }
         }
 
-        $backup_form = $this->get('form.factory')->createNamedBuilder('backup_codes')->add('reset_codes', SubmitType::class,[
+        $backup_form = $this->get('form.factory')->createNamedBuilder('backup_codes')->add('reset_codes', SubmitType::class, [
             'label' => 'tfa_backup.regenerate_codes',
             'attr' => ['class' => 'btn-danger'],
-            'disabled' => empty($user->getBackupCodes())
+            'disabled' => empty($user->getBackupCodes()),
         ])->getForm();
 
         $backup_form->handleRequest($request);
@@ -285,7 +282,6 @@ class UserSettingsController extends AbstractController
             $em->flush();
             $this->addFlash('success', 'user.settings.2fa.backup_codes.regenerated');
         }
-
 
         /******************************
          * Output both forms
@@ -303,8 +299,8 @@ class UserSettingsController extends AbstractController
                 'enabled' => $google_enabled,
                 'qrContent' => $googleAuthenticator->getQRContent($user),
                 'secret' => $user->getGoogleAuthenticatorSecret(),
-                'username' => $user->getGoogleAuthenticatorUsername()
-            ]
+                'username' => $user->getGoogleAuthenticatorUsername(),
+            ],
         ]);
     }
 }

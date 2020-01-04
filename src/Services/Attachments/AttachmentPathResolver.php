@@ -44,11 +44,11 @@ class AttachmentPathResolver
     /**
      * AttachmentPathResolver constructor.
      *
-     * @param string      $project_dir     The kernel that should be used to resolve the project dir.
-     * @param string      $media_path      The path where uploaded attachments should be stored.
+     * @param string      $project_dir     the kernel that should be used to resolve the project dir
+     * @param string      $media_path      the path where uploaded attachments should be stored
      * @param string|null $footprints_path The path where builtin attachments are stored.
      *                                     Set to null if this ressource should be disabled.
-     * @param string|null $models_path     Set to null if this ressource should be disabled.
+     * @param string|null $models_path     set to null if this ressource should be disabled
      */
     public function __construct(string $project_dir, string $media_path, string $secure_path, ?string $footprints_path, ?string $models_path)
     {
@@ -83,8 +83,6 @@ class AttachmentPathResolver
      * @internal
      *
      * @param string|null $param_path The parameter value that should be converted to a absolute path
-     *
-     * @return string|null
      */
     public function parameterToAbsolutePath(?string $param_path): ?string
     {
@@ -120,8 +118,6 @@ class AttachmentPathResolver
      * Create an array usable for preg_replace out of an array of placeholders or pathes.
      * Slashes and other chars become escaped.
      * For example: '%TEST%' becomes '/^%TEST%/'.
-     *
-     * @return array
      */
     protected function arrayToRegexArray(array $array): array
     {
@@ -139,7 +135,7 @@ class AttachmentPathResolver
      * Converts an relative placeholder filepath (with %MEDIA% or older %BASE%) to an absolute filepath on disk.
      * The directory separator is always /. Relative pathes are not realy possible (.. is striped).
      *
-     * @param string $placeholder_path The filepath with placeholder for which the real path should be determined.
+     * @param string $placeholder_path the filepath with placeholder for which the real path should be determined
      *
      * @return string|null The absolute real path of the file, or null if the placeholder path is invalid
      */
@@ -175,7 +171,7 @@ class AttachmentPathResolver
     /**
      * Converts an real absolute filepath to a placeholder version.
      *
-     * @param string $real_path   The absolute path, for which the placeholder version should be generated.
+     * @param string $real_path   the absolute path, for which the placeholder version should be generated
      * @param bool   $old_version By default the %MEDIA% placeholder is used, which is directly replaced with the
      *                            media directory. If set to true, the old version with %BASE% will be used, which is the project directory.
      *
@@ -213,7 +209,7 @@ class AttachmentPathResolver
     /**
      * The path where uploaded attachments is stored.
      *
-     * @return string The absolute path to the media folder.
+     * @return string the absolute path to the media folder
      */
     public function getMediaPath(): string
     {
@@ -224,7 +220,7 @@ class AttachmentPathResolver
      * The path where secured attachments are stored. Must not be located in public/ folder, so it can only be accessed
      * via the attachment controller.
      *
-     * @return string The absolute path to the secure path.
+     * @return string the absolute path to the secure path
      */
     public function getSecurePath(): string
     {

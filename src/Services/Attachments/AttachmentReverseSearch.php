@@ -51,7 +51,7 @@ class AttachmentReverseSearch
      *
      * @param \SplFileInfo $file The file for which is searched
      *
-     * @return Attachment[] An list of attachments that use the given file.
+     * @return Attachment[] an list of attachments that use the given file
      */
     public function findAttachmentsByFile(\SplFileInfo $file): array
     {
@@ -69,7 +69,7 @@ class AttachmentReverseSearch
      * Deletes the given file if it is not used by more than $threshold attachments.
      *
      * @param \SplFileInfo $file      The file that should be removed
-     * @param int          $threshold The threshold used, to determine if a file should be deleted or not.
+     * @param int          $threshold the threshold used, to determine if a file should be deleted or not
      *
      * @return bool True, if the file was delete. False if not.
      */

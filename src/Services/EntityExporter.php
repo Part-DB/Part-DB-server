@@ -43,9 +43,9 @@ class EntityExporter
      * Exports an Entity or an array of entities to multiple file formats.
      *
      * @param $entity NamedDBElement|NamedDBElement[] The element/elements[] that should be exported
-     * @param Request $request The request that should be used for option resolving.
+     * @param Request $request the request that should be used for option resolving
      *
-     * @return Response The generated response containing the exported data.
+     * @return Response the generated response containing the exported data
      *
      * @throws \ReflectionException
      */

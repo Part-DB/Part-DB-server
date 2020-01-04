@@ -110,8 +110,6 @@ class Footprint extends PartsContainingDBElement
 
     /**
      * Returns the 3D Model associated with this footprint.
-     *
-     * @return FootprintAttachment|null
      */
     public function getFootprint3d(): ?FootprintAttachment
     {
@@ -128,6 +126,7 @@ class Footprint extends PartsContainingDBElement
      * Sets the 3D Model associated with this footprint.
      *
      * @param FootprintAttachment|null $new_attachment The new 3D Model
+     *
      * @return Footprint
      */
     public function setFootprint3d(?FootprintAttachment $new_attachment): self

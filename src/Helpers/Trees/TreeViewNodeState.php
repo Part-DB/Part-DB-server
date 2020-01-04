@@ -75,20 +75,20 @@ class TreeViewNodeState implements \JsonSerializable
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function jsonSerialize()
     {
         $ret = [];
-        if ($this->selected !== null) {
+        if (null !== $this->selected) {
             $ret['selected'] = $this->selected;
         }
 
-        if($this->disabled !== null) {
+        if (null !== $this->disabled) {
             $ret['disabled'] = $this->disabled;
         }
 
-        if($this->expanded !== null) {
+        if (null !== $this->expanded) {
             $ret['expanded'] = $this->expanded;
         }
 

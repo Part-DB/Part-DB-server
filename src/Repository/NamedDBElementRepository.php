@@ -21,20 +21,19 @@
 
 namespace App\Repository;
 
-
 use App\Entity\Base\NamedDBElement;
 use App\Helpers\Trees\TreeViewNode;
 use Doctrine\ORM\EntityRepository;
-
 
 class NamedDBElementRepository extends EntityRepository
 {
     /**
      * Gets a tree of TreeViewNode elements. The root elements has $parent as parent.
      * The treeview is generic, that means the href are null and ID values are set.
+     *
      * @return TreeViewNode[]
      */
-    public function getGenericNodeTree() : array
+    public function getGenericNodeTree(): array
     {
         $result = [];
 

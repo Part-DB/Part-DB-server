@@ -133,7 +133,8 @@ class Device extends PartsContainingDBElement
     /**
      *  Set the order quantity.
      *
-     * @param  int  $new_order_quantity  the new order quantity
+     * @param int $new_order_quantity the new order quantity
+     *
      * @return $this
      */
     public function setOrderQuantity(int $new_order_quantity): self
@@ -150,6 +151,7 @@ class Device extends PartsContainingDBElement
      *  Set the "order_only_missing_parts" attribute.
      *
      * @param bool $new_order_only_missing_parts the new "order_only_missing_parts" attribute
+     *
      * @return Device
      */
     public function setOrderOnlyMissingParts(bool $new_order_only_missing_parts): self

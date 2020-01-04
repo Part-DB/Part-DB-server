@@ -49,7 +49,7 @@ trait BasicPropertyTrait
     protected $visible = true;
 
     /**
-     * @var bool True, if the part is marked as favorite.
+     * @var bool true, if the part is marked as favorite
      * @ORM\Column(type="boolean")
      * @ColumnSecurity(type="boolean")
      */
@@ -111,7 +111,7 @@ trait BasicPropertyTrait
      * Check if this part is a favorite.
      *
      * @return bool * true if this part is a favorite
-     *              * false if this part is not a favorite.
+     *              * false if this part is not a favorite
      */
     public function isFavorite(): bool
     {
@@ -143,8 +143,6 @@ trait BasicPropertyTrait
      * Sets the description of this part.
      *
      * @param string $new_description the new description
-     *
-     * @return self
      */
     public function setDescription(?string $new_description): self
     {
@@ -157,8 +155,6 @@ trait BasicPropertyTrait
      * Sets the comment property of this part.
      *
      * @param string $new_comment the new comment
-     *
-     * @return self
      */
     public function setComment(string $new_comment): self
     {
@@ -172,8 +168,6 @@ trait BasicPropertyTrait
      * The category property is required for every part, so you can not pass null like the other properties (footprints).
      *
      * @param Category $category The new category of this part
-     *
-     * @return self
      */
     public function setCategory(Category $category): self
     {
@@ -187,8 +181,6 @@ trait BasicPropertyTrait
      *
      * @param Footprint|null $new_footprint The new footprint of this part. Set to null, if this part should not have
      *                                      a footprint.
-     *
-     * @return self
      */
     public function setFootprint(?Footprint $new_footprint): self
     {
@@ -202,8 +194,6 @@ trait BasicPropertyTrait
      *
      * @param $new_favorite_status bool The new favorite status, that should be applied on this part.
      *      Set this to true, when the part should be a favorite.
-     *
-     * @return self
      */
     public function setFavorite(bool $new_favorite_status): self
     {

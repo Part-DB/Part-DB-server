@@ -53,7 +53,7 @@ class PricedetailType extends AbstractType
         ]);
         $builder->add('currency', CurrencyEntityType::class, [
             'required' => false,
-            'label' => false
+            'label' => false,
         ]);
     }
 

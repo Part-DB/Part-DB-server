@@ -36,7 +36,7 @@ class GroupAdminForm extends BaseEntityAdminForm
             'label' => 'group.edit.enforce_2fa',
             'help' => 'entity.edit.enforce_2fa.help',
             'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity)
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
         $builder->add('permissions', PermissionsType::class, [

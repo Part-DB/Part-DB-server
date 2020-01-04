@@ -21,12 +21,11 @@
 
 namespace App\Tests;
 
-
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
- * This test just ensures that different pages are available (do not throw an exception)
- * @package App\Tests
+ * This test just ensures that different pages are available (do not throw an exception).
+ *
  * @group DB
  * @group slow
  */
@@ -35,10 +34,10 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
     /**
      * @dataProvider urlProvider
      */
-    public function testPageIsSuccessful(string $url) : void
+    public function testPageIsSuccessful(string $url): void
     {
         //We have localized routes
-        $url = '/en' . $url;
+        $url = '/en'.$url;
 
         //Try to access pages with admin, because he should be able to view every page!
         $client = static::createClient([], [
@@ -48,9 +47,8 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
 
         $client->request('GET', $url);
 
-        $this->assertTrue($client->getResponse()->isSuccessful(), 'Request not successful. Status code is ' . $client->getResponse()->getStatusCode());
+        $this->assertTrue($client->getResponse()->isSuccessful(), 'Request not successful. Status code is '.$client->getResponse()->getStatusCode());
     }
-
 
     public function urlProvider()
     {

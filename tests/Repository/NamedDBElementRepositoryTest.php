@@ -21,12 +21,9 @@
 
 namespace App\Tests\Repository;
 
-use App\Entity\Attachments\AttachmentType;
 use App\Entity\UserSystem\User;
 use App\Helpers\Trees\TreeViewNode;
-use App\Repository\NamedDBElementRepository;
 use App\Repository\StructuralDBElementRepository;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
@@ -34,15 +31,14 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 class NamedDBElementRepositoryTest extends WebTestCase
 {
-
     private $entityManager;
     /** @var StructuralDBElementRepository */
     private $repo;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $kernel = self::bootKernel();
 

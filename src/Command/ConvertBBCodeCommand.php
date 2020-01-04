@@ -80,8 +80,6 @@ class ConvertBBCodeCommand extends Command
 
     /**
      * Returns a list which entities and which properties need to be checked.
-     *
-     * @return array
      */
     protected function getTargetsLists(): array
     {

@@ -31,7 +31,6 @@ use App\Services\FAIconGenerator;
 use App\Services\MarkdownParser;
 use App\Services\MoneyFormatter;
 use App\Services\SIFormatter;
-use App\Services\Trees\NodesListBuilder;
 use App\Services\Trees\TreeViewGenerator;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;

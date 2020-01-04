@@ -49,7 +49,7 @@ trait InstockTrait
     protected $minamount = 0;
 
     /**
-     * @var ?MeasurementUnit The unit in which the part's amount is measured.
+     * @var ?MeasurementUnit the unit in which the part's amount is measured
      * @ORM\ManyToOne(targetEntity="MeasurementUnit", inversedBy="parts")
      * @ORM\JoinColumn(name="id_part_unit", referencedColumnName="id", nullable=true)
      * @ColumnSecurity(type="object", prefix="unit")
@@ -69,9 +69,6 @@ trait InstockTrait
     /**
      * Adds the given part lot, to the list of part lots.
      * The part lot is assigned to this part.
-     *
-     * @param PartLot $lot
-     * @return self
      */
     public function addPartLot(PartLot $lot): self
     {
@@ -84,9 +81,7 @@ trait InstockTrait
     /**
      * Removes the given part lot from the list of part lots.
      *
-     * @param PartLot $lot The part lot that should be deleted.
-     *
-     * @return self
+     * @param PartLot $lot the part lot that should be deleted
      */
     public function removePartLot(PartLot $lot): self
     {
@@ -98,8 +93,6 @@ trait InstockTrait
     /**
      * Gets the measurement unit in which the part's amount should be measured.
      * Returns null if no specific unit was that. That means the parts are measured simply in quantity numbers.
-     *
-     * @return MeasurementUnit|null
      */
     public function getPartUnit(): ?MeasurementUnit
     {
@@ -109,9 +102,6 @@ trait InstockTrait
     /**
      * Sets the measurement unit in which the part's amount should be measured.
      * Set to null, if the part should be measured in quantities.
-     *
-     * @param MeasurementUnit|null $partUnit
-     * @return self
      */
     public function setPartUnit(?MeasurementUnit $partUnit): self
     {
@@ -182,8 +172,6 @@ trait InstockTrait
      * See getPartUnit() for the associated unit.
      *
      * @param float $new_minamount the new count of parts which should be in stock at least
-     *
-     * @return self
      */
     public function setMinAmount(float $new_minamount): self
     {

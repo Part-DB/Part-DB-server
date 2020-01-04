@@ -52,7 +52,7 @@ class TagFinder
      * @param string $keyword The keyword the tag must begin with
      * @param array  $options Some options specifying the search behavior. See configureOptions for possible options.
      *
-     * @return string[] An array containing the tags that match the given keyword.
+     * @return string[] an array containing the tags that match the given keyword
      */
     public function searchTags(string $keyword, array $options = [])
     {

@@ -80,9 +80,9 @@ class ElementTypeNameGenerator
      *
      * @param DBElement $entity The element for which the label should be generated
      *
-     * @return string The locatlized label for the entity type.
+     * @return string the locatlized label for the entity type
      *
-     * @throws EntityNotSupportedException When the passed entity is not supported.
+     * @throws EntityNotSupportedException when the passed entity is not supported
      */
     public function getLocalizedTypeLabel(DBElement $entity): string
     {
@@ -107,11 +107,12 @@ class ElementTypeNameGenerator
      * For example this could be something like: "Part: BC547".
      * It uses getLocalizedLabel to determine the type.
      *
-     * @param NamedDBElement $entity   The entity for which the string should be generated.
+     * @param NamedDBElement $entity   the entity for which the string should be generated
      * @param bool           $use_html If set to true, a html string is returned, where the type is set italic
      *
      * @return string The localized string
-     * @throws EntityNotSupportedException When the passed entity is not supported.
+     *
+     * @throws EntityNotSupportedException when the passed entity is not supported
      */
     public function getTypeNameCombination(NamedDBElement $entity, bool $use_html = false): string
     {
