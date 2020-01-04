@@ -35,6 +35,7 @@
         "datatables.net-buttons-bs4": "^1.5.4",
         "datatables.net-colreorder-bs4": "^1.5.1",
         "datatables.net-fixedheader-bs4": "^3.1.5",
+        "datatables.net-responsive-bs4": "^2.2.3",
         "datatables.net-select-bs4": "^1.2.7",
         "dompurify": "^2.0.6",
         "exports-loader": "^0.7.0",

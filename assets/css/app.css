@@ -691,6 +691,10 @@ table.dataTable {
     margin-top: 0 !important;
 }
 
+div.dataTables_wrapper div.dataTables_info {
+    white-space: normal;
+}
+
 
 /*******************************
     Parts datatable styling
