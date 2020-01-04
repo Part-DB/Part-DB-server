@@ -18,70 +18,7 @@
     <div class="collapse navbar-collapse" id="navbarContent">
         <div class="form-inline my-2 my-lg-0 ml-auto" id="searchbar">
             <!-- Searchbar -->
-            <form action="" method="get">
-                <div class="dropdown d-inline">
-                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        {% trans %}search.options.label{% endtrans %}
-                        <span class="caret"></span>
-                    </button>
-                    <div class="dropdown-menu p-2" aria-labelledby="SearchOptions">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="search_name"  name="search_name" value="true" checked>
-                            <label for="search_name" class="custom-control-label">{% trans %}name.label{% endtrans %}</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="search_category" name="search_category" value="true" checked>
-                            <label for="search_category" class="custom-control-label">{% trans %}category.label{% endtrans %}</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="search_description" name="search_description" value="true" checked>
-                            <label for="search_description" class="custom-control-label"></label>{% trans %}description.label{% endtrans %}
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="search_storelocation" name="search_storelocation" value="true" checked>
-                            <label for="search_storelocation" class="custom-control-label">{% trans %}storelocation.label{% endtrans %}</label>
-                        </div>
-                        <div class=" custom-control custom-checkbox">
-                            <input type="checkbox" id="search_comment" class="custom-control-input" id="search_comment" name="search_comment" value="true" checked>
-                            <label for="search_comment" class="custom-control-label">{% trans %}comment.label{% endtrans %}</label>
-                        </div>
-                        {% if true %}
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="search_supplierpartnr" name="search_supplierpartnr" value="true" checked>
-                                <label for="search_supplierpartnr" class="custom-control-label">{% trans %}ordernumber.label.short{% endtrans %}</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="search_supplier" name="search_supplier" value="true">
-                                <label for="search_supplier" class="custom-control-label">{% trans %}supplier.label{% endtrans %}</label>
-                            </div>
-                        {% endif %}
-                        {% if true %}
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="search_manufacturer" name="search_manufacturer" value="true">
-                                <label for="search_manufacturer" class="custom-control-label">{% trans %}manufacturer.label{% endtrans %}</label>
-                            </div>
-                        {% endif %}
-                        {% if true %}
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="search_footprint" name="search_footprint" value="true">
-                                <label for="search_footprint" class="custom-control-label">{% trans %}footprint.label{% endtrans %}</label>
-                            </div>
-                        {% endif %}
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="disable_pid_input" name="disable_pid_input" value="false">
-                            <label for="disable_pid_input" class="custom-control-label">{% trans %}search.deactivateBarcode{% endtrans %}</label>
-                        </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="regex" name="regex" value="true">
-                            <label for="regex" class="custom-control-label">{% trans %}search.regexmatching{% endtrans %}</label>
-                        </div>
-                    </div>
-                </div>
-
-                <input type="search" class="form-control mr-sm-2" placeholder="{% trans %}search.placeholder{% endtrans %}" name="keyword"
-                       onkeyup="$('#search-submit').attr('href', $('#search-submit').data('href') + '/' + $(this).val());">
-                <a id="search-submit" href="#" role="button" data-href="{{ url('parts_search', {'keyword': ''}) }}" class="btn btn-outline-secondary my-2">{% trans %}go.exclamation{% endtrans %}</a>
-            </form>
+            {% include "_navbar_search.html.twig" %}
         </div>
 
         <a class="d-block d-md-none  nav-link link-datasheet" style="color: black;"

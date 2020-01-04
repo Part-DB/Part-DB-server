@@ -165,11 +165,11 @@ class PartListsController extends AbstractController
     }
 
     /**
-     * @Route("/parts/search/{keyword}", name="parts_search")
+     * @Route("/parts/search", name="parts_search")
      */
-    public function showSearch(Request $request, DataTableFactory $dataTable, string $keyword = '')
+    public function showSearch(Request $request, DataTableFactory $dataTable)
     {
-        $search = $keyword;
+        $search = $request->get('keyword', '');
 
         $table = $dataTable->createFromType(PartsDataTable::class, ['search' => $search])
             ->handleRequest($request);
@@ -180,7 +180,7 @@ class PartListsController extends AbstractController
 
         return $this->render('Parts/lists/search_list.html.twig', [
                 'datatable' => $table,
-                'keyword' => $keyword,
+                'keyword' => $search,
             ]);
     }
 

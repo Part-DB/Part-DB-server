@@ -6275,5 +6275,11 @@ Element 3</target>
         <target>Sicherheitsschlüssel</target>
       </segment>
     </unit>
+    <unit id="N66qZeD" name="search.submit">
+      <segment>
+        <source>search.submit</source>
+        <target>Los!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
