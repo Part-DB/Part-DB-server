@@ -65,7 +65,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         yield ['/store_location/1/parts'];
         yield ['/supplier/1/parts'];
         yield ['/parts/by_tag/Test'];
-        yield ['/parts/search/test'];
+        yield ['/parts/search?keyword=test'];
         yield ['/parts'];
 
         //Login/logout
