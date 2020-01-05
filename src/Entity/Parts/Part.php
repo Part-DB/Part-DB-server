@@ -82,7 +82,7 @@ class Part extends AttachmentContainingDBElement
     use ManufacturerTrait;
     use OrderTrait;
 
-    //TODO
+    /** TODO */
     protected $devices;
 
     /**
@@ -98,7 +98,7 @@ class Part extends AttachmentContainingDBElement
      */
     protected $lastModified;
 
-    /***************************************************************
+    /** *************************************************************
      * Overridden properties
      * (They are defined here and not in a trait, to avoid conflicts)
      ****************************************************************/

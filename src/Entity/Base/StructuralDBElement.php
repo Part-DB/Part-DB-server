@@ -50,12 +50,12 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
 {
     public const ID_ROOT_ELEMENT = 0;
 
-    //This is a not standard character, so build a const, so a dev can easily use it
+    /** This is a not standard character, so build a const, so a dev can easily use it */
     public const PATH_DELIMITER_ARROW = ' → ';
 
-    // We can not define the mapping here or we will get an exception. Unfortunately we have to do the mapping in the
-    // subclasses
     /**
+     * We can not define the mapping here or we will get an exception. Unfortunately we have to do the mapping in the
+     * subclasses
      * @var StructuralDBElement[]
      * @Groups({"include_children"})
      */
