@@ -23,8 +23,28 @@ maybe not completly stable. Please mind, that the free Heroku instance is used, 
 for the first time.
 
 ## Features
- * TODO
- 
+As this version of Part-DB is under development, some of the features listed below is not existing yet and the
+list of the features could change in the future. Features that are not working yet are marked with a star (*).
+
+* Inventory managment of your electronic parts. Each part can be assigned to a category, footprint, manufacturer 
+and multiple store locations and price informations. Parts can be grouped using tags. Support for file attachments like datasheets. 
+* Multi-Language support (currently German and English)
+* Barcodes/Labels generator for parts and storage locations (*)
+* User system with groups and detailed permissions. 
+Two-factor authentication is supported (Google Authenticator and U2F keys) and can be enforced. Password reset via email can be setuped.
+* Import/Export system (*)
+* Project managment: Parts can be assigned to projects to manage how often a project can be build. (*)
+* Order managment: Collect parts that should be ordered during the next order on your distributor and automatically add
+it to your instock, when they arrive. (*)
+* Event log: Track what changes happens to your inventory, track which user does what. (*)
+* Responsive design: You can use Part-DB on your PC, your tablet and your smartphone using the same interface.
+* PartKeepr import (*)
+
+With this features Part-DB is useful to hobbyists, who want to keep track of their private electronic parts inventory,
+or makerspaces, where many users have should have (controlled) access to the shared inventory.
+
+Part-DB is also used by small companies and universities for managing their inventory.
+
 ## Requirements
  * A **web server** (like Apache2 or nginx) that is capable of running [Symfony 4](https://symfony.com/doc/current/reference/requirements.html),
  this includes a minimum PHP version of **PHP 7.2.5**
@@ -33,7 +53,10 @@ for the first time.
  * For building the client side assets **yarn** and **nodejs** is needed.
  
 ## Installation
-**Caution:** It is possible to upgrade the old Part-DB databases. Anyhow, the migrations that will be made, are not compatible with the old Part-DB versions, so you must not use the old Part-DB versions with the new database, or the DB could become corrupted. Also after the migration it is not possible to go back to the old database scheme, so make sure to make a backup of your database beforehand.
+**Caution:** It is possible to upgrade the old Part-DB databases. 
+Anyhow, the migrations that will be made, are not compatible with the old Part-DB versions, so you must not use the old Part-DB versions with the new database, or the DB could become corrupted. 
+Also after the migration it is not possible to go back to the old database scheme, so make sure to make a backup of your database beforehand.
+See [UPGRADE](UPGRADE.md) for more infos.
 
 1. Copy or clone this repository into a folder on your server.
 2. Configure your webserver to serve from the `public/` folder. See [here](https://symfony.com/doc/current/setup/web_server_configuration.html)
@@ -45,8 +68,6 @@ for additional informations.
 5. Install client side dependencies and build it: `yarn install` and `yarn build`
 6. Optional (speeds up first load): Warmup cache: `php bin/console cache:warmup`
 7. Upgrade database to new scheme (or create it, when it was empty): `php bin/console doctrine:migrations:migrate` and follow the instructions given. **Caution**: This steps tamper with your database and could potentially destroy it. So make sure to make a backup of your database.
-8. (If you update from an older Part-DB Version (< 1.0) run `php bin/console app:convert-bbcode` to convert the BBCode
-used in comments and part description to the newly used markdown.)
 
 When you want to upgrade to a newer version, then just copy the new files into the folder
 and repeat the steps 4. to 7.
