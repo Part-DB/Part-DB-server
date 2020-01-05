@@ -26,6 +26,7 @@ namespace App\Services;
 
 use App\Entity\PriceInformations\Currency;
 use Locale;
+use NumberFormatter;
 
 class MoneyFormatter
 {
@@ -55,7 +56,7 @@ class MoneyFormatter
             $iso_code = $currency->getIsoCode();
         }
 
-        $number_formatter = new \NumberFormatter($this->locale, \NumberFormatter::CURRENCY);
+        $number_formatter = new NumberFormatter($this->locale, NumberFormatter::CURRENCY);
         if ($show_all_digits) {
             $number_formatter->setAttribute(\NumberFormatter::FRACTION_DIGITS, $decimals);
         } else {

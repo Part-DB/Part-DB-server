@@ -25,9 +25,13 @@ namespace App\Entity\Base;
 
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Validator\Constraints\NoneOfItsChildren;
+use function count;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use function get_class;
+use InvalidArgumentException;
+use function is_array;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -50,22 +54,10 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
 {
     public const ID_ROOT_ELEMENT = 0;
 
-    /** This is a not standard character, so build a const, so a dev can easily use it */
+    /**
+     * This is a not standard character, so build a const, so a dev can easily use it
+     */
     public const PATH_DELIMITER_ARROW = ' → ';
-
-    /**
-     * We can not define the mapping here or we will get an exception. Unfortunately we have to do the mapping in the
-     * subclasses
-     * @var StructuralDBElement[]
-     * @Groups({"include_children"})
-     */
-    protected $children;
-    /**
-     * @var StructuralDBElement
-     * @NoneOfItsChildren()
-     * @Groups({"include_parents"})
-     */
-    protected $parent;
 
     /**
      * @var string The comment info for this element
@@ -86,10 +78,25 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      */
     protected $level = 0;
 
+    /**
+     * We can not define the mapping here or we will get an exception. Unfortunately we have to do the mapping in the
+     * subclasses.
+     *
+     * @var StructuralDBElement[]
+     * @Groups({"include_children"})
+     */
+    protected $children = [];
+    /**
+     * @var StructuralDBElement
+     * @NoneOfItsChildren()
+     * @Groups({"include_parents"})
+     */
+    protected $parent;
+
     /** @var string[] all names of all parent elements as a array of strings,
      *  the last array element is the name of the element itself
      */
-    private $full_path_strings;
+    private $full_path_strings = [];
 
     public function __construct()
     {
@@ -109,7 +116,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      *
      * @return bool True, if this element is child of $another_element.
      *
-     * @throws \InvalidArgumentException if there was an error
+     * @throws InvalidArgumentException if there was an error
      */
     public function isChildOf(self $another_element): bool
     {
@@ -117,8 +124,8 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
 
         //Check if both elements compared, are from the same type
         // (we have to check inheritance, or we get exceptions when using doctrine entities (they have a proxy type):
-        if (! is_a($another_element, $class_name) && ! is_a($this, \get_class($another_element))) {
-            throw new \InvalidArgumentException('isChildOf() only works for objects of the same type!');
+        if (! is_a($another_element, $class_name) && ! is_a($this, get_class($another_element))) {
+            throw new InvalidArgumentException('isChildOf() only works for objects of the same type!');
         }
 
         if (null === $this->getParent()) { // this is the root node
@@ -201,7 +208,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      */
     public function getFullPath(string $delimiter = self::PATH_DELIMITER_ARROW): string
     {
-        if (! \is_array($this->full_path_strings)) {
+        if (empty($this->full_path_strings)) {
             $this->full_path_strings = [];
             $this->full_path_strings[] = $this->getName();
             $element = $this;
@@ -233,7 +240,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
         $tmp[] = $this;
 
         //We only allow 20 levels depth
-        while (! end($tmp)->isRoot() && \count($tmp) < 20) {
+        while (! end($tmp)->isRoot() && count($tmp) < 20) {
             $tmp[] = end($tmp)->parent;
         }
 

@@ -50,17 +50,17 @@ use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class PartsDataTable implements DataTableTypeInterface
+final class PartsDataTable implements DataTableTypeInterface
 {
-    /**
-     * @var EntityURLGenerator
-     */
-    protected $urlGenerator;
     protected $translator;
     protected $treeBuilder;
     protected $amountFormatter;
     protected $previewGenerator;
     protected $attachmentURLGenerator;
+    /**
+     * @var EntityURLGenerator
+     */
+    protected $urlGenerator;
 
     public function __construct(EntityURLGenerator $urlGenerator, TranslatorInterface $translator,
                                 NodesListBuilder $treeBuilder, AmountFormatter $amountFormatter,

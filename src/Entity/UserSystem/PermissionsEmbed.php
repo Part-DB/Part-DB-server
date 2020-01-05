@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Entity\UserSystem;
 
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
 use Webmozart\Assert\Assert;
 
 /**
@@ -316,7 +317,7 @@ class PermissionsEmbed
     public function getBitValue(string $permission_name, int $bit_n): int
     {
         if (! $this->isValidPermissionName($permission_name)) {
-            throw new \InvalidArgumentException(sprintf('No permission with the name "%s" is existing!', $permission_name));
+            throw new InvalidArgumentException(sprintf('No permission with the name "%s" is existing!', $permission_name));
         }
 
         $perm_int = (int) $this->{$permission_name};
@@ -386,7 +387,7 @@ class PermissionsEmbed
     public function setBitValue(string $permission_name, int $bit_n, int $new_value): self
     {
         if (! $this->isValidPermissionName($permission_name)) {
-            throw new \InvalidArgumentException('No permission with the given name is existing!');
+            throw new InvalidArgumentException('No permission with the given name is existing!');
         }
 
         $this->{$permission_name} = static::writeBitPair($this->{$permission_name}, $bit_n, $new_value);
@@ -405,7 +406,7 @@ class PermissionsEmbed
     public function getRawPermissionValue(string $permission_name): int
     {
         if (! $this->isValidPermissionName($permission_name)) {
-            throw new \InvalidArgumentException('No permission with the given name is existing!');
+            throw new InvalidArgumentException('No permission with the given name is existing!');
         }
 
         return $this->{$permission_name};
@@ -422,7 +423,7 @@ class PermissionsEmbed
     public function setRawPermissionValue(string $permission_name, int $value): self
     {
         if (! $this->isValidPermissionName($permission_name)) {
-            throw new \InvalidArgumentException(sprintf('No permission with the given name %s is existing!', $permission_name));
+            throw new InvalidArgumentException(sprintf('No permission with the given name %s is existing!', $permission_name));
         }
 
         $this->{$permission_name} = $value;
@@ -456,7 +457,7 @@ class PermissionsEmbed
      * Reads a bit pair from $data.
      *
      * @param int|string $data The data from where the bits should be extracted from
-     * @param int $n    The number of the lower bit (of the pair) that should be read. Starting from zero.
+     * @param int        $n    The number of the lower bit (of the pair) that should be read. Starting from zero.
      *
      * @return int the value of the bit pair
      */
@@ -464,7 +465,7 @@ class PermissionsEmbed
     {
         Assert::lessThanEq($n, 31, '$n must be smaller than 32, because only a 32bit int is used! Got %s.');
         if (0 !== $n % 2) {
-            throw new \InvalidArgumentException('$n must be dividable by 2, because we address bit pairs here!');
+            throw new InvalidArgumentException('$n must be dividable by 2, because we address bit pairs here!');
         }
 
         $mask = 0b11 << $n; //Create a mask for the data
@@ -487,7 +488,7 @@ class PermissionsEmbed
         Assert::greaterThanEq($new, 0, '$new must not be negative, because a bit pair is written! Got %s.');
 
         if (0 !== $n % 2) {
-            throw new \InvalidArgumentException('$n must be dividable by 2, because we address bit pairs here!');
+            throw new InvalidArgumentException('$n must be dividable by 2, because we address bit pairs here!');
         }
 
         $mask = 0b11 << $n; //Mask all bits that should be written

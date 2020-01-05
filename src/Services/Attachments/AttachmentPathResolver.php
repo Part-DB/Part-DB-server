@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Services\Attachments;
 
+use const DIRECTORY_SEPARATOR;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
@@ -106,7 +107,7 @@ class AttachmentPathResolver
         }
 
         //Otherwise prepend the project path
-        $tmp = realpath($this->project_dir.\DIRECTORY_SEPARATOR.$param_path);
+        $tmp = realpath($this->project_dir.DIRECTORY_SEPARATOR.$param_path);
 
         //If path does not exist then disable the placeholder
         if (false === $tmp) {
@@ -139,7 +140,7 @@ class AttachmentPathResolver
         }
 
         //If we have now have a placeholder left, the string is invalid:
-        if (preg_match('/%\w+%/', $placeholder_path)) {
+        if (preg_match('#%\w+%#', $placeholder_path)) {
             return null;
         }
 
@@ -183,7 +184,7 @@ class AttachmentPathResolver
         }
 
         //If the new string does not begin with a placeholder, it is invalid
-        if (! preg_match('/^%\w+%/', $real_path)) {
+        if (! preg_match('#^%\w+%#', $real_path)) {
             return null;
         }
 

@@ -35,48 +35,84 @@ class CategoryAdminForm extends BaseEntityAdminForm
     {
         $is_new = null === $entity->getID();
 
-        $builder->add('disable_footprints', CheckboxType::class, ['required' => false,
+        $builder->add('disable_footprints', CheckboxType::class, [
+            'required' => false,
             'label' => 'category.edit.disable_footprints',
             'help' => 'category.edit.disable_footprints.help',
-            'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'label_attr' => [
+                'class' => 'checkbox-custom',
+            ],
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
 
-        $builder->add('disable_manufacturers', CheckboxType::class, ['required' => false,
+        $builder->add('disable_manufacturers', CheckboxType::class, [
+            'required' => false,
             'label' => 'category.edit.disable_manufacturers',
             'help' => 'category.edit.disable_manufacturers.help',
-            'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'label_attr' => [
+                'class' => 'checkbox-custom',
+            ],
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
 
-        $builder->add('disable_autodatasheets', CheckboxType::class, ['required' => false,
+        $builder->add('disable_autodatasheets', CheckboxType::class, [
+            'required' => false,
             'label' => 'category.edit.disable_autodatasheets',
             'help' => 'category.edit.disable_autodatasheets.help',
-            'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'label_attr' => [
+                'class' => 'checkbox-custom',
+            ],
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
 
-        $builder->add('disable_properties', CheckboxType::class, ['required' => false,
+        $builder->add('disable_properties', CheckboxType::class, [
+            'required' => false,
             'label' => 'category.edit.disable_properties',
             'help' => 'category.edit.disable_properties.help',
-            'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'label_attr' => [
+                'class' => 'checkbox-custom',
+            ],
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
 
-        $builder->add('partname_hint', TextType::class, ['required' => false, 'empty_data' => '',
+        $builder->add('partname_hint', TextType::class, [
+            'required' => false,
+            'empty_data' => '',
             'label' => 'category.edit.partname_hint',
-            'attr' => ['placeholder' => 'category.edit.partname_hint.placeholder'],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'attr' => [
+                'placeholder' => 'category.edit.partname_hint.placeholder',
+            ],
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
 
-        $builder->add('partname_regex', TextType::class, ['required' => false, 'empty_data' => '',
+        $builder->add('partname_regex', TextType::class, [
+            'required' => false,
+            'empty_data' => '',
             'label' => 'category.edit.partname_regex',
-            'attr' => ['placeholder' => 'category.edit.partname_regex.placeholder'],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'attr' => [
+                'placeholder' => 'category.edit.partname_regex.placeholder',
+            ],
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
 
-        $builder->add('default_description', TextType::class, ['required' => false, 'empty_data' => '',
+        $builder->add('default_description', TextType::class, [
+            'required' => false,
+            'empty_data' => '',
             'label' => 'category.edit.default_description',
-            'attr' => ['placeholder' => 'category.edit.default_description.placeholder'],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'attr' => [
+                'placeholder' => 'category.edit.default_description.placeholder',
+            ],
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
 
-        $builder->add('default_comment', TextType::class, ['required' => false, 'empty_data' => '',
+        $builder->add('default_comment', TextType::class, [
+            'required' => false,
+            'empty_data' => '',
             'label' => 'category.edit.default_comment',
-            'attr' => ['placeholder' => 'category.edit.default_comment.placeholder'],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'attr' => [
+                'placeholder' => 'category.edit.default_comment.placeholder',
+            ],
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
     }
 }

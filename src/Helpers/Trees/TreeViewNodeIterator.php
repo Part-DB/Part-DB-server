@@ -24,7 +24,10 @@ declare(strict_types=1);
 
 namespace App\Helpers\Trees;
 
-class TreeViewNodeIterator extends \ArrayIterator implements \RecursiveIterator
+use ArrayIterator;
+use RecursiveIterator;
+
+final class TreeViewNodeIterator extends ArrayIterator implements RecursiveIterator
 {
     /**
      * @param TreeViewNode[] $nodes

@@ -35,7 +35,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @method User[]    findAll()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserRepository extends NamedDBElementRepository implements PasswordUpgraderInterface
+final class UserRepository extends NamedDBElementRepository implements PasswordUpgraderInterface
 {
     protected $anonymous_user;
 
@@ -74,11 +74,14 @@ class UserRepository extends NamedDBElementRepository implements PasswordUpgrade
             ->where('u.name = (:name)')
             ->orWhere('u.email = (:email)');
 
-        $qb->setParameters(['email' => $name_or_password, 'name' => $name_or_password]);
+        $qb->setParameters([
+            'email' => $name_or_password,
+            'name' => $name_or_password,
+        ]);
 
         try {
             return $qb->getQuery()->getOneOrNullResult();
-        } catch (NonUniqueResultException $exception) {
+        } catch (NonUniqueResultException $nonUniqueResultException) {
             return null;
         }
     }

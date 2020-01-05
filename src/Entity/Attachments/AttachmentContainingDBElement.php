@@ -43,7 +43,7 @@ abstract class AttachmentContainingDBElement extends NamedDBElement
      *
      * Mapping is done in sub classes like part
      */
-    protected $attachments;
+    protected $attachments = [];
 
     public function __construct()
     {

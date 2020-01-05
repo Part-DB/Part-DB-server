@@ -24,6 +24,8 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
-class AttachmentDownloadException extends \RuntimeException
+use RuntimeException;
+
+class AttachmentDownloadException extends RuntimeException
 {
 }

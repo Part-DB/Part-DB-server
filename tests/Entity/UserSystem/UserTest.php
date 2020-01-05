@@ -26,6 +26,7 @@ namespace App\Tests\Entity\UserSystem;
 
 use App\Entity\UserSystem\U2FKey;
 use App\Entity\UserSystem\User;
+use DateTime;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
@@ -69,7 +70,7 @@ class UserTest extends TestCase
         $codes = ['test', 'invalid', 'test'];
         $user->setBackupCodes($codes);
         // Backup Codes generation date must be changed!
-        $this->assertEqualsWithDelta(new \DateTime(), $user->getBackupCodesGenerationDate(), 0.1);
+        $this->assertEqualsWithDelta(new DateTime(), $user->getBackupCodesGenerationDate(), 0.1);
         $this->assertSame($codes, $user->getBackupCodes());
 
         //Test what happens if we delete the backup keys

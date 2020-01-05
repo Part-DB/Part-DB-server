@@ -36,8 +36,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Traversable;
 
-class SIUnitType extends AbstractType implements DataMapperInterface
+final class SIUnitType extends AbstractType implements DataMapperInterface
 {
     protected $si_formatter;
 
@@ -80,7 +81,9 @@ class SIUnitType extends AbstractType implements DataMapperInterface
 
                 return null;
             },
-            'error_mapping' => ['.' => 'value'],
+            'error_mapping' => [
+                '.' => 'value',
+            ],
         ]);
 
         $resolver->setAllowedTypes('measurement_unit', [MeasurementUnit::class, 'null']);
@@ -117,7 +120,13 @@ class SIUnitType extends AbstractType implements DataMapperInterface
         if ($options['show_prefix']) {
             $builder->add('prefix', ChoiceType::class, [
                 'label' => 'false',
-                'choices' => ['M' => 6, 'k' => 3, '' => 0, 'm' => -3, 'µ' => -6],
+                'choices' => [
+                    'M' => 6,
+                    'k' => 3,
+                    '' => 0,
+                    'm' => -3,
+                    'µ' => -6,
+                ],
             ]);
         }
 
@@ -143,8 +152,8 @@ class SIUnitType extends AbstractType implements DataMapperInterface
      * The method is responsible for calling {@link FormInterface::setData()}
      * on the children of compound forms, defining their underlying model data.
      *
-     * @param mixed                        $viewData View data of the compound form being initialized
-     * @param FormInterface[]|\Traversable $forms    A list of {@link FormInterface} instances
+     * @param mixed                       $viewData View data of the compound form being initialized
+     * @param FormInterface[]|Traversable $forms    A list of {@link FormInterface} instances
      *
      * @throws Exception\UnexpectedTypeException if the type of the data parameter is not supported
      */
@@ -193,9 +202,9 @@ class SIUnitType extends AbstractType implements DataMapperInterface
      * The model data can be an array or an object, so this second argument is always passed
      * by reference.
      *
-     * @param FormInterface[]|\Traversable $forms    A list of {@link FormInterface} instances
-     * @param mixed                        $viewData The compound form's view data that get mapped
-     *                                               its children model data
+     * @param FormInterface[]|Traversable $forms    A list of {@link FormInterface} instances
+     * @param mixed                       $viewData The compound form's view data that get mapped
+     *                                              its children model data
      *
      * @throws Exception\UnexpectedTypeException if the type of the data parameter is not supported
      */

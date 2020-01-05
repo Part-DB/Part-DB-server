@@ -40,28 +40,39 @@ class StorelocationAdminForm extends BaseEntityAdminForm
             'required' => false,
             'label' => 'storelocation.edit.is_full.label',
             'help' => 'storelocation.edit.is_full.help',
-            'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
+            'label_attr' => [
+                'class' => 'checkbox-custom',
+            ],
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity),
+        ]);
 
         $builder->add('limit_to_existing_parts', CheckboxType::class, [
             'required' => false,
             'label' => 'storelocation.limit_to_existing.label',
             'help' => 'storelocation.limit_to_existing.help',
-            'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
+            'label_attr' => [
+                'class' => 'checkbox-custom',
+            ],
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity),
+        ]);
 
         $builder->add('only_single_part', CheckboxType::class, [
             'required' => false,
             'label' => 'storelocation.only_single_part.label',
             'help' => 'storelocation.only_single_part.help',
-            'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
+            'label_attr' => [
+                'class' => 'checkbox-custom',
+            ],
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity),
+        ]);
 
         $builder->add('storage_type', StructuralEntityType::class, [
             'required' => false,
             'label' => 'storelocation.storage_type.label',
             'help' => 'storelocation.storage_type.help',
-            'class' => MeasurementUnit::class, 'disable_not_selectable' => true,
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
+            'class' => MeasurementUnit::class,
+            'disable_not_selectable' => true,
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity),
+        ]);
     }
 }

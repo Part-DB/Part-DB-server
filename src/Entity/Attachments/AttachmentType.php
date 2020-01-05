@@ -38,18 +38,6 @@ use Doctrine\ORM\Mapping as ORM;
 class AttachmentType extends StructuralDBElement
 {
     /**
-     * @var Collection|AttachmentTypeAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\AttachmentTypeAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    protected $attachments;
-
-    /**
-     * @var Collection|Attachment[]
-     * @ORM\OneToMany(targetEntity="Attachment", mappedBy="attachment_type")
-     */
-    protected $attachments_with_type;
-
-    /**
      * @ORM\OneToMany(targetEntity="AttachmentType", mappedBy="parent", cascade={"persist"})
      */
     protected $children;
@@ -66,6 +54,17 @@ class AttachmentType extends StructuralDBElement
      * @ValidFileFilter
      */
     protected $filetype_filter = '';
+    /**
+     * @var Collection|AttachmentTypeAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\AttachmentTypeAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    protected $attachments;
+
+    /**
+     * @var Collection|Attachment[]
+     * @ORM\OneToMany(targetEntity="Attachment", mappedBy="attachment_type")
+     */
+    protected $attachments_with_type;
 
     public function __construct()
     {

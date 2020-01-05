@@ -32,7 +32,7 @@ use Symfony\Component\Translation\MessageCatalogue;
  * The purpose of this class is to extract label attributes out of our permissions.yaml structure,
  * so they can be translated.
  */
-class PermissionExtractor implements ExtractorInterface
+final class PermissionExtractor implements ExtractorInterface
 {
     protected $permission_structure;
     protected $finished = false;

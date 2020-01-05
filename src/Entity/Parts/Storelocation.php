@@ -65,12 +65,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Storelocation extends PartsContainingDBElement
 {
     /**
-     * @var Collection|StorelocationAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\StorelocationAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    protected $attachments;
-
-    /**
      * @ORM\OneToMany(targetEntity="Storelocation", mappedBy="parent")
      */
     protected $children;
@@ -80,6 +74,22 @@ class Storelocation extends PartsContainingDBElement
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     protected $parent;
+
+    /**
+     * @var MeasurementUnit|null The measurement unit, which parts can be stored in here
+     * @ORM\ManyToOne(targetEntity="MeasurementUnit")
+     * @ORM\JoinColumn(name="storage_type_id", referencedColumnName="id")
+     */
+    protected $storage_type;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Part", fetch="EXTRA_LAZY")
+     * @ORM\JoinTable(name="part_lots",
+     *    joinColumns={@ORM\JoinColumn(name="id_store_location", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="id_part", referencedColumnName="id")}
+     * )
+     */
+    protected $parts;
 
     /**
      * @var bool
@@ -98,22 +108,11 @@ class Storelocation extends PartsContainingDBElement
      * @ORM\Column(type="boolean")
      */
     protected $limit_to_existing_parts = false;
-
     /**
-     * @var MeasurementUnit|null The measurement unit, which parts can be stored in here
-     * @ORM\ManyToOne(targetEntity="MeasurementUnit")
-     * @ORM\JoinColumn(name="storage_type_id", referencedColumnName="id")
+     * @var Collection|StorelocationAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\StorelocationAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    protected $storage_type;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Part", fetch="EXTRA_LAZY")
-     * @ORM\JoinTable(name="part_lots",
-     *    joinColumns={@ORM\JoinColumn(name="id_store_location", referencedColumnName="id")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="id_part", referencedColumnName="id")}
-     * )
-     */
-    protected $parts;
+    protected $attachments;
 
     /********************************************************************************
      *

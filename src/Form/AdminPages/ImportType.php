@@ -56,12 +56,20 @@ class ImportType extends AbstractType
         $builder
 
             ->add('format', ChoiceType::class, [
-                'choices' => ['JSON' => 'json', 'XML' => 'xml', 'CSV' => 'csv', 'YAML' => 'yaml'],
+                'choices' => [
+                    'JSON' => 'json',
+                    'XML' => 'xml',
+                    'CSV' => 'csv',
+                    'YAML' => 'yaml',
+                ],
                 'label' => 'export.format',
-                'disabled' => $disabled, ])
-            ->add('csv_separator', TextType::class, ['data' => ';',
+                'disabled' => $disabled,
+            ])
+            ->add('csv_separator', TextType::class, [
+                'data' => ';',
                 'label' => 'import.csv_separator',
-                'disabled' => $disabled, ]);
+                'disabled' => $disabled,
+            ]);
 
         if ($entity instanceof StructuralDBElement) {
             $builder->add('parent', StructuralEntityType::class, [
@@ -74,19 +82,38 @@ class ImportType extends AbstractType
 
         $builder->add('file', FileType::class, [
             'label' => 'import.file',
-            'attr' => ['class' => 'file', 'data-show-preview' => 'false', 'data-show-upload' => 'false'],
+            'attr' => [
+                'class' => 'file',
+                'data-show-preview' => 'false',
+                'data-show-upload' => 'false',
+            ],
             'disabled' => $disabled,
         ])
 
-            ->add('preserve_children', CheckboxType::class, ['data' => true, 'required' => false,
+            ->add('preserve_children', CheckboxType::class, [
+                'data' => true,
+                'required' => false,
                 'label' => 'import.preserve_children',
-                'label_attr' => ['class' => 'checkbox-custom'], 'disabled' => $disabled, ])
-            ->add('abort_on_validation_error', CheckboxType::class, ['data' => true, 'required' => false,
+                'label_attr' => [
+                    'class' => 'checkbox-custom',
+                ],
+                'disabled' => $disabled,
+            ])
+            ->add('abort_on_validation_error', CheckboxType::class, [
+                'data' => true,
+                'required' => false,
                 'label' => 'import.abort_on_validation',
                 'help' => 'import.abort_on_validation.help',
-                'label_attr' => ['class' => 'checkbox-custom'], 'disabled' => $disabled, ])
+                'label_attr' => [
+                    'class' => 'checkbox-custom',
+                ],
+                'disabled' => $disabled,
+            ])
 
             //Buttons
-            ->add('import', SubmitType::class, ['label' => 'import.btn', 'disabled' => $disabled]);
+            ->add('import', SubmitType::class, [
+                'label' => 'import.btn',
+                'disabled' => $disabled,
+            ]);
     }
 }

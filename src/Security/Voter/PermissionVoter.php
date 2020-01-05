@@ -58,7 +58,7 @@ class PermissionVoter extends ExtendedVoter
     protected function supports($attribute, $subject)
     {
         //Check if the attribute has the form @permission.operation
-        if (preg_match('/^@\\w+\\.\\w+$/', $attribute)) {
+        if (preg_match('#^@\\w+\\.\\w+$#', $attribute)) {
             $attribute = ltrim($attribute, '@');
             [$perm, $op] = explode('.', $attribute);
 

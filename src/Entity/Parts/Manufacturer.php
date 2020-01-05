@@ -65,10 +65,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Manufacturer extends Company
 {
     /**
-     * @var Collection|ManufacturerAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ManufacturerAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity="Manufacturer", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected $attachments;
+    protected $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="Manufacturer", mappedBy="parent")
@@ -76,15 +76,14 @@ class Manufacturer extends Company
     protected $children;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Manufacturer", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     */
-    protected $parent;
-
-    /**
      * @ORM\OneToMany(targetEntity="Part", mappedBy="manufacturer", fetch="EXTRA_LAZY")
      */
     protected $parts;
+    /**
+     * @var Collection|ManufacturerAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ManufacturerAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    protected $attachments;
 
     /**
      * Returns the ID as an string, defined by the element class.

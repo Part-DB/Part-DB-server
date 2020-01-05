@@ -25,8 +25,10 @@ declare(strict_types=1);
 namespace App\Helpers\Trees;
 
 use App\Entity\Base\StructuralDBElement;
+use ArrayIterator;
+use RecursiveIterator;
 
-class StructuralDBElementIterator extends \ArrayIterator implements \RecursiveIterator
+final class StructuralDBElementIterator extends ArrayIterator implements RecursiveIterator
 {
     public function __construct($nodes)
     {

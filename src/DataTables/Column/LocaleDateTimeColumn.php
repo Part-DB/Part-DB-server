@@ -24,7 +24,10 @@ declare(strict_types=1);
 
 namespace App\DataTables\Column;
 
+use DateTime;
+use DateTimeInterface;
 use IntlDateFormatter;
+use Locale;
 use Omines\DataTablesBundle\Column\AbstractColumn;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -38,8 +41,8 @@ class LocaleDateTimeColumn extends AbstractColumn
     {
         if (null === $value) {
             return $this->options['nullValue'];
-        } elseif (! $value instanceof \DateTimeInterface) {
-            $value = new \DateTime((string) $value);
+        } elseif (! $value instanceof DateTimeInterface) {
+            $value = new DateTime((string) $value);
         }
 
         $formatValues = [
@@ -51,7 +54,7 @@ class LocaleDateTimeColumn extends AbstractColumn
         ];
 
         $formatter = IntlDateFormatter::create(
-            \Locale::getDefault(),
+            Locale::getDefault(),
             $formatValues[$this->options['dateFormat']],
             $formatValues[$this->options['timeFormat']],
             $value->getTimezone()

@@ -59,9 +59,13 @@ use App\Entity\PriceInformations\Currency;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPermission;
+use function count;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
+use function in_array;
 use R\U2FTwoFactorBundle\Model\U2F\TwoFactorInterface as U2FTwoFactorInterface;
 use R\U2FTwoFactorBundle\Model\U2F\TwoFactorKeyInterface;
 use Scheb\TwoFactorBundle\Model\BackupCodeInterface;
@@ -84,7 +88,9 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 {
     use MasterAttachmentTrait;
 
-    /** The User id of the anonymous user */
+    /**
+     * The User id of the anonymous user
+     */
     public const ID_ANONYMOUS = 1;
 
     public const AVAILABLE_THEMES = ['bootstrap', 'cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal',
@@ -92,79 +98,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         'spacelab', 'united', 'yeti', ];
 
     /**
-     * @var Collection|UserAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\UserAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    protected $attachments;
-
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    protected $id;
-
-    /**
-     * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank
-     */
-    protected $name = '';
-
-    /**
-     * //@ORM\Column(type="json").
-     */
-    //protected $roles = [];
-
-    /**
-     * @var string|null The hashed password
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $password;
-
-    /**
-     * @var bool True if the user needs to change password after log in
+     * @var bool Determines if the user is disabled (user can not log in)
      * @ORM\Column(type="boolean")
      */
-    protected $need_pw_change = true;
-
-    /**
-     * @var string|null The first name of the User
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    protected $first_name = '';
-
-    /**
-     * @var string|null The last name of the User
-     * @ORM\Column(type="string", length=255,  nullable=true)
-     */
-    protected $last_name = '';
-
-    /**
-     * @var string|null The department the user is working
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    protected $department = '';
-
-    /**
-     * @var string|null The email address of the user
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Email()
-     */
-    protected $email = '';
-
-    /**
-     * @var string|null The language/locale the user prefers
-     * @ORM\Column(type="string", name="config_language", nullable=true)
-     * @Assert\Language()
-     */
-    protected $language = '';
-
-    /**
-     * @var string|null The timezone the user prefers
-     * @ORM\Column(type="string", name="config_timezone", nullable=true)
-     * @Assert\Timezone()
-     */
-    protected $timezone = '';
+    protected $disabled = false;
 
     /**
      * @var string|null The theme
@@ -172,6 +109,40 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @Assert\Choice(choices=User::AVAILABLE_THEMES)
      */
     protected $theme = '';
+
+    /**
+     * @var string|null The hash of a token the user must provide when he wants to reset his password.
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $pw_reset_token = null;
+
+    /**
+     * @ORM\Column(type="text", name="config_instock_comment_a")
+     */
+    protected $instock_comment_a = '';
+
+    /**
+     * @ORM\Column(type="text", name="config_instock_comment_w")
+     */
+    protected $instock_comment_w = '';
+
+    /** @var int The version of the trusted device cookie. Used to invalidate all trusted device cookies at once.
+     *  @ORM\Column(type="integer")
+     */
+    protected $trustedDeviceCookieVersion = 0;
+
+    /**
+     * @var string[]|null A list of backup codes that can be used, if the user has no access to its Google Authenticator device
+     * @ORM\Column(type="json")
+     */
+    protected $backupCodes = [];
+
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    protected $id;
 
     /**
      * @var Group|null the group this user belongs to
@@ -188,31 +159,88 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected $googleAuthenticatorSecret;
 
     /**
-     * @var string[]|null A list of backup codes that can be used, if the user has no access to its Google Authenticator device
-     * @ORM\Column(type="json")
+     * @var string|null The timezone the user prefers
+     * @ORM\Column(type="string", name="config_timezone", nullable=true)
+     * @Assert\Timezone()
      */
-    protected $backupCodes = [];
+    protected $timezone = '';
 
-    /** @var \DateTime The time when the backup codes were generated
-     * @ORM\Column(type="datetime", nullable=true)
+    /**
+     * @var string|null The language/locale the user prefers
+     * @ORM\Column(type="string", name="config_language", nullable=true)
+     * @Assert\Language()
      */
-    protected $backupCodesGenerationDate;
+    protected $language = '';
 
-    /** @var int The version of the trusted device cookie. Used to invalidate all trusted device cookies at once.
-     *  @ORM\Column(type="integer")
+    /**
+     * @var string|null The email address of the user
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Email()
      */
-    protected $trustedDeviceCookieVersion = 0;
+    protected $email = '';
 
-    /** @var Collection<TwoFactorKeyInterface>
-     * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\U2FKey", mappedBy="user", cascade={"REMOVE"}, orphanRemoval=true)
+    /**
+     * @var string|null The department the user is working
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    protected $u2fKeys;
+    protected $department = '';
+
+    /**
+     * @var string|null The last name of the User
+     * @ORM\Column(type="string", length=255,  nullable=true)
+     */
+    protected $last_name = '';
+
+    /**
+     * @var string|null The first name of the User
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $first_name = '';
+
+    /**
+     * @var bool True if the user needs to change password after log in
+     * @ORM\Column(type="boolean")
+     */
+    protected $need_pw_change = true;
+
+    /**
+     * //@ORM\Column(type="json").
+     */
+    //protected $roles = [];
+
+    /**
+     * @var string|null The hashed password
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $password;
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank
+     */
+    protected $name = '';
 
     /**
      * @var array
      * @ORM\Column(type="json")
      */
     protected $settings = [];
+
+    /**
+     * @var Collection|UserAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\UserAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    protected $attachments;
+
+    /** @var DateTime The time when the backup codes were generated
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $backupCodesGenerationDate;
+
+    /** @var Collection<TwoFactorKeyInterface>
+     * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\U2FKey", mappedBy="user", cascade={"REMOVE"}, orphanRemoval=true)
+     */
+    protected $u2fKeys;
 
     /**
      * @var Currency|null The currency the user wants to see prices in.
@@ -232,32 +260,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected $permissions;
 
     /**
-     * @ORM\Column(type="text", name="config_instock_comment_w")
-     */
-    protected $instock_comment_w = '';
-
-    /**
-     * @ORM\Column(type="text", name="config_instock_comment_a")
-     */
-    protected $instock_comment_a = '';
-
-    /**
-     * @var string|null The hash of a token the user must provide when he wants to reset his password.
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $pw_reset_token = null;
-
-    /**
-     * @var \DateTime The time until the password reset token is valid.
+     * @var DateTime The time until the password reset token is valid.
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $pw_reset_expires = null;
-
-    /**
-     * @var bool Determines if the user is disabled (user can not log in)
-     * @ORM\Column(type="boolean")
-     */
-    protected $disabled = false;
 
     public function __construct()
     {
@@ -466,9 +472,9 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Gets the datetime when the password reset token expires.
      *
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getPwResetExpires(): \DateTime
+    public function getPwResetExpires(): DateTime
     {
         return $this->pw_reset_expires;
     }
@@ -478,7 +484,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *
      * @return User
      */
-    public function setPwResetExpires(\DateTime $pw_reset_expires): self
+    public function setPwResetExpires(DateTime $pw_reset_expires): self
     {
         $this->pw_reset_expires = $pw_reset_expires;
 
@@ -769,7 +775,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     public function isBackupCode(string $code): bool
     {
-        return \in_array($code, $this->backupCodes, true);
+        return in_array($code, $this->backupCodes, true);
     }
 
     /**
@@ -802,7 +808,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *
      * @return $this
      *
-     * @throws \Exception If an error with the datetime occurs
+     * @throws Exception If an error with the datetime occurs
      */
     public function setBackupCodes(array $codes): self
     {
@@ -810,7 +816,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         if (empty($codes)) {
             $this->backupCodesGenerationDate = null;
         } else {
-            $this->backupCodesGenerationDate = new \DateTime();
+            $this->backupCodesGenerationDate = new DateTime();
         }
 
         return $this;
@@ -819,9 +825,9 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Return the date when the backup codes were generated.
      *
-     * @return \DateTime|null
+     * @return DateTime|null
      */
-    public function getBackupCodesGenerationDate(): ?\DateTime
+    public function getBackupCodesGenerationDate(): ?DateTime
     {
         return $this->backupCodesGenerationDate;
     }
@@ -852,7 +858,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     public function isU2FAuthEnabled(): bool
     {
-        return \count($this->u2fKeys) > 0;
+        return count($this->u2fKeys) > 0;
     }
 
     /**

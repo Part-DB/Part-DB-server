@@ -27,6 +27,7 @@ namespace App\Security\EntityListeners;
 use App\Entity\Base\DBElement;
 use App\Entity\UserSystem\User;
 use App\Security\Annotations\ColumnSecurity;
+use function count;
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\EntityManagerInterface;
@@ -34,6 +35,8 @@ use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\PostLoad;
 use Doctrine\ORM\Mapping\PreUpdate;
+use function get_class;
+use InvalidArgumentException;
 use ReflectionClass;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Security\Core\Security;
@@ -167,7 +170,7 @@ class ElementPermissionListener
      */
     protected function isRunningFromCLI()
     {
-        if (empty($_SERVER['REMOTE_ADDR']) && ! isset($_SERVER['HTTP_USER_AGENT']) && \count($_SERVER['argv']) > 0) {
+        if (empty($_SERVER['REMOTE_ADDR']) && ! isset($_SERVER['HTTP_USER_AGENT']) && count($_SERVER['argv']) > 0) {
             return true;
         }
 
@@ -191,7 +194,7 @@ class ElementPermissionListener
         } elseif ('edit' === $mode) {
             $operation = $annotation->getEditOperationName();
         } else {
-            throw new \InvalidArgumentException('$mode must be either "read" or "edit"!');
+            throw new InvalidArgumentException('$mode must be either "read" or "edit"!');
         }
 
         //Users must always be checked, because its return value can differ if it is the user itself or something else
@@ -200,10 +203,10 @@ class ElementPermissionListener
         }
 
         //Check if we have already have saved the permission, otherwise save it to cache
-        if (! isset($this->perm_cache[$mode][\get_class($element)][$operation])) {
-            $this->perm_cache[$mode][\get_class($element)][$operation] = $this->security->isGranted($operation, $element);
+        if (! isset($this->perm_cache[$mode][get_class($element)][$operation])) {
+            $this->perm_cache[$mode][get_class($element)][$operation] = $this->security->isGranted($operation, $element);
         }
 
-        return $this->perm_cache[$mode][\get_class($element)][$operation];
+        return $this->perm_cache[$mode][get_class($element)][$operation];
     }
 }

@@ -73,7 +73,9 @@ class UserAdminForm extends AbstractType
             ->add('name', TextType::class, [
                 'empty_data' => '',
                 'label' => 'user.username.label',
-                'attr' => ['placeholder' => 'user.username.placeholder'],
+                'attr' => [
+                    'placeholder' => 'user.username.placeholder',
+                ],
                 'disabled' => ! $this->security->isGranted('edit_username', $entity),
             ])
 
@@ -82,19 +84,25 @@ class UserAdminForm extends AbstractType
                 'required' => false,
                 'label' => 'group.label',
                 'disable_not_selectable' => true,
-                'disabled' => ! $this->security->isGranted('change_group', $entity), ])
+                'disabled' => ! $this->security->isGranted('change_group', $entity),
+            ])
 
             ->add('first_name', TextType::class, [
                 'empty_data' => '',
                 'label' => 'user.firstName.label',
-                'attr' => ['placeholder' => 'user.firstName.placeholder'], 'required' => false,
+                'attr' => [
+                    'placeholder' => 'user.firstName.placeholder',
+                ],
+                'required' => false,
                 'disabled' => ! $this->security->isGranted('edit_infos', $entity),
             ])
 
             ->add('last_name', TextType::class, [
                 'empty_data' => '',
                 'label' => 'user.lastName.label',
-                'attr' => ['placeholder' => 'user.lastName.placeholder'],
+                'attr' => [
+                    'placeholder' => 'user.lastName.placeholder',
+                ],
                 'required' => false,
                 'disabled' => ! $this->security->isGranted('edit_infos', $entity),
             ])
@@ -102,14 +110,19 @@ class UserAdminForm extends AbstractType
             ->add('email', TextType::class, [
                 'empty_data' => '',
                 'label' => 'user.email.label',
-                'attr' => ['placeholder' => 'user.email.placeholder'],
+                'attr' => [
+                    'placeholder' => 'user.email.placeholder',
+                ],
                 'required' => false,
-                'disabled' => ! $this->security->isGranted('edit_infos', $entity), ])
+                'disabled' => ! $this->security->isGranted('edit_infos', $entity),
+            ])
 
             ->add('department', TextType::class, [
                 'empty_data' => '',
                 'label' => 'user.department.label',
-                'attr' => ['placeholder' => 'user.department.placeholder'],
+                'attr' => [
+                    'placeholder' => 'user.department.placeholder',
+                ],
                 'required' => false,
                 'disabled' => ! $this->security->isGranted('edit_infos', $entity),
             ])
@@ -117,7 +130,10 @@ class UserAdminForm extends AbstractType
             //Config section
             ->add('language', LanguageType::class, [
                 'required' => false,
-                'attr' => ['class' => 'selectpicker', 'data-live-search' => true],
+                'attr' => [
+                    'class' => 'selectpicker',
+                    'data-live-search' => true,
+                ],
                 'placeholder' => 'user_settings.language.placeholder',
                 'label' => 'user.language_select',
                 'preferred_choices' => ['en', 'de'],
@@ -125,7 +141,10 @@ class UserAdminForm extends AbstractType
             ])
             ->add('timezone', TimezoneType::class, [
                 'required' => false,
-                'attr' => ['class' => 'selectpicker', 'data-live-search' => true],
+                'attr' => [
+                    'class' => 'selectpicker',
+                    'data-live-search' => true,
+                ],
                 'placeholder' => 'user_settings.timezone.placeholder',
                 'label' => 'user.timezone.label',
                 'preferred_choices' => ['Europe/Berlin'],
@@ -137,7 +156,9 @@ class UserAdminForm extends AbstractType
                 'choice_label' => function ($entity, $key, $value) {
                     return $value;
                 },
-                'attr' => ['class' => 'selectpicker'],
+                'attr' => [
+                    'class' => 'selectpicker',
+                ],
                 'placeholder' => 'user_settings.theme.placeholder',
                 'label' => 'user.theme.label',
                 'disabled' => ! $this->security->isGranted('change_user_settings', $entity),
@@ -150,8 +171,12 @@ class UserAdminForm extends AbstractType
 
             ->add('new_password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options' => ['label' => 'user.settings.pw_new.label'],
-                'second_options' => ['label' => 'user.settings.pw_confirm.label'],
+                'first_options' => [
+                    'label' => 'user.settings.pw_new.label',
+                ],
+                'second_options' => [
+                    'label' => 'user.settings.pw_confirm.label',
+                ],
                 'invalid_message' => 'password_must_match',
                 'required' => false,
                 'mapped' => false,
@@ -164,14 +189,18 @@ class UserAdminForm extends AbstractType
 
             ->add('need_pw_change', CheckboxType::class, [
                 'required' => false,
-                'label_attr' => ['class' => 'checkbox-custom'],
+                'label_attr' => [
+                    'class' => 'checkbox-custom',
+                ],
                 'label' => 'user.edit.needs_pw_change',
                 'disabled' => ! $this->security->isGranted('set_password', $entity),
             ])
 
             ->add('disabled', CheckboxType::class, [
                 'required' => false,
-                'label_attr' => ['class' => 'checkbox-custom'],
+                'label_attr' => [
+                    'class' => 'checkbox-custom',
+                ],
                 'label' => 'user.edit.user_disabled',
                 'disabled' => ! $this->security->isGranted('set_password', $entity)
                     || $entity === $this->security->getUser(),
@@ -206,7 +235,9 @@ class UserAdminForm extends AbstractType
         //Buttons
         $builder->add('save', SubmitType::class, [
             'label' => $is_new ? 'user.create' : 'user.edit.save',
-            'attr' => ['class' => $is_new ? 'btn-success' : ''],
+            'attr' => [
+                'class' => $is_new ? 'btn-success' : '',
+            ],
         ])
             ->add('reset', ResetType::class, [
                 'label' => 'entity.edit.reset',

@@ -81,7 +81,9 @@ class PartBaseType extends AbstractType
             ->add('name', TextType::class, [
                 'empty_data' => '',
                 'label' => 'part.edit.name',
-                'attr' => ['placeholder' => 'part.edit.name.placeholder'],
+                'attr' => [
+                    'placeholder' => 'part.edit.name.placeholder',
+                ],
                 'disabled' => ! $this->security->isGranted('name.edit', $part),
             ])
             ->add('description', CKEditorType::class, [
@@ -89,11 +91,17 @@ class PartBaseType extends AbstractType
                 'empty_data' => '',
                 'label' => 'part.edit.description',
                 'config_name' => 'description_config',
-                'attr' => ['placeholder' => 'part.edit.description.placeholder', 'rows' => 2],
+                'attr' => [
+                    'placeholder' => 'part.edit.description.placeholder',
+                    'rows' => 2,
+                ],
                 'disabled' => ! $this->security->isGranted('description.edit', $part),
             ])
             ->add('minAmount', SIUnitType::class, [
-                'attr' => ['min' => 0, 'placeholder' => 'part.editmininstock.placeholder'],
+                'attr' => [
+                    'min' => 0,
+                    'placeholder' => 'part.editmininstock.placeholder',
+                ],
                 'label' => 'part.edit.mininstock',
                 'measurement_unit' => $part->getPartUnit(),
                 'disabled' => ! $this->security->isGranted('minamount.edit', $part),
@@ -117,7 +125,8 @@ class PartBaseType extends AbstractType
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'tagsinput',
-                    'data-autocomplete' => $this->urlGenerator->generate('typeahead_tags', ['query' => 'QUERY']), ],
+                    'data-autocomplete' => $this->urlGenerator->generate('typeahead_tags', ['query' => 'QUERY']),
+                ],
                 'disabled' => ! $this->security->isGranted('tags.edit', $part),
             ]);
 
@@ -139,7 +148,8 @@ class PartBaseType extends AbstractType
                 'required' => false,
                 'empty_data' => '',
                 'label' => 'part.edit.mpn',
-                'disabled' => ! $this->security->isGranted('mpn.edit', $part), ])
+                'disabled' => ! $this->security->isGranted('mpn.edit', $part),
+            ])
             ->add('manufacturing_status', ChoiceType::class, [
                 'label' => 'part.edit.manufacturing_status',
                 'choices' => $status_choices,
@@ -149,13 +159,17 @@ class PartBaseType extends AbstractType
 
         //Advanced section
         $builder->add('needsReview', CheckboxType::class, [
-            'label_attr' => ['class' => 'checkbox-custom'],
+            'label_attr' => [
+                'class' => 'checkbox-custom',
+            ],
             'required' => false,
             'label' => 'part.edit.needs_review',
             'disabled' => ! $this->security->isGranted('edit', $part),
         ])
             ->add('favorite', CheckboxType::class, [
-                'label_attr' => ['class' => 'checkbox-custom'],
+                'label_attr' => [
+                    'class' => 'checkbox-custom',
+                ],
                 'required' => false,
                 'label' => 'part.edit.is_favorite',
                 'disabled' => ! $this->security->isGranted('change_favorite', $part),
@@ -178,8 +192,11 @@ class PartBaseType extends AbstractType
         $builder->add('comment', CKEditorType::class, [
             'required' => false,
             'label' => 'part.edit.comment',
-            'attr' => ['rows' => 4],
-            'disabled' => ! $this->security->isGranted('comment.edit', $part), 'empty_data' => '',
+            'attr' => [
+                'rows' => 4,
+            ],
+            'disabled' => ! $this->security->isGranted('comment.edit', $part),
+            'empty_data' => '',
         ]);
 
         //Part Lots section

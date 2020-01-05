@@ -25,7 +25,10 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\UserSystem\User;
+use function function_exists;
+use function in_array;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -49,7 +52,7 @@ class RedirectController extends AbstractController
      * This function is called whenever a route was not matching the localized routes.
      * The purpose is to redirect the user to the localized version of the page.
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function addLocalePart(Request $request)
     {
@@ -84,13 +87,13 @@ class RedirectController extends AbstractController
      */
     public function checkIfModRewriteAvailable()
     {
-        if (! \function_exists('apache_get_modules')) {
+        if (! function_exists('apache_get_modules')) {
             //If we can not check for apache modules, we just hope for the best and assume url rewriting is available
             //If you want to enforce index.php versions of the url, you can override this via ENV vars.
             return true;
         }
 
         //Check if the mod_rewrite module is loaded
-        return \in_array('mod_rewrite', apache_get_modules(), false);
+        return in_array('mod_rewrite', apache_get_modules(), false);
     }
 }

@@ -40,12 +40,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Group extends StructuralDBElement implements HasPermissionsInterface
 {
     /**
-     * @var Collection|GroupAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ManufacturerAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    protected $attachments;
-
-    /**
      * @ORM\OneToMany(targetEntity="Group", mappedBy="parent")
      */
     protected $children;
@@ -61,17 +55,22 @@ class Group extends StructuralDBElement implements HasPermissionsInterface
      */
     protected $users;
 
-    /** @var PermissionsEmbed
-     * @ORM\Embedded(class="PermissionsEmbed", columnPrefix="perms_")
-     * @ValidPermission()
-     */
-    protected $permissions;
-
     /**
      * @var bool If true all users associated with this group must have enabled some kind of 2 factor authentication
      * @ORM\Column(type="boolean", name="enforce_2fa")
      */
     protected $enforce2FA = false;
+    /**
+     * @var Collection|GroupAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ManufacturerAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    protected $attachments;
+
+    /** @var PermissionsEmbed
+     * @ORM\Embedded(class="PermissionsEmbed", columnPrefix="perms_")
+     * @ValidPermission()
+     */
+    protected $permissions;
 
     public function __construct()
     {

@@ -42,6 +42,7 @@ use App\Entity\PriceInformations\Pricedetail;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
+use function get_class;
 use Proxies\__CG__\App\Entity\Parts\Supplier;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -90,8 +91,8 @@ class ElementTypeNameGenerator
     public function getLocalizedTypeLabel(DBElement $entity): string
     {
         //Check if we have an direct array entry for our entity class, then we can use it
-        if (isset($this->mapping[\get_class($entity)])) {
-            return $this->mapping[\get_class($entity)];
+        if (isset($this->mapping[get_class($entity)])) {
+            return $this->mapping[get_class($entity)];
         }
 
         //Otherwise iterate over array and check for inheritance (needed when the proxy element from doctrine are passed)
@@ -102,7 +103,7 @@ class ElementTypeNameGenerator
         }
 
         //When nothing was found throw an exception
-        throw new EntityNotSupportedException(sprintf('No localized label for the element with type %s was found!', \get_class($entity)));
+        throw new EntityNotSupportedException(sprintf('No localized label for the element with type %s was found!', get_class($entity)));
     }
 
     /**

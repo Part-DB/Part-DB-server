@@ -26,6 +26,7 @@ namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\PriceInformations\Orderdetail;
 use App\Security\Annotations\ColumnSecurity;
+use function count;
 use Doctrine\Common\Collections\Collection;
 
 /**
@@ -183,7 +184,7 @@ trait OrderTrait
     {
         $all_orderdetails = $this->getOrderdetails();
 
-        if (0 === \count($all_orderdetails)) {
+        if (0 === count($all_orderdetails)) {
             return false;
         }
 

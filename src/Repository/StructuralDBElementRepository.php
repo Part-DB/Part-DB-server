@@ -27,6 +27,7 @@ namespace App\Repository;
 use App\Entity\Base\StructuralDBElement;
 use App\Helpers\Trees\StructuralDBElementIterator;
 use App\Helpers\Trees\TreeViewNode;
+use RecursiveIteratorIterator;
 
 class StructuralDBElementRepository extends NamedDBElementRepository
 {
@@ -80,7 +81,7 @@ class StructuralDBElementRepository extends NamedDBElementRepository
         $entities = $this->findBy(['parent' => $parent], ['name' => 'ASC']);
 
         $elementIterator = new StructuralDBElementIterator($entities);
-        $recursiveIterator = new \RecursiveIteratorIterator($elementIterator, \RecursiveIteratorIterator::SELF_FIRST);
+        $recursiveIterator = new RecursiveIteratorIterator($elementIterator, RecursiveIteratorIterator::SELF_FIRST);
         //$result = iterator_to_array($recursiveIterator);
 
         //We can not use iterator_to_array here or we get only the parent elements

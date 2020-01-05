@@ -35,7 +35,9 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class NamedDBElementRepositoryTest extends WebTestCase
 {
     private $entityManager;
-    /** @var StructuralDBElementRepository */
+    /**
+     * @var StructuralDBElementRepository
+     */
     private $repo;
 
     protected function setUp(): void

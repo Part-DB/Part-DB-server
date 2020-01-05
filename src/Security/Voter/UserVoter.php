@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Security\Voter;
 
 use App\Entity\UserSystem\User;
+use function in_array;
 
 class UserVoter extends ExtendedVoter
 {
@@ -39,7 +40,7 @@ class UserVoter extends ExtendedVoter
     protected function supports($attribute, $subject)
     {
         if ($subject instanceof User) {
-            return \in_array($attribute, array_merge(
+            return in_array($attribute, array_merge(
                 $this->resolver->listOperationsForPermission('users'),
                 $this->resolver->listOperationsForPermission('self')),
             false

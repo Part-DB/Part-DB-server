@@ -26,6 +26,7 @@ namespace App\Tests\Services\TFA;
 
 use App\Services\TFA\BackupCodeGenerator;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 class BackupCodeGeneratorTest extends TestCase
 {
@@ -34,7 +35,7 @@ class BackupCodeGeneratorTest extends TestCase
      */
     public function testLengthUpperLimit(): void
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         new BackupCodeGenerator(33, 10);
     }
 
@@ -43,7 +44,7 @@ class BackupCodeGeneratorTest extends TestCase
      */
     public function testLengthLowerLimit(): void
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         new BackupCodeGenerator(4, 10);
     }
 

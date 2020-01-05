@@ -32,13 +32,15 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class U2FRegistrationSubscriber implements EventSubscriberInterface
+final class U2FRegistrationSubscriber implements EventSubscriberInterface
 {
     protected $em;
 
     protected $demo_mode;
     protected $flashBag;
-    /** @var UrlGeneratorInterface */
+    /**
+     * @var UrlGeneratorInterface
+     */
     private $router;
 
     public function __construct(UrlGeneratorInterface $router, EntityManagerInterface $entityManager, FlashBagInterface $flashBag, bool $demo_mode)
@@ -49,7 +51,9 @@ class U2FRegistrationSubscriber implements EventSubscriberInterface
         $this->flashBag = $flashBag;
     }
 
-    /** @return string[] **/
+    /**
+     *
+     */
     public static function getSubscribedEvents(): array
     {
         return [

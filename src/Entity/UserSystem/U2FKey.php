@@ -77,18 +77,18 @@ class U2FKey implements TwoFactorKeyInterface
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User", inversedBy="u2fKeys")
-     *
-     * @var User
-     **/
-    protected $user;
-
-    /**
      * @ORM\Column(type="string")
      *
      * @var string
      **/
     protected $name;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User", inversedBy="u2fKeys")
+     *
+     * @var User
+     **/
+    protected $user;
 
     public function fromRegistrationData(Registration $data): void
     {

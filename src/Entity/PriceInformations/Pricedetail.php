@@ -73,14 +73,6 @@ class Pricedetail extends DBElement
     public const PRICE_PRECISION = 5;
 
     /**
-     * @var Orderdetail
-     * @ORM\ManyToOne(targetEntity="Orderdetail", inversedBy="pricedetails")
-     * @ORM\JoinColumn(name="orderdetails_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     * @Assert\NotNull()
-     */
-    protected $orderdetail;
-
-    /**
      * @var string The price related to the detail. (Given in the selected currency)
      * @ORM\Column(type="decimal", precision=11, scale=5)
      * @Assert\Positive()
@@ -115,6 +107,14 @@ class Pricedetail extends DBElement
      * @ORM\Column(type="boolean")
      */
     protected $manual_input = true;
+
+    /**
+     * @var Orderdetail
+     * @ORM\ManyToOne(targetEntity="Orderdetail", inversedBy="pricedetails")
+     * @ORM\JoinColumn(name="orderdetails_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @Assert\NotNull()
+     */
+    protected $orderdetail;
 
     public function __construct()
     {
@@ -280,6 +280,7 @@ class Pricedetail extends DBElement
      * quantity to 100. The single price (20$/100 = 0.2$) will be calculated automatically.
      *
      * @param float $new_price_related_quantity the price related quantity
+     *
      * @return $this
      */
     public function setPriceRelatedQuantity(float $new_price_related_quantity): self

@@ -79,7 +79,10 @@ class UserSettingsType extends AbstractType
             ->add('language', LanguageType::class, [
                 'disabled' => $this->demo_mode,
                 'required' => false,
-                'attr' => ['class' => 'selectpicker', 'data-live-search' => true],
+                'attr' => [
+                    'class' => 'selectpicker',
+                    'data-live-search' => true,
+                ],
                 'placeholder' => 'user_settings.language.placeholder',
                 'label' => 'user.language_select',
                 'preferred_choices' => ['en', 'de'],
@@ -87,7 +90,10 @@ class UserSettingsType extends AbstractType
             ->add('timezone', TimezoneType::class, [
                 'disabled' => $this->demo_mode,
                 'required' => false,
-                'attr' => ['class' => 'selectpicker', 'data-live-search' => true],
+                'attr' => [
+                    'class' => 'selectpicker',
+                    'data-live-search' => true,
+                ],
                 'placeholder' => 'user_settings.timezone.placeholder',
                 'label' => 'user.timezone.label',
                 'preferred_choices' => ['Europe/Berlin'],
@@ -95,7 +101,9 @@ class UserSettingsType extends AbstractType
             ->add('theme', ChoiceType::class, [
                 'disabled' => $this->demo_mode,
                 'required' => false,
-                'attr' => ['class' => 'selectpicker'],
+                'attr' => [
+                    'class' => 'selectpicker',
+                ],
                 'choices' => User::AVAILABLE_THEMES,
                 'choice_label' => function ($entity, $key, $value) {
                     return $value;

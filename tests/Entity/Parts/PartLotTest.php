@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Tests\Entity\Parts;
 
 use App\Entity\Parts\PartLot;
+use DateTime;
 use PHPUnit\Framework\TestCase;
 
 class PartLotTest extends TestCase
@@ -34,7 +35,7 @@ class PartLotTest extends TestCase
         $lot = new PartLot();
         $this->assertNull($lot->isExpired(), 'Lot must be return null when no Expiration date is set!');
 
-        $datetime = new \DateTime();
+        $datetime = new DateTime();
 
         $lot->setExpirationDate($datetime->setTimestamp(strtotime('now +1 hour')));
         $this->assertFalse($lot->isExpired(), 'Lot with expiration date in the future must not be expired!');

@@ -44,6 +44,7 @@ declare(strict_types=1);
 namespace App\Entity\Base;
 
 use Doctrine\ORM\Mapping as ORM;
+use function is_string;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -157,7 +158,7 @@ abstract class Company extends PartsContainingDBElement
      */
     public function getAutoProductUrl($partnr = null): string
     {
-        if (\is_string($partnr)) {
+        if (is_string($partnr)) {
             return str_replace('%PARTNUMBER%', $partnr, $this->auto_product_url);
         }
 

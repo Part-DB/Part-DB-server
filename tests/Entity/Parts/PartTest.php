@@ -27,6 +27,7 @@ namespace App\Tests\Entity\Parts;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
+use DateTime;
 use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
 
@@ -86,7 +87,7 @@ class PartTest extends TestCase
     {
         $part = new Part();
         $measurement_unit = new MeasurementUnit();
-        $datetime = new \DateTime();
+        $datetime = new DateTime();
 
         $this->assertSame(0.0, $part->getAmountSum());
 

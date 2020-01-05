@@ -26,6 +26,7 @@ namespace App\Tests\Entity;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\Category;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Tests\A;
 
@@ -84,7 +85,7 @@ class StructuralDBElementTest extends TestCase
 
     public function testChildOfDifferentClasses(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $category = new Category();
         $this->root->isChildOf($category);
     }

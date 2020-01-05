@@ -25,6 +25,11 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Entity\Base\NamedDBElement;
+use function in_array;
+use InvalidArgumentException;
+use function is_array;
+use ReflectionClass;
+use ReflectionException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -49,21 +54,21 @@ class EntityExporter
      *
      * @return Response the generated response containing the exported data
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function exportEntityFromRequest($entity, Request $request): Response
     {
         $format = $request->get('format') ?? 'json';
 
         //Check if we have one of the supported formats
-        if (! \in_array($format, ['json', 'csv', 'yaml', 'xml'], true)) {
-            throw new \InvalidArgumentException('Given format is not supported!');
+        if (! in_array($format, ['json', 'csv', 'yaml', 'xml'], true)) {
+            throw new InvalidArgumentException('Given format is not supported!');
         }
 
         //Check export verbosity level
         $level = $request->get('level') ?? 'extended';
-        if (! \in_array($level, ['simple', 'extended', 'full'], true)) {
-            throw new \InvalidArgumentException('Given level is not supported!');
+        if (! in_array($level, ['simple', 'extended', 'full'], true)) {
+            throw new InvalidArgumentException('Given level is not supported!');
         }
 
         //Check for include children option
@@ -91,7 +96,7 @@ class EntityExporter
         }
 
         //Ensure that we always serialize an array. This makes it easier to import the data again.
-        if (\is_array($entity)) {
+        if (is_array($entity)) {
             $entity_array = $entity;
         } else {
             $entity_array = [$entity];
@@ -111,16 +116,16 @@ class EntityExporter
         if (! $request->get('view')) {
             if ($entity instanceof NamedDBElement) {
                 $entity_name = $entity->getName();
-            } elseif (\is_array($entity)) {
+            } elseif (is_array($entity)) {
                 if (empty($entity)) {
-                    throw new \InvalidArgumentException('$entity must not be empty!');
+                    throw new InvalidArgumentException('$entity must not be empty!');
                 }
 
                 //Use the class name of the first element for the filename
-                $reflection = new \ReflectionClass($entity[0]);
+                $reflection = new ReflectionClass($entity[0]);
                 $entity_name = $reflection->getShortName();
             } else {
-                throw new \InvalidArgumentException('$entity type is not supported!');
+                throw new InvalidArgumentException('$entity type is not supported!');
             }
 
             $filename = 'export_'.$entity_name.'_'.$level.'.'.$format;

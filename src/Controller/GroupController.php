@@ -32,6 +32,7 @@ use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -72,7 +73,7 @@ class GroupController extends BaseAdminController
     /**
      * @Route("/{id}", name="group_delete", methods={"DELETE"})
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete(Request $request, Group $entity, StructuralElementRecursionHelper $recursionHelper)
     {

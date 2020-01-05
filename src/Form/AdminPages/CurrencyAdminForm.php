@@ -39,14 +39,19 @@ class CurrencyAdminForm extends BaseEntityAdminForm
             'required' => false,
             'label' => 'currency.edit.iso_code',
             'preferred_choices' => ['EUR', 'USD', 'GBP', 'JPY', 'CNY'],
-            'attr' => ['class' => 'selectpicker', 'data-live-search' => true],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'attr' => [
+                'class' => 'selectpicker',
+                'data-live-search' => true,
+            ],
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
 
         $builder->add('exchange_rate', MoneyType::class, [
             'required' => false,
             'label' => 'currency.edit.exchange_rate',
             'currency' => $this->params->get('default_currency'),
             'scale' => 6,
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
     }
 }

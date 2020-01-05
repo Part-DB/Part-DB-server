@@ -38,7 +38,7 @@ use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class AttachmentDataTable implements DataTableTypeInterface
+final class AttachmentDataTable implements DataTableTypeInterface
 {
     protected $translator;
     protected $entityURLGenerator;

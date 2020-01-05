@@ -35,10 +35,13 @@ class GroupAdminForm extends BaseEntityAdminForm
     {
         $is_new = null === $entity->getID();
 
-        $builder->add('enforce2FA', CheckboxType::class, ['required' => false,
+        $builder->add('enforce2FA', CheckboxType::class, [
+            'required' => false,
             'label' => 'group.edit.enforce_2fa',
             'help' => 'entity.edit.enforce_2fa.help',
-            'label_attr' => ['class' => 'checkbox-custom'],
+            'label_attr' => [
+                'class' => 'checkbox-custom',
+            ],
             'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 

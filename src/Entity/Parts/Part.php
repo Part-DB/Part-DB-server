@@ -60,6 +60,7 @@ use App\Entity\Parts\PartTraits\InstockTrait;
 use App\Entity\Parts\PartTraits\ManufacturerTrait;
 use App\Entity\Parts\PartTraits\OrderTrait;
 use App\Security\Annotations\ColumnSecurity;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -82,7 +83,9 @@ class Part extends AttachmentContainingDBElement
     use ManufacturerTrait;
     use OrderTrait;
 
-    /** TODO */
+    /**
+     * TODO
+     */
     protected $devices;
 
     /**
@@ -91,16 +94,9 @@ class Part extends AttachmentContainingDBElement
      */
     protected $addedDate;
 
-    /**
-     * @var \DateTime the date when this element was modified the last time
-     * @ColumnSecurity(type="datetime")
-     * @ORM\Column(type="datetime", name="last_modified", options={"default"="CURRENT_TIMESTAMP"})
-     */
-    protected $lastModified;
-
     /** *************************************************************
      * Overridden properties
-     * (They are defined here and not in a trait, to avoid conflicts)
+     * (They are defined here and not in a trait, to avoid conflicts).
      ****************************************************************/
 
     /**
@@ -116,6 +112,13 @@ class Part extends AttachmentContainingDBElement
      * @Assert\Valid()
      */
     protected $attachments;
+
+    /**
+     * @var DateTime the date when this element was modified the last time
+     * @ColumnSecurity(type="datetime")
+     * @ORM\Column(type="datetime", name="last_modified", options={"default"="CURRENT_TIMESTAMP"})
+     */
+    protected $lastModified;
 
     /**
      * @var Attachment

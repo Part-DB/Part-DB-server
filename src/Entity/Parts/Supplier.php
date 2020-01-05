@@ -68,12 +68,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Supplier extends Company
 {
     /**
-     * @var Collection|SupplierAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\SupplierAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    protected $attachments;
-
-    /**
      * @ORM\OneToMany(targetEntity="Supplier", mappedBy="parent")
      */
     protected $children;
@@ -113,6 +107,11 @@ class Supplier extends Company
      * )
      */
     protected $parts;
+    /**
+     * @var Collection|SupplierAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\SupplierAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    protected $attachments;
 
     /**
      * Gets the currency that should be used by default, when creating a orderdetail with this supplier.

@@ -29,7 +29,7 @@ use Symfony\Component\Mailer\Event\MessageEvent;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
-class MailFromListener implements EventSubscriberInterface
+final class MailFromListener implements EventSubscriberInterface
 {
     protected $email;
     protected $name;

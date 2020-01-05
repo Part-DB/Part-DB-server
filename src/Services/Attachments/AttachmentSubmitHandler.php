@@ -39,6 +39,10 @@ use App\Entity\Attachments\StorelocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
 use App\Exceptions\AttachmentDownloadException;
+use const DIRECTORY_SEPARATOR;
+use function get_class;
+use InvalidArgumentException;
+use RuntimeException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Mime\MimeTypesInterface;
@@ -66,12 +70,20 @@ class AttachmentSubmitHandler
         $this->mimeTypes = $mimeTypes;
 
         //The mapping used to determine which folder will be used for an attachment type
-        $this->folder_mapping = [PartAttachment::class => 'part', AttachmentTypeAttachment::class => 'attachment_type',
-            CategoryAttachment::class => 'category', CurrencyAttachment::class => 'currency',
-            DeviceAttachment::class => 'device', FootprintAttachment::class => 'footprint',
-            GroupAttachment::class => 'group', ManufacturerAttachment::class => 'manufacturer',
-            MeasurementUnitAttachment::class => 'measurement_unit', StorelocationAttachment::class => 'storelocation',
-            SupplierAttachment::class => 'supplier', UserAttachment::class => 'user', ];
+        $this->folder_mapping = [
+            PartAttachment::class => 'part',
+            AttachmentTypeAttachment::class => 'attachment_type',
+            CategoryAttachment::class => 'category',
+            CurrencyAttachment::class => 'currency',
+            DeviceAttachment::class => 'device',
+            FootprintAttachment::class => 'footprint',
+            GroupAttachment::class => 'group',
+            ManufacturerAttachment::class => 'manufacturer',
+            MeasurementUnitAttachment::class => 'measurement_unit',
+            StorelocationAttachment::class => 'storelocation',
+            SupplierAttachment::class => 'supplier',
+            UserAttachment::class => 'user',
+        ];
     }
 
     /**
@@ -117,18 +129,18 @@ class AttachmentSubmitHandler
         }
 
         //Ensure the given attachment class is known to mapping
-        if (! isset($this->folder_mapping[\get_class($attachment)])) {
-            throw new \InvalidArgumentException('The given attachment class is not known! The passed class was: '.\get_class($attachment));
+        if (! isset($this->folder_mapping[get_class($attachment)])) {
+            throw new InvalidArgumentException('The given attachment class is not known! The passed class was: '.get_class($attachment));
         }
         //Ensure the attachment has an assigned element
         if (null === $attachment->getElement()) {
-            throw new \InvalidArgumentException('The given attachment is not assigned to an element! An element is needed to generate a path!');
+            throw new InvalidArgumentException('The given attachment is not assigned to an element! An element is needed to generate a path!');
         }
 
         //Build path
         return
-            $base_path.\DIRECTORY_SEPARATOR //Base path
-            .$this->folder_mapping[\get_class($attachment)].\DIRECTORY_SEPARATOR.$attachment->getElement()->getID();
+            $base_path.DIRECTORY_SEPARATOR //Base path
+            .$this->folder_mapping[get_class($attachment)].DIRECTORY_SEPARATOR.$attachment->getElement()->getID();
     }
 
     /**
@@ -209,14 +221,14 @@ class AttachmentSubmitHandler
 
         $filename = basename($old_path);
         //If the basename is not one of the new unique on, we have to save the old filename
-        if (! preg_match('/\w+-\w{13}\./', $filename)) {
+        if (! preg_match('#\w+-\w{13}\.#', $filename)) {
             //Save filename to attachment field
             $attachment->setFilename($attachment->getFilename());
         }
 
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
         $new_path = $this->generateAttachmentPath($attachment, $secure_location)
-            .\DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, $ext);
+            .DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, $ext);
 
         //Move file to new directory
         $fs = new Filesystem();
@@ -240,14 +252,14 @@ class AttachmentSubmitHandler
     {
         //Check if we are allowed to download files
         if (! $this->allow_attachments_downloads) {
-            throw new \RuntimeException('Download of attachments is not allowed!');
+            throw new RuntimeException('Download of attachments is not allowed!');
         }
 
         $url = $attachment->getURL();
 
         $fs = new Filesystem();
         $attachment_folder = $this->generateAttachmentPath($attachment, $options['secure_attachment']);
-        $tmp_path = $attachment_folder.\DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, 'tmp');
+        $tmp_path = $attachment_folder.DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, 'tmp');
 
         try {
             $response = $this->httpClient->request('GET', $url, [
@@ -296,14 +308,14 @@ class AttachmentSubmitHandler
             }
 
             //Rename the file to its new name and save path to attachment entity
-            $new_path = $attachment_folder.\DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, $new_ext);
+            $new_path = $attachment_folder.DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, $new_ext);
             $fs->rename($tmp_path, $new_path);
 
             //Make our file path relative to %BASE%
             $new_path = $this->pathResolver->realPathToPlaceholder($new_path);
             //Save the path to the attachment
             $attachment->setPath($new_path);
-        } catch (TransportExceptionInterface $exception) {
+        } catch (TransportExceptionInterface $transportExceptionInterface) {
             throw new AttachmentDownloadException('Transport error!');
         }
 

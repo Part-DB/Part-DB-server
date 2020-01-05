@@ -65,20 +65,34 @@ class AttachmentFormType extends AbstractType
                 'label' => 'attachment.edit.attachment_type',
                 'class' => AttachmentType::class,
                 'disable_not_selectable' => true,
-                'attr' => ['class' => 'attachment_type_selector'],
+                'attr' => [
+                    'class' => 'attachment_type_selector',
+                ],
             ]);
 
-        $builder->add('showInTable', CheckboxType::class, ['required' => false,
+        $builder->add('showInTable', CheckboxType::class, [
+            'required' => false,
             'label' => 'attachment.edit.show_in_table',
-            'attr' => ['class' => 'form-control-sm'],
-            'label_attr' => ['class' => 'checkbox-custom'], ]);
+            'attr' => [
+                'class' => 'form-control-sm',
+            ],
+            'label_attr' => [
+                'class' => 'checkbox-custom',
+            ],
+        ]);
 
-        $builder->add('secureFile', CheckboxType::class, ['required' => false,
+        $builder->add('secureFile', CheckboxType::class, [
+            'required' => false,
             'label' => 'attachment.edit.secure_file',
             'mapped' => false,
-            'attr' => ['class' => 'form-control-sm'],
+            'attr' => [
+                'class' => 'form-control-sm',
+            ],
             'help' => 'attachment.edit.secure_file.help',
-            'label_attr' => ['class' => 'checkbox-custom'], ]);
+            'label_attr' => [
+                'class' => 'checkbox-custom',
+            ],
+        ]);
 
         $builder->add('url', TextType::class, [
             'label' => 'attachment.edit.url',
@@ -94,18 +108,28 @@ class AttachmentFormType extends AbstractType
             ],
         ]);
 
-        $builder->add('downloadURL', CheckboxType::class, ['required' => false,
+        $builder->add('downloadURL', CheckboxType::class, [
+            'required' => false,
             'label' => 'attachment.edit.download_url',
             'mapped' => false,
             'disabled' => ! $this->allow_attachments_download,
-            'attr' => ['class' => 'form-control-sm'],
-            'label_attr' => ['class' => 'checkbox-custom'], ]);
+            'attr' => [
+                'class' => 'form-control-sm',
+            ],
+            'label_attr' => [
+                'class' => 'checkbox-custom',
+            ],
+        ]);
 
         $builder->add('file', FileType::class, [
             'label' => 'attachment.edit.file',
             'mapped' => false,
             'required' => false,
-            'attr' => ['class' => 'file', 'data-show-preview' => 'false', 'data-show-upload' => 'false'],
+            'attr' => [
+                'class' => 'file',
+                'data-show-preview' => 'false',
+                'data-show-upload' => 'false',
+            ],
             'constraints' => [
                 new AllowedFileExtension(),
                 new File([

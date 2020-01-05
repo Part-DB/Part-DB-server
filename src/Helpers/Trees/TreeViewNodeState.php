@@ -24,18 +24,28 @@ declare(strict_types=1);
 
 namespace App\Helpers\Trees;
 
-class TreeViewNodeState implements \JsonSerializable
+use JsonSerializable;
+
+final class TreeViewNodeState implements JsonSerializable
 {
-    /** @var bool|null */
+    /**
+     * @var bool|null
+     */
     protected $checked = null;
 
-    /** @var bool|null */
+    /**
+     * @var bool|null
+     */
     protected $disabled = null;
 
-    /** @var bool|null */
+    /**
+     * @var bool|null
+     */
     protected $expanded = null;
 
-    /** @var bool|null */
+    /**
+     * @var bool|null
+     */
     protected $selected = null;
 
     /**

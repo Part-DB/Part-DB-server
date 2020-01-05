@@ -40,6 +40,9 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
 use App\Services\Attachments\AttachmentURLGenerator;
+use function array_key_exists;
+use function get_class;
+use InvalidArgumentException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
@@ -49,11 +52,11 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class EntityURLGenerator
 {
+    protected $attachmentURLGenerator;
     /**
      * @var UrlGeneratorInterface
      */
     protected $urlGenerator;
-    protected $attachmentURLGenerator;
 
     public function __construct(UrlGeneratorInterface $urlGenerator, AttachmentURLGenerator $attachmentURLGenerator)
     {
@@ -72,7 +75,7 @@ class EntityURLGenerator
      * @return string the link to the desired page
      *
      * @throws EntityNotSupportedException thrown if the entity is not supported for the given type
-     * @throws \InvalidArgumentException   thrown if the givent type is not existing
+     * @throws InvalidArgumentException    thrown if the givent type is not existing
      */
     public function getURL($entity, string $type)
     {
@@ -96,7 +99,7 @@ class EntityURLGenerator
                 return $this->viewURL($entity);
         }
 
-        throw new \InvalidArgumentException('Method is not supported!');
+        throw new InvalidArgumentException('Method is not supported!');
     }
 
     public function viewURL($entity): string
@@ -124,7 +127,7 @@ class EntityURLGenerator
         }
 
         //Otherwise throw an error
-        throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', \get_class($entity)));
+        throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', get_class($entity)));
     }
 
     /**
@@ -290,10 +293,10 @@ class EntityURLGenerator
      */
     protected function mapToController(array $map, $entity): string
     {
-        $class = \get_class($entity);
+        $class = get_class($entity);
 
         //Check if we have an direct mapping for the given class
-        if (! \array_key_exists($class, $map)) {
+        if (! array_key_exists($class, $map)) {
             //Check if we need to check inheritance by looping through our map
             foreach ($map as $key => $value) {
                 if (is_a($entity, $key)) {
@@ -301,7 +304,7 @@ class EntityURLGenerator
                 }
             }
 
-            throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', \get_class($entity)));
+            throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', get_class($entity)));
         }
 
         return $map[$class];

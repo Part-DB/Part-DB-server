@@ -33,7 +33,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * This event listener shows an login successful flash to the user after login.
  */
-class LoginSuccessListener implements EventSubscriberInterface
+final class LoginSuccessListener implements EventSubscriberInterface
 {
     protected $translator;
     protected $flashBag;

@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Services\GitVersionInfo;
+use const DIRECTORY_SEPARATOR;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -46,7 +47,7 @@ class HomepageController extends AbstractController
         $banner = $this->getParameter('banner');
         if (empty($banner)) {
             $banner_path = $this->kernel->getProjectDir()
-                .\DIRECTORY_SEPARATOR.'config'.\DIRECTORY_SEPARATOR.'banner.md';
+                .DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'banner.md';
 
             return file_get_contents($banner_path);
         }

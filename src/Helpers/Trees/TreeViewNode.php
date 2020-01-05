@@ -24,11 +24,13 @@ declare(strict_types=1);
 
 namespace App\Helpers\Trees;
 
+use JsonSerializable;
+
 /**
  * This class represents a node for the bootstrap treeview node.
  * When you serialize an array of these objects to JSON, you can use the serialized data in data for the treeview.
  */
-class TreeViewNode implements \JsonSerializable
+final class TreeViewNode implements JsonSerializable
 {
     protected $text;
     protected $href;

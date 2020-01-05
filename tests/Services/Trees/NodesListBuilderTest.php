@@ -34,11 +34,11 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 class NodesListBuilderTest extends WebTestCase
 {
+    protected $em;
     /**
      * @var NodesListBuilder
      */
     protected $service;
-    protected $em;
 
     protected function setUp(): void
     {

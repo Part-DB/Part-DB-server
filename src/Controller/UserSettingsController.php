@@ -30,12 +30,14 @@ use App\Form\TFAGoogleSettingsType;
 use App\Form\UserSettingsType;
 use App\Services\TFA\BackupCodeManager;
 use Doctrine\ORM\EntityManagerInterface;
+use RuntimeException;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -65,13 +67,13 @@ class UserSettingsController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         if (! $user instanceof User) {
-            return new \RuntimeException('This controller only works only for Part-DB User objects!');
+            return new RuntimeException('This controller only works only for Part-DB User objects!');
         }
 
         if (empty($user->getBackupCodes())) {
             $this->addFlash('error', 'tfa_backup.no_codes_enabled');
 
-            throw new \RuntimeException('You do not have any backup codes enabled, therefore you can not view them!');
+            throw new RuntimeException('You do not have any backup codes enabled, therefore you can not view them!');
         }
 
         return $this->render('Users/backup_codes.html.twig', [
@@ -82,12 +84,12 @@ class UserSettingsController extends AbstractController
     /**
      * @Route("/u2f_delete", name="u2f_delete", methods={"DELETE"})
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function removeU2FToken(Request $request, EntityManagerInterface $entityManager, BackupCodeManager $backupCodeManager)
     {
         if ($this->demo_mode) {
-            throw new \RuntimeException('You can not do 2FA things in demo mode');
+            throw new RuntimeException('You can not do 2FA things in demo mode');
         }
 
         $user = $this->getUser();
@@ -96,7 +98,7 @@ class UserSettingsController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         if (! $user instanceof User) {
-            throw new \RuntimeException('This controller only works only for Part-DB User objects!');
+            throw new RuntimeException('This controller only works only for Part-DB User objects!');
         }
 
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
@@ -108,14 +110,14 @@ class UserSettingsController extends AbstractController
                 if (null === $u2f) {
                     $this->addFlash('danger', 'tfa_u2f.u2f_delete.not_existing');
 
-                    throw new \RuntimeException('Key not existing!');
+                    throw new RuntimeException('Key not existing!');
                 }
 
                 //User can only delete its own U2F keys
                 if ($u2f->getUser() !== $user) {
                     $this->addFlash('danger', 'tfa_u2f.u2f_delete.access_denied');
 
-                    throw new \RuntimeException('You can only delete your own U2F keys!');
+                    throw new RuntimeException('You can only delete your own U2F keys!');
                 }
 
                 $backupCodeManager->disableBackupCodesIfUnused($user);
@@ -136,7 +138,7 @@ class UserSettingsController extends AbstractController
     public function resetTrustedDevices(Request $request, EntityManagerInterface $entityManager)
     {
         if ($this->demo_mode) {
-            throw new \RuntimeException('You can not do 2FA things in demo mode');
+            throw new RuntimeException('You can not do 2FA things in demo mode');
         }
 
         $user = $this->getUser();
@@ -145,7 +147,7 @@ class UserSettingsController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         if (! $user instanceof User) {
-            return new \RuntimeException('This controller only works only for Part-DB User objects!');
+            return new RuntimeException('This controller only works only for Part-DB User objects!');
         }
 
         if ($this->isCsrfTokenValid('devices_reset'.$user->getId(), $request->request->get('_token'))) {
@@ -173,7 +175,7 @@ class UserSettingsController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         if (! $user instanceof User) {
-            throw new \RuntimeException('This controller only works only for Part-DB User objects!');
+            throw new RuntimeException('This controller only works only for Part-DB User objects!');
         }
 
         /***************************
@@ -202,23 +204,36 @@ class UserSettingsController extends AbstractController
             //Username field for autocomplete
             ->add('username', TextType::class, [
                 'data' => $user->getName(),
-                'attr' => ['autocomplete' => 'username'],
+                'attr' => [
+                    'autocomplete' => 'username',
+                ],
                 'disabled' => true,
-                'row_attr' => ['class' => 'd-none'],
+                'row_attr' => [
+                    'class' => 'd-none',
+                ],
             ])
             ->add('old_password', PasswordType::class, [
                 'label' => 'user.settings.pw_old.label',
                 'disabled' => $this->demo_mode,
-                'attr' => ['autocomplete' => 'current-password'],
-                'constraints' => [new UserPassword()], ]) //This constraint checks, if the current user pw was inputted.
+                'attr' => [
+                    'autocomplete' => 'current-password',
+                ],
+                'constraints' => [new UserPassword()],
+            ]) //This constraint checks, if the current user pw was inputted.
             ->add('new_password', RepeatedType::class, [
                 'disabled' => $this->demo_mode,
                 'type' => PasswordType::class,
-                'first_options' => ['label' => 'user.settings.pw_new.label'],
-                'second_options' => ['label' => 'user.settings.pw_confirm.label'],
+                'first_options' => [
+                    'label' => 'user.settings.pw_new.label',
+                ],
+                'second_options' => [
+                    'label' => 'user.settings.pw_confirm.label',
+                ],
                 'invalid_message' => 'password_must_match',
                 'options' => [
-                    'attr' => ['autocomplete' => 'new-password'],
+                    'attr' => [
+                        'autocomplete' => 'new-password',
+                    ],
                 ],
                 'constraints' => [new Length([
                     'min' => 6,
@@ -276,7 +291,9 @@ class UserSettingsController extends AbstractController
 
         $backup_form = $this->get('form.factory')->createNamedBuilder('backup_codes')->add('reset_codes', SubmitType::class, [
             'label' => 'tfa_backup.regenerate_codes',
-            'attr' => ['class' => 'btn-danger'],
+            'attr' => [
+                'class' => 'btn-danger',
+            ],
             'disabled' => empty($user->getBackupCodes()),
         ])->getForm();
 

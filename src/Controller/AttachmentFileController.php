@@ -28,10 +28,14 @@ use App\DataTables\AttachmentDataTable;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\PartAttachment;
 use App\Services\Attachments\AttachmentManager;
+use Exception;
 use Omines\DataTablesBundle\DataTableFactory;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -49,11 +53,11 @@ class AttachmentFileController extends AbstractController
         $this->denyAccessUnlessGranted('read', $attachment);
 
         if ($attachment->isExternal()) {
-            throw new \RuntimeException('You can not download external attachments!');
+            throw new RuntimeException('You can not download external attachments!');
         }
 
         if (! $helper->isFileExisting($attachment)) {
-            throw new \RuntimeException('The file associated with the attachment is not existing!');
+            throw new RuntimeException('The file associated with the attachment is not existing!');
         }
 
         $file_path = $helper->toAbsoluteFilePath($attachment);
@@ -72,18 +76,18 @@ class AttachmentFileController extends AbstractController
      *
      * @return BinaryFileResponse
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function view(Attachment $attachment, AttachmentManager $helper)
     {
         $this->denyAccessUnlessGranted('read', $attachment);
 
         if ($attachment->isExternal()) {
-            throw new \RuntimeException('You can not download external attachments!');
+            throw new RuntimeException('You can not download external attachments!');
         }
 
         if (! $helper->isFileExisting($attachment)) {
-            throw new \RuntimeException('The file associated with the attachment is not existing!');
+            throw new RuntimeException('The file associated with the attachment is not existing!');
         }
 
         $file_path = $helper->toAbsoluteFilePath($attachment);
@@ -98,7 +102,7 @@ class AttachmentFileController extends AbstractController
     /**
      * @Route("/attachment/list", name="attachment_list")
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
+     * @return JsonResponse|Response
      */
     public function attachmentsTable(DataTableFactory $dataTable, Request $request)
     {

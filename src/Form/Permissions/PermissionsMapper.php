@@ -25,14 +25,16 @@ declare(strict_types=1);
 namespace App\Form\Permissions;
 
 use App\Services\PermissionResolver;
+use RuntimeException;
 use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\FormInterface;
+use Traversable;
 
 /**
  * This class is a data mapper that maps the permission data from DB (accessed via a PermissionResolver),
  * to TristateCheckboxes and vice versa.
  */
-class PermissionsMapper implements DataMapperInterface
+final class PermissionsMapper implements DataMapperInterface
 {
     protected $resolver;
     protected $inherit;
@@ -49,8 +51,8 @@ class PermissionsMapper implements DataMapperInterface
      * The method is responsible for calling {@link FormInterface::setData()}
      * on the children of compound forms, defining their underlying model data.
      *
-     * @param mixed                        $viewData View data of the compound form being initialized
-     * @param FormInterface[]|\Traversable $forms    A list of {@link FormInterface} instances
+     * @param mixed                       $viewData View data of the compound form being initialized
+     * @param FormInterface[]|Traversable $forms    A list of {@link FormInterface} instances
      */
     public function mapDataToForms($viewData, $forms): void
     {
@@ -95,14 +97,14 @@ class PermissionsMapper implements DataMapperInterface
      * The model data can be an array or an object, so this second argument is always passed
      * by reference.
      *
-     * @param FormInterface[]|\Traversable $forms    A list of {@link FormInterface} instances
-     * @param mixed                        $viewData The compound form's view data that get mapped
-     *                                               its children model data
+     * @param FormInterface[]|Traversable $forms    A list of {@link FormInterface} instances
+     * @param mixed                       $viewData The compound form's view data that get mapped
+     *                                              its children model data
      */
     public function mapFormsToData($forms, &$viewData): void
     {
         if ($this->inherit) {
-            throw new \RuntimeException('The permission type is readonly when it is showing read only data!');
+            throw new RuntimeException('The permission type is readonly when it is showing read only data!');
         }
 
         foreach ($forms as $form) {

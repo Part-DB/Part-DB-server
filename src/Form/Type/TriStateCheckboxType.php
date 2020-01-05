@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
+use InvalidArgumentException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -32,7 +33,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TriStateCheckboxType extends AbstractType implements DataTransformerInterface
+final class TriStateCheckboxType extends AbstractType implements DataTransformerInterface
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -42,8 +43,12 @@ class TriStateCheckboxType extends AbstractType implements DataTransformerInterf
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'label_attr' => ['class' => 'checkbox-custom checkbox-inline'],
-            'attr' => ['class' => 'tristate'],
+            'label_attr' => [
+                'class' => 'checkbox-custom checkbox-inline',
+            ],
+            'attr' => [
+                'class' => 'tristate',
+            ],
             'compound' => false,
         ]);
     }
@@ -115,7 +120,7 @@ class TriStateCheckboxType extends AbstractType implements DataTransformerInterf
             return 'indeterminate';
         }
 
-        throw new \InvalidArgumentException('Invalid value encountered!: '.$value);
+        throw new InvalidArgumentException('Invalid value encountered!: '.$value);
     }
 
     /**
@@ -156,7 +161,7 @@ class TriStateCheckboxType extends AbstractType implements DataTransformerInterf
             case 'indeterminate':
                 return null;
             default:
-                throw new \InvalidArgumentException('Invalid value encountered!: '.$value);
+                throw new InvalidArgumentException('Invalid value encountered!: '.$value);
         }
     }
 }

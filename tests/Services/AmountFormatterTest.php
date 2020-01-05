@@ -26,6 +26,7 @@ namespace App\Tests\Services;
 
 use App\Entity\Parts\MeasurementUnit;
 use App\Services\AmountFormatter;
+use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class AmountFormatterTest extends WebTestCase
@@ -55,7 +56,7 @@ class AmountFormatterTest extends WebTestCase
 
     public function testInvalidInput(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->service->format('test');
     }
 
@@ -83,8 +84,14 @@ class AmountFormatterTest extends WebTestCase
 
     public function testFormatMoreDigits(): void
     {
-        $this->assertSame('12.12345', $this->service->format(12.1234532, null, ['is_integer' => false, 'decimals' => 5]));
-        $this->assertSame('12.1', $this->service->format(12.1234532, null, ['is_integer' => false, 'decimals' => 1]));
+        $this->assertSame('12.12345', $this->service->format(12.1234532, null, [
+            'is_integer' => false,
+            'decimals' => 5,
+        ]));
+        $this->assertSame('12.1', $this->service->format(12.1234532, null, [
+            'is_integer' => false,
+            'decimals' => 1,
+        ]));
     }
 
     public function testFormatOptionsOverride(): void

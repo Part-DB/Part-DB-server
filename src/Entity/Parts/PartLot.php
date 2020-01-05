@@ -29,7 +29,9 @@ use App\Entity\Base\TimestampTrait;
 use App\Entity\Parts\PartTraits\InstockTrait;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPartLot;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -58,8 +60,8 @@ class PartLot extends DBElement
     protected $comment = '';
 
     /**
-     * @var ?\DateTime Set a time until when the lot must be used.
-     *                 Set to null, if the lot can be used indefinitely.
+     * @var ?DateTime Set a time until when the lot must be used.
+     *                Set to null, if the lot can be used indefinitely.
      * @ORM\Column(type="datetime", name="expiration_date", nullable=true)
      */
     protected $expiration_date;
@@ -71,14 +73,6 @@ class PartLot extends DBElement
      * @Selectable()
      */
     protected $storage_location;
-
-    /**
-     * @var Part The part that is stored in this lot
-     * @ORM\ManyToOne(targetEntity="Part", inversedBy="partLots")
-     * @ORM\JoinColumn(name="id_part", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     * @Assert\NotNull()
-     */
-    protected $part;
 
     /**
      * @var bool If this is set to true, the instock amount is marked as not known
@@ -100,6 +94,14 @@ class PartLot extends DBElement
     protected $needs_refill = false;
 
     /**
+     * @var Part The part that is stored in this lot
+     * @ORM\ManyToOne(targetEntity="Part", inversedBy="partLots")
+     * @ORM\JoinColumn(name="id_part", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @Assert\NotNull()
+     */
+    protected $part;
+
+    /**
      * Returns the ID as an string, defined by the element class.
      * This should have a form like P000014, for a part with ID 14.
      *
@@ -116,7 +118,7 @@ class PartLot extends DBElement
      *
      * @return bool|null True, if the part lot is expired. Returns null, if no expiration date was set.
      *
-     * @throws \Exception If an error with the DateTime occurs
+     * @throws Exception If an error with the DateTime occurs
      */
     public function isExpired(): ?bool
     {
@@ -125,7 +127,7 @@ class PartLot extends DBElement
         }
 
         //Check if the expiration date is bigger then current time
-        return $this->expiration_date < new \DateTime('now');
+        return $this->expiration_date < new DateTime('now');
     }
 
     /**
@@ -175,9 +177,9 @@ class PartLot extends DBElement
     /**
      * Gets the expiration date for the part lot. Returns null, if no expiration date was set.
      *
-     * @return \DateTime|null
+     * @return DateTime|null
      */
-    public function getExpirationDate(): ?\DateTime
+    public function getExpirationDate(): ?DateTime
     {
         return $this->expiration_date;
     }
@@ -185,11 +187,11 @@ class PartLot extends DBElement
     /**
      * Sets the expiration date for the part lot. Set to null, if the part lot does not expires.
      *
-     * @param \DateTime $expiration_date
+     * @param DateTime $expiration_date
      *
      * @return PartLot
      */
-    public function setExpirationDate(?\DateTime $expiration_date): self
+    public function setExpirationDate(?DateTime $expiration_date): self
     {
         $this->expiration_date = $expiration_date;
 

@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Base;
 
+use DateTime;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -32,14 +33,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait TimestampTrait
 {
     /**
-     * @var \DateTime the date when this element was modified the last time
+     * @var DateTime the date when this element was modified the last time
      * @ORM\Column(type="datetime", name="last_modified", options={"default"="CURRENT_TIMESTAMP"})
      * @Groups({"extended", "full"})
      */
     protected $lastModified;
 
     /**
-     * @var \DateTime the date when this element was created
+     * @var DateTime the date when this element was created
      * @ORM\Column(type="datetime", name="datetime_added", options={"default"="CURRENT_TIMESTAMP"})
      * @Groups({"extended", "full"})
      */
@@ -49,9 +50,9 @@ trait TimestampTrait
      * Returns the last time when the element was modified.
      * Returns null if the element was not yet saved to DB yet.
      *
-     * @return \DateTime|null the time of the last edit
+     * @return DateTime|null the time of the last edit
      */
-    public function getLastModified(): ?\DateTime
+    public function getLastModified(): ?DateTime
     {
         return $this->lastModified;
     }
@@ -60,9 +61,9 @@ trait TimestampTrait
      * Returns the date/time when the element was created.
      * Returns null if the element was not yet saved to DB yet.
      *
-     * @return \DateTime|null the creation time of the part
+     * @return DateTime|null the creation time of the part
      */
-    public function getAddedDate(): ?\DateTime
+    public function getAddedDate(): ?DateTime
     {
         return $this->addedDate;
     }
@@ -75,9 +76,9 @@ trait TimestampTrait
      */
     public function updatedTimestamps(): void
     {
-        $this->lastModified = new \DateTime('now');
+        $this->lastModified = new DateTime('now');
         if (null === $this->addedDate) {
-            $this->addedDate = new \DateTime('now');
+            $this->addedDate = new DateTime('now');
         }
     }
 }

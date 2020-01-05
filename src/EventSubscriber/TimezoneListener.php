@@ -33,7 +33,7 @@ use Symfony\Component\Security\Core\Security;
 /**
  * The purpose of this event listener is to set the timezone to the one preferred by the user.
  */
-class TimezoneListener implements EventSubscriberInterface
+final class TimezoneListener implements EventSubscriberInterface
 {
     protected $default_timezone;
     protected $security;

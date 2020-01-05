@@ -56,13 +56,16 @@ class OrderdetailType extends AbstractType
 
         $builder->add('supplierpartnr', TextType::class, [
             'label' => 'orderdetails.edit.supplierpartnr',
-            'attr' => ['placeholder' => 'orderdetails.edit.supplierpartnr.placeholder'],
+            'attr' => [
+                'placeholder' => 'orderdetails.edit.supplierpartnr.placeholder',
+            ],
             'required' => false,
             'empty_data' => '',
         ]);
 
         $builder->add('supplier', StructuralEntityType::class, [
-            'class' => Supplier::class, 'disable_not_selectable' => true,
+            'class' => Supplier::class,
+            'disable_not_selectable' => true,
             'label' => 'orderdetails.edit.supplier',
         ]);
 
@@ -74,7 +77,9 @@ class OrderdetailType extends AbstractType
 
         $builder->add('obsolete', CheckboxType::class, [
             'required' => false,
-            'label_attr' => ['class' => 'checkbox-custom'],
+            'label_attr' => [
+                'class' => 'checkbox-custom',
+            ],
             'label' => 'orderdetails.edit.obsolete',
         ]);
 

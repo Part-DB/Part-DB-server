@@ -25,7 +25,10 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Entity\Base\StructuralDBElement;
+use function count;
 use Doctrine\ORM\EntityManagerInterface;
+use InvalidArgumentException;
+use function is_array;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -61,10 +64,10 @@ class EntityImporter
         $names = explode("\n", $lines);
 
         if (! is_a($class_name, StructuralDBElement::class, true)) {
-            throw new \InvalidArgumentException('$class_name must be a StructuralDBElement type!');
+            throw new InvalidArgumentException('$class_name must be a StructuralDBElement type!');
         }
         if (null !== $parent && ! is_a($parent, $class_name)) {
-            throw new \InvalidArgumentException('$parent must have the same type as specified in $class_name!');
+            throw new InvalidArgumentException('$parent must have the same type as specified in $class_name!');
         }
 
         $errors = [];
@@ -85,10 +88,13 @@ class EntityImporter
             //Validate entity
             $tmp = $this->validator->validate($entity);
             //If no error occured, write entry to DB:
-            if (0 === \count($tmp)) {
+            if (0 === count($tmp)) {
                 $valid_entities[] = $entity;
             } else { //Otherwise log error
-                $errors[] = ['entity' => $entity, 'violations' => $tmp];
+                $errors[] = [
+                    'entity' => $entity,
+                    'violations' => $tmp,
+                ];
             }
         }
 
@@ -127,7 +133,7 @@ class EntityImporter
             $tmp = $this->validator->validate($entity);
 
             //When no validation error occured, persist entity to database (cascade must be set in entity)
-            if (0 === \count($errors)) {
+            if (0 === count($errors)) {
                 $this->em->persist($entity);
             } else { //Log validation errors to global log.
                 $errors[$entity->getFullPath()] = $tmp;
@@ -171,10 +177,13 @@ class EntityImporter
 
         //The [] behind class_name denotes that we expect an array.
         $entities = $this->serializer->deserialize($content, $class_name.'[]', $options['format'],
-            ['groups' => $groups, 'csv_delimiter' => $options['csv_separator']]);
+            [
+                'groups' => $groups,
+                'csv_delimiter' => $options['csv_separator'],
+            ]);
 
         //Ensure we have an array of entitity elements.
-        if (! \is_array($entities)) {
+        if (! is_array($entities)) {
             $entities = [$entities];
         }
 

@@ -30,6 +30,7 @@ use App\Services\Attachments\AttachmentManager;
 use App\Services\EntityURLGenerator;
 use App\Services\FAIconGenerator;
 use Omines\DataTablesBundle\Column\AbstractColumn;
+use RuntimeException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PartAttachmentsColumn extends AbstractColumn
@@ -60,7 +61,7 @@ class PartAttachmentsColumn extends AbstractColumn
     public function render($value, $context)
     {
         if (! $context instanceof Part) {
-            throw new \RuntimeException('$context must be a Part object!');
+            throw new RuntimeException('$context must be a Part object!');
         }
         $tmp = '';
         $attachments = $context->getAttachments()->filter(function (Attachment $attachment) {

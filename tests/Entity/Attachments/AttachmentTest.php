@@ -49,6 +49,7 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
@@ -114,7 +115,7 @@ class AttachmentTest extends TestCase
      */
     public function testSetElementExceptionOnSubClasses(string $attachment_class, string $allowed_class): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         /** @var Attachment $attachment */
         $attachment = new $attachment_class();

@@ -65,10 +65,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Footprint extends PartsContainingDBElement
 {
     /**
-     * @var Collection|FootprintAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\FootprintAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity="Footprint", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
-    protected $attachments;
+    protected $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="Footprint", mappedBy="parent")
@@ -76,15 +76,14 @@ class Footprint extends PartsContainingDBElement
     protected $children;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Footprint", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     */
-    protected $parent;
-
-    /**
      * @ORM\OneToMany(targetEntity="Part", mappedBy="footprint", fetch="EXTRA_LAZY")
      */
     protected $parts;
+    /**
+     * @var Collection|FootprintAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\FootprintAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    protected $attachments;
 
     /**
      * @var FootprintAttachment|null

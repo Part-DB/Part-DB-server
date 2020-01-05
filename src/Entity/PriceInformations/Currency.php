@@ -43,10 +43,12 @@ class Currency extends StructuralDBElement
     public const PRICE_SCALE = 5;
 
     /**
-     * @var Collection|CurrencyAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CurrencyAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @var string|null The exchange rate between this currency and the base currency
+     *                  (how many base units the current currency is worth)
+     * @ORM\Column(type="decimal", precision=11, scale=5, nullable=true)
+     * @Assert\Positive()
      */
-    protected $attachments;
+    protected $exchange_rate;
 
     /**
      * @var string the 3 letter ISO code of the currency
@@ -54,14 +56,6 @@ class Currency extends StructuralDBElement
      * @Assert\Currency()
      */
     protected $iso_code;
-
-    /**
-     * @var string|null The exchange rate between this currency and the base currency
-     *                  (how many base units the current currency is worth)
-     * @ORM\Column(type="decimal", precision=11, scale=5, nullable=true)
-     * @Assert\Positive()
-     */
-    protected $exchange_rate;
 
     /**
      * @ORM\OneToMany(targetEntity="Currency", mappedBy="parent", cascade={"persist"})
@@ -73,6 +67,12 @@ class Currency extends StructuralDBElement
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     protected $parent;
+
+    /**
+     * @var Collection|CurrencyAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CurrencyAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    protected $attachments;
 
     /**
      * Returns the 3 letter ISO code of this currency.

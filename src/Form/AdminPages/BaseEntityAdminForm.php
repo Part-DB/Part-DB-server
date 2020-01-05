@@ -31,6 +31,7 @@ use App\Form\AttachmentFormType;
 use App\Form\Type\MasterPictureAttachmentType;
 use App\Form\Type\StructuralEntityType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use function get_class;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -66,24 +67,42 @@ class BaseEntityAdminForm extends AbstractType
         $is_new = null === $entity->getID();
 
         $builder
-            ->add('name', TextType::class, ['empty_data' => '', 'label' => 'name.label',
-                'attr' => ['placeholder' => 'part.name.placeholder'],
-                'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ])
+            ->add('name', TextType::class, [
+                'empty_data' => '',
+                'label' => 'name.label',
+                'attr' => [
+                    'placeholder' => 'part.name.placeholder',
+                ],
+                'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            ])
 
-            ->add('parent', StructuralEntityType::class, ['class' => \get_class($entity),
-                'required' => false, 'label' => 'parent.label',
-                'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity), ])
+            ->add('parent', StructuralEntityType::class, [
+                'class' => get_class($entity),
+                'required' => false,
+                'label' => 'parent.label',
+                'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity),
+            ])
 
-            ->add('not_selectable', CheckboxType::class, ['required' => false,
+            ->add('not_selectable', CheckboxType::class, [
+                'required' => false,
                 'label' => 'entity.edit.not_selectable',
                 'help' => 'entity.edit.not_selectable.help',
-                'label_attr' => ['class' => 'checkbox-custom'],
-                'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ])
+                'label_attr' => [
+                    'class' => 'checkbox-custom',
+                ],
+                'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            ])
 
-            ->add('comment', CKEditorType::class, ['required' => false, 'empty_data' => '',
+            ->add('comment', CKEditorType::class, [
+                'required' => false,
+                'empty_data' => '',
                 'label' => 'comment.label',
-                'attr' => ['rows' => 4], 'help' => 'bbcode.hint',
-                'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+                'attr' => [
+                    'rows' => 4,
+                ],
+                'help' => 'bbcode.hint',
+                'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            ]);
 
         $this->additionalFormElements($builder, $options, $entity);
 
@@ -110,10 +129,15 @@ class BaseEntityAdminForm extends AbstractType
         //Buttons
         $builder->add('save', SubmitType::class, [
             'label' => $is_new ? 'entity.create' : 'entity.edit.save',
-            'attr' => ['class' => $is_new ? 'btn-success' : ''],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ])
-            ->add('reset', ResetType::class, ['label' => 'entity.edit.reset',
-                'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'attr' => [
+                'class' => $is_new ? 'btn-success' : '',
+            ],
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ])
+            ->add('reset', ResetType::class, [
+                'label' => 'entity.edit.reset',
+                'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            ]);
     }
 
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity): void

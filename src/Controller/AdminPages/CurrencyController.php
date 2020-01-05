@@ -31,6 +31,7 @@ use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,7 +52,7 @@ class CurrencyController extends BaseAdminController
     /**
      * @Route("/{id}", name="currency_delete", methods={"DELETE"})
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete(Request $request, Currency $entity, StructuralElementRecursionHelper $recursionHelper)
     {

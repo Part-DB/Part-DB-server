@@ -37,12 +37,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Category extends PartsContainingDBElement
 {
     /**
-     * @var Collection|CategoryAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CategoryAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    protected $attachments;
-
-    /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
      */
     protected $children;
@@ -105,6 +99,11 @@ class Category extends PartsContainingDBElement
      * @ORM\Column(type="text")
      */
     protected $default_comment = '';
+    /**
+     * @var Collection|CategoryAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CategoryAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    protected $attachments;
 
     /**
      * Returns the ID as an string, defined by the element class.

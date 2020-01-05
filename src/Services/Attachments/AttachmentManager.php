@@ -25,6 +25,8 @@ declare(strict_types=1);
 namespace App\Services\Attachments;
 
 use App\Entity\Attachments\Attachment;
+use SplFileInfo;
+use function strlen;
 
 /**
  * This service contains basic commonly used functions to work with attachments.
@@ -47,16 +49,16 @@ class AttachmentManager
      *
      * @param Attachment $attachment The attachment for which the file should be generated
      *
-     * @return \SplFileInfo|null The fileinfo for the attachment file. Null, if the attachment is external or has
-     *                           invalid file.
+     * @return SplFileInfo|null The fileinfo for the attachment file. Null, if the attachment is external or has
+     *                          invalid file.
      */
-    public function attachmentToFile(Attachment $attachment): ?\SplFileInfo
+    public function attachmentToFile(Attachment $attachment): ?SplFileInfo
     {
         if ($attachment->isExternal() || ! $this->isFileExisting($attachment)) {
             return null;
         }
 
-        return new \SplFileInfo($this->toAbsoluteFilePath($attachment));
+        return new SplFileInfo($this->toAbsoluteFilePath($attachment));
     }
 
     /**
@@ -107,7 +109,7 @@ class AttachmentManager
 
         $absolute_path = $this->toAbsoluteFilePath($attachment);
 
-        if ($absolute_path === null) {
+        if (null === $absolute_path) {
             return false;
         }
 
@@ -155,7 +157,7 @@ class AttachmentManager
         //Taken from: https://www.php.net/manual/de/function.filesize.php#106569 and slightly modified
 
         $sz = 'BKMGTP';
-        $factor = (int) floor((\strlen($bytes) - 1) / 3);
+        $factor = (int) floor((strlen($bytes) - 1) / 3);
 
         return sprintf("%.{$decimals}f", $bytes / 1024 ** $factor).@$sz[$factor];
     }

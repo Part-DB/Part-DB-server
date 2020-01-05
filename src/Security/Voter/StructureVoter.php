@@ -34,6 +34,8 @@ use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\User;
+use function get_class;
+use function is_object;
 
 class StructureVoter extends ExtendedVoter
 {
@@ -47,7 +49,7 @@ class StructureVoter extends ExtendedVoter
      */
     protected function supports($attribute, $subject)
     {
-        if (\is_object($subject)) {
+        if (is_object($subject)) {
             $permission_name = $this->instanceToPermissionName($subject);
             //If permission name is null, then the subject is not supported
             return (null !== $permission_name) && $this->resolver->isValidOperation($permission_name, $attribute);
@@ -63,7 +65,7 @@ class StructureVoter extends ExtendedVoter
      */
     protected function instanceToPermissionName($subject): ?string
     {
-        $class_name = \get_class($subject);
+        $class_name = get_class($subject);
         switch ($class_name) {
             case AttachmentType::class:
                 return 'attachment_types';

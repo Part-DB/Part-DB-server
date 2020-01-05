@@ -46,7 +46,7 @@ final class Version20190902140506 extends AbstractMigration
             //Check if we can use this migration method:
             $version = (int) $this->connection->fetchColumn("SELECT keyValue AS version FROM `internal` WHERE `keyName` = 'dbVersion'");
             $this->abortIf(26 !== $version, 'This database migration can only be used if the database version is 26! Install Part-DB 0.5.6 and update database there!');
-        } catch (DBALException $ex) {
+        } catch (DBALException $dBALException) {
             //when the table was not found, then you can not use this migration
             $this->skipIf(true, 'Empty database detected. Skip migration.');
         }

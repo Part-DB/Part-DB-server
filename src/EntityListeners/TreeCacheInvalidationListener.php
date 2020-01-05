@@ -31,6 +31,7 @@ use App\Entity\UserSystem\User;
 use App\Services\UserCacheKeyGenerator;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
+use function get_class;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 class TreeCacheInvalidationListener
@@ -53,7 +54,7 @@ class TreeCacheInvalidationListener
     {
         //If an element was changed, then invalidate all cached trees with this element class
         if ($element instanceof StructuralDBElement) {
-            $secure_class_name = str_replace('\\', '_', \get_class($element));
+            $secure_class_name = str_replace('\\', '_', get_class($element));
             $this->cache->invalidateTags([$secure_class_name]);
         }
 

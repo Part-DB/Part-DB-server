@@ -26,18 +26,19 @@ namespace App\Tests\Services\Attachments;
 
 use App\Services\AmountFormatter;
 use App\Services\Attachments\AttachmentPathResolver;
+use const DIRECTORY_SEPARATOR;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class AttachmentPathResolverTest extends WebTestCase
 {
     public static $media_path;
     public static $footprint_path;
+    protected static $projectDir_orig;
+    protected static $projectDir;
     /**
      * @var AmountFormatter
      */
     protected static $service;
-    protected static $projectDir_orig;
-    protected static $projectDir;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -68,8 +69,8 @@ class AttachmentPathResolverTest extends WebTestCase
         $this->assertSame(self::$projectDir_orig, self::$service->parameterToAbsolutePath(self::$projectDir));
 
         //Relative pathes should be resolved
-        $this->assertSame(self::$projectDir_orig.\DIRECTORY_SEPARATOR.'src', self::$service->parameterToAbsolutePath('src'));
-        $this->assertSame(self::$projectDir_orig.\DIRECTORY_SEPARATOR.'src', self::$service->parameterToAbsolutePath('./src'));
+        $this->assertSame(self::$projectDir_orig.DIRECTORY_SEPARATOR.'src', self::$service->parameterToAbsolutePath('src'));
+        $this->assertSame(self::$projectDir_orig.DIRECTORY_SEPARATOR.'src', self::$service->parameterToAbsolutePath('./src'));
 
         //Invalid pathes should return null
         $this->assertNull(self::$service->parameterToAbsolutePath('/this/path/does/not/exist'));

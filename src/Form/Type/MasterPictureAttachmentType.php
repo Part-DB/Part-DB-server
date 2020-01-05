@@ -27,6 +27,7 @@ namespace App\Form\Type;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use Doctrine\ORM\EntityRepository;
+use ReflectionClass;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
@@ -41,7 +42,9 @@ class MasterPictureAttachmentType extends AbstractType
 
         $resolver->setDefaults([
             'filter' => 'picture',
-            'attr' => ['class' => 'selectpicker'],
+            'attr' => [
+                'class' => 'selectpicker',
+            ],
             'choice_attr' => function (Options $options) {
                 return  function ($choice, $key, $value) use ($options) {
                     /** @var Attachment $choice */
@@ -58,7 +61,7 @@ class MasterPictureAttachmentType extends AbstractType
             },
             'choice_label' => 'name',
             'class' => function (Options $options) {
-                $short_class_name = (new \ReflectionClass($options['entity']))->getShortName();
+                $short_class_name = (new ReflectionClass($options['entity']))->getShortName();
                 //Category becomes CategoryAttachment
                 return 'App\\Entity\\Attachments\\'.$short_class_name.'Attachment';
             },

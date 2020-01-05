@@ -43,7 +43,8 @@ class SupplierForm extends CompanyForm
             'required' => false,
             'label' => 'supplier.edit.default_currency',
             'disable_not_selectable' => true,
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity),
+        ]);
 
         $builder->add('shipping_costs', MoneyType::class, [
             'required' => false,

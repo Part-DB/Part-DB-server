@@ -55,6 +55,7 @@ use App\Entity\Attachments\DeviceAttachment;
 use App\Entity\Base\PartsContainingDBElement;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
 
 /**
  * Class AttachmentType.
@@ -64,12 +65,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Device extends PartsContainingDBElement
 {
-    /**
-     * @var Collection|DeviceAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\DeviceAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    protected $attachments;
-
     /**
      * @ORM\OneToMany(targetEntity="Device", mappedBy="parent")
      */
@@ -82,6 +77,11 @@ class Device extends PartsContainingDBElement
     protected $parent;
 
     /**
+     * @ORM\OneToMany(targetEntity="DevicePart", mappedBy="device")
+     */
+    protected $parts;
+
+    /**
      * @var int
      * @ORM\Column(type="integer")
      */
@@ -92,11 +92,11 @@ class Device extends PartsContainingDBElement
      * @ORM\Column(type="boolean")
      */
     protected $order_only_missing_parts = false;
-
     /**
-     * @ORM\OneToMany(targetEntity="DevicePart", mappedBy="device")
+     * @var Collection|DeviceAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\DeviceAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    protected $parts;
+    protected $attachments;
 
     /********************************************************************************
      *
@@ -140,7 +140,7 @@ class Device extends PartsContainingDBElement
     public function setOrderQuantity(int $new_order_quantity): self
     {
         if ($new_order_quantity < 0) {
-            throw new \InvalidArgumentException('The new order quantity must not be negative!');
+            throw new InvalidArgumentException('The new order quantity must not be negative!');
         }
         $this->order_quantity = $new_order_quantity;
 

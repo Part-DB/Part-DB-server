@@ -58,7 +58,12 @@ class TFAGoogleSettingsType extends AbstractType
                     TextType::class,
                     [
                         'mapped' => false,
-                        'attr' => ['maxlength' => '6', 'minlength' => '6', 'pattern' => '\d*', 'autocomplete' => 'off'],
+                        'attr' => [
+                            'maxlength' => '6',
+                            'minlength' => '6',
+                            'pattern' => '\d*',
+                            'autocomplete' => 'off',
+                        ],
                         'constraints' => [new ValidGoogleAuthCode()],
                     ]
                 );
@@ -77,7 +82,9 @@ class TFAGoogleSettingsType extends AbstractType
             } else {
                 $form->add('submit', SubmitType::class, [
                     'label' => 'tfa_google.disable',
-                    'attr' => ['class' => 'btn-danger'],
+                    'attr' => [
+                        'class' => 'btn-danger',
+                    ],
                 ]);
             }
         });

@@ -26,6 +26,7 @@ namespace App\Controller;
 
 use App\Services\PasswordResetManager;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -122,7 +123,10 @@ class SecurityController extends AbstractController
             throw new AccessDeniedHttpException('You are already logged in, so you can not reset your password!');
         }
 
-        $data = ['username' => $user, 'token' => $token];
+        $data = [
+            'username' => $user,
+            'token' => $token,
+        ];
         $builder = $this->createFormBuilder($data);
         $builder->add('username', TextType::class, [
             'label' => $this->translator->trans('pw_reset.username'),
@@ -132,8 +136,12 @@ class SecurityController extends AbstractController
         ]);
         $builder->add('new_password', RepeatedType::class, [
             'type' => PasswordType::class,
-            'first_options' => ['label' => 'user.settings.pw_new.label'],
-            'second_options' => ['label' => 'user.settings.pw_confirm.label'],
+            'first_options' => [
+                'label' => 'user.settings.pw_new.label',
+            ],
+            'second_options' => [
+                'label' => 'user.settings.pw_confirm.label',
+            ],
             'invalid_message' => 'password_must_match',
             'constraints' => [new Length([
                 'min' => 6,
@@ -171,6 +179,6 @@ class SecurityController extends AbstractController
      */
     public function logout(): void
     {
-        throw new \RuntimeException('Will be intercepted before getting here');
+        throw new RuntimeException('Will be intercepted before getting here');
     }
 }

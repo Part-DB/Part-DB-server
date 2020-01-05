@@ -28,7 +28,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 
-class SymfonyDebugToolbarSubscriber implements EventSubscriberInterface
+final class SymfonyDebugToolbarSubscriber implements EventSubscriberInterface
 {
     protected $kernel;
 

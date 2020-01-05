@@ -72,21 +72,6 @@ class Orderdetail extends DBElement
     use TimestampTrait;
 
     /**
-     * @var Part
-     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part", inversedBy="orderdetails")
-     * @ORM\JoinColumn(name="part_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     * @Assert\NotNull()
-     */
-    protected $part;
-
-    /**
-     * @var Supplier
-     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Supplier", inversedBy="orderdetails")
-     * @ORM\JoinColumn(name="id_supplier", referencedColumnName="id")
-     */
-    protected $supplier;
-
-    /**
      * @ORM\OneToMany(targetEntity="Pricedetail", mappedBy="orderdetail", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      * @ORM\OrderBy({"min_discount_quantity" = "ASC"})
@@ -111,6 +96,21 @@ class Orderdetail extends DBElement
      * @Assert\Url()
      */
     protected $supplier_product_url = '';
+
+    /**
+     * @var Part
+     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part", inversedBy="orderdetails")
+     * @ORM\JoinColumn(name="part_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @Assert\NotNull()
+     */
+    protected $part;
+
+    /**
+     * @var Supplier
+     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Supplier", inversedBy="orderdetails")
+     * @ORM\JoinColumn(name="id_supplier", referencedColumnName="id")
+     */
+    protected $supplier;
 
     public function __construct()
     {

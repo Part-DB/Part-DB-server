@@ -37,7 +37,7 @@ use Symfony\Component\Security\Http\HttpUtils;
  * to setup a 2FA method (enforcement can be set per group).
  * In this cases the user is unable to access sites other than the whitelisted (see ALLOWED_ROUTES).
  */
-class PasswordChangeNeededSubscriber implements EventSubscriberInterface
+final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
 {
     /**
      * @var string[] The routes the user is allowed to access without being redirected.
@@ -51,7 +51,9 @@ class PasswordChangeNeededSubscriber implements EventSubscriberInterface
         'logout',
     ];
 
-    /** @var string The route the user will redirected to, if he needs to change this password */
+    /**
+     * @var string The route the user will redirected to, if he needs to change this password
+     */
     public const REDIRECT_TARGET = 'user_settings';
     protected $security;
     protected $flashBag;

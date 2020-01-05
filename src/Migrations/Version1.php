@@ -43,7 +43,7 @@ final class Version1 extends AbstractMigration
             //Check if we can use this migration method:
             $version = (int) $this->connection->fetchColumn("SELECT keyValue AS version FROM `internal` WHERE `keyName` = 'dbVersion'");
             $this->skipIf(true, 'Old Part-DB Database detected! Continue with upgrade...');
-        } catch (DBALException $ex) {
+        } catch (DBALException $dBALException) {
             //when the table was not found, we can proceed, because we have an empty DB!
         }
 

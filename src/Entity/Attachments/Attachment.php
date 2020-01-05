@@ -26,6 +26,9 @@ namespace App\Entity\Attachments;
 use App\Entity\Base\NamedDBElement;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
+use function in_array;
+use InvalidArgumentException;
+use LogicException;
 
 /**
  * Class Attachment.
@@ -65,7 +68,9 @@ abstract class Attachment extends NamedDBElement
      */
     public const INTERNAL_PLACEHOLDER = ['%BASE%', '%MEDIA%', '%SECURE%'];
 
-    /** @var array Placeholders for attachments which using built in files. */
+    /**
+     * @var array Placeholders for attachments which using built in files.
+     */
     public const BUILTIN_PLACEHOLDER = ['%FOOTPRINTS%', '%FOOTPRINTS3D%'];
 
     /**
@@ -74,10 +79,10 @@ abstract class Attachment extends NamedDBElement
     public const ALLOWED_ELEMENT_CLASS = '';
 
     /**
-     * @var bool
-     * @ORM\Column(type="boolean")
+     * @var string the original filename the file had, when the user uploaded it
+     * @ORM\Column(type="string", nullable=true)
      */
-    protected $show_in_table = false;
+    protected $original_filename;
 
     /**
      * @var string The path to the file relative to a placeholder path like %MEDIA%
@@ -86,15 +91,15 @@ abstract class Attachment extends NamedDBElement
     protected $path = '';
 
     /**
-     * @var string the original filename the file had, when the user uploaded it
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $original_filename;
-
-    /**
      * ORM mapping is done in sub classes (like PartAttachment).
      */
     protected $element;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    protected $show_in_table = false;
 
     /**
      * @var AttachmentType
@@ -108,7 +113,7 @@ abstract class Attachment extends NamedDBElement
     {
         //parent::__construct();
         if ('' === static::ALLOWED_ELEMENT_CLASS) {
-            throw new \LogicException('An *Attachment class must override the ALLOWED_ELEMENT_CLASS const!');
+            throw new LogicException('An *Attachment class must override the ALLOWED_ELEMENT_CLASS const!');
         }
     }
 
@@ -132,7 +137,7 @@ abstract class Attachment extends NamedDBElement
 
         $extension = pathinfo($this->getPath(), PATHINFO_EXTENSION);
 
-        return \in_array(strtolower($extension), static::PICTURE_EXTS, true);
+        return in_array(strtolower($extension), static::PICTURE_EXTS, true);
     }
 
     /**
@@ -148,7 +153,7 @@ abstract class Attachment extends NamedDBElement
 
         $extension = pathinfo($this->getPath(), PATHINFO_EXTENSION);
 
-        return \in_array(strtolower($extension), static::MODEL_EXTS, true);
+        return in_array(strtolower($extension), static::MODEL_EXTS, true);
     }
 
     /**
@@ -170,7 +175,7 @@ abstract class Attachment extends NamedDBElement
             return true;
         }
 
-        return ! \in_array($tmp[0], array_merge(static::INTERNAL_PLACEHOLDER, static::BUILTIN_PLACEHOLDER), false);
+        return ! in_array($tmp[0], array_merge(static::INTERNAL_PLACEHOLDER, static::BUILTIN_PLACEHOLDER), false);
     }
 
     /**
@@ -363,7 +368,7 @@ abstract class Attachment extends NamedDBElement
     public function setElement(AttachmentContainingDBElement $element): self
     {
         if (! is_a($element, static::ALLOWED_ELEMENT_CLASS)) {
-            throw new \InvalidArgumentException(sprintf('The element associated with a %s must be a %s!', static::class, static::ALLOWED_ELEMENT_CLASS));
+            throw new InvalidArgumentException(sprintf('The element associated with a %s must be a %s!', static::class, static::ALLOWED_ELEMENT_CLASS));
         }
 
         $this->element = $element;
@@ -406,7 +411,7 @@ abstract class Attachment extends NamedDBElement
         //Only set if the URL is not empty
         if (! empty($url)) {
             if (false !== strpos($url, '%BASE%') || false !== strpos($url, '%MEDIA%')) {
-                throw new \InvalidArgumentException('You can not reference internal files via the url field! But nice try!');
+                throw new InvalidArgumentException('You can not reference internal files via the url field! But nice try!');
             }
 
             $this->path = $url;
@@ -437,7 +442,7 @@ abstract class Attachment extends NamedDBElement
             return false;
         }
 
-        return \in_array($tmp[0], static::BUILTIN_PLACEHOLDER, false);
+        return in_array($tmp[0], static::BUILTIN_PLACEHOLDER, false);
     }
 
     /**

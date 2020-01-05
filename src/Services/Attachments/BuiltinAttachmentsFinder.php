@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Services\Attachments;
 
 use App\Entity\Attachments\Attachment;
+use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Cache\CacheInterface;
@@ -77,7 +78,7 @@ class BuiltinAttachmentsFinder
 
                 return $results;
             });
-        } catch (\Psr\Cache\InvalidArgumentException $ex) {
+        } catch (InvalidArgumentException $invalidArgumentException) {
             return [];
         }
     }

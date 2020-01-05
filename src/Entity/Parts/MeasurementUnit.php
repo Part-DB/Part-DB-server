@@ -42,12 +42,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class MeasurementUnit extends PartsContainingDBElement
 {
     /**
-     * @var Collection|MeasurementUnitAttachment[]
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\MeasurementUnitAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    protected $attachments;
-
-    /**
      * @var string The unit symbol that should be used for the Unit. This could be something like "", g (for grams)
      *             or m (for meters).
      * @ORM\Column(type="string", name="unit", nullable=true)
@@ -84,6 +78,11 @@ class MeasurementUnit extends PartsContainingDBElement
      * @ORM\OneToMany(targetEntity="Part", mappedBy="partUnit", fetch="EXTRA_LAZY")
      */
     protected $parts;
+    /**
+     * @var Collection|MeasurementUnitAttachment[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\MeasurementUnitAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    protected $attachments;
 
     /**
      * Returns the ID as an string, defined by the element class.

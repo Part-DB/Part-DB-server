@@ -28,18 +28,19 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\PermissionsEmbed;
 use App\Entity\UserSystem\User;
 use App\Services\PermissionResolver;
+use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class PermissionResolverTest extends WebTestCase
 {
+    protected $user_withoutGroup;
+
+    protected $user;
+    protected $group;
     /**
      * @var PermissionResolver
      */
     protected $service;
-
-    protected $user;
-    protected $user_withoutGroup;
-    protected $group;
 
     protected function setUp(): void
     {
@@ -132,7 +133,7 @@ class PermissionResolverTest extends WebTestCase
 
     public function testInvalidListOperationsForPermission(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         //Must throw an exception
         $this->service->listOperationsForPermission('invalid');
     }

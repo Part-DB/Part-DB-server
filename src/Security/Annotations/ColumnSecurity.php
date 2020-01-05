@@ -25,9 +25,11 @@ declare(strict_types=1);
 namespace App\Security\Annotations;
 
 use App\Entity\Base\NamedDBElement;
+use DateTime;
 use Doctrine\Common\Annotations\Annotation;
 use Doctrine\Common\Collections\ArrayCollection;
 use InvalidArgumentException;
+use function is_string;
 
 /**
  * @Annotation
@@ -90,7 +92,7 @@ class ColumnSecurity
         if (class_exists($this->type)) {
             $object = new $this->type();
             if ($object instanceof NamedDBElement) {
-                if (\is_string($this->placeholder) && '' !== $this->placeholder) {
+                if (is_string($this->placeholder) && '' !== $this->placeholder) {
                     $object->setName($this->placeholder);
                 } else {
                     $object->setName('???');
@@ -117,7 +119,7 @@ class ColumnSecurity
                 case 'bool':
                     return false;
                 case 'datetime':
-                    return (new \DateTime())->setTimestamp(0);
+                    return (new DateTime())->setTimestamp(0);
                 default:
                     throw new InvalidArgumentException('Unknown type! You have to specify a placeholder!');
             }

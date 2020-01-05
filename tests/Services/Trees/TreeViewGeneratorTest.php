@@ -36,11 +36,11 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 class TreeViewGeneratorTest extends WebTestCase
 {
+    protected $em;
     /**
      * @var TreeViewGenerator
      */
     protected $service;
-    protected $em;
 
     protected function setUp(): void
     {

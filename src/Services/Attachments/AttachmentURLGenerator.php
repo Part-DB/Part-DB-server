@@ -25,7 +25,10 @@ declare(strict_types=1);
 namespace App\Services\Attachments;
 
 use App\Entity\Attachments\Attachment;
+use InvalidArgumentException;
 use Liip\ImagineBundle\Service\FilterService;
+use RuntimeException;
+use function strlen;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -76,7 +79,7 @@ class AttachmentURLGenerator
         }
 
         //Return the part relative after public path.
-        return substr($absolute_path, \strlen($public_path) + 1);
+        return substr($absolute_path, strlen($public_path) + 1);
     }
 
     /**
@@ -86,7 +89,7 @@ class AttachmentURLGenerator
     {
         $absolute_path = $this->attachmentHelper->toAbsoluteFilePath($attachment);
         if (null === $absolute_path) {
-            throw new \RuntimeException('The given attachment is external or has no valid file, so no URL can get generated for it!
+            throw new RuntimeException('The given attachment is external or has no valid file, so no URL can get generated for it!
                 Use Attachment::getURL() to get the external URL!');
         }
 
@@ -106,7 +109,7 @@ class AttachmentURLGenerator
     public function getThumbnailURL(Attachment $attachment, string $filter_name = 'thumbnail_sm'): string
     {
         if (! $attachment->isPicture()) {
-            throw new \InvalidArgumentException('Thumbnail creation only works for picture attachments!');
+            throw new InvalidArgumentException('Thumbnail creation only works for picture attachments!');
         }
 
         if ($attachment->isExternal()) {
@@ -115,7 +118,7 @@ class AttachmentURLGenerator
 
         $absolute_path = $this->attachmentHelper->toAbsoluteFilePath($attachment);
         if (null === $absolute_path) {
-            throw new \RuntimeException('The given attachment is external or has no valid file, so no URL can get generated for it!');
+            throw new RuntimeException('The given attachment is external or has no valid file, so no URL can get generated for it!');
         }
 
         $asset_path = $this->absolutePathToAssetPath($absolute_path);

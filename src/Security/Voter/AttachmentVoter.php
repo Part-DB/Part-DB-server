@@ -26,6 +26,7 @@ namespace App\Security\Voter;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\UserSystem\User;
+use function in_array;
 
 class AttachmentVoter extends ExtendedVoter
 {
@@ -54,7 +55,7 @@ class AttachmentVoter extends ExtendedVoter
     protected function supports($attribute, $subject)
     {
         if ($subject instanceof Attachment) {
-            return \in_array($attribute, $this->resolver->listOperationsForPermission('parts_attachments'), false);
+            return in_array($attribute, $this->resolver->listOperationsForPermission('parts_attachments'), false);
         }
 
         return false;

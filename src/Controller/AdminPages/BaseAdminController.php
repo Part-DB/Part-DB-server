@@ -36,6 +36,7 @@ use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -61,11 +62,11 @@ abstract class BaseAdminController extends AbstractController
                                 AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler)
     {
         if ('' === $this->entity_class || '' === $this->form_class || '' === $this->twig_template || '' === $this->route_base) {
-            throw new \InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');
+            throw new InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');
         }
 
         if ('' === $this->attachment_class) {
-            throw new \InvalidArgumentException('You have to override the $attachment_class value in your subclass!');
+            throw new InvalidArgumentException('You have to override the $attachment_class value in your subclass!');
         }
 
         $this->translator = $translator;
@@ -101,10 +102,10 @@ abstract class BaseAdminController extends AbstractController
 
                 try {
                     $this->attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
-                } catch (AttachmentDownloadException $ex) {
+                } catch (AttachmentDownloadException $attachmentDownloadException) {
                     $this->addFlash(
                         'error',
-                        $this->translator->trans('attachment.download_failed').' '.$ex->getMessage()
+                        $this->translator->trans('attachment.download_failed').' '.$attachmentDownloadException->getMessage()
                     );
                 }
             }
@@ -158,10 +159,10 @@ abstract class BaseAdminController extends AbstractController
 
                 try {
                     $this->attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
-                } catch (AttachmentDownloadException $ex) {
+                } catch (AttachmentDownloadException $attachmentDownloadException) {
                     $this->addFlash(
                         'error',
-                        $this->translator->trans('attachment.download_failed').' '.$ex->getMessage()
+                        $this->translator->trans('attachment.download_failed').' '.$attachmentDownloadException->getMessage()
                     );
                 }
             }
@@ -186,8 +187,12 @@ abstract class BaseAdminController extends AbstractController
             $file = $import_form['file']->getData();
             $data = $import_form->getData();
 
-            $options = ['parent' => $data['parent'], 'preserve_children' => $data['preserve_children'],
-                'format' => $data['format'], 'csv_separator' => $data['csv_separator'], ];
+            $options = [
+                'parent' => $data['parent'],
+                'preserve_children' => $data['preserve_children'],
+                'format' => $data['format'],
+                'csv_separator' => $data['csv_separator'],
+            ];
 
             $errors = $importer->fileToDBEntities($file, $this->entity_class, $options);
 

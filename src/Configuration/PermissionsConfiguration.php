@@ -27,12 +27,12 @@ namespace App\Configuration;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-class PermissionsConfiguration implements ConfigurationInterface
+final class PermissionsConfiguration implements ConfigurationInterface
 {
     /**
      * Generates the configuration tree builder.
      *
-     * @return \Symfony\Component\Config\Definition\Builder\TreeBuilder The tree builder
+     * @return TreeBuilder The tree builder
      */
     public function getConfigTreeBuilder()
     {

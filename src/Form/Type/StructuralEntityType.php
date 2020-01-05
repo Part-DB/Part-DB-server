@@ -50,7 +50,9 @@ class StructuralEntityType extends AbstractType
 {
     protected $em;
     protected $options;
-    /** @var NodesListBuilder */
+    /**
+     * @var NodesListBuilder
+     */
     protected $builder;
 
     public function __construct(EntityManagerInterface $em, NodesListBuilder $builder)
@@ -81,9 +83,11 @@ class StructuralEntityType extends AbstractType
                 return new CallbackChoiceLoader(function () use ($options) {
                     return $this->getEntries($options);
                 });
-            }, 'choice_label' => function ($choice, $key, $value) {
+            },
+            'choice_label' => function ($choice, $key, $value) {
                 return $this->generateChoiceLabels($choice, $key, $value);
-            }, 'choice_attr' => function ($choice, $key, $value) {
+            },
+            'choice_attr' => function ($choice, $key, $value) {
                 return $this->generateChoiceAttr($choice, $key, $value);
             },
         ]);
@@ -91,7 +95,10 @@ class StructuralEntityType extends AbstractType
         $resolver->setDefault('empty_message', null);
 
         $resolver->setDefault('attr', function (Options $options) {
-            $tmp = ['class' => 'selectpicker', 'data-live-search' => true];
+            $tmp = [
+                'class' => 'selectpicker',
+                'data-live-search' => true,
+            ];
             if ($options['empty_message']) {
                 $tmp['data-none-Selected-Text'] = $options['empty_message'];
             }

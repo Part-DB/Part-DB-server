@@ -46,12 +46,16 @@ class AttachmentTypeAdminForm extends BaseEntityAdminForm
     {
         $is_new = null === $entity->getID();
 
-        $builder->add('filetype_filter', TextType::class, ['required' => false,
+        $builder->add('filetype_filter', TextType::class, [
+            'required' => false,
             'label' => 'attachment_type.edit.filetype_filter',
             'help' => 'attachment_type.edit.filetype_filter.help',
-            'attr' => ['placeholder' => 'attachment_type.edit.filetype_filter.placeholder'],
+            'attr' => [
+                'placeholder' => 'attachment_type.edit.filetype_filter.placeholder',
+            ],
             'empty_data' => '',
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
 
         //Normalize data before writing it to database
         $builder->get('filetype_filter')->addViewTransformer(new CallbackTransformer(

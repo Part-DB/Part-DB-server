@@ -51,9 +51,11 @@ class MassCreationForm extends AbstractType
         $disabled = ! $this->security->isGranted($perm_name, $entity);
 
         $builder
-            ->add('lines', TextareaType::class, ['data' => '',
+            ->add('lines', TextareaType::class, [
+                'data' => '',
                 'label' => 'mass_creation.lines',
-                'disabled' => $disabled, 'required' => true,
+                'disabled' => $disabled,
+                'required' => true,
                 'attr' => [
                     'placeholder' => 'mass_creation.lines.placeholder',
                     'rows' => 10,
@@ -64,7 +66,8 @@ class MassCreationForm extends AbstractType
                 'class' => $data['entity_class'],
                 'required' => false,
                 'label' => 'parent.label',
-                'disabled' => $disabled, ]);
+                'disabled' => $disabled,
+            ]);
         }
 
         //Buttons

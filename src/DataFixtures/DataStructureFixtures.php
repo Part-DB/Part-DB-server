@@ -36,6 +36,7 @@ use App\Entity\Parts\Supplier;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
+use InvalidArgumentException;
 
 class DataStructureFixtures extends Fixture
 {
@@ -71,7 +72,7 @@ class DataStructureFixtures extends Fixture
     public function createNodesForClass(string $class, ObjectManager $manager): void
     {
         if (! new $class() instanceof StructuralDBElement) {
-            throw new \InvalidArgumentException('$class must be a StructuralDBElement!');
+            throw new InvalidArgumentException('$class must be a StructuralDBElement!');
         }
 
         $table_name = $this->em->getClassMetadata($class)->getTableName();

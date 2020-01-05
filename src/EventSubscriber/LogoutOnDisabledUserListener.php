@@ -32,7 +32,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 
-class LogoutOnDisabledUserListener implements EventSubscriberInterface
+final class LogoutOnDisabledUserListener implements EventSubscriberInterface
 {
     protected $security;
     protected $translator;

@@ -35,7 +35,9 @@ use App\Services\PricedetailHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -48,7 +50,7 @@ class PartController extends AbstractController
      * @Route("/{id}/info", name="part_info")
      * @Route("/{id}", requirements={"id"="\d+"})
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function show(Part $part, AttachmentManager $attachmentHelper, PricedetailHelper $pricedetailHelper, PartPreviewGenerator $previewGenerator)
     {
@@ -68,7 +70,7 @@ class PartController extends AbstractController
     /**
      * @Route("/{id}/edit", name="part_edit")
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function edit(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
                          AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler)
@@ -90,10 +92,10 @@ class PartController extends AbstractController
 
                 try {
                     $attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
-                } catch (AttachmentDownloadException $ex) {
+                } catch (AttachmentDownloadException $attachmentDownloadException) {
                     $this->addFlash(
                         'error',
-                        $translator->trans('attachment.download_failed').' '.$ex->getMessage()
+                        $translator->trans('attachment.download_failed').' '.$attachmentDownloadException->getMessage()
                     );
                 }
             }
@@ -118,7 +120,7 @@ class PartController extends AbstractController
     /**
      * @Route("/{id}/delete", name="part_delete", methods={"DELETE"})
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function delete(Request $request, Part $part)
     {
@@ -142,7 +144,7 @@ class PartController extends AbstractController
     /**
      * @Route("/new", name="part_new")
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
                         AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler)
@@ -174,10 +176,10 @@ class PartController extends AbstractController
 
                 try {
                     $attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
-                } catch (AttachmentDownloadException $ex) {
+                } catch (AttachmentDownloadException $attachmentDownloadException) {
                     $this->addFlash(
                         'error',
-                        $translator->trans('attachment.download_failed').' '.$ex->getMessage()
+                        $translator->trans('attachment.download_failed').' '.$attachmentDownloadException->getMessage()
                     );
                 }
             }
@@ -204,7 +206,7 @@ class PartController extends AbstractController
     /**
      * @Route("/{id}/clone", name="part_clone")
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
     public function clone(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator)
     {

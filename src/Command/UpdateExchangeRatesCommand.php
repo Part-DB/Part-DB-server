@@ -25,7 +25,10 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Entity\PriceInformations\Currency;
+use function count;
 use Doctrine\ORM\EntityManagerInterface;
+use Exchanger\Exception\Exception;
+use function strlen;
 use Swap\Builder;
 use Swap\Swap;
 use Symfony\Component\Console\Command\Command;
@@ -70,7 +73,7 @@ class UpdateExchangeRatesCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         //Check for valid base current
-        if (3 !== \strlen($this->base_current)) {
+        if (3 !== strlen($this->base_current)) {
             $io->error('Choosen Base current is not valid. Check your settings!');
 
             return;
@@ -108,15 +111,15 @@ class UpdateExchangeRatesCommand extends Command
                 $this->em->persist($currency);
 
                 ++$success_counter;
-            } catch (\Exchanger\Exception\Exception $ex) {
+            } catch (Exception $exception) {
                 $io->warning(sprintf('Error updating %s:', $currency->getIsoCode()));
-                $io->warning($ex->getMessage());
+                $io->warning($exception->getMessage());
             }
         }
 
         //Save to database
         $this->em->flush();
 
-        $io->success(sprintf('%d (of %d) currency exchange rates were updated.', $success_counter, \count($candidates)));
+        $io->success(sprintf('%d (of %d) currency exchange rates were updated.', $success_counter, count($candidates)));
     }
 }

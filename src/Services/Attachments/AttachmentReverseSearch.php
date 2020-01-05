@@ -25,8 +25,10 @@ declare(strict_types=1);
 namespace App\Services\Attachments;
 
 use App\Entity\Attachments\Attachment;
+use function count;
 use Doctrine\ORM\EntityManagerInterface;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
+use SplFileInfo;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -52,11 +54,11 @@ class AttachmentReverseSearch
     /**
      * Find all attachments that use the given file.
      *
-     * @param \SplFileInfo $file The file for which is searched
+     * @param SplFileInfo $file The file for which is searched
      *
      * @return Attachment[] an list of attachments that use the given file
      */
-    public function findAttachmentsByFile(\SplFileInfo $file): array
+    public function findAttachmentsByFile(SplFileInfo $file): array
     {
         //Path with %MEDIA%
         $relative_path_new = $this->pathResolver->realPathToPlaceholder($file->getPathname());
@@ -65,21 +67,23 @@ class AttachmentReverseSearch
 
         $repo = $this->em->getRepository(Attachment::class);
 
-        return $repo->findBy(['path' => [$relative_path_new, $relative_path_old]]);
+        return $repo->findBy([
+            'path' => [$relative_path_new, $relative_path_old],
+        ]);
     }
 
     /**
      * Deletes the given file if it is not used by more than $threshold attachments.
      *
-     * @param \SplFileInfo $file      The file that should be removed
-     * @param int          $threshold the threshold used, to determine if a file should be deleted or not
+     * @param SplFileInfo $file      The file that should be removed
+     * @param int         $threshold the threshold used, to determine if a file should be deleted or not
      *
      * @return bool True, if the file was delete. False if not.
      */
-    public function deleteIfNotUsed(\SplFileInfo $file, int $threshold = 1): bool
+    public function deleteIfNotUsed(SplFileInfo $file, int $threshold = 1): bool
     {
         /* When the file is used more then $threshold times, don't delete it */
-        if (\count($this->findAttachmentsByFile($file)) > $threshold) {
+        if (count($this->findAttachmentsByFile($file)) > $threshold) {
             return false;
         }
 

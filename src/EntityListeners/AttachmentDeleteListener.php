@@ -32,6 +32,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping\PostRemove;
 use Doctrine\ORM\Mapping\PreUpdate;
+use SplFileInfo;
 
 /**
  * This listener watches for changes on attachments and deletes the files associated with an attachment, that are not
@@ -63,7 +64,7 @@ class AttachmentDeleteListener
                 return;
             }
 
-            $file = new \SplFileInfo($this->pathResolver->placeholderToRealPath($event->getOldValue('path')));
+            $file = new SplFileInfo($this->pathResolver->placeholderToRealPath($event->getOldValue('path')));
             $this->attachmentReverseSearch->deleteIfNotUsed($file);
         }
     }

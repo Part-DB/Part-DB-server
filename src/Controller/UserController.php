@@ -33,6 +33,7 @@ use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use InvalidArgumentException;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -99,7 +100,7 @@ class UserController extends AdminPages\BaseAdminController
     public function delete(Request $request, User $entity, StructuralElementRecursionHelper $recursionHelper)
     {
         if (User::ID_ANONYMOUS === $entity->getID()) {
-            throw new \InvalidArgumentException('You can not delete the anonymous user! It is needed for permission checking without a logged in user');
+            throw new InvalidArgumentException('You can not delete the anonymous user! It is needed for permission checking without a logged in user');
         }
 
         return $this->_delete($request, $entity, $recursionHelper);

@@ -27,6 +27,9 @@ namespace App\Command;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentPathResolver;
 use App\Services\Attachments\AttachmentReverseSearch;
+use function count;
+use const DIRECTORY_SEPARATOR;
+use IntlDateFormatter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -83,11 +86,11 @@ class CleanAttachmentsCommand extends Command
 
         $table = new Table($output);
         $table->setHeaders(['Filename', 'MIME Type', 'Last modified date']);
-        $dateformatter = \IntlDateFormatter::create(null, \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT);
+        $dateformatter = IntlDateFormatter::create(null, IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
 
         foreach ($finder as $file) {
             //If not attachment object uses this file, print it
-            if (0 === \count($this->reverseSearch->findAttachmentsByFile($file))) {
+            if (0 === count($this->reverseSearch->findAttachmentsByFile($file))) {
                 $file_list[] = $file;
                 $table->addRow([
                     $fs->makePathRelative($file->getPathname(), $mediaPath),
@@ -97,10 +100,10 @@ class CleanAttachmentsCommand extends Command
             }
         }
 
-        if (\count($file_list) > 0) {
+        if (count($file_list) > 0) {
             $table->render();
 
-            $continue = $io->confirm(sprintf('Found %d abandoned files. Do you want to delete them? This can not be undone!', \count($file_list)), false);
+            $continue = $io->confirm(sprintf('Found %d abandoned files. Do you want to delete them? This can not be undone!', count($file_list)), false);
 
             if (! $continue) {
                 //We are finished here, when no files should be deleted
@@ -128,7 +131,7 @@ class CleanAttachmentsCommand extends Command
     protected function removeEmptySubFolders($path)
     {
         $empty = true;
-        foreach (glob($path.\DIRECTORY_SEPARATOR.'*') as $file) {
+        foreach (glob($path.DIRECTORY_SEPARATOR.'*') as $file) {
             $empty &= is_dir($file) && $this->removeEmptySubFolders($file);
         }
 

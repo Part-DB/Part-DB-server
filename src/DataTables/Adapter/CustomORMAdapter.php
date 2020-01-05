@@ -29,6 +29,7 @@ use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\AdapterQuery;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 use Omines\DataTablesBundle\Column\AbstractColumn;
+use Traversable;
 
 /**
  * Override default ORM Adapter, to allow fetch joins (allow addSelect with ManyToOne Collections).
@@ -52,9 +53,9 @@ class CustomORMAdapter extends ORMAdapter
     }
 
     /**
-     * @return \Traversable
+     * @return Traversable
      */
-    protected function getResults(AdapterQuery $query): \Traversable
+    protected function getResults(AdapterQuery $query): Traversable
     {
         /** @var QueryBuilder $builder */
         $builder = $query->get('qb');

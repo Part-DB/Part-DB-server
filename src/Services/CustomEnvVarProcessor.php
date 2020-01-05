@@ -24,19 +24,20 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use Closure;
 use Symfony\Component\DependencyInjection\EnvVarProcessorInterface;
 use Symfony\Component\DependencyInjection\Exception\EnvNotFoundException;
 
-class CustomEnvVarProcessor implements EnvVarProcessorInterface
+final class CustomEnvVarProcessor implements EnvVarProcessorInterface
 {
-    public function getEnv($prefix, $name, \Closure $getEnv)
+    public function getEnv($prefix, $name, Closure $getEnv)
     {
         if ('validMailDSN' === $prefix) {
             try {
                 $env = $getEnv($name);
 
                 return ! empty($env) && 'null://null' !== $env;
-            } catch (EnvNotFoundException $exception) {
+            } catch (EnvNotFoundException $envNotFoundException) {
                 return false;
             }
         }

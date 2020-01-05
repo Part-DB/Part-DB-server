@@ -36,6 +36,7 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\Group;
 use App\Helpers\BBCodeToMarkdownConverter;
+use function count;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Console\Command\Command;
@@ -49,9 +50,13 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
  */
 class ConvertBBCodeCommand extends Command
 {
-    /** @var string The LIKE criteria used to detect on SQL server if a entry contains BBCode */
+    /**
+     * @var string The LIKE criteria used to detect on SQL server if a entry contains BBCode
+     */
     protected const BBCODE_CRITERIA = '%[%]%[/%]%';
-    /** @var string The regex (performed in PHP) used to check if a property really contains BBCODE */
+    /**
+     * @var string The regex (performed in PHP) used to check if a property really contains BBCODE
+     */
     protected const BBCODE_REGEX = '/\\[.+\\].*\\[\\/.+\\]/';
 
     protected static $defaultName = 'app:convert-bbcode';
@@ -125,7 +130,7 @@ class ConvertBBCodeCommand extends Command
 
             //Fetch resulting classes
             $results = $qb->getQuery()->getResult();
-            $io->note(sprintf('Found %d entities, that need to be converted!', \count($results)));
+            $io->note(sprintf('Found %d entities, that need to be converted!', count($results)));
 
             //In verbose mode print the names of the entities
             foreach ($results as $result) {

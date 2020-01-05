@@ -35,21 +35,33 @@ class MeasurementUnitAdminForm extends BaseEntityAdminForm
     {
         $is_new = null === $entity->getID();
 
-        $builder->add('is_integer', CheckboxType::class, ['required' => false,
+        $builder->add('is_integer', CheckboxType::class, [
+            'required' => false,
             'label' => 'measurement_unit.edit.is_integer',
             'help' => 'measurement_unit.edit.is_integer.help',
-            'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'label_attr' => [
+                'class' => 'checkbox-custom',
+            ],
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
 
-        $builder->add('use_si_prefix', CheckboxType::class, ['required' => false,
+        $builder->add('use_si_prefix', CheckboxType::class, [
+            'required' => false,
             'label' => 'measurement_unit.edit.use_si_prefix',
             'help' => 'measurement_unit.edit.use_si_prefix.help',
-            'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'label_attr' => [
+                'class' => 'checkbox-custom',
+            ],
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
 
-        $builder->add('unit', TextType::class, ['required' => false,
+        $builder->add('unit', TextType::class, [
+            'required' => false,
             'label' => 'measurement_unit.edit.unit_symbol',
-            'attr' => ['placeholder' => 'measurement_unit.edit.unit_symbol.placeholder'],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'attr' => [
+                'placeholder' => 'measurement_unit.edit.unit_symbol.placeholder',
+            ],
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
     }
 }

@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Entity\Parts\MeasurementUnit;
+use InvalidArgumentException;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -48,12 +49,12 @@ class AmountFormatter
      *
      * @return string The formatted string
      *
-     * @throws \InvalidArgumentException thrown if $value is not numeric
+     * @throws InvalidArgumentException thrown if $value is not numeric
      */
     public function format($value, ?MeasurementUnit $unit = null, array $options = [])
     {
         if (! is_numeric($value)) {
-            throw new \InvalidArgumentException('$value must be an numeric value!');
+            throw new InvalidArgumentException('$value must be an numeric value!');
         }
         $value = (float) $value;
 
@@ -117,7 +118,9 @@ class AmountFormatter
                 return '';
             },
             'decimals' => 2,
-            'error_mapping' => ['.' => 'value'],
+            'error_mapping' => [
+                '.' => 'value',
+            ],
         ]);
 
         $resolver->setAllowedTypes('decimals', 'int');

@@ -26,7 +26,9 @@ namespace App\Tests\Entity\UserSystem;
 
 use App\Entity\UserSystem\PermissionsEmbed;
 use Doctrine\ORM\Mapping\Embedded;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 class PermissionsEmbedTest extends TestCase
 {
@@ -60,7 +62,7 @@ class PermissionsEmbedTest extends TestCase
         $this->assertNull($embed->getPermissionValue(PermissionsEmbed::USERS, 0));
 
         //Set a value for testing to the part property
-        $reflection = new \ReflectionClass($embed);
+        $reflection = new ReflectionClass($embed);
         $property = $reflection->getProperty('parts');
         $property->setAccessible(true);
 
@@ -79,7 +81,7 @@ class PermissionsEmbedTest extends TestCase
         $embed = new PermissionsEmbed();
 
         //Set a value for testing to the part property
-        $reflection = new \ReflectionClass($embed);
+        $reflection = new ReflectionClass($embed);
         $property = $reflection->getProperty('parts');
         $property->setAccessible(true);
 
@@ -97,7 +99,7 @@ class PermissionsEmbedTest extends TestCase
     {
         $embed = new PermissionsEmbed();
         //When encoutering an unknown permission name the class must throw an exception
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $embed->getPermissionValue('invalid', 0);
     }
 
@@ -105,7 +107,7 @@ class PermissionsEmbedTest extends TestCase
     {
         $embed = new PermissionsEmbed();
         //When encoutering an negative bit the class must throw an exception
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $embed->getPermissionValue('parts', -1);
     }
 
@@ -113,7 +115,7 @@ class PermissionsEmbedTest extends TestCase
     {
         $embed = new PermissionsEmbed();
         //When encoutering an odd bit number it must throw an error.
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $embed->getPermissionValue('parts', 1);
     }
 
@@ -121,7 +123,7 @@ class PermissionsEmbedTest extends TestCase
     {
         $embed = new PermissionsEmbed();
         //When encoutering an too high bit number it must throw an error.
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $embed->getPermissionValue('parts', 32);
     }
 

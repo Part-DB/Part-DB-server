@@ -25,6 +25,8 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Entity\Attachments\Attachment;
+use function in_array;
+use InvalidArgumentException;
 
 class FAIconGenerator
 {
@@ -53,12 +55,12 @@ class FAIconGenerator
     public function fileExtensionToFAType(string $extension): string
     {
         if ('' === $extension) {
-            throw new \InvalidArgumentException('You must specify an extension!');
+            throw new InvalidArgumentException('You must specify an extension!');
         }
         //Normalize file extension
         $extension = strtolower($extension);
         foreach (self::EXT_MAPPING as $fa => $exts) {
-            if (\in_array($extension, $exts, true)) {
+            if (in_array($extension, $exts, true)) {
                 return $fa;
             }
         }

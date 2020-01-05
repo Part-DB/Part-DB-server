@@ -29,13 +29,14 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class BuiltinAttachmentsFinderTest extends WebTestCase
 {
-    /** @var BuiltinAttachmentsFinder */
-    protected static $service;
-
     protected static $mock_list = [
         '%FOOTPRINTS%/test/test.jpg', '%FOOTPRINTS%/test/test.png', '%FOOTPRINTS%/123.jpg', '%FOOTPRINTS%/123.jpeg',
         '%FOOTPRINTS_3D%/test.jpg', '%FOOTPRINTS_3D%/hallo.txt',
     ];
+    /**
+     * @var BuiltinAttachmentsFinder
+     */
+    protected static $service;
 
     public static function setUpBeforeClass(): void
     {
