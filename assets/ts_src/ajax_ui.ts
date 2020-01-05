@@ -508,6 +508,11 @@ class AjaxUI {
      */
     protected initDataTables()
     {
+        //@ts-ignore
+        $($.fn.DataTable.tables()).DataTable().fixedHeader.disable();
+        //@ts-ignore
+        $($.fn.DataTable.tables()).DataTable().destroy();
+
         //Find all datatables and init it.
         let $tables = $('[data-datatable]');
         $.each($tables, function(index, table) {
