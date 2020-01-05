@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -99,7 +102,7 @@ class AttachmentTest extends TestCase
 
         //This must not throw an exception
         $attachment->setElement($element);
-        $this->assertEquals($element, $attachment->getElement());
+        $this->assertSame($element, $attachment->getElement());
     }
 
     /**
@@ -141,11 +144,11 @@ class AttachmentTest extends TestCase
     /**
      * @dataProvider externalDataProvider
      */
-    public function testIsExternal($path, $expected)
+    public function testIsExternal($path, $expected): void
     {
         $attachment = new PartAttachment();
         $this->setProtectedProperty($attachment, 'path', $path);
-        $this->assertEquals($expected, $attachment->isExternal());
+        $this->assertSame($expected, $attachment->isExternal());
     }
 
     public function extensionDataProvider()
@@ -167,12 +170,12 @@ class AttachmentTest extends TestCase
     /**
      * @dataProvider extensionDataProvider
      */
-    public function testGetExtension($path, $originalFilename, $expected)
+    public function testGetExtension($path, $originalFilename, $expected): void
     {
         $attachment = new PartAttachment();
         $this->setProtectedProperty($attachment, 'path', $path);
         $this->setProtectedProperty($attachment, 'original_filename', $originalFilename);
-        $this->assertEquals($expected, $attachment->getExtension());
+        $this->assertSame($expected, $attachment->getExtension());
     }
 
     public function pictureDataProvider()
@@ -192,11 +195,11 @@ class AttachmentTest extends TestCase
     /**
      * @dataProvider pictureDataProvider
      */
-    public function testIsPicture($path, $expected)
+    public function testIsPicture($path, $expected): void
     {
         $attachment = new PartAttachment();
         $this->setProtectedProperty($attachment, 'path', $path);
-        $this->assertEquals($expected, $attachment->isPicture());
+        $this->assertSame($expected, $attachment->isPicture());
     }
 
     public function builtinDataProvider()
@@ -214,11 +217,11 @@ class AttachmentTest extends TestCase
     /**
      * @dataProvider builtinDataProvider
      */
-    public function testIsBuiltIn($path, $expected)
+    public function testIsBuiltIn($path, $expected): void
     {
         $attachment = new PartAttachment();
         $this->setProtectedProperty($attachment, 'path', $path);
-        $this->assertEquals($expected, $attachment->isBuiltIn());
+        $this->assertSame($expected, $attachment->isBuiltIn());
     }
 
     public function hostDataProvider()
@@ -233,11 +236,11 @@ class AttachmentTest extends TestCase
     /**
      * @dataProvider hostDataProvider
      */
-    public function testGetHost($path, $expected)
+    public function testGetHost($path, $expected): void
     {
         $attachment = new PartAttachment();
         $this->setProtectedProperty($attachment, 'path', $path);
-        $this->assertEquals($expected, $attachment->getHost());
+        $this->assertSame($expected, $attachment->getHost());
     }
 
     public function filenameProvider()
@@ -252,15 +255,15 @@ class AttachmentTest extends TestCase
     /**
      * @dataProvider filenameProvider
      */
-    public function testGetFilename($path, $original_filename, $expected)
+    public function testGetFilename($path, $original_filename, $expected): void
     {
         $attachment = new PartAttachment();
         $this->setProtectedProperty($attachment, 'path', $path);
         $this->setProtectedProperty($attachment, 'original_filename', $original_filename);
-        $this->assertEquals($expected, $attachment->getFilename());
+        $this->assertSame($expected, $attachment->getFilename());
     }
 
-    public function testIsURL()
+    public function testIsURL(): void
     {
         $url = '%MEDIA%/test.txt';
         $this->assertFalse(Attachment::isURL($url));
@@ -279,10 +282,8 @@ class AttachmentTest extends TestCase
      * @param object $object   - instance in which protected value is being modified
      * @param string $property - property on instance being modified
      * @param mixed  $value    - new value of the property being modified
-     *
-     * @return void
      */
-    public function setProtectedProperty($object, $property, $value)
+    public function setProtectedProperty($object, $property, $value): void
     {
         $reflection = new ReflectionClass($object);
         $reflection_property = $reflection->getProperty($property);

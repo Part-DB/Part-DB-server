@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -29,7 +32,7 @@ use PHPUnit\Framework\TestCase;
 
 class PasswordChangeNeededSubscriberTest extends TestCase
 {
-    public function testTFARedirectNeeded()
+    public function testTFARedirectNeeded(): void
     {
         $user = new User();
         $group = new Group();

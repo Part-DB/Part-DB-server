@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -28,7 +31,7 @@ class BBCodeToMarkdownConverterTest extends TestCase
 {
     protected $converter;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->converter = new BBCodeToMarkdownConverter();
     }
@@ -52,8 +55,8 @@ class BBCodeToMarkdownConverterTest extends TestCase
      * @param $bbcode
      * @param $expected
      */
-    public function testConvert($bbcode, $expected)
+    public function testConvert($bbcode, $expected): void
     {
-        $this->assertEquals($expected, $this->converter->convert($bbcode));
+        $this->assertSame($expected, $this->converter->convert($bbcode));
     }
 }

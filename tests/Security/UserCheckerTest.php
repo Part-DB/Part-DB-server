@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -30,12 +33,12 @@ class UserCheckerTest extends TestCase
 {
     protected $service;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->service = new UserChecker();
     }
 
-    public function testThrowDisabledException()
+    public function testThrowDisabledException(): void
     {
         $user = new User();
         $user->setDisabled(false);

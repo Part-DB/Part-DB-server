@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -91,24 +94,24 @@ class FileTypeFilterToolsTest extends WebTestCase
      *
      * @dataProvider validateDataProvider
      */
-    public function testValidateFilterString(string $filter, bool $expected)
+    public function testValidateFilterString(string $filter, bool $expected): void
     {
-        $this->assertEquals($expected, self::$service->validateFilterString($filter));
+        $this->assertSame($expected, self::$service->validateFilterString($filter));
     }
 
     /**
      * @dataProvider normalizeDataProvider
      */
-    public function testNormalizeFilterString(string $filter, string $expected)
+    public function testNormalizeFilterString(string $filter, string $expected): void
     {
-        $this->assertEquals($expected, self::$service->normalizeFilterString($filter));
+        $this->assertSame($expected, self::$service->normalizeFilterString($filter));
     }
 
     /**
      * @dataProvider extensionAllowedDataProvider
      */
-    public function testIsExtensionAllowed(string $filter, string $extension, bool $expected)
+    public function testIsExtensionAllowed(string $filter, string $extension, bool $expected): void
     {
-        $this->assertEquals($expected, self::$service->isExtensionAllowed($filter, $extension), $expected);
+        $this->assertSame($expected, self::$service->isExtensionAllowed($filter, $extension));
     }
 }

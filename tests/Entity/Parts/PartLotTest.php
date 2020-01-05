@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -26,7 +29,7 @@ use PHPUnit\Framework\TestCase;
 
 class PartLotTest extends TestCase
 {
-    public function testIsExpired()
+    public function testIsExpired(): void
     {
         $lot = new PartLot();
         $this->assertNull($lot->isExpired(), 'Lot must be return null when no Expiration date is set!');

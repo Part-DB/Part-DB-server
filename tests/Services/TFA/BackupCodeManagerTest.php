@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -32,22 +35,22 @@ class BackupCodeManagerTest extends WebTestCase
      */
     protected $service;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::bootKernel();
         $this->service = self::$container->get(BackupCodeManager::class);
     }
 
-    public function testRegenerateBackupCodes()
+    public function testRegenerateBackupCodes(): void
     {
         $user = new User();
         $old_codes = ['aaaa', 'bbbb'];
         $user->setBackupCodes($old_codes);
         $this->service->regenerateBackupCodes($user);
-        $this->assertNotEquals($old_codes, $user->getBackupCodes());
+        $this->assertNotSame($old_codes, $user->getBackupCodes());
     }
 
-    public function testEnableBackupCodes()
+    public function testEnableBackupCodes(): void
     {
         $user = new User();
         //Check that nothing is changed, if there are already backup codes
@@ -55,7 +58,7 @@ class BackupCodeManagerTest extends WebTestCase
         $old_codes = ['aaaa', 'bbbb'];
         $user->setBackupCodes($old_codes);
         $this->service->enableBackupCodes($user);
-        $this->assertEquals($old_codes, $user->getBackupCodes());
+        $this->assertSame($old_codes, $user->getBackupCodes());
 
         //When no old codes are existing, it should generate a set
         $user->setBackupCodes([]);
@@ -63,7 +66,7 @@ class BackupCodeManagerTest extends WebTestCase
         $this->assertNotEmpty($user->getBackupCodes());
     }
 
-    public function testDisableBackupCodesIfUnused()
+    public function testDisableBackupCodesIfUnused(): void
     {
         $user = new User();
 
@@ -77,6 +80,6 @@ class BackupCodeManagerTest extends WebTestCase
 
         $user->setGoogleAuthenticatorSecret('jskf');
         $this->service->disableBackupCodesIfUnused($user);
-        $this->assertEquals($codes, $user->getBackupCodes());
+        $this->assertSame($codes, $user->getBackupCodes());
     }
 }

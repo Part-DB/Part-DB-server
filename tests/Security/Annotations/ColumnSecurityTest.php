@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -27,24 +30,24 @@ use PHPUnit\Framework\TestCase;
 
 class ColumnSecurityTest extends TestCase
 {
-    public function testGetReadOperation()
+    public function testGetReadOperation(): void
     {
         $annotation = new ColumnSecurity();
-        $this->assertEquals('read', $annotation->getReadOperationName(), 'A new annotation must return read');
+        $this->assertSame('read', $annotation->getReadOperationName(), 'A new annotation must return read');
         $annotation->read = 'overwritten';
-        $this->assertEquals('overwritten', $annotation->getReadOperationName());
+        $this->assertSame('overwritten', $annotation->getReadOperationName());
         $annotation->prefix = 'prefix';
-        $this->assertEquals('prefix.overwritten', $annotation->getReadOperationName());
+        $this->assertSame('prefix.overwritten', $annotation->getReadOperationName());
     }
 
-    public function testGetEditOperation()
+    public function testGetEditOperation(): void
     {
         $annotation = new ColumnSecurity();
-        $this->assertEquals('edit', $annotation->getEditOperationName(), 'A new annotation must return read');
+        $this->assertSame('edit', $annotation->getEditOperationName(), 'A new annotation must return read');
         $annotation->edit = 'overwritten';
-        $this->assertEquals('overwritten', $annotation->getEditOperationName());
+        $this->assertSame('overwritten', $annotation->getEditOperationName());
         $annotation->prefix = 'prefix';
-        $this->assertEquals('prefix.overwritten', $annotation->getEditOperationName());
+        $this->assertSame('prefix.overwritten', $annotation->getEditOperationName());
     }
 
     public function placeholderScalarDataProvider(): array
@@ -66,18 +69,18 @@ class ColumnSecurityTest extends TestCase
      *
      * @param $expected_value
      */
-    public function testGetPlaceholderScalar(string $type, $expected_value)
+    public function testGetPlaceholderScalar(string $type, $expected_value): void
     {
         $annotation = new ColumnSecurity();
         $annotation->type = $type;
-        $this->assertEquals($expected_value, $annotation->getPlaceholder());
+        $this->assertSame($expected_value, $annotation->getPlaceholder());
     }
 
-    public function testGetPlaceholderSpecifiedValue()
+    public function testGetPlaceholderSpecifiedValue(): void
     {
         $annotation = new ColumnSecurity();
         $annotation->placeholder = 3434;
-        $this->assertEquals(3434, $annotation->getPlaceholder());
+        $this->assertSame(3434, $annotation->getPlaceholder());
 
         $annotation->placeholder = [323];
         $this->assertCount(1, $annotation->getPlaceholder());
@@ -85,10 +88,10 @@ class ColumnSecurityTest extends TestCase
         //If a placeholder is specified we allow every type
         $annotation->type = 'type2';
         $annotation->placeholder = 'invalid';
-        $this->assertEquals('invalid', $annotation->getPlaceholder());
+        $this->assertSame('invalid', $annotation->getPlaceholder());
     }
 
-    public function testGetPlaceholderDBElement()
+    public function testGetPlaceholderDBElement(): void
     {
         $annotation = new ColumnSecurity();
         $annotation->type = AttachmentType::class;
@@ -96,11 +99,11 @@ class ColumnSecurityTest extends TestCase
         /** @var AttachmentType $placeholder */
         $placeholder = $annotation->getPlaceholder();
         $this->assertInstanceOf(AttachmentType::class, $placeholder);
-        $this->assertEquals('???', $placeholder->getName());
+        $this->assertSame('???', $placeholder->getName());
 
         $annotation->placeholder = 'test';
         $placeholder = $annotation->getPlaceholder();
         $this->assertInstanceOf(AttachmentType::class, $placeholder);
-        $this->assertEquals('test', $placeholder->getName());
+        $this->assertSame('test', $placeholder->getName());
     }
 }

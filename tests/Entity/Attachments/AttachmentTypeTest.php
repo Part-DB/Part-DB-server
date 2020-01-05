@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -27,7 +30,7 @@ use PHPUnit\Framework\TestCase;
 
 class AttachmentTypeTest extends TestCase
 {
-    public function testEmptyState()
+    public function testEmptyState(): void
     {
         $attachment_type = new AttachmentType();
         $this->assertInstanceOf(Collection::class, $attachment_type->getAttachmentsForType());

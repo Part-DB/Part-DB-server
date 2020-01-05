@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -48,7 +51,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
      * @group slow
      * Tests if you can access the /new part which is used to list all entities. Checks if permissions are working
      */
-    public function testListEntries(string $user, bool $read)
+    public function testListEntries(string $user, bool $read): void
     {
         static::ensureKernelShutdown();
 
@@ -58,7 +61,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
             'PHP_AUTH_PW' => 'test',
         ]);
 
-        if (false == $read) {
+        if (false === $read) {
             $this->expectException(AccessDeniedException::class);
         }
 
@@ -67,8 +70,8 @@ abstract class AbstractAdminControllerTest extends WebTestCase
         //Test read/list access by access /new overview page
         $crawler = $client->request('GET', static::$base_path.'/new');
         $this->assertFalse($client->getResponse()->isRedirect());
-        $this->assertEquals($read, $client->getResponse()->isSuccessful(), 'Controller was not successful!');
-        $this->assertEquals($read, !$client->getResponse()->isForbidden(), 'Permission Checking not working!');
+        $this->assertSame($read, $client->getResponse()->isSuccessful(), 'Controller was not successful!');
+        $this->assertSame($read, ! $client->getResponse()->isForbidden(), 'Permission Checking not working!');
     }
 
     /**
@@ -76,7 +79,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
      * @group slow
      * Tests if it possible to access an specific entity. Checks if permissions are working.
      */
-    public function testReadEntity(string $user, bool $read)
+    public function testReadEntity(string $user, bool $read): void
     {
         //Test read access
         $client = static::createClient([], [
@@ -85,15 +88,15 @@ abstract class AbstractAdminControllerTest extends WebTestCase
         ]);
 
         $client->catchExceptions(false);
-        if (false == $read) {
+        if (false === $read) {
             $this->expectException(AccessDeniedException::class);
         }
 
         //Test read/list access by access /new overview page
         $crawler = $client->request('GET', static::$base_path.'/1');
         $this->assertFalse($client->getResponse()->isRedirect());
-        $this->assertEquals($read, $client->getResponse()->isSuccessful(), 'Controller was not successful!');
-        $this->assertEquals($read, !$client->getResponse()->isForbidden(), 'Permission Checking not working!');
+        $this->assertSame($read, $client->getResponse()->isSuccessful(), 'Controller was not successful!');
+        $this->assertSame($read, ! $client->getResponse()->isForbidden(), 'Permission Checking not working!');
     }
 
     public function deleteDataProvider()
@@ -112,7 +115,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
      * @group slow
      * @dataProvider deleteDataProvider
      */
-    public function testDeleteEntity(string $user, bool $delete)
+    public function testDeleteEntity(string $user, bool $delete): void
     {
         //Test read access
         $client = static::createClient([], [
@@ -121,7 +124,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
         ]);
 
         $client->catchExceptions(false);
-        if (false == $delete) {
+        if (false === $delete) {
             $this->expectException(AccessDeniedException::class);
         }
 
@@ -129,7 +132,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
         $crawler = $client->request('DELETE', static::$base_path.'/7');
 
         //Page is redirected to '/new', when delete was successful
-        $this->assertEquals($delete, $client->getResponse()->isRedirect(static::$base_path.'/new'));
-        $this->assertEquals($delete, !$client->getResponse()->isForbidden(), 'Permission Checking not working!');
+        $this->assertSame($delete, $client->getResponse()->isRedirect(static::$base_path.'/new'));
+        $this->assertSame($delete, ! $client->getResponse()->isForbidden(), 'Permission Checking not working!');
     }
 }

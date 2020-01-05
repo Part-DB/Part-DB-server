@@ -280,6 +280,7 @@ class Pricedetail extends DBElement
      * quantity to 100. The single price (20$/100 = 0.2$) will be calculated automatically.
      *
      * @param float $new_price_related_quantity the price related quantity
+     * @return $this
      */
     public function setPriceRelatedQuantity(float $new_price_related_quantity): self
     {

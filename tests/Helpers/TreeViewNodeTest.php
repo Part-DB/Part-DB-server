@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -35,7 +38,7 @@ class TreeViewNodeTest extends TestCase
      */
     protected $node2;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $sub_nodes = [];
         $sub_nodes[] = new TreeViewNode('Subnode 1');
@@ -50,16 +53,16 @@ class TreeViewNodeTest extends TestCase
         $this->node2 = new TreeViewNode('Name', 'www.foo.bar', $sub_nodes);
     }
 
-    public function testConstructor()
+    public function testConstructor(): void
     {
         //A node without things should have null values on its properties:
         $this->assertNull($this->node1->getHref());
         $this->assertNull($this->node1->getNodes());
-        $this->assertEquals('Name', $this->node1->getText());
+        $this->assertSame('Name', $this->node1->getText());
 
         //The second node must have the given things as properties.
-        $this->assertEquals('Name', $this->node2->getText());
-        $this->assertEquals('www.foo.bar', $this->node2->getHref());
+        $this->assertSame('Name', $this->node2->getText());
+        $this->assertSame('www.foo.bar', $this->node2->getHref());
         $this->assertNotEmpty($this->node2->getNodes());
     }
 }

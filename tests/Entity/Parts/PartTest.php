@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -29,7 +32,7 @@ use PHPUnit\Framework\TestCase;
 
 class PartTest extends TestCase
 {
-    public function testAddRemovePartLot()
+    public function testAddRemovePartLot(): void
     {
         $part = new Part();
         $this->assertInstanceOf(Collection::class, $part->getPartLots());
@@ -38,33 +41,33 @@ class PartTest extends TestCase
         //Add element
         $lot = new PartLot();
         $part->addPartLot($lot);
-        $this->assertEquals($part, $lot->getPart());
-        $this->assertEquals(1, $part->getPartLots()->count());
+        $this->assertSame($part, $lot->getPart());
+        $this->assertSame(1, $part->getPartLots()->count());
 
         //Remove element
         $part->removePartLot($lot);
         $this->assertTrue($part->getPartLots()->isEmpty());
     }
 
-    public function testGetSetMinamount()
+    public function testGetSetMinamount(): void
     {
         $part = new Part();
         $measurement_unit = new MeasurementUnit();
 
         //Without an set measurement unit the part must return an int
         $part->setMinAmount(1.345);
-        $this->assertEquals(1, $part->getMinAmount());
+        $this->assertSame(1.0, $part->getMinAmount());
 
         //If an non int-based unit is assigned, an float is returned
         $part->setPartUnit($measurement_unit);
-        $this->assertEquals(1.345, $part->getMinAmount());
+        $this->assertSame(1.345, $part->getMinAmount());
 
         //If an int-based unit is assigned an int is returned
         $measurement_unit->setIsInteger(true);
-        $this->assertEquals(1, $part->getMinAmount());
+        $this->assertSame(1.0, $part->getMinAmount());
     }
 
-    public function testUseFloatAmount()
+    public function testUseFloatAmount(): void
     {
         $part = new Part();
         $measurement_unit = new MeasurementUnit();
@@ -79,13 +82,13 @@ class PartTest extends TestCase
         $this->assertFalse($part->useFloatAmount());
     }
 
-    public function testGetAmountSum()
+    public function testGetAmountSum(): void
     {
         $part = new Part();
         $measurement_unit = new MeasurementUnit();
         $datetime = new \DateTime();
 
-        $this->assertEquals(0, $part->getAmountSum());
+        $this->assertSame(0.0, $part->getAmountSum());
 
         $part->addPartLot((new PartLot())->setAmount(3.141));
         $part->addPartLot((new PartLot())->setAmount(10.0));
@@ -96,15 +99,15 @@ class PartTest extends TestCase
                 ->setExpirationDate($datetime->setTimestamp(strtotime('now -1 hour')))
         );
 
-        $this->assertEquals(13, $part->getAmountSum());
+        $this->assertSame(13.0, $part->getAmountSum());
 
         $part->setPartUnit($measurement_unit);
-        $this->assertEquals(13.141, $part->getAmountSum());
+        $this->assertSame(13.141, $part->getAmountSum());
 
         //1 billion part lot
         $part->addPartLot((new PartLot())->setAmount(1000000000));
-        $this->assertEquals(1000000013.141, $part->getAmountSum());
+        $this->assertSame(1000000013.141, $part->getAmountSum());
         $measurement_unit->setIsInteger(true);
-        $this->assertEquals(1000000013, $part->getAmountSum());
+        $this->assertSame(1000000013.0, $part->getAmountSum());
     }
 }

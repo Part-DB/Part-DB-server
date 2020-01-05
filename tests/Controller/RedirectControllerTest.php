@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -35,7 +38,7 @@ class RedirectControllerTest extends WebTestCase
     protected $userRepo;
     protected $client;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->client = static::createClient([], [
             'PHP_AUTH_USER' => 'user',
@@ -66,15 +69,15 @@ class RedirectControllerTest extends WebTestCase
      * @dataProvider urlMatchDataProvider
      * @group slow
      */
-    public function testUrlMatch($url, $expect_redirect)
+    public function testUrlMatch($url, $expect_redirect): void
     {
         //$client = static::createClient();
         $this->client->request('GET', $url);
         $response = $this->client->getResponse();
         if ($expect_redirect) {
-            $this->assertEquals(302, $response->getStatusCode());
+            $this->assertSame(302, $response->getStatusCode());
         }
-        $this->assertEquals($expect_redirect, $response->isRedirect());
+        $this->assertSame($expect_redirect, $response->isRedirect());
     }
 
     public function urlAddLocaleDataProvider()
@@ -103,7 +106,7 @@ class RedirectControllerTest extends WebTestCase
      * @param $input_path
      * @param $redirect_path
      */
-    public function testAddLocale($user_locale, $input_path, $redirect_path)
+    public function testAddLocale($user_locale, $input_path, $redirect_path): void
     {
         //Redirect path is absolute
         $redirect_path = 'http://localhost'.$redirect_path;
@@ -116,6 +119,6 @@ class RedirectControllerTest extends WebTestCase
 
         $this->client->followRedirects(false);
         $this->client->request('GET', $input_path);
-        $this->assertEquals($redirect_path, $this->client->getResponse()->headers->get('Location'));
+        $this->assertSame($redirect_path, $this->client->getResponse()->headers->get('Location'));
     }
 }

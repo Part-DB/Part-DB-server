@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -35,9 +38,6 @@ class NamedDBElementRepositoryTest extends WebTestCase
     /** @var StructuralDBElementRepository */
     private $repo;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
     {
         $kernel = self::bootKernel();
@@ -49,14 +49,14 @@ class NamedDBElementRepositoryTest extends WebTestCase
         $this->repo = $this->entityManager->getRepository(User::class);
     }
 
-    public function testGetGenericNodeTree()
+    public function testGetGenericNodeTree(): void
     {
         $tree = $this->repo->getGenericNodeTree();
 
         $this->assertIsArray($tree);
         $this->assertContainsOnlyInstancesOf(TreeViewNode::class, $tree);
         $this->assertCount(4, $tree);
-        $this->assertEquals('admin', $tree[0]->getText());
+        $this->assertSame('admin', $tree[0]->getText());
         $this->assertEmpty($tree[0]->getNodes());
     }
 }

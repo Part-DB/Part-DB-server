@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -36,7 +39,7 @@ class EntityImporterTest extends WebTestCase
      */
     protected $service;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -45,7 +48,7 @@ class EntityImporterTest extends WebTestCase
         $this->service = self::$container->get(EntityImporter::class);
     }
 
-    public function testMassCreationResults()
+    public function testMassCreationResults(): void
     {
         $errors = [];
         $results = $this->service->massCreation('', AttachmentType::class, null, $errors);
@@ -60,26 +63,26 @@ class EntityImporterTest extends WebTestCase
         //Check type
         $this->assertInstanceOf(AttachmentType::class, $results[0]);
         //Check names
-        $this->assertEquals('Test 1', $results[0]->getName());
-        $this->assertEquals('Test 2', $results[1]->getName());
+        $this->assertSame('Test 1', $results[0]->getName());
+        $this->assertSame('Test 2', $results[1]->getName());
         //Check parent
         $this->assertNull($results[0]->getMasterPictureAttachment());
 
         $parent = new AttachmentType();
         $results = $this->service->massCreation($lines, AttachmentType::class, $parent, $errors);
         $this->assertCount(3, $results);
-        $this->assertEquals($parent, $results[0]->getParent());
+        $this->assertSame($parent, $results[0]->getParent());
     }
 
-    public function testMassCreationErrors()
+    public function testMassCreationErrors(): void
     {
         $errors = [];
         //Node 1 and Node 2 are created in datafixtures, so their attemp to create them again must fail.
         $lines = "Test 1 \n Node 1 \n Node 2";
         $results = $this->service->massCreation($lines, AttachmentType::class, null, $errors);
         $this->assertCount(1, $results);
-        $this->assertEquals('Test 1', $results[0]->getName());
+        $this->assertSame('Test 1', $results[0]->getName());
         $this->assertCount(2, $errors);
-        $this->assertEquals('Node 1', $errors[0]['entity']->getName());
+        $this->assertSame('Node 1', $errors[0]['entity']->getName());
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -54,8 +57,8 @@ class AttachmentURLGeneratorTest extends WebTestCase
      * @param $input
      * @param $expected
      */
-    public function testabsolutePathToAssetPath($input, $expected)
+    public function testTestabsolutePathToAssetPath($input, $expected): void
     {
-        $this->assertEquals($expected, static::$service->absolutePathToAssetPath($input, static::PUBLIC_DIR));
+        $this->assertSame($expected, static::$service->absolutePathToAssetPath($input, static::PUBLIC_DIR));
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -37,7 +40,7 @@ class NodesListBuilderTest extends WebTestCase
     protected $service;
     protected $em;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::bootKernel();
         $this->service = self::$container->get(NodesListBuilder::class);
@@ -54,13 +57,13 @@ class NodesListBuilderTest extends WebTestCase
 
         $this->assertCount(7, $nodes);
         $this->assertContainsOnlyInstancesOf(AttachmentType::class, $nodes);
-        $this->assertEquals('Node 1', $nodes[0]->getName());
-        $this->assertEquals('Node 1.1', $nodes[1]->getName());
-        $this->assertEquals('Node 1.1.1', $nodes[2]->getName());
-        $this->assertEquals('Node 1.2', $nodes[3]->getName());
-        $this->assertEquals('Node 2', $nodes[4]->getName());
-        $this->assertEquals('Node 2.1', $nodes[5]->getName());
-        $this->assertEquals('Node 3', $nodes[6]->getName());
+        $this->assertSame('Node 1', $nodes[0]->getName());
+        $this->assertSame('Node 1.1', $nodes[1]->getName());
+        $this->assertSame('Node 1.1.1', $nodes[2]->getName());
+        $this->assertSame('Node 1.2', $nodes[3]->getName());
+        $this->assertSame('Node 2', $nodes[4]->getName());
+        $this->assertSame('Node 2.1', $nodes[5]->getName());
+        $this->assertSame('Node 3', $nodes[6]->getName());
     }
 
     public function testTypeToNodesListElement(): void
@@ -71,8 +74,8 @@ class NodesListBuilderTest extends WebTestCase
 
         $this->assertCount(3, $nodes);
         $this->assertContainsOnlyInstancesOf(AttachmentType::class, $nodes);
-        $this->assertEquals('Node 1.1', $nodes[0]->getName());
-        $this->assertEquals('Node 1.1.1', $nodes[1]->getName());
-        $this->assertEquals('Node 1.2', $nodes[2]->getName());
+        $this->assertSame('Node 1.1', $nodes[0]->getName());
+        $this->assertSame('Node 1.1.1', $nodes[1]->getName());
+        $this->assertSame('Node 1.2', $nodes[2]->getName());
     }
 }

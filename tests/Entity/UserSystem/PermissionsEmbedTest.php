@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -27,7 +30,7 @@ use PHPUnit\Framework\TestCase;
 
 class PermissionsEmbedTest extends TestCase
 {
-    public function testGetPermissionValue()
+    public function testGetPermissionValue(): void
     {
         $embed = new PermissionsEmbed();
         //For newly created embedded, all things should be set to inherit => null
@@ -71,7 +74,7 @@ class PermissionsEmbedTest extends TestCase
         $this->assertNull($embed->getPermissionValue(PermissionsEmbed::PARTS, 6));
     }
 
-    public function testGetBitValue()
+    public function testGetBitValue(): void
     {
         $embed = new PermissionsEmbed();
 
@@ -83,14 +86,14 @@ class PermissionsEmbedTest extends TestCase
         $property->setValue($embed, 0b11011000); // 11 01 10 00
 
         //Test if function is working correctly
-        $this->assertEquals(PermissionsEmbed::INHERIT, $embed->getBitValue(PermissionsEmbed::PARTS, 0));
-        $this->assertEquals(PermissionsEmbed::DISALLOW, $embed->getBitValue(PermissionsEmbed::PARTS, 2));
-        $this->assertEquals(PermissionsEmbed::ALLOW, $embed->getBitValue(PermissionsEmbed::PARTS, 4));
+        $this->assertSame(PermissionsEmbed::INHERIT, $embed->getBitValue(PermissionsEmbed::PARTS, 0));
+        $this->assertSame(PermissionsEmbed::DISALLOW, $embed->getBitValue(PermissionsEmbed::PARTS, 2));
+        $this->assertSame(PermissionsEmbed::ALLOW, $embed->getBitValue(PermissionsEmbed::PARTS, 4));
         // 11 is reserved, but it should be also treat as INHERIT.
-        $this->assertEquals(0b11, $embed->getBitValue(PermissionsEmbed::PARTS, 6));
+        $this->assertSame(0b11, $embed->getBitValue(PermissionsEmbed::PARTS, 6));
     }
 
-    public function testInvalidPermissionName()
+    public function testInvalidPermissionName(): void
     {
         $embed = new PermissionsEmbed();
         //When encoutering an unknown permission name the class must throw an exception
@@ -98,7 +101,7 @@ class PermissionsEmbedTest extends TestCase
         $embed->getPermissionValue('invalid', 0);
     }
 
-    public function testInvalidBit1()
+    public function testInvalidBit1(): void
     {
         $embed = new PermissionsEmbed();
         //When encoutering an negative bit the class must throw an exception
@@ -106,7 +109,7 @@ class PermissionsEmbedTest extends TestCase
         $embed->getPermissionValue('parts', -1);
     }
 
-    public function testInvalidBit2()
+    public function testInvalidBit2(): void
     {
         $embed = new PermissionsEmbed();
         //When encoutering an odd bit number it must throw an error.
@@ -114,7 +117,7 @@ class PermissionsEmbedTest extends TestCase
         $embed->getPermissionValue('parts', 1);
     }
 
-    public function testInvalidBit3()
+    public function testInvalidBit3(): void
     {
         $embed = new PermissionsEmbed();
         //When encoutering an too high bit number it must throw an error.
@@ -145,33 +148,33 @@ class PermissionsEmbedTest extends TestCase
     /**
      * @dataProvider getStatesBINARY
      */
-    public function testsetBitValue($value)
+    public function testTestsetBitValue($value): void
     {
         $embed = new PermissionsEmbed();
         //Check if it returns itself, for chaining.
-        $this->assertEquals($embed, $embed->setBitValue(PermissionsEmbed::PARTS, 0, $value));
-        $this->assertEquals($value, $embed->getBitValue(PermissionsEmbed::PARTS, 0));
+        $this->assertSame($embed, $embed->setBitValue(PermissionsEmbed::PARTS, 0, $value));
+        $this->assertSame($value, $embed->getBitValue(PermissionsEmbed::PARTS, 0));
     }
 
     /**
      * @dataProvider getStatesBOOL
      */
-    public function testSetPermissionValue($value)
+    public function testSetPermissionValue($value): void
     {
         $embed = new PermissionsEmbed();
         //Check if it returns itself, for chaining.
-        $this->assertEquals($embed, $embed->setPermissionValue(PermissionsEmbed::PARTS, 0, $value));
-        $this->assertEquals($value, $embed->getPermissionValue(PermissionsEmbed::PARTS, 0));
+        $this->assertSame($embed, $embed->setPermissionValue(PermissionsEmbed::PARTS, 0, $value));
+        $this->assertSame($value, $embed->getPermissionValue(PermissionsEmbed::PARTS, 0));
     }
 
-    public function testSetRawPermissionValue()
+    public function testSetRawPermissionValue(): void
     {
         $embed = new PermissionsEmbed();
         $embed->setRawPermissionValue(PermissionsEmbed::PARTS, 10);
-        $this->assertEquals(10, $embed->getRawPermissionValue(PermissionsEmbed::PARTS));
+        $this->assertSame(10, $embed->getRawPermissionValue(PermissionsEmbed::PARTS));
     }
 
-    public function testSetRawPermissionValues()
+    public function testSetRawPermissionValues(): void
     {
         $embed = new PermissionsEmbed();
         $embed->setRawPermissionValues([
@@ -180,9 +183,9 @@ class PermissionsEmbedTest extends TestCase
             PermissionsEmbed::CATEGORIES => 1304,
         ]);
 
-        $this->assertEquals(0, $embed->getRawPermissionValue(PermissionsEmbed::PARTS));
-        $this->assertEquals(100, $embed->getRawPermissionValue(PermissionsEmbed::USERS));
-        $this->assertEquals(1304, $embed->getRawPermissionValue(PermissionsEmbed::CATEGORIES));
+        $this->assertSame(0, $embed->getRawPermissionValue(PermissionsEmbed::PARTS));
+        $this->assertSame(100, $embed->getRawPermissionValue(PermissionsEmbed::USERS));
+        $this->assertSame(1304, $embed->getRawPermissionValue(PermissionsEmbed::CATEGORIES));
 
         //Test second method to pass perm names and values
         $embed->setRawPermissionValues(
@@ -190,8 +193,8 @@ class PermissionsEmbedTest extends TestCase
             [0, 100, 1304]
         );
 
-        $this->assertEquals(0, $embed->getRawPermissionValue(PermissionsEmbed::PARTS));
-        $this->assertEquals(100, $embed->getRawPermissionValue(PermissionsEmbed::USERS));
-        $this->assertEquals(1304, $embed->getRawPermissionValue(PermissionsEmbed::CATEGORIES));
+        $this->assertSame(0, $embed->getRawPermissionValue(PermissionsEmbed::PARTS));
+        $this->assertSame(100, $embed->getRawPermissionValue(PermissionsEmbed::USERS));
+        $this->assertSame(1304, $embed->getRawPermissionValue(PermissionsEmbed::CATEGORIES));
     }
 }

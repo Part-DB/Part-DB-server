@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -28,7 +31,7 @@ use PHPUnit\Framework\TestCase;
 
 class OrderdetailTest extends TestCase
 {
-    public function testAddRemovePricdetails()
+    public function testAddRemovePricdetails(): void
     {
         $orderdetail = new Orderdetail();
         $this->assertInstanceOf(Collection::class, $orderdetail->getPricedetails());
@@ -36,15 +39,15 @@ class OrderdetailTest extends TestCase
 
         $pricedetail = new Pricedetail();
         $orderdetail->addPricedetail($pricedetail);
-        $this->assertEquals($orderdetail, $pricedetail->getOrderdetail());
-        $this->assertEquals(1, $orderdetail->getPricedetails()->count());
+        $this->assertSame($orderdetail, $pricedetail->getOrderdetail());
+        $this->assertSame(1, $orderdetail->getPricedetails()->count());
 
         //After removal of the pricedetail, the orderdetail must be empty again
         $orderdetail->removePricedetail($pricedetail);
         $this->assertTrue($orderdetail->getPricedetails()->isEmpty());
     }
 
-    public function testFindPriceForQty()
+    public function testFindPriceForQty(): void
     {
         $price0 = (new Pricedetail())->setMinDiscountQuantity(0.23);
         $price1 = (new Pricedetail())->setMinDiscountQuantity(1);
@@ -54,10 +57,10 @@ class OrderdetailTest extends TestCase
         $this->assertNull($orderdetail->findPriceForQty(0));
         $this->assertNull($orderdetail->findPriceForQty(0.1));
 
-        $this->assertEquals($price0, $orderdetail->findPriceForQty(0.5));
-        $this->assertEquals($price1, $orderdetail->findPriceForQty(1));
-        $this->assertEquals($price1, $orderdetail->findPriceForQty(1.5));
-        $this->assertEquals($price5, $orderdetail->findPriceForQty(5.3));
-        $this->assertEquals($price5, $orderdetail->findPriceForQty(10000));
+        $this->assertSame($price0, $orderdetail->findPriceForQty(0.5));
+        $this->assertSame($price1, $orderdetail->findPriceForQty(1));
+        $this->assertSame($price1, $orderdetail->findPriceForQty(1.5));
+        $this->assertSame($price5, $orderdetail->findPriceForQty(5.3));
+        $this->assertSame($price5, $orderdetail->findPriceForQty(10000));
     }
 }

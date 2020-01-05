@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -27,15 +30,15 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
-    public function testGetFullName()
+    public function testGetFullName(): void
     {
         $user = new User();
         $user->setName('username');
         $user->setFirstName('John');
         $user->setLastName('Doe');
 
-        $this->assertEquals('John Doe', $user->getFullName(false));
-        $this->assertEquals('John Doe (username)', $user->getFullName(true));
+        $this->assertSame('John Doe', $user->getFullName(false));
+        $this->assertSame('John Doe (username)', $user->getFullName(true));
     }
 
     public function googleAuthenticatorEnabledDataProvider(): array
@@ -50,7 +53,7 @@ class UserTest extends TestCase
     /**
      * @dataProvider googleAuthenticatorEnabledDataProvider
      */
-    public function testIsGoogleAuthenticatorEnabled(?string $secret, bool $expected)
+    public function testIsGoogleAuthenticatorEnabled(?string $secret, bool $expected): void
     {
         $user = new User();
         $user->setGoogleAuthenticatorSecret($secret);
@@ -60,14 +63,14 @@ class UserTest extends TestCase
     /**
      * @requires PHPUnit 8
      */
-    public function testSetBackupCodes()
+    public function testSetBackupCodes(): void
     {
         $user = new User();
         $codes = ['test', 'invalid', 'test'];
         $user->setBackupCodes($codes);
         // Backup Codes generation date must be changed!
         $this->assertEqualsWithDelta(new \DateTime(), $user->getBackupCodesGenerationDate(), 0.1);
-        $this->assertEquals($codes, $user->getBackupCodes());
+        $this->assertSame($codes, $user->getBackupCodes());
 
         //Test what happens if we delete the backup keys
         $user->setBackupCodes([]);
@@ -75,7 +78,7 @@ class UserTest extends TestCase
         $this->assertNull($user->getBackupCodesGenerationDate());
     }
 
-    public function testIsBackupCode()
+    public function testIsBackupCode(): void
     {
         $user = new User();
         $codes = ['aaaa', 'bbbb', 'cccc', 'dddd'];
@@ -88,7 +91,7 @@ class UserTest extends TestCase
         $this->assertFalse($user->isBackupCode('zzzz'));
     }
 
-    public function testInvalidateBackupCode()
+    public function testInvalidateBackupCode(): void
     {
         $user = new User();
         $codes = ['aaaa', 'bbbb', 'cccc', 'dddd'];
@@ -106,7 +109,7 @@ class UserTest extends TestCase
         $user->invalidateBackupCode('zzzz');
     }
 
-    public function testInvalidateTrustedDeviceTokens()
+    public function testInvalidateTrustedDeviceTokens(): void
     {
         $user = new User();
         $old_value = $user->getTrustedTokenVersion();
@@ -115,7 +118,7 @@ class UserTest extends TestCase
         $this->assertGreaterThan($old_value, $user->getTrustedTokenVersion());
     }
 
-    public function testIsU2fEnabled()
+    public function testIsU2fEnabled(): void
     {
         $user = new User();
         $user->addU2FKey(new U2FKey());

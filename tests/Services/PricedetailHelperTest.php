@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -35,7 +38,7 @@ class PricedetailHelperTest extends WebTestCase
      */
     protected $service;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         //Get an service instance.
@@ -84,8 +87,8 @@ class PricedetailHelperTest extends WebTestCase
     /**
      * @dataProvider maxDiscountAmountDataProvider
      */
-    public function testGetMaxDiscountAmount(Part $part, ?float $expected_result, string $message)
+    public function testGetMaxDiscountAmount(Part $part, ?float $expected_result, string $message): void
     {
-        $this->assertEquals($expected_result, $this->service->getMaxDiscountAmount($part), $message);
+        $this->assertSame($expected_result, $this->service->getMaxDiscountAmount($part), $message);
     }
 }

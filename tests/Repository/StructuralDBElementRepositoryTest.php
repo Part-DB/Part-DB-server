@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -35,9 +38,6 @@ class StructuralDBElementRepositoryTest extends WebTestCase
     /** @var StructuralDBElementRepository */
     private $repo;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
     {
         $kernel = self::bootKernel();
@@ -56,9 +56,9 @@ class StructuralDBElementRepositoryTest extends WebTestCase
         $this->assertContainsOnlyInstancesOf(AttachmentType::class, $root_nodes);
 
         //Asc sorting
-        $this->assertEquals('Node 1', $root_nodes[0]->getName());
-        $this->assertEquals('Node 2', $root_nodes[1]->getName());
-        $this->assertEquals('Node 3', $root_nodes[2]->getName());
+        $this->assertSame('Node 1', $root_nodes[0]->getName());
+        $this->assertSame('Node 2', $root_nodes[1]->getName());
+        $this->assertSame('Node 3', $root_nodes[2]->getName());
     }
 
     public function testGetGenericTree(): void
@@ -74,16 +74,16 @@ class StructuralDBElementRepositoryTest extends WebTestCase
         $this->assertEmpty($tree[1]->getNodes()[0]->getNodes());
 
         //Check text
-        $this->assertEquals('Node 1', $tree[0]->getText());
-        $this->assertEquals('Node 2', $tree[1]->getText());
-        $this->assertEquals('Node 3', $tree[2]->getText());
-        $this->assertEquals('Node 1.1', $tree[0]->getNodes()[0]->getText());
-        $this->assertEquals('Node 1.1.1', $tree[0]->getNodes()[0]->getNodes()[0]->getText());
+        $this->assertSame('Node 1', $tree[0]->getText());
+        $this->assertSame('Node 2', $tree[1]->getText());
+        $this->assertSame('Node 3', $tree[2]->getText());
+        $this->assertSame('Node 1.1', $tree[0]->getNodes()[0]->getText());
+        $this->assertSame('Node 1.1.1', $tree[0]->getNodes()[0]->getNodes()[0]->getText());
 
         //Check that IDs were set correctly
-        $this->assertEquals(1, $tree[0]->getId());
-        $this->assertEquals(2, $tree[1]->getId());
-        $this->assertEquals(7, $tree[0]->getNodes()[0]->getNodes()[0]->getId());
+        $this->assertSame(1, $tree[0]->getId());
+        $this->assertSame(2, $tree[1]->getId());
+        $this->assertSame(7, $tree[0]->getNodes()[0]->getNodes()[0]->getId());
     }
 
     /**
@@ -96,13 +96,13 @@ class StructuralDBElementRepositoryTest extends WebTestCase
 
         $this->assertCount(7, $nodes);
         $this->assertContainsOnlyInstancesOf(AttachmentType::class, $nodes);
-        $this->assertEquals('Node 1', $nodes[0]->getName());
-        $this->assertEquals('Node 1.1', $nodes[1]->getName());
-        $this->assertEquals('Node 1.1.1', $nodes[2]->getName());
-        $this->assertEquals('Node 1.2', $nodes[3]->getName());
-        $this->assertEquals('Node 2', $nodes[4]->getName());
-        $this->assertEquals('Node 2.1', $nodes[5]->getName());
-        $this->assertEquals('Node 3', $nodes[6]->getName());
+        $this->assertSame('Node 1', $nodes[0]->getName());
+        $this->assertSame('Node 1.1', $nodes[1]->getName());
+        $this->assertSame('Node 1.1.1', $nodes[2]->getName());
+        $this->assertSame('Node 1.2', $nodes[3]->getName());
+        $this->assertSame('Node 2', $nodes[4]->getName());
+        $this->assertSame('Node 2.1', $nodes[5]->getName());
+        $this->assertSame('Node 3', $nodes[6]->getName());
     }
 
     public function testToNodesListElement(): void
@@ -113,8 +113,8 @@ class StructuralDBElementRepositoryTest extends WebTestCase
 
         $this->assertCount(3, $nodes);
         $this->assertContainsOnlyInstancesOf(AttachmentType::class, $nodes);
-        $this->assertEquals('Node 1.1', $nodes[0]->getName());
-        $this->assertEquals('Node 1.1.1', $nodes[1]->getName());
-        $this->assertEquals('Node 1.2', $nodes[2]->getName());
+        $this->assertSame('Node 1.1', $nodes[0]->getName());
+        $this->assertSame('Node 1.1.1', $nodes[1]->getName());
+        $this->assertSame('Node 1.2', $nodes[2]->getName());
     }
 }

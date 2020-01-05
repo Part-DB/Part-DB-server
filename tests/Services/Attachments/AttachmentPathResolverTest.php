@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -27,15 +30,14 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class AttachmentPathResolverTest extends WebTestCase
 {
+    public static $media_path;
+    public static $footprint_path;
     /**
      * @var AmountFormatter
      */
     protected static $service;
     protected static $projectDir_orig;
     protected static $projectDir;
-
-    public static $media_path;
-    public static $footprint_path;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -57,17 +59,17 @@ class AttachmentPathResolverTest extends WebTestCase
         self::$service = self::$container->get(AttachmentPathResolver::class);
     }
 
-    public function testParameterToAbsolutePath()
+    public function testParameterToAbsolutePath(): void
     {
         //If null is passed, null must be returned
         $this->assertNull(self::$service->parameterToAbsolutePath(null));
 
         //Absolute path should be returned like they are (we use projectDir here, because we know that this dir exists)
-        $this->assertEquals(self::$projectDir_orig, self::$service->parameterToAbsolutePath(self::$projectDir));
+        $this->assertSame(self::$projectDir_orig, self::$service->parameterToAbsolutePath(self::$projectDir));
 
         //Relative pathes should be resolved
-        $this->assertEquals(self::$projectDir_orig.\DIRECTORY_SEPARATOR.'src', self::$service->parameterToAbsolutePath('src'));
-        $this->assertEquals(self::$projectDir_orig.\DIRECTORY_SEPARATOR.'src', self::$service->parameterToAbsolutePath('./src'));
+        $this->assertSame(self::$projectDir_orig.\DIRECTORY_SEPARATOR.'src', self::$service->parameterToAbsolutePath('src'));
+        $this->assertSame(self::$projectDir_orig.\DIRECTORY_SEPARATOR.'src', self::$service->parameterToAbsolutePath('./src'));
 
         //Invalid pathes should return null
         $this->assertNull(self::$service->parameterToAbsolutePath('/this/path/does/not/exist'));
@@ -116,16 +118,16 @@ class AttachmentPathResolverTest extends WebTestCase
     /**
      * @dataProvider placeholderDataProvider
      */
-    public function testPlaceholderToRealPath($param, $expected)
+    public function testPlaceholderToRealPath($param, $expected): void
     {
-        $this->assertEquals($expected, self::$service->placeholderToRealPath($param));
+        $this->assertSame($expected, self::$service->placeholderToRealPath($param));
     }
 
     /**
      * @dataProvider realPathDataProvider
      */
-    public function testRealPathToPlaceholder($param, $expected, $old_method = false)
+    public function testRealPathToPlaceholder($param, $expected, $old_method = false): void
     {
-        $this->assertEquals($expected, self::$service->realPathToPlaceholder($param, $old_method));
+        $this->assertSame($expected, self::$service->realPathToPlaceholder($param, $old_method));
     }
 }

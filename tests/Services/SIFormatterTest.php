@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -31,7 +34,7 @@ class SIFormatterTest extends WebTestCase
      */
     protected $service;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         //Get an service instance.
         self::bootKernel();
@@ -40,7 +43,7 @@ class SIFormatterTest extends WebTestCase
         $this->service = new SIFormatter();
     }
 
-    public function testGetMagnitude()
+    public function testGetMagnitude(): void
     {
         //Get an service instance.
         $this->assertSame(0, $this->service->getMagnitude(7.0));
@@ -61,7 +64,7 @@ class SIFormatterTest extends WebTestCase
         $this->assertSame(12, $this->service->getMagnitude(9.99e12));
     }
 
-    public function testgetPrefixByMagnitude()
+    public function testgetPrefixByMagnitude(): void
     {
         $this->assertSame([1, ''], $this->service->getPrefixByMagnitude(2));
 
@@ -74,10 +77,10 @@ class SIFormatterTest extends WebTestCase
         $this->assertSame([0.001, 'm'], $this->service->getPrefixByMagnitude(-4));
     }
 
-    public function testFormat()
+    public function testFormat(): void
     {
         $this->assertSame('2.32 km', $this->service->format(2321, 'm'));
-        $this->assertEquals('230.45 km', $this->service->format(230450.3, 'm'));
+        $this->assertSame('230.45 km', $this->service->format(230450.3, 'm'));
         $this->assertSame('-98.20 mg', $this->service->format(-0.0982, 'g'));
         $this->assertSame('-0.23 g', $this->service->format(-0.23, 'g'));
     }

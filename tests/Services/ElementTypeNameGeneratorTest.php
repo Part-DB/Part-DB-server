@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -38,7 +41,7 @@ class ElementTypeNameGeneratorTest extends WebTestCase
      */
     protected $service;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -47,14 +50,14 @@ class ElementTypeNameGeneratorTest extends WebTestCase
         $this->service = self::$container->get(ElementTypeNameGenerator::class);
     }
 
-    public function testGetLocalizedTypeNameCombination()
+    public function testGetLocalizedTypeNameCombination(): void
     {
         //We only test in english
-        $this->assertEquals('Part', $this->service->getLocalizedTypeLabel(new Part()));
-        $this->assertEquals('Category', $this->service->getLocalizedTypeLabel(new Category()));
+        $this->assertSame('Part', $this->service->getLocalizedTypeLabel(new Part()));
+        $this->assertSame('Category', $this->service->getLocalizedTypeLabel(new Category()));
 
         //Test inheritance
-        $this->assertEquals('Attachment', $this->service->getLocalizedTypeLabel(new PartAttachment()));
+        $this->assertSame('Attachment', $this->service->getLocalizedTypeLabel(new PartAttachment()));
 
         //Test exception for unknpwn type
         $this->expectException(EntityNotSupportedException::class);
@@ -66,14 +69,14 @@ class ElementTypeNameGeneratorTest extends WebTestCase
         });
     }
 
-    public function testGetTypeNameCombination()
+    public function testGetTypeNameCombination(): void
     {
         $part = new Part();
         $part->setName('Test<Part');
         //When the text version is used, dont escape the name
-        $this->assertEquals('Part: Test<Part', $this->service->getTypeNameCombination($part, false));
+        $this->assertSame('Part: Test<Part', $this->service->getTypeNameCombination($part, false));
 
-        $this->assertEquals('<i>Part:</i> Test&lt;Part', $this->service->getTypeNameCombination($part, true));
+        $this->assertSame('<i>Part:</i> Test&lt;Part', $this->service->getTypeNameCombination($part, true));
 
         //Test exception
         $this->expectException(EntityNotSupportedException::class);

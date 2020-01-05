@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -28,23 +31,23 @@ use PHPUnit\Framework\TestCase;
 
 class PricedetailTest extends TestCase
 {
-    public function testGetPricePerUnit()
+    public function testGetPricePerUnit(): void
     {
         $pricedetail = new Pricedetail();
         $pricedetail->setPrice('100.234');
 
-        $this->assertEquals('100.23400', $pricedetail->getPricePerUnit());
+        $this->assertSame('100.23400', $pricedetail->getPricePerUnit());
 
-        $pricedetail->setPriceRelatedQuantity('2.3');
-        $this->assertEquals('43.58000', $pricedetail->getPricePerUnit());
-        $this->assertEquals('139.45600', $pricedetail->getPricePerUnit('3.2'));
+        $pricedetail->setPriceRelatedQuantity(2.3);
+        $this->assertSame('43.58000', $pricedetail->getPricePerUnit());
+        $this->assertSame('139.45600', $pricedetail->getPricePerUnit('3.2'));
 
         $pricedetail->setPrice('10000000.2345'); //Ten million
         $pricedetail->setPriceRelatedQuantity(1.234e9); //100 billion
-        $this->assertEquals('0.00810', $pricedetail->getPricePerUnit());
+        $this->assertSame('0.00810', $pricedetail->getPricePerUnit());
     }
 
-    public function testGetPriceRelatedQuantity()
+    public function testGetPriceRelatedQuantity(): void
     {
         $pricedetail = new Pricedetail();
         $part = $this->createMock(Part::class);
@@ -58,21 +61,21 @@ class PricedetailTest extends TestCase
         $orderdetail2->method('getPart')->willReturn($part2);
 
         //By default a price detail returns 1
-        $this->assertEquals(1, $pricedetail->getPriceRelatedQuantity());
+        $this->assertSame(1.0, $pricedetail->getPriceRelatedQuantity());
 
         $pricedetail->setOrderdetail($orderdetail);
         $pricedetail->setPriceRelatedQuantity(10.23);
-        $this->assertEquals(10, $pricedetail->getPriceRelatedQuantity());
+        $this->assertSame(10.0, $pricedetail->getPriceRelatedQuantity());
         //Price related quantity must not be zero!
         $pricedetail->setPriceRelatedQuantity(0.23);
-        $this->assertEquals(1, $pricedetail->getPriceRelatedQuantity());
+        $this->assertSame(1.0, $pricedetail->getPriceRelatedQuantity());
 
         //With an part that has an float amount unit, also values like 0.23 can be returned
         $pricedetail->setOrderdetail($orderdetail2);
-        $this->assertEquals(0.23, $pricedetail->getPriceRelatedQuantity());
+        $this->assertSame(0.23, $pricedetail->getPriceRelatedQuantity());
     }
 
-    public function testGetMinDiscountQuantity()
+    public function testGetMinDiscountQuantity(): void
     {
         $pricedetail = new Pricedetail();
         $part = $this->createMock(Part::class);
@@ -86,17 +89,17 @@ class PricedetailTest extends TestCase
         $orderdetail2->method('getPart')->willReturn($part2);
 
         //By default a price detail returns 1
-        $this->assertEquals(1, $pricedetail->getMinDiscountQuantity());
+        $this->assertSame(1.0, $pricedetail->getMinDiscountQuantity());
 
         $pricedetail->setOrderdetail($orderdetail);
         $pricedetail->setMinDiscountQuantity(10.23);
-        $this->assertEquals(10, $pricedetail->getMinDiscountQuantity());
+        $this->assertSame(10.0, $pricedetail->getMinDiscountQuantity());
         //Price related quantity must not be zero!
         $pricedetail->setMinDiscountQuantity(0.23);
-        $this->assertEquals(1, $pricedetail->getMinDiscountQuantity());
+        $this->assertSame(1.0, $pricedetail->getMinDiscountQuantity());
 
         //With an part that has an float amount unit, also values like 0.23 can be returned
         $pricedetail->setOrderdetail($orderdetail2);
-        $this->assertEquals(0.23, $pricedetail->getMinDiscountQuantity());
+        $this->assertSame(0.23, $pricedetail->getMinDiscountQuantity());
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -29,7 +32,7 @@ class BackupCodeGeneratorTest extends TestCase
     /**
      * Test if an exception is thrown if you are using a too high code length.
      */
-    public function testLengthUpperLimit()
+    public function testLengthUpperLimit(): void
     {
         $this->expectException(\RuntimeException::class);
         new BackupCodeGenerator(33, 10);
@@ -38,7 +41,7 @@ class BackupCodeGeneratorTest extends TestCase
     /**
      * Test if an exception is thrown if you are using a too high code length.
      */
-    public function testLengthLowerLimit()
+    public function testLengthLowerLimit(): void
     {
         $this->expectException(\RuntimeException::class);
         new BackupCodeGenerator(4, 10);
@@ -52,7 +55,7 @@ class BackupCodeGeneratorTest extends TestCase
     /**
      * @dataProvider  codeLengthDataProvider
      */
-    public function testGenerateSingleCode(int $code_length)
+    public function testGenerateSingleCode(int $code_length): void
     {
         $generator = new BackupCodeGenerator($code_length, 10);
         $this->assertRegExp("/^([a-f0-9]){{$code_length}}\$/", $generator->generateSingleCode());
@@ -66,7 +69,7 @@ class BackupCodeGeneratorTest extends TestCase
     /**
      * @dataProvider codeCountDataProvider
      */
-    public function testGenerateCodeSet(int $code_count)
+    public function testGenerateCodeSet(int $code_count): void
     {
         $generator = new BackupCodeGenerator(8, $code_count);
         $this->assertCount($code_count, $generator->generateCodeSet());

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -60,11 +63,11 @@ class BuiltinAttachmentsFinderTest extends WebTestCase
     /**
      * @dataProvider dataProvider
      */
-    public function testFind($keyword, $options, $expected)
+    public function testFind($keyword, $options, $expected): void
     {
         $value = static::$service->find($keyword, $options, static::$mock_list);
         //$this->assertEquals($expected, static::$service->find($keyword, $options, static::$mock_list));
-        $this->assertEquals([], array_diff($value, $expected), 'Additional');
-        $this->assertEquals([], array_diff($expected, $value), 'Missing:');
+        $this->assertSame([], array_diff($value, $expected), 'Additional');
+        $this->assertSame([], array_diff($expected, $value), 'Missing:');
     }
 }
