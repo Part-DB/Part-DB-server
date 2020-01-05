@@ -105,7 +105,13 @@ class AttachmentManager
             return false;
         }
 
-        return file_exists($this->toAbsoluteFilePath($attachment)) || $attachment->isExternal();
+        $absolute_path = $this->toAbsoluteFilePath($attachment);
+
+        if ($absolute_path === null) {
+            return false;
+        }
+
+        return file_exists($absolute_path) || $attachment->isExternal();
     }
 
     /**

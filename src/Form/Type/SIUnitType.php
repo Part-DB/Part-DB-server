@@ -160,7 +160,7 @@ class SIUnitType extends AbstractType implements DataMapperInterface
             return null;
         }
 
-        $data = $this->si_formatter->convertValue($viewData);
+        $data = $this->si_formatter->convertValue((float) $viewData);
 
         if (isset($forms['prefix'])) {
             $forms['value']->setData($data['value']);
