@@ -103,7 +103,7 @@ class UpdateExchangeRatesCommand extends Command
         foreach ($candidates as $currency) {
             try {
                 $rate = $swap->latest($currency->getIsoCode().'/'.$this->base_current);
-                $currency->setExchangeRate($rate->getValue());
+                $currency->setExchangeRate((string) $rate->getValue());
                 $io->note(sprintf('Set exchange rate of %s to %f', $currency->getIsoCode(), $currency->getExchangeRate()));
                 $this->em->persist($currency);
 
