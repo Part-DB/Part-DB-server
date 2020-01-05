@@ -8,6 +8,9 @@
     "beberlei/assert": {
         "version": "v3.2.6"
     },
+    "composer/semver": {
+        "version": "1.5.0"
+    },
     "composer/xdebug-handler": {
         "version": "1.3.3"
     },
@@ -141,6 +144,18 @@
     "florianv/swap": {
         "version": "3.5.0"
     },
+    "friendsofphp/php-cs-fixer": {
+        "version": "2.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.2",
+            "ref": "cc05ab6abf6894bddb9bbd6a252459010ebe040b"
+        },
+        "files": [
+            "./.php_cs.dist"
+        ]
+    },
     "friendsofsymfony/ckeditor-bundle": {
         "version": "2.0",
         "recipe": {
@@ -164,6 +179,9 @@
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
+    },
+    "jean85/pretty-package-versions": {
+        "version": "1.2"
     },
     "lcobucci/jwt": {
         "version": "3.3.1"
@@ -192,6 +210,15 @@
     },
     "netresearch/jsonmapper": {
         "version": "v1.6.0"
+    },
+    "nette/finder": {
+        "version": "v2.5.2"
+    },
+    "nette/robot-loader": {
+        "version": "v3.2.1"
+    },
+    "nette/utils": {
+        "version": "v3.1.0"
     },
     "nikic/php-parser": {
         "version": "v4.2.1"
@@ -238,6 +265,9 @@
     "php": {
         "version": "7.2.5"
     },
+    "php-cs-fixer/diff": {
+        "version": "v1.3.0"
+    },
     "php-http/discovery": {
         "version": "1.7.0"
     },
@@ -282,6 +312,9 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "0.4.0"
+    },
+    "phpstan/phpdoc-parser": {
+        "version": "0.4.2"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -362,8 +395,23 @@
     "shivas/versioning-bundle": {
         "version": "3.1.3"
     },
+    "slevomat/coding-standard": {
+        "version": "6.0.5"
+    },
     "spomky-labs/otphp": {
         "version": "v9.1.4"
+    },
+    "squizlabs/php_codesniffer": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "0dc9cceda799fd3a08b96987e176a261028a3709"
+        },
+        "files": [
+            "./phpcs.xml.dist"
+        ]
     },
     "symfony/apache-pack": {
         "version": "1.0",
@@ -742,6 +790,21 @@
     },
     "symfony/yaml": {
         "version": "v4.2.3"
+    },
+    "symplify/coding-standard": {
+        "version": "v7.1.3"
+    },
+    "symplify/easy-coding-standard": {
+        "version": "v7.1.3"
+    },
+    "symplify/package-builder": {
+        "version": "v7.1.3"
+    },
+    "symplify/set-config-resolver": {
+        "version": "v7.1.3"
+    },
+    "symplify/smart-file-system": {
+        "version": "v7.1.3"
     },
     "thecodingmachine/safe": {
         "version": "v0.1.16"

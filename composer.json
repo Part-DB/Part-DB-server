@@ -64,6 +64,7 @@
         "symfony/maker-bundle": "^1.13",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "^1.0",
+        "symplify/easy-coding-standard": "^7.1",
         "vimeo/psalm": "^3.5"
     },
     "config": {

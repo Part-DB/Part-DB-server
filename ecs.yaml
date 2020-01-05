@@ -1,0 +1,10 @@
+parameters:
+  sets:
+    - "psr12"
+    - "php70"
+    - "php71"
+    - "clean-code"
+    - "common"
+    # very nice to have ↓
+    - "symplify"
+    - "symfony"
