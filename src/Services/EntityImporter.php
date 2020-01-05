@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -41,17 +44,6 @@ class EntityImporter
         $this->validator = $validator;
     }
 
-    protected function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'csv_separator' => ';',
-            'format' => 'json',
-            'preserve_children' => true,
-            'parent' => null,
-            'abort_on_validation_error' => true,
-        ]);
-    }
-
     /**
      * Creates many entries at once, based on a (text) list of name.
      * The created enties are not persisted to database yet, so you have to do it yourself.
@@ -68,10 +60,10 @@ class EntityImporter
         //Expand every line to a single entry:
         $names = explode("\n", $lines);
 
-        if (!is_a($class_name, StructuralDBElement::class, true)) {
+        if (! is_a($class_name, StructuralDBElement::class, true)) {
             throw new \InvalidArgumentException('$class_name must be a StructuralDBElement type!');
         }
-        if (null !== $parent && !is_a($parent, $class_name)) {
+        if (null !== $parent && ! is_a($parent, $class_name)) {
             throw new \InvalidArgumentException('$parent must have the same type as specified in $class_name!');
         }
 
@@ -84,7 +76,7 @@ class EntityImporter
                 //Skip empty lines (StrucuralDBElements must have a name)
                 continue;
             }
-            /** @var $entity StructuralDBElement */
+            /** @var StructuralDBElement $entity */
             //Create new element with given name
             $entity = new $class_name();
             $entity->setName($name);
@@ -127,7 +119,7 @@ class EntityImporter
 
         //Iterate over each $entity write it to DB.
         foreach ($entities as $entity) {
-            /* @var StructuralDBElement $entity */
+            /** @var StructuralDBElement $entity */
             //Move every imported entity to the selected parent
             $entity->setParent($options['parent']);
 
@@ -143,7 +135,7 @@ class EntityImporter
         }
 
         //Save changes to database, when no error happened, or we should continue on error.
-        if (empty($errors) || false == $options['abort_on_validation_error']) {
+        if (empty($errors) || false === $options['abort_on_validation_error']) {
             $this->em->flush();
         }
 
@@ -182,7 +174,7 @@ class EntityImporter
             ['groups' => $groups, 'csv_delimiter' => $options['csv_separator']]);
 
         //Ensure we have an array of entitity elements.
-        if (!\is_array($entities)) {
+        if (! \is_array($entities)) {
             $entities = [$entities];
         }
 
@@ -194,16 +186,27 @@ class EntityImporter
         return $entities;
     }
 
+    protected function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'csv_separator' => ';',
+            'format' => 'json',
+            'preserve_children' => true,
+            'parent' => null,
+            'abort_on_validation_error' => true,
+        ]);
+    }
+
     /**
      * This functions corrects the parent setting based on the children value of the parent.
      *
      * @param iterable $entities the list of entities that should be fixed
      * @param null     $parent   the parent, to which the entity should be set
      */
-    protected function correctParentEntites(iterable $entities, $parent = null)
+    protected function correctParentEntites(iterable $entities, $parent = null): void
     {
         foreach ($entities as $entity) {
-            /* @var $entity StructuralDBElement */
+            /** @var StructuralDBElement $entity */
             $entity->setParent($parent);
             //Do the same for the children of entity
             $this->correctParentEntites($entity->getChildren(), $entity);

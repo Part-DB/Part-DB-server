@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -42,9 +45,9 @@ class ValidFileFilterValidator extends ConstraintValidator
      * @param mixed      $value      The value that should be validated
      * @param Constraint $constraint The constraint for the validation
      */
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof ValidFileFilter) {
+        if (! $constraint instanceof ValidFileFilter) {
             throw new UnexpectedTypeException($constraint, ValidFileFilter::class);
         }
 
@@ -52,12 +55,12 @@ class ValidFileFilterValidator extends ConstraintValidator
             return;
         }
 
-        if (!\is_string($value)) {
+        if (! \is_string($value)) {
             // throw this exception if your validator cannot handle the passed type so that it can be marked as invalid
             throw new UnexpectedValueException($value, 'string');
         }
 
-        if (!$this->filterTools->validateFilterString($value)) {
+        if (! $this->filterTools->validateFilterString($value)) {
             $this->context->buildViolation('validator.file_type_filter.invalid')
                 ->addViolation();
         }

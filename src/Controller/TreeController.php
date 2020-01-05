@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -61,7 +64,7 @@ class TreeController extends AbstractController
      * @Route("/category/{id}", name="tree_category")
      * @Route("/categories")
      */
-    public function categoryTree(Category $category = null)
+    public function categoryTree(?Category $category = null)
     {
         $tree = $this->treeGenerator->getTreeView(Category::class, $category);
 
@@ -72,7 +75,7 @@ class TreeController extends AbstractController
      * @Route("/footprint/{id}", name="tree_footprint")
      * @Route("/footprints")
      */
-    public function footprintTree(Footprint $footprint = null)
+    public function footprintTree(?Footprint $footprint = null)
     {
         $tree = $this->treeGenerator->getTreeView(Footprint::class, $footprint);
 
@@ -83,7 +86,7 @@ class TreeController extends AbstractController
      * @Route("/location/{id}", name="tree_location")
      * @Route("/locations")
      */
-    public function locationTree(Storelocation $location = null)
+    public function locationTree(?Storelocation $location = null)
     {
         $tree = $this->treeGenerator->getTreeView(Storelocation::class, $location);
 
@@ -94,7 +97,7 @@ class TreeController extends AbstractController
      * @Route("/manufacturer/{id}", name="tree_manufacturer")
      * @Route("/manufacturers")
      */
-    public function manufacturerTree(Manufacturer $manufacturer = null)
+    public function manufacturerTree(?Manufacturer $manufacturer = null)
     {
         $tree = $this->treeGenerator->getTreeView(Manufacturer::class, $manufacturer);
 
@@ -105,7 +108,7 @@ class TreeController extends AbstractController
      * @Route("/supplier/{id}", name="tree_supplier")
      * @Route("/suppliers")
      */
-    public function supplierTree(Supplier $supplier = null)
+    public function supplierTree(?Supplier $supplier = null)
     {
         $tree = $this->treeGenerator->getTreeView(Supplier::class, $supplier);
 
@@ -116,7 +119,7 @@ class TreeController extends AbstractController
      * @Route("/device/{id}", name="tree_device")
      * @Route("/devices")
      */
-    public function deviceTree(Device $device = null)
+    public function deviceTree(?Device $device = null)
     {
         $tree = $this->treeGenerator->getTreeView(Device::class, $device, '');
 

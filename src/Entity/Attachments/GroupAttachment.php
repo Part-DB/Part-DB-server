@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -31,12 +34,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class GroupAttachment extends Attachment
 {
+    public const ALLOWED_ELEMENT_CLASS = Group::class;
     /**
      * @var Group the element this attachment is associated with
      * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\Group", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */
     protected $element;
-
-    public const ALLOWED_ELEMENT_CLASS = Group::class;
 }

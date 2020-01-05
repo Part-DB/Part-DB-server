@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -45,9 +48,9 @@ class PermissionExtractor implements ExtractorInterface
      * @param string|array     $resource  Files, a file or a directory
      * @param MessageCatalogue $catalogue The catalogue
      */
-    public function extract($resource, MessageCatalogue $catalogue)
+    public function extract($resource, MessageCatalogue $catalogue): void
     {
-        if (!$this->finished) {
+        if (! $this->finished) {
             //Extract for every group...
             foreach ($this->permission_structure['groups'] as $group) {
                 if (isset($group['label'])) {

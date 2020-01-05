@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -185,7 +188,7 @@ trait OrderTrait
         }
 
         foreach ($all_orderdetails as $orderdetails) {
-            if (!$orderdetails->getObsolete()) {
+            if (! $orderdetails->getObsolete()) {
                 return false;
             }
         }

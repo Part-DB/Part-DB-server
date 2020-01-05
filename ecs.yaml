@@ -6,5 +6,5 @@ parameters:
     - "clean-code"
     - "common"
     # very nice to have ↓
-    - "symplify"
+    #- "symplify"
     - "symfony"

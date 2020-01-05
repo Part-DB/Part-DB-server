@@ -20,6 +20,7 @@
  */
 
 declare(strict_types=1);
+
 /**
  * Part-DB Version 0.4+ "nextgen"
  * Copyright (C) 2016 - 2019 Jan Böhmer

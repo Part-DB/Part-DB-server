@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -46,7 +49,7 @@ class DataStructureFixtures extends Fixture
     /**
      * Load data fixtures with the passed EntityManager.
      */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         //Reset autoincrement
         $types = [AttachmentType::class, Device::class, Category::class, Footprint::class, Manufacturer::class,
@@ -65,14 +68,14 @@ class DataStructureFixtures extends Fixture
      * @param string        $class   The class for which the nodes should be generated (must be a StructuralDBElement child)
      * @param ObjectManager $manager The ObjectManager that should be used to persist the nodes
      */
-    public function createNodesForClass(string $class, ObjectManager $manager)
+    public function createNodesForClass(string $class, ObjectManager $manager): void
     {
-        if (!new $class() instanceof StructuralDBElement) {
+        if (! new $class() instanceof StructuralDBElement) {
             throw new \InvalidArgumentException('$class must be a StructuralDBElement!');
         }
 
         $table_name = $this->em->getClassMetadata($class)->getTableName();
-        $this->em->getConnection()->exec("ALTER TABLE `$table_name` AUTO_INCREMENT = 1;");
+        $this->em->getConnection()->exec("ALTER TABLE `${table_name}` AUTO_INCREMENT = 1;");
 
         /** @var StructuralDBElement $node1 */
         $node1 = new $class();

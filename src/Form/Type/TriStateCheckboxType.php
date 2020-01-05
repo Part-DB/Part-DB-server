@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -36,7 +39,7 @@ class TriStateCheckboxType extends AbstractType implements DataTransformerInterf
         $builder->addViewTransformer($this);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'label_attr' => ['class' => 'checkbox-custom checkbox-inline'],
@@ -50,10 +53,7 @@ class TriStateCheckboxType extends AbstractType implements DataTransformerInterf
         return 'tristate';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars = array_replace($view->vars, [
             'value' => $form->getViewData(),

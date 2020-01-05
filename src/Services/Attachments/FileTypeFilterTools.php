@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -39,9 +42,9 @@ class FileTypeFilterTools
     protected const IMAGE_EXTS = Attachment::PICTURE_EXTS;
     protected const VIDEO_EXTS = ['mp4', 'ogv', 'ogg', 'webm'];
     protected const AUDIO_EXTS = ['mp3', 'flac', 'ogg', 'oga', 'wav', 'm4a', 'opus'];
+    protected const ALLOWED_MIME_PLACEHOLDERS = ['image/*', 'audio/*', 'video/*'];
 
     protected $mimeTypes;
-    protected const ALLOWED_MIME_PLACEHOLDERS = ['image/*', 'audio/*', 'video/*'];
     protected $cache;
 
     public function __construct(MimeTypesInterface $mimeTypes, CacheInterface $cache)
@@ -69,9 +72,9 @@ class FileTypeFilterTools
         //Check for each element if it is valid:
         foreach ($elements as $element) {
             $element = trim($element);
-            if (!preg_match('/^\.\w+$/', $element) // .ext is allowed
-                && !preg_match('/^[-\w.]+\/[-\w.]+/', $element) //Explicit MIME type is allowed
-                && !\in_array($element, static::ALLOWED_MIME_PLACEHOLDERS, false)) { //image/* is allowed
+            if (! preg_match('/^\.\w+$/', $element) // .ext is allowed
+                && ! preg_match('/^[-\w.]+\/[-\w.]+/', $element) //Explicit MIME type is allowed
+                && ! \in_array($element, static::ALLOWED_MIME_PLACEHOLDERS, false)) { //image/* is allowed
                 return false;
             }
         }
@@ -117,7 +120,7 @@ class FileTypeFilterTools
                 $element = 'video/*';
             } elseif ('audio' === $element || 'audio/' === $element) {
                 $element = 'audio/*';
-            } elseif (!preg_match('/^[-\w.]+\/[-\w.*]+/', $element) && 0 !== strpos($element, '.')) {
+            } elseif (! preg_match('/^[-\w.]+\/[-\w.*]+/', $element) && 0 !== strpos($element, '.')) {
                 //Convert jpg to .jpg
                 $element = '.'.$element;
             }

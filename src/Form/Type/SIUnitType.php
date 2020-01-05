@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -43,7 +46,7 @@ class SIUnitType extends AbstractType implements DataMapperInterface
         $this->si_formatter = $SIFormatter;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'measurement_unit' => null,
@@ -85,20 +88,20 @@ class SIUnitType extends AbstractType implements DataMapperInterface
 
         //Options which allows us, to limit the input using HTML5 number input
         $resolver->setDefaults([
-                'min' => 0,
-                'max' => '',
-                'step' => function (Options $options) {
-                    if (true === $options['is_integer']) {
-                        return 1;
-                    }
+            'min' => 0,
+            'max' => '',
+            'step' => function (Options $options) {
+                if (true === $options['is_integer']) {
+                    return 1;
+                }
 
-                    return 'any';
-                },
-                'html5' => true,
-            ]);
+                return 'any';
+            },
+            'html5' => true,
+        ]);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('value', NumberType::class, [
@@ -121,13 +124,13 @@ class SIUnitType extends AbstractType implements DataMapperInterface
         $builder->setDataMapper($this);
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['sm'] = false;
 
         //Check if we need to make this thing small
         if (isset($options['attr']['class'])) {
-            $view->vars['sm'] = (false !== strpos($options['attr']['class'], 'form-control-sm'));
+            $view->vars['sm'] = false !== strpos($options['attr']['class'], 'form-control-sm');
         }
 
         $view->vars['unit'] = $options['unit'];
@@ -196,7 +199,7 @@ class SIUnitType extends AbstractType implements DataMapperInterface
      *
      * @throws Exception\UnexpectedTypeException if the type of the data parameter is not supported
      */
-    public function mapFormsToData($forms, &$viewData)
+    public function mapFormsToData($forms, &$viewData): void
     {
         //Convert both fields to a single float value.
 

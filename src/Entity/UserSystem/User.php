@@ -267,6 +267,19 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
+     * Returns a string representation of this user (the full name).
+     * E.g. 'Jane Doe (j.doe) [DISABLED].
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        $tmp = $this->isDisabled() ? ' [DISABLED]' : '';
+
+        return $this->getFullName(true).$tmp;
+    }
+
+    /**
      * Checks if the current user, is the user which represents the not logged in (anonymous) users.
      *
      * @return bool true if this user is the anonymous user
@@ -330,7 +343,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @see UserInterface
      */
-    public function getSalt()
+    public function getSalt(): void
     {
         // not needed when using the "bcrypt" algorithm in security.yaml
     }
@@ -338,7 +351,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
@@ -503,7 +516,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     public function setName(string $new_name): NamedDBElement
     {
         // Anonymous user is not allowed to change its username
-        if (!$this->isAnonymousUser()) {
+        if (! $this->isAnonymousUser()) {
             $this->name = $new_name;
         }
 
@@ -646,8 +659,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Change the timezone of this user.
      *
-     * @param string $timezone|null The new timezone (e.g. 'Europe/Berlin') or null to use the system wide one.
-     *
      * @return $this
      */
     public function setTimezone(?string $timezone): self
@@ -707,19 +718,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
-     * Returns a string representation of this user (the full name).
-     * E.g. 'Jane Doe (j.doe) [DISABLED].
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        $tmp = $this->isDisabled() ? ' [DISABLED]' : '';
-
-        return $this->getFullName(true).$tmp;
-    }
-
-    /**
      * Return true if the user should do two-factor authentication.
      *
      * @return bool
@@ -771,7 +769,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     public function isBackupCode(string $code): bool
     {
-        return \in_array($code, $this->backupCodes);
+        return \in_array($code, $this->backupCodes, true);
     }
 
     /**
@@ -781,7 +779,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     public function invalidateBackupCode(string $code): void
     {
-        $key = array_search($code, $this->backupCodes);
+        $key = array_search($code, $this->backupCodes, true);
         if (false !== $key) {
             unset($this->backupCodes[$key]);
         }
@@ -883,9 +881,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         $this->u2fKeys->removeElement($key);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPreferredTwoFactorProvider(): ?string
     {
         //If U2F is available then prefer it

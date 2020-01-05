@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -45,7 +48,7 @@ class PasswordResetManager
     {
         $this->em = $em;
         $this->mailer = $mailer;
-        /* @var PasswordEncoderInterface passwordEncoder */
+        /** @var PasswordEncoderInterface passwordEncoder */
         $this->passwordEncoder = $encoderFactory->getEncoder(User::class);
         $this->translator = $translator;
         $this->userPasswordEncoder = $userPasswordEncoder;
@@ -70,7 +73,7 @@ class PasswordResetManager
         $expiration_date->add(date_interval_create_from_date_string('1 day'));
         $user->setPwResetExpires($expiration_date);
 
-        if (!empty($user->getEmail())) {
+        if (! empty($user->getEmail())) {
             $address = new Address($user->getEmail(), $user->getFullName());
             $mail = new TemplatedEmail();
             $mail->to($address);
@@ -118,7 +121,7 @@ class PasswordResetManager
         }
 
         //Check if token is valid
-        if (!$this->passwordEncoder->isPasswordValid($user->getPwResetToken(), $token, null)) {
+        if (! $this->passwordEncoder->isPasswordValid($user->getPwResetToken(), $token, null)) {
             return false;
         }
 

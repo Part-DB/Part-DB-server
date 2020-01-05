@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -27,11 +30,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class FootprintAdminForm extends BaseEntityAdminForm
 {
-    public function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity)
+    public function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity): void
     {
         $builder->add('footprint_3d', MasterPictureAttachmentType::class, [
             'required' => false,
-            'disabled' => !$this->security->isGranted(null === $entity->getID() ? 'create' : 'edit', $entity),
+            'disabled' => ! $this->security->isGranted(null === $entity->getID() ? 'create' : 'edit', $entity),
             'label' => 'footprint.edit.3d_model',
             'filter' => '3d_model',
             'entity' => $entity,

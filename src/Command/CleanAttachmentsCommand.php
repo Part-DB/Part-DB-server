@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -51,7 +54,7 @@ class CleanAttachmentsCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setDescription('Lists (and deletes if wanted) attachments files that are not used anymore (abandoned files).')
@@ -59,7 +62,7 @@ class CleanAttachmentsCommand extends Command
                 ' These files are not needed and can eventually deleted.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $io = new SymfonyStyle($input, $output);
 
@@ -84,7 +87,7 @@ class CleanAttachmentsCommand extends Command
 
         foreach ($finder as $file) {
             //If not attachment object uses this file, print it
-            if (0 == \count($this->reverseSearch->findAttachmentsByFile($file))) {
+            if (0 === \count($this->reverseSearch->findAttachmentsByFile($file))) {
                 $file_list[] = $file;
                 $table->addRow([
                     $fs->makePathRelative($file->getPathname(), $mediaPath),
@@ -99,7 +102,7 @@ class CleanAttachmentsCommand extends Command
 
             $continue = $io->confirm(sprintf('Found %d abandoned files. Do you want to delete them? This can not be undone!', \count($file_list)), false);
 
-            if (!$continue) {
+            if (! $continue) {
                 //We are finished here, when no files should be deleted
                 return;
             }

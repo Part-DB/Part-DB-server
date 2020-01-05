@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -42,7 +45,7 @@ class UserCacheKeyGenerator
      * @param User|null $user The user for which the key should be generated. When set to null, the currently logged in
      *                        user is used.
      */
-    public function generateKey(User $user = null): string
+    public function generateKey(?User $user = null): string
     {
         $locale = \Locale::getDefault();
 

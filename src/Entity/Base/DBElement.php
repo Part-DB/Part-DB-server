@@ -66,6 +66,12 @@ abstract class DBElement
      */
     protected $id;
 
+    public function __clone()
+    {
+        //Set ID to null, so that an new entry is created
+        $this->id = null;
+    }
+
     /**
      * Get the ID. The ID can be zero, or even negative (for virtual elements). If an element is virtual, can be
      * checked with isVirtualElement().
@@ -86,10 +92,4 @@ abstract class DBElement
      * @return string The ID as a string;
      */
     abstract public function getIDString(): string;
-
-    public function __clone()
-    {
-        //Set ID to null, so that an new entry is created
-        $this->id = null;
-    }
 }

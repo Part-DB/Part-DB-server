@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -50,11 +53,11 @@ class EntityColumn extends AbstractColumn
      */
     public function normalize($value)
     {
-        /* @var NamedDBElement $value */
+        /** @var NamedDBElement $value */
         return $value;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -76,9 +79,9 @@ class EntityColumn extends AbstractColumn
                             $this->urlGenerator->listPartsURL($entity),
                             $value
                         );
-                    } else {
-                        return sprintf('<i>%s</i>', $value);
                     }
+
+                    return sprintf('<i>%s</i>', $value);
                 }
             };
         });

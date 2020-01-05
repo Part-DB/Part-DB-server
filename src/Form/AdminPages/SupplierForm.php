@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -29,7 +32,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class SupplierForm extends CompanyForm
 {
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity)
+    protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity): void
     {
         $is_new = null === $entity->getID();
 
@@ -40,14 +43,14 @@ class SupplierForm extends CompanyForm
             'required' => false,
             'label' => 'supplier.edit.default_currency',
             'disable_not_selectable' => true,
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
 
         $builder->add('shipping_costs', MoneyType::class, [
             'required' => false,
             'currency' => $this->params->get('default_currency'),
             'scale' => 3,
             'label' => 'supplier.shipping_costs.label',
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity),
         ]);
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -34,7 +37,6 @@ use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/user")
@@ -105,8 +107,6 @@ class UserController extends AdminPages\BaseAdminController
 
     /**
      * @Route("/export", name="user_export_all")
-     *
-     * @param SerializerInterface $serializer
      *
      * @return Response
      */
@@ -183,7 +183,7 @@ class UserController extends AdminPages\BaseAdminController
 
         $url = 'https://www.gravatar.com/avatar/';
         $url .= md5(strtolower(trim($email)));
-        $url .= "?s=$s&d=$d&r=$r";
+        $url .= "?s=${s}&d=${d}&r=${r}";
         if ($img) {
             $url = '<img src="'.$url.'"';
             foreach ($atts as $key => $val) {

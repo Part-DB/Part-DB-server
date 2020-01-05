@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -266,7 +269,7 @@ class PartLot extends DBElement
      */
     public function getAmount(): float
     {
-        if ($this->part instanceof Part && !$this->part->useFloatAmount()) {
+        if ($this->part instanceof Part && ! $this->part->useFloatAmount()) {
             return round($this->amount);
         }
 

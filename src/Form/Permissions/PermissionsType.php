@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -41,12 +44,12 @@ class PermissionsType extends AbstractType
         $this->perm_structure = $resolver->getPermissionStructure();
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'show_legend' => true,
             'constraints' => function (Options $options) {
-                if (!$options['disabled']) {
+                if (! $options['disabled']) {
                     return [new NoLockout()];
                 }
 
@@ -56,12 +59,12 @@ class PermissionsType extends AbstractType
         ]);
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['show_legend'] = $options['show_legend'];
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $groups = $this->perm_structure['groups'];
 

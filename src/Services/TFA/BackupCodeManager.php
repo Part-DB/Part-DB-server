@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -39,7 +42,7 @@ class BackupCodeManager
      * Enable backup codes for the given user, by generating a set of backup codes.
      * If the backup codes were already enabled before, they a.
      */
-    public function enableBackupCodes(User $user)
+    public function enableBackupCodes(User $user): void
     {
         if (empty($user->getBackupCodes())) {
             $this->regenerateBackupCodes($user);
@@ -49,7 +52,7 @@ class BackupCodeManager
     /**
      * Disable (remove) the backup codes when no other 2 factor authentication methods are enabled.
      */
-    public function disableBackupCodesIfUnused(User $user)
+    public function disableBackupCodesIfUnused(User $user): void
     {
         if ($user->isGoogleAuthenticatorEnabled()) {
             return;
@@ -64,7 +67,7 @@ class BackupCodeManager
      *
      * @param User $user The user for which the backup codes should be regenerated
      */
-    public function regenerateBackupCodes(User $user)
+    public function regenerateBackupCodes(User $user): void
     {
         $codes = $this->backupCodeGenerator->generateCodeSet();
         $user->setBackupCodes($codes);

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -39,7 +42,7 @@ class AttachmentTypeAdminForm extends BaseEntityAdminForm
         parent::__construct($security, $params);
     }
 
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity)
+    protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity): void
     {
         $is_new = null === $entity->getID();
 
@@ -48,7 +51,7 @@ class AttachmentTypeAdminForm extends BaseEntityAdminForm
             'help' => 'attachment_type.edit.filetype_filter.help',
             'attr' => ['placeholder' => 'attachment_type.edit.filetype_filter.placeholder'],
             'empty_data' => '',
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
 
         //Normalize data before writing it to database
         $builder->get('filetype_filter')->addViewTransformer(new CallbackTransformer(

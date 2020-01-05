@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -64,13 +67,107 @@ class ElementPermissionListener
     }
 
     /**
+     * @PostLoad
+     * @ORM\PostUpdate()
+     * This function is called after doctrine filled, the entity properties with db values.
+     * We use this, to check if the user is allowed to access these properties, and if not, we write a placeholder
+     * into the element properties, so that a user only gets non sensitve data.
+     *
+     * This function is also called after an entity was updated, so we dont show the original data to user,
+     * after an update.
+     */
+    public function postLoadHandler(DBElement $element, LifecycleEventArgs $event): void
+    {
+        //Do nothing if security is disabled
+        if ($this->disabled) {
+            return;
+        }
+
+        //Read Annotations and properties.
+        $reflectionClass = new ReflectionClass($element);
+        $properties = $reflectionClass->getProperties();
+
+        foreach ($properties as $property) {
+            /** @var ColumnSecurity */
+            $annotation = $this->reader->getPropertyAnnotation(
+                $property,
+                ColumnSecurity::class
+            );
+
+            //Check if user is allowed to read info, otherwise apply placeholder
+            if ((null !== $annotation) && ! $this->isGranted('read', $annotation, $element)) {
+                $property->setAccessible(true);
+                $value = $annotation->getPlaceholder();
+
+                //Detach placeholder entities, so we dont get cascade errors
+                if ($value instanceof DBElement) {
+                    $this->em->detach($value);
+                }
+
+                $property->setValue($element, $value);
+            }
+        }
+    }
+
+    /**
+     * @ORM\PreFlush()
+     * This function is called before flushing. We use it, to remove all placeholders.
+     * We do it here and not in preupdate, because this is called before calculating the changeset,
+     * and so we dont get problems with orphan removal.
+     */
+    public function preFlushHandler(DBElement $element, PreFlushEventArgs $eventArgs): void
+    {
+        //Do nothing if security is disabled
+        if ($this->disabled) {
+            return;
+        }
+
+        $em = $eventArgs->getEntityManager();
+        $unitOfWork = $eventArgs->getEntityManager()->getUnitOfWork();
+
+        $reflectionClass = new ReflectionClass($element);
+        $properties = $reflectionClass->getProperties();
+
+        $old_data = $unitOfWork->getOriginalEntityData($element);
+
+        foreach ($properties as $property) {
+            $annotation = $this->reader->getPropertyAnnotation(
+                $property,
+                ColumnSecurity::class
+            );
+
+            $changed = false;
+
+            //Only set the field if it has an annotation
+            if (null !== $annotation) {
+                $property->setAccessible(true);
+
+                //If the user is not allowed to edit or read this property, reset all values.
+                if ((! $this->isGranted('read', $annotation, $element)
+                    || ! $this->isGranted('edit', $annotation, $element))) {
+                    //Set value to old value, so that there a no change to this property
+                    if (isset($old_data[$property->getName()])) {
+                        $property->setValue($element, $old_data[$property->getName()]);
+                        $changed = true;
+                    }
+                }
+
+                if ($changed) {
+                    //Schedule for update, so the post update method will be called
+                    $unitOfWork->scheduleForUpdate($element);
+                }
+            }
+        }
+    }
+
+    /**
      * This function checks if the current script is run from web or from a terminal.
      *
      * @return bool Returns true if the current programm is running from CLI (terminal)
      */
     protected function isRunningFromCLI()
     {
-        if (empty($_SERVER['REMOTE_ADDR']) && !isset($_SERVER['HTTP_USER_AGENT']) && \count($_SERVER['argv']) > 0) {
+        if (empty($_SERVER['REMOTE_ADDR']) && ! isset($_SERVER['HTTP_USER_AGENT']) && \count($_SERVER['argv']) > 0) {
             return true;
         }
 
@@ -103,106 +200,10 @@ class ElementPermissionListener
         }
 
         //Check if we have already have saved the permission, otherwise save it to cache
-        if (!isset($this->perm_cache[$mode][\get_class($element)][$operation])) {
+        if (! isset($this->perm_cache[$mode][\get_class($element)][$operation])) {
             $this->perm_cache[$mode][\get_class($element)][$operation] = $this->security->isGranted($operation, $element);
         }
 
         return $this->perm_cache[$mode][\get_class($element)][$operation];
-    }
-
-    /**
-     * @PostLoad
-     * @ORM\PostUpdate()
-     * This function is called after doctrine filled, the entity properties with db values.
-     * We use this, to check if the user is allowed to access these properties, and if not, we write a placeholder
-     * into the element properties, so that a user only gets non sensitve data.
-     *
-     * This function is also called after an entity was updated, so we dont show the original data to user,
-     * after an update.
-     */
-    public function postLoadHandler(DBElement $element, LifecycleEventArgs $event)
-    {
-        //Do nothing if security is disabled
-        if ($this->disabled) {
-            return;
-        }
-
-        //Read Annotations and properties.
-        $reflectionClass = new ReflectionClass($element);
-        $properties = $reflectionClass->getProperties();
-
-        foreach ($properties as $property) {
-            /**
-             * @var ColumnSecurity
-             */
-            $annotation = $this->reader->getPropertyAnnotation(
-                $property,
-                ColumnSecurity::class
-            );
-
-            //Check if user is allowed to read info, otherwise apply placeholder
-            if ((null !== $annotation) && !$this->isGranted('read', $annotation, $element)) {
-                $property->setAccessible(true);
-                $value = $annotation->getPlaceholder();
-
-                //Detach placeholder entities, so we dont get cascade errors
-                if ($value instanceof DBElement) {
-                    $this->em->detach($value);
-                }
-
-                $property->setValue($element, $value);
-            }
-        }
-    }
-
-    /**
-     * @ORM\PreFlush()
-     * This function is called before flushing. We use it, to remove all placeholders.
-     * We do it here and not in preupdate, because this is called before calculating the changeset,
-     * and so we dont get problems with orphan removal.
-     */
-    public function preFlushHandler(DBElement $element, PreFlushEventArgs $eventArgs)
-    {
-        //Do nothing if security is disabled
-        if ($this->disabled) {
-            return;
-        }
-
-        $em = $eventArgs->getEntityManager();
-        $unitOfWork = $eventArgs->getEntityManager()->getUnitOfWork();
-
-        $reflectionClass = new ReflectionClass($element);
-        $properties = $reflectionClass->getProperties();
-
-        $old_data = $unitOfWork->getOriginalEntityData($element);
-
-        foreach ($properties as $property) {
-            $annotation = $this->reader->getPropertyAnnotation(
-                $property,
-                ColumnSecurity::class
-            );
-
-            $changed = false;
-
-            //Only set the field if it has an annotation
-            if (null !== $annotation) {
-                $property->setAccessible(true);
-
-                //If the user is not allowed to edit or read this property, reset all values.
-                if ((!$this->isGranted('read', $annotation, $element)
-                    || !$this->isGranted('edit', $annotation, $element))) {
-                    //Set value to old value, so that there a no change to this property
-                    if (isset($old_data[$property->getName()])) {
-                        $property->setValue($element, $old_data[$property->getName()]);
-                        $changed = true;
-                    }
-                }
-
-                if ($changed) {
-                    //Schedule for update, so the post update method will be called
-                    $unitOfWork->scheduleForUpdate($element);
-                }
-            }
-        }
     }
 }

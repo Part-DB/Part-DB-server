@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -61,12 +64,13 @@ class UserSettingsController extends AbstractController
         //When user change its settings, he should be logged  in fully.
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             return new \RuntimeException('This controller only works only for Part-DB User objects!');
         }
 
         if (empty($user->getBackupCodes())) {
             $this->addFlash('error', 'tfa_backup.no_codes_enabled');
+
             throw new \RuntimeException('You do not have any backup codes enabled, therefore you can not view them!');
         }
 
@@ -91,7 +95,7 @@ class UserSettingsController extends AbstractController
         //When user change its settings, he should be logged  in fully.
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             throw new \RuntimeException('This controller only works only for Part-DB User objects!');
         }
 
@@ -103,12 +107,14 @@ class UserSettingsController extends AbstractController
                 $u2f = $key_repo->find($key_id);
                 if (null === $u2f) {
                     $this->addFlash('danger', 'tfa_u2f.u2f_delete.not_existing');
+
                     throw new \RuntimeException('Key not existing!');
                 }
 
                 //User can only delete its own U2F keys
                 if ($u2f->getUser() !== $user) {
                     $this->addFlash('danger', 'tfa_u2f.u2f_delete.access_denied');
+
                     throw new \RuntimeException('You can only delete your own U2F keys!');
                 }
 
@@ -138,7 +144,7 @@ class UserSettingsController extends AbstractController
         //When user change its settings, he should be logged  in fully.
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             return new \RuntimeException('This controller only works only for Part-DB User objects!');
         }
 
@@ -158,9 +164,7 @@ class UserSettingsController extends AbstractController
      */
     public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator, BackupCodeManager $backupCodeManager)
     {
-        /**
-         * @var User
-         */
+        /** @var User */
         $user = $this->getUser();
 
         $page_need_reload = false;
@@ -168,7 +172,7 @@ class UserSettingsController extends AbstractController
         //When user change its settings, he should be logged  in fully.
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             throw new \RuntimeException('This controller only works only for Part-DB User objects!');
         }
 
@@ -180,7 +184,7 @@ class UserSettingsController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() && !$this->demo_mode) {
+        if ($form->isSubmitted() && $form->isValid() && ! $this->demo_mode) {
             //Check if user theme setting has changed
             if ($user->getTheme() !== $em->getUnitOfWork()->getOriginalEntityData($user)['theme']) {
                 $page_need_reload = true;
@@ -217,9 +221,9 @@ class UserSettingsController extends AbstractController
                     'attr' => ['autocomplete' => 'new-password'],
                 ],
                 'constraints' => [new Length([
-                                                 'min' => 6,
-                                                 'max' => 128,
-                                             ])],
+                    'min' => 6,
+                    'max' => 128,
+                ])],
             ])
             ->add('submit', SubmitType::class, ['label' => 'save'])
             ->getForm();
@@ -227,7 +231,7 @@ class UserSettingsController extends AbstractController
         $pw_form->handleRequest($request);
 
         //Check if password if everything was correct, then save it to User and DB
-        if ($pw_form->isSubmitted() && $pw_form->isValid() && !$this->demo_mode) {
+        if ($pw_form->isSubmitted() && $pw_form->isValid() && ! $this->demo_mode) {
             $password = $passwordEncoder->encodePassword($user, $pw_form['new_password']->getData());
             $user->setPassword($password);
 
@@ -242,14 +246,14 @@ class UserSettingsController extends AbstractController
         //Handle 2FA things
         $google_form = $this->createForm(TFAGoogleSettingsType::class, $user);
         $google_enabled = $user->isGoogleAuthenticatorEnabled();
-        if (!$form->isSubmitted() && !$google_enabled) {
+        if (! $form->isSubmitted() && ! $google_enabled) {
             $user->setGoogleAuthenticatorSecret($googleAuthenticator->generateSecret());
             $google_form->get('googleAuthenticatorSecret')->setData($user->getGoogleAuthenticatorSecret());
         }
         $google_form->handleRequest($request);
 
-        if ($google_form->isSubmitted() && $google_form->isValid() && !$this->demo_mode) {
-            if (!$google_enabled) {
+        if ($google_form->isSubmitted() && $google_form->isValid() && ! $this->demo_mode) {
+            if (! $google_enabled) {
                 //Save 2FA settings (save secrets)
                 $user->setGoogleAuthenticatorSecret($google_form->get('googleAuthenticatorSecret')->getData());
                 $backupCodeManager->enableBackupCodes($user);
@@ -277,7 +281,7 @@ class UserSettingsController extends AbstractController
         ])->getForm();
 
         $backup_form->handleRequest($request);
-        if ($backup_form->isSubmitted() && $backup_form->isValid() && !$this->demo_mode) {
+        if ($backup_form->isSubmitted() && $backup_form->isValid() && ! $this->demo_mode) {
             $backupCodeManager->regenerateBackupCodes($user);
             $em->flush();
             $this->addFlash('success', 'user.settings.2fa.backup_codes.regenerated');

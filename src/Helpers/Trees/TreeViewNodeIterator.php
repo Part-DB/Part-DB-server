@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -24,27 +27,21 @@ namespace App\Helpers\Trees;
 class TreeViewNodeIterator extends \ArrayIterator implements \RecursiveIterator
 {
     /**
-     * @param $nodes TreeViewNode[]
+     * @param TreeViewNode[] $nodes
      */
     public function __construct($nodes)
     {
         parent::__construct($nodes);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasChildren()
     {
         /** @var TreeViewNode $element */
         $element = $this->current();
 
-        return !empty($element->getNodes());
+        return ! empty($element->getNodes());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getChildren()
     {
         /** @var TreeViewNode $element */

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -32,7 +35,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PricedetailType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         //No labels needed, we define translation in templates
         $builder->add('min_discount_quantity', SIUnitType::class, [
@@ -57,7 +60,7 @@ class PricedetailType extends AbstractType
         ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Pricedetail::class,

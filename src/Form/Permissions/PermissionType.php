@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -41,7 +44,7 @@ class PermissionType extends AbstractType
         $this->perm_structure = $resolver->getPermissionStructure();
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -50,7 +53,7 @@ class PermissionType extends AbstractType
         });
 
         $resolver->setDefault('label', function (Options $options) {
-            if (!empty($this->perm_structure['perms'][$options['perm_name']]['label'])) {
+            if (! empty($this->perm_structure['perms'][$options['perm_name']]['label'])) {
                 return $this->perm_structure['perms'][$options['perm_name']]['label'];
             }
 
@@ -58,7 +61,7 @@ class PermissionType extends AbstractType
         });
 
         $resolver->setDefault('multi_checkbox', function (Options $options) {
-            return !$options['disabled'];
+            return ! $options['disabled'];
         });
 
         $resolver->setDefaults([
@@ -66,7 +69,7 @@ class PermissionType extends AbstractType
         ]);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $operations = $this->perm_structure['perms'][$options['perm_name']]['operations'];
 
@@ -82,7 +85,7 @@ class PermissionType extends AbstractType
         $builder->setDataMapper(new PermissionsMapper($this->resolver, $options['inherit']));
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['multi_checkbox'] = $options['multi_checkbox'];
     }

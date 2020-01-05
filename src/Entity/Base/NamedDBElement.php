@@ -45,6 +45,17 @@ abstract class NamedDBElement extends DBElement
      */
     protected $name = '';
 
+    /******************************************************************************
+     *
+     * Helpers
+     *
+     ******************************************************************************/
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
     /********************************************************************************
      *
      *   Getters
@@ -79,16 +90,5 @@ abstract class NamedDBElement extends DBElement
         $this->name = $new_name;
 
         return $this;
-    }
-
-    /******************************************************************************
-     *
-     * Helpers
-     *
-     ******************************************************************************/
-
-    public function __toString()
-    {
-        return $this->getName();
     }
 }

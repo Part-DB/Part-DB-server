@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -55,22 +58,18 @@ class NodesListBuilder
      */
     public function typeToNodesList(string $class_name, ?StructuralDBElement $parent = null): array
     {
-        $parent_id = null != $parent ? $parent->getID() : '0';
+        $parent_id = null !== $parent ? $parent->getID() : '0';
         // Backslashes are not allowed in cache keys
         $secure_class_name = str_replace('\\', '_', $class_name);
         $key = 'list_'.$this->keyGenerator->generateKey().'_'.$secure_class_name.$parent_id;
 
-        $ret = $this->cache->get($key, function (ItemInterface $item) use ($class_name, $parent, $secure_class_name) {
+        return $this->cache->get($key, function (ItemInterface $item) use ($class_name, $parent, $secure_class_name) {
             // Invalidate when groups, a element with the class or the user changes
             $item->tag(['groups', 'tree_list', $this->keyGenerator->generateKey(), $secure_class_name]);
-            /**
-             * @var StructuralDBElementRepository
-             */
+            /** @var StructuralDBElementRepository */
             $repo = $this->em->getRepository($class_name);
 
             return $repo->toNodesList($parent);
         });
-
-        return $ret;
     }
 }

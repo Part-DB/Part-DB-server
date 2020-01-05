@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -26,25 +29,19 @@ use Symfony\Component\DependencyInjection\Exception\EnvNotFoundException;
 
 class CustomEnvVarProcessor implements EnvVarProcessorInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getEnv($prefix, $name, \Closure $getEnv)
     {
         if ('validMailDSN' === $prefix) {
             try {
                 $env = $getEnv($name);
 
-                return !empty($env) && 'null://null' !== $env;
+                return ! empty($env) && 'null://null' !== $env;
             } catch (EnvNotFoundException $exception) {
                 return false;
             }
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getProvidedTypes()
     {
         return [

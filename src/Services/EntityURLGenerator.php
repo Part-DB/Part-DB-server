@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -59,42 +62,12 @@ class EntityURLGenerator
     }
 
     /**
-     * Finds the controller name for the class of the entity using the given map.
-     * Throws an exception if the entity class is not known to the map.
-     *
-     * @param array $map The map that should be used for determing the controller
-     * @param $entity mixed The entity for which the controller name should be determined
-     *
-     * @return string The name of the controller fitting the entity class
-     *
-     * @throws EntityNotSupportedException
-     */
-    protected function mapToController(array $map, $entity): string
-    {
-        $class = \get_class($entity);
-
-        //Check if we have an direct mapping for the given class
-        if (!\array_key_exists($class, $map)) {
-            //Check if we need to check inheritance by looping through our map
-            foreach ($map as $key => $value) {
-                if (is_a($entity, $key)) {
-                    return $map[$key];
-                }
-            }
-
-            throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', \get_class($entity)));
-        }
-
-        return $map[$class];
-    }
-
-    /**
      * Generates an URL to the page using the given page type and element.
      * For the given types, the [type]URL() functions are called (e.g. infoURL()).
      * Not all entity class and $type combinations are supported.
      *
-     * @param $entity mixed The element for which the page should be generated
-     * @param string $type The page type. Currently supported: 'info', 'edit', 'create', 'clone', 'list'/'list_parts'
+     * @param mixed  $entity The element for which the page should be generated
+     * @param string $type   The page type. Currently supported: 'info', 'edit', 'create', 'clone', 'list'/'list_parts'
      *
      * @return string the link to the desired page
      *
@@ -157,7 +130,7 @@ class EntityURLGenerator
     /**
      * Generates an URL to a page, where info about this entity can be viewed.
      *
-     * @param $entity mixed The entity for which the info should be generated
+     * @param mixed $entity The entity for which the info should be generated
      *
      * @return string The URL to the info page
      *
@@ -188,7 +161,7 @@ class EntityURLGenerator
     /**
      * Generates an URL to a page, where this entity can be edited.
      *
-     * @param $entity mixed The entity for which the edit link should be generated
+     * @param mixed $entity The entity for which the edit link should be generated
      *
      * @return string the URL to the edit page
      *
@@ -217,7 +190,7 @@ class EntityURLGenerator
     /**
      * Generates an URL to a page, where a entity of this type can be created.
      *
-     * @param $entity mixed The entity for which the link should be generated
+     * @param mixed $entity The entity for which the link should be generated
      *
      * @return string the URL to the page
      *
@@ -247,7 +220,7 @@ class EntityURLGenerator
      * Generates an URL to a page, where a new entity can be created, that has the same informations as the
      * given entity (element cloning).
      *
-     * @param $entity mixed The entity for which the link should be generated
+     * @param mixed $entity The entity for which the link should be generated
      *
      * @return string the URL to the page
      *
@@ -265,7 +238,7 @@ class EntityURLGenerator
     /**
      * Generates an URL to a page, where all parts are listed, which are contained in the given element.
      *
-     * @param $entity mixed The entity for which the link should be generated
+     * @param mixed $entity The entity for which the link should be generated
      *
      * @return string the URL to the page
      *
@@ -302,5 +275,35 @@ class EntityURLGenerator
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
+    }
+
+    /**
+     * Finds the controller name for the class of the entity using the given map.
+     * Throws an exception if the entity class is not known to the map.
+     *
+     * @param array $map    The map that should be used for determing the controller
+     * @param mixed $entity The entity for which the controller name should be determined
+     *
+     * @return string The name of the controller fitting the entity class
+     *
+     * @throws EntityNotSupportedException
+     */
+    protected function mapToController(array $map, $entity): string
+    {
+        $class = \get_class($entity);
+
+        //Check if we have an direct mapping for the given class
+        if (! \array_key_exists($class, $map)) {
+            //Check if we need to check inheritance by looping through our map
+            foreach ($map as $key => $value) {
+                if (is_a($entity, $key)) {
+                    return $map[$key];
+                }
+            }
+
+            throw new EntityNotSupportedException(sprintf('The given entity is not supported yet! Passed class type: %s', \get_class($entity)));
+        }
+
+        return $map[$class];
     }
 }

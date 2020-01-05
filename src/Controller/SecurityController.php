@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -69,7 +72,7 @@ class SecurityController extends AbstractController
      */
     public function requestPwReset(PasswordResetManager $passwordReset, Request $request)
     {
-        if (!$this->allow_email_pw_reset) {
+        if (! $this->allow_email_pw_reset) {
             throw new AccessDeniedHttpException('The password reset via email is disabled!');
         }
 
@@ -109,9 +112,9 @@ class SecurityController extends AbstractController
     /**
      * @Route("/pw_reset/new_pw/{user}/{token}", name="pw_reset_new_pw")
      */
-    public function pwResetNewPw(PasswordResetManager $passwordReset, Request $request, string $user = null, string $token = null)
+    public function pwResetNewPw(PasswordResetManager $passwordReset, Request $request, ?string $user = null, ?string $token = null)
     {
-        if (!$this->allow_email_pw_reset) {
+        if (! $this->allow_email_pw_reset) {
             throw new AccessDeniedHttpException('The password reset via email is disabled!');
         }
 
@@ -149,7 +152,7 @@ class SecurityController extends AbstractController
             $data = $form->getData();
             //Try to set the new password
             $success = $passwordReset->setNewPassword($data['username'], $data['token'], $data['new_password']);
-            if (!$success) {
+            if (! $success) {
                 $this->addFlash('error', 'pw_reset.new_pw.error');
             } else {
                 $this->addFlash('success', 'pw_reset.new_pw.success');
@@ -166,7 +169,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/logout", name="logout")
      */
-    public function logout()
+    public function logout(): void
     {
         throw new \RuntimeException('Will be intercepted before getting here');
     }

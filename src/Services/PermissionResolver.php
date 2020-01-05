@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -58,43 +61,6 @@ class PermissionResolver
         return $this->permission_structure;
     }
 
-    protected function generatePermissionStructure()
-    {
-        $cache = new ConfigCache($this->cache_file, $this->is_debug);
-
-        //Check if the cache is fresh, else regenerate it.
-        if (!$cache->isFresh()) {
-            $permission_file = __DIR__.'/../../config/permissions.yaml';
-
-            //Read the permission config file...
-            $config = Yaml::parse(
-                file_get_contents($permission_file)
-            );
-
-            $configs = [$config];
-
-            //... And parse it
-            $processor = new Processor();
-            $databaseConfiguration = new PermissionsConfiguration();
-            $processedConfiguration = $processor->processConfiguration(
-                $databaseConfiguration,
-                $configs
-            );
-
-            //Permission file is our file resource (it is used to invalidate cache)
-            $resources = [];
-            $resources[] = new FileResource($permission_file);
-
-            //Var export the structure and write it to cache file.
-            $cache->write(
-                sprintf('<?php return %s;', var_export($processedConfiguration, true)),
-                $resources);
-        }
-
-        //In the most cases we just need to dump the cached PHP file.
-        return require $this->cache_file;
-    }
-
     /**
      * Check if a user/group is allowed to do the specified operation for the permission.
      *
@@ -144,7 +110,7 @@ class PermissionResolver
         }
 
         $parent = $user->getGroup();
-        while (null != $parent) { //The top group, has parent == null
+        while (null !== $parent) { //The top group, has parent == null
             //Check if our current element gives a info about disallow/allow
             $allowed = $this->dontInherit($parent, $permission, $operation);
             if (null !== $allowed) {
@@ -189,7 +155,7 @@ class PermissionResolver
      */
     public function listOperationsForPermission(string $permission): array
     {
-        if (!$this->isValidPermission($permission)) {
+        if (! $this->isValidPermission($permission)) {
             throw new \InvalidArgumentException(sprintf('A permission with that name is not existing! Got %s.', $permission));
         }
         $operations = $this->permission_structure['perms'][$permission]['operations'];
@@ -221,5 +187,42 @@ class PermissionResolver
     {
         return $this->isValidPermission($permission) &&
             isset($this->permission_structure['perms'][$permission]['operations'][$operation]);
+    }
+
+    protected function generatePermissionStructure()
+    {
+        $cache = new ConfigCache($this->cache_file, $this->is_debug);
+
+        //Check if the cache is fresh, else regenerate it.
+        if (! $cache->isFresh()) {
+            $permission_file = __DIR__.'/../../config/permissions.yaml';
+
+            //Read the permission config file...
+            $config = Yaml::parse(
+                file_get_contents($permission_file)
+            );
+
+            $configs = [$config];
+
+            //... And parse it
+            $processor = new Processor();
+            $databaseConfiguration = new PermissionsConfiguration();
+            $processedConfiguration = $processor->processConfiguration(
+                $databaseConfiguration,
+                $configs
+            );
+
+            //Permission file is our file resource (it is used to invalidate cache)
+            $resources = [];
+            $resources[] = new FileResource($permission_file);
+
+            //Var export the structure and write it to cache file.
+            $cache->write(
+                sprintf('<?php return %s;', var_export($processedConfiguration, true)),
+                $resources);
+        }
+
+        //In the most cases we just need to dump the cached PHP file.
+        return require $this->cache_file;
     }
 }

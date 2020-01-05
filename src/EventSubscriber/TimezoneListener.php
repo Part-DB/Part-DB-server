@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -41,18 +44,18 @@ class TimezoneListener implements EventSubscriberInterface
         $this->security = $security;
     }
 
-    public function setTimeZone(ControllerEvent $event)
+    public function setTimeZone(ControllerEvent $event): void
     {
         $timezone = null;
 
         //Check if the user has set a timezone
         $user = $this->security->getUser();
-        if ($user instanceof User && !empty($user->getTimezone())) {
+        if ($user instanceof User && ! empty($user->getTimezone())) {
             $timezone = $user->getTimezone();
         }
 
         //Fill with default value if needed
-        if (null === $timezone && !empty($this->default_timezone)) {
+        if (null === $timezone && ! empty($this->default_timezone)) {
             $timezone = $this->default_timezone;
         }
 

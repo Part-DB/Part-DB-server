@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -166,7 +169,7 @@ class TreeViewNode implements \JsonSerializable
     public function setDisabled(?bool $disabled): self
     {
         //Lazy loading of state, so it does not need to get serialized and transfered, when it is empty.
-        if (null == $this->state) {
+        if (null === $this->state) {
             $this->state = new TreeViewNodeState();
         }
 
@@ -178,7 +181,7 @@ class TreeViewNode implements \JsonSerializable
     public function setSelected(?bool $selected): self
     {
         //Lazy loading of state, so it does not need to get serialized and transfered, when it is empty.
-        if (null == $this->state) {
+        if (null === $this->state) {
             $this->state = new TreeViewNodeState();
         }
 
@@ -195,7 +198,7 @@ class TreeViewNode implements \JsonSerializable
     public function addTag(string $new_tag): self
     {
         //Lazy loading tags
-        if (null == $this->tags) {
+        if (null === $this->tags) {
             $this->tags = [];
         }
 
@@ -204,9 +207,6 @@ class TreeViewNode implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function jsonSerialize()
     {
         $ret = [

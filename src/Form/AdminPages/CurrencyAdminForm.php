@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -28,7 +31,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class CurrencyAdminForm extends BaseEntityAdminForm
 {
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity)
+    protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity): void
     {
         $is_new = null === $entity->getID();
 
@@ -37,13 +40,13 @@ class CurrencyAdminForm extends BaseEntityAdminForm
             'label' => 'currency.edit.iso_code',
             'preferred_choices' => ['EUR', 'USD', 'GBP', 'JPY', 'CNY'],
             'attr' => ['class' => 'selectpicker', 'data-live-search' => true],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
 
         $builder->add('exchange_rate', MoneyType::class, [
             'required' => false,
             'label' => 'currency.edit.exchange_rate',
             'currency' => $this->params->get('default_currency'),
             'scale' => 6,
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
     }
 }

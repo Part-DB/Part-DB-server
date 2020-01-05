@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -36,10 +39,6 @@ use Symfony\Component\Security\Http\HttpUtils;
  */
 class PasswordChangeNeededSubscriber implements EventSubscriberInterface
 {
-    protected $security;
-    protected $flashBag;
-    protected $httpUtils;
-
     /**
      * @var string[] The routes the user is allowed to access without being redirected.
      *               This should be only routes related to login/logout and user settings
@@ -54,6 +53,9 @@ class PasswordChangeNeededSubscriber implements EventSubscriberInterface
 
     /** @var string The route the user will redirected to, if he needs to change this password */
     public const REDIRECT_TARGET = 'user_settings';
+    protected $security;
+    protected $flashBag;
+    protected $httpUtils;
 
     public function __construct(Security $security, FlashBagInterface $flashBag, HttpUtils $httpUtils)
     {
@@ -72,15 +74,15 @@ class PasswordChangeNeededSubscriber implements EventSubscriberInterface
         $user = $this->security->getUser();
         $request = $event->getRequest();
 
-        if (!$event->isMasterRequest()) {
+        if (! $event->isMasterRequest()) {
             return;
         }
-        if (!$user instanceof User) {
+        if (! $user instanceof User) {
             return;
         }
 
         //Abort if we dont need to redirect the user.
-        if (!$user->isNeedPwChange() && !static::TFARedirectNeeded($user)) {
+        if (! $user->isNeedPwChange() && ! static::TFARedirectNeeded($user)) {
             return;
         }
 
@@ -123,16 +125,13 @@ class PasswordChangeNeededSubscriber implements EventSubscriberInterface
     {
         $tfa_enabled = $user->isU2FAuthEnabled() || $user->isGoogleAuthenticatorEnabled();
 
-        if (null !== $user->getGroup() && $user->getGroup()->isEnforce2FA() && !$tfa_enabled) {
+        if (null !== $user->getGroup() && $user->getGroup()->isEnforce2FA() && ! $tfa_enabled) {
             return true;
         }
 
         return false;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getSubscribedEvents()
     {
         return [

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -36,13 +39,13 @@ class CustomORMAdapter extends ORMAdapter
 {
     protected $hydrationMode;
 
-    public function configure(array $options)
+    public function configure(array $options): void
     {
         parent::configure($options);
-        $this->hydrationMode = isset($options['hydrate']) ? $options['hydrate'] : Query::HYDRATE_OBJECT;
+        $this->hydrationMode = $options['hydrate'] ?? Query::HYDRATE_OBJECT;
     }
 
-    protected function prepareQuery(AdapterQuery $query)
+    protected function prepareQuery(AdapterQuery $query): void
     {
         parent::prepareQuery($query);
         $query->setIdentifierPropertyPath(null);
@@ -57,7 +60,7 @@ class CustomORMAdapter extends ORMAdapter
         $builder = $query->get('qb');
         $state = $query->getState();
         // Apply definitive view state for current 'page' of the table
-        foreach ($state->getOrderBy() as list($column, $direction)) {
+        foreach ($state->getOrderBy() as [$column, $direction]) {
             /** @var AbstractColumn $column */
             if ($column->isOrderable()) {
                 $builder->addOrderBy($column->getOrderField(), $direction);

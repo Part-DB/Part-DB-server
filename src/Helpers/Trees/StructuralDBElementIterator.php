@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -22,32 +25,22 @@
 namespace App\Helpers\Trees;
 
 use App\Entity\Base\StructuralDBElement;
-use Doctrine\Common\Collections\Collection;
 
 class StructuralDBElementIterator extends \ArrayIterator implements \RecursiveIterator
 {
-    /**
-     * @param $nodes Collection<StructuralDBElement>|StructuralDBElement[]
-     */
     public function __construct($nodes)
     {
         parent::__construct($nodes);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasChildren()
     {
         /** @var StructuralDBElement $element */
         $element = $this->current();
 
-        return !empty($element->getSubelements());
+        return ! empty($element->getSubelements());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getChildren()
     {
         /** @var StructuralDBElement $element */

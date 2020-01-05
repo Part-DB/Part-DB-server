@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -57,9 +60,9 @@ class SymfonyDebugToolbarSubscriber implements EventSubscriberInterface
         return ['kernel.response' => 'onKernelResponse'];
     }
 
-    public function onKernelResponse(FilterResponseEvent $event)
+    public function onKernelResponse(FilterResponseEvent $event): void
     {
-        if (!$this->kernel->getParameter('kernel.debug')) {
+        if (! $this->kernel->getParameter('kernel.debug')) {
             return;
         }
 

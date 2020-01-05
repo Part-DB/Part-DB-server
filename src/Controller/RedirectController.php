@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -55,7 +58,7 @@ class RedirectController extends AbstractController
 
         //Check if a user has set a preferred language setting:
         $user = $this->getUser();
-        if (($user instanceof User) && !empty($user->getLanguage())) {
+        if (($user instanceof User) && ! empty($user->getLanguage())) {
             $locale = $user->getLanguage();
         }
 
@@ -63,7 +66,7 @@ class RedirectController extends AbstractController
         $new_url = $request->getUriForPath('/'.$locale.$request->getPathInfo());
 
         //If either mod_rewrite is not enabled or the index.php version is enforced, add index.php to the string
-        if (($this->enforce_index_php || !$this->checkIfModRewriteAvailable())
+        if (($this->enforce_index_php || ! $this->checkIfModRewriteAvailable())
             && false === strpos($new_url, 'index.php')) {
             //Like Request::getUriForPath only with index.php
             $new_url = $request->getSchemeAndHttpHost().$request->getBaseUrl().'/index.php/'.$locale.$request->getPathInfo();
@@ -81,7 +84,7 @@ class RedirectController extends AbstractController
      */
     public function checkIfModRewriteAvailable()
     {
-        if (!\function_exists('apache_get_modules')) {
+        if (! \function_exists('apache_get_modules')) {
             //If we can not check for apache modules, we just hope for the best and assume url rewriting is available
             //If you want to enforce index.php versions of the url, you can override this via ENV vars.
             return true;

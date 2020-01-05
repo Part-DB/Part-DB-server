@@ -69,6 +69,11 @@ abstract class Attachment extends NamedDBElement
     public const BUILTIN_PLACEHOLDER = ['%FOOTPRINTS%', '%FOOTPRINTS3D%'];
 
     /**
+     * @var string The class of the element that can be passed to this attachment. Must be overridden in subclasses.
+     */
+    public const ALLOWED_ELEMENT_CLASS = '';
+
+    /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
@@ -98,11 +103,6 @@ abstract class Attachment extends NamedDBElement
      * @Selectable()
      */
     protected $attachment_type;
-
-    /**
-     * @var string The class of the element that can be passed to this attachment. Must be overridden in subclasses.
-     */
-    public const ALLOWED_ELEMENT_CLASS = '';
 
     public function __construct()
     {
@@ -170,7 +170,7 @@ abstract class Attachment extends NamedDBElement
             return true;
         }
 
-        return !\in_array($tmp[0], array_merge(static::INTERNAL_PLACEHOLDER, static::BUILTIN_PLACEHOLDER), false);
+        return ! \in_array($tmp[0], array_merge(static::INTERNAL_PLACEHOLDER, static::BUILTIN_PLACEHOLDER), false);
     }
 
     /**
@@ -221,7 +221,7 @@ abstract class Attachment extends NamedDBElement
             return null;
         }
 
-        if (!empty($this->original_filename)) {
+        if (! empty($this->original_filename)) {
             return strtolower(pathinfo($this->original_filename, PATHINFO_EXTENSION));
         }
 
@@ -244,7 +244,7 @@ abstract class Attachment extends NamedDBElement
      */
     public function getURL(): ?string
     {
-        if (!$this->isExternal() && !$this->isBuiltIn()) {
+        if (! $this->isExternal() && ! $this->isBuiltIn()) {
             return null;
         }
 
@@ -257,7 +257,7 @@ abstract class Attachment extends NamedDBElement
      */
     public function getHost(): ?string
     {
-        if (!$this->isExternal()) {
+        if (! $this->isExternal()) {
             return null;
         }
 
@@ -287,7 +287,7 @@ abstract class Attachment extends NamedDBElement
         }
 
         //If we have a stored original filename, then use it
-        if (!empty($this->original_filename)) {
+        if (! empty($this->original_filename)) {
             return $this->original_filename;
         }
 
@@ -362,8 +362,8 @@ abstract class Attachment extends NamedDBElement
      */
     public function setElement(AttachmentContainingDBElement $element): self
     {
-        if (!is_a($element, static::ALLOWED_ELEMENT_CLASS)) {
-            throw new \InvalidArgumentException(sprintf('The element associated with a %s must be a %s!', \get_class($this), static::ALLOWED_ELEMENT_CLASS));
+        if (! is_a($element, static::ALLOWED_ELEMENT_CLASS)) {
+            throw new \InvalidArgumentException(sprintf('The element associated with a %s must be a %s!', static::class, static::ALLOWED_ELEMENT_CLASS));
         }
 
         $this->element = $element;
@@ -404,7 +404,7 @@ abstract class Attachment extends NamedDBElement
     public function setURL(?string $url): self
     {
         //Only set if the URL is not empty
-        if (!empty($url)) {
+        if (! empty($url)) {
             if (false !== strpos($url, '%BASE%') || false !== strpos($url, '%MEDIA%')) {
                 throw new \InvalidArgumentException('You can not reference internal files via the url field! But nice try!');
             }
@@ -443,10 +443,10 @@ abstract class Attachment extends NamedDBElement
     /**
      * Check if a string is a URL and is valid.
      *
-     * @param $string string The string which should be checked
-     * @param bool $path_required If true, the string must contain a path to be valid. (e.g. foo.bar would be invalid, foo.bar/test.php would be valid).
-     * @param $only_http bool Set this to true, if only HTTPS or HTTP schemata should be allowed.
-     *  *Caution: When this is set to false, a attacker could use the file:// schema, to get internal server files, like /etc/passwd.*
+     * @param string $string        The string which should be checked
+     * @param bool   $path_required If true, the string must contain a path to be valid. (e.g. foo.bar would be invalid, foo.bar/test.php would be valid).
+     * @param bool   $only_http     Set this to true, if only HTTPS or HTTP schemata should be allowed.
+     *                              *Caution: When this is set to false, a attacker could use the file:// schema, to get internal server files, like /etc/passwd.*
      *
      * @return bool True if the string is a valid URL. False, if the string is not an URL or invalid.
      */

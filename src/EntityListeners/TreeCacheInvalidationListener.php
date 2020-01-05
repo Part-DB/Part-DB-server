@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -46,7 +49,7 @@ class TreeCacheInvalidationListener
      * @ORM\PostPersist()
      * @ORM\PostRemove()
      */
-    public function invalidate(DBElement $element, LifecycleEventArgs $event)
+    public function invalidate(DBElement $element, LifecycleEventArgs $event): void
     {
         //If an element was changed, then invalidate all cached trees with this element class
         if ($element instanceof StructuralDBElement) {

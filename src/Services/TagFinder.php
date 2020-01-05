@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -35,15 +38,6 @@ class TagFinder
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->em = $entityManager;
-    }
-
-    protected function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'query_limit' => 75,
-            'return_limit' => 25,
-            'min_keyword_length' => 3,
-        ]);
     }
 
     /**
@@ -90,5 +84,14 @@ class TagFinder
         $results = array_unique($results);
         //Limit the returned tag count to specified value.
         return \array_slice($results, 0, $options['return_limit']);
+    }
+
+    protected function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'query_limit' => 75,
+            'return_limit' => 25,
+            'min_keyword_length' => 3,
+        ]);
     }
 }

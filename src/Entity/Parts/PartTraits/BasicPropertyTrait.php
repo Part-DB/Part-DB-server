@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -192,8 +195,8 @@ trait BasicPropertyTrait
     /**
      * Set the favorite status for this part.
      *
-     * @param $new_favorite_status bool The new favorite status, that should be applied on this part.
-     *      Set this to true, when the part should be a favorite.
+     * @param bool $new_favorite_status The new favorite status, that should be applied on this part.
+     *                                  Set this to true, when the part should be a favorite.
      */
     public function setFavorite(bool $new_favorite_status): self
     {

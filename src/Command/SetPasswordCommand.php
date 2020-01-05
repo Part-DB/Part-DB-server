@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -45,7 +48,7 @@ class SetPasswordCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setDescription('Sets the password of a user')
@@ -54,18 +57,16 @@ class SetPasswordCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $io = new SymfonyStyle($input, $output);
         $user_name = $input->getArgument('user');
 
-        /**
-         * @var User
-         */
+        /** @var User */
         $users = $this->entityManager->getRepository(User::class)->findBy(['name' => $user_name]);
         $user = $users[0];
 
-        if (null == $user) {
+        if (null === $user) {
             $io->error(sprintf('No user with the given username %s found in the database!', $user_name));
 
             return;
@@ -77,14 +78,14 @@ class SetPasswordCommand extends Command
             sprintf('You are going to change the password of %s with ID %d. Proceed?',
                 $user->getFullName(true), $user->getID()));
 
-        if (!$proceed) {
+        if (! $proceed) {
             return;
         }
 
         $success = false;
         $new_password = '';
 
-        while (!$success) {
+        while (! $success) {
             $pw1 = $io->askHidden('Please enter new password:');
             $pw2 = $io->askHidden('Please confirm:');
             if ($pw1 !== $pw2) {

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -38,7 +41,7 @@ class BBCodeToMarkdownConverter
      * Converts the given BBCode to markdown.
      * BBCode tags that does not have a markdown aequivalent are outputed as HTML tags.
      *
-     * @param $bbcode string The Markdown that should be converted
+     * @param string $bbcode The Markdown that should be converted
      *
      * @return string the markdown version of the text
      */

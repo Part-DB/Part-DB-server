@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -56,7 +59,7 @@ class StructuralEntityType extends AbstractType
         $this->builder = $builder;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addModelTransformer(new CallbackTransformer(
             function ($value) use ($options) {
@@ -66,7 +69,7 @@ class StructuralEntityType extends AbstractType
             }));
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired(['class']);
         $resolver->setDefaults([
@@ -97,44 +100,6 @@ class StructuralEntityType extends AbstractType
         });
     }
 
-    protected function generateChoiceAttr(StructuralDBElement $choice, $key, $value): array
-    {
-        $tmp = [];
-
-        if ($this->options['show_fullpath_in_subtext'] && null != $choice->getParent()) {
-            $tmp += ['data-subtext' => $choice->getParent()->getFullPath()];
-        }
-
-        //Disable attribute if the choice is marked as not selectable
-        if ($this->options['disable_not_selectable'] && $choice->isNotSelectable()) {
-            $tmp += ['disabled' => 'disabled'];
-        }
-
-        if ($choice instanceof AttachmentType) {
-            $tmp += ['data-filetype_filter' => $choice->getFiletypeFilter()];
-        }
-
-        return $tmp;
-    }
-
-    protected function generateChoiceLabels(StructuralDBElement $choice, $key, $value): string
-    {
-        /** @var StructuralDBElement|null $parent */
-        $parent = $this->options['subentities_of'];
-
-        /*** @var StructuralDBElement $choice */
-        $level = $choice->getLevel();
-        //If our base entity is not the root level, we need to change the level, to get zero position
-        if (null !== $this->options['subentities_of']) {
-            $level -= $parent->getLevel() - 1;
-        }
-
-        $tmp = str_repeat('&nbsp;&nbsp;&nbsp;', $choice->getLevel()); //Use 3 spaces for intendation
-        $tmp .= htmlspecialchars($choice->getName());
-
-        return $tmp;
-    }
-
     /**
      * Gets the entries from database and return an array of them.
      *
@@ -144,15 +109,10 @@ class StructuralEntityType extends AbstractType
     {
         $this->options = $options;
 
-        $choices = $this->builder->typeToNodesList($options['class'], null);
-
-        /* @var StructuralDBElementRepository $repo */
-        /*$repo = $this->em->getRepository($options['class']);
-        $choices = $repo->toNodesList(null); */
-        return $choices;
+        return $this->builder->typeToNodesList($options['class'], null);
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         //Allow HTML in labels. You must override the 'choice_widget_options' block, so that can work
         //See extendedBootstrap4_layout.html.twig for that...
@@ -252,5 +212,43 @@ class StructuralEntityType extends AbstractType
         }
 
         return $this->em->find($options['class'], $value->getID());
+    }
+
+    protected function generateChoiceAttr(StructuralDBElement $choice, $key, $value): array
+    {
+        $tmp = [];
+
+        if ($this->options['show_fullpath_in_subtext'] && null !== $choice->getParent()) {
+            $tmp += ['data-subtext' => $choice->getParent()->getFullPath()];
+        }
+
+        //Disable attribute if the choice is marked as not selectable
+        if ($this->options['disable_not_selectable'] && $choice->isNotSelectable()) {
+            $tmp += ['disabled' => 'disabled'];
+        }
+
+        if ($choice instanceof AttachmentType) {
+            $tmp += ['data-filetype_filter' => $choice->getFiletypeFilter()];
+        }
+
+        return $tmp;
+    }
+
+    protected function generateChoiceLabels(StructuralDBElement $choice, $key, $value): string
+    {
+        /** @var StructuralDBElement|null $parent */
+        $parent = $this->options['subentities_of'];
+
+        /*** @var StructuralDBElement $choice */
+        $level = $choice->getLevel();
+        //If our base entity is not the root level, we need to change the level, to get zero position
+        if (null !== $this->options['subentities_of']) {
+            $level -= $parent->getLevel() - 1;
+        }
+
+        $tmp = str_repeat('&nbsp;&nbsp;&nbsp;', $choice->getLevel()); //Use 3 spaces for intendation
+        $tmp .= htmlspecialchars($choice->getName());
+
+        return $tmp;
     }
 }

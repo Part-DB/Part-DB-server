@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -46,32 +49,32 @@ class UserSettingsType extends AbstractType
         $this->demo_mode = $demo_mode;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name', TextType::class, [
                 'label' => 'user.username.label',
-                'disabled' => !$this->security->isGranted('edit_username', $options['data']) || $this->demo_mode,
+                'disabled' => ! $this->security->isGranted('edit_username', $options['data']) || $this->demo_mode,
             ])
             ->add('first_name', TextType::class, [
                 'required' => false,
                 'label' => 'user.firstName.label',
-                'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
+                'disabled' => ! $this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
             ->add('last_name', TextType::class, [
                 'required' => false,
                 'label' => 'user.lastName.label',
-                'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
+                'disabled' => ! $this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
             ->add('department', TextType::class, [
                 'required' => false,
                 'label' => 'user.department.label',
-                'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
+                'disabled' => ! $this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
             ->add('email', EmailType::class, [
                 'required' => false,
                 'label' => 'user.email.label',
-                'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
+                'disabled' => ! $this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
             ->add('language', LanguageType::class, [
                 'disabled' => $this->demo_mode,
@@ -80,7 +83,7 @@ class UserSettingsType extends AbstractType
                 'placeholder' => 'user_settings.language.placeholder',
                 'label' => 'user.language_select',
                 'preferred_choices' => ['en', 'de'],
-                ])
+            ])
             ->add('timezone', TimezoneType::class, [
                 'disabled' => $this->demo_mode,
                 'required' => false,
@@ -88,7 +91,7 @@ class UserSettingsType extends AbstractType
                 'placeholder' => 'user_settings.timezone.placeholder',
                 'label' => 'user.timezone.label',
                 'preferred_choices' => ['Europe/Berlin'],
-                ])
+            ])
             ->add('theme', ChoiceType::class, [
                 'disabled' => $this->demo_mode,
                 'required' => false,
@@ -99,7 +102,7 @@ class UserSettingsType extends AbstractType
                 },
                 'placeholder' => 'user_settings.theme.placeholder',
                 'label' => 'user.theme.label',
-                ])
+            ])
             ->add('currency', CurrencyEntityType::class, [
                 'disabled' => $this->demo_mode,
                 'required' => false,
@@ -111,7 +114,7 @@ class UserSettingsType extends AbstractType
             ->add('reset', ResetType::class, ['label' => 'reset']);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => User::class,

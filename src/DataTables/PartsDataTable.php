@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -71,87 +74,7 @@ class PartsDataTable implements DataTableTypeInterface
         $this->attachmentURLGenerator = $attachmentURLGenerator;
     }
 
-    protected function getQuery(QueryBuilder $builder)
-    {
-        $builder->distinct()->select('part')
-            ->addSelect('category')
-            ->addSelect('footprint')
-            ->addSelect('manufacturer')
-            ->addSelect('partUnit')
-            ->addSelect('master_picture_attachment')
-            ->addSelect('footprint_attachment')
-            ->addSelect('partLots')
-            ->addSelect('orderdetails')
-            ->addSelect('attachments')
-            ->addSelect('storelocations')
-            ->from(Part::class, 'part')
-            ->leftJoin('part.category', 'category')
-            ->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
-            ->leftJoin('part.partLots', 'partLots')
-            ->leftJoin('partLots.storage_location', 'storelocations')
-            ->leftJoin('part.footprint', 'footprint')
-            ->leftJoin('footprint.master_picture_attachment', 'footprint_attachment')
-            ->leftJoin('part.manufacturer', 'manufacturer')
-            ->leftJoin('part.orderdetails', 'orderdetails')
-            ->leftJoin('part.attachments', 'attachments')
-            ->leftJoin('part.partUnit', 'partUnit');
-    }
-
-    protected function buildCriteria(QueryBuilder $builder, array $options)
-    {
-        $em = $builder->getEntityManager();
-
-        if (isset($options['category'])) {
-            $category = $options['category'];
-            $list = $this->treeBuilder->typeToNodesList(Category::class, $category);
-            $list[] = $category;
-
-            $builder->andWhere('part.category IN (:cid)')->setParameter('cid', $list);
-        }
-
-        if (isset($options['footprint'])) {
-            $category = $options['footprint'];
-            $list = $this->treeBuilder->typeToNodesList(Footprint::class, $category);
-            $list[] = $category;
-
-            $builder->andWhere('part.footprint IN (:cid)')->setParameter('cid', $list);
-        }
-
-        if (isset($options['manufacturer'])) {
-            $category = $options['manufacturer'];
-            $list = $this->treeBuilder->typeToNodesList(Manufacturer::class, $category);
-            $list[] = $category;
-
-            $builder->andWhere('part.manufacturer IN (:cid)')->setParameter('cid', $list);
-        }
-
-        if (isset($options['storelocation'])) {
-            $location = $options['storelocation'];
-            $list = $this->treeBuilder->typeToNodesList(Storelocation::class, $location);
-            $list[] = $location;
-
-            $builder->andWhere('partLots.storage_location IN (:cid)')->setParameter('cid', $list);
-        }
-
-        if (isset($options['supplier'])) {
-            $supplier = $options['supplier'];
-            $list = $this->treeBuilder->typeToNodesList(Supplier::class, $supplier);
-            $list[] = $supplier;
-
-            $builder->andWhere('orderdetails.supplier IN (:cid)')->setParameter('cid', $list);
-        }
-
-        if (isset($options['tag'])) {
-            $builder->andWhere('part.tags LIKE :tag')->setParameter('tag', '%'.$options['tag'].'%');
-        }
-
-        if (isset($options['search'])) {
-            $builder->AndWhere('part.name LIKE :search')->orWhere('part.description LIKE :search')->orWhere('part.comment LIKE :search')
-                ->setParameter('search', '%'.$options['search'].'%');
-        }
-    }
-
-    public function configure(DataTable $dataTable, array $options)
+    public function configure(DataTable $dataTable, array $options): void
     {
         $dataTable
             ->add('picture', TextColumn::class, [
@@ -293,16 +216,96 @@ class PartsDataTable implements DataTableTypeInterface
 
             ->addOrderBy('name')
             ->createAdapter(CustomORMAdapter::class, [
-                'query' => function (QueryBuilder $builder) {
+                'query' => function (QueryBuilder $builder): void {
                     $this->getQuery($builder);
                 },
                 'entity' => Part::class,
                 'criteria' => [
-                    function (QueryBuilder $builder) use ($options) {
+                    function (QueryBuilder $builder) use ($options): void {
                         $this->buildCriteria($builder, $options);
                     },
                     new SearchCriteriaProvider(),
                 ],
             ]);
+    }
+
+    protected function getQuery(QueryBuilder $builder): void
+    {
+        $builder->distinct()->select('part')
+            ->addSelect('category')
+            ->addSelect('footprint')
+            ->addSelect('manufacturer')
+            ->addSelect('partUnit')
+            ->addSelect('master_picture_attachment')
+            ->addSelect('footprint_attachment')
+            ->addSelect('partLots')
+            ->addSelect('orderdetails')
+            ->addSelect('attachments')
+            ->addSelect('storelocations')
+            ->from(Part::class, 'part')
+            ->leftJoin('part.category', 'category')
+            ->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
+            ->leftJoin('part.partLots', 'partLots')
+            ->leftJoin('partLots.storage_location', 'storelocations')
+            ->leftJoin('part.footprint', 'footprint')
+            ->leftJoin('footprint.master_picture_attachment', 'footprint_attachment')
+            ->leftJoin('part.manufacturer', 'manufacturer')
+            ->leftJoin('part.orderdetails', 'orderdetails')
+            ->leftJoin('part.attachments', 'attachments')
+            ->leftJoin('part.partUnit', 'partUnit');
+    }
+
+    protected function buildCriteria(QueryBuilder $builder, array $options): void
+    {
+        $em = $builder->getEntityManager();
+
+        if (isset($options['category'])) {
+            $category = $options['category'];
+            $list = $this->treeBuilder->typeToNodesList(Category::class, $category);
+            $list[] = $category;
+
+            $builder->andWhere('part.category IN (:cid)')->setParameter('cid', $list);
+        }
+
+        if (isset($options['footprint'])) {
+            $category = $options['footprint'];
+            $list = $this->treeBuilder->typeToNodesList(Footprint::class, $category);
+            $list[] = $category;
+
+            $builder->andWhere('part.footprint IN (:cid)')->setParameter('cid', $list);
+        }
+
+        if (isset($options['manufacturer'])) {
+            $category = $options['manufacturer'];
+            $list = $this->treeBuilder->typeToNodesList(Manufacturer::class, $category);
+            $list[] = $category;
+
+            $builder->andWhere('part.manufacturer IN (:cid)')->setParameter('cid', $list);
+        }
+
+        if (isset($options['storelocation'])) {
+            $location = $options['storelocation'];
+            $list = $this->treeBuilder->typeToNodesList(Storelocation::class, $location);
+            $list[] = $location;
+
+            $builder->andWhere('partLots.storage_location IN (:cid)')->setParameter('cid', $list);
+        }
+
+        if (isset($options['supplier'])) {
+            $supplier = $options['supplier'];
+            $list = $this->treeBuilder->typeToNodesList(Supplier::class, $supplier);
+            $list[] = $supplier;
+
+            $builder->andWhere('orderdetails.supplier IN (:cid)')->setParameter('cid', $list);
+        }
+
+        if (isset($options['tag'])) {
+            $builder->andWhere('part.tags LIKE :tag')->setParameter('tag', '%'.$options['tag'].'%');
+        }
+
+        if (isset($options['search'])) {
+            $builder->AndWhere('part.name LIKE :search')->orWhere('part.description LIKE :search')->orWhere('part.comment LIKE :search')
+                ->setParameter('search', '%'.$options['search'].'%');
+        }
     }
 }

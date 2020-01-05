@@ -113,11 +113,11 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      */
     public function isChildOf(self $another_element): bool
     {
-        $class_name = \get_class($this);
+        $class_name = static::class;
 
         //Check if both elements compared, are from the same type
         // (we have to check inheritance, or we get exceptions when using doctrine entities (they have a proxy type):
-        if (!is_a($another_element, $class_name) && !is_a($this, \get_class($another_element))) {
+        if (! is_a($another_element, $class_name) && ! is_a($this, \get_class($another_element))) {
             throw new \InvalidArgumentException('isChildOf() only works for objects of the same type!');
         }
 
@@ -201,7 +201,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      */
     public function getFullPath(string $delimiter = self::PATH_DELIMITER_ARROW): string
     {
-        if (!\is_array($this->full_path_strings)) {
+        if (! \is_array($this->full_path_strings)) {
             $this->full_path_strings = [];
             $this->full_path_strings[] = $this->getName();
             $element = $this;
@@ -233,7 +233,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
         $tmp[] = $this;
 
         //We only allow 20 levels depth
-        while (!end($tmp)->isRoot() && \count($tmp) < 20) {
+        while (! end($tmp)->isRoot() && \count($tmp) < 20) {
             $tmp[] = end($tmp)->parent;
         }
 
@@ -242,8 +242,6 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
 
     /**
      * Get all sub elements of this element.
-     *
-     * @param bool $recursive if true, the search is recursive
      *
      * @return Collection<static> all subelements as an array of objects (sorted by their full path)
      */

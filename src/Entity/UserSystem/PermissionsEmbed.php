@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -299,7 +302,7 @@ class PermissionsEmbed
      */
     public function isValidPermissionName(string $permission_name): bool
     {
-        return isset($this->$permission_name);
+        return isset($this->{$permission_name});
     }
 
     /**
@@ -312,11 +315,11 @@ class PermissionsEmbed
      */
     public function getBitValue(string $permission_name, int $bit_n): int
     {
-        if (!$this->isValidPermissionName($permission_name)) {
+        if (! $this->isValidPermissionName($permission_name)) {
             throw new \InvalidArgumentException(sprintf('No permission with the name "%s" is existing!', $permission_name));
         }
 
-        $perm_int = $this->$permission_name;
+        $perm_int = (int) $this->{$permission_name};
 
         return static::readBitPair($perm_int, $bit_n);
     }
@@ -382,11 +385,11 @@ class PermissionsEmbed
      */
     public function setBitValue(string $permission_name, int $bit_n, int $new_value): self
     {
-        if (!$this->isValidPermissionName($permission_name)) {
+        if (! $this->isValidPermissionName($permission_name)) {
             throw new \InvalidArgumentException('No permission with the given name is existing!');
         }
 
-        $this->$permission_name = static::writeBitPair($this->$permission_name, $bit_n, $new_value);
+        $this->{$permission_name} = static::writeBitPair($this->{$permission_name}, $bit_n, $new_value);
 
         return $this;
     }
@@ -401,11 +404,11 @@ class PermissionsEmbed
      */
     public function getRawPermissionValue(string $permission_name): int
     {
-        if (!$this->isValidPermissionName($permission_name)) {
+        if (! $this->isValidPermissionName($permission_name)) {
             throw new \InvalidArgumentException('No permission with the given name is existing!');
         }
 
-        return $this->$permission_name;
+        return $this->{$permission_name};
     }
 
     /**
@@ -418,11 +421,11 @@ class PermissionsEmbed
      */
     public function setRawPermissionValue(string $permission_name, int $value): self
     {
-        if (!$this->isValidPermissionName($permission_name)) {
+        if (! $this->isValidPermissionName($permission_name)) {
             throw new \InvalidArgumentException(sprintf('No permission with the given name %s is existing!', $permission_name));
         }
 
-        $this->$permission_name = $value;
+        $this->{$permission_name} = $value;
 
         return $this;
     }
@@ -436,9 +439,9 @@ class PermissionsEmbed
      *
      * @return $this
      */
-    public function setRawPermissionValues(array $values, array $values2 = null): self
+    public function setRawPermissionValues(array $values, ?array $values2 = null): self
     {
-        if (!empty($values2)) {
+        if (! empty($values2)) {
             $values = array_combine($values, $values2);
         }
 
@@ -452,12 +455,12 @@ class PermissionsEmbed
     /**
      * Reads a bit pair from $data.
      *
-     * @param $data int The data from where the bits should be extracted from
-     * @param $n int The number of the lower bit (of the pair) that should be read. Starting from zero.
+     * @param int|string $data The data from where the bits should be extracted from
+     * @param int $n    The number of the lower bit (of the pair) that should be read. Starting from zero.
      *
      * @return int the value of the bit pair
      */
-    final protected static function readBitPair(int $data, int $n): int
+    final protected static function readBitPair($data, int $n): int
     {
         Assert::lessThanEq($n, 31, '$n must be smaller than 32, because only a 32bit int is used! Got %s.');
         if (0 !== $n % 2) {
@@ -471,9 +474,9 @@ class PermissionsEmbed
     /**
      * Writes a bit pair in the given $data and returns it.
      *
-     * @param $data int The data which should be modified
-     * @param $n int The number of the lower bit of the pair which should be written
-     * @param $new int The new value of the pair
+     * @param int $data The data which should be modified
+     * @param int $n    The number of the lower bit of the pair which should be written
+     * @param int $new  The new value of the pair
      *
      * @return int the new data with the modified pair
      */

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -31,7 +34,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MasterPictureAttachmentType extends AbstractType
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired('entity');
         $resolver->setAllowedTypes('entity', AttachmentContainingDBElement::class);
@@ -44,9 +47,9 @@ class MasterPictureAttachmentType extends AbstractType
                     /** @var Attachment $choice */
                     $tmp = ['data-subtext' => $choice->getFilename() ?? 'URL'];
 
-                    if ('picture' === $options['filter'] && !$choice->isPicture()) {
+                    if ('picture' === $options['filter'] && ! $choice->isPicture()) {
                         $tmp += ['disabled' => 'disabled'];
-                    } elseif ('3d_model' === $options['filter'] && !$choice->is3DModel()) {
+                    } elseif ('3d_model' === $options['filter'] && ! $choice->is3DModel()) {
                         $tmp += ['disabled' => 'disabled'];
                     }
 

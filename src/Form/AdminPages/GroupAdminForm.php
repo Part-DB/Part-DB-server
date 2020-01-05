@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -28,7 +31,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class GroupAdminForm extends BaseEntityAdminForm
 {
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity)
+    protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity): void
     {
         $is_new = null === $entity->getID();
 
@@ -36,13 +39,13 @@ class GroupAdminForm extends BaseEntityAdminForm
             'label' => 'group.edit.enforce_2fa',
             'help' => 'entity.edit.enforce_2fa.help',
             'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
         $builder->add('permissions', PermissionsType::class, [
             'mapped' => false,
             'data' => $builder->getData(),
-            'disabled' => !$this->security->isGranted('edit_permissions', $entity),
+            'disabled' => ! $this->security->isGranted('edit_permissions', $entity),
         ]);
     }
 }

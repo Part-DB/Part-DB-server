@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -39,13 +42,6 @@ class U2FKey implements TwoFactorKeyInterface
     use TimestampTrait;
 
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
-
-    /**
      * @ORM\Column(type="string", length=64)
      *
      * @var string
@@ -74,6 +70,13 @@ class U2FKey implements TwoFactorKeyInterface
     public $counter;
 
     /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User", inversedBy="u2fKeys")
      *
      * @var User
@@ -95,62 +98,52 @@ class U2FKey implements TwoFactorKeyInterface
         $this->counter = $data->counter;
     }
 
-    /** {@inheritdoc} */
     public function getKeyHandle()
     {
         return $this->keyHandle;
     }
 
-    /** {@inheritdoc} */
-    public function setKeyHandle($keyHandle)
+    public function setKeyHandle($keyHandle): void
     {
         $this->keyHandle = $keyHandle;
     }
 
-    /** {@inheritdoc} */
     public function getPublicKey()
     {
         return $this->publicKey;
     }
 
-    /** {@inheritdoc} */
-    public function setPublicKey($publicKey)
+    public function setPublicKey($publicKey): void
     {
         $this->publicKey = $publicKey;
     }
 
-    /** {@inheritdoc} */
     public function getCertificate()
     {
         return $this->certificate;
     }
 
-    /** {@inheritdoc} */
-    public function setCertificate($certificate)
+    public function setCertificate($certificate): void
     {
         $this->certificate = $certificate;
     }
 
-    /** {@inheritdoc} */
     public function getCounter()
     {
         return $this->counter;
     }
 
-    /** {@inheritdoc} */
-    public function setCounter($counter)
+    public function setCounter($counter): void
     {
         $this->counter = $counter;
     }
 
-    /** {@inheritdoc} */
     public function getName()
     {
         return $this->name;
     }
 
-    /** {@inheritdoc} */
-    public function setName($name)
+    public function setName($name): void
     {
         $this->name = $name;
     }

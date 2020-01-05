@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -49,7 +52,7 @@ class PermissionsMapper implements DataMapperInterface
      * @param mixed                        $viewData View data of the compound form being initialized
      * @param FormInterface[]|\Traversable $forms    A list of {@link FormInterface} instances
      */
-    public function mapDataToForms($viewData, $forms)
+    public function mapDataToForms($viewData, $forms): void
     {
         foreach ($forms as $form) {
             if ($this->inherit) {
@@ -96,7 +99,7 @@ class PermissionsMapper implements DataMapperInterface
      * @param mixed                        $viewData The compound form's view data that get mapped
      *                                               its children model data
      */
-    public function mapFormsToData($forms, &$viewData)
+    public function mapFormsToData($forms, &$viewData): void
     {
         if ($this->inherit) {
             throw new \RuntimeException('The permission type is readonly when it is showing read only data!');

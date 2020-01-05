@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -63,7 +66,7 @@ class TreeViewGenerator
      *
      * @return TreeViewNode[] An array of TreeViewNode[] elements of the root elements.
      */
-    public function getTreeView(string $class, ?StructuralDBElement $parent = null, string $href_type = 'list_parts', DBElement $selectedElement = null): array
+    public function getTreeView(string $class, ?StructuralDBElement $parent = null, string $href_type = 'list_parts', ?DBElement $selectedElement = null): array
     {
         $head = [];
 
@@ -73,7 +76,7 @@ class TreeViewGenerator
             $href = $this->urlGenerator->createURL(new $class());
             $new_node = new TreeViewNode($this->translator->trans('entity.tree.new'), $href);
             //When the id of the selected element is null, then we have a new element, and we need to select "new" node
-            if (null == $selectedElement || null == $selectedElement->getID()) {
+            if (null === $selectedElement || null === $selectedElement->getID()) {
                 $new_node->setSelected(true);
             }
             $head[] = $new_node;
@@ -88,16 +91,16 @@ class TreeViewGenerator
         $treeIterator = new TreeViewNodeIterator($generic);
         $recursiveIterator = new \RecursiveIteratorIterator($treeIterator, \RecursiveIteratorIterator::SELF_FIRST);
         foreach ($recursiveIterator as $item) {
-            /** @var $item TreeViewNode */
+            /** @var TreeViewNode $item */
             if (null !== $selectedElement && $item->getId() === $selectedElement->getID()) {
                 $item->setSelected(true);
             }
 
-            if (!empty($item->getNodes())) {
+            if (! empty($item->getNodes())) {
                 $item->addTag((string) \count($item->getNodes()));
             }
 
-            if (!empty($href_type)) {
+            if (! empty($href_type)) {
                 $entity = $this->em->getPartialReference($class, $item->getId());
                 $item->setHref($this->urlGenerator->getURL($entity, $href_type));
             }
@@ -118,10 +121,10 @@ class TreeViewGenerator
      */
     public function getGenericTree(string $class, ?StructuralDBElement $parent = null): array
     {
-        if (!is_a($class, NamedDBElement::class, true)) {
+        if (! is_a($class, NamedDBElement::class, true)) {
             throw new \InvalidArgumentException('$class must be a class string that implements StructuralDBElement or NamedDBElement!');
         }
-        if (null !== $parent && !is_a($parent, $class)) {
+        if (null !== $parent && ! is_a($parent, $class)) {
             throw new \InvalidArgumentException('$parent must be of the type $class!');
         }
 
@@ -136,13 +139,11 @@ class TreeViewGenerator
         $secure_class_name = str_replace('\\', '_', $class);
         $key = 'treeview_'.$this->keyGenerator->generateKey().'_'.$secure_class_name;
 
-        $ret = $this->cache->get($key, function (ItemInterface $item) use ($repo, $parent, $secure_class_name) {
+        return $this->cache->get($key, function (ItemInterface $item) use ($repo, $parent, $secure_class_name) {
             // Invalidate when groups, a element with the class or the user changes
             $item->tag(['groups', 'tree_treeview', $this->keyGenerator->generateKey(), $secure_class_name]);
 
             return $repo->getGenericNodeTree($parent);
         });
-
-        return $ret;
     }
 }

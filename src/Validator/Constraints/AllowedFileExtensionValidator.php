@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -44,9 +47,9 @@ class AllowedFileExtensionValidator extends ConstraintValidator
      * @param mixed      $value      The value that should be validated
      * @param Constraint $constraint The constraint for the validation
      */
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof AllowedFileExtension) {
+        if (! $constraint instanceof AllowedFileExtension) {
             throw new UnexpectedTypeException($constraint, AllowedFileExtension::class);
         }
 
@@ -67,7 +70,7 @@ class AllowedFileExtensionValidator extends ConstraintValidator
                 return;
             }
 
-            if (!$this->filterTools->isExtensionAllowed(
+            if (! $this->filterTools->isExtensionAllowed(
                 $attachment_type->getFiletypeFilter(),
                 $value->getClientOriginalExtension()
             )) {

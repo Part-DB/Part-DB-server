@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -31,7 +34,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/store_location")
@@ -74,8 +76,6 @@ class StorelocationController extends BaseAdminController
 
     /**
      * @Route("/export", name="store_location_export_all")
-     *
-     * @param SerializerInterface $serializer
      *
      * @return Response
      */

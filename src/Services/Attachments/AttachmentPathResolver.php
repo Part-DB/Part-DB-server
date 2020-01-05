@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -115,23 +118,6 @@ class AttachmentPathResolver
     }
 
     /**
-     * Create an array usable for preg_replace out of an array of placeholders or pathes.
-     * Slashes and other chars become escaped.
-     * For example: '%TEST%' becomes '/^%TEST%/'.
-     */
-    protected function arrayToRegexArray(array $array): array
-    {
-        $ret = [];
-
-        foreach ($array as $item) {
-            $item = str_replace(['\\'], ['/'], $item);
-            $ret[] = '/'.preg_quote($item, '/').'/';
-        }
-
-        return $ret;
-    }
-
-    /**
      * Converts an relative placeholder filepath (with %MEDIA% or older %BASE%) to an absolute filepath on disk.
      * The directory separator is always /. Relative pathes are not realy possible (.. is striped).
      *
@@ -163,9 +149,7 @@ class AttachmentPathResolver
         }
 
         //Normalize path and remove .. (to prevent directory traversal attack)
-        $placeholder_path = str_replace(['\\'], ['/'], $placeholder_path);
-
-        return $placeholder_path;
+        return str_replace(['\\'], ['/'], $placeholder_path);
     }
 
     /**
@@ -199,7 +183,7 @@ class AttachmentPathResolver
         }
 
         //If the new string does not begin with a placeholder, it is invalid
-        if (!preg_match('/^%\w+%/', $real_path)) {
+        if (! preg_match('/^%\w+%/', $real_path)) {
             return null;
         }
 
@@ -245,5 +229,22 @@ class AttachmentPathResolver
     public function getModelsPath(): ?string
     {
         return $this->models_path;
+    }
+
+    /**
+     * Create an array usable for preg_replace out of an array of placeholders or pathes.
+     * Slashes and other chars become escaped.
+     * For example: '%TEST%' becomes '/^%TEST%/'.
+     */
+    protected function arrayToRegexArray(array $array): array
+    {
+        $ret = [];
+
+        foreach ($array as $item) {
+            $item = str_replace(['\\'], ['/'], $item);
+            $ret[] = '/'.preg_quote($item, '/').'/';
+        }
+
+        return $ret;
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -38,16 +41,6 @@ class BuiltinAttachmentsFinder
     {
         $this->pathResolver = $pathResolver;
         $this->cache = $cache;
-    }
-
-    protected function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'limit' => 15,  //Given only 15 entries
-            //'allowed_extensions' => [], //Filter the filenames. For example ['jpg', 'jpeg'] to only get jpegs.
-            //'placeholders' => Attachment::BUILTIN_PLACEHOLDER, //By default use all builtin ressources,
-            'empty_returns_all' => false, //Return the whole list of ressources when empty keyword is given
-        ]);
     }
 
     /**
@@ -137,5 +130,15 @@ class BuiltinAttachmentsFinder
         $regex = '/.*'.$keyword.'.*/i';
 
         return preg_grep($regex, $base_list);
+    }
+
+    protected function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'limit' => 15,  //Given only 15 entries
+            //'allowed_extensions' => [], //Filter the filenames. For example ['jpg', 'jpeg'] to only get jpegs.
+            //'placeholders' => Attachment::BUILTIN_PLACEHOLDER, //By default use all builtin ressources,
+            'empty_returns_all' => false, //Return the whole list of ressources when empty keyword is given
+        ]);
     }
 }

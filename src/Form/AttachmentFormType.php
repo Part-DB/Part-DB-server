@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -53,7 +56,7 @@ class AttachmentFormType extends AbstractType
         $this->allow_attachments_download = $allow_attachments_downloads;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('name', TextType::class, [
             'label' => 'attachment.edit.name',
@@ -94,7 +97,7 @@ class AttachmentFormType extends AbstractType
         $builder->add('downloadURL', CheckboxType::class, ['required' => false,
             'label' => 'attachment.edit.download_url',
             'mapped' => false,
-            'disabled' => !$this->allow_attachments_download,
+            'disabled' => ! $this->allow_attachments_download,
             'attr' => ['class' => 'form-control-sm'],
             'label_attr' => ['class' => 'checkbox-custom'], ]);
 
@@ -114,7 +117,7 @@ class AttachmentFormType extends AbstractType
         //Check the secure file checkbox, if file is in securefile location
         $builder->get('secureFile')->addEventListener(
             FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) {
+            function (FormEvent $event): void {
                 $attachment = $event->getForm()->getParent()->getData();
                 if ($attachment instanceof Attachment) {
                     $event->setData($attachment->isSecure());
@@ -123,7 +126,7 @@ class AttachmentFormType extends AbstractType
         );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Attachment::class,

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -52,7 +55,7 @@ class AttachmentDeleteListener
      *
      * @PreUpdate
      */
-    public function preUpdateHandler(Attachment $attachment, PreUpdateEventArgs $event)
+    public function preUpdateHandler(Attachment $attachment, PreUpdateEventArgs $event): void
     {
         if ($event->hasChangedField('path')) {
             //Dont delete file if the attachment uses a builtin ressource:
@@ -70,7 +73,7 @@ class AttachmentDeleteListener
      *
      * @PostRemove
      */
-    public function postRemoveHandler(Attachment $attachment, LifecycleEventArgs $event)
+    public function postRemoveHandler(Attachment $attachment, LifecycleEventArgs $event): void
     {
         //Dont delete file if the attachment uses a builtin ressource:
         if ($attachment->isBuiltIn()) {

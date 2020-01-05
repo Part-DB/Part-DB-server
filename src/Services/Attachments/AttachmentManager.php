@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -49,7 +52,7 @@ class AttachmentManager
      */
     public function attachmentToFile(Attachment $attachment): ?\SplFileInfo
     {
-        if ($attachment->isExternal() || !$this->isFileExisting($attachment)) {
+        if ($attachment->isExternal() || ! $this->isFileExisting($attachment)) {
             return null;
         }
 
@@ -117,7 +120,7 @@ class AttachmentManager
             return null;
         }
 
-        if (!$this->isFileExisting($attachment)) {
+        if (! $this->isFileExisting($attachment)) {
             return null;
         }
 
@@ -138,7 +141,7 @@ class AttachmentManager
     {
         $bytes = $this->getFileSize($attachment);
 
-        if (null == $bytes) {
+        if (null === $bytes) {
             return null;
         }
 

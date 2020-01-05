@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -38,12 +41,9 @@ class ValidGoogleAuthCodeValidator extends ConstraintValidator
         $this->googleAuthenticator = $googleAuthenticator;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof ValidGoogleAuthCode) {
+        if (! $constraint instanceof ValidGoogleAuthCode) {
             throw new UnexpectedTypeException($constraint, ValidGoogleAuthCode::class);
         }
 
@@ -51,11 +51,11 @@ class ValidGoogleAuthCodeValidator extends ConstraintValidator
             return;
         }
 
-        if (!\is_string($value)) {
+        if (! \is_string($value)) {
             throw new UnexpectedValueException($value, 'string');
         }
 
-        if (!ctype_digit($value)) {
+        if (! ctype_digit($value)) {
             $this->context->addViolation('validator.google_code.only_digits_allowed');
         }
 
@@ -71,7 +71,7 @@ class ValidGoogleAuthCodeValidator extends ConstraintValidator
             $user = $this->context->getObject()->getParent()->getData();
 
             //Check if the given code is valid
-            if (!$this->googleAuthenticator->checkCode($user, $value)) {
+            if (! $this->googleAuthenticator->checkCode($user, $value)) {
                 $this->context->addViolation('validator.google_code.wrong_code');
             }
         }

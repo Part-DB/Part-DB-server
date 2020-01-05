@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -41,15 +44,15 @@ class TFAGoogleSettingsType extends AbstractType
     {
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
             $form = $event->getForm();
             /** @var User $user */
             $user = $event->getData();
 
             //Only show setup fields, when google authenticator is not enabled
-            if (!$user->isGoogleAuthenticatorEnabled()) {
+            if (! $user->isGoogleAuthenticatorEnabled()) {
                 $form->add(
                     'google_confirmation',
                     TextType::class,
@@ -82,10 +85,10 @@ class TFAGoogleSettingsType extends AbstractType
         //$builder->add('cancel', ResetType::class);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-                                   'data_class' => User::class,
-                               ]);
+            'data_class' => User::class,
+        ]);
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -48,7 +51,7 @@ class MoneyFormatter
     public function format($value, ?Currency $currency = null, $decimals = 5, bool $show_all_digits = false)
     {
         $iso_code = $this->base_currency;
-        if (null !== $currency && !empty($currency->getIsoCode())) {
+        if (null !== $currency && ! empty($currency->getIsoCode())) {
             $iso_code = $currency->getIsoCode();
         }
 

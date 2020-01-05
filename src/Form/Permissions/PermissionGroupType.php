@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -38,7 +41,7 @@ class PermissionGroupType extends AbstractType
         $this->perm_structure = $resolver->getPermissionStructure();
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $permissions = $this->perm_structure['perms'];
 
@@ -66,7 +69,7 @@ class PermissionGroupType extends AbstractType
         }
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -77,7 +80,7 @@ class PermissionGroupType extends AbstractType
         $resolver->setDefault('inherit', false);
 
         $resolver->setDefault('label', function (Options $options) {
-            if (!empty($this->perm_structure['groups'][$options['group_name']]['label'])) {
+            if (! empty($this->perm_structure['groups'][$options['group_name']]['label'])) {
                 return $this->perm_structure['groups'][$options['group_name']]['label'];
             }
 

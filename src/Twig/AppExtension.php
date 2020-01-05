@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -127,7 +130,7 @@ class AppExtension extends AbstractExtension
         return $this->entityURLGenerator->getURL($entity, $method);
     }
 
-    public function formatCurrency($amount, Currency $currency = null, int $decimals = 5)
+    public function formatCurrency($amount, ?Currency $currency = null, int $decimals = 5)
     {
         return $this->moneyFormatter->format($amount, $currency, $decimals);
     }

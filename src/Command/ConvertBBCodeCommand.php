@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -67,7 +70,7 @@ class ConvertBBCodeCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setDescription('Converts BBCode used in old Part-DB versions to newly used Markdown')
@@ -97,7 +100,7 @@ class ConvertBBCodeCommand extends Command
         ];
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $io = new SymfonyStyle($input, $output);
         $targets = $this->getTargetsLists();
@@ -126,7 +129,7 @@ class ConvertBBCodeCommand extends Command
 
             //In verbose mode print the names of the entities
             foreach ($results as $result) {
-                /* @var NamedDBElement $result */
+                /** @var NamedDBElement $result */
                 $io->writeln(
                     'Convert entity: '.$result->getName().' ('.$result->getIDString().')',
                     OutputInterface::VERBOSITY_VERBOSE
@@ -135,7 +138,7 @@ class ConvertBBCodeCommand extends Command
                     //Retrieve bbcode from entity
                     $bbcode = $this->propertyAccessor->getValue($result, $property);
                     //Check if the current property really contains BBCode
-                    if (!preg_match(static::BBCODE_REGEX, $bbcode)) {
+                    if (! preg_match(static::BBCODE_REGEX, $bbcode)) {
                         continue;
                     }
                     $io->writeln(
@@ -156,7 +159,7 @@ class ConvertBBCodeCommand extends Command
         }
 
         //If we are not in dry run, save changes to DB
-        if (!$input->getOption('dry-run')) {
+        if (! $input->getOption('dry-run')) {
             $this->em->flush();
             $io->success('Changes saved to DB successfully!');
         }

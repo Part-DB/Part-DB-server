@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -71,13 +74,11 @@ class SIFormatter
         //Choose the prefix to use
         $tmp = $this->getPrefixByMagnitude($this->getMagnitude($value));
 
-        $ret = [
+        return [
             'value' => $value / $tmp[0],
             'prefix_magnitude' => log10($tmp[0]),
             'prefix' => $tmp[1],
         ];
-
-        return $ret;
     }
 
     /**

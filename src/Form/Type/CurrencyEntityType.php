@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -39,7 +42,7 @@ class CurrencyEntityType extends StructuralEntityType
         $this->base_currency = $base_currency;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         //Important to call the parent resolver!
         parent::configureOptions($resolver);
@@ -91,7 +94,7 @@ class CurrencyEntityType extends StructuralEntityType
         /** @var Currency $choice */
         $tmp = [];
 
-        if (!empty($choice->getIsoCode())) {
+        if (! empty($choice->getIsoCode())) {
             //Show the name of the currency
             $tmp += ['data-subtext' => $choice->getName()];
         }

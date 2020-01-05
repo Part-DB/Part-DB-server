@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -44,9 +47,9 @@ class ValidPermissionValidator extends ConstraintValidator
      * @param mixed      $value      The value that should be validated
      * @param Constraint $constraint The constraint for the validation
      */
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof ValidPermission) {
+        if (! $constraint instanceof ValidPermission) {
             throw new UnexpectedTypeException($constraint, ValidPermission::class);
         }
 
@@ -56,7 +59,7 @@ class ValidPermissionValidator extends ConstraintValidator
         //Check for each permission and operation, for an alsoSet attribute
         foreach ($this->perm_structure['perms'] as $perm_key => $permission) {
             foreach ($permission['operations'] as $op_key => $op) {
-                if (!empty($op['alsoSet']) &&
+                if (! empty($op['alsoSet']) &&
                     true === $this->resolver->dontInherit($perm_holder, $perm_key, $op_key)) {
                     //Set every op listed in also Set
                     foreach ($op['alsoSet'] as $set_also) {

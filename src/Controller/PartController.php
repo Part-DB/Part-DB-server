@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -80,11 +82,12 @@ class PartController extends AbstractController
             //Upload passed files
             $attachments = $form['attachments'];
             foreach ($attachments as $attachment) {
-                /** @var $attachment FormInterface */
+                /** @var FormInterface $attachment */
                 $options = [
                     'secure_attachment' => $attachment['secureFile']->getData(),
                     'download_url' => $attachment['downloadURL']->getData(),
                 ];
+
                 try {
                     $attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
                 } catch (AttachmentDownloadException $ex) {
@@ -100,7 +103,7 @@ class PartController extends AbstractController
             $this->addFlash('info', 'part.edited_flash');
             //Reload form, so the SIUnitType entries use the new part unit
             $form = $this->createForm(PartBaseType::class, $part);
-        } elseif ($form->isSubmitted() && !$form->isValid()) {
+        } elseif ($form->isSubmitted() && ! $form->isValid()) {
             $this->addFlash('error', 'part.edited_flash.invalid');
         }
 
@@ -163,11 +166,12 @@ class PartController extends AbstractController
             //Upload passed files
             $attachments = $form['attachments'];
             foreach ($attachments as $attachment) {
-                /** @var $attachment FormInterface */
+                /** @var FormInterface $attachment */
                 $options = [
                     'secure_attachment' => $attachment['secureFile']->getData(),
                     'download_url' => $attachment['downloadURL']->getData(),
                 ];
+
                 try {
                     $attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
                 } catch (AttachmentDownloadException $ex) {
@@ -185,7 +189,7 @@ class PartController extends AbstractController
             return $this->redirectToRoute('part_edit', ['id' => $new_part->getID()]);
         }
 
-        if ($form->isSubmitted() && !$form->isValid()) {
+        if ($form->isSubmitted() && ! $form->isValid()) {
             $this->addFlash('error', 'part.created_flash.invalid');
         }
 

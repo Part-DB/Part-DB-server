@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -54,7 +57,7 @@ class StructureVoter extends ExtendedVoter
     /**
      * Maps a instance type to the permission name.
      *
-     * @param $subject mixed The subject for which the permission name should be generated
+     * @param mixed $subject The subject for which the permission name should be generated
      *
      * @return string|null the name of the permission for the subject's type or null, if the subject is not supported
      */

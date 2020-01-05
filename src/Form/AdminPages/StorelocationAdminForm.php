@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -29,7 +32,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class StorelocationAdminForm extends BaseEntityAdminForm
 {
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity)
+    protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity): void
     {
         $is_new = null === $entity->getID();
 
@@ -38,27 +41,27 @@ class StorelocationAdminForm extends BaseEntityAdminForm
             'label' => 'storelocation.edit.is_full.label',
             'help' => 'storelocation.edit.is_full.help',
             'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
 
         $builder->add('limit_to_existing_parts', CheckboxType::class, [
             'required' => false,
             'label' => 'storelocation.limit_to_existing.label',
             'help' => 'storelocation.limit_to_existing.help',
             'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
 
         $builder->add('only_single_part', CheckboxType::class, [
             'required' => false,
             'label' => 'storelocation.only_single_part.label',
             'help' => 'storelocation.only_single_part.help',
             'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
 
         $builder->add('storage_type', StructuralEntityType::class, [
             'required' => false,
             'label' => 'storelocation.storage_type.label',
             'help' => 'storelocation.storage_type.help',
             'class' => MeasurementUnit::class, 'disable_not_selectable' => true,
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity), ]);
     }
 }

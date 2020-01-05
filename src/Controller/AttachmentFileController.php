@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -49,7 +52,7 @@ class AttachmentFileController extends AbstractController
             throw new \RuntimeException('You can not download external attachments!');
         }
 
-        if (!$helper->isFileExisting($attachment)) {
+        if (! $helper->isFileExisting($attachment)) {
             throw new \RuntimeException('The file associated with the attachment is not existing!');
         }
 
@@ -79,7 +82,7 @@ class AttachmentFileController extends AbstractController
             throw new \RuntimeException('You can not download external attachments!');
         }
 
-        if (!$helper->isFileExisting($attachment)) {
+        if (! $helper->isFileExisting($attachment)) {
             throw new \RuntimeException('The file associated with the attachment is not existing!');
         }
 

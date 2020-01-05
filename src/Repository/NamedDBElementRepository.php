@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -39,7 +42,7 @@ class NamedDBElementRepository extends EntityRepository
 
         $entities = $this->findBy([], ['name' => 'ASC']);
         foreach ($entities as $entity) {
-            /** @var $entity NamedDBElement */
+            /** @var NamedDBElement $entity */
             $node = new TreeViewNode($entity->getName(), null, null);
             $node->setId($entity->getID());
             $result[] = $node;

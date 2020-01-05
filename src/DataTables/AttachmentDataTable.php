@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -54,23 +57,13 @@ class AttachmentDataTable implements DataTableTypeInterface
         $this->attachmentURLGenerator = $attachmentURLGenerator;
     }
 
-    protected function getQuery(QueryBuilder $builder)
-    {
-        $builder->distinct()->select('attachment')
-            ->addSelect('attachment_type')
-            //->addSelect('element')
-            ->from(Attachment::class, 'attachment')
-            ->leftJoin('attachment.attachment_type', 'attachment_type');
-        //->leftJoin('attachment.element', 'element');
-    }
-
-    public function configure(DataTable $dataTable, array $options)
+    public function configure(DataTable $dataTable, array $options): void
     {
         $dataTable->add('picture', TextColumn::class, [
             'label' => '',
             'render' => function ($value, Attachment $context) {
                 if ($context->isPicture()
-                    && !$context->isExternal()
+                    && ! $context->isExternal()
                     && $this->attachmentHelper->isFileExisting($context)) {
                     return sprintf(
                         '<img alt="%s" src="%s" data-thumbnail="%s" class="%s">',
@@ -204,9 +197,19 @@ class AttachmentDataTable implements DataTableTypeInterface
 
         $dataTable->createAdapter(ORMAdapter::class, [
             'entity' => Attachment::class,
-            'query' => function (QueryBuilder $builder) {
+            'query' => function (QueryBuilder $builder): void {
                 $this->getQuery($builder);
             },
         ]);
+    }
+
+    protected function getQuery(QueryBuilder $builder): void
+    {
+        $builder->distinct()->select('attachment')
+            ->addSelect('attachment_type')
+            //->addSelect('element')
+            ->from(Attachment::class, 'attachment')
+            ->leftJoin('attachment.attachment_type', 'attachment_type');
+        //->leftJoin('attachment.element', 'element');
     }
 }

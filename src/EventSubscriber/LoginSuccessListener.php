@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -41,7 +44,7 @@ class LoginSuccessListener implements EventSubscriberInterface
         $this->flashBag = $flashBag;
     }
 
-    public function onLogin(InteractiveLoginEvent $event)
+    public function onLogin(InteractiveLoginEvent $event): void
     {
         $this->flashBag->add('notice', $this->translator->trans('flash.login_successful'));
     }

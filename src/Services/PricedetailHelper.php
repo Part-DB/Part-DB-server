@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -167,7 +170,6 @@ class PricedetailHelper
     /**
      * Converts the given value in origin currency to the choosen target currency.
      *
-     * @param $value float|string The value that should be converted
      * @param Currency|null $originCurrency The currency the $value is given in.
      *                                      Set to null, to use global base currency.
      * @param Currency|null $targetCurrency The target currency, to which $value should be converted.

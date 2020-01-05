@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -134,7 +137,7 @@ trait InstockTrait
     public function useFloatAmount(): bool
     {
         if ($this->partUnit instanceof MeasurementUnit) {
-            return !$this->partUnit->isInteger();
+            return ! $this->partUnit->isInteger();
         }
 
         //When no part unit is set, treat it as part count, and so use the integer value.

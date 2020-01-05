@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -37,7 +40,50 @@ class AmountFormatter
         $this->siFormatter = $siFormatter;
     }
 
-    protected function configureOptions(OptionsResolver $resolver)
+    /**
+     * Formats the given value using the measurement unit and options.
+     *
+     * @param MeasurementUnit|null $unit The measurement unit, whose unit symbol should be used for formatting.
+     *                                   If set to null, it is assumed that the part amount is measured in pieces.
+     *
+     * @return string The formatted string
+     *
+     * @throws \InvalidArgumentException thrown if $value is not numeric
+     */
+    public function format($value, ?MeasurementUnit $unit = null, array $options = [])
+    {
+        if (! is_numeric($value)) {
+            throw new \InvalidArgumentException('$value must be an numeric value!');
+        }
+        $value = (float) $value;
+
+        //Find out what options to use
+        $resolver = new OptionsResolver();
+        $resolver->setDefault('measurement_unit', $unit);
+        $this->configureOptions($resolver);
+
+        $options = $resolver->resolve($options);
+
+        if ($options['is_integer']) {
+            $value = round($value);
+        }
+
+        //If the measurement unit uses a SI prefix format it that way.
+        if ($options['show_prefix']) {
+            return $this->siFormatter->format($value, $options['unit'], $options['decimals']);
+        }
+
+        //Otherwise just output it
+        if (! empty($options['unit'])) {
+            $format_string = '%.'.$options['decimals'].'f '.$options['unit'];
+        } else { //Dont add space after number if no unit was specified
+            $format_string = '%.'.$options['decimals'].'f';
+        }
+
+        return sprintf($format_string, $value);
+    }
+
+    protected function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'show_prefix' => function (Options $options) {
@@ -84,49 +130,5 @@ class AmountFormatter
 
             return $value;
         });
-    }
-
-    /**
-     * Formats the given value using the measurement unit and options.
-     *
-     * @param $value float|int The value that should be formatted. Must be numeric.
-     * @param MeasurementUnit|null $unit The measurement unit, whose unit symbol should be used for formatting.
-     *                                   If set to null, it is assumed that the part amount is measured in pieces.
-     *
-     * @return string The formatted string
-     *
-     * @throws \InvalidArgumentException thrown if $value is not numeric
-     */
-    public function format($value, ?MeasurementUnit $unit = null, array $options = [])
-    {
-        if (!is_numeric($value)) {
-            throw new \InvalidArgumentException('$value must be an numeric value!');
-        }
-        $value = (float) $value;
-
-        //Find out what options to use
-        $resolver = new OptionsResolver();
-        $resolver->setDefault('measurement_unit', $unit);
-        $this->configureOptions($resolver);
-
-        $options = $resolver->resolve($options);
-
-        if ($options['is_integer']) {
-            $value = round($value);
-        }
-
-        //If the measurement unit uses a SI prefix format it that way.
-        if ($options['show_prefix']) {
-            return $this->siFormatter->format($value, $options['unit'], $options['decimals']);
-        }
-
-        //Otherwise just output it
-        if (!empty($options['unit'])) {
-            $format_string = '%.'.$options['decimals'].'f '.$options['unit'];
-        } else { //Dont add space after number if no unit was specified
-            $format_string = '%.'.$options['decimals'].'f';
-        }
-
-        return sprintf($format_string, $value);
     }
 }

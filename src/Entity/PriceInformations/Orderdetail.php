@@ -181,8 +181,8 @@ class Orderdetail extends DBElement
     /**
      * Get the link to the website of the article on the suppliers website.
      *
-     * @param $no_automatic_url bool Set this to true, if you only want to get the local set product URL for this Orderdetail
-     * and not a automatic generated one, based from the Supplier
+     * @param bool $no_automatic_url Set this to true, if you only want to get the local set product URL for this Orderdetail
+     *                               and not a automatic generated one, based from the Supplier
      *
      * @return string the link to the article
      */
@@ -330,7 +330,7 @@ class Orderdetail extends DBElement
      * Sets the custom product supplier URL for this order detail.
      * Set this to "", if the function getSupplierProductURL should return the automatic generated URL.
      *
-     * @param $new_url string The new URL for the supplier URL
+     * @param string $new_url The new URL for the supplier URL
      *
      * @return Orderdetail
      */

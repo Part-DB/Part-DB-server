@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -80,7 +83,7 @@ abstract class BaseAdminController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             //Check if we editing a user and if we need to change the password of it
-            if ($entity instanceof User && !empty($form['new_password']->getData())) {
+            if ($entity instanceof User && ! empty($form['new_password']->getData())) {
                 $password = $this->passwordEncoder->encodePassword($entity, $form['new_password']->getData());
                 $entity->setPassword($password);
                 //By default the user must change the password afterwards
@@ -90,11 +93,12 @@ abstract class BaseAdminController extends AbstractController
             //Upload passed files
             $attachments = $form['attachments'];
             foreach ($attachments as $attachment) {
-                /** @var $attachment FormInterface */
+                /** @var FormInterface $attachment */
                 $options = [
                     'secure_attachment' => $attachment['secureFile']->getData(),
                     'download_url' => $attachment['downloadURL']->getData(),
                 ];
+
                 try {
                     $this->attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
                 } catch (AttachmentDownloadException $ex) {
@@ -112,7 +116,7 @@ abstract class BaseAdminController extends AbstractController
             //Rebuild form, so it is based on the updated data. Important for the parent field!
             //We can not use dynamic form events here, because the parent entity list is build from database!
             $form = $this->createForm($this->form_class, $entity, ['attachment_class' => $this->attachment_class]);
-        } elseif ($form->isSubmitted() && !$form->isValid()) {
+        } elseif ($form->isSubmitted() && ! $form->isValid()) {
             $this->addFlash('error', 'entity.edit_flash.invalid');
         }
 
@@ -136,7 +140,7 @@ abstract class BaseAdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($new_entity instanceof User && !empty($form['new_password']->getData())) {
+            if ($new_entity instanceof User && ! empty($form['new_password']->getData())) {
                 $password = $this->passwordEncoder->encodePassword($new_entity, $form['new_password']->getData());
                 $new_entity->setPassword($password);
                 //By default the user must change the password afterwards
@@ -146,11 +150,12 @@ abstract class BaseAdminController extends AbstractController
             //Upload passed files
             $attachments = $form['attachments'];
             foreach ($attachments as $attachment) {
-                /** @var $attachment FormInterface */
+                /** @var FormInterface $attachment */
                 $options = [
                     'secure_attachment' => $attachment['secureFile']->getData(),
                     'download_url' => $attachment['downloadURL']->getData(),
                 ];
+
                 try {
                     $this->attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
                 } catch (AttachmentDownloadException $ex) {
@@ -168,7 +173,7 @@ abstract class BaseAdminController extends AbstractController
             return $this->redirectToRoute($this->route_base.'_edit', ['id' => $new_entity->getID()]);
         }
 
-        if ($form->isSubmitted() && !$form->isValid()) {
+        if ($form->isSubmitted() && ! $form->isValid()) {
             $this->addFlash('error', 'entity.created_flash.invalid');
         }
 
@@ -187,7 +192,7 @@ abstract class BaseAdminController extends AbstractController
             $errors = $importer->fileToDBEntities($file, $this->entity_class, $options);
 
             foreach ($errors as $name => $error) {
-                /* @var $error ConstraintViolationList */
+                /** @var ConstraintViolationList $error */
                 $this->addFlash('error', $name.':'.$error);
             }
         }

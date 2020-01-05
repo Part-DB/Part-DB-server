@@ -68,9 +68,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Pricedetail extends DBElement
 {
-    public const PRICE_PRECISION = 5;
-
     use TimestampTrait;
+
+    public const PRICE_PRECISION = 5;
 
     /**
      * @var Orderdetail
@@ -180,7 +180,7 @@ class Pricedetail extends DBElement
      */
     public function getPriceRelatedQuantity(): float
     {
-        if ($this->orderdetail && $this->orderdetail->getPart() && !$this->orderdetail->getPart()->useFloatAmount()) {
+        if ($this->orderdetail && $this->orderdetail->getPart() && ! $this->orderdetail->getPart()->useFloatAmount()) {
             $tmp = round($this->price_related_quantity);
 
             return $tmp < 1 ? 1 : $tmp;
@@ -203,7 +203,7 @@ class Pricedetail extends DBElement
      */
     public function getMinDiscountQuantity(): float
     {
-        if ($this->orderdetail && $this->orderdetail->getPart() && !$this->orderdetail->getPart()->useFloatAmount()) {
+        if ($this->orderdetail && $this->orderdetail->getPart() && ! $this->orderdetail->getPart()->useFloatAmount()) {
             $tmp = round($this->min_discount_quantity);
 
             return $tmp < 1 ? 1 : $tmp;

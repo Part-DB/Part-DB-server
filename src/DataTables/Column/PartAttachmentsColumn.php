@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -56,7 +59,7 @@ class PartAttachmentsColumn extends AbstractColumn
 
     public function render($value, $context)
     {
-        if (!$context instanceof Part) {
+        if (! $context instanceof Part) {
             throw new \RuntimeException('$context must be a Part object!');
         }
         $tmp = '';
@@ -70,7 +73,7 @@ class PartAttachmentsColumn extends AbstractColumn
             if (--$count < 0) {
                 break;
             }
-            /* @var Attachment $attachment */
+            /** @var Attachment $attachment */
             $tmp .= sprintf(
                 '<a href="%s" title="%s" class="attach-table-icon" target="_blank" rel="noopener" data-no-ajax>%s</a>',
                 $this->urlGenerator->viewURL($attachment),
@@ -87,7 +90,7 @@ class PartAttachmentsColumn extends AbstractColumn
         return $tmp;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
     }

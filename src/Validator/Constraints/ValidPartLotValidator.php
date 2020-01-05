@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -42,13 +45,13 @@ class ValidPartLotValidator extends ConstraintValidator
      * @param mixed      $value      The value that should be validated
      * @param Constraint $constraint The constraint for the validation
      */
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof ValidPartLot) {
+        if (! $constraint instanceof ValidPartLot) {
             throw new UnexpectedTypeException($constraint, ValidPartLot::class);
         }
 
-        if (!$value instanceof PartLot) {
+        if (! $value instanceof PartLot) {
             throw new UnexpectedTypeException($value, PartLot::class);
         }
 
@@ -68,7 +71,7 @@ class ValidPartLotValidator extends ConstraintValidator
                         ->atPath('amount')->addViolation();
                 }
 
-                if (!$parts->contains($value->getPart())) {
+                if (! $parts->contains($value->getPart())) {
                     $this->context->buildViolation('validator.part_lot.location_full')
                         ->atPath('storage_location')->addViolation();
                 }
@@ -76,7 +79,7 @@ class ValidPartLotValidator extends ConstraintValidator
 
             //Check for onlyExisting
             if ($value->getStorageLocation()->isLimitToExistingParts()) {
-                if (!$parts->contains($value->getPart())) {
+                if (! $parts->contains($value->getPart())) {
                     $this->context->buildViolation('validator.part_lot.only_existing')
                         ->atPath('storage_location')->addViolation();
                 }
@@ -84,7 +87,7 @@ class ValidPartLotValidator extends ConstraintValidator
 
             //Check for only single part
             if ($value->getStorageLocation()->isLimitToExistingParts()) {
-                if (($parts->count() > 0) && !$parts->contains($value->getPart())) {
+                if (($parts->count() > 0) && ! $parts->contains($value->getPart())) {
                     $this->context->buildViolation('validator.part_lot.single_part')
                         ->atPath('storage_location')->addViolation();
                 }

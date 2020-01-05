@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -46,7 +49,7 @@ class OrderdetailType extends AbstractType
         $this->security = $security;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var Orderdetail $orderdetail */
         $orderdetail = $builder->getData();
@@ -76,7 +79,7 @@ class OrderdetailType extends AbstractType
         ]);
 
         //Add pricedetails after we know the data, so we can set the default currency
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options): void {
             /** @var Orderdetail $orderdetail */
             $orderdetail = $event->getData();
 
@@ -94,14 +97,14 @@ class OrderdetailType extends AbstractType
                 'prototype_data' => $dummy_pricedetail,
                 'by_reference' => false,
                 'entry_options' => [
-                    'disabled' => !$this->security->isGranted('@parts_prices.edit'),
+                    'disabled' => ! $this->security->isGranted('@parts_prices.edit'),
                     'measurement_unit' => $options['measurement_unit'],
                 ],
             ]);
         });
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Orderdetail::class,

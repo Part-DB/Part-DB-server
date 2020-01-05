@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -31,13 +34,12 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class U2FRegistrationSubscriber implements EventSubscriberInterface
 {
-    /** @var UrlGeneratorInterface */
-    private $router;
-
     protected $em;
 
     protected $demo_mode;
     protected $flashBag;
+    /** @var UrlGeneratorInterface */
+    private $router;
 
     public function __construct(UrlGeneratorInterface $router, EntityManagerInterface $entityManager, FlashBagInterface $flashBag, bool $demo_mode)
     {
@@ -58,7 +60,7 @@ class U2FRegistrationSubscriber implements EventSubscriberInterface
     public function onRegister(RegisterEvent $event): void
     {
         //Skip adding of U2F key on demo mode
-        if (!$this->demo_mode) {
+        if (! $this->demo_mode) {
             $user = $event->getUser();
             $registration = $event->getRegistration();
             $newKey = new U2FKey();

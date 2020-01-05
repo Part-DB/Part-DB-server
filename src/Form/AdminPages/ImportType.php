@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -41,14 +44,14 @@ class ImportType extends AbstractType
         $this->security = $security;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $data = $options['data'];
 
         //Disable import if user is not allowed to create elements.
         $entity = new $data['entity_class']();
         $perm_name = 'create';
-        $disabled = !$this->security->isGranted($perm_name, $entity);
+        $disabled = ! $this->security->isGranted($perm_name, $entity);
 
         $builder
 

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -47,7 +50,7 @@ class StructuralElementRecursionHelper
     public function execute(StructuralDBElement $element, callable $func, int $max_depth = -1, $call_from_bottom = true): void
     {
         //Cancel if we reached our maximal allowed level. Must be zero because -1 is infinity levels
-        if (0 == $max_depth) {
+        if (0 === $max_depth) {
             return;
         }
 
@@ -55,7 +58,7 @@ class StructuralElementRecursionHelper
         $children = $element->getChildren();
 
         //If we should call from top we execute the func here.
-        if (!$call_from_bottom) {
+        if (! $call_from_bottom) {
             $func($element);
         }
 
@@ -80,7 +83,7 @@ class StructuralElementRecursionHelper
     {
         $em = $this->em;
 
-        $this->execute($element, static function (StructuralDBElement $element) use ($em) {
+        $this->execute($element, static function (StructuralDBElement $element) use ($em): void {
             $em->remove($element);
         });
 

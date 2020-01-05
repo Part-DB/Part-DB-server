@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -33,16 +36,16 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
  */
 class UrlOrBuiltinValidator extends UrlValidator
 {
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof UrlOrBuiltin) {
+        if (! $constraint instanceof UrlOrBuiltin) {
             throw new UnexpectedTypeException($constraint, UrlOrBuiltin::class);
         }
 
         if (null === $value || '' === $value) {
             return;
         }
-        if (!is_scalar($value) && !(\is_object($value) && method_exists($value, '__toString'))) {
+        if (! is_scalar($value) && ! (\is_object($value) && method_exists($value, '__toString'))) {
             throw new UnexpectedValueException($value, 'string');
         }
         $value = (string) $value;
@@ -53,7 +56,7 @@ class UrlOrBuiltinValidator extends UrlValidator
         //After the %PLACEHOLDER% comes a slash, so we can check if we have a placholder via explode
         $tmp = explode('/', $value);
         //Builtins must have a %PLACEHOLDER% construction
-        if (!empty($tmp) && \in_array($tmp[0], $constraint->allowed_placeholders, false)) {
+        if (! empty($tmp) && \in_array($tmp[0], $constraint->allowed_placeholders, false)) {
             return;
         }
 

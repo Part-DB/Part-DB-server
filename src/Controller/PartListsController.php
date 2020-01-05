@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -37,8 +40,6 @@ class PartListsController extends AbstractController
     /**
      * @Route("/category/{id}/parts", name="part_list_category")
      *
-     * @param $id int The id of the category
-     *
      * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function showCategory(Category $category, Request $request, DataTableFactory $dataTable)
@@ -58,8 +59,6 @@ class PartListsController extends AbstractController
 
     /**
      * @Route("/footprint/{id}/parts", name="part_list_footprint")
-     *
-     * @param $id int The id of the category
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
@@ -81,8 +80,6 @@ class PartListsController extends AbstractController
     /**
      * @Route("/manufacturer/{id}/parts", name="part_list_manufacturer")
      *
-     * @param $id int The id of the category
-     *
      * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function showManufacturer(Manufacturer $manufacturer, Request $request, DataTableFactory $dataTable)
@@ -103,8 +100,6 @@ class PartListsController extends AbstractController
     /**
      * @Route("/store_location/{id}/parts", name="part_list_store_location")
      *
-     * @param $id int The id of the category
-     *
      * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function showStorelocation(Storelocation $storelocation, Request $request, DataTableFactory $dataTable)
@@ -124,8 +119,6 @@ class PartListsController extends AbstractController
 
     /**
      * @Route("/supplier/{id}/parts", name="part_list_supplier")
-     *
-     * @param $id int The id of the category
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
@@ -179,9 +172,9 @@ class PartListsController extends AbstractController
         }
 
         return $this->render('Parts/lists/search_list.html.twig', [
-                'datatable' => $table,
-                'keyword' => $search,
-            ]);
+            'datatable' => $table,
+            'keyword' => $search,
+        ]);
     }
 
     /**

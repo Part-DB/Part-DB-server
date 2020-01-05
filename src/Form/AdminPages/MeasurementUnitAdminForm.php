@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -28,7 +31,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class MeasurementUnitAdminForm extends BaseEntityAdminForm
 {
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity)
+    protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity): void
     {
         $is_new = null === $entity->getID();
 
@@ -36,17 +39,17 @@ class MeasurementUnitAdminForm extends BaseEntityAdminForm
             'label' => 'measurement_unit.edit.is_integer',
             'help' => 'measurement_unit.edit.is_integer.help',
             'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
 
         $builder->add('use_si_prefix', CheckboxType::class, ['required' => false,
             'label' => 'measurement_unit.edit.use_si_prefix',
             'help' => 'measurement_unit.edit.use_si_prefix.help',
             'label_attr' => ['class' => 'checkbox-custom'],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
 
         $builder->add('unit', TextType::class, ['required' => false,
             'label' => 'measurement_unit.edit.unit_symbol',
             'attr' => ['placeholder' => 'measurement_unit.edit.unit_symbol.placeholder'],
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity), ]);
     }
 }

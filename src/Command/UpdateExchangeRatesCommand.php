@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -49,7 +52,7 @@ class UpdateExchangeRatesCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setDescription('Updates the currency exchange rates.')
@@ -62,7 +65,7 @@ class UpdateExchangeRatesCommand extends Command
                 null);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $io = new SymfonyStyle($input, $output);
 
@@ -88,7 +91,7 @@ class UpdateExchangeRatesCommand extends Command
         $repo = $this->em->getRepository(Currency::class);
         $candidates = [];
 
-        if (!empty($iso_code)) {
+        if (! empty($iso_code)) {
             $candidates = $repo->findBy(['iso_code' => $iso_code]);
         } else {
             $candidates = $repo->findAll();

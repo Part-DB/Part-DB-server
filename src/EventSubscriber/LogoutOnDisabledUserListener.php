@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -43,7 +46,7 @@ class LogoutOnDisabledUserListener implements EventSubscriberInterface
         $this->urlGenerator = $urlGenerator;
     }
 
-    public function onRequest(RequestEvent $event)
+    public function onRequest(RequestEvent $event): void
     {
         $user = $this->security->getUser();
         if ($user instanceof User && $user->isDisabled()) {

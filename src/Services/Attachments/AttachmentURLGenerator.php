@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -102,7 +105,7 @@ class AttachmentURLGenerator
      */
     public function getThumbnailURL(Attachment $attachment, string $filter_name = 'thumbnail_sm'): string
     {
-        if (!$attachment->isPicture()) {
+        if (! $attachment->isPicture()) {
             throw new \InvalidArgumentException('Thumbnail creation only works for picture attachments!');
         }
 
