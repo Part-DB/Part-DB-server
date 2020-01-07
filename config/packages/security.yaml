@@ -5,7 +5,6 @@ security:
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: null }
 
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
@@ -32,6 +31,7 @@ security:
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             form_login:
+
                 login_path: login
                 check_path: login
                 csrf_token_generator: security.csrf.token_manager
