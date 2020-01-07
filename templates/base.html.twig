@@ -45,10 +45,7 @@
             <link rel="stylesheet" href="{{ preload(asset('build/themes/bootstrap.css'), {as: 'style'}) }}">
         {% endif %}
 
-        {% for css in encore_entry_css_files('app') %}
-           <link rel="stylesheet" href="{{ preload(asset(css), {as: 'style'}) }}">
-        {% endfor %}
-
+        {{ encore_entry_link_tags('app') }}
     {% endblock %}
 </head>
 <body data-base-url="{{ url('homepage', {'_locale': app.request.locale}) }}">
@@ -119,14 +116,8 @@
 
 {% endblock %}
 {% block javascripts %}
-    {% for js in encore_entry_js_files('app') %}
-        <script src="{{ preload(asset(js), {as: 'script'}) }}"></script>
-    {% endfor %}
-
-    {% for js in encore_entry_js_files('ru2ftwofactor') %}
-    <script src="{{ preload(asset(js), {as: 'script'}) }}"></script>
-    {% endfor %}
-
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('ru2ftwofactor') }}
 {% endblock %}
 
 {% block scripts %}
