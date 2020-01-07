@@ -582,7 +582,7 @@
         "version": "v4.3.1"
     },
     "symfony/monolog-bridge": {
-        "version": "v4.2.3"
+        "version": "v4.4.2"
     },
     "symfony/monolog-bundle": {
         "version": "3.1",
@@ -653,12 +653,11 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "4.2",
-            "ref": "5374e24d508ba8fd6ba9eb15170255fdb778316a"
+            "ref": "683dcb08707ba8d41b7e34adb0344bfd68d248a7"
         },
         "files": [
-            "./config/packages/dev/routing.yaml",
+            "./config/packages/prod/routing.yaml",
             "./config/packages/routing.yaml",
-            "./config/packages/test/routing.yaml",
             "./config/routes.yaml"
         ]
     },
@@ -724,16 +723,16 @@
         "version": "v4.2.3"
     },
     "symfony/twig-bundle": {
-        "version": "3.3",
+        "version": "4.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "3.3",
-            "ref": "369b5b29dc52b2c190002825ae7ec24ab6f962dd"
+            "version": "4.4",
+            "ref": "15a41bbd66a1323d09824a189b485c126bbefa51"
         },
         "files": [
+            "./config/packages/test/twig.yaml",
             "./config/packages/twig.yaml",
-            "./config/routes/dev/twig.yaml",
             "./templates/base.html.twig"
         ]
     },
