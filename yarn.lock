@@ -1935,6 +1935,11 @@ core-js@^2.4.0:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.11.tgz#38831469f9922bded8ee21c9dc46985e0399308c"
   integrity sha512-5wjnpaT/3dV+XB4borEsnAYQchn00XSgTAWKDkEqv+K8KevjbzmofK6hfJ9TZIlpj2N0xQpazy7PiRQiWHqzWg==
 
+core-js@^3.0.0:
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.6.2.tgz#2799ea1a59050f0acf50dfe89b916d6503b16caa"
+  integrity sha512-hIE5dXkRzRvnZ5vhkRfQxUvDxQZmD9oueA08jDYRBKJHx+VIl/Pne/e0A4x9LObEEthC/TqiZybUoNM4tRgnKg==
+
 core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
@@ -5562,6 +5567,11 @@ regenerator-runtime@^0.11.0:
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
   integrity sha512-MguG95oij0fC3QV3URf4V2SDYGJhJnJGqvIIgdECeODCT98wSWDAJ94SSuVpYQUoTcGUIL6L4yNB7j1DFFHSBg==
 
+regenerator-runtime@^0.13.2:
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.3.tgz#7cf6a77d8f5c6f60eb73c5fc1955b2ceb01e6bf5"
+  integrity sha512-naKIZz2GQ8JWh///G7L3X6LaQUAMp2lvb1rvwwsURe/VXwD6VMfr+/1NuNw3ag8v2kY1aQ/go5SNn79O9JU7yw==
+
 regenerator-transform@^0.14.0:
   version "0.14.1"
   resolved "https://registry.yarnpkg.com/regenerator-transform/-/regenerator-transform-0.14.1.tgz#3b2fce4e1ab7732c08f665dfdb314749c7ddd2fb"
@@ -6871,7 +6881,7 @@ webpack-manifest-plugin@^2.0.2:
     object.entries "^1.1.0"
     tapable "^1.0.0"
 
-webpack-notifier@1.8.0:
+webpack-notifier@^1.6.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/webpack-notifier/-/webpack-notifier-1.8.0.tgz#994bdde0fcefc5f1a92b6d91353c8152ddd9c583"
   integrity sha512-I6t76NoPe5DZCCm5geELmDV2wlJ89LbU425uN6T2FG8Ywrrt1ZcUMz6g8yWGNg4pttqTPFQJYUPjWAlzUEQ+cQ==
