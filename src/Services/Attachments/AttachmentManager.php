@@ -157,7 +157,7 @@ class AttachmentManager
         //Taken from: https://www.php.net/manual/de/function.filesize.php#106569 and slightly modified
 
         $sz = 'BKMGTP';
-        $factor = (int) floor((strlen($bytes) - 1) / 3);
+        $factor = (int) floor((strlen((string) $bytes) - 1) / 3);
 
         return sprintf("%.{$decimals}f", $bytes / 1024 ** $factor).@$sz[$factor];
     }
