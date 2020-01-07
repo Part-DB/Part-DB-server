@@ -54,12 +54,12 @@
         "version": "v2.9.2"
     },
     "doctrine/doctrine-bundle": {
-        "version": "1.6",
+        "version": "2.0",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "1.6",
-            "ref": "453e89b78ded666f351617baca5ae40d20622351"
+            "version": "2.0",
+            "ref": "a9f2463b9f73efe74482f831f03a204a41328555"
         },
         "files": [
             "./config/packages/doctrine.yaml",
