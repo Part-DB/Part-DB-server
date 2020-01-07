@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- https://phpunit.de/manual/current/en/appendixes.configuration.html -->
+<!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/8.3/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="bin/.phpunit/phpunit.xsd"
          backupGlobals="false"
          colors="true"
          bootstrap="config/bootstrap.php"
 >
     <php>
         <ini name="error_reporting" value="-1" />
-        <env name="APP_ENV" value="test" />
-        <env name="SHELL_VERBOSITY" value="-1" />
+        <server name="APP_ENV" value="test" force="true" />
+        <server name="SHELL_VERBOSITY" value="-1" />
+        <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
+        <server name="SYMFONY_PHPUNIT_VERSION" value="7.5" />
     </php>
 
     <testsuites>
