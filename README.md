@@ -4,6 +4,9 @@
 ![GitHub License](https://img.shields.io/github/license/Part-DB/Part-DB-symfony)
 ![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%207.2-green)
 
+![Docker Pulls](https://img.shields.io/docker/pulls/jbtronics/part-db1)
+![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/jbtronics/part-db1)
+
 # Part-DB
 Part-DB is an Open-Source inventory managment system for your electronic components.
 It is installed on a web server and so can be accessed with any browser without the need to install additional software.
@@ -57,6 +60,8 @@ Part-DB is also used by small companies and universities for managing their inve
 Anyhow, the migrations that will be made, are not compatible with the old Part-DB versions, so you must not use the old Part-DB versions with the new database, or the DB could become corrupted. 
 Also after the migration it is not possible to go back to the old database scheme, so make sure to make a backup of your database beforehand.
 See [UPGRADE](UPGRADE.md) for more infos.
+
+*Hint:* A docker image is available under [jbtronics/part-db1](https://hub.docker.com/repository/docker/jbtronics/part-db1).
 
 1. Copy or clone this repository into a folder on your server.
 2. Configure your webserver to serve from the `public/` folder. See [here](https://symfony.com/doc/current/setup/web_server_configuration.html)
