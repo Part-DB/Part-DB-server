@@ -28,16 +28,14 @@
     <div class="">
         <div class="">
             <ul class="nav nav-tabs" id="partTab" role="tablist">
-                {% if part.partLots %}
                     <li class="nav-item">
-                        <a class="nav-link active" id="part_lots-tab" data-toggle="tab"
+                        <a class="nav-link {% if part.partLots %}active{% endif %}" id="part_lots-tab" data-toggle="tab"
                            href="#part_lots" role="tab">
                             <i class="fas fa-box fa-fw"></i>
                             {% trans %}part.part_lots.label{% endtrans %}
+                            <span class="badge badge-secondary">{{ part.partLots | length }}</span>
                         </a>
                     </li>
-                {% endif %}
-
                 {% if part.comment is not empty %}
                     <li class="nav-item">
                         <a class="nav-link" id="comment-tab" data-toggle="tab"
@@ -52,12 +50,14 @@
                        href="#attachments" role="tab">
                         <i class="fas fa-paperclip fa-fw"></i>
                         {% trans %}attachment.labelp{% endtrans %}
+                        <span class="badge badge-secondary">{{ part.attachments | length }}</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="supplier-tab" data-toggle="tab" href="#suppliers" role="tab">
                         <i class="fas fa-shopping-cart fa-fw"></i>
                         {% trans %}vendor.partinfo.shopping_infos{% endtrans %}
+                        <span class="badge badge-secondary">{{ part.orderdetails | length }}</span>
                     </a>
                 </li>
                 <li class="nav-item">
