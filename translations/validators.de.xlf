@@ -976,5 +976,11 @@
         <target>Der Lagerort wurde als "Nur ein Bauteil" markiert, daher kann kein neues Bauteil hinzugefügt werden.</target>
       </segment>
     </unit>
+    <unit id="NcM463r" name="user.invalid_username">
+      <segment>
+        <source>user.invalid_username</source>
+        <target>Der Benutzername darf nur Buchstaben, Zahlen, Unterstriche, Punkte, Plus- oder Minuszeichen enthalten.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

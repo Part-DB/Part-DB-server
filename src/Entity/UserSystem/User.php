@@ -218,6 +218,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank
+     * @Assert\Regex("/^[\w\.\+\-\$]+$/", message="user.invalid_username")
      */
     protected $name = '';
 

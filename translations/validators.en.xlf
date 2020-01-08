@@ -976,5 +976,11 @@
         <target>The storage location was marked as "single part", so you can not add a new part to it.</target>
       </segment>
     </unit>
+    <unit id="NcM463r" name="user.invalid_username">
+      <segment>
+        <source>user.invalid_username</source>
+        <target>The username must contain only letters, numbers, underscores, dots, pluses or minuses.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
