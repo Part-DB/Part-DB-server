@@ -82,6 +82,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table("`users`")
+ * @ORM\EntityListeners({"App\EntityListeners\TreeCacheInvalidationListener"})
  * @UniqueEntity("name", message="validator.user.username_already_used")
  */
 class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface, BackupCodeInterface, TrustedDeviceInterface, U2FTwoFactorInterface, PreferredProviderInterface

@@ -60,8 +60,9 @@ class TreeCacheInvalidationListener
 
         //If a user change, then invalidate all cached trees for him
         if ($element instanceof User) {
+            $secure_class_name = str_replace('\\', '_', get_class($element));
             $tag = $this->keyGenerator->generateKey($element);
-            $this->cache->invalidateTags([$tag]);
+            $this->cache->invalidateTags([$tag, $secure_class_name]);
         }
 
         /* If any group change, then invalidate all cached trees. Users Permissions can be inherited from groups,
