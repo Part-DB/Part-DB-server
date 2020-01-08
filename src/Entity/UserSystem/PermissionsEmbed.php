@@ -390,7 +390,7 @@ class PermissionsEmbed
             throw new InvalidArgumentException('No permission with the given name is existing!');
         }
 
-        $this->{$permission_name} = static::writeBitPair($this->{$permission_name}, $bit_n, $new_value);
+        $this->{$permission_name} = static::writeBitPair((int) $this->{$permission_name}, $bit_n, $new_value);
 
         return $this;
     }
