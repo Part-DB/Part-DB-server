@@ -14,7 +14,7 @@
         "doctrine/doctrine-bundle": "^2.0",
         "florianv/swap": "^4.0",
         "friendsofsymfony/ckeditor-bundle": "^2.0",
-        "gregwar/captcha-bundle": "dev-master",
+        "gregwar/captcha-bundle": "^2.1.0",
         "league/html-to-markdown": "^4.8",
         "liip/imagine-bundle": "^2.2",
         "nyholm/psr7": "^1.1",

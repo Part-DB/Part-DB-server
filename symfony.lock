@@ -211,11 +211,23 @@
     "netresearch/jsonmapper": {
         "version": "v1.6.0"
     },
+    "nette/application": {
+        "version": "v3.0.3"
+    },
+    "nette/component-model": {
+        "version": "v3.0.0"
+    },
     "nette/finder": {
         "version": "v2.5.2"
     },
+    "nette/http": {
+        "version": "v3.0.3"
+    },
     "nette/robot-loader": {
         "version": "v3.2.1"
+    },
+    "nette/routing": {
+        "version": "v3.0.0"
     },
     "nette/utils": {
         "version": "v3.1.0"
@@ -793,6 +805,12 @@
     },
     "symfony/yaml": {
         "version": "v4.2.3"
+    },
+    "symplify/auto-bind-parameter": {
+        "version": "v7.2.0"
+    },
+    "symplify/autowire-array-parameter": {
+        "version": "v7.2.0"
     },
     "symplify/coding-standard": {
         "version": "v7.1.3"
