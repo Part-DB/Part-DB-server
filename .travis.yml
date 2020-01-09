@@ -42,6 +42,5 @@ script:
 
 after_success:
   - if [[ $(phpenv version-name) == '7.2' ]]; then bash <(curl -s https://codecov.io/bash) ; fi
-  -
 matrix:
   fast_finish: true
