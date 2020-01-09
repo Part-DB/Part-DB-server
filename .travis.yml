@@ -27,7 +27,10 @@ install:
   - mysql -e "SET GLOBAL FOREIGN_KEY_CHECKS=1;"
 
 script:
-  - php bin/phpunit --coverage-clover=coverage.xml
+  # Only run code coverage on PHP 7.2 to improve performance (code coverage is slower than normal testing)
+  - if [[ $(phpenv version-name) == '7.2' ]]; then php bin/phpunit --coverage-clover=coverage.xml ; fi
+  - if [[ $(phpenv version-name) != '7.2' ]]; then vendor/bin/phpunit ; fi
+
   # Perform some simple linting if everything is correct
   - ./bin/console lint:yaml config --parse-tags
   - ./bin/console lint:twig templates --env=prod
@@ -38,7 +41,7 @@ script:
   - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
-
+  - if [[ $(phpenv version-name) == '7.2' ]]; then bash <(curl -s https://codecov.io/bash) ; fi
+  -
 matrix:
   fast_finish: true
