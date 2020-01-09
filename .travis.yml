@@ -29,7 +29,7 @@ install:
 script:
   # Only run code coverage on PHP 7.2 to improve performance (code coverage is slower than normal testing)
   - if [[ $(phpenv version-name) == '7.2' ]]; then php bin/phpunit --coverage-clover=coverage.xml ; fi
-  - if [[ $(phpenv version-name) != '7.2' ]]; then vendor/bin/phpunit ; fi
+  - if [[ $(phpenv version-name) != '7.2' ]]; then php bin/phpunit ; fi
 
   # Perform some simple linting if everything is correct
   - ./bin/console lint:yaml config --parse-tags
