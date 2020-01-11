@@ -3,9 +3,9 @@
         "@fortawesome/fontawesome-free": "^5.7.2",
         "@symfony/webpack-encore": "^0.28.2",
         "bootstrap": "^4.4.1",
+        "core-js": "^3.0.0",
         "jquery": "^3.3.1",
         "popper.js": "^1.14.7",
-        "core-js": "^3.0.0",
         "regenerator-runtime": "^0.13.2",
         "webpack-notifier": "^1.6.0"
     },
