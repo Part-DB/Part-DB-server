@@ -70,8 +70,11 @@ for additional informations.
     * Change the line `APP_ENV=dev` to `APP_ENV=prod`
     * Change the value of `DATABASE_URL=` to your needs (see [here](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url)) for the format.
 4. Install composer dependencies and generate autoload files: `composer install --no-dev`
+6. If you have put Part-DB into a sub-directory on your server (like `part-db/`), you have to edit the file 
+`webpack.config.js` and uncomment the lines (remove the `//` before the lines) `.setPublicPath('/part-db/build')` (line 43) and
+ `.setManifestKeyPrefix('build/')` (line 44). You have to replace `/part-db` with your own path on line 44.
 5. Install client side dependencies and build it: `yarn install` and `yarn build`
-6. Optional (speeds up first load): Warmup cache: `php bin/console cache:warmup`
+6. _Optional_ (speeds up first load): Warmup cache: `php bin/console cache:warmup`
 7. Upgrade database to new scheme (or create it, when it was empty): `php bin/console doctrine:migrations:migrate` and follow the instructions given. **Caution**: This steps tamper with your database and could potentially destroy it. So make sure to make a backup of your database.
 
 When you want to upgrade to a newer version, then just copy the new files into the folder
