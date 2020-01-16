@@ -216,6 +216,7 @@ final class PartsDataTable implements DataTableTypeInterface
 
             ->addOrderBy('name')
             ->createAdapter(CustomORMAdapter::class, [
+                'allow_fetch_join' => true,
                 'query' => function (QueryBuilder $builder): void {
                     $this->getQuery($builder);
                 },
