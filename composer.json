@@ -40,7 +40,7 @@
         "symfony/mailer": "4.4.*",
         "symfony/monolog-bundle": "^3.1",
         "symfony/orm-pack": "*",
-        "symfony/process": "4.4.*",
+        "symfony/process": "5.0.*",
         "symfony/security-bundle": "4.4.*",
         "symfony/serializer-pack": "*",
         "symfony/translation": "4.4.*",
