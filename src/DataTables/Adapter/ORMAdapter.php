@@ -1,26 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
-/**
- * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
+/*
+ * Symfony DataTables Bundle
+ * (c) Omines Internetbureau B.V. - https://omines.nl/
  *
- * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace App\DataTables\Adapter;
 
@@ -28,37 +16,35 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Omines\DataTablesBundle\Adapter\AbstractAdapter;
 use Omines\DataTablesBundle\Adapter\AdapterQuery;
 use Omines\DataTablesBundle\Adapter\Doctrine\Event\ORMAdapterQueryEvent;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\AutomaticQueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\QueryBuilderProcessorInterface;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
-use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapterEvents;
 use Omines\DataTablesBundle\Column\AbstractColumn;
 use Omines\DataTablesBundle\DataTableState;
 use Omines\DataTablesBundle\Exception\InvalidConfigurationException;
 use Omines\DataTablesBundle\Exception\MissingDependencyException;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Traversable;
 
 /**
- * Override default ORM Adapter, to allow fetch joins (allow addSelect with ManyToOne Collections).
- * This should improves performance for Part Tables.
- * Based on: https://github.com/omines/datatables-bundle/blob/master/tests/Fixtures/AppBundle/DataTable/Adapter/CustomORMAdapter.php.
+ * ORMAdapter.
+ *
+ * @author Niels Keurentjes <niels.keurentjes@omines.com>
+ * @author Robbert Beesems <robbert.beesems@omines.com>
  */
-class CustomORMAdapter extends AbstractAdapter
+class ORMAdapter extends AbstractAdapter
 {
     /** @var ManagerRegistry */
     private $registry;
 
     /** @var EntityManager */
-    private $manager;
+    protected $manager;
 
     /** @var \Doctrine\ORM\Mapping\ClassMetadata */
-    private $metadata;
+    protected $metadata;
 
     /** @var int */
     private $hydrationMode;
@@ -68,10 +54,6 @@ class CustomORMAdapter extends AbstractAdapter
 
     /** @var QueryBuilderProcessorInterface[] */
     protected $criteriaProcessors;
-
-    /** @var bool */
-    protected $allow_fetch_join;
-
 
     /**
      * DoctrineAdapter constructor.
@@ -108,7 +90,6 @@ class CustomORMAdapter extends AbstractAdapter
         $this->hydrationMode = $options['hydrate'];
         $this->queryBuilderProcessors = $options['query'];
         $this->criteriaProcessors = $options['criteria'];
-        $this->allow_fetch_join = $options['allow_fetch_join'];
     }
 
     /**
@@ -135,13 +116,11 @@ class CustomORMAdapter extends AbstractAdapter
         /** @var Query\Expr\From $fromClause */
         $fromClause = $builder->getDQLPart('from')[0];
         $identifier = "{$fromClause->getAlias()}.{$this->metadata->getSingleIdentifierFieldName()}";
-
-
-        $query->setTotalRows($this->getCount($builder, $identifier, true));
+        $query->setTotalRows($this->getCount($builder, $identifier));
 
         // Get record count after filtering
         $this->buildCriteria($builder, $state);
-        $query->setFilteredRows($this->getCount($builder, $identifier, false));
+        $query->setFilteredRows($this->getCount($builder, $identifier));
 
         // Perform mapping of all referred fields and implied fields
         $aliases = $this->getAliases($query);
@@ -205,26 +184,18 @@ class CustomORMAdapter extends AbstractAdapter
         if ($state->getLength() > 0) {
             $builder
                 ->setFirstResult($state->getStart())
-                ->setMaxResults($state->getLength());
+                ->setMaxResults($state->getLength())
+            ;
         }
 
         $query = $builder->getQuery();
         $event = new ORMAdapterQueryEvent($query);
         $state->getDataTable()->getEventDispatcher()->dispatch($event, ORMAdapterEvents::PRE_QUERY);
 
-        if ($this->allow_fetch_join && $this->hydrationMode === Query::HYDRATE_OBJECT) {
-            $paginator = new Paginator($query);
-            $iterator = $paginator->getIterator();
-        } else {
-            $iterator = $query->iterate([], $this->hydrationMode);
-        }
-
-        foreach ($iterator as $result) {
+        foreach ($query->iterate([], $this->hydrationMode) as $result) {
+            yield $entity = array_values($result)[0];
             if (Query::HYDRATE_OBJECT === $this->hydrationMode) {
-                yield $entity = $result;
                 $this->manager->detach($entity);
-            } else {
-                yield $entity = array_values($result)[0];
             }
         }
     }
@@ -253,22 +224,8 @@ class CustomORMAdapter extends AbstractAdapter
      * @param $identifier
      * @return int
      */
-    protected function getCount(QueryBuilder $queryBuilder, $identifier, $total_count = false)
+    protected function getCount(QueryBuilder $queryBuilder, $identifier)
     {
-        if ($this->allow_fetch_join) {
-            /** The paginator count queries can be rather slow, so when query for total count (100ms or longer),
-             * just return the entity count.
-             */
-            if ($total_count) {
-                /** @var Query\Expr\From $from_expr */
-                $from_expr = $queryBuilder->getDQLPart('from')[0];
-                return $this->manager->getRepository($from_expr->getFrom())->count([]);
-            }
-
-            $paginator = new Paginator($queryBuilder);
-            return $paginator->count();
-        }
-
         $qb = clone $queryBuilder;
 
         $qb->resetDQLPart('orderBy');
@@ -305,7 +262,7 @@ class CustomORMAdapter extends AbstractAdapter
      * @param string $field
      * @return string
      */
-    private function mapFieldToPropertyPath($field, array $aliases = [])
+    protected function mapFieldToPropertyPath($field, array $aliases = [])
     {
         $parts = explode('.', $field);
         if (count($parts) < 2) {
@@ -338,7 +295,6 @@ class CustomORMAdapter extends AbstractAdapter
         $resolver
             ->setDefaults([
                               'hydrate' => Query::HYDRATE_OBJECT,
-                              'allow_fetch_join' => false,
                               'query' => [],
                               'criteria' => function (Options $options) {
                                   return [new SearchCriteriaProvider()];
