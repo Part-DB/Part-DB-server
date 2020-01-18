@@ -36,6 +36,13 @@ Encore
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
 
+    /**
+     * If you are putting Part-DB into a sub directory you have to uncomment these lines and
+     * replace "part-db/" with your path to Part-DB
+     */
+    //.setPublicPath('/part-db/build')
+    //.setManifestKeyPrefix('build/')
+
     /*
      * ENTRY CONFIG
      *
