@@ -80,7 +80,7 @@ abstract class DBElement
      *
      * @return int|null the ID of this element
      */
-    final public function getID(): ?int
+    public function getID(): ?int
     {
         return $this->id;
     }
