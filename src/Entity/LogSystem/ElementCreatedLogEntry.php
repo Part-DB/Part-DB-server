@@ -31,4 +31,22 @@ use Doctrine\ORM\Mapping as ORM;
 class ElementCreatedLogEntry extends AbstractLogEntry
 {
     protected $typeString = "element_created";
+
+    /**
+     * Gets the instock when the part was created
+     * @return int|null
+     */
+    public function getCreationInstockValue(): ?int
+    {
+        return $this->extra['i'] ?? null;
+    }
+
+    /**
+     * Checks if a creation instock value was saved with this entry.
+     * @return bool
+     */
+    public function hasCreationInstockValue(): bool
+    {
+        return $this->getCreationInstockValue() !== null;
+    }
 }

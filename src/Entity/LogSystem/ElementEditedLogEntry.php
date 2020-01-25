@@ -30,4 +30,13 @@ use Doctrine\ORM\Mapping as ORM;
 class ElementEditedLogEntry extends AbstractLogEntry
 {
     protected $typeString = "element_edited";
+
+    /**
+     * Returns the message associated with this edit change
+     * @return string
+     */
+    public function getMessage() : string
+    {
+        return $this->extra['m'] ?? '';
+    }
 }

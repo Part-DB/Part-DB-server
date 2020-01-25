@@ -24,6 +24,7 @@ namespace App\DataTables;
 
 use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
+use App\DataTables\Column\LogEntryExtraColumn;
 use App\DataTables\Column\LogEntryTargetColumn;
 use App\Entity\Attachments\Attachment;
 use App\Entity\LogSystem\AbstractLogEntry;
@@ -148,6 +149,10 @@ class LogDataTable implements DataTableTypeInterface
 
         $dataTable->add('target', LogEntryTargetColumn::class, [
             'label' => $this->translator->trans('log.target')
+        ]);
+
+        $dataTable->add('extra', LogEntryExtraColumn::class, [
+            'label' => $this->translator->trans('log.extra')
         ]);
 
         $dataTable->addOrderBy('timestamp', DataTable::SORT_DESCENDING);

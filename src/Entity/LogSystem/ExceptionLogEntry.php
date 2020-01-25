@@ -37,4 +37,41 @@ class ExceptionLogEntry extends AbstractLogEntry
     {
         throw new LogEntryObsoleteException();
     }
+
+    /**
+     * The class name of the exception that caused this log entry.
+     * @return string
+     */
+    public function getExceptionClass(): string
+    {
+        return $this->extra['t'] ?? "Unknown Class";
+    }
+
+    /**
+     * Returns the file where the exception happened.
+     * @return string
+     */
+    public function getFile(): string
+    {
+        return $this->extra['f'];
+    }
+
+    /**
+     * Returns the line where the exception happened
+     * @return int
+     */
+    public function getLine(): int
+    {
+        return $this->extra['l'];
+    }
+
+    /**
+     * Return the message of the exception.
+     * @return string
+     */
+    public function getMessage(): string
+    {
+        return $this->extra['m'];
+    }
+
 }

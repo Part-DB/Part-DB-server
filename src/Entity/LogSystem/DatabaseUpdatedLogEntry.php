@@ -36,4 +36,31 @@ class DatabaseUpdatedLogEntry extends AbstractLogEntry
         throw new LogEntryObsoleteException();
     }
 
+    /**
+     * Checks if the database update was successful.
+     * @return bool
+     */
+    public function isSuccessful(): bool
+    {
+        return $this->extra['s'];
+    }
+
+    /**
+     * Gets the database version before update.
+     * @return int
+     */
+    public function getOldVersion(): int
+    {
+        return $this->extra['o'];
+    }
+
+    /**
+     * Gets the (target) database version after update.
+     * @return int
+     */
+    public function getNewVersion(): int
+    {
+        return $this->extra['n'];
+    }
+
 }

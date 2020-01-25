@@ -31,4 +31,24 @@ use Doctrine\ORM\Mapping as ORM;
 class UserLoginLogEntry extends AbstractLogEntry
 {
     protected $typeString = "user_login";
+
+    /**
+     * Return the (anonymized) IP address used to login the user.
+     * @return string
+     */
+    public function getIPAddress(): string
+    {
+        return $this->extra['i'];
+    }
+
+    /**
+     * Sets the IP address used to login the user
+     * @param string $ip The IP address used to login the user.
+     * @return $this
+     */
+    public function setIPAddress(string $ip): self
+    {
+        $this->extra['i'] = $ip;
+        return $this;
+    }
 }

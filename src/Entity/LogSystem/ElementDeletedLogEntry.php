@@ -30,4 +30,9 @@ use Doctrine\ORM\Mapping as ORM;
 class ElementDeletedLogEntry extends AbstractLogEntry
 {
     protected $typeString = "element_deleted";
+
+    public function getOldName(): string
+    {
+        return $this->extra['n'];
+    }
 }

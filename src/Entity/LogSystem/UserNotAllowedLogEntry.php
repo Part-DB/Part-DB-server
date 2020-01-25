@@ -31,11 +31,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class UserNotAllowedLogEntry extends AbstractLogEntry
 {
-    protected $type = 'user_not_allowed';
+    protected $typeString = 'user_not_allowed';
 
     public function __construct()
     {
         //Obsolete, use server log now.
         throw new LogEntryObsoleteException();
+    }
+
+    public function getMessage(): string
+    {
+        return $this->extra['p'] ?? '';
     }
 }

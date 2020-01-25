@@ -56,7 +56,8 @@ use Psr\Log\LogLevel;
  *  6 = "ElementCreatedLogEntry",
  *  7 = "ElementEditedLogEntry",
  *  8 = "ConfigChangedLogEntry",
- *  9 = "DatabaseUpdatedLogEntry"
+ *  9 = "InstockChangedLogEntry",
+ *  10 = "DatabaseUpdatedLogEntry"
  * })
  */
 abstract class AbstractLogEntry extends DBElement
@@ -143,6 +144,11 @@ abstract class AbstractLogEntry extends DBElement
      * Each subclass should override this string to specify a better string.
      */
     protected $typeString = "unknown";
+
+    /** @var array The extra data in raw (short form) saved in the DB
+     * @ORM\Column(name="extra", type="json")
+     */
+    protected $extra = [];
 
     /**
      * Get the user that caused the event associated with this log entry.
@@ -303,6 +309,11 @@ abstract class AbstractLogEntry extends DBElement
         $this->target_id = $element->getID();
 
         return $this;
+    }
+
+    public function getExtraData(): array
+    {
+        return $this->extra;
     }
 
     /**

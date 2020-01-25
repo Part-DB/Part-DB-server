@@ -22,6 +22,7 @@
 namespace App\Entity\LogSystem;
 
 
+use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,4 +32,74 @@ use Doctrine\ORM\Mapping as ORM;
 class InstockChangedLogEntry extends AbstractLogEntry
 {
     protected $typeString = "instock_changed";
+
+    /**
+     * Get the old instock
+     * @return int
+     */
+    public function getOldInstock(): int
+    {
+        return $this->extra['o'];
+    }
+
+    /**
+     * Get the new instock
+     * @return int
+     */
+    public function getNewInstock(): int
+    {
+        return $this->extra['n'];
+    }
+
+    /**
+     * Gets the comment associated with the instock change
+     * @return string
+     */
+    public function getComment(): string
+    {
+        return $this->extra['c'];
+    }
+
+    /**
+     * Returns the price that has to be payed for the change (in the base currency).
+     * @param $absolute bool Set this to true, if you want only get the absolute value of the price (without minus)
+     * @return float
+     */
+    public function getPrice(bool $absolute = false): float
+    {
+        if ($absolute) {
+            return abs($this->extra['p']);
+        }
+        return $this->extra['p'];
+    }
+
+    /**
+     * Returns the difference value of the change ($new_instock - $old_instock).
+     * @param $absolute bool  Set this to true if you want only the absolute value of the difference.
+     * @return int Difference is positive if instock has increased, negative if decreased.
+     */
+    public function getDifference(bool $absolute = false): int
+    {
+        // Check if one of the instock values is unknown
+        if ($this->getNewInstock() == -2 || $this->getOldInstock() == -2) {
+            return 0;
+        }
+
+        $difference = $this->getNewInstock() - $this->getOldInstock();
+        if ($absolute) {
+            return abs($difference);
+        }
+
+        return $difference;
+    }
+
+    /**
+     * Checks if the Change was an withdrawal of parts.
+     * @return bool True if the change was an withdrawal, false if not.
+     */
+    public function isWithdrawal(): bool
+    {
+        return $this->getNewInstock() < $this->getOldInstock();
+    }
+
 }
