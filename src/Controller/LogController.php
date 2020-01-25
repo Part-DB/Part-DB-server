@@ -42,8 +42,10 @@ class LogController extends AbstractController
      *
      * @return JsonResponse|Response
      */
-    public function showCategory(Request $request, DataTableFactory $dataTable)
+    public function showLogs(Request $request, DataTableFactory $dataTable)
     {
+        $this->denyAccessUnlessGranted('@system.show_logs');
+
         $table = $dataTable->createFromType(LogDataTable::class)
             ->handleRequest($request);
 

@@ -212,6 +212,13 @@ class ToolsTreeBuilder
             );
         }
 
+        if ($this->security->isGranted('@system.show_logs')) {
+            $nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.system.event_log'),
+                $this->urlGenerator->generate('log_view')
+            );
+        }
+
         return $nodes;
     }
 }
