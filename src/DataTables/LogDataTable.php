@@ -72,7 +72,7 @@ class LogDataTable implements DataTableTypeInterface
             'label' => $this->translator->trans('log.level'),
             'propertyPath' => 'levelString',
             'render' => function (string $value, AbstractLogEntry $context) {
-                return $this->translator->trans('log.level.' . $value);
+                return $value;
             }
         ]);
 
