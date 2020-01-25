@@ -130,7 +130,7 @@ class UserController extends AdminPages\BaseAdminController
 
     /**
      * @Route("/info", name="user_info_self")
-     * @Route("/{id}/info")
+     * @Route("/{id}/info", name="user_info")
      */
     public function userInfo(?User $user, Packages $packages)
     {

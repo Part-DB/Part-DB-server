@@ -27,6 +27,7 @@ use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\LogEntryTargetColumn;
 use App\Entity\Attachments\Attachment;
 use App\Entity\LogSystem\AbstractLogEntry;
+use App\Entity\UserSystem\User;
 use App\Services\ElementTypeNameGenerator;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
@@ -34,17 +35,21 @@ use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
 use SebastianBergmann\CodeCoverage\Report\Text;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LogDataTable implements DataTableTypeInterface
 {
     protected $elementTypeNameGenerator;
     protected $translator;
+    protected $urlGenerator;
 
-    public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator, TranslatorInterface $translator)
+    public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator, TranslatorInterface $translator,
+        UrlGeneratorInterface $urlGenerator)
     {
         $this->elementTypeNameGenerator = $elementTypeNameGenerator;
         $this->translator = $translator;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function configure(DataTable $dataTable, array $options)
@@ -79,7 +84,14 @@ class LogDataTable implements DataTableTypeInterface
 
         $dataTable->add('user', TextColumn::class, [
             'label' => $this->translator->trans('log.user'),
-            'propertyPath' => 'user.name',
+            'render' => function ($value, AbstractLogEntry $context) {
+                $user = $context->getUser();
+                return sprintf(
+                    '<a href="%s">%s</a>',
+                    $this->urlGenerator->generate('user_info', ['id' => $user->getID()]),
+                    $user->getFullName(true)
+                );
+            }
         ]);
 
 
