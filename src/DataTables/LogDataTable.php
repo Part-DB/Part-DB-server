@@ -34,6 +34,7 @@ use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
+use Psr\Log\LogLevel;
 use SebastianBergmann\CodeCoverage\Report\Text;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -54,6 +55,43 @@ class LogDataTable implements DataTableTypeInterface
 
     public function configure(DataTable $dataTable, array $options)
     {
+        $dataTable->add('symbol', TextColumn::class, [
+            'label' => '',
+            'render' => function ($value, AbstractLogEntry $context) {
+                switch ($context->getLevelString()) {
+                    case LogLevel::DEBUG:
+                        $symbol = 'fa-bug';
+                        break;
+                    case LogLevel::INFO:
+                        $symbol = 'fa-info';
+                        break;
+                    case LogLevel::NOTICE:
+                        $symbol = 'fa-flag';
+                        break;
+                    case LogLevel::WARNING:
+                        $symbol = 'fa-exclamation-circle';
+                        break;
+                    case LogLevel::ERROR:
+                        $symbol = 'fa-exclamation-triangle';
+                        break;
+                    case LogLevel::CRITICAL:
+                        $symbol = 'fa-bolt';
+                        break;
+                    case LogLevel::ALERT:
+                        $symbol = 'fa-radiation';
+                        break;
+                    case LogLevel::EMERGENCY:
+                        $symbol = 'fa-skull-crossbones';
+                        break;
+                    default:
+                        $symbol = 'fa-question-circle';
+                        break;
+                }
+
+                return sprintf('<i class="fas fa-fw %s"></i>', $symbol);
+            }
+        ]);
+
         $dataTable->add('id', TextColumn::class, [
             'label' => $this->translator->trans('log.id'),
             'visible' => false,
