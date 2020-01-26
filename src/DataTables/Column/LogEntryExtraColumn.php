@@ -31,16 +31,19 @@ use App\Entity\LogSystem\InstockChangedLogEntry;
 use App\Entity\LogSystem\UserLoginLogEntry;
 use App\Entity\LogSystem\UserLogoutLogEntry;
 use App\Entity\LogSystem\UserNotAllowedLogEntry;
+use App\Services\LogSystem\LogEntryExtraFormatter;
 use Omines\DataTablesBundle\Column\AbstractColumn;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LogEntryExtraColumn extends AbstractColumn
 {
     protected $translator;
+    protected $formatter;
 
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator, LogEntryExtraFormatter $formatter)
     {
         $this->translator = $translator;
+        $this->formatter = $formatter;
     }
 
     /**
@@ -53,69 +56,6 @@ class LogEntryExtraColumn extends AbstractColumn
 
     public function render($value, $context)
     {
-        if ($context instanceof UserLoginLogEntry || $context instanceof UserLogoutLogEntry) {
-            return sprintf(
-                "<i>%s</i>: %s",
-                $this->translator->trans('log.user_login.ip'),
-                htmlspecialchars($context->getIPAddress())
-            );
-        }
-
-        if ($context instanceof ExceptionLogEntry) {
-            return sprintf(
-                '<i>%s</i> %s:%d : %s',
-                htmlspecialchars($context->getExceptionClass()),
-                htmlspecialchars($context->getFile()),
-                $context->getLine(),
-                htmlspecialchars($context->getMessage())
-            );
-        }
-
-        if ($context instanceof DatabaseUpdatedLogEntry) {
-            return sprintf(
-                '<i>%s</i> %s <i class="fas fa-long-arrow-alt-right"></i> %s',
-                $this->translator->trans($context->isSuccessful() ? 'log.database_updated.success' : 'log.database_updated.failure'),
-                $context->getOldVersion(),
-                $context->getNewVersion()
-            );
-        }
-
-        if ($context instanceof ElementCreatedLogEntry && $context->hasCreationInstockValue()) {
-            return sprintf(
-                '<i>%s</i>: %s',
-                $this->translator->trans('log.element_created.original_instock'),
-                $context->getCreationInstockValue()
-            );
-        }
-
-        if ($context instanceof ElementDeletedLogEntry) {
-            return sprintf(
-                '<i>%s</i>: %s',
-                $this->translator->trans('log.element_deleted.old_name'),
-                $context->getOldName()
-            );
-        }
-
-        if ($context instanceof ElementEditedLogEntry && !empty($context->getMessage())) {
-            return htmlspecialchars($context->getMessage());
-        }
-
-        if ($context instanceof InstockChangedLogEntry) {
-            return sprintf(
-                '<i>%s</i>; %s <i class="fas fa-long-arrow-alt-right"></i> %s (%s); %s: %s',
-                $this->translator->trans($context->isWithdrawal() ? 'log.instock_changed.withdrawal' : 'log.instock_changed.added'),
-                $context->getOldInstock(),
-                $context->getNewInstock(),
-                (!$context->isWithdrawal() ? '+' : '-') . $context->getDifference(true),
-                $this->translator->trans('log.instock_changed.comment'),
-                htmlspecialchars($context->getComment())
-            );
-        }
-
-        if ($context instanceof UserNotAllowedLogEntry) {
-            return htmlspecialchars($context->getMessage());
-        }
-
-        return "";
+        return $this->formatter->format($context);
     }
 }

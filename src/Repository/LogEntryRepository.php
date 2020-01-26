@@ -56,6 +56,18 @@ class LogEntryRepository extends EntityRepository
     }
 
     /**
+     * Gets the last log entries ordered by timestamp
+     * @param  string  $order
+     * @param  null  $limit
+     * @param  null  $offset
+     * @return array
+     */
+    public function getLogsOrderedByTimestamp($order = 'DESC', $limit = null, $offset = null)
+    {
+        return $this->findBy([], ['timestamp' => $order], $limit, $offset);
+    }
+
+    /**
      * Gets the target element associated with the logentry.
      * @param AbstractLogEntry $logEntry
      * @return DBElement|null Returns the associated DBElement or null if the log either has no target or the element
