@@ -31,7 +31,6 @@ security:
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             form_login:
-
                 login_path: login
                 check_path: login
                 csrf_token_generator: security.csrf.token_manager
@@ -41,6 +40,7 @@ security:
             logout:
                 path: logout
                 target: homepage
+                handlers: [App\EventSubscriber\LogoutListener]
 
             remember_me:
                 secret:   '%kernel.secret%'

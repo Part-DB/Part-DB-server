@@ -23,6 +23,7 @@ namespace App\Entity\LogSystem;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\IpUtils;
 
 /**
  * @ORM\Entity()
@@ -31,6 +32,12 @@ use Doctrine\ORM\Mapping as ORM;
 class UserLogoutLogEntry extends AbstractLogEntry
 {
     protected $typeString = "user_logout";
+
+    public function __construct(string $ip_address, bool $anonymize = true)
+    {
+        $this->level = self::LEVEL_INFO;
+        $this->setIPAddress($ip_address, $anonymize);
+    }
 
     /**
      * Return the (anonymized) IP address used to login the user.
@@ -44,11 +51,18 @@ class UserLogoutLogEntry extends AbstractLogEntry
     /**
      * Sets the IP address used to login the user
      * @param string $ip The IP address used to login the user.
+     * @param bool $anonymize Anonymize the IP address (remove last block) to be GPDR compliant
      * @return $this
      */
-    public function setIPAddress(string $ip): self
+    public function setIPAddress(string $ip, bool $anonymize = true): self
     {
+        if ($anonymize) {
+            $ip = IpUtils::anonymize($ip);
+        }
+
         $this->extra['i'] = $ip;
         return $this;
     }
+
+
 }

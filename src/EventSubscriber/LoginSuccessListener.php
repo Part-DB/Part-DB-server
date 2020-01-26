@@ -24,6 +24,9 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
+use App\Entity\LogSystem\UserLoginLogEntry;
+use App\Entity\UserSystem\User;
+use App\Services\LogSystem\EventLogger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
@@ -37,15 +40,27 @@ final class LoginSuccessListener implements EventSubscriberInterface
 {
     protected $translator;
     protected $flashBag;
+    protected $eventLogger;
+    protected $gpdr_compliance;
 
-    public function __construct(TranslatorInterface $translator, FlashBagInterface $flashBag)
+    public function __construct(TranslatorInterface $translator, FlashBagInterface $flashBag, EventLogger $eventLogger, bool $gpdr_compliance)
     {
         $this->translator = $translator;
         $this->flashBag = $flashBag;
+        $this->eventLogger = $eventLogger;
+        $this->gpdr_compliance = $gpdr_compliance;
     }
 
     public function onLogin(InteractiveLoginEvent $event): void
     {
+        $ip = $event->getRequest()->getClientIp();
+        $log = new UserLoginLogEntry($ip, $this->gpdr_compliance);
+        $user = $event->getAuthenticationToken()->getUser();
+        if ($user instanceof User) {
+            $log->setTargetElement($user);
+        }
+        $this->eventLogger->logAndFlush($log);
+
         $this->flashBag->add('notice', $this->translator->trans('flash.login_successful'));
     }
 

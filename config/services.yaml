@@ -20,6 +20,8 @@ parameters:
     sender_email: 'noreply@partdb.changeme' # The email address from which all emails are sent from
     sender_name: 'Part-DB Mailer' # The name that will be used for all mails sent by Part-DB
     allow_email_pw_reset: '%env(validMailDSN:MAILER_DSN)%' # Config if users are able, to reset their password by email. By default this enabled, when a mail server is configured.
+    # If this option is activated, IP addresses are anonymized to be GPDR compliant
+    gpdr_compliance: true
 
 services:
     # default configuration for services in *this* file
@@ -28,6 +30,7 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
             bool $demo_mode: '%demo_mode%'
+            bool $gpdr_compliance : '%gpdr_compliance%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -46,6 +49,17 @@ services:
         arguments:
             $email: '%sender_email%'
             $name: '%sender_name%'
+
+    App\Services\LogSystem\EventLogger:
+        arguments:
+            # By default only log events which has minimum info level (debug levels are not logged)
+            # 7 is lowest level (debug), 0 highest (emergency
+            $minimum_log_level: 6
+            # Event classes specified here are not saved to DB
+            $blacklist: []
+            # Only the event classes specified here are saved to DB (set to []) to log all events
+            $whitelist: []
+
 
     Liip\ImagineBundle\Service\FilterService:
         alias: 'liip_imagine.service.filter'

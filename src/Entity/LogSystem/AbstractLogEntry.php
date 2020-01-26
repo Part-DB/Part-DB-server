@@ -154,7 +154,7 @@ abstract class AbstractLogEntry extends DBElement
      * Get the user that caused the event associated with this log entry.
      * @return User
      */
-    public function getUser(): User
+    public function getUser(): ?User
     {
         return $this->user;
     }
