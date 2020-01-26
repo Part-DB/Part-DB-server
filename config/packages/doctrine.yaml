@@ -12,7 +12,7 @@ doctrine:
             date:
                 class: App\Helpers\UTCDateTimeType
 
-        schema_filter: ~^(?!internal|log)~
+        schema_filter: ~^(?!internal)~
         profiling_collect_backtrace: true
 
     orm:

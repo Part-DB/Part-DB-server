@@ -59,6 +59,9 @@ class ElementTypeNameGeneratorTest extends WebTestCase
         //Test inheritance
         $this->assertSame('Attachment', $this->service->getLocalizedTypeLabel(new PartAttachment()));
 
+        //Test for class name
+        $this->assertSame('Part', $this->service->getLocalizedTypeLabel(Part::class));
+
         //Test exception for unknpwn type
         $this->expectException(EntityNotSupportedException::class);
         $this->service->getLocalizedTypeLabel(new class() extends DBElement {

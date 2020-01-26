@@ -6271,5 +6271,107 @@ Element 3</target>
         <target>File size</target>
       </segment>
     </unit>
+    <unit id="6DOZlwQ" name="log.id">
+      <segment>
+        <source>log.id</source>
+        <target>ID</target>
+      </segment>
+    </unit>
+    <unit id="cMZOrO7" name="log.timestamp">
+      <segment>
+        <source>log.timestamp</source>
+        <target>Timestamp</target>
+      </segment>
+    </unit>
+    <unit id="Z0BzGVJ" name="log.type">
+      <segment>
+        <source>log.type</source>
+        <target>Event</target>
+      </segment>
+    </unit>
+    <unit id="KNddOUS" name="log.level">
+      <segment>
+        <source>log.level</source>
+        <target>Level</target>
+      </segment>
+    </unit>
+    <unit id="3Tv5Xzj" name="log.user">
+      <segment>
+        <source>log.user</source>
+        <target>User</target>
+      </segment>
+    </unit>
+    <unit id="bgbGrN5" name="log.target_type">
+      <segment>
+        <source>log.target_type</source>
+        <target>Target type</target>
+      </segment>
+    </unit>
+    <unit id=".IgL4C2" name="log.target">
+      <segment>
+        <source>log.target</source>
+        <target>Target</target>
+      </segment>
+    </unit>
+    <unit id="r7Q.Vrm" name="log.type.exception">
+      <segment>
+        <source>log.type.exception</source>
+        <target>Unhandled exception (obsolete)</target>
+      </segment>
+    </unit>
+    <unit id="l5qNskF" name="log.type.user_login">
+      <segment>
+        <source>log.type.user_login</source>
+        <target>User login</target>
+      </segment>
+    </unit>
+    <unit id="6suiYvP" name="log.type.user_logout">
+      <segment>
+        <source>log.type.user_logout</source>
+        <target>User logout</target>
+      </segment>
+    </unit>
+    <unit id="Jjl8edA" name="log.type.unknown">
+      <segment>
+        <source>log.type.unknown</source>
+        <target>Unknown</target>
+      </segment>
+    </unit>
+    <unit id="n8VtTfW" name="log.type.element_created">
+      <segment>
+        <source>log.type.element_created</source>
+        <target>Element created</target>
+      </segment>
+    </unit>
+    <unit id="O9Iw2cd" name="log.type.element_edited">
+      <segment>
+        <source>log.type.element_edited</source>
+        <target>Element edited</target>
+      </segment>
+    </unit>
+    <unit id="WQkp3yE" name="log.type.element_deleted">
+      <segment>
+        <source>log.type.element_deleted</source>
+        <target>Element deleted</target>
+      </segment>
+    </unit>
+    <unit id="eTGx8tR" name="log.target_deleted">
+      <segment>
+        <source>log.target_deleted</source>
+        <target>deleted</target>
+      </segment>
+    </unit>
+    <unit id="pjRvOZm" name="log.type.database_updated">
+      <segment>
+        <source>log.type.database_updated</source>
+        <target>Database updated</target>
+      </segment>
+    </unit>
+    <unit id="uKTMZBs" name="log.list.title">
+      <segment>
+        <source>log.list.title</source>
+        <target>System log</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

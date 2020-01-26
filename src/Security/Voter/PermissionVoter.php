@@ -28,6 +28,7 @@ use App\Entity\UserSystem\User;
 
 /**
  * This voter allows you to directly check permissions from the permission structure, without passing an object.
+ * This use the syntax like "@permission.op"
  * However you should use the "normal" object based voters if possible, because they are needed for a future ACL system.
  */
 class PermissionVoter extends ExtendedVoter
@@ -44,7 +45,7 @@ class PermissionVoter extends ExtendedVoter
         $attribute = ltrim($attribute, '@');
         [$perm, $op] = explode('.', $attribute);
 
-        return $this->resolver->inherit($user, $perm, $op);
+        return $this->resolver->inherit($user, $perm, $op) ?? false;
     }
 
     /**

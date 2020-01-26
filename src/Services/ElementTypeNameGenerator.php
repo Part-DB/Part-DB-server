@@ -82,22 +82,24 @@ class ElementTypeNameGenerator
      * Useful when the type should be shown to user.
      * Throws an exception if the class is not supported.
      *
-     * @param DBElement $entity The element for which the label should be generated
+     * @param DBElement|string $entity The element or class for which the label should be generated
      *
-     * @return string the locatlized label for the entity type
+     * @return string the localized label for the entity type
      *
      * @throws EntityNotSupportedException when the passed entity is not supported
      */
-    public function getLocalizedTypeLabel(DBElement $entity): string
+    public function getLocalizedTypeLabel($entity): string
     {
+        $class = is_string($entity) ? $entity : get_class($entity);
+
         //Check if we have an direct array entry for our entity class, then we can use it
-        if (isset($this->mapping[get_class($entity)])) {
-            return $this->mapping[get_class($entity)];
+        if (isset($this->mapping[$class])) {
+            return $this->mapping[$class];
         }
 
         //Otherwise iterate over array and check for inheritance (needed when the proxy element from doctrine are passed)
         foreach ($this->mapping as $class => $translation) {
-            if ($entity instanceof $class) {
+            if (is_a($entity, $class, true)) {
                 return $translation;
             }
         }

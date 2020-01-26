@@ -386,8 +386,8 @@ class AjaxUI {
 
         switch(request.status) {
             case 500:
-               title =  'Internal Server Error!';
-               break;
+                title =  'Internal Server Error!';
+                break;
             case 404:
                 title = "Site not found!";
                 break;
@@ -396,7 +396,7 @@ class AjaxUI {
                 break;
         }
 
-       var alert = bootbox.alert(
+        var alert = bootbox.alert(
             {
                 size: 'large',
                 message: function() {
@@ -418,10 +418,10 @@ class AjaxUI {
         //@ts-ignore
         alert.init(function (){
             var dstFrame = document.getElementById('iframe');
-        //@ts-ignore
-        var dstDoc = dstFrame.contentDocument || dstFrame.contentWindow.document;
-        dstDoc.write(request.responseText);
-        dstDoc.close();
+            //@ts-ignore
+            var dstDoc = dstFrame.contentDocument || dstFrame.contentWindow.document;
+            dstDoc.write(request.responseText);
+            dstDoc.close();
         });
 
 
@@ -530,7 +530,31 @@ class AjaxUI {
                         "extend": 'colvis',
                         'className': 'mr-2 btn-light',
                         "text": "<i class='fa fa-cog'></i>"
-                    }]
+                    }],
+                    "rowCallback": function( row, data, index ) {
+                        //Check if we have a level, then change color of this row
+                        if (data.level) {
+                            let style = "";
+                            switch(data.level) {
+                                case "emergency":
+                                case "alert":
+                                case "critical":
+                                case "error":
+                                    style = "table-danger";
+                                    break;
+                                case "warning":
+                                    style = "table-warning";
+                                    break;
+                                case "notice":
+                                    style = "table-info";
+                                    break;
+                            }
+
+                            if (style){
+                                $(row).addClass(style);
+                            }
+                        }
+                    }
                 });
 
             //Register links.

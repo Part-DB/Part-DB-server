@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{% trans %}log.list.title{% endtrans %}{% endblock %}
+
+{% block content %}
+    <div id="part_list" class="" data-datatable data-settings='{{ datatable_settings(datatable) }}'>
+        <div class="card-body">
+            <div class="card">
+                <div class="card-body">
+                    <h4>{% trans %}part_list.loading.caption{% endtrans %}</h4>
+                    <h6>{% trans %}part_list.loading.message{% endtrans %}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
