@@ -150,6 +150,12 @@ abstract class AbstractLogEntry extends DBElement
      */
     protected $extra = [];
 
+    public function __construct()
+    {
+        $this->timestamp = new DateTime();
+        $this->level = self::LEVEL_WARNING;
+    }
+
     /**
      * Get the user that caused the event associated with this log entry.
      * @return User

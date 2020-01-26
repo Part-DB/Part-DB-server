@@ -35,6 +35,7 @@ class UserLogoutLogEntry extends AbstractLogEntry
 
     public function __construct(string $ip_address, bool $anonymize = true)
     {
+        parent::__construct();
         $this->level = self::LEVEL_INFO;
         $this->setIPAddress($ip_address, $anonymize);
     }

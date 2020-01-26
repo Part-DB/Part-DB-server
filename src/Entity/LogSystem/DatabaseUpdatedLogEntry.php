@@ -31,9 +31,11 @@ class DatabaseUpdatedLogEntry extends AbstractLogEntry
 {
     protected $typeString = "database_updated";
 
-    public function __construct()
+    public function __construct(string $oldVersion, string $newVersion)
     {
-        throw new LogEntryObsoleteException();
+        parent::__construct();
+        $this->extra['o'] = $oldVersion;
+        $this->extra['n'] = $newVersion;
     }
 
     /**
@@ -42,25 +44,26 @@ class DatabaseUpdatedLogEntry extends AbstractLogEntry
      */
     public function isSuccessful(): bool
     {
-        return $this->extra['s'];
+        //We dont save unsuccessful updates now, so just assume it to save space.
+        return $this->extra['s'] ?? true;
     }
 
     /**
      * Gets the database version before update.
      * @return int
      */
-    public function getOldVersion(): int
+    public function getOldVersion(): string
     {
-        return $this->extra['o'];
+        return (string) $this->extra['o'];
     }
 
     /**
      * Gets the (target) database version after update.
      * @return int
      */
-    public function getNewVersion(): int
+    public function getNewVersion(): string
     {
-        return $this->extra['n'];
+        return (string) $this->extra['n'];
     }
 
 }

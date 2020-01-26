@@ -73,6 +73,11 @@ services:
         tags:
             - { name: "doctrine.orm.entity_listener" }
 
+    App\EventSubscriber\MigrationListener:
+        tags:
+            - { name: 'doctrine.event_subscriber' }
+
+
     tree_invalidation_listener:
         class: App\EntityListeners\TreeCacheInvalidationListener
         tags:
