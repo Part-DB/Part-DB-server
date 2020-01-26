@@ -31,7 +31,6 @@ use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
 use App\DataTables\Column\PartAttachmentsColumn;
 use App\DataTables\Column\TagsColumn;
-use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -45,7 +44,6 @@ use App\Services\EntityURLGenerator;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
-use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 use Omines\DataTablesBundle\Column\BoolColumn;
 use Omines\DataTablesBundle\Column\MapColumn;
 use Omines\DataTablesBundle\Column\TextColumn;
@@ -217,8 +215,7 @@ final class PartsDataTable implements DataTableTypeInterface
                 'visible' => false,
             ])
 
-            ->addOrderBy('name');
-            /**
+            ->addOrderBy('name')
             ->createAdapter(FetchJoinORMAdapter::class, [
                 'simple_total_query' => true,
                 'query' => function (QueryBuilder $builder): void {
@@ -231,19 +228,22 @@ final class PartsDataTable implements DataTableTypeInterface
                     },
                     new SearchCriteriaProvider(),
                 ],
-            ]); **/
-
-            $dataTable->createAdapter(ORMAdapter::class, [
-                'entity' => Part::class,
-                'query' => function (QueryBuilder $builder): void {
-                    $this->getQuery($builder);
-                },
             ]);
     }
 
     protected function getQuery(QueryBuilder $builder): void
     {
         $builder->distinct()->select('part')
+            ->addSelect('category')
+            ->addSelect('footprint')
+            ->addSelect('manufacturer')
+            ->addSelect('partUnit')
+            ->addSelect('master_picture_attachment')
+            ->addSelect('footprint_attachment')
+            ->addSelect('partLots')
+            ->addSelect('orderdetails')
+            ->addSelect('attachments')
+            ->addSelect('storelocations')
             ->from(Part::class, 'part')
             ->leftJoin('part.category', 'category')
             ->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
