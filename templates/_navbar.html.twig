@@ -50,12 +50,11 @@
                     </div>
                     <li role="separator" class="dropdown-divider"></li>
                     <h6 class="dropdown-header">{% trans %}user.language_select{% endtrans %}</h6>
-                    <a class="dropdown-item" data-no-ajax href="{{ path(app.request.attributes.get('_route'),
-                        app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}">
-                        {% trans %}language.english{% endtrans %}</a>
-                    <a class="dropdown-item" data-no-ajax href="{{ path(app.request.attributes.get('_route'),
-                        app.request.attributes.get('_route_params')|merge({'_locale': 'de'})) }}">
-                        {% trans %}language.german{% endtrans %}</a>
+                    {% for locale in locale_menu %}
+                        <a class="dropdown-item" data-no-ajax href="{{ path(app.request.attributes.get('_route'),
+                            app.request.attributes.get('_route_params')|merge({'_locale': locale})) }}">
+                            {{ locale|language_name }} ({{ locale|upper }})</a>
+                    {% endfor %}
                 </ul>
             </li>
         </ul>

@@ -13,3 +13,4 @@ twig:
         default_currency: '%default_currency%'
         global_theme: '%global_theme%'
         allow_email_pw_reset: '%allow_email_pw_reset%'
+        locale_menu: '%locale_menu%'
