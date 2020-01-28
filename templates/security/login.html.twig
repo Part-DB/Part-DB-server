@@ -20,7 +20,7 @@
 {% endblock %}
 
 {% block card_content %}
-    <form action="{{ path('login') }}" method="post" class="form-horizontal">
+    <form action="{{ path('login') }}" method="post" data-no-ajax class="form-horizontal">
 
         <input type="hidden" name="_csrf_token"
                value="{{ csrf_token('authenticate') }}">
