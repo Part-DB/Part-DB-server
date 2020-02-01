@@ -91,8 +91,9 @@ class PartAttachmentsColumn extends AbstractColumn
         return $tmp;
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
+        return $this;
     }
 }

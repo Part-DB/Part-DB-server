@@ -57,7 +57,7 @@ class EntityColumn extends AbstractColumn
         return $value;
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
 
@@ -69,7 +69,7 @@ class EntityColumn extends AbstractColumn
 
         $resolver->setDefault('render', function (Options $options) {
             return function ($value, Part $context) use ($options) {
-                /** @var DBElement $entity */
+                /** @var DBElement|null $entity */
                 $entity = $this->accessor->getValue($context, $options['property']);
 
                 if ($entity) {
@@ -83,7 +83,10 @@ class EntityColumn extends AbstractColumn
 
                     return sprintf('<i>%s</i>', $value);
                 }
+                throw new \InvalidArgumentException('$entity must not be null!');
             };
         });
+
+        return $this;
     }
 }

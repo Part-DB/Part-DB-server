@@ -91,7 +91,7 @@ class AttachmentReverseSearch
         $this->cacheManager->remove($this->attachmentURLGenerator->absolutePathToAssetPath($file->getPathname()));
 
         $fs = new Filesystem();
-        $fs->remove($file);
+        $fs->remove($file->getPathname());
 
         return true;
     }

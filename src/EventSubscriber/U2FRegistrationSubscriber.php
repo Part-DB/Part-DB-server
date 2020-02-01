@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\EventSubscriber;
 
 use App\Entity\UserSystem\U2FKey;
+use App\Entity\UserSystem\User;
 use Doctrine\ORM\EntityManagerInterface;
 use R\U2FTwoFactorBundle\Event\RegisterEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -63,6 +64,10 @@ final class U2FRegistrationSubscriber implements EventSubscriberInterface
         //Skip adding of U2F key on demo mode
         if (! $this->demo_mode) {
             $user = $event->getUser();
+            if (!$user instanceof User) {
+                throw new \InvalidArgumentException("Only User objects can be registered for U2F!");
+            }
+
             $registration = $event->getRegistration();
             $newKey = new U2FKey();
             $newKey->fromRegistrationData($registration);

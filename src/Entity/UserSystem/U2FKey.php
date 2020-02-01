@@ -103,9 +103,10 @@ class U2FKey implements TwoFactorKeyInterface
         return $this->keyHandle;
     }
 
-    public function setKeyHandle($keyHandle): void
+    public function setKeyHandle($keyHandle): self
     {
         $this->keyHandle = $keyHandle;
+        return $this;
     }
 
     public function getPublicKey()
@@ -113,9 +114,10 @@ class U2FKey implements TwoFactorKeyInterface
         return $this->publicKey;
     }
 
-    public function setPublicKey($publicKey): void
+    public function setPublicKey($publicKey): self
     {
         $this->publicKey = $publicKey;
+        return $this;
     }
 
     public function getCertificate()
@@ -123,9 +125,10 @@ class U2FKey implements TwoFactorKeyInterface
         return $this->certificate;
     }
 
-    public function setCertificate($certificate): void
+    public function setCertificate($certificate): self
     {
         $this->certificate = $certificate;
+        return $this;
     }
 
     public function getCounter()
@@ -133,9 +136,10 @@ class U2FKey implements TwoFactorKeyInterface
         return $this->counter;
     }
 
-    public function setCounter($counter): void
+    public function setCounter($counter): self
     {
         $this->counter = $counter;
+        return $this;
     }
 
     public function getName()
@@ -143,9 +147,10 @@ class U2FKey implements TwoFactorKeyInterface
         return $this->name;
     }
 
-    public function setName($name): void
+    public function setName($name): self
     {
         $this->name = $name;
+        return $this;
     }
 
     /**
@@ -173,7 +178,7 @@ class U2FKey implements TwoFactorKeyInterface
      *
      * @return $this
      */
-    public function setUser(TwoFactorInterface $new_user): self
+    public function setUser(User $new_user): self
     {
         $this->user = $new_user;
 

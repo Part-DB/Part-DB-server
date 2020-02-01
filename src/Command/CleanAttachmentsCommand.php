@@ -86,7 +86,7 @@ class CleanAttachmentsCommand extends Command
 
         $table = new Table($output);
         $table->setHeaders(['Filename', 'MIME Type', 'Last modified date']);
-        $dateformatter = IntlDateFormatter::create(null, IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
+        $dateformatter = IntlDateFormatter::create(\Locale::getDefault(), IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
 
         foreach ($finder as $file) {
             //If not attachment object uses this file, print it

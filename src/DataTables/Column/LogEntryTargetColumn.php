@@ -58,9 +58,10 @@ class LogEntryTargetColumn extends AbstractColumn
         return $value;
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
+        return $this;
     }
 
     public function render($value, $context)

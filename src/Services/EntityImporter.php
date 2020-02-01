@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Entity\Base\StructuralDBElement;
+use Symfony\Bundle\MakerBundle\Str;
 use function count;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
@@ -133,7 +134,7 @@ class EntityImporter
             $tmp = $this->validator->validate($entity);
 
             //When no validation error occured, persist entity to database (cascade must be set in entity)
-            if (0 === count($errors)) {
+            if (empty($tmp)) {
                 $this->em->persist($entity);
             } else { //Log validation errors to global log.
                 $errors[$entity->getFullPath()] = $tmp;
@@ -210,7 +211,7 @@ class EntityImporter
      * This functions corrects the parent setting based on the children value of the parent.
      *
      * @param iterable $entities the list of entities that should be fixed
-     * @param null     $parent   the parent, to which the entity should be set
+     * @param null|StructuralDBElement $parent   the parent, to which the entity should be set
      */
     protected function correctParentEntites(iterable $entities, $parent = null): void
     {

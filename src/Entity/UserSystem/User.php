@@ -234,7 +234,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     protected $attachments;
 
-    /** @var DateTime The time when the backup codes were generated
+    /** @var DateTime|null The time when the backup codes were generated
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $backupCodesGenerationDate;
@@ -351,9 +351,9 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @see UserInterface
      */
-    public function getSalt(): void
+    public function getSalt(): ?string
     {
-        // not needed when using the "bcrypt" algorithm in security.yaml
+        return null;
     }
 
     /**

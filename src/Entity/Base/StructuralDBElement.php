@@ -81,10 +81,11 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      * We can not define the mapping here or we will get an exception. Unfortunately we have to do the mapping in the
      * subclasses.
      *
-     * @var StructuralDBElement[]
+     * @var StructuralDBElement[]|Collection
      * @Groups({"include_children"})
      */
-    protected $children = [];
+    protected $children;
+
     /**
      * @var StructuralDBElement
      * @NoneOfItsChildren()
@@ -249,7 +250,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     /**
      * Get all sub elements of this element.
      *
-     * @return Collection<static> all subelements as an array of objects (sorted by their full path)
+     * @return Collection<static>|iterable all subelements as an array of objects (sorted by their full path)
      */
     public function getSubelements(): iterable
     {
@@ -257,7 +258,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     }
 
     /**
-     * @return Collection<static>
+     * @return Collection<static>|iterable
      */
     public function getChildren(): iterable
     {
@@ -311,9 +312,17 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
         return $this;
     }
 
-    public function setChildren(array $element): self
+    /**
+     * @param  static[]|Collection  $elements
+     * @return $this
+     */
+    public function setChildren($elements): self
     {
-        $this->children = $element;
+        if (!is_array($elements) && !$elements instanceof Collection) {
+           throw new InvalidArgumentException('$elements must be an array or Collection!');
+        }
+
+        $this->children = $elements;
 
         return $this;
     }

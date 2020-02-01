@@ -236,9 +236,9 @@ class UserSettingsController extends AbstractController
                     ],
                 ],
                 'constraints' => [new Length([
-                    'min' => 6,
-                    'max' => 128,
-                ])],
+                                                 'min' => 6,
+                                                 'max' => 128,
+                                             ])],
             ])
             ->add('submit', SubmitType::class, ['label' => 'save'])
             ->getForm();
@@ -278,15 +278,13 @@ class UserSettingsController extends AbstractController
                 return $this->redirectToRoute('user_settings');
             }
 
-            if ($google_enabled) {
-                //Remove secret to disable google authenticator
-                $user->setGoogleAuthenticatorSecret(null);
-                $backupCodeManager->disableBackupCodesIfUnused($user);
-                $em->flush();
-                $this->addFlash('success', 'user.settings.2fa.google.disabled');
+            //Remove secret to disable google authenticator
+            $user->setGoogleAuthenticatorSecret(null);
+            $backupCodeManager->disableBackupCodesIfUnused($user);
+            $em->flush();
+            $this->addFlash('success', 'user.settings.2fa.google.disabled');
 
-                return $this->redirectToRoute('user_settings');
-            }
+            return $this->redirectToRoute('user_settings');
         }
 
         $backup_form = $this->get('form.factory')->createNamedBuilder('backup_codes')->add('reset_codes', SubmitType::class, [

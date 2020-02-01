@@ -58,7 +58,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 abstract class DBElement
 {
-    /** @var int The Identification number for this part. This value is unique for the element in this table.
+    /** @var int|null The Identification number for this part. This value is unique for the element in this table.
+     * Null if the element is not saved to DB yet.
      * @ORM\Column(type="integer")
      * @ORM\Id()
      * @ORM\GeneratedValue()

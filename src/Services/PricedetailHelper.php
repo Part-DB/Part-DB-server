@@ -191,7 +191,7 @@ class PricedetailHelper
         $val_base = $value;
         if (null !== $originCurrency) {
             //Without an exchange rate we can not calculate the exchange rate
-            if (0 === (float) $originCurrency->getExchangeRate()) {
+            if (0.0 === (float) $originCurrency->getExchangeRate()) {
                 return null;
             }
 

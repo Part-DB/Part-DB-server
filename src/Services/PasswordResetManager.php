@@ -96,19 +96,19 @@ class PasswordResetManager
     /**
      * Sets the new password of the user with the given name, if the token is valid.
      *
-     * @param string $user         The name of the user, which password should be reset
+     * @param string $username     The name of the user, which password should be reset
      * @param string $token        The token that should be used to reset the password
      * @param string $new_password The new password that should be applied to user
      *
      * @return bool Returns true, if the new password was applied. False, if either the username is unknown or the
      *              token is invalid or expired.
      */
-    public function setNewPassword(string $user, string $token, string $new_password): bool
+    public function setNewPassword(string $username, string $token, string $new_password): bool
     {
         //Try to find the user
         $repo = $this->em->getRepository(User::class);
-        /** @var User $user */
-        $user = $repo->findOneBy(['name' => $user]);
+        /** @var User|null $user */
+        $user = $repo->findOneBy(['name' => $username]);
 
         //If no user matching the name, show an error message
         if (null === $user) {

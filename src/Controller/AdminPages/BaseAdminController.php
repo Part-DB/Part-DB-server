@@ -130,7 +130,7 @@ abstract class BaseAdminController extends AbstractController
 
     protected function _new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
     {
-        /** @var StructuralDBElement $new_entity */
+        /** @var StructuralDBElement|User $new_entity */
         $new_entity = new $this->entity_class();
 
         $this->denyAccessUnlessGranted('read', $new_entity);

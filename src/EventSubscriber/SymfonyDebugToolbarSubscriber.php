@@ -67,6 +67,6 @@ final class SymfonyDebugToolbarSubscriber implements EventSubscriberInterface
         }
 
         $response = $event->getResponse();
-        $response->headers->set('Symfony-Debug-Toolbar-Replace', 1);
+        $response->headers->set('Symfony-Debug-Toolbar-Replace', '1');
     }
 }

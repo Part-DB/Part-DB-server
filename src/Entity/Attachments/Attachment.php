@@ -79,7 +79,7 @@ abstract class Attachment extends NamedDBElement
     public const ALLOWED_ELEMENT_CLASS = '';
 
     /**
-     * @var string the original filename the file had, when the user uploaded it
+     * @var string|null the original filename the file had, when the user uploaded it
      * @ORM\Column(type="string", nullable=true)
      */
     protected $original_filename;

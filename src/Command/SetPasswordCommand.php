@@ -64,13 +64,14 @@ class SetPasswordCommand extends Command
 
         /** @var User[] $users */
         $users = $this->entityManager->getRepository(User::class)->findBy(['name' => $user_name]);
-        $user = $users[0];
 
-        if (null === $user) {
+        if (empty($users)) {
             $io->error(sprintf('No user with the given username %s found in the database!', $user_name));
 
             return 1;
         }
+
+        $user = $users[0];
 
         $io->note('User found!');
 

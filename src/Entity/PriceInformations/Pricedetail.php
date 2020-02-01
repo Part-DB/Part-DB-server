@@ -109,7 +109,7 @@ class Pricedetail extends DBElement
     protected $manual_input = true;
 
     /**
-     * @var Orderdetail
+     * @var Orderdetail|null
      * @ORM\ManyToOne(targetEntity="Orderdetail", inversedBy="pricedetails")
      * @ORM\JoinColumn(name="orderdetails_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Assert\NotNull()

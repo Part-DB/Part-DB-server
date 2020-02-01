@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Configuration\PermissionsConfiguration;
+use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Security\Interfaces\HasPermissionsInterface;
 use Symfony\Component\Config\ConfigCache;
@@ -109,6 +110,7 @@ class PermissionResolver
             return $allowed;
         }
 
+        /** @var HasPermissionsInterface $parent */
         $parent = $user->getGroup();
         while (null !== $parent) { //The top group, has parent == null
             //Check if our current element gives a info about disallow/allow

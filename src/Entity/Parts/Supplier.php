@@ -93,7 +93,7 @@ class Supplier extends Company
     protected $default_currency;
 
     /**
-     * @var float|null the shipping costs that have to be paid, when ordering via this supplier
+     * @var string|null the shipping costs that have to be paid, when ordering via this supplier
      * @ORM\Column(name="shipping_costs", nullable=true, type="decimal", precision=11, scale=5)
      * @Assert\PositiveOrZero()
      */
