@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,20 +24,18 @@
 
 namespace App\Entity\LogSystem;
 
-
-use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
- * @package App\Entity\LogSystem
  */
 class InstockChangedLogEntry extends AbstractLogEntry
 {
-    protected $typeString = "instock_changed";
+    protected $typeString = 'instock_changed';
 
     /**
-     * Get the old instock
+     * Get the old instock.
+     *
      * @return int
      */
     public function getOldInstock(): int
@@ -43,7 +44,8 @@ class InstockChangedLogEntry extends AbstractLogEntry
     }
 
     /**
-     * Get the new instock
+     * Get the new instock.
+     *
      * @return int
      */
     public function getNewInstock(): int
@@ -52,7 +54,8 @@ class InstockChangedLogEntry extends AbstractLogEntry
     }
 
     /**
-     * Gets the comment associated with the instock change
+     * Gets the comment associated with the instock change.
+     *
      * @return string
      */
     public function getComment(): string
@@ -62,7 +65,9 @@ class InstockChangedLogEntry extends AbstractLogEntry
 
     /**
      * Returns the price that has to be payed for the change (in the base currency).
-     * @param $absolute bool Set this to true, if you want only get the absolute value of the price (without minus)
+     *
+     * @param bool $absolute Set this to true, if you want only get the absolute value of the price (without minus)
+     *
      * @return float
      */
     public function getPrice(bool $absolute = false): float
@@ -70,18 +75,21 @@ class InstockChangedLogEntry extends AbstractLogEntry
         if ($absolute) {
             return abs($this->extra['p']);
         }
+
         return $this->extra['p'];
     }
 
     /**
      * Returns the difference value of the change ($new_instock - $old_instock).
-     * @param $absolute bool  Set this to true if you want only the absolute value of the difference.
+     *
+     * @param bool $absolute Set this to true if you want only the absolute value of the difference.
+     *
      * @return int Difference is positive if instock has increased, negative if decreased.
      */
     public function getDifference(bool $absolute = false): int
     {
         // Check if one of the instock values is unknown
-        if ($this->getNewInstock() == -2 || $this->getOldInstock() == -2) {
+        if (-2 === $this->getNewInstock() || -2 === $this->getOldInstock()) {
             return 0;
         }
 
@@ -95,11 +103,11 @@ class InstockChangedLogEntry extends AbstractLogEntry
 
     /**
      * Checks if the Change was an withdrawal of parts.
+     *
      * @return bool True if the change was an withdrawal, false if not.
      */
     public function isWithdrawal(): bool
     {
         return $this->getNewInstock() < $this->getOldInstock();
     }
-
 }

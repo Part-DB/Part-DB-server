@@ -32,15 +32,15 @@ use JsonSerializable;
  */
 final class TreeViewNode implements JsonSerializable
 {
-    protected $text;
-    protected $href;
-    protected $nodes;
+    private $text;
+    private $href;
+    private $nodes;
 
-    protected $state = null;
+    private $state = null;
 
-    protected $tags;
+    private $tags;
 
-    protected $id;
+    private $id;
 
     /**
      * Creates a new TreeView node with the given parameters.

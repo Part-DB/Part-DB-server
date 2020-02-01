@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,12 +24,10 @@
 
 namespace App\EventSubscriber;
 
-
 use App\Entity\LogSystem\DatabaseUpdatedLogEntry;
 use App\Services\LogSystem\EventLogger;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Migrations\Event\MigrationsEventArgs;
-use Doctrine\Migrations\Event\MigrationsVersionEventArgs;
 use Doctrine\Migrations\Events;
 
 class MigrationListener implements EventSubscriber
@@ -55,33 +56,27 @@ class MigrationListener implements EventSubscriber
         $this->old_version = empty($this->old_version) ? 'legacy/empty' : $this->old_version;
         $this->new_version = empty($this->new_version) ? 'unknown' : $this->new_version;
 
-
         try {
             $log = new DatabaseUpdatedLogEntry($this->old_version, $this->new_version);
             $this->eventLogger->logAndFlush($log);
-        } catch (\Exception $exception) {
+        } catch (\Throwable $exception) {
             //Ignore any exception occuring here...
         }
-
     }
-
 
     public function onMigrationsMigrating(MigrationsEventArgs $args): void
     {
         // Save the version before any migration
-        if ($this->old_version == null) {
+        if (null === $this->old_version) {
             $this->old_version = $args->getConfiguration()->getCurrentVersion();
         }
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getSubscribedEvents()
     {
         return [
             Events::onMigrationsMigrated,
             Events::onMigrationsMigrating,
-            ];
+        ];
     }
 }

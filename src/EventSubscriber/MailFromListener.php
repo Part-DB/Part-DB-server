@@ -31,8 +31,8 @@ use Symfony\Component\Mime\Email;
 
 final class MailFromListener implements EventSubscriberInterface
 {
-    protected $email;
-    protected $name;
+    private $email;
+    private $name;
 
     public function __construct(string $email, string $name)
     {

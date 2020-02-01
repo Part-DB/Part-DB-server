@@ -35,8 +35,8 @@ use Symfony\Component\Security\Core\Security;
  */
 final class TimezoneListener implements EventSubscriberInterface
 {
-    protected $default_timezone;
-    protected $security;
+    private $default_timezone;
+    private $security;
 
     public function __construct(string $timezone, Security $security)
     {

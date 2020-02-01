@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,7 +24,6 @@
 
 namespace App\Entity\LogSystem;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,7 +31,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ElementDeletedLogEntry extends AbstractLogEntry
 {
-    protected $typeString = "element_deleted";
+    protected $typeString = 'element_deleted';
 
     public function getOldName(): string
     {

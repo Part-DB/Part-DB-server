@@ -31,7 +31,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use function get_class;
 use InvalidArgumentException;
-use function is_array;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -55,7 +54,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     public const ID_ROOT_ELEMENT = 0;
 
     /**
-     * This is a not standard character, so build a const, so a dev can easily use it
+     * This is a not standard character, so build a const, so a dev can easily use it.
      */
     public const PATH_DELIMITER_ARROW = ' → ';
 

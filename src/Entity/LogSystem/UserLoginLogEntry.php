@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -26,12 +29,12 @@ use Symfony\Component\HttpFoundation\IpUtils;
 
 /**
  * This log entry is created when a user logs in.
- * @package App\Entity\LogSystem
+ *
  * @ORM\Entity()
  */
 class UserLoginLogEntry extends AbstractLogEntry
 {
-    protected $typeString = "user_login";
+    protected $typeString = 'user_login';
 
     public function __construct(string $ip_address, bool $anonymize = true)
     {
@@ -42,6 +45,7 @@ class UserLoginLogEntry extends AbstractLogEntry
 
     /**
      * Return the (anonymized) IP address used to login the user.
+     *
      * @return string
      */
     public function getIPAddress(): string
@@ -50,9 +54,11 @@ class UserLoginLogEntry extends AbstractLogEntry
     }
 
     /**
-     * Sets the IP address used to login the user
-     * @param string $ip The IP address used to login the user.
-     * @param bool $anonymize Anonymize the IP address (remove last block) to be GPDR compliant
+     * Sets the IP address used to login the user.
+     *
+     * @param string $ip        The IP address used to login the user.
+     * @param bool   $anonymize Anonymize the IP address (remove last block) to be GPDR compliant
+     *
      * @return $this
      */
     public function setIPAddress(string $ip, bool $anonymize = true): self
@@ -62,6 +68,7 @@ class UserLoginLogEntry extends AbstractLogEntry
         }
 
         $this->extra['i'] = $ip;
+
         return $this;
     }
 }

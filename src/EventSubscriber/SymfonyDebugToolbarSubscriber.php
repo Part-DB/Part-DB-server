@@ -30,7 +30,7 @@ use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 
 final class SymfonyDebugToolbarSubscriber implements EventSubscriberInterface
 {
-    protected $kernel;
+    private $kernel;
 
     public function __construct(ContainerInterface $kernel)
     {

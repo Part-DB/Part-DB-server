@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,7 +23,6 @@
  */
 
 namespace App\Command;
-
 
 use App\Entity\Base\NamedDBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
@@ -56,18 +58,6 @@ class ShowEventLogCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
-    {
-        $this
-            ->setDescription('List the last event log entries.')
-            ->addOption('count', 'c', InputOption::VALUE_REQUIRED, 'How many log entries should be shown per page.', 50 )
-            ->addOption('oldest_first', null, InputOption::VALUE_NONE,'Show older entries first.')
-            ->addOption('page', 'p', InputOption::VALUE_REQUIRED, 'Which page should be shown?', 1)
-            ->addOption('onePage', null, InputOption::VALUE_NONE, 'Show only one page (dont ask to go to next).')
-            ->addOption('showExtra', 'x', InputOption::VALUE_NONE, 'Show a column with the extra data.');
-        ;
-    }
-
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
@@ -83,11 +73,12 @@ class ShowEventLogCommand extends Command
         $max_page = ceil($total_count / $limit);
 
         if ($page > $max_page) {
-            $io->error("There is no page $page! The maximum page is $max_page.");
+            $io->error("There is no page ${page}! The maximum page is ${max_page}.");
+
             return 1;
         }
 
-        $io->note("There are a total of $total_count log entries in the DB.");
+        $io->note("There are a total of ${total_count} log entries in the DB.");
 
         $continue = true;
         while ($continue && $page <= $max_page) {
@@ -98,10 +89,21 @@ class ShowEventLogCommand extends Command
             }
 
             $continue = $io->confirm('Do you want to show the next page?');
-            $page++;
+            ++$page;
         }
 
         return 0;
+    }
+
+    protected function configure(): void
+    {
+        $this
+            ->setDescription('List the last event log entries.')
+            ->addOption('count', 'c', InputOption::VALUE_REQUIRED, 'How many log entries should be shown per page.', 50)
+            ->addOption('oldest_first', null, InputOption::VALUE_NONE, 'Show older entries first.')
+            ->addOption('page', 'p', InputOption::VALUE_REQUIRED, 'Which page should be shown?', 1)
+            ->addOption('onePage', null, InputOption::VALUE_NONE, 'Show only one page (dont ask to go to next).')
+            ->addOption('showExtra', 'x', InputOption::VALUE_NONE, 'Show a column with the extra data.');
     }
 
     protected function showPage(OutputInterface $output, bool $desc, int $limit, int $page, int $max_page, bool $showExtra): void
@@ -113,7 +115,7 @@ class ShowEventLogCommand extends Command
         $entries = $this->repo->getLogsOrderedByTimestamp($sorting, $limit, $offset);
 
         $table = new Table($output);
-        $table->setHeaderTitle("Page $page / $max_page");
+        $table->setHeaderTitle("Page ${page} / ${max_page}");
         $headers = ['ID', 'Timestamp', 'Type', 'User', 'Target Type', 'Target'];
         if ($showExtra) {
             $headers[] = 'Extra data';
@@ -130,15 +132,15 @@ class ShowEventLogCommand extends Command
     protected function addTableRow(Table $table, AbstractLogEntry $entry, bool $showExtra): void
     {
         $target = $this->repo->getTargetElement($entry);
-        $target_name = "";
+        $target_name = '';
         if ($target instanceof NamedDBElement) {
-            $target_name = $target->getName() . ' <info>(' . $target->getID() . ')</info>';
+            $target_name = $target->getName().' <info>('.$target->getID().')</info>';
         } elseif ($entry->getTargetID()) {
-            $target_name = '<info>(' . $entry->getTargetID() . ')</info>';
+            $target_name = '<info>('.$entry->getTargetID().')</info>';
         }
 
-        $target_class = "";
-        if ($entry->getTargetClass() !== null) {
+        $target_class = '';
+        if (null !== $entry->getTargetClass()) {
             $target_class = $this->elementTypeNameGenerator->getLocalizedTypeLabel($entry->getTargetClass());
         }
 
@@ -148,7 +150,7 @@ class ShowEventLogCommand extends Command
             $entry->getType(),
             $entry->getUser()->getFullName(true),
             $target_class,
-            $target_name
+            $target_name,
         ];
 
         if ($showExtra) {

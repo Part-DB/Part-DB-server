@@ -37,14 +37,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ORMAdapter extends AbstractAdapter
 {
-    /** @var ManagerRegistry */
-    private $registry;
-
     /** @var EntityManager */
     protected $manager;
 
     /** @var \Doctrine\ORM\Mapping\ClassMetadata */
     protected $metadata;
+
+    /** @var QueryBuilderProcessorInterface[] */
+    protected $criteriaProcessors;
+    /** @var ManagerRegistry */
+    private $registry;
 
     /** @var int */
     private $hydrationMode;
@@ -52,13 +54,10 @@ class ORMAdapter extends AbstractAdapter
     /** @var QueryBuilderProcessorInterface[] */
     private $queryBuilderProcessors;
 
-    /** @var QueryBuilderProcessorInterface[] */
-    protected $criteriaProcessors;
-
     /**
      * DoctrineAdapter constructor.
      */
-    public function __construct(ManagerRegistry $registry = null)
+    public function __construct(?ManagerRegistry $registry = null)
     {
         if (null === $registry) {
             throw new MissingDependencyException('Install doctrine/doctrine-bundle to use the ORMAdapter');
@@ -68,10 +67,7 @@ class ORMAdapter extends AbstractAdapter
         $this->registry = $registry;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configure(array $options)
+    public function configure(array $options): void
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -92,15 +88,12 @@ class ORMAdapter extends AbstractAdapter
         $this->criteriaProcessors = $options['criteria'];
     }
 
-    /**
-     * @param mixed $processor
-     */
-    public function addCriteriaProcessor($processor)
+    public function addCriteriaProcessor($processor): void
     {
         $this->criteriaProcessors[] = $this->normalizeProcessor($processor);
     }
 
-    protected function prepareQuery(AdapterQuery $query)
+    protected function prepareQuery(AdapterQuery $query): void
     {
         $state = $query->getState();
         $query->set('qb', $builder = $this->createQueryBuilder($state));
@@ -150,7 +143,7 @@ class ORMAdapter extends AbstractAdapter
                     continue;
                 }
 
-                list($origin, $target) = explode('.', $join->getJoin());
+                [$origin, $target] = explode('.', $join->getJoin());
 
                 $mapping = $aliases[$origin][1]->getAssociationMapping($target);
                 $aliases[$join->getAlias()] = [$join->getJoin(), $this->manager->getMetadataFactory()->getMetadataFor($mapping['targetEntity'])];
@@ -160,9 +153,6 @@ class ORMAdapter extends AbstractAdapter
         return $aliases;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function mapPropertyPath(AdapterQuery $query, AbstractColumn $column)
     {
         return $this->mapFieldToPropertyPath($column->getField(), $query->get('aliases'));
@@ -175,7 +165,7 @@ class ORMAdapter extends AbstractAdapter
         $state = $query->getState();
 
         // Apply definitive view state for current 'page' of the table
-        foreach ($state->getOrderBy() as list($column, $direction)) {
+        foreach ($state->getOrderBy() as [$column, $direction]) {
             /** @var AbstractColumn $column */
             if ($column->isOrderable()) {
                 $builder->addOrderBy($column->getOrderField(), $direction);
@@ -200,7 +190,7 @@ class ORMAdapter extends AbstractAdapter
         }
     }
 
-    protected function buildCriteria(QueryBuilder $queryBuilder, DataTableState $state)
+    protected function buildCriteria(QueryBuilder $queryBuilder, DataTableState $state): void
     {
         foreach ($this->criteriaProcessors as $provider) {
             $provider->process($queryBuilder, $state);
@@ -222,6 +212,7 @@ class ORMAdapter extends AbstractAdapter
 
     /**
      * @param $identifier
+     *
      * @return int
      */
     protected function getCount(QueryBuilder $queryBuilder, $identifier)
@@ -230,21 +221,21 @@ class ORMAdapter extends AbstractAdapter
 
         $qb->resetDQLPart('orderBy');
         $gb = $qb->getDQLPart('groupBy');
-        if (empty($gb) || !$this->hasGroupByPart($identifier, $gb)) {
+        if (empty($gb) || ! $this->hasGroupByPart($identifier, $gb)) {
             $qb->select($qb->expr()->count($identifier));
 
             return (int) $qb->getQuery()->getSingleScalarResult();
-        } else {
-            $qb->resetDQLPart('groupBy');
-            $qb->select($qb->expr()->countDistinct($identifier));
-
-            return (int) $qb->getQuery()->getSingleScalarResult();
         }
+        $qb->resetDQLPart('groupBy');
+        $qb->select($qb->expr()->countDistinct($identifier));
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
     /**
      * @param $identifier
      * @param Query\Expr\GroupBy[] $gbList
+     *
      * @return bool
      */
     protected function hasGroupByPart($identifier, array $gbList)
@@ -260,6 +251,7 @@ class ORMAdapter extends AbstractAdapter
 
     /**
      * @param string $field
+     *
      * @return string
      */
     protected function mapFieldToPropertyPath($field, array $aliases = [])
@@ -268,25 +260,25 @@ class ORMAdapter extends AbstractAdapter
         if (count($parts) < 2) {
             throw new InvalidConfigurationException(sprintf("Field name '%s' must consist at least of an alias and a field separated with a period", $field));
         }
-        list($origin, $target) = $parts;
+        [$origin, $target] = $parts;
 
         $path = [$target];
         $current = $aliases[$origin][0];
 
         while (null !== $current) {
-            list($origin, $target) = explode('.', $current);
+            [$origin, $target] = explode('.', $current);
             $path[] = $target;
             $current = $aliases[$origin][0];
         }
 
         if (Query::HYDRATE_ARRAY === $this->hydrationMode) {
-            return '[' . implode('][', array_reverse($path)) . ']';
-        } else {
-            return implode('.', array_reverse($path));
+            return '['.implode('][', array_reverse($path)).']';
         }
+
+        return implode('.', array_reverse($path));
     }
 
-    protected function configureOptions(OptionsResolver $resolver)
+    protected function configureOptions(OptionsResolver $resolver): void
     {
         $providerNormalizer = function (Options $options, $value) {
             return array_map([$this, 'normalizeProcessor'], (array) $value);
@@ -294,12 +286,12 @@ class ORMAdapter extends AbstractAdapter
 
         $resolver
             ->setDefaults([
-                              'hydrate' => Query::HYDRATE_OBJECT,
-                              'query' => [],
-                              'criteria' => function (Options $options) {
-                                  return [new SearchCriteriaProvider()];
-                              },
-                          ])
+                'hydrate' => Query::HYDRATE_OBJECT,
+                'query' => [],
+                'criteria' => function (Options $options) {
+                    return [new SearchCriteriaProvider()];
+                },
+            ])
             ->setRequired('entity')
             ->setAllowedTypes('entity', ['string'])
             ->setAllowedTypes('hydrate', 'int')
@@ -312,6 +304,7 @@ class ORMAdapter extends AbstractAdapter
 
     /**
      * @param callable|QueryBuilderProcessorInterface $provider
+     *
      * @return QueryBuilderProcessorInterface
      */
     private function normalizeProcessor($provider)

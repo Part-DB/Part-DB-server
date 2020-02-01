@@ -55,9 +55,9 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
      * @var string The route the user will redirected to, if he needs to change this password
      */
     public const REDIRECT_TARGET = 'user_settings';
-    protected $security;
-    protected $flashBag;
-    protected $httpUtils;
+    private $security;
+    private $flashBag;
+    private $httpUtils;
 
     public function __construct(Security $security, FlashBagInterface $flashBag, HttpUtils $httpUtils)
     {

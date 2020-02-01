@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,7 +24,6 @@
 
 namespace App\Services\LogSystem;
 
-
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\LogSystem\DatabaseUpdatedLogEntry;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
@@ -36,7 +38,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Format the Extra field of a log entry in a user readible form.
- * @package App\Services\LogSystem
  */
 class LogEntryExtraFormatter
 {
@@ -49,7 +50,7 @@ class LogEntryExtraFormatter
 
     /**
      * Return an user viewable representation of the extra data in a log entry, styled for console output.
-     * @param  AbstractLogEntry  $logEntry
+     *
      * @return string
      */
     public function formatConsole(AbstractLogEntry $logEntry): string
@@ -64,15 +65,15 @@ class LogEntryExtraFormatter
     }
 
     /**
-     * Return a HTML formatted string containing a user viewable form of the Extra data
-     * @param  AbstractLogEntry  $context
+     * Return a HTML formatted string containing a user viewable form of the Extra data.
+     *
      * @return string
      */
     public function format(AbstractLogEntry $context): string
     {
         if ($context instanceof UserLoginLogEntry || $context instanceof UserLogoutLogEntry) {
             return sprintf(
-                "<i>%s</i>: %s",
+                '<i>%s</i>: %s',
                 $this->translator->trans('log.user_login.ip'),
                 htmlspecialchars($context->getIPAddress())
             );
@@ -113,7 +114,7 @@ class LogEntryExtraFormatter
             );
         }
 
-        if ($context instanceof ElementEditedLogEntry && !empty($context->getMessage())) {
+        if ($context instanceof ElementEditedLogEntry && ! empty($context->getMessage())) {
             return htmlspecialchars($context->getMessage());
         }
 
@@ -123,7 +124,7 @@ class LogEntryExtraFormatter
                 $this->translator->trans($context->isWithdrawal() ? 'log.instock_changed.withdrawal' : 'log.instock_changed.added'),
                 $context->getOldInstock(),
                 $context->getNewInstock(),
-                (!$context->isWithdrawal() ? '+' : '-') . $context->getDifference(true),
+                (! $context->isWithdrawal() ? '+' : '-').$context->getDifference(true),
                 $this->translator->trans('log.instock_changed.comment'),
                 htmlspecialchars($context->getComment())
             );
@@ -133,6 +134,6 @@ class LogEntryExtraFormatter
             return htmlspecialchars($context->getMessage());
         }
 
-        return "";
+        return '';
     }
 }

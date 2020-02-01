@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,26 +24,21 @@
 
 namespace App\Security\Voter;
 
-
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\UserSystem\User;
 
 class LogEntryVoter extends ExtendedVoter
 {
-
     public const ALLOWED_OPS = ['read', 'delete'];
 
-    /**
-     * @inheritDoc
-     */
     protected function voteOnUser($attribute, $subject, User $user): bool
     {
         if ($subject instanceof AbstractLogEntry) {
-            if ($attribute === 'delete') {
+            if ('delete' === $attribute) {
                 return $this->resolver->inherit($user, 'system', 'delete_logs') ?? false;
             }
 
-            if ($attribute === 'read') {
+            if ('read' === $attribute) {
                 //Allow read of the users own log entries
                 if (
                     $subject->getUser() === $user
@@ -49,20 +47,17 @@ class LogEntryVoter extends ExtendedVoter
                     return true;
                 }
 
-                return $this->resolver->inherit($user, 'system','show_logs') ?? false;
+                return $this->resolver->inherit($user, 'system', 'show_logs') ?? false;
             }
         }
 
         return false;
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function supports($attribute, $subject)
     {
         if ($subject instanceof AbstractLogEntry) {
-            return in_array($subject, static::ALLOWED_OPS);
+            return in_array($subject, static::ALLOWED_OPS, true);
         }
 
         return false;

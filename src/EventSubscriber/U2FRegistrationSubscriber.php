@@ -34,10 +34,10 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class U2FRegistrationSubscriber implements EventSubscriberInterface
 {
-    protected $em;
+    private $em;
 
-    protected $demo_mode;
-    protected $flashBag;
+    private $demo_mode;
+    private $flashBag;
     /**
      * @var UrlGeneratorInterface
      */
@@ -51,9 +51,6 @@ final class U2FRegistrationSubscriber implements EventSubscriberInterface
         $this->flashBag = $flashBag;
     }
 
-    /**
-     *
-     */
     public static function getSubscribedEvents(): array
     {
         return [

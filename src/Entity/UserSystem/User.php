@@ -90,7 +90,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     use MasterAttachmentTrait;
 
     /**
-     * The User id of the anonymous user
+     * The User id of the anonymous user.
      */
     public const ID_ANONYMOUS = 1;
 

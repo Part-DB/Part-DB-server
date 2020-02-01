@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -24,7 +27,6 @@ namespace App\DataTables\Column;
 use App\Entity\Base\DBElement;
 use App\Entity\Base\NamedDBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
-use App\Repository\LogEntryRepository;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -34,7 +36,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LogEntryTargetColumn extends AbstractColumn
 {
-
     protected $em;
     protected $entryRepository;
     protected $entityURLGenerator;
@@ -52,15 +53,12 @@ class LogEntryTargetColumn extends AbstractColumn
         $this->translator = $translator;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function normalize($value)
     {
         return $value;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
     }
@@ -89,7 +87,7 @@ class LogEntryTargetColumn extends AbstractColumn
         }
 
         //Element was deleted
-        if ($target === null && $context->hasTarget()) {
+        if (null === $target && $context->hasTarget()) {
             return sprintf(
                 '<i>%s</i>: %s [%s]',
                 $this->elementTypeNameGenerator->getLocalizedTypeLabel($context->getTargetClass()),
@@ -99,6 +97,6 @@ class LogEntryTargetColumn extends AbstractColumn
         }
 
         //Log is not associated with an element
-        return "";
+        return '';
     }
 }

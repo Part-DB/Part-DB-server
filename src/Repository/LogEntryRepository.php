@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,15 +24,13 @@
 
 namespace App\Repository;
 
-
 use App\Entity\Base\DBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
 use Doctrine\ORM\EntityRepository;
 
 class LogEntryRepository extends EntityRepository
 {
-
-    public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+    public function findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
     {
         //Emulate a target element criteria by splitting it manually in the needed criterias
         if (isset($criteria['target']) && $criteria['target'] instanceof DBElement) {
@@ -43,11 +44,13 @@ class LogEntryRepository extends EntityRepository
     }
 
     /**
-     * Find log entries associated with the given element (the history of the element)
-     * @param  DBElement  $element The element for which the history should be generated
-     * @param  string  $order By default newest entries are shown first. Change this to ASC to show oldest entries first.
-     * @param  null  $limit
-     * @param  null  $offset
+     * Find log entries associated with the given element (the history of the element).
+     *
+     * @param DBElement $element The element for which the history should be generated
+     * @param string    $order   By default newest entries are shown first. Change this to ASC to show oldest entries first.
+     * @param null      $limit
+     * @param null      $offset
+     *
      * @return AbstractLogEntry[]
      */
     public function getElementHistory(DBElement $element, $order = 'DESC', $limit = null, $offset = null)
@@ -56,10 +59,12 @@ class LogEntryRepository extends EntityRepository
     }
 
     /**
-     * Gets the last log entries ordered by timestamp
-     * @param  string  $order
-     * @param  null  $limit
-     * @param  null  $offset
+     * Gets the last log entries ordered by timestamp.
+     *
+     * @param string $order
+     * @param null   $limit
+     * @param null   $offset
+     *
      * @return array
      */
     public function getLogsOrderedByTimestamp($order = 'DESC', $limit = null, $offset = null)
@@ -69,16 +74,16 @@ class LogEntryRepository extends EntityRepository
 
     /**
      * Gets the target element associated with the logentry.
-     * @param AbstractLogEntry $logEntry
+     *
      * @return DBElement|null Returns the associated DBElement or null if the log either has no target or the element
-     * was deleted from DB.
+     *                        was deleted from DB.
      */
     public function getTargetElement(AbstractLogEntry $logEntry): ?DBElement
     {
         $class = $logEntry->getTargetClass();
         $id = $logEntry->getTargetID();
 
-        if ($class === null || $id === null) {
+        if (null === $class || null === $id) {
             return null;
         }
 

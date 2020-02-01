@@ -24,7 +24,6 @@ declare(strict_types=1);
 
 namespace App\DataTables;
 
-use App\DataTables\Adapter\CustomORMAdapter;
 use App\DataTables\Adapter\FetchJoinORMAdapter;
 use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
@@ -53,15 +52,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class PartsDataTable implements DataTableTypeInterface
 {
-    protected $translator;
-    protected $treeBuilder;
-    protected $amountFormatter;
-    protected $previewGenerator;
-    protected $attachmentURLGenerator;
+    private $translator;
+    private $treeBuilder;
+    private $amountFormatter;
+    private $previewGenerator;
+    private $attachmentURLGenerator;
     /**
      * @var EntityURLGenerator
      */
-    protected $urlGenerator;
+    private $urlGenerator;
 
     public function __construct(EntityURLGenerator $urlGenerator, TranslatorInterface $translator,
                                 NodesListBuilder $treeBuilder, AmountFormatter $amountFormatter,
@@ -231,7 +230,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ]);
     }
 
-    protected function getQuery(QueryBuilder $builder): void
+    private function getQuery(QueryBuilder $builder): void
     {
         $builder->distinct()->select('part')
             ->addSelect('category')
@@ -257,7 +256,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('part.partUnit', 'partUnit');
     }
 
-    protected function buildCriteria(QueryBuilder $builder, array $options): void
+    private function buildCriteria(QueryBuilder $builder, array $options): void
     {
         $em = $builder->getEntityManager();
 

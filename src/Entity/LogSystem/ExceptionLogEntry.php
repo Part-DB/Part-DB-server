@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,13 +24,11 @@
 
 namespace App\Entity\LogSystem;
 
-
 use App\Exceptions\LogEntryObsoleteException;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
- * @package App\Entity\LogSystem
  */
 class ExceptionLogEntry extends AbstractLogEntry
 {
@@ -40,15 +41,17 @@ class ExceptionLogEntry extends AbstractLogEntry
 
     /**
      * The class name of the exception that caused this log entry.
+     *
      * @return string
      */
     public function getExceptionClass(): string
     {
-        return $this->extra['t'] ?? "Unknown Class";
+        return $this->extra['t'] ?? 'Unknown Class';
     }
 
     /**
      * Returns the file where the exception happened.
+     *
      * @return string
      */
     public function getFile(): string
@@ -57,7 +60,8 @@ class ExceptionLogEntry extends AbstractLogEntry
     }
 
     /**
-     * Returns the line where the exception happened
+     * Returns the line where the exception happened.
+     *
      * @return int
      */
     public function getLine(): int
@@ -67,11 +71,11 @@ class ExceptionLogEntry extends AbstractLogEntry
 
     /**
      * Return the message of the exception.
+     *
      * @return string
      */
     public function getMessage(): string
     {
         return $this->extra['m'];
     }
-
 }

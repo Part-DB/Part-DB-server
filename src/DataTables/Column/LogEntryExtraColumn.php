@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,16 +24,6 @@
 
 namespace App\DataTables\Column;
 
-
-use App\Entity\LogSystem\DatabaseUpdatedLogEntry;
-use App\Entity\LogSystem\ElementCreatedLogEntry;
-use App\Entity\LogSystem\ElementDeletedLogEntry;
-use App\Entity\LogSystem\ElementEditedLogEntry;
-use App\Entity\LogSystem\ExceptionLogEntry;
-use App\Entity\LogSystem\InstockChangedLogEntry;
-use App\Entity\LogSystem\UserLoginLogEntry;
-use App\Entity\LogSystem\UserLogoutLogEntry;
-use App\Entity\LogSystem\UserNotAllowedLogEntry;
 use App\Services\LogSystem\LogEntryExtraFormatter;
 use Omines\DataTablesBundle\Column\AbstractColumn;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -46,9 +39,6 @@ class LogEntryExtraColumn extends AbstractColumn
         $this->formatter = $formatter;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function normalize($value)
     {
         return $value;

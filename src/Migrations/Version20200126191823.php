@@ -12,15 +12,15 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20200126191823 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return 'Improve the schema of the log table';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE log CHANGE datetime datetime DATETIME NOT NULL, CHANGE level level TINYINT, CHANGE extra extra LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\'');
         $this->addSql('DROP INDEX id_user ON log');
@@ -28,10 +28,10 @@ final class Version20200126191823 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_8F3F68C56B3CA4B ON log (id_user)');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE log DROP FOREIGN KEY FK_8F3F68C56B3CA4B');
         $this->addSql('ALTER TABLE log DROP FOREIGN KEY FK_8F3F68C56B3CA4B');

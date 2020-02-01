@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -34,35 +37,72 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * Similar to ORMAdapter this class allows to access objects from the doctrine ORM.
  * Unlike the default ORMAdapter supports Fetch Joins (additional entites are fetched from DB via joins) using
  * the Doctrine Paginator.
+ *
  * @author Jan Böhmer
  */
 class FetchJoinORMAdapter extends ORMAdapter
 {
     protected $use_simple_total;
 
-    public function configure(array $options)
+    public function configure(array $options): void
     {
         parent::configure($options);
         $this->use_simple_total = $options['simple_total_query'];
     }
 
-    protected function configureOptions(OptionsResolver $resolver)
+    public function getResults(AdapterQuery $query): \Traversable
+    {
+        $builder = $query->get('qb');
+        $state = $query->getState();
+
+        // Apply definitive view state for current 'page' of the table
+        foreach ($state->getOrderBy() as [$column, $direction]) {
+            /** @var AbstractColumn $column */
+            if ($column->isOrderable()) {
+                $builder->addOrderBy($column->getOrderField(), $direction);
+            }
+        }
+        if ($state->getLength() > 0) {
+            $builder
+                ->setFirstResult($state->getStart())
+                ->setMaxResults($state->getLength());
+        }
+
+        $query = $builder->getQuery();
+        $event = new ORMAdapterQueryEvent($query);
+        $state->getDataTable()->getEventDispatcher()->dispatch($event, ORMAdapterEvents::PRE_QUERY);
+
+        //Use Doctrine paginator for result iteration
+        $paginator = new Paginator($query);
+
+        foreach ($paginator->getIterator() as $result) {
+            yield $result;
+            $this->manager->detach($result);
+        }
+    }
+
+    public function getCount(QueryBuilder $queryBuilder, $identifier)
+    {
+        $paginator = new Paginator($queryBuilder);
+
+        return $paginator->count();
+    }
+
+    protected function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
         //Enforce object hydration mode (fetch join only works for objects)
         $resolver->addAllowedValues('hydrate', Query::HYDRATE_OBJECT);
 
-        /**
+        /*
          * Add the possibility to replace the query for total entity count through a very simple one, to improve performance.
          * You can only use this option, if you did not apply any criteria to your total count.
          */
         $resolver->setDefault('simple_total_query', false);
-
-        return $resolver;
     }
 
-    protected function prepareQuery(AdapterQuery $query)
+    protected function prepareQuery(AdapterQuery $query): void
     {
         $state = $query->getState();
         $query->set('qb', $builder = $this->createQueryBuilder($state));
@@ -96,43 +136,6 @@ class FetchJoinORMAdapter extends ORMAdapter
         $query->setIdentifierPropertyPath($this->mapFieldToPropertyPath($identifier, $aliases));
     }
 
-    public function getResults(AdapterQuery $query): \Traversable
-    {
-        $builder = $query->get('qb');
-        $state = $query->getState();
-
-        // Apply definitive view state for current 'page' of the table
-        foreach ($state->getOrderBy() as list($column, $direction)) {
-            /** @var AbstractColumn $column */
-            if ($column->isOrderable()) {
-                $builder->addOrderBy($column->getOrderField(), $direction);
-            }
-        }
-        if ($state->getLength() > 0) {
-            $builder
-                ->setFirstResult($state->getStart())
-                ->setMaxResults($state->getLength());
-        }
-
-        $query = $builder->getQuery();
-        $event = new ORMAdapterQueryEvent($query);
-        $state->getDataTable()->getEventDispatcher()->dispatch($event, ORMAdapterEvents::PRE_QUERY);
-
-        //Use Doctrine paginator for result iteration
-        $paginator = new Paginator($query);
-
-        foreach ($paginator->getIterator() as $result) {
-            yield $result;
-            $this->manager->detach($result);
-        }
-    }
-
-    public function getCount(QueryBuilder $queryBuilder, $identifier)
-    {
-        $paginator = new Paginator($queryBuilder);
-        return $paginator->count();
-    }
-
     protected function getSimpleTotalCount(QueryBuilder $queryBuilder)
     {
         /** The paginator count queries can be rather slow, so when query for total count (100ms or longer),
@@ -140,6 +143,7 @@ class FetchJoinORMAdapter extends ORMAdapter
          */
         /** @var Query\Expr\From $from_expr */
         $from_expr = $queryBuilder->getDQLPart('from')[0];
+
         return $this->manager->getRepository($from_expr->getFrom())->count([]);
     }
 }

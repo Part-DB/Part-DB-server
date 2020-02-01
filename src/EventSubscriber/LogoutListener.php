@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,7 +24,6 @@
 
 namespace App\EventSubscriber;
 
-
 use App\Entity\LogSystem\UserLogoutLogEntry;
 use App\Entity\UserSystem\User;
 use App\Services\LogSystem\EventLogger;
@@ -41,10 +43,7 @@ class LogoutListener implements LogoutHandlerInterface
         $this->gpdr_compliance = $gpdr_compliance;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function logout(Request $request, Response $response, TokenInterface $token)
+    public function logout(Request $request, Response $response, TokenInterface $token): void
     {
         $log = new UserLogoutLogEntry($request->getClientIp(), $this->gpdr_compliance);
         $user = $token->getUser();

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,7 +23,6 @@
  */
 
 namespace App\Services\LogSystem;
-
 
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\UserSystem\User;
@@ -47,15 +49,15 @@ class EventLogger
     /**
      * Adds the given log entry to the Log, if the entry fullfills the global configured criterias.
      * The change will not be flushed yet.
-     * @param  AbstractLogEntry  $logEntry
+     *
      * @return bool Returns true, if the event was added to log.
      */
     public function log(AbstractLogEntry $logEntry): bool
     {
         $user = $this->security->getUser();
         //If the user is not specified explicitly, set it to the current user
-        if (($user === null || $user instanceof User) && $logEntry->getUser() === null) {
-            if ($user === null) {
+        if ((null === $user || $user instanceof User) && null === $logEntry->getUser()) {
+            if (null === $user) {
                 $repo = $this->em->getRepository(User::class);
                 $user = $repo->getAnonymousUser();
             }
@@ -64,6 +66,7 @@ class EventLogger
 
         if ($this->shouldBeAdded($logEntry)) {
             $this->em->persist($logEntry);
+
             return true;
         }
 
@@ -72,13 +75,14 @@ class EventLogger
 
     /**
      * Adds the given log entry to the Log, if the entry fullfills the global configured criterias and flush afterwards.
-     * @param  AbstractLogEntry  $logEntry
+     *
      * @return bool Returns true, if the event was added to log.
      */
     public function logAndFlush(AbstractLogEntry $logEntry): bool
     {
         $tmp = $this->log($logEntry);
         $this->em->flush();
+
         return $tmp;
     }
 
@@ -99,12 +103,12 @@ class EventLogger
         }
 
         //Check if the event type is black listed
-        if (!empty($blacklist) && $this->isObjectClassInArray($logEntry, $blacklist)) {
+        if (! empty($blacklist) && $this->isObjectClassInArray($logEntry, $blacklist)) {
             return false;
         }
 
         //Check for whitelisting
-        if (!empty($whitelist) && !$this->isObjectClassInArray($logEntry, $whitelist)) {
+        if (! empty($whitelist) && ! $this->isObjectClassInArray($logEntry, $whitelist)) {
             return false;
         }
 
@@ -113,15 +117,17 @@ class EventLogger
     }
 
     /**
-     * Check if the object type is given in the classes array. This also works for inherited types
-     * @param  object  $object The object which should be checked
-     * @param  string[]  $classes The list of class names that should be used for checking.
+     * Check if the object type is given in the classes array. This also works for inherited types.
+     *
+     * @param object   $object  The object which should be checked
+     * @param string[] $classes The list of class names that should be used for checking.
+     *
      * @return bool
      */
     protected function isObjectClassInArray(object $object, array $classes): bool
     {
         //Check if the class is directly in the classes array
-        if (in_array(get_class($object), $classes)) {
+        if (in_array(get_class($object), $classes, true)) {
             return true;
         }
 

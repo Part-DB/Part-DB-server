@@ -38,10 +38,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class LoginSuccessListener implements EventSubscriberInterface
 {
-    protected $translator;
-    protected $flashBag;
-    protected $eventLogger;
-    protected $gpdr_compliance;
+    private $translator;
+    private $flashBag;
+    private $eventLogger;
+    private $gpdr_compliance;
 
     public function __construct(TranslatorInterface $translator, FlashBagInterface $flashBag, EventLogger $eventLogger, bool $gpdr_compliance)
     {

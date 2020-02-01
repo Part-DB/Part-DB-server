@@ -34,10 +34,10 @@ use Symfony\Component\Security\Core\Security;
 
 final class LogoutOnDisabledUserListener implements EventSubscriberInterface
 {
-    protected $security;
-    protected $translator;
-    protected $flashBag;
-    protected $urlGenerator;
+    private $security;
+    private $translator;
+    private $flashBag;
+    private $urlGenerator;
 
     public function __construct(Security $security, UrlGeneratorInterface $urlGenerator)
     {

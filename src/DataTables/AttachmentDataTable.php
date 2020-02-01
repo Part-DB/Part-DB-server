@@ -40,11 +40,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class AttachmentDataTable implements DataTableTypeInterface
 {
-    protected $translator;
-    protected $entityURLGenerator;
-    protected $attachmentHelper;
-    protected $elementTypeNameGenerator;
-    protected $attachmentURLGenerator;
+    private $translator;
+    private $entityURLGenerator;
+    private $attachmentHelper;
+    private $elementTypeNameGenerator;
+    private $attachmentURLGenerator;
 
     public function __construct(TranslatorInterface $translator, EntityURLGenerator $entityURLGenerator,
                                 AttachmentManager $attachmentHelper, AttachmentURLGenerator $attachmentURLGenerator,
@@ -203,7 +203,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
         ]);
     }
 
-    protected function getQuery(QueryBuilder $builder): void
+    private function getQuery(QueryBuilder $builder): void
     {
         $builder->distinct()->select('attachment')
             ->addSelect('attachment_type')

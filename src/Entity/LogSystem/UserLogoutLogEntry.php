@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,17 +24,15 @@
 
 namespace App\Entity\LogSystem;
 
-
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\IpUtils;
 
 /**
  * @ORM\Entity()
- * @package App\Entity\LogSystem
  */
 class UserLogoutLogEntry extends AbstractLogEntry
 {
-    protected $typeString = "user_logout";
+    protected $typeString = 'user_logout';
 
     public function __construct(string $ip_address, bool $anonymize = true)
     {
@@ -42,6 +43,7 @@ class UserLogoutLogEntry extends AbstractLogEntry
 
     /**
      * Return the (anonymized) IP address used to login the user.
+     *
      * @return string
      */
     public function getIPAddress(): string
@@ -50,9 +52,11 @@ class UserLogoutLogEntry extends AbstractLogEntry
     }
 
     /**
-     * Sets the IP address used to login the user
-     * @param string $ip The IP address used to login the user.
-     * @param bool $anonymize Anonymize the IP address (remove last block) to be GPDR compliant
+     * Sets the IP address used to login the user.
+     *
+     * @param string $ip        The IP address used to login the user.
+     * @param bool   $anonymize Anonymize the IP address (remove last block) to be GPDR compliant
+     *
      * @return $this
      */
     public function setIPAddress(string $ip, bool $anonymize = true): self
@@ -62,8 +66,7 @@ class UserLogoutLogEntry extends AbstractLogEntry
         }
 
         $this->extra['i'] = $ip;
+
         return $this;
     }
-
-
 }

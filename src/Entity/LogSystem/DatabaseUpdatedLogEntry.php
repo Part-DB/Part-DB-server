@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,7 +24,6 @@
 
 namespace App\Entity\LogSystem;
 
-use App\Exceptions\LogEntryObsoleteException;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,7 +31,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class DatabaseUpdatedLogEntry extends AbstractLogEntry
 {
-    protected $typeString = "database_updated";
+    protected $typeString = 'database_updated';
 
     public function __construct(string $oldVersion, string $newVersion)
     {
@@ -40,6 +42,7 @@ class DatabaseUpdatedLogEntry extends AbstractLogEntry
 
     /**
      * Checks if the database update was successful.
+     *
      * @return bool
      */
     public function isSuccessful(): bool
@@ -50,6 +53,7 @@ class DatabaseUpdatedLogEntry extends AbstractLogEntry
 
     /**
      * Gets the database version before update.
+     *
      * @return int
      */
     public function getOldVersion(): string
@@ -59,11 +63,11 @@ class DatabaseUpdatedLogEntry extends AbstractLogEntry
 
     /**
      * Gets the (target) database version after update.
+     *
      * @return int
      */
     public function getNewVersion(): string
     {
         return (string) $this->extra['n'];
     }
-
 }

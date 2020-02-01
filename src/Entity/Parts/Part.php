@@ -84,7 +84,7 @@ class Part extends AttachmentContainingDBElement
     use OrderTrait;
 
     /**
-     * TODO
+     * TODO.
      */
     protected $devices;
 

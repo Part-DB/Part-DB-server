@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,8 +24,7 @@
 
 namespace App\Exceptions;
 
-
 class LogEntryObsoleteException extends \RuntimeException
 {
-    protected $message = "This log entry is obsolete and exists only for compatibility reasons with old Part-DB versions. You should not use it!";
+    protected $message = 'This log entry is obsolete and exists only for compatibility reasons with old Part-DB versions. You should not use it!';
 }

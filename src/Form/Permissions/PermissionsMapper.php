@@ -36,8 +36,8 @@ use Traversable;
  */
 final class PermissionsMapper implements DataMapperInterface
 {
-    protected $resolver;
-    protected $inherit;
+    private $resolver;
+    private $inherit;
 
     public function __construct(PermissionResolver $resolver, bool $inherit = false)
     {

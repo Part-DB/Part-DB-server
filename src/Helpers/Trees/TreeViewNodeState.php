@@ -31,22 +31,22 @@ final class TreeViewNodeState implements JsonSerializable
     /**
      * @var bool|null
      */
-    protected $checked = null;
+    private $checked = null;
 
     /**
      * @var bool|null
      */
-    protected $disabled = null;
+    private $disabled = null;
 
     /**
      * @var bool|null
      */
-    protected $expanded = null;
+    private $expanded = null;
 
     /**
      * @var bool|null
      */
-    protected $selected = null;
+    private $selected = null;
 
     /**
      * @return bool|null

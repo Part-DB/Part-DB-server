@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -24,8 +25,10 @@ declare(strict_types=1);
 namespace App\Entity\LogSystem;
 
 use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\DBElement;
 use App\Entity\Devices\Device;
+use App\Entity\Devices\DevicePart;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -36,13 +39,11 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Attachments\AttachmentType;
-use App\Entity\Devices\DevicePart;
 use Psr\Log\LogLevel;
 
 /**
  * This entity describes a entry in the event log.
- * @package App\Entity\LogSystem
+ *
  * @ORM\Entity(repositoryClass="App\Repository\LogEntryRepository")
  * @ORM\Table("log")
  * @ORM\InheritanceType("SINGLE_TABLE")
@@ -97,7 +98,6 @@ abstract class AbstractLogEntry extends DBElement
         self::LEVEL_DEBUG => LogLevel::DEBUG,
     ];
 
-
     protected const TARGET_CLASS_MAPPING = [
         self::TARGET_TYPE_USER => User::class,
         self::TARGET_TYPE_ATTACHEMENT => Attachment::class,
@@ -113,7 +113,7 @@ abstract class AbstractLogEntry extends DBElement
         self::TARGET_TYPE_SUPPLIER => Supplier::class,
     ];
 
-    /** @var User $user The user which has caused this log entry
+    /** @var User The user which has caused this log entry
      * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User")
      * @ORM\JoinColumn(name="id_user", nullable=false)
      */
@@ -124,17 +124,17 @@ abstract class AbstractLogEntry extends DBElement
      */
     protected $timestamp;
 
-    /** @var integer The priority level of the associated level. 0 is highest, 7 lowest
+    /** @var int The priority level of the associated level. 0 is highest, 7 lowest
      * @ORM\Column(type="integer", name="level", columnDefinition="TINYINT")
      */
     protected $level;
 
-    /** @var int $target_id The ID of the element targeted by this event
+    /** @var int The ID of the element targeted by this event
      * @ORM\Column(name="target_id", type="integer", nullable=false)
      */
     protected $target_id = 0;
 
-    /** @var int $target_type The Type of the targeted element
+    /** @var int The Type of the targeted element
      * @ORM\Column(name="target_type", type="smallint", nullable=false)
      */
     protected $target_type = 0;
@@ -143,7 +143,7 @@ abstract class AbstractLogEntry extends DBElement
      * The mapping between the log entry class and the discriminator column is done by doctrine.
      * Each subclass should override this string to specify a better string.
      */
-    protected $typeString = "unknown";
+    protected $typeString = 'unknown';
 
     /** @var array The extra data in raw (short form) saved in the DB
      * @ORM\Column(name="extra", type="json")
@@ -158,6 +158,7 @@ abstract class AbstractLogEntry extends DBElement
 
     /**
      * Get the user that caused the event associated with this log entry.
+     *
      * @return User
      */
     public function getUser(): ?User
@@ -167,17 +168,19 @@ abstract class AbstractLogEntry extends DBElement
 
     /**
      * Sets the user that caused the event.
-     * @param  User  $user
+     *
      * @return $this
      */
     public function setUser(User $user): self
     {
         $this->user = $user;
+
         return $this;
     }
 
     /**
-     * Returns the timestamp when the event that caused this log entry happened
+     * Returns the timestamp when the event that caused this log entry happened.
+     *
      * @return DateTime
      */
     public function getTimestamp(): DateTime
@@ -187,18 +190,20 @@ abstract class AbstractLogEntry extends DBElement
 
     /**
      * Sets the timestamp when the event happened.
-     * @param  DateTime  $timestamp
+     *
      * @return $this
      */
-    public function setTimestamp(DateTime $timestamp): AbstractLogEntry
+    public function setTimestamp(DateTime $timestamp): self
     {
         $this->timestamp = $timestamp;
+
         return $this;
     }
 
     /**
      * Get the priority level of this log entry. 0 is highest and 7 lowest level.
-     * See LEVEL_* consts in this class for more info
+     * See LEVEL_* consts in this class for more info.
+     *
      * @return int
      */
     public function getLevel(): int
@@ -207,25 +212,28 @@ abstract class AbstractLogEntry extends DBElement
         if ($this->level < 0 || $this->level > 7) {
             return self::LEVEL_ALERT;
         }
+
         return $this->level;
     }
 
     /**
      * Sets the new level of this log entry.
-     * @param  int  $level
+     *
      * @return $this
      */
-    public function setLevel(int $level): AbstractLogEntry
+    public function setLevel(int $level): self
     {
         if ($level < 0 || $this->level > 7) {
             throw new \InvalidArgumentException(sprintf('$level must be between 0 and 7! %d given!', $level));
         }
         $this->level = $level;
+
         return $this;
     }
 
     /**
-     * Get the priority level of this log entry as PSR3 compatible string
+     * Get the priority level of this log entry as PSR3 compatible string.
+     *
      * @return string
      */
     public function getLevelString(): string
@@ -234,18 +242,20 @@ abstract class AbstractLogEntry extends DBElement
     }
 
     /**
-     * Sets the priority level of this log entry as PSR3 compatible string
-     * @param string $level
+     * Sets the priority level of this log entry as PSR3 compatible string.
+     *
      * @return $this
      */
-    public function setLevelString(string $level): AbstractLogEntry
+    public function setLevelString(string $level): self
     {
         $this->setLevel(self::levelStringToInt($level));
+
         return $this;
     }
 
     /**
      * Returns the type of the event this log entry is associated with.
+     *
      * @return string
      */
     public function getType(): string
@@ -253,22 +263,20 @@ abstract class AbstractLogEntry extends DBElement
         return $this->typeString;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getIDString(): string
     {
-        return "LOG".$this->getID();
+        return 'LOG'.$this->getID();
     }
 
     /**
      * Returns the class name of the target element associated with this log entry.
      * Returns null, if this log entry is not associated with an log entry.
+     *
      * @return string|null The class name of the target class.
      */
     public function getTargetClass(): ?string
     {
-        if ($this->target_type === self::TARGET_TYPE_NONE) {
+        if (self::TARGET_TYPE_NONE === $this->target_type) {
             return null;
         }
 
@@ -278,11 +286,12 @@ abstract class AbstractLogEntry extends DBElement
     /**
      * Returns the ID of the target element associated with this log entry.
      * Returns null, if this log entry is not associated with an log entry.
+     *
      * @return int|null The ID of the associated element.
      */
     public function getTargetID(): ?int
     {
-        if ($this->target_id === 0) {
+        if (0 === $this->target_id) {
             return null;
         }
 
@@ -290,24 +299,28 @@ abstract class AbstractLogEntry extends DBElement
     }
 
     /**
-     * Checks if this log entry is associated with an element
+     * Checks if this log entry is associated with an element.
+     *
      * @return bool True if this log entry is associated with an element, false otherwise.
      */
     public function hasTarget(): bool
     {
-        return $this->getTargetID() !== null && $this->getTargetClass() !== null;
+        return null !== $this->getTargetID() && null !== $this->getTargetClass();
     }
 
     /**
-     * Sets the target element associated with this element
-     * @param  DBElement  $element The element that should be associated with this element.
+     * Sets the target element associated with this element.
+     *
+     * @param DBElement $element The element that should be associated with this element.
+     *
      * @return $this
      */
     public function setTargetElement(?DBElement $element): self
     {
-        if ($element === null) {
+        if (null === $element) {
             $this->target_id = 0;
             $this->target_type = self::TARGET_TYPE_NONE;
+
             return $this;
         }
 
@@ -324,12 +337,14 @@ abstract class AbstractLogEntry extends DBElement
 
     /**
      * This function converts the internal numeric log level into an PSR3 compatible level string.
-     * @param  int  $level The numerical log level
+     *
+     * @param int $level The numerical log level
+     *
      * @return string The PSR3 compatible level string
      */
     final public static function levelIntToString(int $level): string
     {
-        if (!isset(self::LEVEL_ID_TO_STRING[$level])) {
+        if (! isset(self::LEVEL_ID_TO_STRING[$level])) {
             throw new \InvalidArgumentException('No level with this int is existing!');
         }
 
@@ -338,13 +353,15 @@ abstract class AbstractLogEntry extends DBElement
 
     /**
      * This function converts a PSR3 compatible string to the internal numeric level string.
+     *
      * @param string $level the PSR3 compatible string that should be converted
+     *
      * @return int The internal int representation.
      */
     final public static function levelStringToInt(string $level): int
     {
         $tmp = array_flip(self::LEVEL_ID_TO_STRING);
-        if (!isset($tmp[$level])) {
+        if (! isset($tmp[$level])) {
             throw new \InvalidArgumentException('No level with this string is existing!');
         }
 
@@ -353,12 +370,14 @@ abstract class AbstractLogEntry extends DBElement
 
     /**
      * Converts an target type id to an full qualified class name.
-     * @param  int  $type_id The target type ID
+     *
+     * @param int $type_id The target type ID
+     *
      * @return string
      */
     final public static function targetTypeIdToClass(int $type_id): string
     {
-        if (!isset(self::TARGET_CLASS_MAPPING[$type_id])) {
+        if (! isset(self::TARGET_CLASS_MAPPING[$type_id])) {
             throw new \InvalidArgumentException('No target type with this ID is existing!');
         }
 
@@ -367,7 +386,9 @@ abstract class AbstractLogEntry extends DBElement
 
     /**
      * Convert a class name to a target type ID.
-     * @param  string  $class The name of the class (FQN) that should be converted to id
+     *
+     * @param string $class The name of the class (FQN) that should be converted to id
+     *
      * @return int The ID of the associated target type ID.
      */
     final public static function targetTypeClassToID(string $class): int
@@ -387,6 +408,4 @@ abstract class AbstractLogEntry extends DBElement
 
         throw new \InvalidArgumentException('No target ID for this class is existing!');
     }
-
-
 }

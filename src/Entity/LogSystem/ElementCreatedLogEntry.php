@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,19 +24,18 @@
 
 namespace App\Entity\LogSystem;
 
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
- * @package App\Entity\LogSystem
  */
 class ElementCreatedLogEntry extends AbstractLogEntry
 {
-    protected $typeString = "element_created";
+    protected $typeString = 'element_created';
 
     /**
-     * Gets the instock when the part was created
+     * Gets the instock when the part was created.
+     *
      * @return int|null
      */
     public function getCreationInstockValue(): ?int
@@ -43,10 +45,11 @@ class ElementCreatedLogEntry extends AbstractLogEntry
 
     /**
      * Checks if a creation instock value was saved with this entry.
+     *
      * @return bool
      */
     public function hasCreationInstockValue(): bool
     {
-        return $this->getCreationInstockValue() !== null;
+        return null !== $this->getCreationInstockValue();
     }
 }
