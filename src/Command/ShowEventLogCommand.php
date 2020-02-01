@@ -64,13 +64,13 @@ class ShowEventLogCommand extends Command
 
         $onePage = $input->getOption('onePage');
 
-        $desc = $input->getOption('oldest_first');
-        $limit = $input->getOption('count');
-        $page = $input->getOption('page');
+        $desc = (bool) $input->getOption('oldest_first');
+        $limit = (int) $input->getOption('count');
+        $page = (int) $input->getOption('page');
         $showExtra = $input->getOption('showExtra');
 
         $total_count = $this->repo->count([]);
-        $max_page = ceil($total_count / $limit);
+        $max_page = (int) ceil($total_count / $limit);
 
         if ($page > $max_page) {
             $io->error("There is no page ${page}! The maximum page is ${max_page}.");

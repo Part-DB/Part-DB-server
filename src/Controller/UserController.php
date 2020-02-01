@@ -119,7 +119,7 @@ class UserController extends AdminPages\BaseAdminController
     /**
      * @Route("/{id}/export", name="user_export")
      *
-     * @param AttachmentType $entity
+     * @param User $entity
      *
      * @return Response
      */
@@ -167,7 +167,7 @@ class UserController extends AdminPages\BaseAdminController
      * Get either a Gravatar URL or complete image tag for a specified email address.
      *
      * @param string $email The email address
-     * @param string $s     Size in pixels, defaults to 80px [ 1 - 2048 ]
+     * @param int    $s     Size in pixels, defaults to 80px [ 1 - 2048 ]
      * @param string $d     Default imageset to use [ 404 | mm | identicon | monsterid | wavatar ]
      * @param string $r     Maximum rating (inclusive) [ g | pg | r | x ]
      * @param bool   $img   True to return a complete IMG tag False for just the URL

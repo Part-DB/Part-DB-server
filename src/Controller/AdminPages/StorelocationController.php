@@ -87,7 +87,7 @@ class StorelocationController extends BaseAdminController
     /**
      * @Route("/{id}/export", name="store_location_export")
      *
-     * @param AttachmentType $entity
+     * @param Storelocation $entity
      *
      * @return Response
      */

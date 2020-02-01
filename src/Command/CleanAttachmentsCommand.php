@@ -65,7 +65,7 @@ class CleanAttachmentsCommand extends Command
                 ' These files are not needed and can eventually deleted.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
@@ -107,7 +107,7 @@ class CleanAttachmentsCommand extends Command
 
             if (! $continue) {
                 //We are finished here, when no files should be deleted
-                return;
+                return 0;
             }
 
             //Delete the files
@@ -119,6 +119,8 @@ class CleanAttachmentsCommand extends Command
         } else {
             $io->success('No abandoned files found.');
         }
+
+        return 0;
     }
 
     /**

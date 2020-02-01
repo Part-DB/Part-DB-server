@@ -1,0 +1,12 @@
+parameters:
+    inferPrivatePropertyTypeFromConstructor: true
+
+    symfony:
+        container_xml_path: '%rootDir%/../../../var/cache/dev/srcApp_KernelDevDebugContainer.xml'
+
+    autoload_directories:
+        - %rootDir%/../../../src/Migrations
+
+    excludes_analyse:
+        - src/DataTables/Adapter/*
+        - src/Configuration/*

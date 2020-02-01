@@ -38,7 +38,6 @@ use Doctrine\ORM\Mapping\PreUpdate;
 use function get_class;
 use InvalidArgumentException;
 use ReflectionClass;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Security\Core\Security;
 
 /**
@@ -59,7 +58,7 @@ class ElementPermissionListener
 
     protected $perm_cache;
 
-    public function __construct(Security $security, Reader $reader, EntityManagerInterface $em, KernelInterface $kernel)
+    public function __construct(Security $security, Reader $reader, EntityManagerInterface $em)
     {
         $this->security = $security;
         $this->reader = $reader;

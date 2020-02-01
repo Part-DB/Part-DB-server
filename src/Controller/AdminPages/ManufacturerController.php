@@ -88,7 +88,7 @@ class ManufacturerController extends BaseAdminController
     /**
      * @Route("/{id}/export", name="manufacturer_export")
      *
-     * @param Supplier $entity
+     * @param Manufacturer $entity
      *
      * @return Response
      */

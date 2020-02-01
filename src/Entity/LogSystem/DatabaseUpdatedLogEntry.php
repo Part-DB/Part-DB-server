@@ -54,7 +54,7 @@ class DatabaseUpdatedLogEntry extends AbstractLogEntry
     /**
      * Gets the database version before update.
      *
-     * @return int
+     * @return string
      */
     public function getOldVersion(): string
     {
@@ -64,7 +64,7 @@ class DatabaseUpdatedLogEntry extends AbstractLogEntry
     /**
      * Gets the (target) database version after update.
      *
-     * @return int
+     * @return string
      */
     public function getNewVersion(): string
     {

@@ -325,8 +325,20 @@
     "phpdocumentor/type-resolver": {
         "version": "0.4.0"
     },
+    "phpstan/extension-installer": {
+        "version": "1.0.3"
+    },
     "phpstan/phpdoc-parser": {
         "version": "0.4.2"
+    },
+    "phpstan/phpstan": {
+        "version": "0.12.8"
+    },
+    "phpstan/phpstan-doctrine": {
+        "version": "0.12.9"
+    },
+    "phpstan/phpstan-symfony": {
+        "version": "0.12.4"
     },
     "psr/cache": {
         "version": "1.0.1"

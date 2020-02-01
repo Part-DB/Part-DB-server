@@ -37,7 +37,7 @@ abstract class AttachmentContainingDBElement extends NamedDBElement
     use MasterAttachmentTrait;
 
     /**
-     * @var Attachment[]
+     * @var Attachment[]|Collection
      *                   //TODO
      *                   //@ORM\OneToMany(targetEntity="Attachment", mappedBy="element")
      *

@@ -245,7 +245,7 @@ class Orderdetail extends DBElement
      *
      * @return Pricedetail|null: the price as a bcmath string. Null if there are no orderdetails for the given quantity
      */
-    public function findPriceForQty(float $quantity = 1): ?Pricedetail
+    public function findPriceForQty(float $quantity = 1.0): ?Pricedetail
     {
         if ($quantity <= 0) {
             return null;

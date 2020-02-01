@@ -70,7 +70,7 @@ class FetchJoinORMAdapter extends ORMAdapter
 
         $query = $builder->getQuery();
         $event = new ORMAdapterQueryEvent($query);
-        $state->getDataTable()->getEventDispatcher()->dispatch($event, ORMAdapterEvents::PRE_QUERY);
+        $state->getDataTable()->getEventDispatcher()->dispatch($event);
 
         //Use Doctrine paginator for result iteration
         $paginator = new Paginator($query);

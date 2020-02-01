@@ -59,6 +59,10 @@
     "require-dev": {
         "dama/doctrine-test-bundle": "^6.0",
         "doctrine/doctrine-fixtures-bundle": "^3.2",
+        "phpstan/extension-installer": "^1.0",
+        "phpstan/phpstan": "^0.12.8",
+        "phpstan/phpstan-doctrine": "^0.12.9",
+        "phpstan/phpstan-symfony": "^0.12.4",
         "roave/security-advisories": "dev-master",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.13",

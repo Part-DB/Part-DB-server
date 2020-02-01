@@ -68,7 +68,7 @@ class UpdateExchangeRatesCommand extends Command
                 null);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 
@@ -76,7 +76,7 @@ class UpdateExchangeRatesCommand extends Command
         if (3 !== strlen($this->base_current)) {
             $io->error('Choosen Base current is not valid. Check your settings!');
 
-            return;
+            return 1;
         }
 
         $io->note('Update currency exchange rates with base currency: '.$this->base_current);
@@ -121,5 +121,6 @@ class UpdateExchangeRatesCommand extends Command
         $this->em->flush();
 
         $io->success(sprintf('%d (of %d) currency exchange rates were updated.', $success_counter, count($candidates)));
+        return 0;
     }
 }

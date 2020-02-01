@@ -33,8 +33,9 @@ class GroupVoter extends ExtendedVoter
      * Similar to voteOnAttribute, but checking for the anonymous user is already done.
      * The current user (or the anonymous user) is passed by $user.
      *
-     * @param $attribute
-     * @param $subject
+     * @param string $attribute
+     * @param mixed $subject
+     * @return bool
      */
     protected function voteOnUser($attribute, $subject, User $user): bool
     {

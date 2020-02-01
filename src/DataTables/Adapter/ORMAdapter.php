@@ -22,6 +22,7 @@ use Omines\DataTablesBundle\Adapter\Doctrine\Event\ORMAdapterQueryEvent;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\AutomaticQueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\QueryBuilderProcessorInterface;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
+use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapterEvents;
 use Omines\DataTablesBundle\Column\AbstractColumn;
 use Omines\DataTablesBundle\DataTableState;
 use Omines\DataTablesBundle\Exception\InvalidConfigurationException;

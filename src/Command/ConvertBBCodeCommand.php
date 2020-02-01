@@ -105,7 +105,7 @@ class ConvertBBCodeCommand extends Command
         ];
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
         $targets = $this->getTargetsLists();
@@ -168,5 +168,7 @@ class ConvertBBCodeCommand extends Command
             $this->em->flush();
             $io->success('Changes saved to DB successfully!');
         }
+
+        return 0;
     }
 }

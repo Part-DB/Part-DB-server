@@ -57,19 +57,19 @@ class SetPasswordCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
         $user_name = $input->getArgument('user');
 
-        /** @var User */
+        /** @var User[] $users */
         $users = $this->entityManager->getRepository(User::class)->findBy(['name' => $user_name]);
         $user = $users[0];
 
         if (null === $user) {
             $io->error(sprintf('No user with the given username %s found in the database!', $user_name));
 
-            return;
+            return 1;
         }
 
         $io->note('User found!');
@@ -79,7 +79,7 @@ class SetPasswordCommand extends Command
                 $user->getFullName(true), $user->getID()));
 
         if (! $proceed) {
-            return;
+            return 1;
         }
 
         $success = false;
@@ -106,5 +106,6 @@ class SetPasswordCommand extends Command
         $this->entityManager->flush();
 
         $io->success('Password was set successful! You can now log in using the new password.');
+        return 0;
     }
 }

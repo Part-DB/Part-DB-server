@@ -133,7 +133,7 @@ class EntityURLGenerator
     /**
      * Generates an URL to a page, where info about this entity can be viewed.
      *
-     * @param mixed $entity The entity for which the info should be generated
+     * @param DBElement $entity The entity for which the info should be generated
      *
      * @return string The URL to the info page
      *
@@ -223,7 +223,7 @@ class EntityURLGenerator
      * Generates an URL to a page, where a new entity can be created, that has the same informations as the
      * given entity (element cloning).
      *
-     * @param mixed $entity The entity for which the link should be generated
+     * @param DBElement $entity The entity for which the link should be generated
      *
      * @return string the URL to the page
      *
@@ -241,7 +241,7 @@ class EntityURLGenerator
     /**
      * Generates an URL to a page, where all parts are listed, which are contained in the given element.
      *
-     * @param mixed $entity The entity for which the link should be generated
+     * @param DBElement $entity The entity for which the link should be generated
      *
      * @return string the URL to the page
      *

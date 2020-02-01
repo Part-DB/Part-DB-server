@@ -36,6 +36,7 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
@@ -43,7 +44,6 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
 use function get_class;
-use Proxies\__CG__\App\Entity\Parts\Supplier;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ElementTypeNameGenerator

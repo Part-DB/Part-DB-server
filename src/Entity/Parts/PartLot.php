@@ -233,7 +233,7 @@ class PartLot extends DBElement
     /**
      * Sets the part that is stored in this part lot.
      *
-     * @param Part|InstockTrait $part
+     * @param Part $part
      *
      * @return PartLot
      */

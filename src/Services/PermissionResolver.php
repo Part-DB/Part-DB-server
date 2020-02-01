@@ -44,7 +44,7 @@ class PermissionResolver
     /**
      * PermissionResolver constructor.
      */
-    public function __construct(ParameterBagInterface $params, ContainerInterface $container)
+    public function __construct(ContainerInterface $container)
     {
         $cache_dir = $container->getParameter('kernel.cache_dir');
         //Here the cached structure will be saved.

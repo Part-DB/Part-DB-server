@@ -69,6 +69,10 @@ class CurrencyEntityType extends StructuralEntityType
     {
         //Similar to StructuralEntityType, but we use the currency symbol instead if available
 
+        if (!$choice instanceof Currency) {
+            throw new \InvalidArgumentException('$choice must be an currency object!');
+        }
+
         /** @var StructuralDBElement|null $parent */
         $parent = $this->options['subentities_of'];
 
