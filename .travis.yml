@@ -26,6 +26,10 @@ install:
   - php bin/console --env test doctrine:fixtures:load -n
   - mysql -e "SET GLOBAL FOREIGN_KEY_CHECKS=1;"
 
+before_script:
+  # Disable Xdebug on non coverage builds
+  - if [[ $(phpenv version-name) != '7.2' ]]; then phpenv config-rm xdebug.ini ; fi
+
 script:
   # Only run code coverage on PHP 7.2 to improve performance (code coverage is slower than normal testing)
   - if [[ $(phpenv version-name) == '7.2' ]]; then php bin/phpunit --coverage-clover=coverage.xml ; fi
@@ -39,6 +43,9 @@ script:
   - ./bin/console security:check
   # Check doctrine mapping
   - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
+
+  # Static analysis
+  - composer phpstan
 
 after_success:
   - if [[ $(phpenv version-name) == '7.2' ]]; then bash <(curl -s https://codecov.io/bash) ; fi
