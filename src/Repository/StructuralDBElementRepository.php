@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\Base\StructuralDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Helpers\Trees\StructuralDBElementIterator;
 use App\Helpers\Trees\TreeViewNode;
 use RecursiveIteratorIterator;
@@ -34,7 +34,7 @@ class StructuralDBElementRepository extends NamedDBElementRepository
     /**
      * Finds all nodes without a parent node. They are our root nodes.
      *
-     * @return StructuralDBElement[]
+     * @return AbstractStructuralDBElement[]
      */
     public function findRootNodes(): array
     {
@@ -45,17 +45,17 @@ class StructuralDBElementRepository extends NamedDBElementRepository
      * Gets a tree of TreeViewNode elements. The root elements has $parent as parent.
      * The treeview is generic, that means the href are null and ID values are set.
      *
-     * @param StructuralDBElement|null $parent The parent the root elements should have.
+     * @param AbstractStructuralDBElement|null $parent The parent the root elements should have.
      *
      * @return TreeViewNode[]
      */
-    public function getGenericNodeTree(?StructuralDBElement $parent = null): array
+    public function getGenericNodeTree(?AbstractStructuralDBElement $parent = null): array
     {
         $result = [];
 
         $entities = $this->findBy(['parent' => $parent], ['name' => 'ASC']);
         foreach ($entities as $entity) {
-            /** @var StructuralDBElement $entity */
+            /** @var AbstractStructuralDBElement $entity */
             //Make a recursive call to find all children nodes
             $children = $this->getGenericNodeTree($entity);
             $node = new TreeViewNode($entity->getName(), null, $children);
@@ -70,11 +70,11 @@ class StructuralDBElementRepository extends NamedDBElementRepository
     /**
      * Gets a flattened hierarchical tree. Useful for generating option lists.
      *
-     * @param StructuralDBElement|null $parent This entity will be used as root element. Set to null, to use global root
+     * @param AbstractStructuralDBElement|null $parent This entity will be used as root element. Set to null, to use global root
      *
-     * @return StructuralDBElement[] A flattened list containing the tree elements.
+     * @return AbstractStructuralDBElement[] A flattened list containing the tree elements.
      */
-    public function toNodesList(?StructuralDBElement $parent = null): array
+    public function toNodesList(?AbstractStructuralDBElement $parent = null): array
     {
         $result = [];
 

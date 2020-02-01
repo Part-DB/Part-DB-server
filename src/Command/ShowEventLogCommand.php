@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\LogSystem\LogEntryExtraFormatter;
@@ -133,7 +133,7 @@ class ShowEventLogCommand extends Command
     {
         $target = $this->repo->getTargetElement($entry);
         $target_name = '';
-        if ($target instanceof NamedDBElement) {
+        if ($target instanceof AbstractNamedDBElement) {
             $target_name = $target->getName().' <info>('.$target->getID().')</info>';
         } elseif ($entry->getTargetID()) {
             $target_name = '<info>('.$entry->getTargetID().')</info>';

@@ -49,7 +49,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @UniqueEntity(fields={"name", "parent"}, ignoreNull=false, message="structural.entity.unique_name")
  */
-abstract class StructuralDBElement extends AttachmentContainingDBElement
+abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
 {
     public const ID_ROOT_ELEMENT = 0;
 
@@ -81,13 +81,13 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      * We can not define the mapping here or we will get an exception. Unfortunately we have to do the mapping in the
      * subclasses.
      *
-     * @var StructuralDBElement[]|Collection
+     * @var AbstractStructuralDBElement[]|Collection
      * @Groups({"include_children"})
      */
     protected $children;
 
     /**
-     * @var StructuralDBElement
+     * @var AbstractStructuralDBElement
      * @NoneOfItsChildren()
      * @Groups({"include_parents"})
      */
@@ -111,7 +111,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     /**
      * Check if this element is a child of another element (recursive).
      *
-     * @param StructuralDBElement $another_element the object to compare
+     * @param AbstractStructuralDBElement $another_element the object to compare
      *                                             IMPORTANT: both objects to compare must be from the same class (for example two "Device" objects)!
      *
      * @return bool True, if this element is child of $another_element.
@@ -156,7 +156,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     /**
      * Get the parent of this element.
      *
-     * @return StructuralDBElement|null The parent element. Null if this element, does not have a parent.
+     * @return AbstractStructuralDBElement|null The parent element. Null if this element, does not have a parent.
      */
     public function getParent(): ?self
     {
@@ -190,7 +190,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
         if (0 === $this->level && null !== $this->parent) {
             $element = $this->parent;
             while (null !== $element) {
-                /** @var StructuralDBElement $element */
+                /** @var AbstractStructuralDBElement $element */
                 $element = $element->parent;
                 ++$this->level;
             }
@@ -284,7 +284,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      *
      * @param self $new_parent The new parent object
      *
-     * @return StructuralDBElement
+     * @return AbstractStructuralDBElement
      */
     public function setParent(?self $new_parent): self
     {
@@ -303,7 +303,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
      *
      * @param string $new_comment the new comment
      *
-     * @return StructuralDBElement
+     * @return AbstractStructuralDBElement
      */
     public function setComment(?string $new_comment): self
     {
@@ -328,7 +328,7 @@ abstract class StructuralDBElement extends AttachmentContainingDBElement
     }
 
     /**
-     * @return StructuralDBElement
+     * @return AbstractStructuralDBElement
      */
     public function setNotSelectable(bool $not_selectable): self
     {

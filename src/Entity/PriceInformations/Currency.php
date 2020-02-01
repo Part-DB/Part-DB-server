@@ -25,7 +25,7 @@ declare(strict_types=1);
 namespace App\Entity\PriceInformations;
 
 use App\Entity\Attachments\CurrencyAttachment;
-use App\Entity\Base\StructuralDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -38,7 +38,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  * @ORM\Table(name="currencies")
  */
-class Currency extends StructuralDBElement
+class Currency extends AbstractStructuralDBElement
 {
     public const PRICE_SCALE = 5;
 

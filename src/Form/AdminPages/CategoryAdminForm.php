@@ -24,14 +24,14 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
-use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class CategoryAdminForm extends BaseEntityAdminForm
 {
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity): void
+    protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
     {
         $is_new = null === $entity->getID();
 

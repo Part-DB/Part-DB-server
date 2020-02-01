@@ -52,7 +52,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\MappedSuperclass()
  */
-abstract class Company extends PartsContainingDBElement
+abstract class AbstractCompany extends AbstractPartsContainingDBElement
 {
     /**
      * @var string The address of the company

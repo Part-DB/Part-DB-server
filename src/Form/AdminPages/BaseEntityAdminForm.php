@@ -25,8 +25,8 @@ declare(strict_types=1);
 namespace App\Form\AdminPages;
 
 use App\Entity\Attachments\Attachment;
-use App\Entity\Base\NamedDBElement;
-use App\Entity\Base\StructuralDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Form\AttachmentFormType;
 use App\Form\Type\MasterPictureAttachmentType;
 use App\Form\Type\StructuralEntityType;
@@ -62,7 +62,7 @@ class BaseEntityAdminForm extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var StructuralDBElement $entity */
+        /** @var AbstractStructuralDBElement $entity */
         $entity = $options['data'];
         $is_new = null === $entity->getID();
 
@@ -140,7 +140,7 @@ class BaseEntityAdminForm extends AbstractType
             ]);
     }
 
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity): void
+    protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
     {
         //Empty for Base
     }

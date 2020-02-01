@@ -25,8 +25,8 @@ declare(strict_types=1);
 namespace App\Tests\Services;
 
 use App\Entity\Attachments\PartAttachment;
-use App\Entity\Base\DBElement;
-use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Exceptions\EntityNotSupportedException;
@@ -64,7 +64,7 @@ class ElementTypeNameGeneratorTest extends WebTestCase
 
         //Test exception for unknpwn type
         $this->expectException(EntityNotSupportedException::class);
-        $this->service->getLocalizedTypeLabel(new class() extends DBElement {
+        $this->service->getLocalizedTypeLabel(new class() extends AbstractDBElement {
             public function getIDString(): string
             {
                 return 'Stub';
@@ -83,7 +83,7 @@ class ElementTypeNameGeneratorTest extends WebTestCase
 
         //Test exception
         $this->expectException(EntityNotSupportedException::class);
-        $this->service->getTypeNameCombination(new class() extends NamedDBElement {
+        $this->service->getTypeNameCombination(new class() extends AbstractNamedDBElement {
             public function getIDString(): string
             {
                 return 'Stub';

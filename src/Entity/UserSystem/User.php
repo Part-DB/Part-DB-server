@@ -54,7 +54,7 @@ namespace App\Entity\UserSystem;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\Base\MasterAttachmentTrait;
-use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\PriceInformations\Currency;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\Selectable;
@@ -521,7 +521,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      *
      * @return $this
      */
-    public function setName(string $new_name): NamedDBElement
+    public function setName(string $new_name): AbstractNamedDBElement
     {
         // Anonymous user is not allowed to change its username
         if (! $this->isAnonymousUser()) {

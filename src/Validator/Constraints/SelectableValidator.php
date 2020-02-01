@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
-use App\Entity\Base\StructuralDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -54,7 +54,7 @@ class SelectableValidator extends ConstraintValidator
         }
 
         //Check type of value. Validating only works for StructuralDBElements
-        if (! $value instanceof StructuralDBElement) {
+        if (! $value instanceof AbstractStructuralDBElement) {
             throw new UnexpectedValueException($value, 'StructuralDBElement');
         }
 

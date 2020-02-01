@@ -26,8 +26,8 @@ namespace App\Services;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
-use App\Entity\Base\DBElement;
-use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Devices\Device;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -82,7 +82,7 @@ class ElementTypeNameGenerator
      * Useful when the type should be shown to user.
      * Throws an exception if the class is not supported.
      *
-     * @param DBElement|string $entity The element or class for which the label should be generated
+     * @param AbstractDBElement|string $entity The element or class for which the label should be generated
      *
      * @return string the localized label for the entity type
      *
@@ -113,14 +113,14 @@ class ElementTypeNameGenerator
      * For example this could be something like: "Part: BC547".
      * It uses getLocalizedLabel to determine the type.
      *
-     * @param NamedDBElement $entity   the entity for which the string should be generated
+     * @param AbstractNamedDBElement $entity   the entity for which the string should be generated
      * @param bool           $use_html If set to true, a html string is returned, where the type is set italic
      *
      * @return string The localized string
      *
      * @throws EntityNotSupportedException when the passed entity is not supported
      */
-    public function getTypeNameCombination(NamedDBElement $entity, bool $use_html = false): string
+    public function getTypeNameCombination(AbstractNamedDBElement $entity, bool $use_html = false): string
     {
         $type = $this->getLocalizedTypeLabel($entity);
         if ($use_html) {

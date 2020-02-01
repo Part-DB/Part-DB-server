@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Helpers\Trees;
 
-use App\Entity\Base\StructuralDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use ArrayIterator;
 use Doctrine\Common\Collections\Collection;
 use RecursiveIterator;
@@ -38,7 +38,7 @@ final class StructuralDBElementIterator extends ArrayIterator implements Recursi
 
     public function hasChildren()
     {
-        /** @var StructuralDBElement $element */
+        /** @var AbstractStructuralDBElement $element */
         $element = $this->current();
 
         return ! empty($element->getSubelements());
@@ -46,7 +46,7 @@ final class StructuralDBElementIterator extends ArrayIterator implements Recursi
 
     public function getChildren()
     {
-        /** @var StructuralDBElement $element */
+        /** @var AbstractStructuralDBElement $element */
         $element = $this->current();
 
         $subelements = $element->getSubelements();

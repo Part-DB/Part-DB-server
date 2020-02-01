@@ -24,14 +24,14 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
-use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class CurrencyAdminForm extends BaseEntityAdminForm
 {
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity): void
+    protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
     {
         $is_new = null === $entity->getID();
 

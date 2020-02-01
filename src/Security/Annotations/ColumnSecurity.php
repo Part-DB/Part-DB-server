@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Security\Annotations;
 
-use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use DateTime;
 use Doctrine\Common\Annotations\Annotation;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -91,7 +91,7 @@ class ColumnSecurity
         //Check if a class name was specified
         if (class_exists($this->type)) {
             $object = new $this->type();
-            if ($object instanceof NamedDBElement) {
+            if ($object instanceof AbstractNamedDBElement) {
                 if (is_string($this->placeholder) && '' !== $this->placeholder) {
                     $object->setName($this->placeholder);
                 } else {

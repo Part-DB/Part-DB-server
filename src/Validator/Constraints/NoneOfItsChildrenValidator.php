@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Validator\Constraints;
 
-use App\Entity\Base\StructuralDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -54,14 +54,14 @@ class NoneOfItsChildrenValidator extends ConstraintValidator
         }
 
         //Check type of value. Validating only works for StructuralDBElements
-        if (! $value instanceof StructuralDBElement) {
+        if (! $value instanceof AbstractStructuralDBElement) {
             throw new UnexpectedValueException($value, 'StructuralDBElement');
         }
 
         //Check if the object is assigned to itself
-        /** @var StructuralDBElement $entity */
+        /** @var AbstractStructuralDBElement $entity */
         $entity = $this->context->getObject();
-        /** @var StructuralDBElement $value */
+        /** @var AbstractStructuralDBElement $value */
 
         // Check if the targeted parent is the object itself:
         $entity_id = $entity->getID();

@@ -25,7 +25,7 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Entity\Attachments\AttachmentType;
-use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Devices\Device;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Manufacturer;
@@ -134,7 +134,7 @@ class ConvertBBCodeCommand extends Command
 
             //In verbose mode print the names of the entities
             foreach ($results as $result) {
-                /** @var NamedDBElement $result */
+                /** @var AbstractNamedDBElement $result */
                 $io->writeln(
                     'Convert entity: '.$result->getName().' ('.$result->getIDString().')',
                     OutputInterface::VERBOSITY_VERBOSE

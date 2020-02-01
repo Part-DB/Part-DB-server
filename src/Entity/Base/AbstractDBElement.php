@@ -56,7 +56,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      "user" = "App\Entity\User"
  *  })
  */
-abstract class DBElement
+abstract class AbstractDBElement
 {
     /** @var int|null The Identification number for this part. This value is unique for the element in this table.
      * Null if the element is not saved to DB yet.

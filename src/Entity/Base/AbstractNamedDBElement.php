@@ -33,7 +33,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\MappedSuperclass(repositoryClass="App\Repository\UserRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-abstract class NamedDBElement extends DBElement
+abstract class AbstractNamedDBElement extends AbstractDBElement
 {
     use TimestampTrait;
 

@@ -26,7 +26,7 @@ namespace App\Entity\LogSystem;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
-use App\Entity\Base\DBElement;
+use App\Entity\Base\AbstractDBElement;
 use App\Entity\Devices\Device;
 use App\Entity\Devices\DevicePart;
 use App\Entity\Parts\Category;
@@ -61,7 +61,7 @@ use Psr\Log\LogLevel;
  *  10 = "DatabaseUpdatedLogEntry"
  * })
  */
-abstract class AbstractLogEntry extends DBElement
+abstract class AbstractLogEntry extends AbstractDBElement
 {
     public const LEVEL_EMERGENCY = 0;
     public const LEVEL_ALERT = 1;
@@ -311,11 +311,11 @@ abstract class AbstractLogEntry extends DBElement
     /**
      * Sets the target element associated with this element.
      *
-     * @param DBElement $element The element that should be associated with this element.
+     * @param AbstractDBElement $element The element that should be associated with this element.
      *
      * @return $this
      */
-    public function setTargetElement(?DBElement $element): self
+    public function setTargetElement(?AbstractDBElement $element): self
     {
         if (null === $element) {
             $this->target_id = 0;

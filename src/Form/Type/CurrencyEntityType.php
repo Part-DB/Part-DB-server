@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
-use App\Entity\Base\StructuralDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\PriceInformations\Currency;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
@@ -65,7 +65,7 @@ class CurrencyEntityType extends StructuralEntityType
         });
     }
 
-    public function generateChoiceLabels(StructuralDBElement $choice, $key, $value): string
+    public function generateChoiceLabels(AbstractStructuralDBElement $choice, $key, $value): string
     {
         //Similar to StructuralEntityType, but we use the currency symbol instead if available
 
@@ -73,7 +73,7 @@ class CurrencyEntityType extends StructuralEntityType
             throw new \InvalidArgumentException('$choice must be an currency object!');
         }
 
-        /** @var StructuralDBElement|null $parent */
+        /** @var AbstractStructuralDBElement|null $parent */
         $parent = $this->options['subentities_of'];
 
         /*** @var Currency $choice */
@@ -93,7 +93,7 @@ class CurrencyEntityType extends StructuralEntityType
         return $tmp;
     }
 
-    protected function generateChoiceAttr(StructuralDBElement $choice, $key, $value): array
+    protected function generateChoiceAttr(AbstractStructuralDBElement $choice, $key, $value): array
     {
         /** @var Currency $choice */
         $tmp = [];

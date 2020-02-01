@@ -25,7 +25,7 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\Attachments\AttachmentType;
-use App\Entity\Base\StructuralDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Devices\Device;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -71,22 +71,22 @@ class DataStructureFixtures extends Fixture
      */
     public function createNodesForClass(string $class, ObjectManager $manager): void
     {
-        if (! new $class() instanceof StructuralDBElement) {
+        if (! new $class() instanceof AbstractStructuralDBElement) {
             throw new InvalidArgumentException('$class must be a StructuralDBElement!');
         }
 
         $table_name = $this->em->getClassMetadata($class)->getTableName();
         $this->em->getConnection()->exec("ALTER TABLE `${table_name}` AUTO_INCREMENT = 1;");
 
-        /** @var StructuralDBElement $node1 */
+        /** @var AbstractStructuralDBElement $node1 */
         $node1 = new $class();
         $node1->setName('Node 1');
 
-        /** @var StructuralDBElement $node2 */
+        /** @var AbstractStructuralDBElement $node2 */
         $node2 = new $class();
         $node2->setName('Node 2');
 
-        /** @var StructuralDBElement $node3 */
+        /** @var AbstractStructuralDBElement $node3 */
         $node3 = new $class();
         $node3->setName('Node 3');
 

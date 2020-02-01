@@ -24,8 +24,8 @@ declare(strict_types=1);
 
 namespace App\EntityListeners;
 
-use App\Entity\Base\DBElement;
-use App\Entity\Base\StructuralDBElement;
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Services\UserCacheKeyGenerator;
@@ -50,10 +50,10 @@ class TreeCacheInvalidationListener
      * @ORM\PostPersist()
      * @ORM\PostRemove()
      */
-    public function invalidate(DBElement $element, LifecycleEventArgs $event): void
+    public function invalidate(AbstractDBElement $element, LifecycleEventArgs $event): void
     {
         //If an element was changed, then invalidate all cached trees with this element class
-        if ($element instanceof StructuralDBElement) {
+        if ($element instanceof AbstractStructuralDBElement) {
             $secure_class_name = str_replace('\\', '_', get_class($element));
             $this->cache->invalidateTags([$secure_class_name]);
         }

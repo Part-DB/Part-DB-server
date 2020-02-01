@@ -33,7 +33,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\MappedSuperclass()
  */
-abstract class PartsContainingDBElement extends StructuralDBElement
+abstract class AbstractPartsContainingDBElement extends AbstractStructuralDBElement
 {
     /**
      * @var Part[]|Collection

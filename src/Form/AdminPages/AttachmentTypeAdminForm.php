@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
-use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Services\Attachments\FileTypeFilterTools;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\CallbackTransformer;
@@ -42,7 +42,7 @@ class AttachmentTypeAdminForm extends BaseEntityAdminForm
         parent::__construct($security, $params);
     }
 
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity): void
+    protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
     {
         $is_new = null === $entity->getID();
 

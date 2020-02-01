@@ -51,7 +51,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Devices;
 
-use App\Entity\Base\DBElement;
+use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -61,7 +61,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table("`device_parts`")
  * @ORM\Entity()
  */
-class DevicePart extends DBElement
+class DevicePart extends AbstractDBElement
 {
     /**
      * @var int

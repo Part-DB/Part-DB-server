@@ -24,13 +24,13 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
-use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Form\Type\MasterPictureAttachmentType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class FootprintAdminForm extends BaseEntityAdminForm
 {
-    public function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity): void
+    public function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
     {
         $builder->add('footprint_3d', MasterPictureAttachmentType::class, [
             'required' => false,

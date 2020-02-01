@@ -25,7 +25,7 @@ declare(strict_types=1);
 namespace App\Entity\Parts;
 
 use App\Entity\Attachments\MeasurementUnitAttachment;
-use App\Entity\Base\PartsContainingDBElement;
+use App\Entity\Base\AbstractPartsContainingDBElement;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -39,7 +39,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="`measurement_units`")
  * @UniqueEntity("unit")
  */
-class MeasurementUnit extends PartsContainingDBElement
+class MeasurementUnit extends AbstractPartsContainingDBElement
 {
     /**
      * @var string The unit symbol that should be used for the Unit. This could be something like "", g (for grams)

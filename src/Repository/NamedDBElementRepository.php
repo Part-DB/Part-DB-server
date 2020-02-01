@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Helpers\Trees\TreeViewNode;
 use Doctrine\ORM\EntityRepository;
 
@@ -42,7 +42,7 @@ class NamedDBElementRepository extends EntityRepository
 
         $entities = $this->findBy([], ['name' => 'ASC']);
         foreach ($entities as $entity) {
-            /** @var NamedDBElement $entity */
+            /** @var AbstractNamedDBElement $entity */
             $node = new TreeViewNode($entity->getName(), null, null);
             $node->setId($entity->getID());
             $result[] = $node;

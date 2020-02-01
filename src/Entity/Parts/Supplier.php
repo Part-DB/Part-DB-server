@@ -52,7 +52,7 @@ declare(strict_types=1);
 namespace App\Entity\Parts;
 
 use App\Entity\Attachments\SupplierAttachment;
-use App\Entity\Base\Company;
+use App\Entity\Base\AbstractCompany;
 use App\Entity\PriceInformations\Currency;
 use App\Validator\Constraints\Selectable;
 use Doctrine\Common\Collections\Collection;
@@ -65,7 +65,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
  * @ORM\Table("`suppliers`")
  */
-class Supplier extends Company
+class Supplier extends AbstractCompany
 {
     /**
      * @ORM\OneToMany(targetEntity="Supplier", mappedBy="parent")

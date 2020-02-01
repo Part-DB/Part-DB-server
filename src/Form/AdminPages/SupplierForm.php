@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
-use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\PriceInformations\Currency;
 use App\Form\Type\StructuralEntityType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
@@ -32,7 +32,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class SupplierForm extends CompanyForm
 {
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity): void
+    protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
     {
         $is_new = null === $entity->getID();
 

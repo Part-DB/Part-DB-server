@@ -24,9 +24,9 @@ declare(strict_types=1);
 
 namespace App\Services\Trees;
 
-use App\Entity\Base\DBElement;
-use App\Entity\Base\NamedDBElement;
-use App\Entity\Base\StructuralDBElement;
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Helpers\Trees\TreeViewNode;
 use App\Helpers\Trees\TreeViewNodeIterator;
 use App\Repository\StructuralDBElementRepository;
@@ -59,14 +59,14 @@ class TreeViewGenerator
      * Gets a TreeView list for the entities of the given class.
      *
      * @param string                   $class           The class for which the treeView should be generated
-     * @param StructuralDBElement|null $parent          The root nodes in the tree should have this element as parent (use null, if you want to get all entities)
+     * @param AbstractStructuralDBElement|null $parent          The root nodes in the tree should have this element as parent (use null, if you want to get all entities)
      * @param string                   $href_type       The link type that will be generated for the hyperlink section of each node (see EntityURLGenerator for possible values).
      *                                                  Set to empty string, to disable href field.
-     * @param DBElement|null           $selectedElement The element that should be selected. If set to null, no element will be selected.
+     * @param AbstractDBElement|null           $selectedElement The element that should be selected. If set to null, no element will be selected.
      *
      * @return TreeViewNode[] An array of TreeViewNode[] elements of the root elements.
      */
-    public function getTreeView(string $class, ?StructuralDBElement $parent = null, string $href_type = 'list_parts', ?DBElement $selectedElement = null): array
+    public function getTreeView(string $class, ?AbstractStructuralDBElement $parent = null, string $href_type = 'list_parts', ?AbstractDBElement $selectedElement = null): array
     {
         $head = [];
 
@@ -115,13 +115,13 @@ class TreeViewGenerator
      * The treeview is generic, that means the href are null and ID values are set.
      *
      * @param string                   $class  The class for which the tree should be generated
-     * @param StructuralDBElement|null $parent The parent the root elements should have.
+     * @param AbstractStructuralDBElement|null $parent The parent the root elements should have.
      *
      * @return TreeViewNode[]
      */
-    public function getGenericTree(string $class, ?StructuralDBElement $parent = null): array
+    public function getGenericTree(string $class, ?AbstractStructuralDBElement $parent = null): array
     {
-        if (! is_a($class, NamedDBElement::class, true)) {
+        if (! is_a($class, AbstractNamedDBElement::class, true)) {
             throw new \InvalidArgumentException('$class must be a class string that implements StructuralDBElement or NamedDBElement!');
         }
         if (null !== $parent && ! is_a($parent, $class)) {

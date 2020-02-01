@@ -52,7 +52,7 @@ declare(strict_types=1);
 namespace App\Entity\Devices;
 
 use App\Entity\Attachments\DeviceAttachment;
-use App\Entity\Base\PartsContainingDBElement;
+use App\Entity\Base\AbstractPartsContainingDBElement;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
@@ -63,7 +63,7 @@ use InvalidArgumentException;
  * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
  * @ORM\Table(name="`devices`")
  */
-class Device extends PartsContainingDBElement
+class Device extends AbstractPartsContainingDBElement
 {
     /**
      * @ORM\OneToMany(targetEntity="Device", mappedBy="parent")

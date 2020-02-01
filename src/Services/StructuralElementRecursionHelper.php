@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Entity\Base\StructuralDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use Doctrine\ORM\EntityManagerInterface;
 
 class StructuralElementRecursionHelper
@@ -39,7 +39,7 @@ class StructuralElementRecursionHelper
     /**
      * Executes an function (callable) recursivly for $element and every of its children.
      *
-     * @param StructuralDBElement $element          The element on which the func should be executed
+     * @param AbstractStructuralDBElement $element          The element on which the func should be executed
      * @param callable            $func             The function which should be executed for each element.
      *                                              $func has the signature function(StructuralDBElement $element) : void
      * @param int                 $max_depth        The maximum depth for which should be recursivly called. So if this is set to 5, after the
@@ -47,7 +47,7 @@ class StructuralElementRecursionHelper
      * @param bool                $call_from_bottom If set to true the bottom elements (elements with high level) will be called first.
      *                                              Set to false if you want to call the top elements first.
      */
-    public function execute(StructuralDBElement $element, callable $func, int $max_depth = -1, $call_from_bottom = true): void
+    public function execute(AbstractStructuralDBElement $element, callable $func, int $max_depth = -1, $call_from_bottom = true): void
     {
         //Cancel if we reached our maximal allowed level. Must be zero because -1 is infinity levels
         if (0 === $max_depth) {
@@ -75,15 +75,15 @@ class StructuralElementRecursionHelper
     /**
      * Deletes the $element and all its subelements recursivly.
      *
-     * @param StructuralDBElement $element the element which should be deleted
+     * @param AbstractStructuralDBElement $element the element which should be deleted
      * @param bool                $flush   When set to true the changes will also be flushed to DB. Set to false if you want to flush
      *                                     later.
      */
-    public function delete(StructuralDBElement $element, bool $flush = true): void
+    public function delete(AbstractStructuralDBElement $element, bool $flush = true): void
     {
         $em = $this->em;
 
-        $this->execute($element, static function (StructuralDBElement $element) use ($em): void {
+        $this->execute($element, static function (AbstractStructuralDBElement $element) use ($em): void {
             $em->remove($element);
         });
 

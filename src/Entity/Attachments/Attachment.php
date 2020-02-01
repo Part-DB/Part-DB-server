@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
-use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
 use function in_array;
@@ -48,7 +48,7 @@ use LogicException;
  * })
  * @ORM\EntityListeners({"App\EntityListeners\AttachmentDeleteListener"})
  */
-abstract class Attachment extends NamedDBElement
+abstract class Attachment extends AbstractNamedDBElement
 {
     /**
      * A list of file extensions, that browsers can show directly as image.

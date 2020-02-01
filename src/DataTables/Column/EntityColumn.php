@@ -24,8 +24,8 @@ declare(strict_types=1);
 
 namespace App\DataTables\Column;
 
-use App\Entity\Base\DBElement;
-use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Parts\Part;
 use App\Services\EntityURLGenerator;
 use Omines\DataTablesBundle\Column\AbstractColumn;
@@ -53,7 +53,7 @@ class EntityColumn extends AbstractColumn
      */
     public function normalize($value)
     {
-        /** @var NamedDBElement $value */
+        /** @var AbstractNamedDBElement $value */
         return $value;
     }
 
@@ -69,7 +69,7 @@ class EntityColumn extends AbstractColumn
 
         $resolver->setDefault('render', function (Options $options) {
             return function ($value, Part $context) use ($options) {
-                /** @var DBElement|null $entity */
+                /** @var AbstractDBElement|null $entity */
                 $entity = $this->accessor->getValue($context, $options['property']);
 
                 if ($entity) {

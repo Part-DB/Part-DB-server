@@ -25,7 +25,7 @@ declare(strict_types=1);
 namespace App\Entity\UserSystem;
 
 use App\Entity\Attachments\GroupAttachment;
-use App\Entity\Base\StructuralDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\ValidPermission;
 use Doctrine\Common\Collections\Collection;
@@ -37,7 +37,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\Table("`groups`")
  */
-class Group extends StructuralDBElement implements HasPermissionsInterface
+class Group extends AbstractStructuralDBElement implements HasPermissionsInterface
 {
     /**
      * @ORM\OneToMany(targetEntity="Group", mappedBy="parent")

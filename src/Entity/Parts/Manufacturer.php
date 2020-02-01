@@ -52,7 +52,7 @@ declare(strict_types=1);
 namespace App\Entity\Parts;
 
 use App\Entity\Attachments\ManufacturerAttachment;
-use App\Entity\Base\Company;
+use App\Entity\Base\AbstractCompany;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -62,7 +62,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
  * @ORM\Table("`manufacturers`")
  */
-class Manufacturer extends Company
+class Manufacturer extends AbstractCompany
 {
     /**
      * @ORM\ManyToOne(targetEntity="Manufacturer", inversedBy="children")

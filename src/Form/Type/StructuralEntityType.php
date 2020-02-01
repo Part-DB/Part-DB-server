@@ -25,7 +25,7 @@ declare(strict_types=1);
 namespace App\Form\Type;
 
 use App\Entity\Attachments\AttachmentType;
-use App\Entity\Base\StructuralDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Repository\StructuralDBElementRepository;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
@@ -221,7 +221,7 @@ class StructuralEntityType extends AbstractType
         return $this->em->find($options['class'], $value->getID());
     }
 
-    protected function generateChoiceAttr(StructuralDBElement $choice, $key, $value): array
+    protected function generateChoiceAttr(AbstractStructuralDBElement $choice, $key, $value): array
     {
         $tmp = [];
 
@@ -241,12 +241,12 @@ class StructuralEntityType extends AbstractType
         return $tmp;
     }
 
-    protected function generateChoiceLabels(StructuralDBElement $choice, $key, $value): string
+    protected function generateChoiceLabels(AbstractStructuralDBElement $choice, $key, $value): string
     {
-        /** @var StructuralDBElement|null $parent */
+        /** @var AbstractStructuralDBElement|null $parent */
         $parent = $this->options['subentities_of'];
 
-        /*** @var StructuralDBElement $choice */
+        /*** @var AbstractStructuralDBElement $choice */
         $level = $choice->getLevel();
         //If our base entity is not the root level, we need to change the level, to get zero position
         if (null !== $this->options['subentities_of']) {

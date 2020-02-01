@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace App\Entity\Parts;
 
 use App\Entity\Attachments\CategoryAttachment;
-use App\Entity\Base\PartsContainingDBElement;
+use App\Entity\Base\AbstractPartsContainingDBElement;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -34,7 +34,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
  * @ORM\Table(name="`categories`")
  */
-class Category extends PartsContainingDBElement
+class Category extends AbstractPartsContainingDBElement
 {
     /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")

@@ -24,8 +24,8 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Entity\Base\NamedDBElement;
-use App\Entity\Base\StructuralDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Form\Permissions\PermissionsType;
@@ -65,7 +65,7 @@ class UserAdminForm extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var StructuralDBElement $entity */
+        /** @var AbstractStructuralDBElement $entity */
         $entity = $options['data'];
         $is_new = null === $entity->getID();
 
@@ -244,7 +244,7 @@ class UserAdminForm extends AbstractType
             ]);
     }
 
-    protected function additionalFormElements(FormBuilderInterface $builder, array $options, NamedDBElement $entity): void
+    protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
     {
         //Empty for Base
     }

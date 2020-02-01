@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Services\Trees;
 
-use App\Entity\Base\StructuralDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Repository\StructuralDBElementRepository;
 use App\Services\UserCacheKeyGenerator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -52,11 +52,11 @@ class NodesListBuilder
      * In difference to the Repository Function, the results here are cached.
      *
      * @param string                   $class_name The class name of the entity you want to retrieve.
-     * @param StructuralDBElement|null $parent     This entity will be used as root element. Set to null, to use global root
+     * @param AbstractStructuralDBElement|null $parent     This entity will be used as root element. Set to null, to use global root
      *
-     * @return StructuralDBElement[] A flattened list containing the tree elements.
+     * @return AbstractStructuralDBElement[] A flattened list containing the tree elements.
      */
-    public function typeToNodesList(string $class_name, ?StructuralDBElement $parent = null): array
+    public function typeToNodesList(string $class_name, ?AbstractStructuralDBElement $parent = null): array
     {
         $parent_id = null !== $parent ? $parent->getID() : '0';
         // Backslashes are not allowed in cache keys

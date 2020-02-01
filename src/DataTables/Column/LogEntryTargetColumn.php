@@ -24,8 +24,8 @@ declare(strict_types=1);
 
 namespace App\DataTables\Column;
 
-use App\Entity\Base\DBElement;
-use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
@@ -70,7 +70,7 @@ class LogEntryTargetColumn extends AbstractColumn
         $target = $this->entryRepository->getTargetElement($context);
 
         //The element is existing
-        if ($target instanceof NamedDBElement) {
+        if ($target instanceof AbstractNamedDBElement) {
             return sprintf(
                 '<a href="%s">%s</a>',
                 $this->entityURLGenerator->infoURL($target),
@@ -79,7 +79,7 @@ class LogEntryTargetColumn extends AbstractColumn
         }
 
         //Target does not have a name
-        if ($target instanceof DBElement) {
+        if ($target instanceof AbstractDBElement) {
             return sprintf(
                 '<i>%s</i>: %s',
                 $this->elementTypeNameGenerator->getLocalizedTypeLabel($target),

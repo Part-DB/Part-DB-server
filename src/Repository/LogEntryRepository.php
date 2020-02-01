@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\Base\DBElement;
+use App\Entity\Base\AbstractDBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
 use Doctrine\ORM\EntityRepository;
 
@@ -33,7 +33,7 @@ class LogEntryRepository extends EntityRepository
     public function findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
     {
         //Emulate a target element criteria by splitting it manually in the needed criterias
-        if (isset($criteria['target']) && $criteria['target'] instanceof DBElement) {
+        if (isset($criteria['target']) && $criteria['target'] instanceof AbstractDBElement) {
             $element = $criteria['target'];
             $criteria['target_id'] = $element;
             $criteria['target_type'] = AbstractLogEntry::targetTypeClassToID(get_class($element));
@@ -46,14 +46,14 @@ class LogEntryRepository extends EntityRepository
     /**
      * Find log entries associated with the given element (the history of the element).
      *
-     * @param DBElement $element The element for which the history should be generated
+     * @param AbstractDBElement $element The element for which the history should be generated
      * @param string    $order   By default newest entries are shown first. Change this to ASC to show oldest entries first.
      * @param null      $limit
      * @param null      $offset
      *
      * @return AbstractLogEntry[]
      */
-    public function getElementHistory(DBElement $element, $order = 'DESC', $limit = null, $offset = null)
+    public function getElementHistory(AbstractDBElement $element, $order = 'DESC', $limit = null, $offset = null)
     {
         return $this->findBy(['element' => $element], ['timestamp' => $order], $limit, $offset);
     }
@@ -75,10 +75,10 @@ class LogEntryRepository extends EntityRepository
     /**
      * Gets the target element associated with the logentry.
      *
-     * @return DBElement|null Returns the associated DBElement or null if the log either has no target or the element
+     * @return AbstractDBElement|null Returns the associated DBElement or null if the log either has no target or the element
      *                        was deleted from DB.
      */
-    public function getTargetElement(AbstractLogEntry $logEntry): ?DBElement
+    public function getTargetElement(AbstractLogEntry $logEntry): ?AbstractDBElement
     {
         $class = $logEntry->getTargetClass();
         $id = $logEntry->getTargetID();

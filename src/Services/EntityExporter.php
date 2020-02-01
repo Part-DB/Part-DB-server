@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Entity\Base\NamedDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use function in_array;
 use InvalidArgumentException;
 use function is_array;
@@ -114,7 +114,7 @@ class EntityExporter
 
         //If view option is not specified, then download the file.
         if (! $request->get('view')) {
-            if ($entity instanceof NamedDBElement) {
+            if ($entity instanceof AbstractNamedDBElement) {
                 $entity_name = $entity->getName();
             } elseif (is_array($entity)) {
                 if (empty($entity)) {

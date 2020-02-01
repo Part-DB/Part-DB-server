@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Parts;
 
-use App\Entity\Base\DBElement;
+use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Entity\Parts\PartTraits\InstockTrait;
 use App\Validator\Constraints\Selectable;
@@ -43,7 +43,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\HasLifecycleCallbacks()
  * @ValidPartLot()
  */
-class PartLot extends DBElement
+class PartLot extends AbstractDBElement
 {
     use TimestampTrait;
 

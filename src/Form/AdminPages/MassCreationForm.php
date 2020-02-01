@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
-use App\Entity\Base\StructuralDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Form\Type\StructuralEntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -61,7 +61,7 @@ class MassCreationForm extends AbstractType
                     'rows' => 10,
                 ],
             ]);
-        if ($entity instanceof StructuralDBElement) {
+        if ($entity instanceof AbstractStructuralDBElement) {
             $builder->add('parent', StructuralEntityType::class, [
                 'class' => $data['entity_class'],
                 'required' => false,

@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
-use App\Entity\Base\StructuralDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Validator\Constraints\ValidFileFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -35,7 +35,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
  * @ORM\Table(name="`attachment_types`")
  */
-class AttachmentType extends StructuralDBElement
+class AttachmentType extends AbstractStructuralDBElement
 {
     /**
      * @ORM\OneToMany(targetEntity="AttachmentType", mappedBy="parent", cascade={"persist"})

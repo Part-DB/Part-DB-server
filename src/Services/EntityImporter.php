@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Entity\Base\StructuralDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use Symfony\Bundle\MakerBundle\Str;
 use function count;
 use Doctrine\ORM\EntityManagerInterface;
@@ -54,17 +54,17 @@ class EntityImporter
      *
      * @param string                   $lines      The list of names seperated by \n
      * @param string                   $class_name The name of the class for which the entities should be created
-     * @param StructuralDBElement|null $parent     the element which will be used as parent element for new elements
+     * @param AbstractStructuralDBElement|null $parent     the element which will be used as parent element for new elements
      * @param array                    $errors     an associative array containing all validation errors
      *
-     * @return StructuralDBElement[] An array containing all valid imported entities (with the type $class_name)
+     * @return AbstractStructuralDBElement[] An array containing all valid imported entities (with the type $class_name)
      */
-    public function massCreation(string $lines, string $class_name, ?StructuralDBElement $parent = null, array &$errors = []): array
+    public function massCreation(string $lines, string $class_name, ?AbstractStructuralDBElement $parent = null, array &$errors = []): array
     {
         //Expand every line to a single entry:
         $names = explode("\n", $lines);
 
-        if (! is_a($class_name, StructuralDBElement::class, true)) {
+        if (! is_a($class_name, AbstractStructuralDBElement::class, true)) {
             throw new InvalidArgumentException('$class_name must be a StructuralDBElement type!');
         }
         if (null !== $parent && ! is_a($parent, $class_name)) {
@@ -80,7 +80,7 @@ class EntityImporter
                 //Skip empty lines (StrucuralDBElements must have a name)
                 continue;
             }
-            /** @var StructuralDBElement $entity */
+            /** @var AbstractStructuralDBElement $entity */
             //Create new element with given name
             $entity = new $class_name();
             $entity->setName($name);
@@ -126,7 +126,7 @@ class EntityImporter
 
         //Iterate over each $entity write it to DB.
         foreach ($entities as $entity) {
-            /** @var StructuralDBElement $entity */
+            /** @var AbstractStructuralDBElement $entity */
             //Move every imported entity to the selected parent
             $entity->setParent($options['parent']);
 
@@ -189,7 +189,7 @@ class EntityImporter
         }
 
         //The serializer has only set the children attributes. We also have to change the parent value (the real value in DB)
-        if ($entities[0] instanceof StructuralDBElement) {
+        if ($entities[0] instanceof AbstractStructuralDBElement) {
             $this->correctParentEntites($entities, null);
         }
 
@@ -211,12 +211,12 @@ class EntityImporter
      * This functions corrects the parent setting based on the children value of the parent.
      *
      * @param iterable $entities the list of entities that should be fixed
-     * @param null|StructuralDBElement $parent   the parent, to which the entity should be set
+     * @param null|AbstractStructuralDBElement $parent   the parent, to which the entity should be set
      */
     protected function correctParentEntites(iterable $entities, $parent = null): void
     {
         foreach ($entities as $entity) {
-            /** @var StructuralDBElement $entity */
+            /** @var AbstractStructuralDBElement $entity */
             $entity->setParent($parent);
             //Do the same for the children of entity
             $this->correctParentEntites($entity->getChildren(), $entity);

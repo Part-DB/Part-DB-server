@@ -24,8 +24,8 @@ declare(strict_types=1);
 
 namespace App\Controller\AdminPages;
 
-use App\Entity\Base\NamedDBElement;
-use App\Entity\Base\StructuralDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\UserSystem\User;
 use App\Exceptions\AttachmentDownloadException;
 use App\Form\AdminPages\ImportType;
@@ -75,7 +75,7 @@ abstract class BaseAdminController extends AbstractController
         $this->attachmentSubmitHandler = $attachmentSubmitHandler;
     }
 
-    protected function _edit(NamedDBElement $entity, Request $request, EntityManagerInterface $em)
+    protected function _edit(AbstractNamedDBElement $entity, Request $request, EntityManagerInterface $em)
     {
         $this->denyAccessUnlessGranted('read', $entity);
 
@@ -130,7 +130,7 @@ abstract class BaseAdminController extends AbstractController
 
     protected function _new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
     {
-        /** @var StructuralDBElement|User $new_entity */
+        /** @var AbstractStructuralDBElement|User $new_entity */
         $new_entity = new $this->entity_class();
 
         $this->denyAccessUnlessGranted('read', $new_entity);
@@ -234,7 +234,7 @@ abstract class BaseAdminController extends AbstractController
         ]);
     }
 
-    protected function _delete(Request $request, NamedDBElement $entity, StructuralElementRecursionHelper $recursionHelper)
+    protected function _delete(Request $request, AbstractNamedDBElement $entity, StructuralElementRecursionHelper $recursionHelper)
     {
         $this->denyAccessUnlessGranted('delete', $entity);
 
@@ -242,10 +242,10 @@ abstract class BaseAdminController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             //Check if we need to remove recursively
-            if ($entity instanceof StructuralDBElement && $request->get('delete_recursive', false)) {
+            if ($entity instanceof AbstractStructuralDBElement && $request->get('delete_recursive', false)) {
                 $recursionHelper->delete($entity, false);
             } else {
-                if ($entity instanceof StructuralDBElement) {
+                if ($entity instanceof AbstractStructuralDBElement) {
                     $parent = $entity->getParent();
 
                     //Move all sub entities to the current parent
@@ -281,7 +281,7 @@ abstract class BaseAdminController extends AbstractController
         return $exporter->exportEntityFromRequest($entities, $request);
     }
 
-    protected function _exportEntity(NamedDBElement $entity, EntityExporter $exporter, Request $request)
+    protected function _exportEntity(AbstractNamedDBElement $entity, EntityExporter $exporter, Request $request)
     {
         $this->denyAccessUnlessGranted('read', $entity);
 

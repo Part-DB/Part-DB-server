@@ -51,7 +51,7 @@ declare(strict_types=1);
 
 namespace App\Entity\PriceInformations;
 
-use App\Entity\Base\DBElement;
+use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
@@ -66,7 +66,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(fields={"orderdetail", "min_discount_quantity"})
  */
-class Pricedetail extends DBElement
+class Pricedetail extends AbstractDBElement
 {
     use TimestampTrait;
 

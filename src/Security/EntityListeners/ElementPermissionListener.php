@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Security\EntityListeners;
 
-use App\Entity\Base\DBElement;
+use App\Entity\Base\AbstractDBElement;
 use App\Entity\UserSystem\User;
 use App\Security\Annotations\ColumnSecurity;
 use function count;
@@ -78,7 +78,7 @@ class ElementPermissionListener
      * This function is also called after an entity was updated, so we dont show the original data to user,
      * after an update.
      */
-    public function postLoadHandler(DBElement $element, LifecycleEventArgs $event): void
+    public function postLoadHandler(AbstractDBElement $element, LifecycleEventArgs $event): void
     {
         //Do nothing if security is disabled
         if ($this->disabled) {
@@ -102,7 +102,7 @@ class ElementPermissionListener
                 $value = $annotation->getPlaceholder();
 
                 //Detach placeholder entities, so we dont get cascade errors
-                if ($value instanceof DBElement) {
+                if ($value instanceof AbstractDBElement) {
                     $this->em->detach($value);
                 }
 
@@ -117,7 +117,7 @@ class ElementPermissionListener
      * We do it here and not in preupdate, because this is called before calculating the changeset,
      * and so we dont get problems with orphan removal.
      */
-    public function preFlushHandler(DBElement $element, PreFlushEventArgs $eventArgs): void
+    public function preFlushHandler(AbstractDBElement $element, PreFlushEventArgs $eventArgs): void
     {
         //Do nothing if security is disabled
         if ($this->disabled) {
@@ -182,11 +182,11 @@ class ElementPermissionListener
      *
      * @param string         $mode       What operation should be checked. Must be 'read' or 'edit'
      * @param ColumnSecurity $annotation The annotation of the property that should be checked
-     * @param DBElement      $element    The element that should for which should be checked
+     * @param AbstractDBElement      $element    The element that should for which should be checked
      *
      * @return bool True if the user is allowed to read that property
      */
-    protected function isGranted(string $mode, ColumnSecurity $annotation, DBElement $element): bool
+    protected function isGranted(string $mode, ColumnSecurity $annotation, AbstractDBElement $element): bool
     {
         if ('read' === $mode) {
             $operation = $annotation->getReadOperationName();

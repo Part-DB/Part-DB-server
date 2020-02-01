@@ -51,7 +51,7 @@ declare(strict_types=1);
 
 namespace App\Entity\PriceInformations;
 
-use App\Entity\Base\DBElement;
+use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
@@ -67,7 +67,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  */
-class Orderdetail extends DBElement
+class Orderdetail extends AbstractDBElement
 {
     use TimestampTrait;
 

@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
-use App\Entity\Base\DBElement;
+use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\PriceInformations\Currency;
 use App\Services\AmountFormatter;
@@ -107,7 +107,7 @@ class AppExtension extends AbstractExtension
         ];
     }
 
-    public function treeData(DBElement $element, string $type = 'newEdit'): string
+    public function treeData(AbstractDBElement $element, string $type = 'newEdit'): string
     {
         $tree = $this->treeBuilder->getTreeView(\get_class($element), null, $type, $element);
 
@@ -128,7 +128,7 @@ class AppExtension extends AbstractExtension
         return implode('/', $parts);
     }
 
-    public function generateEntityURL(DBElement $entity, string $method = 'info'): string
+    public function generateEntityURL(AbstractDBElement $entity, string $method = 'info'): string
     {
         return $this->entityURLGenerator->getURL($entity, $method);
     }

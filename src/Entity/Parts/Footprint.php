@@ -52,7 +52,7 @@ declare(strict_types=1);
 namespace App\Entity\Parts;
 
 use App\Entity\Attachments\FootprintAttachment;
-use App\Entity\Base\PartsContainingDBElement;
+use App\Entity\Base\AbstractPartsContainingDBElement;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -62,7 +62,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
  * @ORM\Table("`footprints`")
  */
-class Footprint extends PartsContainingDBElement
+class Footprint extends AbstractPartsContainingDBElement
 {
     /**
      * @ORM\ManyToOne(targetEntity="Footprint", inversedBy="children")

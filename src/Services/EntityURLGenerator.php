@@ -26,7 +26,7 @@ namespace App\Services;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
-use App\Entity\Base\DBElement;
+use App\Entity\Base\AbstractDBElement;
 use App\Entity\Devices\Device;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -133,13 +133,13 @@ class EntityURLGenerator
     /**
      * Generates an URL to a page, where info about this entity can be viewed.
      *
-     * @param DBElement $entity The entity for which the info should be generated
+     * @param AbstractDBElement $entity The entity for which the info should be generated
      *
      * @return string The URL to the info page
      *
      * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
-    public function infoURL(DBElement $entity): string
+    public function infoURL(AbstractDBElement $entity): string
     {
         $map = [
             Part::class => 'part_info',
@@ -223,13 +223,13 @@ class EntityURLGenerator
      * Generates an URL to a page, where a new entity can be created, that has the same informations as the
      * given entity (element cloning).
      *
-     * @param DBElement $entity The entity for which the link should be generated
+     * @param AbstractDBElement $entity The entity for which the link should be generated
      *
      * @return string the URL to the page
      *
      * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
-    public function cloneURL(DBElement $entity): string
+    public function cloneURL(AbstractDBElement $entity): string
     {
         $map = [
             Part::class => 'part_clone',
@@ -241,13 +241,13 @@ class EntityURLGenerator
     /**
      * Generates an URL to a page, where all parts are listed, which are contained in the given element.
      *
-     * @param DBElement $entity The entity for which the link should be generated
+     * @param AbstractDBElement $entity The entity for which the link should be generated
      *
      * @return string the URL to the page
      *
      * @throws EntityNotSupportedException If the method is not supported for the given Entity
      */
-    public function listPartsURL(DBElement $entity): string
+    public function listPartsURL(AbstractDBElement $entity): string
     {
         $map = [
             Category::class => 'part_list_category',
@@ -260,7 +260,7 @@ class EntityURLGenerator
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
     }
 
-    public function deleteURL(DBElement $entity): string
+    public function deleteURL(AbstractDBElement $entity): string
     {
         $map = [
             Part::class => 'part_delete',
