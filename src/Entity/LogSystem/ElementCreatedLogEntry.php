@@ -36,9 +36,9 @@ class ElementCreatedLogEntry extends AbstractLogEntry
     /**
      * Gets the instock when the part was created.
      *
-     * @return int|null
+     * @return string|null
      */
-    public function getCreationInstockValue(): ?int
+    public function getCreationInstockValue(): ?string
     {
         return $this->extra['i'] ?? null;
     }
