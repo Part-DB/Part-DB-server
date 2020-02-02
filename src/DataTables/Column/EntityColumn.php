@@ -72,7 +72,7 @@ class EntityColumn extends AbstractColumn
                 /** @var AbstractDBElement|null $entity */
                 $entity = $this->accessor->getValue($context, $options['property']);
 
-                if ($entity) {
+                if ($entity !== null) {
                     if (null !== $entity->getID()) {
                         return sprintf(
                             '<a href="%s">%s</a>',
@@ -83,7 +83,7 @@ class EntityColumn extends AbstractColumn
 
                     return sprintf('<i>%s</i>', $value);
                 }
-                throw new \InvalidArgumentException('$entity must not be null!');
+                return '';
             };
         });
 
