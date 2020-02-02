@@ -32,9 +32,14 @@ use App\Entity\Devices\DevicePart;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\PriceInformations\Currency;
+use App\Entity\PriceInformations\Orderdetail;
+use App\Entity\PriceInformations\Pricedetail;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use DateTime;
@@ -85,6 +90,11 @@ abstract class AbstractLogEntry extends AbstractDBElement
     protected const TARGET_TYPE_PART = 10;
     protected const TARGET_TYPE_STORELOCATION = 11;
     protected const TARGET_TYPE_SUPPLIER = 12;
+    protected const TARGET_TYPE_PARTLOT = 13;
+    protected const TARGET_TYPE_CURRENCY = 14;
+    protected const TARGET_TYPE_ORDERDETAIL = 15;
+    protected const TARGET_TYPE_PRICEDETAIL = 16;
+    protected const TARGET_TYPE_MEASUREMENTUNIT = 17;
 
     /** @var array This const is used to convert the numeric level to a PSR-3 compatible log level */
     protected const LEVEL_ID_TO_STRING = [
@@ -111,6 +121,11 @@ abstract class AbstractLogEntry extends AbstractDBElement
         self::TARGET_TYPE_PART => Part::class,
         self::TARGET_TYPE_STORELOCATION => Storelocation::class,
         self::TARGET_TYPE_SUPPLIER => Supplier::class,
+        self::TARGET_TYPE_PARTLOT => PartLot::class,
+        self::TARGET_TYPE_CURRENCY => Currency::class,
+        self::TARGET_TYPE_ORDERDETAIL => Orderdetail::class,
+        self::TARGET_TYPE_PRICEDETAIL => Pricedetail::class,
+        self::TARGET_TYPE_MEASUREMENTUNIT => MeasurementUnit::class,
     ];
 
     /** @var User The user which has caused this log entry

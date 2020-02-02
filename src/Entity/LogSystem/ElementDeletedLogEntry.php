@@ -24,6 +24,8 @@ declare(strict_types=1);
 
 namespace App\Entity\LogSystem;
 
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\Contracts\NamedElementInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,6 +34,32 @@ use Doctrine\ORM\Mapping as ORM;
 class ElementDeletedLogEntry extends AbstractLogEntry
 {
     protected $typeString = 'element_deleted';
+
+    public function __construct(AbstractDBElement $deleted_element)
+    {
+        parent::__construct();
+        $this->level = self::LEVEL_INFO;
+        $this->setTargetElement($deleted_element);
+    }
+
+    /**
+     * @inheritDoc
+     * @return $this
+     */
+    public function setTargetElement(?AbstractDBElement $element): AbstractLogEntry
+    {
+        parent::setTargetElement($element);
+        if ($element instanceof NamedElementInterface) {
+            $this->setOldName($element->getName());
+        }
+        return $this;
+    }
+
+    public function setOldName(string $old_name): self
+    {
+        $this->extra['n'] = $old_name;
+        return $this;
+    }
 
     public function getOldName(): string
     {

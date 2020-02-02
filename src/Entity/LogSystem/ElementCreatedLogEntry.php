@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Entity\LogSystem;
 
+use App\Entity\Base\AbstractDBElement;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,6 +33,13 @@ use Doctrine\ORM\Mapping as ORM;
 class ElementCreatedLogEntry extends AbstractLogEntry
 {
     protected $typeString = 'element_created';
+
+    public function __construct(AbstractDBElement $new_element)
+    {
+        parent::__construct();
+        $this->level = self::LEVEL_INFO;
+        $this->setTargetElement($new_element);
+    }
 
     /**
      * Gets the instock when the part was created.
