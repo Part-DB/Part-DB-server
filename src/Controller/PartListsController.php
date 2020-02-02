@@ -42,6 +42,9 @@ class PartListsController extends AbstractController
     /**
      * @Route("/category/{id}/parts", name="part_list_category")
      *
+     * @param  Category  $category
+     * @param  Request  $request
+     * @param  DataTableFactory  $dataTable
      * @return JsonResponse|Response
      */
     public function showCategory(Category $category, Request $request, DataTableFactory $dataTable)
@@ -62,6 +65,9 @@ class PartListsController extends AbstractController
     /**
      * @Route("/footprint/{id}/parts", name="part_list_footprint")
      *
+     * @param  Footprint  $footprint
+     * @param  Request  $request
+     * @param  DataTableFactory  $dataTable
      * @return JsonResponse|Response
      */
     public function showFootprint(Footprint $footprint, Request $request, DataTableFactory $dataTable)
@@ -82,6 +88,9 @@ class PartListsController extends AbstractController
     /**
      * @Route("/manufacturer/{id}/parts", name="part_list_manufacturer")
      *
+     * @param  Manufacturer  $manufacturer
+     * @param  Request  $request
+     * @param  DataTableFactory  $dataTable
      * @return JsonResponse|Response
      */
     public function showManufacturer(Manufacturer $manufacturer, Request $request, DataTableFactory $dataTable)
@@ -102,6 +111,9 @@ class PartListsController extends AbstractController
     /**
      * @Route("/store_location/{id}/parts", name="part_list_store_location")
      *
+     * @param  Storelocation  $storelocation
+     * @param  Request  $request
+     * @param  DataTableFactory  $dataTable
      * @return JsonResponse|Response
      */
     public function showStorelocation(Storelocation $storelocation, Request $request, DataTableFactory $dataTable)
@@ -122,6 +134,9 @@ class PartListsController extends AbstractController
     /**
      * @Route("/supplier/{id}/parts", name="part_list_supplier")
      *
+     * @param  Supplier  $supplier
+     * @param  Request  $request
+     * @param  DataTableFactory  $dataTable
      * @return JsonResponse|Response
      */
     public function showSupplier(Supplier $supplier, Request $request, DataTableFactory $dataTable)
@@ -142,6 +157,9 @@ class PartListsController extends AbstractController
     /**
      * @Route("/parts/by_tag/{tag}", name="part_list_tags")
      *
+     * @param  string  $tag
+     * @param  Request  $request
+     * @param  DataTableFactory  $dataTable
      * @return JsonResponse|Response
      */
     public function showTag(string $tag, Request $request, DataTableFactory $dataTable)
@@ -161,6 +179,9 @@ class PartListsController extends AbstractController
 
     /**
      * @Route("/parts/search", name="parts_search")
+     * @param  Request  $request
+     * @param  DataTableFactory  $dataTable
+     * @return JsonResponse|Response
      */
     public function showSearch(Request $request, DataTableFactory $dataTable)
     {
@@ -182,6 +203,8 @@ class PartListsController extends AbstractController
     /**
      * @Route("/parts", name="parts_show_all")
      *
+     * @param  Request  $request
+     * @param  DataTableFactory  $dataTable
      * @return JsonResponse|Response
      */
     public function showAll(Request $request, DataTableFactory $dataTable)

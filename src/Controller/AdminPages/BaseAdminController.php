@@ -40,7 +40,9 @@ use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -75,7 +77,8 @@ abstract class BaseAdminController extends AbstractController
         $this->attachmentSubmitHandler = $attachmentSubmitHandler;
     }
 
-    protected function _edit(AbstractNamedDBElement $entity, Request $request, EntityManagerInterface $em)
+
+    protected function _edit(AbstractNamedDBElement $entity, Request $request, EntityManagerInterface $em) : Response
     {
         $this->denyAccessUnlessGranted('read', $entity);
 
@@ -234,7 +237,7 @@ abstract class BaseAdminController extends AbstractController
         ]);
     }
 
-    protected function _delete(Request $request, AbstractNamedDBElement $entity, StructuralElementRecursionHelper $recursionHelper)
+    protected function _delete(Request $request, AbstractNamedDBElement $entity, StructuralElementRecursionHelper $recursionHelper) : RedirectResponse
     {
         $this->denyAccessUnlessGranted('delete', $entity);
 
@@ -270,7 +273,7 @@ abstract class BaseAdminController extends AbstractController
         return $this->redirectToRoute($this->route_base.'_new');
     }
 
-    protected function _exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request)
+    protected function _exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
         $entity = new $this->entity_class();
 
@@ -281,7 +284,7 @@ abstract class BaseAdminController extends AbstractController
         return $exporter->exportEntityFromRequest($entities, $request);
     }
 
-    protected function _exportEntity(AbstractNamedDBElement $entity, EntityExporter $exporter, Request $request)
+    protected function _exportEntity(AbstractNamedDBElement $entity, EntityExporter $exporter, Request $request): \Symfony\Component\HttpFoundation\Response
     {
         $this->denyAccessUnlessGranted('read', $entity);
 

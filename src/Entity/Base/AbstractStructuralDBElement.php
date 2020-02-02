@@ -328,6 +328,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     }
 
     /**
+     * @param  bool  $not_selectable
      * @return AbstractStructuralDBElement
      */
     public function setNotSelectable(bool $not_selectable): self

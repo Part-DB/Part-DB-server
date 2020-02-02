@@ -351,7 +351,10 @@ abstract class Attachment extends AbstractNamedDBElement
 
     /*****************************************************************************************************
      * Setters
-     ****************************************************************************************************/
+     ***************************************************************************************************
+     * @param  bool  $show_in_table
+     * @return Attachment
+     */
 
     public function setShowInTable(bool $show_in_table): self
     {
@@ -363,6 +366,7 @@ abstract class Attachment extends AbstractNamedDBElement
     /**
      * Sets the element that is associated with this attachment.
      *
+     * @param  AttachmentContainingDBElement  $element
      * @return $this
      */
     public function setElement(AttachmentContainingDBElement $element): self
@@ -391,6 +395,7 @@ abstract class Attachment extends AbstractNamedDBElement
     }
 
     /**
+     * @param  AttachmentType  $attachement_type
      * @return $this
      */
     public function setAttachmentType(AttachmentType $attachement_type): self
@@ -404,6 +409,7 @@ abstract class Attachment extends AbstractNamedDBElement
      * Sets the url associated with this attachment.
      * If the url is empty nothing is changed, to not override the file path.
      *
+     * @param  string|null  $url
      * @return Attachment
      */
     public function setURL(?string $url): self

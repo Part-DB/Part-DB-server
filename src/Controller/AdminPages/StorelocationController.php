@@ -24,7 +24,6 @@ declare(strict_types=1);
 
 namespace App\Controller\AdminPages;
 
-use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\Storelocation;
 use App\Form\AdminPages\StorelocationAdminForm;
 use App\Services\EntityExporter;
@@ -48,6 +47,10 @@ class StorelocationController extends BaseAdminController
 
     /**
      * @Route("/{id}", name="store_location_delete", methods={"DELETE"})
+     * @param  Request  $request
+     * @param  Storelocation  $entity
+     * @param  StructuralElementRecursionHelper  $recursionHelper
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Request $request, Storelocation $entity, StructuralElementRecursionHelper $recursionHelper)
     {
@@ -57,6 +60,10 @@ class StorelocationController extends BaseAdminController
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="store_location_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
+     * @param  Storelocation  $entity
+     * @param  Request  $request
+     * @param  EntityManagerInterface  $em
+     * @return Response
      */
     public function edit(Storelocation $entity, Request $request, EntityManagerInterface $em)
     {
@@ -67,9 +74,12 @@ class StorelocationController extends BaseAdminController
      * @Route("/new", name="store_location_new")
      * @Route("/")
      *
+     * @param  Request  $request
+     * @param  EntityManagerInterface  $em
+     * @param  EntityImporter  $importer
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
     {
         return $this->_new($request, $em, $importer);
     }
@@ -77,9 +87,12 @@ class StorelocationController extends BaseAdminController
     /**
      * @Route("/export", name="store_location_export_all")
      *
+     * @param  EntityManagerInterface  $em
+     * @param  EntityExporter  $exporter
+     * @param  Request  $request
      * @return Response
      */
-    public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request)
+    public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportAll($em, $exporter, $request);
     }
@@ -87,11 +100,13 @@ class StorelocationController extends BaseAdminController
     /**
      * @Route("/{id}/export", name="store_location_export")
      *
-     * @param Storelocation $entity
+     * @param  Storelocation  $entity
      *
+     * @param  EntityExporter  $exporter
+     * @param  Request  $request
      * @return Response
      */
-    public function exportEntity(Storelocation $entity, EntityExporter $exporter, Request $request)
+    public function exportEntity(Storelocation $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);
     }

@@ -36,6 +36,7 @@ class UserNotAllowedLogEntry extends AbstractLogEntry
 
     public function __construct()
     {
+        parent::__construct();
         //Obsolete, use server log now.
         throw new LogEntryObsoleteException();
     }

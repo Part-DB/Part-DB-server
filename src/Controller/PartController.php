@@ -50,9 +50,13 @@ class PartController extends AbstractController
      * @Route("/{id}/info", name="part_info")
      * @Route("/{id}", requirements={"id"="\d+"})
      *
+     * @param  Part  $part
+     * @param  AttachmentManager  $attachmentHelper
+     * @param  PricedetailHelper  $pricedetailHelper
+     * @param  PartPreviewGenerator  $previewGenerator
      * @return Response
      */
-    public function show(Part $part, AttachmentManager $attachmentHelper, PricedetailHelper $pricedetailHelper, PartPreviewGenerator $previewGenerator)
+    public function show(Part $part, AttachmentManager $attachmentHelper, PricedetailHelper $pricedetailHelper, PartPreviewGenerator $previewGenerator): Response
     {
         $this->denyAccessUnlessGranted('read', $part);
 
@@ -70,10 +74,16 @@ class PartController extends AbstractController
     /**
      * @Route("/{id}/edit", name="part_edit")
      *
+     * @param  Part  $part
+     * @param  Request  $request
+     * @param  EntityManagerInterface  $em
+     * @param  TranslatorInterface  $translator
+     * @param  AttachmentManager  $attachmentHelper
+     * @param  AttachmentSubmitHandler  $attachmentSubmitHandler
      * @return Response
      */
     public function edit(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
-                         AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler)
+                         AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler): Response
     {
         $this->denyAccessUnlessGranted('edit', $part);
 
@@ -120,9 +130,11 @@ class PartController extends AbstractController
     /**
      * @Route("/{id}/delete", name="part_delete", methods={"DELETE"})
      *
+     * @param  Request  $request
+     * @param  Part  $part
      * @return RedirectResponse
      */
-    public function delete(Request $request, Part $part)
+    public function delete(Request $request, Part $part): RedirectResponse
     {
         $this->denyAccessUnlessGranted('delete', $part);
 
@@ -144,10 +156,15 @@ class PartController extends AbstractController
     /**
      * @Route("/new", name="part_new")
      *
+     * @param  Request  $request
+     * @param  EntityManagerInterface  $em
+     * @param  TranslatorInterface  $translator
+     * @param  AttachmentManager  $attachmentHelper
+     * @param  AttachmentSubmitHandler  $attachmentSubmitHandler
      * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
-                        AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler)
+                        AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler): Response
     {
         $new_part = new Part();
 
@@ -206,6 +223,10 @@ class PartController extends AbstractController
     /**
      * @Route("/{id}/clone", name="part_clone")
      *
+     * @param  Part  $part
+     * @param  Request  $request
+     * @param  EntityManagerInterface  $em
+     * @param  TranslatorInterface  $translator
      * @return RedirectResponse|Response
      */
     public function clone(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator)

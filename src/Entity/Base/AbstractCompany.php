@@ -174,7 +174,9 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
     /**
      * Set the addres.
      *
-     * @param string $new_address the new address (with "\n" as line break)
+     * @param  string  $new_address  the new address (with "\n" as line break)
+     *
+     * @return $this
      */
     public function setAddress(string $new_address): self
     {
@@ -187,6 +189,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      * Set the phone number.
      *
      * @param string $new_phone_number the new phone number
+     * @return $this
      */
     public function setPhoneNumber(string $new_phone_number): self
     {
@@ -199,6 +202,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      * Set the fax number.
      *
      * @param string $new_fax_number the new fax number
+     * @return $this
      */
     public function setFaxNumber(string $new_fax_number): self
     {
@@ -211,6 +215,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      * Set the e-mail address.
      *
      * @param string $new_email_address the new e-mail address
+     * @return $this
      */
     public function setEmailAddress(string $new_email_address): self
     {
@@ -223,6 +228,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      * Set the website.
      *
      * @param string $new_website the new website
+     * @return $this
      */
     public function setWebsite(string $new_website): self
     {
@@ -235,6 +241,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      * Set the link to the website of an article.
      *
      * @param string $new_url the new URL with the placeholder %PARTNUMBER% for the part number
+     * @return $this
      */
     public function setAutoProductUrl(string $new_url): self
     {

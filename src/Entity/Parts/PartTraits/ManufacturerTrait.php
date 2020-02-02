@@ -118,6 +118,7 @@ trait ManufacturerTrait
      * Sets the manufacturing status for this part
      * See getManufacturingStatus() for valid values.
      *
+     * @param  string  $manufacturing_status
      * @return Part
      */
     public function setManufacturingStatus(string $manufacturing_status): self
@@ -148,6 +149,7 @@ trait ManufacturerTrait
     /**
      * Sets the manufacturer product number (MPN) for this part.
      *
+     * @param  string  $manufacturer_product_number
      * @return Part
      */
     public function setManufacturerProductNumber(string $manufacturer_product_number): self
@@ -162,6 +164,7 @@ trait ManufacturerTrait
      * Set to "" if this part should use the automatically URL based on its manufacturer.
      *
      * @param string $new_url The new url
+     * @return $this
      */
     public function setManufacturerProductURL(string $new_url): self
     {
@@ -175,6 +178,7 @@ trait ManufacturerTrait
      *
      * @param Manufacturer|null $new_manufacturer The new Manufacturer of this part. Set to null, if this part should
      *                                            not have a manufacturer.
+     * @return $this
      */
     public function setManufacturer(?Manufacturer $new_manufacturer): self
     {

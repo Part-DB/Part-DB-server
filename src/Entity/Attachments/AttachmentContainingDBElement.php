@@ -25,6 +25,7 @@ namespace App\Entity\Attachments;
 
 use App\Entity\Base\MasterAttachmentTrait;
 use App\Entity\Base\AbstractNamedDBElement;
+use App\Entity\Contracts\HasAttachmentsInterface;
 use App\Entity\Contracts\HasMasterAttachmentInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -33,7 +34,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\MappedSuperclass()
  */
-abstract class AttachmentContainingDBElement extends AbstractNamedDBElement implements HasMasterAttachmentInterface
+abstract class AttachmentContainingDBElement extends AbstractNamedDBElement implements HasMasterAttachmentInterface, HasAttachmentsInterface
 {
     use MasterAttachmentTrait;
 
@@ -86,6 +87,7 @@ abstract class AttachmentContainingDBElement extends AbstractNamedDBElement impl
     /**
      * Removes the given attachment from this element.
      *
+     * @param  Attachment  $attachment
      * @return $this
      */
     public function removeAttachment(Attachment $attachment): self

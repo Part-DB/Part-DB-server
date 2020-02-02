@@ -126,6 +126,7 @@ class Supplier extends AbstractCompany
     /**
      * Sets the default currency.
      *
+     * @param  Currency|null  $default_currency
      * @return Supplier
      */
     public function setDefaultCurrency(?Currency $default_currency): self

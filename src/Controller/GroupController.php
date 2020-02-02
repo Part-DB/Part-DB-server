@@ -52,9 +52,12 @@ class GroupController extends BaseAdminController
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="group_edit")
      * @Route("/{id}/", requirements={"id"="\d+"})
      *
+     * @param  Group  $entity
+     * @param  Request  $request
+     * @param  EntityManagerInterface  $em
      * @return Response
      */
-    public function edit(Group $entity, Request $request, EntityManagerInterface $em)
+    public function edit(Group $entity, Request $request, EntityManagerInterface $em): Response
     {
         return $this->_edit($entity, $request, $em);
     }
@@ -63,9 +66,12 @@ class GroupController extends BaseAdminController
      * @Route("/new", name="group_new")
      * @Route("/")
      *
+     * @param  Request  $request
+     * @param  EntityManagerInterface  $em
+     * @param  EntityImporter  $importer
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
     {
         return $this->_new($request, $em, $importer);
     }
@@ -73,9 +79,12 @@ class GroupController extends BaseAdminController
     /**
      * @Route("/{id}", name="group_delete", methods={"DELETE"})
      *
+     * @param  Request  $request
+     * @param  Group  $entity
+     * @param  StructuralElementRecursionHelper  $recursionHelper
      * @return RedirectResponse
      */
-    public function delete(Request $request, Group $entity, StructuralElementRecursionHelper $recursionHelper)
+    public function delete(Request $request, Group $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
@@ -83,9 +92,12 @@ class GroupController extends BaseAdminController
     /**
      * @Route("/export", name="group_export_all")
      *
+     * @param  EntityManagerInterface  $em
+     * @param  EntityExporter  $exporter
+     * @param  Request  $request
      * @return Response
      */
-    public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request)
+    public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportAll($em, $exporter, $request);
     }
@@ -93,9 +105,12 @@ class GroupController extends BaseAdminController
     /**
      * @Route("/{id}/export", name="group_export")
      *
+     * @param  Group  $entity
+     * @param  EntityExporter  $exporter
+     * @param  Request  $request
      * @return Response
      */
-    public function exportEntity(Group $entity, EntityExporter $exporter, Request $request)
+    public function exportEntity(Group $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);
     }

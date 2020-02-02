@@ -26,7 +26,6 @@ namespace App\Entity\Parts;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
-use App\Entity\Parts\PartTraits\InstockTrait;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPartLot;
 use DateTime;
@@ -143,6 +142,7 @@ class PartLot extends AbstractDBElement
     /**
      * Sets the description of the part lot.
      *
+     * @param  string  $description
      * @return PartLot
      */
     public function setDescription(string $description): self
@@ -165,6 +165,7 @@ class PartLot extends AbstractDBElement
     /**
      * Sets the comment for this part lot.
      *
+     * @param  string  $comment
      * @return PartLot
      */
     public function setComment(string $comment): self
@@ -211,6 +212,7 @@ class PartLot extends AbstractDBElement
     /**
      * Sets the storage location, where this part lot is stored.
      *
+     * @param  Storelocation|null  $storage_location
      * @return PartLot
      */
     public function setStorageLocation(?Storelocation $storage_location): self
@@ -257,6 +259,7 @@ class PartLot extends AbstractDBElement
     /**
      * Set the unknown instock status of this part lot.
      *
+     * @param  bool  $instock_unknown
      * @return PartLot
      */
     public function setInstockUnknown(bool $instock_unknown): self
@@ -294,6 +297,7 @@ class PartLot extends AbstractDBElement
     }
 
     /**
+     * @param  bool  $needs_refill
      * @return PartLot
      */
     public function setNeedsRefill(bool $needs_refill): self

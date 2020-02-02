@@ -122,6 +122,7 @@ class Category extends AbstractPartsContainingDBElement
     }
 
     /**
+     * @param  string  $partname_hint
      * @return Category
      */
     public function setPartnameHint(string $partname_hint): self
@@ -137,6 +138,7 @@ class Category extends AbstractPartsContainingDBElement
     }
 
     /**
+     * @param  string  $partname_regex
      * @return Category
      */
     public function setPartnameRegex(string $partname_regex): self
@@ -152,6 +154,7 @@ class Category extends AbstractPartsContainingDBElement
     }
 
     /**
+     * @param  bool  $disable_footprints
      * @return Category
      */
     public function setDisableFootprints(bool $disable_footprints): self
@@ -167,6 +170,7 @@ class Category extends AbstractPartsContainingDBElement
     }
 
     /**
+     * @param  bool  $disable_manufacturers
      * @return Category
      */
     public function setDisableManufacturers(bool $disable_manufacturers): self
@@ -182,6 +186,7 @@ class Category extends AbstractPartsContainingDBElement
     }
 
     /**
+     * @param  bool  $disable_autodatasheets
      * @return Category
      */
     public function setDisableAutodatasheets(bool $disable_autodatasheets): self
@@ -197,6 +202,7 @@ class Category extends AbstractPartsContainingDBElement
     }
 
     /**
+     * @param  bool  $disable_properties
      * @return Category
      */
     public function setDisableProperties(bool $disable_properties): self
@@ -212,6 +218,7 @@ class Category extends AbstractPartsContainingDBElement
     }
 
     /**
+     * @param  string  $default_description
      * @return Category
      */
     public function setDefaultDescription(string $default_description): self
@@ -227,6 +234,7 @@ class Category extends AbstractPartsContainingDBElement
     }
 
     /**
+     * @param  string  $default_comment
      * @return Category
      */
     public function setDefaultComment(string $default_comment): self

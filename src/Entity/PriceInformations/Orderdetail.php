@@ -228,6 +228,7 @@ class Orderdetail extends AbstractDBElement
     /**
      * Removes an pricedetail from this orderdetail.
      *
+     * @param  Pricedetail  $pricedetail
      * @return Orderdetail
      */
     public function removePricedetail(Pricedetail $pricedetail): self
@@ -275,6 +276,7 @@ class Orderdetail extends AbstractDBElement
     /**
      * Sets a new part with which this orderdetail is associated.
      *
+     * @param  Part  $part
      * @return Orderdetail
      */
     public function setPart(Part $part): self
@@ -287,6 +289,7 @@ class Orderdetail extends AbstractDBElement
     /**
      * Sets the new supplier associated with this orderdetail.
      *
+     * @param  Supplier  $new_supplier
      * @return Orderdetail
      */
     public function setSupplier(Supplier $new_supplier): self

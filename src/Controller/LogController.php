@@ -40,6 +40,8 @@ class LogController extends AbstractController
     /**
      * @Route("/", name="log_view")
      *
+     * @param  Request  $request
+     * @param  DataTableFactory  $dataTable
      * @return JsonResponse|Response
      */
     public function showLogs(Request $request, DataTableFactory $dataTable)

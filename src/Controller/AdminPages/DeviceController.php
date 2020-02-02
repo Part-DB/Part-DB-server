@@ -50,9 +50,12 @@ class DeviceController extends BaseAdminController
     /**
      * @Route("/{id}", name="device_delete", methods={"DELETE"})
      *
+     * @param  Request  $request
+     * @param  Device  $entity
+     * @param  StructuralElementRecursionHelper  $recursionHelper
      * @return RedirectResponse
      */
-    public function delete(Request $request, Device $entity, StructuralElementRecursionHelper $recursionHelper)
+    public function delete(Request $request, Device $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
@@ -61,9 +64,12 @@ class DeviceController extends BaseAdminController
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="device_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
      *
+     * @param  Device  $entity
+     * @param  Request  $request
+     * @param  EntityManagerInterface  $em
      * @return Response
      */
-    public function edit(Device $entity, Request $request, EntityManagerInterface $em)
+    public function edit(Device $entity, Request $request, EntityManagerInterface $em): Response
     {
         return $this->_edit($entity, $request, $em);
     }
@@ -72,9 +78,12 @@ class DeviceController extends BaseAdminController
      * @Route("/new", name="device_new")
      * @Route("/")
      *
+     * @param  Request  $request
+     * @param  EntityManagerInterface  $em
+     * @param  EntityImporter  $importer
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
     {
         return $this->_new($request, $em, $importer);
     }
@@ -82,9 +91,12 @@ class DeviceController extends BaseAdminController
     /**
      * @Route("/export", name="device_export_all")
      *
+     * @param  EntityManagerInterface  $em
+     * @param  EntityExporter  $exporter
+     * @param  Request  $request
      * @return Response
      */
-    public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request)
+    public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportAll($em, $exporter, $request);
     }
@@ -92,9 +104,12 @@ class DeviceController extends BaseAdminController
     /**
      * @Route("/{id}/export", name="device_export")
      *
+     * @param  Device  $entity
+     * @param  EntityExporter  $exporter
+     * @param  Request  $request
      * @return Response
      */
-    public function exportEntity(Device $entity, EntityExporter $exporter, Request $request)
+    public function exportEntity(Device $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);
     }

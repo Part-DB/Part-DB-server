@@ -26,7 +26,6 @@ namespace App\Entity\UserSystem;
 
 use App\Entity\Base\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
-use R\U2FTwoFactorBundle\Model\U2F\TwoFactorInterface;
 use R\U2FTwoFactorBundle\Model\U2F\TwoFactorKeyInterface;
 use u2flib_server\Registration;
 
@@ -176,6 +175,7 @@ class U2FKey implements TwoFactorKeyInterface
     /**
      * Sets the user this U2F key belongs to.
      *
+     * @param  User  $new_user
      * @return $this
      */
     public function setUser(User $new_user): self

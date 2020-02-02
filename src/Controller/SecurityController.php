@@ -53,8 +53,10 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/login", name="login", methods={"GET", "POST"})
+     * @param  AuthenticationUtils  $authenticationUtils
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function login(AuthenticationUtils $authenticationUtils)
+    public function login(AuthenticationUtils $authenticationUtils): \Symfony\Component\HttpFoundation\Response
     {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -70,6 +72,9 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/pw_reset/request", name="pw_reset_request")
+     * @param  PasswordResetManager  $passwordReset
+     * @param  Request  $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function requestPwReset(PasswordResetManager $passwordReset, Request $request)
     {
@@ -112,6 +117,11 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/pw_reset/new_pw/{user}/{token}", name="pw_reset_new_pw")
+     * @param  PasswordResetManager  $passwordReset
+     * @param  Request  $request
+     * @param  string|null  $user
+     * @param  string|null  $token
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function pwResetNewPw(PasswordResetManager $passwordReset, Request $request, ?string $user = null, ?string $token = null)
     {

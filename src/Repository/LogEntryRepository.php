@@ -53,7 +53,7 @@ class LogEntryRepository extends EntityRepository
      *
      * @return AbstractLogEntry[]
      */
-    public function getElementHistory(AbstractDBElement $element, $order = 'DESC', $limit = null, $offset = null)
+    public function getElementHistory(AbstractDBElement $element, $order = 'DESC', $limit = null, $offset = null): array
     {
         return $this->findBy(['element' => $element], ['timestamp' => $order], $limit, $offset);
     }
@@ -67,7 +67,7 @@ class LogEntryRepository extends EntityRepository
      *
      * @return array
      */
-    public function getLogsOrderedByTimestamp($order = 'DESC', $limit = null, $offset = null)
+    public function getLogsOrderedByTimestamp($order = 'DESC', $limit = null, $offset = null): array
     {
         return $this->findBy([], ['timestamp' => $order], $limit, $offset);
     }
@@ -75,8 +75,12 @@ class LogEntryRepository extends EntityRepository
     /**
      * Gets the target element associated with the logentry.
      *
+     * @param  AbstractLogEntry  $logEntry
      * @return AbstractDBElement|null Returns the associated DBElement or null if the log either has no target or the element
      *                        was deleted from DB.
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
      */
     public function getTargetElement(AbstractLogEntry $logEntry): ?AbstractDBElement
     {

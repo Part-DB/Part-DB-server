@@ -121,6 +121,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     }
 
     /**
+     * @param  bool  $isInteger
      * @return MeasurementUnit
      */
     public function setIsInteger(bool $isInteger): self
@@ -136,6 +137,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     }
 
     /**
+     * @param  bool  $usesSIPrefixes
      * @return MeasurementUnit
      */
     public function setUseSIPrefix(bool $usesSIPrefixes): self

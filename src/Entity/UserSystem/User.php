@@ -87,7 +87,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface, BackupCodeInterface, TrustedDeviceInterface, U2FTwoFactorInterface, PreferredProviderInterface
 {
-    use MasterAttachmentTrait;
+    //use MasterAttachmentTrait;
 
     /**
      * The User id of the anonymous user.
@@ -339,6 +339,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Sets the password hash for this user.
      *
+     * @param  string  $password
      * @return User
      */
     public function setPassword(string $password): self
@@ -378,6 +379,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Sets the currency the users prefers to see prices in.
      *
+     * @param  Currency|null  $currency
      * @return User
      */
     public function setCurrency(?Currency $currency): self
@@ -440,6 +442,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Set the status, if the user needs a password change.
      *
+     * @param  bool  $need_pw_change
      * @return User
      */
     public function setNeedPwChange(bool $need_pw_change): self
@@ -462,6 +465,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Sets the encrypted password reset token.
      *
+     * @param  string|null  $pw_reset_token
      * @return User
      */
     public function setPwResetToken(?string $pw_reset_token): self
@@ -484,6 +488,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Sets the datetime when the password reset token expires.
      *
+     * @param  DateTime  $pw_reset_expires
      * @return User
      */
     public function setPwResetExpires(DateTime $pw_reset_expires): self
@@ -667,6 +672,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Change the timezone of this user.
      *
+     * @param  string|null  $timezone
      * @return $this
      */
     public function setTimezone(?string $timezone): self
@@ -759,6 +765,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Sets the secret used for Google Authenticator. Set to null to disable Google Authenticator.
      *
+     * @param  string|null  $googleAuthenticatorSecret
      * @return $this
      */
     public function setGoogleAuthenticatorSecret(?string $googleAuthenticatorSecret): self
@@ -875,6 +882,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Add a U2F key to this user.
+     * @param  TwoFactorKeyInterface  $key
      */
     public function addU2FKey(TwoFactorKeyInterface $key): void
     {
@@ -883,6 +891,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Remove a U2F key from this user.
+     * @param  TwoFactorKeyInterface  $key
      */
     public function removeU2FKey(TwoFactorKeyInterface $key): void
     {

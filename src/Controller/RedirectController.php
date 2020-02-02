@@ -52,9 +52,10 @@ class RedirectController extends AbstractController
      * This function is called whenever a route was not matching the localized routes.
      * The purpose is to redirect the user to the localized version of the page.
      *
+     * @param  Request  $request
      * @return RedirectResponse
      */
-    public function addLocalePart(Request $request)
+    public function addLocalePart(Request $request): RedirectResponse
     {
         //By default we use the global default locale
         $locale = $this->default_locale;
@@ -85,7 +86,7 @@ class RedirectController extends AbstractController
      *
      * @return bool
      */
-    public function checkIfModRewriteAvailable()
+    public function checkIfModRewriteAvailable(): bool
     {
         if (! function_exists('apache_get_modules')) {
             //If we can not check for apache modules, we just hope for the best and assume url rewriting is available

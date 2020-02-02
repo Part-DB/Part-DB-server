@@ -50,9 +50,12 @@ class CategoryController extends BaseAdminController
     /**
      * @Route("/{id}", name="category_delete", methods={"DELETE"})
      *
+     * @param  Request  $request
+     * @param  Category  $entity
+     * @param  StructuralElementRecursionHelper  $recursionHelper
      * @return RedirectResponse
      */
-    public function delete(Request $request, Category $entity, StructuralElementRecursionHelper $recursionHelper)
+    public function delete(Request $request, Category $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
@@ -61,9 +64,12 @@ class CategoryController extends BaseAdminController
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="category_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
      *
+     * @param  Category  $entity
+     * @param  Request  $request
+     * @param  EntityManagerInterface  $em
      * @return Response
      */
-    public function edit(Category $entity, Request $request, EntityManagerInterface $em)
+    public function edit(Category $entity, Request $request, EntityManagerInterface $em): Response
     {
         return $this->_edit($entity, $request, $em);
     }
@@ -72,9 +78,12 @@ class CategoryController extends BaseAdminController
      * @Route("/new", name="category_new")
      * @Route("/")
      *
+     * @param  Request  $request
+     * @param  EntityManagerInterface  $em
+     * @param  EntityImporter  $importer
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
     {
         return $this->_new($request, $em, $importer);
     }
@@ -82,9 +91,12 @@ class CategoryController extends BaseAdminController
     /**
      * @Route("/export", name="category_export_all")
      *
+     * @param  EntityManagerInterface  $em
+     * @param  EntityExporter  $exporter
+     * @param  Request  $request
      * @return Response
      */
-    public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request)
+    public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportAll($em, $exporter, $request);
     }
@@ -92,9 +104,12 @@ class CategoryController extends BaseAdminController
     /**
      * @Route("/{id}/export", name="category_export")
      *
+     * @param  Category  $entity
+     * @param  EntityExporter  $exporter
+     * @param  Request  $request
      * @return Response
      */
-    public function exportEntity(Category $entity, EntityExporter $exporter, Request $request)
+    public function exportEntity(Category $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);
     }

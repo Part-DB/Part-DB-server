@@ -54,9 +54,10 @@ trait MasterAttachmentTrait
     /**
      * Sets the new master picture for this part.
      *
+     * @param  Attachment|null  $new_master_attachment
      * @return $this
      */
-    public function setMasterPictureAttachment(?Attachment $new_master_attachment)
+    public function setMasterPictureAttachment(?Attachment $new_master_attachment): self
     {
         $this->master_picture_attachment = $new_master_attachment;
 

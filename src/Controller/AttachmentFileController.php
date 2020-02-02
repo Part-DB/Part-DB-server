@@ -46,9 +46,11 @@ class AttachmentFileController extends AbstractController
      *
      * @Route("/attachment/{id}/download", name="attachment_download")
      *
+     * @param  Attachment  $attachment
+     * @param  AttachmentManager  $helper
      * @return BinaryFileResponse
      */
-    public function download(Attachment $attachment, AttachmentManager $helper)
+    public function download(Attachment $attachment, AttachmentManager $helper): BinaryFileResponse
     {
         $this->denyAccessUnlessGranted('read', $attachment);
 
@@ -74,11 +76,12 @@ class AttachmentFileController extends AbstractController
      *
      * @Route("/attachment/{id}/view", name="attachment_view")
      *
+     * @param  Attachment  $attachment
+     * @param  AttachmentManager  $helper
      * @return BinaryFileResponse
      *
-     * @throws Exception
      */
-    public function view(Attachment $attachment, AttachmentManager $helper)
+    public function view(Attachment $attachment, AttachmentManager $helper): BinaryFileResponse
     {
         $this->denyAccessUnlessGranted('read', $attachment);
 
@@ -102,6 +105,8 @@ class AttachmentFileController extends AbstractController
     /**
      * @Route("/attachment/list", name="attachment_list")
      *
+     * @param  DataTableFactory  $dataTable
+     * @param  Request  $request
      * @return JsonResponse|Response
      */
     public function attachmentsTable(DataTableFactory $dataTable, Request $request)

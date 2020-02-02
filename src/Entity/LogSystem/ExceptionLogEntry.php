@@ -36,6 +36,7 @@ class ExceptionLogEntry extends AbstractLogEntry
 
     public function __construct()
     {
+        parent::__construct();
         throw new LogEntryObsoleteException();
     }
 

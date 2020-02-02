@@ -24,7 +24,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\UserSystem\User;
 use App\Form\Permissions\PermissionsType;
@@ -54,6 +53,11 @@ class UserController extends AdminPages\BaseAdminController
     /**
      * @Route("/{id}/edit", requirements={"id"="\d+"}, name="user_edit")
      * @Route("/{id}/", requirements={"id"="\d+"})
+     * @param  User  $entity
+     * @param  Request  $request
+     * @param  EntityManagerInterface  $em
+     * @return Response
+     * @throws \Exception
      */
     public function edit(User $entity, Request $request, EntityManagerInterface $em)
     {
@@ -87,15 +91,22 @@ class UserController extends AdminPages\BaseAdminController
      * @Route("/new", name="user_new")
      * @Route("/")
      *
+     * @param  Request  $request
+     * @param  EntityManagerInterface  $em
+     * @param  EntityImporter  $importer
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
     {
         return $this->_new($request, $em, $importer);
     }
 
     /**
      * @Route("/{id}", name="user_delete", methods={"DELETE"}, requirements={"id"="\d+"})
+     * @param  Request  $request
+     * @param  User  $entity
+     * @param  StructuralElementRecursionHelper  $recursionHelper
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Request $request, User $entity, StructuralElementRecursionHelper $recursionHelper)
     {
@@ -109,9 +120,12 @@ class UserController extends AdminPages\BaseAdminController
     /**
      * @Route("/export", name="user_export_all")
      *
+     * @param  EntityManagerInterface  $em
+     * @param  EntityExporter  $exporter
+     * @param  Request  $request
      * @return Response
      */
-    public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request)
+    public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportAll($em, $exporter, $request);
     }
@@ -119,11 +133,13 @@ class UserController extends AdminPages\BaseAdminController
     /**
      * @Route("/{id}/export", name="user_export")
      *
-     * @param User $entity
+     * @param  User  $entity
      *
+     * @param  EntityExporter  $exporter
+     * @param  Request  $request
      * @return Response
      */
-    public function exportEntity(User $entity, EntityExporter $exporter, Request $request)
+    public function exportEntity(User $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);
     }
@@ -131,12 +147,19 @@ class UserController extends AdminPages\BaseAdminController
     /**
      * @Route("/info", name="user_info_self")
      * @Route("/{id}/info", name="user_info")
+     * @param  User|null  $user
+     * @param  Packages  $packages
+     * @return Response
      */
-    public function userInfo(?User $user, Packages $packages)
+    public function userInfo(?User $user, Packages $packages): Response
     {
         //If no user id was passed, then we show info about the current user
         if (null === $user) {
-            $user = $this->getUser();
+            $tmp = $this->getUser();
+            if(!$tmp instanceof User) {
+                throw new InvalidArgumentException('Userinfo only works for database users!');
+            }
+            $user = $tmp;
         } else {
             //Else we must check, if the current user is allowed to access $user
             $this->denyAccessUnlessGranted('read', $user);
@@ -176,7 +199,7 @@ class UserController extends AdminPages\BaseAdminController
      * @return string containing either just a URL or a complete image tag
      * @source https://gravatar.com/site/implement/images/php/
      */
-    public function getGravatar(?string $email, int $s = 80, string $d = 'mm', string $r = 'g', bool $img = false, array $atts = [])
+    public function getGravatar(?string $email, int $s = 80, string $d = 'mm', string $r = 'g', bool $img = false, array $atts = []): string
     {
         if (null === $email) {
             return '';

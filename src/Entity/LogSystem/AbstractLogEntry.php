@@ -169,6 +169,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     /**
      * Sets the user that caused the event.
      *
+     * @param  User  $user
      * @return $this
      */
     public function setUser(User $user): self
@@ -191,6 +192,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     /**
      * Sets the timestamp when the event happened.
      *
+     * @param  DateTime  $timestamp
      * @return $this
      */
     public function setTimestamp(DateTime $timestamp): self
@@ -219,6 +221,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     /**
      * Sets the new level of this log entry.
      *
+     * @param  int  $level
      * @return $this
      */
     public function setLevel(int $level): self
@@ -244,6 +247,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     /**
      * Sets the priority level of this log entry as PSR3 compatible string.
      *
+     * @param  string  $level
      * @return $this
      */
     public function setLevelString(string $level): self

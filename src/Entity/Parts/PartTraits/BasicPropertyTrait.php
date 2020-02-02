@@ -146,6 +146,7 @@ trait BasicPropertyTrait
      * Sets the description of this part.
      *
      * @param string $new_description the new description
+     * @return $this
      */
     public function setDescription(?string $new_description): self
     {
@@ -158,6 +159,7 @@ trait BasicPropertyTrait
      * Sets the comment property of this part.
      *
      * @param string $new_comment the new comment
+     * @return $this
      */
     public function setComment(string $new_comment): self
     {
@@ -171,6 +173,7 @@ trait BasicPropertyTrait
      * The category property is required for every part, so you can not pass null like the other properties (footprints).
      *
      * @param Category $category The new category of this part
+     * @return $this
      */
     public function setCategory(Category $category): self
     {
@@ -184,6 +187,7 @@ trait BasicPropertyTrait
      *
      * @param Footprint|null $new_footprint The new footprint of this part. Set to null, if this part should not have
      *                                      a footprint.
+     * @return $this
      */
     public function setFootprint(?Footprint $new_footprint): self
     {
@@ -197,6 +201,7 @@ trait BasicPropertyTrait
      *
      * @param bool $new_favorite_status The new favorite status, that should be applied on this part.
      *                                  Set this to true, when the part should be a favorite.
+     * @return $this
      */
     public function setFavorite(bool $new_favorite_status): self
     {

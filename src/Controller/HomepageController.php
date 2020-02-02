@@ -57,8 +57,10 @@ class HomepageController extends AbstractController
 
     /**
      * @Route("/", name="homepage")
+     * @param  GitVersionInfo  $versionInfo
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function homepage(GitVersionInfo $versionInfo)
+    public function homepage(GitVersionInfo $versionInfo): \Symfony\Component\HttpFoundation\Response
     {
         return $this->render('homepage.html.twig', [
             'banner' => $this->getBanner(),
