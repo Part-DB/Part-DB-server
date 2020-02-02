@@ -26,6 +26,7 @@ namespace App\Form\Type;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
+use App\Entity\Contracts\HasMasterAttachmentInterface;
 use Doctrine\ORM\EntityRepository;
 use ReflectionClass;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -38,7 +39,7 @@ class MasterPictureAttachmentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired('entity');
-        $resolver->setAllowedTypes('entity', AttachmentContainingDBElement::class);
+        $resolver->setAllowedTypes('entity', HasMasterAttachmentInterface::class);
 
         $resolver->setDefaults([
             'filter' => 'picture',

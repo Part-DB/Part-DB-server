@@ -25,6 +25,7 @@ namespace App\Entity\Attachments;
 
 use App\Entity\Base\MasterAttachmentTrait;
 use App\Entity\Base\AbstractNamedDBElement;
+use App\Entity\Contracts\HasMasterAttachmentInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -32,7 +33,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\MappedSuperclass()
  */
-abstract class AttachmentContainingDBElement extends AbstractNamedDBElement
+abstract class AttachmentContainingDBElement extends AbstractNamedDBElement implements HasMasterAttachmentInterface
 {
     use MasterAttachmentTrait;
 
