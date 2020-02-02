@@ -45,6 +45,7 @@ script:
   - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
 
   # Static analysis
+  - ./bin/console cache:clear --env dev
   - composer phpstan
 
 after_success:
