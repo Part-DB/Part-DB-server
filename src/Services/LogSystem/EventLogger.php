@@ -61,6 +61,11 @@ class EventLogger
                 $repo = $this->em->getRepository(User::class);
                 $user = $repo->getAnonymousUser();
             }
+
+            //If no anonymous user is available skip the log (needed for data fixtures)
+            if (null === $user) {
+                return false;
+            }
             $logEntry->setUser($user);
         }
 
