@@ -361,8 +361,15 @@ $(document).on("ajaxUI:reload ajaxUI:start", function () {
  * Load the higher resolution version of hover pictures.
  */
 $(document).on("ajaxUI:reload ajaxUI:start ajaxUI:dt_loaded", function () {
-    $(".hoverpic[data-thumbnail]").mouseenter(function() {
-        $(this).attr('src', $(this).data('thumbnail'));
+
+    $('.hoverpic[data-thumbnail]').popover({
+        html: true,
+        trigger: 'hover',
+        placement: 'right',
+        container: 'body',
+        content: function () {
+            return '<img class="img-fluid" src="' + $(this).data('thumbnail') + '" />';
+        }
     });
 });
 
