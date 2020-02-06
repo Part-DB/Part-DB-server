@@ -513,7 +513,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     public function getFullName(bool $including_username = false): string
     {
         if ($including_username) {
-            return sprintf('%s %s (%s)', $this->getFirstName(), $this->getLastName(), $this->getName());
+            return sprintf('%s %s (@%s)', $this->getFirstName(), $this->getLastName(), $this->getName());
         }
 
         return sprintf('%s %s', $this->getFirstName(), $this->getLastName());

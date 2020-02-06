@@ -39,7 +39,7 @@ class UserTest extends TestCase
         $user->setLastName('Doe');
 
         $this->assertSame('John Doe', $user->getFullName(false));
-        $this->assertSame('John Doe (username)', $user->getFullName(true));
+        $this->assertSame('John Doe (@username)', $user->getFullName(true));
     }
 
     public function googleAuthenticatorEnabledDataProvider(): array

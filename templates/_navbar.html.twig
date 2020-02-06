@@ -33,7 +33,7 @@
                     {% if app.user %}<i class="fa fa-user" aria-hidden="true"></i>{% else %}<i class="far fa-user" aria-hidden="true"></i>{% endif %} <span class="caret"></span></a>
                 <ul class="dropdown-menu dropdown-menu-right" id="login-menu">
                     {% if app.user %}
-                        <a class="dropdown-item disabled" href="#" >{% trans %}user.loggedin.label{% endtrans %} {{ app.user.firstName }} {{app.user.lastName}} ({{app.user.name}})</a>
+                        <a class="dropdown-item disabled" href="#" >{% trans %}user.loggedin.label{% endtrans %} <b>{{ app.user.firstName }} {{app.user.lastName}}</b> (@{{app.user.name}})</a>
                         <a class="dropdown-item" href="{{ path("user_settings") }}"><i class="fa fa-cogs fa-fw" aria-hidden="true"></i> {% trans %}user.settings.label{% endtrans %}</a>
                         <a class="dropdown-item" href="{{ path("user_info_self") }}"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> {% trans %}user.info.label{% endtrans %}</a>
                         <li role="separator" class="dropdown-divider"></li>
