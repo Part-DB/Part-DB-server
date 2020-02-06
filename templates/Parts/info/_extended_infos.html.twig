@@ -7,9 +7,29 @@
         <td>{{ part.addedDate | format_datetime("long")}}</td>
     </tr>
 
+    <tr>
+        <td>{% trans %}user.creating_user{% endtrans %}</td>
+        <td>{% if is_granted('show_users', part) %}
+                {{ getCreatingUser(part).fullName(true) ?? 'Unknown'|trans }}
+            {% else %}
+                {% trans %}accessDenied{% endtrans %}
+            {% endif %}
+        </td>
+    </tr>
+
     <tr> {# Last modified date #}
         <td>{% trans %}lastModified{% endtrans %}</td>
         <td>{{ part.lastModified | format_datetime("long")}}</td>
+    </tr>
+
+    <tr>
+        <td>{% trans %}user.last_editing_user{% endtrans %}</td>
+        <td>{% if is_granted('show_users', part) %}
+                {{ getLastEditingUser(part).fullName(true) ?? 'Unknown'|trans }}
+            {% else %}
+                {% trans %}accessDenied{% endtrans %}
+            {% endif %}
+        </td>
     </tr>
 
     <tr> {# ID #}

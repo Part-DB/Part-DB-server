@@ -1,3 +1,5 @@
+{% import "helper.twig" as helper %}
+
 <div class="form-group row">
     <label class="col-form-label col-md-3">{% trans %}id.label{% endtrans %}</label>
     <div class="col-md-9">
@@ -10,8 +12,8 @@
     <div class="col-md-9">
         <p class="form-control-plaintext">
 
-            {% if date(entity.addedDate) > date('1900/01/01') %}
-                {{ entity.addedDate | format_datetime("long") }}
+            {% if entity.id is not null and date(entity.addedDate) > date('1900/01/01') %}
+                {{ helper.date_user_combination(entity, false, "long") }}
             {% else %}
                 -
             {% endif %}
@@ -23,8 +25,8 @@
     <label class="col-form-label col-md-3">{% trans %}lastModified{% endtrans %}</label>
     <div class="col-md-9">
         <p class="form-control-plaintext">
-            {% if date(entity.lastModified) > date('1900/01/01') %}
-                {{ entity.lastModified | format_datetime("long") }}
+            {% if entity.id is not null and date(entity.lastModified) > date('1900/01/01') %}
+                {{ helper.date_user_combination(entity, true, "long") }}
             {% else %}
                 -
             {% endif %}

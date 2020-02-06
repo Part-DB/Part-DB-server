@@ -129,7 +129,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     ];
 
     /** @var User The user which has caused this log entry
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User", fetch="EAGER")
      * @ORM\JoinColumn(name="id_user", nullable=false)
      */
     protected $user;

@@ -26,7 +26,11 @@ namespace App\Repository;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
+use App\Entity\LogSystem\ElementCreatedLogEntry;
+use App\Entity\LogSystem\ElementEditedLogEntry;
+use App\Entity\UserSystem\User;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 
 class LogEntryRepository extends EntityRepository
 {
@@ -34,8 +38,9 @@ class LogEntryRepository extends EntityRepository
     {
         //Emulate a target element criteria by splitting it manually in the needed criterias
         if (isset($criteria['target']) && $criteria['target'] instanceof AbstractDBElement) {
+            /** @var AbstractDBElement $element */
             $element = $criteria['target'];
-            $criteria['target_id'] = $element;
+            $criteria['target_id'] = $element->getID();
             $criteria['target_type'] = AbstractLogEntry::targetTypeClassToID(get_class($element));
             unset($criteria['target']);
         }
@@ -92,5 +97,50 @@ class LogEntryRepository extends EntityRepository
         }
 
         return $this->getEntityManager()->find($class, $id);
+    }
+
+    protected function getLastUser(AbstractDBElement $element, string $class)
+    {
+        $qb = $this->createQueryBuilder('log');
+        $qb->select('log')
+            //->where('log INSTANCE OF App\Entity\LogSystem\ElementEditedLogEntry')
+            ->where('log INSTANCE OF ' . $class)
+            ->andWhere('log.target_type = :target_type')
+            ->andWhere('log.target_id = :target_id')
+            ->orderBy('log.timestamp', 'DESC');
+
+        $qb->setParameters([
+                               'target_type' => AbstractLogEntry::targetTypeClassToID(get_class($element)),
+                               'target_id' => $element->getID()
+                           ]);
+
+        $query = $qb->getQuery();
+        $query->setMaxResults(1);
+        /** @var AbstractLogEntry[] $results */
+        $results = $query->execute();
+        if (isset($results[0])) {
+            return $results[0]->getUser();
+        }
+        return null;
+    }
+
+    /**
+     * Returns the last user that has edited the given element.
+     * @param  AbstractDBElement  $element
+     * @return User|null A user object, or null if no user could be determined.
+     */
+    public function getLastEditingUser(AbstractDBElement $element): ?User
+    {
+        return $this->getLastUser($element, ElementEditedLogEntry::class);
+    }
+
+    /**
+     * Returns the user that has created the given element.
+     * @param  AbstractDBElement  $element
+     * @return User|null A user object, or null if no user could be determined.
+     */
+    public function getCreatingUser(AbstractDBElement $element): ?User
+    {
+        return $this->getLastUser($element, ElementCreatedLogEntry::class);
     }
 }
