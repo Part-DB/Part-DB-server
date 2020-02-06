@@ -110,7 +110,7 @@ class LogEntryExtraFormatter
             return sprintf(
                 '<i>%s</i>: %s',
                 $this->translator->trans('log.element_deleted.old_name'),
-                $context->getOldName()
+                $context->getOldName() ?? $this->translator->trans('log.element_deleted.old_name.unknown')
             );
         }
 

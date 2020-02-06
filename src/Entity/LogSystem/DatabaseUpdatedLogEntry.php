@@ -58,7 +58,7 @@ class DatabaseUpdatedLogEntry extends AbstractLogEntry
      */
     public function getOldVersion(): string
     {
-        return (string) $this->extra['o'];
+        return (string) ($this->extra['o'] ?? '');
     }
 
     /**
@@ -68,6 +68,6 @@ class DatabaseUpdatedLogEntry extends AbstractLogEntry
      */
     public function getNewVersion(): string
     {
-        return (string) $this->extra['n'];
+        return (string) ($this->extra['n'] ?? '');
     }
 }

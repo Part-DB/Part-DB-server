@@ -57,7 +57,7 @@ class ExceptionLogEntry extends AbstractLogEntry
      */
     public function getFile(): string
     {
-        return $this->extra['f'];
+        return $this->extra['f'] ?? 'Unknown file';
     }
 
     /**
@@ -67,7 +67,7 @@ class ExceptionLogEntry extends AbstractLogEntry
      */
     public function getLine(): int
     {
-        return $this->extra['l'];
+        return $this->extra['l'] ?? -1;
     }
 
     /**
@@ -77,6 +77,6 @@ class ExceptionLogEntry extends AbstractLogEntry
      */
     public function getMessage(): string
     {
-        return $this->extra['m'];
+        return $this->extra['m'] ?? 'Unknown message';
     }
 }

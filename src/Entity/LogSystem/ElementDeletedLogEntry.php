@@ -61,8 +61,8 @@ class ElementDeletedLogEntry extends AbstractLogEntry
         return $this;
     }
 
-    public function getOldName(): string
+    public function getOldName(): ?string
     {
-        return $this->extra['n'];
+        return $this->extra['n'] ?? null;
     }
 }
