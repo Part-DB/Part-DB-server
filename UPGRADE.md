@@ -7,9 +7,9 @@ The instructions on how to install the new version or upgrade from Part-DB 1.0 t
 ## Breaking Changes
 Please note that there are some breaking changes with the new version. 
 It is tried to keep the breaking changes as small as possible, so they should not have much impact for the most users:
- * PHP 7.2 is required now (Part-DB 0.5 supported PHP 5.4+, Part-DB 0.6 7.0). 
-  PHP 7.2 (or newer) is shipped by all current major Linux distros now (and can be installed by third party sources on others),
-   Releases are available for Windows too, so almost everybody should be able to use PHP 7.2
+ * PHP 7.2.5 is required now (Part-DB 0.5 supported PHP 5.4+, Part-DB 0.6 7.0). 
+  PHP 7.2.5 (or newer) is shipped by all current major Linux distros now (and can be installed by third party sources on others),
+   Releases are available for Windows too, so almost everybody should be able to use PHP 7.2.5
  * Console access highly required. The installation of composer and frontend dependencies require console access, also 
  the managment commands are using CLI, so you should have console access on your server.
  * Markdown/HTML is now used instead of BBCode for rich text in description and command fields.
