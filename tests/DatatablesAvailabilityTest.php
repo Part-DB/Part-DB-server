@@ -1,11 +1,8 @@
 <?php
-
-declare(strict_types=1);
-
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
+ * Copyright (C) 2019 - 2020 Jan Böhmer (https://github.com/jbtronics)
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,21 +21,16 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
-use App\Entity\Parts\Manufacturer;
+
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-/**
- * This test just ensures that different pages are available (do not throw an exception).
- *
- * @group DB
- * @group slow
- */
-class ApplicationAvailabilityFunctionalTest extends WebTestCase
+class DatatablesAvailabilityTest extends WebTestCase
 {
     /**
      * @dataProvider urlProvider
+     * @param  string  $url
      */
-    public function testPageIsSuccessful(string $url): void
+    public function testDataTable(string $url)
     {
         //We have localized routes
         $url = '/en'.$url;
@@ -50,47 +42,28 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         ]);
 
         $client->request('GET', $url);
-
         $this->assertTrue($client->getResponse()->isSuccessful(), 'Request not successful. Status code is '.$client->getResponse()->getStatusCode());
+
+        $client->request('POST', $url, ['_dt' => 'dt']);
+        $this->assertTrue($client->getResponse()->isSuccessful());
+        $this->assertJson($client->getResponse()->getContent());
     }
 
     public function urlProvider()
     {
-        //Homepage
-        //yield ['/'];
-        //User related things
-        yield ['/user/settings'];
-        yield ['/user/info'];
+        //Part lists
+        yield ['/category/1/parts'];
+        yield ['/footprint/1/parts'];
+        yield ['/manufacturer/1/parts'];
+        yield ['/store_location/1/parts'];
+        yield ['/supplier/1/parts'];
+        yield ['/parts/by_tag/Test'];
+        yield ['/parts/search?keyword=test'];
+        yield ['/parts'];
 
-        //Login/logout
-        yield ['/login'];
+        yield ['/log/'];
 
-        //Tree views
-        yield ['/tree/tools'];
-        yield ['/tree/category/1'];
-        yield ['/tree/categories'];
-        yield ['/tree/footprint/1'];
-        yield ['/tree/footprints'];
-        yield ['/tree/location/1'];
-        yield ['/tree/locations'];
-        yield ['/tree/manufacturer/1'];
-        yield ['/tree/manufacturers'];
-        yield ['/tree/supplier/1'];
-        yield ['/tree/suppliers'];
-        //yield ['/tree/device/1'];
-        yield ['/tree/devices'];
+        yield ['/attachment/list'];
 
-        //Part tests
-        yield ['/part/1'];
-        yield ['/part/2'];
-        yield ['/part/3'];
-
-        yield ['/part/1/edit'];
-        yield ['/part/2/edit'];
-        yield ['/part/3/edit'];
-
-        //Typeahead
-        yield ['/typeahead/builtInResources/search/DIP8'];
-        yield ['/typeahead/tags/search/test'];
     }
 }
