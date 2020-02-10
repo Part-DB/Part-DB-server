@@ -33,7 +33,7 @@ use LogicException;
 /**
  * Class Attachment.
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\AttachmentRepository")
  * @ORM\Table(name="`attachments`")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="class_name", type="string")

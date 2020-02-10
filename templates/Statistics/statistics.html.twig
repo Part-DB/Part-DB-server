@@ -1,0 +1,134 @@
+{% extends "main_card.html.twig" %}
+
+{# @var StatisticsHelper helper #}
+
+{% block title %}{% trans %}statistics.title{% endtrans %}{% endblock %}
+
+{% block card_title %}<i class="fas fa-chart-bar fa-fw"></i>
+    {% trans %}statistics.title{% endtrans %}{% endblock %}
+
+{% block card_body %}
+    <ul class="nav nav-tabs ml-3 mr-3 mt-2" id="statistics_tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="parts-tab" data-toggle="tab" href="#parts" role="tab" aria-controls="home" aria-selected="true">
+                {% trans %}statistics.parts{% endtrans %}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="data_structures-tab" data-toggle="tab" href="#data_structures" role="tab" aria-controls="profile" aria-selected="false">
+                {% trans %}statistics.data_structures{% endtrans %}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="attachments-tab" data-toggle="tab" href="#attachments" role="tab" aria-controls="contact" aria-selected="false">
+                {% trans %}statistics.attachments{% endtrans %}
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="statistics_content">
+        <div class="tab-pane fade show active" id="parts" role="tabpanel" aria-labelledby="parts-tab">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>{% trans %}statistics.property{% endtrans %}</th>
+                    <th>{% trans %}statistics.value{% endtrans %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{% trans %}statistics.distinct_parts_count{% endtrans %}</td>
+                    <td>{{ helper.distinctPartsCount }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans %}statistics.parts_instock_sum{% endtrans %}</td>
+                    <td>{{ helper.PartsInstockSum }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans %}statistics.parts_with_price{% endtrans %}</td>
+                    <td>{{ helper.partsCountWithPrice }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tab-pane fade" id="data_structures" role="tabpanel" aria-labelledby="data_structures-tab">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>{% trans %}statistics.property{% endtrans %}</th>
+                    <th>{% trans %}statistics.value{% endtrans %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{% trans %}statistics.categories_count{% endtrans %}</td>
+                    <td>{{ helper.dataStructuresCount("category") }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans %}statistics.footprints_count{% endtrans %}</td>
+                    <td>{{ helper.dataStructuresCount("footprint") }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans %}statistics.manufacturers_count{% endtrans %}</td>
+                    <td>{{ helper.dataStructuresCount("manufacturer") }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans %}statistics.storelocations_count{% endtrans %}</td>
+                    <td>{{ helper.dataStructuresCount("storelocation") }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans %}statistics.suppliers_count{% endtrans %}</td>
+                    <td>{{ helper.dataStructuresCount("supplier") }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans %}statistics.currencies_count{% endtrans %}</td>
+                    <td>{{ helper.dataStructuresCount("currency") }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans %}statistics.measurement_units_count{% endtrans %}</td>
+                    <td>{{ helper.dataStructuresCount("measurement_unit") }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans %}statistics.devices_count{% endtrans %}</td>
+                    <td>{{ helper.dataStructuresCount("device") }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tab-pane fade show" id="attachments" role="tabpanel" aria-labelledby="attachments-tab">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>{% trans %}statistics.property{% endtrans %}</th>
+                    <th>{% trans %}statistics.value{% endtrans %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{% trans %}statistics.attachment_types_count{% endtrans %}</td>
+                    <td>{{ helper.dataStructuresCount("attachment_type") }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans %}statistics.all_attachments_count{% endtrans %}</td>
+                    <td>{{ helper.AttachmentsCount }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans %}statistics.user_uploaded_attachments_count{% endtrans %}</td>
+                    <td>{{ helper.UserUploadedAttachmentsCount }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans %}statistics.private_attachments_count{% endtrans %}</td>
+                    <td>{{ helper.PrivateAttachmentsCount }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans %}statistics.external_attachments_count{% endtrans %}</td>
+                    <td>{{ helper.ExternalAttachmentsCount }}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

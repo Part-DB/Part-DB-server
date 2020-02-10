@@ -24,9 +24,45 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Entity\Parts\PartLot;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 
 class PartRepository extends EntityRepository
 {
-    //TODO
+    /**
+     * Gets the summed up instock of all parts (only parts without an measurent unit)
+     * @return string
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getPartsInstockSum(): string
+    {
+        $qb = new QueryBuilder($this->getEntityManager());
+        $qb->select('SUM(part_lot.amount)')
+            ->from(PartLot::class, 'part_lot')
+            ->leftJoin('part_lot.part', 'part')
+            ->where('part.partUnit IS NULL');
+
+        $query = $qb->getQuery();
+        return $query->getSingleScalarResult();
+    }
+
+    /**
+     * Gets the number of parts that has price informations.
+     * @return int
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getPartsCountWithPrice(): int
+    {
+        $qb = $this->createQueryBuilder('part');
+        $qb->select('COUNT(part)')
+            ->innerJoin('part.orderdetails', 'orderdetail')
+            ->innerJoin('orderdetail.pricedetails', 'pricedetail')
+            ->where('pricedetail.price > 0.0');
+
+        $query = $qb->getQuery();
+        return (int) $query->getSingleScalarResult();
+    }
 }

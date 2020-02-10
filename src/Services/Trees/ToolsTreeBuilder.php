@@ -58,8 +58,8 @@ class ToolsTreeBuilder
     protected $security;
 
     public function __construct(TranslatorInterface $translator, UrlGeneratorInterface $urlGenerator,
-                                TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator,
-                                Security $security)
+        TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator,
+        Security $security)
     {
         $this->translator = $translator;
         $this->urlGenerator = $urlGenerator;
@@ -184,6 +184,13 @@ class ToolsTreeBuilder
             $show_nodes[] = new TreeViewNode(
                 $this->translator->trans('tree.tools.show.all_attachments'),
                 $this->urlGenerator->generate('attachment_list')
+            );
+        }
+
+        if ($this->security->isGranted('@tools.statistics')) {
+            $show_nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.show.statistics'),
+                $this->urlGenerator->generate('statistics_view')
             );
         }
 
