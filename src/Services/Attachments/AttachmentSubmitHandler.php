@@ -232,6 +232,8 @@ class AttachmentSubmitHandler
 
         //Move file to new directory
         $fs = new Filesystem();
+        //Ensure that the new path exists
+        $fs->mkdir(dirname($new_path));
         $fs->rename($old_path, $new_path);
 
         //Save info to attachment entity
