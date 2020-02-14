@@ -31,7 +31,7 @@ list of the features could change in the future. Features that are not working y
 
 * Inventory managment of your electronic parts. Each part can be assigned to a category, footprint, manufacturer 
 and multiple store locations and price informations. Parts can be grouped using tags. Support for file attachments like datasheets. 
-* Multi-Language support (currently German and English)
+* Multi-Language support (currently German, English, Russian and French(experimental))
 * Barcodes/Labels generator for parts and storage locations (*)
 * User system with groups and detailed permissions. 
 Two-factor authentication is supported (Google Authenticator and U2F keys) and can be enforced. Password reset via email can be setuped.
