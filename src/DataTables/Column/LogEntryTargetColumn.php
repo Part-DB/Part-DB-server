@@ -27,6 +27,7 @@ namespace App\DataTables\Column;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
+use App\Exceptions\EntityNotSupportedException;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -71,11 +72,15 @@ class LogEntryTargetColumn extends AbstractColumn
 
         //The element is existing
         if ($target instanceof AbstractNamedDBElement) {
-            return sprintf(
-                '<a href="%s">%s</a>',
-                $this->entityURLGenerator->infoURL($target),
-                $this->elementTypeNameGenerator->getTypeNameCombination($target, true)
-            );
+            try {
+                return sprintf(
+                    '<a href="%s">%s</a>',
+                    $this->entityURLGenerator->infoURL($target),
+                    $this->elementTypeNameGenerator->getTypeNameCombination($target, true)
+                );
+            } catch (EntityNotSupportedException $exception) {
+                return $this->elementTypeNameGenerator->getTypeNameCombination($target, true);
+            }
         }
 
         //Target does not have a name
