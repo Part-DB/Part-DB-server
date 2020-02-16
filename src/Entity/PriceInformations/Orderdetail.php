@@ -53,6 +53,7 @@ namespace App\Entity\PriceInformations;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
+use App\Entity\Contracts\TimeStampableInterface;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -67,7 +68,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  */
-class Orderdetail extends AbstractDBElement
+class Orderdetail extends AbstractDBElement implements TimeStampableInterface
 {
     use TimestampTrait;
 

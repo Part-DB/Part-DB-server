@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Entity\Base;
 
 use App\Entity\Contracts\NamedElementInterface;
+use App\Entity\Contracts\TimeStampableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -34,7 +35,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\MappedSuperclass(repositoryClass="App\Repository\UserRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-abstract class AbstractNamedDBElement extends AbstractDBElement implements NamedElementInterface
+abstract class AbstractNamedDBElement extends AbstractDBElement implements NamedElementInterface, TimeStampableInterface
 {
     use TimestampTrait;
 

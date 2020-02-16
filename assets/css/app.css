@@ -244,6 +244,16 @@ showing the sidebar (on devices with md or higher)
 * Bootstrap extensions
 *****************************************/
 
+.bg-primary-striped {
+    background: repeating-linear-gradient(
+            -45deg,
+            var(--primary),
+            var(--primary) 10px,
+            var(--info) 10px,
+            var(--info) 20px
+    )
+}
+
 .form-group-sm {
     margin-bottom: 5px;
 }

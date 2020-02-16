@@ -4,16 +4,28 @@
     {% trans %}part.info.title{% endtrans %} {{ part.name }}
 {% endblock %}
 
+{% block card_type %}
+
+    {% if timeTravel == null %}
+        bg-primary text-white
+    {% else %}
+        bg-primary-striped text-white
+    {% endif %}
+
+{% endblock %}
+
 {% block card_title %}
     <i class="fa {{ part.favorite ? 'fa-star' : 'fa-info-circle'}} fa-fw" aria-hidden="true"></i>
     {% trans %}part.info.title{% endtrans %} <b>"{{ part.name }}"</b>
+    {% if timeTravel != null %}
+        <i>({{ timeTravel | format_datetime('short') }})</i>
+    {% endif %}
     <div class="float-right">
         {% trans %}id.label{% endtrans %}: {{ part.id }}
     </div>
 {% endblock %}
 
 {% block card_content %}
-
     <div class="row">
         <div class="col-md-9">
             {% include "Parts/info/_main_infos.html.twig" %}
@@ -28,14 +40,14 @@
     <div class="">
         <div class="">
             <ul class="nav nav-tabs" id="partTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link {% if part.partLots %}active{% endif %}" id="part_lots-tab" data-toggle="tab"
-                           href="#part_lots" role="tab">
-                            <i class="fas fa-box fa-fw"></i>
-                            {% trans %}part.part_lots.label{% endtrans %}
-                            <span class="badge badge-secondary">{{ part.partLots | length }}</span>
-                        </a>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if part.partLots %}active{% endif %}" id="part_lots-tab" data-toggle="tab"
+                       href="#part_lots" role="tab">
+                        <i class="fas fa-box fa-fw"></i>
+                        {% trans %}part.part_lots.label{% endtrans %}
+                        <span class="badge badge-secondary">{{ part.partLots | length }}</span>
+                    </a>
+                </li>
                 {% if part.comment is not empty %}
                     <li class="nav-item">
                         <a class="nav-link" id="comment-tab" data-toggle="tab"

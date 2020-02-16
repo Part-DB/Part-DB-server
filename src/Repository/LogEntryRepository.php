@@ -27,6 +27,7 @@ namespace App\Repository;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
+use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\EntityRepository;
@@ -61,6 +62,48 @@ class LogEntryRepository extends EntityRepository
     public function getElementHistory(AbstractDBElement $element, $order = 'DESC', $limit = null, $offset = null): array
     {
         return $this->findBy(['element' => $element], ['timestamp' => $order], $limit, $offset);
+    }
+
+    public function getTimetravelDataForElement(AbstractDBElement $element, \DateTime $until): array
+    {
+        $qb = $this->createQueryBuilder('log');
+        $qb->select('log')
+            //->where('log INSTANCE OF App\Entity\LogSystem\ElementEditedLogEntry')
+            ->where('log INSTANCE OF ' . ElementEditedLogEntry::class)
+            ->andWhere('log.target_type = :target_type')
+            ->andWhere('log.target_id = :target_id')
+            ->andWhere('log.timestamp >= :until')
+            ->orderBy('log.timestamp', 'DESC');
+
+        $qb->setParameters([
+                               'target_type' => AbstractLogEntry::targetTypeClassToID(get_class($element)),
+                               'target_id' => $element->getID(),
+                               'until' => $until
+                           ]);
+
+        $query = $qb->getQuery();
+        return $query->execute();
+    }
+
+    public function getElementExistedAtTimestamp(AbstractDBElement $element, \DateTime $timestamp): bool
+    {
+        $qb = $this->createQueryBuilder('log');
+        $qb->select('count(log)')
+            ->where('log INSTANCE OF ' . ElementCreatedLogEntry::class)
+            ->andWhere('log.target_type = :target_type')
+            ->andWhere('log.target_id = :target_id')
+            ->andWhere('log.timestamp >= :until')
+            ->orderBy('log.timestamp', 'DESC');
+
+        $qb->setParameters([
+                               'target_type' => AbstractLogEntry::targetTypeClassToID(get_class($element)),
+                               'target_id' => $element->getID(),
+                               'until' => $timestamp
+                           ]);
+
+        $query = $qb->getQuery();
+        $count = $query->getSingleScalarResult();
+        return !($count > 0);
     }
 
     /**

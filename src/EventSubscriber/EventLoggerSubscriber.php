@@ -31,15 +31,19 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Events;
+use Doctrine\ORM\UnitOfWork;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class EventLoggerSubscriber implements EventSubscriber
 {
     protected $logger;
+    protected $serializer;
 
-    public function __construct(EventLogger $logger)
+    public function __construct(EventLogger $logger, SerializerInterface $serializer)
     {
         $this->logger = $logger;
+        $this->serializer = $serializer;
     }
 
     public function onFlush(OnFlushEventArgs $eventArgs)
@@ -55,6 +59,7 @@ class EventLoggerSubscriber implements EventSubscriber
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
             if ($this->validEntity($entity)) {
                 $log = new ElementEditedLogEntry($entity);
+                $this->saveChangeSet($entity, $log, $uow);
                 $this->logger->log($log);
             }
         }
@@ -62,12 +67,25 @@ class EventLoggerSubscriber implements EventSubscriber
         foreach ($uow->getScheduledEntityDeletions() as $entity) {
             if ($this->validEntity($entity)) {
                 $log = new ElementDeletedLogEntry($entity);
+                $this->saveChangeSet($entity, $log, $uow);
                 $this->logger->log($log);
             }
         }
 
 
         $uow->computeChangeSets();
+    }
+
+    protected function saveChangeSet(AbstractDBElement $entity, AbstractLogEntry $logEntry, UnitOfWork $uow): void
+    {
+        if (!$logEntry instanceof ElementEditedLogEntry && !$logEntry instanceof ElementDeletedLogEntry) {
+            throw new \InvalidArgumentException('$logEntry must be ElementEditedLogEntry or ElementDeletedLogEntry!');
+        }
+
+        $changeSet = $uow->getEntityChangeSet($entity);
+        dump($changeSet);
+        $old_data = array_diff(array_combine(array_keys($changeSet), array_column($changeSet, 0)), [null]);
+        $logEntry->setOldData($old_data);
     }
 
     public function postPersist(LifecycleEventArgs $args)

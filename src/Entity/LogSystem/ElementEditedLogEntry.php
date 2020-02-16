@@ -25,12 +25,13 @@ declare(strict_types=1);
 namespace App\Entity\LogSystem;
 
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Contracts\TimeTravelInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
  */
-class ElementEditedLogEntry extends AbstractLogEntry
+class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterface
 {
     protected $typeString = 'element_edited';
 
@@ -43,6 +44,17 @@ class ElementEditedLogEntry extends AbstractLogEntry
     }
 
     /**
+     * Sets the old data for this entry.
+     * @param array $old_data
+     * @return $this
+     */
+    public function setOldData(array $old_data): self
+    {
+        $this->extra['d'] = $old_data;
+        return $this;
+    }
+
+    /**
      * Returns the message associated with this edit change.
      *
      * @return string
@@ -50,5 +62,21 @@ class ElementEditedLogEntry extends AbstractLogEntry
     public function getMessage(): string
     {
         return $this->extra['m'] ?? '';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function hasOldDataInformations(): bool
+    {
+        return !empty($this->extra['d']);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getOldData(): array
+    {
+        return $this->extra['d'] ?? [];
     }
 }

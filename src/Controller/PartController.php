@@ -31,6 +31,7 @@ use App\Form\Part\PartBaseType;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\Attachments\PartPreviewGenerator;
+use App\Services\LogSystem\TimeTravel;
 use App\Services\PricedetailHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -46,27 +47,48 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class PartController extends AbstractController
 {
+    protected $attachmentManager;
+    protected $pricedetailHelper;
+    protected $partPreviewGenerator;
+
+    public function __construct(AttachmentManager $attachmentManager, PricedetailHelper $pricedetailHelper, PartPreviewGenerator $partPreviewGenerator)
+    {
+        $this->attachmentManager = $attachmentManager;
+        $this->pricedetailHelper = $pricedetailHelper;
+        $this->partPreviewGenerator = $partPreviewGenerator;
+    }
+
     /**
-     * @Route("/{id}/info", name="part_info")
+     * @Route("/{id}/info/{timestamp}", name="part_info")
      * @Route("/{id}", requirements={"id"="\d+"})
      *
      * @param  Part  $part
-     * @param  AttachmentManager  $attachmentHelper
-     * @param  PricedetailHelper  $pricedetailHelper
-     * @param  PartPreviewGenerator  $previewGenerator
      * @return Response
      */
-    public function show(Part $part, AttachmentManager $attachmentHelper, PricedetailHelper $pricedetailHelper, PartPreviewGenerator $previewGenerator): Response
+    public function show(Part $part, TimeTravel $timeTravel, ?string $timestamp = null): Response
     {
         $this->denyAccessUnlessGranted('read', $part);
+
+        $timeTravel_timestamp = null;
+        if ($timestamp !== null) {
+            //If the timestamp only contains numbers interpret it as unix timestamp
+            if (ctype_digit($timestamp)) {
+                $timeTravel_timestamp = new \DateTime();
+                $timeTravel_timestamp->setTimestamp((int) $timestamp);
+            } else { //Try to parse it via DateTime
+                $timeTravel_timestamp = new \DateTime($timestamp);
+            }
+            $timeTravel->revertEntityToTimestamp($part, $timeTravel_timestamp);
+        }
 
         return $this->render(
             'Parts/info/show_part_info.html.twig',
             [
                 'part' => $part,
-                'attachment_helper' => $attachmentHelper,
-                'pricedetail_helper' => $pricedetailHelper,
-                'pictures' => $previewGenerator->getPreviewAttachments($part),
+                'attachment_helper' => $this->attachmentManager,
+                'pricedetail_helper' => $this->pricedetailHelper,
+                'pictures' => $this->partPreviewGenerator->getPreviewAttachments($part),
+                'timeTravel' => $timeTravel_timestamp
             ]
         );
     }
@@ -83,7 +105,7 @@ class PartController extends AbstractController
      * @return Response
      */
     public function edit(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
-                         AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler): Response
+                         AttachmentSubmitHandler $attachmentSubmitHandler): Response
     {
         $this->denyAccessUnlessGranted('edit', $part);
 
@@ -123,7 +145,7 @@ class PartController extends AbstractController
             [
                 'part' => $part,
                 'form' => $form->createView(),
-                'attachment_helper' => $attachmentHelper,
+                'attachment_helper' => $this->attachmentManager,
             ]);
     }
 

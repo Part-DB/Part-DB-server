@@ -26,12 +26,13 @@ namespace App\Entity\LogSystem;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\NamedElementInterface;
+use App\Entity\Contracts\TimeTravelInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
  */
-class ElementDeletedLogEntry extends AbstractLogEntry
+class ElementDeletedLogEntry extends AbstractLogEntry implements TimeTravelInterface
 {
     protected $typeString = 'element_deleted';
 
@@ -64,5 +65,32 @@ class ElementDeletedLogEntry extends AbstractLogEntry
     public function getOldName(): ?string
     {
         return $this->extra['n'] ?? null;
+    }
+
+    /**
+     * Sets the old data for this entry.
+     * @param array $old_data
+     * @return $this
+     */
+    public function setOldData(array $old_data): self
+    {
+        $this->extra['o'] = $old_data;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function hasOldDataInformations(): bool
+    {
+        return !empty($this->extra['d']);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getOldData(): array
+    {
+        return $this->extra['d'] ?? [];
     }
 }
