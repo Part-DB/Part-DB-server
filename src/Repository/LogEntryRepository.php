@@ -90,7 +90,7 @@ class LogEntryRepository extends EntityRepository
             ->where('log INSTANCE OF ' . ElementEditedLogEntry::class)
             ->andWhere('log.target_type = :target_type')
             ->andWhere('log.target_id = :target_id')
-            ->andWhere('log.timestamp >= :until')
+            ->andWhere('log.timestamp > :until')
             ->orderBy('log.timestamp', 'DESC');
 
         $qb->setParameters([

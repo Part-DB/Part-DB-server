@@ -42,6 +42,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\DataTables\LogDataTable;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Exceptions\AttachmentDownloadException;
@@ -49,9 +50,11 @@ use App\Form\Part\PartBaseType;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\Attachments\PartPreviewGenerator;
+use App\Services\LogSystem\HistoryHelper;
 use App\Services\LogSystem\TimeTravel;
 use App\Services\PricedetailHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -82,10 +85,22 @@ class PartController extends AbstractController
      *
      * @param  Part  $part
      * @return Response
+     * @throws \Exception
      */
-    public function show(Part $part, TimeTravel $timeTravel, ?string $timestamp = null): Response
+    public function show(Part $part, Request $request, TimeTravel $timeTravel, HistoryHelper $historyHelper,
+        DataTableFactory $dataTable, ?string $timestamp = null): Response
     {
         $this->denyAccessUnlessGranted('read', $part);
+
+        $table = $dataTable->createFromType(LogDataTable::class, [
+            'filter_elements' => $historyHelper->getAssociatedElements($part),
+            'mode' => 'element_history'
+        ], ['pageLength' => 10])
+            ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
 
         $timeTravel_timestamp = null;
         if ($timestamp !== null) {
@@ -103,6 +118,7 @@ class PartController extends AbstractController
             'Parts/info/show_part_info.html.twig',
             [
                 'part' => $part,
+                'datatable' => $table,
                 'attachment_helper' => $this->attachmentManager,
                 'pricedetail_helper' => $this->pricedetailHelper,
                 'pictures' => $this->partPreviewGenerator->getPreviewAttachments($part),
@@ -123,7 +139,7 @@ class PartController extends AbstractController
      * @return Response
      */
     public function edit(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
-                         AttachmentSubmitHandler $attachmentSubmitHandler): Response
+        AttachmentSubmitHandler $attachmentSubmitHandler): Response
     {
         $this->denyAccessUnlessGranted('edit', $part);
 
@@ -160,11 +176,11 @@ class PartController extends AbstractController
         }
 
         return $this->render('Parts/edit/edit_part_info.html.twig',
-            [
-                'part' => $part,
-                'form' => $form->createView(),
-                'attachment_helper' => $this->attachmentManager,
-            ]);
+                             [
+                                 'part' => $part,
+                                 'form' => $form->createView(),
+                                 'attachment_helper' => $this->attachmentManager,
+                             ]);
     }
 
     /**
@@ -204,7 +220,7 @@ class PartController extends AbstractController
      * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
-                        AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler): Response
+        AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler): Response
     {
         $new_part = new Part();
 
@@ -253,11 +269,11 @@ class PartController extends AbstractController
         }
 
         return $this->render('Parts/edit/new_part.html.twig',
-            [
-                'part' => $new_part,
-                'form' => $form->createView(),
-                'attachment_helper' => $attachmentHelper,
-            ]);
+                             [
+                                 'part' => $new_part,
+                                 'form' => $form->createView(),
+                                 'attachment_helper' => $attachmentHelper,
+                             ]);
     }
 
     /**
@@ -289,9 +305,9 @@ class PartController extends AbstractController
         }
 
         return $this->render('Parts/edit/new_part.html.twig',
-            [
-                'part' => $new_part,
-                'form' => $form->createView(),
-            ]);
+                             [
+                                 'part' => $new_part,
+                                 'form' => $form->createView(),
+                             ]);
     }
 }

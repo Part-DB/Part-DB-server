@@ -6395,5 +6395,11 @@ Element 3</target>
         <target>Element gelöscht</target>
       </segment>
     </unit>
+    <unit id="tagdXMa" name="part.info.timetravel_hint">
+      <segment>
+        <source>part.info.timetravel_hint</source>
+        <target>part.info.timetravel_hint</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
