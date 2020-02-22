@@ -264,6 +264,13 @@ class PartBaseType extends AbstractType
             ],
         ]);
 
+        $builder->add('log_comment', TextType::class, [
+            'label' => 'edit.log_comment',
+            'mapped' => false,
+            'required' => false,
+            'empty_data' => null,
+        ]);
+
         $builder
             //Buttons
             ->add('save', SubmitType::class, ['label' => 'part.edit.save'])

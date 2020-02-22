@@ -25,6 +25,7 @@ use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
+use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\EventLogger;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\OnFlushEventArgs;
@@ -38,11 +39,13 @@ class EventLoggerSubscriber implements EventSubscriber
 {
     protected $logger;
     protected $serializer;
+    protected $eventCommentHelper;
 
-    public function __construct(EventLogger $logger, SerializerInterface $serializer)
+    public function __construct(EventLogger $logger, SerializerInterface $serializer, EventCommentHelper $commentHelper)
     {
         $this->logger = $logger;
         $this->serializer = $serializer;
+        $this->eventCommentHelper = $commentHelper;
     }
 
     public function onFlush(OnFlushEventArgs $eventArgs)
@@ -59,6 +62,10 @@ class EventLoggerSubscriber implements EventSubscriber
             if ($this->validEntity($entity)) {
                 $log = new ElementEditedLogEntry($entity);
                 $this->saveChangeSet($entity, $log, $uow);
+                //Add user comment to log entry
+                if ($this->eventCommentHelper->isMessageSet()) {
+                    $log->setComment($this->eventCommentHelper->getMessage());
+                }
                 $this->logger->log($log);
             }
         }
@@ -66,6 +73,10 @@ class EventLoggerSubscriber implements EventSubscriber
         foreach ($uow->getScheduledEntityDeletions() as $entity) {
             if ($this->validEntity($entity)) {
                 $log = new ElementDeletedLogEntry($entity);
+                //Add user comment to log entry
+                if ($this->eventCommentHelper->isMessageSet()) {
+                    $log->setComment($this->eventCommentHelper->getMessage());
+                }
                 $this->saveChangeSet($entity, $log, $uow);
                 $this->logger->log($log);
             }
@@ -82,7 +93,6 @@ class EventLoggerSubscriber implements EventSubscriber
         }
 
         $changeSet = $uow->getEntityChangeSet($entity);
-        dump($changeSet);
         $old_data = array_diff(array_combine(array_keys($changeSet), array_column($changeSet, 0)), [null]);
         $logEntry->setOldData($old_data);
     }
@@ -95,6 +105,10 @@ class EventLoggerSubscriber implements EventSubscriber
         $entity = $args->getObject();
         if ($this->validEntity($entity)) {
             $log = new ElementCreatedLogEntry($entity);
+            //Add user comment to log entry
+            if ($this->eventCommentHelper->isMessageSet()) {
+                $log->setComment($this->eventCommentHelper->getMessage());
+            }
             $this->logger->log($log);
         }
     }
@@ -107,6 +121,9 @@ class EventLoggerSubscriber implements EventSubscriber
         if ($uow->hasPendingInsertions()) {
             $em->flush();
         }
+
+        //Clear the message provided by user.
+        $this->eventCommentHelper->clearMessage();
     }
 
     /**

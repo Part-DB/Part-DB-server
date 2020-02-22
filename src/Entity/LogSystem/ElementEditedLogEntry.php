@@ -43,13 +43,14 @@ declare(strict_types=1);
 namespace App\Entity\LogSystem;
 
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Contracts\LogWithCommentInterface;
 use App\Entity\Contracts\TimeTravelInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
  */
-class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterface
+class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterface, LogWithCommentInterface
 {
     protected $typeString = 'element_edited';
 
@@ -73,16 +74,6 @@ class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterf
     }
 
     /**
-     * Returns the message associated with this edit change.
-     *
-     * @return string
-     */
-    public function getMessage(): string
-    {
-        return $this->extra['m'] ?? '';
-    }
-
-    /**
      * @inheritDoc
      */
     public function hasOldDataInformations(): bool
@@ -96,5 +87,30 @@ class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterf
     public function getOldData(): array
     {
         return $this->extra['d'] ?? [];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function hasComment(): bool
+    {
+        return isset($this->extra['m']);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getComment(): ?string
+    {
+        return $this->extra['m'] ?? null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setComment(?string $new_comment): LogWithCommentInterface
+    {
+        $this->extra['m'] = $new_comment;
+        return $this;
     }
 }

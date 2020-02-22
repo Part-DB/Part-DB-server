@@ -6376,7 +6376,7 @@ Element 3</target>
     <unit id="tagdXMa" name="part.info.timetravel_hint">
       <segment>
         <source>part.info.timetravel_hint</source>
-        <target><![CDATA[This is how the part appeared on %timestamp%. <i>Please note that this feature is experimental, so the infos are maybe not correct.</i>]]></target>
+        <target><![CDATA[This is how the part appeared before %timestamp%. <i>Please note that this feature is experimental, so the infos are maybe not correct.</i>]]></target>
       </segment>
     </unit>
   </file>

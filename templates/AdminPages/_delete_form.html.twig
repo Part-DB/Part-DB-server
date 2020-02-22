@@ -7,12 +7,22 @@
         <div class=""></div>
         <div class="col-sm offset-sm-3 pl-2">
             {% set delete_disabled = (not is_granted("delete", entity)) or (entity.group is defined and entity.id == 1) %}
-            <button class="btn btn-danger" {% if delete_disabled %}disabled{% endif %}>{% trans %}entity.delete{% endtrans %}</button>
-            {% if entity.parent is defined  %}
-            <div class="ml-2 custom-control custom-checkbox custom-control-inline">
-                <input type="checkbox" class="custom-control-input" id="recursive" name="delete_recursive">
-                <label class="custom-control-label" for="recursive">{% trans %}entity.delete.recursive{% endtrans %}</label>
+            <div class="btn-group">
+                <button class="btn btn-danger" {% if delete_disabled %}disabled{% endif %}>{% trans %}entity.delete{% endtrans %}</button>
+                <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu p-2">
+                    <div class="form-group"><label for="delete_log_comment">{% trans %}edit.log_comment{% endtrans %}</label>
+                        <input type="text" id="delete_log_comment" name="log_comment" class="form-control">
+                    </div>
+                </div>
             </div>
+            {% if entity.parent is defined  %}
+                <div class="ml-2 custom-control custom-checkbox custom-control-inline">
+                    <input type="checkbox" class="custom-control-input" id="recursive" name="delete_recursive">
+                    <label class="custom-control-label" for="recursive">{% trans %}entity.delete.recursive{% endtrans %}</label>
+                </div>
             {% endif %}
         </div>
     </div>

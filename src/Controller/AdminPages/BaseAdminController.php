@@ -52,6 +52,7 @@ use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
+use App\Services\LogSystem\EventCommentHelper;
 use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
@@ -77,9 +78,11 @@ abstract class BaseAdminController extends AbstractController
     protected $translator;
     protected $attachmentHelper;
     protected $attachmentSubmitHandler;
+    protected $commentHelper;
 
     public function __construct(TranslatorInterface $translator, UserPasswordEncoderInterface $passwordEncoder,
-                                AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler)
+                                AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler,
+                        EventCommentHelper $commentHelper)
     {
         if ('' === $this->entity_class || '' === $this->form_class || '' === $this->twig_template || '' === $this->route_base) {
             throw new InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');
@@ -93,6 +96,7 @@ abstract class BaseAdminController extends AbstractController
         $this->passwordEncoder = $passwordEncoder;
         $this->attachmentHelper = $attachmentHelper;
         $this->attachmentSubmitHandler = $attachmentSubmitHandler;
+        $this->commentHelper = $commentHelper;
     }
 
 
@@ -130,6 +134,8 @@ abstract class BaseAdminController extends AbstractController
                     );
                 }
             }
+
+            $this->commentHelper->setMessage($form['log_comment']->getData());
 
             $em->persist($entity);
             $em->flush();
@@ -188,6 +194,8 @@ abstract class BaseAdminController extends AbstractController
                 }
             }
 
+            $this->commentHelper->setMessage($form['log_comment']->getData());
+
             $em->persist($new_entity);
             $em->flush();
             $this->addFlash('success', 'entity.created_flash');
@@ -214,6 +222,10 @@ abstract class BaseAdminController extends AbstractController
                 'format' => $data['format'],
                 'csv_separator' => $data['csv_separator'],
             ];
+
+            $this->commentHelper->setMessage('Import ' . $file->getClientOriginalName());
+
+
 
             $errors = $importer->fileToDBEntities($file, $this->entity_class, $options);
 
@@ -279,6 +291,8 @@ abstract class BaseAdminController extends AbstractController
                 //Remove current element
                 $entityManager->remove($entity);
             }
+
+            $this->commentHelper->setMessage($request->request->get('log_comment', null));
 
             //Flush changes
             $entityManager->flush();

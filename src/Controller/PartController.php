@@ -50,6 +50,7 @@ use App\Form\Part\PartBaseType;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\Attachments\PartPreviewGenerator;
+use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\HistoryHelper;
 use App\Services\LogSystem\TimeTravel;
 use App\Services\PricedetailHelper;
@@ -71,12 +72,15 @@ class PartController extends AbstractController
     protected $attachmentManager;
     protected $pricedetailHelper;
     protected $partPreviewGenerator;
+    protected $commentHelper;
 
-    public function __construct(AttachmentManager $attachmentManager, PricedetailHelper $pricedetailHelper, PartPreviewGenerator $partPreviewGenerator)
+    public function __construct(AttachmentManager $attachmentManager, PricedetailHelper $pricedetailHelper,
+        PartPreviewGenerator $partPreviewGenerator, EventCommentHelper $commentHelper)
     {
         $this->attachmentManager = $attachmentManager;
         $this->pricedetailHelper = $pricedetailHelper;
         $this->partPreviewGenerator = $partPreviewGenerator;
+        $this->commentHelper = $commentHelper;
     }
 
     /**
@@ -166,6 +170,8 @@ class PartController extends AbstractController
                 }
             }
 
+            $this->commentHelper->setMessage($form['log_comment']->getData());
+
             $em->persist($part);
             $em->flush();
             $this->addFlash('info', 'part.edited_flash');
@@ -196,6 +202,8 @@ class PartController extends AbstractController
 
         if ($this->isCsrfTokenValid('delete'.$part->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            $this->commentHelper->setMessage($request->request->get('log_comment', null));
 
             //Remove part
             $entityManager->remove($part);
@@ -256,6 +264,8 @@ class PartController extends AbstractController
                     );
                 }
             }
+
+            $this->commentHelper->setMessage($form['log_comment']->getData());
 
             $em->persist($new_part);
             $em->flush();

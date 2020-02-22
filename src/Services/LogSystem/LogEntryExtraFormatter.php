@@ -116,24 +116,38 @@ class LogEntryExtraFormatter
             );
         }
 
-        if ($context instanceof ElementCreatedLogEntry && $context->hasCreationInstockValue()) {
-            return sprintf(
-                '<i>%s</i>: %s',
-                $this->translator->trans('log.element_created.original_instock'),
-                $context->getCreationInstockValue()
-            );
+        if ($context instanceof ElementCreatedLogEntry ) {
+            $comment = '';
+            if ($context->hasComment()) {
+                $comment = htmlspecialchars($context->getComment()) . '; ';
+            }
+            if($context->hasCreationInstockValue()) {
+                return $comment . sprintf(
+                        '<i>%s</i>: %s',
+                        $this->translator->trans('log.element_created.original_instock'),
+                        $context->getCreationInstockValue()
+                    );
+            }
+            return $comment;
         }
 
         if ($context instanceof ElementDeletedLogEntry) {
-            return sprintf(
-                '<i>%s</i>: %s',
-                $this->translator->trans('log.element_deleted.old_name'),
-                $context->getOldName() ?? $this->translator->trans('log.element_deleted.old_name.unknown')
-            );
+            $comment = '';
+            if ($context->hasComment()) {
+                $comment = htmlspecialchars($context->getComment()) . '; ';
+            }
+            return $comment . sprintf(
+                    '<i>%s</i>: %s',
+                    $this->translator->trans('log.element_deleted.old_name'),
+                    $context->getOldName() ?? $this->translator->trans('log.element_deleted.old_name.unknown')
+                );
         }
 
-        if ($context instanceof ElementEditedLogEntry && ! empty($context->getMessage())) {
-            return htmlspecialchars($context->getMessage());
+        if ($context instanceof ElementEditedLogEntry) {
+            if ($context->hasComment()) {
+                return htmlspecialchars($context->getComment());
+            }
+
         }
 
         if ($context instanceof InstockChangedLogEntry) {

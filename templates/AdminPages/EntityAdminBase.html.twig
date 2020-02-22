@@ -1,5 +1,7 @@
 {% extends "main_card.html.twig" %}
 
+{% form_theme form.log_comment 'bootstrap_4_layout.html.twig' %}
+
 {% block card_content %}
     <div class="row">
         <div class="col-sm-4">
@@ -96,7 +98,21 @@
                             </div>
                         </div>
 
-                        {{ form_row(form.save) }}
+                        <div class="form-group row">
+                            <div class="col-sm-9 offset-sm-3">
+                                <div class="btn-group">
+                                    {{ form_widget(form.save) }}
+                                    <button type="button" class="btn {% if entity.id is not null %}btn-primary{% else %}btn-success{% endif %} dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu p-2">
+                                        {{ form_row(form.log_comment)}}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
                         {{ form_row(form.reset) }}
                         {{ form_end(form) }}
 

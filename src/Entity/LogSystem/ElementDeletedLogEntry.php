@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\Entity\LogSystem;
 
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Contracts\LogWithCommentInterface;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Contracts\TimeTravelInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -50,7 +51,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity()
  */
-class ElementDeletedLogEntry extends AbstractLogEntry implements TimeTravelInterface
+class ElementDeletedLogEntry extends AbstractLogEntry implements TimeTravelInterface, LogWithCommentInterface
 {
     protected $typeString = 'element_deleted';
 
@@ -110,5 +111,30 @@ class ElementDeletedLogEntry extends AbstractLogEntry implements TimeTravelInter
     public function getOldData(): array
     {
         return $this->extra['d'] ?? [];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function hasComment(): bool
+    {
+        return isset($this->extra['m']);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getComment(): ?string
+    {
+        return $this->extra['m'] ?? null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setComment(?string $new_comment): LogWithCommentInterface
+    {
+        $this->extra['m'] = $new_comment;
+        return $this;
     }
 }

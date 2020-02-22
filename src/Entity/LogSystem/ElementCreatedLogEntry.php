@@ -43,12 +43,13 @@ declare(strict_types=1);
 namespace App\Entity\LogSystem;
 
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Contracts\LogWithCommentInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
  */
-class ElementCreatedLogEntry extends AbstractLogEntry
+class ElementCreatedLogEntry extends AbstractLogEntry implements LogWithCommentInterface
 {
     protected $typeString = 'element_created';
 
@@ -77,5 +78,30 @@ class ElementCreatedLogEntry extends AbstractLogEntry
     public function hasCreationInstockValue(): bool
     {
         return null !== $this->getCreationInstockValue();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function hasComment(): bool
+    {
+        return isset($this->extra['m']);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getComment(): ?string
+    {
+        return $this->extra['m'] ?? null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setComment(?string $new_comment): LogWithCommentInterface
+    {
+        $this->extra['m'] = $new_comment;
+        return $this;
     }
 }
