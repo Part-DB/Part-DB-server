@@ -31,7 +31,7 @@ list of the features could change in the future. Features that are not working y
 
 * Inventory managment of your electronic parts. Each part can be assigned to a category, footprint, manufacturer 
 and multiple store locations and price informations. Parts can be grouped using tags. Support for file attachments like datasheets. 
-* Multi-Language support (currently German and English)
+* Multi-Language support (currently German, English, Russian and French(experimental))
 * Barcodes/Labels generator for parts and storage locations (*)
 * User system with groups and detailed permissions. 
 Two-factor authentication is supported (Google Authenticator and U2F keys) and can be enforced. Password reset via email can be setuped.
@@ -92,8 +92,8 @@ See also the list of [contributors](https://github.com/Part-DB/Part-DB-symfony/g
 Based on the original Part-DB by Christoph Lechner and K. Jacobs
 
 ## License
-Part-DB is licensed under the General Public License 2 (or at your opinion any later).
+Part-DB is licensed under the GNU Affero General Public License v3.0 (or at your opinion any later).
 This mostly means that you can use Part-DB for whatever you want (even use it commercially)
-as long as you publish the source code for every change you make under the GPL, too.
+as long as you publish the source code for every change you make under the AGPL, too.
 
-See [License.md](https://github.com/Part-DB/Part-DB-symfony/blob/master/LICENSE.md) for more informations.
+See [LICENSE](https://github.com/Part-DB/Part-DB-symfony/blob/master/LICENSE) for more informations.

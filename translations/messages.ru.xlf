@@ -46,7 +46,7 @@
       </notes>
       <segment state="translated">
         <source>admin.advanced</source>
-        <target>Расширенный</target>
+        <target>Расширенные</target>
       </segment>
     </unit>
     <unit id="BJtSZa4" name="currency.caption">
@@ -208,7 +208,7 @@
       </notes>
       <segment state="translated">
         <source>admin.common</source>
-        <target>Общий</target>
+        <target>Общие</target>
       </segment>
     </unit>
     <unit id="NmnCJhH" name="admin.attachments">
@@ -249,7 +249,7 @@
       </notes>
       <segment state="translated">
         <source>footprint.labelp</source>
-        <target>Шаблон</target>
+        <target>Посадочные места</target>
       </segment>
     </unit>
     <unit id="ZOZqHeB" name="group.edit.caption">
@@ -641,7 +641,7 @@
       </notes>
       <segment state="translated">
         <source>id.label</source>
-        <target>ИД</target>
+        <target>ID</target>
       </segment>
     </unit>
     <unit id="cMLFYZw" name="createdAt">
@@ -1155,7 +1155,7 @@
       </notes>
       <segment state="translated">
         <source>part.edit.tab.advanced</source>
-        <target>Расширенные настройки</target>
+        <target>Расширенные</target>
       </segment>
     </unit>
     <unit id="uc9NwcF" name="part.edit.tab.part_lots">
@@ -1501,7 +1501,7 @@
       </notes>
       <segment state="translated">
         <source>footprint.label</source>
-        <target>Шаблон</target>
+        <target>Посадочное место</target>
       </segment>
     </unit>
     <unit id="LL2dt8U" name="part.avg_price.label">
@@ -1674,7 +1674,7 @@
       </notes>
       <segment state="translated">
         <source>part.mass.tooltip</source>
-        <target>Массовое</target>
+        <target>Вес</target>
       </segment>
     </unit>
     <unit id="9o2FQD1" name="part.needs_review.badge">
@@ -1786,7 +1786,7 @@
       </notes>
       <segment state="translated">
         <source>parts_list.footprint.title</source>
-        <target>Компоненты с шаблоном</target>
+        <target>Компоненты с посадочным местом</target>
       </segment>
     </unit>
     <unit id="j4vXh3o" name="parts_list.manufacturer.title">
@@ -3289,7 +3289,7 @@
       </notes>
       <segment state="translated">
         <source>part.table.id</source>
-        <target>ИД</target>
+        <target>ID</target>
       </segment>
     </unit>
     <unit id="zKnTKYw" name="part.table.description">
@@ -3316,7 +3316,7 @@
       </notes>
       <segment state="translated">
         <source>part.table.footprint</source>
-        <target>Шаблон</target>
+        <target>Посад.место</target>
       </segment>
     </unit>
     <unit id="b46OytM" name="part.table.manufacturer">
@@ -3467,7 +3467,7 @@
       </notes>
       <segment state="translated">
         <source>part.table.mass</source>
-        <target>Массовое</target>
+        <target>Вес</target>
       </segment>
     </unit>
     <unit id="Cwisdej" name="part.table.tags">
@@ -3621,7 +3621,7 @@
       </notes>
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>Здесь вы можете задать url для внешнего файла или указать ключевое слово по которому будет произведен поиск в базе данных (например в шаблонах)</target>
+        <target>Здесь вы можете задать url для внешнего файла или указать ключевое слово по которому будет произведен поиск в базе данных (например в базе посадочных мест)</target>
       </segment>
     </unit>
     <unit id="kAlm7LR" name="attachment.edit.attachment_type">
@@ -3756,7 +3756,7 @@
       </notes>
       <segment state="translated">
         <source>part.edit.footprint</source>
-        <target>Шаблон</target>
+        <target>Посадочное место</target>
       </segment>
     </unit>
     <unit id="KHkWjTz" name="part.edit.tags">
@@ -3828,7 +3828,7 @@
       </notes>
       <segment state="translated">
         <source>part.edit.mass</source>
-        <target>Массовое</target>
+        <target>Вес</target>
       </segment>
     </unit>
     <unit id="kpiGJo0" name="part.edit.partUnit">
@@ -4327,7 +4327,7 @@
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.footprint</source>
-        <target>Шаблоны</target>
+        <target>Посадочные места</target>
       </segment>
     </unit>
     <unit id="RBBr5gI" name="tree.tools.edit.currency">
@@ -4682,7 +4682,7 @@
       </notes>
       <segment state="translated">
         <source>category.edit.disable_footprints</source>
-        <target>Выключить шаблоны</target>
+        <target>Выключить посад.места</target>
       </segment>
     </unit>
     <unit id="lpS1zKs" name="category.edit.disable_footprints.help">
@@ -4691,7 +4691,7 @@
       </notes>
       <segment state="translated">
         <source>category.edit.disable_footprints.help</source>
-        <target>Если эта опция включена свойство "шаблон" недоступно для компонентов этой категории.</target>
+        <target>Если эта опция включена свойство "посадочное место" недоступно для компонентов этой категории.</target>
       </segment>
     </unit>
     <unit id="1w_nFL7" name="category.edit.disable_manufacturers">
@@ -5335,7 +5335,7 @@
       </notes>
       <segment state="translated">
         <source>homepage.basedOn</source>
-        <target>Основано на работе</target>
+        <target>Создано на основе работ</target>
       </segment>
     </unit>
     <unit id="PlY3xmo" name="homepage.others">
@@ -5677,7 +5677,7 @@
       </notes>
       <segment state="translated">
         <source>perm.part.footprints</source>
-        <target>Шаблоны</target>
+        <target>Посадочные места</target>
       </segment>
     </unit>
     <unit id="f6E.ER4" name="perm.part.categories">
@@ -5758,7 +5758,7 @@
       </notes>
       <segment state="translated">
         <source>perm.tools.footprints</source>
-        <target>Шаблоны</target>
+        <target>Посадочные места</target>
       </segment>
     </unit>
     <unit id="1bNm4cw" name="perm.tools.ic_logos">
@@ -6109,7 +6109,7 @@
       </notes>
       <segment state="translated">
         <source>perm.part.footprint</source>
-        <target>Шаблон</target>
+        <target>Посадочное место</target>
       </segment>
     </unit>
     <unit id="cdrtuto" name="perm.part.mpn">
@@ -6154,7 +6154,7 @@
       </notes>
       <segment state="translated">
         <source>perm.part.mass</source>
-        <target>Массовое</target>
+        <target>Вес</target>
       </segment>
     </unit>
     <unit id="IWWN6u0" name="perm.part.lots">
@@ -6272,6 +6272,108 @@
       <segment state="translated">
         <source>attachment.table.filesize</source>
         <target>Размер файла</target>
+      </segment>
+    </unit>
+    <unit id="6DOZlwQ" name="log.id">
+      <segment state="initial">
+        <source>log.id</source>
+        <target>log.id</target>
+      </segment>
+    </unit>
+    <unit id="cMZOrO7" name="log.timestamp">
+      <segment state="translated">
+        <source>log.timestamp</source>
+        <target>Дата и время</target>
+      </segment>
+    </unit>
+    <unit id="Z0BzGVJ" name="log.type">
+      <segment state="translated">
+        <source>log.type</source>
+        <target>Тип</target>
+      </segment>
+    </unit>
+    <unit id="KNddOUS" name="log.level">
+      <segment state="translated">
+        <source>log.level</source>
+        <target>Уровень</target>
+      </segment>
+    </unit>
+    <unit id="3Tv5Xzj" name="log.user">
+      <segment state="translated">
+        <source>log.user</source>
+        <target>Пользователь</target>
+      </segment>
+    </unit>
+    <unit id="bgbGrN5" name="log.target_type">
+      <segment state="translated">
+        <source>log.target_type</source>
+        <target>Тип объекта</target>
+      </segment>
+    </unit>
+    <unit id=".IgL4C2" name="log.target">
+      <segment state="translated">
+        <source>log.target</source>
+        <target>Объект</target>
+      </segment>
+    </unit>
+    <unit id="r7Q.Vrm" name="log.type.exception">
+      <segment state="translated">
+        <source>log.type.exception</source>
+        <target>Исключительная ситуация</target>
+      </segment>
+    </unit>
+    <unit id="l5qNskF" name="log.type.user_login">
+      <segment state="translated">
+        <source>log.type.user_login</source>
+        <target>Пользователь вошел</target>
+      </segment>
+    </unit>
+    <unit id="6suiYvP" name="log.type.user_logout">
+      <segment state="translated">
+        <source>log.type.user_logout</source>
+        <target>Пользователь вышел</target>
+      </segment>
+    </unit>
+    <unit id="Jjl8edA" name="log.type.unknown">
+      <segment state="translated">
+        <source>log.type.unknown</source>
+        <target>Неизвестный тип</target>
+      </segment>
+    </unit>
+    <unit id="n8VtTfW" name="log.type.element_created">
+      <segment state="translated">
+        <source>log.type.element_created</source>
+        <target>Элемент создан</target>
+      </segment>
+    </unit>
+    <unit id="O9Iw2cd" name="log.type.element_edited">
+      <segment state="translated">
+        <source>log.type.element_edited</source>
+        <target>Элемент изменен</target>
+      </segment>
+    </unit>
+    <unit id="WQkp3yE" name="log.type.element_deleted">
+      <segment state="translated">
+        <source>log.type.element_deleted</source>
+        <target> Элемент удален</target>
+      </segment>
+    </unit>
+    <unit id="eTGx8tR" name="log.target_deleted">
+      <segment state="translated">
+        <source>log.target_deleted</source>
+        <target>Объект удален</target>
+      </segment>
+    </unit>
+    <unit id="pjRvOZm" name="log.type.database_updated">
+      <segment state="translated">
+        <source>log.type.database_updated</source>
+        <target>Данные объекта обновлены</target>
+      </segment>
+    </unit>
+    <unit id="uKTMZBs" name="log.list.title">
+      <segment state="initial">
+        <source>log.list.title</source>
+        <target>log.list.title</target>
       </segment>
     </unit>
   </file>

@@ -904,7 +904,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment>
         <source>homepage.github.text</source>
-        <target><![CDATA[Downloads, Bugreports, ToDo-Liste usw. gibts auf der <a class="link-external" target="_blank" href="%href%">GitHub Projektseite</a>]]></target>
+        <target><![CDATA[Quellcode, Downloads, Bugreports, ToDo-Liste usw. gibts auf der <a class="link-external" target="_blank" href="%href%">GitHub Projektseite</a>]]></target>
       </segment>
     </unit>
     <unit id="9pp.6vF" name="homepage.help.caption">

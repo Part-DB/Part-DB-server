@@ -901,7 +901,7 @@ Subelements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>homepage.github.text</source>
-        <target><![CDATA[Downloads, bugreports, to-do-list etc. can be found on <a href="%href%" class="link-external" target="_blank">GitHub project page</a>]]></target>
+        <target><![CDATA[Source, downloads, bug reports, to-do-list etc. can be found on <a href="%href%" class="link-external" target="_blank">GitHub project page</a>]]></target>
       </segment>
     </unit>
     <unit id="9pp.6vF" name="homepage.help.caption">
