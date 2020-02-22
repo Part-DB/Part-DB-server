@@ -1,6 +1,6 @@
 {
     "type": "project",
-    "license": "GPL-2.0-or-later",
+    "license": "AGPL-3.0-or-later",
     "require": {
         "php": "^7.2.5",
         "ext-bcmath": "*",

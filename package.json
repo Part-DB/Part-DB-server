@@ -9,7 +9,7 @@
         "regenerator-runtime": "^0.13.2",
         "webpack-notifier": "^1.6.0"
     },
-    "license": "UNLICENSED",
+    "license": "AGPL-3.0-or-later",
     "private": true,
     "scripts": {
         "dev-server": "encore dev-server",

@@ -92,8 +92,8 @@ See also the list of [contributors](https://github.com/Part-DB/Part-DB-symfony/g
 Based on the original Part-DB by Christoph Lechner and K. Jacobs
 
 ## License
-Part-DB is licensed under the General Public License 2 (or at your opinion any later).
+Part-DB is licensed under the GNU Affero General Public License v3.0 (or at your opinion any later).
 This mostly means that you can use Part-DB for whatever you want (even use it commercially)
-as long as you publish the source code for every change you make under the GPL, too.
+as long as you publish the source code for every change you make under the AGPL, too.
 
-See [License.md](https://github.com/Part-DB/Part-DB-symfony/blob/master/LICENSE.md) for more informations.
+See [LICENSE](https://github.com/Part-DB/Part-DB-symfony/blob/master/LICENSE) for more informations.
