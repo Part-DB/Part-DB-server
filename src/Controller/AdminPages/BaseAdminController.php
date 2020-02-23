@@ -152,6 +152,7 @@ abstract class BaseAdminController extends AbstractController
             'entity' => $entity,
             'form' => $form->createView(),
             'attachment_helper' => $this->attachmentHelper,
+            'route_base' => $this->route_base,
         ]);
     }
 
@@ -264,6 +265,7 @@ abstract class BaseAdminController extends AbstractController
             'import_form' => $import_form->createView(),
             'mass_creation_form' => $mass_creation_form->createView(),
             'attachment_helper' => $this->attachmentHelper,
+            'route_base' => $this->route_base,
         ]);
     }
 

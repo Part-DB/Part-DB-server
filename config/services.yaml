@@ -92,6 +92,11 @@ services:
         tags:
             - name: doctrine.orm.entity_listener
 
+    # Dont use JSONSerializable Interface,
+    serializer.normalizer.json_serializable:
+        class: Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer
+        tags:
+          - {name: serializer.normalizer, priority: -9000}
 
     App\Controller\RedirectController:
         arguments:

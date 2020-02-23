@@ -132,7 +132,7 @@
 
                     {% if entity.id %}
                         <div id="export" class="tab-pane fade">
-                            {% include 'AdminPages/_export_form.html.twig' with {'path' : path('attachment_type_export', {'id': entity.id})} %}
+                            {% include 'AdminPages/_export_form.html.twig' with {'path' : path(route_base ~ '_export', {'id': entity.id})} %}
                         </div>
                     {% else %} {# For new element we have a combined import/export tab #}
                         <div id="import_export" class="tab-pane fade">

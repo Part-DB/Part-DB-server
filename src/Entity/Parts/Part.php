@@ -85,7 +85,7 @@ class Part extends AttachmentContainingDBElement
     /**
      * TODO.
      */
-    protected $devices;
+    protected $devices = [];
 
     /**
      * @ColumnSecurity(type="datetime")
