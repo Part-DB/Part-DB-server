@@ -63,6 +63,24 @@ class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterf
     }
 
     /**
+     * Checks if this log contains infos about which fields has changed.
+     * @return bool
+     */
+    public function hasChangedFieldsInfo(): bool
+    {
+        return $this->hasOldDataInformations();
+    }
+
+    /**
+     * Return the names of all fields that were changed during the change.
+     * @return string[]
+     */
+    public function getChangedFields(): array
+    {
+        return array_keys($this->getOldData());
+    }
+
+    /**
      * Sets the old data for this entry.
      * @param array $old_data
      * @return $this

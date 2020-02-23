@@ -144,10 +144,22 @@ class LogEntryExtraFormatter
         }
 
         if ($context instanceof ElementEditedLogEntry) {
+            $str = '';
             if ($context->hasComment()) {
-                return htmlspecialchars($context->getComment());
+                $str .= htmlspecialchars($context->getComment());
             }
 
+            if ($context->hasChangedFieldsInfo()) {
+                if (!empty($str)) {
+                    $str .= '; ';
+                }
+                $str .= sprintf(
+                    "<i>%s:</i> %s",
+                    $this->translator->trans('log.element_edited.changed_fields'),
+                    htmlspecialchars(implode(', ', $context->getChangedFields()))
+                );
+            }
+            return $str;
         }
 
         if ($context instanceof InstockChangedLogEntry) {
