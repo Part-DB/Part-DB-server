@@ -25,6 +25,7 @@ use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
+use App\Entity\UserSystem\User;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\EventLogger;
 use Doctrine\Common\EventSubscriber;
@@ -37,15 +38,26 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class EventLoggerSubscriber implements EventSubscriber
 {
+
+    protected const MAX_STRING_LENGTH = 2000;
+
     protected $logger;
     protected $serializer;
     protected $eventCommentHelper;
+    protected $save_changed_fields;
+    protected $save_changed_data;
+    protected $save_removed_data;
 
-    public function __construct(EventLogger $logger, SerializerInterface $serializer, EventCommentHelper $commentHelper)
+    public function __construct(EventLogger $logger, SerializerInterface $serializer, EventCommentHelper $commentHelper,
+        bool $save_changed_fields, bool $save_changed_data, bool $save_removed_data)
     {
         $this->logger = $logger;
         $this->serializer = $serializer;
         $this->eventCommentHelper = $commentHelper;
+
+        $this->save_changed_fields = $save_changed_fields;
+        $this->save_changed_data = $save_changed_data;
+        $this->save_removed_data = $save_removed_data;
     }
 
     public function onFlush(OnFlushEventArgs $eventArgs)
@@ -61,7 +73,12 @@ class EventLoggerSubscriber implements EventSubscriber
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
             if ($this->validEntity($entity)) {
                 $log = new ElementEditedLogEntry($entity);
-                $this->saveChangeSet($entity, $log, $uow);
+                if ($this->save_changed_data) {
+                    $this->saveChangeSet($entity, $log, $uow);
+                } elseif ($this->save_changed_fields) {
+                    $changed_fields = array_keys($uow->getEntityChangeSet($entity));
+                    $log->setChangedFields($changed_fields);
+                }
                 //Add user comment to log entry
                 if ($this->eventCommentHelper->isMessageSet()) {
                     $log->setComment($this->eventCommentHelper->getMessage());
@@ -77,7 +94,9 @@ class EventLoggerSubscriber implements EventSubscriber
                 if ($this->eventCommentHelper->isMessageSet()) {
                     $log->setComment($this->eventCommentHelper->getMessage());
                 }
-                $this->saveChangeSet($entity, $log, $uow);
+                if ($this->save_removed_data) {
+                    $this->saveChangeSet($entity, $log, $uow);
+                }
                 $this->logger->log($log);
             }
         }
@@ -94,6 +113,21 @@ class EventLoggerSubscriber implements EventSubscriber
 
         $changeSet = $uow->getEntityChangeSet($entity);
         $old_data = array_diff(array_combine(array_keys($changeSet), array_column($changeSet, 0)), [null]);
+        //Restrict length of string fields, to save memory...
+        $old_data = array_map(function ($value) {
+            if (is_string($value)) {
+                return mb_strimwidth($value, 0, self::MAX_STRING_LENGTH, '...');
+            }
+
+            return $value;
+        }, $old_data);
+
+        //Dont save sensitive fields to log
+        if ($entity instanceof User) {
+            unset($old_data['password'], $old_data['pw_reset_token'], $old_data['backupCodes']);
+        }
+
+
         $logEntry->setOldData($old_data);
     }
 

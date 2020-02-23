@@ -68,7 +68,7 @@ class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterf
      */
     public function hasChangedFieldsInfo(): bool
     {
-        return $this->hasOldDataInformations();
+        return isset($this->extra['f']) || $this->hasOldDataInformations();
     }
 
     /**
@@ -77,7 +77,26 @@ class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterf
      */
     public function getChangedFields(): array
     {
-        return array_keys($this->getOldData());
+        if ($this->hasOldDataInformations()) {
+            return array_keys($this->getOldData());
+        }
+
+        if (isset($this->extra['f'])) {
+            return $this->extra['f'];
+        }
+
+        return [];
+    }
+
+    /**
+     * Set the fields that were changed during this element change.
+     * @param  string[]  $changed_fields The names of the fields that were changed during the elements
+     * @return $this
+     */
+    public function setChangedFields(array $changed_fields): self
+    {
+        $this->extra['f'] = $changed_fields;
+        return $this;
     }
 
     /**
