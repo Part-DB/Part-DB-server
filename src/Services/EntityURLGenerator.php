@@ -126,11 +126,11 @@ class EntityURLGenerator
 
     /**
      * Gets the URL to view the given element at a given timestamp
-     * @param $entity
+     * @param AbstractDBElement $entity
      * @param  \DateTime  $dateTime
      * @return string
      */
-    public function timeTravelURL($entity, \DateTime $dateTime): string
+    public function timeTravelURL(AbstractDBElement $entity, \DateTime $dateTime): string
     {
         if ($entity instanceof Part) {
             return $this->urlGenerator->generate('part_info', [

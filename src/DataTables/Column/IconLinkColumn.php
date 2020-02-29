@@ -47,6 +47,8 @@ class IconLinkColumn extends AbstractColumn
         $resolver->setAllowedTypes('title', ['null', 'string', 'callable']);
         $resolver->setAllowedTypes('icon', ['null', 'string', 'callable']);
         $resolver->setAllowedTypes('href', ['null', 'string', 'callable']);
+
+        return $this;
     }
 
     public function render($value, $context)

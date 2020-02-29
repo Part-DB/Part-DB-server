@@ -138,7 +138,6 @@ class PartController extends AbstractController
      * @param  Request  $request
      * @param  EntityManagerInterface  $em
      * @param  TranslatorInterface  $translator
-     * @param  AttachmentManager  $attachmentHelper
      * @param  AttachmentSubmitHandler  $attachmentSubmitHandler
      * @return Response
      */

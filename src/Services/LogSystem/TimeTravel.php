@@ -22,6 +22,7 @@
 namespace App\Services\LogSystem;
 
 
+use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Contracts\TimeStampableInterface;
@@ -32,7 +33,6 @@ use App\Entity\LogSystem\ElementEditedLogEntry;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Proxies\__CG__\App\Entity\Attachments\AttachmentType;
 
 class TimeTravel
 {
