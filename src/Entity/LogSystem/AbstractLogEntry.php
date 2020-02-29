@@ -81,7 +81,8 @@ use Psr\Log\LogLevel;
  *  7 = "ElementEditedLogEntry",
  *  8 = "ConfigChangedLogEntry",
  *  9 = "InstockChangedLogEntry",
- *  10 = "DatabaseUpdatedLogEntry"
+ *  10 = "DatabaseUpdatedLogEntry",
+ *  11 = "CollectionElementDeleted"
  * })
  */
 abstract class AbstractLogEntry extends AbstractDBElement

@@ -27,6 +27,8 @@ use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Contracts\TimeStampableInterface;
 use App\Entity\Contracts\TimeTravelInterface;
 use App\Entity\LogSystem\AbstractLogEntry;
+use App\Entity\LogSystem\CollectionElementDeleted;
+use App\Entity\LogSystem\ElementEditedLogEntry;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -43,6 +45,31 @@ class TimeTravel
         $this->repo = $em->getRepository(AbstractLogEntry::class);
     }
 
+    /**
+     * Undeletes the element with the given ID.
+     * @param  string  $class  The class name of the element that should be undeleted
+     * @param  int  $id  The ID of the element that should be undeleted.
+     * @return AbstractDBElement
+     */
+    public function undeleteEntity(string $class, int $id): AbstractDBElement
+    {
+        $log = $this->repo->getUndeleteDataForElement($class, $id);
+        $element = new $class();
+        $this->applyEntry($element, $log);
+
+        //Set internal ID so the element can be reverted
+        $this->setField($element, 'id', $id);
+
+        return $element;
+    }
+
+    /**
+     * Revert the given element to the state it has on the given timestamp
+     * @param  AbstractDBElement  $element
+     * @param  \DateTime  $timestamp
+     * @param  AbstractLogEntry[]  $reverted_elements
+     * @throws \Exception
+     */
     public function revertEntityToTimestamp(AbstractDBElement $element, \DateTime $timestamp, array $reverted_elements = [])
     {
         if (!$element instanceof TimeStampableInterface) {
@@ -68,7 +95,23 @@ class TimeTravel
         }*/
 
         foreach ($history as $logEntry) {
-            $this->applyEntry($element, $logEntry);
+            if ($logEntry instanceof ElementEditedLogEntry) {
+                $this->applyEntry($element, $logEntry);
+            }
+            if ($logEntry instanceof CollectionElementDeleted) {
+                //Undelete element and add it to collection again
+                $undeleted = $this->undeleteEntity(
+                    $logEntry->getDeletedElementClass(),
+                    $logEntry->getDeletedElementID()
+                );
+                if ($this->repo->getElementExistedAtTimestamp($undeleted, $timestamp)) {
+                    $this->revertEntityToTimestamp($undeleted, $timestamp, $reverted_elements);
+                    $collection = $this->getField($element, $logEntry->getCollectionName());
+                    if ($collection instanceof Collection) {
+                        $collection->add($undeleted);
+                    }
+                }
+            }
         }
 
         // Revert any of the associated elements
@@ -83,7 +126,7 @@ class TimeTravel
             }
 
 
-            //Revert many to one association
+            //Revert many to one association (one element in property)
             if (
                 $mapping['type'] === ClassMetadata::MANY_TO_ONE
                 || $mapping['type'] === ClassMetadata::ONE_TO_ONE
@@ -92,7 +135,7 @@ class TimeTravel
                 if ($target_element !== null && $element->getLastModified() > $timestamp) {
                     $this->revertEntityToTimestamp($target_element, $timestamp, $reverted_elements);
                 }
-            } elseif (
+            } elseif ( //Revert *_TO_MANY associations (collection properties)
                 ($mapping['type'] === ClassMetadata::MANY_TO_MANY
                     || $mapping['type'] === ClassMetadata::ONE_TO_MANY)
                 && $mapping['isOwningSide'] === false
@@ -102,7 +145,7 @@ class TimeTravel
                     continue;
                 }
                 foreach ($target_elements as $target_element) {
-                    if ($target_element !== null && $element->getLastModified() > $timestamp) {
+                    if ($target_element !== null && $element->getLastModified() >= $timestamp) {
                         //Remove the element from collection, if it did not existed at $timestamp
                         if (!$this->repo->getElementExistedAtTimestamp($target_element, $timestamp)) {
                             if ($target_elements instanceof Collection) {
@@ -117,6 +160,12 @@ class TimeTravel
         }
     }
 
+    /**
+     * Apply the changeset in the given LogEntry to the element
+     * @param  AbstractDBElement  $element
+     * @param  TimeTravelInterface  $logEntry
+     * @throws \Doctrine\ORM\Mapping\MappingException
+     */
     public function applyEntry(AbstractDBElement $element, TimeTravelInterface $logEntry): void
     {
         //Skip if this does not provide any info...
@@ -134,16 +183,13 @@ class TimeTravel
                 $this->setField($element, $field, $data);
             }
             if ($metadata->hasAssociation($field)) {
-                $target_class = $metadata->getAssociationMapping($field)['targetEntity'];
-                $target_id = null;
+                $mapping = $metadata->getAssociationMapping($field);
+                $target_class = $mapping['targetEntity'];
                 //Try to extract the old ID:
                 if (is_array($data) && isset($data['@id'])) {
-                    $target_id = $data['@id'];
-                } else {
-                    throw new \RuntimeException('The given $logEntry contains invalid informations!');
+                    $entity = $this->em->getPartialReference($target_class, $data['@id']);
+                    $this->setField($element, $field, $entity);
                 }
-                $entity = $this->em->getPartialReference($target_class, $target_id);
-                $this->setField($element, $field, $entity);
             }
         }
 

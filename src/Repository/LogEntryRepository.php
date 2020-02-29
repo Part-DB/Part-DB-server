@@ -44,6 +44,7 @@ namespace App\Repository;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
+use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
@@ -82,12 +83,51 @@ class LogEntryRepository extends EntityRepository
         return $this->findBy(['element' => $element], ['timestamp' => $order], $limit, $offset);
     }
 
+    /**
+     * Try to get a log entry that contains the information to undete a given element
+     * @param  string  $class The class of the element that should be undeleted
+     * @param  int  $id The ID of the element that should be deleted
+     * @return ElementDeletedLogEntry
+     */
+    public function getUndeleteDataForElement(string $class, int $id): ElementDeletedLogEntry
+    {
+        $qb = $this->createQueryBuilder('log');
+        $qb->select('log')
+            //->where('log INSTANCE OF App\Entity\LogSystem\ElementEditedLogEntry')
+            ->where('log INSTANCE OF ' . ElementDeletedLogEntry::class)
+            ->andWhere('log.target_type = :target_type')
+            ->andWhere('log.target_id = :target_id')
+            ->orderBy('log.timestamp', 'DESC')
+            ->setMaxResults(1);
+
+        $qb->setParameters([
+                               'target_type' => AbstractLogEntry::targetTypeClassToID($class),
+                               'target_id' => $id,
+                           ]);
+
+        $query =  $qb->getQuery();
+
+        $results = $query->execute();
+
+        if (empty($results)) {
+            throw new \RuntimeException("No undelete data could be found for this element");
+        }
+        return $results[0];
+    }
+
+    /**
+     * Gets all log entries that are related to time travelling
+     * @param  AbstractDBElement  $element The element for which the time travel data should be retrieved
+     * @param  \DateTime  $until Back to which timestamp should the data be get (including the timestamp)
+     * @return AbstractLogEntry[]
+     */
     public function getTimetravelDataForElement(AbstractDBElement $element, \DateTime $until): array
     {
         $qb = $this->createQueryBuilder('log');
         $qb->select('log')
             //->where('log INSTANCE OF App\Entity\LogSystem\ElementEditedLogEntry')
             ->where('log INSTANCE OF ' . ElementEditedLogEntry::class)
+            ->orWhere('log INSTANCE OF ' . CollectionElementDeleted::class)
             ->andWhere('log.target_type = :target_type')
             ->andWhere('log.target_id = :target_id')
             ->andWhere('log.timestamp >= :until')
@@ -103,6 +143,12 @@ class LogEntryRepository extends EntityRepository
         return $query->execute();
     }
 
+    /**
+     * Check if the given element has existed at the given timestamp
+     * @param  AbstractDBElement  $element
+     * @param  \DateTime  $timestamp
+     * @return bool True if the element existed at the given timestamp
+     */
     public function getElementExistedAtTimestamp(AbstractDBElement $element, \DateTime $timestamp): bool
     {
         $qb = $this->createQueryBuilder('log');

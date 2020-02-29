@@ -96,16 +96,6 @@ class PartController extends AbstractController
     {
         $this->denyAccessUnlessGranted('read', $part);
 
-        $table = $dataTable->createFromType(LogDataTable::class, [
-            'filter_elements' => $historyHelper->getAssociatedElements($part),
-            'mode' => 'element_history'
-        ], ['pageLength' => 10])
-            ->handleRequest($request);
-
-        if ($table->isCallback()) {
-            return $table->getResponse();
-        }
-
         $timeTravel_timestamp = null;
         if ($timestamp !== null) {
             //If the timestamp only contains numbers interpret it as unix timestamp
@@ -116,6 +106,16 @@ class PartController extends AbstractController
                 $timeTravel_timestamp = new \DateTime($timestamp);
             }
             $timeTravel->revertEntityToTimestamp($part, $timeTravel_timestamp);
+        }
+
+        $table = $dataTable->createFromType(LogDataTable::class, [
+            'filter_elements' => $historyHelper->getAssociatedElements($part),
+            'mode' => 'element_history'
+        ], ['pageLength' => 10])
+            ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
         }
 
         return $this->render(

@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\Services\LogSystem;
 
 use App\Entity\LogSystem\AbstractLogEntry;
+use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\DatabaseUpdatedLogEntry;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
@@ -52,6 +53,8 @@ use App\Entity\LogSystem\InstockChangedLogEntry;
 use App\Entity\LogSystem\UserLoginLogEntry;
 use App\Entity\LogSystem\UserLogoutLogEntry;
 use App\Entity\LogSystem\UserNotAllowedLogEntry;
+use App\Services\ElementTypeNameGenerator;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -60,10 +63,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class LogEntryExtraFormatter
 {
     protected $translator;
+    protected $elementTypeNameGenerator;
 
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator, ElementTypeNameGenerator $elementTypeNameGenerator)
     {
         $this->translator = $translator;
+        $this->elementTypeNameGenerator = $elementTypeNameGenerator;
     }
 
     /**
@@ -171,6 +176,15 @@ class LogEntryExtraFormatter
                 (! $context->isWithdrawal() ? '+' : '-').$context->getDifference(true),
                 $this->translator->trans('log.instock_changed.comment'),
                 htmlspecialchars($context->getComment())
+            );
+        }
+
+        if ($context instanceof CollectionElementDeleted) {
+            return sprintf('<i>%s</i>: %s: %s (%s)',
+                $this->translator->trans('log.collection_deleted.deleted'),
+                $this->elementTypeNameGenerator->getLocalizedTypeLabel($context->getDeletedElementClass()),
+                $context->getOldName() ?? $context->getDeletedElementID(),
+                $context->getCollectionName()
             );
         }
 

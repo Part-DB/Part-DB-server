@@ -49,6 +49,7 @@ use App\DataTables\Column\LogEntryTargetColumn;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\TimeTravelInterface;
 use App\Entity\LogSystem\AbstractLogEntry;
+use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Exceptions\EntityNotSupportedException;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
@@ -211,8 +212,9 @@ class LogDataTable implements DataTableTypeInterface
             'icon' => 'fas fa-fw fa-eye',
             'href' => function ($value, AbstractLogEntry $context) {
                 if (
-                    $context instanceof TimeTravelInterface
-                    && $context->hasOldDataInformations()
+                ($context instanceof TimeTravelInterface
+                    && $context->hasOldDataInformations())
+                || $context instanceof CollectionElementDeleted
                 ) {
                     try {
                         $target = $this->logRepo->getTargetElement($context);
