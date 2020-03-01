@@ -48,22 +48,39 @@ class RevertLogColumn extends AbstractColumn
 
     public function render($value, $context)
     {
-        if ($context instanceof ElementDeletedLogEntry || $context instanceof CollectionElementDeleted) {
+        $revertable = true;
+        if (
+            $context instanceof CollectionElementDeleted
+            || ($context instanceof ElementDeletedLogEntry && $context->hasOldDataInformations())
+        ) {
             $icon = 'fa-trash-restore';
             $title = $this->translator->trans('log.undo.undelete');
-        } elseif ($context instanceof ElementEditedLogEntry || $context instanceof ElementCreatedLogEntry) {
+        } elseif (
+            $context instanceof ElementCreatedLogEntry
+            || ($context instanceof ElementEditedLogEntry && $context->hasOldDataInformations())
+        ) {
             $icon = 'fa-undo';
             $title = $this->translator->trans('log.undo.undo');
         } else {
             return '';
         }
 
-
-        return sprintf(
-            '<button type="submit" class="btn btn-outline-secondary btn-sm" name="undo" value="%d"><i class="fas fa-fw %s" title="%s"></i></button>',
+        $tmp = '<div class="btn-group btn-group-sm">';
+        $tmp .= sprintf(
+            '<button type="submit" class="btn btn-outline-secondary" name="undo" value="%d"><i class="fas fa-fw %s" title="%s"></i></button>',
             $context->getID(),
             $icon,
             $title
         );
+
+        $tmp .= sprintf(
+            '<button type="submit" class="btn btn-outline-secondary" name="revert" value="%d"><i class="fas fa-fw fa-backward" title="%s"></i></button>',
+            $context->getID(),
+            $this->translator->trans('log.undo.revert')
+        );
+
+        $tmp .= '</div>';
+
+        return $tmp;
     }
 }

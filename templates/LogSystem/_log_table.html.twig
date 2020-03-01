@@ -1,5 +1,5 @@
 <form method="post" action="{{ url("log_undo") }}" data-delete-form data-title="{% trans %}log.undo.confirm_title{% endtrans %}"
-      data-message="{% trans %}log.undo.confirm_message{% endtrans %}">>
+      data-message="{% trans %}log.undo.confirm_message{% endtrans %}">
     <input type="hidden" name="redirect_back" value="{{ app.request.uri }}">
     <div id="part_list" class="" data-datatable data-settings='{{ datatable_settings(datatable) }}'>
         <div class="card-body">

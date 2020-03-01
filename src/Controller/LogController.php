@@ -105,14 +105,61 @@ class LogController extends AbstractController
      * @Route("/undo", name="log_undo", methods={"POST"})
      * @param  Request  $request
      */
-    public function undoLog(Request $request, EventUndoHelper $eventUndoHelper)
+    public function undoRevertLog(Request $request, EventUndoHelper $eventUndoHelper)
     {
+        $mode = EventUndoHelper::MODE_UNDO;
         $id = $request->request->get('undo');
-        $log_element = $this->entityManager->find(AbstractLogEntry::class, $id);
 
-        $eventUndoHelper->setMode(EventUndoHelper::MODE_UNDO);
+        //If no undo value was set check if a revert was set
+        if ($id === null) {
+            $id = $request->get('revert');
+            $mode = EventUndoHelper::MODE_REVERT;
+        }
+
+        $log_element = $this->entityManager->find(AbstractLogEntry::class, $id);
+        if ($log_element === null) {
+            throw new \InvalidArgumentException('No log entry with the given ID is existing!');
+        }
+
+        $eventUndoHelper->setMode($mode);
         $eventUndoHelper->setUndoneEvent($log_element);
 
+        if ($mode === EventUndoHelper::MODE_UNDO) {
+            $this->undoLog($log_element);
+        } elseif ($mode === EventUndoHelper::MODE_REVERT) {
+            $this->revertLog($log_element);
+        }
+
+        $eventUndoHelper->clearUndoneEvent();
+
+        $redirect = $request->request->get('redirect_back');
+        return $this->redirect($redirect);
+    }
+
+    protected function revertLog(AbstractLogEntry $logEntry): void
+    {
+        $timestamp = $logEntry->getTimestamp();
+        $element = $this->entityManager->find($logEntry->getTargetClass(), $logEntry->getTargetID());
+        //If the element is not available in DB try to undelete it
+        if ($element === null) {
+            $element = $this->timeTravel->undeleteEntity($logEntry->getTargetClass(), $logEntry->getTargetID());
+            $this->entityManager->persist($element);
+            $this->entityManager->flush();
+            $this->dbRepository->changeID($element, $logEntry->getTargetID());
+        }
+
+        if (!$element instanceof AbstractDBElement) {
+            $this->addFlash('error', 'log.undo.target_not_found');
+            return;
+        }
+
+        $this->timeTravel->revertEntityToTimestamp($element, $timestamp);
+        $this->entityManager->flush();
+        $this->addFlash('success', 'log.undo.revert_success');
+    }
+
+    protected function undoLog(AbstractLogEntry $log_element): void
+    {
         if ($log_element instanceof ElementDeletedLogEntry || $log_element instanceof CollectionElementDeleted) {
             if ($log_element instanceof ElementDeletedLogEntry) {
                 $element_class = $log_element->getTargetClass();
@@ -153,10 +200,5 @@ class LogController extends AbstractController
         } else {
             $this->addFlash('error', 'log.undo.log_type_invalid');
         }
-
-        $eventUndoHelper->clearUndoneEvent();
-
-        $redirect = $request->request->get('redirect_back');
-        return $this->redirect($redirect);
     }
 }
