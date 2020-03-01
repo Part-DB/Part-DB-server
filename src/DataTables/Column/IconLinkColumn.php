@@ -59,7 +59,7 @@ class IconLinkColumn extends AbstractColumn
 
         if ($href !== null) {
             return sprintf(
-                '<a href="%s" title="%s"><i class="%s"></i></a>',
+                '<a class="btn btn-primary btn-sm" href="%s" title="%s"><i class="%s"></i></a>',
                 $href,
                 $title,
                 $icon

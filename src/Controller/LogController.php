@@ -43,9 +43,20 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\DataTables\LogDataTable;
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\LogSystem\AbstractLogEntry;
+use App\Entity\LogSystem\CollectionElementDeleted;
+use App\Entity\LogSystem\ElementCreatedLogEntry;
+use App\Entity\LogSystem\ElementDeletedLogEntry;
+use App\Entity\LogSystem\ElementEditedLogEntry;
+use App\Services\LogSystem\EventUndoHelper;
+use App\Services\LogSystem\TimeTravel;
+use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
+use phpDocumentor\Reflection\Element;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -55,6 +66,18 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class LogController extends AbstractController
 {
+    protected $entityManager;
+    protected $timeTravel;
+    protected $dbRepository;
+
+
+    public function __construct(EntityManagerInterface $entityManager, TimeTravel $timeTravel)
+    {
+        $this->entityManager = $entityManager;
+        $this->timeTravel = $timeTravel;
+        $this->dbRepository = $entityManager->getRepository(AbstractDBElement::class);
+    }
+
     /**
      * @Route("/", name="log_view")
      *
@@ -76,5 +99,64 @@ class LogController extends AbstractController
         return $this->render('LogSystem/log_list.html.twig', [
             'datatable' => $table,
         ]);
+    }
+
+    /**
+     * @Route("/undo", name="log_undo", methods={"POST"})
+     * @param  Request  $request
+     */
+    public function undoLog(Request $request, EventUndoHelper $eventUndoHelper)
+    {
+        $id = $request->request->get('undo');
+        $log_element = $this->entityManager->find(AbstractLogEntry::class, $id);
+
+        $eventUndoHelper->setMode(EventUndoHelper::MODE_UNDO);
+        $eventUndoHelper->setUndoneEvent($log_element);
+
+        if ($log_element instanceof ElementDeletedLogEntry || $log_element instanceof CollectionElementDeleted) {
+            if ($log_element instanceof ElementDeletedLogEntry) {
+                $element_class = $log_element->getTargetClass();
+                $element_id = $log_element->getTargetID();
+            } else {
+                $element_class = $log_element->getDeletedElementClass();
+                $element_id = $log_element->getDeletedElementID();
+            }
+
+            //Check if the element we want to undelete already exits
+            if ($this->entityManager->find($element_class, $element_id) == null) {
+                $undeleted_element = $this->timeTravel->undeleteEntity($element_class, $element_id);
+                $this->entityManager->persist($undeleted_element);
+                $this->entityManager->flush();
+                $this->dbRepository->changeID($undeleted_element, $element_id);
+                $this->addFlash('success', 'log.undo.element_undelete_success');
+            } else {
+                $this->addFlash('warning', 'log.undo.element_element_already_undeleted');
+            }
+        } elseif ($log_element instanceof ElementCreatedLogEntry) {
+            $element = $this->entityManager->find($log_element->getTargetClass(), $log_element->getTargetID());
+            if ($element !== null) {
+                $this->entityManager->remove($element);
+                $this->entityManager->flush();
+                $this->addFlash('success', 'log.undo.element_delete_success');
+            } else {
+                $this->addFlash('warning', 'log.undo.element.element_already_delted');
+            }
+        } elseif ($log_element instanceof ElementEditedLogEntry) {
+            $element = $this->entityManager->find($log_element->getTargetClass(), $log_element->getTargetID());
+            if ($element instanceof AbstractDBElement) {
+                $this->timeTravel->applyEntry($element, $log_element);
+                $this->entityManager->flush();
+                $this->addFlash('success', 'log.undo.element_change_undone');
+            } else {
+                $this->addFlash('error', 'log.undo.do_undelete_before');
+            }
+        } else {
+            $this->addFlash('error', 'log.undo.log_type_invalid');
+        }
+
+        $eventUndoHelper->clearUndoneEvent();
+
+        $redirect = $request->request->get('redirect_back');
+        return $this->redirect($redirect);
     }
 }

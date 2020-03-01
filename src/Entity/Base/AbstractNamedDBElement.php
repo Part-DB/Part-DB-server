@@ -31,7 +31,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * All subclasses of this class have an attribute "name".
  *
- * @ORM\MappedSuperclass(repositoryClass="App\Repository\UserRepository")
+ * @ORM\MappedSuperclass(repositoryClass="App\Repository\NamedDBElement")
  * @ORM\HasLifecycleCallbacks()
  */
 abstract class AbstractNamedDBElement extends AbstractDBElement implements NamedElementInterface, TimeStampableInterface

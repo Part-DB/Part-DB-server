@@ -52,7 +52,7 @@ use App\Entity\UserSystem\User;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class LogEntryRepository extends EntityRepository
+class LogEntryRepository extends DBElementRepository
 {
     public function findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
     {

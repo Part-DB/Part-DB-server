@@ -22,6 +22,7 @@ namespace App\Entity\LogSystem;
 
 
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Contracts\LogWithEventUndoInterface;
 use App\Entity\Contracts\NamedElementInterface;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -30,7 +31,7 @@ use Doctrine\ORM\Mapping as ORM;
  * This log entry is created when an element is deleted, that is used in a collection of an other entity.
  * This is needed to signal time travel, that it has to undelete the deleted entity.
  */
-class CollectionElementDeleted extends AbstractLogEntry
+class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventUndoInterface
 {
     protected $typeString = 'collection_element_deleted';
     protected $level = self::LEVEL_INFO;
@@ -84,5 +85,52 @@ class CollectionElementDeleted extends AbstractLogEntry
     public function getDeletedElementID(): int
     {
         return $this->extra['i'];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isUndoEvent(): bool
+    {
+        return isset($this->extra['u']);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUndoEventID(): ?int
+    {
+        return $this->extra['u'] ?? null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setUndoneEvent(AbstractLogEntry $event, string $mode = 'undo'): LogWithEventUndoInterface
+    {
+        $this->extra['u'] = $event->getID();
+
+        if ($mode === 'undo') {
+            $this->extra['um'] = 1;
+        } elseif ($mode === 'revert') {
+            $this->extra['um'] = 2;
+        } else {
+            throw new \InvalidArgumentException('Passed invalid $mode!');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUndoMode(): string
+    {
+        $mode_int = $this->extra['um'] ?? 1;
+        if ($mode_int === 1) {
+            return 'undo';
+        } else {
+            return 'revert';
+        }
     }
 }

@@ -44,13 +44,14 @@ namespace App\Entity\LogSystem;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\LogWithCommentInterface;
+use App\Entity\Contracts\LogWithEventUndoInterface;
 use App\Entity\Contracts\TimeTravelInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
  */
-class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterface, LogWithCommentInterface
+class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterface, LogWithCommentInterface, LogWithEventUndoInterface
 {
     protected $typeString = 'element_edited';
 
@@ -149,5 +150,52 @@ class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterf
     {
         $this->extra['m'] = $new_comment;
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isUndoEvent(): bool
+    {
+        return isset($this->extra['u']);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUndoEventID(): ?int
+    {
+        return $this->extra['u'] ?? null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setUndoneEvent(AbstractLogEntry $event, string $mode = 'undo'): LogWithEventUndoInterface
+    {
+        $this->extra['u'] = $event->getID();
+
+        if ($mode === 'undo') {
+            $this->extra['um'] = 1;
+        } elseif ($mode === 'revert') {
+            $this->extra['um'] = 2;
+        } else {
+            throw new \InvalidArgumentException('Passed invalid $mode!');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUndoMode(): string
+    {
+        $mode_int = $this->extra['um'] ?? 1;
+        if ($mode_int === 1) {
+            return 'undo';
+        } else {
+            return 'revert';
+        }
     }
 }

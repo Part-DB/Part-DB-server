@@ -46,6 +46,7 @@ use App\DataTables\Column\IconLinkColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\LogEntryExtraColumn;
 use App\DataTables\Column\LogEntryTargetColumn;
+use App\DataTables\Column\RevertLogColumn;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\TimeTravelInterface;
 use App\Entity\LogSystem\AbstractLogEntry;
@@ -218,14 +219,20 @@ class LogDataTable implements DataTableTypeInterface
                 ) {
                     try {
                         $target = $this->logRepo->getTargetElement($context);
-                        $str = $this->entityURLGenerator->timeTravelURL($target, $context->getTimestamp());
-                        return $str;
+                        if($target !== null) {
+                            $str = $this->entityURLGenerator->timeTravelURL($target, $context->getTimestamp());
+                            return $str;
+                        }
                     } catch (EntityNotSupportedException $exception) {
                         return null;
                     }
                 }
                 return null;
             }
+        ]);
+
+        $dataTable->add('actionRevert', RevertLogColumn::class, [
+            'label' => ''
         ]);
 
         $dataTable->addOrderBy('timestamp', DataTable::SORT_DESCENDING);

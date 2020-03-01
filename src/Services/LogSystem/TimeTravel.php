@@ -60,6 +60,9 @@ class TimeTravel
         //Set internal ID so the element can be reverted
         $this->setField($element, 'id', $id);
 
+        //Let database determine when it will be created
+        $this->setField($element,'addedDate', null);
+
         return $element;
     }
 

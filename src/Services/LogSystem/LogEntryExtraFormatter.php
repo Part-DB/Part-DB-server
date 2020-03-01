@@ -123,8 +123,15 @@ class LogEntryExtraFormatter
 
         if ($context instanceof ElementCreatedLogEntry ) {
             $comment = '';
+            if ($context->isUndoEvent()) {
+                if ($context->getUndoMode() === 'undo') {
+                    $comment .= $this->translator->trans('log.undo_mode.undo').': '.$context->getUndoEventID().';';
+                } elseif($context->getUndoMode() === 'revert') {
+                    $comment .= $this->translator->trans('log.undo_mode.revert').': '.$context->getUndoEventID().';';
+                }
+            }
             if ($context->hasComment()) {
-                $comment = htmlspecialchars($context->getComment()) . '; ';
+                $comment .= htmlspecialchars($context->getComment()) . '; ';
             }
             if($context->hasCreationInstockValue()) {
                 return $comment . sprintf(
@@ -138,8 +145,15 @@ class LogEntryExtraFormatter
 
         if ($context instanceof ElementDeletedLogEntry) {
             $comment = '';
+            if ($context->isUndoEvent()) {
+                if ($context->getUndoMode() === 'undo') {
+                    $comment .= $this->translator->trans('log.undo_mode.undo').': '.$context->getUndoEventID().';';
+                } elseif($context->getUndoMode() === 'revert') {
+                    $comment .= $this->translator->trans('log.undo_mode.revert').': '.$context->getUndoEventID().';';
+                }
+            }
             if ($context->hasComment()) {
-                $comment = htmlspecialchars($context->getComment()) . '; ';
+                $comment .= htmlspecialchars($context->getComment()) . '; ';
             }
             return $comment . sprintf(
                     '<i>%s</i>: %s',
@@ -150,6 +164,13 @@ class LogEntryExtraFormatter
 
         if ($context instanceof ElementEditedLogEntry) {
             $str = '';
+            if ($context->isUndoEvent()) {
+                if ($context->getUndoMode() === 'undo') {
+                    $str .= $this->translator->trans('log.undo_mode.undo').': '.$context->getUndoEventID().';';
+                } elseif($context->getUndoMode() === 'revert') {
+                    $str .= $this->translator->trans('log.undo_mode.revert').': '.$context->getUndoEventID().';';
+                }
+            }
             if ($context->hasComment()) {
                 $str .= htmlspecialchars($context->getComment());
             }
@@ -180,7 +201,16 @@ class LogEntryExtraFormatter
         }
 
         if ($context instanceof CollectionElementDeleted) {
-            return sprintf('<i>%s</i>: %s: %s (%s)',
+            $comment = '';
+            if ($context->isUndoEvent()) {
+                if ($context->getUndoMode() === 'undo') {
+                    $comment .= $this->translator->trans('log.undo_mode.undo').': '.$context->getUndoEventID().';';
+                } elseif($context->getUndoMode() === 'revert') {
+                    $comment .= $this->translator->trans('log.undo_mode.revert').': '.$context->getUndoEventID().';';
+                }
+            }
+
+            return $comment . sprintf('<i>%s</i>: %s: %s (%s)',
                 $this->translator->trans('log.collection_deleted.deleted'),
                 $this->elementTypeNameGenerator->getLocalizedTypeLabel($context->getDeletedElementClass()),
                 $context->getOldName() ?? $context->getDeletedElementID(),

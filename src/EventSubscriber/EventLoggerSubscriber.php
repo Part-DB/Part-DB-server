@@ -36,6 +36,7 @@ use App\Entity\PriceInformations\Pricedetail;
 use App\Entity\UserSystem\User;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\EventLogger;
+use App\Services\LogSystem\EventUndoHelper;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\OnFlushEventArgs;
@@ -65,18 +66,21 @@ class EventLoggerSubscriber implements EventSubscriber
     protected $logger;
     protected $serializer;
     protected $eventCommentHelper;
+    protected $eventUndoHelper;
     protected $save_changed_fields;
     protected $save_changed_data;
     protected $save_removed_data;
     protected $propertyAccessor;
 
     public function __construct(EventLogger $logger, SerializerInterface $serializer, EventCommentHelper $commentHelper,
-        bool $save_changed_fields, bool $save_changed_data, bool $save_removed_data, PropertyAccessorInterface $propertyAccessor)
+        bool $save_changed_fields, bool $save_changed_data, bool $save_removed_data, PropertyAccessorInterface $propertyAccessor,
+        EventUndoHelper $eventUndoHelper)
     {
         $this->logger = $logger;
         $this->serializer = $serializer;
         $this->eventCommentHelper = $commentHelper;
         $this->propertyAccessor = $propertyAccessor;
+        $this->eventUndoHelper = $eventUndoHelper;
 
         $this->save_changed_fields = $save_changed_fields;
         $this->save_changed_data = $save_changed_data;
@@ -120,6 +124,18 @@ class EventLoggerSubscriber implements EventSubscriber
             if ($this->eventCommentHelper->isMessageSet()) {
                 $log->setComment($this->eventCommentHelper->getMessage());
             }
+            if ($this->eventUndoHelper->isUndo()) {
+                $undoEvent = $this->eventUndoHelper->getUndoneEvent();
+
+                $log->setUndoneEvent($undoEvent, $this->eventUndoHelper->getMode());
+
+                if($undoEvent instanceof ElementDeletedLogEntry && $undoEvent->getTargetClass() === $log->getTargetClass()) {
+                    $log->setTargetElementID($undoEvent->getTargetID());
+                }
+                if($undoEvent instanceof CollectionElementDeleted && $undoEvent->getDeletedElementClass() === $log->getTargetClass()) {
+                    $log->setTargetElementID($undoEvent->getDeletedElementID());
+                }
+            }
             $this->logger->log($log);
         }
     }
@@ -135,6 +151,7 @@ class EventLoggerSubscriber implements EventSubscriber
 
         //Clear the message provided by user.
         $this->eventCommentHelper->clearMessage();
+        $this->eventUndoHelper->clearUndoneEvent();
     }
 
     protected function logElementDeleted(AbstractDBElement $entity, EntityManagerInterface $em): void
@@ -143,6 +160,9 @@ class EventLoggerSubscriber implements EventSubscriber
         //Add user comment to log entry
         if ($this->eventCommentHelper->isMessageSet()) {
             $log->setComment($this->eventCommentHelper->getMessage());
+        }
+        if ($this->eventUndoHelper->isUndo()) {
+            $log->setUndoneEvent($this->eventUndoHelper->getUndoneEvent(), $this->eventUndoHelper->getMode());
         }
         if ($this->save_removed_data) {
             //The 4th param is important here, as we delete the element...
@@ -162,6 +182,9 @@ class EventLoggerSubscriber implements EventSubscriber
                         if (in_array($field, $whitelist)) {
                             $changed = $this->propertyAccessor->getValue($entity, $field);
                             $log = new CollectionElementDeleted($changed, $mapping['inversedBy'], $entity);
+                            if ($this->eventUndoHelper->isUndo()) {
+                                $log->setUndoneEvent($this->eventUndoHelper->getUndoneEvent(), $this->eventUndoHelper->getMode());
+                            }
                             $this->logger->log($log);
                         }
                     }
@@ -179,11 +202,15 @@ class EventLoggerSubscriber implements EventSubscriber
             $this->saveChangeSet($entity, $log, $em);
         } elseif ($this->save_changed_fields) {
             $changed_fields = array_keys($uow->getEntityChangeSet($entity));
+            unset($changed_fields['lastModified']);
             $log->setChangedFields($changed_fields);
         }
         //Add user comment to log entry
         if ($this->eventCommentHelper->isMessageSet()) {
             $log->setComment($this->eventCommentHelper->getMessage());
+        }
+        if ($this->eventUndoHelper->isUndo()) {
+            $log->setUndoneEvent($this->eventUndoHelper->getUndoneEvent(), $this->eventUndoHelper->getMode());
         }
         $this->logger->log($log);
     }
@@ -212,6 +239,8 @@ class EventLoggerSubscriber implements EventSubscriber
      */
     protected function filterFieldRestrictions(AbstractDBElement $element, array $fields): array
     {
+        unset($fields['lastModified']);
+
         if (!$this->hasFieldRestrictions($element)) {
             return $fields;
         }
@@ -256,9 +285,9 @@ class EventLoggerSubscriber implements EventSubscriber
             $old_data = $uow->getOriginalEntityData($entity);
         } else { //Otherwise we have to get it from entity changeset
             $changeSet = $uow->getEntityChangeSet($entity);
-            $old_data = array_diff(array_combine(array_keys($changeSet), array_column($changeSet, 0)), [null]);
+            $old_data = array_combine(array_keys($changeSet), array_column($changeSet, 0));
         }
-        $this->filterFieldRestrictions($entity, $old_data);
+        $old_data = $this->filterFieldRestrictions($entity, $old_data);
 
         //Restrict length of string fields, to save memory...
         $old_data = array_map(function ($value) {
@@ -271,6 +300,7 @@ class EventLoggerSubscriber implements EventSubscriber
 
         $logEntry->setOldData($old_data);
     }
+
     /**
      * Check if the given entity can be logged.
      * @param object $entity

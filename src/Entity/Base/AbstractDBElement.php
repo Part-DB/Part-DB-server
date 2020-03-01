@@ -34,7 +34,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * Every database table which are managed with this class (or a subclass of it)
  *          must have the table row "id"!! The ID is the unique key to identify the elements.
  *
- * @ORM\MappedSuperclass()
+ * @ORM\MappedSuperclass(repositoryClass="App\Repository\DBElementRepository")
  *
  * @ORM\EntityListeners({"App\Security\EntityListeners\ElementPermissionListener"})
  *

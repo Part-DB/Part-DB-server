@@ -368,6 +368,17 @@ abstract class AbstractLogEntry extends AbstractDBElement
         return $this;
     }
 
+    /**
+     * Sets the target ID of the element associated with this element.
+     * @param  int  $target_id
+     * @return $this
+     */
+    public function setTargetElementID(int $target_id): self
+    {
+        $this->target_id = $target_id;
+        return $this;
+    }
+
     public function getExtraData(): array
     {
         return $this->extra;
