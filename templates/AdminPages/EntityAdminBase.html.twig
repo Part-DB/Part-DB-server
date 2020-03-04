@@ -1,5 +1,13 @@
 {% extends "main_card.html.twig" %}
 
+{% block card_type %}
+    {% if timeTravel is defined and timeTravel is not null %}
+        bg-primary-striped text-white
+    {% else %}
+        bg-primary text-white
+    {% endif %}
+{% endblock %}
+
 {% form_theme form.log_comment 'bootstrap_4_layout.html.twig' %}
 
 {% block card_content %}
@@ -35,10 +43,16 @@
                 <legend>
                     {% if entity.ID %}
                         <strong>{% trans with {'%name': entity.name} %}edit.caption{% endtrans %}</strong>
+                        {% if timeTravel is defined and timeTravel is not null %}
+                            ({{ timeTravel|format_datetime('short') }})
+                        {% endif %}
                     {% else %}
                         <strong>{% trans %}new.caption{% endtrans %}</strong>
                     {% endif %}
                 </legend>
+                {% if timeTravel is defined and timeTravel is not null %}
+                <b>{% trans with {'%timestamp%': timeTravel|format_datetime('short')} %}part.info.timetravel_hint{% endtrans %}</b>
+                {% endif %}
 
                 {{ form_errors(form) }}
 
@@ -78,7 +92,7 @@
                             <div class="tab-pane active" id="common">
                                 {{ form_row(form.name) }}
                                 {% if form.parent%}
-                                   {{ form_row(form.parent) }}
+                                    {{ form_row(form.parent) }}
                                 {% endif %}
                                 {% if form.not_selectable is defined %}
                                     {{ form_row(form.not_selectable) }}
@@ -87,7 +101,7 @@
                                 {% block additional_controls %}{% endblock %}
 
                                 {% block comment %}
-                                {{ form_row(form.comment) }}
+                                    {{ form_row(form.comment) }}
                                 {% endblock %}
 
                             </div>

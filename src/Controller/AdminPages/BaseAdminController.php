@@ -112,10 +112,22 @@ abstract class BaseAdminController extends AbstractController
     }
 
 
-    protected function _edit(AbstractNamedDBElement $entity, Request $request, EntityManagerInterface $em) : Response
+    protected function _edit(AbstractNamedDBElement $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null) : Response
     {
         $this->denyAccessUnlessGranted('read', $entity);
 
+
+        $timeTravel_timestamp = null;
+        if ($timestamp !== null) {
+            //If the timestamp only contains numbers interpret it as unix timestamp
+            if (ctype_digit($timestamp)) {
+                $timeTravel_timestamp = new \DateTime();
+                $timeTravel_timestamp->setTimestamp((int) $timestamp);
+            } else { //Try to parse it via DateTime
+                $timeTravel_timestamp = new \DateTime($timestamp);
+            }
+            $this->timeTravel->revertEntityToTimestamp($entity, $timeTravel_timestamp);
+        }
 
         $table = $this->dataTableFactory->createFromType(LogDataTable::class, [
             'filter_elements' => $this->historyHelper->getAssociatedElements($entity),
@@ -127,7 +139,10 @@ abstract class BaseAdminController extends AbstractController
             return $table->getResponse();
         }
 
-        $form = $this->createForm($this->form_class, $entity, ['attachment_class' => $this->attachment_class]);
+        $form = $this->createForm($this->form_class, $entity, [
+            'attachment_class' => $this->attachment_class,
+            'disabled' => $timeTravel_timestamp !== null ? true : null
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -176,7 +191,8 @@ abstract class BaseAdminController extends AbstractController
             'form' => $form->createView(),
             'attachment_helper' => $this->attachmentHelper,
             'route_base' => $this->route_base,
-            'datatable' => $table
+            'datatable' => $table,
+            'timeTravel' => $timeTravel_timestamp
         ]);
     }
 

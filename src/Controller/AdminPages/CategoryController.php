@@ -79,7 +79,7 @@ class CategoryController extends BaseAdminController
     }
 
     /**
-     * @Route("/{id}/edit", requirements={"id"="\d+"}, name="category_edit")
+     * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="category_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
      *
      * @param  Category  $entity
@@ -87,9 +87,9 @@ class CategoryController extends BaseAdminController
      * @param  EntityManagerInterface  $em
      * @return Response
      */
-    public function edit(Category $entity, Request $request, EntityManagerInterface $em): Response
+    public function edit(Category $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
-        return $this->_edit($entity, $request, $em);
+        return $this->_edit($entity, $request, $em, $timestamp);
     }
 
     /**

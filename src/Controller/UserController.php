@@ -69,7 +69,7 @@ class UserController extends AdminPages\BaseAdminController
     protected $attachment_class = UserAttachment::class;
 
     /**
-     * @Route("/{id}/edit", requirements={"id"="\d+"}, name="user_edit")
+     * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="user_edit")
      * @Route("/{id}/", requirements={"id"="\d+"})
      * @param  User  $entity
      * @param  Request  $request
@@ -77,7 +77,7 @@ class UserController extends AdminPages\BaseAdminController
      * @return Response
      * @throws \Exception
      */
-    public function edit(User $entity, Request $request, EntityManagerInterface $em)
+    public function edit(User $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null)
     {
         //Handle 2FA disabling
 
@@ -102,7 +102,7 @@ class UserController extends AdminPages\BaseAdminController
             }
         }
 
-        return $this->_edit($entity, $request, $em);
+        return $this->_edit($entity, $request, $em, $timestamp);
     }
 
     /**

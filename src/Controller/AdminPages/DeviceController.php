@@ -79,7 +79,7 @@ class DeviceController extends BaseAdminController
     }
 
     /**
-     * @Route("/{id}/edit", requirements={"id"="\d+"}, name="device_edit")
+     * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="device_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
      *
      * @param  Device  $entity
@@ -87,9 +87,9 @@ class DeviceController extends BaseAdminController
      * @param  EntityManagerInterface  $em
      * @return Response
      */
-    public function edit(Device $entity, Request $request, EntityManagerInterface $em): Response
+    public function edit(Device $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
-        return $this->_edit($entity, $request, $em);
+        return $this->_edit($entity, $request, $em, $timestamp);
     }
 
     /**
