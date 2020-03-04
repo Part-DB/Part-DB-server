@@ -45,6 +45,9 @@
                 <ul class="nav nav-tabs mt-2">
                     <li class="nav-item"><a class="link-anchor active nav-link" data-toggle="tab" href="#home">{% trans %}standard.label{% endtrans %}</a></li>
                     <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#info">{% trans %}infos.label{% endtrans %}</a></li>
+                    {% if datatable is defined and datatable is not null %}
+                        <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#history">{% trans %}history.label{% endtrans %}</a></li>
+                    {% endif %}
                     {% if entity.id %}
                         <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#export">{% trans %}export.label{% endtrans %}</a> </li>
                     {% else %}
@@ -128,7 +131,11 @@
                         {% include "AdminPages/_info.html.twig" %}
                     </div>
 
-
+                    {% if datatable is defined and datatable is not null %}
+                        <div id="history" class="tab-pane fade">
+                            {% include "LogSystem/_log_table.html.twig" %}
+                        </div>
+                    {% endif %}
 
                     {% if entity.id %}
                         <div id="export" class="tab-pane fade">

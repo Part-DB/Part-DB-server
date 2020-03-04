@@ -21,6 +21,7 @@
 namespace App\Services\LogSystem;
 
 
+use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parts\Part;
 
@@ -40,10 +41,13 @@ class HistoryHelper
     public function getAssociatedElements(AbstractDBElement $element): array
     {
         $array = [$element];
+        if ($element instanceof AttachmentContainingDBElement) {
+            $array = array_merge($array, $element->getAttachments()->toArray());
+        }
+
         if ($element instanceof Part) {
             $array = array_merge(
                 $array,
-                $element->getAttachments()->toArray(),
                 $element->getPartLots()->toArray(),
                 $element->getOrderdetails()->toArray()
             );

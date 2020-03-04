@@ -42,6 +42,7 @@ declare(strict_types=1);
 
 namespace App\Controller\AdminPages;
 
+use App\DataTables\LogDataTable;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\UserSystem\User;
@@ -53,9 +54,12 @@ use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\LogSystem\EventCommentHelper;
+use App\Services\LogSystem\HistoryHelper;
+use App\Services\LogSystem\TimeTravel;
 use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
+use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -80,9 +84,14 @@ abstract class BaseAdminController extends AbstractController
     protected $attachmentSubmitHandler;
     protected $commentHelper;
 
+    protected $historyHelper;
+    protected $timeTravel;
+    protected $dataTableFactory;
+
     public function __construct(TranslatorInterface $translator, UserPasswordEncoderInterface $passwordEncoder,
                                 AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler,
-                        EventCommentHelper $commentHelper)
+                        EventCommentHelper $commentHelper, HistoryHelper $historyHelper, TimeTravel $timeTravel,
+                        DataTableFactory $dataTableFactory)
     {
         if ('' === $this->entity_class || '' === $this->form_class || '' === $this->twig_template || '' === $this->route_base) {
             throw new InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');
@@ -97,12 +106,26 @@ abstract class BaseAdminController extends AbstractController
         $this->attachmentHelper = $attachmentHelper;
         $this->attachmentSubmitHandler = $attachmentSubmitHandler;
         $this->commentHelper = $commentHelper;
+        $this->historyHelper = $historyHelper;
+        $this->timeTravel = $timeTravel;
+        $this->dataTableFactory = $dataTableFactory;
     }
 
 
     protected function _edit(AbstractNamedDBElement $entity, Request $request, EntityManagerInterface $em) : Response
     {
         $this->denyAccessUnlessGranted('read', $entity);
+
+
+        $table = $this->dataTableFactory->createFromType(LogDataTable::class, [
+            'filter_elements' => $this->historyHelper->getAssociatedElements($entity),
+            'mode' => 'element_history'
+        ], ['pageLength' => 10])
+            ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
 
         $form = $this->createForm($this->form_class, $entity, ['attachment_class' => $this->attachment_class]);
 
@@ -153,6 +176,7 @@ abstract class BaseAdminController extends AbstractController
             'form' => $form->createView(),
             'attachment_helper' => $this->attachmentHelper,
             'route_base' => $this->route_base,
+            'datatable' => $table
         ]);
     }
 
