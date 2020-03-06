@@ -17,6 +17,18 @@ If you want to start translation for a new language that does not have an entry 
 Part-DB uses translation keys (e.g. part.info.title) that are sorted by their usage, so you will most likely have to lookup, how the key
 was translated in other languages (this is possible via the "Other languages" dropdown in the translation editor).
 
+Translation keys can be extracted from templates and PHP codes by running `bin/console translation:extract`.
+
+## Project structure
+Part-DB uses symfony's recommended [project structure](https://symfony.com/doc/current/best_practices.html).
+Interesting folders are:
+* `public`: Everything in this directory will be publicy accessible via web. Use this folder to serve static images.
+* `assets`: The frontend assets are saved here. You can find the javascript and CSS code here.
+* `src`: Part-DB's PHP code is saved here. Note that the sub directories are structured by the classes purposes (so use `Controller` Controllers, `Entities` for Database models, etc.)
+* `translations`: The translations used in Part-DB are saved here
+* `templates`: The templates (HTML) that are used by Twig to render the different pages. Email templates are also saved here.
+* `tests/`: Tests that can be run by PHPunit.
+
 ## Development environment
 For setting up an development you will need to install PHP, composer, a database server (MySQL or MariaDB) and yarn (which needs an nodejs environment).
 * Copy `.env` to `.env.local` and change `APP_ENV` to `APP_ENV=dev`. That way you will get development tools (symfony profiler) and other features that
@@ -33,4 +45,13 @@ Part-DB uses [Easy Coding Standard](https://github.com/symplify/easy-coding-stan
 * To check your code for valid code style run `vendor/bin/ecs check src/`
 * To fix violations run `vendor/bin/ecs check src/` (please checks afterwards if the code is valid afterwards)
 
+## TravisCI
+Part-DB has a [Travis-CI](https://travis-ci.com/Part-DB/Part-DB-symfony) instance running, that checks for every commit and contribute if the following things are working:
+* Yarn dependencies can compile
+* PHPunit tests run successful
+* Config files, translations and templates has valid syntax
+* Doctrine schema valid
+* No known vulnerable dependecies are used
+* Static analysis successful (phpstan with `--level=2`)
 
+Further the code coverage of the PHPunit tests is determined.
