@@ -46,7 +46,7 @@ use App\Entity\Parts\PartLot;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class PartRepository extends EntityRepository
+class PartRepository extends NamedDBElementRepository
 {
     /**
      * Gets the summed up instock of all parts (only parts without an measurent unit)

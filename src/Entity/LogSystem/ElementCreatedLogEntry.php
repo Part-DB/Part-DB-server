@@ -43,12 +43,16 @@ declare(strict_types=1);
 namespace App\Entity\LogSystem;
 
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Contracts\LogWithCommentInterface;
+use App\Entity\Contracts\LogWithEventUndoInterface;
+use App\Entity\UserSystem\Group;
+use App\Entity\UserSystem\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
  */
-class ElementCreatedLogEntry extends AbstractLogEntry
+class ElementCreatedLogEntry extends AbstractLogEntry implements LogWithCommentInterface, LogWithEventUndoInterface
 {
     protected $typeString = 'element_created';
 
@@ -57,6 +61,11 @@ class ElementCreatedLogEntry extends AbstractLogEntry
         parent::__construct();
         $this->level = self::LEVEL_INFO;
         $this->setTargetElement($new_element);
+
+        //Creation of new users is maybe more interesting...
+        if ($new_element instanceof User || $new_element instanceof Group) {
+            $this->level = self::LEVEL_NOTICE;
+        }
     }
 
     /**
@@ -77,5 +86,77 @@ class ElementCreatedLogEntry extends AbstractLogEntry
     public function hasCreationInstockValue(): bool
     {
         return null !== $this->getCreationInstockValue();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function hasComment(): bool
+    {
+        return isset($this->extra['m']);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getComment(): ?string
+    {
+        return $this->extra['m'] ?? null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setComment(?string $new_comment): LogWithCommentInterface
+    {
+        $this->extra['m'] = $new_comment;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isUndoEvent(): bool
+    {
+        return isset($this->extra['u']);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUndoEventID(): ?int
+    {
+        return $this->extra['u'] ?? null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setUndoneEvent(AbstractLogEntry $event, string $mode = 'undo'): LogWithEventUndoInterface
+    {
+        $this->extra['u'] = $event->getID();
+
+        if ($mode === 'undo') {
+            $this->extra['um'] = 1;
+        } elseif ($mode === 'revert') {
+            $this->extra['um'] = 2;
+        } else {
+            throw new \InvalidArgumentException('Passed invalid $mode!');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUndoMode(): string
+    {
+        $mode_int = $this->extra['um'] ?? 1;
+        if ($mode_int === 1) {
+            return 'undo';
+        } else {
+            return 'revert';
+        }
     }
 }

@@ -84,11 +84,23 @@
         <div class="tab-pane fade p-2" id="comment" role="tabpanel">
             {{ form_widget(form.comment)}}
         </div>
-
-
-
     </div>
-    {{ form_row(form.save) }}
+
+    <div class="form-group row">
+        <div class="col-sm-9 offset-sm-3">
+            <div class="btn-group">
+                {{ form_widget(form.save) }}
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu p-2">
+                    {{ form_row(form.log_comment)}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     {{ form_row(form.reset) }}
     {{ form_errors(form) }}
     {{ form_end(form) }}

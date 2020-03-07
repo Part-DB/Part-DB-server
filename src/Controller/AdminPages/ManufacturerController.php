@@ -77,16 +77,16 @@ class ManufacturerController extends BaseAdminController
     }
 
     /**
-     * @Route("/{id}/edit", requirements={"id"="\d+"}, name="manufacturer_edit")
+     * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="manufacturer_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
      * @param  Manufacturer  $entity
      * @param  Request  $request
      * @param  EntityManagerInterface  $em
      * @return Response
      */
-    public function edit(Manufacturer $entity, Request $request, EntityManagerInterface $em)
+    public function edit(Manufacturer $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null)
     {
-        return $this->_edit($entity, $request, $em);
+        return $this->_edit($entity, $request, $em, $timestamp);
     }
 
     /**

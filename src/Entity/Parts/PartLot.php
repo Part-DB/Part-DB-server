@@ -44,6 +44,7 @@ namespace App\Entity\Parts;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
+use App\Entity\Contracts\TimeStampableInterface;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPartLot;
 use DateTime;
@@ -60,7 +61,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\HasLifecycleCallbacks()
  * @ValidPartLot()
  */
-class PartLot extends AbstractDBElement
+class PartLot extends AbstractDBElement implements TimeStampableInterface
 {
     use TimestampTrait;
 

@@ -137,14 +137,6 @@ class PermissionsEmbedTest extends TestCase
         $embed->getPermissionValue('parts', 1);
     }
 
-    public function testInvalidBit3(): void
-    {
-        $embed = new PermissionsEmbed();
-        //When encoutering an too high bit number it must throw an error.
-        $this->expectException(InvalidArgumentException::class);
-        $embed->getPermissionValue('parts', 32);
-    }
-
     public function getStatesBINARY()
     {
         return [

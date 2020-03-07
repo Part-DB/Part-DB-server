@@ -34,7 +34,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * Every database table which are managed with this class (or a subclass of it)
  *          must have the table row "id"!! The ID is the unique key to identify the elements.
  *
- * @ORM\MappedSuperclass()
+ * @ORM\MappedSuperclass(repositoryClass="App\Repository\DBElementRepository")
  *
  * @ORM\EntityListeners({"App\Security\EntityListeners\ElementPermissionListener"})
  *
@@ -55,7 +55,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      "user" = "App\Entity\User"
  *  })
  */
-abstract class AbstractDBElement
+abstract class AbstractDBElement implements \JsonSerializable
 {
     /** @var int|null The Identification number for this part. This value is unique for the element in this table.
      * Null if the element is not saved to DB yet.
@@ -92,4 +92,9 @@ abstract class AbstractDBElement
      * @return string The ID as a string;
      */
     abstract public function getIDString(): string;
+
+    public function jsonSerialize()
+    {
+        return ['@id' => $this->getID()];
+    }
 }

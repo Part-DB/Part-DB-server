@@ -42,36 +42,73 @@ declare(strict_types=1);
 
 namespace App\DataTables;
 
+use App\DataTables\Column\IconLinkColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\LogEntryExtraColumn;
 use App\DataTables\Column\LogEntryTargetColumn;
+use App\DataTables\Column\RevertLogColumn;
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\Contracts\TimeTravelInterface;
 use App\Entity\LogSystem\AbstractLogEntry;
+use App\Entity\LogSystem\CollectionElementDeleted;
+use App\Entity\LogSystem\ElementCreatedLogEntry;
+use App\Entity\LogSystem\ElementDeletedLogEntry;
+use App\Entity\LogSystem\ElementEditedLogEntry;
+use App\Entity\UserSystem\Group;
+use App\Entity\UserSystem\User;
+use App\Exceptions\EntityNotSupportedException;
 use App\Services\ElementTypeNameGenerator;
+use App\Services\EntityURLGenerator;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
 use Psr\Log\LogLevel;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Flex\Options;
 
 class LogDataTable implements DataTableTypeInterface
 {
     protected $elementTypeNameGenerator;
     protected $translator;
     protected $urlGenerator;
+    protected $entityURLGenerator;
+    protected $logRepo;
+    protected $security;
 
     public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator, TranslatorInterface $translator,
-        UrlGeneratorInterface $urlGenerator)
+        UrlGeneratorInterface $urlGenerator, EntityURLGenerator $entityURLGenerator, EntityManagerInterface $entityManager, Security $security)
     {
         $this->elementTypeNameGenerator = $elementTypeNameGenerator;
         $this->translator = $translator;
         $this->urlGenerator = $urlGenerator;
+        $this->entityURLGenerator = $entityURLGenerator;
+        $this->logRepo = $entityManager->getRepository(AbstractLogEntry::class);
+        $this->security = $security;
+    }
+
+    public function configureOptions(OptionsResolver $optionsResolver)
+    {
+        $optionsResolver->setDefaults([
+                                          'mode' => 'system_log',
+                                          'filter_elements' => [],
+                                      ]);
+
+        $optionsResolver->setAllowedValues('mode', ['system_log', 'element_history', 'last_activity']);
     }
 
     public function configure(DataTable $dataTable, array $options): void
     {
+        $resolver = new OptionsResolver();
+        $this->configureOptions($resolver);
+        $options = $resolver->resolve($options);
+
+
         $dataTable->add('symbol', TextColumn::class, [
             'label' => '',
             'render' => function ($value, AbstractLogEntry $context) {
@@ -114,7 +151,11 @@ class LogDataTable implements DataTableTypeInterface
                         break;
                 }
 
-                return sprintf('<i class="fas fa-fw %s"></i>', $symbol);
+                return sprintf(
+                    '<i class="fas fa-fw %s" title="%s"></i>',
+                    $symbol,
+                    $context->getLevelString()
+                );
             },
         ]);
 
@@ -138,6 +179,7 @@ class LogDataTable implements DataTableTypeInterface
 
         $dataTable->add('level', TextColumn::class, [
             'label' => $this->translator->trans('log.level'),
+            'visible' => $options['mode'] === 'system_log',
             'propertyPath' => 'levelString',
             'render' => function (string $value, AbstractLogEntry $context) {
                 return $value;
@@ -178,21 +220,77 @@ class LogDataTable implements DataTableTypeInterface
             'label' => $this->translator->trans('log.extra'),
         ]);
 
+        $dataTable->add('timeTravel', IconLinkColumn::class,[
+            'label' => '',
+            'icon' => 'fas fa-fw fa-eye',
+            'href' => function ($value, AbstractLogEntry $context) {
+                if (
+                    ($context instanceof TimeTravelInterface
+                        && $context->hasOldDataInformations())
+                    || $context instanceof CollectionElementDeleted
+                ) {
+                    try {
+                        $target = $this->logRepo->getTargetElement($context);
+                        if($target !== null) {
+                            $str = $this->entityURLGenerator->timeTravelURL($target, $context->getTimestamp());
+                            return $str;
+                        }
+                    } catch (EntityNotSupportedException $exception) {
+                        return null;
+                    }
+                }
+                return null;
+            },
+            'disabled' => function ($value, AbstractLogEntry $context) {
+                return
+                    !$this->security->isGranted('@tools.timetravel')
+                    || !$this->security->isGranted('show_history', $context->getTargetClass());
+            }
+
+        ]);
+
+        $dataTable->add('actionRevert', RevertLogColumn::class, [
+            'label' => ''
+        ]);
+
         $dataTable->addOrderBy('timestamp', DataTable::SORT_DESCENDING);
 
         $dataTable->createAdapter(ORMAdapter::class, [
             'entity' => AbstractLogEntry::class,
-            'query' => function (QueryBuilder $builder): void {
-                $this->getQuery($builder);
+            'query' => function (QueryBuilder $builder) use ($options): void {
+                $this->getQuery($builder, $options);
             },
         ]);
     }
 
-    protected function getQuery(QueryBuilder $builder): void
+    protected function getQuery(QueryBuilder $builder, array $options): void
     {
         $builder->distinct()->select('log')
             ->addSelect('user')
             ->from(AbstractLogEntry::class, 'log')
             ->leftJoin('log.user', 'user');
+
+        if ($options['mode'] === 'last_activity') {
+            $builder->where('log INSTANCE OF ' . ElementCreatedLogEntry::class)
+                ->orWhere('log INSTANCE OF ' . ElementDeletedLogEntry::class)
+                ->orWhere('log INSTANCE OF ' . ElementEditedLogEntry::class)
+                ->orWhere('log INSTANCE OF ' . CollectionElementDeleted::class)
+                ->andWhere('log.target_type NOT IN (:disallowed)');;
+
+            $builder->setParameter('disallowed', [
+                AbstractLogEntry::targetTypeClassToID(User::class),
+                AbstractLogEntry::targetTypeClassToID(Group::class),
+            ]);
+        }
+
+        if (!empty($options['filter_elements'])) {
+            foreach ($options['filter_elements'] as $element) {
+                /** @var AbstractDBElement $element */
+
+                $target_type = AbstractLogEntry::targetTypeClassToID(get_class($element));
+                $target_id = $element->getID();
+                $builder->orWhere("log.target_type = $target_type AND log.target_id = $target_id");
+            }
+        }
     }
 }

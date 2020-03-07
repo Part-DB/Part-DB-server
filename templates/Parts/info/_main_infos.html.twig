@@ -23,7 +23,9 @@
         </h5>
         <h3>{{ part.name }}
             {# You need edit permission to use the edit button #}
-            {% if is_granted('edit', part) %}
+            {% if timeTravel is not null %}
+                <a href="{{ part|entityURL('info') }}"><i title="{% trans %}part.back_to_info{% endtrans %}" class="fas fa-fw fa-arrow-circle-left"></i></a>
+            {% elseif is_granted('edit', part) %}
                 <a href="{{ part|entityURL('edit') }}"><i class="fas fa-fw fa-sm fa-edit"></i></a>
             {% endif %}
         </h3>

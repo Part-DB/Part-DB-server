@@ -42,6 +42,7 @@ declare(strict_types=1);
 
 namespace App\Controller\AdminPages;
 
+use App\DataTables\LogDataTable;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\UserSystem\User;
@@ -52,9 +53,13 @@ use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
+use App\Services\LogSystem\EventCommentHelper;
+use App\Services\LogSystem\HistoryHelper;
+use App\Services\LogSystem\TimeTravel;
 use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
+use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -77,9 +82,16 @@ abstract class BaseAdminController extends AbstractController
     protected $translator;
     protected $attachmentHelper;
     protected $attachmentSubmitHandler;
+    protected $commentHelper;
+
+    protected $historyHelper;
+    protected $timeTravel;
+    protected $dataTableFactory;
 
     public function __construct(TranslatorInterface $translator, UserPasswordEncoderInterface $passwordEncoder,
-                                AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler)
+        AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler,
+        EventCommentHelper $commentHelper, HistoryHelper $historyHelper, TimeTravel $timeTravel,
+        DataTableFactory $dataTableFactory)
     {
         if ('' === $this->entity_class || '' === $this->form_class || '' === $this->twig_template || '' === $this->route_base) {
             throw new InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');
@@ -93,14 +105,54 @@ abstract class BaseAdminController extends AbstractController
         $this->passwordEncoder = $passwordEncoder;
         $this->attachmentHelper = $attachmentHelper;
         $this->attachmentSubmitHandler = $attachmentSubmitHandler;
+        $this->commentHelper = $commentHelper;
+        $this->historyHelper = $historyHelper;
+        $this->timeTravel = $timeTravel;
+        $this->dataTableFactory = $dataTableFactory;
     }
 
 
-    protected function _edit(AbstractNamedDBElement $entity, Request $request, EntityManagerInterface $em) : Response
+    protected function _edit(AbstractNamedDBElement $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null) : Response
     {
         $this->denyAccessUnlessGranted('read', $entity);
 
-        $form = $this->createForm($this->form_class, $entity, ['attachment_class' => $this->attachment_class]);
+
+        $timeTravel_timestamp = null;
+        if ($timestamp !== null) {
+            $this->denyAccessUnlessGranted('@tools.timeTravel');
+            $this->denyAccessUnlessGranted('show_history', $entity);
+            //If the timestamp only contains numbers interpret it as unix timestamp
+            if (ctype_digit($timestamp)) {
+                $timeTravel_timestamp = new \DateTime();
+                $timeTravel_timestamp->setTimestamp((int) $timestamp);
+            } else { //Try to parse it via DateTime
+                $timeTravel_timestamp = new \DateTime($timestamp);
+            }
+            $this->timeTravel->revertEntityToTimestamp($entity, $timeTravel_timestamp);
+        }
+
+        if ($this->isGranted('show_history', $entity) ) {
+            $table = $this->dataTableFactory->createFromType(
+                LogDataTable::class,
+                [
+                    'filter_elements' => $this->historyHelper->getAssociatedElements($entity),
+                    'mode' => 'element_history'
+                ],
+                ['pageLength' => 10]
+            )
+                ->handleRequest($request);
+
+            if ($table->isCallback()) {
+                return $table->getResponse();
+            }
+        } else {
+            $table = null;
+        }
+
+        $form = $this->createForm($this->form_class, $entity, [
+            'attachment_class' => $this->attachment_class,
+            'disabled' => $timeTravel_timestamp !== null ? true : null
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -131,6 +183,8 @@ abstract class BaseAdminController extends AbstractController
                 }
             }
 
+            $this->commentHelper->setMessage($form['log_comment']->getData());
+
             $em->persist($entity);
             $em->flush();
             $this->addFlash('success', 'entity.edit_flash');
@@ -146,6 +200,9 @@ abstract class BaseAdminController extends AbstractController
             'entity' => $entity,
             'form' => $form->createView(),
             'attachment_helper' => $this->attachmentHelper,
+            'route_base' => $this->route_base,
+            'datatable' => $table,
+            'timeTravel' => $timeTravel_timestamp
         ]);
     }
 
@@ -188,6 +245,8 @@ abstract class BaseAdminController extends AbstractController
                 }
             }
 
+            $this->commentHelper->setMessage($form['log_comment']->getData());
+
             $em->persist($new_entity);
             $em->flush();
             $this->addFlash('success', 'entity.created_flash');
@@ -214,6 +273,10 @@ abstract class BaseAdminController extends AbstractController
                 'format' => $data['format'],
                 'csv_separator' => $data['csv_separator'],
             ];
+
+            $this->commentHelper->setMessage('Import ' . $file->getClientOriginalName());
+
+
 
             $errors = $importer->fileToDBEntities($file, $this->entity_class, $options);
 
@@ -252,6 +315,7 @@ abstract class BaseAdminController extends AbstractController
             'import_form' => $import_form->createView(),
             'mass_creation_form' => $mass_creation_form->createView(),
             'attachment_helper' => $this->attachmentHelper,
+            'route_base' => $this->route_base,
         ]);
     }
 
@@ -279,6 +343,8 @@ abstract class BaseAdminController extends AbstractController
                 //Remove current element
                 $entityManager->remove($entity);
             }
+
+            $this->commentHelper->setMessage($request->request->get('log_comment', null));
 
             //Flush changes
             $entityManager->flush();

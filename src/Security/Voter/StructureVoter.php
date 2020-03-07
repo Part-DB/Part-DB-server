@@ -43,11 +43,13 @@ declare(strict_types=1);
 namespace App\Security\Voter;
 
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Devices\Device;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
+use App\Entity\Parts\Part;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
@@ -67,24 +69,29 @@ class StructureVoter extends ExtendedVoter
      */
     protected function supports($attribute, $subject)
     {
-        if (is_object($subject)) {
+        if (is_object($subject) || is_string($subject)) {
             $permission_name = $this->instanceToPermissionName($subject);
             //If permission name is null, then the subject is not supported
             return (null !== $permission_name) && $this->resolver->isValidOperation($permission_name, $attribute);
         }
+
         return false;
     }
 
     /**
      * Maps a instance type to the permission name.
      *
-     * @param mixed $subject The subject for which the permission name should be generated
+     * @param object|string $subject The subject for which the permission name should be generated
      *
      * @return string|null the name of the permission for the subject's type or null, if the subject is not supported
      */
     protected function instanceToPermissionName($subject): ?string
     {
-        $class_name = get_class($subject);
+        if (!is_string($subject)) {
+            $class_name = get_class($subject);
+        } else {
+            $class_name = $subject;
+        }
         switch ($class_name) {
             case AttachmentType::class:
                 return 'attachment_types';

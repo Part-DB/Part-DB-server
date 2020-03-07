@@ -481,7 +481,7 @@ class PermissionsEmbed
      */
     final protected static function readBitPair($data, int $n): int
     {
-        Assert::lessThanEq($n, 31, '$n must be smaller than 32, because only a 32bit int is used! Got %s.');
+        //Assert::lessThanEq($n, 31, '$n must be smaller than 32, because only a 32bit int is used! Got %s.');
         if (0 !== $n % 2) {
             throw new InvalidArgumentException('$n must be dividable by 2, because we address bit pairs here!');
         }
@@ -501,7 +501,7 @@ class PermissionsEmbed
      */
     final protected static function writeBitPair(int $data, int $n, int $new): int
     {
-        Assert::lessThanEq($n, 31, '$n must be smaller than 32, because only a 32bit int is used! Got %s.');
+        //Assert::lessThanEq($n, 31, '$n must be smaller than 32, because only a 32bit int is used! Got %s.');
         Assert::lessThanEq($new, 3, '$new must be smaller than 3, because a bit pair is written! Got %s.');
         Assert::greaterThanEq($new, 0, '$new must not be negative, because a bit pair is written! Got %s.');
 

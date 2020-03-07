@@ -46,7 +46,7 @@ use App\Entity\Base\AbstractNamedDBElement;
 use App\Helpers\Trees\TreeViewNode;
 use Doctrine\ORM\EntityRepository;
 
-class NamedDBElementRepository extends EntityRepository
+class NamedDBElementRepository extends DBElementRepository
 {
     /**
      * Gets a tree of TreeViewNode elements. The root elements has $parent as parent.

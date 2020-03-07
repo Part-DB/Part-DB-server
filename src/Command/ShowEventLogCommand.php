@@ -137,12 +137,16 @@ class ShowEventLogCommand extends Command
         $headers = ['ID', 'Timestamp', 'Type', 'User', 'Target Type', 'Target'];
         if ($showExtra) {
             $headers[] = 'Extra data';
+            $table->setColumnMaxWidth(6, 50);
         }
         $table->setHeaders($headers);
 
         foreach ($entries as $entry) {
             $this->addTableRow($table, $entry, $showExtra);
         }
+
+        $table->setColumnMaxWidth(3, 20);
+        $table->setColumnMaxWidth(5, 30);
 
         $table->render();
     }

@@ -76,16 +76,16 @@ class StorelocationController extends BaseAdminController
     }
 
     /**
-     * @Route("/{id}/edit", requirements={"id"="\d+"}, name="store_location_edit")
+     * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="store_location_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
      * @param  Storelocation  $entity
      * @param  Request  $request
      * @param  EntityManagerInterface  $em
      * @return Response
      */
-    public function edit(Storelocation $entity, Request $request, EntityManagerInterface $em)
+    public function edit(Storelocation $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null)
     {
-        return $this->_edit($entity, $request, $em);
+        return $this->_edit($entity, $request, $em, $timestamp);
     }
 
     /**

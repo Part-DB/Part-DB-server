@@ -1,5 +1,15 @@
 {% extends "main_card.html.twig" %}
 
+{% block card_type %}
+    {% if timeTravel is defined and timeTravel is not null %}
+        bg-primary-striped text-white
+    {% else %}
+        bg-primary text-white
+    {% endif %}
+{% endblock %}
+
+{% form_theme form.log_comment 'bootstrap_4_layout.html.twig' %}
+
 {% block card_content %}
     <div class="row">
         <div class="col-sm-4">
@@ -33,16 +43,25 @@
                 <legend>
                     {% if entity.ID %}
                         <strong>{% trans with {'%name': entity.name} %}edit.caption{% endtrans %}</strong>
+                        {% if timeTravel is defined and timeTravel is not null %}
+                            ({{ timeTravel|format_datetime('short') }})
+                        {% endif %}
                     {% else %}
                         <strong>{% trans %}new.caption{% endtrans %}</strong>
                     {% endif %}
                 </legend>
+                {% if timeTravel is defined and timeTravel is not null %}
+                <b>{% trans with {'%timestamp%': timeTravel|format_datetime('short')} %}part.info.timetravel_hint{% endtrans %}</b>
+                {% endif %}
 
                 {{ form_errors(form) }}
 
                 <ul class="nav nav-tabs mt-2">
                     <li class="nav-item"><a class="link-anchor active nav-link" data-toggle="tab" href="#home">{% trans %}standard.label{% endtrans %}</a></li>
                     <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#info">{% trans %}infos.label{% endtrans %}</a></li>
+                    {% if datatable is defined %}
+                        <li class="nav-item {% if datatable is null %}not-allowed{% endif %}"><a data-toggle="tab" class="link-anchor nav-link {% if datatable is null %}disabled{% endif %}" href="#history">{% trans %}history.label{% endtrans %}</a></li>
+                    {% endif %}
                     {% if entity.id %}
                         <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#export">{% trans %}export.label{% endtrans %}</a> </li>
                     {% else %}
@@ -73,7 +92,7 @@
                             <div class="tab-pane active" id="common">
                                 {{ form_row(form.name) }}
                                 {% if form.parent%}
-                                   {{ form_row(form.parent) }}
+                                    {{ form_row(form.parent) }}
                                 {% endif %}
                                 {% if form.not_selectable is defined %}
                                     {{ form_row(form.not_selectable) }}
@@ -82,7 +101,7 @@
                                 {% block additional_controls %}{% endblock %}
 
                                 {% block comment %}
-                                {{ form_row(form.comment) }}
+                                    {{ form_row(form.comment) }}
                                 {% endblock %}
 
                             </div>
@@ -96,7 +115,21 @@
                             </div>
                         </div>
 
-                        {{ form_row(form.save) }}
+                        <div class="form-group row">
+                            <div class="col-sm-9 offset-sm-3">
+                                <div class="btn-group">
+                                    {{ form_widget(form.save) }}
+                                    <button type="button" class="btn {% if entity.id is not null %}btn-primary{% else %}btn-success{% endif %} dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu p-2">
+                                        {{ form_row(form.log_comment)}}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
                         {{ form_row(form.reset) }}
                         {{ form_end(form) }}
 
@@ -112,11 +145,15 @@
                         {% include "AdminPages/_info.html.twig" %}
                     </div>
 
-
+                    {% if datatable is defined and datatable is not null %}
+                        <div id="history" class="tab-pane fade">
+                            {% include "LogSystem/_log_table.html.twig" %}
+                        </div>
+                    {% endif %}
 
                     {% if entity.id %}
                         <div id="export" class="tab-pane fade">
-                            {% include 'AdminPages/_export_form.html.twig' with {'path' : path('attachment_type_export', {'id': entity.id})} %}
+                            {% include 'AdminPages/_export_form.html.twig' with {'path' : path(route_base ~ '_export', {'id': entity.id})} %}
                         </div>
                     {% else %} {# For new element we have a combined import/export tab #}
                         <div id="import_export" class="tab-pane fade">

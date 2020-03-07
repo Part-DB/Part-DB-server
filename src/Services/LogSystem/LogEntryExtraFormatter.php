@@ -42,7 +42,10 @@ declare(strict_types=1);
 
 namespace App\Services\LogSystem;
 
+use App\Entity\Contracts\LogWithCommentInterface;
+use App\Entity\Contracts\LogWithEventUndoInterface;
 use App\Entity\LogSystem\AbstractLogEntry;
+use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\DatabaseUpdatedLogEntry;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
@@ -52,6 +55,8 @@ use App\Entity\LogSystem\InstockChangedLogEntry;
 use App\Entity\LogSystem\UserLoginLogEntry;
 use App\Entity\LogSystem\UserLogoutLogEntry;
 use App\Entity\LogSystem\UserNotAllowedLogEntry;
+use App\Services\ElementTypeNameGenerator;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -60,10 +65,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class LogEntryExtraFormatter
 {
     protected $translator;
+    protected $elementTypeNameGenerator;
 
-    public function __construct(TranslatorInterface $translator)
+    protected const CONSOLE_SEARCH = ['<i class="fas fa-long-arrow-alt-right"></i>', '<i>', '</i>', '<b>', '</b>', ];
+    protected const CONSOLE_REPLACE = ['→', '<info>', '</info>', '<error>', '</error>'];
+
+    public function __construct(TranslatorInterface $translator, ElementTypeNameGenerator $elementTypeNameGenerator)
     {
         $this->translator = $translator;
+        $this->elementTypeNameGenerator = $elementTypeNameGenerator;
     }
 
     /**
@@ -73,32 +83,33 @@ class LogEntryExtraFormatter
      */
     public function formatConsole(AbstractLogEntry $logEntry): string
     {
-        $tmp = $this->format($logEntry);
+        $arr = $this->getInternalFormat($logEntry);
+        $tmp = [];
 
-        //Just a simple tweak to make the console output more pretty.
-        $search = ['<i>', '</i>', '<b>', '</b>', ' <i class="fas fa-long-arrow-alt-right">'];
-        $replace = ['<info>', '</info>', '<error>', '</error>', '→'];
+        //Make an array with entries in the form "<b>Key:</b> Value"
+        foreach ($arr as $key => $value) {
+            $str = '';
+            if (is_string($key)) {
+                $str .= '<error>' . $this->translator->trans($key) . '</error>: ';
+            }
+            $str .= $value;
+            if (!empty($str)) {
+                $tmp[] = $str;
+            }
+        }
 
-        return str_replace($search, $replace, $tmp);
+        return str_replace(static::CONSOLE_SEARCH, static::CONSOLE_REPLACE, implode("; ", $tmp));
     }
 
-    /**
-     * Return a HTML formatted string containing a user viewable form of the Extra data.
-     *
-     * @return string
-     */
-    public function format(AbstractLogEntry $context): string
+    protected function getInternalFormat(AbstractLogEntry $context): array
     {
+        $array = [];
         if ($context instanceof UserLoginLogEntry || $context instanceof UserLogoutLogEntry) {
-            return sprintf(
-                '<i>%s</i>: %s',
-                $this->translator->trans('log.user_login.ip'),
-                htmlspecialchars($context->getIPAddress())
-            );
+            $array['log.user_login.ip'] = htmlspecialchars($context->getIPAddress());
         }
 
         if ($context instanceof ExceptionLogEntry) {
-            return sprintf(
+            $array[] = sprintf(
                 '<i>%s</i> %s:%d : %s',
                 htmlspecialchars($context->getExceptionClass()),
                 htmlspecialchars($context->getFile()),
@@ -108,7 +119,7 @@ class LogEntryExtraFormatter
         }
 
         if ($context instanceof DatabaseUpdatedLogEntry) {
-            return sprintf(
+            $array[] = sprintf(
                 '<i>%s</i> %s <i class="fas fa-long-arrow-alt-right"></i> %s',
                 $this->translator->trans($context->isSuccessful() ? 'log.database_updated.success' : 'log.database_updated.failure'),
                 $context->getOldVersion(),
@@ -116,42 +127,85 @@ class LogEntryExtraFormatter
             );
         }
 
+        if ($context instanceof LogWithEventUndoInterface) {
+            if ($context->isUndoEvent()) {
+                if ($context->getUndoMode() === 'undo') {
+                    $array['log.undo_mode.undo'] = (string) $context->getUndoEventID();
+                } elseif ($context->getUndoMode() === 'revert') {
+                    $array['log.undo_mode.revert'] = (string) $context->getUndoEventID();
+                }
+            }
+        }
+
+        if ($context instanceof LogWithCommentInterface && $context->hasComment()) {
+            $array[] = htmlspecialchars($context->getComment());
+        }
+
         if ($context instanceof ElementCreatedLogEntry && $context->hasCreationInstockValue()) {
-            return sprintf(
-                '<i>%s</i>: %s',
-                $this->translator->trans('log.element_created.original_instock'),
-                $context->getCreationInstockValue()
-            );
+            $array['log.element_created.original_instock'] = (string) $context->getCreationInstockValue();
         }
 
         if ($context instanceof ElementDeletedLogEntry) {
-            return sprintf(
-                '<i>%s</i>: %s',
-                $this->translator->trans('log.element_deleted.old_name'),
-                $context->getOldName() ?? $this->translator->trans('log.element_deleted.old_name.unknown')
-            );
+            if ($context->getOldName() !== null) {
+                $array['log.element_deleted.old_name'] = htmlspecialchars($context->getOldName());
+            } else {
+                $array['log.element_deleted.old_name'] = $this->translator->trans('log.element_deleted.old_name.unknown');
+            }
         }
 
-        if ($context instanceof ElementEditedLogEntry && ! empty($context->getMessage())) {
-            return htmlspecialchars($context->getMessage());
+        if ($context instanceof ElementEditedLogEntry && $context->hasChangedFieldsInfo()) {
+            $array['log.element_edited.changed_fields'] = htmlspecialchars(implode(', ', $context->getChangedFields()));
         }
 
         if ($context instanceof InstockChangedLogEntry) {
-            return sprintf(
-                '<i>%s</i>; %s <i class="fas fa-long-arrow-alt-right"></i> %s (%s); %s: %s',
-                $this->translator->trans($context->isWithdrawal() ? 'log.instock_changed.withdrawal' : 'log.instock_changed.added'),
+            $array[] = $this->translator->trans($context->isWithdrawal() ? 'log.instock_changed.withdrawal' : 'log.instock_changed.added');
+            $array[] = sprintf(
+                '%s <i class="fas fa-long-arrow-alt-right"></i> %s (%s)',
                 $context->getOldInstock(),
                 $context->getNewInstock(),
-                (! $context->isWithdrawal() ? '+' : '-').$context->getDifference(true),
-                $this->translator->trans('log.instock_changed.comment'),
-                htmlspecialchars($context->getComment())
+                (! $context->isWithdrawal() ? '+' : '-').$context->getDifference(true)
+            );
+            $array['log.instock_changed.comment'] = htmlspecialchars($context->getComment());
+        }
+
+        if ($context instanceof CollectionElementDeleted) {
+            $array['log.collection_deleted.deleted'] = sprintf(
+                '%s: %s (%s)',
+                $this->elementTypeNameGenerator->getLocalizedTypeLabel($context->getDeletedElementClass()),
+                $context->getOldName() ?? $context->getDeletedElementID(),
+                $context->getCollectionName()
             );
         }
 
         if ($context instanceof UserNotAllowedLogEntry) {
-            return htmlspecialchars($context->getMessage());
+            $array[] = htmlspecialchars($context->getMessage());
         }
 
-        return '';
+        return $array;
+    }
+
+    /**
+     * Return a HTML formatted string containing a user viewable form of the Extra data.
+     *
+     * @return string
+     */
+    public function format(AbstractLogEntry $context): string
+    {
+        $arr = $this->getInternalFormat($context);
+        $tmp = [];
+
+        //Make an array with entries in the form "<b>Key:</b> Value"
+        foreach ($arr as $key => $value) {
+            $str = '';
+            if (is_string($key)) {
+                $str .= '<b>' . $this->translator->trans($key) . '</b>: ';
+            }
+            $str .= $value;
+            if (!empty($str)) {
+                $tmp[] = $str;
+            }
+        }
+
+        return implode("; ", $tmp);
     }
 }

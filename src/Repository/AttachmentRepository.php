@@ -23,7 +23,7 @@ namespace App\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-class AttachmentRepository extends EntityRepository
+class AttachmentRepository extends DBElementRepository
 {
     /**
      * Gets the count of all private/secure attachments.

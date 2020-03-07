@@ -39,4 +39,13 @@
             {% trans %} homepage.others {% endtrans %}
         </div>
     </div>
+
+    {% if datatable is not null %}
+    <div class="card mt-3">
+        <div class="card-header"><i class="fas fa-fw fa-history"></i> {% trans %}homepage.last_activity{% endtrans %}</div>
+        <div class="card-body">
+            {% include "LogSystem/_log_table.html.twig" %}
+        </div>
+    </div>
+    {% endif %}
 {% endblock %}

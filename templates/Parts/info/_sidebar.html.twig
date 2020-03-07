@@ -1,5 +1,9 @@
 {% import "helper.twig" as helper %}
 
+{% if timeTravel is not null %}
+    <b class="mb-2">{% trans with {'%timestamp%': timeTravel|format_datetime('short')} %}part.info.timetravel_hint{% endtrans %}</b>
+{% endif %}
+
 <div class="mb-3">
 <span class="text-muted" title="{% trans %}lastModified{% endtrans %}">
     <i class="fas fa-history fa-fw"></i>  {{ helper.date_user_combination(part, true) }}

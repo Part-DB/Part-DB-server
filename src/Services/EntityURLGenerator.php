@@ -44,6 +44,7 @@ namespace App\Services;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Devices\Device;
 use App\Entity\Parts\Category;
@@ -51,9 +52,12 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
+use App\Entity\PriceInformations\Orderdetail;
+use App\Entity\PriceInformations\Pricedetail;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
@@ -118,6 +122,70 @@ class EntityURLGenerator
         }
 
         throw new InvalidArgumentException('Method is not supported!');
+    }
+
+    /**
+     * Gets the URL to view the given element at a given timestamp
+     * @param AbstractDBElement $entity
+     * @param  \DateTime  $dateTime
+     * @return string
+     */
+    public function timeTravelURL(AbstractDBElement $entity, \DateTime $dateTime): string
+    {
+        $map = [
+            Part::class => 'part_info',
+
+            //As long we does not have own things for it use edit page
+            AttachmentType::class => 'attachment_type_edit',
+            Category::class => 'category_edit',
+            Device::class => 'device_edit',
+            Supplier::class => 'supplier_edit',
+            Manufacturer::class => 'manufacturer_edit',
+            Storelocation::class => 'store_location_edit',
+            Footprint::class => 'footprint_edit',
+            User::class => 'user_edit',
+            Currency::class => 'currency_edit',
+            MeasurementUnit::class => 'measurement_unit_edit',
+            Group::class => 'group_edit',
+        ];
+
+        try {
+            return $this->urlGenerator->generate(
+                $this->mapToController($map, $entity),
+                [
+                    'id' => $entity->getID(),
+                    'timestamp' => $dateTime->getTimestamp()
+                ]
+            );
+        } catch (EntityNotSupportedException $exception) {
+            if ($entity instanceof PartLot) {
+                return $this->urlGenerator->generate('part_info', [
+                    'id' => $entity->getPart()->getID(),
+                    'timestamp' => $dateTime->getTimestamp()
+                ]);
+            }
+            if ($entity instanceof PartAttachment) {
+                return $this->urlGenerator->generate('part_info', [
+                    'id' => $entity->getElement()->getID(),
+                    'timestamp' => $dateTime->getTimestamp()
+                ]);
+            }
+            if ($entity instanceof Orderdetail) {
+                return $this->urlGenerator->generate('part_info', [
+                    'id' => $entity->getPart()->getID(),
+                    'timestamp' => $dateTime->getTimestamp()
+                ]);
+            }
+            if ($entity instanceof Pricedetail) {
+                return $this->urlGenerator->generate('part_info', [
+                    'id' => $entity->getOrderdetail()->getPart()->getID(),
+                    'timestamp' => $dateTime->getTimestamp()
+                ]);
+            }
+        }
+
+        //Otherwise throw an error
+        throw new EntityNotSupportedException('The given entity is not supported yet!');
     }
 
     public function viewURL($entity): string

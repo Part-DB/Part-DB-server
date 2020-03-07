@@ -81,7 +81,8 @@ use Psr\Log\LogLevel;
  *  7 = "ElementEditedLogEntry",
  *  8 = "ConfigChangedLogEntry",
  *  9 = "InstockChangedLogEntry",
- *  10 = "DatabaseUpdatedLogEntry"
+ *  10 = "DatabaseUpdatedLogEntry",
+ *  11 = "CollectionElementDeleted"
  * })
  */
 abstract class AbstractLogEntry extends AbstractDBElement
@@ -364,6 +365,17 @@ abstract class AbstractLogEntry extends AbstractDBElement
         $this->target_type = static::targetTypeClassToID(get_class($element));
         $this->target_id = $element->getID();
 
+        return $this;
+    }
+
+    /**
+     * Sets the target ID of the element associated with this element.
+     * @param  int  $target_id
+     * @return $this
+     */
+    public function setTargetElementID(int $target_id): self
+    {
+        $this->target_id = $target_id;
         return $this;
     }
 

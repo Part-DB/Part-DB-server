@@ -43,6 +43,14 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Entity\Base\AbstractNamedDBElement;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\YamlEncoder;
+use Symfony\Component\Serializer\Normalizer\DataUriNormalizer;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use function in_array;
 use InvalidArgumentException;
 use function is_array;
@@ -62,6 +70,10 @@ class EntityExporter
 
     public function __construct(SerializerInterface $serializer)
     {
+        /*$encoders = [new XmlEncoder(), new JsonEncoder(), new CSVEncoder(), new YamlEncoder()];
+        $normalizers = [new ObjectNormalizer(), new DateTimeNormalizer()];
+        $this->serializer = new Serializer($normalizers, $encoders);
+        $this->serializer-> */
         $this->serializer = $serializer;
     }
 
@@ -120,13 +132,15 @@ class EntityExporter
             $entity_array = [$entity];
         }
 
-        $response = new Response($this->serializer->serialize($entity_array, $format,
-            [
-                'groups' => $groups,
-                'as_collection' => true,
-                'csv_delimiter' => ';', //Better for Excel
-                'xml_root_node_name' => 'PartDBExport',
-            ]));
+        $serialized_data = $this->serializer->serialize($entity_array, $format,
+                                                        [
+                                                            'groups' => $groups,
+                                                            'as_collection' => true,
+                                                            'csv_delimiter' => ';', //Better for Excel
+                                                            'xml_root_node_name' => 'PartDBExport',
+                                                        ]);
+
+        $response = new Response($serialized_data);
 
         $response->headers->set('Content-Type', $content_type);
 
@@ -151,7 +165,8 @@ class EntityExporter
             // Create the disposition of the file
             $disposition = $response->headers->makeDisposition(
                 ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-                $filename
+                $filename,
+                $string = preg_replace('![^'.preg_quote('-').'a-z0-_9\s]+!', '', strtolower($filename))
             );
             // Set the content disposition
             $response->headers->set('Content-Disposition', $disposition);

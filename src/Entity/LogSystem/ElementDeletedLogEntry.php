@@ -43,13 +43,18 @@ declare(strict_types=1);
 namespace App\Entity\LogSystem;
 
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Contracts\LogWithCommentInterface;
+use App\Entity\Contracts\LogWithEventUndoInterface;
 use App\Entity\Contracts\NamedElementInterface;
+use App\Entity\Contracts\TimeTravelInterface;
+use App\Entity\UserSystem\Group;
+use App\Entity\UserSystem\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
  */
-class ElementDeletedLogEntry extends AbstractLogEntry
+class ElementDeletedLogEntry extends AbstractLogEntry implements TimeTravelInterface, LogWithCommentInterface, LogWithEventUndoInterface
 {
     protected $typeString = 'element_deleted';
 
@@ -58,6 +63,11 @@ class ElementDeletedLogEntry extends AbstractLogEntry
         parent::__construct();
         $this->level = self::LEVEL_INFO;
         $this->setTargetElement($deleted_element);
+
+        //Deletion of a user is maybe more interesting...
+        if ($deleted_element instanceof User || $deleted_element instanceof Group) {
+            $this->level = self::LEVEL_NOTICE;
+        }
     }
 
     /**
@@ -82,5 +92,103 @@ class ElementDeletedLogEntry extends AbstractLogEntry
     public function getOldName(): ?string
     {
         return $this->extra['n'] ?? null;
+    }
+
+    /**
+     * Sets the old data for this entry.
+     * @param array $old_data
+     * @return $this
+     */
+    public function setOldData(array $old_data): self
+    {
+        $this->extra['o'] = $old_data;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function hasOldDataInformations(): bool
+    {
+        return !empty($this->extra['o']);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getOldData(): array
+    {
+        return $this->extra['o'] ?? [];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function hasComment(): bool
+    {
+        return isset($this->extra['m']);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getComment(): ?string
+    {
+        return $this->extra['m'] ?? null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setComment(?string $new_comment): LogWithCommentInterface
+    {
+        $this->extra['m'] = $new_comment;
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isUndoEvent(): bool
+    {
+        return isset($this->extra['u']);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUndoEventID(): ?int
+    {
+        return $this->extra['u'] ?? null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setUndoneEvent(AbstractLogEntry $event, string $mode = 'undo'): LogWithEventUndoInterface
+    {
+        $this->extra['u'] = $event->getID();
+
+        if ($mode === 'undo') {
+            $this->extra['um'] = 1;
+        } elseif ($mode === 'revert') {
+            $this->extra['um'] = 2;
+        } else {
+            throw new \InvalidArgumentException('Passed invalid $mode!');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getUndoMode(): string
+    {
+        $mode_int = $this->extra['um'] ?? 1;
+        if ($mode_int === 1) {
+            return 'undo';
+        }
+        return 'revert';
     }
 }

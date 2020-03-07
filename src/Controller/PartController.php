@@ -42,6 +42,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\DataTables\LogDataTable;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Exceptions\AttachmentDownloadException;
@@ -49,8 +50,12 @@ use App\Form\Part\PartBaseType;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\Attachments\PartPreviewGenerator;
+use App\Services\LogSystem\EventCommentHelper;
+use App\Services\LogSystem\HistoryHelper;
+use App\Services\LogSystem\TimeTravel;
 use App\Services\PricedetailHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -64,27 +69,70 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class PartController extends AbstractController
 {
+    protected $attachmentManager;
+    protected $pricedetailHelper;
+    protected $partPreviewGenerator;
+    protected $commentHelper;
+
+    public function __construct(AttachmentManager $attachmentManager, PricedetailHelper $pricedetailHelper,
+        PartPreviewGenerator $partPreviewGenerator, EventCommentHelper $commentHelper)
+    {
+        $this->attachmentManager = $attachmentManager;
+        $this->pricedetailHelper = $pricedetailHelper;
+        $this->partPreviewGenerator = $partPreviewGenerator;
+        $this->commentHelper = $commentHelper;
+    }
+
     /**
-     * @Route("/{id}/info", name="part_info")
+     * @Route("/{id}/info/{timestamp}", name="part_info")
      * @Route("/{id}", requirements={"id"="\d+"})
      *
      * @param  Part  $part
-     * @param  AttachmentManager  $attachmentHelper
-     * @param  PricedetailHelper  $pricedetailHelper
-     * @param  PartPreviewGenerator  $previewGenerator
      * @return Response
+     * @throws \Exception
      */
-    public function show(Part $part, AttachmentManager $attachmentHelper, PricedetailHelper $pricedetailHelper, PartPreviewGenerator $previewGenerator): Response
+    public function show(Part $part, Request $request, TimeTravel $timeTravel, HistoryHelper $historyHelper,
+        DataTableFactory $dataTable, ?string $timestamp = null): Response
     {
         $this->denyAccessUnlessGranted('read', $part);
+
+        $timeTravel_timestamp = null;
+        if ($timestamp !== null) {
+            $this->denyAccessUnlessGranted('@tools.timeTravel');
+            $this->denyAccessUnlessGranted('show_history', $part);
+            //If the timestamp only contains numbers interpret it as unix timestamp
+            if (ctype_digit($timestamp)) {
+                $timeTravel_timestamp = new \DateTime();
+                $timeTravel_timestamp->setTimestamp((int) $timestamp);
+            } else { //Try to parse it via DateTime
+                $timeTravel_timestamp = new \DateTime($timestamp);
+            }
+            $timeTravel->revertEntityToTimestamp($part, $timeTravel_timestamp);
+        }
+
+        if ($this->isGranted('show_history', $part) ) {
+            $table = $dataTable->createFromType(LogDataTable::class, [
+                'filter_elements' => $historyHelper->getAssociatedElements($part),
+                'mode' => 'element_history'
+            ], ['pageLength' => 10])
+                ->handleRequest($request);
+
+            if ($table->isCallback()) {
+                return $table->getResponse();
+            }
+        } else {
+            $table = null;
+        }
 
         return $this->render(
             'Parts/info/show_part_info.html.twig',
             [
                 'part' => $part,
-                'attachment_helper' => $attachmentHelper,
-                'pricedetail_helper' => $pricedetailHelper,
-                'pictures' => $previewGenerator->getPreviewAttachments($part),
+                'datatable' => $table,
+                'attachment_helper' => $this->attachmentManager,
+                'pricedetail_helper' => $this->pricedetailHelper,
+                'pictures' => $this->partPreviewGenerator->getPreviewAttachments($part),
+                'timeTravel' => $timeTravel_timestamp
             ]
         );
     }
@@ -96,12 +144,11 @@ class PartController extends AbstractController
      * @param  Request  $request
      * @param  EntityManagerInterface  $em
      * @param  TranslatorInterface  $translator
-     * @param  AttachmentManager  $attachmentHelper
      * @param  AttachmentSubmitHandler  $attachmentSubmitHandler
      * @return Response
      */
     public function edit(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
-                         AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler): Response
+        AttachmentSubmitHandler $attachmentSubmitHandler): Response
     {
         $this->denyAccessUnlessGranted('edit', $part);
 
@@ -128,6 +175,8 @@ class PartController extends AbstractController
                 }
             }
 
+            $this->commentHelper->setMessage($form['log_comment']->getData());
+
             $em->persist($part);
             $em->flush();
             $this->addFlash('info', 'part.edited_flash');
@@ -138,11 +187,11 @@ class PartController extends AbstractController
         }
 
         return $this->render('Parts/edit/edit_part_info.html.twig',
-            [
-                'part' => $part,
-                'form' => $form->createView(),
-                'attachment_helper' => $attachmentHelper,
-            ]);
+                             [
+                                 'part' => $part,
+                                 'form' => $form->createView(),
+                                 'attachment_helper' => $this->attachmentManager,
+                             ]);
     }
 
     /**
@@ -158,6 +207,8 @@ class PartController extends AbstractController
 
         if ($this->isCsrfTokenValid('delete'.$part->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            $this->commentHelper->setMessage($request->request->get('log_comment', null));
 
             //Remove part
             $entityManager->remove($part);
@@ -182,7 +233,7 @@ class PartController extends AbstractController
      * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
-                        AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler): Response
+        AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler): Response
     {
         $new_part = new Part();
 
@@ -219,6 +270,8 @@ class PartController extends AbstractController
                 }
             }
 
+            $this->commentHelper->setMessage($form['log_comment']->getData());
+
             $em->persist($new_part);
             $em->flush();
             $this->addFlash('success', 'part.created_flash');
@@ -231,11 +284,11 @@ class PartController extends AbstractController
         }
 
         return $this->render('Parts/edit/new_part.html.twig',
-            [
-                'part' => $new_part,
-                'form' => $form->createView(),
-                'attachment_helper' => $attachmentHelper,
-            ]);
+                             [
+                                 'part' => $new_part,
+                                 'form' => $form->createView(),
+                                 'attachment_helper' => $attachmentHelper,
+                             ]);
     }
 
     /**
@@ -267,9 +320,9 @@ class PartController extends AbstractController
         }
 
         return $this->render('Parts/edit/new_part.html.twig',
-            [
-                'part' => $new_part,
-                'form' => $form->createView(),
-            ]);
+                             [
+                                 'part' => $new_part,
+                                 'form' => $form->createView(),
+                             ]);
     }
 }

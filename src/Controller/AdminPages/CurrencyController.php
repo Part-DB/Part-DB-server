@@ -81,7 +81,7 @@ class CurrencyController extends BaseAdminController
     }
 
     /**
-     * @Route("/{id}/edit", requirements={"id"="\d+"}, name="currency_edit")
+     * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="currency_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
      *
      * @param  Currency  $entity
@@ -89,9 +89,9 @@ class CurrencyController extends BaseAdminController
      * @param  EntityManagerInterface  $em
      * @return Response
      */
-    public function edit(Currency $entity, Request $request, EntityManagerInterface $em): Response
+    public function edit(Currency $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
-        return $this->_edit($entity, $request, $em);
+        return $this->_edit($entity, $request, $em, $timestamp);
     }
 
     /**
