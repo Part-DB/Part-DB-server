@@ -146,7 +146,11 @@ class LogDataTable implements DataTableTypeInterface
                         break;
                 }
 
-                return sprintf('<i class="fas fa-fw %s"></i>', $symbol);
+                return sprintf(
+                    '<i class="fas fa-fw %s" title="%s"></i>',
+                    $symbol,
+                    $context->getLevelString()
+                );
             },
         ]);
 
