@@ -45,6 +45,8 @@ namespace App\Entity\LogSystem;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\LogWithCommentInterface;
 use App\Entity\Contracts\LogWithEventUndoInterface;
+use App\Entity\UserSystem\Group;
+use App\Entity\UserSystem\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -59,6 +61,11 @@ class ElementCreatedLogEntry extends AbstractLogEntry implements LogWithCommentI
         parent::__construct();
         $this->level = self::LEVEL_INFO;
         $this->setTargetElement($new_element);
+
+        //Creation of new users is maybe more interesting...
+        if ($new_element instanceof User || $new_element instanceof Group) {
+            $this->level = self::LEVEL_NOTICE;
+        }
     }
 
     /**

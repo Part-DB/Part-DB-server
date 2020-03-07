@@ -47,6 +47,8 @@ use App\Entity\Contracts\LogWithCommentInterface;
 use App\Entity\Contracts\LogWithEventUndoInterface;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Contracts\TimeTravelInterface;
+use App\Entity\UserSystem\Group;
+use App\Entity\UserSystem\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -61,6 +63,11 @@ class ElementDeletedLogEntry extends AbstractLogEntry implements TimeTravelInter
         parent::__construct();
         $this->level = self::LEVEL_INFO;
         $this->setTargetElement($deleted_element);
+
+        //Deletion of a user is maybe more interesting...
+        if ($deleted_element instanceof User || $deleted_element instanceof Group) {
+            $this->level = self::LEVEL_NOTICE;
+        }
     }
 
     /**
