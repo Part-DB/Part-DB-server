@@ -53,5 +53,7 @@ class PricedetailVoter extends ExtendedVoter
                 $this->resolver->listOperationsForPermission('parts_prices')
             ), true);
         }
+
+        return false;
     }
 }

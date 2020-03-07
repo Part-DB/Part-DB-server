@@ -53,5 +53,7 @@ class OrderdetailVoter extends ExtendedVoter
                 $this->resolver->listOperationsForPermission('parts_orderdetails')
             ), true);
         }
+
+        return false;
     }
 }

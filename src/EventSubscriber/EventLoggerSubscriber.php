@@ -202,7 +202,8 @@ class EventLoggerSubscriber implements EventSubscriber
             $this->saveChangeSet($entity, $log, $em);
         } elseif ($this->save_changed_fields) {
             $changed_fields = array_keys($uow->getEntityChangeSet($entity));
-            unset($changed_fields['lastModified']);
+            //Remove lastModified field, as this is always changed (gives us no additional info)
+            $changed_fields = array_diff($changed_fields, ['lastModified']);
             $log->setChangedFields($changed_fields);
         }
         //Add user comment to log entry

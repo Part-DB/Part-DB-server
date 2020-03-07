@@ -55,7 +55,7 @@ class EventUndoHelper
     /**
      * Set which event log is currently undone.
      * After the flush this message is cleared.
-     * @param  AbstractLogEntry|null  $message
+     * @param  AbstractLogEntry|null  $undone_event
      */
     public function setUndoneEvent(?AbstractLogEntry $undone_event): void
     {
@@ -64,7 +64,7 @@ class EventUndoHelper
 
     /**
      * Returns event that is currently undone.
-     * @return string|null
+     * @return AbstractLogEntry|null
      */
     public function getUndoneEvent(): ?AbstractLogEntry
     {

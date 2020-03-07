@@ -66,6 +66,8 @@ class LogEntryVoter extends ExtendedVoter
 
             return $this->resolver->inherit($user, 'system', 'show_logs') ?? false;
         }
+
+        return false;
     }
 
     protected function supports($attribute, $subject)

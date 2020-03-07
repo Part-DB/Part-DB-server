@@ -52,5 +52,7 @@ class PartLotVoter extends ExtendedVoter
                 $this->resolver->listOperationsForPermission('parts_lots')
             ), true);
         }
+
+        return false;
     }
 }
