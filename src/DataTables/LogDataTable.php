@@ -54,6 +54,8 @@ use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
+use App\Entity\UserSystem\Group;
+use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
@@ -223,9 +225,9 @@ class LogDataTable implements DataTableTypeInterface
             'icon' => 'fas fa-fw fa-eye',
             'href' => function ($value, AbstractLogEntry $context) {
                 if (
-                ($context instanceof TimeTravelInterface
-                    && $context->hasOldDataInformations())
-                || $context instanceof CollectionElementDeleted
+                    ($context instanceof TimeTravelInterface
+                        && $context->hasOldDataInformations())
+                    || $context instanceof CollectionElementDeleted
                 ) {
                     try {
                         $target = $this->logRepo->getTargetElement($context);
@@ -272,7 +274,13 @@ class LogDataTable implements DataTableTypeInterface
             $builder->where('log INSTANCE OF ' . ElementCreatedLogEntry::class)
                 ->orWhere('log INSTANCE OF ' . ElementDeletedLogEntry::class)
                 ->orWhere('log INSTANCE OF ' . ElementEditedLogEntry::class)
-                ->orWhere('log INSTANCE OF ' . CollectionElementDeleted::class);
+                ->orWhere('log INSTANCE OF ' . CollectionElementDeleted::class)
+                ->andWhere('log.target_type NOT IN (:disallowed)');;
+
+            $builder->setParameter('disallowed', [
+                AbstractLogEntry::targetTypeClassToID(User::class),
+                AbstractLogEntry::targetTypeClassToID(Group::class),
+            ]);
         }
 
         if (!empty($options['filter_elements'])) {
