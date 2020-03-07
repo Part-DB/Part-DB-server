@@ -362,7 +362,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       revert_element:
         label: "perm.revert_elements"
         bit: 20
-        alsoSet: ["read", "edit", "create", "delete", "move", "edit_permissions", "show_history", "edit_infos", "change_group", "edit_username"]
+        alsoSet: ["read", "create", "delete", "move", "edit_permissions", "show_history", "edit_infos", "change_group", "edit_username"]
 
   database:
     label: "perm.database"
