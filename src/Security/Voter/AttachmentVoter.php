@@ -58,11 +58,7 @@ class AttachmentVoter extends ExtendedVoter
      */
     protected function voteOnUser($attribute, $subject, User $user): bool
     {
-        if ($subject instanceof Attachment) {
-            return $this->resolver->inherit($user, 'parts_attachments', $attribute) ?? false;
-        }
-
-        return false;
+        return $this->resolver->inherit($user, 'parts_attachments', $attribute) ?? false;
     }
 
     /**
@@ -75,10 +71,11 @@ class AttachmentVoter extends ExtendedVoter
      */
     protected function supports($attribute, $subject)
     {
-        if ($subject instanceof Attachment) {
+        if (is_a($subject, Attachment::class, true)) {
             return in_array($attribute, $this->resolver->listOperationsForPermission('parts_attachments'), false);
         }
 
+        //Allow class name as subject
         return false;
     }
 }

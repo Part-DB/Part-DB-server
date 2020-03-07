@@ -66,6 +66,7 @@ use Omines\DataTablesBundle\DataTableTypeInterface;
 use Psr\Log\LogLevel;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Flex\Options;
 
@@ -76,15 +77,17 @@ class LogDataTable implements DataTableTypeInterface
     protected $urlGenerator;
     protected $entityURLGenerator;
     protected $logRepo;
+    protected $security;
 
     public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator, TranslatorInterface $translator,
-        UrlGeneratorInterface $urlGenerator, EntityURLGenerator $entityURLGenerator, EntityManagerInterface $entityManager)
+        UrlGeneratorInterface $urlGenerator, EntityURLGenerator $entityURLGenerator, EntityManagerInterface $entityManager, Security $security)
     {
         $this->elementTypeNameGenerator = $elementTypeNameGenerator;
         $this->translator = $translator;
         $this->urlGenerator = $urlGenerator;
         $this->entityURLGenerator = $entityURLGenerator;
         $this->logRepo = $entityManager->getRepository(AbstractLogEntry::class);
+        $this->security = $security;
     }
 
     public function configureOptions(OptionsResolver $optionsResolver)
@@ -235,7 +238,13 @@ class LogDataTable implements DataTableTypeInterface
                     }
                 }
                 return null;
+            },
+            'disabled' => function ($value, AbstractLogEntry $context) {
+                return
+                    !$this->security->isGranted('@tools.timetravel')
+                    || !$this->security->isGranted('show_history', $context->getTargetClass());
             }
+
         ]);
 
         $dataTable->add('actionRevert', RevertLogColumn::class, [

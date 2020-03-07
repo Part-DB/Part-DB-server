@@ -67,6 +67,10 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       show_history:
         label: "perm.part.show_history"
         bit: 30
+      revert_element:
+        label: "perm.revert_elements"
+        bit: 32
+        alsoSet: ["read", "edit", "create", "delete", "show_history"]
 
   parts_name:  &PART_ATTRIBUTE # We define a template here, that we can use for all part attributes.
     label: "perm.part.name"
@@ -154,8 +158,31 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
     label: "perm.part.lots"
 
   parts_attachments:
-    <<: *PART_MULTI_ATTRIBUTE
+    group: "structures"
     label: "perm.part.attachments"
+    operations:
+      read:
+        label: "perm.read"
+        bit: 0
+      edit:
+        label: "perm.edit"
+        bit: 2
+        alsoSet: 'read'
+      create:
+        label: "perm.create"
+        bit: 4
+        alsoSet: ['read', 'edit']
+      delete:
+        label: "perm.delete"
+        bit: 6
+        alsoSet: ['read']
+      show_history:
+        label: "perm.show_history"
+        bit: 8
+      revert_element:
+        label: "perm.revert_elements"
+        bit: 10
+        alsoSet: ["read", "edit", "create", "delete", "show_history"]
 
   parts_order:
     <<: *PART_ATTRIBUTE
@@ -189,6 +216,13 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       show_users:
         label: "perm.show_users"
         bit: 12
+      show_history:
+        label: "perm.show_history"
+        bit: 14
+      revert_element:
+        label: "perm.revert_elements"
+        bit: 16
+        alsoSet: ["read", "edit", "create", "delete", "show_history"]
 
   footprints:
     <<: *PART_CONTAINING
@@ -243,6 +277,12 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       statistics:
         label: "perm.tools.statistics"
         bit: 10
+      lastActivity:
+        label: "perm.tools.lastActivity"
+        bit: 12
+      timetravel:
+        label: "perm.tools.timeTravel"
+        bit: 14
 
   groups:
     label: "perm.groups"
@@ -270,6 +310,13 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         label: "perm.edit_permissions"
         alsoSet: ['read', 'edit']
         bit: 10
+      show_history:
+        label: "perm.show_history"
+        bit: 12
+      revert_element:
+        label: "perm.revert_elements"
+        bit: 14
+        alsoSet: ["read", "edit", "create", "delete", "move", "edit_permissions", "show_history"]
 
   users:
     label: "perm.users"
@@ -309,6 +356,13 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       change_user_settings:
         label: "perm.users.change_user_settings"
         bit: 16
+      show_history:
+        label: "perm.show_history"
+        bit: 18
+      revert_element:
+        label: "perm.revert_elements"
+        bit: 20
+        alsoSet: ["read", "edit", "create", "delete", "move", "edit_permissions", "show_history", "edit_infos", "change_group", "edit_username"]
 
   database:
     label: "perm.database"

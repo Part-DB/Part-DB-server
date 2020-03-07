@@ -57,11 +57,7 @@ class PartVoter extends ExtendedVoter
 
     protected function supports($attribute, $subject)
     {
-        // replace with your own logic
-        // https://symfony.com/doc/current/security/voters.html
-        //return ($subject instanceof Part || in_array($subject, ['PERM_parts', 'PERM_parts_name']));
-
-        if ($subject instanceof Part) {
+        if (is_a($subject, Part::class, true)) {
             //Check if a sub permission should be checked -> $attribute has format name.edit
             if (false !== strpos($attribute, '.')) {
                 [$perm, $op] = explode('.', $attribute);
@@ -72,24 +68,21 @@ class PartVoter extends ExtendedVoter
             return $this->resolver->isValidOperation('parts', $attribute);
         }
 
+        //Allow class name as subject
         return false;
     }
 
     protected function voteOnUser($attribute, $subject, User $user): bool
     {
-        if ($subject instanceof Part) {
-            //Check for sub permissions
-            if (false !== strpos($attribute, '.')) {
-                [$perm, $op] = explode('.', $attribute);
+        //Check for sub permissions
+        if (false !== strpos($attribute, '.')) {
+            [$perm, $op] = explode('.', $attribute);
 
-                return $this->resolver->inherit($user, 'parts_'.$perm, $op) ?? false;
-            }
-
-            //Null concealing operator means, that no
-            return $this->resolver->inherit($user, 'parts', $attribute) ?? false;
+            return $this->resolver->inherit($user, 'parts_'.$perm, $op) ?? false;
         }
 
-        //Deny access by default.
-        return false;
+        //Null concealing operator means, that no
+        return $this->resolver->inherit($user, 'parts', $attribute) ?? false;
+
     }
 }

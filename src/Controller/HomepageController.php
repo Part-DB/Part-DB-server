@@ -86,13 +86,21 @@ class HomepageController extends AbstractController
      */
     public function homepage(Request $request, GitVersionInfo $versionInfo): Response
     {
-        $table = $this->dataTable->createFromType(LogDataTable::class, [
-            'mode' => 'last_activity'
-        ], ['pageLength' => 10])
-            ->handleRequest($request);
+        if ($this->isGranted("@tools.lastActivity")) {
+            $table = $this->dataTable->createFromType(
+                LogDataTable::class,
+                [
+                    'mode' => 'last_activity'
+                ],
+                ['pageLength' => 10]
+            )
+                ->handleRequest($request);
 
-        if ($table->isCallback()) {
-            return $table->getResponse();
+            if ($table->isCallback()) {
+                return $table->getResponse();
+            }
+        } else {
+            $table = null;
         }
 
         return $this->render('homepage.html.twig', [

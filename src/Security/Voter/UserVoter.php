@@ -57,11 +57,11 @@ class UserVoter extends ExtendedVoter
      */
     protected function supports($attribute, $subject)
     {
-        if ($subject instanceof User) {
+        if (is_a($subject, User::class, true)) {
             return in_array($attribute, array_merge(
                 $this->resolver->listOperationsForPermission('users'),
                 $this->resolver->listOperationsForPermission('self')),
-            false
+                            false
             );
         }
 
@@ -89,10 +89,11 @@ class UserVoter extends ExtendedVoter
                     return $tmp;
                 }
             }
-            //Else just check users permission:
-            if ($this->resolver->isValidOperation('users', $attribute)) {
-                return $this->resolver->inherit($user, 'users', $attribute) ?? false;
-            }
+        }
+
+        //Else just check users permission:
+        if ($this->resolver->isValidOperation('users', $attribute)) {
+            return $this->resolver->inherit($user, 'users', $attribute) ?? false;
         }
 
         return false;

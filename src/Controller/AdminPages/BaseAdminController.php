@@ -89,9 +89,9 @@ abstract class BaseAdminController extends AbstractController
     protected $dataTableFactory;
 
     public function __construct(TranslatorInterface $translator, UserPasswordEncoderInterface $passwordEncoder,
-                                AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler,
-                        EventCommentHelper $commentHelper, HistoryHelper $historyHelper, TimeTravel $timeTravel,
-                        DataTableFactory $dataTableFactory)
+        AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler,
+        EventCommentHelper $commentHelper, HistoryHelper $historyHelper, TimeTravel $timeTravel,
+        DataTableFactory $dataTableFactory)
     {
         if ('' === $this->entity_class || '' === $this->form_class || '' === $this->twig_template || '' === $this->route_base) {
             throw new InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');
@@ -119,6 +119,8 @@ abstract class BaseAdminController extends AbstractController
 
         $timeTravel_timestamp = null;
         if ($timestamp !== null) {
+            $this->denyAccessUnlessGranted('@tools.timeTravel');
+            $this->denyAccessUnlessGranted('show_history', $part);
             //If the timestamp only contains numbers interpret it as unix timestamp
             if (ctype_digit($timestamp)) {
                 $timeTravel_timestamp = new \DateTime();
@@ -129,14 +131,22 @@ abstract class BaseAdminController extends AbstractController
             $this->timeTravel->revertEntityToTimestamp($entity, $timeTravel_timestamp);
         }
 
-        $table = $this->dataTableFactory->createFromType(LogDataTable::class, [
-            'filter_elements' => $this->historyHelper->getAssociatedElements($entity),
-            'mode' => 'element_history'
-        ], ['pageLength' => 10])
-            ->handleRequest($request);
+        if ($this->isGranted('show_history', $entity) ) {
+            $table = $this->dataTableFactory->createFromType(
+                LogDataTable::class,
+                [
+                    'filter_elements' => $this->historyHelper->getAssociatedElements($entity),
+                    'mode' => 'element_history'
+                ],
+                ['pageLength' => 10]
+            )
+                ->handleRequest($request);
 
-        if ($table->isCallback()) {
-            return $table->getResponse();
+            if ($table->isCallback()) {
+                return $table->getResponse();
+            }
+        } else {
+            $table = null;
         }
 
         $form = $this->createForm($this->form_class, $entity, [

@@ -27,15 +27,18 @@ use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
 use Omines\DataTablesBundle\Column\AbstractColumn;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RevertLogColumn extends AbstractColumn
 {
     protected $translator;
+    protected $security;
 
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator, Security $security)
     {
         $this->translator = $translator;
+        $this->security = $security;
     }
 
     /**
@@ -65,17 +68,21 @@ class RevertLogColumn extends AbstractColumn
             return '';
         }
 
+        $disabled = !$this->security->isGranted('revert_element', $context->getTargetClass());
+
         $tmp = '<div class="btn-group btn-group-sm">';
         $tmp .= sprintf(
-            '<button type="submit" class="btn btn-outline-secondary" name="undo" value="%d"><i class="fas fa-fw %s" title="%s"></i></button>',
+            '<button type="submit" class="btn btn-outline-secondary" name="undo" value="%d" %s><i class="fas fa-fw %s" title="%s"></i></button>',
             $context->getID(),
+            $disabled ? 'disabled' : '',
             $icon,
             $title
         );
 
         $tmp .= sprintf(
-            '<button type="submit" class="btn btn-outline-secondary" name="revert" value="%d"><i class="fas fa-fw fa-backward" title="%s"></i></button>',
+            '<button type="submit" class="btn btn-outline-secondary" name="revert" value="%d" %s><i class="fas fa-fw fa-backward" title="%s"></i></button>',
             $context->getID(),
+            $disabled ? 'disabled' : '',
             $this->translator->trans('log.undo.revert')
         );
 

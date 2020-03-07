@@ -51,25 +51,21 @@ class LogEntryVoter extends ExtendedVoter
 
     protected function voteOnUser($attribute, $subject, User $user): bool
     {
-        if ($subject instanceof AbstractLogEntry) {
-            if ('delete' === $attribute) {
-                return $this->resolver->inherit($user, 'system', 'delete_logs') ?? false;
-            }
-
-            if ('read' === $attribute) {
-                //Allow read of the users own log entries
-                if (
-                    $subject->getUser() === $user
-                    && $this->resolver->inherit($user, 'self', 'show_logs')
-                ) {
-                    return true;
-                }
-
-                return $this->resolver->inherit($user, 'system', 'show_logs') ?? false;
-            }
+        if ('delete' === $attribute) {
+            return $this->resolver->inherit($user, 'system', 'delete_logs') ?? false;
         }
 
-        return false;
+        if ('read' === $attribute) {
+            //Allow read of the users own log entries
+            if (
+                $subject->getUser() === $user
+                && $this->resolver->inherit($user, 'self', 'show_logs')
+            ) {
+                return true;
+            }
+
+            return $this->resolver->inherit($user, 'system', 'show_logs') ?? false;
+        }
     }
 
     protected function supports($attribute, $subject)

@@ -57,11 +57,7 @@ class GroupVoter extends ExtendedVoter
      */
     protected function voteOnUser($attribute, $subject, User $user): bool
     {
-        if ($subject instanceof Group) {
-            return $this->resolver->inherit($user, 'groups', $attribute) ?? false;
-        }
-
-        return false;
+        return $this->resolver->inherit($user, 'groups', $attribute) ?? false;
     }
 
     /**
@@ -74,7 +70,7 @@ class GroupVoter extends ExtendedVoter
      */
     protected function supports($attribute, $subject)
     {
-        if ($subject instanceof Group) {
+        if (is_a($subject, Group::class, true)) {
             return $this->resolver->isValidOperation('groups', $attribute);
         }
 

@@ -72,8 +72,8 @@
                         <span class="badge badge-secondary">{{ part.orderdetails | length }}</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab">
+                <li class="nav-item {% if datatable is null %}not-allowed{% endif %}">
+                    <a class="nav-link {% if datatable is null %}disabled{% endif %}" id="history-tab" data-toggle="tab" href="#history" role="tab">
                         <i class="fas fa-history"></i>
                         {% trans %}vendor.partinfo.history{% endtrans %}
                     </a>

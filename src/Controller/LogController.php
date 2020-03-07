@@ -121,6 +121,8 @@ class LogController extends AbstractController
             throw new \InvalidArgumentException('No log entry with the given ID is existing!');
         }
 
+        $this->denyAccessUnlessGranted('revert_element', $log_element->getTargetClass());
+
         $eventUndoHelper->setMode($mode);
         $eventUndoHelper->setUndoneEvent($log_element);
 

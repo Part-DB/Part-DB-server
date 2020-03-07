@@ -320,6 +320,10 @@ showing the sidebar (on devices with md or higher)
     }
 }
 
+.not-allowed {
+    cursor: not-allowed !important;
+}
+
 /**************************************
 btn-xs
 btn-xs

@@ -42,11 +42,13 @@ class IconLinkColumn extends AbstractColumn
                                    'icon' => 'fas fa-fw fa-edit',
                                    'title' => null,
                                    'href' => null,
+                                   'disabled' => false,
                                ]);
 
         $resolver->setAllowedTypes('title', ['null', 'string', 'callable']);
         $resolver->setAllowedTypes('icon', ['null', 'string', 'callable']);
         $resolver->setAllowedTypes('href', ['null', 'string', 'callable']);
+        $resolver->setAllowedTypes('disabled', ['bool', 'callable']);
 
         return $this;
     }
@@ -56,10 +58,12 @@ class IconLinkColumn extends AbstractColumn
         $href = $this->getHref($value, $context);
         $icon = $this->getIcon($value, $context);
         $title = $this->getTitle($value, $context);
+        $disabled = $this->getDisabled($value, $context);
 
         if ($href !== null) {
             return sprintf(
-                '<a class="btn btn-primary btn-sm" href="%s" title="%s"><i class="%s"></i></a>',
+                '<a class="btn btn-primary btn-sm %s" href="%s" title="%s"><i class="%s"></i></a>',
+                $disabled ? 'disabled' : '',
                 $href,
                 $title,
                 $icon
@@ -67,6 +71,18 @@ class IconLinkColumn extends AbstractColumn
         }
 
         return "";
+    }
+
+    protected function getDisabled($value, $context): bool
+    {
+        $provider = $this->options['disabled'];
+        if (is_bool($provider)) {
+            return $provider;
+        }
+        if (is_callable($provider)) {
+            return call_user_func($provider, $value, $context);
+        }
+        return false;
     }
 
     protected function getHref($value, $context): ?string
