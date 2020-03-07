@@ -5,9 +5,9 @@
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentContainingDBElement.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\Company.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\PartsContainingDBElement.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\StructuralDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractStructuralDBElement.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
@@ -20,6 +20,22 @@
         <note category="file-source" priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Attachments\AttachmentContainingDBElement.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractStructuralDBElement.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Manufacturer.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\MeasurementUnit.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Part.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Storelocation.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Supplier.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
       </notes>
       <segment>
         <source>part.master_attachment.must_be_picture</source>
@@ -29,9 +45,9 @@
     <unit id="VJHTkxx" name="structural.entity.unique_name">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\Company.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\PartsContainingDBElement.php:0</note>
-        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\StructuralDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractStructuralDBElement.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
@@ -41,6 +57,19 @@
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Supplier.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractStructuralDBElement.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Manufacturer.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\MeasurementUnit.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Storelocation.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Supplier.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
         <note priority="1">src\Entity\AttachmentType.php:0</note>
         <note priority="1">src\Entity\Category.php:0</note>
         <note priority="1">src\Entity\Company.php:0</note>
@@ -61,14 +90,26 @@
     <unit id="isXL.ie" name="validator.user.username_already_used">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
       </notes>
       <segment>
         <source>validator.user.username_already_used</source>
         <target></target>
       </segment>
     </unit>
+    <unit id="NcM463r" name="user.invalid_username">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
+      </notes>
+      <segment>
+        <source>user.invalid_username</source>
+        <target>The username must contain only letters, numbers, underscores, dots, pluses or minuses.</target>
+      </segment>
+    </unit>
     <unit id="zh5oKD9" name="This value should be false.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -78,6 +119,7 @@
     </unit>
     <unit id="NN2_iru" name="This value should be true.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -87,6 +129,7 @@
     </unit>
     <unit id="OjM_kpf" name="This value should be of type {{ type }}.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -96,6 +139,7 @@
     </unit>
     <unit id="f0P5pBD" name="This value should be blank.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -105,6 +149,7 @@
     </unit>
     <unit id="ih.4TRN" name="The value you selected is not a valid choice.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -114,6 +159,7 @@
     </unit>
     <unit id="u81CkP8" name="0d999f2">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -123,6 +169,7 @@
     </unit>
     <unit id="nIvOQ_o" name="0824486">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -132,6 +179,7 @@
     </unit>
     <unit id="87zjiHi" name="One or more of the given values is invalid.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -141,6 +189,7 @@
     </unit>
     <unit id="3NeQftv" name="This field was not expected.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -150,6 +199,7 @@
     </unit>
     <unit id="SwMV4zp" name="This field is missing.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -159,6 +209,7 @@
     </unit>
     <unit id="LO2vFKN" name="This value is not a valid date.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -168,6 +219,7 @@
     </unit>
     <unit id="86dU_nv" name="This value is not a valid datetime.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -177,6 +229,7 @@
     </unit>
     <unit id="PSvNXdi" name="This value is not a valid email address.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -186,6 +239,7 @@
     </unit>
     <unit id="3KeHbZy" name="The file could not be found.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -195,6 +249,7 @@
     </unit>
     <unit id="KtJhQZo" name="The file is not readable.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -204,6 +259,7 @@
     </unit>
     <unit id="JocOVM2" name="1ad411a">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -213,6 +269,7 @@
     </unit>
     <unit id="YW21SPH" name="30a318d">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -222,6 +279,7 @@
     </unit>
     <unit id="NubOmrs" name="This value should be {{ limit }} or less.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -231,6 +289,7 @@
     </unit>
     <unit id="HX7TOFm" name="0e0c1e1">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -240,6 +299,7 @@
     </unit>
     <unit id="qgR8M_U" name="This value should be {{ limit }} or more.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -249,6 +309,7 @@
     </unit>
     <unit id="ekfrU.c" name="5188ff9">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -258,6 +319,7 @@
     </unit>
     <unit id="1KV4L.t" name="This value should not be blank.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -267,6 +329,7 @@
     </unit>
     <unit id="2G4Vepm" name="This value should not be null.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -276,6 +339,7 @@
     </unit>
     <unit id="yDc3m6E" name="This value should be null.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -285,6 +349,7 @@
     </unit>
     <unit id="zKzWejA" name="This value is not valid.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -294,6 +359,7 @@
     </unit>
     <unit id="HSuBZpQ" name="This value is not a valid time.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -303,6 +369,7 @@
     </unit>
     <unit id="snWc_QT" name="This value is not a valid URL.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -312,6 +379,7 @@
     </unit>
     <unit id="jpaLsb2" name="The two values should be equal.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -321,6 +389,7 @@
     </unit>
     <unit id="fIlB1B_" name="The file is too large. Allowed maximum size is {{ limit }} {{ suffix }}.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -330,6 +399,7 @@
     </unit>
     <unit id="tW7o0t9" name="The file is too large.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -339,6 +409,7 @@
     </unit>
     <unit id=".exF5Ww" name="The file could not be uploaded.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -348,6 +419,7 @@
     </unit>
     <unit id="d7sS5yw" name="This value should be a valid number.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -357,6 +429,7 @@
     </unit>
     <unit id="BS2Ez6i" name="This file is not a valid image.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -366,6 +439,7 @@
     </unit>
     <unit id="ydcT9kU" name="This is not a valid IP address.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -375,6 +449,7 @@
     </unit>
     <unit id="lDOGNFX" name="This value is not a valid language.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -384,6 +459,7 @@
     </unit>
     <unit id="y9IdYkA" name="This value is not a valid locale.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -393,6 +469,7 @@
     </unit>
     <unit id="1YC0pOd" name="This value is not a valid country.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -402,6 +479,7 @@
     </unit>
     <unit id="B5ebaMp" name="This value is already used.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -411,6 +489,7 @@
     </unit>
     <unit id="L6097a6" name="The size of the image could not be detected.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -420,6 +499,7 @@
     </unit>
     <unit id="zVtJJEa" name="266051e">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -429,6 +509,7 @@
     </unit>
     <unit id="s8LFQGC" name="c1c23f9">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -438,6 +519,7 @@
     </unit>
     <unit id="Z.NgqFj" name="9a128f7">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -447,6 +529,7 @@
     </unit>
     <unit id="AW1lWVM" name="8a4cd70">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -456,6 +539,7 @@
     </unit>
     <unit id="PSdMNab" name="This value should be the user's current password.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -465,6 +549,7 @@
     </unit>
     <unit id="gYImVyV" name="fd389d6">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -474,6 +559,7 @@
     </unit>
     <unit id="xJ2Bcr_" name="The file was only partially uploaded.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -483,6 +569,7 @@
     </unit>
     <unit id="HzkJDtF" name="No file was uploaded.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -492,6 +579,7 @@
     </unit>
     <unit id="mHfEaB3" name="No temporary folder was configured in php.ini.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -501,6 +589,7 @@
     </unit>
     <unit id="y9K3BGb" name="Cannot write temporary file to disk.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -510,6 +599,7 @@
     </unit>
     <unit id="kx3yHIM" name="A PHP extension caused the upload to fail.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -519,6 +609,7 @@
     </unit>
     <unit id="gTJYRl6" name="b54c218">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -528,6 +619,7 @@
     </unit>
     <unit id="FFn3lVn" name="949632c">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -537,6 +629,7 @@
     </unit>
     <unit id="bSdilZv" name="e0582dc">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -546,6 +639,7 @@
     </unit>
     <unit id="MAzmID7" name="Invalid card number.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -555,6 +649,7 @@
     </unit>
     <unit id="c3REGK3" name="Unsupported card type or invalid card number.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -564,6 +659,7 @@
     </unit>
     <unit id="XSVzcbV" name="This is not a valid International Bank Account Number (IBAN).">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -573,6 +669,7 @@
     </unit>
     <unit id="yHirwNr" name="This value is not a valid ISBN-10.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -582,6 +679,7 @@
     </unit>
     <unit id="c_q0_ua" name="This value is not a valid ISBN-13.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -591,6 +689,7 @@
     </unit>
     <unit id="M4FlD6n" name="This value is neither a valid ISBN-10 nor a valid ISBN-13.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -600,6 +699,7 @@
     </unit>
     <unit id="cuct0Ow" name="This value is not a valid ISSN.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -609,6 +709,7 @@
     </unit>
     <unit id="JBLs1a1" name="This value is not a valid currency.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -618,6 +719,7 @@
     </unit>
     <unit id="c.WxzFW" name="This value should be equal to {{ compared_value }}.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -627,6 +729,7 @@
     </unit>
     <unit id="_jdjkwq" name="This value should be greater than {{ compared_value }}.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -636,6 +739,7 @@
     </unit>
     <unit id="o8A8a0H" name="This value should be greater than or equal to {{ compared_value }}.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -645,6 +749,7 @@
     </unit>
     <unit id="bOF1fpm" name="9670078">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -654,6 +759,7 @@
     </unit>
     <unit id="jG0QFKw" name="This value should be less than {{ compared_value }}.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -663,6 +769,7 @@
     </unit>
     <unit id="9lWrKmm" name="This value should be less than or equal to {{ compared_value }}.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -672,6 +779,7 @@
     </unit>
     <unit id="ftTwGs." name="This value should not be equal to {{ compared_value }}.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -681,6 +789,7 @@
     </unit>
     <unit id="Bi22JLt" name="0eedf91">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -690,6 +799,7 @@
     </unit>
     <unit id="VczCWzQ" name="9c3ad0f">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -699,6 +809,7 @@
     </unit>
     <unit id="v57PXhq" name="4376d45">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -708,6 +819,7 @@
     </unit>
     <unit id="rpajj.a" name="The image is square ({{ width }}x{{ height }}px). Square images are not allowed.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -717,6 +829,7 @@
     </unit>
     <unit id="G_lu2qW" name="1dc128a">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -726,6 +839,7 @@
     </unit>
     <unit id="sFyGx4B" name="9e27714">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -735,6 +849,7 @@
     </unit>
     <unit id="jZgqcpL" name="An empty file is not allowed.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -744,6 +859,7 @@
     </unit>
     <unit id="bcfVezI" name="The host could not be resolved.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -753,6 +869,7 @@
     </unit>
     <unit id="NtzKvgt" name="This value does not match the expected {{ charset }} charset.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -762,6 +879,7 @@
     </unit>
     <unit id="Wi2y9.N" name="This is not a valid Business Identifier Code (BIC).">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -771,6 +889,7 @@
     </unit>
     <unit id="VKDowX6" name="Error">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -780,6 +899,7 @@
     </unit>
     <unit id="8zqt0Ik" name="This is not a valid UUID.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -789,6 +909,7 @@
     </unit>
     <unit id="ru.4wkH" name="This value should be a multiple of {{ compared_value }}.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -798,6 +919,7 @@
     </unit>
     <unit id="M3vyK6s" name="This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -807,6 +929,7 @@
     </unit>
     <unit id="2v2xpAh" name="This value should be valid JSON.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -816,6 +939,7 @@
     </unit>
     <unit id="9CWVEGq" name="This collection should contain only unique elements.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -825,6 +949,7 @@
     </unit>
     <unit id="WdvZfq." name="This value should be positive.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -834,6 +959,7 @@
     </unit>
     <unit id="ubHMK2q" name="This value should be either positive or zero.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -843,6 +969,7 @@
     </unit>
     <unit id="IwNTzo_" name="This value should be negative.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -852,6 +979,7 @@
     </unit>
     <unit id="0GfwMfP" name="This value should be either negative or zero.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -861,6 +989,7 @@
     </unit>
     <unit id="fs3qQZR" name="This value is not a valid timezone.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -870,6 +999,7 @@
     </unit>
     <unit id="40dnsod" name="7e27e92">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -879,6 +1009,7 @@
     </unit>
     <unit id="VvxxWas" name="This value should be between {{ min }} and {{ max }}.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -886,8 +1017,27 @@
         <target>This value should be between {{ min }} and {{ max }}.</target>
       </segment>
     </unit>
+    <unit id="7g313cV" name="This value is not a valid hostname.">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>This value is not a valid hostname.</source>
+        <target>This value is not a valid hostname.</target>
+      </segment>
+    </unit>
+    <unit id="xwtBimR" name="d165c02">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>The number of elements in this collection should be a multiple of {{ compared_value }}.</source>
+        <target>The number of elements in this collection should be a multiple of {{ compared_value }}.</target>
+      </segment>
+    </unit>
     <unit id=".SEaaBa" name="This form should not contain extra fields.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -897,6 +1047,7 @@
     </unit>
     <unit id="WPnLAh9" name="The uploaded file was too large. Please try to upload a smaller file.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -906,6 +1057,7 @@
     </unit>
     <unit id="fvxWW3V" name="The CSRF token is invalid. Please try to resubmit the form.">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -915,6 +1067,7 @@
     </unit>
     <unit id="lZvhKYu" name="validator.noneofitschild.self">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -924,6 +1077,7 @@
     </unit>
     <unit id="pr07aV4" name="validator.noneofitschild.children">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -933,6 +1087,7 @@
     </unit>
     <unit id="0IF0VIF" name="validator.isSelectable">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -942,6 +1097,7 @@
     </unit>
     <unit id="nd207H6" name="validator.part_lot.location_full.no_increasment">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -951,6 +1107,7 @@
     </unit>
     <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -960,6 +1117,7 @@
     </unit>
     <unit id="6vIlN5q" name="validator.part_lot.only_existing">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
@@ -969,17 +1127,12 @@
     </unit>
     <unit id="BNQk2e7" name="validator.part_lot.single_part">
       <notes>
+        <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
         <source>validator.part_lot.single_part</source>
         <target>The storage location was marked as "single part", so you can not add a new part to it.</target>
-      </segment>
-    </unit>
-    <unit id="NcM463r" name="user.invalid_username">
-      <segment>
-        <source>user.invalid_username</source>
-        <target>The username must contain only letters, numbers, underscores, dots, pluses or minuses.</target>
       </segment>
     </unit>
   </file>
