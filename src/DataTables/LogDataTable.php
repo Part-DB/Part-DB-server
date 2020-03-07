@@ -51,6 +51,9 @@ use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\TimeTravelInterface;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\LogSystem\CollectionElementDeleted;
+use App\Entity\LogSystem\ElementCreatedLogEntry;
+use App\Entity\LogSystem\ElementDeletedLogEntry;
+use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Exceptions\EntityNotSupportedException;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
@@ -91,7 +94,7 @@ class LogDataTable implements DataTableTypeInterface
                                           'filter_elements' => [],
                                       ]);
 
-        $optionsResolver->setAllowedValues('mode', ['system_log', 'element_history']);
+        $optionsResolver->setAllowedValues('mode', ['system_log', 'element_history', 'last_activity']);
     }
 
     public function configure(DataTable $dataTable, array $options): void
@@ -251,6 +254,13 @@ class LogDataTable implements DataTableTypeInterface
             ->addSelect('user')
             ->from(AbstractLogEntry::class, 'log')
             ->leftJoin('log.user', 'user');
+
+        if ($options['mode'] === 'last_activity') {
+            $builder->where('log INSTANCE OF ' . ElementCreatedLogEntry::class)
+                ->orWhere('log INSTANCE OF ' . ElementDeletedLogEntry::class)
+                ->orWhere('log INSTANCE OF ' . ElementEditedLogEntry::class)
+                ->orWhere('log INSTANCE OF ' . CollectionElementDeleted::class);
+        }
 
         if (!empty($options['filter_elements'])) {
             foreach ($options['filter_elements'] as $element) {

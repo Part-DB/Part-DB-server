@@ -42,7 +42,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\DataTables\LogDataTable;
 use App\Services\GitVersionInfo;
+use Omines\DataTablesBundle\DataTableFactory;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use const DIRECTORY_SEPARATOR;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -53,11 +57,13 @@ class HomepageController extends AbstractController
 {
     protected $cache;
     protected $kernel;
+    protected $dataTable;
 
-    public function __construct(CacheInterface $cache, KernelInterface $kernel)
+    public function __construct(CacheInterface $cache, KernelInterface $kernel, DataTableFactory $dataTable)
     {
         $this->cache = $cache;
         $this->kernel = $kernel;
+        $this->dataTable = $dataTable;
     }
 
     public function getBanner(): string
@@ -78,12 +84,22 @@ class HomepageController extends AbstractController
      * @param  GitVersionInfo  $versionInfo
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function homepage(GitVersionInfo $versionInfo): \Symfony\Component\HttpFoundation\Response
+    public function homepage(Request $request, GitVersionInfo $versionInfo): Response
     {
+        $table = $this->dataTable->createFromType(LogDataTable::class, [
+            'mode' => 'last_activity'
+        ], ['pageLength' => 10])
+            ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
+
         return $this->render('homepage.html.twig', [
             'banner' => $this->getBanner(),
             'git_branch' => $versionInfo->getGitBranchName(),
             'git_commit' => $versionInfo->getGitCommitHash(),
+            'datatable' => $table
         ]);
     }
 }
