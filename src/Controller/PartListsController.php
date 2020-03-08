@@ -204,8 +204,24 @@ class PartListsController extends AbstractController
     public function showSearch(Request $request, DataTableFactory $dataTable)
     {
         $search = $request->query->get('keyword', '');
+        $search_options = [
+            'name' => $request->query->getBoolean('name'),
+            'description' => $request->query->getBoolean('description'),
+            'comment' => $request->query->getBoolean('comment'),
+            'category' => $request->query->getBoolean('category'),
+            'store_location' => $request->query->getBoolean('storelocation'),
+            'supplier' => $request->query->getBoolean('supplier'),
+            'ordernr' => $request->query->getBoolean('ordernr'),
+            'manufacturer' => $request->query->getBoolean('manufacturer'),
+            'footprint' => $request->query->getBoolean('footprint'),
+            'tags' => $request->query->getBoolean('tags'),
+            'regex' => $request->query->getBoolean('regex'),
+        ];
 
-        $table = $dataTable->createFromType(PartsDataTable::class, ['search' => $search])
+
+        $table = $dataTable->createFromType(PartsDataTable::class, [
+            'search' => $search, 'search_options' => $search_options
+        ])
             ->handleRequest($request);
 
         if ($table->isCallback()) {

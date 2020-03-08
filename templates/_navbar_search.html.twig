@@ -4,56 +4,62 @@
             {% trans %}search.options.label{% endtrans %}
             <span class="caret"></span>
         </button>
-        <div class="dropdown-menu p-2" aria-labelledby="SearchOptions">
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="search_name"  name="search_name" value="true" checked>
-                <label for="search_name" class="custom-control-label">{% trans %}name.label{% endtrans %}</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="search_category" name="search_category" value="true" checked>
-                <label for="search_category" class="custom-control-label">{% trans %}category.label{% endtrans %}</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="search_description" name="search_description" value="true" checked>
-                <label for="search_description" class="custom-control-label"></label>{% trans %}description.label{% endtrans %}
-            </div>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="search_storelocation" name="search_storelocation" value="true" checked>
-                <label for="search_storelocation" class="custom-control-label">{% trans %}storelocation.label{% endtrans %}</label>
-            </div>
-            <div class=" custom-control custom-checkbox">
-                <input type="checkbox" id="search_comment" class="custom-control-input" id="search_comment" name="search_comment" value="true" checked>
-                <label for="search_comment" class="custom-control-label">{% trans %}comment.label{% endtrans %}</label>
-            </div>
-            {% if true %}
+        <div class="dropdown-menu" aria-labelledby="SearchOptions">
+            <div class="px-1 py-2">
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="search_supplierpartnr" name="search_supplierpartnr" value="true" checked>
-                    <label for="search_supplierpartnr" class="custom-control-label">{% trans %}ordernumber.label.short{% endtrans %}</label>
+                    <input type="checkbox" class="custom-control-input" id="search_name"  name="name" value="1" checked>
+                    <label for="search_name" class="custom-control-label justify-content-start">{% trans %}name.label{% endtrans %}</label>
                 </div>
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="search_supplier" name="search_supplier" value="true">
-                    <label for="search_supplier" class="custom-control-label">{% trans %}supplier.label{% endtrans %}</label>
+                    <input type="checkbox" class="custom-control-input" id="search_category" name="category" value="1" checked>
+                    <label for="search_category" class="custom-control-label justify-content-start">{% trans %}category.label{% endtrans %}</label>
                 </div>
-            {% endif %}
-            {% if true %}
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="search_manufacturer" name="search_manufacturer" value="true">
-                    <label for="search_manufacturer" class="custom-control-label">{% trans %}manufacturer.label{% endtrans %}</label>
+                    <input type="checkbox" class="custom-control-input" id="search_description" name="description" value="1" checked>
+                    <label for="search_description" class="custom-control-label justify-content-start">{% trans %}description.label{% endtrans %}</label>
                 </div>
-            {% endif %}
-            {% if true %}
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="search_footprint" name="search_footprint" value="true">
-                    <label for="search_footprint" class="custom-control-label">{% trans %}footprint.label{% endtrans %}</label>
+                    <input type="checkbox" class="custom-control-input" id="search_tags" name="tags" value="1" checked>
+                    <label for="search_tags" class="custom-control-label justify-content-start">{% trans %}tags.label{% endtrans %}</label>
                 </div>
-            {% endif %}
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="disable_pid_input" name="disable_pid_input" value="false">
-                <label for="disable_pid_input" class="custom-control-label">{% trans %}search.deactivateBarcode{% endtrans %}</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="regex" name="regex" value="true">
-                <label for="regex" class="custom-control-label">{% trans %}search.regexmatching{% endtrans %}</label>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="search_storelocation" name="storelocation" value="1" checked>
+                    <label for="search_storelocation" class="custom-control-label justify-content-start">{% trans %}storelocation.label{% endtrans %}</label>
+                </div>
+                <div class=" custom-control custom-checkbox">
+                    <input type="checkbox" id="search_comment" class="custom-control-input" id="search_comment" name="comment" value="1" checked>
+                    <label for="search_comment" class="custom-control-label justify-content-start">{% trans %}comment.label{% endtrans %}</label>
+                </div>
+                {% if true %}
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="search_supplierpartnr" name="ordernr" value="1" checked>
+                        <label for="search_supplierpartnr" class="custom-control-label justify-content-start">{% trans %}ordernumber.label.short{% endtrans %}</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="search_supplier" name="supplier" value="1">
+                        <label for="search_supplier" class="custom-control-label justify-content-start">{% trans %}supplier.label{% endtrans %}</label>
+                    </div>
+                {% endif %}
+                {% if true %}
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="search_manufacturer" name="manufacturer" value="1">
+                        <label for="search_manufacturer" class="custom-control-label justify-content-start">{% trans %}manufacturer.label{% endtrans %}</label>
+                    </div>
+                {% endif %}
+                {% if true %}
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="search_footprint" name="footprint" value="1">
+                        <label for="search_footprint" class="custom-control-label justify-content-start">{% trans %}footprint.label{% endtrans %}</label>
+                    </div>
+                {% endif %}
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="disable_pid_input" name="disable_pid_input" value="1">
+                    <label for="disable_pid_input" class="custom-control-label justify-content-start">{% trans %}search.deactivateBarcode{% endtrans %}</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="regex" name="regex" value="1">
+                    <label for="regex" class="custom-control-label justify-content-start">{% trans %}search.regexmatching{% endtrans %}</label>
+                </div>
             </div>
         </div>
     </div>

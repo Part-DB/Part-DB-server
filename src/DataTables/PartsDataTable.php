@@ -66,6 +66,7 @@ use Omines\DataTablesBundle\Column\MapColumn;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class PartsDataTable implements DataTableTypeInterface
@@ -81,8 +82,8 @@ final class PartsDataTable implements DataTableTypeInterface
     private $urlGenerator;
 
     public function __construct(EntityURLGenerator $urlGenerator, TranslatorInterface $translator,
-                                NodesListBuilder $treeBuilder, AmountFormatter $amountFormatter,
-                                PartPreviewGenerator $previewGenerator, AttachmentURLGenerator $attachmentURLGenerator)
+        NodesListBuilder $treeBuilder, AmountFormatter $amountFormatter,
+        PartPreviewGenerator $previewGenerator, AttachmentURLGenerator $attachmentURLGenerator)
     {
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
@@ -92,8 +93,59 @@ final class PartsDataTable implements DataTableTypeInterface
         $this->attachmentURLGenerator = $attachmentURLGenerator;
     }
 
+    public function configureOptions(OptionsResolver $optionsResolver)
+    {
+        $optionsResolver->setDefaults([
+                                          'category' => null,
+                                          'footprint' => null,
+                                          'manufacturer' => null,
+                                          'storelocation' => null,
+                                          'supplier' => null,
+                                          'tag' => null,
+                                          'search' => null,
+                                      ]);
+
+        $optionsResolver->setAllowedTypes('category', ['null', Category::class]);
+        $optionsResolver->setAllowedTypes('footprint', ['null', Footprint::class]);
+        $optionsResolver->setAllowedTypes('manufacturer', ['null', Manufacturer::class]);
+        $optionsResolver->setAllowedTypes('supplier', ['null', Supplier::class]);
+        $optionsResolver->setAllowedTypes('tag', ['null', 'string']);
+        $optionsResolver->setAllowedTypes('search', ['null', 'string']);
+
+        //Configure search options
+        $optionsResolver->setDefault('search_options', function (OptionsResolver $resolver) {
+            $resolver->setDefaults([
+                                       'name' => true,
+                                       'category' => true,
+                                       'description' => true,
+                                       'store_location' => true,
+                                       'comment' => true,
+                                       'ordernr' => true,
+                                       'supplier' => false,
+                                       'manufacturer' => false,
+                                       'footprint' => false,
+                                       'tags' => false,
+                                       'regex' => false,
+                                   ]);
+            $resolver->setAllowedTypes('name', 'bool');
+            $resolver->setAllowedTypes('category', 'bool');
+            $resolver->setAllowedTypes('description', 'bool');
+            $resolver->setAllowedTypes('store_location', 'bool');
+            $resolver->setAllowedTypes('comment', 'bool');
+            $resolver->setAllowedTypes('supplier', 'bool');
+            $resolver->setAllowedTypes('manufacturer', 'bool');
+            $resolver->setAllowedTypes('footprint', 'bool');
+            $resolver->setAllowedTypes('tags', 'bool');
+            $resolver->setAllowedTypes('regex', 'bool');
+        });
+    }
+
     public function configure(DataTable $dataTable, array $options): void
     {
+        $resolver = new OptionsResolver();
+        $this->configureOptions($resolver);
+        $options = $resolver->resolve($options);
+
         $dataTable
             ->add('picture', TextColumn::class, [
                 'label' => '',
@@ -270,6 +322,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('footprint.master_picture_attachment', 'footprint_attachment')
             ->leftJoin('part.manufacturer', 'manufacturer')
             ->leftJoin('part.orderdetails', 'orderdetails')
+            ->leftJoin('orderdetails.supplier', 'suppliers')
             ->leftJoin('part.attachments', 'attachments')
             ->leftJoin('part.partUnit', 'partUnit');
     }
@@ -322,9 +375,96 @@ final class PartsDataTable implements DataTableTypeInterface
             $builder->andWhere('part.tags LIKE :tag')->setParameter('tag', '%'.$options['tag'].'%');
         }
 
-        if (isset($options['search'])) {
-            $builder->AndWhere('part.name LIKE :search')->orWhere('part.description LIKE :search')->orWhere('part.comment LIKE :search')
-                ->setParameter('search', '%'.$options['search'].'%');
+        if (!empty($options['search'])) {
+            if (!$options['search_options']['regex']) {
+                //Dont show results, if no things are selected
+                $builder->andWhere('0=1');
+                $defined = false;
+                if ($options['search_options']['name']) {
+                    $builder->orWhere('part.name LIKE :search');
+                    $defined = true;
+                }
+                if ($options['search_options']['description']) {
+                    $builder->orWhere('part.description LIKE :search');
+                    $defined = true;
+                }
+                if ($options['search_options']['comment']) {
+                    $builder->orWhere('part.comment LIKE :search');
+                    $defined = true;
+                }
+                if ($options['search_options']['category']) {
+                    $builder->orWhere('category.name LIKE :search');
+                    $defined = true;
+                }
+                if ($options['search_options']['manufacturer']) {
+                    $builder->orWhere('manufacturer.name LIKE :search');
+                    $defined = true;
+                }
+                if ($options['search_options']['footprint']) {
+                    $builder->orWhere('footprint.name LIKE :search');
+                    $defined = true;
+                }
+                if ($options['search_options']['tags']) {
+                    $builder->orWhere('part.tags LIKE :search');
+                    $defined = true;
+                }
+                if ($options['search_options']['store_location']) {
+                    $builder->orWhere('storelocations.name LIKE :search');
+                    $defined = true;
+                }
+                if ($options['search_options']['supplier']) {
+                    $builder->orWhere('suppliers.name LIKE :search');
+                    $defined = true;
+                }
+
+                if ($defined) {
+                    $builder->setParameter('search', '%'.$options['search'].'%');
+                }
+            } else { //Use REGEX
+                $builder->andWhere('0=1');
+                $defined = false;
+                if ($options['search_options']['name']) {
+                    $builder->orWhere('REGEXP(part.name, :search) = 1');
+                    $defined = true;
+                }
+                if ($options['search_options']['description']) {
+                    $builder->orWhere('REGEXP(part.description, :search) = 1');
+                    $defined = true;
+                }
+                if ($options['search_options']['comment']) {
+                    $builder->orWhere('REGEXP(part.comment, :search) = 1');
+                    $defined = true;
+                }
+                if ($options['search_options']['category']) {
+                    $builder->orWhere('REGEXP(category.name, :search) = 1');
+                    $defined = true;
+                }
+                if ($options['search_options']['manufacturer']) {
+                    $builder->orWhere('REGEXP(manufacturer.name, :search) = 1');
+                    $defined = true;
+                }
+                if ($options['search_options']['footprint']) {
+                    $builder->orWhere('REGEXP(footprint.name, :search) = 1');
+                    $defined = true;
+                }
+                if ($options['search_options']['tags']) {
+                    $builder->orWhere('REGEXP(part.tags, :search) = 1');
+                    $defined = true;
+                }
+                if ($options['search_options']['store_location']) {
+                    $builder->orWhere('REGEXP(storelocations.name, :search) = 1');
+                    $defined = true;
+                }
+                if ($options['search_options']['supplier']) {
+                    $builder->orWhere('REGEXP(suppliers.name, :search) = 1');
+                    $defined = true;
+                }
+
+                if ($defined) {
+                    $builder->setParameter('search', $options['search']);
+                }
+
+            }
         }
     }
 }
