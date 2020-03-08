@@ -156,4 +156,24 @@ class Part extends AttachmentContainingDBElement
     {
         return $this->devices;
     }
+
+    public function __clone()
+    {
+        if ($this->id) {
+            //Deep clone part lots
+            $lots = $this->partLots;
+            $this->partLots = new ArrayCollection();
+            foreach ($lots as $lot) {
+                $this->addPartLot(clone $lot);
+            }
+
+            //Deep clone order details
+            $orderdetails = $this->orderdetails;
+            $this->orderdetails = new ArrayCollection();
+            foreach ($orderdetails as $orderdetail) {
+                $this->addOrderdetail(clone $orderdetail);
+            }
+        }
+        parent::__clone();
+    }
 }

@@ -224,6 +224,7 @@ class PartController extends AbstractController
 
     /**
      * @Route("/new", name="part_new")
+     * @Route("/{id}/clone", name="part_clone")
      *
      * @param  Request  $request
      * @param  EntityManagerInterface  $em
@@ -233,16 +234,20 @@ class PartController extends AbstractController
      * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
-        AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler): Response
+        AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler, ?Part $part = null): Response
     {
-        $new_part = new Part();
+        if($part === null) {
+            $new_part = new Part();
+        } else {
+            $new_part = clone $part;
+        }
 
         $this->denyAccessUnlessGranted('create', $new_part);
 
         $cid = $request->get('cid', 1);
 
         $category = $em->find(Category::class, $cid);
-        if (null !== $category) {
+        if (null !== $category && $new_part->getCategory() === null) {
             $new_part->setCategory($category);
         }
 
@@ -292,7 +297,7 @@ class PartController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/clone", name="part_clone")
+     * //@Route("/{id}/clone", name="part_clone")
      *
      * @param  Part  $part
      * @param  Request  $request
@@ -323,6 +328,7 @@ class PartController extends AbstractController
                              [
                                  'part' => $new_part,
                                  'form' => $form->createView(),
+                                 'attachment_helper' => $attachmentHelper,
                              ]);
     }
 }

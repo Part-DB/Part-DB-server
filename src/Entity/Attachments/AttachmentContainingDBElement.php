@@ -95,4 +95,23 @@ abstract class AttachmentContainingDBElement extends AbstractNamedDBElement impl
 
         return $this;
     }
+
+    public function __clone()
+    {
+        if ($this->id) {
+            $attachments = $this->attachments;
+            $this->attachments = new ArrayCollection();
+            //Set master attachment is needed
+            foreach ($attachments as $attachment) {
+                $clone = clone $attachment;
+                if ($attachment === $this->master_picture_attachment) {
+                    $this->setMasterPictureAttachment($clone);
+                }
+                $this->addAttachment($clone);
+            }
+        }
+
+        //Parent has to be last call, as it resets the ID
+        parent::__clone();
+    }
 }

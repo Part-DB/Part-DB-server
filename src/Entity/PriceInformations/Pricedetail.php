@@ -328,4 +328,12 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     {
         return 'PD'.sprintf('%06d', $this->getID());
     }
+
+    public function __clone()
+    {
+        if ($this->id) {
+           $this->addedDate = null;
+        }
+        parent::__clone();
+    }
 }

@@ -68,8 +68,10 @@ abstract class AbstractDBElement implements \JsonSerializable
 
     public function __clone()
     {
-        //Set ID to null, so that an new entry is created
-        $this->id = null;
+        if ($this->id) {
+            //Set ID to null, so that an new entry is created
+            $this->id = null;
+        }
     }
 
     /**

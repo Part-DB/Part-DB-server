@@ -325,4 +325,12 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface
 
         return $this;
     }
+
+    public function __clone()
+    {
+        if($this->id) {
+            $this->addedDate = null;
+        }
+        parent::__clone();
+    }
 }

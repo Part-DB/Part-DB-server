@@ -348,4 +348,18 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface
 
         return $this;
     }
+
+    public function __clone()
+    {
+        if ($this->id) {
+           $this->addedDate = null;
+            $pricedetails = $this->pricedetails;
+            $this->pricedetails = new ArrayCollection();
+            //Set master attachment is needed
+            foreach ($pricedetails as $pricedetail) {
+                $this->addPricedetail(clone $pricedetail);
+            }
+        }
+        parent::__clone();
+    }
 }
