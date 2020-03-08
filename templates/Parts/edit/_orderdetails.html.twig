@@ -41,6 +41,10 @@
 
         //Determine the new value for the min_discount_qty
         var new_min_amount = $("input[id$='min_discount_quantity_value']" , $holder).last().val();
+        //Assign a valid value, if no price are existing yet
+        if (typeof new_min_amount == "undefined") {
+           new_min_amount = 0;
+        }
         new_min_amount = parseInt(new_min_amount) + 1;
         //Determine the next exponent, 10 -> 100 -> 1000
         new_min_amount = Math.pow(10, Math.ceil(Math.log10(new_min_amount)));
