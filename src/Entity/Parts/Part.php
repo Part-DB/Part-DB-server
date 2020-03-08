@@ -52,6 +52,7 @@ namespace App\Entity\Parts;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
+use App\Entity\Base\SpecificationsTrait;
 use App\Entity\Devices\Device;
 use App\Entity\Parts\PartTraits\AdvancedPropertyTrait;
 use App\Entity\Parts\PartTraits\BasicPropertyTrait;
@@ -81,6 +82,7 @@ class Part extends AttachmentContainingDBElement
     use InstockTrait;
     use ManufacturerTrait;
     use OrderTrait;
+    use SpecificationsTrait;
 
     /**
      * TODO.

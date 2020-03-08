@@ -13,6 +13,7 @@
         "beberlei/doctrineextensions": "^1.2",
         "doctrine/annotations": "^1.6",
         "doctrine/doctrine-bundle": "^2.0",
+        "dunglas/doctrine-json-odm": "^1.0",
         "florianv/swap": "^4.0",
         "friendsofsymfony/ckeditor-bundle": "^2.0",
         "gregwar/captcha-bundle": "^2.1.0",

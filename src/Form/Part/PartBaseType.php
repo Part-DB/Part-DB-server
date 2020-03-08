@@ -50,7 +50,9 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Orderdetail;
+use App\Entity\Specifications\Specification;
 use App\Form\AttachmentFormType;
+use App\Form\SpecificationType;
 use App\Form\Type\MasterPictureAttachmentType;
 use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
@@ -264,6 +266,15 @@ class PartBaseType extends AbstractType
             ],
         ]);
 
+        $builder->add('specifications', CollectionType::class, [
+            'entry_type' => SpecificationType::class,
+            'allow_add' => true,
+            'allow_delete' => true,
+            'label' => false,
+            'by_reference' => false,
+            'prototype_data' => new Specification(),
+        ]);
+
         $builder->add('log_comment', TextType::class, [
             'label' => 'edit.log_comment',
             'mapped' => false,
@@ -280,7 +291,7 @@ class PartBaseType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Part::class,
-        ]);
+                                   'data_class' => Part::class,
+                               ]);
     }
 }

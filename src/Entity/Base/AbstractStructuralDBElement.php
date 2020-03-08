@@ -50,6 +50,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
 {
+    use SpecificationsTrait;
+
     public const ID_ROOT_ELEMENT = 0;
 
     /**

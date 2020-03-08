@@ -63,3 +63,21 @@
         </td>
     </tr>
 {% endblock %}
+
+{% block specification_widget %}
+    <tr>
+        <td>{{ form_widget(form.name) }}{{ form_errors(form.name) }}</td>
+        <td>{{ form_widget(form.symbol) }}{{ form_errors(form.symbol) }}</td>
+        <td>{{ form_widget(form.value_min) }}{{ form_errors(form.value_min) }}</td>
+        <td>{{ form_widget(form.value_typical) }}{{ form_errors(form.value_typical) }}</td>
+        <td>{{ form_widget(form.value_max) }}{{ form_errors(form.value_max) }}</td>
+        <td>{{ form_widget(form.unit) }}{{ form_errors(form.unit) }}</td>
+        <td>{{ form_widget(form.value_text) }}{{ form_errors(form.value_text) }}</td>
+        <td>
+            <button type="button" class="btn btn-danger order_btn_delete" onclick="delete_specification_entry(this);" title="{% trans %}orderdetail.delete{% endtrans %}">
+                <i class="fas fa-trash-alt fa-fw"></i>
+            </button>
+            {{ form_errors(form) }}
+        </td>
+    </tr>
+{% endblock %}
