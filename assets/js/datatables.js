@@ -15,7 +15,8 @@
     $.fn.initDataTables = function(config, options) {
 
         //Update default used url, so it reflects the current location (useful on single side apps)
-        $.fn.initDataTables.defaults.url = window.location.origin + window.location.pathname;
+        //CHANGED jbtronics: Preserve the get parameters (needed so we can pass additional params to query)
+        $.fn.initDataTables.defaults.url = window.location.origin + window.location.pathname + window.location.search;
 
         var root = this,
             config = $.extend({}, $.fn.initDataTables.defaults, config),

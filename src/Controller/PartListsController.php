@@ -203,7 +203,7 @@ class PartListsController extends AbstractController
      */
     public function showSearch(Request $request, DataTableFactory $dataTable)
     {
-        $search = $request->get('keyword', '');
+        $search = $request->query->get('keyword', '');
 
         $table = $dataTable->createFromType(PartsDataTable::class, ['search' => $search])
             ->handleRequest($request);
