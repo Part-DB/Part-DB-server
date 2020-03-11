@@ -44,10 +44,13 @@ namespace App\Entity\UserSystem;
 
 use App\Entity\Attachments\GroupAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\Parameters\GroupParameter;
+use App\Entity\Parameters\SupplierParameter;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\ValidPermission;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This entity represents an user group.
@@ -81,6 +84,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     /**
      * @var Collection|GroupAttachment[]
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ManufacturerAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     protected $attachments;
 
@@ -89,6 +93,12 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      * @ValidPermission()
      */
     protected $permissions;
+
+    /** @var GroupParameter[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\GroupParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
+     */
+    protected $parameters;
 
     public function __construct()
     {

@@ -18,13 +18,42 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace App\Entity\Specifications;
+namespace App\Entity\Parameters;
 
-
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
+use App\Repository\DBElementRepository;
+use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
+use LogicException;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class Specification
+/**
+ * @ORM\Entity()
+ * @ORM\Table("parameters")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="type", type="smallint")
+ * @ORM\DiscriminatorMap({
+ *      0 = "CategoryParameter",
+ *      1 = "CurrencyParameter",
+ *      2 = "DeviceParameter",
+ *      3 = "FootprintParameter",
+ *      4 = "GroupParameter",
+ *      5 = "ManufacturerParameter",
+ *      6 = "MeasurementUnitParameter",
+ *      7 = "PartParameter",
+ *      8 = "StorelocationParameter",
+ *      9 = "SupplierParameter",
+ *      10 = "AttachmentTypeParameter"
+ * })
+ */
+abstract class AbstractParameter extends AbstractNamedDBElement
 {
+    /**
+     * @var string The class of the element that can be passed to this attachment. Must be overridden in subclasses.
+     */
+    public const ALLOWED_ELEMENT_CLASS = '';
+
     /**
      * @var string The name of the specification (e.g. "Collector-Base Voltage"). Required!
      * @Assert\NotBlank()
@@ -34,6 +63,7 @@ class Specification
     /**
      * @var string The mathematical symbol for this specification. Can be rendered pretty later. Should be short
      * @Assert\Length(max=10)
+     * @ORM\Column(type="string", nullable=false)
      */
     protected $symbol = "";
 
@@ -42,12 +72,14 @@ class Specification
      * @Assert\Type({"float","null"})
      * @Assert\LessThanOrEqual(propertyPath="value_typical")
      * @Assert\LessThan(propertyPath="value_max")
+     * @ORM\Column(type="float", nullable=true)
      */
     protected $value_min;
 
     /**
      * @var float|null The typical value of this property.
      * @Assert\Type({"null", "float"})
+     * @ORM\Column(type="float", nullable=true)
      */
     protected $value_typical;
 
@@ -55,20 +87,41 @@ class Specification
      * @var float|null The maximum value of this property.
      * @Assert\Type({"float", "null"})
      * @Assert\GreaterThanOrEqual(propertyPath="value_typical")
+     * @ORM\Column(type="float", nullable=true)
      */
     protected $value_max;
 
     /**
      * @var string The unit in which the value values are given (e.g. V)
      * @Assert\Length(max=5)
+     * @ORM\Column(type="string", nullable=false)
      */
     protected $unit = "";
 
     /**
      * @var string A text value for the given property.
-     *
+     * @ORM\Column(type="string", nullable=false)
      */
     protected $value_text = "";
+
+    /**
+     * @var string The group this parameter belongs to.
+     * @ORM\Column(type="string", nullable=false, name="param_group")
+     */
+    protected $group = "";
+
+    /**
+     * Mapping is done in sub classes
+     * @var AbstractDBElement|null The element to which this parameter belongs to.
+     */
+    protected $element;
+
+    public function __construct()
+    {
+        if ('' === static::ALLOWED_ELEMENT_CLASS) {
+            throw new LogicException('An *Attachment class must override the ALLOWED_ELEMENT_CLASS const!');
+        }
+    }
 
     /**
      * Returns the name of the specification (e.g. "Collector-Base Voltage").
@@ -80,11 +133,35 @@ class Specification
     }
 
     /**
+     * Returns the element this parameter belongs to.
+     * @return AbstractDBElement|null
+     */
+    public function getElement(): ?AbstractDBElement
+    {
+        return $this->element;
+    }
+
+    /**
+     * Sets the element to which this parameter belongs to.
+     * @param AbstractDBElement $element
+     * @return $this
+     */
+    public function setElement(AbstractDBElement $element): self
+    {
+        if (! is_a($element, static::ALLOWED_ELEMENT_CLASS)) {
+            throw new InvalidArgumentException(sprintf('The element associated with a %s must be a %s!', static::class, static::ALLOWED_ELEMENT_CLASS));
+        }
+
+        $this->element = $element;
+        return $this;
+    }
+
+    /**
      * Sets the name of the specification. This value is required.
      * @param  string  $name
      * @return $this
      */
-    public function setName(string $name): Specification
+    public function setName(string $name): AbstractNamedDBElement
     {
         $this->name = $name;
         return $this;
@@ -104,7 +181,7 @@ class Specification
      * @param  string  $symbol
      * @return $this
      */
-    public function setSymbol(string $symbol): Specification
+    public function setSymbol(string $symbol): self
     {
         $this->symbol = $symbol;
         return $this;
@@ -124,7 +201,7 @@ class Specification
      * @param  float|null  $value_min
      * @return $this
      */
-    public function setValueMin(?float $value_min): Specification
+    public function setValueMin(?float $value_min): self
     {
         $this->value_min = $value_min;
         return $this;
@@ -144,7 +221,7 @@ class Specification
      * @param  float  $value_typical
      * @return $this
      */
-    public function setValueTypical(?float $value_typical): Specification
+    public function setValueTypical(?float $value_typical): self
     {
         $this->value_typical = $value_typical;
         return $this;
@@ -164,7 +241,7 @@ class Specification
      * @param  float|null  $value_max
      * @return $this
      */
-    public function setValueMax(?float $value_max): Specification
+    public function setValueMax(?float $value_max): self
     {
         $this->value_max = $value_max;
         return $this;
@@ -184,7 +261,7 @@ class Specification
      * @param  string  $unit
      * @return $this
      */
-    public function setUnit(string $unit): Specification
+    public function setUnit(string $unit): self
     {
         $this->unit = $unit;
         return $this;
@@ -204,11 +281,14 @@ class Specification
      * @param  string  $value_text
      * @return $this
      */
-    public function setValueText(string $value_text): Specification
+    public function setValueText(string $value_text): self
     {
         $this->value_text = $value_text;
         return $this;
     }
 
-
+    public function getIDString(): string
+    {
+        return 'PM'.sprintf('%09d', $this->getID());
+    }
 }

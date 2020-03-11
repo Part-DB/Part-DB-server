@@ -52,8 +52,11 @@ namespace App\Entity\Parts;
 
 use App\Entity\Attachments\StorelocationAttachment;
 use App\Entity\Base\AbstractPartsContainingDBElement;
+use App\Entity\Parameters\DeviceParameter;
+use App\Entity\Parameters\StorelocationParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Store location.
@@ -85,10 +88,16 @@ class Storelocation extends AbstractPartsContainingDBElement
      * @ORM\ManyToMany(targetEntity="Part", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(name="part_lots",
      *    joinColumns={@ORM\JoinColumn(name="id_store_location", referencedColumnName="id")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="id_part", referencedColumnName="id")}
+     *    inverseJoinColumns={@ORM\JoinColumn(name="id_part", referencedColumnName="id")}
      * )
      */
     protected $parts;
+
+    /** @var StorelocationParameter[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\StorelocationParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
+     */
+    protected $parameters;
 
     /**
      * @var bool
@@ -110,6 +119,7 @@ class Storelocation extends AbstractPartsContainingDBElement
     /**
      * @var Collection|StorelocationAttachment[]
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\StorelocationAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     protected $attachments;
 

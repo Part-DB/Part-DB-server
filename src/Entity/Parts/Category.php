@@ -24,8 +24,11 @@ namespace App\Entity\Parts;
 
 use App\Entity\Attachments\CategoryAttachment;
 use App\Entity\Base\AbstractPartsContainingDBElement;
+use App\Entity\Parameters\CategoryParameter;
+use App\Entity\Parameters\DeviceParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class AttachmentType.
@@ -101,8 +104,15 @@ class Category extends AbstractPartsContainingDBElement
     /**
      * @var Collection|CategoryAttachment[]
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CategoryAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     protected $attachments;
+
+    /** @var CategoryParameter[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\CategoryParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
+     */
+    protected $parameters;
 
     /**
      * Returns the ID as an string, defined by the element class.

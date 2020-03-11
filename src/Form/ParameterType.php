@@ -20,14 +20,15 @@
 
 namespace App\Form;
 
-use App\Entity\Specifications\Specification;
+use App\Entity\Parameters\AbstractParameter;
+use App\Entity\Parameters\Parameter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SpecificationType extends AbstractType
+class ParameterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -61,7 +62,7 @@ class SpecificationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-                            'data_class' => Specification::class
+                            'data_class' => AbstractParameter::class
                                ]);
     }
 }

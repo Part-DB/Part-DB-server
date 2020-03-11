@@ -44,15 +44,16 @@ namespace App\Form\Part;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\PartAttachment;
+use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Orderdetail;
-use App\Entity\Specifications\Specification;
+use App\Entity\Parameters\Parameter;
 use App\Form\AttachmentFormType;
-use App\Form\SpecificationType;
+use App\Form\ParameterType;
 use App\Form\Type\MasterPictureAttachmentType;
 use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
@@ -266,13 +267,16 @@ class PartBaseType extends AbstractType
             ],
         ]);
 
-        $builder->add('specifications', CollectionType::class, [
-            'entry_type' => SpecificationType::class,
+        $builder->add('parameters', CollectionType::class, [
+            'entry_type' => ParameterType::class,
             'allow_add' => true,
             'allow_delete' => true,
             'label' => false,
             'by_reference' => false,
-            'prototype_data' => new Specification(),
+            'prototype_data' => new PartParameter(),
+            'entry_options' => [
+                'data_class' => PartParameter::class
+            ]
         ]);
 
         $builder->add('log_comment', TextType::class, [

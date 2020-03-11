@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ec3095adecf24f5680e7c904c5f0731f",
+    "content-hash": "6ebc8e9705e901be6f00f9f6418cf900",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1264,72 +1264,6 @@
                 "static"
             ],
             "time": "2020-01-08T19:53:19+00:00"
-        },
-        {
-            "name": "dunglas/doctrine-json-odm",
-            "version": "1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dunglas/doctrine-json-odm.git",
-                "reference": "70afdc23e68a31c7cbf8417f2dbb285ec929e14e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dunglas/doctrine-json-odm/zipball/70afdc23e68a31c7cbf8417f2dbb285ec929e14e",
-                "reference": "70afdc23e68a31c7cbf8417f2dbb285ec929e14e",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/orm": "^2.6.3",
-                "php": "^7.1",
-                "symfony/property-access": "^3.4 || ^4.1 || ^5.0",
-                "symfony/property-info": "^3.4 || ^4.1 || ^5.0",
-                "symfony/serializer": "^3.4 || ^4.1 || ^5.0"
-            },
-            "require-dev": {
-                "doctrine/doctrine-bundle": "^1.8",
-                "symfony/finder": "^3.4 || ^4.1 || ^5.0",
-                "symfony/framework-bundle": "^3.4 || ^4.1 || ^5.0",
-                "symfony/phpunit-bridge": "^5.0"
-            },
-            "suggest": {
-                "scienta/doctrine-json-functions": "To add support for JSON functions in DQL.",
-                "symfony/framework-bundle": "To use the provided bundle."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Dunglas\\DoctrineJsonOdm\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kévin Dunglas",
-                    "email": "dunglas@gmail.com",
-                    "homepage": "https://dunglas.fr"
-                }
-            ],
-            "description": "An object document mapper for Doctrine ORM using JSON types of modern RDBMS.",
-            "homepage": "https://dunglas.fr",
-            "keywords": [
-                "database",
-                "json",
-                "mysql",
-                "odm",
-                "orm",
-                "postgresql",
-                "rdbms"
-            ],
-            "time": "2019-12-23T09:48:22+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -3723,16 +3657,16 @@
         },
         {
             "name": "s9e/text-formatter",
-            "version": "2.3.6",
+            "version": "2.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/s9e/TextFormatter.git",
-                "reference": "b96dc121d2dfaabe7e3df42e76d93ffb857cf377"
+                "reference": "39088b779b71e120098a7a8a8f7dc4900cb8b671"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/s9e/TextFormatter/zipball/b96dc121d2dfaabe7e3df42e76d93ffb857cf377",
-                "reference": "b96dc121d2dfaabe7e3df42e76d93ffb857cf377",
+                "url": "https://api.github.com/repos/s9e/TextFormatter/zipball/39088b779b71e120098a7a8a8f7dc4900cb8b671",
+                "reference": "39088b779b71e120098a7a8a8f7dc4900cb8b671",
                 "shasum": ""
             },
             "require": {
@@ -3758,7 +3692,7 @@
             },
             "type": "library",
             "extra": {
-                "version": "2.3.6"
+                "version": "2.3.7"
             },
             "autoload": {
                 "psr-4": {
@@ -3788,7 +3722,7 @@
                 "parser",
                 "shortcodes"
             ],
-            "time": "2020-02-24T18:19:59+00:00"
+            "time": "2020-03-10T23:47:09+00:00"
         },
         {
             "name": "scheb/two-factor-bundle",
@@ -9310,20 +9244,20 @@
         },
         {
             "name": "felixfbecker/advanced-json-rpc",
-            "version": "v3.1.0",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/felixfbecker/php-advanced-json-rpc.git",
-                "reference": "a407a6cb0325cd489c6dff57afcba6baeccc0483"
+                "reference": "0ed363f8de17d284d479ec813c9ad3f6834b5c40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/felixfbecker/php-advanced-json-rpc/zipball/a407a6cb0325cd489c6dff57afcba6baeccc0483",
-                "reference": "a407a6cb0325cd489c6dff57afcba6baeccc0483",
+                "url": "https://api.github.com/repos/felixfbecker/php-advanced-json-rpc/zipball/0ed363f8de17d284d479ec813c9ad3f6834b5c40",
+                "reference": "0ed363f8de17d284d479ec813c9ad3f6834b5c40",
                 "shasum": ""
             },
             "require": {
-                "netresearch/jsonmapper": "^1.0",
+                "netresearch/jsonmapper": "^1.0 || ^2.0",
                 "php": ">=7.0",
                 "phpdocumentor/reflection-docblock": "^4.0.0 || ^5.0.0"
             },
@@ -9347,7 +9281,7 @@
                 }
             ],
             "description": "A more advanced JSONRPC implementation",
-            "time": "2020-02-11T20:48:40+00:00"
+            "time": "2020-03-11T15:21:41+00:00"
         },
         {
             "name": "felixfbecker/language-server-protocol",
@@ -11642,16 +11576,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "3.9.4",
+            "version": "3.9.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "352bd3f5c5789db04e4010856c2f4e01ed354f4e"
+                "reference": "0cfe565d0afbcd31eadcc281b9017b5692911661"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/352bd3f5c5789db04e4010856c2f4e01ed354f4e",
-                "reference": "352bd3f5c5789db04e4010856c2f4e01ed354f4e",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/0cfe565d0afbcd31eadcc281b9017b5692911661",
+                "reference": "0cfe565d0afbcd31eadcc281b9017b5692911661",
                 "shasum": ""
             },
             "require": {
@@ -11734,7 +11668,7 @@
                 "inspection",
                 "php"
             ],
-            "time": "2020-03-06T20:23:11+00:00"
+            "time": "2020-03-09T22:59:56+00:00"
         },
         {
             "name": "webmozart/glob",

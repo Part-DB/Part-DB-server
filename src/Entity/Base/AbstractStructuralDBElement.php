@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Entity\Base;
 
 use App\Entity\Attachments\AttachmentContainingDBElement;
+use App\Entity\Parameters\ParametersTrait;
 use App\Validator\Constraints\NoneOfItsChildren;
 use function count;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -50,7 +51,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
 {
-    use SpecificationsTrait;
+    use ParametersTrait;
 
     public const ID_ROOT_ELEMENT = 0;
 
@@ -103,6 +104,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     {
         parent::__construct();
         $this->children = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
     }
 
     /******************************************************************************

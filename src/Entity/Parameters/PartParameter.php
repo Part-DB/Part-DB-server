@@ -18,37 +18,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace App\Entity\Base;
+namespace App\Entity\Parameters;
 
+use App\Entity\Parts\Part;
+use Doctrine\ORM\Mapping as ORM;
 
-use App\Entity\Specifications\Specification;
-use Symfony\Component\Validator\Constraints as Assert;
-
-trait SpecificationsTrait
+/**
+ * @ORM\Entity()
+ * @package App\Entity\Parameters
+ */
+class PartParameter extends AbstractParameter
 {
-    /**
-     * @var Specification[]
-     * @ORM\Column(type="json_document")
-     * @Assert\Valid()
-     */
-    protected $specifications = [];
+    public const ALLOWED_ELEMENT_CLASS = Part::class;
 
     /**
-     * Return all associated specifications
-     * @return Specification[]
+     * @var Part the element this para is associated with
+     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part", inversedBy="parameters")
+     * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */
-    public function getSpecifications(): array
-    {
-        return $this->specifications ?? [];
-    }
-
-    /**
-     * @param  array  $specifications
-     * @return $this
-     */
-    public function setSpecifications(array $specifications): self
-    {
-        $this->specifications = $specifications;
-        return $this;
-    }
+    protected $element;
 }

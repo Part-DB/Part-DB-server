@@ -23,5 +23,4 @@ return [
     Scheb\TwoFactorBundle\SchebTwoFactorBundle::class => ['all' => true],
     R\U2FTwoFactorBundle\RU2FTwoFactorBundle::class => ['all' => true],
     Translation\Bundle\TranslationBundle::class => ['all' => true],
-    \Dunglas\DoctrineJsonOdm\Bundle\DunglasDoctrineJsonOdmBundle::class => ['all' => true],
 ];

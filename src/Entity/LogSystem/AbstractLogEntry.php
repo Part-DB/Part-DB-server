@@ -47,6 +47,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Devices\Device;
 use App\Entity\Devices\DevicePart;
+use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -114,6 +115,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     protected const TARGET_TYPE_ORDERDETAIL = 15;
     protected const TARGET_TYPE_PRICEDETAIL = 16;
     protected const TARGET_TYPE_MEASUREMENTUNIT = 17;
+    protected const TARGET_TYPE_PARAMETER = 18;
 
     /** @var array This const is used to convert the numeric level to a PSR-3 compatible log level */
     protected const LEVEL_ID_TO_STRING = [
@@ -145,6 +147,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
         self::TARGET_TYPE_ORDERDETAIL => Orderdetail::class,
         self::TARGET_TYPE_PRICEDETAIL => Pricedetail::class,
         self::TARGET_TYPE_MEASUREMENTUNIT => MeasurementUnit::class,
+        self::TARGET_TYPE_PARAMETER => AbstractParameter::class
     ];
 
     /** @var User The user which has caused this log entry

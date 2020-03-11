@@ -52,6 +52,7 @@ namespace App\Entity\Devices;
 
 use App\Entity\Attachments\DeviceAttachment;
 use App\Entity\Base\AbstractPartsContainingDBElement;
+use App\Entity\Parameters\DeviceParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
@@ -96,6 +97,11 @@ class Device extends AbstractPartsContainingDBElement
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\DeviceAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $attachments;
+
+    /** @var DeviceParameter[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\DeviceParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    protected $parameters;
 
     /********************************************************************************
      *

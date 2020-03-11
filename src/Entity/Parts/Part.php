@@ -52,8 +52,10 @@ namespace App\Entity\Parts;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
-use App\Entity\Base\SpecificationsTrait;
+use App\Entity\Parameters\ParametersTrait;
 use App\Entity\Devices\Device;
+use App\Entity\Parameters\DeviceParameter;
+use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\PartTraits\AdvancedPropertyTrait;
 use App\Entity\Parts\PartTraits\BasicPropertyTrait;
 use App\Entity\Parts\PartTraits\InstockTrait;
@@ -82,12 +84,18 @@ class Part extends AttachmentContainingDBElement
     use InstockTrait;
     use ManufacturerTrait;
     use OrderTrait;
-    use SpecificationsTrait;
+    use ParametersTrait;
 
     /**
      * TODO.
      */
     protected $devices = [];
+
+    /** @var PartParameter[]
+     * @Assert\Valid()
+     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\PartParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    protected $parameters;
 
     /**
      * @ColumnSecurity(type="datetime")
@@ -134,6 +142,7 @@ class Part extends AttachmentContainingDBElement
         parent::__construct();
         $this->partLots = new ArrayCollection();
         $this->orderdetails = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
     }
 
     /**
