@@ -215,9 +215,9 @@
         <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:63</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>history.label</source>
-        <target>history.label</target>
+        <target>История</target>
       </segment>
     </unit>
     <unit id="Y2QKWU9" name="export.label">
@@ -664,9 +664,9 @@
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:267</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>edit.log_comment</source>
-        <target>edit.log_comment</target>
+        <target>Изменить комментарий</target>
       </segment>
     </unit>
     <unit id="A15hzUY" name="entity.delete.recursive">
@@ -1172,9 +1172,9 @@
         <note priority="1">Part-DB1\templates\homepage.html.twig:45</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>homepage.last_activity</source>
-        <target>homepage.last_activity</target>
+        <target>Последние действия</target>
       </segment>
     </unit>
     <unit id="uKTMZBs" name="log.list.title">
@@ -1182,9 +1182,9 @@
         <note category="file-source" priority="1">Part-DB1\templates\LogSystem\log_list.html.twig:3</note>
         <note priority="1">Part-DB1\templates\LogSystem\log_list.html.twig:3</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.list.title</source>
-        <target>log.list.title</target>
+        <target>Системный лог</target>
       </segment>
     </unit>
     <unit id="_1bnAgm" name="log.undo.confirm_title">
@@ -1193,9 +1193,9 @@
         <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:1</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.undo.confirm_title</source>
-        <target>log.undo.confirm_title</target>
+        <target>Подтвердите отмену изменения/откат состояния?</target>
       </segment>
     </unit>
     <unit id="ATlnZ1T" name="log.undo.confirm_message">
@@ -1204,9 +1204,9 @@
         <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:2</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.undo.confirm_message</source>
-        <target>log.undo.confirm_message</target>
+        <target>Вы действительно хотите отменить данное изменение и вернуть состояние элемента до предыдущей версии?</target>
       </segment>
     </unit>
     <unit id="Rc1M3PN" name="mail.footer.email_sent_by">
@@ -1681,9 +1681,9 @@
         <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:11</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>user.creating_user</source>
-        <target>user.creating_user</target>
+        <target>Пользователь создавший компонент</target>
       </segment>
     </unit>
     <unit id="t2TNwOq" name="Unknown">
@@ -1708,9 +1708,9 @@
         <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:30</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>accessDenied</source>
-        <target>accessDenied</target>
+        <target>Доступ запрещен</target>
       </segment>
     </unit>
     <unit id="uaxA.n." name="user.last_editing_user">
@@ -1719,9 +1719,9 @@
         <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:26</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>user.last_editing_user</source>
-        <target>user.last_editing_user</target>
+        <target>Пользователь последний редактировавший этот компонент</target>
       </segment>
     </unit>
     <unit id="xQkqdM5" name="part.isFavorite">
@@ -1767,9 +1767,9 @@
         <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:27</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>part.back_to_info</source>
-        <target>part.back_to_info</target>
+        <target>Вернуться к текущей версии</target>
       </segment>
     </unit>
     <unit id="LSnWIG7" name="description.label">
@@ -2542,9 +2542,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:8</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.title</source>
-        <target>statistics.title</target>
+        <target>Статистика</target>
       </segment>
     </unit>
     <unit id="6l0Fwd2" name="statistics.parts">
@@ -2553,9 +2553,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:14</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.parts</source>
-        <target>statistics.parts</target>
+        <target>Компоненты</target>
       </segment>
     </unit>
     <unit id="QRdK9zd" name="statistics.data_structures">
@@ -2564,9 +2564,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:19</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.data_structures</source>
-        <target>statistics.data_structures</target>
+        <target>Структуры данных</target>
       </segment>
     </unit>
     <unit id="50kyfxA" name="statistics.attachments">
@@ -2575,9 +2575,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:24</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.attachments</source>
-        <target>statistics.attachments</target>
+        <target>Вложения</target>
       </segment>
     </unit>
     <unit id="Op0xko9" name="statistics.property">
@@ -2590,9 +2590,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:104</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.property</source>
-        <target>statistics.property</target>
+        <target>Свойство</target>
       </segment>
     </unit>
     <unit id="zn.PnJ2" name="statistics.value">
@@ -2605,9 +2605,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:105</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.value</source>
-        <target>statistics.value</target>
+        <target>Значение</target>
       </segment>
     </unit>
     <unit id=".lLfExB" name="statistics.distinct_parts_count">
@@ -2616,9 +2616,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:40</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.distinct_parts_count</source>
-        <target>statistics.distinct_parts_count</target>
+        <target>Количество разных компонентов</target>
       </segment>
     </unit>
     <unit id="IjDWXUD" name="statistics.parts_instock_sum">
@@ -2627,9 +2627,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:44</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.parts_instock_sum</source>
-        <target>statistics.parts_instock_sum</target>
+        <target>Сумма всех существующих запасов компонентов</target>
       </segment>
     </unit>
     <unit id="OUVlqDZ" name="statistics.parts_with_price">
@@ -2638,9 +2638,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:48</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.parts_with_price</source>
-        <target>statistics.parts_with_price</target>
+        <target>Количество компонентов с данными о стоимости</target>
       </segment>
     </unit>
     <unit id="VX9aZ2j" name="statistics.categories_count">
@@ -2649,9 +2649,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:65</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.categories_count</source>
-        <target>statistics.categories_count</target>
+        <target>Количество категорий</target>
       </segment>
     </unit>
     <unit id="Aks9a3Q" name="statistics.footprints_count">
@@ -2660,9 +2660,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:69</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.footprints_count</source>
-        <target>statistics.footprints_count</target>
+        <target>Количество посадочных мест</target>
       </segment>
     </unit>
     <unit id="wvwDajm" name="statistics.manufacturers_count">
@@ -2671,9 +2671,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:73</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.manufacturers_count</source>
-        <target>statistics.manufacturers_count</target>
+        <target>Количество производителей</target>
       </segment>
     </unit>
     <unit id="MDdSIU0" name="statistics.storelocations_count">
@@ -2682,9 +2682,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:77</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.storelocations_count</source>
-        <target>statistics.storelocations_count</target>
+        <target>Количество хранилищ</target>
       </segment>
     </unit>
     <unit id="q9tLL7." name="statistics.suppliers_count">
@@ -2693,9 +2693,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:81</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.suppliers_count</source>
-        <target>statistics.suppliers_count</target>
+        <target>Количество поставщиков</target>
       </segment>
     </unit>
     <unit id="xzr9lD3" name="statistics.currencies_count">
@@ -2704,9 +2704,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:85</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.currencies_count</source>
-        <target>statistics.currencies_count</target>
+        <target>Количество валют</target>
       </segment>
     </unit>
     <unit id="AZ_PxJJ" name="statistics.measurement_units_count">
@@ -2715,9 +2715,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:89</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.measurement_units_count</source>
-        <target>statistics.measurement_units_count</target>
+        <target>Количество единиц измерений</target>
       </segment>
     </unit>
     <unit id="T0BDQn_" name="statistics.devices_count">
@@ -2726,9 +2726,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:93</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.devices_count</source>
-        <target>statistics.devices_count</target>
+        <target>Количество устройств</target>
       </segment>
     </unit>
     <unit id="8HKc.Yq" name="statistics.attachment_types_count">
@@ -2737,9 +2737,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:110</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.attachment_types_count</source>
-        <target>statistics.attachment_types_count</target>
+        <target>Количество типов вложений</target>
       </segment>
     </unit>
     <unit id="S1UPbY3" name="statistics.all_attachments_count">
@@ -2748,9 +2748,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:114</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.all_attachments_count</source>
-        <target>statistics.all_attachments_count</target>
+        <target>Общее количество вложений</target>
       </segment>
     </unit>
     <unit id="X68eHt0" name="statistics.user_uploaded_attachments_count">
@@ -2759,9 +2759,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:118</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.user_uploaded_attachments_count</source>
-        <target>statistics.user_uploaded_attachments_count</target>
+        <target>Число пользователей прикрепивших вложения</target>
       </segment>
     </unit>
     <unit id="PcACWnw" name="statistics.private_attachments_count">
@@ -2770,9 +2770,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:122</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.private_attachments_count</source>
-        <target>statistics.private_attachments_count</target>
+        <target>Количество личных вложений</target>
       </segment>
     </unit>
     <unit id="b2F2Gpk" name="statistics.external_attachments_count">
@@ -2781,9 +2781,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:126</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.external_attachments_count</source>
-        <target>statistics.external_attachments_count</target>
+        <target>Количество вложений доступных по внешним ссылкам (URL)</target>
       </segment>
     </unit>
     <unit id="xd6VhOm" name="tfa_backup.codes.title">
@@ -3702,9 +3702,9 @@
         <note priority="1">Part-DB1\src\Controller\LogController.php:154</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.undo.target_not_found</source>
-        <target>log.undo.target_not_found</target>
+        <target>Этот элемент не найден в базе!</target>
       </segment>
     </unit>
     <unit id="sG2PEwi" name="log.undo.revert_success">
@@ -3713,9 +3713,9 @@
         <note priority="1">Part-DB1\src\Controller\LogController.php:160</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.undo.revert_success</source>
-        <target>log.undo.revert_success</target>
+        <target>Состояние успешно возвращено.</target>
       </segment>
     </unit>
     <unit id="GMilP1t" name="log.undo.element_undelete_success">
@@ -3724,9 +3724,9 @@
         <note priority="1">Part-DB1\src\Controller\LogController.php:180</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.undo.element_undelete_success</source>
-        <target>log.undo.element_undelete_success</target>
+        <target>Элемент успешно возвращен.</target>
       </segment>
     </unit>
     <unit id="YJB8YZ6" name="log.undo.element_element_already_undeleted">
@@ -3735,9 +3735,9 @@
         <note priority="1">Part-DB1\src\Controller\LogController.php:182</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.undo.element_element_already_undeleted</source>
-        <target>log.undo.element_element_already_undeleted</target>
+        <target>Элемент уже был возвращен!</target>
       </segment>
     </unit>
     <unit id="NI2CbLV" name="log.undo.element_delete_success">
@@ -3746,9 +3746,9 @@
         <note priority="1">Part-DB1\src\Controller\LogController.php:189</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.undo.element_delete_success</source>
-        <target>log.undo.element_delete_success</target>
+        <target>Элемент успешно удален.</target>
       </segment>
     </unit>
     <unit id=".D_N333" name="log.undo.element.element_already_delted">
@@ -3757,9 +3757,9 @@
         <note priority="1">Part-DB1\src\Controller\LogController.php:191</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.undo.element.element_already_delted</source>
-        <target>log.undo.element.element_already_delted</target>
+        <target>Элемент уже был удален!</target>
       </segment>
     </unit>
     <unit id="Bz3n92Q" name="log.undo.element_change_undone">
@@ -3768,9 +3768,9 @@
         <note priority="1">Part-DB1\src\Controller\LogController.php:198</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.undo.element_change_undone</source>
-        <target>log.undo.element_change_undone</target>
+        <target>Откат изменений завершен успешно!</target>
       </segment>
     </unit>
     <unit id="Ne_xS01" name="log.undo.do_undelete_before">
@@ -3779,9 +3779,9 @@
         <note priority="1">Part-DB1\src\Controller\LogController.php:200</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.undo.do_undelete_before</source>
-        <target>log.undo.do_undelete_before</target>
+        <target>Чтобы откатить это изменение вам нужно вернуть элемент!</target>
       </segment>
     </unit>
     <unit id="GswNRna" name="log.undo.log_type_invalid">
@@ -3790,9 +3790,9 @@
         <note priority="1">Part-DB1\src\Controller\LogController.php:203</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.undo.log_type_invalid</source>
-        <target>log.undo.log_type_invalid</target>
+        <target>Эта запись в логах не может быть возвращена!</target>
       </segment>
     </unit>
     <unit id="6xOvKkk" name="part.edited_flash">
@@ -4100,9 +4100,9 @@
         <note priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:60</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.undo.undelete</source>
-        <target>log.undo.undelete</target>
+        <target>Вернуть элемент</target>
       </segment>
     </unit>
     <unit id="PI8faHR" name="log.undo.undo">
@@ -4111,9 +4111,9 @@
         <note priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:66</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.undo.undo</source>
-        <target>log.undo.undo</target>
+        <target>Откатить изменение</target>
       </segment>
     </unit>
     <unit id="Q6mbDaS" name="log.undo.revert">
@@ -4122,9 +4122,9 @@
         <note priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:86</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.undo.revert</source>
-        <target>log.undo.revert</target>
+        <target>Вернуть состояние элемента на данный момент</target>
       </segment>
     </unit>
     <unit id="6DOZlwQ" name="log.id">
@@ -4132,9 +4132,9 @@
         <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:161</note>
         <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:161</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.id</source>
-        <target>log.id</target>
+        <target>ID</target>
       </segment>
     </unit>
     <unit id="cMZOrO7" name="log.timestamp">
@@ -4144,7 +4144,7 @@
       </notes>
       <segment state="translated">
         <source>log.timestamp</source>
-        <target>Дата и время</target>
+        <target>Время события</target>
       </segment>
     </unit>
     <unit id="Z0BzGVJ" name="log.type">
@@ -4203,9 +4203,9 @@
         <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:218</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.extra</source>
-        <target>log.extra</target>
+        <target>Доп-но</target>
       </segment>
     </unit>
     <unit id="t2EE5cB" name="part.table.name">
@@ -5303,9 +5303,9 @@
         <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:100</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.user_login.ip</source>
-        <target>log.user_login.ip</target>
+        <target>IP:</target>
       </segment>
     </unit>
     <unit id="JEAFg3_" name="log.undo_mode.undo">
@@ -5320,9 +5320,9 @@
         <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:207</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.undo_mode.undo</source>
-        <target>log.undo_mode.undo</target>
+        <target>Отменить изменение</target>
       </segment>
     </unit>
     <unit id="w9Ow4hB" name="log.undo_mode.revert">
@@ -5337,9 +5337,9 @@
         <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:209</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.undo_mode.revert</source>
-        <target>log.undo_mode.revert</target>
+        <target>Элемент возвращен</target>
       </segment>
     </unit>
     <unit id="q6AoFKP" name="log.element_created.original_instock">
@@ -5348,9 +5348,9 @@
         <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:139</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.element_created.original_instock</source>
-        <target>log.element_created.original_instock</target>
+        <target>Старые запасы</target>
       </segment>
     </unit>
     <unit id="TutJY7L" name="log.element_deleted.old_name">
@@ -5359,9 +5359,9 @@
         <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:160</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.element_deleted.old_name</source>
-        <target>log.element_deleted.old_name</target>
+        <target>Старое имя</target>
       </segment>
     </unit>
     <unit id=".nBJJBz" name="log.element_deleted.old_name.unknown">
@@ -5370,9 +5370,9 @@
         <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:161</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.element_deleted.old_name.unknown</source>
-        <target>log.element_deleted.old_name.unknown</target>
+        <target>Неизвестно</target>
       </segment>
     </unit>
     <unit id="NyTftx6" name="log.element_edited.changed_fields">
@@ -5381,9 +5381,9 @@
         <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:184</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.element_edited.changed_fields</source>
-        <target>log.element_edited.changed_fields</target>
+        <target>Измененные поля</target>
       </segment>
     </unit>
     <unit id="8YQSzN5" name="log.instock_changed.comment">
@@ -5392,9 +5392,9 @@
         <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:198</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.instock_changed.comment</source>
-        <target>log.instock_changed.comment</target>
+        <target>Комментарий</target>
       </segment>
     </unit>
     <unit id="ar.0VTi" name="log.collection_deleted.deleted">
@@ -5403,9 +5403,9 @@
         <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:214</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.collection_deleted.deleted</source>
-        <target>log.collection_deleted.deleted</target>
+        <target>Удаленный элемент:</target>
       </segment>
     </unit>
     <unit id="jYAc6_i" name="markdown.loading">
@@ -5592,9 +5592,9 @@
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:210</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>tree.tools.show.statistics</source>
-        <target>tree.tools.show.statistics</target>
+        <target>Статистика</target>
       </segment>
     </unit>
     <unit id="D1it4FK" name="tree.tools.system.users">
@@ -5623,9 +5623,9 @@
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:242</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>tree.tools.system.event_log</source>
-        <target>tree.tools.system.event_log</target>
+        <target>Журнал событий</target>
       </segment>
     </unit>
     <unit id="Y7FfSJt" name="entity.tree.new">
@@ -7872,36 +7872,36 @@
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>perm.revert_elements</source>
-        <target>perm.revert_elements</target>
+        <target>Вернуть элемент</target>
       </segment>
     </unit>
     <unit id="xernTe5" name="perm.show_history">
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>perm.show_history</source>
-        <target>perm.show_history</target>
+        <target>Показать историю</target>
       </segment>
     </unit>
     <unit id="Ay52w3." name="perm.tools.lastActivity">
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>perm.tools.lastActivity</source>
-        <target>perm.tools.lastActivity</target>
+        <target>Показать последние действия</target>
       </segment>
     </unit>
     <unit id="m3PTL2e" name="perm.tools.timeTravel">
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>perm.tools.timeTravel</source>
-        <target>perm.tools.timeTravel</target>
+        <target>Показать предыдущие версии элемента</target>
       </segment>
     </unit>
     <unit id="AiBoPxF" name="log.type.">
