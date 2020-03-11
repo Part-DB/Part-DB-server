@@ -215,9 +215,9 @@
         <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:63</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>history.label</source>
-        <target>history.label</target>
+        <target>История</target>
       </segment>
     </unit>
     <unit id="Y2QKWU9" name="export.label">
@@ -664,9 +664,9 @@
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:267</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>edit.log_comment</source>
-        <target>edit.log_comment</target>
+        <target>Изменить комментарий</target>
       </segment>
     </unit>
     <unit id="A15hzUY" name="entity.delete.recursive">
@@ -1172,9 +1172,9 @@
         <note priority="1">Part-DB1\templates\homepage.html.twig:45</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>homepage.last_activity</source>
-        <target>homepage.last_activity</target>
+        <target>Последние действия</target>
       </segment>
     </unit>
     <unit id="uKTMZBs" name="log.list.title">
@@ -1182,9 +1182,9 @@
         <note category="file-source" priority="1">Part-DB1\templates\LogSystem\log_list.html.twig:3</note>
         <note priority="1">Part-DB1\templates\LogSystem\log_list.html.twig:3</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.list.title</source>
-        <target>log.list.title</target>
+        <target>Системный лог</target>
       </segment>
     </unit>
     <unit id="_1bnAgm" name="log.undo.confirm_title">
@@ -1193,9 +1193,9 @@
         <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:1</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.undo.confirm_title</source>
-        <target>log.undo.confirm_title</target>
+        <target>Подтвердите отмену изменения/откат состояния?</target>
       </segment>
     </unit>
     <unit id="ATlnZ1T" name="log.undo.confirm_message">
@@ -1204,9 +1204,9 @@
         <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:2</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>log.undo.confirm_message</source>
-        <target>log.undo.confirm_message</target>
+        <target>Вы действительно хотите отменить данное изменение и вернуть состояние элемента до предыдущей версии?</target>
       </segment>
     </unit>
     <unit id="Rc1M3PN" name="mail.footer.email_sent_by">
@@ -1681,9 +1681,9 @@
         <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:11</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>user.creating_user</source>
-        <target>user.creating_user</target>
+        <target>Пользователь создавший компонент</target>
       </segment>
     </unit>
     <unit id="t2TNwOq" name="Unknown">
@@ -1708,9 +1708,9 @@
         <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:30</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>accessDenied</source>
-        <target>accessDenied</target>
+        <target>Доступ запрещен</target>
       </segment>
     </unit>
     <unit id="uaxA.n." name="user.last_editing_user">
@@ -1719,9 +1719,9 @@
         <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:26</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>user.last_editing_user</source>
-        <target>user.last_editing_user</target>
+        <target>Пользователь последний редактировавший этот компонент</target>
       </segment>
     </unit>
     <unit id="xQkqdM5" name="part.isFavorite">
@@ -1767,9 +1767,9 @@
         <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:27</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>part.back_to_info</source>
-        <target>part.back_to_info</target>
+        <target>Вернуться к текущей версии</target>
       </segment>
     </unit>
     <unit id="LSnWIG7" name="description.label">
@@ -2542,9 +2542,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:8</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.title</source>
-        <target>statistics.title</target>
+        <target>Статистика</target>
       </segment>
     </unit>
     <unit id="6l0Fwd2" name="statistics.parts">
@@ -2553,9 +2553,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:14</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.parts</source>
-        <target>statistics.parts</target>
+        <target>Компоненты</target>
       </segment>
     </unit>
     <unit id="QRdK9zd" name="statistics.data_structures">
@@ -2564,9 +2564,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:19</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.data_structures</source>
-        <target>statistics.data_structures</target>
+        <target>Структуры данных</target>
       </segment>
     </unit>
     <unit id="50kyfxA" name="statistics.attachments">
@@ -2575,9 +2575,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:24</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.attachments</source>
-        <target>statistics.attachments</target>
+        <target>Вложения</target>
       </segment>
     </unit>
     <unit id="Op0xko9" name="statistics.property">
@@ -2590,9 +2590,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:104</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.property</source>
-        <target>statistics.property</target>
+        <target>Свойство</target>
       </segment>
     </unit>
     <unit id="zn.PnJ2" name="statistics.value">
@@ -2605,9 +2605,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:105</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.value</source>
-        <target>statistics.value</target>
+        <target>Значение</target>
       </segment>
     </unit>
     <unit id=".lLfExB" name="statistics.distinct_parts_count">
@@ -2616,9 +2616,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:40</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.distinct_parts_count</source>
-        <target>statistics.distinct_parts_count</target>
+        <target>Количество разных компонентов</target>
       </segment>
     </unit>
     <unit id="IjDWXUD" name="statistics.parts_instock_sum">
@@ -2627,9 +2627,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:44</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.parts_instock_sum</source>
-        <target>statistics.parts_instock_sum</target>
+        <target>Сумма всех существующих запасов компонентов</target>
       </segment>
     </unit>
     <unit id="OUVlqDZ" name="statistics.parts_with_price">
@@ -2638,9 +2638,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:48</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.parts_with_price</source>
-        <target>statistics.parts_with_price</target>
+        <target>Количество компонентов с данными о стоимости</target>
       </segment>
     </unit>
     <unit id="VX9aZ2j" name="statistics.categories_count">
@@ -2649,9 +2649,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:65</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.categories_count</source>
-        <target>statistics.categories_count</target>
+        <target>Количество категорий</target>
       </segment>
     </unit>
     <unit id="Aks9a3Q" name="statistics.footprints_count">
@@ -2660,9 +2660,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:69</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.footprints_count</source>
-        <target>statistics.footprints_count</target>
+        <target>Количество посадочных мест</target>
       </segment>
     </unit>
     <unit id="wvwDajm" name="statistics.manufacturers_count">
@@ -2671,9 +2671,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:73</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.manufacturers_count</source>
-        <target>statistics.manufacturers_count</target>
+        <target>Количество производителей</target>
       </segment>
     </unit>
     <unit id="MDdSIU0" name="statistics.storelocations_count">
@@ -2682,9 +2682,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:77</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.storelocations_count</source>
-        <target>statistics.storelocations_count</target>
+        <target>Количество хранилищ</target>
       </segment>
     </unit>
     <unit id="q9tLL7." name="statistics.suppliers_count">
@@ -2693,9 +2693,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:81</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.suppliers_count</source>
-        <target>statistics.suppliers_count</target>
+        <target>Количество поставщиков</target>
       </segment>
     </unit>
     <unit id="xzr9lD3" name="statistics.currencies_count">
@@ -2704,9 +2704,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:85</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.currencies_count</source>
-        <target>statistics.currencies_count</target>
+        <target>Количество валют</target>
       </segment>
     </unit>
     <unit id="AZ_PxJJ" name="statistics.measurement_units_count">
@@ -2715,9 +2715,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:89</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.measurement_units_count</source>
-        <target>statistics.measurement_units_count</target>
+        <target>Количество единиц измерений</target>
       </segment>
     </unit>
     <unit id="T0BDQn_" name="statistics.devices_count">
@@ -2726,9 +2726,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:93</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.devices_count</source>
-        <target>statistics.devices_count</target>
+        <target>Количество устройств</target>
       </segment>
     </unit>
     <unit id="8HKc.Yq" name="statistics.attachment_types_count">
@@ -2737,9 +2737,9 @@
         <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:110</note>
         <note priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>statistics.attachment_types_count</source>
-        <target>statistics.attachment_types_count</target>
+        <target>Количество типов вложений</target>
       </segment>
     </unit>
     <unit id="S1UPbY3" name="statistics.all_attachments_count">
