@@ -55,14 +55,8 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     public const ALLOWED_ELEMENT_CLASS = '';
 
     /**
-     * @var string The name of the specification (e.g. "Collector-Base Voltage"). Required!
-     * @Assert\NotBlank()
-     */
-    protected $name = "";
-
-    /**
      * @var string The mathematical symbol for this specification. Can be rendered pretty later. Should be short
-     * @Assert\Length(max=10)
+     * @Assert\Length(max=20)
      * @ORM\Column(type="string", nullable=false)
      */
     protected $symbol = "";
@@ -70,8 +64,8 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     /**
      * @var float|null The guaranteed minimum value of this property.
      * @Assert\Type({"float","null"})
-     * @Assert\LessThanOrEqual(propertyPath="value_typical")
-     * @Assert\LessThan(propertyPath="value_max")
+     * @Assert\LessThanOrEqual(propertyPath="value_typical", message="parameters.validator.min_lesser_typical")
+     * @Assert\LessThan(propertyPath="value_max", message="parameters.validator.min_lesser_max")
      * @ORM\Column(type="float", nullable=true)
      */
     protected $value_min;
@@ -86,7 +80,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     /**
      * @var float|null The maximum value of this property.
      * @Assert\Type({"float", "null"})
-     * @Assert\GreaterThanOrEqual(propertyPath="value_typical")
+     * @Assert\GreaterThanOrEqual(propertyPath="value_typical", message="parameters.validator.max_greater_typical")
      * @ORM\Column(type="float", nullable=true)
      */
     protected $value_max;
@@ -139,6 +133,48 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     public function getElement(): ?AbstractDBElement
     {
         return $this->element;
+    }
+
+    /**
+     * Return a formatted string version of the values of the string.
+     * Based on the set values it can return something like this: 34 V (12 V ... 50 V) [Text]
+     * @return string
+     */
+    public function getFormattedValue(): string
+    {
+        //If we just only have text value, return early
+        if ($this->value_typical === null && $this->value_min === null && $this->value_max === null) {
+            return $this->value_text;
+        }
+
+        $str = '';
+        $bracket_opened = false;
+        if ($this->value_typical) {
+            $str .= $this->getValueTypicalWithUnit();
+            if ($this->value_min || $this->value_max) {
+                $bracket_opened = true;
+                $str .= ' (';
+            }
+        }
+
+        if ($this->value_max && $this->value_min) {
+            $str .= $this->getValueMinWithUnit() . ' ... ' . $this->getValueMaxWithUnit();
+        } elseif ($this->value_max) {
+            $str .= 'max. ' . $this->getValueMaxWithUnit();
+        } elseif ($this->value_min) {
+            $str .= 'min. ' . $this->getValueMinWithUnit();
+        }
+
+        //Add closing bracket
+        if ($bracket_opened) {
+            $str .= ')';
+        }
+
+        if ($this->value_text) {
+            $str .= ' [' . $this->value_text . ']';
+        }
+
+        return $str;
     }
 
     /**
@@ -214,6 +250,48 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     public function getValueTypical(): ?float
     {
         return $this->value_typical;
+    }
+
+    /**
+     * Return a string representation and (if possible) with its unit.
+     * @param  float  $value
+     * @param  string $format
+     * @return string
+     */
+    protected function formatWithUnit(float $value, string $format = "%g"): string
+    {
+        $str = \sprintf($format, $value);
+        if (!empty($this->unit)) {
+            return $str . ' ' . $this->unit;
+        }
+        return $str;
+    }
+
+    /**
+     * Return a formatted version with the minimum value with the unit of this parameter
+     * @return string
+     */
+    public function getValueTypicalWithUnit(): string
+    {
+        return $this->formatWithUnit($this->value_typical);
+    }
+
+    /**
+     * Return a formatted version with the maximum value with the unit of this parameter
+     * @return string
+     */
+    public function getValueMaxWithUnit(): string
+    {
+        return $this->formatWithUnit($this->value_max);
+    }
+
+    /**
+     * Return a formatted version with the typical value with the unit of this parameter
+     * @return string
+     */
+    public function getValueMinWithUnit(): string
+    {
+        return $this->formatWithUnit($this->value_min);
     }
 
     /**

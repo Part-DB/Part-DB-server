@@ -1,6 +1,6 @@
 {% form_theme form with ['Parts/edit/edit_form_styles.html.twig', "bootstrap_4_layout.html.twig"] %}
 
-<table class="table table-striped table-sm table-responsive-md" id="specifications_table" data-prototype="{% if form.parameters.vars.prototype is defined %}{{ form_widget(form.parameters.vars.prototype)|e('html_attr') }}{% endif %}">
+<table class="table table-striped table-sm table-bordered table-responsive-md" id="specifications_table" data-prototype="{% if form.parameters.vars.prototype is defined %}{{ form_widget(form.parameters.vars.prototype)|e('html_attr') }}{% endif %}">
     <thead>
         <tr>
             <th>{% trans %}specifications.property{% endtrans %}</th>

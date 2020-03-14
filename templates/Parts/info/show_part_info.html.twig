@@ -58,6 +58,12 @@
                     </li>
                 {% endif %}
                 <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" role="tab" href="#specifications">
+                        <i class="fas fa-atlas fa-fw"></i>
+                        {% trans %}part.info.specifications{% endtrans %}
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" id="attachment-tab" data-toggle="tab"
                        href="#attachments" role="tab">
                         <i class="fas fa-paperclip fa-fw"></i>
@@ -119,6 +125,10 @@
 
                 <div class="tab-pane fade" id="tools" role="tabpanel" aria-labelledby="tools-tab">
                     {% include "Parts/info/_tools.html.twig" %}
+                </div>
+
+                <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="tools-tab">
+                    {% include "Parts/info/_specifications.html.twig" %}
                 </div>
 
                 <div class="tab-pane fade" id="extended_info" role="tabpanel" aria-labelledby="extended_info-tab">

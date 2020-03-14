@@ -1,0 +1,18 @@
+{# var \App\Entity\Parts\Part part #}
+
+<table class="table table-hover table-striped table-sm">
+    <thead>
+        <tr>
+            <th>{% trans %}specifications.property{% endtrans %}</th>
+            <th>{% trans %}specifications.value{% endtrans %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for param in part.parameters %}
+           <tr>
+               <td>{{ param.name }}</td>
+               <td>{{ param.formattedValue }}</td>
+           </tr>
+        {% endfor %}
+    </tbody>
+</table>

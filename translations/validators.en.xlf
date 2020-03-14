@@ -1135,5 +1135,23 @@
         <target>The storage location was marked as "single part", so you can not add a new part to it.</target>
       </segment>
     </unit>
+    <unit id="jDBA_WW" name="parameters.validator.min_lesser_max">
+      <segment>
+        <source>parameters.validator.min_lesser_max</source>
+        <target>Value must be lesser than the maximum value ({{ compared_value }})</target>
+      </segment>
+    </unit>
+    <unit id="3ODUtpU" name="parameters.validator.min_lesser_typical">
+      <segment>
+        <source>parameters.validator.min_lesser_typical</source>
+        <target>Value must be lesser or equal the the typical value ({{ compared_value }})</target>
+      </segment>
+    </unit>
+    <unit id="ygK_e_X" name="parameters.validator.max_greater_typical">
+      <segment>
+        <source>parameters.validator.max_greater_typical</source>
+        <target>Value must be greater or equal than the typical value ({{ compared_value }})</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

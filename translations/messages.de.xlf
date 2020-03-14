@@ -7942,13 +7942,55 @@ Element 3</target>
     <unit id="mRpl2vJ" name="specifications.unit">
       <segment>
         <source>specifications.unit</source>
-        <target>Unit</target>
+        <target>Einheit</target>
       </segment>
     </unit>
     <unit id="05vM0Vp" name="specifications.text">
       <segment>
         <source>specifications.text</source>
         <target>Text</target>
+      </segment>
+    </unit>
+    <unit id="o.P_V00" name="parameters.name.placeholder">
+      <segment>
+        <source>parameters.name.placeholder</source>
+        <target>z.B. DC Current Gain</target>
+      </segment>
+    </unit>
+    <unit id="3LWIDYM" name="parameters.symbol.placeholder">
+      <segment>
+        <source>parameters.symbol.placeholder</source>
+        <target>z.B. h_{FE}</target>
+      </segment>
+    </unit>
+    <unit id="BypUOrf" name="parameters.min.placeholder">
+      <segment>
+        <source>parameters.min.placeholder</source>
+        <target>z.B. 100</target>
+      </segment>
+    </unit>
+    <unit id="VmYIvYF" name="parameters.typical.placeholder">
+      <segment>
+        <source>parameters.typical.placeholder</source>
+        <target>z.B. 200</target>
+      </segment>
+    </unit>
+    <unit id="6utToZ6" name="parameters.max.placeholder">
+      <segment>
+        <source>parameters.max.placeholder</source>
+        <target>z.B. 350</target>
+      </segment>
+    </unit>
+    <unit id="kvhGoo0" name="parameters.unit.placeholder">
+      <segment>
+        <source>parameters.unit.placeholder</source>
+        <target>z.B. V</target>
+      </segment>
+    </unit>
+    <unit id="w7bfLKj" name="parameters.text.placeholder">
+      <segment>
+        <source>parameters.text.placeholder</source>
+        <target>z.B. Test Specifications</target>
       </segment>
     </unit>
   </file>

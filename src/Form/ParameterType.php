@@ -21,7 +21,6 @@
 namespace App\Form;
 
 use App\Entity\Parameters\AbstractParameter;
-use App\Entity\Parameters\Parameter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -34,28 +33,67 @@ class ParameterType extends AbstractType
     {
         $builder->add('name', TextType::class,[
             'empty_data' => '',
+            'attr' => [
+                'placeholder' => 'parameters.name.placeholder',
+                'class' => 'form-control-sm'
+            ]
         ]);
         $builder->add('symbol', TextType::class, [
             'required' => false,
             'empty_data' => '',
+            'attr' => [
+                'placeholder' => 'parameters.symbol.placeholder',
+                'class' => 'form-control-sm',
+                'style' => 'max-width: 15ch;'
+            ]
         ]);
         $builder->add('value_text', TextType::class, [
             'required' => false,
             'empty_data' => '',
+            'attr' => [
+                'placeholder' => 'parameters.text.placeholder',
+                'class' => 'form-control-sm',
+            ]
         ]);
 
         $builder->add('value_max', NumberType::class, [
             'required' => false,
+            'html5' => true,
+            'attr' => [
+                'step' => 'any',
+                'placeholder' => 'parameters.max.placeholder',
+                'class' => 'form-control-sm',
+                'style' => 'max-width: 15ch;'
+                ],
         ]);
         $builder->add('value_min', NumberType::class, [
             'required' => false,
+            'html5' => true,
+            'attr' => [
+                'step' => 'any',
+                'placeholder' => 'parameters.min.placeholder',
+                'class' => 'form-control-sm',
+                'style' => 'max-width: 15ch;'
+            ],
         ]);
         $builder->add('value_typical', NumberType::class, [
-            'required' => false
+            'required' => false,
+            'html5' => true,
+            'attr' => [
+                'step' => 'any',
+                'placeholder' => 'parameters.typical.placeholder',
+                'class' => 'form-control-sm',
+                'style' => 'max-width: 15ch;'
+            ]
         ]);
         $builder->add('unit', TextType::class, [
             'required' => false,
             'empty_data' => '',
+            'attr' => [
+                'placeholder' => 'parameters.unit.placeholder',
+                'class' => 'form-control-sm',
+                'style' => 'max-width: 8ch;'
+            ]
         ]);
     }
 

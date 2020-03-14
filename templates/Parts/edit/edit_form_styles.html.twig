@@ -74,7 +74,7 @@
         <td>{{ form_widget(form.unit) }}{{ form_errors(form.unit) }}</td>
         <td>{{ form_widget(form.value_text) }}{{ form_errors(form.value_text) }}</td>
         <td>
-            <button type="button" class="btn btn-danger order_btn_delete" onclick="delete_specification_entry(this);" title="{% trans %}orderdetail.delete{% endtrans %}">
+            <button type="button" class="btn btn-danger btn-sm order_btn_delete" onclick="delete_specification_entry(this);" title="{% trans %}orderdetail.delete{% endtrans %}">
                 <i class="fas fa-trash-alt fa-fw"></i>
             </button>
             {{ form_errors(form) }}
