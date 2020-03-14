@@ -159,9 +159,9 @@
         <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
         <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:35</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>edit.caption</source>
-        <target>edit.caption</target>
+        <target>διορθώνω</target>
       </segment>
     </unit>
     <unit id="bblk5.r" name="new.caption">
@@ -337,9 +337,9 @@
         <note priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
         <note priority="1">templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>manufacturer.caption</source>
-        <target>manufacturer.caption</target>
+        <target>κατασκευαστή</target>
       </segment>
     </unit>
     <unit id="6tFKnGD" name="measurement_unit.caption">
@@ -373,9 +373,9 @@
         <note priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
         <note priority="1">templates\AdminPages\SupplierAdmin.html.twig:4</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>supplier.caption</source>
-        <target>supplier.caption</target>
+        <target>προμηθευτή</target>
       </segment>
     </unit>
     <unit id=".YoS4pi" name="user.edit.caption">
