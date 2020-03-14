@@ -159,9 +159,9 @@
         <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
         <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:35</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>edit.caption</source>
-        <target>edit.caption</target>
+        <target>διορθώνω</target>
       </segment>
     </unit>
     <unit id="bblk5.r" name="new.caption">
