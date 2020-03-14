@@ -48,6 +48,7 @@ use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Devices\Device;
+use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -92,6 +93,7 @@ class ElementTypeNameGenerator
             Pricedetail::class => $this->translator->trans('pricedetail.label'),
             Group::class => $this->translator->trans('group.label'),
             User::class => $this->translator->trans('user.label'),
+            AbstractParameter::class => $this->translator->trans('parameter.label')
         ];
     }
 
@@ -124,7 +126,7 @@ class ElementTypeNameGenerator
         }
 
         //When nothing was found throw an exception
-        throw new EntityNotSupportedException(sprintf('No localized label for the element with type %s was found!', get_class($entity)));
+        throw new EntityNotSupportedException(sprintf('No localized label for the element with type %s was found!', is_object($entity) ? get_class($entity) : (string) $entity));
     }
 
     /**
