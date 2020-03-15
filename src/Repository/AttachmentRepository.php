@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,13 +23,11 @@
 
 namespace App\Repository;
 
-
-use Doctrine\ORM\EntityRepository;
-
 class AttachmentRepository extends DBElementRepository
 {
     /**
      * Gets the count of all private/secure attachments.
+     *
      * @return int
      */
     public function getPrivateAttachmentsCount(): int
@@ -36,12 +37,15 @@ class AttachmentRepository extends DBElementRepository
             ->where('attachment.path LIKE :like');
         $qb->setParameter('like', '\\%SECURE\\%%');
         $query = $qb->getQuery();
+
         return (int) $query->getSingleScalarResult();
     }
 
     /**
-     * Gets the count of all external attachments (attachments only containing an URL)
+     * Gets the count of all external attachments (attachments only containing an URL).
+     *
      * @return int
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
@@ -54,12 +58,15 @@ class AttachmentRepository extends DBElementRepository
         $qb->setParameter('http', 'http://%');
         $qb->setParameter('https', 'https://%');
         $query = $qb->getQuery();
+
         return (int) $query->getSingleScalarResult();
     }
 
     /**
      * Gets the count of all attachments where an user uploaded an file.
+     *
      * @return int
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
@@ -74,6 +81,7 @@ class AttachmentRepository extends DBElementRepository
         $qb->setParameter('base', '\\%BASE\\%%');
         $qb->setParameter('media', '\\%MEDIA\\%%');
         $query = $qb->getQuery();
+
         return (int) $query->getSingleScalarResult();
     }
 }

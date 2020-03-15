@@ -139,6 +139,7 @@ class UpdateExchangeRatesCommand extends Command
         $this->em->flush();
 
         $io->success(sprintf('%d (of %d) currency exchange rates were updated.', $success_counter, count($candidates)));
+
         return 0;
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -29,14 +32,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ParameterType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('name', TextType::class,[
+        $builder->add('name', TextType::class, [
             'empty_data' => '',
             'attr' => [
                 'placeholder' => 'parameters.name.placeholder',
-                'class' => 'form-control-sm'
-            ]
+                'class' => 'form-control-sm',
+            ],
         ]);
         $builder->add('symbol', TextType::class, [
             'required' => false,
@@ -44,8 +47,8 @@ class ParameterType extends AbstractType
             'attr' => [
                 'placeholder' => 'parameters.symbol.placeholder',
                 'class' => 'form-control-sm',
-                'style' => 'max-width: 15ch;'
-            ]
+                'style' => 'max-width: 15ch;',
+            ],
         ]);
         $builder->add('value_text', TextType::class, [
             'required' => false,
@@ -53,7 +56,7 @@ class ParameterType extends AbstractType
             'attr' => [
                 'placeholder' => 'parameters.text.placeholder',
                 'class' => 'form-control-sm',
-            ]
+            ],
         ]);
 
         $builder->add('value_max', NumberType::class, [
@@ -63,8 +66,8 @@ class ParameterType extends AbstractType
                 'step' => 'any',
                 'placeholder' => 'parameters.max.placeholder',
                 'class' => 'form-control-sm',
-                'style' => 'max-width: 15ch;'
-                ],
+                'style' => 'max-width: 15ch;',
+            ],
         ]);
         $builder->add('value_min', NumberType::class, [
             'required' => false,
@@ -73,7 +76,7 @@ class ParameterType extends AbstractType
                 'step' => 'any',
                 'placeholder' => 'parameters.min.placeholder',
                 'class' => 'form-control-sm',
-                'style' => 'max-width: 15ch;'
+                'style' => 'max-width: 15ch;',
             ],
         ]);
         $builder->add('value_typical', NumberType::class, [
@@ -83,8 +86,8 @@ class ParameterType extends AbstractType
                 'step' => 'any',
                 'placeholder' => 'parameters.typical.placeholder',
                 'class' => 'form-control-sm',
-                'style' => 'max-width: 15ch;'
-            ]
+                'style' => 'max-width: 15ch;',
+            ],
         ]);
         $builder->add('unit', TextType::class, [
             'required' => false,
@@ -92,15 +95,15 @@ class ParameterType extends AbstractType
             'attr' => [
                 'placeholder' => 'parameters.unit.placeholder',
                 'class' => 'form-control-sm',
-                'style' => 'max-width: 8ch;'
-            ]
+                'style' => 'max-width: 8ch;',
+            ],
         ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-                            'data_class' => AbstractParameter::class
-                               ]);
+            'data_class' => AbstractParameter::class,
+        ]);
     }
 }

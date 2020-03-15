@@ -22,8 +22,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
-use App\Entity\Base\MasterAttachmentTrait;
 use App\Entity\Base\AbstractNamedDBElement;
+use App\Entity\Base\MasterAttachmentTrait;
 use App\Entity\Contracts\HasAttachmentsInterface;
 use App\Entity\Contracts\HasMasterAttachmentInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -39,8 +39,8 @@ abstract class AttachmentContainingDBElement extends AbstractNamedDBElement impl
 
     /**
      * @var Attachment[]|Collection
-     *                   //TODO
-     *                   //@ORM\OneToMany(targetEntity="Attachment", mappedBy="element")
+     *                              //TODO
+     *                              //@ORM\OneToMany(targetEntity="Attachment", mappedBy="element")
      *
      * Mapping is done in sub classes like part
      */
@@ -49,6 +49,25 @@ abstract class AttachmentContainingDBElement extends AbstractNamedDBElement impl
     public function __construct()
     {
         $this->attachments = new ArrayCollection();
+    }
+
+    public function __clone()
+    {
+        if ($this->id) {
+            $attachments = $this->attachments;
+            $this->attachments = new ArrayCollection();
+            //Set master attachment is needed
+            foreach ($attachments as $attachment) {
+                $clone = clone $attachment;
+                if ($attachment === $this->master_picture_attachment) {
+                    $this->setMasterPictureAttachment($clone);
+                }
+                $this->addAttachment($clone);
+            }
+        }
+
+        //Parent has to be last call, as it resets the ID
+        parent::__clone();
     }
 
     /********************************************************************************
@@ -86,7 +105,6 @@ abstract class AttachmentContainingDBElement extends AbstractNamedDBElement impl
     /**
      * Removes the given attachment from this element.
      *
-     * @param  Attachment  $attachment
      * @return $this
      */
     public function removeAttachment(Attachment $attachment): self
@@ -94,24 +112,5 @@ abstract class AttachmentContainingDBElement extends AbstractNamedDBElement impl
         $this->attachments->removeElement($attachment);
 
         return $this;
-    }
-
-    public function __clone()
-    {
-        if ($this->id) {
-            $attachments = $this->attachments;
-            $this->attachments = new ArrayCollection();
-            //Set master attachment is needed
-            foreach ($attachments as $attachment) {
-                $clone = clone $attachment;
-                if ($attachment === $this->master_picture_attachment) {
-                    $this->setMasterPictureAttachment($clone);
-                }
-                $this->addAttachment($clone);
-            }
-        }
-
-        //Parent has to be last call, as it resets the ID
-        parent::__clone();
     }
 }

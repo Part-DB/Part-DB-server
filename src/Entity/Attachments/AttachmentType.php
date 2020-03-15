@@ -24,7 +24,6 @@ namespace App\Entity\Attachments;
 
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\AttachmentTypeParameter;
-use App\Entity\Parameters\DeviceParameter;
 use App\Validator\Constraints\ValidFileFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

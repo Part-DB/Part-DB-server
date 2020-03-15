@@ -52,9 +52,8 @@ namespace App\Entity\Parts;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
-use App\Entity\Parameters\ParametersTrait;
 use App\Entity\Devices\Device;
-use App\Entity\Parameters\DeviceParameter;
+use App\Entity\Parameters\ParametersTrait;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\PartTraits\AdvancedPropertyTrait;
 use App\Entity\Parts\PartTraits\BasicPropertyTrait;
@@ -145,6 +144,26 @@ class Part extends AttachmentContainingDBElement
         $this->parameters = new ArrayCollection();
     }
 
+    public function __clone()
+    {
+        if ($this->id) {
+            //Deep clone part lots
+            $lots = $this->partLots;
+            $this->partLots = new ArrayCollection();
+            foreach ($lots as $lot) {
+                $this->addPartLot(clone $lot);
+            }
+
+            //Deep clone order details
+            $orderdetails = $this->orderdetails;
+            $this->orderdetails = new ArrayCollection();
+            foreach ($orderdetails as $orderdetail) {
+                $this->addOrderdetail(clone $orderdetail);
+            }
+        }
+        parent::__clone();
+    }
+
     /**
      * Returns the ID as an string, defined by the element class.
      * This should have a form like P000014, for a part with ID 14.
@@ -166,25 +185,5 @@ class Part extends AttachmentContainingDBElement
     public function getDevices(): array
     {
         return $this->devices;
-    }
-
-    public function __clone()
-    {
-        if ($this->id) {
-            //Deep clone part lots
-            $lots = $this->partLots;
-            $this->partLots = new ArrayCollection();
-            foreach ($lots as $lot) {
-                $this->addPartLot(clone $lot);
-            }
-
-            //Deep clone order details
-            $orderdetails = $this->orderdetails;
-            $this->orderdetails = new ArrayCollection();
-            foreach ($orderdetails as $orderdetail) {
-                $this->addOrderdetail(clone $orderdetail);
-            }
-        }
-        parent::__clone();
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,8 +23,6 @@
 
 namespace App\Security\Voter;
 
-
-use App\Entity\Parts\PartLot;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\UserSystem\User;
 
@@ -30,9 +31,6 @@ class OrderdetailVoter extends ExtendedVoter
     /** @var string[] When this permsission are encountered, they are checked on part */
     protected const PART_PERMS = ['show_history', 'revert_element'];
 
-    /**
-     * @inheritDoc
-     */
     protected function voteOnUser($attribute, $subject, User $user): bool
     {
         if (in_array($attribute, self::PART_PERMS, true)) {
@@ -42,9 +40,6 @@ class OrderdetailVoter extends ExtendedVoter
         return $this->resolver->inherit($user, 'parts_orderdetails', $attribute) ?? false;
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function supports($attribute, $subject)
     {
         if (is_a($subject, Orderdetail::class, true)) {

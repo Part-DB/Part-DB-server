@@ -43,13 +43,11 @@ declare(strict_types=1);
 namespace App\Security\Voter;
 
 use App\Entity\Attachments\AttachmentType;
-use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Devices\Device;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
-use App\Entity\Parts\Part;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
@@ -87,7 +85,7 @@ class StructureVoter extends ExtendedVoter
      */
     protected function instanceToPermissionName($subject): ?string
     {
-        if (!is_string($subject)) {
+        if (! is_string($subject)) {
             $class_name = get_class($subject);
         } else {
             $class_name = $subject;
@@ -121,7 +119,7 @@ class StructureVoter extends ExtendedVoter
      * The current user (or the anonymous user) is passed by $user.
      *
      * @param string $attribute
-     * @param mixed $subject
+     *
      * @return bool
      */
     protected function voteOnUser($attribute, $subject, User $user): bool

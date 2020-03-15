@@ -88,57 +88,40 @@ class ElementCreatedLogEntry extends AbstractLogEntry implements LogWithCommentI
         return null !== $this->getCreationInstockValue();
     }
 
-    /**
-     * @inheritDoc
-     */
     public function hasComment(): bool
     {
         return isset($this->extra['m']);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getComment(): ?string
     {
         return $this->extra['m'] ?? null;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setComment(?string $new_comment): LogWithCommentInterface
     {
         $this->extra['m'] = $new_comment;
+
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function isUndoEvent(): bool
     {
         return isset($this->extra['u']);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getUndoEventID(): ?int
     {
         return $this->extra['u'] ?? null;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setUndoneEvent(AbstractLogEntry $event, string $mode = 'undo'): LogWithEventUndoInterface
     {
         $this->extra['u'] = $event->getID();
 
-        if ($mode === 'undo') {
+        if ('undo' === $mode) {
             $this->extra['um'] = 1;
-        } elseif ($mode === 'revert') {
+        } elseif ('revert' === $mode) {
             $this->extra['um'] = 2;
         } else {
             throw new \InvalidArgumentException('Passed invalid $mode!');
@@ -147,16 +130,13 @@ class ElementCreatedLogEntry extends AbstractLogEntry implements LogWithCommentI
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getUndoMode(): string
     {
         $mode_int = $this->extra['um'] ?? 1;
-        if ($mode_int === 1) {
+        if (1 === $mode_int) {
             return 'undo';
-        } else {
-            return 'revert';
         }
+
+        return 'revert';
     }
 }

@@ -46,7 +46,6 @@ use App\DataTables\AttachmentDataTable;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\PartAttachment;
 use App\Services\Attachments\AttachmentManager;
-use Exception;
 use Omines\DataTablesBundle\DataTableFactory;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -64,8 +63,6 @@ class AttachmentFileController extends AbstractController
      *
      * @Route("/attachment/{id}/download", name="attachment_download")
      *
-     * @param  Attachment  $attachment
-     * @param  AttachmentManager  $helper
      * @return BinaryFileResponse
      */
     public function download(Attachment $attachment, AttachmentManager $helper): BinaryFileResponse
@@ -94,10 +91,7 @@ class AttachmentFileController extends AbstractController
      *
      * @Route("/attachment/{id}/view", name="attachment_view")
      *
-     * @param  Attachment  $attachment
-     * @param  AttachmentManager  $helper
      * @return BinaryFileResponse
-     *
      */
     public function view(Attachment $attachment, AttachmentManager $helper): BinaryFileResponse
     {
@@ -123,8 +117,6 @@ class AttachmentFileController extends AbstractController
     /**
      * @Route("/attachment/list", name="attachment_list")
      *
-     * @param  DataTableFactory  $dataTable
-     * @param  Request  $request
      * @return JsonResponse|Response
      */
     public function attachmentsTable(DataTableFactory $dataTable, Request $request)

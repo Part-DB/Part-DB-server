@@ -56,7 +56,6 @@ use Omines\DataTablesBundle\DataTableFactory;
 use phpDocumentor\Reflection\Element;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -70,7 +69,6 @@ class LogController extends AbstractController
     protected $timeTravel;
     protected $dbRepository;
 
-
     public function __construct(EntityManagerInterface $entityManager, TimeTravel $timeTravel)
     {
         $this->entityManager = $entityManager;
@@ -81,8 +79,6 @@ class LogController extends AbstractController
     /**
      * @Route("/", name="log_view")
      *
-     * @param  Request  $request
-     * @param  DataTableFactory  $dataTable
      * @return JsonResponse|Response
      */
     public function showLogs(Request $request, DataTableFactory $dataTable)
@@ -103,7 +99,6 @@ class LogController extends AbstractController
 
     /**
      * @Route("/undo", name="log_undo", methods={"POST"})
-     * @param  Request  $request
      */
     public function undoRevertLog(Request $request, EventUndoHelper $eventUndoHelper)
     {
@@ -111,13 +106,13 @@ class LogController extends AbstractController
         $id = $request->request->get('undo');
 
         //If no undo value was set check if a revert was set
-        if ($id === null) {
+        if (null === $id) {
             $id = $request->get('revert');
             $mode = EventUndoHelper::MODE_REVERT;
         }
 
         $log_element = $this->entityManager->find(AbstractLogEntry::class, $id);
-        if ($log_element === null) {
+        if (null === $log_element) {
             throw new \InvalidArgumentException('No log entry with the given ID is existing!');
         }
 
@@ -126,15 +121,16 @@ class LogController extends AbstractController
         $eventUndoHelper->setMode($mode);
         $eventUndoHelper->setUndoneEvent($log_element);
 
-        if ($mode === EventUndoHelper::MODE_UNDO) {
+        if (EventUndoHelper::MODE_UNDO === $mode) {
             $this->undoLog($log_element);
-        } elseif ($mode === EventUndoHelper::MODE_REVERT) {
+        } elseif (EventUndoHelper::MODE_REVERT === $mode) {
             $this->revertLog($log_element);
         }
 
         $eventUndoHelper->clearUndoneEvent();
 
         $redirect = $request->request->get('redirect_back');
+
         return $this->redirect($redirect);
     }
 
@@ -143,15 +139,16 @@ class LogController extends AbstractController
         $timestamp = $logEntry->getTimestamp();
         $element = $this->entityManager->find($logEntry->getTargetClass(), $logEntry->getTargetID());
         //If the element is not available in DB try to undelete it
-        if ($element === null) {
+        if (null === $element) {
             $element = $this->timeTravel->undeleteEntity($logEntry->getTargetClass(), $logEntry->getTargetID());
             $this->entityManager->persist($element);
             $this->entityManager->flush();
             $this->dbRepository->changeID($element, $logEntry->getTargetID());
         }
 
-        if (!$element instanceof AbstractDBElement) {
+        if (! $element instanceof AbstractDBElement) {
             $this->addFlash('error', 'log.undo.target_not_found');
+
             return;
         }
 
@@ -172,7 +169,7 @@ class LogController extends AbstractController
             }
 
             //Check if the element we want to undelete already exits
-            if ($this->entityManager->find($element_class, $element_id) == null) {
+            if (null === $this->entityManager->find($element_class, $element_id)) {
                 $undeleted_element = $this->timeTravel->undeleteEntity($element_class, $element_id);
                 $this->entityManager->persist($undeleted_element);
                 $this->entityManager->flush();
@@ -183,7 +180,7 @@ class LogController extends AbstractController
             }
         } elseif ($log_element instanceof ElementCreatedLogEntry) {
             $element = $this->entityManager->find($log_element->getTargetClass(), $log_element->getTargetID());
-            if ($element !== null) {
+            if (null !== $element) {
                 $this->entityManager->remove($element);
                 $this->entityManager->flush();
                 $this->addFlash('success', 'log.undo.element_delete_success');

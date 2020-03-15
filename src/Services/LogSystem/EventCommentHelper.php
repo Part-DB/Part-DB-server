@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,7 +23,6 @@
 
 namespace App\Services\LogSystem;
 
-
 class EventCommentHelper
 {
     protected const MAX_MESSAGE_LENGTH = 255;
@@ -36,7 +38,6 @@ class EventCommentHelper
      * Set the message that will be saved for all ElementEdited/Created/Deleted messages during the next flush.
      * Set to null if no message should be shown.
      * After the flush this message is cleared.
-     * @param  string|null  $message
      */
     public function setMessage(?string $message): void
     {
@@ -46,6 +47,7 @@ class EventCommentHelper
 
     /**
      * Returns the currently set message, or null if no message is set yet.
+     *
      * @return string|null
      */
     public function getMessage(): ?string
@@ -63,6 +65,7 @@ class EventCommentHelper
 
     /**
      * Check if a message is currently set.
+     *
      * @return bool
      */
     public function isMessageSet(): bool

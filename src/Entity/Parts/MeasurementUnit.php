@@ -44,7 +44,6 @@ namespace App\Entity\Parts;
 
 use App\Entity\Attachments\MeasurementUnitAttachment;
 use App\Entity\Base\AbstractPartsContainingDBElement;
-use App\Entity\Parameters\DeviceParameter;
 use App\Entity\Parameters\MeasurementUnitParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -148,7 +147,6 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     }
 
     /**
-     * @param  bool  $isInteger
      * @return MeasurementUnit
      */
     public function setIsInteger(bool $isInteger): self
@@ -164,7 +162,6 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     }
 
     /**
-     * @param  bool  $usesSIPrefixes
      * @return MeasurementUnit
      */
     public function setUseSIPrefix(bool $usesSIPrefixes): self

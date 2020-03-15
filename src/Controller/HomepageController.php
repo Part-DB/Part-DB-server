@@ -44,11 +44,11 @@ namespace App\Controller;
 
 use App\DataTables\LogDataTable;
 use App\Services\GitVersionInfo;
+use const DIRECTORY_SEPARATOR;
 use Omines\DataTablesBundle\DataTableFactory;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use const DIRECTORY_SEPARATOR;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Cache\CacheInterface;
@@ -81,16 +81,16 @@ class HomepageController extends AbstractController
 
     /**
      * @Route("/", name="homepage")
-     * @param  GitVersionInfo  $versionInfo
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function homepage(Request $request, GitVersionInfo $versionInfo): Response
     {
-        if ($this->isGranted("@tools.lastActivity")) {
+        if ($this->isGranted('@tools.lastActivity')) {
             $table = $this->dataTable->createFromType(
                 LogDataTable::class,
                 [
-                    'mode' => 'last_activity'
+                    'mode' => 'last_activity',
                 ],
                 ['pageLength' => 10]
             )
@@ -107,7 +107,7 @@ class HomepageController extends AbstractController
             'banner' => $this->getBanner(),
             'git_branch' => $versionInfo->getGitBranchName(),
             'git_commit' => $versionInfo->getGitCommitHash(),
-            'datatable' => $table
+            'datatable' => $table,
         ]);
     }
 }

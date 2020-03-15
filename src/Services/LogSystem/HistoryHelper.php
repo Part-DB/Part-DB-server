@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,7 +23,6 @@
 
 namespace App\Services\LogSystem;
 
-
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parts\Part;
@@ -29,13 +31,12 @@ class HistoryHelper
 {
     public function __construct()
     {
-
     }
 
     /**
      * Returns an array containing all elements that are associated with the argument.
      * The returned array contains the given element.
-     * @param  AbstractDBElement  $element
+     *
      * @return array
      */
     public function getAssociatedElements(AbstractDBElement $element): array

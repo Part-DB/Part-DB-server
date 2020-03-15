@@ -144,6 +144,7 @@ trait OrderTrait
      * The orderdetail is assigned to this part.
      *
      * @param Orderdetail $orderdetail the orderdetail that should be added
+     *
      * @return $this
      */
     public function addOrderdetail(Orderdetail $orderdetail): self
@@ -156,7 +157,7 @@ trait OrderTrait
 
     /**
      * Removes the given orderdetail from the list of orderdetails.
-     * @param Orderdetail $orderdetail
+     *
      * @return $this
      */
     public function removeOrderdetail(Orderdetail $orderdetail): self
@@ -177,6 +178,7 @@ trait OrderTrait
      *                                                (if the part has exactly one orderdetails,
      *                                                set this orderdetails as order orderdetails.
      *                                                Otherwise, set "no order orderdetails")
+     *
      * @return $this
      */
     public function setManualOrder(bool $new_manual_order, int $new_order_quantity = 1, ?Orderdetail $new_order_orderdetail = null): self

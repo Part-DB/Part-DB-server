@@ -45,7 +45,6 @@ namespace App\Entity\UserSystem;
 use App\Entity\Attachments\GroupAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\GroupParameter;
-use App\Entity\Parameters\SupplierParameter;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\ValidPermission;
 use Doctrine\Common\Collections\Collection;

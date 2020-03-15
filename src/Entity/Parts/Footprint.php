@@ -52,7 +52,6 @@ namespace App\Entity\Parts;
 
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Base\AbstractPartsContainingDBElement;
-use App\Entity\Parameters\DeviceParameter;
 use App\Entity\Parameters\FootprintParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

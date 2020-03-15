@@ -43,14 +43,15 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Parts\PartLot;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
 class PartRepository extends NamedDBElementRepository
 {
     /**
-     * Gets the summed up instock of all parts (only parts without an measurent unit)
+     * Gets the summed up instock of all parts (only parts without an measurent unit).
+     *
      * @return string
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
@@ -63,12 +64,15 @@ class PartRepository extends NamedDBElementRepository
             ->where('part.partUnit IS NULL');
 
         $query = $qb->getQuery();
+
         return $query->getSingleScalarResult();
     }
 
     /**
      * Gets the number of parts that has price informations.
+     *
      * @return int
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
@@ -81,6 +85,7 @@ class PartRepository extends NamedDBElementRepository
             ->where('pricedetail.price > 0.0');
 
         $query = $qb->getQuery();
+
         return (int) $query->getSingleScalarResult();
     }
 }

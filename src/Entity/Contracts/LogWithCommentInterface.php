@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,11 +23,11 @@
 
 namespace App\Entity\Contracts;
 
-
 interface LogWithCommentInterface
 {
     /**
      * Checks if this log entry has a user provided comment.
+     *
      * @return bool
      */
     public function hasComment(): bool;
@@ -32,13 +35,14 @@ interface LogWithCommentInterface
     /**
      * Gets the user provided comment associated with this log entry.
      * Returns null if not comment was set.
+     *
      * @return string|null
      */
     public function getComment(): ?string;
 
     /**
      * Sets the user provided comment associated with this log entry.
-     * @param  string|null  $new_comment
+     *
      * @return $this
      */
     public function setComment(?string $new_comment): self;

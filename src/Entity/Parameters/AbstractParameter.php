@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -22,7 +25,6 @@ namespace App\Entity\Parameters;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
-use App\Repository\DBElementRepository;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 use LogicException;
@@ -59,7 +61,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      * @Assert\Length(max=20)
      * @ORM\Column(type="string", nullable=false)
      */
-    protected $symbol = "";
+    protected $symbol = '';
 
     /**
      * @var float|null The guaranteed minimum value of this property.
@@ -90,22 +92,23 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      * @Assert\Length(max=5)
      * @ORM\Column(type="string", nullable=false)
      */
-    protected $unit = "";
+    protected $unit = '';
 
     /**
      * @var string A text value for the given property.
      * @ORM\Column(type="string", nullable=false)
      */
-    protected $value_text = "";
+    protected $value_text = '';
 
     /**
      * @var string The group this parameter belongs to.
      * @ORM\Column(type="string", nullable=false, name="param_group")
      */
-    protected $group = "";
+    protected $group = '';
 
     /**
-     * Mapping is done in sub classes
+     * Mapping is done in sub classes.
+     *
      * @var AbstractDBElement|null The element to which this parameter belongs to.
      */
     protected $element;
@@ -119,6 +122,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Returns the name of the specification (e.g. "Collector-Base Voltage").
+     *
      * @return string
      */
     public function getName(): string
@@ -128,6 +132,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Returns the element this parameter belongs to.
+     *
      * @return AbstractDBElement|null
      */
     public function getElement(): ?AbstractDBElement
@@ -137,13 +142,14 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Return a formatted string version of the values of the string.
-     * Based on the set values it can return something like this: 34 V (12 V ... 50 V) [Text]
+     * Based on the set values it can return something like this: 34 V (12 V ... 50 V) [Text].
+     *
      * @return string
      */
     public function getFormattedValue(): string
     {
         //If we just only have text value, return early
-        if ($this->value_typical === null && $this->value_min === null && $this->value_max === null) {
+        if (null === $this->value_typical && null === $this->value_min && null === $this->value_max) {
             return $this->value_text;
         }
 
@@ -158,11 +164,11 @@ abstract class AbstractParameter extends AbstractNamedDBElement
         }
 
         if ($this->value_max && $this->value_min) {
-            $str .= $this->getValueMinWithUnit() . ' ... ' . $this->getValueMaxWithUnit();
+            $str .= $this->getValueMinWithUnit().' ... '.$this->getValueMaxWithUnit();
         } elseif ($this->value_max) {
-            $str .= 'max. ' . $this->getValueMaxWithUnit();
+            $str .= 'max. '.$this->getValueMaxWithUnit();
         } elseif ($this->value_min) {
-            $str .= 'min. ' . $this->getValueMinWithUnit();
+            $str .= 'min. '.$this->getValueMinWithUnit();
         }
 
         //Add closing bracket
@@ -171,7 +177,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
         }
 
         if ($this->value_text) {
-            $str .= ' [' . $this->value_text . ']';
+            $str .= ' ['.$this->value_text.']';
         }
 
         return $str;
@@ -179,7 +185,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Sets the element to which this parameter belongs to.
-     * @param AbstractDBElement $element
+     *
      * @return $this
      */
     public function setElement(AbstractDBElement $element): self
@@ -189,22 +195,25 @@ abstract class AbstractParameter extends AbstractNamedDBElement
         }
 
         $this->element = $element;
+
         return $this;
     }
 
     /**
      * Sets the name of the specification. This value is required.
-     * @param  string  $name
+     *
      * @return $this
      */
     public function setName(string $name): AbstractNamedDBElement
     {
         $this->name = $name;
+
         return $this;
     }
 
     /**
-     * Returns the mathematical symbol for this specification (e.g. "V_CB")
+     * Returns the mathematical symbol for this specification (e.g. "V_CB").
+     *
      * @return string
      */
     public function getSymbol(): string
@@ -213,18 +222,20 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     }
 
     /**
-     * Sets the mathematical symbol for this specification (e.g. "V_CB")
-     * @param  string  $symbol
+     * Sets the mathematical symbol for this specification (e.g. "V_CB").
+     *
      * @return $this
      */
     public function setSymbol(string $symbol): self
     {
         $this->symbol = $symbol;
+
         return $this;
     }
 
     /**
      * Returns The guaranteed minimum value of this property.
+     *
      * @return float|null
      */
     public function getValueMin(): ?float
@@ -234,17 +245,19 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Sets the minimum value of this property.
-     * @param  float|null  $value_min
+     *
      * @return $this
      */
     public function setValueMin(?float $value_min): self
     {
         $this->value_min = $value_min;
+
         return $this;
     }
 
     /**
      * Returns the typical value of this property.
+     *
      * @return float|null
      */
     public function getValueTypical(): ?float
@@ -253,22 +266,8 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     }
 
     /**
-     * Return a string representation and (if possible) with its unit.
-     * @param  float  $value
-     * @param  string $format
-     * @return string
-     */
-    protected function formatWithUnit(float $value, string $format = "%g"): string
-    {
-        $str = \sprintf($format, $value);
-        if (!empty($this->unit)) {
-            return $str . ' ' . $this->unit;
-        }
-        return $str;
-    }
-
-    /**
-     * Return a formatted version with the minimum value with the unit of this parameter
+     * Return a formatted version with the minimum value with the unit of this parameter.
+     *
      * @return string
      */
     public function getValueTypicalWithUnit(): string
@@ -277,7 +276,8 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     }
 
     /**
-     * Return a formatted version with the maximum value with the unit of this parameter
+     * Return a formatted version with the maximum value with the unit of this parameter.
+     *
      * @return string
      */
     public function getValueMaxWithUnit(): string
@@ -286,7 +286,8 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     }
 
     /**
-     * Return a formatted version with the typical value with the unit of this parameter
+     * Return a formatted version with the typical value with the unit of this parameter.
+     *
      * @return string
      */
     public function getValueMinWithUnit(): string
@@ -295,18 +296,22 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     }
 
     /**
-     * Sets the typical value of this property
-     * @param  float  $value_typical
+     * Sets the typical value of this property.
+     *
+     * @param float $value_typical
+     *
      * @return $this
      */
     public function setValueTypical(?float $value_typical): self
     {
         $this->value_typical = $value_typical;
+
         return $this;
     }
 
     /**
-     * Returns the guaranteed maximum value
+     * Returns the guaranteed maximum value.
+     *
      * @return float|null
      */
     public function getValueMax(): ?float
@@ -315,18 +320,20 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     }
 
     /**
-     * Sets the guaranteed maximum value
-     * @param  float|null  $value_max
+     * Sets the guaranteed maximum value.
+     *
      * @return $this
      */
     public function setValueMax(?float $value_max): self
     {
         $this->value_max = $value_max;
+
         return $this;
     }
 
     /**
-     * Returns the unit used by the value (e.g. "V")
+     * Returns the unit used by the value (e.g. "V").
+     *
      * @return string
      */
     public function getUnit(): string
@@ -336,17 +343,19 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Sets the unit used by the value.
-     * @param  string  $unit
+     *
      * @return $this
      */
     public function setUnit(string $unit): self
     {
         $this->unit = $unit;
+
         return $this;
     }
 
     /**
      * Returns the text value.
+     *
      * @return string
      */
     public function getValueText(): string
@@ -356,17 +365,33 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Sets the text value.
-     * @param  string  $value_text
+     *
      * @return $this
      */
     public function setValueText(string $value_text): self
     {
         $this->value_text = $value_text;
+
         return $this;
     }
 
     public function getIDString(): string
     {
         return 'PM'.sprintf('%09d', $this->getID());
+    }
+
+    /**
+     * Return a string representation and (if possible) with its unit.
+     *
+     * @return string
+     */
+    protected function formatWithUnit(float $value, string $format = '%g'): string
+    {
+        $str = \sprintf($format, $value);
+        if (! empty($this->unit)) {
+            return $str.' '.$this->unit;
+        }
+
+        return $str;
     }
 }

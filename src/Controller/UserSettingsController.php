@@ -102,9 +102,6 @@ class UserSettingsController extends AbstractController
     /**
      * @Route("/u2f_delete", name="u2f_delete", methods={"DELETE"})
      *
-     * @param  Request  $request
-     * @param  EntityManagerInterface  $entityManager
-     * @param  BackupCodeManager  $backupCodeManager
      * @return RedirectResponse
      */
     public function removeU2FToken(Request $request, EntityManagerInterface $entityManager, BackupCodeManager $backupCodeManager): RedirectResponse
@@ -155,8 +152,7 @@ class UserSettingsController extends AbstractController
 
     /**
      * @Route("/invalidate_trustedDevices", name="tfa_trustedDevices_invalidate", methods={"DELETE"})
-     * @param  Request  $request
-     * @param  EntityManagerInterface  $entityManager
+     *
      * @return RuntimeException|RedirectResponse
      */
     public function resetTrustedDevices(Request $request, EntityManagerInterface $entityManager)
@@ -187,11 +183,7 @@ class UserSettingsController extends AbstractController
 
     /**
      * @Route("/settings", name="user_settings")
-     * @param  Request  $request
-     * @param  EntityManagerInterface  $em
-     * @param  UserPasswordEncoderInterface  $passwordEncoder
-     * @param  GoogleAuthenticator  $googleAuthenticator
-     * @param  BackupCodeManager  $backupCodeManager
+     *
      * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator, BackupCodeManager $backupCodeManager)
@@ -266,9 +258,9 @@ class UserSettingsController extends AbstractController
                     ],
                 ],
                 'constraints' => [new Length([
-                                                 'min' => 6,
-                                                 'max' => 128,
-                                             ])],
+                    'min' => 6,
+                    'max' => 128,
+                ])],
             ])
             ->add('submit', SubmitType::class, ['label' => 'save'])
             ->getForm();
@@ -297,7 +289,7 @@ class UserSettingsController extends AbstractController
         }
         $google_form->handleRequest($request);
 
-        if ( ! $this->demo_mode && $google_form->isSubmitted() && $google_form->isValid()) {
+        if (! $this->demo_mode && $google_form->isSubmitted() && $google_form->isValid()) {
             if (! $google_enabled) {
                 //Save 2FA settings (save secrets)
                 $user->setGoogleAuthenticatorSecret($google_form->get('googleAuthenticatorSecret')->getData());

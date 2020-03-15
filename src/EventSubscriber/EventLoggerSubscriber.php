@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,10 +24,7 @@
 namespace App\EventSubscriber;
 
 use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
-use App\Entity\Base\AbstractPartsContainingDBElement;
-use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
@@ -87,7 +87,7 @@ class EventLoggerSubscriber implements EventSubscriber
         $this->save_removed_data = $save_removed_data;
     }
 
-    public function onFlush(OnFlushEventArgs $eventArgs)
+    public function onFlush(OnFlushEventArgs $eventArgs): void
     {
         $em = $eventArgs->getEntityManager();
         $uow = $em->getUnitOfWork();
@@ -112,7 +112,7 @@ class EventLoggerSubscriber implements EventSubscriber
         $uow->computeChangeSets();
     }
 
-    public function postPersist(LifecycleEventArgs $args)
+    public function postPersist(LifecycleEventArgs $args): void
     {
         //Create an log entry, we have to do this post persist, cause we have to know the ID
 
@@ -129,10 +129,10 @@ class EventLoggerSubscriber implements EventSubscriber
 
                 $log->setUndoneEvent($undoEvent, $this->eventUndoHelper->getMode());
 
-                if($undoEvent instanceof ElementDeletedLogEntry && $undoEvent->getTargetClass() === $log->getTargetClass()) {
+                if ($undoEvent instanceof ElementDeletedLogEntry && $undoEvent->getTargetClass() === $log->getTargetClass()) {
                     $log->setTargetElementID($undoEvent->getTargetID());
                 }
-                if($undoEvent instanceof CollectionElementDeleted && $undoEvent->getDeletedElementClass() === $log->getTargetClass()) {
+                if ($undoEvent instanceof CollectionElementDeleted && $undoEvent->getDeletedElementClass() === $log->getTargetClass()) {
                     $log->setTargetElementID($undoEvent->getDeletedElementID());
                 }
             }
@@ -140,7 +140,7 @@ class EventLoggerSubscriber implements EventSubscriber
         }
     }
 
-    public function postFlush(PostFlushEventArgs $args)
+    public function postFlush(PostFlushEventArgs $args): void
     {
         $em = $args->getEntityManager();
         $uow = $em->getUnitOfWork();
@@ -152,6 +152,48 @@ class EventLoggerSubscriber implements EventSubscriber
         //Clear the message provided by user.
         $this->eventCommentHelper->clearMessage();
         $this->eventUndoHelper->clearUndoneEvent();
+    }
+
+    /**
+     * Check if the given element class has restrictions to its fields.
+     *
+     * @return bool True if there are restrictions, and further checking is needed
+     */
+    public function hasFieldRestrictions(AbstractDBElement $element): bool
+    {
+        foreach (static::FIELD_BLACKLIST as $class => $blacklist) {
+            if (is_a($element, $class)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks if the field of the given element should be saved (if it is not blacklisted).
+     *
+     * @return bool
+     */
+    public function shouldFieldBeSaved(AbstractDBElement $element, string $field_name): bool
+    {
+        foreach (static::FIELD_BLACKLIST as $class => $blacklist) {
+            if (is_a($element, $class) && in_array($field_name, $blacklist, true)) {
+                return false;
+            }
+        }
+
+        //By default allow every field.
+        return true;
+    }
+
+    public function getSubscribedEvents()
+    {
+        return[
+            Events::onFlush,
+            Events::postPersist,
+            Events::postFlush,
+        ];
     }
 
     protected function logElementDeleted(AbstractDBElement $entity, EntityManagerInterface $em): void
@@ -179,7 +221,7 @@ class EventLoggerSubscriber implements EventSubscriber
                 if (is_a($entity, $class)) {
                     //Check names
                     foreach ($mappings as $field => $mapping) {
-                        if (in_array($field, $whitelist)) {
+                        if (in_array($field, $whitelist, true)) {
                             $changed = $this->propertyAccessor->getValue($entity, $field);
                             $log = new CollectionElementDeleted($changed, $mapping['inversedBy'], $entity);
                             if ($this->eventUndoHelper->isUndo()) {
@@ -217,32 +259,15 @@ class EventLoggerSubscriber implements EventSubscriber
     }
 
     /**
-     * Check if the given element class has restrictions to its fields
-     * @param  AbstractDBElement  $element
-     * @return bool True if there are restrictions, and further checking is needed
-     */
-    public function hasFieldRestrictions(AbstractDBElement $element): bool
-    {
-        foreach (static::FIELD_BLACKLIST as $class => $blacklist) {
-            if (is_a($element, $class)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Filter out every forbidden field and return the cleaned array.
-     * @param  AbstractDBElement  $element
-     * @param  array  $fields
+     *
      * @return array
      */
     protected function filterFieldRestrictions(AbstractDBElement $element, array $fields): array
     {
         unset($fields['lastModified']);
 
-        if (!$this->hasFieldRestrictions($element)) {
+        if (! $this->hasFieldRestrictions($element)) {
             return $fields;
         }
 
@@ -256,29 +281,11 @@ class EventLoggerSubscriber implements EventSubscriber
         }, ARRAY_FILTER_USE_BOTH);
     }
 
-    /**
-     * Checks if the field of the given element should be saved (if it is not blacklisted).
-     * @param  AbstractDBElement  $element
-     * @param  string  $field_name
-     * @return bool
-     */
-    public function shouldFieldBeSaved(AbstractDBElement $element, string $field_name): bool
-    {
-        foreach (static::FIELD_BLACKLIST as $class => $blacklist) {
-            if (is_a($element, $class) && in_array($field_name, $blacklist)) {
-                return false;
-            }
-        }
-
-        //By default allow every field.
-        return true;
-    }
-
     protected function saveChangeSet(AbstractDBElement $entity, AbstractLogEntry $logEntry, EntityManagerInterface $em, $element_deleted = false): void
     {
         $uow = $em->getUnitOfWork();
 
-        if (!$logEntry instanceof ElementEditedLogEntry && !$logEntry instanceof ElementDeletedLogEntry) {
+        if (! $logEntry instanceof ElementEditedLogEntry && ! $logEntry instanceof ElementDeletedLogEntry) {
             throw new \InvalidArgumentException('$logEntry must be ElementEditedLogEntry or ElementDeletedLogEntry!');
         }
 
@@ -304,28 +311,16 @@ class EventLoggerSubscriber implements EventSubscriber
 
     /**
      * Check if the given entity can be logged.
-     * @param object $entity
+     *
      * @return bool True, if the given entity can be logged.
      */
     protected function validEntity(object $entity): bool
     {
         //Dont log logentries itself!
-        if ($entity instanceof AbstractDBElement && !$entity instanceof AbstractLogEntry) {
+        if ($entity instanceof AbstractDBElement && ! $entity instanceof AbstractLogEntry) {
             return true;
         }
 
         return false;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getSubscribedEvents()
-    {
-        return[
-            Events::onFlush,
-            Events::postPersist,
-            Events::postFlush
-        ];
     }
 }

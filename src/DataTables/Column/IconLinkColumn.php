@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,16 +23,11 @@
 
 namespace App\DataTables\Column;
 
-
 use Omines\DataTablesBundle\Column\AbstractColumn;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class IconLinkColumn extends AbstractColumn
 {
-
-    /**
-     * @inheritDoc
-     */
     public function normalize($value)
     {
         return $value;
@@ -39,11 +37,11 @@ class IconLinkColumn extends AbstractColumn
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults([
-                                   'icon' => 'fas fa-fw fa-edit',
-                                   'title' => null,
-                                   'href' => null,
-                                   'disabled' => false,
-                               ]);
+            'icon' => 'fas fa-fw fa-edit',
+            'title' => null,
+            'href' => null,
+            'disabled' => false,
+        ]);
 
         $resolver->setAllowedTypes('title', ['null', 'string', 'callable']);
         $resolver->setAllowedTypes('icon', ['null', 'string', 'callable']);
@@ -60,7 +58,7 @@ class IconLinkColumn extends AbstractColumn
         $title = $this->getTitle($value, $context);
         $disabled = $this->getDisabled($value, $context);
 
-        if ($href !== null) {
+        if (null !== $href) {
             return sprintf(
                 '<a class="btn btn-primary btn-sm %s" href="%s" title="%s"><i class="%s"></i></a>',
                 $disabled ? 'disabled' : '',
@@ -70,7 +68,7 @@ class IconLinkColumn extends AbstractColumn
             );
         }
 
-        return "";
+        return '';
     }
 
     protected function getDisabled($value, $context): bool
@@ -82,6 +80,7 @@ class IconLinkColumn extends AbstractColumn
         if (is_callable($provider)) {
             return call_user_func($provider, $value, $context);
         }
+
         return false;
     }
 

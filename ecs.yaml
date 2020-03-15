@@ -9,6 +9,10 @@ parameters:
     # - "symplify"
     - "symfony"
 
+  paths:
+    - 'src'
+    - 'tests'
+
   skip:
     Symplify\CodingStandard\Fixer\Naming\PropertyNameMatchingTypeFixer: ~
     Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer: ~

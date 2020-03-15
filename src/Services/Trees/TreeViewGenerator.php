@@ -76,10 +76,10 @@ class TreeViewGenerator
     /**
      * Gets a TreeView list for the entities of the given class.
      *
-     * @param string                   $class           The class for which the treeView should be generated
+     * @param string                           $class           The class for which the treeView should be generated
      * @param AbstractStructuralDBElement|null $parent          The root nodes in the tree should have this element as parent (use null, if you want to get all entities)
-     * @param string                   $href_type       The link type that will be generated for the hyperlink section of each node (see EntityURLGenerator for possible values).
-     *                                                  Set to empty string, to disable href field.
+     * @param string                           $href_type       The link type that will be generated for the hyperlink section of each node (see EntityURLGenerator for possible values).
+     *                                                          Set to empty string, to disable href field.
      * @param AbstractDBElement|null           $selectedElement The element that should be selected. If set to null, no element will be selected.
      *
      * @return TreeViewNode[] An array of TreeViewNode[] elements of the root elements.
@@ -132,7 +132,7 @@ class TreeViewGenerator
      * Gets a tree of TreeViewNode elements. The root elements has $parent as parent.
      * The treeview is generic, that means the href are null and ID values are set.
      *
-     * @param string                   $class  The class for which the tree should be generated
+     * @param string                           $class  The class for which the tree should be generated
      * @param AbstractStructuralDBElement|null $parent The parent the root elements should have.
      *
      * @return TreeViewNode[]

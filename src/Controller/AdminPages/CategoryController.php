@@ -68,9 +68,6 @@ class CategoryController extends BaseAdminController
     /**
      * @Route("/{id}", name="category_delete", methods={"DELETE"})
      *
-     * @param  Request  $request
-     * @param  Category  $entity
-     * @param  StructuralElementRecursionHelper  $recursionHelper
      * @return RedirectResponse
      */
     public function delete(Request $request, Category $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
@@ -82,9 +79,6 @@ class CategoryController extends BaseAdminController
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="category_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
      *
-     * @param  Category  $entity
-     * @param  Request  $request
-     * @param  EntityManagerInterface  $em
      * @return Response
      */
     public function edit(Category $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
@@ -96,9 +90,6 @@ class CategoryController extends BaseAdminController
      * @Route("/new", name="category_new")
      * @Route("/")
      *
-     * @param  Request  $request
-     * @param  EntityManagerInterface  $em
-     * @param  EntityImporter  $importer
      * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
@@ -109,9 +100,6 @@ class CategoryController extends BaseAdminController
     /**
      * @Route("/export", name="category_export_all")
      *
-     * @param  EntityManagerInterface  $em
-     * @param  EntityExporter  $exporter
-     * @param  Request  $request
      * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
@@ -122,9 +110,6 @@ class CategoryController extends BaseAdminController
     /**
      * @Route("/{id}/export", name="category_export")
      *
-     * @param  Category  $entity
-     * @param  EntityExporter  $exporter
-     * @param  Request  $request
      * @return Response
      */
     public function exportEntity(Category $entity, EntityExporter $exporter, Request $request): Response

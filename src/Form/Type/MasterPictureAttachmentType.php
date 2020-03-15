@@ -43,7 +43,6 @@ declare(strict_types=1);
 namespace App\Form\Type;
 
 use App\Entity\Attachments\Attachment;
-use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Contracts\HasMasterAttachmentInterface;
 use Doctrine\ORM\EntityRepository;
 use ReflectionClass;

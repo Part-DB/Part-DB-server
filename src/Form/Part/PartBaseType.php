@@ -51,7 +51,6 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Orderdetail;
-use App\Entity\Parameters\Parameter;
 use App\Form\AttachmentFormType;
 use App\Form\ParameterType;
 use App\Form\Type\MasterPictureAttachmentType;
@@ -275,8 +274,8 @@ class PartBaseType extends AbstractType
             'by_reference' => false,
             'prototype_data' => new PartParameter(),
             'entry_options' => [
-                'data_class' => PartParameter::class
-            ]
+                'data_class' => PartParameter::class,
+            ],
         ]);
 
         $builder->add('log_comment', TextType::class, [
@@ -295,7 +294,7 @@ class PartBaseType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-                                   'data_class' => Part::class,
-                               ]);
+            'data_class' => Part::class,
+        ]);
     }
 }

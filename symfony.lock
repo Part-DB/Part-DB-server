@@ -277,6 +277,9 @@
     "paragonie/constant_time_encoding": {
         "version": "v2.3.0"
     },
+    "paragonie/random_compat": {
+        "version": "v9.99.99"
+    },
     "php": {
         "version": "7.2.5"
     },
@@ -649,6 +652,9 @@
             "./phpunit.xml.dist",
             "./tests/.gitignore"
         ]
+    },
+    "symfony/polyfill-ctype": {
+        "version": "v1.14.0"
     },
     "symfony/polyfill-intl-icu": {
         "version": "v1.10.0"

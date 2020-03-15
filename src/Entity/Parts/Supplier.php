@@ -52,7 +52,6 @@ namespace App\Entity\Parts;
 
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Base\AbstractCompany;
-use App\Entity\Parameters\DeviceParameter;
 use App\Entity\Parameters\SupplierParameter;
 use App\Entity\PriceInformations\Currency;
 use App\Validator\Constraints\Selectable;
@@ -134,7 +133,6 @@ class Supplier extends AbstractCompany
     /**
      * Sets the default currency.
      *
-     * @param  Currency|null  $default_currency
      * @return Supplier
      */
     public function setDefaultCurrency(?Currency $default_currency): self

@@ -45,7 +45,6 @@ namespace App\Services;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
-use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Devices\Device;
 use App\Entity\Parameters\AbstractParameter;
@@ -93,7 +92,7 @@ class ElementTypeNameGenerator
             Pricedetail::class => $this->translator->trans('pricedetail.label'),
             Group::class => $this->translator->trans('group.label'),
             User::class => $this->translator->trans('user.label'),
-            AbstractParameter::class => $this->translator->trans('parameter.label')
+            AbstractParameter::class => $this->translator->trans('parameter.label'),
         ];
     }
 
@@ -135,7 +134,7 @@ class ElementTypeNameGenerator
      * It uses getLocalizedLabel to determine the type.
      *
      * @param NamedElementInterface $entity   the entity for which the string should be generated
-     * @param bool           $use_html If set to true, a html string is returned, where the type is set italic
+     * @param bool                  $use_html If set to true, a html string is returned, where the type is set italic
      *
      * @return string The localized string
      *

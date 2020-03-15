@@ -45,7 +45,6 @@ namespace App\Entity\PriceInformations;
 use App\Entity\Attachments\CurrencyAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\CurrencyParameter;
-use App\Entity\Parameters\SupplierParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;

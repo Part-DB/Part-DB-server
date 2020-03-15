@@ -52,7 +52,6 @@ namespace App\Entity\Parts;
 
 use App\Entity\Attachments\ManufacturerAttachment;
 use App\Entity\Base\AbstractCompany;
-use App\Entity\Parameters\DeviceParameter;
 use App\Entity\Parameters\ManufacturerParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

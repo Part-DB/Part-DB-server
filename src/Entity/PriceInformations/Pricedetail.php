@@ -121,6 +121,14 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
         bcscale(static::PRICE_PRECISION);
     }
 
+    public function __clone()
+    {
+        if ($this->id) {
+            $this->addedDate = null;
+        }
+        parent::__clone();
+    }
+
     /********************************************************************************
      *
      *   Getters
@@ -230,7 +238,6 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     /**
      * Sets the orderdetail to which this pricedetail belongs to.
      *
-     * @param  Orderdetail  $orderdetail
      * @return $this
      */
     public function setOrderdetail(Orderdetail $orderdetail): self
@@ -244,7 +251,6 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * Sets the currency associated with the price informations.
      * Set to null, to use the global base currency.
      *
-     * @param  Currency|null  $currency
      * @return Pricedetail
      */
     public function setCurrency(?Currency $currency): self
@@ -262,6 +268,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      *      * This is the price for "price_related_quantity" parts!!
      *              * Example: if "price_related_quantity" is '10',
      *                  you have to set here the price for 10 parts!
+     *
      * @return $this
      */
     public function setPrice(string $new_price): self
@@ -309,6 +316,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * So the orderdetails would have three Pricedetails for one supplier.)
      *
      * @param float $new_min_discount_quantity the minimum discount quantity
+     *
      * @return $this
      */
     public function setMinDiscountQuantity(float $new_min_discount_quantity): self
@@ -327,13 +335,5 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     public function getIDString(): string
     {
         return 'PD'.sprintf('%06d', $this->getID());
-    }
-
-    public function __clone()
-    {
-        if ($this->id) {
-           $this->addedDate = null;
-        }
-        parent::__clone();
     }
 }

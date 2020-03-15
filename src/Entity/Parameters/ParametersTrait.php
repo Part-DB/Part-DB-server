@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,22 +23,22 @@
 
 namespace App\Entity\Parameters;
 
-
-use App\Entity\Parameters\AbstractParameter;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 trait ParametersTrait
 {
     /**
-     * Mapping done in subclasses
+     * Mapping done in subclasses.
+     *
      * @var AbstractParameter[]|Collection
      * @Assert\Valid()
      */
     protected $parameters;
 
     /**
-     * Return all associated specifications
+     * Return all associated specifications.
+     *
      * @return AbstractParameter[]|Collection
      */
     public function getParameters(): Collection
@@ -45,19 +48,21 @@ trait ParametersTrait
 
     /**
      * Add a new parameter information.
-     * @param  AbstractParameter  $parameter
+     *
      * @return $this
      */
     public function addParameter(AbstractParameter $parameter): self
     {
         $parameter->setElement($this);
         $this->parameters->add($parameter);
+
         return $this;
     }
 
     public function removeParameter(AbstractParameter $parameter): self
     {
         $this->parameters->removeElement($parameter);
+
         return $this;
     }
 }

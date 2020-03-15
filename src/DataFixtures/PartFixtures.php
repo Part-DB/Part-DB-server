@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,7 +23,6 @@
 
 namespace App\DataFixtures;
 
-
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Parts\Category;
@@ -38,7 +40,6 @@ use Doctrine\Persistence\ObjectManager;
 
 class PartFixtures extends Fixture
 {
-
     protected $em;
 
     public function __construct(EntityManagerInterface $entityManager)
@@ -46,10 +47,7 @@ class PartFixtures extends Fixture
         $this->em = $entityManager;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $table_name = $this->em->getClassMetadata(Part::class)->getTableName();
         $this->em->getConnection()->exec("ALTER TABLE `${table_name}` AUTO_INCREMENT = 1;");

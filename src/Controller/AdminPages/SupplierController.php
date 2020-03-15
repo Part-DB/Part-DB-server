@@ -66,9 +66,7 @@ class SupplierController extends BaseAdminController
 
     /**
      * @Route("/{id}", name="supplier_delete", methods={"DELETE"})
-     * @param  Request  $request
-     * @param  Supplier  $entity
-     * @param  StructuralElementRecursionHelper  $recursionHelper
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Request $request, Supplier $entity, StructuralElementRecursionHelper $recursionHelper)
@@ -79,9 +77,7 @@ class SupplierController extends BaseAdminController
     /**
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="supplier_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
-     * @param  Supplier  $entity
-     * @param  Request  $request
-     * @param  EntityManagerInterface  $em
+     *
      * @return Response
      */
     public function edit(Supplier $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null)
@@ -93,9 +89,6 @@ class SupplierController extends BaseAdminController
      * @Route("/new", name="supplier_new")
      * @Route("/")
      *
-     * @param  Request  $request
-     * @param  EntityManagerInterface  $em
-     * @param  EntityImporter  $importer
      * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
@@ -106,9 +99,6 @@ class SupplierController extends BaseAdminController
     /**
      * @Route("/export", name="supplier_export_all")
      *
-     * @param  EntityManagerInterface  $em
-     * @param  EntityExporter  $exporter
-     * @param  Request  $request
      * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
@@ -119,9 +109,6 @@ class SupplierController extends BaseAdminController
     /**
      * @Route("/{id}/export", name="supplier_export")
      *
-     * @param  Supplier  $entity
-     * @param  EntityExporter  $exporter
-     * @param  Request  $request
      * @return Response
      */
     public function exportEntity(Supplier $entity, EntityExporter $exporter, Request $request): Response
