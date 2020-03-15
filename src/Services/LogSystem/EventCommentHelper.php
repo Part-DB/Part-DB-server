@@ -42,7 +42,11 @@ class EventCommentHelper
     public function setMessage(?string $message): void
     {
         //Restrict the length of the string
-        $this->message = mb_strimwidth($message, 0, self::MAX_MESSAGE_LENGTH, '...');
+        if ($message) {
+            $this->message = mb_strimwidth($message, 0, self::MAX_MESSAGE_LENGTH, '...');
+        } else {
+            $this->message = null;
+        }
     }
 
     /**
