@@ -295,40 +295,4 @@ class PartController extends AbstractController
                                  'attachment_helper' => $attachmentHelper,
                              ]);
     }
-
-    /**
-     * //@Route("/{id}/clone", name="part_clone")
-     *
-     * @param  Part  $part
-     * @param  Request  $request
-     * @param  EntityManagerInterface  $em
-     * @param  TranslatorInterface  $translator
-     * @return RedirectResponse|Response
-     */
-    public function clone(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator)
-    {
-        /** @var Part $new_part */
-        $new_part = clone $part;
-
-        $this->denyAccessUnlessGranted('create', $new_part);
-
-        $form = $this->createForm(PartBaseType::class, $new_part);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($new_part);
-            $em->flush();
-            $this->addFlash('success', 'part.created_flash');
-
-            return $this->redirectToRoute('part_edit', ['id' => $new_part->getID()]);
-        }
-
-        return $this->render('Parts/edit/new_part.html.twig',
-                             [
-                                 'part' => $new_part,
-                                 'form' => $form->createView(),
-                                 'attachment_helper' => $attachmentHelper,
-                             ]);
-    }
 }
