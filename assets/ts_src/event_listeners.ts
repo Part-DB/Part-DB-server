@@ -552,6 +552,21 @@ $(document).on("ajaxUI:reload", function() {
     })
 });
 
+//Register latex rendering
+$(document).on("ajaxUI:reload ajaxUI:start", function() {
+    $('.latex').each(function(index, element) {
+        //@ts-ignore
+        window.renderMathInElement(element, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\[", right: "\\]", display: true}
+            ]
+        });
+    });
+});
+
 //Need for proper body padding, with every navbar height
 $(window).resize(function () {
     let height : number = $('#navbar').height() + 10;

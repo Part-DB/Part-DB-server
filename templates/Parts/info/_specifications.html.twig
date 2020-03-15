@@ -10,7 +10,7 @@
     <tbody>
         {% for param in part.parameters %}
            <tr>
-               <td>{{ param.name }}</td>
+               <td>{{ param.name }} {% if param.symbol is not empty %}<span class="latex">${{ param.symbol }}$</span>{% endif %}</td>
                <td>{{ param.formattedValue }}</td>
            </tr>
         {% endfor %}
