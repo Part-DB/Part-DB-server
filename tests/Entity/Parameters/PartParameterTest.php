@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -25,7 +28,6 @@ use PHPUnit\Framework\TestCase;
 
 class PartParameterTest extends TestCase
 {
-
     public function valueWithUnitDataProvider(): array
     {
         return [
@@ -53,9 +55,6 @@ class PartParameterTest extends TestCase
 
     /**
      * @dataProvider  valueWithUnitDataProvider
-     * @param  string  $expected
-     * @param  float  $value
-     * @param  string  $unit
      */
     public function testGetValueMinWithUnit(string $expected, float $value, string $unit): void
     {
@@ -67,9 +66,6 @@ class PartParameterTest extends TestCase
 
     /**
      * @dataProvider  valueWithUnitDataProvider
-     * @param  string  $expected
-     * @param  float  $value
-     * @param  string  $unit
      */
     public function testGetValueMaxWithUnit(string $expected, float $value, string $unit): void
     {
@@ -81,9 +77,6 @@ class PartParameterTest extends TestCase
 
     /**
      * @dataProvider  valueWithUnitDataProvider
-     * @param  string  $expected
-     * @param  float  $value
-     * @param  string  $unit
      */
     public function testGetValueTypicalWithUnit(string $expected, float $value, string $unit): void
     {
@@ -95,12 +88,10 @@ class PartParameterTest extends TestCase
 
     /**
      * @dataProvider formattedValueDataProvider
-     * @param  string  $expected
-     * @param  float  $min
-     * @param  float  $typical
-     * @param  float  $max
-     * @param  string  $unit
-     * @param  string  $text
+     *
+     * @param float $min
+     * @param float $typical
+     * @param float $max
      */
     public function testGetFormattedValue(string $expected, ?float $min, ?float $typical, ?float $max, string $unit, string $text): void
     {

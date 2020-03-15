@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -24,6 +27,7 @@ use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Devices\Device;
+use App\Entity\Devices\DevicePart;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -34,11 +38,9 @@ use App\Entity\Parts\Supplier;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use PHPUnit\Framework\TestCase;
-use App\Entity\Devices\DevicePart;
 
 class AbstractLogEntryTest extends TestCase
 {
-
     public function levelDataProvider(): array
     {
         return [
@@ -51,7 +53,7 @@ class AbstractLogEntryTest extends TestCase
             [6, 'info'],
             [7, 'debug'],
             [8, 'blabla', true],
-            [-1, 'test', true]
+            [-1, 'test', true],
         ];
     }
 
@@ -70,14 +72,14 @@ class AbstractLogEntryTest extends TestCase
             [10, Part::class],
             [11, Storelocation::class],
             [12, Supplier::class],
-            [-1, 'blablub', true]
+            [-1, 'blablub', true],
         ];
     }
 
     /**
      * @dataProvider levelDataProvider
      */
-    public function testLevelIntToString(int $int, string $expected_string, bool $expect_exception = false)
+    public function testLevelIntToString(int $int, string $expected_string, bool $expect_exception = false): void
     {
         if ($expect_exception) {
             $this->expectException(\InvalidArgumentException::class);
@@ -88,7 +90,7 @@ class AbstractLogEntryTest extends TestCase
     /**
      * @dataProvider levelDataProvider
      */
-    public function testLevelStringToInt(int $expected_int, string $string, bool $expect_exception = false)
+    public function testLevelStringToInt(int $expected_int, string $string, bool $expect_exception = false): void
     {
         if ($expect_exception) {
             $this->expectException(\InvalidArgumentException::class);
@@ -99,7 +101,7 @@ class AbstractLogEntryTest extends TestCase
     /**
      * @dataProvider targetTypeDataProvider
      */
-    public function testTargetTypeIdToClass(int $int, string $expected_class, bool $expect_exception = false)
+    public function testTargetTypeIdToClass(int $int, string $expected_class, bool $expect_exception = false): void
     {
         if ($expect_exception) {
             $this->expectException(\InvalidArgumentException::class);
@@ -110,7 +112,7 @@ class AbstractLogEntryTest extends TestCase
     /**
      * @dataProvider targetTypeDataProvider
      */
-    public function testTypeClassToID(int $expected_id, string $class, bool $expect_exception = false)
+    public function testTypeClassToID(int $expected_id, string $class, bool $expect_exception = false): void
     {
         if ($expect_exception) {
             $this->expectException(\InvalidArgumentException::class);
@@ -118,18 +120,19 @@ class AbstractLogEntryTest extends TestCase
         $this->assertSame($expected_id, AbstractLogEntry::targetTypeClassToID($class));
     }
 
-    public function testTypeClassToIDSubclasses()
+    public function testTypeClassToIDSubclasses(): void
     {
         //Test if class mapping works for subclasses
         $this->assertSame(2, AbstractLogEntry::targetTypeClassToID(PartAttachment::class));
     }
 
-    public function testSetGetTarget()
+    public function testSetGetTarget(): void
     {
         $part = $this->createMock(Part::class);
         $part->method('getID')->willReturn(10);
 
-        $log = new class extends AbstractLogEntry {};
+        $log = new class() extends AbstractLogEntry {
+        };
         $log->setTargetElement($part);
 
         $this->assertSame(Part::class, $log->getTargetClass());

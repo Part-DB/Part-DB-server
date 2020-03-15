@@ -42,7 +42,6 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
-use App\Entity\Parts\Manufacturer;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,16 +23,14 @@
 
 namespace App\Tests;
 
-
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DatatablesAvailabilityTest extends WebTestCase
 {
     /**
      * @dataProvider urlProvider
-     * @param  string  $url
      */
-    public function testDataTable(string $url)
+    public function testDataTable(string $url): void
     {
         //We have localized routes
         $url = '/en'.$url;
@@ -63,6 +64,5 @@ class DatatablesAvailabilityTest extends WebTestCase
         yield ['/log/'];
 
         yield ['/attachment/list'];
-
     }
 }
