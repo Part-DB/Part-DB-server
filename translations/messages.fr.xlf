@@ -7879,27 +7879,27 @@ exemple de ville</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>perm.show_history</source>
-        <target>perm.show_history</target>
+        <target>Afficher l'historique</target>
       </segment>
     </unit>
     <unit id="Ay52w3." name="perm.tools.lastActivity">
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>perm.tools.lastActivity</source>
-        <target>perm.tools.lastActivity</target>
+        <target>Afficher l'activité récente</target>
       </segment>
     </unit>
     <unit id="m3PTL2e" name="perm.tools.timeTravel">
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>perm.tools.timeTravel</source>
-        <target>perm.tools.timeTravel</target>
+        <target>Afficher les anciennes versions des éléments (Time travel)</target>
       </segment>
     </unit>
     <unit id="AiBoPxF" name="log.type.">
