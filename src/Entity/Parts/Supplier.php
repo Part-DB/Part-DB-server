@@ -116,6 +116,7 @@ class Supplier extends AbstractCompany
 
     /** @var SupplierParameter[]
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\SupplierParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
      */
     protected $parameters;

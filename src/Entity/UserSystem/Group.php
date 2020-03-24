@@ -95,6 +95,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
 
     /** @var GroupParameter[]
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\GroupParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
      */
     protected $parameters;

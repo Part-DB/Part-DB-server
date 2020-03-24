@@ -89,6 +89,7 @@ class Manufacturer extends AbstractCompany
 
     /** @var ManufacturerParameter[]
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\ManufacturerParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
      */
     protected $parameters;

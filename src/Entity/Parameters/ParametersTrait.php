@@ -65,4 +65,14 @@ trait ParametersTrait
 
         return $this;
     }
+
+    public function getGroupedParameters(): array
+    {
+        $tmp = [];
+
+        foreach ($this->parameters as $parameter) {
+            $tmp[$parameter->getGroup()][] = $parameter;
+        }
+        return $tmp;
+    }
 }

@@ -94,6 +94,7 @@ class Storelocation extends AbstractPartsContainingDBElement
 
     /** @var StorelocationParameter[]
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\StorelocationParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
      */
     protected $parameters;

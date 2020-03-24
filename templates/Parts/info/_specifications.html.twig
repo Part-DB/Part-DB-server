@@ -1,18 +1,7 @@
 {# var \App\Entity\Parts\Part part #}
+{% import "helper.twig" as helper %}
 
-<table class="table table-hover table-striped table-sm">
-    <thead>
-        <tr>
-            <th>{% trans %}specifications.property{% endtrans %}</th>
-            <th>{% trans %}specifications.value{% endtrans %}</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for param in part.parameters %}
-           <tr>
-               <td>{{ param.name }} {% if param.symbol is not empty %}<span class="latex">${{ param.symbol }}$</span>{% endif %}</td>
-               <td>{{ param.formattedValue }}</td>
-           </tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% for name, parameters in part.groupedParameters %}
+    {% if name is not empty %}<h5 class="mt-1">{{ name }}</h5>{% endif %}
+    {{ helper.parameters_table(parameters) }}
+{% endfor %}

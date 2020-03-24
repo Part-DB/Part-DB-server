@@ -64,6 +64,7 @@ class AttachmentType extends AbstractStructuralDBElement
 
     /** @var AttachmentTypeParameter[]
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\AttachmentTypeParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
      */
     protected $parameters;

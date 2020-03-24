@@ -96,6 +96,7 @@ class Currency extends AbstractStructuralDBElement
 
     /** @var CurrencyParameter[]
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\CurrencyParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
      */
     protected $parameters;

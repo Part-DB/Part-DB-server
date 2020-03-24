@@ -109,6 +109,7 @@ class Category extends AbstractPartsContainingDBElement
 
     /** @var CategoryParameter[]
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\CategoryParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
      */
     protected $parameters;

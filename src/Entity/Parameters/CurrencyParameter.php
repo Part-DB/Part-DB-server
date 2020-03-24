@@ -25,11 +25,13 @@ namespace App\Entity\Parameters;
 
 use App\Entity\PriceInformations\Currency;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * A attachment attached to a category element.
  *
  * @ORM\Entity()
+ * @UniqueEntity(fields={"name", "group", "element"})
  */
 class CurrencyParameter extends AbstractParameter
 {

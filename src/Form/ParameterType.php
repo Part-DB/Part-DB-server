@@ -47,7 +47,7 @@ class ParameterType extends AbstractType
             'attr' => [
                 'placeholder' => 'parameters.symbol.placeholder',
                 'class' => 'form-control-sm',
-                'style' => 'max-width: 15ch;',
+                'style' => 'max-width: 12ch;',
             ],
         ]);
         $builder->add('value_text', TextType::class, [
@@ -66,7 +66,7 @@ class ParameterType extends AbstractType
                 'step' => 'any',
                 'placeholder' => 'parameters.max.placeholder',
                 'class' => 'form-control-sm',
-                'style' => 'max-width: 15ch;',
+                'style' => 'max-width: 12ch;',
             ],
         ]);
         $builder->add('value_min', NumberType::class, [
@@ -76,7 +76,7 @@ class ParameterType extends AbstractType
                 'step' => 'any',
                 'placeholder' => 'parameters.min.placeholder',
                 'class' => 'form-control-sm',
-                'style' => 'max-width: 15ch;',
+                'style' => 'max-width: 12ch;',
             ],
         ]);
         $builder->add('value_typical', NumberType::class, [
@@ -86,7 +86,7 @@ class ParameterType extends AbstractType
                 'step' => 'any',
                 'placeholder' => 'parameters.typical.placeholder',
                 'class' => 'form-control-sm',
-                'style' => 'max-width: 15ch;',
+                'style' => 'max-width: 12ch;',
             ],
         ]);
         $builder->add('unit', TextType::class, [
@@ -98,12 +98,21 @@ class ParameterType extends AbstractType
                 'style' => 'max-width: 8ch;',
             ],
         ]);
+
+        $builder->add('group', TextType::class, [
+            'required' => false,
+            'empty_data' => '',
+            'attr' => [
+                'placeholder' => 'parameter.group.placeholder',
+                'class' => 'form-control-sm',
+            ]
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => AbstractParameter::class,
-        ]);
+                                   'data_class' => AbstractParameter::class,
+                               ]);
     }
 }

@@ -96,6 +96,7 @@ class Footprint extends AbstractPartsContainingDBElement
 
     /** @var FootprintParameter[]
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\FootprintParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})@ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
      */
     protected $parameters;

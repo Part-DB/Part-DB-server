@@ -25,9 +25,11 @@ namespace App\Entity\Parameters;
 
 use App\Entity\UserSystem\Group;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity()
+ * @UniqueEntity(fields={"name", "group", "element"})
  */
 class GroupParameter extends AbstractParameter
 {

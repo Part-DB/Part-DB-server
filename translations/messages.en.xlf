@@ -7994,5 +7994,11 @@ Element 3</target>
         <target>Text</target>
       </segment>
     </unit>
+    <unit id="t9lgp3U" name="specifications.group">
+      <segment>
+        <source>specifications.group</source>
+        <target>Group</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -100,6 +100,7 @@ class Device extends AbstractPartsContainingDBElement
 
     /** @var DeviceParameter[]
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\DeviceParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      */
     protected $parameters;
 
