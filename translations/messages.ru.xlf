@@ -9,7 +9,7 @@
       </notes>
       <segment state="translated">
         <source>attachment_type.caption</source>
-        <target>Тип прикрепленного файла</target>
+        <target>Типы прикрепленных файлов</target>
       </segment>
     </unit>
     <unit id="OllfX2C" name="category.labelp">
@@ -182,9 +182,9 @@
         <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:54</note>
         <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:4</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>part.info.timetravel_hint</source>
-        <target>part.info.timetravel_hint</target>
+        <target>Так этот компонент выглядел до %timestamp%. &lt;i&gt;Это экспериментальная возможность, поэтому информация может быть неверной.&lt;/i&gt;</target>
       </segment>
     </unit>
     <unit id="7uawYY6" name="standard.label">
@@ -562,7 +562,7 @@
       </notes>
       <segment state="translated">
         <source>attachment.view</source>
-        <target>Смотреть</target>
+        <target>Посмотреть</target>
       </segment>
     </unit>
     <unit id="HnHc.HV" name="attachment.file_not_found">
@@ -7753,9 +7753,9 @@
         <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>google</source>
-        <target>google</target>
+        <target>Google</target>
       </segment>
     </unit>
     <unit id="tST2X1R" name="tfa.provider.u2f_two_factor">
