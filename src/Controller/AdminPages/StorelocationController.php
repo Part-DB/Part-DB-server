@@ -42,6 +42,7 @@ declare(strict_types=1);
 
 namespace App\Controller\AdminPages;
 
+use App\Entity\Parameters\StorelocationParameter;
 use App\Entity\Parts\Storelocation;
 use App\Form\AdminPages\StorelocationAdminForm;
 use App\Services\EntityExporter;
@@ -62,6 +63,7 @@ class StorelocationController extends BaseAdminController
     protected $form_class = StorelocationAdminForm::class;
     protected $route_base = 'store_location';
     protected $attachment_class = StorelocationAdminForm::class;
+    protected $parameter_class = StorelocationParameter::class;
 
     /**
      * @Route("/{id}", name="store_location_delete", methods={"DELETE"})

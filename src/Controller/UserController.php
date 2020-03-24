@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Attachments\UserAttachment;
+use App\Entity\Parameters\PartParameter;
 use App\Entity\UserSystem\User;
 use App\Form\Permissions\PermissionsType;
 use App\Form\UserAdminForm;
@@ -67,6 +68,8 @@ class UserController extends AdminPages\BaseAdminController
     protected $form_class = UserAdminForm::class;
     protected $route_base = 'user';
     protected $attachment_class = UserAttachment::class;
+    //Just define a value here to prevent error. It is not used.
+    protected $parameter_class = "not used";
 
     /**
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="user_edit")

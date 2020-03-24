@@ -44,6 +44,7 @@ namespace App\Controller\AdminPages;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\MeasurementUnitAttachment;
+use App\Entity\Parameters\MeasurementUnitParameter;
 use App\Entity\Parts\MeasurementUnit;
 use App\Form\AdminPages\MeasurementUnitAdminForm;
 use App\Services\EntityExporter;
@@ -64,6 +65,7 @@ class MeasurementUnitController extends BaseAdminController
     protected $form_class = MeasurementUnitAdminForm::class;
     protected $route_base = 'measurement_unit';
     protected $attachment_class = MeasurementUnitAttachment::class;
+    protected $parameter_class = MeasurementUnitParameter::class;
 
     /**
      * @Route("/{id}", name="measurement_unit_delete", methods={"DELETE"})

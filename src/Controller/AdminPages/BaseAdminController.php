@@ -77,6 +77,7 @@ abstract class BaseAdminController extends AbstractController
     protected $twig_template = '';
     protected $route_base = '';
     protected $attachment_class = '';
+    protected $parameter_class = '';
 
     protected $passwordEncoder;
     protected $translator;
@@ -99,6 +100,10 @@ abstract class BaseAdminController extends AbstractController
 
         if ('' === $this->attachment_class) {
             throw new InvalidArgumentException('You have to override the $attachment_class value in your subclass!');
+        }
+
+        if ('' === $this->parameter_class) {
+            throw new InvalidArgumentException('You have to override the $parameter_class value in your subclass!');
         }
 
         $this->translator = $translator;
@@ -149,6 +154,7 @@ abstract class BaseAdminController extends AbstractController
 
         $form = $this->createForm($this->form_class, $entity, [
             'attachment_class' => $this->attachment_class,
+            'parameter_class' => $this->parameter_class,
             'disabled' => null !== $timeTravel_timestamp ? true : null,
         ]);
 
@@ -189,7 +195,10 @@ abstract class BaseAdminController extends AbstractController
 
             //Rebuild form, so it is based on the updated data. Important for the parent field!
             //We can not use dynamic form events here, because the parent entity list is build from database!
-            $form = $this->createForm($this->form_class, $entity, ['attachment_class' => $this->attachment_class]);
+            $form = $this->createForm($this->form_class, $entity, [
+                'attachment_class' => $this->attachment_class,
+                'parameter_class' => $this->parameter_class
+            ]);
         } elseif ($form->isSubmitted() && ! $form->isValid()) {
             $this->addFlash('error', 'entity.edit_flash.invalid');
         }
@@ -212,7 +221,10 @@ abstract class BaseAdminController extends AbstractController
         $this->denyAccessUnlessGranted('read', $new_entity);
 
         //Basic edit form
-        $form = $this->createForm($this->form_class, $new_entity, ['attachment_class' => $this->attachment_class]);
+        $form = $this->createForm($this->form_class, $new_entity, [
+            'attachment_class' => $this->attachment_class,
+            'parameter_class' => $this->parameter_class,
+        ]);
 
         $form->handleRequest($request);
 

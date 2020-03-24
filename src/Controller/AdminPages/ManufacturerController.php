@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\Controller\AdminPages;
 
 use App\Entity\Attachments\ManufacturerAttachment;
+use App\Entity\Parameters\ManufacturerParameter;
 use App\Entity\Parts\Manufacturer;
 use App\Form\AdminPages\CompanyForm;
 use App\Services\EntityExporter;
@@ -63,6 +64,7 @@ class ManufacturerController extends BaseAdminController
     protected $form_class = CompanyForm::class;
     protected $route_base = 'manufacturer';
     protected $attachment_class = ManufacturerAttachment::class;
+    protected $parameter_class = ManufacturerParameter::class;
 
     /**
      * @Route("/{id}", name="manufacturer_delete", methods={"DELETE"})

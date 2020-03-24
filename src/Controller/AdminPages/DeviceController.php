@@ -44,6 +44,7 @@ namespace App\Controller\AdminPages;
 
 use App\Entity\Attachments\DeviceAttachment;
 use App\Entity\Devices\Device;
+use App\Entity\Parameters\DeviceParameter;
 use App\Form\AdminPages\BaseEntityAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
@@ -64,6 +65,7 @@ class DeviceController extends BaseAdminController
     protected $form_class = BaseEntityAdminForm::class;
     protected $route_base = 'device';
     protected $attachment_class = DeviceAttachment::class;
+    protected $parameter_class = DeviceParameter::class;
 
     /**
      * @Route("/{id}", name="device_delete", methods={"DELETE"})

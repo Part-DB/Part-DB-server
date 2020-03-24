@@ -44,6 +44,7 @@ namespace App\Controller\AdminPages;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\AttachmentTypeAttachment;
+use App\Entity\Parameters\AttachmentTypeParameter;
 use App\Form\AdminPages\AttachmentTypeAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
@@ -64,6 +65,7 @@ class AttachmentTypeController extends BaseAdminController
     protected $form_class = AttachmentTypeAdminForm::class;
     protected $route_base = 'attachment_type';
     protected $attachment_class = AttachmentTypeAttachment::class;
+    protected $parameter_class = AttachmentTypeParameter::class;
 
     /**
      * @Route("/{id}", name="attachment_type_delete", methods={"DELETE"})

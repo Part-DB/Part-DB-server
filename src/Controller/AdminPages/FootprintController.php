@@ -44,6 +44,7 @@ namespace App\Controller\AdminPages;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\FootprintAttachment;
+use App\Entity\Parameters\FootprintParameter;
 use App\Entity\Parts\Footprint;
 use App\Form\AdminPages\FootprintAdminForm;
 use App\Services\EntityExporter;
@@ -64,6 +65,7 @@ class FootprintController extends BaseAdminController
     protected $form_class = FootprintAdminForm::class;
     protected $route_base = 'footprint';
     protected $attachment_class = FootprintAttachment::class;
+    protected $parameter_class = FootprintParameter::class;
 
     /**
      * @Route("/{id}", name="footprint_delete", methods={"DELETE"})

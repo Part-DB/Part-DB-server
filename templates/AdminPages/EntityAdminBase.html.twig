@@ -85,6 +85,11 @@
                             <li class="nav-item">
                                 <a data-toggle="tab" class="nav-link link-anchor" href="#attachments">{% trans %}admin.attachments{% endtrans %}</a>
                             </li>
+                            {% if entity.parameters is defined %}
+                            <li class="nav-item">
+                                <a data-toggle="tab" class="nav-link link-anchor" href="#parameters">{% trans %}admin.parameters{% endtrans %}</a>
+                            </li>
+                            {% endif %}
                         </ul>
 
                         <!-- Tab panes -->
@@ -113,6 +118,12 @@
                                     {{ form_row(form.master_picture_attachment) }}
                                 {% endblock %}
                             </div>
+
+                            {% if entity.parameters is defined %}
+                                <div id="parameters" class="tab-pane fade">
+                                    {% include "AdminPages/_parameters.html.twig" %}
+                                </div>
+                            {% endif %}
                         </div>
 
                         <div class="form-group row">
@@ -176,13 +187,7 @@
 
 
                     {% endif %}
-
-
                 </div>
-
-
-
-
             </fieldset>
         </div>
 

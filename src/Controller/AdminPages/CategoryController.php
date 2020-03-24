@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\Controller\AdminPages;
 
 use App\Entity\Attachments\CategoryAttachment;
+use App\Entity\Parameters\CategoryParameter;
 use App\Entity\Parts\Category;
 use App\Form\AdminPages\CategoryAdminForm;
 use App\Services\EntityExporter;
@@ -64,6 +65,7 @@ class CategoryController extends BaseAdminController
     protected $form_class = CategoryAdminForm::class;
     protected $route_base = 'category';
     protected $attachment_class = CategoryAttachment::class;
+    protected $parameter_class = CategoryParameter::class;
 
     /**
      * @Route("/{id}", name="category_delete", methods={"DELETE"})

@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\Controller\AdminPages;
 
 use App\Entity\Attachments\CurrencyAttachment;
+use App\Entity\Parameters\CurrencyParameter;
 use App\Entity\PriceInformations\Currency;
 use App\Form\AdminPages\CurrencyAdminForm;
 use App\Services\EntityExporter;
@@ -66,6 +67,7 @@ class CurrencyController extends BaseAdminController
     protected $form_class = CurrencyAdminForm::class;
     protected $route_base = 'currency';
     protected $attachment_class = CurrencyAttachment::class;
+    protected $parameter_class = CurrencyParameter::class;
 
     /**
      * @Route("/{id}", name="currency_delete", methods={"DELETE"})
