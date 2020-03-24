@@ -5,3 +5,13 @@
     {% if name is not empty %}<h5 class="mt-1">{{ name }}</h5>{% endif %}
     {{ helper.parameters_table(parameters) }}
 {% endfor %}
+
+{% if description_params is not empty %}
+    <h5 class="mt-1">{% trans %}parameters.extracted_from_description{% endtrans %}</h5>
+    {{ helper.parameters_table(description_params) }}
+{% endif %}
+
+{% if comment_params is not empty %}
+    <h5 class="mt-1">{% trans %}parameters.auto_extracted_from_comment{% endtrans %}</h5>
+    {{ helper.parameters_table(comment_params) }}
+{% endif %}

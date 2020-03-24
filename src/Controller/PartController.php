@@ -53,6 +53,7 @@ use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\HistoryHelper;
 use App\Services\LogSystem\TimeTravel;
+use App\Services\Parameters\ParameterExtractor;
 use App\Services\PricedetailHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
@@ -92,7 +93,7 @@ class PartController extends AbstractController
      * @throws \Exception
      */
     public function show(Part $part, Request $request, TimeTravel $timeTravel, HistoryHelper $historyHelper,
-        DataTableFactory $dataTable, ?string $timestamp = null): Response
+        DataTableFactory $dataTable, ParameterExtractor $parameterExtractor, ?string $timestamp = null): Response
     {
         $this->denyAccessUnlessGranted('read', $part);
 
@@ -133,6 +134,8 @@ class PartController extends AbstractController
                 'pricedetail_helper' => $this->pricedetailHelper,
                 'pictures' => $this->partPreviewGenerator->getPreviewAttachments($part),
                 'timeTravel' => $timeTravel_timestamp,
+                'description_params' => $parameterExtractor->extractParameters($part->getDescription()),
+                'comment_params' => $parameterExtractor->extractParameters($part->getComment())
             ]
         );
     }
