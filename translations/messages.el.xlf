@@ -116,9 +116,9 @@
         <note priority="1">templates\base.html.twig:206</note>
         <note priority="1">templates\base.html.twig:237</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>search.placeholder</source>
-        <target>search.placeholder</target>
+        <target>ψάχνω</target>
       </segment>
     </unit>
     <unit id="10f_Ka3" name="expandAll">
