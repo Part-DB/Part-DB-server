@@ -156,11 +156,12 @@ class BaseEntityAdminForm extends AbstractType
 
         $builder->add('parameters', CollectionType::class, [
             'entry_type' => ParameterType::class,
-            'allow_add' => true,
-            'allow_delete' => true,
+            'allow_add' => $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'allow_delete' => $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'label' => false,
             'by_reference' => false,
-            'prototype_data' => new $options['parameter_class'],
+            'prototype_data' => new $options['parameter_class'](),
             'entry_options' => [
                 'data_class' => $options['parameter_class'],
             ],
