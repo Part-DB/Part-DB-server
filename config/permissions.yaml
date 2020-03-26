@@ -153,6 +153,10 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
     <<: *PART_MULTI_ATTRIBUTE
     label: "perm.part.prices"
 
+  parts_parameters:
+    <<: *PART_MULTI_ATTRIBUTE
+    label: "perm.part.parameters"
+
   parts_lots:
     <<: *PART_MULTI_ATTRIBUTE
     label: "perm.part.lots"

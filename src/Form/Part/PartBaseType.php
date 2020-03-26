@@ -269,12 +269,13 @@ class PartBaseType extends AbstractType
 
         $builder->add('parameters', CollectionType::class, [
             'entry_type' => ParameterType::class,
-            'allow_add' => true,
-            'allow_delete' => true,
+            'allow_add' => $this->security->isGranted('parameters.create', $part),
+            'allow_delete' => $this->security->isGranted('parameters.delete', $part),
             'label' => false,
             'by_reference' => false,
             'prototype_data' => new PartParameter(),
             'entry_options' => [
+                'disabled' => ! $this->security->isGranted('parameters.edit', $part),
                 'data_class' => PartParameter::class,
             ],
         ]);

@@ -21,7 +21,7 @@
     </tbody>
 </table>
 
-<button type="button" class="btn btn-success" onclick="create_specification_entry(this)" {% if not is_granted('orderdetails.create', part) %}disabled{% endif %}>
+<button type="button" class="btn btn-success" onclick="create_specification_entry(this)" {% if not is_granted('parameters.create', part) %}disabled{% endif %}>
     <i class="fas fa-plus-square fa-fw"></i>
     {% trans %}specification.create{% endtrans %}
 </button>

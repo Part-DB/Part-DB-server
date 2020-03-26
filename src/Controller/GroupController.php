@@ -44,6 +44,7 @@ namespace App\Controller;
 
 use App\Controller\AdminPages\BaseAdminController;
 use App\Entity\Attachments\GroupAttachment;
+use App\Entity\Parameters\GroupParameter;
 use App\Entity\UserSystem\Group;
 use App\Form\AdminPages\GroupAdminForm;
 use App\Services\EntityExporter;
@@ -65,6 +66,7 @@ class GroupController extends BaseAdminController
     protected $form_class = GroupAdminForm::class;
     protected $route_base = 'group';
     protected $attachment_class = GroupAttachment::class;
+    protected $parameter_class = GroupParameter::class;
 
     /**
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="group_edit")
