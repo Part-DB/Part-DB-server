@@ -35,6 +35,7 @@ class ParameterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('name', TextType::class, [
+            'label' => false,
             'empty_data' => '',
             'attr' => [
                 'placeholder' => 'parameters.name.placeholder',
@@ -42,6 +43,7 @@ class ParameterType extends AbstractType
             ],
         ]);
         $builder->add('symbol', TextType::class, [
+            'label' => false,
             'required' => false,
             'empty_data' => '',
             'attr' => [
@@ -51,6 +53,7 @@ class ParameterType extends AbstractType
             ],
         ]);
         $builder->add('value_text', TextType::class, [
+            'label' => false,
             'required' => false,
             'empty_data' => '',
             'attr' => [
@@ -60,6 +63,7 @@ class ParameterType extends AbstractType
         ]);
 
         $builder->add('value_max', NumberType::class, [
+            'label' => false,
             'required' => false,
             'html5' => true,
             'attr' => [
@@ -70,6 +74,7 @@ class ParameterType extends AbstractType
             ],
         ]);
         $builder->add('value_min', NumberType::class, [
+            'label' => false,
             'required' => false,
             'html5' => true,
             'attr' => [
@@ -80,6 +85,7 @@ class ParameterType extends AbstractType
             ],
         ]);
         $builder->add('value_typical', NumberType::class, [
+            'label' => false,
             'required' => false,
             'html5' => true,
             'attr' => [
@@ -90,6 +96,7 @@ class ParameterType extends AbstractType
             ],
         ]);
         $builder->add('unit', TextType::class, [
+            'label' => false,
             'required' => false,
             'empty_data' => '',
             'attr' => [
@@ -100,6 +107,7 @@ class ParameterType extends AbstractType
         ]);
 
         $builder->add('group', TextType::class, [
+            'label' => false,
             'required' => false,
             'empty_data' => '',
             'attr' => [
