@@ -52,6 +52,7 @@ namespace App\Entity\PriceInformations;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
+use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Contracts\TimeStampableInterface;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
@@ -67,7 +68,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  */
-class Orderdetail extends AbstractDBElement implements TimeStampableInterface
+class Orderdetail extends AbstractDBElement implements TimeStampableInterface, NamedElementInterface
 {
     use TimestampTrait;
 
@@ -358,5 +359,13 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface
         $this->supplier_product_url = $new_url;
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getName(): string
+    {
+        return $this->getSupplierPartNr();
     }
 }

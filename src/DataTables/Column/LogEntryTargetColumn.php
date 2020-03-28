@@ -45,6 +45,7 @@ namespace App\DataTables\Column;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
+use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\PartLot;
@@ -98,7 +99,7 @@ class LogEntryTargetColumn extends AbstractColumn
         $tmp = '';
 
         //The element is existing
-        if ($target instanceof AbstractNamedDBElement) {
+        if ($target instanceof NamedElementInterface && !empty($target->getName())) {
             try {
                 $tmp = sprintf(
                     '<a href="%s">%s</a>',

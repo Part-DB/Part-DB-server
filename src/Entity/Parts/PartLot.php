@@ -44,6 +44,7 @@ namespace App\Entity\Parts;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
+use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Contracts\TimeStampableInterface;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPartLot;
@@ -61,7 +62,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\HasLifecycleCallbacks()
  * @ValidPartLot()
  */
-class PartLot extends AbstractDBElement implements TimeStampableInterface
+class PartLot extends AbstractDBElement implements TimeStampableInterface, NamedElementInterface
 {
     use TimestampTrait;
 
@@ -325,5 +326,13 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface
         $this->needs_refill = $needs_refill;
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getName(): string
+    {
+        return $this->description;
     }
 }
