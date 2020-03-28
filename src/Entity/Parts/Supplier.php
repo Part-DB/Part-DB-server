@@ -162,7 +162,10 @@ class Supplier extends AbstractCompany
      */
     public function setShippingCosts(?string $shipping_costs): self
     {
-        $this->shipping_costs = $shipping_costs;
+        /* Just a little hack to ensure that price has 5 digits after decimal point,
+         so that DB does not detect changes, when something like 0.4 is passed
+         Third parameter must have the scale value of decimal column. */
+        $this->shipping_costs = bcmul($shipping_costs, '1.0', 5);
 
         return $this;
     }

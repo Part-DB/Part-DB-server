@@ -275,7 +275,10 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     {
         //Assert::natural($new_price, 'The new price must be positive! Got %s!');
 
-        $this->price = $new_price;
+        /* Just a little hack to ensure that price has 5 digits after decimal point,
+        so that DB does not detect changes, when something like 0.4 is passed
+        Third parameter must have the scale value of decimal column. */
+        $this->price = bcmul($new_price, '1.0', static::PRICE_PRECISION);
 
         return $this;
     }
