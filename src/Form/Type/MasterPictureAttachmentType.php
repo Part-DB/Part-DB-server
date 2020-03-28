@@ -60,6 +60,7 @@ class MasterPictureAttachmentType extends AbstractType
 
         $resolver->setDefaults([
             'filter' => 'picture',
+            'choice_translation_domain' => false,
             'attr' => [
                 'class' => 'selectpicker',
             ],
