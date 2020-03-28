@@ -938,9 +938,9 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:31</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameter.delete.confirm</source>
-        <target>parameter.delete.confirm</target>
+        <target>Möchten Sie den Parameter wirklich löschen?</target>
       </segment>
     </unit>
     <unit id="rpzRyMx" name="attachment.list.title">
@@ -4865,63 +4865,63 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:40</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameters.name.placeholder</source>
-        <target>parameters.name.placeholder</target>
+        <target>Parameter</target>
       </segment>
     </unit>
     <unit id="3LWIDYM" name="parameters.symbol.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:48</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameters.symbol.placeholder</source>
-        <target>parameters.symbol.placeholder</target>
+        <target>Symbol</target>
       </segment>
     </unit>
     <unit id="w7bfLKj" name="parameters.text.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:57</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameters.text.placeholder</source>
-        <target>parameters.text.placeholder</target>
+        <target>Text</target>
       </segment>
     </unit>
     <unit id="6utToZ6" name="parameters.max.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:67</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameters.max.placeholder</source>
-        <target>parameters.max.placeholder</target>
+        <target>Max.</target>
       </segment>
     </unit>
     <unit id="BypUOrf" name="parameters.min.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:77</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameters.min.placeholder</source>
-        <target>parameters.min.placeholder</target>
+        <target>Min.</target>
       </segment>
     </unit>
     <unit id="VmYIvYF" name="parameters.typical.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:87</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameters.typical.placeholder</source>
-        <target>parameters.typical.placeholder</target>
+        <target>Typ.</target>
       </segment>
     </unit>
     <unit id="kvhGoo0" name="parameters.unit.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:96</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameters.unit.placeholder</source>
-        <target>parameters.unit.placeholder</target>
+        <target>Einheit</target>
       </segment>
     </unit>
     <unit id="kL5OSi8" name="parameter.group.placeholder">
@@ -5498,9 +5498,9 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:95</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameter.label</source>
-        <target>parameter.label</target>
+        <target>Parameter</target>
       </segment>
     </unit>
     <unit id=".nBJJBz" name="log.element_deleted.old_name.unknown">
