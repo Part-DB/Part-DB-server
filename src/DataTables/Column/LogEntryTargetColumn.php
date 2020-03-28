@@ -47,6 +47,7 @@ use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\Parameters\AbstractParameter;
+use App\Entity\Parts\PartLot;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
 use App\Exceptions\EntityNotSupportedException;
@@ -128,6 +129,8 @@ class LogEntryTargetColumn extends AbstractColumn
                 $on = $target->getElement();
             } elseif ($target instanceof AbstractParameter && $target->getElement() !== null) {
                 $on = $target->getElement();
+            } elseif ($target instanceof PartLot && $target->getPart() !== null) {
+                $on = $target->getPart();
             } elseif ($target instanceof Orderdetail && $target->getPart() !== null) {
                 $on = $target->getPart();
             } elseif ($target instanceof Pricedetail && $target->getOrderdetail() !== null && $target->getOrderdetail()->getPart() !== null) {
