@@ -3639,9 +3639,9 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:23</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>tags.label</source>
-        <target>tags.label</target>
+        <target>Tags</target>
       </segment>
     </unit>
     <unit id="RezjOdV" name="storelocation.label">
