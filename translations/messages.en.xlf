@@ -278,9 +278,9 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:90</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>admin.parameters</source>
-        <target>admin.parameters</target>
+        <target>Parameters</target>
       </segment>
     </unit>
     <unit id="R949JGz" name="export_all.label">
