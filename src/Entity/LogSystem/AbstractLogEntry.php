@@ -47,6 +47,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Devices\Device;
 use App\Entity\Devices\DevicePart;
+use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -114,6 +115,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     protected const TARGET_TYPE_ORDERDETAIL = 15;
     protected const TARGET_TYPE_PRICEDETAIL = 16;
     protected const TARGET_TYPE_MEASUREMENTUNIT = 17;
+    protected const TARGET_TYPE_PARAMETER = 18;
 
     /** @var array This const is used to convert the numeric level to a PSR-3 compatible log level */
     protected const LEVEL_ID_TO_STRING = [
@@ -145,6 +147,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
         self::TARGET_TYPE_ORDERDETAIL => Orderdetail::class,
         self::TARGET_TYPE_PRICEDETAIL => Pricedetail::class,
         self::TARGET_TYPE_MEASUREMENTUNIT => MeasurementUnit::class,
+        self::TARGET_TYPE_PARAMETER => AbstractParameter::class,
     ];
 
     /** @var User The user which has caused this log entry
@@ -203,7 +206,6 @@ abstract class AbstractLogEntry extends AbstractDBElement
     /**
      * Sets the user that caused the event.
      *
-     * @param  User  $user
      * @return $this
      */
     public function setUser(User $user): self
@@ -226,7 +228,6 @@ abstract class AbstractLogEntry extends AbstractDBElement
     /**
      * Sets the timestamp when the event happened.
      *
-     * @param  DateTime  $timestamp
      * @return $this
      */
     public function setTimestamp(DateTime $timestamp): self
@@ -255,7 +256,6 @@ abstract class AbstractLogEntry extends AbstractDBElement
     /**
      * Sets the new level of this log entry.
      *
-     * @param  int  $level
      * @return $this
      */
     public function setLevel(int $level): self
@@ -281,7 +281,6 @@ abstract class AbstractLogEntry extends AbstractDBElement
     /**
      * Sets the priority level of this log entry as PSR3 compatible string.
      *
-     * @param  string  $level
      * @return $this
      */
     public function setLevelString(string $level): self
@@ -370,12 +369,13 @@ abstract class AbstractLogEntry extends AbstractDBElement
 
     /**
      * Sets the target ID of the element associated with this element.
-     * @param  int  $target_id
+     *
      * @return $this
      */
     public function setTargetElementID(int $target_id): self
     {
         $this->target_id = $target_id;
+
         return $this;
     }
 

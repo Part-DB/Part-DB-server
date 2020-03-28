@@ -70,7 +70,6 @@ class RedirectController extends AbstractController
      * This function is called whenever a route was not matching the localized routes.
      * The purpose is to redirect the user to the localized version of the page.
      *
-     * @param  Request  $request
      * @return RedirectResponse
      */
     public function addLocalePart(Request $request): RedirectResponse

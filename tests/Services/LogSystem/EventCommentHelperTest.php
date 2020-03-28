@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,8 +24,6 @@
 namespace App\Tests\Services\LogSystem;
 
 use App\Services\LogSystem\EventCommentHelper;
-use App\Services\LogSystem\EventLogger;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class EventCommentHelperTest extends WebTestCase
@@ -41,13 +42,13 @@ class EventCommentHelperTest extends WebTestCase
         $this->service = self::$container->get(EventCommentHelper::class);
     }
 
-    public function testInitialState()
+    public function testInitialState(): void
     {
         $this->assertNull($this->service->getMessage());
         $this->assertFalse($this->service->isMessageSet());
     }
 
-    public function testClearMessage()
+    public function testClearMessage(): void
     {
         $this->service->setMessage('Test');
         $this->assertTrue($this->service->isMessageSet());
@@ -55,13 +56,13 @@ class EventCommentHelperTest extends WebTestCase
         $this->assertFalse($this->service->isMessageSet());
     }
 
-    public function testGetSetMessage()
+    public function testGetSetMessage(): void
     {
         $this->service->setMessage('Test');
         $this->assertSame('Test', $this->service->getMessage());
     }
 
-    public function testIsMessageSet()
+    public function testIsMessageSet(): void
     {
         $this->service->setMessage('Test');
         $this->assertTrue($this->service->isMessageSet());

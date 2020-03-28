@@ -69,7 +69,7 @@ class NodesListBuilder
      * Gets a flattened hierachical tree. Useful for generating option lists.
      * In difference to the Repository Function, the results here are cached.
      *
-     * @param string                   $class_name The class name of the entity you want to retrieve.
+     * @param string                           $class_name The class name of the entity you want to retrieve.
      * @param AbstractStructuralDBElement|null $parent     This entity will be used as root element. Set to null, to use global root
      *
      * @return AbstractStructuralDBElement[] A flattened list containing the tree elements.

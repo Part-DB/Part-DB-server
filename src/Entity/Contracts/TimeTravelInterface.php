@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,11 +24,11 @@
 
 namespace App\Entity\Contracts;
 
-
 interface TimeTravelInterface
 {
     /**
      * Checks if this entry has informations which data has changed.
+     *
      * @return bool True if this entry has informations about the changed data.
      */
     public function hasOldDataInformations(): bool;
@@ -35,6 +38,7 @@ interface TimeTravelInterface
 
     /**
      * Returns the the timestamp associated with this change.
+     *
      * @return \DateTime
      */
     public function getTimestamp(): \DateTime;

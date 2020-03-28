@@ -465,6 +465,19 @@ $(document).on("ajaxUI:start", function () {
             //Bootstrapify objects
             $('table', this).addClass('table table-hover table-striped table-bordered');
         });
+
+        //Latex rendering have to be done after markdown parsing
+        $('.latex').each(function(index, element) {
+            //@ts-ignore
+            window.renderMathInElement(element, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\(", right: "\\)", display: false},
+                    {left: "\\[", right: "\\]", display: true}
+                ]
+            });
+        });
     }
 
     //Configure markdown
@@ -551,6 +564,7 @@ $(document).on("ajaxUI:reload", function() {
         }
     })
 });
+
 
 //Need for proper body padding, with every navbar height
 $(window).resize(function () {

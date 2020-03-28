@@ -52,8 +52,10 @@ namespace App\Entity\Parts;
 
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Base\AbstractPartsContainingDBElement;
+use App\Entity\Parameters\FootprintParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Footprint.
@@ -81,6 +83,7 @@ class Footprint extends AbstractPartsContainingDBElement
     /**
      * @var Collection|FootprintAttachment[]
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\FootprintAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     protected $attachments;
 
@@ -90,6 +93,13 @@ class Footprint extends AbstractPartsContainingDBElement
      * @ORM\JoinColumn(name="id_footprint_3d", referencedColumnName="id")
      */
     protected $footprint_3d;
+
+    /** @var FootprintParameter[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\FootprintParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})@ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
+     * @Assert\Valid()
+     */
+    protected $parameters;
 
     /**
      * Returns the ID as an string, defined by the element class.

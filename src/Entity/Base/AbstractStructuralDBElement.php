@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Entity\Base;
 
 use App\Entity\Attachments\AttachmentContainingDBElement;
+use App\Entity\Parameters\ParametersTrait;
 use App\Validator\Constraints\NoneOfItsChildren;
 use function count;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -50,6 +51,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
 {
+    use ParametersTrait;
+
     public const ID_ROOT_ELEMENT = 0;
 
     /**
@@ -101,6 +104,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     {
         parent::__construct();
         $this->children = new ArrayCollection();
+        $this->parameters = new ArrayCollection();
     }
 
     /******************************************************************************
@@ -111,7 +115,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      * Check if this element is a child of another element (recursive).
      *
      * @param AbstractStructuralDBElement $another_element the object to compare
-     *                                             IMPORTANT: both objects to compare must be from the same class (for example two "Device" objects)!
+     *                                                     IMPORTANT: both objects to compare must be from the same class (for example two "Device" objects)!
      *
      * @return bool True, if this element is child of $another_element.
      *
@@ -312,13 +316,14 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     }
 
     /**
-     * @param  static[]|Collection  $elements
+     * @param static[]|Collection $elements
+     *
      * @return $this
      */
     public function setChildren($elements): self
     {
-        if (!is_array($elements) && !$elements instanceof Collection) {
-           throw new InvalidArgumentException('$elements must be an array or Collection!');
+        if (! is_array($elements) && ! $elements instanceof Collection) {
+            throw new InvalidArgumentException('$elements must be an array or Collection!');
         }
 
         $this->children = $elements;
@@ -327,7 +332,6 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     }
 
     /**
-     * @param  bool  $not_selectable
      * @return AbstractStructuralDBElement
      */
     public function setNotSelectable(bool $not_selectable): self

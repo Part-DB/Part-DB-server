@@ -90,7 +90,7 @@ trait InstockTrait
     /**
      * Adds the given part lot, to the list of part lots.
      * The part lot is assigned to this part.
-     * @param  PartLot  $lot
+     *
      * @return $this
      */
     public function addPartLot(PartLot $lot): self
@@ -105,6 +105,7 @@ trait InstockTrait
      * Removes the given part lot from the list of part lots.
      *
      * @param PartLot $lot the part lot that should be deleted
+     *
      * @return $this
      */
     public function removePartLot(PartLot $lot): self
@@ -126,7 +127,7 @@ trait InstockTrait
     /**
      * Sets the measurement unit in which the part's amount should be measured.
      * Set to null, if the part should be measured in quantities.
-     * @param  MeasurementUnit|null  $partUnit
+     *
      * @return $this
      */
     public function setPartUnit(?MeasurementUnit $partUnit): self
@@ -172,7 +173,6 @@ trait InstockTrait
      * Part Lots that have unknown value or are expired, are not used for this value.
      *
      * @return float The amount of parts given in partUnit
-     *
      */
     public function getAmountSum(): float
     {
@@ -199,6 +199,7 @@ trait InstockTrait
      * See getPartUnit() for the associated unit.
      *
      * @param float $new_minamount the new count of parts which should be in stock at least
+     *
      * @return $this
      */
     public function setMinAmount(float $new_minamount): self

@@ -67,6 +67,7 @@ class CurrencyEntityType extends StructuralEntityType
 
         $resolver->setDefault('class', Currency::class);
         $resolver->setDefault('disable_not_selectable', true);
+        $resolver->setDefault('choice_translation_domain', false);
 
         // This options allows you to override the currency shown for the null value
         $resolver->setDefault('base_currency', null);
@@ -87,7 +88,7 @@ class CurrencyEntityType extends StructuralEntityType
     {
         //Similar to StructuralEntityType, but we use the currency symbol instead if available
 
-        if (!$choice instanceof Currency) {
+        if (! $choice instanceof Currency) {
             throw new \InvalidArgumentException('$choice must be an currency object!');
         }
 

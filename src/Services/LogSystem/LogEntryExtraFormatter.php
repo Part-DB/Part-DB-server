@@ -56,7 +56,6 @@ use App\Entity\LogSystem\UserLoginLogEntry;
 use App\Entity\LogSystem\UserLogoutLogEntry;
 use App\Entity\LogSystem\UserNotAllowedLogEntry;
 use App\Services\ElementTypeNameGenerator;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -64,11 +63,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class LogEntryExtraFormatter
 {
+    protected const CONSOLE_SEARCH = ['<i class="fas fa-long-arrow-alt-right"></i>', '<i>', '</i>', '<b>', '</b>'];
+    protected const CONSOLE_REPLACE = ['→', '<info>', '</info>', '<error>', '</error>'];
     protected $translator;
     protected $elementTypeNameGenerator;
-
-    protected const CONSOLE_SEARCH = ['<i class="fas fa-long-arrow-alt-right"></i>', '<i>', '</i>', '<b>', '</b>', ];
-    protected const CONSOLE_REPLACE = ['→', '<info>', '</info>', '<error>', '</error>'];
 
     public function __construct(TranslatorInterface $translator, ElementTypeNameGenerator $elementTypeNameGenerator)
     {
@@ -90,15 +88,40 @@ class LogEntryExtraFormatter
         foreach ($arr as $key => $value) {
             $str = '';
             if (is_string($key)) {
-                $str .= '<error>' . $this->translator->trans($key) . '</error>: ';
+                $str .= '<error>'.$this->translator->trans($key).'</error>: ';
             }
             $str .= $value;
-            if (!empty($str)) {
+            if (! empty($str)) {
                 $tmp[] = $str;
             }
         }
 
-        return str_replace(static::CONSOLE_SEARCH, static::CONSOLE_REPLACE, implode("; ", $tmp));
+        return str_replace(static::CONSOLE_SEARCH, static::CONSOLE_REPLACE, implode('; ', $tmp));
+    }
+
+    /**
+     * Return a HTML formatted string containing a user viewable form of the Extra data.
+     *
+     * @return string
+     */
+    public function format(AbstractLogEntry $context): string
+    {
+        $arr = $this->getInternalFormat($context);
+        $tmp = [];
+
+        //Make an array with entries in the form "<b>Key:</b> Value"
+        foreach ($arr as $key => $value) {
+            $str = '';
+            if (is_string($key)) {
+                $str .= '<b>'.$this->translator->trans($key).'</b>: ';
+            }
+            $str .= $value;
+            if (! empty($str)) {
+                $tmp[] = $str;
+            }
+        }
+
+        return implode('; ', $tmp);
     }
 
     protected function getInternalFormat(AbstractLogEntry $context): array
@@ -129,9 +152,9 @@ class LogEntryExtraFormatter
 
         if ($context instanceof LogWithEventUndoInterface) {
             if ($context->isUndoEvent()) {
-                if ($context->getUndoMode() === 'undo') {
+                if ('undo' === $context->getUndoMode()) {
                     $array['log.undo_mode.undo'] = (string) $context->getUndoEventID();
-                } elseif ($context->getUndoMode() === 'revert') {
+                } elseif ('revert' === $context->getUndoMode()) {
                     $array['log.undo_mode.revert'] = (string) $context->getUndoEventID();
                 }
             }
@@ -146,7 +169,7 @@ class LogEntryExtraFormatter
         }
 
         if ($context instanceof ElementDeletedLogEntry) {
-            if ($context->getOldName() !== null) {
+            if (null !== $context->getOldName()) {
                 $array['log.element_deleted.old_name'] = htmlspecialchars($context->getOldName());
             } else {
                 $array['log.element_deleted.old_name'] = $this->translator->trans('log.element_deleted.old_name.unknown');
@@ -182,30 +205,5 @@ class LogEntryExtraFormatter
         }
 
         return $array;
-    }
-
-    /**
-     * Return a HTML formatted string containing a user viewable form of the Extra data.
-     *
-     * @return string
-     */
-    public function format(AbstractLogEntry $context): string
-    {
-        $arr = $this->getInternalFormat($context);
-        $tmp = [];
-
-        //Make an array with entries in the form "<b>Key:</b> Value"
-        foreach ($arr as $key => $value) {
-            $str = '';
-            if (is_string($key)) {
-                $str .= '<b>' . $this->translator->trans($key) . '</b>: ';
-            }
-            $str .= $value;
-            if (!empty($str)) {
-                $tmp[] = $str;
-            }
-        }
-
-        return implode("; ", $tmp);
     }
 }

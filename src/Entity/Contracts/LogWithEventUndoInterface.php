@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,27 +23,27 @@
 
 namespace App\Entity\Contracts;
 
-
 use App\Entity\LogSystem\AbstractLogEntry;
 
 interface LogWithEventUndoInterface
 {
     /**
      * Checks if this element undoes another event.
+     *
      * @return bool
      */
     public function isUndoEvent(): bool;
 
     /**
      * Returns the ID of the undone event or null if no event is undone.
+     *
      * @return int|null
      */
     public function getUndoEventID(): ?int;
 
     /**
      * Sets the event that is undone, and the undo mode.
-     * @param  AbstractLogEntry  $event
-     * @param  string  $mode
+     *
      * @return $this
      */
     public function setUndoneEvent(AbstractLogEntry $event, string $mode = 'undo'): self;
@@ -49,6 +52,7 @@ interface LogWithEventUndoInterface
      * Returns the mode how the event was undone:
      * "undo" = Only a single event was applied to element
      * "revert" = Element was reverted to the state it was to the timestamp of the log.
+     *
      * @return string
      */
     public function getUndoMode(): string;

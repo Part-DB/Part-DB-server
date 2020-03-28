@@ -106,6 +106,7 @@ trait AdvancedPropertyTrait
      * Sets a comma separated list of tags, that are assigned to this part.
      *
      * @param string $tags The new tags
+     *
      * @return $this
      */
     public function setTags(string $tags): self
@@ -129,6 +130,7 @@ trait AdvancedPropertyTrait
      * Sett to null, if the mass is unknown.
      *
      * @param float|null $mass the new mass
+     *
      * @return $this
      */
     public function setMass(?float $mass): self

@@ -56,7 +56,6 @@ class PermissionVoter extends ExtendedVoter
      * The current user (or the anonymous user) is passed by $user.
      *
      * @param string $attribute
-     * @param mixed $subject
      */
     protected function voteOnUser($attribute, $subject, User $user): bool
     {

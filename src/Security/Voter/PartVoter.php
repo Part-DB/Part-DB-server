@@ -83,6 +83,5 @@ class PartVoter extends ExtendedVoter
 
         //Null concealing operator means, that no
         return $this->resolver->inherit($user, 'parts', $attribute) ?? false;
-
     }
 }

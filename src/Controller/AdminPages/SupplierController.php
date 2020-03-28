@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\Controller\AdminPages;
 
 use App\Entity\Attachments\SupplierAttachment;
+use App\Entity\Parameters\SupplierParameter;
 use App\Entity\Parts\Supplier;
 use App\Form\AdminPages\SupplierForm;
 use App\Services\EntityExporter;
@@ -63,12 +64,11 @@ class SupplierController extends BaseAdminController
     protected $form_class = SupplierForm::class;
     protected $route_base = 'supplier';
     protected $attachment_class = SupplierAttachment::class;
+    protected $parameter_class = SupplierParameter::class;
 
     /**
      * @Route("/{id}", name="supplier_delete", methods={"DELETE"})
-     * @param  Request  $request
-     * @param  Supplier  $entity
-     * @param  StructuralElementRecursionHelper  $recursionHelper
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Request $request, Supplier $entity, StructuralElementRecursionHelper $recursionHelper)
@@ -79,9 +79,7 @@ class SupplierController extends BaseAdminController
     /**
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="supplier_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
-     * @param  Supplier  $entity
-     * @param  Request  $request
-     * @param  EntityManagerInterface  $em
+     *
      * @return Response
      */
     public function edit(Supplier $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null)
@@ -93,9 +91,6 @@ class SupplierController extends BaseAdminController
      * @Route("/new", name="supplier_new")
      * @Route("/")
      *
-     * @param  Request  $request
-     * @param  EntityManagerInterface  $em
-     * @param  EntityImporter  $importer
      * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
@@ -106,9 +101,6 @@ class SupplierController extends BaseAdminController
     /**
      * @Route("/export", name="supplier_export_all")
      *
-     * @param  EntityManagerInterface  $em
-     * @param  EntityExporter  $exporter
-     * @param  Request  $request
      * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
@@ -119,9 +111,6 @@ class SupplierController extends BaseAdminController
     /**
      * @Route("/{id}/export", name="supplier_export")
      *
-     * @param  Supplier  $entity
-     * @param  EntityExporter  $exporter
-     * @param  Request  $request
      * @return Response
      */
     public function exportEntity(Supplier $entity, EntityExporter $exporter, Request $request): Response

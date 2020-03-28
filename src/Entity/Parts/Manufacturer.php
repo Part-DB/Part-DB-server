@@ -52,8 +52,10 @@ namespace App\Entity\Parts;
 
 use App\Entity\Attachments\ManufacturerAttachment;
 use App\Entity\Base\AbstractCompany;
+use App\Entity\Parameters\ManufacturerParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Manufacturer.
@@ -81,8 +83,16 @@ class Manufacturer extends AbstractCompany
     /**
      * @var Collection|ManufacturerAttachment[]
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ManufacturerAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     protected $attachments;
+
+    /** @var ManufacturerParameter[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\ManufacturerParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
+     * @Assert\Valid()
+     */
+    protected $parameters;
 
     /**
      * Returns the ID as an string, defined by the element class.

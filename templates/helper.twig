@@ -112,3 +112,22 @@
         {% endif %}
     {% endif %}
 {% endmacro %}
+
+{% macro parameters_table(parameters) %}
+<table class="table table-hover table-striped table-sm">
+    <thead>
+    <tr>
+        <th>{% trans %}specifications.property{% endtrans %}</th>
+        <th>{% trans %}specifications.value{% endtrans %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for param in parameters %}
+        <tr>
+            <td>{{ param.name }} {% if param.symbol is not empty %}<span class="latex">${{ param.symbol }}$</span>{% endif %}</td>
+            <td>{{ param.formattedValue }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endmacro parameters_table %}

@@ -117,6 +117,20 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface
         $this->pricedetails = new ArrayCollection();
     }
 
+    public function __clone()
+    {
+        if ($this->id) {
+            $this->addedDate = null;
+            $pricedetails = $this->pricedetails;
+            $this->pricedetails = new ArrayCollection();
+            //Set master attachment is needed
+            foreach ($pricedetails as $pricedetail) {
+                $this->addPricedetail(clone $pricedetail);
+            }
+        }
+        parent::__clone();
+    }
+
     /**
      * Returns the ID as an string, defined by the element class.
      * This should have a form like P000014, for a part with ID 14.
@@ -228,7 +242,6 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface
     /**
      * Removes an pricedetail from this orderdetail.
      *
-     * @param  Pricedetail  $pricedetail
      * @return Orderdetail
      */
     public function removePricedetail(Pricedetail $pricedetail): self
@@ -276,7 +289,6 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface
     /**
      * Sets a new part with which this orderdetail is associated.
      *
-     * @param  Part  $part
      * @return Orderdetail
      */
     public function setPart(Part $part): self
@@ -289,7 +301,6 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface
     /**
      * Sets the new supplier associated with this orderdetail.
      *
-     * @param  Supplier  $new_supplier
      * @return Orderdetail
      */
     public function setSupplier(Supplier $new_supplier): self
@@ -347,19 +358,5 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface
         $this->supplier_product_url = $new_url;
 
         return $this;
-    }
-
-    public function __clone()
-    {
-        if ($this->id) {
-           $this->addedDate = null;
-            $pricedetails = $this->pricedetails;
-            $this->pricedetails = new ArrayCollection();
-            //Set master attachment is needed
-            foreach ($pricedetails as $pricedetail) {
-                $this->addPricedetail(clone $pricedetail);
-            }
-        }
-        parent::__clone();
     }
 }

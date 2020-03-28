@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,7 +23,6 @@
 
 namespace App\Repository;
 
-
 use App\Entity\Base\AbstractDBElement;
 use Doctrine\ORM\EntityRepository;
 
@@ -29,8 +31,9 @@ class DBElementRepository extends EntityRepository
     /**
      * Changes the ID of the given element to a new value.
      * You should only use it to undelete former existing elements, everything else is most likely a bad idea!
-     * @param  AbstractDBElement  $element The element whose ID should be changed
-     * @param  int  $new_id The new ID
+     *
+     * @param AbstractDBElement $element The element whose ID should be changed
+     * @param int               $new_id  The new ID
      */
     public function changeID(AbstractDBElement $element, int $new_id): void
     {
@@ -46,7 +49,7 @@ class DBElementRepository extends EntityRepository
         $this->setField($element, 'id', $new_id);
     }
 
-    protected function setField(AbstractDBElement $element, string $field, $new_value)
+    protected function setField(AbstractDBElement $element, string $field, $new_value): void
     {
         $reflection = new \ReflectionClass(get_class($element));
         $property = $reflection->getProperty($field);

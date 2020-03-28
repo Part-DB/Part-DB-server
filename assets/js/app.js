@@ -91,6 +91,11 @@ require('./jquery.tristate.js');
 
 require('darkmode-js');
 
+//Equation rendering
+require('katex');
+window.renderMathInElement = require('katex/contrib/auto-render/auto-render').default;
+import 'katex/dist/katex.css';
+
 window.ClipboardJS = require('clipboard');
 
 window.QRCode = require('qrcode');

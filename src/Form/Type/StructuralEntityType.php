@@ -108,6 +108,7 @@ class StructuralEntityType extends AbstractType
             'choice_attr' => function ($choice, $key, $value) {
                 return $this->generateChoiceAttr($choice, $key, $value);
             },
+            'choice_translation_domain' => false, //Don't translate the entity names
         ]);
 
         $resolver->setDefault('empty_message', null);

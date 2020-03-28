@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,8 +23,6 @@
 
 namespace App\DataTables\Column;
 
-
-use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
@@ -41,9 +42,6 @@ class RevertLogColumn extends AbstractColumn
         $this->security = $security;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function normalize($value)
     {
         return $value;
@@ -68,7 +66,7 @@ class RevertLogColumn extends AbstractColumn
             return '';
         }
 
-        $disabled = !$this->security->isGranted('revert_element', $context->getTargetClass());
+        $disabled = ! $this->security->isGranted('revert_element', $context->getTargetClass());
 
         $tmp = '<div class="btn-group btn-group-sm">';
         $tmp .= sprintf(

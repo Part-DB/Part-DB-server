@@ -52,6 +52,7 @@ namespace App\Entity\Parts;
 
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Base\AbstractCompany;
+use App\Entity\Parameters\SupplierParameter;
 use App\Entity\PriceInformations\Currency;
 use App\Validator\Constraints\Selectable;
 use Doctrine\Common\Collections\Collection;
@@ -109,8 +110,16 @@ class Supplier extends AbstractCompany
     /**
      * @var Collection|SupplierAttachment[]
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\SupplierAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     protected $attachments;
+
+    /** @var SupplierParameter[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\SupplierParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
+     * @Assert\Valid()
+     */
+    protected $parameters;
 
     /**
      * Gets the currency that should be used by default, when creating a orderdetail with this supplier.
@@ -125,7 +134,6 @@ class Supplier extends AbstractCompany
     /**
      * Sets the default currency.
      *
-     * @param  Currency|null  $default_currency
      * @return Supplier
      */
     public function setDefaultCurrency(?Currency $default_currency): self

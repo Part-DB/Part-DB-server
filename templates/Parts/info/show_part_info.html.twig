@@ -57,21 +57,34 @@
                         </a>
                     </li>
                 {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link" id="attachment-tab" data-toggle="tab"
-                       href="#attachments" role="tab">
-                        <i class="fas fa-paperclip fa-fw"></i>
-                        {% trans %}attachment.labelp{% endtrans %}
-                        <span class="badge badge-secondary">{{ part.attachments | length }}</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="supplier-tab" data-toggle="tab" href="#suppliers" role="tab">
-                        <i class="fas fa-shopping-cart fa-fw"></i>
-                        {% trans %}vendor.partinfo.shopping_infos{% endtrans %}
-                        <span class="badge badge-secondary">{{ part.orderdetails | length }}</span>
-                    </a>
-                </li>
+                {% if part.parameters is not empty or description_params is not empty or comment_params is not empty %}
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" role="tab" href="#specifications">
+                            <i class="fas fa-atlas fa-fw"></i>
+                            {% trans %}part.info.specifications{% endtrans %}
+                            <span class="badge badge-secondary">{{ part.parameters | length }}</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if part.attachments is not empty %}
+                    <li class="nav-item">
+                        <a class="nav-link" id="attachment-tab" data-toggle="tab"
+                           href="#attachments" role="tab">
+                            <i class="fas fa-paperclip fa-fw"></i>
+                            {% trans %}attachment.labelp{% endtrans %}
+                            <span class="badge badge-secondary">{{ part.attachments | length }}</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if part.orderdetails is not empty %}
+                    <li class="nav-item">
+                        <a class="nav-link" id="supplier-tab" data-toggle="tab" href="#suppliers" role="tab">
+                            <i class="fas fa-shopping-cart fa-fw"></i>
+                            {% trans %}vendor.partinfo.shopping_infos{% endtrans %}
+                            <span class="badge badge-secondary">{{ part.orderdetails | length }}</span>
+                        </a>
+                    </li>
+                {% endif %}
                 <li class="nav-item {% if datatable is null %}not-allowed{% endif %}">
                     <a class="nav-link {% if datatable is null %}disabled{% endif %}" id="history-tab" data-toggle="tab" href="#history" role="tab">
                         <i class="fas fa-history"></i>
@@ -95,7 +108,7 @@
             <div class="tab-content" id="myTabContent">
                 {% if part.comment is not empty %}
                     <div class="tab-pane fade show" id="comment" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="container-fluid mt-2">
+                        <div class="container-fluid mt-2 latex">
                             {{ part.comment|markdown }}
                         </div>
                     </div>
@@ -105,13 +118,17 @@
                     {% include "Parts/info/_part_lots.html.twig" %}
                 </div>
 
-                <div class="tab-pane fade" id="attachments" role="tabpanel" aria-labelledby="attachment-tab">
-                    {% include "Parts/info/_attachments_info.html.twig" %}
-                </div>
+                {% if part.attachments is not empty %}
+                    <div class="tab-pane fade" id="attachments" role="tabpanel" aria-labelledby="attachment-tab">
+                        {% include "Parts/info/_attachments_info.html.twig" %}
+                    </div>
+                {% endif %}
 
+                {% if part.orderdetails is not empty %}
                 <div class="tab-pane fade" id="suppliers" role="tabpanel" aria-labelledby="supplier-tab">
                     {%  include "Parts/info/_order_infos.html.twig" %}
                 </div>
+                {% endif %}
 
                 <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
                     {% include "Parts/info/_history.html.twig" %}
@@ -120,6 +137,12 @@
                 <div class="tab-pane fade" id="tools" role="tabpanel" aria-labelledby="tools-tab">
                     {% include "Parts/info/_tools.html.twig" %}
                 </div>
+
+                {% if part.parameters is not empty or description_params is not empty or comment_params is not empty %}
+                    <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="tools-tab">
+                        {% include "Parts/info/_specifications.html.twig" %}
+                    </div>
+                {% endif %}
 
                 <div class="tab-pane fade" id="extended_info" role="tabpanel" aria-labelledby="extended_info-tab">
 
