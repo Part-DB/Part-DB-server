@@ -25,6 +25,7 @@ namespace App\Services\LogSystem;
 
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parts\Part;
 
 class HistoryHelper
@@ -55,6 +56,10 @@ class HistoryHelper
             foreach ($element->getOrderdetails() as $orderdetail) {
                 $array = array_merge($array, $orderdetail->getPricedetails()->toArray());
             }
+        }
+
+        if ($element instanceof Part || $element instanceof AbstractStructuralDBElement) {
+            $array = array_merge($array, $element->getParameters()->toArray());
         }
 
         return $array;

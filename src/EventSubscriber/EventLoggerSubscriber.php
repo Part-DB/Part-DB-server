@@ -30,6 +30,7 @@ use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
+use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\PartLot;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
@@ -59,6 +60,7 @@ class EventLoggerSubscriber implements EventSubscriber
         Orderdetail::class => ['part'],
         Pricedetail::class => ['orderdetail'],
         Attachment::class => ['element'],
+        AbstractParameter::class => ['element']
     ];
 
     protected const MAX_STRING_LENGTH = 2000;
