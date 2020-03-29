@@ -67,7 +67,6 @@ class ParameterExtractor
 
         $matches = [];
         \preg_match($regex, $input, $matches);
-        dump($matches);
         if (!empty($matches)) {
             [$raw, $name, $value] = $matches;
             $value = trim($value);
