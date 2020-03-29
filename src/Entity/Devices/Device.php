@@ -93,12 +93,12 @@ class Device extends AbstractPartsContainingDBElement
      */
     protected $order_only_missing_parts = false;
     /**
-     * @var Collection|DeviceAttachment[]
+     * @var Collection<DeviceAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\DeviceAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $attachments;
 
-    /** @var DeviceParameter[]
+    /** @var Collection<DeviceParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\DeviceParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      */

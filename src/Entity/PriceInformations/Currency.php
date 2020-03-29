@@ -88,13 +88,13 @@ class Currency extends AbstractStructuralDBElement
     protected $parent;
 
     /**
-     * @var Collection|CurrencyAttachment[]
+     * @var Collection<CurrencyAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CurrencyAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
     protected $attachments;
 
-    /** @var CurrencyParameter[]
+    /** @var Collection<CurrencyParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\CurrencyParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()

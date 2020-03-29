@@ -31,7 +31,7 @@ trait ParametersTrait
     /**
      * Mapping done in subclasses.
      *
-     * @var AbstractParameter[]|Collection
+     * @var Collection<AbstractParameter>
      * @Assert\Valid()
      */
     protected $parameters;
@@ -39,7 +39,7 @@ trait ParametersTrait
     /**
      * Return all associated specifications.
      *
-     * @return AbstractParameter[]|Collection
+     * @return Collection<AbstractParameter>
      */
     public function getParameters(): Collection
     {

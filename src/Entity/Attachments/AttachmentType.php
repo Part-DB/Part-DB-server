@@ -56,13 +56,13 @@ class AttachmentType extends AbstractStructuralDBElement
      */
     protected $filetype_filter = '';
     /**
-     * @var Collection|AttachmentTypeAttachment[]
+     * @var Collection<AttachmentTypeAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\AttachmentTypeAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
     protected $attachments;
 
-    /** @var AttachmentTypeParameter[]
+    /** @var Collection<AttachmentTypeParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\AttachmentTypeParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
