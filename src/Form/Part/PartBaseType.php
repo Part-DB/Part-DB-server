@@ -52,7 +52,6 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Form\AttachmentFormType;
-use App\Form\ParameterGroupType;
 use App\Form\ParameterType;
 use App\Form\Type\MasterPictureAttachmentType;
 use App\Form\Type\SIUnitType;

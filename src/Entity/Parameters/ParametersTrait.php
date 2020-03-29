@@ -73,6 +73,7 @@ trait ParametersTrait
         foreach ($this->parameters as $parameter) {
             $tmp[$parameter->getGroup()][] = $parameter;
         }
+
         return $tmp;
     }
 }

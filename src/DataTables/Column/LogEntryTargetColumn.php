@@ -44,7 +44,6 @@ namespace App\DataTables\Column;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Base\AbstractDBElement;
-use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\Parameters\AbstractParameter;
@@ -99,7 +98,7 @@ class LogEntryTargetColumn extends AbstractColumn
         $tmp = '';
 
         //The element is existing
-        if ($target instanceof NamedElementInterface && !empty($target->getName())) {
+        if ($target instanceof NamedElementInterface && ! empty($target->getName())) {
             try {
                 $tmp = sprintf(
                     '<a href="%s">%s</a>',
@@ -126,15 +125,15 @@ class LogEntryTargetColumn extends AbstractColumn
 
         //Add a hint to the associated element if possible
         if (null !== $target && $this->options['show_associated']) {
-            if ($target instanceof Attachment && $target->getElement() !== null) {
+            if ($target instanceof Attachment && null !== $target->getElement()) {
                 $on = $target->getElement();
-            } elseif ($target instanceof AbstractParameter && $target->getElement() !== null) {
+            } elseif ($target instanceof AbstractParameter && null !== $target->getElement()) {
                 $on = $target->getElement();
-            } elseif ($target instanceof PartLot && $target->getPart() !== null) {
+            } elseif ($target instanceof PartLot && null !== $target->getPart()) {
                 $on = $target->getPart();
-            } elseif ($target instanceof Orderdetail && $target->getPart() !== null) {
+            } elseif ($target instanceof Orderdetail && null !== $target->getPart()) {
                 $on = $target->getPart();
-            } elseif ($target instanceof Pricedetail && $target->getOrderdetail() !== null && $target->getOrderdetail()->getPart() !== null) {
+            } elseif ($target instanceof Pricedetail && null !== $target->getOrderdetail() && null !== $target->getOrderdetail()->getPart()) {
                 $on = $target->getOrderdetail()->getPart();
             }
 
@@ -146,7 +145,7 @@ class LogEntryTargetColumn extends AbstractColumn
                         $this->elementTypeNameGenerator->getTypeNameCombination($on, true)
                     );
                 } catch (EntityNotSupportedException $exception) {
-                    $tmp .= ' (' . $this->elementTypeNameGenerator->getTypeNameCombination($target, true) .')';
+                    $tmp .= ' ('.$this->elementTypeNameGenerator->getTypeNameCombination($target, true).')';
                 }
             }
         }

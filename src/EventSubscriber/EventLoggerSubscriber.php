@@ -60,7 +60,7 @@ class EventLoggerSubscriber implements EventSubscriber
         Orderdetail::class => ['part'],
         Pricedetail::class => ['orderdetail'],
         Attachment::class => ['element'],
-        AbstractParameter::class => ['element']
+        AbstractParameter::class => ['element'],
     ];
 
     protected const MAX_STRING_LENGTH = 2000;

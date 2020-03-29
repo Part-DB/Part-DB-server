@@ -28,7 +28,6 @@ use App\Entity\Base\AbstractNamedDBElement;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 use LogicException;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -213,7 +212,8 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     }
 
     /**
-     * Returns the name of the group this parameter is associated to (e.g. Technical Parameters)
+     * Returns the name of the group this parameter is associated to (e.g. Technical Parameters).
+     *
      * @return string
      */
     public function getGroup(): string
@@ -223,12 +223,13 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Sets the name of the group this parameter is associated to.
-     * @param  string  $group
+     *
      * @return $this
      */
     public function setGroup(string $group): self
     {
         $this->group = $group;
+
         return $this;
     }
 

@@ -328,9 +328,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getName(): string
     {
         return $this->description;

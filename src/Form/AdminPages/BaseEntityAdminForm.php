@@ -45,7 +45,6 @@ namespace App\Form\AdminPages;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
-use App\Entity\Parameters\PartParameter;
 use App\Form\AttachmentFormType;
 use App\Form\ParameterType;
 use App\Form\Type\MasterPictureAttachmentType;

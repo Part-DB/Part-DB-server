@@ -361,9 +361,6 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getName(): string
     {
         return $this->getSupplierPartNr();

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,31 +23,29 @@
 
 namespace App\Services\Parameters;
 
-
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parameters\PartParameter;
 
 class ParameterExtractor
 {
-    protected const ALLOWED_PARAM_SEPARATORS = [", ", "\n"];
+    protected const ALLOWED_PARAM_SEPARATORS = [', ', "\n"];
 
     protected const CHAR_LIMIT = 1000;
 
     /**
      * Tries to extract parameters from the given string.
      * Useful for extraction from part description and comment.
-     * @param  string  $input
-     * @param string $class
+     *
      * @return AbstractParameter[]
      */
     public function extractParameters(string $input, string $class = PartParameter::class): array
     {
-        if (!is_a($class, AbstractParameter::class, true)) {
+        if (! is_a($class, AbstractParameter::class, true)) {
             throw new \InvalidArgumentException('$class must be a child class of AbstractParameter!');
         }
 
         //Restrict search length
-        $input = mb_strimwidth($input,0,self::CHAR_LIMIT);
+        $input = mb_strimwidth($input, 0, self::CHAR_LIMIT);
 
         $parameters = [];
 
@@ -52,7 +53,7 @@ class ParameterExtractor
         $split = $this->splitString($input);
         foreach ($split as $param_string) {
             $tmp = $this->stringToParam($param_string, $class);
-            if ($tmp !== null) {
+            if (null !== $tmp) {
                 $parameters[] = $tmp;
             }
         }
@@ -67,7 +68,7 @@ class ParameterExtractor
 
         $matches = [];
         \preg_match($regex, $input, $matches);
-        if (!empty($matches)) {
+        if (! empty($matches)) {
             [$raw, $name, $value] = $matches;
             $value = trim($value);
 
@@ -90,7 +91,8 @@ class ParameterExtractor
     protected function splitString(string $input): array
     {
         //Allow comma as limiter (include space, to prevent splitting in german style numbers)
-        $input = str_replace(static::ALLOWED_PARAM_SEPARATORS, ";", $input);
-        return explode(";", $input);
+        $input = str_replace(static::ALLOWED_PARAM_SEPARATORS, ';', $input);
+
+        return explode(';', $input);
     }
 }

@@ -135,7 +135,7 @@ class PartController extends AbstractController
                 'pictures' => $this->partPreviewGenerator->getPreviewAttachments($part),
                 'timeTravel' => $timeTravel_timestamp,
                 'description_params' => $parameterExtractor->extractParameters($part->getDescription()),
-                'comment_params' => $parameterExtractor->extractParameters($part->getComment())
+                'comment_params' => $parameterExtractor->extractParameters($part->getComment()),
             ]
         );
     }

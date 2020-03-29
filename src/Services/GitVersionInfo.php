@@ -64,9 +64,10 @@ class GitVersionInfo
             $git = file($this->project_dir.'/.git/HEAD');
             $head = explode('/', $git[0], 3);
 
-            if (!isset($head[2])) {
+            if (! isset($head[2])) {
                 return null;
             }
+
             return trim($head[2]);
         }
 
@@ -88,7 +89,7 @@ class GitVersionInfo
         if (file_exists($filename)) {
             $head = file($filename);
 
-            if (!isset($head[0])) {
+            if (! isset($head[0])) {
                 return null;
             }
 

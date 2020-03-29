@@ -27,11 +27,11 @@ final class Version20200311204104 extends AbstractMigration
         $this->addSql('ALTER TABLE `users` ADD perms_parts_parameters SMALLINT NOT NULL');
         $this->addSql('ALTER TABLE log CHANGE level level TINYINT');
 
-        $sql = 'UPDATE `groups`' .
+        $sql = 'UPDATE `groups`'.
             'SET perms_parts_parameters = 341 WHERE (id = 1 AND name = "admins") OR (id = 3 AND name = "users");';
         $this->addSql($sql);
 
-        $sql = 'UPDATE `groups`' .
+        $sql = 'UPDATE `groups`'.
             'SET perms_parts_parameters = 681 WHERE (id = 2 AND name = "readonly");';
         $this->addSql($sql);
 
