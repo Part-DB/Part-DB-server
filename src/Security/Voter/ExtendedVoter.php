@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\Security\Voter;
 
 use App\Entity\UserSystem\User;
+use App\Repository\UserRepository;
 use App\Services\PermissionResolver;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -76,6 +77,7 @@ abstract class ExtendedVoter extends Voter
 
         // if the user is anonymous, we use the anonymous user.
         if (! $user instanceof User) {
+            /** @var UserRepository $repo */
             $repo = $this->entityManager->getRepository(User::class);
             $user = $repo->getAnonymousUser();
             if (null === $user) {

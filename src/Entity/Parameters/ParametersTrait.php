@@ -31,7 +31,7 @@ trait ParametersTrait
     /**
      * Mapping done in subclasses.
      *
-     * @var Collection<AbstractParameter>
+     * @var Collection<int, AbstractParameter>
      * @Assert\Valid()
      */
     protected $parameters;
@@ -39,9 +39,9 @@ trait ParametersTrait
     /**
      *  Return all associated specifications.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      *
-     * @psalm-return \Doctrine\Common\Collections\Collection<int, PartParameter>
+     * @psalm-return Collection<int, PartParameter>
      */
     public function getParameters(): \Doctrine\Common\Collections\Collection
     {

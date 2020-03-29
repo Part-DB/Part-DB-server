@@ -33,6 +33,8 @@ services:
         bind:
             bool $demo_mode: '%demo_mode%'
             bool $gpdr_compliance : '%gpdr_compliance%'
+            bool $kernel_debug: '%kernel.debug%'
+            string $kernel_cache_dir: '%kernel.cache_dir%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

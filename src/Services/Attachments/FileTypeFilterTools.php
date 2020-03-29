@@ -174,7 +174,7 @@ class FileTypeFilterTools
                     $extensions = array_merge($extensions, static::IMAGE_EXTS);
                 } elseif ('audio/*' === $element) {
                     $extensions = array_merge($extensions, static::AUDIO_EXTS);
-                } elseif ('image/*' === $element) {
+                } elseif ('video/*' === $element) {
                     $extensions = array_merge($extensions, static::VIDEO_EXTS);
                 } elseif (preg_match('#^[-\w.]+\/[-\w.*]+#', $element)) {
                     $extensions = array_merge($extensions, $this->mimeTypes->getExtensions($element));
