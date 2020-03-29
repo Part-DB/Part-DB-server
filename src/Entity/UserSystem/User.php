@@ -53,7 +53,6 @@ namespace App\Entity\UserSystem;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\Base\AbstractNamedDBElement;
-use App\Entity\Base\MasterAttachmentTrait;
 use App\Entity\PriceInformations\Currency;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\Selectable;
@@ -114,7 +113,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var string|null The hash of a token the user must provide when he wants to reset his password.
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $pw_reset_token = null;
+    protected $pw_reset_token;
 
     /**
      * @ORM\Column(type="text", name="config_instock_comment_a")
@@ -252,7 +251,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
      * @Selectable()
      */
-    protected $currency = null;
+    protected $currency;
 
     /** @var PermissionsEmbed
      * @ORM\Embedded(class="PermissionsEmbed", columnPrefix="perms_")
@@ -264,7 +263,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var DateTime The time until the password reset token is valid.
      * @ORM\Column(type="datetime", nullable=true)
      */
-    protected $pw_reset_expires = null;
+    protected $pw_reset_expires;
 
     public function __construct()
     {

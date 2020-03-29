@@ -54,7 +54,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
     protected static $base_path = 'not_valid';
     protected static $entity_class = 'not valid';
 
-    public function readDataProvider()
+    public function readDataProvider(): array
     {
         return [
             ['noread', false],
@@ -118,7 +118,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
         $this->assertSame($read, ! $client->getResponse()->isForbidden(), 'Permission Checking not working!');
     }
 
-    public function deleteDataProvider()
+    public function deleteDataProvider(): array
     {
         return [
             ['noread', false],

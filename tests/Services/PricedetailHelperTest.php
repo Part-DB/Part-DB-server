@@ -64,7 +64,7 @@ class PricedetailHelperTest extends WebTestCase
         $this->service = self::$container->get(PricedetailHelper::class);
     }
 
-    public function maxDiscountAmountDataProvider()
+    public function maxDiscountAmountDataProvider(): ?\Generator
     {
         $part = new Part();
         yield [$part, null, 'Part without any orderdetails failed!'];

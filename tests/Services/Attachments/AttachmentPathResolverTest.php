@@ -95,7 +95,7 @@ class AttachmentPathResolverTest extends WebTestCase
         $this->assertNull(self::$service->parameterToAbsolutePath('/./this/one/too'));
     }
 
-    public function placeholderDataProvider()
+    public function placeholderDataProvider(): array
     {
         return [
             ['%FOOTPRINTS%/test/test.jpg', self::$footprint_path.'/test/test.jpg'],
@@ -117,7 +117,7 @@ class AttachmentPathResolverTest extends WebTestCase
         ];
     }
 
-    public function realPathDataProvider()
+    public function realPathDataProvider(): array
     {
         return [
             [self::$media_path.'/test/img.jpg', '%MEDIA%/test/img.jpg'],

@@ -46,7 +46,6 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\Category;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Yaml\Tests\A;
 
 /**
  * Test StructuralDBElement entities.

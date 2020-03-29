@@ -72,7 +72,7 @@ class FootprintController extends BaseAdminController
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function delete(Request $request, Footprint $entity, StructuralElementRecursionHelper $recursionHelper)
+    public function delete(Request $request, Footprint $entity, StructuralElementRecursionHelper $recursionHelper): \Symfony\Component\HttpFoundation\RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
@@ -83,7 +83,7 @@ class FootprintController extends BaseAdminController
      *
      * @return Response
      */
-    public function edit(Footprint $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null)
+    public function edit(Footprint $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
         return $this->_edit($entity, $request, $em, $timestamp);
     }

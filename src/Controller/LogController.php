@@ -53,7 +53,6 @@ use App\Services\LogSystem\EventUndoHelper;
 use App\Services\LogSystem\TimeTravel;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
-use phpDocumentor\Reflection\Element;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -100,7 +99,7 @@ class LogController extends AbstractController
     /**
      * @Route("/undo", name="log_undo", methods={"POST"})
      */
-    public function undoRevertLog(Request $request, EventUndoHelper $eventUndoHelper)
+    public function undoRevertLog(Request $request, EventUndoHelper $eventUndoHelper): \Symfony\Component\HttpFoundation\RedirectResponse
     {
         $mode = EventUndoHelper::MODE_UNDO;
         $id = $request->request->get('undo');

@@ -139,7 +139,7 @@ class AbstractLogEntryTest extends TestCase
         $this->assertSame(10, $log->getTargetID());
 
         $log->setTargetElement(null);
-        $this->assertSame(null, $log->getTargetClass());
-        $this->assertSame(null, $log->getTargetID());
+        $this->assertNull($log->getTargetClass());
+        $this->assertNull($log->getTargetID());
     }
 }

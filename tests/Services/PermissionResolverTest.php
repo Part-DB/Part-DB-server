@@ -109,7 +109,7 @@ class PermissionResolverTest extends WebTestCase
         $this->group->method('getParent')->willReturn($parent_group);
     }
 
-    public function getPermissionNames()
+    public function getPermissionNames(): array
     {
         //List all possible operation names.
         return [

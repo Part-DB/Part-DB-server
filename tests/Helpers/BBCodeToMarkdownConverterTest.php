@@ -54,7 +54,7 @@ class BBCodeToMarkdownConverterTest extends TestCase
         $this->converter = new BBCodeToMarkdownConverter();
     }
 
-    public function dataProvider()
+    public function dataProvider(): array
     {
         return [
             ['[b]Bold[/b]', '**Bold**'],

@@ -121,16 +121,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     }
 
     /**
-     * Returns the name of the specification (e.g. "Collector-Base Voltage").
-     *
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
      * Returns the element this parameter belongs to.
      *
      * @return AbstractDBElement|null
