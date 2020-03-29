@@ -37,9 +37,9 @@
         <note priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
         <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>part.master_attachment.must_be_picture</source>
-        <target></target>
+        <target>The preview attachment must be a valid picture!</target>
       </segment>
     </unit>
     <unit id="VJHTkxx" name="structural.entity.unique_name">
@@ -82,9 +82,69 @@
         <note priority="1">src\Entity\StructuralDBElement.php:0</note>
         <note priority="1">src\Entity\Supplier.php:0</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>structural.entity.unique_name</source>
-        <target></target>
+        <target>An element with this name already exists on this level!</target>
+      </segment>
+    </unit>
+    <unit id="3ODUtpU" name="parameters.validator.min_lesser_typical">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AbstractParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AttachmentTypeParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CategoryParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CurrencyParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\DeviceParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\FootprintParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\GroupParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\ManufacturerParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\MeasurementUnitParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\PartParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\StorelocationParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\SupplierParameter.php:0</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.validator.min_lesser_typical</source>
+        <target>Value must be lesser or equal the the typical value ({{ compared_value }}).</target>
+      </segment>
+    </unit>
+    <unit id="jDBA_WW" name="parameters.validator.min_lesser_max">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AbstractParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AttachmentTypeParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CategoryParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CurrencyParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\DeviceParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\FootprintParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\GroupParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\ManufacturerParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\MeasurementUnitParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\PartParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\StorelocationParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\SupplierParameter.php:0</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.validator.min_lesser_max</source>
+        <target>Value must be lesser than the maximum value ({{ compared_value }}).</target>
+      </segment>
+    </unit>
+    <unit id="ygK_e_X" name="parameters.validator.max_greater_typical">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AbstractParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AttachmentTypeParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CategoryParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CurrencyParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\DeviceParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\FootprintParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\GroupParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\ManufacturerParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\MeasurementUnitParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\PartParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\StorelocationParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\SupplierParameter.php:0</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.validator.max_greater_typical</source>
+        <target>Value must be greater or equal than the typical value ({{ compared_value }}).</target>
       </segment>
     </unit>
     <unit id="isXL.ie" name="validator.user.username_already_used">
@@ -92,9 +152,9 @@
         <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
         <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>validator.user.username_already_used</source>
-        <target></target>
+        <target>A user with this name is already exisiting</target>
       </segment>
     </unit>
     <unit id="NcM463r" name="user.invalid_username">

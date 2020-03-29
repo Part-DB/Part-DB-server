@@ -44,6 +44,7 @@ namespace App\Entity\Parts;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
+use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Contracts\TimeStampableInterface;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPartLot;
@@ -61,7 +62,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\HasLifecycleCallbacks()
  * @ValidPartLot()
  */
-class PartLot extends AbstractDBElement implements TimeStampableInterface
+class PartLot extends AbstractDBElement implements TimeStampableInterface, NamedElementInterface
 {
     use TimestampTrait;
 
@@ -119,6 +120,14 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface
      */
     protected $part;
 
+    public function __clone()
+    {
+        if ($this->id) {
+            $this->addedDate = null;
+        }
+        parent::__clone();
+    }
+
     /**
      * Returns the ID as an string, defined by the element class.
      * This should have a form like P000014, for a part with ID 14.
@@ -161,7 +170,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface
     /**
      * Sets the description of the part lot.
      *
-     * @param  string  $description
      * @return PartLot
      */
     public function setDescription(string $description): self
@@ -184,7 +192,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface
     /**
      * Sets the comment for this part lot.
      *
-     * @param  string  $comment
      * @return PartLot
      */
     public function setComment(string $comment): self
@@ -231,7 +238,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface
     /**
      * Sets the storage location, where this part lot is stored.
      *
-     * @param  Storelocation|null  $storage_location
      * @return PartLot
      */
     public function setStorageLocation(?Storelocation $storage_location): self
@@ -253,8 +259,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface
 
     /**
      * Sets the part that is stored in this part lot.
-     *
-     * @param Part $part
      *
      * @return PartLot
      */
@@ -278,7 +282,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface
     /**
      * Set the unknown instock status of this part lot.
      *
-     * @param  bool  $instock_unknown
      * @return PartLot
      */
     public function setInstockUnknown(bool $instock_unknown): self
@@ -316,7 +319,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface
     }
 
     /**
-     * @param  bool  $needs_refill
      * @return PartLot
      */
     public function setNeedsRefill(bool $needs_refill): self
@@ -326,11 +328,11 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface
         return $this;
     }
 
-    public function __clone()
+    /**
+     * @inheritDoc
+     */
+    public function getName(): string
     {
-        if($this->id) {
-            $this->addedDate = null;
-        }
-        parent::__clone();
+        return $this->description;
     }
 }

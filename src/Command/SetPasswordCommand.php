@@ -125,6 +125,7 @@ class SetPasswordCommand extends Command
         $this->entityManager->flush();
 
         $io->success('Password was set successful! You can now log in using the new password.');
+
         return 0;
     }
 }

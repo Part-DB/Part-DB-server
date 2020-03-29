@@ -93,17 +93,17 @@ final class PartsDataTable implements DataTableTypeInterface
         $this->attachmentURLGenerator = $attachmentURLGenerator;
     }
 
-    public function configureOptions(OptionsResolver $optionsResolver)
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
         $optionsResolver->setDefaults([
-                                          'category' => null,
-                                          'footprint' => null,
-                                          'manufacturer' => null,
-                                          'storelocation' => null,
-                                          'supplier' => null,
-                                          'tag' => null,
-                                          'search' => null,
-                                      ]);
+            'category' => null,
+            'footprint' => null,
+            'manufacturer' => null,
+            'storelocation' => null,
+            'supplier' => null,
+            'tag' => null,
+            'search' => null,
+        ]);
 
         $optionsResolver->setAllowedTypes('category', ['null', Category::class]);
         $optionsResolver->setAllowedTypes('footprint', ['null', Footprint::class]);
@@ -113,20 +113,20 @@ final class PartsDataTable implements DataTableTypeInterface
         $optionsResolver->setAllowedTypes('search', ['null', 'string']);
 
         //Configure search options
-        $optionsResolver->setDefault('search_options', function (OptionsResolver $resolver) {
+        $optionsResolver->setDefault('search_options', function (OptionsResolver $resolver): void {
             $resolver->setDefaults([
-                                       'name' => true,
-                                       'category' => true,
-                                       'description' => true,
-                                       'store_location' => true,
-                                       'comment' => true,
-                                       'ordernr' => true,
-                                       'supplier' => false,
-                                       'manufacturer' => false,
-                                       'footprint' => false,
-                                       'tags' => false,
-                                       'regex' => false,
-                                   ]);
+                'name' => true,
+                'category' => true,
+                'description' => true,
+                'store_location' => true,
+                'comment' => true,
+                'ordernr' => true,
+                'supplier' => false,
+                'manufacturer' => false,
+                'footprint' => false,
+                'tags' => false,
+                'regex' => false,
+            ]);
             $resolver->setAllowedTypes('name', 'bool');
             $resolver->setAllowedTypes('category', 'bool');
             $resolver->setAllowedTypes('description', 'bool');
@@ -375,8 +375,8 @@ final class PartsDataTable implements DataTableTypeInterface
             $builder->andWhere('part.tags LIKE :tag')->setParameter('tag', '%'.$options['tag'].'%');
         }
 
-        if (!empty($options['search'])) {
-            if (!$options['search_options']['regex']) {
+        if (! empty($options['search'])) {
+            if (! $options['search_options']['regex']) {
                 //Dont show results, if no things are selected
                 $builder->andWhere('0=1');
                 $defined = false;
@@ -463,7 +463,6 @@ final class PartsDataTable implements DataTableTypeInterface
                 if ($defined) {
                     $builder->setParameter('search', $options['search']);
                 }
-
             }
         }
     }

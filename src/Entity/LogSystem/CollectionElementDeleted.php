@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -19,7 +22,6 @@
  */
 
 namespace App\Entity\LogSystem;
-
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\LogWithEventUndoInterface;
@@ -52,6 +54,7 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
 
     /**
      * Get the name of the collection (on target element) that was changed.
+     *
      * @return string
      */
     public function getCollectionName(): string
@@ -62,6 +65,7 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
     /**
      * Gets the name of the element that was deleted.
      * Return null, if the element did not have a name.
+     *
      * @return string|null
      */
     public function getOldName(): ?string
@@ -71,6 +75,7 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
 
     /**
      * Returns the class of the deleted element.
+     *
      * @return string
      */
     public function getDeletedElementClass(): string
@@ -80,6 +85,7 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
 
     /**
      * Returns the ID of the deleted element.
+     *
      * @return int
      */
     public function getDeletedElementID(): int
@@ -87,32 +93,23 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
         return $this->extra['i'];
     }
 
-    /**
-     * @inheritDoc
-     */
     public function isUndoEvent(): bool
     {
         return isset($this->extra['u']);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getUndoEventID(): ?int
     {
         return $this->extra['u'] ?? null;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setUndoneEvent(AbstractLogEntry $event, string $mode = 'undo'): LogWithEventUndoInterface
     {
         $this->extra['u'] = $event->getID();
 
-        if ($mode === 'undo') {
+        if ('undo' === $mode) {
             $this->extra['um'] = 1;
-        } elseif ($mode === 'revert') {
+        } elseif ('revert' === $mode) {
             $this->extra['um'] = 2;
         } else {
             throw new \InvalidArgumentException('Passed invalid $mode!');
@@ -121,16 +118,13 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getUndoMode(): string
     {
         $mode_int = $this->extra['um'] ?? 1;
-        if ($mode_int === 1) {
+        if (1 === $mode_int) {
             return 'undo';
-        } else {
-            return 'revert';
         }
+
+        return 'revert';
     }
 }

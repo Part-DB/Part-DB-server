@@ -44,6 +44,7 @@ namespace App\Entity\PriceInformations;
 
 use App\Entity\Attachments\CurrencyAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\Parameters\CurrencyParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -89,8 +90,16 @@ class Currency extends AbstractStructuralDBElement
     /**
      * @var Collection|CurrencyAttachment[]
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CurrencyAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     protected $attachments;
+
+    /** @var CurrencyParameter[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\CurrencyParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
+     * @Assert\Valid()
+     */
+    protected $parameters;
 
     /**
      * Returns the 3 letter ISO code of this currency.

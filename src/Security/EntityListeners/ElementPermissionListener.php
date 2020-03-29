@@ -198,9 +198,9 @@ class ElementPermissionListener
      * Checks if access to the property of the given element is granted.
      * This function adds an additional cache layer, where the voters are called only once (to improve performance).
      *
-     * @param string         $mode       What operation should be checked. Must be 'read' or 'edit'
-     * @param ColumnSecurity $annotation The annotation of the property that should be checked
-     * @param AbstractDBElement      $element    The element that should for which should be checked
+     * @param string            $mode       What operation should be checked. Must be 'read' or 'edit'
+     * @param ColumnSecurity    $annotation The annotation of the property that should be checked
+     * @param AbstractDBElement $element    The element that should for which should be checked
      *
      * @return bool True if the user is allowed to read that property
      */

@@ -77,6 +77,7 @@ abstract class BaseAdminController extends AbstractController
     protected $twig_template = '';
     protected $route_base = '';
     protected $attachment_class = '';
+    protected $parameter_class = '';
 
     protected $passwordEncoder;
     protected $translator;
@@ -101,6 +102,10 @@ abstract class BaseAdminController extends AbstractController
             throw new InvalidArgumentException('You have to override the $attachment_class value in your subclass!');
         }
 
+        if ('' === $this->parameter_class) {
+            throw new InvalidArgumentException('You have to override the $parameter_class value in your subclass!');
+        }
+
         $this->translator = $translator;
         $this->passwordEncoder = $passwordEncoder;
         $this->attachmentHelper = $attachmentHelper;
@@ -111,14 +116,12 @@ abstract class BaseAdminController extends AbstractController
         $this->dataTableFactory = $dataTableFactory;
     }
 
-
-    protected function _edit(AbstractNamedDBElement $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null) : Response
+    protected function _edit(AbstractNamedDBElement $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
         $this->denyAccessUnlessGranted('read', $entity);
 
-
         $timeTravel_timestamp = null;
-        if ($timestamp !== null) {
+        if (null !== $timestamp) {
             $this->denyAccessUnlessGranted('@tools.timetravel');
             $this->denyAccessUnlessGranted('show_history', $entity);
             //If the timestamp only contains numbers interpret it as unix timestamp
@@ -131,12 +134,12 @@ abstract class BaseAdminController extends AbstractController
             $this->timeTravel->revertEntityToTimestamp($entity, $timeTravel_timestamp);
         }
 
-        if ($this->isGranted('show_history', $entity) ) {
+        if ($this->isGranted('show_history', $entity)) {
             $table = $this->dataTableFactory->createFromType(
                 LogDataTable::class,
                 [
                     'filter_elements' => $this->historyHelper->getAssociatedElements($entity),
-                    'mode' => 'element_history'
+                    'mode' => 'element_history',
                 ],
                 ['pageLength' => 10]
             )
@@ -151,7 +154,8 @@ abstract class BaseAdminController extends AbstractController
 
         $form = $this->createForm($this->form_class, $entity, [
             'attachment_class' => $this->attachment_class,
-            'disabled' => $timeTravel_timestamp !== null ? true : null
+            'parameter_class' => $this->parameter_class,
+            'disabled' => null !== $timeTravel_timestamp ? true : null,
         ]);
 
         $form->handleRequest($request);
@@ -191,7 +195,10 @@ abstract class BaseAdminController extends AbstractController
 
             //Rebuild form, so it is based on the updated data. Important for the parent field!
             //We can not use dynamic form events here, because the parent entity list is build from database!
-            $form = $this->createForm($this->form_class, $entity, ['attachment_class' => $this->attachment_class]);
+            $form = $this->createForm($this->form_class, $entity, [
+                'attachment_class' => $this->attachment_class,
+                'parameter_class' => $this->parameter_class
+            ]);
         } elseif ($form->isSubmitted() && ! $form->isValid()) {
             $this->addFlash('error', 'entity.edit_flash.invalid');
         }
@@ -202,7 +209,7 @@ abstract class BaseAdminController extends AbstractController
             'attachment_helper' => $this->attachmentHelper,
             'route_base' => $this->route_base,
             'datatable' => $table,
-            'timeTravel' => $timeTravel_timestamp
+            'timeTravel' => $timeTravel_timestamp,
         ]);
     }
 
@@ -214,7 +221,10 @@ abstract class BaseAdminController extends AbstractController
         $this->denyAccessUnlessGranted('read', $new_entity);
 
         //Basic edit form
-        $form = $this->createForm($this->form_class, $new_entity, ['attachment_class' => $this->attachment_class]);
+        $form = $this->createForm($this->form_class, $new_entity, [
+            'attachment_class' => $this->attachment_class,
+            'parameter_class' => $this->parameter_class,
+        ]);
 
         $form->handleRequest($request);
 
@@ -274,9 +284,7 @@ abstract class BaseAdminController extends AbstractController
                 'csv_separator' => $data['csv_separator'],
             ];
 
-            $this->commentHelper->setMessage('Import ' . $file->getClientOriginalName());
-
-
+            $this->commentHelper->setMessage('Import '.$file->getClientOriginalName());
 
             $errors = $importer->fileToDBEntities($file, $this->entity_class, $options);
 
@@ -319,7 +327,7 @@ abstract class BaseAdminController extends AbstractController
         ]);
     }
 
-    protected function _delete(Request $request, AbstractNamedDBElement $entity, StructuralElementRecursionHelper $recursionHelper) : RedirectResponse
+    protected function _delete(Request $request, AbstractNamedDBElement $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         $this->denyAccessUnlessGranted('delete', $entity);
 

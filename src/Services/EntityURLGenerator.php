@@ -125,9 +125,8 @@ class EntityURLGenerator
     }
 
     /**
-     * Gets the URL to view the given element at a given timestamp
-     * @param AbstractDBElement $entity
-     * @param  \DateTime  $dateTime
+     * Gets the URL to view the given element at a given timestamp.
+     *
      * @return string
      */
     public function timeTravelURL(AbstractDBElement $entity, \DateTime $dateTime): string
@@ -154,32 +153,32 @@ class EntityURLGenerator
                 $this->mapToController($map, $entity),
                 [
                     'id' => $entity->getID(),
-                    'timestamp' => $dateTime->getTimestamp()
+                    'timestamp' => $dateTime->getTimestamp(),
                 ]
             );
         } catch (EntityNotSupportedException $exception) {
             if ($entity instanceof PartLot) {
                 return $this->urlGenerator->generate('part_info', [
                     'id' => $entity->getPart()->getID(),
-                    'timestamp' => $dateTime->getTimestamp()
+                    'timestamp' => $dateTime->getTimestamp(),
                 ]);
             }
             if ($entity instanceof PartAttachment) {
                 return $this->urlGenerator->generate('part_info', [
                     'id' => $entity->getElement()->getID(),
-                    'timestamp' => $dateTime->getTimestamp()
+                    'timestamp' => $dateTime->getTimestamp(),
                 ]);
             }
             if ($entity instanceof Orderdetail) {
                 return $this->urlGenerator->generate('part_info', [
                     'id' => $entity->getPart()->getID(),
-                    'timestamp' => $dateTime->getTimestamp()
+                    'timestamp' => $dateTime->getTimestamp(),
                 ]);
             }
             if ($entity instanceof Pricedetail) {
                 return $this->urlGenerator->generate('part_info', [
                     'id' => $entity->getOrderdetail()->getPart()->getID(),
-                    'timestamp' => $dateTime->getTimestamp()
+                    'timestamp' => $dateTime->getTimestamp(),
                 ]);
             }
         }

@@ -53,6 +53,7 @@ use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\HistoryHelper;
 use App\Services\LogSystem\TimeTravel;
+use App\Services\Parameters\ParameterExtractor;
 use App\Services\PricedetailHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
@@ -87,17 +88,17 @@ class PartController extends AbstractController
      * @Route("/{id}/info/{timestamp}", name="part_info")
      * @Route("/{id}", requirements={"id"="\d+"})
      *
-     * @param  Part  $part
      * @return Response
+     *
      * @throws \Exception
      */
     public function show(Part $part, Request $request, TimeTravel $timeTravel, HistoryHelper $historyHelper,
-        DataTableFactory $dataTable, ?string $timestamp = null): Response
+        DataTableFactory $dataTable, ParameterExtractor $parameterExtractor, ?string $timestamp = null): Response
     {
         $this->denyAccessUnlessGranted('read', $part);
 
         $timeTravel_timestamp = null;
-        if ($timestamp !== null) {
+        if (null !== $timestamp) {
             $this->denyAccessUnlessGranted('@tools.timetravel');
             $this->denyAccessUnlessGranted('show_history', $part);
             //If the timestamp only contains numbers interpret it as unix timestamp
@@ -110,10 +111,10 @@ class PartController extends AbstractController
             $timeTravel->revertEntityToTimestamp($part, $timeTravel_timestamp);
         }
 
-        if ($this->isGranted('show_history', $part) ) {
+        if ($this->isGranted('show_history', $part)) {
             $table = $dataTable->createFromType(LogDataTable::class, [
                 'filter_elements' => $historyHelper->getAssociatedElements($part),
-                'mode' => 'element_history'
+                'mode' => 'element_history',
             ], ['pageLength' => 10])
                 ->handleRequest($request);
 
@@ -132,7 +133,9 @@ class PartController extends AbstractController
                 'attachment_helper' => $this->attachmentManager,
                 'pricedetail_helper' => $this->pricedetailHelper,
                 'pictures' => $this->partPreviewGenerator->getPreviewAttachments($part),
-                'timeTravel' => $timeTravel_timestamp
+                'timeTravel' => $timeTravel_timestamp,
+                'description_params' => $parameterExtractor->extractParameters($part->getDescription()),
+                'comment_params' => $parameterExtractor->extractParameters($part->getComment())
             ]
         );
     }
@@ -140,11 +143,6 @@ class PartController extends AbstractController
     /**
      * @Route("/{id}/edit", name="part_edit")
      *
-     * @param  Part  $part
-     * @param  Request  $request
-     * @param  EntityManagerInterface  $em
-     * @param  TranslatorInterface  $translator
-     * @param  AttachmentSubmitHandler  $attachmentSubmitHandler
      * @return Response
      */
     public function edit(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
@@ -197,8 +195,6 @@ class PartController extends AbstractController
     /**
      * @Route("/{id}/delete", name="part_delete", methods={"DELETE"})
      *
-     * @param  Request  $request
-     * @param  Part  $part
      * @return RedirectResponse
      */
     public function delete(Request $request, Part $part): RedirectResponse
@@ -226,17 +222,12 @@ class PartController extends AbstractController
      * @Route("/new", name="part_new")
      * @Route("/{id}/clone", name="part_clone")
      *
-     * @param  Request  $request
-     * @param  EntityManagerInterface  $em
-     * @param  TranslatorInterface  $translator
-     * @param  AttachmentManager  $attachmentHelper
-     * @param  AttachmentSubmitHandler  $attachmentSubmitHandler
      * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
         AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler, ?Part $part = null): Response
     {
-        if($part === null) {
+        if (null === $part) {
             $new_part = new Part();
         } else {
             $new_part = clone $part;
@@ -247,7 +238,7 @@ class PartController extends AbstractController
         $cid = $request->get('cid', 1);
 
         $category = $em->find(Category::class, $cid);
-        if (null !== $category && $new_part->getCategory() === null) {
+        if (null !== $category && null === $new_part->getCategory()) {
             $new_part->setCategory($category);
         }
 

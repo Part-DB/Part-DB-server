@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -19,7 +22,6 @@
  */
 
 namespace App\Services;
-
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
@@ -49,7 +51,7 @@ class StatisticsHelper
     }
 
     /**
-     *  Returns the count of distinct parts
+     *  Returns the count of distinct parts.
      */
     public function getDistinctPartsCount(): int
     {
@@ -57,8 +59,10 @@ class StatisticsHelper
     }
 
     /**
-     * Returns the summed instocked over all parts (only parts without a measurement unit)
+     * Returns the summed instocked over all parts (only parts without a measurement unit).
+     *
      * @return string
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
@@ -68,8 +72,10 @@ class StatisticsHelper
     }
 
     /**
-     * Returns the number of all parts which have price informations
+     * Returns the number of all parts which have price informations.
+     *
      * @return int
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
@@ -80,7 +86,7 @@ class StatisticsHelper
 
     /**
      * Returns the number of datastructures for the given type.
-     * @param  string  $type
+     *
      * @return int
      */
     public function getDataStructuresCount(string $type): int
@@ -97,17 +103,19 @@ class StatisticsHelper
             'currency' => Currency::class,
         ];
 
-        if (!isset($arr[$type])) {
+        if (! isset($arr[$type])) {
             throw new \InvalidArgumentException('No count for the given type available!');
         }
 
         /** @var EntityRepository $repo */
         $repo = $this->em->getRepository($arr[$type]);
+
         return $repo->count([]);
     }
 
     /**
      * Gets the count of all attachments.
+     *
      * @return int
      */
     public function getAttachmentsCount(): int
@@ -116,7 +124,8 @@ class StatisticsHelper
     }
 
     /**
-     * Gets the count of all private/secure attachments
+     * Gets the count of all private/secure attachments.
+     *
      * @return int
      */
     public function getPrivateAttachmentsCount(): int
@@ -125,8 +134,10 @@ class StatisticsHelper
     }
 
     /**
-     * Gets the count of all external (only containing an URL) attachments
+     * Gets the count of all external (only containing an URL) attachments.
+     *
      * @return int
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
@@ -137,7 +148,9 @@ class StatisticsHelper
 
     /**
      * Gets the count of all attachments where the user uploaded an file.
+     *
      * @return int
+     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */

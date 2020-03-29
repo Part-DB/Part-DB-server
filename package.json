@@ -43,6 +43,7 @@
         "exports-loader": "^0.7.0",
         "jquery-form": "^4.2.2",
         "jszip": "^3.2.0",
+        "katex": "^0.11.1",
         "marked": "^0.8.0",
         "patternfly-bootstrap-treeview": "^2.1.8",
         "pdfmake": "^0.1.53",

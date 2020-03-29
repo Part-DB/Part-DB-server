@@ -43,7 +43,6 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Entity\Base\AbstractStructuralDBElement;
-use Symfony\Bundle\MakerBundle\Str;
 use function count;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
@@ -70,10 +69,10 @@ class EntityImporter
      * Creates many entries at once, based on a (text) list of name.
      * The created enties are not persisted to database yet, so you have to do it yourself.
      *
-     * @param string                   $lines      The list of names seperated by \n
-     * @param string                   $class_name The name of the class for which the entities should be created
+     * @param string                           $lines      The list of names seperated by \n
+     * @param string                           $class_name The name of the class for which the entities should be created
      * @param AbstractStructuralDBElement|null $parent     the element which will be used as parent element for new elements
-     * @param array                    $errors     an associative array containing all validation errors
+     * @param array                            $errors     an associative array containing all validation errors
      *
      * @return AbstractStructuralDBElement[] An array containing all valid imported entities (with the type $class_name)
      */
@@ -228,8 +227,8 @@ class EntityImporter
     /**
      * This functions corrects the parent setting based on the children value of the parent.
      *
-     * @param iterable $entities the list of entities that should be fixed
-     * @param null|AbstractStructuralDBElement $parent   the parent, to which the entity should be set
+     * @param iterable                         $entities the list of entities that should be fixed
+     * @param AbstractStructuralDBElement|null $parent   the parent, to which the entity should be set
      */
     protected function correctParentEntites(iterable $entities, $parent = null): void
     {

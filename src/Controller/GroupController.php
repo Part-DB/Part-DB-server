@@ -44,6 +44,7 @@ namespace App\Controller;
 
 use App\Controller\AdminPages\BaseAdminController;
 use App\Entity\Attachments\GroupAttachment;
+use App\Entity\Parameters\GroupParameter;
 use App\Entity\UserSystem\Group;
 use App\Form\AdminPages\GroupAdminForm;
 use App\Services\EntityExporter;
@@ -65,14 +66,12 @@ class GroupController extends BaseAdminController
     protected $form_class = GroupAdminForm::class;
     protected $route_base = 'group';
     protected $attachment_class = GroupAttachment::class;
+    protected $parameter_class = GroupParameter::class;
 
     /**
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="group_edit")
      * @Route("/{id}/", requirements={"id"="\d+"})
      *
-     * @param  Group  $entity
-     * @param  Request  $request
-     * @param  EntityManagerInterface  $em
      * @return Response
      */
     public function edit(Group $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
@@ -84,9 +83,6 @@ class GroupController extends BaseAdminController
      * @Route("/new", name="group_new")
      * @Route("/")
      *
-     * @param  Request  $request
-     * @param  EntityManagerInterface  $em
-     * @param  EntityImporter  $importer
      * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
@@ -97,9 +93,6 @@ class GroupController extends BaseAdminController
     /**
      * @Route("/{id}", name="group_delete", methods={"DELETE"})
      *
-     * @param  Request  $request
-     * @param  Group  $entity
-     * @param  StructuralElementRecursionHelper  $recursionHelper
      * @return RedirectResponse
      */
     public function delete(Request $request, Group $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
@@ -110,9 +103,6 @@ class GroupController extends BaseAdminController
     /**
      * @Route("/export", name="group_export_all")
      *
-     * @param  EntityManagerInterface  $em
-     * @param  EntityExporter  $exporter
-     * @param  Request  $request
      * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
@@ -123,9 +113,6 @@ class GroupController extends BaseAdminController
     /**
      * @Route("/{id}/export", name="group_export")
      *
-     * @param  Group  $entity
-     * @param  EntityExporter  $exporter
-     * @param  Request  $request
      * @return Response
      */
     public function exportEntity(Group $entity, EntityExporter $exporter, Request $request): Response

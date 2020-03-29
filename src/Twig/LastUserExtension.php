@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,8 +23,6 @@
 
 namespace App\Twig;
 
-
-use App\Entity\Base\AbstractDBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
 use Doctrine\ORM\EntityManagerInterface;
 use Twig\Extension\AbstractExtension;
@@ -42,7 +43,7 @@ class LastUserExtension extends AbstractExtension
     {
         return [
             new TwigFunction('getLastEditingUser', [$this->repo, 'getLastEditingUser']),
-            new TwigFunction('getCreatingUser', [$this->repo, 'getCreatingUser'])
+            new TwigFunction('getCreatingUser', [$this->repo, 'getCreatingUser']),
         ];
     }
 }

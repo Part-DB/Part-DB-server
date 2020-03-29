@@ -70,7 +70,7 @@ class TreeController extends AbstractController
 
     /**
      * @Route("/tools", name="tree_tools")
-     * @param  ToolsTreeBuilder  $builder
+     *
      * @return JsonResponse
      */
     public function tools(ToolsTreeBuilder $builder): JsonResponse
@@ -83,7 +83,7 @@ class TreeController extends AbstractController
     /**
      * @Route("/category/{id}", name="tree_category")
      * @Route("/categories")
-     * @param  Category|null  $category
+     *
      * @return JsonResponse
      */
     public function categoryTree(?Category $category = null): JsonResponse
@@ -96,7 +96,7 @@ class TreeController extends AbstractController
     /**
      * @Route("/footprint/{id}", name="tree_footprint")
      * @Route("/footprints")
-     * @param  Footprint|null  $footprint
+     *
      * @return JsonResponse
      */
     public function footprintTree(?Footprint $footprint = null): JsonResponse
@@ -109,7 +109,7 @@ class TreeController extends AbstractController
     /**
      * @Route("/location/{id}", name="tree_location")
      * @Route("/locations")
-     * @param  Storelocation|null  $location
+     *
      * @return JsonResponse
      */
     public function locationTree(?Storelocation $location = null): JsonResponse
@@ -122,7 +122,7 @@ class TreeController extends AbstractController
     /**
      * @Route("/manufacturer/{id}", name="tree_manufacturer")
      * @Route("/manufacturers")
-     * @param  Manufacturer|null  $manufacturer
+     *
      * @return JsonResponse
      */
     public function manufacturerTree(?Manufacturer $manufacturer = null): JsonResponse
@@ -135,7 +135,7 @@ class TreeController extends AbstractController
     /**
      * @Route("/supplier/{id}", name="tree_supplier")
      * @Route("/suppliers")
-     * @param  Supplier|null  $supplier
+     *
      * @return JsonResponse
      */
     public function supplierTree(?Supplier $supplier = null): JsonResponse
@@ -148,7 +148,7 @@ class TreeController extends AbstractController
     /**
      * @Route("/device/{id}", name="tree_device")
      * @Route("/devices")
-     * @param  Device|null  $device
+     *
      * @return JsonResponse
      */
     public function deviceTree(?Device $device = null): JsonResponse

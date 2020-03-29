@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,7 +23,6 @@
 
 namespace App\Controller;
 
-
 use App\Services\StatisticsHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,6 +32,7 @@ class StatisticsController extends AbstractController
 {
     /**
      * @Route("/statistics", name="statistics_view")
+     *
      * @return Response
      */
     public function showStatistics(StatisticsHelper $helper): Response

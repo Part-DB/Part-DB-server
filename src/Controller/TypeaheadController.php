@@ -61,9 +61,7 @@ class TypeaheadController extends AbstractController
 {
     /**
      * @Route("/builtInResources/search/{query}", name="typeahead_builtInRessources", requirements={"query"= ".+"})
-     * @param  Request  $request
-     * @param  string  $query
-     * @param  BuiltinAttachmentsFinder  $finder
+     *
      * @return JsonResponse
      */
     public function builtInResources(Request $request, string $query, BuiltinAttachmentsFinder $finder)
@@ -84,8 +82,7 @@ class TypeaheadController extends AbstractController
 
     /**
      * @Route("/tags/search/{query}", name="typeahead_tags", requirements={"query"= ".+"})
-     * @param  string  $query
-     * @param  TagFinder  $finder
+     *
      * @return JsonResponse
      */
     public function tags(string $query, TagFinder $finder)

@@ -70,7 +70,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Flex\Options;
 
 class LogDataTable implements DataTableTypeInterface
 {
@@ -92,12 +91,12 @@ class LogDataTable implements DataTableTypeInterface
         $this->security = $security;
     }
 
-    public function configureOptions(OptionsResolver $optionsResolver)
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
         $optionsResolver->setDefaults([
-                                          'mode' => 'system_log',
-                                          'filter_elements' => [],
-                                      ]);
+            'mode' => 'system_log',
+            'filter_elements' => [],
+        ]);
 
         $optionsResolver->setAllowedValues('mode', ['system_log', 'element_history', 'last_activity']);
     }
@@ -107,7 +106,6 @@ class LogDataTable implements DataTableTypeInterface
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
         $options = $resolver->resolve($options);
-
 
         $dataTable->add('symbol', TextColumn::class, [
             'label' => '',
@@ -179,7 +177,7 @@ class LogDataTable implements DataTableTypeInterface
 
         $dataTable->add('level', TextColumn::class, [
             'label' => $this->translator->trans('log.level'),
-            'visible' => $options['mode'] === 'system_log',
+            'visible' => 'system_log' === $options['mode'],
             'propertyPath' => 'levelString',
             'render' => function (string $value, AbstractLogEntry $context) {
                 return $value;
@@ -214,13 +212,14 @@ class LogDataTable implements DataTableTypeInterface
 
         $dataTable->add('target', LogEntryTargetColumn::class, [
             'label' => $this->translator->trans('log.target'),
+            'show_associated' => $options['mode'] !== 'element_history',
         ]);
 
         $dataTable->add('extra', LogEntryExtraColumn::class, [
             'label' => $this->translator->trans('log.extra'),
         ]);
 
-        $dataTable->add('timeTravel', IconLinkColumn::class,[
+        $dataTable->add('timeTravel', IconLinkColumn::class, [
             'label' => '',
             'icon' => 'fas fa-fw fa-eye',
             'href' => function ($value, AbstractLogEntry $context) {
@@ -231,26 +230,25 @@ class LogDataTable implements DataTableTypeInterface
                 ) {
                     try {
                         $target = $this->logRepo->getTargetElement($context);
-                        if($target !== null) {
-                            $str = $this->entityURLGenerator->timeTravelURL($target, $context->getTimestamp());
-                            return $str;
+                        if (null !== $target) {
+                            return $this->entityURLGenerator->timeTravelURL($target, $context->getTimestamp());
                         }
                     } catch (EntityNotSupportedException $exception) {
                         return null;
                     }
                 }
+
                 return null;
             },
             'disabled' => function ($value, AbstractLogEntry $context) {
                 return
-                    !$this->security->isGranted('@tools.timetravel')
-                    || !$this->security->isGranted('show_history', $context->getTargetClass());
-            }
-
+                    ! $this->security->isGranted('@tools.timetravel')
+                    || ! $this->security->isGranted('show_history', $context->getTargetClass());
+            },
         ]);
 
         $dataTable->add('actionRevert', RevertLogColumn::class, [
-            'label' => ''
+            'label' => '',
         ]);
 
         $dataTable->addOrderBy('timestamp', DataTable::SORT_DESCENDING);
@@ -270,12 +268,12 @@ class LogDataTable implements DataTableTypeInterface
             ->from(AbstractLogEntry::class, 'log')
             ->leftJoin('log.user', 'user');
 
-        if ($options['mode'] === 'last_activity') {
-            $builder->where('log INSTANCE OF ' . ElementCreatedLogEntry::class)
-                ->orWhere('log INSTANCE OF ' . ElementDeletedLogEntry::class)
-                ->orWhere('log INSTANCE OF ' . ElementEditedLogEntry::class)
-                ->orWhere('log INSTANCE OF ' . CollectionElementDeleted::class)
-                ->andWhere('log.target_type NOT IN (:disallowed)');;
+        if ('last_activity' === $options['mode']) {
+            $builder->where('log INSTANCE OF '.ElementCreatedLogEntry::class)
+                ->orWhere('log INSTANCE OF '.ElementDeletedLogEntry::class)
+                ->orWhere('log INSTANCE OF '.ElementEditedLogEntry::class)
+                ->orWhere('log INSTANCE OF '.CollectionElementDeleted::class)
+                ->andWhere('log.target_type NOT IN (:disallowed)');
 
             $builder->setParameter('disallowed', [
                 AbstractLogEntry::targetTypeClassToID(User::class),
@@ -283,13 +281,13 @@ class LogDataTable implements DataTableTypeInterface
             ]);
         }
 
-        if (!empty($options['filter_elements'])) {
+        if (! empty($options['filter_elements'])) {
             foreach ($options['filter_elements'] as $element) {
                 /** @var AbstractDBElement $element */
 
                 $target_type = AbstractLogEntry::targetTypeClassToID(get_class($element));
                 $target_id = $element->getID();
-                $builder->orWhere("log.target_type = $target_type AND log.target_id = $target_id");
+                $builder->orWhere("log.target_type = ${target_type} AND log.target_id = ${target_id}");
             }
         }
     }

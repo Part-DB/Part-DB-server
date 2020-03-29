@@ -145,6 +145,7 @@ final class SIUnitType extends AbstractType implements DataMapperInterface
                     'm' => -3,
                     'µ' => -6,
                 ],
+                'choice_translation_domain' => false,
             ]);
         }
 

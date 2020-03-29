@@ -237,6 +237,12 @@ class PermissionsEmbed
 
     /**
      * @var int
+     * @ORM\Column(type="smallint")
+     */
+    protected $parts_parameters = 0;
+
+    /**
+     * @var int
      * @ORM\Column(type="smallint", name="parts_attachements")
      */
     protected $parts_attachments = 0;

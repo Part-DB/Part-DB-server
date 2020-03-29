@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\Controller\AdminPages;
 
 use App\Entity\Attachments\CurrencyAttachment;
+use App\Entity\Parameters\CurrencyParameter;
 use App\Entity\PriceInformations\Currency;
 use App\Form\AdminPages\CurrencyAdminForm;
 use App\Services\EntityExporter;
@@ -66,13 +67,11 @@ class CurrencyController extends BaseAdminController
     protected $form_class = CurrencyAdminForm::class;
     protected $route_base = 'currency';
     protected $attachment_class = CurrencyAttachment::class;
+    protected $parameter_class = CurrencyParameter::class;
 
     /**
      * @Route("/{id}", name="currency_delete", methods={"DELETE"})
      *
-     * @param  Request  $request
-     * @param  Currency  $entity
-     * @param  StructuralElementRecursionHelper  $recursionHelper
      * @return RedirectResponse
      */
     public function delete(Request $request, Currency $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
@@ -84,9 +83,6 @@ class CurrencyController extends BaseAdminController
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="currency_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
      *
-     * @param  Currency  $entity
-     * @param  Request  $request
-     * @param  EntityManagerInterface  $em
      * @return Response
      */
     public function edit(Currency $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
@@ -98,9 +94,6 @@ class CurrencyController extends BaseAdminController
      * @Route("/new", name="currency_new")
      * @Route("/")
      *
-     * @param  Request  $request
-     * @param  EntityManagerInterface  $em
-     * @param  EntityImporter  $importer
      * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
@@ -111,9 +104,6 @@ class CurrencyController extends BaseAdminController
     /**
      * @Route("/export", name="currency_export_all")
      *
-     * @param  EntityManagerInterface  $em
-     * @param  EntityExporter  $exporter
-     * @param  Request  $request
      * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
@@ -124,9 +114,6 @@ class CurrencyController extends BaseAdminController
     /**
      * @Route("/{id}/export", name="currency_export")
      *
-     * @param  Currency  $entity
-     * @param  EntityExporter  $exporter
-     * @param  Request  $request
      * @return Response
      */
     public function exportEntity(Currency $entity, EntityExporter $exporter, Request $request): Response

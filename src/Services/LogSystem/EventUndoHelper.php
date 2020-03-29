@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,7 +23,6 @@
 
 namespace App\Services\LogSystem;
 
-
 use App\Entity\LogSystem\AbstractLogEntry;
 
 class EventUndoHelper
@@ -41,7 +43,7 @@ class EventUndoHelper
 
     public function setMode(string $mode): void
     {
-        if (!in_array($mode, self::ALLOWED_MODES)) {
+        if (! in_array($mode, self::ALLOWED_MODES, true)) {
             throw new \InvalidArgumentException('Invalid mode passed!');
         }
         $this->mode = $mode;
@@ -55,7 +57,6 @@ class EventUndoHelper
     /**
      * Set which event log is currently undone.
      * After the flush this message is cleared.
-     * @param  AbstractLogEntry|null  $undone_event
      */
     public function setUndoneEvent(?AbstractLogEntry $undone_event): void
     {
@@ -64,6 +65,7 @@ class EventUndoHelper
 
     /**
      * Returns event that is currently undone.
+     *
      * @return AbstractLogEntry|null
      */
     public function getUndoneEvent(): ?AbstractLogEntry
@@ -80,11 +82,12 @@ class EventUndoHelper
     }
 
     /**
-     * Check if a event is undone
+     * Check if a event is undone.
+     *
      * @return bool
      */
     public function isUndo(): bool
     {
-        return ($this->undone_event instanceof AbstractLogEntry);
+        return $this->undone_event instanceof AbstractLogEntry;
     }
 }

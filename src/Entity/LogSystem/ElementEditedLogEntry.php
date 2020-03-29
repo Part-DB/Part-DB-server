@@ -65,6 +65,7 @@ class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterf
 
     /**
      * Checks if this log contains infos about which fields has changed.
+     *
      * @return bool
      */
     public function hasChangedFieldsInfo(): bool
@@ -74,6 +75,7 @@ class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterf
 
     /**
      * Return the names of all fields that were changed during the change.
+     *
      * @return string[]
      */
     public function getChangedFields(): array
@@ -91,93 +93,74 @@ class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterf
 
     /**
      * Set the fields that were changed during this element change.
-     * @param  string[]  $changed_fields The names of the fields that were changed during the elements
+     *
+     * @param string[] $changed_fields The names of the fields that were changed during the elements
+     *
      * @return $this
      */
     public function setChangedFields(array $changed_fields): self
     {
         $this->extra['f'] = $changed_fields;
+
         return $this;
     }
 
     /**
      * Sets the old data for this entry.
-     * @param array $old_data
+     *
      * @return $this
      */
     public function setOldData(array $old_data): self
     {
         $this->extra['d'] = $old_data;
+
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function hasOldDataInformations(): bool
     {
-        return !empty($this->extra['d']);
+        return ! empty($this->extra['d']);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getOldData(): array
     {
         return $this->extra['d'] ?? [];
     }
 
-    /**
-     * @inheritDoc
-     */
     public function hasComment(): bool
     {
         return isset($this->extra['m']);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getComment(): ?string
     {
         return $this->extra['m'] ?? null;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setComment(?string $new_comment): LogWithCommentInterface
     {
         $this->extra['m'] = $new_comment;
+
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function isUndoEvent(): bool
     {
         return isset($this->extra['u']);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getUndoEventID(): ?int
     {
         return $this->extra['u'] ?? null;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setUndoneEvent(AbstractLogEntry $event, string $mode = 'undo'): LogWithEventUndoInterface
     {
         $this->extra['u'] = $event->getID();
 
-        if ($mode === 'undo') {
+        if ('undo' === $mode) {
             $this->extra['um'] = 1;
-        } elseif ($mode === 'revert') {
+        } elseif ('revert' === $mode) {
             $this->extra['um'] = 2;
         } else {
             throw new \InvalidArgumentException('Passed invalid $mode!');
@@ -186,16 +169,13 @@ class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterf
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getUndoMode(): string
     {
         $mode_int = $this->extra['um'] ?? 1;
-        if ($mode_int === 1) {
+        if (1 === $mode_int) {
             return 'undo';
-        } else {
-            return 'revert';
         }
+
+        return 'revert';
     }
 }

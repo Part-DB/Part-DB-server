@@ -23,10 +23,12 @@ declare(strict_types=1);
 namespace App\Entity\Attachments;
 
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\Parameters\AttachmentTypeParameter;
 use App\Validator\Constraints\ValidFileFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class AttachmentType.
@@ -56,8 +58,16 @@ class AttachmentType extends AbstractStructuralDBElement
     /**
      * @var Collection|AttachmentTypeAttachment[]
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\AttachmentTypeAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     protected $attachments;
+
+    /** @var AttachmentTypeParameter[]
+     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\AttachmentTypeParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
+     * @Assert\Valid()
+     */
+    protected $parameters;
 
     /**
      * @var Collection|Attachment[]

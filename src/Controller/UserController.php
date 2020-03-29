@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Attachments\UserAttachment;
+use App\Entity\Parameters\PartParameter;
 use App\Entity\UserSystem\User;
 use App\Form\Permissions\PermissionsType;
 use App\Form\UserAdminForm;
@@ -67,14 +68,15 @@ class UserController extends AdminPages\BaseAdminController
     protected $form_class = UserAdminForm::class;
     protected $route_base = 'user';
     protected $attachment_class = UserAttachment::class;
+    //Just define a value here to prevent error. It is not used.
+    protected $parameter_class = "not used";
 
     /**
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="user_edit")
      * @Route("/{id}/", requirements={"id"="\d+"})
-     * @param  User  $entity
-     * @param  Request  $request
-     * @param  EntityManagerInterface  $em
+     *
      * @return Response
+     *
      * @throws \Exception
      */
     public function edit(User $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null)
@@ -109,9 +111,6 @@ class UserController extends AdminPages\BaseAdminController
      * @Route("/new", name="user_new")
      * @Route("/")
      *
-     * @param  Request  $request
-     * @param  EntityManagerInterface  $em
-     * @param  EntityImporter  $importer
      * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
@@ -121,9 +120,7 @@ class UserController extends AdminPages\BaseAdminController
 
     /**
      * @Route("/{id}", name="user_delete", methods={"DELETE"}, requirements={"id"="\d+"})
-     * @param  Request  $request
-     * @param  User  $entity
-     * @param  StructuralElementRecursionHelper  $recursionHelper
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Request $request, User $entity, StructuralElementRecursionHelper $recursionHelper)
@@ -138,9 +135,6 @@ class UserController extends AdminPages\BaseAdminController
     /**
      * @Route("/export", name="user_export_all")
      *
-     * @param  EntityManagerInterface  $em
-     * @param  EntityExporter  $exporter
-     * @param  Request  $request
      * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
@@ -151,10 +145,6 @@ class UserController extends AdminPages\BaseAdminController
     /**
      * @Route("/{id}/export", name="user_export")
      *
-     * @param  User  $entity
-     *
-     * @param  EntityExporter  $exporter
-     * @param  Request  $request
      * @return Response
      */
     public function exportEntity(User $entity, EntityExporter $exporter, Request $request): Response
@@ -165,8 +155,7 @@ class UserController extends AdminPages\BaseAdminController
     /**
      * @Route("/info", name="user_info_self")
      * @Route("/{id}/info", name="user_info")
-     * @param  User|null  $user
-     * @param  Packages  $packages
+     *
      * @return Response
      */
     public function userInfo(?User $user, Packages $packages): Response
@@ -174,7 +163,7 @@ class UserController extends AdminPages\BaseAdminController
         //If no user id was passed, then we show info about the current user
         if (null === $user) {
             $tmp = $this->getUser();
-            if(!$tmp instanceof User) {
+            if (! $tmp instanceof User) {
                 throw new InvalidArgumentException('Userinfo only works for database users!');
             }
             $user = $tmp;

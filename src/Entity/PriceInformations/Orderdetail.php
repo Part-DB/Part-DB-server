@@ -52,6 +52,7 @@ namespace App\Entity\PriceInformations;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
+use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Contracts\TimeStampableInterface;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
@@ -67,7 +68,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  */
-class Orderdetail extends AbstractDBElement implements TimeStampableInterface
+class Orderdetail extends AbstractDBElement implements TimeStampableInterface, NamedElementInterface
 {
     use TimestampTrait;
 
@@ -115,6 +116,20 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface
     public function __construct()
     {
         $this->pricedetails = new ArrayCollection();
+    }
+
+    public function __clone()
+    {
+        if ($this->id) {
+            $this->addedDate = null;
+            $pricedetails = $this->pricedetails;
+            $this->pricedetails = new ArrayCollection();
+            //Set master attachment is needed
+            foreach ($pricedetails as $pricedetail) {
+                $this->addPricedetail(clone $pricedetail);
+            }
+        }
+        parent::__clone();
     }
 
     /**
@@ -228,7 +243,6 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface
     /**
      * Removes an pricedetail from this orderdetail.
      *
-     * @param  Pricedetail  $pricedetail
      * @return Orderdetail
      */
     public function removePricedetail(Pricedetail $pricedetail): self
@@ -276,7 +290,6 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface
     /**
      * Sets a new part with which this orderdetail is associated.
      *
-     * @param  Part  $part
      * @return Orderdetail
      */
     public function setPart(Part $part): self
@@ -289,7 +302,6 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface
     /**
      * Sets the new supplier associated with this orderdetail.
      *
-     * @param  Supplier  $new_supplier
      * @return Orderdetail
      */
     public function setSupplier(Supplier $new_supplier): self
@@ -349,17 +361,11 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface
         return $this;
     }
 
-    public function __clone()
+    /**
+     * @inheritDoc
+     */
+    public function getName(): string
     {
-        if ($this->id) {
-           $this->addedDate = null;
-            $pricedetails = $this->pricedetails;
-            $this->pricedetails = new ArrayCollection();
-            //Set master attachment is needed
-            foreach ($pricedetails as $pricedetail) {
-                $this->addPricedetail(clone $pricedetail);
-            }
-        }
-        parent::__clone();
+        return $this->getSupplierPartNr();
     }
 }
