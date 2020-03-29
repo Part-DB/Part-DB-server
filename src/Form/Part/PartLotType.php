@@ -50,6 +50,7 @@ use App\Form\Type\StructuralEntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -116,9 +117,11 @@ class PartLotType extends AbstractType
             'required' => false,
         ]);
 
-        $builder->add('expirationDate', DateTimeType::class, [
+        $builder->add('expirationDate', DateType::class, [
             'label' => 'part_lot.edit.expiration_date',
             'attr' => [],
+            'widget' => 'single_text',
+            'model_timezone' => 'UTC',
             'required' => false,
         ]);
 
