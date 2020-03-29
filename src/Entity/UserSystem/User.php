@@ -227,7 +227,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected $settings = [];
 
     /**
-     * @var Collection|UserAttachment[]
+     * @var Collection<int, UserAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\UserAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $attachments;
@@ -237,7 +237,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     protected $backupCodesGenerationDate;
 
-    /** @var Collection<TwoFactorKeyInterface>
+    /** @var Collection<int, TwoFactorKeyInterface>
      * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\U2FKey", mappedBy="user", cascade={"REMOVE"}, orphanRemoval=true)
      */
     protected $u2fKeys;
@@ -862,9 +862,11 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
-     * Get all U2F Keys that are associated with this user.
+     *  Get all U2F Keys that are associated with this user.
      *
-     * @return Collection<TwoFactorKeyInterface>
+     * @return Collection
+     *
+     * @psalm-return Collection<int, TwoFactorKeyInterface>
      */
     public function getU2FKeys(): Collection
     {

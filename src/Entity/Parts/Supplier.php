@@ -109,13 +109,13 @@ class Supplier extends AbstractCompany
     protected $parts;
 
     /**
-     * @var Collection<SupplierAttachment>
+     * @var Collection<int, SupplierAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\SupplierAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
     protected $attachments;
 
-    /** @var Collection<SupplierParameter>
+    /** @var Collection<int, SupplierParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\SupplierParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()

@@ -98,7 +98,7 @@ class FetchJoinORMAdapter extends ORMAdapter
         }
     }
 
-    public function getCount(QueryBuilder $queryBuilder, $identifier)
+    public function getCount(QueryBuilder $queryBuilder, string $identifier)
     {
         $paginator = new Paginator($queryBuilder);
 

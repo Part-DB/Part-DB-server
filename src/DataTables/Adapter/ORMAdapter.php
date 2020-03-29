@@ -216,7 +216,7 @@ class ORMAdapter extends AbstractAdapter
      *
      * @return int
      */
-    protected function getCount(QueryBuilder $queryBuilder, $identifier)
+    protected function getCount(QueryBuilder $queryBuilder, string $identifier)
     {
         $qb = clone $queryBuilder;
 

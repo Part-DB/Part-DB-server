@@ -187,7 +187,7 @@ class EntityURLGenerator
         throw new EntityNotSupportedException('The given entity is not supported yet!');
     }
 
-    public function viewURL($entity): string
+    public function viewURL(Attachment $entity): ?string
     {
         if ($entity instanceof Attachment) {
             if ($entity->isExternal()) { //For external attachments, return the link to external path
@@ -201,7 +201,7 @@ class EntityURLGenerator
         throw new EntityNotSupportedException('The given entity is not supported yet!');
     }
 
-    public function downloadURL($entity): string
+    public function downloadURL($entity): ?string
     {
         if ($entity instanceof Attachment) {
             if ($entity->isExternal()) { //For external attachments, return the link to external path

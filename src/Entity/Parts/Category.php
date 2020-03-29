@@ -101,13 +101,13 @@ class Category extends AbstractPartsContainingDBElement
      */
     protected $default_comment = '';
     /**
-     * @var Collection|CategoryAttachment[]
+     * @var Collection<int, CategoryAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CategoryAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
     protected $attachments;
 
-    /** @var Collection|CategoryParameter[]
+    /** @var Collection<int, CategoryParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\CategoryParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()

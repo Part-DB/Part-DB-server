@@ -209,6 +209,9 @@ class TimeTravel
         return $property->getValue($element);
     }
 
+    /**
+     * @param \DateTime|int|null $new_value
+     */
     protected function setField(AbstractDBElement $element, string $field, $new_value): void
     {
         $reflection = new \ReflectionClass(get_class($element));

@@ -37,11 +37,13 @@ trait ParametersTrait
     protected $parameters;
 
     /**
-     * Return all associated specifications.
+     *  Return all associated specifications.
      *
-     * @return Collection<AbstractParameter>
+     * @return \Doctrine\Common\Collections\Collection
+     *
+     * @psalm-return \Doctrine\Common\Collections\Collection<int, PartParameter>
      */
-    public function getParameters(): Collection
+    public function getParameters(): \Doctrine\Common\Collections\Collection
     {
         return $this->parameters;
     }

@@ -283,7 +283,7 @@ class EventLoggerSubscriber implements EventSubscriber
         }, ARRAY_FILTER_USE_BOTH);
     }
 
-    protected function saveChangeSet(AbstractDBElement $entity, AbstractLogEntry $logEntry, EntityManagerInterface $em, $element_deleted = false): void
+    protected function saveChangeSet(AbstractDBElement $entity, AbstractLogEntry $logEntry, EntityManagerInterface $em, bool $element_deleted = false): void
     {
         $uow = $em->getUnitOfWork();
 

@@ -92,7 +92,7 @@ class Storelocation extends AbstractPartsContainingDBElement
      */
     protected $parts;
 
-    /** @var Collection<StorelocationParameter>
+    /** @var Collection<int, StorelocationParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\StorelocationParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
@@ -117,7 +117,7 @@ class Storelocation extends AbstractPartsContainingDBElement
      */
     protected $limit_to_existing_parts = false;
     /**
-     * @var Collection<StorelocationAttachment>
+     * @var Collection<int, StorelocationAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\StorelocationAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */

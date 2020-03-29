@@ -60,7 +60,10 @@ class AmountFormatter
     }
 
     /**
-     * Formats the given value using the measurement unit and options.
+     *  Formats the given value using the measurement unit and options.
+     *
+     *  @param MeasurementUnit|null $unit The measurement unit, whose unit symbol should be used for formatting.
+     *                                    If set to null, it is assumed that the part amount is measured in pieces.
      *
      * @param MeasurementUnit|null $unit The measurement unit, whose unit symbol should be used for formatting.
      *                                   If set to null, it is assumed that the part amount is measured in pieces.
@@ -69,7 +72,7 @@ class AmountFormatter
      *
      * @throws InvalidArgumentException thrown if $value is not numeric
      */
-    public function format($value, ?MeasurementUnit $unit = null, array $options = [])
+    public function format(float $value, ?MeasurementUnit $unit = null, array $options = [])
     {
         if (! is_numeric($value)) {
             throw new InvalidArgumentException('$value must be an numeric value!');

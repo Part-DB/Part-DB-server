@@ -81,13 +81,13 @@ class Manufacturer extends AbstractCompany
      */
     protected $parts;
     /**
-     * @var Collection<ManufacturerAttachment>
+     * @var Collection<int, ManufacturerAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ManufacturerAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
     protected $attachments;
 
-    /** @var Collection<ManufacturerParameter>
+    /** @var Collection<int, ManufacturerParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\ManufacturerParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()

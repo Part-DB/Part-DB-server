@@ -64,6 +64,7 @@
         "phpstan/phpstan": "^0.12.8",
         "phpstan/phpstan-doctrine": "^0.12.9",
         "phpstan/phpstan-symfony": "^0.12.4",
+        "psalm/plugin-symfony": "^1.1",
         "roave/security-advisories": "dev-master",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.13",

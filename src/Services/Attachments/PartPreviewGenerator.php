@@ -55,13 +55,15 @@ class PartPreviewGenerator
     }
 
     /**
-     * Returns a list of attachments that can be used for previewing the part ordered by priority.
-     * The priority is: Part MasterAttachment -> Footprint MasterAttachment -> Category MasterAttachment
-     * -> Storelocation Attachment -> MeasurementUnit Attachment -> ManufacturerAttachment.
+     *  Returns a list of attachments that can be used for previewing the part ordered by priority.
+     *  The priority is: Part MasterAttachment -> Footprint MasterAttachment -> Category MasterAttachment
+     *  -> Storelocation Attachment -> MeasurementUnit Attachment -> ManufacturerAttachment.
      *
      * @param Part $part the part for which the attachments should be determined
      *
-     * @return Attachment[]
+     * @return (Attachment|null)[]
+     *
+     * @psalm-return list<Attachment|null>
      */
     public function getPreviewAttachments(Part $part): array
     {

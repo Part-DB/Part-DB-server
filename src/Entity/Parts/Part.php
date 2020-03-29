@@ -92,7 +92,7 @@ class Part extends AttachmentContainingDBElement
      */
     protected $devices = [];
 
-    /** @var Collection<PartParameter>
+    /** @var Collection<int, PartParameter>
      * @Assert\Valid()
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\PartParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
@@ -119,7 +119,7 @@ class Part extends AttachmentContainingDBElement
     protected $name = '';
 
     /**
-     * @var Collection<PartAttachment>
+     * @var Collection<int, PartAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\PartAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ColumnSecurity(type="collection", prefix="attachments")
      * @Assert\Valid()

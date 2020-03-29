@@ -136,11 +136,11 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      *********************************************************************************/
 
     /**
-     * Get the orderdetail to which this pricedetail belongs to this pricedetails.
+     *  Get the orderdetail to which this pricedetail belongs to this pricedetails.
      *
-     * @return Orderdetail the orderdetail this price belongs to
+     * @return Orderdetail|null the orderdetail this price belongs to
      */
-    public function getOrderdetail(): Orderdetail
+    public function getOrderdetail(): ?Orderdetail
     {
         return $this->orderdetail;
     }
@@ -157,17 +157,20 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     }
 
     /**
-     * Get the price for a single unit in the currency associated with this price detail.
+     *  Get the price for a single unit in the currency associated with this price detail.
+     *
+     *  @param float|string $multiplier The returned price (float or string) will be multiplied
+     *                                  with this multiplier.
+     *
+     *      You will get the price for $multiplier parts. If you want the price which is stored
+     *           in the database, you have to pass the "price_related_quantity" count as $multiplier.
      *
      * @param float|string $multiplier The returned price (float or string) will be multiplied
      *                                 with this multiplier.
      *
-     *     You will get the price for $multiplier parts. If you want the price which is stored
-     *          in the database, you have to pass the "price_related_quantity" count as $multiplier.
-     *
-     * @return string the price as a bcmath string
+     * @return null|string the price as a bcmath string
      */
-    public function getPricePerUnit($multiplier = 1.0): string
+    public function getPricePerUnit($multiplier = 1.0): ?string
     {
         $multiplier = (string) $multiplier;
         $tmp = bcmul($this->price, $multiplier, static::PRICE_PRECISION);

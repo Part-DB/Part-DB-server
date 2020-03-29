@@ -98,13 +98,13 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      */
     protected $parts;
     /**
-     * @var Collection<MeasurementUnitAttachment>
+     * @var Collection<int, MeasurementUnitAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\MeasurementUnitAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      */
     protected $attachments;
 
-    /** @var Collection<MeasurementUnitParameter>
+    /** @var Collection<int, MeasurementUnitParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\MeasurementUnitParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
