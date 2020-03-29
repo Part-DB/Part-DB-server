@@ -142,7 +142,6 @@ class ElementPermissionListener
             return;
         }
 
-        $em = $eventArgs->getEntityManager();
         $unitOfWork = $eventArgs->getEntityManager()->getUnitOfWork();
 
         $reflectionClass = new ReflectionClass($element);

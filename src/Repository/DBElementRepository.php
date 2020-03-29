@@ -44,7 +44,8 @@ class DBElementRepository extends EntityRepository
             ->setParameter(1, $element->getID())
             ->getQuery();
 
-        $p = $q->execute();
+        //Do the renaming
+        $q->execute();
 
         $this->setField($element, 'id', $new_id);
     }

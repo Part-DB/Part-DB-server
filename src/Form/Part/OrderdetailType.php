@@ -69,9 +69,6 @@ class OrderdetailType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var Orderdetail $orderdetail */
-        $orderdetail = $builder->getData();
-
         $builder->add('supplierpartnr', TextType::class, [
             'label' => 'orderdetails.edit.supplierpartnr',
             'attr' => [

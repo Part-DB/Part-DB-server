@@ -53,8 +53,6 @@ use Symfony\Component\Security\Core\Security;
 final class LogoutOnDisabledUserListener implements EventSubscriberInterface
 {
     private $security;
-    private $translator;
-    private $flashBag;
     private $urlGenerator;
 
     public function __construct(Security $security, UrlGeneratorInterface $urlGenerator)

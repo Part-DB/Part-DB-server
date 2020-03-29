@@ -86,7 +86,7 @@ class PermissionsType extends AbstractType
     {
         $groups = $this->perm_structure['groups'];
 
-        foreach ($groups as $key => $group) {
+        foreach (array_keys($groups) as $key) {
             $builder->add($key, PermissionGroupType::class, [
                 'group_name' => $key,
                 'mapped' => false,

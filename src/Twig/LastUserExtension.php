@@ -30,12 +30,10 @@ use Twig\TwigFunction;
 
 class LastUserExtension extends AbstractExtension
 {
-    private $em;
     private $repo;
 
     public function __construct(EntityManagerInterface $em)
     {
-        $this->em = $em;
         $this->repo = $em->getRepository(AbstractLogEntry::class);
     }
 

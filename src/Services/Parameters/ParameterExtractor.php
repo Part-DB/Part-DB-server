@@ -69,7 +69,7 @@ class ParameterExtractor
         $matches = [];
         \preg_match($regex, $input, $matches);
         if (! empty($matches)) {
-            [$raw, $name, $value] = $matches;
+            [, $name, $value] = $matches;
             $value = trim($value);
 
             //Dont allow empty names or values (these are a sign of an invalid extracted string)

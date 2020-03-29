@@ -31,7 +31,7 @@ class EventCommentHelper
 
     public function __construct()
     {
-        $message = null;
+        $this->message = null;
     }
 
     /**

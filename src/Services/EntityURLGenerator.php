@@ -383,7 +383,7 @@ class EntityURLGenerator
         //Check if we have an direct mapping for the given class
         if (! array_key_exists($class, $map)) {
             //Check if we need to check inheritance by looping through our map
-            foreach ($map as $key => $value) {
+            foreach (array_keys($map) as $key) {
                 if (is_a($entity, $key)) {
                     return $map[$key];
                 }

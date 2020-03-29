@@ -163,7 +163,7 @@ class EventLoggerSubscriber implements EventSubscriber
      */
     public function hasFieldRestrictions(AbstractDBElement $element): bool
     {
-        foreach (static::FIELD_BLACKLIST as $class => $blacklist) {
+        foreach (array_keys(static::FIELD_BLACKLIST) as $class) {
             if (is_a($element, $class)) {
                 return true;
             }

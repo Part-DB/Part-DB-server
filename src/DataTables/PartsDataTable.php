@@ -329,8 +329,6 @@ final class PartsDataTable implements DataTableTypeInterface
 
     private function buildCriteria(QueryBuilder $builder, array $options): void
     {
-        $em = $builder->getEntityManager();
-
         if (isset($options['category'])) {
             $category = $options['category'];
             $list = $this->treeBuilder->typeToNodesList(Category::class, $category);

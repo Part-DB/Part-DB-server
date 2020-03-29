@@ -37,7 +37,7 @@ class EventUndoHelper
 
     public function __construct()
     {
-        $undone_event = null;
+        $this->undone_event = null;
         $this->mode = self::MODE_UNDO;
     }
 
