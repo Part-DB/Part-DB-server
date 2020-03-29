@@ -1681,9 +1681,9 @@ Subelements will be moved upwards.</target>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:64</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>part.info.specifications</source>
-        <target>part.info.specifications</target>
+        <target>Parameters</target>
       </segment>
     </unit>
     <unit id="MZz0rtU" name="attachment.labelp">
