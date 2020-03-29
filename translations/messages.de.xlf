@@ -276,9 +276,8 @@
     <unit id="TA1hSYV" name="admin.parameters">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:90</note>
-        <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>admin.parameters</source>
         <target>Parameter</target>
       </segment>
@@ -915,9 +914,8 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:13</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:13</note>
-        <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>specifications.group</source>
         <target>Sektion</target>
       </segment>
@@ -926,9 +924,8 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:26</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:26</note>
-        <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>specification.create</source>
         <target>Neuer Parameter</target>
       </segment>
@@ -937,9 +934,8 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:31</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:31</note>
-        <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>parameter.delete.confirm</source>
         <target>Möchten Sie den Parameter wirklich löschen?</target>
       </segment>
@@ -1150,9 +1146,8 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     <unit id="PbJl5cf" name="specifications.value">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\helper.twig:121</note>
-        <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>specifications.value</source>
         <target>Wert</target>
       </segment>
@@ -1559,9 +1554,8 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     <unit id="fLuFk_2" name="part.edit.tab.specifications">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:58</note>
-        <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>part.edit.tab.specifications</source>
         <target>Parameter</target>
       </segment>
@@ -1679,9 +1673,8 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     <unit id="Y2.Edoh" name="part.info.specifications">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:64</note>
-        <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>part.info.specifications</source>
         <target>Parameter</target>
       </segment>
@@ -2213,9 +2206,8 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     <unit id="PYWb1Wy" name="parameters.extracted_from_description">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:10</note>
-        <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>parameters.extracted_from_description</source>
         <target>Automatisch aus Beschreibung extrahiert</target>
       </segment>
@@ -2223,9 +2215,8 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     <unit id="xuDIeTd" name="parameters.auto_extracted_from_comment">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:15</note>
-        <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>parameters.auto_extracted_from_comment</source>
         <target>Automatisch aus Kommentar extrahiert</target>
       </segment>
@@ -3638,9 +3629,8 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     <unit id="V2u6xXi" name="tags.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:23</note>
-        <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>tags.label</source>
         <target>Tags</target>
       </segment>
@@ -4256,7 +4246,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="eTGx8tR" name="log.target_deleted">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\LogEntryTargetColumn.php:120</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\LogEntryTargetColumn.php:123</note>
         <note priority="1">Part-DB1\src\DataTables\Column\LogEntryTargetColumn.php:119</note>
       </notes>
       <segment>
@@ -4369,7 +4359,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="b4r5dEC" name="log.extra">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:218</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:219</note>
         <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:218</note>
         <note priority="1">new</note>
       </notes>
@@ -4864,7 +4854,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="o.P_V00" name="parameters.name.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:40</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:41</note>
       </notes>
       <segment>
         <source>parameters.name.placeholder</source>
@@ -4873,7 +4863,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="3LWIDYM" name="parameters.symbol.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:48</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:50</note>
       </notes>
       <segment>
         <source>parameters.symbol.placeholder</source>
@@ -4882,7 +4872,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="w7bfLKj" name="parameters.text.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:57</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:60</note>
       </notes>
       <segment>
         <source>parameters.text.placeholder</source>
@@ -4891,7 +4881,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="6utToZ6" name="parameters.max.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:67</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:71</note>
       </notes>
       <segment>
         <source>parameters.max.placeholder</source>
@@ -4900,7 +4890,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="BypUOrf" name="parameters.min.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:77</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:82</note>
       </notes>
       <segment>
         <source>parameters.min.placeholder</source>
@@ -4909,7 +4899,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="VmYIvYF" name="parameters.typical.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:87</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:93</note>
       </notes>
       <segment>
         <source>parameters.typical.placeholder</source>
@@ -4918,7 +4908,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="kvhGoo0" name="parameters.unit.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:96</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:103</note>
       </notes>
       <segment>
         <source>parameters.unit.placeholder</source>
@@ -4927,10 +4917,9 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="kL5OSi8" name="parameter.group.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:106</note>
-        <note category="state" priority="1">new</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:114</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>parameter.group.placeholder</source>
         <target>z.B. Technische Spezifikationen</target>
       </segment>
@@ -5185,16 +5174,6 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment>
         <source>part.edit.description.placeholder</source>
         <target>z.B.  NPN 45V 0,1A 0,5W</target>
-      </segment>
-    </unit>
-    <unit id=".V3Lfkf" name="part.editmininstock.placeholder">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:124</note>
-        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:121</note>
-      </notes>
-      <segment>
-        <source>part.editmininstock.placeholder</source>
-        <target>e.g. 1</target>
       </segment>
     </unit>
     <unit id="6QS4K7r" name="part_lot.edit.description">
@@ -5497,9 +5476,8 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     <unit id="CxpVbHB" name="parameter.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:95</note>
-        <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>parameter.label</source>
         <target>Parameter</target>
       </segment>
@@ -5746,6 +5724,16 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Neues Element</target>
       </segment>
     </unit>
+    <unit id=".V3Lfkf" name="part.editmininstock.placeholder">
+      <notes>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:121</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>part.editmininstock.placeholder</source>
+        <target>e.g. 1</target>
+      </segment>
+    </unit>
     <unit id="CPJxiHz" name="M">
       <notes>
         <note priority="1">Part-DB1\src\Form\Type\SIUnitType.php:141</note>
@@ -5768,7 +5756,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="47DEQpj" name="">
       <segment>
-        <source/>
+        <source></source>
         <target> </target>
       </segment>
     </unit>
