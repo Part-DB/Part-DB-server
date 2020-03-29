@@ -856,9 +856,9 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:7</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:7</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>specifications.symbol</source>
-        <target>specifications.symbol</target>
+        <target>Symbol</target>
       </segment>
     </unit>
     <unit id="ManEcyM" name="specifications.value_min">
@@ -866,9 +866,9 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:8</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:8</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>specifications.value_min</source>
-        <target>specifications.value_min</target>
+        <target>Min.</target>
       </segment>
     </unit>
     <unit id="BzRKVPC" name="specifications.value_typ">
@@ -876,9 +876,9 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:9</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:9</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>specifications.value_typ</source>
-        <target>specifications.value_typ</target>
+        <target>Typ.</target>
       </segment>
     </unit>
     <unit id="WLVXsOF" name="specifications.value_max">
@@ -886,9 +886,9 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:10</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:10</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>specifications.value_max</source>
-        <target>specifications.value_max</target>
+        <target>Max.</target>
       </segment>
     </unit>
     <unit id="mRpl2vJ" name="specifications.unit">
@@ -896,9 +896,9 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:11</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:11</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>specifications.unit</source>
-        <target>specifications.unit</target>
+        <target>Einheit</target>
       </segment>
     </unit>
     <unit id="05vM0Vp" name="specifications.text">
@@ -906,9 +906,9 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:12</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:12</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>specifications.text</source>
-        <target>specifications.text</target>
+        <target>Text</target>
       </segment>
     </unit>
     <unit id="t9lgp3U" name="specifications.group">
@@ -1680,9 +1680,9 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:64</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>part.info.specifications</source>
-        <target>part.info.specifications</target>
+        <target>Parameter</target>
       </segment>
     </unit>
     <unit id="MZz0rtU" name="attachment.labelp">
