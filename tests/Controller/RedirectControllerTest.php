@@ -63,6 +63,7 @@ class RedirectControllerTest extends WebTestCase
             'PHP_AUTH_PW' => 'test',
         ]);
         $this->client->disableReboot();
+        $this->client->catchExceptions(false);
         $this->em = self::$container->get(EntityManagerInterface::class);
         $this->userRepo = $this->em->getRepository(User::class);
     }

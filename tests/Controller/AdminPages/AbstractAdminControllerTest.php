@@ -79,6 +79,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
             'PHP_AUTH_PW' => 'test',
         ]);
 
+        $client->catchExceptions(false);
         if (false === $read) {
             $this->expectException(AccessDeniedException::class);
         }
