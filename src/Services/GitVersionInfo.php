@@ -87,11 +87,12 @@ class GitVersionInfo
         $filename = $this->project_dir.'/.git/refs/remotes/origin/'.$this->getGitBranchName();
         if (file_exists($filename)) {
             $head = file($filename);
-            $hash = $head[0];
 
             if (!isset($head[0])) {
                 return null;
             }
+
+            $hash = $head[0];
 
             return substr($hash, 0, $length);
         }
