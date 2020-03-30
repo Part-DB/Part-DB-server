@@ -42,7 +42,9 @@
                         </span>
                             </h6>
                         {% endif %}
-                        {% if attach.picture %}
+                        {% if attach.secure and not is_granted('show_private', attach) %}
+                            {# Leave blank #}
+                        {% elseif attach.picture %}
                             <a href="{{ attach | entityURL('file_view') }}" target="_blank" rel="noopener" data-no-ajax>
                                 <img class="img-fluid img-thumbnail thumbnail-sm" src="{{ attachment_thumbnail(attach, 'thumbnail_md') }}" alt="{% trans %}attachment.preview.alt{% endtrans %}" />
                             </a>

@@ -57,6 +57,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Url;
 
@@ -65,13 +66,15 @@ class AttachmentFormType extends AbstractType
     protected $attachment_helper;
     protected $urlGenerator;
     protected $allow_attachments_download;
+    protected $security;
 
     public function __construct(AttachmentManager $attachmentHelper,
-                                UrlGeneratorInterface $urlGenerator, bool $allow_attachments_downloads)
+                                UrlGeneratorInterface $urlGenerator, Security $security, bool $allow_attachments_downloads)
     {
         $this->attachment_helper = $attachmentHelper;
         $this->urlGenerator = $urlGenerator;
         $this->allow_attachments_download = $allow_attachments_downloads;
+        $this->security = $security;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -103,6 +106,7 @@ class AttachmentFormType extends AbstractType
             'required' => false,
             'label' => 'attachment.edit.secure_file',
             'mapped' => false,
+            'disabled' => !$this->security->isGranted('@parts_attachments.show_private'),
             'attr' => [
                 'class' => 'form-control-sm',
             ],

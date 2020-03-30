@@ -41,12 +41,12 @@
 
             <td><div class="btn-group" role="group" aria-label="">
                     <a {% if attachment_helper.fileExisting(attachment) %}href="{{ attachment|entityURL('file_view') }}"{% endif %} target="_blank"
-                       class="btn btn-secondary {% if not attachment_helper.fileExisting(attachment)  %}disabled{% endif %}"
+                       class="btn btn-secondary {% if not attachment_helper.fileExisting(attachment) or (attachment.secure and not is_granted("show_secure", attachment))  %}disabled{% endif %}"
                        data-no-ajax title="{% trans %}attachment.view{% endtrans %}" rel="noopener">
                         <i class="fas fa-eye fa-fw"></i>
                     </a>
                     <a {% if attachment_helper.fileExisting(attachment)  %}href="{{ attachment|entityURL('file_download') }}"{% endif %} data-no-ajax
-                       class="btn btn-secondary {% if not attachment_helper.fileExisting(attachment)  %}disabled{% endif %}"
+                       class="btn btn-secondary {% if not attachment_helper.fileExisting(attachment) or (attachment.secure and not is_granted("show_secure", attachment)) %}disabled{% endif %}"
                        title="{% trans %}attachment.download{% endtrans %}">
                         <i class="fas fa-download fa-fw"></i>
                     </a>
@@ -58,9 +58,6 @@
                             <span class="text-muted dropdown-item-text" ><i class="fas fa-lightbulb fa-fw"></i> <b>ID:</b> {{ attachment.iD }}</span>
                             <span class="text-muted dropdown-item-text" ><i class="fas fa-calendar fa-fw"></i> <b>{% trans %}createdAt{% endtrans %}:</b> {{ attachment.addedDate | format_datetime("short")}}</span>
                             <span class="text-muted dropdown-item-text" ><i class="fas fa-history fa-fw"></i> <b>{% trans %}createdAt{% endtrans %}:</b> {{ attachment.addedDate | format_datetime("short")}}</span>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">{% trans %}attachment.edit{% endtrans %}</a>
-                            <a class="dropdown-item" href="#">{% trans %}attachment.delete{% endtrans %}</a>
                         </div>
                     </div>
                 </div></td>

@@ -69,6 +69,10 @@ class AttachmentFileController extends AbstractController
     {
         $this->denyAccessUnlessGranted('read', $attachment);
 
+        if ($attachment->isSecure()) {
+            $this->denyAccessUnlessGranted('show_private', $attachment);
+        }
+
         if ($attachment->isExternal()) {
             throw new RuntimeException('You can not download external attachments!');
         }
@@ -96,6 +100,10 @@ class AttachmentFileController extends AbstractController
     public function view(Attachment $attachment, AttachmentManager $helper): BinaryFileResponse
     {
         $this->denyAccessUnlessGranted('read', $attachment);
+
+        if ($attachment->isSecure()) {
+            $this->denyAccessUnlessGranted('show_private', $attachment);
+        }
 
         if ($attachment->isExternal()) {
             throw new RuntimeException('You can not download external attachments!');

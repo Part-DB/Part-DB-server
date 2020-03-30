@@ -187,6 +187,10 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         label: "perm.revert_elements"
         bit: 10
         alsoSet: ["read", "edit", "create", "delete", "show_history"]
+      show_private:
+        label: "perm.attachment_show_private"
+        bit: 12
+        alsoSet: ["read"]
 
   parts_order:
     <<: *PART_ATTRIBUTE
