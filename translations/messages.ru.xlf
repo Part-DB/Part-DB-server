@@ -277,9 +277,9 @@
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:90</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>admin.parameters</source>
-        <target>admin.parameters</target>
+        <target>Параметры</target>
       </segment>
     </unit>
     <unit id="R949JGz" name="export_all.label">
@@ -846,9 +846,9 @@
         <note category="file-source" priority="1">Part-DB1\templates\helper.twig:120</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:6</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>specifications.property</source>
-        <target>specifications.property</target>
+        <target>Параметр</target>
       </segment>
     </unit>
     <unit id="N4F6wz5" name="specifications.symbol">
@@ -856,9 +856,9 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:7</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:7</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>specifications.symbol</source>
-        <target>specifications.symbol</target>
+        <target>Символ</target>
       </segment>
     </unit>
     <unit id="ManEcyM" name="specifications.value_min">
@@ -866,9 +866,9 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:8</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:8</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>specifications.value_min</source>
-        <target>specifications.value_min</target>
+        <target>Мин.</target>
       </segment>
     </unit>
     <unit id="BzRKVPC" name="specifications.value_typ">
@@ -876,9 +876,9 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:9</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:9</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>specifications.value_typ</source>
-        <target>specifications.value_typ</target>
+        <target>Тип.</target>
       </segment>
     </unit>
     <unit id="WLVXsOF" name="specifications.value_max">
@@ -886,9 +886,9 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:10</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:10</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>specifications.value_max</source>
-        <target>specifications.value_max</target>
+        <target>Макс.</target>
       </segment>
     </unit>
     <unit id="mRpl2vJ" name="specifications.unit">
@@ -896,9 +896,9 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:11</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:11</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>specifications.unit</source>
-        <target>specifications.unit</target>
+        <target>Единица</target>
       </segment>
     </unit>
     <unit id="05vM0Vp" name="specifications.text">
@@ -906,9 +906,9 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:12</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:12</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>specifications.text</source>
-        <target>specifications.text</target>
+        <target>Текст</target>
       </segment>
     </unit>
     <unit id="t9lgp3U" name="specifications.group">
@@ -916,9 +916,9 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:13</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:13</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>specifications.group</source>
-        <target>specifications.group</target>
+        <target>Группа</target>
       </segment>
     </unit>
     <unit id="MZTH_sJ" name="specification.create">
@@ -926,9 +926,9 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:26</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:26</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>specification.create</source>
-        <target>specification.create</target>
+        <target>Новый Параметр</target>
       </segment>
     </unit>
     <unit id="eEuzINH" name="parameter.delete.confirm">
