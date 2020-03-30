@@ -8,7 +8,7 @@ webpack_encore:
     # crossorigin: 'anonymous'
 
     # preload all rendered script and link tags automatically via the http2 Link header
-    #preload: false
+    preload: false
 
     # Throw an exception if the entrypoints.json file is missing or an entry is missing from the data
     # strict_mode: false

@@ -4,4 +4,4 @@ webpack_encore:
     cache: true
 
     # Preload in production
-    preload: false
+    preload: true
