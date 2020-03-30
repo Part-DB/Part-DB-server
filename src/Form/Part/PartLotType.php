@@ -88,6 +88,7 @@ class PartLotType extends AbstractType
 
         $builder->add('amount', SIUnitType::class, [
             'measurement_unit' => $options['measurement_unit'],
+            'required' => false,
             'label' => 'part_lot.edit.amount',
             'attr' => [
                 'class' => 'form-control-sm',
