@@ -29,13 +29,24 @@
                     {{ attachment.filename }}
                 {% endif %}
             </td>
-            <td class="align-middle">
+            <td class="align-middle h6">
                 {% if attachment.external %}
-                    <i>{% trans %}attachment.external_file{% endtrans %}</i>
+                    <span class="badge badge-primary">
+                            <i class="fas fa-fw fa-globe"></i> {% trans %}attachment.external{% endtrans %}
+                        </span>
                 {% elseif attachment_helper.fileExisting(attachment) %}
-                    {{ attachment_helper.humanFileSize(attachment) }}
+                    <span class="badge badge-secondary">
+                        <i class="fas fa-hdd fa-fw"></i> {{ attachment_helper.humanFileSize(attachment) }}
+                    </span>
                 {% else %}
-                    <b class="text-danger">{% trans %}attachment.file_not_found{% endtrans %}</b>
+                    <span class="badge badge-warning">
+                        <i class="fas fa-exclamation-circle fa-fw"></i> {% trans %}attachment.file_not_found{% endtrans %}
+                    </span>
+                {% endif %}
+                {% if attachment.secure %}
+                    <br><span class="badge badge-success">
+                        <i class="fas fa-fw fa-shield-alt"></i> {% trans %}attachment.secure{% endtrans %}
+                    </span>
                 {% endif %}
             </td>
 
