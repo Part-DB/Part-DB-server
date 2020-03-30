@@ -43,11 +43,13 @@ declare(strict_types=1);
 namespace App\Entity\Attachments;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * A attachment attached to an attachmentType element.
  *
  * @ORM\Entity()
+ * @UniqueEntity({"name", "attachment_type", "element"})
  */
 class AttachmentTypeAttachment extends Attachment
 {

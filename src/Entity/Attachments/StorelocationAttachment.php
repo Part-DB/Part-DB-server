@@ -44,11 +44,13 @@ namespace App\Entity\Attachments;
 
 use App\Entity\Parts\Storelocation;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * A attachment attached to a measurement unit element.
  *
  * @ORM\Entity()
+ * @UniqueEntity({"name", "attachment_type", "element"})
  */
 class StorelocationAttachment extends Attachment
 {
