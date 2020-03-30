@@ -936,9 +936,9 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:31</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:31</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameter.delete.confirm</source>
-        <target>parameter.delete.confirm</target>
+        <target>Вы точно уверены что хотите удалить этот параметр ?</target>
       </segment>
     </unit>
     <unit id="rpzRyMx" name="attachment.list.title">
@@ -1148,9 +1148,9 @@
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\helper.twig:121</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>specifications.value</source>
-        <target>specifications.value</target>
+        <target>Значение</target>
       </segment>
     </unit>
     <unit id="Qj.Hpb." name="version.caption">
@@ -1556,9 +1556,9 @@
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:58</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>part.edit.tab.specifications</source>
-        <target>part.edit.tab.specifications</target>
+        <target>Параметры</target>
       </segment>
     </unit>
     <unit id="LgSgFFj" name="part.edit.tab.comment">
@@ -1675,9 +1675,9 @@
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:64</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>part.info.specifications</source>
-        <target>part.info.specifications</target>
+        <target>Параметры</target>
       </segment>
     </unit>
     <unit id="MZz0rtU" name="attachment.labelp">
@@ -2208,18 +2208,18 @@
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:10</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameters.extracted_from_description</source>
-        <target>parameters.extracted_from_description</target>
+        <target>Автоматически получено из описания</target>
       </segment>
     </unit>
     <unit id="xuDIeTd" name="parameters.auto_extracted_from_comment">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:15</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameters.auto_extracted_from_comment</source>
-        <target>parameters.auto_extracted_from_comment</target>
+        <target>Автоматически получено из комментария</target>
       </segment>
     </unit>
     <unit id="cTsojYo" name="part.edit.btn">
@@ -3633,9 +3633,9 @@
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:23</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>tags.label</source>
-        <target>tags.label</target>
+        <target>Метки</target>
       </segment>
     </unit>
     <unit id="RezjOdV" name="storelocation.label">
@@ -4859,72 +4859,72 @@
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:41</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameters.name.placeholder</source>
-        <target>parameters.name.placeholder</target>
+        <target>н.р. Коэффициент усиления</target>
       </segment>
     </unit>
     <unit id="3LWIDYM" name="parameters.symbol.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:50</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameters.symbol.placeholder</source>
-        <target>parameters.symbol.placeholder</target>
+        <target>н.р. h_{FE}</target>
       </segment>
     </unit>
     <unit id="w7bfLKj" name="parameters.text.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:60</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameters.text.placeholder</source>
-        <target>parameters.text.placeholder</target>
+        <target>н.р. Тестовые условия</target>
       </segment>
     </unit>
     <unit id="6utToZ6" name="parameters.max.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:71</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameters.max.placeholder</source>
-        <target>parameters.max.placeholder</target>
+        <target>н.р. 350</target>
       </segment>
     </unit>
     <unit id="BypUOrf" name="parameters.min.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:82</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameters.min.placeholder</source>
-        <target>parameters.min.placeholder</target>
+        <target>н.р. 100</target>
       </segment>
     </unit>
     <unit id="VmYIvYF" name="parameters.typical.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:93</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameters.typical.placeholder</source>
-        <target>parameters.typical.placeholder</target>
+        <target>н.р. 200</target>
       </segment>
     </unit>
     <unit id="kvhGoo0" name="parameters.unit.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:103</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameters.unit.placeholder</source>
-        <target>parameters.unit.placeholder</target>
+        <target>н.р. V</target>
       </segment>
     </unit>
     <unit id="kL5OSi8" name="parameter.group.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:114</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameter.group.placeholder</source>
-        <target>parameter.group.placeholder</target>
+        <target>н.р. Технические спецификации</target>
       </segment>
     </unit>
     <unit id="jv6wCpP" name="orderdetails.edit.supplierpartnr">
@@ -5480,9 +5480,9 @@
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:95</note>
       </notes>
-      <segment state="initial">
+      <segment state="translated">
         <source>parameter.label</source>
-        <target>parameter.label</target>
+        <target>Параметр</target>
       </segment>
     </unit>
     <unit id=".nBJJBz" name="log.element_deleted.old_name.unknown">
