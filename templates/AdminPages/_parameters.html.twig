@@ -39,7 +39,7 @@
         //Determine the table, so we can determine, how many entries there are already.
         $holder = $(btn).siblings("table");
 
-        var index = $holder.find(":input").length;
+        var index = $holder.children("tbody").children("tr").length;
         var newForm = $holder.data("prototype");
 
         //Increase the index
