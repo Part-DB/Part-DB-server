@@ -60,7 +60,7 @@ class GitVersionInfo
      */
     public function getGitBranchName()
     {
-        if (file_exists($this->project_dir.'/.git/HEAD')) {
+        if (is_file($this->project_dir.'/.git/HEAD')) {
             $git = file($this->project_dir.'/.git/HEAD');
             $head = explode('/', $git[0], 3);
 
@@ -86,7 +86,7 @@ class GitVersionInfo
     public function getGitCommitHash(int $length = 7)
     {
         $filename = $this->project_dir.'/.git/refs/remotes/origin/'.$this->getGitBranchName();
-        if (file_exists($filename)) {
+        if (is_file($filename)) {
             $head = file($filename);
 
             if (! isset($head[0])) {
