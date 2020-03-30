@@ -277,7 +277,7 @@
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:90</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>admin.parameters</source>
         <target>Parameter</target>
       </segment>
@@ -915,7 +915,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:13</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:13</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>specifications.group</source>
         <target>Sektion</target>
       </segment>
@@ -925,7 +925,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:26</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:26</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>specification.create</source>
         <target>Neuer Parameter</target>
       </segment>
@@ -935,7 +935,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:31</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:31</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>parameter.delete.confirm</source>
         <target>Möchten Sie den Parameter wirklich löschen?</target>
       </segment>
@@ -1147,7 +1147,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\helper.twig:121</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>specifications.value</source>
         <target>Wert</target>
       </segment>
@@ -1555,7 +1555,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:58</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>part.edit.tab.specifications</source>
         <target>Parameter</target>
       </segment>
@@ -1674,7 +1674,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:64</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>part.info.specifications</source>
         <target>Parameter</target>
       </segment>
@@ -2207,7 +2207,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:10</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>parameters.extracted_from_description</source>
         <target>Automatisch aus Beschreibung extrahiert</target>
       </segment>
@@ -2216,7 +2216,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:15</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>parameters.auto_extracted_from_comment</source>
         <target>Automatisch aus Kommentar extrahiert</target>
       </segment>
@@ -3630,7 +3630,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:23</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>tags.label</source>
         <target>Tags</target>
       </segment>
@@ -4919,7 +4919,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:114</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>parameter.group.placeholder</source>
         <target>z.B. Technische Spezifikationen</target>
       </segment>
@@ -5477,7 +5477,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:95</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>parameter.label</source>
         <target>Parameter</target>
       </segment>
@@ -5729,7 +5729,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:121</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>part.editmininstock.placeholder</source>
         <target>e.g. 1</target>
       </segment>
@@ -5756,7 +5756,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="47DEQpj" name="">
       <segment>
-        <source></source>
+        <source/>
         <target> </target>
       </segment>
     </unit>
