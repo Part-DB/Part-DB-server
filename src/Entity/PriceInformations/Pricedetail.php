@@ -64,7 +64,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  * @ORM\Table("`pricedetails`")
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity(fields={"orderdetail", "min_discount_quantity"})
+ * @UniqueEntity(fields={"min_discount_quantity", "orderdetail"})
  */
 class Pricedetail extends AbstractDBElement implements TimeStampableInterface
 {
