@@ -1,1 +1,1 @@
-web: $(composer config bin-dir)/heroku-php-apache2 -i heroku_php.ini public/
+web: $(composer config bin-dir)/heroku-php-apache2 public/
