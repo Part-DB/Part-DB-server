@@ -104,7 +104,7 @@ class Category extends AbstractPartsContainingDBElement
     /**
      * @var Collection<int, CategoryAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CategoryAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"attachment_type" = "ASC", "name" = "ASC"})
+     * @ORM\OrderBy({"name" = "ASC"})
      * @Assert\Valid()
      */
     protected $attachments;

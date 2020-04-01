@@ -91,7 +91,7 @@ class Currency extends AbstractStructuralDBElement
     /**
      * @var Collection<int, CurrencyAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CurrencyAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"attachment_type" = "ASC", "name" = "ASC"})
+     * @ORM\OrderBy({"name" = "ASC"})
      * @Assert\Valid()
      */
     protected $attachments;

@@ -84,7 +84,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     /**
      * @var Collection<int, GroupAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ManufacturerAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"attachment_type" = "ASC", "name" = "ASC"})
+     * @ORM\OrderBy({"name" = "ASC"})
      * @Assert\Valid()
      */
     protected $attachments;
