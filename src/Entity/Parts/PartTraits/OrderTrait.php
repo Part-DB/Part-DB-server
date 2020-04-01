@@ -44,6 +44,7 @@ namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\PriceInformations\Orderdetail;
 use App\Security\Annotations\ColumnSecurity;
+use Doctrine\ORM\Mapping as ORM;
 use function count;
 use Doctrine\Common\Collections\Collection;
 
@@ -57,6 +58,7 @@ trait OrderTrait
      * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      * @ColumnSecurity(prefix="orderdetails", type="collection")
+     * @ORM\OrderBy({"supplier" = "ASC", "supplierpartnr" = "ASC"})
      */
     protected $orderdetails;
 

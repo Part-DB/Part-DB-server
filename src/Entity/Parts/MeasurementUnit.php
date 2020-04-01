@@ -100,6 +100,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     /**
      * @var Collection<int, MeasurementUnitAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\MeasurementUnitAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"attachment_type" = "ASC", "name" = "ASC"})
      * @Assert\Valid()
      */
     protected $attachments;

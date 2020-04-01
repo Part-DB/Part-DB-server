@@ -83,6 +83,7 @@ class Manufacturer extends AbstractCompany
     /**
      * @var Collection<int, ManufacturerAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ManufacturerAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"attachment_type" = "ASC", "name" = "ASC"})
      * @Assert\Valid()
      */
     protected $attachments;

@@ -121,6 +121,7 @@ class Part extends AttachmentContainingDBElement
      * @var Collection<int, PartAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\PartAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ColumnSecurity(type="collection", prefix="attachments")
+     * @ORM\OrderBy({"attachment_type" = "ASC", "name" = "ASC"})
      * @Assert\Valid()
      */
     protected $attachments;

@@ -83,6 +83,7 @@ class Footprint extends AbstractPartsContainingDBElement
     /**
      * @var Collection<int, FootprintAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\FootprintAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"attachment_type" = "ASC", "name" = "ASC"})
      * @Assert\Valid()
      */
     protected $attachments;

@@ -95,6 +95,7 @@ class Device extends AbstractPartsContainingDBElement
     /**
      * @var Collection<int, DeviceAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\DeviceAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"attachment_type" = "ASC", "name" = "ASC"})
      */
     protected $attachments;
 
