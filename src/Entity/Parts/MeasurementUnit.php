@@ -84,6 +84,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
 
     /**
      * @ORM\OneToMany(targetEntity="MeasurementUnit", mappedBy="parent", cascade={"persist"})
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $children;
 

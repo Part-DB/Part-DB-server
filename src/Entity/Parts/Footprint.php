@@ -73,6 +73,7 @@ class Footprint extends AbstractPartsContainingDBElement
 
     /**
      * @ORM\OneToMany(targetEntity="Footprint", mappedBy="parent")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $children;
 

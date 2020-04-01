@@ -73,6 +73,7 @@ class Manufacturer extends AbstractCompany
 
     /**
      * @ORM\OneToMany(targetEntity="Manufacturer", mappedBy="parent")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $children;
 

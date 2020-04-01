@@ -40,6 +40,7 @@ class AttachmentType extends AbstractStructuralDBElement
 {
     /**
      * @ORM\OneToMany(targetEntity="AttachmentType", mappedBy="parent", cascade={"persist"})
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $children;
 

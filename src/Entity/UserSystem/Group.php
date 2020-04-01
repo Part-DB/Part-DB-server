@@ -61,6 +61,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
 {
     /**
      * @ORM\OneToMany(targetEntity="Group", mappedBy="parent")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $children;
 

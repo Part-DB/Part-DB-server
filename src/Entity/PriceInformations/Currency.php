@@ -78,6 +78,7 @@ class Currency extends AbstractStructuralDBElement
 
     /**
      * @ORM\OneToMany(targetEntity="Currency", mappedBy="parent", cascade={"persist"})
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $children;
 
