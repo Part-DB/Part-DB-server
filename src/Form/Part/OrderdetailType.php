@@ -114,6 +114,7 @@ class OrderdetailType extends AbstractType
                 'allow_add' => $this->security->isGranted('@parts_prices.create'),
                 'allow_delete' => $this->security->isGranted('@parts_prices.delete'),
                 'label' => false,
+                'reindex_enable' => true,
                 'prototype_data' => $dummy_pricedetail,
                 'by_reference' => false,
                 'entry_options' => [

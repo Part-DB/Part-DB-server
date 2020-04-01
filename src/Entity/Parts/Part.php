@@ -96,7 +96,6 @@ class Part extends AttachmentContainingDBElement
      * @Assert\Valid()
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\PartParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
-     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      */
     protected $parameters;
 
