@@ -101,9 +101,9 @@ class CollectionTypeExtension extends AbstractTypeExtension
     /**
      * Set the option of the form.
      * This a bit hacky cause we access private properties....
-     * @param $builder
-     * @param  string  $option
-     * @param $value
+     * @param FormBuilder $builder
+     * @param string $option
+     * @param mixed $value
      * @throws \ReflectionException
      */
     public function setOption(FormBuilder $builder, string $option, $value): void

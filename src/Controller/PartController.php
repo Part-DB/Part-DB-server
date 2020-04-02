@@ -62,7 +62,7 @@ use App\Services\Parameters\ParameterExtractor;
 use App\Services\PricedetailHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
-use Proxies\__CG__\App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\Manufacturer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
