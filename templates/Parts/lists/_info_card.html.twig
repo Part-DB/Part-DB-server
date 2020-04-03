@@ -5,6 +5,9 @@
 <div class="card mb-3">
     <div class="card-header">
         <a class="card-link" data-toggle="collapse" href="#entityInfo">
+            {% if entity.masterPictureAttachment is not null and attachment_manager.isFileExisting(entity.masterPictureAttachment) %}
+                <img class="hoverpic ml-0 mr-0 d-inline" data-thumbnail="{{ entity.masterPictureAttachment | entityURL('file_view') }}" src="{{ attachment_thumbnail(entity.masterPictureAttachment, 'thumbnail_sm') }}">
+            {% endif %}
             {{ header_label | trans }}: <b>{{ entity.name }}</b>
         </a>
     </div>
@@ -14,24 +17,44 @@
                 <div class="col-sm-2">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                            <i class="fas fa-info-circle fa-fw"></i>
                             {% trans %}entity.info.common.tab{% endtrans %}
                         </a>
                         <a class="nav-link" id="v-pills-statistics-tab" data-toggle="pill" href="#v-pills-statistics" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                            <i class="fas fa-chart-pie fa-fw"></i>
                             {% trans %}entity.info.statistics.tab{% endtrans %}
                         </a>
+                        {% if entity.attachments is not empty %}
+                        <a class="nav-link" id="v-pills-attachments-tab" data-toggle="pill" href="#v-pills-attachments" role="tab" aria-controls="v-pills-attachments" aria-selected="false">
+                            <i class="fas fa-paperclip fa-fw"></i>
+                            {% trans %}entity.info.attachments.tab{% endtrans %}
+                        </a>
+                        {% endif %}
+                        {% if entity.parameters is not empty %}
+                            <a class="nav-link" id="v-pills-parameters-tab" data-toggle="pill" href="#v-pills-parameters" role="tab" aria-controls="v-pills-parameters" aria-selected="false">
+                                <i class="fas fa-atlas fa-fw"></i>
+                                {% trans %}entity.info.parameters.tab{% endtrans %}
+                            </a>
+                        {% endif %}
+                        {% if entity.comment is not empty %}
+                            <a class="nav-link" id="v-pills-comment-tab" data-toggle="pill" href="#v-pills-comment" role="tab">
+                                <i class="fas fa-comment-alt fa-fw"></i>
+                                {% trans %}comment.label{% endtrans %}
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-sm-10">
                     <div class="tab-content" id="v-pills-tabContent">
                         <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                             <div class="row">
-                                <div class="col-sm-8 form-horizontal">
+                                <div class="col-sm-9 form-horizontal">
                                     <div class="form-group">
-                                        <label class="col-sm-3">{% trans %}entity.info.name{% endtrans %}:</label>
+                                        <label class="col-sm-4">{% trans %}entity.info.name{% endtrans %}:</label>
                                         <span class="col-sm form-control-static">{{ entity.name }}</span>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3">{% trans %}entity.info.parent{% endtrans %}:</label>
+                                        <label class="col-sm-4">{% trans %}entity.info.parent{% endtrans %}:</label>
                                         <span class="col-sm form-control-static">
                                         {% if entity.parent %}
                                             {{ entity.parent.fullPath }}
@@ -41,7 +64,7 @@
                                     </span>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <a class="btn btn-secondary btn-block mb-2" href="{{ entity | entityURL('edit') }}">
                                         <i class="fas fa-edit"></i> {% trans %}entity.edit.btn{% endtrans %}
                                     </a>
@@ -60,16 +83,38 @@
                         <div class="tab-pane fade" id="v-pills-statistics" role="tabpanel" aria-labelledby="v-pills-statistics-tab">
                             <div class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="col-sm-3">{% trans %}entity.info.children_count{% endtrans %}:</label>
+                                    <label class="col-sm-4">{% trans %}entity.info.children_count{% endtrans %}:</label>
                                     <span class="col-sm form-control-static">{{ entity.children | length }}</span>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3">{% trans %}entity.info.parent{% endtrans %}:</label>
+                                    <label class="col-sm-4">{% trans %}entity.info.parent{% endtrans %}:</label>
                                     <span class="col-sm form-control-static">{{ entity.parts | length }}</span>
                                 </div>
                             </div>
                         </div>
 
+                        {% if entity.attachments is not empty %}
+                        <div class="tab-pane fade" id="v-pills-attachments" role="tabpanel" aria-labelledby="v-pills-attachments-tab">
+                            {% include "Parts/info/_attachments_info.html.twig" with {"part": entity} %}
+                        </div>
+                        {% endif %}
+
+                        {% if entity.parameters is not empty %}
+                            <div class="tab-pane fade" id="v-pills-parameters" role="tabpanel" aria-labelledby="v-pills-parameters-tab">
+                                {% for name, parameters in entity.groupedParameters %}
+                                    {% if name is not empty %}<h5 class="mt-1">{{ name }}</h5>{% endif %}
+                                    {{ helper.parameters_table(parameters) }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {% if entity.comment is not empty %}
+                            <div class="tab-pane fade" id="v-pills-comment" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="container-fluid mt-2 latex">
+                                    {{ entity.comment|markdown }}
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
