@@ -76,15 +76,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class PartController extends AbstractController
 {
-    protected $attachmentManager;
     protected $pricedetailHelper;
     protected $partPreviewGenerator;
     protected $commentHelper;
 
-    public function __construct(AttachmentManager $attachmentManager, PricedetailHelper $pricedetailHelper,
+    public function __construct(PricedetailHelper $pricedetailHelper,
         PartPreviewGenerator $partPreviewGenerator, EventCommentHelper $commentHelper)
     {
-        $this->attachmentManager = $attachmentManager;
         $this->pricedetailHelper = $pricedetailHelper;
         $this->partPreviewGenerator = $partPreviewGenerator;
         $this->commentHelper = $commentHelper;
@@ -136,7 +134,6 @@ class PartController extends AbstractController
             [
                 'part' => $part,
                 'datatable' => $table,
-                'attachment_helper' => $this->attachmentManager,
                 'pricedetail_helper' => $this->pricedetailHelper,
                 'pictures' => $this->partPreviewGenerator->getPreviewAttachments($part),
                 'timeTravel' => $timeTravel_timestamp,
@@ -194,7 +191,6 @@ class PartController extends AbstractController
                              [
                                  'part' => $part,
                                  'form' => $form->createView(),
-                                 'attachment_helper' => $this->attachmentManager,
                              ]);
     }
 
@@ -231,7 +227,7 @@ class PartController extends AbstractController
      * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
-        AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler, ?Part $part = null): Response
+        AttachmentSubmitHandler $attachmentSubmitHandler, ?Part $part = null): Response
     {
         if (null === $part) {
             $new_part = new Part();
@@ -318,7 +314,6 @@ class PartController extends AbstractController
                              [
                                  'part' => $new_part,
                                  'form' => $form->createView(),
-                                 'attachment_helper' => $attachmentHelper,
                              ]);
     }
 }

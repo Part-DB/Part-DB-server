@@ -22,7 +22,7 @@
                     {# @var attach \App\Entity\Attachments\Attachment #}
 
 
-                    {% if attachment_helper.fileExisting(attach) %}
+                    {% if attachment_manager.fileExisting(attach) %}
                         {% if not attach.external %}
                             <br><br>
                             <h6>
@@ -31,7 +31,7 @@
                                 </span>
                                 <br>
                                 <span class="badge badge-secondary">
-                                    <i class="fas fa-hdd fa-fw"></i> {{ attachment_helper.humanFileSize(attach) }}
+                                    <i class="fas fa-hdd fa-fw"></i> {{ attachment_manager.humanFileSize(attach) }}
                                 </span>
                             </h6>
                         {% else %}

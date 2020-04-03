@@ -81,7 +81,6 @@ abstract class BaseAdminController extends AbstractController
 
     protected $passwordEncoder;
     protected $translator;
-    protected $attachmentHelper;
     protected $attachmentSubmitHandler;
     protected $commentHelper;
 
@@ -90,7 +89,7 @@ abstract class BaseAdminController extends AbstractController
     protected $dataTableFactory;
 
     public function __construct(TranslatorInterface $translator, UserPasswordEncoderInterface $passwordEncoder,
-        AttachmentManager $attachmentHelper, AttachmentSubmitHandler $attachmentSubmitHandler,
+        AttachmentSubmitHandler $attachmentSubmitHandler,
         EventCommentHelper $commentHelper, HistoryHelper $historyHelper, TimeTravel $timeTravel,
         DataTableFactory $dataTableFactory)
     {
@@ -108,7 +107,6 @@ abstract class BaseAdminController extends AbstractController
 
         $this->translator = $translator;
         $this->passwordEncoder = $passwordEncoder;
-        $this->attachmentHelper = $attachmentHelper;
         $this->attachmentSubmitHandler = $attachmentSubmitHandler;
         $this->commentHelper = $commentHelper;
         $this->historyHelper = $historyHelper;
@@ -206,7 +204,6 @@ abstract class BaseAdminController extends AbstractController
         return $this->render($this->twig_template, [
             'entity' => $entity,
             'form' => $form->createView(),
-            'attachment_helper' => $this->attachmentHelper,
             'route_base' => $this->route_base,
             'datatable' => $table,
             'timeTravel' => $timeTravel_timestamp,
@@ -322,7 +319,6 @@ abstract class BaseAdminController extends AbstractController
             'form' => $form->createView(),
             'import_form' => $import_form->createView(),
             'mass_creation_form' => $mass_creation_form->createView(),
-            'attachment_helper' => $this->attachmentHelper,
             'route_base' => $this->route_base,
         ]);
     }
