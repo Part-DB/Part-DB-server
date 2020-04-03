@@ -52,6 +52,7 @@ use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Entity\LogSystem\ExceptionLogEntry;
 use App\Entity\LogSystem\InstockChangedLogEntry;
+use App\Entity\LogSystem\SecurityEventLogEntry;
 use App\Entity\LogSystem\UserLoginLogEntry;
 use App\Entity\LogSystem\UserLogoutLogEntry;
 use App\Entity\LogSystem\UserNotAllowedLogEntry;
@@ -127,7 +128,7 @@ class LogEntryExtraFormatter
     protected function getInternalFormat(AbstractLogEntry $context): array
     {
         $array = [];
-        if ($context instanceof UserLoginLogEntry || $context instanceof UserLogoutLogEntry) {
+        if ($context instanceof UserLoginLogEntry || $context instanceof UserLogoutLogEntry || $context instanceof SecurityEventLogEntry) {
             $array['log.user_login.ip'] = htmlspecialchars($context->getIPAddress());
         }
 

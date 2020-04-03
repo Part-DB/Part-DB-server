@@ -8166,5 +8166,77 @@ Element 3</target>
         <target>Preview picture</target>
       </segment>
     </unit>
+    <unit id="WjnV7iC" name="tfa_u2f.key_added_successful">
+      <segment>
+        <source>tfa_u2f.key_added_successful</source>
+        <target>Security key added successfully.</target>
+      </segment>
+    </unit>
+    <unit id="47ienTP" name="Username">
+      <segment>
+        <source>Username</source>
+        <target>Username</target>
+      </segment>
+    </unit>
+    <unit id="dVu9PKe" name="log.type.security.google_disabled">
+      <segment>
+        <source>log.type.security.google_disabled</source>
+        <target>Authenticator App disabled</target>
+      </segment>
+    </unit>
+    <unit id="HfccXTr" name="log.type.security.u2f_removed">
+      <segment>
+        <source>log.type.security.u2f_removed</source>
+        <target>Security key removed</target>
+      </segment>
+    </unit>
+    <unit id="zl1WXuM" name="log.type.security.u2f_added">
+      <segment>
+        <source>log.type.security.u2f_added</source>
+        <target>Security key added</target>
+      </segment>
+    </unit>
+    <unit id="9_jzHX6" name="log.type.security.backup_keys_reset">
+      <segment>
+        <source>log.type.security.backup_keys_reset</source>
+        <target>Backup keys regenerated</target>
+      </segment>
+    </unit>
+    <unit id="h6zwXNp" name="log.type.security.google_enabled">
+      <segment>
+        <source>log.type.security.google_enabled</source>
+        <target>Authenticator App enabled</target>
+      </segment>
+    </unit>
+    <unit id="XbsoHIr" name="log.type.security.password_changed">
+      <segment>
+        <source>log.type.security.password_changed</source>
+        <target>Password changed</target>
+      </segment>
+    </unit>
+    <unit id="2q0_b3P" name="log.type.security.trusted_device_reset">
+      <segment>
+        <source>log.type.security.trusted_device_reset</source>
+        <target>Trusted devices resetted</target>
+      </segment>
+    </unit>
+    <unit id="n8flY2e" name="log.type.collection_element_deleted">
+      <segment>
+        <source>log.type.collection_element_deleted</source>
+        <target>Element of Collection deleted</target>
+      </segment>
+    </unit>
+    <unit id="yNm8PCN" name="log.type.security.password_reset">
+      <segment>
+        <source>log.type.security.password_reset</source>
+        <target>Password reset</target>
+      </segment>
+    </unit>
+    <unit id="CsjgnTI" name="log.type.security.2fa_admin_reset">
+      <segment>
+        <source>log.type.security.2fa_admin_reset</source>
+        <target>Two Factor Reset by Administrator</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -44,6 +44,8 @@ namespace App\Controller;
 
 use App\Entity\UserSystem\U2FKey;
 use App\Entity\UserSystem\User;
+use App\Events\SecurityEvent;
+use App\Events\SecurityEvents;
 use App\Form\TFAGoogleSettingsType;
 use App\Form\UserSettingsType;
 use App\Services\TFA\BackupCodeManager;
@@ -51,6 +53,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -68,10 +72,13 @@ use Symfony\Component\Validator\Constraints\Length;
 class UserSettingsController extends AbstractController
 {
     protected $demo_mode;
+    /** @var EventDispatcher */
+    protected $eventDispatcher;
 
-    public function __construct(bool $demo_mode)
+    public function __construct(bool $demo_mode, EventDispatcherInterface $eventDispatcher)
     {
         $this->demo_mode = $demo_mode;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -142,6 +149,9 @@ class UserSettingsController extends AbstractController
                 $entityManager->remove($u2f);
                 $entityManager->flush();
                 $this->addFlash('success', 'tfa.u2f.u2f_delete.success');
+
+                $security_event = new SecurityEvent($user);
+                $this->eventDispatcher->dispatch($security_event, SecurityEvents::U2F_REMOVED);
             }
         } else {
             $this->addFlash('error', 'csfr_invalid');
@@ -174,6 +184,9 @@ class UserSettingsController extends AbstractController
             $user->invalidateTrustedDeviceTokens();
             $entityManager->flush();
             $this->addFlash('success', 'tfa_trustedDevice.invalidate.success');
+
+            $security_event = new SecurityEvent($user);
+            $this->eventDispatcher->dispatch($security_event, SecurityEvents::TRUSTED_DEVICE_RESET);
         } else {
             $this->addFlash('error', 'csfr_invalid');
         }
@@ -199,6 +212,8 @@ class UserSettingsController extends AbstractController
         if (! $user instanceof User) {
             throw new RuntimeException('This controller only works only for Part-DB User objects!');
         }
+
+        $security_event = new SecurityEvent($user);
 
         /***************************
          * User settings form
@@ -278,6 +293,7 @@ class UserSettingsController extends AbstractController
             $em->persist($user);
             $em->flush();
             $this->addFlash('success', 'user.settings.pw_changed_flash');
+            $this->eventDispatcher->dispatch($security_event, SecurityEvents::PASSWORD_CHANGED);
         }
 
         //Handle 2FA things
@@ -294,8 +310,11 @@ class UserSettingsController extends AbstractController
                 //Save 2FA settings (save secrets)
                 $user->setGoogleAuthenticatorSecret($google_form->get('googleAuthenticatorSecret')->getData());
                 $backupCodeManager->enableBackupCodes($user);
+
                 $em->flush();
                 $this->addFlash('success', 'user.settings.2fa.google.activated');
+
+                $this->eventDispatcher->dispatch($security_event, SecurityEvents::GOOGLE_ENABLED);
 
                 return $this->redirectToRoute('user_settings');
             }
@@ -305,6 +324,7 @@ class UserSettingsController extends AbstractController
             $backupCodeManager->disableBackupCodesIfUnused($user);
             $em->flush();
             $this->addFlash('success', 'user.settings.2fa.google.disabled');
+            $this->eventDispatcher->dispatch($security_event, SecurityEvents::GOOGLE_DISABLED);
 
             return $this->redirectToRoute('user_settings');
         }
@@ -322,6 +342,7 @@ class UserSettingsController extends AbstractController
             $backupCodeManager->regenerateBackupCodes($user);
             $em->flush();
             $this->addFlash('success', 'user.settings.2fa.backup_codes.regenerated');
+            $this->eventDispatcher->dispatch($security_event, SecurityEvents::BACKUP_KEYS_RESET);
         }
 
         /******************************

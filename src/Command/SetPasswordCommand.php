@@ -43,12 +43,16 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Entity\UserSystem\User;
+use App\Events\SecurityEvent;
+use App\Events\SecurityEvents;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SetPasswordCommand extends Command
@@ -57,11 +61,13 @@ class SetPasswordCommand extends Command
 
     protected $entityManager;
     protected $encoder;
+    protected $eventDispatcher;
 
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder, EventDispatcherInterface $eventDispatcher)
     {
         $this->entityManager = $entityManager;
         $this->encoder = $passwordEncoder;
+        $this->eventDispatcher = $eventDispatcher;
 
         parent::__construct();
     }
@@ -125,6 +131,9 @@ class SetPasswordCommand extends Command
         $this->entityManager->flush();
 
         $io->success('Password was set successful! You can now log in using the new password.');
+
+        $security_event = new SecurityEvent($user);
+        $this->eventDispatcher->dispatch($security_event, SecurityEvents::PASSWORD_CHANGED);
 
         return 0;
     }

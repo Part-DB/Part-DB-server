@@ -42,7 +42,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\UserSystem\User;
+use App\Events\SecurityEvent;
+use App\Events\SecurityEvents;
 use App\Services\PasswordResetManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,6 +60,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SecurityController extends AbstractController
@@ -137,7 +142,7 @@ class SecurityController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function pwResetNewPw(PasswordResetManager $passwordReset, Request $request, ?string $user = null, ?string $token = null)
+    public function pwResetNewPw(PasswordResetManager $passwordReset, Request $request, EntityManagerInterface $em, EventDispatcherInterface $eventDispatcher, ?string $user = null, ?string $token = null)
     {
         if (! $this->allow_email_pw_reset) {
             throw new AccessDeniedHttpException('The password reset via email is disabled!');
@@ -188,6 +193,11 @@ class SecurityController extends AbstractController
                 $this->addFlash('error', 'pw_reset.new_pw.error');
             } else {
                 $this->addFlash('success', 'pw_reset.new_pw.success');
+
+                $repo = $em->getRepository(User::class);
+                $u = $repo->findOneBy(['name' => $data['username']]);
+                $event = new SecurityEvent($u);
+                $eventDispatcher->dispatch($event, SecurityEvents::PASSWORD_RESET);
 
                 return $this->redirectToRoute('login');
             }

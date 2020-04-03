@@ -44,6 +44,8 @@ namespace App\Controller;
 
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\UserSystem\User;
+use App\Events\SecurityEvent;
+use App\Events\SecurityEvents;
 use App\Form\Permissions\PermissionsType;
 use App\Form\UserAdminForm;
 use App\Services\EntityExporter;
@@ -52,6 +54,7 @@ use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Symfony\Component\Asset\Packages;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -96,6 +99,9 @@ class UserController extends AdminPages\BaseAdminController
                 //Invalidate trusted devices
                 $entity->invalidateTrustedDeviceTokens();
                 $em->flush();
+
+                $event = new SecurityEvent($entity);
+                $this->eventDispatcher->dispatch($event, SecurityEvents::TFA_ADMIN_RESET);
 
                 $this->addFlash('success', 'user.edit.reset_success');
             } else {

@@ -46,10 +46,11 @@ use App\DataTables\LogDataTable;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\UserSystem\User;
+use App\Events\SecurityEvent;
+use App\Events\SecurityEvents;
 use App\Exceptions\AttachmentDownloadException;
 use App\Form\AdminPages\ImportType;
 use App\Form\AdminPages\MassCreationForm;
-use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
@@ -61,6 +62,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -87,11 +90,13 @@ abstract class BaseAdminController extends AbstractController
     protected $historyHelper;
     protected $timeTravel;
     protected $dataTableFactory;
+    /** @var EventDispatcher */
+    protected $eventDispatcher;
 
     public function __construct(TranslatorInterface $translator, UserPasswordEncoderInterface $passwordEncoder,
         AttachmentSubmitHandler $attachmentSubmitHandler,
         EventCommentHelper $commentHelper, HistoryHelper $historyHelper, TimeTravel $timeTravel,
-        DataTableFactory $dataTableFactory)
+        DataTableFactory $dataTableFactory, EventDispatcherInterface $eventDispatcher)
     {
         if ('' === $this->entity_class || '' === $this->form_class || '' === $this->twig_template || '' === $this->route_base) {
             throw new InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');
@@ -112,6 +117,7 @@ abstract class BaseAdminController extends AbstractController
         $this->historyHelper = $historyHelper;
         $this->timeTravel = $timeTravel;
         $this->dataTableFactory = $dataTableFactory;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     protected function _edit(AbstractNamedDBElement $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
@@ -164,6 +170,9 @@ abstract class BaseAdminController extends AbstractController
                 $entity->setPassword($password);
                 //By default the user must change the password afterwards
                 $entity->setNeedPwChange(true);
+
+                $event = new SecurityEvent($entity);
+                $this->eventDispatcher->dispatch($event, SecurityEvents::PASSWORD_CHANGED);
             }
 
             //Upload passed files

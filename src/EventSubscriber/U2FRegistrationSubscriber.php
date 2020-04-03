@@ -44,12 +44,16 @@ namespace App\EventSubscriber;
 
 use App\Entity\UserSystem\U2FKey;
 use App\Entity\UserSystem\User;
+use App\Events\SecurityEvent;
+use App\Events\SecurityEvents;
 use Doctrine\ORM\EntityManagerInterface;
 use R\U2FTwoFactorBundle\Event\RegisterEvent;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 final class U2FRegistrationSubscriber implements EventSubscriberInterface
 {
@@ -62,12 +66,16 @@ final class U2FRegistrationSubscriber implements EventSubscriberInterface
      */
     private $router;
 
-    public function __construct(UrlGeneratorInterface $router, EntityManagerInterface $entityManager, FlashBagInterface $flashBag, bool $demo_mode)
+    /** @var EventDispatcher */
+    private $eventDispatcher;
+
+    public function __construct(UrlGeneratorInterface $router, EntityManagerInterface $entityManager, FlashBagInterface $flashBag, EventDispatcherInterface $eventDispatcher, bool $demo_mode)
     {
         $this->router = $router;
         $this->em = $entityManager;
         $this->demo_mode = $demo_mode;
         $this->flashBag = $flashBag;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array
@@ -96,6 +104,9 @@ final class U2FRegistrationSubscriber implements EventSubscriberInterface
             $this->em->persist($newKey);
             $this->em->flush();
             $this->flashBag->add('success', 'tfa_u2f.key_added_successful');
+
+            $security_event = new SecurityEvent($user);
+            $this->eventDispatcher->dispatch($security_event, SecurityEvents::U2F_ADDED);
         }
 
         // generate new response, here we redirect the user to the fos user
