@@ -8166,5 +8166,77 @@ Element 3</target>
         <target>attachment.preview</target>
       </segment>
     </unit>
+    <unit id="WjnV7iC" name="tfa_u2f.key_added_successful">
+      <segment state="initial">
+        <source>tfa_u2f.key_added_successful</source>
+        <target>tfa_u2f.key_added_successful</target>
+      </segment>
+    </unit>
+    <unit id="47ienTP" name="Username">
+      <segment state="initial">
+        <source>Username</source>
+        <target>Username</target>
+      </segment>
+    </unit>
+    <unit id="dVu9PKe" name="log.type.security.google_disabled">
+      <segment state="initial">
+        <source>log.type.security.google_disabled</source>
+        <target>log.type.security.google_disabled</target>
+      </segment>
+    </unit>
+    <unit id="HfccXTr" name="log.type.security.u2f_removed">
+      <segment state="initial">
+        <source>log.type.security.u2f_removed</source>
+        <target>log.type.security.u2f_removed</target>
+      </segment>
+    </unit>
+    <unit id="zl1WXuM" name="log.type.security.u2f_added">
+      <segment state="initial">
+        <source>log.type.security.u2f_added</source>
+        <target>log.type.security.u2f_added</target>
+      </segment>
+    </unit>
+    <unit id="9_jzHX6" name="log.type.security.backup_keys_reset">
+      <segment state="initial">
+        <source>log.type.security.backup_keys_reset</source>
+        <target>log.type.security.backup_keys_reset</target>
+      </segment>
+    </unit>
+    <unit id="h6zwXNp" name="log.type.security.google_enabled">
+      <segment state="initial">
+        <source>log.type.security.google_enabled</source>
+        <target>log.type.security.google_enabled</target>
+      </segment>
+    </unit>
+    <unit id="XbsoHIr" name="log.type.security.password_changed">
+      <segment state="initial">
+        <source>log.type.security.password_changed</source>
+        <target>log.type.security.password_changed</target>
+      </segment>
+    </unit>
+    <unit id="2q0_b3P" name="log.type.security.trusted_device_reset">
+      <segment state="initial">
+        <source>log.type.security.trusted_device_reset</source>
+        <target>log.type.security.trusted_device_reset</target>
+      </segment>
+    </unit>
+    <unit id="n8flY2e" name="log.type.collection_element_deleted">
+      <segment state="initial">
+        <source>log.type.collection_element_deleted</source>
+        <target>log.type.collection_element_deleted</target>
+      </segment>
+    </unit>
+    <unit id="yNm8PCN" name="log.type.security.password_reset">
+      <segment state="initial">
+        <source>log.type.security.password_reset</source>
+        <target>log.type.security.password_reset</target>
+      </segment>
+    </unit>
+    <unit id="CsjgnTI" name="log.type.security.2fa_admin_reset">
+      <segment state="initial">
+        <source>log.type.security.2fa_admin_reset</source>
+        <target>log.type.security.2fa_admin_reset</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
