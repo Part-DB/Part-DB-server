@@ -242,6 +242,11 @@ showing the sidebar (on devices with md or higher)
 * Bootstrap extensions
 *****************************************/
 
+.w-fit {
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
 .bg-primary-striped {
     background: repeating-linear-gradient(
             -45deg,

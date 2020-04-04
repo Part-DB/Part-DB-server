@@ -121,7 +121,7 @@ $(document).on("ajaxUI:reload ajaxUI:start", function () {
 //Use bootstrap tooltips for the most tooltips
 $(document).on("ajaxUI:start ajaxUI:reload ajaxUI:dt_loaded", function () {
     $(".tooltip").remove();
-    $('a[title], button[title], span[title], h6[title], i.fas[title]')
+    $('a[title], button[title], span[title], h6[title], h3[title], i.fas[title]')
     //@ts-ignore
         .tooltip("hide").tooltip({container: "body", placement: "auto", boundary: 'window'});
 });

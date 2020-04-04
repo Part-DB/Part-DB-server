@@ -21,7 +21,7 @@
                 <small>{{ part.manufacturerProductNumber }}</small>
             {% endif %}
         </h5>
-        <h3>{{ part.name }}
+        <h3 class="w-fit" title="{% trans %}name.label{% endtrans %}">{{ part.name }}
             {# You need edit permission to use the edit button #}
             {% if timeTravel is not null %}
                 <a href="{{ part|entityURL('info') }}"><i title="{% trans %}part.back_to_info{% endtrans %}" class="fas fa-fw fa-arrow-circle-left"></i></a>
@@ -29,7 +29,7 @@
                 <a href="{{ part|entityURL('edit') }}"><i class="fas fa-fw fa-sm fa-edit"></i></a>
             {% endif %}
         </h3>
-        <h6 class="text-muted"><span title="{% trans %}description.label{% endtrans %}">{{ part.description|markdown(true) }}</span></h6>
+        <h6 class="text-muted w-fit" title="{% trans %}description.label{% endtrans %}"><span>{{ part.description|markdown(true) }}</span></h6>
         <h6 class="">
             <i class="fas fa-tag fa-fw" title="{% trans %}category.label{% endtrans %}"></i>
             <span class="text-muted">{{ helper.structural_entity_link(part.category) }}</span>
