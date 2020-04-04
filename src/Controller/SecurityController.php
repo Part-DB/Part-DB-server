@@ -50,6 +50,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -197,6 +198,7 @@ class SecurityController extends AbstractController
                 $repo = $em->getRepository(User::class);
                 $u = $repo->findOneBy(['name' => $data['username']]);
                 $event = new SecurityEvent($u);
+                /** @var EventDispatcher $eventDispatcher */
                 $eventDispatcher->dispatch($event, SecurityEvents::PASSWORD_RESET);
 
                 return $this->redirectToRoute('login');
