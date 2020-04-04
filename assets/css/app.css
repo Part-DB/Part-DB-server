@@ -550,6 +550,13 @@ span.highlight {
     font-size: 12px;
 }
 
+@media (max-width: 768px) {
+    .treeview span.icon {
+        width: 20px !important;
+        height: 20px !important;
+    }
+}
+
 .fa-treeview {
     line-height: 1.428;
 }
