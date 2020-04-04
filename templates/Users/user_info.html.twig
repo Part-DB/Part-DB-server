@@ -62,14 +62,20 @@
 
 {% block additional_content %}
     {% if is_granted('read', user) or is_granted('show_permissions', user) %}
-    <div class="card mt-3">
-        <div class="card-header"><i class="fas fa-gavel fa-fw"></i>
-            {% trans %}user.permissions{% endtrans %}</div>
-        <div class="card-body">
-            {{ form_start(form) }}
-            {{ form_row(form.permissions) }}
-            {{ form_end(form) }}
+        <div class="card mt-3">
+            <div class="card-header"><i class="fas fa-gavel fa-fw"></i>
+                {% trans %}user.permissions{% endtrans %}</div>
+            <div class="card-body">
+                {{ form_start(form) }}
+                {{ form_row(form.permissions) }}
+                {{ form_end(form) }}
+            </div>
         </div>
-    </div>
     {% endif %}
+
+    <div class="mt-2">
+    {% if datatable is defined and datatable is not null %}
+        {% include "LogSystem/_log_table.html.twig" %}
+    {% endif %}
+    </div>
 {% endblock %}

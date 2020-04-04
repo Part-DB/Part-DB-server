@@ -42,6 +42,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\DataTables\LogDataTable;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\UserSystem\User;
 use App\Events\SecurityEvent;
@@ -53,6 +54,7 @@ use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
+use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -163,7 +165,7 @@ class UserController extends AdminPages\BaseAdminController
      *
      * @return Response
      */
-    public function userInfo(?User $user, Packages $packages): Response
+    public function userInfo(?User $user, Packages $packages, Request $request, DataTableFactory $dataTableFactory): Response
     {
         //If no user id was passed, then we show info about the current user
         if (null === $user) {
@@ -176,6 +178,21 @@ class UserController extends AdminPages\BaseAdminController
             //Else we must check, if the current user is allowed to access $user
             $this->denyAccessUnlessGranted('read', $user);
         }
+
+        $table = $this->dataTableFactory->createFromType(
+            LogDataTable::class,
+            [
+                'filter_elements' => $user,
+                'mode' => 'element_history',
+            ],
+            ['pageLength' => 10]
+        )
+            ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
+
 
         if ($this->getParameter('use_gravatar')) {
             $avatar = $this->getGravatar($user->getEmail(), 200, 'identicon');
@@ -195,6 +212,7 @@ class UserController extends AdminPages\BaseAdminController
             'user' => $user,
             'avatar' => $avatar,
             'form' => $builder->getForm()->createView(),
+            'datatable' => $table,
         ]);
     }
 

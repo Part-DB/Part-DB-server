@@ -66,6 +66,7 @@ use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
 use Psr\Log\LogLevel;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
@@ -97,6 +98,16 @@ class LogDataTable implements DataTableTypeInterface
             'mode' => 'system_log',
             'filter_elements' => [],
         ]);
+
+        $optionsResolver->setAllowedTypes('filter_elements', ['array', 'object']);
+        $optionsResolver->setAllowedTypes('mode', 'string');
+
+        $optionsResolver->setNormalizer('filter_elements', function (Options $options, $value) {
+            if (!is_array($value)) {
+                return [$value];
+            }
+            return $value;
+        });
 
         $optionsResolver->setAllowedValues('mode', ['system_log', 'element_history', 'last_activity']);
     }
