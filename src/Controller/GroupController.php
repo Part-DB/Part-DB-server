@@ -81,13 +81,14 @@ class GroupController extends BaseAdminController
 
     /**
      * @Route("/new", name="group_new")
+     * @Route("/{id}/clone", name="group_clone")
      * @Route("/")
      *
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Group $entity = null): Response
     {
-        return $this->_new($request, $em, $importer);
+        return $this->_new($request, $em, $importer, $entity);
     }
 
     /**

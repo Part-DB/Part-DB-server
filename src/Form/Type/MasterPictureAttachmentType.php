@@ -43,11 +43,14 @@ declare(strict_types=1);
 namespace App\Form\Type;
 
 use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Contracts\HasMasterAttachmentInterface;
 use Doctrine\ORM\EntityRepository;
 use ReflectionClass;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -59,53 +62,42 @@ class MasterPictureAttachmentType extends AbstractType
         $resolver->setAllowedTypes('entity', HasMasterAttachmentInterface::class);
 
         $resolver->setDefaults([
-            'filter' => 'picture',
-            'choice_translation_domain' => false,
-            'attr' => [
-                'class' => 'selectpicker',
-            ],
-            'choice_attr' => function (Options $options) {
-                return  function ($choice, $key, $value) use ($options) {
-                    /** @var Attachment $choice */
-                    $tmp = ['data-subtext' => $choice->getFilename() ?? 'URL'];
+                                   'filter' => 'picture',
+                                   'choice_translation_domain' => false,
+                                   'attr' => [
+                                       'class' => 'selectpicker',
+                                   ],
+                                   'choice_attr' => function (Options $options) {
+                                       return  function ($choice, $key, $value) use ($options) {
+                                           /** @var Attachment $choice */
+                                           $tmp = ['data-subtext' => $choice->getFilename() ?? 'URL'];
 
-                    if ('picture' === $options['filter'] && ! $choice->isPicture()) {
-                        $tmp += ['disabled' => 'disabled'];
-                    } elseif ('3d_model' === $options['filter'] && ! $choice->is3DModel()) {
-                        $tmp += ['disabled' => 'disabled'];
-                    }
+                                           if ('picture' === $options['filter'] && ! $choice->isPicture()) {
+                                               $tmp += ['disabled' => 'disabled'];
+                                           } elseif ('3d_model' === $options['filter'] && ! $choice->is3DModel()) {
+                                               $tmp += ['disabled' => 'disabled'];
+                                           }
 
-                    return $tmp;
-                };
-            },
-            'choice_label' => 'name',
-            'class' => function (Options $options) {
-                $short_class_name = (new ReflectionClass($options['entity']))->getShortName();
-                //Category becomes CategoryAttachment
-                return 'App\\Entity\\Attachments\\'.$short_class_name.'Attachment';
-            },
-            'query_builder' => function (Options $options) {
-                return function (EntityRepository $er) use ($options) {
-                    $entity = $options['entity'];
-                    if (null === $entity->getID()) {
-                        //This query is always false, so we get empty results
-                        return $er->createQueryBuilder('u')->where('0 = 2');
-                    }
-
-                    return $er->createQueryBuilder('u')
-                        ->where('u.element = ?1')
-                        ->andWhere("u.path <> ''")
-                        ->orderBy('u.name', 'ASC')
-                        ->setParameter(1, $entity);
-                };
-            },
-        ]);
+                                           return $tmp;
+                                       };
+                                   },
+                                   'choice_label' => 'name',
+                                   'choice_loader' => function (Options $options) {
+                                       return new CallbackChoiceLoader(function () use ($options) {
+                                           $entity = $options['entity'];
+                                           if (!$entity instanceof AttachmentContainingDBElement) {
+                                               throw new \RuntimeException('$entity must have Attachments! (be of type AttachmentContainingDBElement)');
+                                           }
+                                           return $entity->getAttachments()->toArray();
+                                       });
+                                   }
+                               ]);
 
         $resolver->setAllowedValues('filter', ['', 'picture', '3d_model']);
     }
 
     public function getParent()
     {
-        return EntityType::class;
+        return ChoiceType::class;
     }
 }

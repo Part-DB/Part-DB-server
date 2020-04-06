@@ -219,10 +219,16 @@ abstract class BaseAdminController extends AbstractController
         ]);
     }
 
-    protected function _new(Request $request, EntityManagerInterface $em, EntityImporter $importer)
+    protected function _new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?AbstractNamedDBElement $entity = null)
     {
-        /** @var AbstractStructuralDBElement|User $new_entity */
-        $new_entity = new $this->entity_class();
+        $master_picture_backup = null;
+        if ($entity === null) {
+            /** @var AbstractStructuralDBElement|User $new_entity */
+            $new_entity = new $this->entity_class();
+        } else {
+            /** @var AbstractStructuralDBElement|User $new_entity */
+            $new_entity = clone $entity;
+        }
 
         $this->denyAccessUnlessGranted('read', $new_entity);
 
@@ -263,6 +269,7 @@ abstract class BaseAdminController extends AbstractController
 
             $this->commentHelper->setMessage($form['log_comment']->getData());
 
+            dump($new_entity);
             $em->persist($new_entity);
             $em->flush();
             $this->addFlash('success', 'entity.created_flash');

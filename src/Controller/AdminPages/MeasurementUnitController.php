@@ -90,13 +90,14 @@ class MeasurementUnitController extends BaseAdminController
 
     /**
      * @Route("/new", name="measurement_unit_new")
+     * @Route("/{id}/clone", name="measurement_unit_clone")
      * @Route("/")
      *
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?MeasurementUnit $entity = null): Response
     {
-        return $this->_new($request, $em, $importer);
+        return $this->_new($request, $em, $importer, $entity);
     }
 
     /**

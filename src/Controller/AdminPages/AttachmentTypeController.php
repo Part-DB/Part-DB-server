@@ -90,13 +90,14 @@ class AttachmentTypeController extends BaseAdminController
 
     /**
      * @Route("/new", name="attachment_type_new")
+     * @Route("/{id}/clone", name="attachment_type_clone")
      * @Route("/")
      *
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?AttachmentType $entity = null): Response
     {
-        return $this->_new($request, $em, $importer);
+        return $this->_new($request, $em, $importer, $entity);
     }
 
     /**

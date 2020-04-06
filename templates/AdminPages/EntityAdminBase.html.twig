@@ -147,6 +147,7 @@
 
                         {# Only include on existing parts #}
                         {% if entity.id %}
+                            {{ include('AdminPages/_duplicate.html.twig') }}
                             {{ include('AdminPages/_delete_form.html.twig') }}
                         {% endif %}
 

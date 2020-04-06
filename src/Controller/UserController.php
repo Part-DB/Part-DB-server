@@ -116,13 +116,14 @@ class UserController extends AdminPages\BaseAdminController
 
     /**
      * @Route("/new", name="user_new")
+     * @Route("/{id}/clone", name="user_clone")
      * @Route("/")
      *
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?User $entity = null): Response
     {
-        return $this->_new($request, $em, $importer);
+        return $this->_new($request, $em, $importer, $entity);
     }
 
     /**

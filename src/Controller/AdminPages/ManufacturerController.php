@@ -89,13 +89,14 @@ class ManufacturerController extends BaseAdminController
 
     /**
      * @Route("/new", name="manufacturer_new")
+     * @Route("/{id}/clone", name="manufacturer_clone")
      * @Route("/")
      *
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Manufacturer $entity = null): Response
     {
-        return $this->_new($request, $em, $importer);
+        return $this->_new($request, $em, $importer, $entity);
     }
 
     /**

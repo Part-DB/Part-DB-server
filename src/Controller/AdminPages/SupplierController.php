@@ -89,13 +89,14 @@ class SupplierController extends BaseAdminController
 
     /**
      * @Route("/new", name="supplier_new")
+     * @Route("/{id}/clone", name="supplier_clone")
      * @Route("/")
      *
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Supplier $entity = null): Response
     {
-        return $this->_new($request, $em, $importer);
+        return $this->_new($request, $em, $importer, $entity);
     }
 
     /**

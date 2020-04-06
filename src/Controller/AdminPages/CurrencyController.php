@@ -92,13 +92,14 @@ class CurrencyController extends BaseAdminController
 
     /**
      * @Route("/new", name="currency_new")
+     * @Route("/{id}/clone", name="currency_clone")
      * @Route("/")
      *
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Currency $entity = null): Response
     {
-        return $this->_new($request, $em, $importer);
+        return $this->_new($request, $em, $importer, $entity);
     }
 
     /**

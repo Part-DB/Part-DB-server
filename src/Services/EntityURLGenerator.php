@@ -318,6 +318,17 @@ class EntityURLGenerator
     {
         $map = [
             Part::class => 'part_clone',
+            AttachmentType::class => 'attachment_type_clone',
+            Category::class => 'category_clone',
+            Device::class => 'device_clone',
+            Supplier::class => 'supplier_clone',
+            Manufacturer::class => 'manufacturer_clone',
+            Storelocation::class => 'store_location_clone',
+            Footprint::class => 'footprint_clone',
+            User::class => 'user_clone',
+            Currency::class => 'currency_clone',
+            MeasurementUnit::class => 'measurement_unit_clone',
+            Group::class => 'group_clone',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);

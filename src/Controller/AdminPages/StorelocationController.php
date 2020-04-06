@@ -88,13 +88,14 @@ class StorelocationController extends BaseAdminController
 
     /**
      * @Route("/new", name="store_location_new")
+     * @Route("/{id}/clone", name="store_location_clone")
      * @Route("/")
      *
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Storelocation $entity = null): Response
     {
-        return $this->_new($request, $em, $importer);
+        return $this->_new($request, $em, $importer, $entity);
     }
 
     /**

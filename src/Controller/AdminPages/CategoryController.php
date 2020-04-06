@@ -90,13 +90,14 @@ class CategoryController extends BaseAdminController
 
     /**
      * @Route("/new", name="category_new")
+     * @Route("/{id}/clone", name="category_clone")
      * @Route("/")
      *
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Category $entity = null): Response
     {
-        return $this->_new($request, $em, $importer);
+        return $this->_new($request, $em, $importer, $entity);
     }
 
     /**

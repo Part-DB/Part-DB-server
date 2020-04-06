@@ -90,13 +90,14 @@ class DeviceController extends BaseAdminController
 
     /**
      * @Route("/new", name="device_new")
+     * @Route("/{id}/clone", name="device_clone")
      * @Route("/")
      *
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer): Response
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Device $entity = null): Response
     {
-        return $this->_new($request, $em, $importer);
+        return $this->_new($request, $em, $importer, $entity);
     }
 
     /**
