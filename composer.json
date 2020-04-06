@@ -60,6 +60,7 @@
     "require-dev": {
         "dama/doctrine-test-bundle": "^6.0",
         "doctrine/doctrine-fixtures-bundle": "^3.2",
+        "ekino/phpstan-banned-code": "^0.3.1",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.8",
         "phpstan/phpstan-doctrine": "^0.12.9",
