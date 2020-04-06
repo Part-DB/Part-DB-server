@@ -84,7 +84,9 @@ class CollectionTypeExtension extends AbstractTypeExtension
                 $error_mapping = [];
 
                 foreach ($data->toArray() as $key => $item) {
-                    $index = $options['reindex_prefix'] . $this->propertyAccess->getValue($item, $options['reindex_path']);
+                    $id = $this->propertyAccess->getValue($item, $options['reindex_path']);
+                    //If element has an ID then use it. otherwise use default key
+                    $index = $id === null ? $key : $options['reindex_prefix'] . $id;
                     $error_mapping['[' . $key . ']'] = $index;
                     $reindexed_data->set($index, $item);
                 }
