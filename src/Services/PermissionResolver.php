@@ -70,8 +70,6 @@ class PermissionResolver
         $this->is_debug = $kernel_debug;
 
         $this->permission_structure = $this->generatePermissionStructure();
-
-        //dump($this->permission_structure);
     }
 
     public function getPermissionStructure(): array

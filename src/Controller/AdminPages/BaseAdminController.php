@@ -269,7 +269,6 @@ abstract class BaseAdminController extends AbstractController
 
             $this->commentHelper->setMessage($form['log_comment']->getData());
 
-            dump($new_entity);
             $em->persist($new_entity);
             $em->flush();
             $this->addFlash('success', 'entity.created_flash');
