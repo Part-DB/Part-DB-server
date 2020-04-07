@@ -22,7 +22,7 @@
         "ocramius/proxy-manager": "2.2.*",
         "omines/datatables-bundle": "^0.4.0",
         "php-translation/symfony-bundle": "^0.12.0",
-        "r/u2f-two-factor-bundle": "dev-u2f-api",
+        "r/u2f-two-factor-bundle": "^0.7.0",
         "s9e/text-formatter": "^2.1",
         "scheb/two-factor-bundle": "^4.11",
         "sensio/framework-extra-bundle": "^5.1",
@@ -116,11 +116,5 @@
             "allow-contrib": false,
             "require": "4.4.*"
         }
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url":  "git@github.com:stephanvierkant/u2f-two-factor-bundle.git"
-        }
-    ]
+    }
 }
