@@ -26,7 +26,7 @@
         <note priority="1">templates\base.html.twig:197</note>
         <note priority="1">templates\base.html.twig:225</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>category.labelp</source>
         <target>κατηγορία</target>
       </segment>
@@ -62,7 +62,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:4</note>
         <note priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:4</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>currency.caption</source>
         <target>νόμισμα</target>
       </segment>
@@ -72,7 +72,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:12</note>
         <note priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:12</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>currency.iso_code.caption</source>
         <target>νόμισμα</target>
       </segment>
@@ -116,7 +116,7 @@
         <note priority="1">templates\base.html.twig:206</note>
         <note priority="1">templates\base.html.twig:237</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>search.placeholder</source>
         <target>ψάχνω</target>
       </segment>
@@ -159,7 +159,7 @@
         <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
         <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:35</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>edit.caption</source>
         <target>διορθώνω</target>
       </segment>
@@ -346,7 +346,7 @@
         <note priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
         <note priority="1">templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>manufacturer.caption</source>
         <target>κατασκευαστή</target>
       </segment>
@@ -382,7 +382,7 @@
         <note priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
         <note priority="1">templates\AdminPages\SupplierAdmin.html.twig:4</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>supplier.caption</source>
         <target>προμηθευτή</target>
       </segment>
