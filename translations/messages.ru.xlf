@@ -8152,21 +8152,21 @@
       </segment>
     </unit>
     <unit id="Msykg.Z" name="entity.info.attachments.tab">
-      <segment state="initial">
+      <segment state="translated">
         <source>entity.info.attachments.tab</source>
-        <target>entity.info.attachments.tab</target>
+        <target>Вложения</target>
       </segment>
     </unit>
     <unit id="8VfTCPf" name="entity.info.parameters.tab">
-      <segment state="initial">
+      <segment state="translated">
         <source>entity.info.parameters.tab</source>
-        <target>entity.info.parameters.tab</target>
+        <target>Параметры</target>
       </segment>
     </unit>
     <unit id="gWj51jS" name="attachment.preview">
-      <segment state="initial">
+      <segment state="translated">
         <source>attachment.preview</source>
-        <target>attachment.preview</target>
+        <target>Предпросмотр</target>
       </segment>
     </unit>
     <unit id="WjnV7iC" name="tfa_u2f.key_added_successful">
