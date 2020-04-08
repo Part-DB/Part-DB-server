@@ -506,11 +506,18 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     public function getFullName(bool $including_username = false): string
     {
+        $tmp = $this->getFirstName();
+        //Dont add a space, if the name has only one part (it would look strange)
+        if (!empty($this->getFirstName()) && !empty($this->getLastName())) {
+            $tmp .= ' ';
+        }
+        $tmp .= $this->getLastName();
+
         if ($including_username) {
-            return sprintf('%s %s (@%s)', $this->getFirstName(), $this->getLastName(), $this->getName());
+            $tmp .= sprintf(' (@%s)', $this->getName());
         }
 
-        return sprintf('%s %s', $this->getFirstName(), $this->getLastName());
+        return $tmp;
     }
 
     /**

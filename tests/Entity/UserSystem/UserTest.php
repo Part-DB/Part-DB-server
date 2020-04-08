@@ -58,6 +58,9 @@ class UserTest extends TestCase
 
         $this->assertSame('John Doe', $user->getFullName(false));
         $this->assertSame('John Doe (@username)', $user->getFullName(true));
+
+        $user->setLastName('');
+        $this->assertSame('John (@username)', $user->getFullName(true));
     }
 
     public function googleAuthenticatorEnabledDataProvider(): array
