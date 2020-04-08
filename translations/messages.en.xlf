@@ -8238,5 +8238,11 @@ Element 3</target>
         <target>Two Factor Reset by Administrator</target>
       </segment>
     </unit>
+    <unit id="vlslklu" name="entity.duplicate">
+      <segment>
+        <source>entity.duplicate</source>
+        <target>Duplicate element</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
