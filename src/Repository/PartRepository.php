@@ -50,12 +50,12 @@ class PartRepository extends NamedDBElementRepository
     /**
      * Gets the summed up instock of all parts (only parts without an measurent unit).
      *
-     * @return string
+     * @return float
      *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function getPartsInstockSum(): string
+    public function getPartsInstockSum(): float
     {
         $qb = new QueryBuilder($this->getEntityManager());
         $qb->select('SUM(part_lot.amount)')
@@ -65,7 +65,7 @@ class PartRepository extends NamedDBElementRepository
 
         $query = $qb->getQuery();
 
-        return $query->getSingleScalarResult();
+        return (float) ($query->getSingleScalarResult() ?? 0.0);
     }
 
     /**
@@ -86,6 +86,6 @@ class PartRepository extends NamedDBElementRepository
 
         $query = $qb->getQuery();
 
-        return (int) $query->getSingleScalarResult();
+        return (int) ($query->getSingleScalarResult() ?? 0);
     }
 }
