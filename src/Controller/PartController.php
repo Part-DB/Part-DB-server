@@ -244,7 +244,7 @@ class PartController extends AbstractController
         }
 
         $fid = $request->get('footprint', null);
-        $footprint = $fid ? $em->find(Footprint::class, $cid) : null;
+        $footprint = $fid ? $em->find(Footprint::class, $fid) : null;
         if (null !== $footprint && null === $new_part->getFootprint()) {
             $new_part->setFootprint($footprint);
         }
