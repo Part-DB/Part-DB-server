@@ -59,15 +59,15 @@ class U2FKey implements TwoFactorKeyInterface
     use TimestampTrait;
 
     /**
-     * @ORM\Column(type="string", length=64)
-     *
+     * We have to restrict the length here, as InnoDB only supports key index with max. 767 Bytes.
+     * Max length of keyhandles should be 128. (According to U2F_MAX_KH_SIZE in FIDO example C code).
+     * @ORM\Column(type="string", length=128)
      * @var string
      **/
     public $keyHandle;
 
     /**
      * @ORM\Column(type="string")
-     *
      * @var string
      **/
     public $publicKey;
