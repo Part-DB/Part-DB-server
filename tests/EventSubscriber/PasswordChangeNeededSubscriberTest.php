@@ -45,7 +45,7 @@ namespace App\Tests\EventSubscriber;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\U2FKey;
 use App\Entity\UserSystem\User;
-use App\EventSubscriber\PasswordChangeNeededSubscriber;
+use App\EventSubscriber\UserSystem\PasswordChangeNeededSubscriber;
 use PHPUnit\Framework\TestCase;
 
 class PasswordChangeNeededSubscriberTest extends TestCase
@@ -57,11 +57,11 @@ class PasswordChangeNeededSubscriberTest extends TestCase
 
         //A user without a group must not redirect
         $user->setGroup(null);
-        $this->assertFalse(PasswordChangeNeededSubscriber::TFARedirectNeeded($user));
+        $this->assertFalse(\App\EventSubscriber\UserSystem\PasswordChangeNeededSubscriber::TFARedirectNeeded($user));
 
         //When the group does not enforce the redirect the user must not be redirected
         $user->setGroup($group);
-        $this->assertFalse(PasswordChangeNeededSubscriber::TFARedirectNeeded($user));
+        $this->assertFalse(\App\EventSubscriber\UserSystem\PasswordChangeNeededSubscriber::TFARedirectNeeded($user));
 
         //The user must be redirected if the group enforces 2FA and it does not have a method
         $group->setEnforce2FA(true);

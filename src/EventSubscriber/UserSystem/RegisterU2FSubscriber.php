@@ -40,7 +40,7 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\EventSubscriber;
+namespace App\EventSubscriber\UserSystem;
 
 use App\Entity\UserSystem\U2FKey;
 use App\Entity\UserSystem\User;
@@ -55,7 +55,11 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-final class U2FRegistrationSubscriber implements EventSubscriberInterface
+/**
+ * This subscriber is used to write U2F keys to DB, after user added them via GUI.
+ * @package App\EventSubscriber\UserSystem
+ */
+final class RegisterU2FSubscriber implements EventSubscriberInterface
 {
     private $em;
 

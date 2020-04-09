@@ -47,6 +47,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
+/**
+ * This subscriber sets an Header in Debug mode that signals the Symfony Profiler to also update on Ajax requests.
+ * @package App\EventSubscriber
+ */
 final class SymfonyDebugToolbarSubscriber implements EventSubscriberInterface
 {
     private $kernel_debug;

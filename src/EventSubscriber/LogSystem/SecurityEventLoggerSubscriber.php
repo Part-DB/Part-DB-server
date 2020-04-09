@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace App\EventSubscriber;
+namespace App\EventSubscriber\LogSystem;
 
 
 use App\Entity\LogSystem\SecurityEventLogEntry;
@@ -29,6 +29,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+/**
+ * This subscriber writes entries to log if an security related event happens (e.g. the user changes its password).
+ * @package App\EventSubscriber\LogSystem
+ */
 final class SecurityEventLoggerSubscriber implements EventSubscriberInterface
 {
 

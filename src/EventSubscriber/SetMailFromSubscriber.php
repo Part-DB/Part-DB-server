@@ -42,56 +42,41 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
-use App\Entity\UserSystem\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Mailer\Event\MessageEvent;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 
-final class LogoutOnDisabledUserListener implements EventSubscriberInterface
+/**
+ * This subscriber set the "From" field for all sent email, based on the global configured sender name and email.
+ * @package App\EventSubscriber
+ */
+final class SetMailFromSubscriber implements EventSubscriberInterface
 {
-    private $security;
-    private $urlGenerator;
+    private $email;
+    private $name;
 
-    public function __construct(Security $security, UrlGeneratorInterface $urlGenerator)
+    public function __construct(string $email, string $name)
     {
-        $this->security = $security;
-
-        $this->urlGenerator = $urlGenerator;
+        $this->email = $email;
+        $this->name = $name;
     }
 
-    public function onRequest(RequestEvent $event): void
+    public function onMessage(MessageEvent $event): void
     {
-        $user = $this->security->getUser();
-        if ($user instanceof User && $user->isDisabled()) {
-            //Redirect to login
-            $response = new RedirectResponse($this->urlGenerator->generate('logout'));
-            $event->setResponse($response);
+        $address = new Address($this->email, $this->name);
+        $event->getEnvelope()->setSender($address);
+        $email = $event->getMessage();
+        if ($email instanceof Email) {
+            $email->from($address);
         }
     }
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * The array keys are event names and the value can be:
-     *
-     *  * The method name to call (priority defaults to 0)
-     *  * An array composed of the method name to call and the priority
-     *  * An array of arrays composed of the method names to call and respective
-     *    priorities, or 0 if unset
-     *
-     * For instance:
-     *
-     *  * ['eventName' => 'methodName']
-     *  * ['eventName' => ['methodName', $priority]]
-     *  * ['eventName' => [['methodName1', $priority], ['methodName2']]]
-     *
-     * @return array The event names to listen to
-     */
     public static function getSubscribedEvents()
     {
-        return [KernelEvents::REQUEST => 'onRequest'];
+        return [
+            // should be the last one to allow header changes by other listeners first
+            MessageEvent::class => ['onMessage'],
+        ];
     }
 }

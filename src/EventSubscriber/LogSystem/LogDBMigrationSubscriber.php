@@ -40,7 +40,7 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\EventSubscriber;
+namespace App\EventSubscriber\LogSystem;
 
 use App\Entity\LogSystem\DatabaseUpdatedLogEntry;
 use App\Services\LogSystem\EventLogger;
@@ -48,7 +48,11 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\Migrations\Event\MigrationsEventArgs;
 use Doctrine\Migrations\Events;
 
-class MigrationListener implements EventSubscriber
+/**
+ * This subscriber logs databaseMigrations to Event log.
+ * @package App\EventSubscriber
+ */
+class LogDBMigrationSubscriber implements EventSubscriber
 {
     protected $old_version = null;
     protected $new_version = null;

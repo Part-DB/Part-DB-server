@@ -40,7 +40,7 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\EventSubscriber;
+namespace App\EventSubscriber\LogSystem;
 
 use App\Entity\LogSystem\UserLogoutLogEntry;
 use App\Entity\UserSystem\User;
@@ -50,7 +50,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Logout\LogoutHandlerInterface;
 
-class LogoutListener implements LogoutHandlerInterface
+/**
+ * This handler logs to event log, if a user logs out.
+ * @package App\EventSubscriber\LogSystem
+ */
+class LogoutLoggerHandler implements LogoutHandlerInterface
 {
     protected $logger;
     protected $gpdr_compliance;

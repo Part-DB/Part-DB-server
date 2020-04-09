@@ -40,47 +40,46 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\EventSubscriber;
+namespace App\EventSubscriber\UserSystem;
 
+use App\Entity\LogSystem\UserLoginLogEntry;
 use App\Entity\UserSystem\User;
+use App\Services\LogSystem\EventLogger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\ControllerEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Security\Http\SecurityEvents;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * The purpose of this event listener is to set the timezone to the one preferred by the user.
+ * This event listener shows an login successful flash to the user after login and write the login to event log.
  */
-final class TimezoneListener implements EventSubscriberInterface
+final class LoginSuccessSubscriber implements EventSubscriberInterface
 {
-    private $default_timezone;
-    private $security;
+    private $translator;
+    private $flashBag;
+    private $eventLogger;
+    private $gpdr_compliance;
 
-    public function __construct(string $timezone, Security $security)
+    public function __construct(TranslatorInterface $translator, FlashBagInterface $flashBag, EventLogger $eventLogger, bool $gpdr_compliance)
     {
-        $this->default_timezone = $timezone;
-        $this->security = $security;
+        $this->translator = $translator;
+        $this->flashBag = $flashBag;
+        $this->eventLogger = $eventLogger;
+        $this->gpdr_compliance = $gpdr_compliance;
     }
 
-    public function setTimeZone(ControllerEvent $event): void
+    public function onLogin(InteractiveLoginEvent $event): void
     {
-        $timezone = null;
-
-        //Check if the user has set a timezone
-        $user = $this->security->getUser();
-        if ($user instanceof User && ! empty($user->getTimezone())) {
-            $timezone = $user->getTimezone();
+        $ip = $event->getRequest()->getClientIp();
+        $log = new UserLoginLogEntry($ip, $this->gpdr_compliance);
+        $user = $event->getAuthenticationToken()->getUser();
+        if ($user instanceof User) {
+            $log->setTargetElement($user);
         }
+        $this->eventLogger->logAndFlush($log);
 
-        //Fill with default value if needed
-        if (null === $timezone && ! empty($this->default_timezone)) {
-            $timezone = $this->default_timezone;
-        }
-
-        //If timezone was configured anywhere set it, otherwise just use the one from php.ini
-        if (null !== $timezone) {
-            date_default_timezone_set($timezone);
-        }
+        $this->flashBag->add('notice', $this->translator->trans('flash.login_successful'));
     }
 
     /**
@@ -103,9 +102,6 @@ final class TimezoneListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        //Set the timezone shortly before executing the controller
-        return [
-            KernelEvents::CONTROLLER => 'setTimeZone',
-        ];
+        return [SecurityEvents::INTERACTIVE_LOGIN => 'onLogin'];
     }
 }

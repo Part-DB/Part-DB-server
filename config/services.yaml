@@ -48,7 +48,7 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    App\EventSubscriber\MailFromListener:
+    App\EventSubscriber\SetMailFromSubscriber:
         tags: ['kernel.event_subscriber']
         arguments:
             $email: '%sender_email%'
@@ -75,7 +75,7 @@ services:
         tags:
             - { name: "doctrine.orm.entity_listener" }
 
-    App\EventSubscriber\EventLoggerSubscriber:
+    App\EventSubscriber\LogSystem\EventLoggerSubscriber:
         arguments:
             $save_changed_fields: '%env(bool:HISTORY_SAVE_CHANGED_FIELDS)%'
             $save_changed_data: '%env(bool:HISTORY_SAVE_CHANGED_DATA)%'
@@ -83,7 +83,7 @@ services:
         tags:
             - { name: 'doctrine.event_subscriber' }
 
-    App\EventSubscriber\MigrationListener:
+    App\EventSubscriber\LogSystem\LogDBMigrationSubscriber:
         tags:
             - { name: 'doctrine.event_subscriber' }
 
@@ -138,7 +138,7 @@ services:
         arguments:
             $demo_mode: '%demo_mode%'
 
-    App\EventSubscriber\TimezoneListener:
+    App\EventSubscriber\UserSystem\SetUserTimezoneSubscriber:
         arguments:
             $timezone: '%timezone%'
 
