@@ -73,7 +73,7 @@ class PartFixtures extends Fixture
         /** Part with orderdetails, storelocations and Attachments */
         $part = new Part();
         $part->setFavorite(true);
-        $part->setName('Part 2');
+        $part->setName('Part 3');
         $part->setCategory($manager->find(Category::class, 1));
         $partLot1 = new PartLot();
         $partLot1->setAmount(1.0);
