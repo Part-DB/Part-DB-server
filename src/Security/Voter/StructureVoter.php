@@ -59,7 +59,7 @@ use function is_object;
 class StructureVoter extends ExtendedVoter
 {
     protected const OBJ_PERM_MAP = [
-        AttachmentType::class => 'attachment_type',
+        AttachmentType::class => 'attachment_types',
         Category::class => 'categories',
         Device::class => 'devices',
         Footprint::class => 'footprints',
