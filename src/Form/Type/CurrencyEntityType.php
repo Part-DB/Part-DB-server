@@ -84,7 +84,7 @@ class CurrencyEntityType extends StructuralEntityType
         });
     }
 
-    public function generateChoiceLabels(AbstractStructuralDBElement $choice, $key, $value): string
+    public function generateChoiceLabels(AbstractStructuralDBElement $choice, $key, $value, $options): string
     {
         //Similar to StructuralEntityType, but we use the currency symbol instead if available
 
@@ -93,12 +93,12 @@ class CurrencyEntityType extends StructuralEntityType
         }
 
         /** @var AbstractStructuralDBElement|null $parent */
-        $parent = $this->options['subentities_of'];
+        $parent = $options['subentities_of'];
 
         /*** @var Currency $choice */
         $level = $choice->getLevel();
         //If our base entity is not the root level, we need to change the level, to get zero position
-        if (null !== $this->options['subentities_of']) {
+        if (null !== $options['subentities_of']) {
             $level -= $parent->getLevel() - 1;
         }
 
@@ -112,7 +112,7 @@ class CurrencyEntityType extends StructuralEntityType
         return $tmp;
     }
 
-    protected function generateChoiceAttr(AbstractStructuralDBElement $choice, $key, $value): array
+    protected function generateChoiceAttr(AbstractStructuralDBElement $choice, $key, $value, $options): array
     {
         /** @var Currency $choice */
         $tmp = [];
@@ -123,7 +123,7 @@ class CurrencyEntityType extends StructuralEntityType
         }
 
         //Disable attribute if the choice is marked as not selectable
-        if ($this->options['disable_not_selectable'] && $choice->isNotSelectable()) {
+        if ($options['disable_not_selectable'] && $choice->isNotSelectable()) {
             $tmp += ['disabled' => 'disabled'];
         }
 

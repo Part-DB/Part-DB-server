@@ -67,7 +67,7 @@ use Symfony\Component\Validator\Constraints\Choice;
 class StructuralEntityType extends AbstractType
 {
     protected $em;
-    protected $options;
+
     /**
      * @var NodesListBuilder
      */
@@ -82,34 +82,38 @@ class StructuralEntityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addModelTransformer(new CallbackTransformer(
-            function ($value) use ($options) {
-                return $this->transform($value, $options);
-            }, function ($value) use ($options) {
-                return $this->reverseTransform($value, $options);
-            }));
+                                          function ($value) use ($options) {
+                                              return $this->transform($value, $options);
+                                          }, function ($value) use ($options) {
+                                          return $this->reverseTransform($value, $options);
+                                      }));
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired(['class']);
         $resolver->setDefaults([
-            'show_fullpath_in_subtext' => true, //When this is enabled, the full path will be shown in subtext
-            'subentities_of' => null,   //Only show entities with the given parent class
-            'disable_not_selectable' => false,  //Disable entries with not selectable property
-            'choice_value' => 'id', //Use the element id as option value and for comparing items
-            'choice_loader' => function (Options $options) {
-                return new CallbackChoiceLoader(function () use ($options) {
-                    return $this->getEntries($options);
-                });
-            },
-            'choice_label' => function ($choice, $key, $value) {
-                return $this->generateChoiceLabels($choice, $key, $value);
-            },
-            'choice_attr' => function ($choice, $key, $value) {
-                return $this->generateChoiceAttr($choice, $key, $value);
-            },
-            'choice_translation_domain' => false, //Don't translate the entity names
-        ]);
+                                   'show_fullpath_in_subtext' => true, //When this is enabled, the full path will be shown in subtext
+                                   'subentities_of' => null,   //Only show entities with the given parent class
+                                   'disable_not_selectable' => false,  //Disable entries with not selectable property
+                                   'choice_value' => 'id', //Use the element id as option value and for comparing items
+                                   'choice_loader' => function (Options $options) {
+                                       return new CallbackChoiceLoader(function () use ($options) {
+                                           return $this->getEntries($options);
+                                       });
+                                   },
+                                   'choice_label' => function (Options $options) {
+                                       return function ($choice, $key, $value) use ($options) {
+                                           return $this->generateChoiceLabels($choice, $key, $value, $options);
+                                       };
+                                   },
+                                   'choice_attr' => function (Options $options) {
+                                       return function ($choice, $key, $value) use ($options) {
+                                           return $this->generateChoiceAttr($choice, $key, $value, $options);
+                                       };
+                                   },
+                                   'choice_translation_domain' => false, //Don't translate the entity names
+                               ]);
 
         $resolver->setDefault('empty_message', null);
 
@@ -133,8 +137,6 @@ class StructuralEntityType extends AbstractType
      */
     public function getEntries(Options $options): array
     {
-        $this->options = $options;
-
         return $this->builder->typeToNodesList($options['class'], null);
     }
 
@@ -240,16 +242,16 @@ class StructuralEntityType extends AbstractType
         return $this->em->find($options['class'], $value->getID());
     }
 
-    protected function generateChoiceAttr(AbstractStructuralDBElement $choice, $key, $value): array
+    protected function generateChoiceAttr(AbstractStructuralDBElement $choice, $key, $value, $options): array
     {
         $tmp = [];
 
-        if ($this->options['show_fullpath_in_subtext'] && null !== $choice->getParent()) {
+        if ($options['show_fullpath_in_subtext'] && null !== $choice->getParent()) {
             $tmp += ['data-subtext' => $choice->getParent()->getFullPath()];
         }
 
         //Disable attribute if the choice is marked as not selectable
-        if ($this->options['disable_not_selectable'] && $choice->isNotSelectable()) {
+        if ($options['disable_not_selectable'] && $choice->isNotSelectable()) {
             $tmp += ['disabled' => 'disabled'];
         }
 
@@ -260,15 +262,15 @@ class StructuralEntityType extends AbstractType
         return $tmp;
     }
 
-    protected function generateChoiceLabels(AbstractStructuralDBElement $choice, $key, $value): string
+    protected function generateChoiceLabels(AbstractStructuralDBElement $choice, $key, $value, $options): string
     {
         /** @var AbstractStructuralDBElement|null $parent */
-        $parent = $this->options['subentities_of'];
+        $parent = $options['subentities_of'];
 
         /*** @var AbstractStructuralDBElement $choice */
         $level = $choice->getLevel();
         //If our base entity is not the root level, we need to change the level, to get zero position
-        if (null !== $this->options['subentities_of']) {
+        if (null !== $options['subentities_of']) {
             $level -= $parent->getLevel() - 1;
         }
 
