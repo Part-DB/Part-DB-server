@@ -8234,5 +8234,17 @@
         <target>entity.duplicate</target>
       </segment>
     </unit>
+    <unit id="bJ.EAvM" name="log.type.user_not_allowed">
+      <segment state="initial">
+        <source>log.type.user_not_allowed</source>
+        <target>log.type.user_not_allowed</target>
+      </segment>
+    </unit>
+    <unit id="Z28oTau" name="log.database_updated.success">
+      <segment state="initial">
+        <source>log.database_updated.success</source>
+        <target>log.database_updated.success</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
