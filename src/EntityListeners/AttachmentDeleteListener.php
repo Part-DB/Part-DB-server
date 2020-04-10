@@ -77,12 +77,21 @@ class AttachmentDeleteListener
     public function preUpdateHandler(Attachment $attachment, PreUpdateEventArgs $event): void
     {
         if ($event->hasChangedField('path')) {
+            $old_path = $event->getOldValue('path');
+
             //Dont delete file if the attachment uses a builtin ressource:
-            if (Attachment::checkIfBuiltin($event->getOldValue('path'))) {
+            if (Attachment::checkIfBuiltin($old_path)) {
                 return;
             }
 
-            $file = new SplFileInfo($this->pathResolver->placeholderToRealPath($event->getOldValue('path')));
+            $real_path = $this->pathResolver->placeholderToRealPath($old_path);
+
+            //If the attachment does not point to a valid file, ignore it!
+            if ($real_path === null) {
+                return;
+            }
+
+            $file = new SplFileInfo($real_path);
             $this->attachmentReverseSearch->deleteIfNotUsed($file);
         }
     }

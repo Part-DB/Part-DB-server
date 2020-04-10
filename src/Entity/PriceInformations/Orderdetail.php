@@ -59,6 +59,7 @@ use App\Entity\Parts\Supplier;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -67,6 +68,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table("`orderdetails`")
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity({"supplierpartnr", "supplier", "part"})
  */
 class Orderdetail extends AbstractDBElement implements TimeStampableInterface, NamedElementInterface
 {
@@ -361,9 +363,6 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getName(): string
     {
         return $this->getSupplierPartNr();

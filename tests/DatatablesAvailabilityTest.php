@@ -40,16 +40,22 @@ class DatatablesAvailabilityTest extends WebTestCase
             'PHP_AUTH_USER' => 'admin',
             'PHP_AUTH_PW' => 'test',
         ]);
-
+        $client->catchExceptions(false);
         $client->request('GET', $url);
         $this->assertTrue($client->getResponse()->isSuccessful(), 'Request not successful. Status code is '.$client->getResponse()->getStatusCode());
 
+        static::ensureKernelShutdown();
+        $client = static::createClient([], [
+            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_PW' => 'test',
+        ]);
+        $client->catchExceptions(false);
         $client->request('POST', $url, ['_dt' => 'dt']);
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertJson($client->getResponse()->getContent());
     }
 
-    public function urlProvider()
+    public function urlProvider(): ?\Generator
     {
         //Part lists
         yield ['/category/1/parts'];

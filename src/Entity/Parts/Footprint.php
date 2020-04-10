@@ -73,6 +73,7 @@ class Footprint extends AbstractPartsContainingDBElement
 
     /**
      * @ORM\OneToMany(targetEntity="Footprint", mappedBy="parent")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $children;
 
@@ -81,8 +82,9 @@ class Footprint extends AbstractPartsContainingDBElement
      */
     protected $parts;
     /**
-     * @var Collection|FootprintAttachment[]
+     * @var Collection<int, FootprintAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\FootprintAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"name" = "ASC"})
      * @Assert\Valid()
      */
     protected $attachments;
@@ -94,9 +96,9 @@ class Footprint extends AbstractPartsContainingDBElement
      */
     protected $footprint_3d;
 
-    /** @var FootprintParameter[]
+    /** @var Collection<int, FootprintParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\FootprintParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})@ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
+     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
      */
     protected $parameters;

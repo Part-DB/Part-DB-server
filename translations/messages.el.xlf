@@ -276,7 +276,6 @@
     <unit id="TA1hSYV" name="admin.parameters">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:90</note>
-        <note category="state" priority="1">new</note>
       </notes>
       <segment state="initial">
         <source>admin.parameters</source>
@@ -921,7 +920,6 @@
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:26</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:26</note>
-        <note category="state" priority="1">new</note>
       </notes>
       <segment state="initial">
         <source>specification.create</source>
@@ -932,7 +930,6 @@
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:31</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:31</note>
-        <note category="state" priority="1">new</note>
       </notes>
       <segment state="initial">
         <source>parameter.delete.confirm</source>
@@ -1145,7 +1142,6 @@
     <unit id="PbJl5cf" name="specifications.value">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\helper.twig:121</note>
-        <note category="state" priority="1">new</note>
       </notes>
       <segment state="initial">
         <source>specifications.value</source>
@@ -1554,7 +1550,6 @@
     <unit id="fLuFk_2" name="part.edit.tab.specifications">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:58</note>
-        <note category="state" priority="1">new</note>
       </notes>
       <segment state="initial">
         <source>part.edit.tab.specifications</source>
@@ -1674,7 +1669,6 @@
     <unit id="Y2.Edoh" name="part.info.specifications">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:64</note>
-        <note category="state" priority="1">new</note>
       </notes>
       <segment state="initial">
         <source>part.info.specifications</source>
@@ -2208,7 +2202,6 @@
     <unit id="PYWb1Wy" name="parameters.extracted_from_description">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:10</note>
-        <note category="state" priority="1">new</note>
       </notes>
       <segment state="initial">
         <source>parameters.extracted_from_description</source>
@@ -2218,7 +2211,6 @@
     <unit id="xuDIeTd" name="parameters.auto_extracted_from_comment">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:15</note>
-        <note category="state" priority="1">new</note>
       </notes>
       <segment state="initial">
         <source>parameters.auto_extracted_from_comment</source>
@@ -3631,7 +3623,6 @@
     <unit id="V2u6xXi" name="tags.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:23</note>
-        <note category="state" priority="1">new</note>
       </notes>
       <segment state="initial">
         <source>tags.label</source>
@@ -4249,7 +4240,7 @@
     </unit>
     <unit id="eTGx8tR" name="log.target_deleted">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\LogEntryTargetColumn.php:120</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\LogEntryTargetColumn.php:123</note>
         <note priority="1">Part-DB1\src\DataTables\Column\LogEntryTargetColumn.php:119</note>
       </notes>
       <segment state="initial">
@@ -4362,7 +4353,7 @@
     </unit>
     <unit id="b4r5dEC" name="log.extra">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:218</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:219</note>
         <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:218</note>
         <note priority="1">new</note>
       </notes>
@@ -4857,7 +4848,7 @@
     </unit>
     <unit id="o.P_V00" name="parameters.name.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:40</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:41</note>
       </notes>
       <segment state="initial">
         <source>parameters.name.placeholder</source>
@@ -4866,7 +4857,7 @@
     </unit>
     <unit id="3LWIDYM" name="parameters.symbol.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:48</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:50</note>
       </notes>
       <segment state="initial">
         <source>parameters.symbol.placeholder</source>
@@ -4875,7 +4866,7 @@
     </unit>
     <unit id="w7bfLKj" name="parameters.text.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:57</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:60</note>
       </notes>
       <segment state="initial">
         <source>parameters.text.placeholder</source>
@@ -4884,7 +4875,7 @@
     </unit>
     <unit id="6utToZ6" name="parameters.max.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:67</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:71</note>
       </notes>
       <segment state="initial">
         <source>parameters.max.placeholder</source>
@@ -4893,7 +4884,7 @@
     </unit>
     <unit id="BypUOrf" name="parameters.min.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:77</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:82</note>
       </notes>
       <segment state="initial">
         <source>parameters.min.placeholder</source>
@@ -4902,7 +4893,7 @@
     </unit>
     <unit id="VmYIvYF" name="parameters.typical.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:87</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:93</note>
       </notes>
       <segment state="initial">
         <source>parameters.typical.placeholder</source>
@@ -4911,7 +4902,7 @@
     </unit>
     <unit id="kvhGoo0" name="parameters.unit.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:96</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:103</note>
       </notes>
       <segment state="initial">
         <source>parameters.unit.placeholder</source>
@@ -4920,8 +4911,7 @@
     </unit>
     <unit id="kL5OSi8" name="parameter.group.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:106</note>
-        <note category="state" priority="1">new</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:114</note>
       </notes>
       <segment state="initial">
         <source>parameter.group.placeholder</source>
@@ -5178,16 +5168,6 @@
       <segment state="initial">
         <source>part.edit.description.placeholder</source>
         <target>part.edit.description.placeholder</target>
-      </segment>
-    </unit>
-    <unit id=".V3Lfkf" name="part.editmininstock.placeholder">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:124</note>
-        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:121</note>
-      </notes>
-      <segment state="initial">
-        <source>part.editmininstock.placeholder</source>
-        <target>part.editmininstock.placeholder</target>
       </segment>
     </unit>
     <unit id="6QS4K7r" name="part_lot.edit.description">
@@ -5490,7 +5470,6 @@
     <unit id="CxpVbHB" name="parameter.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:95</note>
-        <note category="state" priority="1">new</note>
       </notes>
       <segment state="initial">
         <source>parameter.label</source>
@@ -5737,6 +5716,16 @@
       <segment state="initial">
         <source>entity.tree.new</source>
         <target>entity.tree.new</target>
+      </segment>
+    </unit>
+    <unit id=".V3Lfkf" name="part.editmininstock.placeholder">
+      <notes>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:121</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="initial">
+        <source>part.editmininstock.placeholder</source>
+        <target>part.editmininstock.placeholder</target>
       </segment>
     </unit>
     <unit id="CPJxiHz" name="M">
@@ -8147,6 +8136,114 @@
       <segment state="initial">
         <source>log.type.</source>
         <target>log.type.</target>
+      </segment>
+    </unit>
+    <unit id="Msykg.Z" name="entity.info.attachments.tab">
+      <segment state="initial">
+        <source>entity.info.attachments.tab</source>
+        <target>entity.info.attachments.tab</target>
+      </segment>
+    </unit>
+    <unit id="8VfTCPf" name="entity.info.parameters.tab">
+      <segment state="initial">
+        <source>entity.info.parameters.tab</source>
+        <target>entity.info.parameters.tab</target>
+      </segment>
+    </unit>
+    <unit id="gWj51jS" name="attachment.preview">
+      <segment state="initial">
+        <source>attachment.preview</source>
+        <target>attachment.preview</target>
+      </segment>
+    </unit>
+    <unit id="WjnV7iC" name="tfa_u2f.key_added_successful">
+      <segment state="initial">
+        <source>tfa_u2f.key_added_successful</source>
+        <target>tfa_u2f.key_added_successful</target>
+      </segment>
+    </unit>
+    <unit id="47ienTP" name="Username">
+      <segment state="initial">
+        <source>Username</source>
+        <target>Username</target>
+      </segment>
+    </unit>
+    <unit id="dVu9PKe" name="log.type.security.google_disabled">
+      <segment state="initial">
+        <source>log.type.security.google_disabled</source>
+        <target>log.type.security.google_disabled</target>
+      </segment>
+    </unit>
+    <unit id="HfccXTr" name="log.type.security.u2f_removed">
+      <segment state="initial">
+        <source>log.type.security.u2f_removed</source>
+        <target>log.type.security.u2f_removed</target>
+      </segment>
+    </unit>
+    <unit id="zl1WXuM" name="log.type.security.u2f_added">
+      <segment state="initial">
+        <source>log.type.security.u2f_added</source>
+        <target>log.type.security.u2f_added</target>
+      </segment>
+    </unit>
+    <unit id="9_jzHX6" name="log.type.security.backup_keys_reset">
+      <segment state="initial">
+        <source>log.type.security.backup_keys_reset</source>
+        <target>log.type.security.backup_keys_reset</target>
+      </segment>
+    </unit>
+    <unit id="h6zwXNp" name="log.type.security.google_enabled">
+      <segment state="initial">
+        <source>log.type.security.google_enabled</source>
+        <target>log.type.security.google_enabled</target>
+      </segment>
+    </unit>
+    <unit id="XbsoHIr" name="log.type.security.password_changed">
+      <segment state="initial">
+        <source>log.type.security.password_changed</source>
+        <target>log.type.security.password_changed</target>
+      </segment>
+    </unit>
+    <unit id="2q0_b3P" name="log.type.security.trusted_device_reset">
+      <segment state="initial">
+        <source>log.type.security.trusted_device_reset</source>
+        <target>log.type.security.trusted_device_reset</target>
+      </segment>
+    </unit>
+    <unit id="n8flY2e" name="log.type.collection_element_deleted">
+      <segment state="initial">
+        <source>log.type.collection_element_deleted</source>
+        <target>log.type.collection_element_deleted</target>
+      </segment>
+    </unit>
+    <unit id="yNm8PCN" name="log.type.security.password_reset">
+      <segment state="initial">
+        <source>log.type.security.password_reset</source>
+        <target>log.type.security.password_reset</target>
+      </segment>
+    </unit>
+    <unit id="CsjgnTI" name="log.type.security.2fa_admin_reset">
+      <segment state="initial">
+        <source>log.type.security.2fa_admin_reset</source>
+        <target>log.type.security.2fa_admin_reset</target>
+      </segment>
+    </unit>
+    <unit id="vlslklu" name="entity.duplicate">
+      <segment state="initial">
+        <source>entity.duplicate</source>
+        <target>entity.duplicate</target>
+      </segment>
+    </unit>
+    <unit id="bJ.EAvM" name="log.type.user_not_allowed">
+      <segment state="initial">
+        <source>log.type.user_not_allowed</source>
+        <target>log.type.user_not_allowed</target>
+      </segment>
+    </unit>
+    <unit id="Z28oTau" name="log.database_updated.success">
+      <segment state="initial">
+        <source>log.database_updated.success</source>
+        <target>log.database_updated.success</target>
       </segment>
     </unit>
   </file>

@@ -26,7 +26,7 @@
         //Determine the table, so we can determine, how many entries there are already.
         $holder = $(btn).siblings("table");
 
-        var index = $holder.find(":input").length;
+        var index = $holder.children("tbody").children("tr").length;
         var newForm = $holder.data("prototype");
 
         //Increase the index
@@ -35,9 +35,6 @@
         //Determine the id of the fields we later update
         var price_related_id = $("input[id$='price_related_quantity_value']", newForm).attr('id');
         var min_discount_id = $("input[id$='min_discount_quantity_value']", newForm).attr('id');
-
-        console.error(price_related_id);
-        console.error(min_discount_id);
 
         //Determine the new value for the min_discount_qty
         var new_min_amount = $("input[id$='min_discount_quantity_value']" , $holder).last().val();
@@ -73,7 +70,7 @@
         //Determine the table, so we can determine, how many entries there are already.
         $holder = $("#orderdetails_table");
 
-        var index = $holder.find(":input").length;
+        var index = $holder.children("tbody").children("tr").length;
         var newForm = $holder.data("prototype");
 
         //Increase the index

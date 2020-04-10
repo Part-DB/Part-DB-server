@@ -44,7 +44,7 @@ namespace App\DataFixtures;
 
 use App\Entity\UserSystem\Group;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class GroupFixtures extends Fixture
 {

@@ -52,6 +52,7 @@ namespace App\Entity\Parts;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
+use App\Entity\Attachments\PartAttachment;
 use App\Entity\Devices\Device;
 use App\Entity\Parameters\ParametersTrait;
 use App\Entity\Parameters\PartParameter;
@@ -63,6 +64,7 @@ use App\Entity\Parts\PartTraits\OrderTrait;
 use App\Security\Annotations\ColumnSecurity;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -90,10 +92,9 @@ class Part extends AttachmentContainingDBElement
      */
     protected $devices = [];
 
-    /** @var PartParameter[]
+    /** @var Collection<int, PartParameter>
      * @Assert\Valid()
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\PartParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      */
     protected $parameters;
@@ -117,8 +118,10 @@ class Part extends AttachmentContainingDBElement
     protected $name = '';
 
     /**
+     * @var Collection<int, PartAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\PartAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ColumnSecurity(type="collection", prefix="attachments")
+     * @ORM\OrderBy({"name" = "ASC"})
      * @Assert\Valid()
      */
     protected $attachments;

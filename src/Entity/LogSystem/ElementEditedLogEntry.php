@@ -84,11 +84,7 @@ class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterf
             return array_keys($this->getOldData());
         }
 
-        if (isset($this->extra['f'])) {
-            return $this->extra['f'];
-        }
-
-        return [];
+        return $this->extra['f'] ?? [];
     }
 
     /**

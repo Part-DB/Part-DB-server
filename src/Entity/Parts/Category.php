@@ -39,6 +39,7 @@ class Category extends AbstractPartsContainingDBElement
 {
     /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $children;
 
@@ -101,13 +102,14 @@ class Category extends AbstractPartsContainingDBElement
      */
     protected $default_comment = '';
     /**
-     * @var Collection|CategoryAttachment[]
+     * @var Collection<int, CategoryAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CategoryAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"name" = "ASC"})
      * @Assert\Valid()
      */
     protected $attachments;
 
-    /** @var CategoryParameter[]
+    /** @var Collection<int, CategoryParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\CategoryParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()

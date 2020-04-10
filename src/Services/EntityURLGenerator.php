@@ -94,12 +94,12 @@ class EntityURLGenerator
      * @param mixed  $entity The element for which the page should be generated
      * @param string $type   The page type. Currently supported: 'info', 'edit', 'create', 'clone', 'list'/'list_parts'
      *
-     * @return string the link to the desired page
+     * @return null|string the link to the desired page
      *
      * @throws EntityNotSupportedException thrown if the entity is not supported for the given type
      * @throws InvalidArgumentException    thrown if the givent type is not existing
      */
-    public function getURL($entity, string $type)
+    public function getURL($entity, string $type): ?string
     {
         switch ($type) {
             case 'info':
@@ -187,7 +187,7 @@ class EntityURLGenerator
         throw new EntityNotSupportedException('The given entity is not supported yet!');
     }
 
-    public function viewURL($entity): string
+    public function viewURL(Attachment $entity): ?string
     {
         if ($entity instanceof Attachment) {
             if ($entity->isExternal()) { //For external attachments, return the link to external path
@@ -201,7 +201,7 @@ class EntityURLGenerator
         throw new EntityNotSupportedException('The given entity is not supported yet!');
     }
 
-    public function downloadURL($entity): string
+    public function downloadURL($entity): ?string
     {
         if ($entity instanceof Attachment) {
             if ($entity->isExternal()) { //For external attachments, return the link to external path
@@ -383,7 +383,7 @@ class EntityURLGenerator
         //Check if we have an direct mapping for the given class
         if (! array_key_exists($class, $map)) {
             //Check if we need to check inheritance by looping through our map
-            foreach ($map as $key => $value) {
+            foreach (array_keys($map) as $key) {
                 if (is_a($entity, $key)) {
                     return $map[$key];
                 }

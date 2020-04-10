@@ -49,7 +49,6 @@ class RevertLogColumn extends AbstractColumn
 
     public function render($value, $context)
     {
-        $revertable = true;
         if (
             $context instanceof CollectionElementDeleted
             || ($context instanceof ElementDeletedLogEntry && $context->hasOldDataInformations())

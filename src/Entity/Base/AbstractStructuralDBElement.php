@@ -254,6 +254,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      * Get all sub elements of this element.
      *
      * @return Collection<static>|iterable all subelements as an array of objects (sorted by their full path)
+     * @psalm-return Collection<int, static>
      */
     public function getSubelements(): iterable
     {
@@ -262,6 +263,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
 
     /**
      * @return Collection<static>|iterable
+     * @psalm-return Collection<int, static>
      */
     public function getChildren(): iterable
     {

@@ -77,9 +77,10 @@ class EntityExporter
     }
 
     /**
-     * Exports an Entity or an array of entities to multiple file formats.
+     *  Exports an Entity or an array of entities to multiple file formats.
      *
      * @param Request $request the request that should be used for option resolving
+     * @param AbstractNamedDBElement|object[] $entity
      *
      * @return Response the generated response containing the exported data
      *

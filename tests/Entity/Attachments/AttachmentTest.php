@@ -145,7 +145,7 @@ class AttachmentTest extends TestCase
         $attachment->setElement($element);
     }
 
-    public function externalDataProvider()
+    public function externalDataProvider(): array
     {
         return [
             ['', false],
@@ -170,7 +170,7 @@ class AttachmentTest extends TestCase
         $this->assertSame($expected, $attachment->isExternal());
     }
 
-    public function extensionDataProvider()
+    public function extensionDataProvider(): array
     {
         return [
             ['%MEDIA%/foo/bar.txt', null, 'txt'],
@@ -197,7 +197,7 @@ class AttachmentTest extends TestCase
         $this->assertSame($expected, $attachment->getExtension());
     }
 
-    public function pictureDataProvider()
+    public function pictureDataProvider(): array
     {
         return [
             ['%MEDIA%/foo/bar.txt', false],
@@ -221,7 +221,7 @@ class AttachmentTest extends TestCase
         $this->assertSame($expected, $attachment->isPicture());
     }
 
-    public function builtinDataProvider()
+    public function builtinDataProvider(): array
     {
         return [
             ['', false],
@@ -243,7 +243,7 @@ class AttachmentTest extends TestCase
         $this->assertSame($expected, $attachment->isBuiltIn());
     }
 
-    public function hostDataProvider()
+    public function hostDataProvider(): array
     {
         return [
             ['%MEDIA%/foo/bar.txt', null],
@@ -262,7 +262,7 @@ class AttachmentTest extends TestCase
         $this->assertSame($expected, $attachment->getHost());
     }
 
-    public function filenameProvider()
+    public function filenameProvider(): array
     {
         return [
             ['%MEDIA%/foo/bar.txt', null, 'bar.txt'],

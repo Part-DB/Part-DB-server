@@ -44,11 +44,13 @@ namespace App\Entity\Attachments;
 
 use App\Entity\Parts\Footprint;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * A attachment attached to a footprint element.
  *
  * @ORM\Entity()
+ * @UniqueEntity({"name", "attachment_type", "element"})
  */
 class FootprintAttachment extends Attachment
 {

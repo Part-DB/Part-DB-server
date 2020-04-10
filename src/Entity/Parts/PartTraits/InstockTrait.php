@@ -57,6 +57,7 @@ trait InstockTrait
      * @ORM\OneToMany(targetEntity="PartLot", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      * @ColumnSecurity(type="collection", prefix="lots")
+     * @ORM\OrderBy({"amount" = "DESC"})
      */
     protected $partLots;
 

@@ -36,7 +36,7 @@
                 <h6>
                     {% if lot.expirationDate %}
                         <span class="badge badge-info" title="{% trans %}part_lots.expiration_date{% endtrans %}">
-                            <i class="fas fa-calendar-alt fa-fw"></i> {{ lot.expirationDate | format_datetime }}
+                            <i class="fas fa-calendar-alt fa-fw"></i> {{ lot.expirationDate | format_date() }}
                         </span>
                     {% endif %}
                     {% if lot.expired %}

@@ -61,17 +61,19 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         $url = '/en'.$url;
 
         //Try to access pages with admin, because he should be able to view every page!
+        static::ensureKernelShutdown();
         $client = static::createClient([], [
             'PHP_AUTH_USER' => 'admin',
             'PHP_AUTH_PW' => 'test',
         ]);
+        $client->catchExceptions(false);
 
         $client->request('GET', $url);
 
         $this->assertTrue($client->getResponse()->isSuccessful(), 'Request not successful. Status code is '.$client->getResponse()->getStatusCode());
     }
 
-    public function urlProvider()
+    public function urlProvider(): ?\Generator
     {
         //Homepage
         //yield ['/'];

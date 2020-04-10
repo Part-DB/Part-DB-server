@@ -45,7 +45,6 @@ namespace App\Form\AdminPages;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
-use App\Entity\Parameters\PartParameter;
 use App\Form\AttachmentFormType;
 use App\Form\ParameterType;
 use App\Form\Type\MasterPictureAttachmentType;
@@ -133,6 +132,7 @@ class BaseEntityAdminForm extends AbstractType
             'allow_add' => true,
             'allow_delete' => true,
             'label' => false,
+            'reindex_enable' => true,
             'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'entry_options' => [
                 'data_class' => $options['attachment_class'],
@@ -159,6 +159,7 @@ class BaseEntityAdminForm extends AbstractType
             'allow_add' => $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'allow_delete' => $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'reindex_enable' => true,
             'label' => false,
             'by_reference' => false,
             'prototype_data' => new $options['parameter_class'](),

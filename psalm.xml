@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <psalm
+        errorLevel="5"
     totallyTyped="false"
     resolveFromConfigFile="true"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -7,49 +8,49 @@
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
 >
     <projectFiles>
-        <directory name="src" />
+        <directory name="src"/>
         <ignoreFiles>
-            <directory name="vendor" />
+            <directory name="vendor"/>
         </ignoreFiles>
     </projectFiles>
 
     <issueHandlers>
-        <LessSpecificReturnType errorLevel="info" />
+        <LessSpecificReturnType errorLevel="info"/>
 
         <!-- level 3 issues - slightly lazy code writing, but provably low false-negatives -->
 
-        <DeprecatedMethod errorLevel="info" />
-        <DeprecatedProperty errorLevel="info" />
-        <DeprecatedClass errorLevel="info" />
-        <DeprecatedConstant errorLevel="info" />
-        <DeprecatedFunction errorLevel="info" />
-        <DeprecatedInterface errorLevel="info" />
-        <DeprecatedTrait errorLevel="info" />
+        <DeprecatedMethod errorLevel="info"/>
+        <DeprecatedProperty errorLevel="info"/>
+        <DeprecatedClass errorLevel="info"/>
+        <DeprecatedConstant errorLevel="info"/>
+        <DeprecatedFunction errorLevel="info"/>
+        <DeprecatedInterface errorLevel="info"/>
+        <DeprecatedTrait errorLevel="info"/>
 
-        <InternalMethod errorLevel="info" />
-        <InternalProperty errorLevel="info" />
-        <InternalClass errorLevel="info" />
+        <InternalMethod errorLevel="info"/>
+        <InternalProperty errorLevel="info"/>
+        <InternalClass errorLevel="info"/>
 
-        <MissingClosureReturnType errorLevel="info" />
-        <MissingReturnType errorLevel="info" />
-        <MissingPropertyType errorLevel="info" />
-        <InvalidDocblock errorLevel="info" />
-        <MisplacedRequiredParam errorLevel="info" />
+        <MissingClosureReturnType errorLevel="info"/>
+        <MissingReturnType errorLevel="info"/>
+        <MissingPropertyType errorLevel="info"/>
+        <InvalidDocblock errorLevel="info"/>
+        <MisplacedRequiredParam errorLevel="info"/>
 
-        <PropertyNotSetInConstructor errorLevel="info" />
-        <MissingConstructor errorLevel="info" />
-        <MissingClosureParamType errorLevel="info" />
-        <MissingParamType errorLevel="info" />
+        <PropertyNotSetInConstructor errorLevel="info"/>
+        <MissingConstructor errorLevel="info"/>
+        <MissingClosureParamType errorLevel="info"/>
+        <MissingParamType errorLevel="info"/>
 
-        <RedundantCondition errorLevel="info" />
+        <RedundantCondition errorLevel="info"/>
 
-        <DocblockTypeContradiction errorLevel="info" />
-        <RedundantConditionGivenDocblockType errorLevel="info" />
+        <DocblockTypeContradiction errorLevel="info"/>
+        <RedundantConditionGivenDocblockType errorLevel="info"/>
 
-        <UnresolvableInclude errorLevel="info" />
+        <UnresolvableInclude errorLevel="info"/>
 
-        <RawObjectIteration errorLevel="info" />
+        <RawObjectIteration errorLevel="info"/>
 
-        <InvalidStringClass errorLevel="info" />
+        <InvalidStringClass errorLevel="info"/>
     </issueHandlers>
-</psalm>
+<plugins><pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin"/></plugins></psalm>

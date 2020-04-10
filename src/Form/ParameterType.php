@@ -113,14 +113,14 @@ class ParameterType extends AbstractType
             'attr' => [
                 'placeholder' => 'parameter.group.placeholder',
                 'class' => 'form-control-sm',
-            ]
+            ],
         ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-                                   'data_class' => AbstractParameter::class,
-                               ]);
+            'data_class' => AbstractParameter::class,
+        ]);
     }
 }

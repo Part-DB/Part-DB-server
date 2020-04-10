@@ -43,7 +43,6 @@ declare(strict_types=1);
 namespace App\Tests\Entity\UserSystem;
 
 use App\Entity\UserSystem\PermissionsEmbed;
-use Doctrine\ORM\Mapping\Embedded;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
@@ -137,7 +136,7 @@ class PermissionsEmbedTest extends TestCase
         $embed->getPermissionValue('parts', 1);
     }
 
-    public function getStatesBINARY()
+    public function getStatesBINARY(): array
     {
         return [
             'ALLOW' => [PermissionsEmbed::ALLOW],
@@ -147,7 +146,7 @@ class PermissionsEmbedTest extends TestCase
         ];
     }
 
-    public function getStatesBOOL()
+    public function getStatesBOOL(): array
     {
         return [
             'ALLOW' => [true],

@@ -52,7 +52,6 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Form\AttachmentFormType;
-use App\Form\ParameterGroupType;
 use App\Form\ParameterType;
 use App\Form\Type\MasterPictureAttachmentType;
 use App\Form\Type\SIUnitType;
@@ -225,6 +224,7 @@ class PartBaseType extends AbstractType
             'entry_type' => PartLotType::class,
             'allow_add' => $this->security->isGranted('lots.create', $part),
             'allow_delete' => $this->security->isGranted('lots.delete', $part),
+            'reindex_enable' => true,
             'label' => false,
             'entry_options' => [
                 'measurement_unit' => $part->getPartUnit(),
@@ -238,6 +238,7 @@ class PartBaseType extends AbstractType
             'entry_type' => AttachmentFormType::class,
             'allow_add' => $this->security->isGranted('attachments.create', $part),
             'allow_delete' => $this->security->isGranted('attachments.delete', $part),
+            'reindex_enable' => true,
             'label' => false,
             'entry_options' => [
                 'data_class' => PartAttachment::class,
@@ -258,6 +259,7 @@ class PartBaseType extends AbstractType
             'entry_type' => OrderdetailType::class,
             'allow_add' => $this->security->isGranted('orderdetails.create', $part),
             'allow_delete' => $this->security->isGranted('orderdetails.delete', $part),
+            'reindex_enable' => true,
             'label' => false,
             'by_reference' => false,
             'prototype_data' => new Orderdetail(),
@@ -272,6 +274,7 @@ class PartBaseType extends AbstractType
             'allow_add' => $this->security->isGranted('parameters.create', $part),
             'allow_delete' => $this->security->isGranted('parameters.delete', $part),
             'label' => false,
+            'reindex_enable' => true,
             'by_reference' => false,
             'prototype_data' => new PartParameter(),
             'entry_options' => [

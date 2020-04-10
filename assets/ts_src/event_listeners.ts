@@ -110,9 +110,12 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
 });
 
 //Register bootstrap select picker
-$(document).on("ajaxUI:reload", function () {
+$(document).on("ajaxUI:reload ajaxUI:start", function () {
     //@ts-ignore
-    $(".selectpicker").selectpicker();
+    $(".selectpicker").selectpicker({
+        dropdownAlignRight: 'auto',
+        container: '#content',
+    });
 });
 
 //Use bootstrap tooltips for the most tooltips

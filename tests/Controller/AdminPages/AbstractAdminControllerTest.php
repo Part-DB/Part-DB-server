@@ -54,7 +54,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
     protected static $base_path = 'not_valid';
     protected static $entity_class = 'not valid';
 
-    public function readDataProvider()
+    public function readDataProvider(): array
     {
         return [
             ['noread', false],
@@ -79,6 +79,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
             'PHP_AUTH_PW' => 'test',
         ]);
 
+        $client->catchExceptions(false);
         if (false === $read) {
             $this->expectException(AccessDeniedException::class);
         }
@@ -86,7 +87,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
         $client->catchExceptions(false);
 
         //Test read/list access by access /new overview page
-        $crawler = $client->request('GET', static::$base_path.'/new');
+        $client->request('GET', static::$base_path.'/new');
         $this->assertFalse($client->getResponse()->isRedirect());
         $this->assertSame($read, $client->getResponse()->isSuccessful(), 'Controller was not successful!');
         $this->assertSame($read, ! $client->getResponse()->isForbidden(), 'Permission Checking not working!');
@@ -111,13 +112,13 @@ abstract class AbstractAdminControllerTest extends WebTestCase
         }
 
         //Test read/list access by access /new overview page
-        $crawler = $client->request('GET', static::$base_path.'/1');
+        $client->request('GET', static::$base_path.'/1');
         $this->assertFalse($client->getResponse()->isRedirect());
         $this->assertSame($read, $client->getResponse()->isSuccessful(), 'Controller was not successful!');
         $this->assertSame($read, ! $client->getResponse()->isForbidden(), 'Permission Checking not working!');
     }
 
-    public function deleteDataProvider()
+    public function deleteDataProvider(): array
     {
         return [
             ['noread', false],
@@ -147,7 +148,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
         }
 
         //Test read/list access by access /new overview page
-        $crawler = $client->request('DELETE', static::$base_path.'/7');
+        $client->request('DELETE', static::$base_path.'/7');
 
         //Page is redirected to '/new', when delete was successful
         $this->assertSame($delete, $client->getResponse()->isRedirect(static::$base_path.'/new'));

@@ -78,6 +78,7 @@ class Currency extends AbstractStructuralDBElement
 
     /**
      * @ORM\OneToMany(targetEntity="Currency", mappedBy="parent", cascade={"persist"})
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $children;
 
@@ -88,13 +89,14 @@ class Currency extends AbstractStructuralDBElement
     protected $parent;
 
     /**
-     * @var Collection|CurrencyAttachment[]
+     * @var Collection<int, CurrencyAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CurrencyAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"name" = "ASC"})
      * @Assert\Valid()
      */
     protected $attachments;
 
-    /** @var CurrencyParameter[]
+    /** @var Collection<int, CurrencyParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\CurrencyParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()

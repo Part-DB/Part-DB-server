@@ -244,6 +244,7 @@ class UserAdminForm extends AbstractType
             'allow_add' => true,
             'allow_delete' => true,
             'label' => false,
+            'reindex_enable' => true,
             'entry_options' => [
                 'data_class' => $options['attachment_class'],
             ],

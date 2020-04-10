@@ -44,12 +44,13 @@ class DBElementRepository extends EntityRepository
             ->setParameter(1, $element->getID())
             ->getQuery();
 
-        $p = $q->execute();
+        //Do the renaming
+        $q->execute();
 
         $this->setField($element, 'id', $new_id);
     }
 
-    protected function setField(AbstractDBElement $element, string $field, $new_value): void
+    protected function setField(AbstractDBElement $element, string $field, int $new_value): void
     {
         $reflection = new \ReflectionClass(get_class($element));
         $property = $reflection->getProperty($field);

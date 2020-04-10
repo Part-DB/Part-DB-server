@@ -66,7 +66,7 @@ class BackupCodeGeneratorTest extends TestCase
         new BackupCodeGenerator(4, 10);
     }
 
-    public function codeLengthDataProvider()
+    public function codeLengthDataProvider(): array
     {
         return [[6], [8], [10], [16]];
     }
@@ -80,7 +80,7 @@ class BackupCodeGeneratorTest extends TestCase
         $this->assertRegExp("/^([a-f0-9]){{$code_length}}\$/", $generator->generateSingleCode());
     }
 
-    public function codeCountDataProvider()
+    public function codeCountDataProvider(): array
     {
         return [[2], [8], [10]];
     }

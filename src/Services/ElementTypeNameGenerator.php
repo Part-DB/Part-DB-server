@@ -102,7 +102,7 @@ class ElementTypeNameGenerator
      * Useful when the type should be shown to user.
      * Throws an exception if the class is not supported.
      *
-     * @param AbstractDBElement|string $entity The element or class for which the label should be generated
+     * @param object|string $entity The element or class for which the label should be generated
      *
      * @return string the localized label for the entity type
      *

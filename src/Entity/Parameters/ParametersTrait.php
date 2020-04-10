@@ -31,17 +31,19 @@ trait ParametersTrait
     /**
      * Mapping done in subclasses.
      *
-     * @var AbstractParameter[]|Collection
+     * @var Collection<int, AbstractParameter>
      * @Assert\Valid()
      */
     protected $parameters;
 
     /**
-     * Return all associated specifications.
+     *  Return all associated specifications.
      *
-     * @return AbstractParameter[]|Collection
+     * @return Collection
+     *
+     * @psalm-return Collection<int, PartParameter>
      */
-    public function getParameters(): Collection
+    public function getParameters(): \Doctrine\Common\Collections\Collection
     {
         return $this->parameters;
     }
@@ -73,6 +75,7 @@ trait ParametersTrait
         foreach ($this->parameters as $parameter) {
             $tmp[$parameter->getGroup()][] = $parameter;
         }
+
         return $tmp;
     }
 }

@@ -197,7 +197,7 @@ abstract class BaseAdminController extends AbstractController
             //We can not use dynamic form events here, because the parent entity list is build from database!
             $form = $this->createForm($this->form_class, $entity, [
                 'attachment_class' => $this->attachment_class,
-                'parameter_class' => $this->parameter_class
+                'parameter_class' => $this->parameter_class,
             ]);
         } elseif ($form->isSubmitted() && ! $form->isValid()) {
             $this->addFlash('error', 'entity.edit_flash.invalid');

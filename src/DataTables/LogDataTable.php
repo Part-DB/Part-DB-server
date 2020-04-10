@@ -212,7 +212,7 @@ class LogDataTable implements DataTableTypeInterface
 
         $dataTable->add('target', LogEntryTargetColumn::class, [
             'label' => $this->translator->trans('log.target'),
-            'show_associated' => $options['mode'] !== 'element_history',
+            'show_associated' => 'element_history' !== $options['mode'],
         ]);
 
         $dataTable->add('extra', LogEntryExtraColumn::class, [

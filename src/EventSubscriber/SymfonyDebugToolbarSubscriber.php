@@ -45,14 +45,15 @@ namespace App\EventSubscriber;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 final class SymfonyDebugToolbarSubscriber implements EventSubscriberInterface
 {
-    private $kernel;
+    private $kernel_debug;
 
-    public function __construct(ContainerInterface $kernel)
+    public function __construct(bool $kernel_debug)
     {
-        $this->kernel = $kernel;
+        $this->kernel_debug = $kernel_debug;
     }
 
     /**
@@ -78,9 +79,9 @@ final class SymfonyDebugToolbarSubscriber implements EventSubscriberInterface
         return ['kernel.response' => 'onKernelResponse'];
     }
 
-    public function onKernelResponse(FilterResponseEvent $event): void
+    public function onKernelResponse(ResponseEvent $event): void
     {
-        if (! $this->kernel->getParameter('kernel.debug')) {
+        if (! $this->kernel_debug) {
             return;
         }
 

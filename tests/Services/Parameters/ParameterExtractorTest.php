@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -26,10 +29,9 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ParameterExtractorTest extends WebTestCase
 {
-
     protected $service;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         //Get an service instance.
@@ -40,26 +42,26 @@ class ParameterExtractorTest extends WebTestCase
     public function emptyDataProvider(): array
     {
         return [
-            [""],
-            ["      "],
+            [''],
+            ['      '],
             ["\t\n"],
-            [":;"],
-            ["NPN Transistor"],
-            ["=BC547 rewr"],
-            ["<i>For good</i>, [b]bad[/b], evil"],
-            ["Param:; Test"]
+            [':;'],
+            ['NPN Transistor'],
+            ['=BC547 rewr'],
+            ['<i>For good</i>, [b]bad[/b], evil'],
+            ['Param:; Test'],
         ];
     }
 
     /**
      * @dataProvider emptyDataProvider
      */
-    public function testShouldReturnEmpty(string $input)
+    public function testShouldReturnEmpty(string $input): void
     {
         $this->assertEmpty($this->service->extractParameters($input));
     }
 
-    public function testExtract()
+    public function testExtract(): void
     {
         $parameters = $this->service->extractParameters(' Operating Voltage:  10 V; Property : Value, Ström=1A (Test)');
         $this->assertContainsOnly(AbstractParameter::class, $parameters);
@@ -70,6 +72,5 @@ class ParameterExtractorTest extends WebTestCase
         $this->assertSame('Value', $parameters[1]->getValueText());
         $this->assertSame('Ström', $parameters[2]->getName());
         $this->assertSame('1A (Test)', $parameters[2]->getValueText());
-
     }
 }

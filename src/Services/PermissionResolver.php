@@ -62,12 +62,12 @@ class PermissionResolver
     /**
      * PermissionResolver constructor.
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(bool $kernel_debug, string $kernel_cache_dir)
     {
-        $cache_dir = $container->getParameter('kernel.cache_dir');
+        $cache_dir = $kernel_cache_dir;
         //Here the cached structure will be saved.
         $this->cache_file = $cache_dir.'/permissions.php.cache';
-        $this->is_debug = $container->getParameter('kernel.debug');
+        $this->is_debug = $kernel_debug;
 
         $this->permission_structure = $this->generatePermissionStructure();
 
@@ -127,7 +127,7 @@ class PermissionResolver
             return $allowed;
         }
 
-        /** @var HasPermissionsInterface $parent */
+        /** @var Group $parent */
         $parent = $user->getGroup();
         while (null !== $parent) { //The top group, has parent == null
             //Check if our current element gives a info about disallow/allow

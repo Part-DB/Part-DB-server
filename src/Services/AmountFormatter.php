@@ -60,10 +60,11 @@ class AmountFormatter
     }
 
     /**
-     * Formats the given value using the measurement unit and options.
+     *  Formats the given value using the measurement unit and options.
      *
-     * @param MeasurementUnit|null $unit The measurement unit, whose unit symbol should be used for formatting.
-     *                                   If set to null, it is assumed that the part amount is measured in pieces.
+     * @param float|string|int $value
+     *  @param MeasurementUnit|null $unit The measurement unit, whose unit symbol should be used for formatting.
+     *                                    If set to null, it is assumed that the part amount is measured in pieces.
      *
      * @return string The formatted string
      *

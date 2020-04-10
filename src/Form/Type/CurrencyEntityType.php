@@ -102,7 +102,7 @@ class CurrencyEntityType extends StructuralEntityType
             $level -= $parent->getLevel() - 1;
         }
 
-        $tmp = str_repeat('&nbsp;&nbsp;&nbsp;', $choice->getLevel()); //Use 3 spaces for intendation
+        $tmp = str_repeat('&nbsp;&nbsp;&nbsp;', $level); //Use 3 spaces for intendation
         if (empty($choice->getIsoCode())) {
             $tmp .= htmlspecialchars($choice->getName());
         } else {

@@ -60,7 +60,7 @@ class EventLoggerSubscriber implements EventSubscriber
         Orderdetail::class => ['part'],
         Pricedetail::class => ['orderdetail'],
         Attachment::class => ['element'],
-        AbstractParameter::class => ['element']
+        AbstractParameter::class => ['element'],
     ];
 
     protected const MAX_STRING_LENGTH = 2000;
@@ -163,7 +163,7 @@ class EventLoggerSubscriber implements EventSubscriber
      */
     public function hasFieldRestrictions(AbstractDBElement $element): bool
     {
-        foreach (static::FIELD_BLACKLIST as $class => $blacklist) {
+        foreach (array_keys(static::FIELD_BLACKLIST) as $class) {
             if (is_a($element, $class)) {
                 return true;
             }
@@ -283,7 +283,7 @@ class EventLoggerSubscriber implements EventSubscriber
         }, ARRAY_FILTER_USE_BOTH);
     }
 
-    protected function saveChangeSet(AbstractDBElement $entity, AbstractLogEntry $logEntry, EntityManagerInterface $em, $element_deleted = false): void
+    protected function saveChangeSet(AbstractDBElement $entity, AbstractLogEntry $logEntry, EntityManagerInterface $em, bool $element_deleted = false): void
     {
         $uow = $em->getUnitOfWork();
 

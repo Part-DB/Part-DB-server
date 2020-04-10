@@ -44,7 +44,12 @@ namespace App\Controller;
 
 use App\DataTables\LogDataTable;
 use App\Entity\Parts\Category;
+use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
+use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\Supplier;
+use App\Entity\PriceInformations\Orderdetail;
 use App\Exceptions\AttachmentDownloadException;
 use App\Form\Part\PartBaseType;
 use App\Services\Attachments\AttachmentManager;
@@ -57,6 +62,7 @@ use App\Services\Parameters\ParameterExtractor;
 use App\Services\PricedetailHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
+use Proxies\__CG__\App\Entity\Parts\Manufacturer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -135,7 +141,7 @@ class PartController extends AbstractController
                 'pictures' => $this->partPreviewGenerator->getPreviewAttachments($part),
                 'timeTravel' => $timeTravel_timestamp,
                 'description_params' => $parameterExtractor->extractParameters($part->getDescription()),
-                'comment_params' => $parameterExtractor->extractParameters($part->getComment())
+                'comment_params' => $parameterExtractor->extractParameters($part->getComment()),
             ]
         );
     }
@@ -235,12 +241,41 @@ class PartController extends AbstractController
 
         $this->denyAccessUnlessGranted('create', $new_part);
 
-        $cid = $request->get('cid', 1);
-
-        $category = $em->find(Category::class, $cid);
+        $cid = $request->get('category', null);
+        $category = $cid ? $em->find(Category::class, $cid) : null;
         if (null !== $category && null === $new_part->getCategory()) {
             $new_part->setCategory($category);
         }
+
+        $fid = $request->get('footprint', null);
+        $footprint = $fid ? $em->find(Footprint::class, $cid) : null;
+        if (null !== $footprint && null === $new_part->getFootprint()) {
+            $new_part->setFootprint($footprint);
+        }
+
+        $mid = $request->get('manufacturer', null);
+        $manufacturer = $mid ? $em->find(Manufacturer::class, $mid) : null;
+        if (null !== $manufacturer && null === $new_part->getManufacturer()) {
+            $new_part->setManufacturer($manufacturer);
+        }
+
+        $store_id = $request->get('storelocation', null);
+        $storelocation = $store_id ? $em->find(Storelocation::class, $store_id): null;
+        if (null !== $storelocation && $new_part->getPartLots()->isEmpty()) {
+            $partLot = new PartLot();
+            $partLot->setStorageLocation($storelocation);
+            $partLot->setInstockUnknown(true);
+            $new_part->addPartLot($partLot);
+        }
+
+        $supplier_id = $request->get('supplier', null);
+        $supplier = $supplier_id ? $em->find(Supplier::class, $supplier_id): null;
+        if (null !== $supplier && $new_part->getOrderdetails()->isEmpty()) {
+            $orderdetail = new Orderdetail();
+            $orderdetail->setSupplier($supplier);
+            $new_part->addOrderdetail($orderdetail);
+        }
+
 
         $form = $this->createForm(PartBaseType::class, $new_part);
 

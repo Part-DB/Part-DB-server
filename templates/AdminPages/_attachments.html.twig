@@ -42,7 +42,9 @@
                         </span>
                             </h6>
                         {% endif %}
-                        {% if attach.picture %}
+                        {% if attach.secure and not is_granted('show_private', attach) %}
+                            {# Leave blank #}
+                        {% elseif attach.picture %}
                             <a href="{{ attach | entityURL('file_view') }}" target="_blank" rel="noopener" data-no-ajax>
                                 <img class="img-fluid img-thumbnail thumbnail-sm" src="{{ attachment_thumbnail(attach, 'thumbnail_md') }}" alt="{% trans %}attachment.preview.alt{% endtrans %}" />
                             </a>
@@ -60,7 +62,7 @@
 
                     {% if attach.secure %}
                         <h6>
-                            <span class="badge badge-primary">
+                            <span class="badge badge-success">
                                 <i class="fas fa-fw fa-shield-alt"></i> {% trans %}attachment.secure{% endtrans %}
                             </span>
                         </h6>
@@ -90,7 +92,7 @@
         //Determine the table, so we can determine, how many entries there are already.
         $holder = $("#attachments_table");
 
-        var index = $holder.find(":input").length;
+        var index = $holder.children("tbody").children("tr").length;
         var newForm = $holder.data("prototype");
 
         //Increase the index

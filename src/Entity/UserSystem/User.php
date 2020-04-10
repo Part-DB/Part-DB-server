@@ -53,7 +53,6 @@ namespace App\Entity\UserSystem;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\Base\AbstractNamedDBElement;
-use App\Entity\Base\MasterAttachmentTrait;
 use App\Entity\PriceInformations\Currency;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\Selectable;
@@ -114,7 +113,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var string|null The hash of a token the user must provide when he wants to reset his password.
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $pw_reset_token = null;
+    protected $pw_reset_token;
 
     /**
      * @ORM\Column(type="text", name="config_instock_comment_a")
@@ -228,8 +227,9 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected $settings = [];
 
     /**
-     * @var Collection|UserAttachment[]
+     * @var Collection<int, UserAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\UserAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $attachments;
 
@@ -238,7 +238,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     protected $backupCodesGenerationDate;
 
-    /** @var Collection<TwoFactorKeyInterface>
+    /** @var Collection<int, TwoFactorKeyInterface>
      * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\U2FKey", mappedBy="user", cascade={"REMOVE"}, orphanRemoval=true)
      */
     protected $u2fKeys;
@@ -252,7 +252,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
      * @Selectable()
      */
-    protected $currency = null;
+    protected $currency;
 
     /** @var PermissionsEmbed
      * @ORM\Embedded(class="PermissionsEmbed", columnPrefix="perms_")
@@ -264,7 +264,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var DateTime The time until the password reset token is valid.
      * @ORM\Column(type="datetime", nullable=true)
      */
-    protected $pw_reset_expires = null;
+    protected $pw_reset_expires;
 
     public function __construct()
     {
@@ -863,9 +863,11 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
-     * Get all U2F Keys that are associated with this user.
+     *  Get all U2F Keys that are associated with this user.
      *
-     * @return Collection<TwoFactorKeyInterface>
+     * @return Collection
+     *
+     * @psalm-return Collection<int, TwoFactorKeyInterface>
      */
     public function getU2FKeys(): Collection
     {

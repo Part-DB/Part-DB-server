@@ -63,7 +63,7 @@ class BuiltinAttachmentsFinderTest extends WebTestCase
         self::$service = self::$container->get(BuiltinAttachmentsFinder::class);
     }
 
-    public function dataProvider()
+    public function dataProvider(): array
     {
         return [
             //No value should return empty array
