@@ -840,107 +840,6 @@ Les sous éléments seront déplacés vers le haut.</target>
         <target>Nombre de composants avec cet élément</target>
       </segment>
     </unit>
-    <unit id="4FQqOUW" name="specifications.property">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:6</note>
-        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:120</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:6</note>
-      </notes>
-      <segment state="initial">
-        <source>specifications.property</source>
-        <target>specifications.property</target>
-      </segment>
-    </unit>
-    <unit id="N4F6wz5" name="specifications.symbol">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:7</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:7</note>
-      </notes>
-      <segment state="initial">
-        <source>specifications.symbol</source>
-        <target>specifications.symbol</target>
-      </segment>
-    </unit>
-    <unit id="ManEcyM" name="specifications.value_min">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:8</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:8</note>
-      </notes>
-      <segment state="initial">
-        <source>specifications.value_min</source>
-        <target>specifications.value_min</target>
-      </segment>
-    </unit>
-    <unit id="BzRKVPC" name="specifications.value_typ">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:9</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:9</note>
-      </notes>
-      <segment state="initial">
-        <source>specifications.value_typ</source>
-        <target>specifications.value_typ</target>
-      </segment>
-    </unit>
-    <unit id="WLVXsOF" name="specifications.value_max">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:10</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:10</note>
-      </notes>
-      <segment state="initial">
-        <source>specifications.value_max</source>
-        <target>specifications.value_max</target>
-      </segment>
-    </unit>
-    <unit id="mRpl2vJ" name="specifications.unit">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:11</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:11</note>
-      </notes>
-      <segment state="initial">
-        <source>specifications.unit</source>
-        <target>specifications.unit</target>
-      </segment>
-    </unit>
-    <unit id="05vM0Vp" name="specifications.text">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:12</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:12</note>
-      </notes>
-      <segment state="initial">
-        <source>specifications.text</source>
-        <target>specifications.text</target>
-      </segment>
-    </unit>
-    <unit id="t9lgp3U" name="specifications.group">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:13</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:13</note>
-      </notes>
-      <segment state="initial">
-        <source>specifications.group</source>
-        <target>specifications.group</target>
-      </segment>
-    </unit>
-    <unit id="MZTH_sJ" name="specification.create">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:26</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:26</note>
-      </notes>
-      <segment state="initial">
-        <source>specification.create</source>
-        <target>specification.create</target>
-      </segment>
-    </unit>
-    <unit id="eEuzINH" name="parameter.delete.confirm">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:31</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:31</note>
-      </notes>
-      <segment state="initial">
-        <source>parameter.delete.confirm</source>
-        <target>parameter.delete.confirm</target>
-      </segment>
-    </unit>
     <unit id="rpzRyMx" name="attachment.list.title">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\attachment_list.html.twig:3</note>
@@ -1143,15 +1042,6 @@ Show/Hide sidebar</target>
       <segment state="translated">
         <source>No</source>
         <target>Non</target>
-      </segment>
-    </unit>
-    <unit id="PbJl5cf" name="specifications.value">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:121</note>
-      </notes>
-      <segment state="initial">
-        <source>specifications.value</source>
-        <target>specifications.value</target>
       </segment>
     </unit>
     <unit id="Qj.Hpb." name="version.caption">
@@ -1553,15 +1443,6 @@ Show/Hide sidebar</target>
         <target>Informations pour la commande</target>
       </segment>
     </unit>
-    <unit id="fLuFk_2" name="part.edit.tab.specifications">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:58</note>
-      </notes>
-      <segment state="initial">
-        <source>part.edit.tab.specifications</source>
-        <target>part.edit.tab.specifications</target>
-      </segment>
-    </unit>
     <unit id="LgSgFFj" name="part.edit.tab.comment">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:64</note>
@@ -1670,15 +1551,6 @@ Show/Hide sidebar</target>
       <segment state="translated">
         <source>comment.label</source>
         <target>Commentaire</target>
-      </segment>
-    </unit>
-    <unit id="Y2.Edoh" name="part.info.specifications">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:64</note>
-      </notes>
-      <segment state="initial">
-        <source>part.info.specifications</source>
-        <target>part.info.specifications</target>
       </segment>
     </unit>
     <unit id="MZz0rtU" name="attachment.labelp">
@@ -2203,24 +2075,6 @@ Show/Hide sidebar</target>
       <segment state="translated">
         <source>part.obsolete.badge</source>
         <target>N'est plus disponible</target>
-      </segment>
-    </unit>
-    <unit id="PYWb1Wy" name="parameters.extracted_from_description">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:10</note>
-      </notes>
-      <segment state="initial">
-        <source>parameters.extracted_from_description</source>
-        <target>parameters.extracted_from_description</target>
-      </segment>
-    </unit>
-    <unit id="xuDIeTd" name="parameters.auto_extracted_from_comment">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:15</note>
-      </notes>
-      <segment state="initial">
-        <source>parameters.auto_extracted_from_comment</source>
-        <target>parameters.auto_extracted_from_comment</target>
       </segment>
     </unit>
     <unit id="cTsojYo" name="part.edit.btn">
@@ -3628,15 +3482,6 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
         <target>Nom</target>
       </segment>
     </unit>
-    <unit id="V2u6xXi" name="tags.label">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:23</note>
-      </notes>
-      <segment state="initial">
-        <source>tags.label</source>
-        <target>tags.label</target>
-      </segment>
-    </unit>
     <unit id="RezjOdV" name="storelocation.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:27</note>
@@ -4854,78 +4699,6 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
         <target>Télécharger le fichier</target>
       </segment>
     </unit>
-    <unit id="o.P_V00" name="parameters.name.placeholder">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:41</note>
-      </notes>
-      <segment state="initial">
-        <source>parameters.name.placeholder</source>
-        <target>parameters.name.placeholder</target>
-      </segment>
-    </unit>
-    <unit id="3LWIDYM" name="parameters.symbol.placeholder">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:50</note>
-      </notes>
-      <segment state="initial">
-        <source>parameters.symbol.placeholder</source>
-        <target>parameters.symbol.placeholder</target>
-      </segment>
-    </unit>
-    <unit id="w7bfLKj" name="parameters.text.placeholder">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:60</note>
-      </notes>
-      <segment state="initial">
-        <source>parameters.text.placeholder</source>
-        <target>parameters.text.placeholder</target>
-      </segment>
-    </unit>
-    <unit id="6utToZ6" name="parameters.max.placeholder">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:71</note>
-      </notes>
-      <segment state="initial">
-        <source>parameters.max.placeholder</source>
-        <target>parameters.max.placeholder</target>
-      </segment>
-    </unit>
-    <unit id="BypUOrf" name="parameters.min.placeholder">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:82</note>
-      </notes>
-      <segment state="initial">
-        <source>parameters.min.placeholder</source>
-        <target>parameters.min.placeholder</target>
-      </segment>
-    </unit>
-    <unit id="VmYIvYF" name="parameters.typical.placeholder">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:93</note>
-      </notes>
-      <segment state="initial">
-        <source>parameters.typical.placeholder</source>
-        <target>parameters.typical.placeholder</target>
-      </segment>
-    </unit>
-    <unit id="kvhGoo0" name="parameters.unit.placeholder">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:103</note>
-      </notes>
-      <segment state="initial">
-        <source>parameters.unit.placeholder</source>
-        <target>parameters.unit.placeholder</target>
-      </segment>
-    </unit>
-    <unit id="kL5OSi8" name="parameter.group.placeholder">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:114</note>
-      </notes>
-      <segment state="initial">
-        <source>parameter.group.placeholder</source>
-        <target>parameter.group.placeholder</target>
-      </segment>
-    </unit>
     <unit id="jv6wCpP" name="orderdetails.edit.supplierpartnr">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:75</note>
@@ -5473,15 +5246,6 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       <segment state="translated">
         <source>user.label</source>
         <target>Utilisateur</target>
-      </segment>
-    </unit>
-    <unit id="CxpVbHB" name="parameter.label">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:95</note>
-      </notes>
-      <segment state="initial">
-        <source>parameter.label</source>
-        <target>parameter.label</target>
       </segment>
     </unit>
     <unit id=".nBJJBz" name="log.element_deleted.old_name.unknown">
@@ -8147,114 +7911,6 @@ exemple de ville</target>
       <segment state="translated">
         <source>log.type.</source>
         <target>Type.</target>
-      </segment>
-    </unit>
-    <unit id="Msykg.Z" name="entity.info.attachments.tab">
-      <segment state="initial">
-        <source>entity.info.attachments.tab</source>
-        <target>entity.info.attachments.tab</target>
-      </segment>
-    </unit>
-    <unit id="8VfTCPf" name="entity.info.parameters.tab">
-      <segment state="initial">
-        <source>entity.info.parameters.tab</source>
-        <target>entity.info.parameters.tab</target>
-      </segment>
-    </unit>
-    <unit id="gWj51jS" name="attachment.preview">
-      <segment state="initial">
-        <source>attachment.preview</source>
-        <target>attachment.preview</target>
-      </segment>
-    </unit>
-    <unit id="WjnV7iC" name="tfa_u2f.key_added_successful">
-      <segment state="initial">
-        <source>tfa_u2f.key_added_successful</source>
-        <target>tfa_u2f.key_added_successful</target>
-      </segment>
-    </unit>
-    <unit id="47ienTP" name="Username">
-      <segment state="initial">
-        <source>Username</source>
-        <target>Username</target>
-      </segment>
-    </unit>
-    <unit id="dVu9PKe" name="log.type.security.google_disabled">
-      <segment state="initial">
-        <source>log.type.security.google_disabled</source>
-        <target>log.type.security.google_disabled</target>
-      </segment>
-    </unit>
-    <unit id="HfccXTr" name="log.type.security.u2f_removed">
-      <segment state="initial">
-        <source>log.type.security.u2f_removed</source>
-        <target>log.type.security.u2f_removed</target>
-      </segment>
-    </unit>
-    <unit id="zl1WXuM" name="log.type.security.u2f_added">
-      <segment state="initial">
-        <source>log.type.security.u2f_added</source>
-        <target>log.type.security.u2f_added</target>
-      </segment>
-    </unit>
-    <unit id="9_jzHX6" name="log.type.security.backup_keys_reset">
-      <segment state="initial">
-        <source>log.type.security.backup_keys_reset</source>
-        <target>log.type.security.backup_keys_reset</target>
-      </segment>
-    </unit>
-    <unit id="h6zwXNp" name="log.type.security.google_enabled">
-      <segment state="initial">
-        <source>log.type.security.google_enabled</source>
-        <target>log.type.security.google_enabled</target>
-      </segment>
-    </unit>
-    <unit id="XbsoHIr" name="log.type.security.password_changed">
-      <segment state="initial">
-        <source>log.type.security.password_changed</source>
-        <target>log.type.security.password_changed</target>
-      </segment>
-    </unit>
-    <unit id="2q0_b3P" name="log.type.security.trusted_device_reset">
-      <segment state="initial">
-        <source>log.type.security.trusted_device_reset</source>
-        <target>log.type.security.trusted_device_reset</target>
-      </segment>
-    </unit>
-    <unit id="n8flY2e" name="log.type.collection_element_deleted">
-      <segment state="initial">
-        <source>log.type.collection_element_deleted</source>
-        <target>log.type.collection_element_deleted</target>
-      </segment>
-    </unit>
-    <unit id="yNm8PCN" name="log.type.security.password_reset">
-      <segment state="initial">
-        <source>log.type.security.password_reset</source>
-        <target>log.type.security.password_reset</target>
-      </segment>
-    </unit>
-    <unit id="CsjgnTI" name="log.type.security.2fa_admin_reset">
-      <segment state="initial">
-        <source>log.type.security.2fa_admin_reset</source>
-        <target>log.type.security.2fa_admin_reset</target>
-      </segment>
-    </unit>
-    <unit id="vlslklu" name="entity.duplicate">
-      <segment state="initial">
-        <source>entity.duplicate</source>
-        <target>entity.duplicate</target>
-      </segment>
-    </unit>
-    <unit id="bJ.EAvM" name="log.type.user_not_allowed">
-      <segment state="initial">
-        <source>log.type.user_not_allowed</source>
-        <target>log.type.user_not_allowed</target>
-      </segment>
-    </unit>
-    <unit id="Z28oTau" name="log.database_updated.success">
-      <segment state="initial">
-        <source>log.database_updated.success</source>
-        <target>log.database_updated.success</target>
       </segment>
     </unit>
   </file>
