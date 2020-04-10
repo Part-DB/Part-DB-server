@@ -8147,5 +8147,113 @@ Element 3</target>
         <target>__log.type.</target>
       </segment>
     </unit>
+    <unit id="Msykg.Z" name="entity.info.attachments.tab">
+      <segment state="translated">
+        <source>entity.info.attachments.tab</source>
+        <target>Dateianhänge</target>
+      </segment>
+    </unit>
+    <unit id="8VfTCPf" name="entity.info.parameters.tab">
+      <segment state="translated">
+        <source>entity.info.parameters.tab</source>
+        <target>Parameter</target>
+      </segment>
+    </unit>
+    <unit id="gWj51jS" name="attachment.preview">
+      <segment state="translated">
+        <source>attachment.preview</source>
+        <target>Vorschaubild</target>
+      </segment>
+    </unit>
+    <unit id="WjnV7iC" name="tfa_u2f.key_added_successful">
+      <segment state="translated">
+        <source>tfa_u2f.key_added_successful</source>
+        <target>Sicherheitsschlüssel erfolgreich hinzugefügt.</target>
+      </segment>
+    </unit>
+    <unit id="47ienTP" name="Username">
+      <segment state="translated">
+        <source>Username</source>
+        <target>Benutzername</target>
+      </segment>
+    </unit>
+    <unit id="dVu9PKe" name="log.type.security.google_disabled">
+      <segment state="translated">
+        <source>log.type.security.google_disabled</source>
+        <target>Authenticator App deaktiviert</target>
+      </segment>
+    </unit>
+    <unit id="HfccXTr" name="log.type.security.u2f_removed">
+      <segment state="translated">
+        <source>log.type.security.u2f_removed</source>
+        <target>Sicherheitsschlüssel gelöscht</target>
+      </segment>
+    </unit>
+    <unit id="zl1WXuM" name="log.type.security.u2f_added">
+      <segment state="translated">
+        <source>log.type.security.u2f_added</source>
+        <target>Sicherheitsschlüssel hinzugefügt</target>
+      </segment>
+    </unit>
+    <unit id="9_jzHX6" name="log.type.security.backup_keys_reset">
+      <segment state="translated">
+        <source>log.type.security.backup_keys_reset</source>
+        <target>Neue Backupkeys erzeugt</target>
+      </segment>
+    </unit>
+    <unit id="h6zwXNp" name="log.type.security.google_enabled">
+      <segment state="translated">
+        <source>log.type.security.google_enabled</source>
+        <target>Authenticator App aktiviert</target>
+      </segment>
+    </unit>
+    <unit id="XbsoHIr" name="log.type.security.password_changed">
+      <segment state="translated">
+        <source>log.type.security.password_changed</source>
+        <target>Passwort geändert</target>
+      </segment>
+    </unit>
+    <unit id="2q0_b3P" name="log.type.security.trusted_device_reset">
+      <segment state="translated">
+        <source>log.type.security.trusted_device_reset</source>
+        <target>Vertrauenswürdige Geräte zurückgesetzt</target>
+      </segment>
+    </unit>
+    <unit id="n8flY2e" name="log.type.collection_element_deleted">
+      <segment state="translated">
+        <source>log.type.collection_element_deleted</source>
+        <target>Kollektionselement gelöscht</target>
+      </segment>
+    </unit>
+    <unit id="yNm8PCN" name="log.type.security.password_reset">
+      <segment state="translated">
+        <source>log.type.security.password_reset</source>
+        <target>Passwort zurückgesetzt</target>
+      </segment>
+    </unit>
+    <unit id="CsjgnTI" name="log.type.security.2fa_admin_reset">
+      <segment state="translated">
+        <source>log.type.security.2fa_admin_reset</source>
+        <target>Zwei-Faktor-Authentifizierung durch Administrator zurückgesetzt</target>
+      </segment>
+    </unit>
+    <unit id="vlslklu" name="entity.duplicate">
+      <segment state="translated">
+        <source>entity.duplicate</source>
+        <target>Element duplizieren</target>
+      </segment>
+    </unit>
+    <unit id="bJ.EAvM" name="log.type.user_not_allowed">
+      <segment state="translated">
+        <source>log.type.user_not_allowed</source>
+        <target>Unerlaubter Zugriffsversuch</target>
+      </segment>
+    </unit>
+    <unit id="Z28oTau" name="log.database_updated.success">
+      <segment state="translated">
+        <source>log.database_updated.success</source>
+        <target>Erfolgreich</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
