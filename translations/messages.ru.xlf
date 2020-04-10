@@ -8151,5 +8151,23 @@
         <target>Тип.</target>
       </segment>
     </unit>
+    <unit id="Msykg.Z" name="entity.info.attachments.tab">
+      <segment state="translated">
+        <source>entity.info.attachments.tab</source>
+        <target>Вложения</target>
+      </segment>
+    </unit>
+    <unit id="8VfTCPf" name="entity.info.parameters.tab">
+      <segment state="translated">
+        <source>entity.info.parameters.tab</source>
+        <target>Параметры</target>
+      </segment>
+    </unit>
+    <unit id="gWj51jS" name="attachment.preview">
+      <segment state="translated">
+        <source>attachment.preview</source>
+        <target>Предпросмотр</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

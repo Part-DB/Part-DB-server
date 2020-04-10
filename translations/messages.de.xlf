@@ -5974,7 +5974,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>category.edit.default_comment.placeholder</source>
-        <target>e.g. Nützlich für Schaltnetzteile</target>
+        <target>z.B. Nützlich für Schaltnetzteile</target>
       </segment>
     </unit>
     <unit id="n13qerD" name="tfa_backup.regenerate_codes">
