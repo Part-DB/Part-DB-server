@@ -46,6 +46,7 @@ use App\Entity\Attachments\Attachment;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\LogSystem\AbstractLogEntry;
+use App\Entity\LogSystem\UserNotAllowedLogEntry;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\PartLot;
 use App\Entity\PriceInformations\Orderdetail;
@@ -86,12 +87,17 @@ class LogEntryTargetColumn extends AbstractColumn
     {
         parent::configureOptions($resolver);
         $resolver->setDefault('show_associated', true);
+        $resolver->setDefault('showAccessDeniedPath', true);
 
         return $this;
     }
 
     public function render($value, $context)
     {
+        if ($context instanceof UserNotAllowedLogEntry && $this->options['showAccessDeniedPath']) {
+            return htmlspecialchars($context->getPath());
+        }
+
         /** @var AbstractLogEntry $context */
         $target = $this->entryRepository->getTargetElement($context);
 

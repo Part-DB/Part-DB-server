@@ -8244,5 +8244,17 @@ Element 3</target>
         <target>Duplicate element</target>
       </segment>
     </unit>
+    <unit id="bJ.EAvM" name="log.type.user_not_allowed">
+      <segment>
+        <source>log.type.user_not_allowed</source>
+        <target>Unauthorised access attempt</target>
+      </segment>
+    </unit>
+    <unit id="Z28oTau" name="log.database_updated.success">
+      <segment>
+        <source>log.database_updated.success</source>
+        <target>Sucess</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
