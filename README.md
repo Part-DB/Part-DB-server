@@ -51,7 +51,7 @@ Part-DB is also used by small companies and universities for managing their inve
 ## Requirements
  * A **web server** (like Apache2 or nginx) that is capable of running [Symfony 4](https://symfony.com/doc/current/reference/requirements.html),
  this includes a minimum PHP version of **PHP 7.2.5**
- * A **MySQL**/**MariaDB** database server
+ * A **MySQL** (at least 5.6.5) /**MariaDB** (at least 10.0.1) database server
  * Shell access to your server is highly suggested!
  * For building the client side assets **yarn** and **nodejs** is needed.
  

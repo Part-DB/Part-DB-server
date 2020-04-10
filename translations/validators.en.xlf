@@ -167,5 +167,17 @@
         <target>The username must contain only letters, numbers, underscores, dots, pluses or minuses.</target>
       </segment>
     </unit>
+    <unit id="lZvhKYu" name="validator.noneofitschild.self">
+      <segment>
+        <source>validator.noneofitschild.self</source>
+        <target>An element can not be its own parent.</target>
+      </segment>
+    </unit>
+    <unit id="pr07aV4" name="validator.noneofitschild.children">
+      <segment>
+        <source>validator.noneofitschild.children</source>
+        <target>You can not assign children element as parent (This would cause loops).</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

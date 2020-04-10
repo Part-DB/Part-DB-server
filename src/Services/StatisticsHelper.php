@@ -61,12 +61,12 @@ class StatisticsHelper
     /**
      * Returns the summed instocked over all parts (only parts without a measurement unit).
      *
-     * @return string
+     * @return float
      *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function getPartsInstockSum(): string
+    public function getPartsInstockSum(): float
     {
         return $this->part_repo->getPartsInstockSum();
     }

@@ -44,9 +44,9 @@ namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\PriceInformations\Orderdetail;
 use App\Security\Annotations\ColumnSecurity;
-use Doctrine\ORM\Mapping as ORM;
 use function count;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * This trait collects all aspects of a part related to orders and priceinformations.

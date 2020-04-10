@@ -174,8 +174,12 @@ class PricedetailHelper
                 continue;
             }
 
-            $avg = bcadd($avg, $this->convertMoneyToCurrency($pricedetail->getPricePerUnit(), $pricedetail->getCurrency(), $currency), Pricedetail::PRICE_PRECISION);
-            ++$count;
+            $converted = $this->convertMoneyToCurrency($pricedetail->getPricePerUnit(), $pricedetail->getCurrency(), $currency);
+            //Ignore price informations that can not be converted to base currency.
+            if (null !== $converted) {
+                $avg = bcadd($avg, $converted, Pricedetail::PRICE_PRECISION);
+                ++$count;
+            }
         }
 
         if (0 === $count) {

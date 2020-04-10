@@ -40,61 +40,38 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\EventSubscriber;
+namespace App\EventSubscriber\LogSystem;
 
-use App\Entity\LogSystem\DatabaseUpdatedLogEntry;
+use App\Entity\LogSystem\UserLogoutLogEntry;
+use App\Entity\UserSystem\User;
 use App\Services\LogSystem\EventLogger;
-use Doctrine\Common\EventSubscriber;
-use Doctrine\Migrations\Event\MigrationsEventArgs;
-use Doctrine\Migrations\Events;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Http\Logout\LogoutHandlerInterface;
 
-class MigrationListener implements EventSubscriber
+/**
+ * This handler logs to event log, if a user logs out.
+ */
+class LogoutLoggerHandler implements LogoutHandlerInterface
 {
-    protected $old_version = null;
-    protected $new_version = null;
+    protected $logger;
+    protected $gpdr_compliance;
 
-    protected $eventLogger;
-
-    public function __construct(EventLogger $eventLogger)
+    public function __construct(EventLogger $logger, bool $gpdr_compliance)
     {
-        $this->eventLogger = $eventLogger;
+        $this->logger = $logger;
+        $this->gpdr_compliance = $gpdr_compliance;
     }
 
-    public function onMigrationsMigrated(MigrationsEventArgs $args): void
+    public function logout(Request $request, Response $response, TokenInterface $token): void
     {
-        //Dont do anything if this was a dry run
-        if ($args->isDryRun()) {
-            return;
+        $log = new UserLogoutLogEntry($request->getClientIp(), $this->gpdr_compliance);
+        $user = $token->getUser();
+        if ($user instanceof User) {
+            $log->setTargetElement($user);
         }
 
-        //Save the version after the migration
-        $this->new_version = $args->getConfiguration()->getCurrentVersion();
-
-        //After everything is done, write the results to DB log
-        $this->old_version = empty($this->old_version) ? 'legacy/empty' : $this->old_version;
-        $this->new_version = empty($this->new_version) ? 'unknown' : $this->new_version;
-
-        try {
-            $log = new DatabaseUpdatedLogEntry($this->old_version, $this->new_version);
-            $this->eventLogger->logAndFlush($log);
-        } catch (\Throwable $exception) {
-            //Ignore any exception occuring here...
-        }
-    }
-
-    public function onMigrationsMigrating(MigrationsEventArgs $args): void
-    {
-        // Save the version before any migration
-        if (null === $this->old_version) {
-            $this->old_version = $args->getConfiguration()->getCurrentVersion();
-        }
-    }
-
-    public function getSubscribedEvents()
-    {
-        return [
-            Events::onMigrationsMigrated,
-            Events::onMigrationsMigrating,
-        ];
+        $this->logger->logAndFlush($log);
     }
 }

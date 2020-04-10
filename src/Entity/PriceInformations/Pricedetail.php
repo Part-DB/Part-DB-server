@@ -164,11 +164,10 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      *
      *      You will get the price for $multiplier parts. If you want the price which is stored
      *           in the database, you have to pass the "price_related_quantity" count as $multiplier.
-     *
      * @param float|string $multiplier The returned price (float or string) will be multiplied
      *                                 with this multiplier.
      *
-     * @return null|string the price as a bcmath string
+     * @return string|null the price as a bcmath string
      */
     public function getPricePerUnit($multiplier = 1.0): ?string
     {

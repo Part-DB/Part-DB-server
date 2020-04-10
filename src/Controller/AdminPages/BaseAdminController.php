@@ -222,7 +222,7 @@ abstract class BaseAdminController extends AbstractController
     protected function _new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?AbstractNamedDBElement $entity = null)
     {
         $master_picture_backup = null;
-        if ($entity === null) {
+        if (null === $entity) {
             /** @var AbstractStructuralDBElement|User $new_entity */
             $new_entity = new $this->entity_class();
         } else {
@@ -269,7 +269,6 @@ abstract class BaseAdminController extends AbstractController
 
             $this->commentHelper->setMessage($form['log_comment']->getData());
 
-            dump($new_entity);
             $em->persist($new_entity);
             $em->flush();
             $this->addFlash('success', 'entity.created_flash');

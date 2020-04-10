@@ -46,7 +46,6 @@ use App\Services\Attachments\BuiltinAttachmentsFinder;
 use App\Services\TagFinder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -62,8 +61,6 @@ class TypeaheadController extends AbstractController
     /**
      * @Route("/builtInResources/search/{query}", name="typeahead_builtInRessources", requirements={"query"= ".+"})
      *
-     * @param  string  $query
-     * @param  BuiltinAttachmentsFinder  $finder
      * @return JsonResponse
      */
     public function builtInResources(string $query, BuiltinAttachmentsFinder $finder)

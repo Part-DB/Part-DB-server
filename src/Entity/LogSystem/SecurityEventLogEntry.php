@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -19,7 +22,6 @@
  */
 
 namespace App\Entity\LogSystem;
-
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\UserSystem\User;
@@ -57,24 +59,26 @@ class SecurityEventLogEntry extends AbstractLogEntry
 
     public function setTargetElement(?AbstractDBElement $element): AbstractLogEntry
     {
-        if (!$element instanceof User) {
+        if (! $element instanceof User) {
             throw new \InvalidArgumentException('Target element must be a User object!');
         }
+
         return parent::setTargetElement($element);
     }
 
     /**
      * Sets the type of this log entry.
-     * @param  string  $type
+     *
      * @return $this
      */
     public function setEventType(string $type): self
     {
-        $key = array_search($type, static::SECURITY_TYPE_MAPPING);
-        if ($key === false) {
+        $key = array_search($type, static::SECURITY_TYPE_MAPPING, true);
+        if (false === $key) {
             throw new \InvalidArgumentException('Given event type is not existing!');
         }
         $this->extra['e'] = $key;
+
         return $this;
     }
 
@@ -84,7 +88,8 @@ class SecurityEventLogEntry extends AbstractLogEntry
     }
 
     /**
-     * Return what event this log entry represents (e.g. password_reset)
+     * Return what event this log entry represents (e.g. password_reset).
+     *
      * @return string
      */
     public function getEventType(): string
@@ -121,6 +126,7 @@ class SecurityEventLogEntry extends AbstractLogEntry
             $ip = IpUtils::anonymize($ip);
         }
         $this->extra['i'] = $ip;
+
         return $this;
     }
 }

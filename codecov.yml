@@ -1,0 +1,8 @@
+comment:
+  require_changes: true  # Only post a comment if coverage changes.
+
+coverage:
+  status:
+    project:
+      default:
+        threshold: 5%

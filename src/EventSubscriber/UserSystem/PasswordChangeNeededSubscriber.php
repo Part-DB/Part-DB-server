@@ -40,7 +40,7 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\EventSubscriber;
+namespace App\EventSubscriber\UserSystem;
 
 use App\Entity\UserSystem\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

@@ -40,7 +40,7 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\EventSubscriber;
+namespace App\EventSubscriber\UserSystem;
 
 use App\Entity\UserSystem\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -50,7 +50,11 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 
-final class LogoutOnDisabledUserListener implements EventSubscriberInterface
+/**
+ * This subscriber is used to log out a disabled user, as soon as he to do an request.
+ * It is not possible for him to login again, afterwards.
+ */
+final class LogoutDisabledUserSubscriber implements EventSubscriberInterface
 {
     private $security;
     private $urlGenerator;

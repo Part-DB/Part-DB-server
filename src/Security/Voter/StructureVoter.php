@@ -57,6 +57,18 @@ use function is_object;
 
 class StructureVoter extends ExtendedVoter
 {
+    protected const OBJ_PERM_MAP = [
+        AttachmentType::class => 'attachment_types',
+        Category::class => 'categories',
+        Device::class => 'devices',
+        Footprint::class => 'footprints',
+        Manufacturer::class => 'manufacturers',
+        Storelocation::class => 'storelocations',
+        Supplier::class => 'suppliers',
+        Currency::class => 'currencies',
+        MeasurementUnit::class => 'measurement_units',
+    ];
+
     /**
      * Determines if the attribute and subject are supported by this voter.
      *
@@ -90,27 +102,18 @@ class StructureVoter extends ExtendedVoter
         } else {
             $class_name = $subject;
         }
-        switch ($class_name) {
-            case AttachmentType::class:
-                return 'attachment_types';
-            case Category::class:
-                return 'categories';
-            case Device::class:
-                return 'devices';
-            case Footprint::class:
-                return 'footprints';
-            case Manufacturer::class:
-                return 'manufacturers';
-            case Storelocation::class:
-                return 'storelocations';
-            case Supplier::class:
-                return 'suppliers';
-            case Currency::class:
-                return 'currencies';
-            case MeasurementUnit::class:
-                return 'measurement_units';
+
+        //If it is existing in index, we can skip the loop
+        if (isset(static::OBJ_PERM_MAP[$class_name])) {
+            return static::OBJ_PERM_MAP[$class_name];
         }
-        //When the class is not supported by this class return null
+
+        foreach (static::OBJ_PERM_MAP as $class => $ret) {
+            if (is_a($class_name, $class, true)) {
+                return $ret;
+            }
+        }
+
         return null;
     }
 

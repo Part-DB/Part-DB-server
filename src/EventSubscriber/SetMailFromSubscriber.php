@@ -47,7 +47,10 @@ use Symfony\Component\Mailer\Event\MessageEvent;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 
-final class MailFromListener implements EventSubscriberInterface
+/**
+ * This subscriber set the "From" field for all sent email, based on the global configured sender name and email.
+ */
+final class SetMailFromSubscriber implements EventSubscriberInterface
 {
     private $email;
     private $name;

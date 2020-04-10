@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -18,20 +21,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace App\EventSubscriber;
-
+namespace App\EventSubscriber\LogSystem;
 
 use App\Entity\LogSystem\SecurityEventLogEntry;
 use App\Events\SecurityEvent;
 use App\Events\SecurityEvents;
 use App\Services\LogSystem\EventLogger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+/**
+ * This subscriber writes entries to log if an security related event happens (e.g. the user changes its password).
+ */
 final class SecurityEventLoggerSubscriber implements EventSubscriberInterface
 {
-
     private $requestStack;
     private $gpdr_compliant;
     private $eventLogger;
@@ -43,27 +46,6 @@ final class SecurityEventLoggerSubscriber implements EventSubscriberInterface
         $this->eventLogger = $eventLogger;
     }
 
-    protected function addLog(string $type, SecurityEvent $event): void
-    {
-        $anonymize = $this->gpdr_compliant;
-
-        $request = $this->requestStack->getCurrentRequest();
-        if ($request !== null) {
-            $ip = $request->getClientIp() ?? 'unknown';
-        } else {
-            $ip = "Console";
-            //Dont try to apply IP filter rules to non numeric string
-            $anonymize = false;
-        }
-
-        $log = new SecurityEventLogEntry($type, $ip, $anonymize);
-        $log->setTargetElement($event->getTargetUser());
-        $this->eventLogger->logAndFlush($log);
-    }
-
-    /**
-     * @inheritDoc
-     */
     public static function getSubscribedEvents()
     {
         return [
@@ -122,5 +104,23 @@ final class SecurityEventLoggerSubscriber implements EventSubscriberInterface
     public function trusted_device_reset(SecurityEvent $event): void
     {
         $this->addLog(SecurityEvents::TRUSTED_DEVICE_RESET, $event);
+    }
+
+    private function addLog(string $type, SecurityEvent $event): void
+    {
+        $anonymize = $this->gpdr_compliant;
+
+        $request = $this->requestStack->getCurrentRequest();
+        if (null !== $request) {
+            $ip = $request->getClientIp() ?? 'unknown';
+        } else {
+            $ip = 'Console';
+            //Dont try to apply IP filter rules to non numeric string
+            $anonymize = false;
+        }
+
+        $log = new SecurityEventLogEntry($type, $ip, $anonymize);
+        $log->setTargetElement($event->getTargetUser());
+        $this->eventLogger->logAndFlush($log);
     }
 }

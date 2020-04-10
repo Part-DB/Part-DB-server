@@ -40,7 +40,7 @@ security:
             logout:
                 path: logout
                 target: homepage
-                handlers: [App\EventSubscriber\LogoutListener]
+                handlers: [App\EventSubscriber\LogSystem\LogoutLoggerHandler]
 
             remember_me:
                 secret:   '%kernel.secret%'

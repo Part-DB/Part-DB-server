@@ -42,7 +42,6 @@ declare(strict_types=1);
 
 namespace App\Entity\LogSystem;
 
-use App\Exceptions\LogEntryObsoleteException;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -52,11 +51,22 @@ class UserNotAllowedLogEntry extends AbstractLogEntry
 {
     protected $typeString = 'user_not_allowed';
 
-    public function __construct()
+    public function __construct(string $path)
     {
         parent::__construct();
-        //Obsolete, use server log now.
-        throw new LogEntryObsoleteException();
+        $this->level = static::LEVEL_WARNING;
+
+        $this->extra['a'] = $path;
+    }
+
+    /**
+     * Returns the path the user tried to accessed and what was denied.
+     *
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->extra['a'] ?? 'legacy';
     }
 
     public function getMessage(): string

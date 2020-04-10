@@ -22,7 +22,7 @@
         "ocramius/proxy-manager": "2.2.*",
         "omines/datatables-bundle": "^0.4.0",
         "php-translation/symfony-bundle": "^0.12.0",
-        "r/u2f-two-factor-bundle": "dev-u2f-api",
+        "r/u2f-two-factor-bundle": "^0.7.0",
         "s9e/text-formatter": "^2.1",
         "scheb/two-factor-bundle": "^4.11",
         "sensio/framework-extra-bundle": "^5.1",
@@ -60,6 +60,7 @@
     "require-dev": {
         "dama/doctrine-test-bundle": "^6.0",
         "doctrine/doctrine-fixtures-bundle": "^3.2",
+        "ekino/phpstan-banned-code": "^0.3.1",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.8",
         "phpstan/phpstan-doctrine": "^0.12.9",
@@ -70,7 +71,7 @@
         "symfony/maker-bundle": "^1.13",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "^1.0",
-        "symplify/easy-coding-standard": "7.2.3",
+        "symplify/easy-coding-standard": "^7.2.3",
         "vimeo/psalm": "^3.5"
     },
     "config": {
@@ -115,11 +116,5 @@
             "allow-contrib": false,
             "require": "4.4.*"
         }
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url":  "git@github.com:stephanvierkant/u2f-two-factor-bundle.git"
-        }
-    ]
+    }
 }

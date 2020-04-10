@@ -306,13 +306,13 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * Sets the amount of parts in the part lot.
      * If null is passed, amount will be set to unknown.
-     * @param  float|null  $new_amount
+     *
      * @return $this
      */
     public function setAmount(?float $new_amount): self
     {
         //Treat null like unknown amount
-        if ($new_amount === null) {
+        if (null === $new_amount) {
             $this->instock_unknown = true;
             $new_amount = 0.0;
         }

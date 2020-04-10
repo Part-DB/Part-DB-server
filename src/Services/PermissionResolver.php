@@ -49,7 +49,6 @@ use App\Security\Interfaces\HasPermissionsInterface;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\Resource\FileResource;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Yaml\Yaml;
 
 class PermissionResolver
@@ -70,8 +69,6 @@ class PermissionResolver
         $this->is_debug = $kernel_debug;
 
         $this->permission_structure = $this->generatePermissionStructure();
-
-        //dump($this->permission_structure);
     }
 
     public function getPermissionStructure(): array
