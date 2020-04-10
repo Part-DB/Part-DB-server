@@ -85,35 +85,35 @@ class StructuralEntityType extends AbstractType
                                           function ($value) use ($options) {
                                               return $this->transform($value, $options);
                                           }, function ($value) use ($options) {
-                                          return $this->reverseTransform($value, $options);
-                                      }));
+                                              return $this->reverseTransform($value, $options);
+                                          }));
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired(['class']);
         $resolver->setDefaults([
-                                   'show_fullpath_in_subtext' => true, //When this is enabled, the full path will be shown in subtext
-                                   'subentities_of' => null,   //Only show entities with the given parent class
-                                   'disable_not_selectable' => false,  //Disable entries with not selectable property
-                                   'choice_value' => 'id', //Use the element id as option value and for comparing items
-                                   'choice_loader' => function (Options $options) {
-                                       return new CallbackChoiceLoader(function () use ($options) {
-                                           return $this->getEntries($options);
-                                       });
-                                   },
-                                   'choice_label' => function (Options $options) {
-                                       return function ($choice, $key, $value) use ($options) {
-                                           return $this->generateChoiceLabels($choice, $key, $value, $options);
-                                       };
-                                   },
-                                   'choice_attr' => function (Options $options) {
-                                       return function ($choice, $key, $value) use ($options) {
-                                           return $this->generateChoiceAttr($choice, $key, $value, $options);
-                                       };
-                                   },
-                                   'choice_translation_domain' => false, //Don't translate the entity names
-                               ]);
+            'show_fullpath_in_subtext' => true, //When this is enabled, the full path will be shown in subtext
+            'subentities_of' => null,   //Only show entities with the given parent class
+            'disable_not_selectable' => false,  //Disable entries with not selectable property
+            'choice_value' => 'id', //Use the element id as option value and for comparing items
+            'choice_loader' => function (Options $options) {
+                return new CallbackChoiceLoader(function () use ($options) {
+                    return $this->getEntries($options);
+                });
+            },
+            'choice_label' => function (Options $options) {
+                return function ($choice, $key, $value) use ($options) {
+                    return $this->generateChoiceLabels($choice, $key, $value, $options);
+                };
+            },
+            'choice_attr' => function (Options $options) {
+                return function ($choice, $key, $value) use ($options) {
+                    return $this->generateChoiceAttr($choice, $key, $value, $options);
+                };
+            },
+            'choice_translation_domain' => false, //Don't translate the entity names
+        ]);
 
         $resolver->setDefault('empty_message', null);
 

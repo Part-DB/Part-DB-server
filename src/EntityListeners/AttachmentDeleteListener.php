@@ -87,7 +87,7 @@ class AttachmentDeleteListener
             $real_path = $this->pathResolver->placeholderToRealPath($old_path);
 
             //If the attachment does not point to a valid file, ignore it!
-            if ($real_path === null) {
+            if (null === $real_path) {
                 return;
             }
 

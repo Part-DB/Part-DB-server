@@ -52,7 +52,6 @@ use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\User;
-
 use function get_class;
 use function is_object;
 

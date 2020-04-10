@@ -508,7 +508,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     {
         $tmp = $this->getFirstName();
         //Dont add a space, if the name has only one part (it would look strange)
-        if (!empty($this->getFirstName()) && !empty($this->getLastName())) {
+        if (! empty($this->getFirstName()) && ! empty($this->getLastName())) {
             $tmp .= ' ';
         }
         $tmp .= $this->getLastName();

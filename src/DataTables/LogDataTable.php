@@ -103,9 +103,10 @@ class LogDataTable implements DataTableTypeInterface
         $optionsResolver->setAllowedTypes('mode', 'string');
 
         $optionsResolver->setNormalizer('filter_elements', function (Options $options, $value) {
-            if (!is_array($value)) {
+            if (! is_array($value)) {
                 return [$value];
             }
+
             return $value;
         });
 

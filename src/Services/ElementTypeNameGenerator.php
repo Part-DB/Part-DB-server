@@ -44,7 +44,6 @@ namespace App\Services;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
-use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Devices\Device;
 use App\Entity\Parameters\AbstractParameter;

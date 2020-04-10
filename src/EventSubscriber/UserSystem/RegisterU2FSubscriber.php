@@ -57,7 +57,6 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * This subscriber is used to write U2F keys to DB, after user added them via GUI.
- * @package App\EventSubscriber\UserSystem
  */
 final class RegisterU2FSubscriber implements EventSubscriberInterface
 {

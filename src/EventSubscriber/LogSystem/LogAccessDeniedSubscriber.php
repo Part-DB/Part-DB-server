@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,7 +23,6 @@
 
 namespace App\EventSubscriber\LogSystem;
 
-
 use App\Entity\LogSystem\UserNotAllowedLogEntry;
 use App\Services\LogSystem\EventLogger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -30,7 +32,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Write to event log when a user tries to access an forbidden page and recevies an 403 Access Denied message.
- * @package App\EventSubscriber\LogSystem
  */
 class LogAccessDeniedSubscriber implements EventSubscriberInterface
 {
@@ -41,14 +42,14 @@ class LogAccessDeniedSubscriber implements EventSubscriberInterface
         $this->logger = $logger;
     }
 
-    public function onKernelException(ExceptionEvent $event)
+    public function onKernelException(ExceptionEvent $event): void
     {
         $throwable = $event->getThrowable();
         if ($throwable instanceof AccessDeniedHttpException) {
             $throwable = $throwable->getPrevious();
         }
         //Ignore everything except AccessDeniedExceptions
-        if (!$throwable instanceof AccessDeniedException) {
+        if (! $throwable instanceof AccessDeniedException) {
             return;
         }
 
@@ -57,9 +58,6 @@ class LogAccessDeniedSubscriber implements EventSubscriberInterface
         $this->logger->logAndFlush($log_entry);
     }
 
-    /**
-     * @inheritDoc
-     */
     public static function getSubscribedEvents()
     {
         return ['kernel.exception' => 'onKernelException'];

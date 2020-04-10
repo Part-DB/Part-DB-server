@@ -45,6 +45,7 @@ namespace App\Controller;
 use App\DataTables\LogDataTable;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
+use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
@@ -52,7 +53,6 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Exceptions\AttachmentDownloadException;
 use App\Form\Part\PartBaseType;
-use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\LogSystem\EventCommentHelper;
@@ -62,7 +62,6 @@ use App\Services\Parameters\ParameterExtractor;
 use App\Services\PricedetailHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
-use App\Entity\Parts\Manufacturer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -256,7 +255,7 @@ class PartController extends AbstractController
         }
 
         $store_id = $request->get('storelocation', null);
-        $storelocation = $store_id ? $em->find(Storelocation::class, $store_id): null;
+        $storelocation = $store_id ? $em->find(Storelocation::class, $store_id) : null;
         if (null !== $storelocation && $new_part->getPartLots()->isEmpty()) {
             $partLot = new PartLot();
             $partLot->setStorageLocation($storelocation);
@@ -265,13 +264,12 @@ class PartController extends AbstractController
         }
 
         $supplier_id = $request->get('supplier', null);
-        $supplier = $supplier_id ? $em->find(Supplier::class, $supplier_id): null;
+        $supplier = $supplier_id ? $em->find(Supplier::class, $supplier_id) : null;
         if (null !== $supplier && $new_part->getOrderdetails()->isEmpty()) {
             $orderdetail = new Orderdetail();
             $orderdetail->setSupplier($supplier);
             $new_part->addOrderdetail($orderdetail);
         }
-
 
         $form = $this->createForm(PartBaseType::class, $new_part);
 

@@ -42,7 +42,6 @@ declare(strict_types=1);
 
 namespace App\Entity\LogSystem;
 
-use App\Exceptions\LogEntryObsoleteException;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -62,6 +61,7 @@ class UserNotAllowedLogEntry extends AbstractLogEntry
 
     /**
      * Returns the path the user tried to accessed and what was denied.
+     *
      * @return string
      */
     public function getPath(): string

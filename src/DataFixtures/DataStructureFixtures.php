@@ -52,8 +52,8 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 use InvalidArgumentException;
 
 class DataStructureFixtures extends Fixture

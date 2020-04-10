@@ -50,7 +50,6 @@ use Doctrine\Migrations\Events;
 
 /**
  * This subscriber logs databaseMigrations to Event log.
- * @package App\EventSubscriber
  */
 class LogDBMigrationSubscriber implements EventSubscriber
 {

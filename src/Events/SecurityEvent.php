@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,14 +23,12 @@
 
 namespace App\Events;
 
-
 use App\Entity\UserSystem\User;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * This event is triggered when something security related to a user happens.
  * For example when the password is reset or the an two factor authentication method was disabled.
- * @package App\Events
  */
 class SecurityEvent extends Event
 {
@@ -41,6 +42,7 @@ class SecurityEvent extends Event
 
     /**
      * Returns the affected user.
+     *
      * @return User
      */
     public function getTargetUser()

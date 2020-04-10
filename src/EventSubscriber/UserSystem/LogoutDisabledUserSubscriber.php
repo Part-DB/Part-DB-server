@@ -53,7 +53,6 @@ use Symfony\Component\Security\Core\Security;
 /**
  * This subscriber is used to log out a disabled user, as soon as he to do an request.
  * It is not possible for him to login again, afterwards.
- * @package App\EventSubscriber\UserSystem
  */
 final class LogoutDisabledUserSubscriber implements EventSubscriberInterface
 {

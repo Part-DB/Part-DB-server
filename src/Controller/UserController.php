@@ -56,7 +56,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Component\Asset\Packages;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -193,7 +192,6 @@ class UserController extends AdminPages\BaseAdminController
         if ($table->isCallback()) {
             return $table->getResponse();
         }
-
 
         if ($this->getParameter('use_gravatar')) {
             $avatar = $this->getGravatar($user->getEmail(), 200, 'identicon');

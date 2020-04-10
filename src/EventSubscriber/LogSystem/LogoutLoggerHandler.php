@@ -52,7 +52,6 @@ use Symfony\Component\Security\Http\Logout\LogoutHandlerInterface;
 
 /**
  * This handler logs to event log, if a user logs out.
- * @package App\EventSubscriber\LogSystem
  */
 class LogoutLoggerHandler implements LogoutHandlerInterface
 {

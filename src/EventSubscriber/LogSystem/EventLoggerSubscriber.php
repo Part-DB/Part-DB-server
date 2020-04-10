@@ -67,7 +67,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * This event subscriber write to event log when entities are changed, removed, created.
- * @package App\EventSubscriber\LogSystem
  */
 class EventLoggerSubscriber implements EventSubscriber
 {
