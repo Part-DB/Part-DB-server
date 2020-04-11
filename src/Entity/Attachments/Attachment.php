@@ -43,7 +43,7 @@ use LogicException;
  *     "Footprint" = "FootprintAttachment", "Manufacturer" = "ManufacturerAttachment",
  *     "Currency" = "CurrencyAttachment", "Group" = "GroupAttachment",
  *     "MeasurementUnit" = "MeasurementUnitAttachment", "Storelocation" = "StorelocationAttachment",
- *     "Supplier" = "SupplierAttachment", "User" = "UserAttachment"
+ *     "Supplier" = "SupplierAttachment", "User" = "UserAttachment", "LabelProfile" = "LabelAttachment",
  * })
  * @ORM\EntityListeners({"App\EntityListeners\AttachmentDeleteListener"})
  */

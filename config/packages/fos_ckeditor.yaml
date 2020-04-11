@@ -17,7 +17,9 @@ fos_ck_editor:
             extraPlugins: "markdown"
             height: 60
             toolbar: description_toolbar
-
+        label_config:
+            height: 100
+            toolbar: config_toolbar
 
     plugins:
         bbcode:
@@ -33,6 +35,13 @@ fos_ck_editor:
 
     toolbars:
         configs:
+            config_toolbar:
+                - [ 'Bold', 'Italic', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]
+                - ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
+                - ["SpecialChar"]
+                - ["Source"]
+                - "/"
+                - ['Format', 'FontSize' ]
             description_toolbar:
                 - [ 'Bold', 'Italic', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]
                 - ["SpecialChar"]

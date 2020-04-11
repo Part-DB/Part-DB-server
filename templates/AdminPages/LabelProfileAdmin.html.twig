@@ -1,0 +1,15 @@
+{% extends "AdminPages/EntityAdminBase.html.twig" %}
+
+{% block card_title %}
+    <i class="fas fa-qr fa-fw"></i> {% trans %}label_profile.caption{% endtrans %}
+{% endblock %}
+
+{% block additional_pills %}
+    <li class="nav-item"><a data-toggle="tab" class="nav-link link-anchor" href="#tab_options">{% trans %}admin.options{% endtrans %}</a></li>
+{% endblock %}
+
+{% block additional_panes %}
+    <div class="tab-pane" id="tab_options">
+        {{ form_widget(form.options) }}
+    </div>
+{% endblock %}

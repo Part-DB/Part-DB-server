@@ -46,6 +46,24 @@
     {{ form_errors(form.value) }}
 {% endblock %}
 
+{% block label_options_widget %}
+    <div class="form-group row">
+        {{ form_label(form.width) }}
+        <div class="input-group col-9">
+            {{ form_widget(form.width) }}
+            <div class="input-group-append input-group-prepend">
+                <span class="input-group-text">x</span>
+            </div>
+            {{ form_widget(form.height) }}
+            <div class="input-group-append">
+                <span class="input-group-text">mm</span>
+            </div>
+        </div>
+    </div>
+    {{ form_row(form.barcode_type) }}
+    {{ form_row(form.lines) }}
+{% endblock %}
+
 {#######################################################################################
 #
 #   Definitions for Tristate Checkbox Type (mostly based on bootstrap checkbox type)

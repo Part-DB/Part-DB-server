@@ -46,6 +46,7 @@ use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Devices\Device;
+use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -92,6 +93,7 @@ class ElementTypeNameGenerator
             Group::class => $this->translator->trans('group.label'),
             User::class => $this->translator->trans('user.label'),
             AbstractParameter::class => $this->translator->trans('parameter.label'),
+            LabelProfile::class => $this->translator->trans('label_profile.label'),
         ];
     }
 
