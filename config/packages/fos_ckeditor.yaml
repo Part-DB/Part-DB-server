@@ -19,7 +19,8 @@ fos_ck_editor:
             toolbar: description_toolbar
         label_config:
             height: 100
-            toolbar: config_toolbar
+            enterMode: 2
+            toolbar: label_toolbar
 
     plugins:
         bbcode:
@@ -35,13 +36,14 @@ fos_ck_editor:
 
     toolbars:
         configs:
-            config_toolbar:
+            label_toolbar:
                 - [ 'Bold', 'Italic', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]
-                - ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
+                - ['JustifyLeft', 'JustifyCenter', 'JustifyRight']
                 - ["SpecialChar"]
                 - ["Source"]
                 - "/"
-                - ['Format', 'FontSize' ]
+                - ['Format', 'FontSize']
+                - ['Table', 'HorizontalRule']
             description_toolbar:
                 - [ 'Bold', 'Italic', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]
                 - ["SpecialChar"]

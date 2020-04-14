@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ meta_title }}</title>
+        <meta name="author" content="{{ partdb_title }}">
+        <meta name="description" content="Label for {{ meta_title }}">
+        <meta name="keywords" content="Part-DB, Label, Barcode">
+        <style>
+            {% include("labels/label_style.css.twig") %}
+        </style>
+    </head>
+    <body>
+        {{ lines | raw }}
+    </body>
+</html>

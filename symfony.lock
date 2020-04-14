@@ -120,6 +120,9 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
+    "dompdf/dompdf": {
+        "version": "v0.8.5"
+    },
     "egulias/email-validator": {
         "version": "2.1.11"
     },
@@ -271,6 +274,12 @@
     "paragonie/random_compat": {
         "version": "v9.99.99"
     },
+    "phenx/php-font-lib": {
+        "version": "0.5.1"
+    },
+    "phenx/php-svg-lib": {
+        "version": "v0.3.3"
+    },
     "php": {
         "version": "7.2.5"
     },
@@ -372,6 +381,9 @@
     },
     "s9e/text-formatter": {
         "version": "2.1.2"
+    },
+    "sabberworm/php-css-parser": {
+        "version": "8.3.0"
     },
     "scheb/two-factor-bundle": {
         "version": "3.16",
