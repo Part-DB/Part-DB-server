@@ -35,6 +35,11 @@ services:
             bool $gpdr_compliance : '%gpdr_compliance%'
             bool $kernel_debug: '%kernel.debug%'
             string $kernel_cache_dir: '%kernel.cache_dir%'
+            string $partdb_title: '%partdb_title%'
+
+    _instanceof:
+        App\Services\LabelSystem\PlaceholderProviders\PlaceholderProviderInterface:
+            tags: ['app.label_placeholder_provider']
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -162,6 +167,10 @@ services:
         arguments:
             $code_length: 8
             $code_count: 15
+
+    App\Services\LabelSystem\LabelTextReplacer:
+        arguments:
+            $providers: !tagged_iterator 'app.label_placeholder_provider'
 
     App\Services\TranslationExtractor\PermissionExtractor:
         tags:

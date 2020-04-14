@@ -105,6 +105,7 @@ class SIFormatter
      * @param float  $value    The value that should be converted
      * @param string $unit     The unit that should be appended after the prefix
      * @param int    $decimals the number of decimals (after decimal dot) that should be outputed
+     * @return string The formatted value
      */
     public function format(float $value, string $unit = '', int $decimals = 2): string
     {

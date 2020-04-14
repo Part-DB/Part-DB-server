@@ -18,40 +18,38 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace App\Services\LabelSystem;
+namespace App\Services\LabelSystem\PlaceholderProviders;
 
-use App\Entity\Contracts\NamedElementInterface;
-use App\Entity\LabelSystem\LabelOptions;
+
+use App\Entity\Base\AbstractDBElement;
 use App\Services\ElementTypeNameGenerator;
-use Twig\Environment;
 
-class LabelHTMLGenerator
+class AbstractDBElementProvider implements PlaceholderProviderInterface
 {
-    protected $twig;
     protected $elementTypeNameGenerator;
-    protected $replacer;
 
-    public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator, LabelTextReplacer $replacer, Environment $twig)
+    public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator)
     {
-        $this->twig = $twig;
         $this->elementTypeNameGenerator = $elementTypeNameGenerator;
-        $this->replacer = $replacer;
     }
 
-    public function getLabelHTML(LabelOptions $options, object $element): string
+    /**
+     * @inheritDoc
+     */
+    public function replace(string $placeholder, object $label_target, array $options = []): ?string
     {
-        return $this->twig->render('labels/base_label.html.twig', [
-            'meta_title' => $this->getPDFTitle($options, $element),
-            'lines' => $this->replacer->replace($options->getLines(), $element),
-        ]);
-    }
+        if ($label_target instanceof AbstractDBElement) {
 
-    protected function getPDFTitle(LabelOptions $options, object $element)
-    {
-        if ($element instanceof NamedElementInterface) {
-            return $this->elementTypeNameGenerator->getTypeNameCombination($element, false);
+            if ($placeholder === '%%TYPE%%') {
+                return $this->elementTypeNameGenerator->getLocalizedTypeLabel($label_target);
+            }
+
+            if ($placeholder === '%%ID%%') {
+                return (string) ($label_target->getID() ?? 'unknown');
+            }
+
         }
 
-        return 'Part-DB label';
+        return null;
     }
 }

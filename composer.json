@@ -14,6 +14,7 @@
         "doctrine/annotations": "^1.6",
         "doctrine/doctrine-bundle": "^2.0",
         "dompdf/dompdf": "^0.8.5",
+        "erusev/parsedown": "^1.7",
         "florianv/swap": "^4.0",
         "friendsofsymfony/ckeditor-bundle": "^2.0",
         "gregwar/captcha-bundle": "^2.1.0",
