@@ -64,6 +64,7 @@ class LabelOptionsType extends AbstractType
 
         $builder->add('lines', CKEditorType::class, [
             'label' => 'label_profile.lines.label',
+            'empty_data' => '',
             'attr' => [
                 'rows' => 4,
             ],

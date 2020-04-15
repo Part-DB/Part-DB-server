@@ -21,6 +21,7 @@ fos_ck_editor:
             height: 100
             enterMode: 2
             toolbar: label_toolbar
+            extraPlugins: "partdb_label"
 
     plugins:
         bbcode:
@@ -32,6 +33,9 @@ fos_ck_editor:
         specialchar:
             path:     "ckeditor/plugins/specialchar"
             filename:  "plugin.js"
+        partdb_label:
+            path:      "ckeditor/plugins/partdb_label/"
+            filename: "plugin.js"
 
 
     toolbars:
@@ -44,6 +48,7 @@ fos_ck_editor:
                 - "/"
                 - ['Format', 'FontSize']
                 - ['Table', 'HorizontalRule']
+                - ['Placeholders']
             description_toolbar:
                 - [ 'Bold', 'Italic', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]
                 - ["SpecialChar"]
