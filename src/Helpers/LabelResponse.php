@@ -54,6 +54,8 @@ class LabelResponse extends Response
         }
 
         $this->ensureIEOverSSLCompatibility($request);
+
+        return $this;
     }
 
     /**

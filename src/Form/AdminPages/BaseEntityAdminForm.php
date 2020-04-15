@@ -170,7 +170,7 @@ class BaseEntityAdminForm extends AbstractType
             'empty_data' => null,
         ]);
 
-        if ($entity instanceof StructuralEntityType) {
+        if ($entity instanceof AbstractStructuralDBElement) {
             $builder->add(
                 'parameters',
                 CollectionType::class,
