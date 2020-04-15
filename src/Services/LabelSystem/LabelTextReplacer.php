@@ -20,9 +20,13 @@
 
 namespace App\Services\LabelSystem;
 
-
 use App\Services\LabelSystem\PlaceholderProviders\PlaceholderProviderInterface;
 
+/**
+ * This service replaces the Placeholders of the user provided lines with the proper informations.
+ * It uses the PlaceholderProviders provided by PlaceholderProviderInterface classes.
+ * @package App\Services\LabelSystem
+ */
 class LabelTextReplacer
 {
     protected $providers;
@@ -32,6 +36,13 @@ class LabelTextReplacer
         $this->providers = $providers;
     }
 
+    /**
+     * Determine the replacement for a single placeholder. It is iterated over all Replacement Providers.
+     * If the given string is not a placeholder or the placeholder is not known, it will be returned unchanged.
+     * @param  string  $placeholder The placeholder that should be replaced. (e.g. '%%PLACEHOLDER%%')
+     * @param  object  $target The object that should be used for the placeholder info source.
+     * @return string  If the placeholder was valid, the replaced info. Otherwise the passed string.
+     */
     public function handlePlaceholder(string $placeholder, object $target): string
     {
         foreach ($this->providers as $provider) {
@@ -45,10 +56,16 @@ class LabelTextReplacer
         return $placeholder;
     }
 
+    /**
+     * Replaces all placeholders in the input lines.
+     * @param  string  $lines The input lines that should be replaced
+     * @param  object  $target The object that should be used as source for the informations.
+     * @return string The Lines with replaced informations.
+     */
     public function replace(string $lines, object $target): string
     {
         $patterns = [
-            '/(%%.*%%)/' => function ($match) use ($target) {
+            '/(%%[A-Z_]+%%)/' => function ($match) use ($target) {
                 return $this->handlePlaceholder($match[0], $target);
             },
         ];
