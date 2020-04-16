@@ -22,6 +22,7 @@ namespace App\Tests\Services\LabelSystem\PlaceholderProviders;
 
 use App\Entity\Contracts\TimeStampableInterface;
 use App\Services\LabelSystem\PlaceholderProviders\GlobalProviders;
+use App\Services\LabelSystem\PlaceholderProviders\TimestampableElementProvider;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -35,7 +36,7 @@ class TimestampableElementProviderTest extends WebTestCase
     public function setUp(): void
     {
         self::bootKernel();
-        $this->service = self::$container->get(GlobalProviders::class);
+        $this->service = self::$container->get(TimestampableElementProvider::class);
         $this->target = new class implements TimeStampableInterface {
 
             /**
@@ -58,9 +59,11 @@ class TimestampableElementProviderTest extends WebTestCase
 
     public function dataProvider(): array
     {
+        $formatted = \IntlDateFormatter::formatObject(new \DateTime('2000-01-01'), \IntlDateFormatter::SHORT);
+
         return [
-            ['2000-01-01', '%%LAST_MODIFIED%%'],
-            ['2000-01-01', '%%CREATION_DATE%%'],
+            [$formatted, '%%LAST_MODIFIED%%'],
+            [$formatted, '%%CREATION_DATE%%'],
         ];
     }
 
