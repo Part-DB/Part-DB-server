@@ -104,12 +104,25 @@ class ToolsTreeBuilder
             $item->tag(['tree_tools', 'groups', $this->keyGenerator->generateKey()]);
 
             $tree = [];
+            $tree[] = new TreeViewNode($this->translator->trans('tree.tools.tools'), null, $this->getToolsNode());
             $tree[] = new TreeViewNode($this->translator->trans('tree.tools.edit'), null, $this->getEditNodes());
             $tree[] = new TreeViewNode($this->translator->trans('tree.tools.show'), null, $this->getShowNodes());
             $tree[] = new TreeViewNode($this->translator->trans('tree.tools.system'), null, $this->getSystemNodes());
 
             return $tree;
         });
+    }
+
+    protected function getToolsNode(): array
+    {
+        $nodes = [];
+
+        $nodes[] = new TreeViewNode(
+            $this->translator->trans('tree.tools.tools.label_dialog'),
+            $this->urlGenerator->generate('label_dialog')
+        );
+
+        return $nodes;
     }
 
     /**

@@ -24,14 +24,16 @@ namespace App\Services\LabelSystem;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
 use App\Services\ElementTypeNameGenerator;
 use Dompdf\Dompdf;
 use Twig\Environment;
 
 class LabelGenerator
 {
-    protected const CLASS_SUPPORT_MAPPING = [
+    public const CLASS_SUPPORT_MAPPING = [
         'part' => Part::class,
+        'part_lot' => PartLot::class,
     ];
 
     public const MM_TO_POINTS_FACTOR = 2.83465;

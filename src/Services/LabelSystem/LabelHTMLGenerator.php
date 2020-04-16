@@ -40,7 +40,7 @@ class LabelHTMLGenerator
 
     public function getLabelHTML(LabelOptions $options, object $element): string
     {
-        return $this->twig->render('labels/base_label.html.twig', [
+        return $this->twig->render('LabelSystem/labels/base_label.html.twig', [
             'meta_title' => $this->getPDFTitle($options, $element),
             'lines' => $this->replacer->replace($options->getLines(), $element),
         ]);

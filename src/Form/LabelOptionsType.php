@@ -52,6 +52,14 @@ class LabelOptionsType extends AbstractType
             ]
         ]);
 
+        $builder->add('supported_element', ChoiceType::class, [
+            'label' => 'label_options.supported_elements.label',
+            'choices' => [
+                'part.label' => 'part',
+                'part_lot.label' => 'part_lot'
+            ]
+        ]);
+
         $builder->add('barcode_type', ChoiceType::class, [
            'label' => 'label_options.barcode_type.label',
             'empty_data' => 'none',

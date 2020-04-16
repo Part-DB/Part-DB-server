@@ -47,6 +47,7 @@
 {% endblock %}
 
 {% block label_options_widget %}
+    {{ form_row(form.supported_element) }}
     <div class="form-group row">
         {{ form_label(form.width) }}
         <div class="input-group col-9">

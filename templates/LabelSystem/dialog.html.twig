@@ -1,0 +1,28 @@
+{% extends 'main_card.html.twig' %}
+
+{% block card_title %}<i class="fas fa-qrcode fa-fw"></i> {% trans %}label_generator.title{% endtrans %}{% endblock %}
+
+{% block card_content %}
+    {{ form_start(form) }}
+    {{ form_row(form.target_id) }}
+    {{ form_widget(form.options) }}
+    {{ form_end(form) }}
+    {% if pdf_data %}
+        <div class="row">
+            <div class="col-sm-9 offset-sm-3">
+                <a data-no-ajax class="btn btn-secondary" href="#" onclick="this.href = document.getElementById('pdf_preview').data" download="{{ filename ?? '' }}">
+                    {% trans %}label_generator.download{% endtrans %}
+                </a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block additional_content %}
+    {% if pdf_data %}
+        <div class="card mt-2 p-1 border-secondary" style="resize: vertical; overflow: scroll; height: 250px">
+            <object id="pdf_preview"  data="{{ inlineData(pdf_data, 'application/pdf') | escape('html_attr') }}"style="height: inherit">
+            </object>
+        </div>
+    {% endif %}
+{% endblock %}
