@@ -21,6 +21,7 @@
 namespace App\Tests\Services\LabelSystem;
 
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
 use App\Services\AmountFormatter;
 use App\Services\LabelSystem\LabelTextReplacer;
 use PHPUnit\Framework\TestCase;
@@ -93,5 +94,19 @@ class LabelTextReplacerTest extends WebTestCase
     public function testReplace(string $expected, string $input): void
     {
         $this->assertSame($expected, $this->service->replace($input, $this->target));
+    }
+
+    /**
+     * Test if the part lot has the highest priority of all providers.
+     */
+    public function testPartLotPriority(): void
+    {
+        $part_lot = new PartLot();
+        $part_lot->setDescription('Test');
+        $part = new Part();
+        $part->setName('Part');
+        $part_lot->setPart($part);
+
+        $this->assertSame('Part', $this->service->handlePlaceholder('%%NAME%%', $part_lot));
     }
 }

@@ -24,9 +24,9 @@ const PLACEHOLDERS = {
             ['%%ID%%', 'part.id'],
             ['%%NAME%%', 'part.name'],
             ['%%CATEGORY%%', 'part.category'],
-            ['%%CATEGORY_FULL', 'part.category_full'],
-            ['%%MANUFACTURER', 'part.manufacturer'],
-            ['%%MANUFACTURER_FULL', 'part.manufacturer_full'],
+            ['%%CATEGORY_FULL%%', 'part.category_full'],
+            ['%%MANUFACTURER%%', 'part.manufacturer'],
+            ['%%MANUFACTURER_FULL%%', 'part.manufacturer_full'],
             ['%%FOOTPRINT%%', 'part.footprint'],
             ['%%FOOTPRINT_FULL%%', 'part.footprint'],
             ['%%MASS%%', 'part.mass'],
@@ -39,6 +39,18 @@ const PLACEHOLDERS = {
             ['%%COMMENT_T%%', 'part.comment_t'],
             ['%%LAST_MODIFIED%%', 'part.last_modified'],
             ['%%CREATION_DATE%%', 'part.creation_date'],
+        ]
+    },
+    part_lot: {
+        label: 'section.part_lot',
+        entries: [
+            ['%%LOT_ID%%', 'lot.id'],
+            ['%%LOT_NAME%%', 'lot.name'],
+            ['%%LOT_COMMENT%%', 'lot.comment'],
+            ['%%EXPIRATION_DATE%%', 'lot.expiration_date'],
+            ['%%AMOUNT%%', 'lot.amount'],
+            ['%%LOCATION%%', 'lot.location'],
+            ['%%LOCATION_FULL%%', 'lot.location_full'],
         ]
     },
     global: {

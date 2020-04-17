@@ -175,3 +175,8 @@ services:
     App\Services\TranslationExtractor\PermissionExtractor:
         tags:
             - { name: 'translation.extractor', alias: 'permissionExtractor'}
+
+    # PartLotProvider must be invoked before all other providers, so it can override %%NAME%% placeholder
+    App\Services\LabelSystem\PlaceholderProviders\PartLotProvider:
+        tags:
+            - { name: 'app.label_placeholder_provider', priority: 10}
