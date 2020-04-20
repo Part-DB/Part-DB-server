@@ -22,22 +22,25 @@ namespace App\Form\LabelSystem;
 
 
 use App\Form\LabelOptionsType;
+use App\Validator\Constraints\Misc\ValidRange;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Type;
 
 class LabelDialogType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('target_id', NumberType::class, [
-            'html5' => true,
+        $builder->add('target_id', TextType::class, [
             'required' => true,
-            'label' => 'label_generator.target_id.label'
+            'label' => 'label_generator.target_id.label',
+            'help' => 'label_generator.target_id.range_hint',
+            'constraints' => [
+                new ValidRange(),
+            ],
         ]);
 
         $builder->add('options', LabelOptionsType::class, [

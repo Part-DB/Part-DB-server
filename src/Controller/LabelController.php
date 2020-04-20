@@ -29,8 +29,10 @@ use App\Entity\Parts\Part;
 use App\Form\LabelOptionsType;
 use App\Form\LabelSystem\LabelDialogType;
 use App\Helpers\LabelResponse;
+use App\Repository\DBElementRepository;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\LabelSystem\LabelGenerator;
+use App\Services\Misc\RangeParser;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\SubmitButton;
@@ -49,12 +51,14 @@ class LabelController extends AbstractController
     protected $labelGenerator;
     protected $em;
     protected $elementTypeNameGenerator;
+    protected $rangeParser;
 
-    public function __construct(LabelGenerator $labelGenerator, EntityManagerInterface $em, ElementTypeNameGenerator $elementTypeNameGenerator)
+    public function __construct(LabelGenerator $labelGenerator, EntityManagerInterface $em, ElementTypeNameGenerator $elementTypeNameGenerator, RangeParser $rangeParser)
     {
         $this->labelGenerator = $labelGenerator;
         $this->em = $em;
         $this->elementTypeNameGenerator = $elementTypeNameGenerator;
+        $this->rangeParser = $rangeParser;
     }
 
     /**
@@ -90,8 +94,8 @@ class LabelController extends AbstractController
         if ($profile === null && is_string($target_type)) {
             $label_options->setSupportedElement($target_type);
         }
-        if (is_numeric($target_id)) {
-            $form['target_id']->setData((int) $target_id);
+        if (is_string($target_id)) {
+            $form['target_id']->setData($target_id);
         }
 
 
@@ -105,10 +109,10 @@ class LabelController extends AbstractController
         $filename = 'invalid.pdf';
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $target_id = (int) $form->get('target_id')->getData();
-            $target = $this->findObject($form_options->getSupportedElement(), $target_id);
-            $pdf_data = $this->labelGenerator->generateLabel($form_options, $target);
-            $filename = $this->getLabelName($target, $profile);
+            $target_id = (string) $form->get('target_id')->getData();
+            $targets = $this->findObjects($form_options->getSupportedElement(), $target_id);
+            $pdf_data = $this->labelGenerator->generateLabel($form_options, $targets);
+            $filename = $this->getLabelName($targets[0], $profile);
         }
 
         return $this->render('LabelSystem/dialog.html.twig', [
@@ -126,11 +130,16 @@ class LabelController extends AbstractController
         return $ret . '.pdf';
     }
 
-    protected function findObject(string $type, int $id): object
+    protected function findObjects(string $type, string $ids): array
     {
         if(!isset(LabelGenerator::CLASS_SUPPORT_MAPPING[$type])) {
             throw new \InvalidArgumentException('The given type is not known and can not be mapped to a class!');
         }
-        return $this->em->find(LabelGenerator::CLASS_SUPPORT_MAPPING[$type], $id);
+
+        $id_array = $this->rangeParser->parse($ids);
+
+        /** @var DBElementRepository $repo */
+        $repo = $this->em->getRepository(LabelGenerator::CLASS_SUPPORT_MAPPING[$type]);
+        return $repo->getElementsFromIDArray($id_array);
     }
 }

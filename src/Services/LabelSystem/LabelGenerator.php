@@ -45,17 +45,35 @@ class LabelGenerator
         $this->labelHTMLGenerator = $labelHTMLGenerator;
     }
 
-    public function generateLabel(LabelOptions $options, object $element): string
+    /**
+     * @param  LabelOptions  $options
+     * @param  object|object[]  $element An element or an array of elements for which labels should be generated
+     * @return string
+     */
+    public function generateLabel(LabelOptions $options, $elements): string
     {
-        if (!$this->supports($options, $element)) {
-            throw new \InvalidArgumentException('The given options are not compatible with the given element!');
+        if (!is_array($elements) && !is_object($elements)) {
+            throw new \InvalidArgumentException('$element must be an object or an array of objects!');
         }
 
+        if (!is_array($elements)) {
+            $elements = [$elements];
+        }
+
+        $elements_html = [];
+
+        dump($elements);
+
+        foreach ($elements as $element) {
+            if (!$this->supports($options, $element)) {
+                throw new \InvalidArgumentException('The given options are not compatible with the given element!');
+            }
+        }
+
+
         $dompdf = new Dompdf();
-        $dompdf->loadHtml($this->labelHTMLGenerator->getLabelHTML($options, $element));
-
         $dompdf->setPaper($this->mmToPointsArray($options->getWidth(), $options->getHeight()));
-
+        $dompdf->loadHtml($this->labelHTMLGenerator->getLabelHTML($options, $elements));
         $dompdf->render();
         return $dompdf->output();
     }

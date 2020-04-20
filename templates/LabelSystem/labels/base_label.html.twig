@@ -11,6 +11,11 @@
         </style>
     </head>
     <body>
-        {{ lines | raw }}
+        {% for element in elements %}
+            {% include "LabelSystem/labels/label_page.html.twig" %}
+            {% if not loop.last %}
+                <div style="page-break-after: always;"></div>
+            {% endif %}
+        {% endfor %}
     </body>
 </html>

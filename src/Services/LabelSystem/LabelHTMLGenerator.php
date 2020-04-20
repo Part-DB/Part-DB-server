@@ -38,11 +38,23 @@ class LabelHTMLGenerator
         $this->replacer = $replacer;
     }
 
-    public function getLabelHTML(LabelOptions $options, object $element): string
+    public function getLabelHTML(LabelOptions $options, array $elements): string
     {
+        if (empty($elements)) {
+            throw new \InvalidArgumentException('$elements must not be empty');
+        }
+
+        $twig_elements = [];
+        foreach ($elements as $element) {
+            $twig_elements[] = [
+                'element' => $element,
+                'lines' => $this->replacer->replace($options->getLines(), $element)
+            ];
+        }
+
         return $this->twig->render('LabelSystem/labels/base_label.html.twig', [
-            'meta_title' => $this->getPDFTitle($options, $element),
-            'lines' => $this->replacer->replace($options->getLines(), $element),
+            'meta_title' => $this->getPDFTitle($options, $elements[0]),
+            'elements' => $twig_elements,
         ]);
     }
 
