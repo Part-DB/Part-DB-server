@@ -62,8 +62,6 @@ class LabelGenerator
 
         $elements_html = [];
 
-        dump($elements);
-
         foreach ($elements as $element) {
             if (!$this->supports($options, $element)) {
                 throw new \InvalidArgumentException('The given options are not compatible with the given element!');
