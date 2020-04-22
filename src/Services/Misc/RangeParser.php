@@ -27,7 +27,7 @@ class RangeParser
 {
     /**
      * Converts the given range string to an array of all numbers in the given range.
-     * @param  string  $range A range string like '1-3, 5, 6'
+     * @param  string  $range_str A range string like '1-3, 5, 6'
      * @return int[] An array with all numbers from the range (e.g. [1, 2, 3, 5, 6]
      */
     public function parse(string $range_str): array

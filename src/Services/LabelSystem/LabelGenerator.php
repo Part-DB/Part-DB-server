@@ -47,7 +47,7 @@ class LabelGenerator
 
     /**
      * @param  LabelOptions  $options
-     * @param  object|object[]  $element An element or an array of elements for which labels should be generated
+     * @param  object|object[]  $elements An element or an array of elements for which labels should be generated
      * @return string
      */
     public function generateLabel(LabelOptions $options, $elements): string
