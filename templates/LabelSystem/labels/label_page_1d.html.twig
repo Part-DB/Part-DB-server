@@ -1,0 +1,27 @@
+<div>
+    <div class="lines-container">
+        {{ element.lines | raw }}
+    </div>
+    <div class="C39-container" style="">
+        <img class="C39" src="{{ inlineData(element.barcode, 'image/svg+xml') }}" height="30px">
+        <span class="C39-text">{{ element.barcode_content }}</span>
+    </div>
+</div>
+
+{#
+<div>
+    <div class="row">
+        <div class="col-5">
+            <div class="C39-container">
+                <img class="C39" src="{{ inlineData(element.barcode, 'image/svg+xml') }}" width="100%" height="50px" style="">
+            </div>
+
+        </div>
+        <div class="col-7">
+            <div class="lines-container">
+                {{ element.lines | raw }}
+            </div>
+        </div>
+    </div>
+</div>
+#}

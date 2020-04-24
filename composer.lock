@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f3beef4790ec9595fcb7f0a03abbaec",
+    "content-hash": "c0b791f7fcf138f1677c99085ca3488d",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -8379,6 +8379,159 @@
             "time": "2020-03-30T11:41:10+00:00"
         },
         {
+            "name": "tecnickcom/tc-lib-barcode",
+            "version": "1.15.20",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/tc-lib-barcode.git",
+                "reference": "dd8de5620ec436d61cc8535e11f2879146ebc16b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-barcode/zipball/dd8de5620ec436d61cc8535e11f2879146ebc16b",
+                "reference": "dd8de5620ec436d61cc8535e11f2879146ebc16b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-bcmath": "*",
+                "ext-date": "*",
+                "ext-gd": "*",
+                "ext-pcre": "*",
+                "php": ">=5.3",
+                "tecnickcom/tc-lib-color": "^1.12.15"
+            },
+            "require-dev": {
+                "apigen/apigen": "^2.8.1 || ^4.1.2",
+                "bartlett/php-compatinfo": "^4.5.2 || ^5.0.10 || ^5.0.12",
+                "pdepend/pdepend": "^2.5.2",
+                "phploc/phploc": "^2.1 || ^3.0 || ^4.0",
+                "phpmd/phpmd": "^2.6.0",
+                "phpunit/phpunit": "^4.8 || ^5.7 || ^6.5 || ^7.1",
+                "sebastian/phpcpd": "^2.0 || ^3.0 || ^4.0",
+                "squizlabs/php_codesniffer": "^2.8.0 || ^3.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Com\\Tecnick\\Barcode\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP library to generate linear and bidimensional barcodes",
+            "homepage": "http://www.tecnick.com",
+            "keywords": [
+                "3 of 9",
+                "ANSI MH10.8M-1983",
+                "CBC",
+                "CODABAR",
+                "CODE 11",
+                "CODE 128 A B C",
+                "CODE 39",
+                "CODE 93",
+                "EAN 13",
+                "EAN 8",
+                "ECC200",
+                "Intelligent Mail Barcode",
+                "Interleaved 2 of 5",
+                "KIX",
+                "Klant",
+                "MSI",
+                "Onecode",
+                "PHARMACODE",
+                "PHARMACODE TWO-TRACKS",
+                "POSTNET",
+                "RMS4CC",
+                "Standard 2 of 5",
+                "UPC-A",
+                "UPC-E",
+                "USD-3",
+                "USPS-B-3200",
+                "USS-93",
+                "barcode",
+                "datamatrix",
+                "pdf417",
+                "planet",
+                "qr-code",
+                "royal mail",
+                "tc-lib-barcode",
+                "upc"
+            ],
+            "time": "2020-01-02T16:01:18+00:00"
+        },
+        {
+            "name": "tecnickcom/tc-lib-color",
+            "version": "1.12.15",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tecnickcom/tc-lib-color.git",
+                "reference": "2f4860cbac4d58c210b6bec4c5806906278962c1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tecnickcom/tc-lib-color/zipball/2f4860cbac4d58c210b6bec4c5806906278962c1",
+                "reference": "2f4860cbac4d58c210b6bec4c5806906278962c1",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pcre": "*",
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "apigen/apigen": "^2.8.1 || ^4.1.2",
+                "bartlett/php-compatinfo": "^4.5.2 || ^5.0.10 || ^5.0.12",
+                "pdepend/pdepend": "^2.5.2",
+                "phploc/phploc": "^2.1 || ^3.0 || ^4.0",
+                "phpmd/phpmd": "^2.6.0",
+                "phpunit/phpunit": "^4.8 || ^5.7 || ^6.5 || ^7.1",
+                "sebastian/phpcpd": "^2.0 || ^3.0 || ^4.0",
+                "squizlabs/php_codesniffer": "^2.8.0 || ^3.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Com\\Tecnick\\Color\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP library to manipulate various color representations",
+            "homepage": "http://www.tecnick.com",
+            "keywords": [
+                "cmyk",
+                "color",
+                "colors",
+                "colour",
+                "colours",
+                "hsl",
+                "hsla",
+                "javascript",
+                "rgb",
+                "rgba",
+                "tc-lib-color",
+                "web"
+            ],
+            "time": "2020-01-02T16:01:17+00:00"
+        },
+        {
             "name": "thecodingmachine/safe",
             "version": "v1.1",
             "source": {
@@ -9863,9 +10016,9 @@
             "authors": [
                 {
                     "name": "Christian Weiske",
-                    "role": "Developer",
                     "email": "cweiske@cweiske.de",
-                    "homepage": "http://github.com/cweiske/jsonmapper/"
+                    "homepage": "http://github.com/cweiske/jsonmapper/",
+                    "role": "Developer"
                 }
             ],
             "description": "Map nested JSON structures onto PHP classes",
@@ -11661,12 +11814,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/auto-bind-parameter.git",
-                "reference": "e07e2d6228b8211321098647166c6c48fcd58498"
+                "reference": "43ab403cb0b5e9e7e0d45268635fb43d9723a50b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/auto-bind-parameter/zipball/e07e2d6228b8211321098647166c6c48fcd58498",
-                "reference": "e07e2d6228b8211321098647166c6c48fcd58498",
+                "url": "https://api.github.com/repos/symplify/auto-bind-parameter/zipball/43ab403cb0b5e9e7e0d45268635fb43d9723a50b",
+                "reference": "43ab403cb0b5e9e7e0d45268635fb43d9723a50b",
                 "shasum": ""
             },
             "require": {
@@ -11703,12 +11856,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/autowire-array-parameter.git",
-                "reference": "8a0b518432dfa8d9d5a6b3848683609683f0696b"
+                "reference": "ba054f1d47e4544ac91aebbf91a291290a4b04b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/autowire-array-parameter/zipball/8a0b518432dfa8d9d5a6b3848683609683f0696b",
-                "reference": "8a0b518432dfa8d9d5a6b3848683609683f0696b",
+                "url": "https://api.github.com/repos/symplify/autowire-array-parameter/zipball/ba054f1d47e4544ac91aebbf91a291290a4b04b0",
+                "reference": "ba054f1d47e4544ac91aebbf91a291290a4b04b0",
                 "shasum": ""
             },
             "require": {
@@ -11745,12 +11898,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/coding-standard.git",
-                "reference": "900e96cf4dc7315c038f6f8d565c9bc83d9fd649"
+                "reference": "0c766cf020b27e2d5dc8efb1bbfcafb4da7c97a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/coding-standard/zipball/900e96cf4dc7315c038f6f8d565c9bc83d9fd649",
-                "reference": "900e96cf4dc7315c038f6f8d565c9bc83d9fd649",
+                "url": "https://api.github.com/repos/symplify/coding-standard/zipball/0c766cf020b27e2d5dc8efb1bbfcafb4da7c97a1",
+                "reference": "0c766cf020b27e2d5dc8efb1bbfcafb4da7c97a1",
                 "shasum": ""
             },
             "require": {
@@ -11795,12 +11948,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/easy-coding-standard.git",
-                "reference": "8b62588f3f7c6c2605d3d7693297ebed9b4956e5"
+                "reference": "3e5ad25d1d1172a76f533ac469a76cc2ac44cae8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/easy-coding-standard/zipball/8b62588f3f7c6c2605d3d7693297ebed9b4956e5",
-                "reference": "8b62588f3f7c6c2605d3d7693297ebed9b4956e5",
+                "url": "https://api.github.com/repos/symplify/easy-coding-standard/zipball/3e5ad25d1d1172a76f533ac469a76cc2ac44cae8",
+                "reference": "3e5ad25d1d1172a76f533ac469a76cc2ac44cae8",
                 "shasum": ""
             },
             "require": {
@@ -11866,12 +12019,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/package-builder.git",
-                "reference": "95f3ac3cccc6e247d71c5830879c25c8207b0297"
+                "reference": "576a99d2973a700c7f60d3c55bbb558b406e9537"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/package-builder/zipball/95f3ac3cccc6e247d71c5830879c25c8207b0297",
-                "reference": "95f3ac3cccc6e247d71c5830879c25c8207b0297",
+                "url": "https://api.github.com/repos/symplify/package-builder/zipball/576a99d2973a700c7f60d3c55bbb558b406e9537",
+                "reference": "576a99d2973a700c7f60d3c55bbb558b406e9537",
                 "shasum": ""
             },
             "require": {
@@ -11912,12 +12065,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/set-config-resolver.git",
-                "reference": "275e882c5cb175bbb9520c652b9d25a23a678d30"
+                "reference": "dc622c2601ba3b019586c8eb7712357bd5a1155a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/set-config-resolver/zipball/275e882c5cb175bbb9520c652b9d25a23a678d30",
-                "reference": "275e882c5cb175bbb9520c652b9d25a23a678d30",
+                "url": "https://api.github.com/repos/symplify/set-config-resolver/zipball/dc622c2601ba3b019586c8eb7712357bd5a1155a",
+                "reference": "dc622c2601ba3b019586c8eb7712357bd5a1155a",
                 "shasum": ""
             },
             "require": {
@@ -11955,12 +12108,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/smart-file-system.git",
-                "reference": "c7496682de3aeb006ef360431ba5d04ed262f802"
+                "reference": "bfea2807b8f68ae483bbd71903ac7311f2983855"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/smart-file-system/zipball/c7496682de3aeb006ef360431ba5d04ed262f802",
-                "reference": "c7496682de3aeb006ef360431ba5d04ed262f802",
+                "url": "https://api.github.com/repos/symplify/smart-file-system/zipball/bfea2807b8f68ae483bbd71903ac7311f2983855",
+                "reference": "bfea2807b8f68ae483bbd71903ac7311f2983855",
                 "shasum": ""
             },
             "require": {

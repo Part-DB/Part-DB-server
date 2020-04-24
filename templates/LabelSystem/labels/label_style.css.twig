@@ -1,5 +1,5 @@
 @page {
-    margin: 5px 5px;
+    margin: 12px 6px;
 }
 
 body {
@@ -14,4 +14,144 @@ p {
 
 hr {
     margin: 2px;
+}
+
+.qr {
+    max-width: 80%;
+}
+
+.qr-container a {
+    display: block;
+}
+
+.C39 {
+    max-width: 150px;
+}
+
+.C39-container {
+    display: inline-block;
+    align-content: center;
+    text-align: left;
+    position: fixed;
+    bottom: 32px;
+}
+
+.C39-text {
+    display: block;
+    margin-top: -6px;
+    font-size: 6pt;
+}
+
+/**************************************
+ Grid system token from simplegrid.io
+
+ SIMPLE GRID
+ (C) ZACH COLE 2016
+ ************************************/
+.font-light {
+    font-weight: 300;
+}
+
+.font-regular {
+    font-weight: 400;
+}
+
+.font-heavy {
+    font-weight: 700;
+}
+
+/* POSITIONING */
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.center {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.justify {
+    text-align: justify;
+}
+
+/* ==== GRID SYSTEM ==== */
+
+.container {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.row {
+    position: relative;
+    width: 100%;
+    page-break-after: avoid;
+    page-break-before: avoid;
+    page-break-inside: avoid;
+}
+
+.row [class^="col"] {
+    float: left;
+    margin: 0 1%;
+    min-height: 0.125rem ;
+}
+
+.row::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.col-1 {
+    width: 4.33%;
+}
+
+.col-2 {
+    width: 12.66%;
+}
+
+.col-3 {
+    width: 21%;
+}
+
+.col-4 {
+    width: 29.33%;
+}
+
+.col-5 {
+    width: 37.66%;
+}
+
+.col-6 {
+    width: 46%;
+}
+
+.col-7 {
+    width: 54.33%;
+}
+
+.col-8 {
+    width: 62.66%;
+}
+
+.col-9 {
+    width: 71%;
+}
+
+.col-10 {
+    width: 79.33%;
+}
+
+.col-11 {
+    width: 87.66%;
+}
+
+.col-12 {
+    width: 96%;
 }

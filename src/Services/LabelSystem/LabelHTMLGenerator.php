@@ -23,6 +23,7 @@ namespace App\Services\LabelSystem;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Services\ElementTypeNameGenerator;
+use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
 use Twig\Environment;
 
 class LabelHTMLGenerator
@@ -30,12 +31,15 @@ class LabelHTMLGenerator
     protected $twig;
     protected $elementTypeNameGenerator;
     protected $replacer;
+    protected $barcodeGenerator;
 
-    public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator, LabelTextReplacer $replacer, Environment $twig)
+    public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator, LabelTextReplacer $replacer, Environment $twig,
+        BarcodeGenerator $barcodeGenerator)
     {
         $this->twig = $twig;
         $this->elementTypeNameGenerator = $elementTypeNameGenerator;
         $this->replacer = $replacer;
+        $this->barcodeGenerator = $barcodeGenerator;
     }
 
     public function getLabelHTML(LabelOptions $options, array $elements): string
@@ -48,13 +52,16 @@ class LabelHTMLGenerator
         foreach ($elements as $element) {
             $twig_elements[] = [
                 'element' => $element,
-                'lines' => $this->replacer->replace($options->getLines(), $element)
+                'lines' => $this->replacer->replace($options->getLines(), $element),
+                'barcode' => $this->barcodeGenerator->generateSVG($options, $element),
+                'barcode_content' => $this->barcodeGenerator->getContent($options, $element),
             ];
         }
 
         return $this->twig->render('LabelSystem/labels/base_label.html.twig', [
             'meta_title' => $this->getPDFTitle($options, $elements[0]),
             'elements' => $twig_elements,
+            'options' => $options,
         ]);
     }
 
