@@ -67,7 +67,24 @@ class LabelOptionsType extends AbstractType
                 'label_options.barcode_type.none' => 'none',
                 'label_options.barcode_type.qr' => 'qr',
                 'label_options.barcode_type.code39' => 'code39',
-            ]
+                'label_options.barcode_type.code93' => 'code93',
+                'label_options.barcode_type.datamatrix' => 'datamatrix',
+            ],
+            'group_by' => function ($choice, $key, $value) {
+                if (in_array($choice, ['qr', 'datamatrix'])) {
+                    return 'label_options.barcode_type.2D';
+                }
+                if (in_array($choice, ['code39', 'code93'])) {
+                    return 'label_options.barcode_type.1D';
+                }
+
+                return null;
+            },
+            'attr' => [
+                'class' => 'selectpicker',
+                'data-live-search' => true,
+            ],
+
         ]);
 
         $builder->add('lines', CKEditorType::class, [

@@ -8280,5 +8280,95 @@ Element 3</target>
         <target>Width</target>
       </segment>
     </unit>
+    <unit id="MxYhcsN" name="label_options.barcode_type.qr">
+      <segment>
+        <source>label_options.barcode_type.qr</source>
+        <target>QR Code (recommended)</target>
+      </segment>
+    </unit>
+    <unit id="kPFpWmf" name="label_options.barcode_type.datamatrix">
+      <segment>
+        <source>label_options.barcode_type.datamatrix</source>
+        <target>Datamatrix</target>
+      </segment>
+    </unit>
+    <unit id="8jpgdV8" name="label_options.barcode_type.2D">
+      <segment>
+        <source>label_options.barcode_type.2D</source>
+        <target>2D</target>
+      </segment>
+    </unit>
+    <unit id="O7.UnHb" name="label_options.barcode_type.1D">
+      <segment>
+        <source>label_options.barcode_type.1D</source>
+        <target>1D</target>
+      </segment>
+    </unit>
+    <unit id="56JwbDf" name="label_options.barcode_type.code39">
+      <segment>
+        <source>label_options.barcode_type.code39</source>
+        <target>Code 39 (recommended)</target>
+      </segment>
+    </unit>
+    <unit id="Z8_BSQ1" name="label_profile.lines.label">
+      <segment>
+        <source>label_profile.lines.label</source>
+        <target>Content</target>
+      </segment>
+    </unit>
+    <unit id="FmESg.O" name="label_options.barcode_type.none">
+      <segment>
+        <source>label_options.barcode_type.none</source>
+        <target>None</target>
+      </segment>
+    </unit>
+    <unit id="lz068u3" name="label_options.barcode_type.code93">
+      <segment>
+        <source>label_options.barcode_type.code93</source>
+        <target>Code 93</target>
+      </segment>
+    </unit>
+    <unit id="bqeaYn7" name="label_generator.title">
+      <segment>
+        <source>label_generator.title</source>
+        <target>Label generator</target>
+      </segment>
+    </unit>
+    <unit id="GN.UJxb" name="label_generator.target_id.label">
+      <segment>
+        <source>label_generator.target_id.label</source>
+        <target>Target ID</target>
+      </segment>
+    </unit>
+    <unit id="nez5RLt" name="label_generator.target_id.range_hint">
+      <segment>
+        <source>label_generator.target_id.range_hint</source>
+        <target>You can specify multiple IDs (e.g. 1,2,3) and/or a range (1-3) here to generate labels for multiple elements at once.</target>
+      </segment>
+    </unit>
+    <unit id="7ZEGFJ3" name="label_options.supported_elements.label">
+      <segment>
+        <source>label_options.supported_elements.label</source>
+        <target>Target type</target>
+      </segment>
+    </unit>
+    <unit id="t.j1KtN" name="label_options.height.placeholder">
+      <segment>
+        <source>label_options.height.placeholder</source>
+        <target>Height</target>
+      </segment>
+    </unit>
+    <unit id="eSLhawk" name="label_options.barcode_type.label">
+      <segment>
+        <source>label_options.barcode_type.label</source>
+        <target>Barcode</target>
+      </segment>
+    </unit>
+    <unit id="UFelt6r" name="label_generator.download">
+      <segment>
+        <source>label_generator.download</source>
+        <target>Download</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

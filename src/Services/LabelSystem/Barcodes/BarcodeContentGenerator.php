@@ -58,11 +58,7 @@ class BarcodeContentGenerator
      */
     public function getURLContent(AbstractDBElement $target): string
     {
-        if ($target instanceof Part) {
-            $type = 'part';
-        } else {
-            throw  new EntityNotSupportedException();
-        }
+        $type = $this->classToString(self::URL_MAP, $target);
 
         return  $this->urlGenerator->generate('scan_qr', [
             'type' => $type,

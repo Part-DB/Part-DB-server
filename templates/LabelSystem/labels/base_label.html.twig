@@ -15,9 +15,9 @@
     <div style="page-break-inside: avoid; page-break-before: avoid; {% if not loop.last %}page-break-after: always;{% endif %}">
         {% if options.barcodeType == 'none' %}
             {% include "LabelSystem/labels/label_page_none.html.twig" %}
-        {% elseif options.barcodeType == 'qr' %}
+        {% elseif options.barcodeType in ['qr', 'datamatrix'] %}
             {% include "LabelSystem/labels/label_page_qr.html.twig" %}
-        {% elseif options.barcodeType == 'code39' %}
+        {% elseif options.barcodeType in ['code39', 'code93'] %}
             {% include "LabelSystem/labels/label_page_1d.html.twig" %}
         {% endif %}
     </div>

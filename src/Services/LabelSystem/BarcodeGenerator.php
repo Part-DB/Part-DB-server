@@ -41,7 +41,13 @@ class BarcodeGenerator
             case 'qr':
                 $type = 'QRCODE';
                 break;
+            case 'datamatrix':
+                $type = 'DATAMATRIX';
+                break;
             case 'code39':
+                $type = 'C93';
+                break;
+            case 'code93':
                 $type = 'C93';
                 break;
             case 'none':
@@ -61,8 +67,10 @@ class BarcodeGenerator
     {
         switch ($options->getBarcodeType()) {
             case 'qr':
+            case 'datamatrix':
                 return $this->barcodeContentGenerator->getURLContent($target);
             case 'code39':
+            case 'code93':
                 return $this->barcodeContentGenerator->get1DBarcodeContent($target);
             case 'none':
                 return null;
