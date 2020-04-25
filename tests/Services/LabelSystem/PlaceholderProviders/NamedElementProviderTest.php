@@ -53,7 +53,7 @@ class NamedElementProviderTest extends WebTestCase
     public function dataProvider(): array
     {
         return [
-            ['This is my Name', '%%NAME%%']
+            ['This is my Name', '[[NAME]]']
         ];
     }
 

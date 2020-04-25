@@ -55,28 +55,28 @@ class LabelTextReplacerTest extends WebTestCase
     public function handlePlaceholderDataProvider(): array
     {
         return [
-            ['Part 1', '%%NAME%%'],
-            ['P Description', '%%DESCRIPTION%%'],
-            ['%%UNKNOWN%%', '%%UNKNOWN%%'],
-            ['%%INVALID', '%%INVALID'],
-            ['%%', '%%'],
+            ['Part 1', '[[NAME]]'],
+            ['P Description', '[[DESCRIPTION]]'],
+            ['[[UNKNOWN]]', '[[UNKNOWN]]', '[[UNKNOWN]]'],
+            ['[[INVALID', '[[INVALID'],
+            ['[[', '[['],
             ['NAME', 'NAME'],
-            ['%%NAME', '%%NAME'],
-            ['Test %%NAME%%', 'Test %%NAME%%'],
+            ['[[NAME', '[[NAME'],
+            ['Test [[NAME]]', 'Test [[NAME]]', 'Test [[NAME]]'],
         ];
     }
 
     public function replaceDataProvider(): array
     {
         return [
-            ['Part 1', '%%NAME%%'],
-            ['TestPart 1', 'Test%%NAME%%'],
-            ["P Description\nPart 1", "%%DESCRIPTION_T%%\n%%NAME%%"],
-            ['Part 1 Part 1', '%%NAME%% %%NAME%%'],
-            ['%%UNKNOWN%% Test', '%%UNKNOWN%% Test'],
-            ["%%NAME\n%% %%NAME %%", "%%NAME\n%% %%NAME %%"],
-            ['%%%%', '%%%%'],
-            ['TEST%% %%TEST', 'TEST%% %%TEST']
+            ['Part 1', '[[NAME]]'],
+            ['TestPart 1', 'Test[[NAME]]'],
+            ["P Description\nPart 1", "[[DESCRIPTION_T]]\n[[NAME]]"],
+            ['Part 1 Part 1', '[[NAME]] [[NAME]]'],
+            ['[[UNKNOWN]] Test', '[[UNKNOWN]] Test'],
+            ["[[NAME\n]] [[NAME ]]", "[[NAME\n]] [[NAME ]]"],
+            ['[[]]', '[[]]'],
+            ['TEST[[ ]]TEST', 'TEST[[ ]]TEST']
         ];
     }
 
@@ -107,6 +107,6 @@ class LabelTextReplacerTest extends WebTestCase
         $part->setName('Part');
         $part_lot->setPart($part);
 
-        $this->assertSame('Part', $this->service->handlePlaceholder('%%NAME%%', $part_lot));
+        $this->assertSame('Part', $this->service->handlePlaceholder('[[NAME]]', $part_lot));
     }
 }

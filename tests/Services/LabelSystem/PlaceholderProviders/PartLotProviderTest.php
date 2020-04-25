@@ -60,16 +60,16 @@ class PartLotProviderTest extends WebTestCase
     public function dataProvider(): array
     {
         return [
-            ['unknown', '%%LOT_ID%%'],
-            ['Lot description', '%%LOT_NAME%%'],
-            ['Lot comment', '%%LOT_COMMENT%%'],
-            ['4/13/99', '%%EXPIRATION_DATE%%'],
-            ['?', '%%AMOUNT%%'],
-            ['Location', '%%LOCATION%%'],
-            ['Parent → Location', '%%LOCATION_FULL%%'],
+            ['unknown', '[[LOT_ID]]'],
+            ['Lot description', '[[LOT_NAME]]'],
+            ['Lot comment', '[[LOT_COMMENT]]'],
+            ['4/13/99', '[[EXPIRATION_DATE]]'],
+            ['?', '[[AMOUNT]]'],
+            ['Location', '[[LOCATION]]'],
+            ['Parent → Location', '[[LOCATION_FULL]]'],
             //Test part inheritance
-            ['Part', '%%NAME%%'],
-            ['Part description', '%%DESCRIPTION%%'],
+            ['Part', '[[NAME]]'],
+            ['Part description', '[[DESCRIPTION]]'],
         ];
     }
 

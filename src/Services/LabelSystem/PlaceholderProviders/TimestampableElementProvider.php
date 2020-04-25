@@ -33,11 +33,11 @@ class TimestampableElementProvider implements PlaceholderProviderInterface
     public function replace(string $placeholder, object $label_target, array $options = []): ?string
     {
         if ($label_target instanceof TimeStampableInterface) {
-            if ($placeholder === '%%LAST_MODIFIED%%') {
+            if ($placeholder === '[[LAST_MODIFIED]]') {
                 return IntlDateFormatter::formatObject($label_target->getLastModified() ?? new \DateTime(), IntlDateFormatter::SHORT, Locale::getDefault());
             }
 
-            if ($placeholder === '%%CREATION_DATE%%') {
+            if ($placeholder === '[[CREATION_DATE]]') {
                 return IntlDateFormatter::formatObject($label_target->getAddedDate() ?? new \DateTime(), IntlDateFormatter::SHORT, Locale::getDefault());
             }
 

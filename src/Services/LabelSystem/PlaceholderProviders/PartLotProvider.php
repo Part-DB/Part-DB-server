@@ -41,19 +41,19 @@ class PartLotProvider implements PlaceholderProviderInterface
     public function replace(string $placeholder, object $label_target, array $options = []): ?string
     {
         if ($label_target instanceof PartLot) {
-            if ($placeholder === '%%LOT_ID%%') {
+            if ($placeholder === '[[LOT_ID]]') {
                 return $label_target->getID() ?? 'unknown';
             }
 
-            if ($placeholder === '%%LOT_NAME%%') {
+            if ($placeholder === '[[LOT_NAME]]') {
                 return $label_target->getName();
             }
 
-            if ($placeholder === '%%LOT_COMMENT%%') {
+            if ($placeholder === '[[LOT_COMMENT]]') {
                 return $label_target->getComment();
             }
 
-            if ($placeholder === '%%EXPIRATION_DATE%%') {
+            if ($placeholder === '[[EXPIRATION_DATE]]') {
                 if ($label_target->getExpirationDate() === null) {
                     return '';
                 }
@@ -67,18 +67,18 @@ class PartLotProvider implements PlaceholderProviderInterface
                 return $formatter->format($label_target->getExpirationDate());
             }
 
-            if ($placeholder === '%%AMOUNT%%') {
+            if ($placeholder === '[[AMOUNT]]') {
                 if ($label_target->isInstockUnknown()) {
                     return '?';
                 }
                 return $this->amountFormatter->format($label_target->getAmount(), $label_target->getPart()->getPartUnit());
             }
 
-            if ($placeholder === '%%LOCATION%%') {
+            if ($placeholder === '[[LOCATION]]') {
                 return $label_target->getStorageLocation() ? $label_target->getStorageLocation()->getName() : '';
             }
 
-            if ($placeholder === '%%LOCATION_FULL%%') {
+            if ($placeholder === '[[LOCATION_FULL]]') {
                 return $label_target->getStorageLocation() ? $label_target->getStorageLocation()->getFullPath() : '';
             }
 

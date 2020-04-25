@@ -42,8 +42,8 @@ class GlobalProvidersTest extends WebTestCase
     public function dataProvider(): array
     {
         return [
-            ['Part-DB', '%%INSTALL_NAME%%'],
-            ['anonymous', '%%USERNAME%%'],
+            ['Part-DB', '[[INSTALL_NAME]]'],
+            ['anonymous', '[[USERNAME]]'],
         ];
     }
 

@@ -46,43 +46,43 @@ class PartProvider implements PlaceholderProviderInterface
             return null;
         }
 
-        if ($placeholder === '%%CATEGORY%%') {
+        if ($placeholder === '[[CATEGORY]]') {
             return $part->getCategory() ? $part->getCategory()->getName() : '';
         }
 
-        if ($placeholder === '%%CATEGORY_FULL%%') {
+        if ($placeholder === '[[CATEGORY_FULL]]') {
             return $part->getCategory() ? $part->getCategory()->getFullPath() : '';
         }
 
-        if ($placeholder === '%%MANUFACTURER%%') {
+        if ($placeholder === '[[MANUFACTURER]]') {
             return $part->getManufacturer() ? $part->getManufacturer()->getName() : '';
         }
 
-        if ($placeholder === '%%MANUFACTURER_FULL%%') {
+        if ($placeholder === '[[MANUFACTURER_FULL]]') {
             return $part->getManufacturer() ? $part->getManufacturer()->getFullPath() : '';
         }
 
-        if ($placeholder === '%%FOOTPRINT%%') {
+        if ($placeholder === '[[FOOTPRINT]]') {
             return $part->getFootprint() ? $part->getFootprint()->getName() : '';
         }
 
-        if ($placeholder === '%%FOOTPRINT_FULL%%') {
+        if ($placeholder === '[[FOOTPRINT_FULL]]') {
             return $part->getFootprint() ? $part->getFootprint()->getFullPath() : '';
         }
 
-        if ($placeholder === '%%MASS%%') {
+        if ($placeholder === '[[MASS]]') {
             return $part->getMass() ? $this->siFormatter->format($part->getMass(), 'g', 1) : '';
         }
 
-        if ($placeholder === '%%MPN%%') {
+        if ($placeholder === '[[MPN]]') {
             return $part->getManufacturerProductNumber();
         }
 
-        if ($placeholder === '%%TAGS%%') {
+        if ($placeholder === '[[TAGS]]') {
             return $part->getTags();
         }
 
-        if ($placeholder === '%%M_STATUS%%') {
+        if ($placeholder === '[[M_STATUS]]') {
             if ($part->getManufacturingStatus() === '') {
                 return '';
             }
@@ -91,19 +91,19 @@ class PartProvider implements PlaceholderProviderInterface
 
         $parsedown = new \Parsedown();
 
-        if ($placeholder === '%%DESCRIPTION%%') {
+        if ($placeholder === '[[DESCRIPTION]]') {
             return $parsedown->line($part->getDescription());
         }
 
-        if ($placeholder === '%%DESCRIPTION_T%%') {
+        if ($placeholder === '[[DESCRIPTION_T]]') {
             return strip_tags($parsedown->line($part->getDescription()));
         }
 
-        if ($placeholder === '%%COMMENT%%') {
+        if ($placeholder === '[[COMMENT]]') {
             return $parsedown->line($part->getComment());
         }
 
-        if ($placeholder === '%%COMMENT_T%%') {
+        if ($placeholder === '[[COMMENT_T]]') {
             return strip_tags($parsedown->line($part->getComment()));
         }
 

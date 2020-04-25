@@ -36,6 +36,7 @@ class TimestampableElementProviderTest extends WebTestCase
     public function setUp(): void
     {
         self::bootKernel();
+        \Locale::setDefault('en');
         $this->service = self::$container->get(TimestampableElementProvider::class);
         $this->target = new class implements TimeStampableInterface {
 
@@ -59,11 +60,12 @@ class TimestampableElementProviderTest extends WebTestCase
 
     public function dataProvider(): array
     {
+        \Locale::setDefault('en');
         $formatted = \IntlDateFormatter::formatObject(new \DateTime('2000-01-01'), \IntlDateFormatter::SHORT);
 
         return [
-            [$formatted, '%%LAST_MODIFIED%%'],
-            [$formatted, '%%CREATION_DATE%%'],
+            [$formatted, '[[LAST_MODIFIED]]'],
+            [$formatted, '[[CREATION_DATE]]'],
         ];
     }
 

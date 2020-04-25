@@ -54,7 +54,7 @@ class AbstractElementProviderTest extends WebTestCase
     public function dataProvider(): array
     {
         return [
-            ['123', '%%ID%%'],
+            ['123', '[[ID]]'],
         ];
     }
 

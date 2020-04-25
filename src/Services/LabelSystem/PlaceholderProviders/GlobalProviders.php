@@ -47,20 +47,20 @@ class GlobalProviders implements PlaceholderProviderInterface
      */
     public function replace(string $placeholder, object $label_target, array $options = []): ?string
     {
-        if ($placeholder === "%%INSTALL_NAME%%") {
+        if ($placeholder === "[[INSTALL_NAME]]") {
             return $this->partdb_title;
         }
 
 
         $user = $this->security->getUser();
-        if ($placeholder === "%%USERNAME%%") {
+        if ($placeholder === "[[USERNAME]]") {
             if ($user instanceof User) {
                 return $user->getName();
             }
             return 'anonymous';
         }
 
-        if ($placeholder === "%%USERNAME_FULL%%") {
+        if ($placeholder === "[[USERNAME_FULL]]") {
             if ($user instanceof User) {
                 return $user->getFullName(true);
             }
@@ -69,7 +69,7 @@ class GlobalProviders implements PlaceholderProviderInterface
 
         $now = new \DateTime();
 
-        if ($placeholder === '%%DATETIME%%') {
+        if ($placeholder === '[[DATETIME]]') {
             $formatter = IntlDateFormatter::create(
                 Locale::getDefault(),
                 IntlDateFormatter::SHORT,
@@ -80,7 +80,7 @@ class GlobalProviders implements PlaceholderProviderInterface
             return $formatter->format($now);
         }
 
-        if ($placeholder === '%%DATE%%') {
+        if ($placeholder === '[[DATE]]') {
             $formatter = IntlDateFormatter::create(
                 Locale::getDefault(),
                 IntlDateFormatter::SHORT,
@@ -91,7 +91,7 @@ class GlobalProviders implements PlaceholderProviderInterface
             return $formatter->format($now);
         }
 
-        if ($placeholder === '%%TIME%%') {
+        if ($placeholder === '[[TIME]]') {
             $formatter = IntlDateFormatter::create(
                 Locale::getDefault(),
                 IntlDateFormatter::NONE,

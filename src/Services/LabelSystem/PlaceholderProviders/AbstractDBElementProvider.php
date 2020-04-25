@@ -40,11 +40,11 @@ class AbstractDBElementProvider implements PlaceholderProviderInterface
     {
         if ($label_target instanceof AbstractDBElement) {
 
-            if ($placeholder === '%%TYPE%%') {
+            if ($placeholder === '[[TYPE]]') {
                 return $this->elementTypeNameGenerator->getLocalizedTypeLabel($label_target);
             }
 
-            if ($placeholder === '%%ID%%') {
+            if ($placeholder === '[[ID]]') {
                 return (string) ($label_target->getID() ?? 'unknown');
             }
 

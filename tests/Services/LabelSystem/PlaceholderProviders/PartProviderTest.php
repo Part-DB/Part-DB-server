@@ -67,21 +67,21 @@ class PartProviderTest extends WebTestCase
     public function dataProvider(): array
     {
         return [
-            ['Node 2.1', '%%CATEGORY%%'],
-            ['Node 2 → Node 2.1', '%%CATEGORY_FULL%%'],
-            ['Node 2.1', '%%FOOTPRINT%%'],
-            ['Node 2 → Node 2.1', '%%FOOTPRINT_FULL%%'],
-            ['', '%%MANUFACTURER%%'],
-            ['', '%%MANUFACTURER_FULL%%'],
+            ['Node 2.1', '[[CATEGORY]]'],
+            ['Node 2 → Node 2.1', '[[CATEGORY_FULL]]'],
+            ['Node 2.1', '[[FOOTPRINT]]'],
+            ['Node 2 → Node 2.1', '[[FOOTPRINT_FULL]]'],
+            ['', '[[MANUFACTURER]]'],
+            ['', '[[MANUFACTURER_FULL]]'],
 
-            ['1.2 kg', '%%MASS%%'],
-            ['MPN123', '%%MPN%%'],
-            ['SMD, Tag1, Tag2', '%%TAGS%%'],
-            ['Active', '%%M_STATUS%%'],
-            ['<b>Bold</b> <em>Italic</em>', '%%DESCRIPTION%%'],
-            ['Bold Italic', '%%DESCRIPTION_T%%'],
-            ['<b>Bold</b> <em>Italic</em>', '%%COMMENT%%'],
-            ['Bold Italic', '%%COMMENT_T%%'],
+            ['1.2 kg', '[[MASS]]'],
+            ['MPN123', '[[MPN]]'],
+            ['SMD, Tag1, Tag2', '[[TAGS]]'],
+            ['Active', '[[M_STATUS]]'],
+            ['<b>Bold</b> <em>Italic</em>', '[[DESCRIPTION]]'],
+            ['Bold Italic', '[[DESCRIPTION_T]]'],
+            ['<b>Bold</b> <em>Italic</em>', '[[COMMENT]]'],
+            ['Bold Italic', '[[COMMENT_T]]'],
         ];
     }
 

@@ -65,7 +65,7 @@ class LabelTextReplacer
     public function replace(string $lines, object $target): string
     {
         $patterns = [
-            '/(%%[A-Z_]+%%)/' => function ($match) use ($target) {
+            '/(\[\[[A-Z_]+\]\])/' => function ($match) use ($target) {
                 return $this->handlePlaceholder($match[0], $target);
             },
         ];
