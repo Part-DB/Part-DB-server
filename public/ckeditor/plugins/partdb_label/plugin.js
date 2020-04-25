@@ -17,52 +17,56 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/*
+ * Placeholder logic inspired by CKEDITOR placeholder plugin (https://github.com/ckeditor/ckeditor4/blob/master/plugins/placeholder/plugin.js)
+ */
+
 const PLACEHOLDERS = {
     part: {
         label: 'section.part',
         entries: [
-            ['%%ID%%', 'part.id'],
-            ['%%NAME%%', 'part.name'],
-            ['%%CATEGORY%%', 'part.category'],
-            ['%%CATEGORY_FULL%%', 'part.category_full'],
-            ['%%MANUFACTURER%%', 'part.manufacturer'],
-            ['%%MANUFACTURER_FULL%%', 'part.manufacturer_full'],
-            ['%%FOOTPRINT%%', 'part.footprint'],
-            ['%%FOOTPRINT_FULL%%', 'part.footprint'],
-            ['%%MASS%%', 'part.mass'],
-            ['%%MPN%%', 'part.mpn'],
-            ['%%TAGS%%', 'part.tags'],
-            ['%%M_STATUS%%', 'part.status'],
-            ['%%DESCRIPTION%%', 'part.description'],
-            ['%%DESCRIPTION_T%%', 'part.description_t'],
-            ['%%COMMENT%%', 'part.comment'],
-            ['%%COMMENT_T%%', 'part.comment_t'],
-            ['%%LAST_MODIFIED%%', 'part.last_modified'],
-            ['%%CREATION_DATE%%', 'part.creation_date'],
+            ['[[ID]]', 'part.id'],
+            ['[[NAME]]', 'part.name'],
+            ['[[CATEGORY]]', 'part.category'],
+            ['[[CATEGORY_FULL]]', 'part.category_full'],
+            ['[[MANUFACTURER]]', 'part.manufacturer'],
+            ['[[MANUFACTURER_FULL]]', 'part.manufacturer_full'],
+            ['[[FOOTPRINT]]', 'part.footprint'],
+            ['[[FOOTPRINT_FULL]]', 'part.footprint'],
+            ['[[MASS]]', 'part.mass'],
+            ['[[MPN]]', 'part.mpn'],
+            ['[[TAGS]]', 'part.tags'],
+            ['[[M_STATUS]]', 'part.status'],
+            ['[[DESCRIPTION]]', 'part.description'],
+            ['[[DESCRIPTION_T]]', 'part.description_t'],
+            ['[[COMMENT]]', 'part.comment'],
+            ['[[COMMENT_T]]', 'part.comment_t'],
+            ['[[LAST_MODIFIED]]', 'part.last_modified'],
+            ['[[CREATION_DATE]]', 'part.creation_date'],
         ]
     },
     part_lot: {
         label: 'section.part_lot',
         entries: [
-            ['%%LOT_ID%%', 'lot.id'],
-            ['%%LOT_NAME%%', 'lot.name'],
-            ['%%LOT_COMMENT%%', 'lot.comment'],
-            ['%%EXPIRATION_DATE%%', 'lot.expiration_date'],
-            ['%%AMOUNT%%', 'lot.amount'],
-            ['%%LOCATION%%', 'lot.location'],
-            ['%%LOCATION_FULL%%', 'lot.location_full'],
+            ['[[LOT_ID]]', 'lot.id'],
+            ['[[LOT_NAME]]', 'lot.name'],
+            ['[[LOT_COMMENT]]', 'lot.comment'],
+            ['[[EXPIRATION_DATE]]', 'lot.expiration_date'],
+            ['[[AMOUNT]]', 'lot.amount'],
+            ['[[LOCATION]]', 'lot.location'],
+            ['[[LOCATION_FULL]]', 'lot.location_full'],
         ]
     },
     global: {
         label: 'section.global',
         entries: [
-            ['%%USERNAME%%', 'global.username'],
-            ['%%USERNAME_FULL%%', 'global.username_full'],
-            ['%%DATETIME%%', 'global.datetime'],
-            ['%%DATE%%', 'global.date'],
-            ['%%TIME%%', 'global.time'],
-            ['%%INSTALL_NAME%%', 'global.install_name'],
-            ['%%TYPE%%', 'global.type']
+            ['[[USERNAME]]', 'global.username'],
+            ['[[USERNAME_FULL]]', 'global.username_full'],
+            ['[[DATETIME]]', 'global.datetime'],
+            ['[[DATE]]', 'global.date'],
+            ['[[TIME]]', 'global.time'],
+            ['[[INSTALL_NAME]]', 'global.install_name'],
+            ['[[TYPE]]', 'global.type']
         ],
     },
 };
@@ -83,9 +87,44 @@ CKEDITOR.plugins.add('partdb_label', {
     hidpi: true,
     icons: 'placeholder',
     lang: ['en', 'de'],
+    onLoad: function() {
+        // Register styles for placeholder widget frame.
+        CKEDITOR.addCss( '.cke_placeholder{background-color:#ff0}' );
+    },
     init: function (editor) {
         var config = editor.config,
             lang = editor.lang.partdb_label;
+
+        // Put ur init code here.
+        editor.widgets.add( 'placeholder', {
+            // Widget code.
+            pathName: lang.label,
+            // We need to have wrapping element, otherwise there are issues in
+            // add dialog.
+            template: '<span class="cke_placeholder">[[]]</span>',
+
+            downcast: function() {
+                return new CKEDITOR.htmlParser.text( '[[' + this.data.name + ']]' );
+            },
+
+            init: function() {
+                // Note that placeholder markup characters are stripped for the name.
+                this.setData( 'name', this.element.getText().slice( 2, -2 ) );
+            },
+
+            data: function() {
+                this.element.setText( '[[' + this.data.name + ']]' );
+                var title = findLabelForPlaceholder( '[[' + this.data.name + ']]');
+                if (lang[title]) {
+                    title = lang[title];
+                }
+                this.element.setAttribute('title', title);
+            },
+
+            getLabel: function() {
+                return this.editor.lang.widget.label.replace( /%1/, this.data.name + ' ' + this.pathName );
+            }
+        } );
 
         editor.ui.addRichCombo('Placeholders', {
             label: lang.label,
@@ -116,11 +155,37 @@ CKEDITOR.plugins.add('partdb_label', {
             onClick: function(value) {
                 editor.focus();
                 editor.fire('saveSnapshot');
-                var title = findLabelForPlaceholder(value);
-                if (lang[title]) {
-                    title = lang[title];
-                }
-                editor.insertHtml('<abbr title="' + title + '">' + value + '</abbr>' + ' ', 'text');
+                editor.insertText(value);
+            }
+        });
+    },
+    afterInit: function( editor ) {
+        var placeholderReplaceRegex = /\[\[([^\[\]])+\]\]/g;
+
+        editor.dataProcessor.dataFilter.addRules({
+            text: function (text, node) {
+                var dtd = node.parent && CKEDITOR.dtd[node.parent.name];
+
+                // Skip the case when placeholder is in elements like <title> or <textarea>
+                // but upcast placeholder in custom elements (no DTD).
+                if (dtd && !dtd.span)
+                    return;
+
+                return text.replace(placeholderReplaceRegex, function (match) {
+                    // Creating widget code.
+                    var widgetWrapper = null,
+                        innerElement = new CKEDITOR.htmlParser.element('span', {
+                            'class': 'cke_placeholder'
+                        });
+
+                    // Adds placeholder identifier as innertext.
+                    innerElement.add(new CKEDITOR.htmlParser.text(match));
+                    widgetWrapper = editor.widgets.wrapElement(innerElement, 'placeholder');
+
+                    // Return outerhtml of widget wrapper so it will be placed
+                    // as replacement.
+                    return widgetWrapper.getOuterHtml();
+                });
             }
         });
     }
