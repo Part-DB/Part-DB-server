@@ -87,13 +87,12 @@ CKEDITOR.plugins.add('partdb_label', {
     hidpi: true,
     icons: 'placeholder',
     lang: ['en', 'de'],
-    onLoad: function() {
-        // Register styles for placeholder widget frame.
-        CKEDITOR.addCss( '.cke_placeholder{background-color:#ff0}' );
-    },
     init: function (editor) {
         var config = editor.config,
             lang = editor.lang.partdb_label;
+
+        var pluginDirectory = this.path;
+        editor.addContentsCss( pluginDirectory + 'styles/style.css' );
 
         // Put ur init code here.
         editor.widgets.add( 'placeholder', {

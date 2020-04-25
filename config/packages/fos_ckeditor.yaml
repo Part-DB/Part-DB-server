@@ -22,6 +22,13 @@ fos_ck_editor:
             enterMode: 2
             toolbar: label_toolbar
             extraPlugins: "partdb_label"
+            font_names: >
+                DejaVu Sans Mono/DejaVu Sans Mono;
+                DejaVu Sans/DejaVu Sans;
+                DejaVu Serif/DejaVu Serif;
+                Helvetica/Helvetica, Arial, sans-serif;
+                Times New Roman/Times New Roman, Times, serif;
+                Courier New/Courier New, Courier, monospace;
 
     plugins:
         bbcode:
@@ -46,7 +53,7 @@ fos_ck_editor:
                 - ["SpecialChar"]
                 - ["Source"]
                 - "/"
-                - ['Format', 'FontSize']
+                - ['Format', 'FontSize', 'Font']
                 - ['Table', 'HorizontalRule']
                 - ['Placeholders']
             description_toolbar:
