@@ -45,7 +45,7 @@ class BarcodeGenerator
                 $type = 'DATAMATRIX';
                 break;
             case 'code39':
-                $type = 'C93';
+                $type = 'C39';
                 break;
             case 'code93':
                 $type = 'C93';
