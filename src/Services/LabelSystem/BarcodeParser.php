@@ -31,6 +31,7 @@ class BarcodeParser
     protected $urlGenerator;
     protected $em;
 
+
     public function __construct(UrlGeneratorInterface $urlGenerator, EntityManagerInterface $entityManager)
     {
         $this->urlGenerator = $urlGenerator;
@@ -57,6 +58,9 @@ class BarcodeParser
                 }
 
                 return $this->urlGenerator->generate('app_part_show', ['id' => $lot->getPart()->getID()]);
+
+            case 'location':
+                return $this->urlGenerator->generate('part_list_store_location', ['id' => $id]);
 
             default:
                 throw new \InvalidArgumentException('Unknown $type: ' . $type);

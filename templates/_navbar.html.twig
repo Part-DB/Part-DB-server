@@ -16,6 +16,12 @@
 
 
     <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url("scan_dialog") }}">{% trans %}navbar.scanner.link{% endtrans %}</a>
+            </li>
+        </ul>
+
         <div class="form-inline my-2 my-lg-0 ml-auto" id="searchbar">
             <!-- Searchbar -->
             {% include "_navbar_search.html.twig" %}

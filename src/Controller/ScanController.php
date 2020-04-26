@@ -21,9 +21,14 @@
 namespace App\Controller;
 
 
+use App\Form\LabelSystem\ScanDialogType;
 use App\Services\LabelSystem\BarcodeParser;
+use App\Services\LabelSystem\Barcodes\BarcodeNormalizer;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -33,10 +38,39 @@ use Symfony\Component\Routing\Annotation\Route;
 class ScanController extends AbstractController
 {
     protected $barcodeParser;
+    protected $barcodeNormalizer;
 
-    public function __construct(BarcodeParser $barcodeParser)
+    public function __construct(BarcodeParser $barcodeParser, BarcodeNormalizer $barcodeNormalizer)
     {
         $this->barcodeParser = $barcodeParser;
+        $this->barcodeNormalizer = $barcodeNormalizer;
+    }
+
+    /**
+     * @Route("/", name="scan_dialog")
+     */
+    public function dialog(Request $request): Response
+    {
+        $form = $this->createForm(ScanDialogType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $input = $form['input']->getData();
+            try {
+                [$type, $id] = $this->barcodeNormalizer->normalizeBarcodeContent($input);
+                try {
+                    return $this->redirect($this->barcodeParser->getQRRedirectTarget($type, $id));
+                } catch (EntityNotFoundException $exception) {
+                    $this->addFlash('success', 'scan.qr_not_found');
+                }
+            } catch (\InvalidArgumentException $exception) {
+                $this->addFlash('error', 'scan.format_unknown');
+            }
+        }
+
+        return $this->render('LabelSystem/Scanner/dialog.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
@@ -44,7 +78,7 @@ class ScanController extends AbstractController
      * @param  string  $type
      * @param  int  $id
      */
-    public function scanQRCode(string $type, int $id)
+    public function scanQRCode(string $type, int $id): Response
     {
         try {
             $this->addFlash('success', 'scan.qr_success');
