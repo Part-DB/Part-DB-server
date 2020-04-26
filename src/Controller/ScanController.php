@@ -21,6 +21,8 @@
 namespace App\Controller;
 
 
+use App\Services\LabelSystem\BarcodeParser;
+use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -30,14 +32,26 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ScanController extends AbstractController
 {
+    protected $barcodeParser;
+
+    public function __construct(BarcodeParser $barcodeParser)
+    {
+        $this->barcodeParser = $barcodeParser;
+    }
+
     /**
-     * @Route("/{type}/{id}", name="scan_qr")
+     * The route definition for this action is done in routes.yaml, as it does not use the _locale prefix as the other routes
      * @param  string  $type
      * @param  int  $id
      */
     public function scanQRCode(string $type, int $id)
     {
-        $this->addFlash('success', 'QR Code scanned!');
-        return $this->redirectToRoute('homepage');
+        try {
+            $this->addFlash('success', 'scan.qr_success');
+            return $this->redirect($this->barcodeParser->getQRRedirectTarget($type, $id));
+        } catch (EntityNotFoundException $exception) {
+            $this->addFlash('success', 'scan.qr_not_found');
+            return $this->redirectToRoute('homepage');
+        }
     }
 }
