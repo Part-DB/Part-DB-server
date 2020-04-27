@@ -31,17 +31,17 @@ list of the features could change in the future. Features that are not working y
 
 * Inventory managment of your electronic parts. Each part can be assigned to a category, footprint, manufacturer 
 and multiple store locations and price informations. Parts can be grouped using tags. Support for file attachments like datasheets. 
-* Multi-Language support (currently German, English, Russian and French(experimental))
-* Barcodes/Labels generator for parts and storage locations (*)
+* Multi-Language support (currently German, English, Russian and French)
+* Barcodes/Labels generator for parts and storage locations
 * User system with groups and detailed permissions. 
 Two-factor authentication is supported (Google Authenticator and U2F keys) and can be enforced. Password reset via email can be setuped.
-* Import/Export system (*)
+* Import/Export system (e.g. PartKeepr Import) (*)
 * Project managment: Parts can be assigned to projects to manage how often a project can be build. (*)
 * Order managment: Collect parts that should be ordered during the next order on your distributor and automatically add
 it to your instock, when they arrive. (*)
-* Event log: Track what changes happens to your inventory, track which user does what. (*)
+* Event log: Track what changes happens to your inventory, track which user does what.
 * Responsive design: You can use Part-DB on your PC, your tablet and your smartphone using the same interface.
-* PartKeepr import (*)
+* Part Parameters
 
 With this features Part-DB is useful to hobbyists, who want to keep track of their private electronic parts inventory,
 or makerspaces, where many users have should have (controlled) access to the shared inventory.
