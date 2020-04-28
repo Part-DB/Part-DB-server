@@ -26,13 +26,7 @@
             <!-- Searchbar -->
             {% include "_navbar_search.html.twig" %}
         </div>
-
-        <a class="d-block d-md-none  nav-link link-datasheet" style="color: black;"
-           href="zxing://scan/?ret={if isset($smarty.server.HTTPS)}https{else}http{/if}%3A%2F%2F{$smarty.server.HTTP_HOST|escape:'url'}{$relative_path|escape:'url'}show_search_parts.php%3Fkeyword%3D%7BCODE%7D&SCAN_FORMATS=EAN_8,CODE_39">
-            <i class="fa fa-barcode fa-fw fa-lg" aria-hidden="true"></i>
-            <span class="ml-2 text-muted">{% trans %}barcode.scan{% endtrans %}</span>
-        </a>
-
+        
         <ul class="navbar-nav ml-3" id="login-content">
             <li class="nav-item dropdown">
                 <a href="#" class="dropdown-toggle link-anchor nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
