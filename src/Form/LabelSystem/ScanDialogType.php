@@ -34,7 +34,8 @@ class ScanDialogType extends AbstractType
         $builder->add('input', TextType::class, [
             'attr' => [
                 'autofocus' => true,
-            ]
+                'id' => 'scan_dialog_input',
+            ],
         ]);
 
         $builder->add('submit', SubmitType::class, [

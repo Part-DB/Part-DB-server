@@ -3,7 +3,31 @@
 {% block card_title %}<i class="fas fa-atom fa-fw"></i> {% trans %}label_scanner.title{% endtrans %}{% endblock %}
 
 {% block card_content %}
-    {{ form_start(form) }}
+    <div class="alert alert-warning" id="scanner-warning">
+        <strong>{% trans %}label_scanner.no_cam_found.title{% endtrans %}</strong>: {% trans %}label_scanner.no_cam_found.text{% endtrans %}
+    </div>
+
+    {{ form_start(form, {'attr': {'id': 'scan_dialog_form'}}) }}
 
     {{ form_end(form) }}
+
+    <div class="">
+        <div class="form-group row">
+            <div class="offset-sm-3 col-sm-9">
+                <video id="video" width="100%" height="auto" class="scanner-video img-thumbnail d-none">
+                </video>
+            </div>
+        </div>
+
+        {# <div>
+             <button type="button" class="btn btn-secondary" id="changeSrcBtn">Change Source</button>
+         </div>#}
+
+        <div id="sourceSelectPanel" class="form-group row d-none">
+            <label for="sourceSelect" class="col-sm-3 col-form-label">{% trans %}label_scanner.source_select{% endtrans %}</label>
+            <div class="col-sm-9">
+                <select id="sourceSelect" style="" class="form-control"></select>
+            </div>
+        </div>
+    </div>
 {% endblock %}

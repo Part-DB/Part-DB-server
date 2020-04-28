@@ -1018,6 +1018,13 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
+"@zxing/library@^0.16.3":
+  version "0.16.3"
+  resolved "https://registry.yarnpkg.com/@zxing/library/-/library-0.16.3.tgz#3d9d2a031f03b01b67ee6defc232aae106329f84"
+  integrity sha512-GjhP1eWfj76fn8JnipDXKEErgfNJO8CJb0bEgkZ14RLSo1z2U1wD7RUt609oRWYYq2gPQfK3X+Z159K4ecNzHQ==
+  dependencies:
+    ts-custom-error "^3.0.0"
+
 accepts@~1.3.4, accepts@~1.3.5, accepts@~1.3.7:
   version "1.3.7"
   resolved "https://registry.yarnpkg.com/accepts/-/accepts-1.3.7.tgz#531bc726517a3b2b41f850021c6cc15eaab507cd"
@@ -6685,6 +6692,11 @@ toidentifier@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
   integrity sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
+
+ts-custom-error@^3.0.0:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/ts-custom-error/-/ts-custom-error-3.1.1.tgz#d30c7415461dac93dc2cc9e9eb2dae92e6423901"
+  integrity sha512-f/syoy+pTE4z82qaiRuthEeZtCGNKzlfs0Zc8jpQFcz/CYMaFSwFSdfFt1sSFnPlDLOEm7RCROdIxZ44N8UlwA==
 
 ts-loader@^5.3.0:
   version "5.4.5"

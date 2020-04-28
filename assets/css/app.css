@@ -833,3 +833,8 @@ div.dataTables_wrapper div.dataTables_info {
 .darkmode--activated img {
     mix-blend-mode: difference;
 }
+
+.scanner-video {
+    max-width: 500px;
+    max-height: 250px;
+}
