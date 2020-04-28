@@ -211,23 +211,11 @@
     "netresearch/jsonmapper": {
         "version": "v1.6.0"
     },
-    "nette/application": {
-        "version": "v3.0.3"
-    },
-    "nette/component-model": {
-        "version": "v3.0.0"
-    },
     "nette/finder": {
         "version": "v2.5.2"
     },
-    "nette/http": {
-        "version": "v3.0.3"
-    },
     "nette/robot-loader": {
         "version": "v3.2.1"
-    },
-    "nette/routing": {
-        "version": "v3.0.0"
     },
     "nette/utils": {
         "version": "v3.1.0"
@@ -670,6 +658,9 @@
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.10.0"
+    },
+    "symfony/polyfill-php70": {
+        "version": "v1.15.0"
     },
     "symfony/polyfill-php72": {
         "version": "v1.10.0"
