@@ -28,7 +28,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\NamedDBElementRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\LabelProfileRepository")
  * @ORM\Table(name="label_profiles")
  * @ORM\EntityListeners({"App\EntityListeners\TreeCacheInvalidationListener"})
  * @UniqueEntity({"name", "options.supported_element"})
