@@ -45,6 +45,7 @@ namespace App\Services\Trees;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Devices\Device;
+use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -122,6 +123,11 @@ class ToolsTreeBuilder
             $this->urlGenerator->generate('label_dialog')
         );
 
+        $nodes[] = new TreeViewNode(
+            $this->translator->trans('tree.tools.tools.label_scanner'),
+            $this->urlGenerator->generate('scan_dialog')
+        );
+
         return $nodes;
     }
 
@@ -188,12 +194,19 @@ class ToolsTreeBuilder
                 $this->urlGenerator->generate('measurement_unit_new')
             );
         }
+        if ($this->security->isGranted('create', new LabelProfile())) {
+            $nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.edit.label_profile'),
+                $this->urlGenerator->generate('label_profile_new')
+            );
+        }
         if ($this->security->isGranted('create', new Part())) {
             $nodes[] = new TreeViewNode(
                 $this->translator->trans('tree.tools.edit.part'),
                 $this->urlGenerator->generate('part_new')
             );
         }
+
 
         return $nodes;
     }
