@@ -1,0 +1,4190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="ja">
+  <file id="messages.en">
+    <unit id="0Md_YOf" name="attachment_type.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\AttachmentTypeAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.caption</source>
+        <target>添付ファイルの種類</target>
+      </segment>
+    </unit>
+    <unit id="OllfX2C" name="category.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:22</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:7</note>
+        <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:4</note>
+        <note priority="1">templates\base.html.twig:163</note>
+        <note priority="1">templates\base.html.twig:170</note>
+        <note priority="1">templates\base.html.twig:197</note>
+        <note priority="1">templates\base.html.twig:225</note>
+      </notes>
+      <segment state="translated">
+        <source>category.labelp</source>
+        <target>カテゴリー</target>
+      </segment>
+    </unit>
+    <unit id="lnjU5yu" name="admin.options">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:11</note>
+        <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.options</source>
+        <target>オプション</target>
+      </segment>
+    </unit>
+    <unit id="CuAPq5N" name="admin.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CompanyAdminBase.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CompanyAdminBase.html.twig:15</note>
+        <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.advanced</source>
+        <target>詳細</target>
+      </segment>
+    </unit>
+    <unit id="BJtSZa4" name="currency.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.caption</source>
+        <target>通貨</target>
+      </segment>
+    </unit>
+    <unit id="dzfYFww" name="currency.iso_code.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:12</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.iso_code.caption</source>
+        <target>ISOコード</target>
+      </segment>
+    </unit>
+    <unit id="lrCa3tF" name="currency.symbol.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.symbol.caption</source>
+        <target>通貨記号</target>
+      </segment>
+    </unit>
+    <unit id="tlgOYB5" name="device.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>device.caption</source>
+        <target>デバイス</target>
+      </segment>
+    </unit>
+    <unit id="lQ8QeGr" name="search.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:67</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:27</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:43</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:63</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:27</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:43</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:63</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:9</note>
+        <note priority="1">templates\base.html.twig:80</note>
+        <note priority="1">templates\base.html.twig:179</note>
+        <note priority="1">templates\base.html.twig:206</note>
+        <note priority="1">templates\base.html.twig:237</note>
+      </notes>
+      <segment state="translated">
+        <source>search.placeholder</source>
+        <target>検索</target>
+      </segment>
+    </unit>
+    <unit id="10f_Ka3" name="expandAll">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:23</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:23</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:3</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:13</note>
+        <note priority="1">templates\base.html.twig:166</note>
+        <note priority="1">templates\base.html.twig:193</note>
+        <note priority="1">templates\base.html.twig:221</note>
+      </notes>
+      <segment state="translated">
+        <source>expandAll</source>
+        <target>すべて開く</target>
+      </segment>
+    </unit>
+    <unit id="eS_kUcS" name="reduceAll">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:27</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:27</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:4</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:17</note>
+        <note priority="1">templates\base.html.twig:167</note>
+        <note priority="1">templates\base.html.twig:194</note>
+        <note priority="1">templates\base.html.twig:222</note>
+      </notes>
+      <segment state="translated">
+        <source>reduceAll</source>
+        <target>すべて閉じる</target>
+      </segment>
+    </unit>
+    <unit id="a5.CFfq" name="edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:35</note>
+      </notes>
+      <segment state="translated">
+        <source>edit.caption</source>
+        <target>"%name"を編集</target>
+      </segment>
+    </unit>
+    <unit id="bblk5.r" name="new.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>new.caption</source>
+        <target>要素を追加</target>
+      </segment>
+    </unit>
+    <unit id="tagdXMa" name="part.info.timetravel_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:54</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:54</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.timetravel_hint</source>
+        <target>%timestamp%より前の部品はこのように表示されます。&lt;i&gt;これは実験的機能です。情報が正しくない可能性があります。&lt;/i&gt;</target>
+      </segment>
+    </unit>
+    <unit id="7uawYY6" name="standard.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:60</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:42</note>
+      </notes>
+      <segment state="translated">
+        <source>standard.label</source>
+        <target>プロパティ</target>
+      </segment>
+    </unit>
+    <unit id="Fe5ax26" name="infos.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:61</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:43</note>
+      </notes>
+      <segment state="translated">
+        <source>infos.label</source>
+        <target>情報</target>
+      </segment>
+    </unit>
+    <unit id="PNqzf_X" name="history.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:63</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:63</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>history.label</source>
+        <target>履歴</target>
+      </segment>
+    </unit>
+    <unit id="Y2QKWU9" name="export.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:66</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:66</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>export.label</source>
+        <target>エクスポート</target>
+      </segment>
+    </unit>
+    <unit id="k5fWSN4" name="import_export.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:68</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:68</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>import_export.label</source>
+        <target>インポート / エクスポート</target>
+      </segment>
+    </unit>
+    <unit id="sOYxh4M" name="mass_creation.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:69</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:69</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.label</source>
+        <target>一括作成</target>
+      </segment>
+    </unit>
+    <unit id="wTQX7oE" name="admin.common">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:82</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:82</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:59</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.common</source>
+        <target>一般</target>
+      </segment>
+    </unit>
+    <unit id="NmnCJhH" name="admin.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:86</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:86</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.attachments</source>
+        <target>添付ファイル</target>
+      </segment>
+    </unit>
+    <unit id="TA1hSYV" name="admin.parameters">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:90</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.parameters</source>
+        <target>パラメーター</target>
+      </segment>
+    </unit>
+    <unit id="R949JGz" name="export_all.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:178</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:167</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:142</note>
+      </notes>
+      <segment state="translated">
+        <source>export_all.label</source>
+        <target>全要素をエクスポートする</target>
+      </segment>
+    </unit>
+    <unit id="zPSdxU4" name="mass_creation.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:184</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:173</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.help</source>
+        <target>各行は作成する要素名として解釈されます。</target>
+      </segment>
+    </unit>
+    <unit id="ZJ9SPOS" name="footprint.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:9</note>
+        <note priority="1">templates\base.html.twig:172</note>
+        <note priority="1">templates\base.html.twig:199</note>
+        <note priority="1">templates\base.html.twig:227</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.labelp</source>
+        <target>フットプリント</target>
+      </segment>
+    </unit>
+    <unit id="ZOZqHeB" name="group.edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>group.edit.caption</source>
+        <target>グループ</target>
+      </segment>
+    </unit>
+    <unit id="iK5P0V5" name="user.edit.permissions">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.permissions</source>
+        <target>権限</target>
+      </segment>
+    </unit>
+    <unit id="Fum_mCX" name="manufacturer.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.caption</source>
+        <target>メーカー</target>
+      </segment>
+    </unit>
+    <unit id="6tFKnGD" name="measurement_unit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\MeasurementUnitAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\MeasurementUnitAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.caption</source>
+        <target>単位</target>
+      </segment>
+    </unit>
+    <unit id="vZGwiMS" name="storelocation.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:8</note>
+        <note priority="1">templates\base.html.twig:171</note>
+        <note priority="1">templates\base.html.twig:198</note>
+        <note priority="1">templates\base.html.twig:226</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.labelp</source>
+        <target>保管場所</target>
+      </segment>
+    </unit>
+    <unit id="ykqfBBp" name="supplier.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\SupplierAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.caption</source>
+        <target>供給業者</target>
+      </segment>
+    </unit>
+    <unit id=".YoS4pi" name="user.edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.caption</source>
+        <target>ユーザー</target>
+      </segment>
+    </unit>
+    <unit id="eDE4Z9X" name="user.edit.configuration">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:14</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:14</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.configuration</source>
+        <target>設定</target>
+      </segment>
+    </unit>
+    <unit id="3HIFZxy" name="user.edit.password">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.password</source>
+        <target>パスワード</target>
+      </segment>
+    </unit>
+    <unit id="CpSdWDM" name="user.edit.tfa.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.caption</source>
+        <target>二要素認証</target>
+      </segment>
+    </unit>
+    <unit id="QAuf3JI" name="user.edit.tfa.google_active">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.google_active</source>
+        <target>認証アプリが有効</target>
+      </segment>
+    </unit>
+    <unit id="7v_PSOf" name="tfa_backup.remaining_tokens">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:48</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:15</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:95</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:95</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.remaining_tokens</source>
+        <target>バックアップコードの残り数</target>
+      </segment>
+    </unit>
+    <unit id="xhNIm7L" name="tfa_backup.generation_date">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:49</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:17</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:96</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:49</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:17</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:96</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.generation_date</source>
+        <target>バックアップコードの生成日</target>
+      </segment>
+    </unit>
+    <unit id="_m6S_4Y" name="user.edit.tfa.disabled">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:53</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:53</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:60</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.disabled</source>
+        <target>メソッドが有効化されていません</target>
+      </segment>
+    </unit>
+    <unit id="TagZ6I5" name="user.edit.tfa.u2f_keys_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:56</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:56</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.u2f_keys_count</source>
+        <target>セキュリティー キーを有効化</target>
+      </segment>
+    </unit>
+    <unit id=".K9hu_c" name="user.edit.tfa.disable_tfa_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.disable_tfa_title</source>
+        <target>本当に続けますか？</target>
+      </segment>
+    </unit>
+    <unit id="xORuIU4" name="user.edit.tfa.disable_tfa_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.disable_tfa_message</source>
+        <target>これは&lt;b&gt;ユーザーの有効な二要素認証すべて&lt;/b&gt;と&lt;b&gt;バックアップコード&lt;/b&gt;を削除します。
+&lt;br&gt;
+ユーザーは再度二要素認証を設定し、バックアップコードを印刷する必要があります。
+&lt;br&gt;&lt;br&gt;
+&lt;b&gt;ユーザーの身元が明らかな場合のみ実行してください（ヘルプを求められている場合など）。アカウントが攻撃される可能性があります。&lt;/b&gt;</target>
+      </segment>
+    </unit>
+    <unit id="02HvwiS" name="user.edit.tfa.disable_tfa.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:73</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:73</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.disable_tfa.btn</source>
+        <target>すべての二要素認証を無効化する</target>
+      </segment>
+    </unit>
+    <unit id="0EjI8FY" name="attachment.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:63</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:63</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.delete</source>
+        <target>削除</target>
+      </segment>
+    </unit>
+    <unit id="ffvhms1" name="attachment.external">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:41</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:38</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:159</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:41</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:38</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:159</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.external</source>
+        <target>外部</target>
+      </segment>
+    </unit>
+    <unit id="vTU.j2g" name="attachment.preview.alt">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:47</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.preview.alt</source>
+        <target>添付ファイルのサムネイル</target>
+      </segment>
+    </unit>
+    <unit id="CNqXx.c" name="attachment.view">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:50</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:48</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.view</source>
+        <target>ビュー</target>
+      </segment>
+    </unit>
+    <unit id="HnHc.HV" name="attachment.file_not_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:56</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:54</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:38</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:166</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:56</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:54</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:38</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:166</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.file_not_found</source>
+        <target>ファイルが見つかりません</target>
+      </segment>
+    </unit>
+    <unit id="vnfQKjk" name="attachment.secure">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:64</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:62</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:64</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:62</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.secure</source>
+        <target>個人の添付ファイル</target>
+      </segment>
+    </unit>
+    <unit id="5nDb2pj" name="homepage.github.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:31</note>
+        <note priority="1">templates\homepage.html.twig:28</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.github.caption</source>
+        <target>プロジェクトのページ</target>
+      </segment>
+    </unit>
+    <unit id="7nCeHg7" name="homepage.github.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:31</note>
+        <note priority="1">templates\homepage.html.twig:28</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.github.text</source>
+        <target>ソースコード、ダウンロード、バグレポート、ToDoリスト他は&lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub project page&lt;/a&gt;にあります。</target>
+      </segment>
+    </unit>
+    <unit id="9pp.6vF" name="homepage.help.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:32</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:32</note>
+        <note priority="1">templates\homepage.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.help.caption</source>
+        <target>ヘルプ</target>
+      </segment>
+    </unit>
+    <unit id="exp3iqv" name="homepage.help.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:32</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:32</note>
+        <note priority="1">templates\homepage.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.help.text</source>
+        <target>ヘルプとtipsが&lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub page&lt;/a&gt;にあります</target>
+      </segment>
+    </unit>
+    <unit id="R2g.45a" name="homepage.forum.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:33</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:33</note>
+        <note priority="1">templates\homepage.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.forum.caption</source>
+        <target>フォーラム</target>
+      </segment>
+    </unit>
+    <unit id="nfBdkzp" name="homepage.forum.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:33</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:33</note>
+        <note priority="1">templates\homepage.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.forum.text</source>
+        <target>Part-DBについての質問は、&lt;a href="%href%" class="link-external" target="_blank"&gt;mikrocontroller.net&lt;/a&amp;gt にスレッドがあります。</target>
+      </segment>
+    </unit>
+    <unit id="exDsVQ3" name="homepage.wiki.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:34</note>
+        <note priority="1">templates\homepage.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.wiki.caption</source>
+        <target>Wiki</target>
+      </segment>
+    </unit>
+    <unit id="tdI0IlW" name="homepage.wiki.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:34</note>
+        <note priority="1">templates\homepage.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.wiki.text</source>
+        <target>追加の情報は &lt;a href="%href%" class="link-external" target="_blank"&gt;mikrocontroller.net Article&lt;/a&gt; にあります。</target>
+      </segment>
+    </unit>
+    <unit id="SV0IxK0" name=" homepage.basedOn ">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:36</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:36</note>
+        <note priority="1">templates\homepage.html.twig:33</note>
+      </notes>
+      <segment state="translated">
+        <source> homepage.basedOn </source>
+        <target> オリジナルのPart-DBの作者 </target>
+      </segment>
+    </unit>
+    <unit id="Qw1sChr" name=" homepage.others ">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:39</note>
+        <note priority="1">templates\homepage.html.twig:36</note>
+      </notes>
+      <segment state="translated">
+        <source> homepage.others </source>
+        <target> 他 </target>
+      </segment>
+    </unit>
+    <unit id="jOOAjnK" name="homepage.last_activity">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:45</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.last_activity</source>
+        <target>最後のアクティビティー</target>
+      </segment>
+    </unit>
+    <unit id="uKTMZBs" name="log.list.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\log_list.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\LogSystem\log_list.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>log.list.title</source>
+        <target>システムログ</target>
+      </segment>
+    </unit>
+    <unit id="_1bnAgm" name="log.undo.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:1</note>
+        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:1</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.confirm_title</source>
+        <target>本当にタイムスタンプの変更/復旧を取り消しますか？</target>
+      </segment>
+    </unit>
+    <unit id="ATlnZ1T" name="log.undo.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:2</note>
+        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:2</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.confirm_message</source>
+        <target>本当に指定したタイムスタンプの指定した要素の変更/リセットを取り消しますか？</target>
+      </segment>
+    </unit>
+    <unit id="Rc1M3PN" name="mail.footer.email_sent_by">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\base.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\mail\base.html.twig:24</note>
+      </notes>
+      <segment state="translated">
+        <source>mail.footer.email_sent_by</source>
+        <target>このメールは自動送信です：</target>
+      </segment>
+    </unit>
+    <unit id="AchaWxK" name="mail.footer.dont_reply">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\base.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\mail\base.html.twig:24</note>
+      </notes>
+      <segment state="translated">
+        <source>mail.footer.dont_reply</source>
+        <target>このメールに返信しないでください</target>
+      </segment>
+    </unit>
+    <unit id="S6Fot75" name="email.hi %name%">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>email.hi %name%</source>
+        <target>こんにちは、%name%</target>
+      </segment>
+    </unit>
+    <unit id="VKSPbrb" name="email.pw_reset.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.message</source>
+        <target>パスワードリセットの要求がありました。この要求に心当たりがない場合は、このメールを無視してください。</target>
+      </segment>
+    </unit>
+    <unit id="lu8bcCN" name="email.pw_reset.button">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.button</source>
+        <target>パスワードをリセットするにはここをクリック</target>
+      </segment>
+    </unit>
+    <unit id="tS_htiy" name="email.pw_reset.fallback">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:11</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.fallback</source>
+        <target>問題がある場合は&lt;a href="%url%"&gt;%url%&lt;/a&gt; で以下の情報を入力してください</target>
+      </segment>
+    </unit>
+    <unit id="QBTV5KP" name="email.pw_reset.username">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.username</source>
+        <target>ユーザー名</target>
+      </segment>
+    </unit>
+    <unit id="6UyKd6G" name="email.pw_reset.token">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.token</source>
+        <target>トークン</target>
+      </segment>
+    </unit>
+    <unit id="3Rl4ELy" name="email.pw_reset.valid_unit %date%">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\mail\pw_reset.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\mail\pw_reset.html.twig:24</note>
+      </notes>
+      <segment state="translated">
+        <source>email.pw_reset.valid_unit %date%</source>
+        <target>リセット トークンは &lt;i&gt;%date%&lt;/i&gt; まで有効です。</target>
+      </segment>
+    </unit>
+    <unit id="ItQbhLs" name="orderdetail.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:18</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:58</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:78</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetail.delete</source>
+        <target>削除</target>
+      </segment>
+    </unit>
+    <unit id="uUvRF8P" name="pricedetails.edit.min_qty">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetails.edit.min_qty</source>
+        <target>最小注文数量</target>
+      </segment>
+    </unit>
+    <unit id="3meOpdA" name="pricedetails.edit.price">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:40</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetails.edit.price</source>
+        <target>価格</target>
+      </segment>
+    </unit>
+    <unit id="1gzHhnJ" name="pricedetails.edit.price_qty">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:41</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:41</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetails.edit.price_qty</source>
+        <target>数量について</target>
+      </segment>
+    </unit>
+    <unit id="8BF.OZR" name="pricedetail.create">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:54</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_form_styles.html.twig:54</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetail.create</source>
+        <target>価格を追加</target>
+      </segment>
+    </unit>
+    <unit id="nS44Iqv" name="part.edit.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:4</note>
+        <note priority="1">templates\Parts\edit_part_info.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.title</source>
+        <target>部品を編集</target>
+      </segment>
+    </unit>
+    <unit id="Ko2G29K" name="part.edit.card_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:9</note>
+        <note priority="1">templates\Parts\edit_part_info.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.card_title</source>
+        <target>部品を編集</target>
+      </segment>
+    </unit>
+    <unit id="MvJvWIA" name="part.edit.tab.common">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.common</source>
+        <target>一般</target>
+      </segment>
+    </unit>
+    <unit id="RjPp2bd" name="part.edit.tab.manufacturer">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:28</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:28</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.manufacturer</source>
+        <target>メーカー</target>
+      </segment>
+    </unit>
+    <unit id="e9FzmOU" name="part.edit.tab.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:34</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.advanced</source>
+        <target>詳細</target>
+      </segment>
+    </unit>
+    <unit id="uc9NwcF" name="part.edit.tab.part_lots">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:40</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.part_lots</source>
+        <target>在庫</target>
+      </segment>
+    </unit>
+    <unit id="9HrMrf1" name="part.edit.tab.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:46</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:46</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.attachments</source>
+        <target>添付ファイル</target>
+      </segment>
+    </unit>
+    <unit id="tkdBTwZ" name="part.edit.tab.orderdetails">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:52</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:52</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.orderdetails</source>
+        <target>購入情報</target>
+      </segment>
+    </unit>
+    <unit id="fLuFk_2" name="part.edit.tab.specifications">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.specifications</source>
+        <target>値</target>
+      </segment>
+    </unit>
+    <unit id="LgSgFFj" name="part.edit.tab.comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:64</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.comment</source>
+        <target>コメント</target>
+      </segment>
+    </unit>
+    <unit id="h0g53U_" name="part.new.card_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\new_part.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\new_part.html.twig:8</note>
+        <note priority="1">templates\Parts\new_part.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>part.new.card_title</source>
+        <target>部品を新規作成</target>
+      </segment>
+    </unit>
+    <unit id="X.m4tR7" name="part_lot.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.delete</source>
+        <target>削除</target>
+      </segment>
+    </unit>
+    <unit id="Ey2BEY6" name="part_lot.create">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:28</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:28</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.create</source>
+        <target>在庫を追加</target>
+      </segment>
+    </unit>
+    <unit id="D7h1rMv" name="orderdetail.create">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:13</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:13</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetail.create</source>
+        <target>代理店を追加</target>
+      </segment>
+    </unit>
+    <unit id="uKZiiFJ" name="pricedetails.edit.delete.confirm">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:18</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:18</note>
+      </notes>
+      <segment state="translated">
+        <source>pricedetails.edit.delete.confirm</source>
+        <target>本当にこの価格を削除しますか？この操作はやり直しできません。</target>
+      </segment>
+    </unit>
+    <unit id="FIw9JVr" name="orderdetails.edit.delete.confirm">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:65</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:61</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetails.edit.delete.confirm</source>
+        <target>本当にこの代理店情報を削除しますか？この操作はやり直しできません。</target>
+      </segment>
+    </unit>
+    <unit id="UoflU8w" name="part.info.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:19</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:4</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.title</source>
+        <target>部品の詳細</target>
+      </segment>
+    </unit>
+    <unit id="ZrzEsc_" name="part.part_lots.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>part.part_lots.label</source>
+        <target>在庫</target>
+      </segment>
+    </unit>
+    <unit id="BWS7Lck" name="comment.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:56</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:56</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:26</note>
+        <note priority="1">templates\base.html.twig:62</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:74</note>
+        <note priority="1">src\Form\PartType.php:86</note>
+      </notes>
+      <segment state="translated">
+        <source>comment.label</source>
+        <target>コメント</target>
+      </segment>
+    </unit>
+    <unit id="Y2.Edoh" name="part.info.specifications">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:64</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.specifications</source>
+        <target>値</target>
+      </segment>
+    </unit>
+    <unit id="MZz0rtU" name="attachment.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:74</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:64</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:82</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.labelp</source>
+        <target>添付ファイル</target>
+      </segment>
+    </unit>
+    <unit id="b5.SSzx" name="vendor.partinfo.shopping_infos">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:83</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:71</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:88</note>
+      </notes>
+      <segment state="translated">
+        <source>vendor.partinfo.shopping_infos</source>
+        <target>購入情報</target>
+      </segment>
+    </unit>
+    <unit id="GayDkXI" name="part.delete.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:29</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>part.delete.confirm_title</source>
+        <target>本当にこの部品を削除しますか？</target>
+      </segment>
+    </unit>
+    <unit id="v4cgmfN" name="part.delete.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:30</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>part.delete.message</source>
+        <target>この部品と、関連付けられた情報（添付ファイル、価格など）は削除されます。この操作はやり直しできません！</target>
+      </segment>
+    </unit>
+    <unit id="CJHxw_e" name="part.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:37</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>part.delete</source>
+        <target>部品を削除</target>
+      </segment>
+    </unit>
+    <unit id="7BufWRt" name="parts_list.all.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\all_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\all_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.all.title</source>
+        <target>すべての部品</target>
+      </segment>
+    </unit>
+    <unit id="TOD4O3j" name="parts_list.category.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\category_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\category_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.category.title</source>
+        <target>部品とカテゴリー</target>
+      </segment>
+    </unit>
+    <unit id="yCsUZQZ" name="parts_list.footprint.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\footprint_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\footprint_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.footprint.title</source>
+        <target>部品とフットプリント</target>
+      </segment>
+    </unit>
+    <unit id="j4vXh3o" name="parts_list.manufacturer.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\manufacturer_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\manufacturer_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.manufacturer.title</source>
+        <target>部品とメーカー</target>
+      </segment>
+    </unit>
+    <unit id="6uogzri" name="parts_list.search.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\search_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\search_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.search.title</source>
+        <target>部品を検索</target>
+      </segment>
+    </unit>
+    <unit id="gwE_D3w" name="parts_list.storelocation.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\store_location_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\store_location_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.storelocation.title</source>
+        <target>部品と保管場所</target>
+      </segment>
+    </unit>
+    <unit id="K3Nj1UQ" name="parts_list.supplier.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\supplier_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\supplier_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.supplier.title</source>
+        <target>部品と供給業者</target>
+      </segment>
+    </unit>
+    <unit id="DBlWwba" name="parts_list.tags.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\tags_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\tags_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.tags.title</source>
+        <target>部品とタグ</target>
+      </segment>
+    </unit>
+    <unit id="5tFcxpX" name="entity.info.common.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:17</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:17</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.common.tab</source>
+        <target>一般</target>
+      </segment>
+    </unit>
+    <unit id="F0da8x0" name="entity.info.statistics.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:20</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.statistics.tab</source>
+        <target>統計情報</target>
+      </segment>
+    </unit>
+    <unit id="a0Bt1My" name="entity.info.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:30</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.name</source>
+        <target>名称</target>
+      </segment>
+    </unit>
+    <unit id="pqMTPTv" name="entity.info.parent">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:34</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:67</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:67</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.parent</source>
+        <target>親</target>
+      </segment>
+    </unit>
+    <unit id="nDEGgY0" name="entity.edit.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:46</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:46</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit.btn</source>
+        <target>編集</target>
+      </segment>
+    </unit>
+    <unit id="Rsrawma" name="entity.info.children_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:63</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:63</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.children_count</source>
+        <target>子要素の数</target>
+      </segment>
+    </unit>
+    <unit id="3WtQFdr" name="tfa.check.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.check.title</source>
+        <target>二要素認証が必要</target>
+      </segment>
+    </unit>
+    <unit id="FPvJfPr" name="tfa.code.trusted_pc">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.code.trusted_pc</source>
+        <target>このコンピューターを信頼（有効化すると、このコンピューターで二要素認証は求められません）</target>
+      </segment>
+    </unit>
+    <unit id="XtrGxkd" name="login.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:52</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:58</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:52</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>login.btn</source>
+        <target>ログイン</target>
+      </segment>
+    </unit>
+    <unit id="okzpfQC" name="user.logout">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:53</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:13</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:53</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:13</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:40</note>
+      </notes>
+      <segment state="translated">
+        <source>user.logout</source>
+        <target>ログアウト</target>
+      </segment>
+    </unit>
+    <unit id="INlwXoR" name="tfa.check.code.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_form.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\security\2fa_form.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.check.code.label</source>
+        <target>認証アプリのコード</target>
+      </segment>
+    </unit>
+    <unit id="TUbr0_A" name="tfa.check.code.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\2fa_form.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\security\2fa_form.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa.check.code.help</source>
+        <target>認証アプリの6桁のコードを入力してください。アプリを使用できない場合はバックアップコードを入力してください。</target>
+      </segment>
+    </unit>
+    <unit id="Kd99AFq" name="login.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:3</note>
+        <note priority="1">templates\security\login.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>login.title</source>
+        <target>ログイン</target>
+      </segment>
+    </unit>
+    <unit id="nDK0G.T" name="login.card_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:7</note>
+        <note priority="1">templates\security\login.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>login.card_title</source>
+        <target>ログイン</target>
+      </segment>
+    </unit>
+    <unit id="6Ks0rFM" name="login.username.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:31</note>
+        <note priority="1">templates\security\login.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>login.username.label</source>
+        <target>ユーザー名</target>
+      </segment>
+    </unit>
+    <unit id="JUuJUUV" name="login.username.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:34</note>
+        <note priority="1">templates\security\login.html.twig:34</note>
+      </notes>
+      <segment state="translated">
+        <source>login.username.placeholder</source>
+        <target>ユーザー名</target>
+      </segment>
+    </unit>
+    <unit id="HJtrGOc" name="login.password.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:38</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:38</note>
+        <note priority="1">templates\security\login.html.twig:38</note>
+      </notes>
+      <segment state="translated">
+        <source>login.password.label</source>
+        <target>パスワード</target>
+      </segment>
+    </unit>
+    <unit id="8SD.6EK" name="login.password.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:40</note>
+        <note priority="1">templates\security\login.html.twig:40</note>
+      </notes>
+      <segment state="translated">
+        <source>login.password.placeholder</source>
+        <target>パスワード</target>
+      </segment>
+    </unit>
+    <unit id="BSn76q_" name="login.rememberme">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:50</note>
+        <note priority="1">templates\security\login.html.twig:50</note>
+      </notes>
+      <segment state="translated">
+        <source>login.rememberme</source>
+        <target>記憶する（共用コンピューターでは使用しないでください）</target>
+      </segment>
+    </unit>
+    <unit id="GO.ZhTX" name="pw_reset.password_forget">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\login.html.twig:64</note>
+        <note priority="1">Part-DB1\templates\security\login.html.twig:64</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.password_forget</source>
+        <target>ユーザー名/パスワードを忘れた</target>
+      </segment>
+    </unit>
+    <unit id="hbW2JJr" name="pw_reset.new_pw.header.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\pw_reset_new_pw.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\security\pw_reset_new_pw.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.new_pw.header.title</source>
+        <target>新しいパスワードを設定</target>
+      </segment>
+    </unit>
+    <unit id="3Tgn6io" name="pw_reset.request.header.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\pw_reset_request.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\security\pw_reset_request.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.request.header.title</source>
+        <target>新しいパスワードを要求</target>
+      </segment>
+    </unit>
+    <unit id="J1aHED." name="tfa_u2f.http_warning">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:7</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.http_warning</source>
+        <target>
+安全でないHTTPでアクセスしているため、U2Fが動作しない可能性が高いです（Bad Requestのエラーメッセージ）。セキュリティー キーを使用したい場合は、管理者に安全なHTTPSにするよう依頼してください。</target>
+      </segment>
+    </unit>
+    <unit id="Do6QuMa" name="r_u2f_two_factor.pressbutton">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:10</note>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>r_u2f_two_factor.pressbutton</source>
+        <target>セキュリティー キーを挿入しボタンを押してください。</target>
+      </segment>
+    </unit>
+    <unit id="T4i5SE4" name="tfa_u2f.add_key.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_key.title</source>
+        <target>セキュリティー キーを追加</target>
+      </segment>
+    </unit>
+    <unit id="rIJ.Flq" name="tfa_u2f.explanation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:111</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:111</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.explanation</source>
+        <target>U2F/FIDO互換のセキュリティキー（例：YubiKeyやNitroKey）により、ユーザーフレンドリーで安全な二要素認証を実現できます。セキュリティキーはここで登録することができ、二要素認証が必要な場合は、USB経由でキーを挿入するか、NFC経由でデバイスに入力するだけです。</target>
+      </segment>
+    </unit>
+    <unit id="DMC2yTT" name="tfa_u2f.add_key.backup_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_key.backup_hint</source>
+        <target>鍵を紛失しても確実にアクセスできるように、別のキーををバックアップとして登録し、大切に保管しておくことをおすすめします。</target>
+      </segment>
+    </unit>
+    <unit id="ktQ_kY9" name="r_u2f_two_factor.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>r_u2f_two_factor.name</source>
+        <target>表示されているキー名（例：バックアップ）</target>
+      </segment>
+    </unit>
+    <unit id="HI4_6dF" name="tfa_u2f.add_key.add_button">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_key.add_button</source>
+        <target>セキュリティー キーを追加</target>
+      </segment>
+    </unit>
+    <unit id="JyEfylJ" name="tfa_u2f.add_key.back_to_settings">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:27</note>
+        <note priority="1">Part-DB1\templates\security\U2F\u2f_register.html.twig:27</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_key.back_to_settings</source>
+        <target>設定に戻る</target>
+      </segment>
+    </unit>
+    <unit id="yD.UA07" name="statistics.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:5</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:8</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.title</source>
+        <target>統計情報</target>
+      </segment>
+    </unit>
+    <unit id="6l0Fwd2" name="statistics.parts">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:14</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:14</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.parts</source>
+        <target>部品</target>
+      </segment>
+    </unit>
+    <unit id="QRdK9zd" name="statistics.data_structures">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:19</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.data_structures</source>
+        <target>データ構造</target>
+      </segment>
+    </unit>
+    <unit id="50kyfxA" name="statistics.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:24</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.attachments</source>
+        <target>添付ファイル</target>
+      </segment>
+    </unit>
+    <unit id="Op0xko9" name="statistics.property">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:34</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:59</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:104</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:59</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:104</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.property</source>
+        <target>プロパティー</target>
+      </segment>
+    </unit>
+    <unit id="zn.PnJ2" name="statistics.value">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:35</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:60</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:105</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:35</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:105</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.value</source>
+        <target>値</target>
+      </segment>
+    </unit>
+    <unit id=".lLfExB" name="statistics.distinct_parts_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:40</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.distinct_parts_count</source>
+        <target>個別の部品の数</target>
+      </segment>
+    </unit>
+    <unit id="IjDWXUD" name="statistics.parts_instock_sum">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:44</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:44</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.parts_instock_sum</source>
+        <target>全ての部品在庫数の合計</target>
+      </segment>
+    </unit>
+    <unit id="OUVlqDZ" name="statistics.parts_with_price">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Statistics\statistics.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Statistics\statistics.html.twig:48</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>statistics.parts_with_price</source>
+        <target>価格情報がある部品の数</target>
+      </segment>
+    </unit>
+    <unit id="atzHEe7" name="tfa_backup.disabled">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:83</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:83</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.disabled</source>
+        <target>バックアップコードが無効です。有効化するためには認証アプリを設定してください。</target>
+      </segment>
+    </unit>
+    <unit id=".T4.dPM" name="tfa_backup.explanation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:84</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:92</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:84</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:92</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.explanation</source>
+        <target>バックアップコードを使えば、端末を紛失してもアカウントにアクセスすることができます。コードを印刷して大切に保管してください。</target>
+      </segment>
+    </unit>
+    <unit id="H10CC4E" name="tfa_backup.reset_codes.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:88</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:88</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.reset_codes.confirm_title</source>
+        <target>本当にコードをリセットしますか？</target>
+      </segment>
+    </unit>
+    <unit id="5Fu2DpJ" name="tfa_backup.reset_codes.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:88</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:88</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.reset_codes.confirm_message</source>
+        <target>これにより、以前のコードはすべて削除され、新しいコードのセットが生成されます。この操作はやり直せません。新しいコードは印刷して、安全な場所に保管してください。</target>
+      </segment>
+    </unit>
+    <unit id="o5LtJ9_" name="tfa_backup.enabled">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:91</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:91</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.enabled</source>
+        <target>バックアップ コードが有効</target>
+      </segment>
+    </unit>
+    <unit id="kqmz5H_" name="tfa_backup.show_codes">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:99</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:99</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.show_codes</source>
+        <target>バックアップ コードを表示</target>
+      </segment>
+    </unit>
+    <unit id="7g11_KD" name="tfa_u2f.table_caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:114</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:114</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.table_caption</source>
+        <target>登録されたセキュリティー キー</target>
+      </segment>
+    </unit>
+    <unit id="UUr4y_o" name="tfa_u2f.delete_u2f.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:115</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:115</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.delete_u2f.confirm_title</source>
+        <target>本当にセキュリティー キーを削除しますか？</target>
+      </segment>
+    </unit>
+    <unit id="5ggwjiF" name="tfa_u2f.delete_u2f.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:116</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:116</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.delete_u2f.confirm_message</source>
+        <target>このキーを削除すると、このキーを使ってログインできなくなります。他のセキュリティー キーがない場合は、二要素認証が無効化されます。</target>
+      </segment>
+    </unit>
+    <unit id="QS7fv4V" name="tfa_u2f.keys.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:123</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:123</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.keys.name</source>
+        <target>キーの名前</target>
+      </segment>
+    </unit>
+    <unit id="4qB9rjg" name="tfa_u2f.keys.added_date">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:124</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:124</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.keys.added_date</source>
+        <target>登録日</target>
+      </segment>
+    </unit>
+    <unit id="EDTcMLO" name="tfa_u2f.key_delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:134</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:134</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.key_delete</source>
+        <target>キーを削除</target>
+      </segment>
+    </unit>
+    <unit id="h0wV1h2" name="tfa_u2f.no_keys_registered">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:141</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:141</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.no_keys_registered</source>
+        <target>キーが登録されていません。</target>
+      </segment>
+    </unit>
+    <unit id="HuO06yQ" name="tfa_u2f.add_new_key">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:144</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:144</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.add_new_key</source>
+        <target>新しいセキュリティー キーを登録</target>
+      </segment>
+    </unit>
+    <unit id="JNqROE2" name="tfa_trustedDevices.explanation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:148</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:148</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevices.explanation</source>
+        <target>2つ目の要素をチェックすると、現在のコンピューターは信頼できるとマークされるので、このコンピューターの2つ目の要素チェックはもう必要ありません。
+これを誤って行ってしまった場合や、コンピュータが信頼できなくなった場合は、ここで&lt;i&gt;すべての&lt;/i&gt;コンピューターの状態をリセットすることができます。</target>
+      </segment>
+    </unit>
+    <unit id="xRB9q2I" name="tfa_trustedDevices.invalidate.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:149</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:149</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevices.invalidate.confirm_title</source>
+        <target>本当に登録されたコンピューターを全て削除しますか？</target>
+      </segment>
+    </unit>
+    <unit id="r7Z3.L4" name="tfa_trustedDevices.invalidate.confirm_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:150</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:150</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevices.invalidate.confirm_message</source>
+        <target>全てのコンピューターでもう一度二要素認証をする必要があります。二要素認証に使う端末を手元に用意してください。</target>
+      </segment>
+    </unit>
+    <unit id="jiNvzqA" name="tfa_trustedDevices.invalidate.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:154</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:154</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_trustedDevices.invalidate.btn</source>
+        <target>信頼した端末をリセット</target>
+      </segment>
+    </unit>
+    <unit id="cElTSD4" name="sidebar.toggle">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:4</note>
+        <note priority="1">templates\base.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>sidebar.toggle</source>
+        <target>サイドバーを切り替え</target>
+      </segment>
+    </unit>
+    <unit id="iqU5ScK" name="barcode.scan">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:27</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:27</note>
+        <note priority="1">templates\base.html.twig:88</note>
+      </notes>
+      <segment state="translated">
+        <source>barcode.scan</source>
+        <target>バーコードをスキャン</target>
+      </segment>
+    </unit>
+    <unit id="PRvW.EI" name="user.loggedin.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:36</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:36</note>
+        <note priority="1">templates\base.html.twig:97</note>
+      </notes>
+      <segment state="translated">
+        <source>user.loggedin.label</source>
+        <target>以下としてログイン：</target>
+      </segment>
+    </unit>
+    <unit id="rruB2OR" name="user.login">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:42</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:42</note>
+        <note priority="1">templates\base.html.twig:103</note>
+      </notes>
+      <segment state="translated">
+        <source>user.login</source>
+        <target>ログイン</target>
+      </segment>
+    </unit>
+    <unit id="Eorzg9b" name="ui.toggle_darkmode">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:48</note>
+      </notes>
+      <segment state="translated">
+        <source>ui.toggle_darkmode</source>
+        <target>ダークモード</target>
+      </segment>
+    </unit>
+    <unit id="oabvQfM" name="user.language_select">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:52</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:97</note>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:52</note>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:97</note>
+        <note priority="1">templates\base.html.twig:106</note>
+        <note priority="1">src\Form\UserSettingsType.php:44</note>
+      </notes>
+      <segment state="translated">
+        <source>user.language_select</source>
+        <target>言語切り替え</target>
+      </segment>
+    </unit>
+    <unit id="el2uFyW" name="search.options.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:4</note>
+        <note priority="1">templates\base.html.twig:49</note>
+      </notes>
+      <segment state="translated">
+        <source>search.options.label</source>
+        <target>検索オプション</target>
+      </segment>
+    </unit>
+    <unit id="kTRK6H_" name="name.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:10</note>
+        <note priority="1">templates\base.html.twig:54</note>
+        <note priority="1">src\Form\PartType.php:62</note>
+      </notes>
+      <segment state="translated">
+        <source>name.label</source>
+        <target>名前</target>
+      </segment>
+    </unit>
+    <unit id="V2u6xXi" name="tags.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:23</note>
+      </notes>
+      <segment state="translated">
+        <source>tags.label</source>
+        <target>タグ</target>
+      </segment>
+    </unit>
+    <unit id="RezjOdV" name="storelocation.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:27</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:88</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:22</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:88</note>
+        <note priority="1">templates\base.html.twig:60</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:36</note>
+        <note priority="1">src\Form\PartType.php:77</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.label</source>
+        <target>保管場所</target>
+      </segment>
+    </unit>
+    <unit id="z1DQ7QF" name="ordernumber.label.short">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:36</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:31</note>
+        <note priority="1">templates\base.html.twig:65</note>
+      </notes>
+      <segment state="translated">
+        <source>ordernumber.label.short</source>
+        <target>注文番号</target>
+      </segment>
+    </unit>
+    <unit id="zT4k8ZJ" name="supplier.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:40</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:89</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:35</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:89</note>
+        <note priority="1">templates\base.html.twig:67</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.label</source>
+        <target>供給業者</target>
+      </segment>
+    </unit>
+    <unit id="Bs5QvO0" name="search.deactivateBarcode">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:57</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:52</note>
+        <note priority="1">templates\base.html.twig:75</note>
+      </notes>
+      <segment state="translated">
+        <source>search.deactivateBarcode</source>
+        <target>バーコードを無効化</target>
+      </segment>
+    </unit>
+    <unit id="biFM.cv" name="search.regexmatching">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:56</note>
+        <note priority="1">templates\base.html.twig:77</note>
+      </notes>
+      <segment state="translated">
+        <source>search.regexmatching</source>
+        <target>正規表現で検索</target>
+      </segment>
+    </unit>
+    <unit id="N66qZeD" name="search.submit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:68</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:62</note>
+      </notes>
+      <segment state="translated">
+        <source>search.submit</source>
+        <target>検索</target>
+      </segment>
+    </unit>
+    <unit id="g6tt4u1" name="device.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
+        <note priority="1">templates\base.html.twig:175</note>
+        <note priority="1">templates\base.html.twig:189</note>
+        <note priority="1">templates\base.html.twig:202</note>
+        <note priority="1">templates\base.html.twig:230</note>
+      </notes>
+      <segment state="translated">
+        <source>device.labelp</source>
+        <target>デバイス</target>
+      </segment>
+    </unit>
+    <unit id="Kw3N1AA" name="actions">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:2</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:2</note>
+        <note priority="1">templates\base.html.twig:165</note>
+        <note priority="1">templates\base.html.twig:192</note>
+        <note priority="1">templates\base.html.twig:220</note>
+      </notes>
+      <segment state="translated">
+        <source>actions</source>
+        <target>アクション</target>
+      </segment>
+    </unit>
+    <unit id=".x0rFcf" name="datasource">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:6</note>
+        <note priority="1">templates\base.html.twig:169</note>
+        <note priority="1">templates\base.html.twig:196</note>
+        <note priority="1">templates\base.html.twig:224</note>
+      </notes>
+      <segment state="translated">
+        <source>datasource</source>
+        <target>データソース</target>
+      </segment>
+    </unit>
+    <unit id="NSnSQf4" name="manufacturer.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:10</note>
+        <note priority="1">templates\base.html.twig:173</note>
+        <note priority="1">templates\base.html.twig:200</note>
+        <note priority="1">templates\base.html.twig:228</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.labelp</source>
+        <target>メーカー</target>
+      </segment>
+    </unit>
+    <unit id="DQQjhS_" name="supplier.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:11</note>
+        <note priority="1">templates\base.html.twig:174</note>
+        <note priority="1">templates\base.html.twig:201</note>
+        <note priority="1">templates\base.html.twig:229</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.labelp</source>
+        <target>供給業者</target>
+      </segment>
+    </unit>
+    <unit id="V1QubEL" name="attachment.download_failed">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:185</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:253</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:171</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:264</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:181</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:243</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:173</note>
+        <note priority="1">Part-DB1\src\Controller\PartController.php:268</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.download_failed</source>
+        <target>外部ファイルのダウンロードに失敗しました。</target>
+      </segment>
+    </unit>
+    <unit id="A7i8za4" name="entity.edit_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:194</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:190</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit_flash</source>
+        <target>変更が保存されました。</target>
+      </segment>
+    </unit>
+    <unit id="AoZHore" name="entity.edit_flash.invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:203</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:196</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit_flash.invalid</source>
+        <target>変更を保存できません。入力を確認してください。</target>
+      </segment>
+    </unit>
+    <unit id="8MJvWmd" name="entity.created_flash">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:262</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:252</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.created_flash</source>
+        <target>要素が作成されました。</target>
+      </segment>
+    </unit>
+    <unit id="zZdZuYS" name="entity.created_flash.invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:268</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:258</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.created_flash.invalid</source>
+        <target>要素が作成できません。入力を確認してください。</target>
+      </segment>
+    </unit>
+    <unit id="lSfR7sD" name="attachment_type.deleted">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:360</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:352</note>
+        <note priority="1">src\Controller\BaseAdminController.php:154</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.deleted</source>
+        <target>要素が削除されました。</target>
+      </segment>
+    </unit>
+    <unit id="2bvWUoo" name="csfr_invalid">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:362</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserController.php:103</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:147</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:178</note>
+        <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:354</note>
+        <note priority="1">Part-DB1\src\Controller\UserController.php:101</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:150</note>
+        <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:182</note>
+      </notes>
+      <segment state="translated">
+        <source>csfr_invalid</source>
+        <target>CSRFトークンが無効です。このページを再読み込みしてください。このメッセージが消えない場合は管理者に連絡してください。</target>
+      </segment>
+    </unit>
+    <unit id="BeMACpw" name="log.undo.target_not_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:150</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:154</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.target_not_found</source>
+        <target>対象要素がデータベースにありません。</target>
+      </segment>
+    </unit>
+    <unit id="sG2PEwi" name="log.undo.revert_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:157</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:160</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.revert_success</source>
+        <target>タイムスタンプは正常に戻されました。</target>
+      </segment>
+    </unit>
+    <unit id="GMilP1t" name="log.undo.element_undelete_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:177</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:180</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.element_undelete_success</source>
+        <target>要素の復元に成功しました。</target>
+      </segment>
+    </unit>
+    <unit id="YJB8YZ6" name="log.undo.element_element_already_undeleted">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:179</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:182</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.element_element_already_undeleted</source>
+        <target>要素はすでに復元されています。</target>
+      </segment>
+    </unit>
+    <unit id="NI2CbLV" name="log.undo.element_delete_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:186</note>
+        <note priority="1">Part-DB1\src\Controller\LogController.php:189</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo.element_delete_success</source>
+        <target>要素は正常に削除されました。</target>
+      </segment>
+    </unit>
+    <unit id="Mv9g23S" name="part.table.minamount">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:224</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:172</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.minamount</source>
+        <target>最小数量</target>
+      </segment>
+    </unit>
+    <unit id="GjwSknL" name="part.table.partUnit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:232</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:180</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.partUnit</source>
+        <target>単位</target>
+      </segment>
+    </unit>
+    <unit id="pw75u4x" name="part.table.addedDate">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:236</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:184</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.addedDate</source>
+        <target>作成日：</target>
+      </segment>
+    </unit>
+    <unit id="eDb7mzC" name="part.table.lastModified">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:240</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:188</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.lastModified</source>
+        <target>最終更新：</target>
+      </segment>
+    </unit>
+    <unit id="DJ9YTs_" name="part.table.needsReview">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:244</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:192</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.needsReview</source>
+        <target>確認が必要</target>
+      </segment>
+    </unit>
+    <unit id="TSiqJH6" name="part.table.favorite">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:251</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:199</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.favorite</source>
+        <target>お気に入り</target>
+      </segment>
+    </unit>
+    <unit id="n0h1ozV" name="part.table.manufacturingStatus">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:258</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:206</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.manufacturingStatus</source>
+        <target>状態</target>
+      </segment>
+    </unit>
+    <unit id="MBCdfAy" name="m_status.unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:260</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:262</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:91</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:208</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:210</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.unknown</source>
+        <target>不明</target>
+      </segment>
+    </unit>
+    <unit id="BEnlUff" name="m_status.announced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:263</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:91</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:211</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.announced</source>
+        <target>アナウンス済み</target>
+      </segment>
+    </unit>
+    <unit id="TN5xR7J" name="m_status.active">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:264</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:91</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:212</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.active</source>
+        <target>アクティブ</target>
+      </segment>
+    </unit>
+    <unit id="0McKh_8" name="m_status.nrfnd">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:265</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:91</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:213</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.nrfnd</source>
+        <target>新規設計に非推奨</target>
+      </segment>
+    </unit>
+    <unit id="L7yLwn0" name="m_status.eol">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:266</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:91</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:214</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.eol</source>
+        <target>製造終了</target>
+      </segment>
+    </unit>
+    <unit id="5jxVP1H" name="m_status.discontinued">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:267</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:91</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:215</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
+      </notes>
+      <segment state="translated">
+        <source>m_status.discontinued</source>
+        <target>廃止</target>
+      </segment>
+    </unit>
+    <unit id="HTkvjkE" name="part.table.mpn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:271</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:219</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.mpn</source>
+        <target>MPN</target>
+      </segment>
+    </unit>
+    <unit id="q_AsQoZ" name="part.table.mass">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:275</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:223</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.mass</source>
+        <target>質量</target>
+      </segment>
+    </unit>
+    <unit id="Cwisdej" name="part.table.tags">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:279</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:227</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.tags</source>
+        <target>タグ</target>
+      </segment>
+    </unit>
+    <unit id="gGfALE0" name="part.table.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:283</note>
+        <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:231</note>
+      </notes>
+      <segment state="translated">
+        <source>part.table.attachments</source>
+        <target>添付ファイル</target>
+      </segment>
+    </unit>
+    <unit id="HISU3ZB" name="flash.login_successful">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\EventSubscriber\LoginSuccessListener.php:82</note>
+        <note priority="1">Part-DB1\src\EventSubscriber\LoginSuccessListener.php:82</note>
+      </notes>
+      <segment state="translated">
+        <source>flash.login_successful</source>
+        <target>ログインに成功しました</target>
+      </segment>
+    </unit>
+    <unit id="2xohoLw" name="JSON">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">src\Form\ImportType.php:68</note>
+      </notes>
+      <segment state="translated">
+        <source>JSON</source>
+        <target>JSON</target>
+      </segment>
+    </unit>
+    <unit id="QGWOmvj" name="XML">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">src\Form\ImportType.php:68</note>
+      </notes>
+      <segment state="translated">
+        <source>XML</source>
+        <target>XML</target>
+      </segment>
+    </unit>
+    <unit id="62tC9Ux" name="CSV">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">src\Form\ImportType.php:68</note>
+      </notes>
+      <segment state="translated">
+        <source>CSV</source>
+        <target>CSV</target>
+      </segment>
+    </unit>
+    <unit id="m26KvkJ" name="YAML">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:77</note>
+        <note priority="1">src\Form\ImportType.php:68</note>
+      </notes>
+      <segment state="translated">
+        <source>YAML</source>
+        <target>YAML</target>
+      </segment>
+    </unit>
+    <unit id="_JM6Jxg" name="import.abort_on_validation.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:124</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:124</note>
+      </notes>
+      <segment state="translated">
+        <source>import.abort_on_validation.help</source>
+        <target>このオプションを選択すると、無効なデータが検出された場合に全てのインポートが中断されます。選択しない場合は、無効なデータは無視され他の要素のインポートを試みます。</target>
+      </segment>
+    </unit>
+    <unit id="Peaf8Qu" name="import.csv_separator">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:86</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:86</note>
+        <note priority="1">src\Form\ImportType.php:70</note>
+      </notes>
+      <segment state="translated">
+        <source>import.csv_separator</source>
+        <target>CSVの区切り文字</target>
+      </segment>
+    </unit>
+    <unit id="dmNi.3b" name="parent.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:93</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:93</note>
+        <note priority="1">src\Form\ImportType.php:72</note>
+      </notes>
+      <segment state="translated">
+        <source>parent.label</source>
+        <target>親要素</target>
+      </segment>
+    </unit>
+    <unit id="VteZCnR" name="import.file">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:101</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:101</note>
+        <note priority="1">src\Form\ImportType.php:75</note>
+      </notes>
+      <segment state="translated">
+        <source>import.file</source>
+        <target>ファイル</target>
+      </segment>
+    </unit>
+    <unit id="0ybwwKw" name="import.preserve_children">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:111</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:111</note>
+        <note priority="1">src\Form\ImportType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>import.preserve_children</source>
+        <target>インポート時に子要素を残す</target>
+      </segment>
+    </unit>
+    <unit id="yyIAudL" name="import.abort_on_validation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:120</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:120</note>
+        <note priority="1">src\Form\ImportType.php:80</note>
+      </notes>
+      <segment state="translated">
+        <source>import.abort_on_validation</source>
+        <target>　無効なデータがある場合に中断する</target>
+      </segment>
+    </unit>
+    <unit id="d0GsgCW" name="import.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:132</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:132</note>
+        <note priority="1">src\Form\ImportType.php:85</note>
+      </notes>
+      <segment state="translated">
+        <source>import.btn</source>
+        <target>インポート</target>
+      </segment>
+    </unit>
+    <unit id="_z1YTpv" name="attachment.edit.secure_file.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:109</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:109</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.secure_file.help</source>
+        <target>プライベートとマークされた添付ファイルは、適切な権限を持つ認証済みユーザーのみがアクセスできます。この項目を有効化すると、サムネイルは生成されません。またファイルへのアクセスが不便になります。</target>
+      </segment>
+    </unit>
+    <unit id="pCsSiaz" name="attachment.edit.url.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:123</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:123</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.url.help</source>
+        <target>外部ファイルのURLを指定できます。内部リソース（例：フットプリント）の検索に使用するキーワードを入力することもできます。</target>
+      </segment>
+    </unit>
+    <unit id="3ZnUiT_" name="attachment.edit.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:79</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:79</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.name</source>
+        <target>名称</target>
+      </segment>
+    </unit>
+    <unit id="kAlm7LR" name="attachment.edit.attachment_type">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:82</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:82</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.attachment_type</source>
+        <target>添付ファイルの種類</target>
+      </segment>
+    </unit>
+    <unit id="xUV7Oz9" name="attachment.edit.show_in_table">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:91</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:91</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.show_in_table</source>
+        <target>表として表示</target>
+      </segment>
+    </unit>
+    <unit id="v6FVutS" name="attachment.edit.secure_file">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:102</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:102</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.secure_file</source>
+        <target>プライベートな添付ファイル</target>
+      </segment>
+    </unit>
+    <unit id="TRy0RSZ" name="attachment.edit.url">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:115</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:115</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.url</source>
+        <target>URL</target>
+      </segment>
+    </unit>
+    <unit id="ZZjrGgS" name="attachment.edit.download_url">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:129</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:129</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.download_url</source>
+        <target>外部ファイルをダウンロード</target>
+      </segment>
+    </unit>
+    <unit id="Pew.kQr" name="attachment.edit.file">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:142</note>
+        <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:142</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.file</source>
+        <target>ファイルをアップロード</target>
+      </segment>
+    </unit>
+    <unit id="o.P_V00" name="parameters.name.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:41</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.name.placeholder</source>
+        <target>例：DC電流ゲイン</target>
+      </segment>
+    </unit>
+    <unit id="3LWIDYM" name="parameters.symbol.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:50</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.symbol.placeholder</source>
+        <target>例：h_{FE}</target>
+      </segment>
+    </unit>
+    <unit id="w7bfLKj" name="parameters.text.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:60</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.text.placeholder</source>
+        <target>例：試験条件</target>
+      </segment>
+    </unit>
+    <unit id="6utToZ6" name="parameters.max.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:71</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.max.placeholder</source>
+        <target>例：350</target>
+      </segment>
+    </unit>
+    <unit id="BypUOrf" name="parameters.min.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:82</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.min.placeholder</source>
+        <target>例：100</target>
+      </segment>
+    </unit>
+    <unit id="VmYIvYF" name="parameters.typical.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:93</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.typical.placeholder</source>
+        <target>例：200</target>
+      </segment>
+    </unit>
+    <unit id="kvhGoo0" name="parameters.unit.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:103</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.unit.placeholder</source>
+        <target>例：V</target>
+      </segment>
+    </unit>
+    <unit id="kL5OSi8" name="parameter.group.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:114</note>
+      </notes>
+      <segment state="translated">
+        <source>parameter.group.placeholder</source>
+        <target>例：技術仕様</target>
+      </segment>
+    </unit>
+    <unit id="jv6wCpP" name="orderdetails.edit.supplierpartnr">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:75</note>
+        <note priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:75</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetails.edit.supplierpartnr</source>
+        <target>注文番号</target>
+      </segment>
+    </unit>
+    <unit id="CimWRtu" name="orderdetails.edit.supplier">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:84</note>
+        <note priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:84</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetails.edit.supplier</source>
+        <target>供給業者</target>
+      </segment>
+    </unit>
+    <unit id="qfScBBj" name="orderdetails.edit.url">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:90</note>
+        <note priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:90</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetails.edit.url</source>
+        <target>オファーへのリンク</target>
+      </segment>
+    </unit>
+    <unit id="D_288lV" name="orderdetails.edit.obsolete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:96</note>
+        <note priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:96</note>
+      </notes>
+      <segment state="translated">
+        <source>orderdetails.edit.obsolete</source>
+        <target>利用できません</target>
+      </segment>
+    </unit>
+    <unit id="CxpVbHB" name="parameter.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:95</note>
+      </notes>
+      <segment state="translated">
+        <source>parameter.label</source>
+        <target>値</target>
+      </segment>
+    </unit>
+    <unit id=".nBJJBz" name="log.element_deleted.old_name.unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:175</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:161</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>log.element_deleted.old_name.unknown</source>
+        <target>不明</target>
+      </segment>
+    </unit>
+    <unit id="jYAc6_i" name="markdown.loading">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\MarkdownParser.php:73</note>
+        <note priority="1">Part-DB1\src\Services\MarkdownParser.php:73</note>
+      </notes>
+      <segment state="translated">
+        <source>markdown.loading</source>
+        <target>Markdownを読み込んでいます。このメッセージが消えない場合はページを再読み込みしてください。</target>
+      </segment>
+    </unit>
+    <unit id="JVlktlG" name="pw_reset.email.subject">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\PasswordResetManager.php:98</note>
+        <note priority="1">Part-DB1\src\Services\PasswordResetManager.php:98</note>
+      </notes>
+      <segment state="translated">
+        <source>pw_reset.email.subject</source>
+        <target>Part-DBアカウントのパスワードをリセット</target>
+      </segment>
+    </unit>
+    <unit id="sgHHET2" name="tree.tools.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:107</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:107</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:74</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit</source>
+        <target>編集</target>
+      </segment>
+    </unit>
+    <unit id="RRgi9vd" name="tree.tools.show">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:108</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:108</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:81</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.show</source>
+        <target>表示</target>
+      </segment>
+    </unit>
+    <unit id="nQkvo2A" name="tree.tools.system">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:109</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:109</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.system</source>
+        <target>システム</target>
+      </segment>
+    </unit>
+    <unit id="Umzi6EP" name="tree.tools.edit.attachment_types">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:126</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:126</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:62</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.attachment_types</source>
+        <target>添付ファイルの種類</target>
+      </segment>
+    </unit>
+    <unit id="IWpzGV5" name="tree.tools.edit.categories">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:132</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:132</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:64</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.categories</source>
+        <target>カテゴリー</target>
+      </segment>
+    </unit>
+    <unit id="b2pLmAq" name="tree.tools.edit.devices">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:138</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:138</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:66</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.devices</source>
+        <target>デバイス</target>
+      </segment>
+    </unit>
+    <unit id="BFfweU_" name="tree.tools.edit.suppliers">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:144</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:144</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:68</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.suppliers</source>
+        <target>供給業者</target>
+      </segment>
+    </unit>
+    <unit id="bkM5GtE" name="tree.tools.edit.manufacturer">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:150</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:150</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:70</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.manufacturer</source>
+        <target>メーカー</target>
+      </segment>
+    </unit>
+    <unit id="0uWeEo4" name="tree.tools.edit.storelocation">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:156</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:156</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.storelocation</source>
+        <target>保管場所</target>
+      </segment>
+    </unit>
+    <unit id="AQHSEDZ" name="tree.tools.edit.footprint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:162</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:162</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.footprint</source>
+        <target>フットプリント</target>
+      </segment>
+    </unit>
+    <unit id="RBBr5gI" name="tree.tools.edit.currency">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:168</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:168</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.currency</source>
+        <target>通貨</target>
+      </segment>
+    </unit>
+    <unit id="624h27t" name="tree.tools.edit.measurement_unit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:174</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:174</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.measurement_unit</source>
+        <target>単位</target>
+      </segment>
+    </unit>
+    <unit id="CBX7i_1" name="tree.tools.edit.part">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:180</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:180</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.part</source>
+        <target>部品</target>
+      </segment>
+    </unit>
+    <unit id="cMe4sAM" name="tree.tools.show.all_parts">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:197</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:197</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:77</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.show.all_parts</source>
+        <target>全ての部品を表示</target>
+      </segment>
+    </unit>
+    <unit id="aGy9QbC" name="tree.tools.show.all_attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:203</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:203</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.show.all_attachments</source>
+        <target>添付ファイル</target>
+      </segment>
+    </unit>
+    <unit id="4_7bZqX" name="tree.tools.show.statistics">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:210</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:210</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.show.statistics</source>
+        <target>統計情報</target>
+      </segment>
+    </unit>
+    <unit id="D1it4FK" name="tree.tools.system.users">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:229</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:229</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.system.users</source>
+        <target>ユーザー</target>
+      </segment>
+    </unit>
+    <unit id="7rI.aP2" name="tree.tools.system.groups">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:235</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:235</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.system.groups</source>
+        <target>グループ</target>
+      </segment>
+    </unit>
+    <unit id="uwNvMFE" name="tree.tools.system.event_log">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:242</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:242</note>
+        <note priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.system.event_log</source>
+        <target>イベントログ</target>
+      </segment>
+    </unit>
+    <unit id="Y7FfSJt" name="entity.tree.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\TreeViewGenerator.php:95</note>
+        <note priority="1">Part-DB1\src\Services\Trees\TreeViewGenerator.php:95</note>
+        <note priority="1">src\Services\TreeBuilder.php:124</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.tree.new</source>
+        <target>新しい要素</target>
+      </segment>
+    </unit>
+    <unit id=".V3Lfkf" name="part.editmininstock.placeholder">
+      <notes>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:121</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.editmininstock.placeholder</source>
+        <target>例：1</target>
+      </segment>
+    </unit>
+    <unit id="CPJxiHz" name="M">
+      <notes>
+        <note priority="1">Part-DB1\src\Form\Type\SIUnitType.php:141</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>M</source>
+        <target>M</target>
+      </segment>
+    </unit>
+    <unit id="glTDKak" name="k">
+      <notes>
+        <note priority="1">Part-DB1\src\Form\Type\SIUnitType.php:141</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>k</source>
+        <target>k</target>
+      </segment>
+    </unit>
+    <unit id="47DEQpj" name="">
+      <segment>
+        <source/>
+        <target> </target>
+      </segment>
+    </unit>
+    <unit id="YsZqel3" name="m">
+      <notes>
+        <note priority="1">Part-DB1\src\Form\Type\SIUnitType.php:141</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>m</source>
+        <target>m</target>
+      </segment>
+    </unit>
+    <unit id="WgcvG_T" name="µ">
+      <notes>
+        <note priority="1">Part-DB1\src\Form\Type\SIUnitType.php:141</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>µ</source>
+        <target>µ</target>
+      </segment>
+    </unit>
+    <unit id="oHq_Mt5" name="log.user_login.ip">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:100</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.user_login.ip</source>
+        <target>IP</target>
+      </segment>
+    </unit>
+    <unit id="JEAFg3_" name="log.undo_mode.undo">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:128</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:150</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:169</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:207</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo_mode.undo</source>
+        <target>変更の取り消し</target>
+      </segment>
+    </unit>
+    <unit id="w9Ow4hB" name="log.undo_mode.revert">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:130</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:152</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:171</note>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:209</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.undo_mode.revert</source>
+        <target>要素を復旧</target>
+      </segment>
+    </unit>
+    <unit id="q6AoFKP" name="log.element_created.original_instock">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:139</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.element_created.original_instock</source>
+        <target>以前の在庫</target>
+      </segment>
+    </unit>
+    <unit id="TutJY7L" name="log.element_deleted.old_name">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:160</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.element_deleted.old_name</source>
+        <target>以前の名称</target>
+      </segment>
+    </unit>
+    <unit id="NyTftx6" name="log.element_edited.changed_fields">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:184</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.element_edited.changed_fields</source>
+        <target>変更されたフィールド</target>
+      </segment>
+    </unit>
+    <unit id="8YQSzN5" name="log.instock_changed.comment">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:198</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.instock_changed.comment</source>
+        <target>コメント</target>
+      </segment>
+    </unit>
+    <unit id="ar.0VTi" name="log.collection_deleted.deleted">
+      <notes>
+        <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:214</note>
+        <note priority="1">new</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.collection_deleted.deleted</source>
+        <target>削除された要素：</target>
+      </segment>
+    </unit>
+    <unit id="rOLpDSq" name="go.exclamation">
+      <notes>
+        <note priority="1">templates\base.html.twig:81</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>go.exclamation</source>
+        <target>Go!</target>
+      </segment>
+    </unit>
+    <unit id="rMCnZt." name="language.english">
+      <notes>
+        <note priority="1">templates\base.html.twig:109</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>language.english</source>
+        <target>English</target>
+      </segment>
+    </unit>
+    <unit id="OmHgIys" name="language.german">
+      <notes>
+        <note priority="1">templates\base.html.twig:112</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>language.german</source>
+        <target>German</target>
+      </segment>
+    </unit>
+    <unit id="EQgFD4g" name="flash.password_change_needed">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>flash.password_change_needed</source>
+        <target>パスワードの変更が必要です。</target>
+      </segment>
+    </unit>
+    <unit id="ya0_S7f" name="attachment.table.type">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.table.type</source>
+        <target>添付ファイルの種類</target>
+      </segment>
+    </unit>
+    <unit id="b_m6Jth" name="attachment.table.element">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.table.element</source>
+        <target>関連付けられた要素</target>
+      </segment>
+    </unit>
+    <unit id="QRmJnyi" name="attachment.edit.isPicture">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.isPicture</source>
+        <target>写真？</target>
+      </segment>
+    </unit>
+    <unit id="3lJuQED" name="attachment.edit.is3DModel">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.is3DModel</source>
+        <target>3Dモデル？</target>
+      </segment>
+    </unit>
+    <unit id="ogh2av7" name="attachment.edit.isBuiltin">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit.isBuiltin</source>
+        <target>組み込み？</target>
+      </segment>
+    </unit>
+    <unit id="ths2hVl" name="category.edit.default_comment.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit.default_comment.placeholder</source>
+        <target>例：スイッチングに使える</target>
+      </segment>
+    </unit>
+    <unit id="n13qerD" name="tfa_backup.regenerate_codes">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.regenerate_codes</source>
+        <target>新しいバックアップコードを生成</target>
+      </segment>
+    </unit>
+    <unit id="lZvhKYu" name="validator.noneofitschild.self">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>validator.noneofitschild.self</source>
+        <target>要素は自身の親とすることはできません。</target>
+      </segment>
+    </unit>
+    <unit id="pr07aV4" name="validator.noneofitschild.children">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>validator.noneofitschild.children</source>
+        <target>要素は自身の子とすることはできません。</target>
+      </segment>
+    </unit>
+    <unit id="UaJhZGe" name="company.edit.auto_product_url.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>company.edit.auto_product_url.help</source>
+        <target>このフィールドは企業の部品のページへのリンクを決定するために使います。%PARTNR% は注文番号に置き換えられます。</target>
+      </segment>
+    </unit>
+    <unit id="22S3ulf" name="company.edit.auto_product_url.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>company.edit.auto_product_url.placeholder</source>
+        <target>https://foo.bar/product/%PARTNR%</target>
+      </segment>
+    </unit>
+    <unit id="NZUfSAR" name="currency.edit.iso_code">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.edit.iso_code</source>
+        <target>ISOコード</target>
+      </segment>
+    </unit>
+    <unit id="9YIkqmF" name="currency.edit.exchange_rate">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.edit.exchange_rate</source>
+        <target>両替レート</target>
+      </segment>
+    </unit>
+    <unit id="n496LjY" name="footprint.edit.3d_model">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.edit.3d_model</source>
+        <target>3Dモデル</target>
+      </segment>
+    </unit>
+    <unit id="bxMaU3Y" name="mass_creation.lines">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.lines</source>
+        <target>入力</target>
+      </segment>
+    </unit>
+    <unit id="nIwyuSG" name="mass_creation.lines.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.lines.placeholder</source>
+        <target>要素1
+要素2
+要素3</target>
+      </segment>
+    </unit>
+    <unit id="yOi8.bI" name="entity.mass_creation.btn">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.mass_creation.btn</source>
+        <target>作成</target>
+      </segment>
+    </unit>
+    <unit id="oqwo_n5" name="measurement_unit.edit.is_integer">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.is_integer</source>
+        <target>整数かどうか</target>
+      </segment>
+    </unit>
+    <unit id="ks8LoMb" name="measurement_unit.edit.is_integer.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.is_integer.help</source>
+        <target>このオプションを有効化すると、この単位を使う全ての値が整数に丸められます。</target>
+      </segment>
+    </unit>
+    <unit id=".TAAW6t" name="measurement_unit.edit.use_si_prefix">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.use_si_prefix</source>
+        <target>SI接頭辞を使う</target>
+      </segment>
+    </unit>
+    <unit id="EZh.nn7" name="measurement_unit.edit.use_si_prefix.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.use_si_prefix.help</source>
+        <target>このオプションを有効化すると、SI接頭辞を付けて値を出力します（例：1200gを1.2kg）</target>
+      </segment>
+    </unit>
+    <unit id="zha3lRe" name="measurement_unit.edit.unit_symbol">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.unit_symbol</source>
+        <target>単位記号</target>
+      </segment>
+    </unit>
+    <unit id="AxSvu9V" name="measurement_unit.edit.unit_symbol.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.edit.unit_symbol.placeholder</source>
+        <target>例：m</target>
+      </segment>
+    </unit>
+    <unit id="L68lNgx" name="storelocation.edit.is_full.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.edit.is_full.label</source>
+        <target>保管場所が一杯</target>
+      </segment>
+    </unit>
+    <unit id="dsw_ivP" name="storelocation.edit.is_full.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.edit.is_full.help</source>
+        <target>このオプションを選択すると、この保管場所に新たに部品を追加したり、すでに入っている部品の数量を増やしたりすることができなくなります。</target>
+      </segment>
+    </unit>
+    <unit id="jenFqgq" name="storelocation.limit_to_existing.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.limit_to_existing.label</source>
+        <target>現在の在庫に制限</target>
+      </segment>
+    </unit>
+    <unit id="ftawtbm" name="storelocation.limit_to_existing.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.limit_to_existing.help</source>
+        <target>このオプションを有効化すると、この保管場所に新たな部品を追加することができなくなりますが、既存の部品の数量を増やすことができます。</target>
+      </segment>
+    </unit>
+    <unit id="1DWk7ny" name="storelocation.only_single_part.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.only_single_part.label</source>
+        <target>1つの部品に制限</target>
+      </segment>
+    </unit>
+    <unit id="np0unjZ" name="storelocation.only_single_part.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.only_single_part.help</source>
+        <target>このオプションを有効化すると、この保管場所に部品を1つだけ（数量は問わない）割り当てられます。表面実装部品の箱やフィーダーに便利です。</target>
+      </segment>
+    </unit>
+    <unit id="AE1UiRe" name="storelocation.storage_type.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.storage_type.label</source>
+        <target>保管場所の種類</target>
+      </segment>
+    </unit>
+    <unit id="3UBRYaM" name="storelocation.storage_type.help">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.storage_type.help</source>
+        <target>ここでは単位を入力できます。部品はこの保管場所に割り当て可能である必要があります。</target>
+      </segment>
+    </unit>
+    <unit id="xBJM0.O" name="supplier.edit.default_currency">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.edit.default_currency</source>
+        <target>デフォルトの通貨</target>
+      </segment>
+    </unit>
+    <unit id="9o2s0eF" name="supplier.shipping_costs.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.shipping_costs.label</source>
+        <target>送料</target>
+      </segment>
+    </unit>
+    <unit id="sG3lwwH" name="user.username.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.username.placeholder</source>
+        <target>例：t.yamada</target>
+      </segment>
+    </unit>
+    <unit id="birjZUl" name="user.firstName.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.firstName.placeholder</source>
+        <target>例：太郎</target>
+      </segment>
+    </unit>
+    <unit id="Z9pc7NJ" name="user.lastName.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.lastName.placeholder</source>
+        <target>例：山田</target>
+      </segment>
+    </unit>
+    <unit id="VLB.yla" name="user.email.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.email.placeholder</source>
+        <target>例：t.yamada@ecorp.com</target>
+      </segment>
+    </unit>
+    <unit id="UjUjKNF" name="user.department.placeholder">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.department.placeholder</source>
+        <target>例：開発</target>
+      </segment>
+    </unit>
+    <unit id="C65DPNY" name="user.settings.pw_new.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.pw_new.label</source>
+        <target>新しいパスワード</target>
+      </segment>
+    </unit>
+    <unit id="isiBSF3" name="user.settings.pw_confirm.label">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.settings.pw_confirm.label</source>
+        <target>新しいパスワードを確認</target>
+      </segment>
+    </unit>
+    <unit id="coDk7Mi" name="user.edit.needs_pw_change">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.needs_pw_change</source>
+        <target>ユーザーはパスワードを変更する必要があります</target>
+      </segment>
+    </unit>
+    <unit id="aU6FQLf" name="user.edit.user_disabled">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.user_disabled</source>
+        <target>ユーザーが無効（ログインできません）</target>
+      </segment>
+    </unit>
+    <unit id="zPJhxi6" name="user.create">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.create</source>
+        <target>ユーザーを作成</target>
+      </segment>
+    </unit>
+    <unit id="SxI0Jji" name="user.edit.save">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.save</source>
+        <target>保存</target>
+      </segment>
+    </unit>
+    <unit id="oGnU8Jt" name="entity.edit.reset">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.edit.reset</source>
+        <target>変更を破棄</target>
+      </segment>
+    </unit>
+    <unit id="eG9UnaY" name="part.withdraw.caption:">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:161</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.withdraw.caption:</source>
+        <target>部品を撤回する</target>
+      </segment>
+    </unit>
+    <unit id="7TiUzGF" name="part.withdraw.btn">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:166</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.withdraw.btn</source>
+        <target>撤回</target>
+      </segment>
+    </unit>
+    <unit id="RVKdVNt" name="part.withdraw.comment:">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:171</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.withdraw.comment:</source>
+        <target>コメント/目的</target>
+      </segment>
+    </unit>
+    <unit id="kXcojTi" name="part.add.caption">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:189</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.add.caption</source>
+        <target>部品を追加</target>
+      </segment>
+    </unit>
+    <unit id="rYoCVp9" name="part.add.btn">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:194</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.add.btn</source>
+        <target>追加</target>
+      </segment>
+    </unit>
+    <unit id="4CUEJg5" name="part.add.comment">
+      <notes>
+        <note priority="1">templates\Parts\show_part_info.html.twig:199</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.add.comment</source>
+        <target>コメント/目的</target>
+      </segment>
+    </unit>
+    <unit id="zIFsIyd" name="admin.comment">
+      <notes>
+        <note priority="1">templates\AdminPages\CompanyAdminBase.html.twig:15</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.comment</source>
+        <target>コメント</target>
+      </segment>
+    </unit>
+    <unit id="74zmrRr" name="manufacturer_url.label">
+      <notes>
+        <note priority="1">src\Form\PartType.php:83</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer_url.label</source>
+        <target>メーカーへのリンク</target>
+      </segment>
+    </unit>
+    <unit id="8QVpbd0" name="part.description.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:66</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.description.placeholder</source>
+        <target>例：NPN 45V 0,1A 0,5W</target>
+      </segment>
+    </unit>
+    <unit id="w_lfSsB" name="part.instock.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:69</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.instock.placeholder</source>
+        <target>例：10</target>
+      </segment>
+    </unit>
+    <unit id="58zdDWF" name="part.mininstock.placeholder">
+      <notes>
+        <note priority="1">src\Form\PartType.php:72</note>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.mininstock.placeholder</source>
+        <target>例：5</target>
+      </segment>
+    </unit>
+    <unit id="gAFUu2a" name="homepage.basedOn">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.basedOn</source>
+        <target>オリジナルのPart-DBの作者：</target>
+      </segment>
+    </unit>
+    <unit id="PlY3xmo" name="homepage.others">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.others</source>
+        <target>他</target>
+      </segment>
+    </unit>
+    <unit id="cpRdMwo" name="part.order.price_per">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>part.order.price_per</source>
+        <target>あたりの価格：</target>
+      </segment>
+    </unit>
+    <unit id="BBOEDsQ" name="perm.users.edit_infos">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.edit_infos</source>
+        <target>情報を編集</target>
+      </segment>
+    </unit>
+    <unit id="Q1NDQfs" name="perm.users.edit_permissions">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.edit_permissions</source>
+        <target>権限を編集</target>
+      </segment>
+    </unit>
+    <unit id="d6eo3tF" name="perm.users.set_password">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.set_password</source>
+        <target>パスワードを設定</target>
+      </segment>
+    </unit>
+    <unit id="tJ6RatH" name="perm.users.change_user_settings">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users.change_user_settings</source>
+        <target>ユーザーの設定を変更</target>
+      </segment>
+    </unit>
+    <unit id="X58DtVF" name="perm.database.see_status">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database.see_status</source>
+        <target>状態を表示</target>
+      </segment>
+    </unit>
+    <unit id="1KSFyeg" name="perm.database.update_db">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database.update_db</source>
+        <target>データベースをアップデート</target>
+      </segment>
+    </unit>
+    <unit id="7FNNcYZ" name="perm.database.read_db_settings">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database.read_db_settings</source>
+        <target>データベースの設定を表示</target>
+      </segment>
+    </unit>
+    <unit id="ppPTck0" name="perm.database.write_db_settings">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database.write_db_settings</source>
+        <target>データベースの設定を書き込み</target>
+      </segment>
+    </unit>
+    <unit id="h1iQLeD" name="perm.config.read_config">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config.read_config</source>
+        <target>設定を読み込み</target>
+      </segment>
+    </unit>
+    <unit id="xnOnBUH" name="perm.config.edit_config">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config.edit_config</source>
+        <target>設定を編集</target>
+      </segment>
+    </unit>
+    <unit id="soLL1gr" name="perm.config.server_info">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config.server_info</source>
+        <target>サーバー情報</target>
+      </segment>
+    </unit>
+    <unit id="P5OVHh2" name="perm.config.use_debug">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config.use_debug</source>
+        <target>デバッグツールの使用</target>
+      </segment>
+    </unit>
+    <unit id="WsTnNCU" name="perm.show_logs">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.show_logs</source>
+        <target>ログの表示</target>
+      </segment>
+    </unit>
+    <unit id="zvV9XS2" name="perm.delete_logs">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.delete_logs</source>
+        <target>ログの削除</target>
+      </segment>
+    </unit>
+    <unit id="aU9OJs5" name="perm.self.edit_infos">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.edit_infos</source>
+        <target>情報の編集</target>
+      </segment>
+    </unit>
+    <unit id="tn675bY" name="perm.self.edit_username">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.edit_username</source>
+        <target>ユーザー名の編集</target>
+      </segment>
+    </unit>
+    <unit id="ON0SOmi" name="perm.self.show_permissions">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.show_permissions</source>
+        <target>権限を閲覧</target>
+      </segment>
+    </unit>
+    <unit id="7pWmKCP" name="perm.self.show_logs">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.show_logs</source>
+        <target>自身のログエントリを表示</target>
+      </segment>
+    </unit>
+    <unit id="zgTB8dK" name="perm.self.create_labels">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.create_labels</source>
+        <target>ラベルを作成</target>
+      </segment>
+    </unit>
+    <unit id="grMFlqb" name="perm.self.edit_options">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.edit_options</source>
+        <target>オプションを編集</target>
+      </segment>
+    </unit>
+    <unit id="aWY5kzX" name="perm.self.delete_profiles">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.delete_profiles</source>
+        <target>プロフィールを削除</target>
+      </segment>
+    </unit>
+    <unit id="Qh9_teh" name="perm.self.edit_profiles">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.edit_profiles</source>
+        <target>プロフィールを編集</target>
+      </segment>
+    </unit>
+    <unit id="riADuzS" name="perm.part.tools">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.tools</source>
+        <target>ツール</target>
+      </segment>
+    </unit>
+    <unit id="1TJffiQ" name="perm.groups">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.groups</source>
+        <target>グループ</target>
+      </segment>
+    </unit>
+    <unit id="Ot4Pe7g" name="perm.users">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.users</source>
+        <target>ユーザー</target>
+      </segment>
+    </unit>
+    <unit id="hcV.ILa" name="perm.database">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.database</source>
+        <target>データベース</target>
+      </segment>
+    </unit>
+    <unit id="9XMk.TY" name="perm.config">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.config</source>
+        <target>設定</target>
+      </segment>
+    </unit>
+    <unit id="YLLSA2T" name="perm.system">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.system</source>
+        <target>システム</target>
+      </segment>
+    </unit>
+    <unit id="0CRVznf" name="perm.device_parts">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.device_parts</source>
+        <target>　デバイスの部品</target>
+      </segment>
+    </unit>
+    <unit id="LG3jpJo" name="perm.self">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self</source>
+        <target>自身のユーザー</target>
+      </segment>
+    </unit>
+    <unit id="VoHEScr" name="perm.labels">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.labels</source>
+        <target>ラベル</target>
+      </segment>
+    </unit>
+    <unit id="zf2PGmg" name="perm.part.category">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.category</source>
+        <target>カテゴリ</target>
+      </segment>
+    </unit>
+    <unit id="Ngq0_8b" name="perm.part.minamount">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.minamount</source>
+        <target>最小数量</target>
+      </segment>
+    </unit>
+    <unit id="vZwyFdD" name="perm.part.footprint">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.footprint</source>
+        <target>フットプリント</target>
+      </segment>
+    </unit>
+    <unit id="cdrtuto" name="perm.part.mpn">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.mpn</source>
+        <target>MPN</target>
+      </segment>
+    </unit>
+    <unit id="CjAJxQj" name="perm.part.status">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.status</source>
+        <target>製造状況</target>
+      </segment>
+    </unit>
+    <unit id="8vcZLOf" name="perm.part.tags">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.tags</source>
+        <target>タグ</target>
+      </segment>
+    </unit>
+    <unit id="5PcGRLN" name="perm.part.unit">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.unit</source>
+        <target>単位</target>
+      </segment>
+    </unit>
+    <unit id="64iRHQF" name="perm.part.mass">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.mass</source>
+        <target>質量</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>
