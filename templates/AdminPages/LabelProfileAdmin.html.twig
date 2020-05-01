@@ -13,3 +13,12 @@
         {{ form_widget(form.options) }}
     </div>
 {% endblock %}
+
+{% block additional_content %}
+    {% if pdf_data is defined and pdf_data is not empty %}
+        <div class="card mt-2 mb-2 p-1 border-secondary" style="resize: vertical; overflow: scroll; height: 250px;">
+            <object id="pdf_preview"  data="{{ inlineData(pdf_data, 'application/pdf') | escape('html_attr') }}"style="height: inherit">
+            </object>
+        </div>
+    {% endif %}
+{% endblock %}
