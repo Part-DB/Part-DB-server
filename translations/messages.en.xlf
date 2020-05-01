@@ -8370,5 +8370,23 @@ Element 3</target>
         <target>Download</target>
       </segment>
     </unit>
+    <unit id="iCTvpEA" name="navbar.scanner.link">
+      <segment>
+        <source>navbar.scanner.link</source>
+        <target>Scanner</target>
+      </segment>
+    </unit>
+    <unit id="fkESKHW" name="label_generator.label_btn">
+      <segment>
+        <source>label_generator.label_btn</source>
+        <target>Generate label</target>
+      </segment>
+    </unit>
+    <unit id="xXkObqX" name="label_generator.label_empty">
+      <segment>
+        <source>label_generator.label_empty</source>
+        <target>New empty label</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

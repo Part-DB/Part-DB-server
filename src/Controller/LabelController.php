@@ -76,7 +76,7 @@ class LabelController extends AbstractController
 
     /**
      * @Route("/dialog", name="label_dialog")
-     * @Route("/{profile}/dialog")
+     * @Route("/{profile}/dialog", name="label_dialog_profile")
      */
     public function generator(Request $request, ?LabelProfile $profile = null)
     {
@@ -91,6 +91,8 @@ class LabelController extends AbstractController
         //Try to parse given target_type and target_id
         $target_type = $request->query->get('target_type', null);
         $target_id = $request->query->get('target_id', null);
+        $generate = $request->query->getBoolean('generate', false);
+
         if ($profile === null && is_string($target_type)) {
             $label_options->setSupportedElement($target_type);
         }
@@ -108,7 +110,8 @@ class LabelController extends AbstractController
         $pdf_data = null;
         $filename = 'invalid.pdf';
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        //Generate PDF either when the form is submitted and valid, or the form  was not submit yet, and generate is set
+        if (($form->isSubmitted() && $form->isValid()) || ($generate && !$form->isSubmitted() && $profile !== null)) {
             $target_id = (string) $form->get('target_id')->getData();
             $targets = $this->findObjects($form_options->getSupportedElement(), $target_id);
             $pdf_data = $this->labelGenerator->generateLabel($form_options, $targets);

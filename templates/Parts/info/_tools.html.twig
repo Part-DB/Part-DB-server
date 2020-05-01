@@ -1,3 +1,5 @@
+{% import "LabelSystem/dropdown_macro.html.twig" as dropdown %}
+
 {% if is_granted('edit', part) %}
     <a href="{{ part|entityURL('edit') }}" class="btn btn-primary mt-3">
         <i class="fas fa-fw fa-edit"></i>
@@ -47,3 +49,5 @@
         </div>
     </div>
 </form>
+
+{{ dropdown.profile_dropdown('part', part.id) }}

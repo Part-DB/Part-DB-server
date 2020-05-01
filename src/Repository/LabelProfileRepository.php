@@ -27,6 +27,19 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LabelProfileRepository extends NamedDBElementRepository
 {
+
+    /**
+     * Find the profiles that are shown in the dropdown for the given type.
+     * You should maybe use the cached version of this in LabelProfileDropdownHelper
+     * @param  string  $type
+     * @return array
+     */
+    public function getDropdownProfiles(string $type): array
+    {
+        //TODO: Improve this, when we have a 'showInDropdown' flag for profiles.
+        return $this->findForSupportedElement($type);
+    }
+
     /**
      * Gets a tree of TreeViewNode elements. The root elements has $parent as parent.
      * The treeview is generic, that means the href are null and ID values are set.
