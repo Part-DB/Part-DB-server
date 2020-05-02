@@ -31,8 +31,8 @@ class LabelOptions
     public const BARCODE_TYPES = ['none', /*'ean8',*/ 'qr', 'code39', 'datamatrix', 'code93'];
     public const SUPPORTED_ELEMENTS = ['part', 'part_lot'];
     public const PICTURE_TYPES = ['none', 'element_picture', 'main_attachment'];
-    public const POSITIONS = ['left', 'right', 'top', 'bottom'];
-    public const FONTS = ['default'];
+
+    public const LINES_MODES = ['html', 'twig'];
 
     /**
      * @var float The page size of the label in mm
@@ -56,25 +56,11 @@ class LabelOptions
     protected $barcode_type = 'none';
 
     /**
-     * @var string The position where the barcode should be put
-     * @Assert\Choice(choices=LabelOptions::POSITIONS)
-     * @ORM\Column(type="string")
-     */
-    protected $barcode_position = 'left';
-
-    /**
      * @var string What image should be shown along the
      * @Assert\Choice(choices=LabelOptions::PICTURE_TYPES)
      * @ORM\Column(type="string")
      */
     protected $picture_type = 'none';
-
-    /**
-     * @var string
-     * @Assert\Choice(choices=LabelOptions::POSITIONS)
-     * @ORM\Column(type="string")
-     */
-    protected $picture_position = 'left';
 
     /**
      * @var string
@@ -84,10 +70,16 @@ class LabelOptions
     protected $supported_element = 'part';
 
     /**
-     * @var string The font that should be used in the Barcode
+     * @var string Any additional CSS for the label.
+     * @ORM\Column(type="text")
+     */
+    protected $additional_css = '';
+
+    /** @var string The mode that will be used to interpret the lines.
+     * @Assert\Choice(choices=LabelOptions::LINES_MODES)
      * @ORM\Column(type="string")
      */
-    protected $font = 'default';
+    protected $lines_mode = 'html';
 
     /**
      * @var string
@@ -152,24 +144,6 @@ class LabelOptions
     /**
      * @return string
      */
-    public function getBarcodePosition(): string
-    {
-        return $this->barcode_position;
-    }
-
-    /**
-     * @param  string  $barcode_position
-     * @return LabelOptions
-     */
-    public function setBarcodePosition(string $barcode_position): LabelOptions
-    {
-        $this->barcode_position = $barcode_position;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
     public function getPictureType(): string
     {
         return $this->picture_type;
@@ -188,24 +162,6 @@ class LabelOptions
     /**
      * @return string
      */
-    public function getPicturePosition(): string
-    {
-        return $this->picture_position;
-    }
-
-    /**
-     * @param  string  $picture_position
-     * @return LabelOptions
-     */
-    public function setPicturePosition(string $picture_position): LabelOptions
-    {
-        $this->picture_position = $picture_position;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
     public function getSupportedElement(): string
     {
         return $this->supported_element;
@@ -218,24 +174,6 @@ class LabelOptions
     public function setSupportedElement(string $supported_element): LabelOptions
     {
         $this->supported_element = $supported_element;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFont(): string
-    {
-        return $this->font;
-    }
-
-    /**
-     * @param  string  $font
-     * @return LabelOptions
-     */
-    public function setFont(string $font): LabelOptions
-    {
-        $this->font = $font;
         return $this;
     }
 

@@ -24,6 +24,7 @@ namespace App\Form\AdminPages;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Form\LabelOptionsType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -31,6 +32,14 @@ class LabelProfileAdminForm extends BaseEntityAdminForm
 {
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
     {
+
+        $builder->add('show_in_dropdown', CheckboxType::class, [
+            'required' => false,
+            'label' => 'label_profile.showInDropdown',
+            'label_attr' => [
+                'class' => 'checkbox-custom',
+            ],
+        ]);
         $builder->add('options', LabelOptionsType::class);
     }
 

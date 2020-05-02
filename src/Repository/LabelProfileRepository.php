@@ -36,8 +36,10 @@ class LabelProfileRepository extends NamedDBElementRepository
      */
     public function getDropdownProfiles(string $type): array
     {
-        //TODO: Improve this, when we have a 'showInDropdown' flag for profiles.
-        return $this->findForSupportedElement($type);
+        if (!in_array($type, LabelOptions::SUPPORTED_ELEMENTS)) {
+            throw new \InvalidArgumentException('Invalid supported_element type given.');
+        }
+        return $this->findBy(['options.supported_element' => $type, 'show_in_dropdown' => true], ['name' => 'ASC']);
     }
 
     /**

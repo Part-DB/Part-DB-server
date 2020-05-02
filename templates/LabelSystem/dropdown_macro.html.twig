@@ -4,10 +4,13 @@
             <i class="fas fa-fw fa-qrcode"></i> {% if include_text %}{% trans %}label_generator.label_btn{% endtrans %}{% endif %}
         </button>
         <div class="dropdown-menu">
-            {% for profile in label_profile_dropdown_helper.dropdownProfiles(type) %}
+            {% set profiles = label_profile_dropdown_helper.dropdownProfiles(type) %}
+            {% for profile in profiles %}
                 <a class="dropdown-item" href="{{ path('label_dialog_profile', {'profile': profile.id, 'target_type': type, 'target_id': id, 'generate': true}) }}">{{ profile.name }}</a>
             {% endfor %}
-            <div class="dropdown-divider"></div>
+            {% if profiles is not empty %}
+                <div class="dropdown-divider"></div>
+            {% endif %}
             <a class="dropdown-item" href="{{ path('label_dialog', {'target_type': type, 'target_id': id}) }}">{% trans %}label_generator.label_empty{% endtrans %}</a>
         </div>
     </div>

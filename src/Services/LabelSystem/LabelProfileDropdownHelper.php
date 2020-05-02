@@ -33,9 +33,9 @@ class LabelProfileDropdownHelper
     private $entityManager;
     private $keyGenerator;
 
-    public function __construct(TagAwareCacheInterface $cache, EntityManagerInterface $entityManager, UserCacheKeyGenerator $keyGenerator)
+    public function __construct(TagAwareCacheInterface $treeCache, EntityManagerInterface $entityManager, UserCacheKeyGenerator $keyGenerator)
     {
-        $this->cache = $cache;
+        $this->cache = $treeCache;
         $this->entityManager = $entityManager;
         $this->keyGenerator = $keyGenerator;
     }
