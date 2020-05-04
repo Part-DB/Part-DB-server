@@ -29,9 +29,17 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class LabelDialogType extends AbstractType
 {
+    protected $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('target_id', TextType::class, [
@@ -45,6 +53,8 @@ class LabelDialogType extends AbstractType
 
         $builder->add('options', LabelOptionsType::class, [
             'label' => false,
+            'disabled' => !$this->security->isGranted('@labels.edit_options'),
+
         ]);
         $builder->add('update', SubmitType::class, [
 

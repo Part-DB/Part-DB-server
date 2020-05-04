@@ -62,24 +62,18 @@ class LabelController extends AbstractController
     }
 
     /**
-     * @Route("/{profile}/{part}/view")
-     */
-    public function view(LabelProfile $profile, Part $part)
-    {
-        $label = $this->labelGenerator->generateLabel($profile->getOptions(), $part);
-
-        $response = new LabelResponse($label);
-        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE, 'label.pdf');
-
-        return $response;
-    }
-
-    /**
      * @Route("/dialog", name="label_dialog")
      * @Route("/{profile}/dialog", name="label_dialog_profile")
      */
     public function generator(Request $request, ?LabelProfile $profile = null)
     {
+        $this->denyAccessUnlessGranted('@labels.create_labels');
+
+        //If we inherit a LabelProfile, the user need to have access to it...
+        if ($profile !== null) {
+            $this->denyAccessUnlessGranted('read', $profile);
+        }
+
         if ($profile) {
             $label_options = $profile->getOptions();
         } else {

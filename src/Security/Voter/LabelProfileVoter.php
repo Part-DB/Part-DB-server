@@ -27,12 +27,19 @@ use App\Entity\UserSystem\User;
 class LabelProfileVoter extends ExtendedVoter
 {
 
+    protected const MAPPING = [
+        'read' => 'read_profiles',
+        'create' => 'create_profiles',
+        'edit' => 'edit_profiles',
+        'delete' => 'delete_profiles',
+    ];
+
     /**
      * @inheritDoc
      */
     protected function voteOnUser($attribute, $subject, User $user): bool
     {
-        return true;
+        return $this->resolver->inherit($user, 'labels', self::MAPPING[$attribute]) ?? false;
     }
 
     /**
@@ -41,7 +48,11 @@ class LabelProfileVoter extends ExtendedVoter
     protected function supports($attribute, $subject)
     {
         if ($subject instanceof LabelProfile) {
-            return true;
+            if (!isset(self::MAPPING[$attribute])) {
+                return false;
+            }
+
+            return $this->resolver->isValidOperation('labels', self::MAPPING[$attribute]);
         }
 
         return false;

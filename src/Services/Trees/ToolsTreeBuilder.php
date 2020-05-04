@@ -118,10 +118,12 @@ class ToolsTreeBuilder
     {
         $nodes = [];
 
-        $nodes[] = new TreeViewNode(
-            $this->translator->trans('tree.tools.tools.label_dialog'),
-            $this->urlGenerator->generate('label_dialog')
-        );
+        if($this->security->isGranted('@labels.create_labels')) {
+            $nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.tools.label_dialog'),
+                $this->urlGenerator->generate('label_dialog')
+            );
+        }
 
         $nodes[] = new TreeViewNode(
             $this->translator->trans('tree.tools.tools.label_scanner'),
@@ -194,7 +196,7 @@ class ToolsTreeBuilder
                 $this->urlGenerator->generate('measurement_unit_new')
             );
         }
-        if ($this->security->isGranted('create', new LabelProfile())) {
+        if ($this->security->isGranted('read', new LabelProfile())) {
             $nodes[] = new TreeViewNode(
                 $this->translator->trans('tree.tools.edit.label_profile'),
                 $this->urlGenerator->generate('label_profile_new')
