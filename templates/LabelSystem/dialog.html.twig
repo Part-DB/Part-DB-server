@@ -4,8 +4,45 @@
 
 {% block card_content %}
     {{ form_start(form) }}
-    {{ form_row(form.target_id) }}
-    {{ form_widget(form.options) }}
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" id="common-tab" role="tab" aria-controls="common" aria-selected="true" href="#common">Common</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" id="advanced-tab" role="tab" aria-controls="common" aria-selected="false" href="#advanced">Advanced</a>
+        </li>
+    </ul>
+
+    <div class="tab-content mt-2">
+
+        <div class="tab-pane active" id="common" role="tabpanel" aria-labelledby="common-tab">
+            {{ form_row(form.target_id) }}
+
+            {{ form_row(form.options.supported_element) }}
+            <div class="form-group row">
+                {{ form_label(form.options.width) }}
+                <div class="input-group col-9">
+                    {{ form_widget(form.options.width) }}
+                    <div class="input-group-append input-group-prepend">
+                        <span class="input-group-text">x</span>
+                    </div>
+                    {{ form_widget(form.options.height) }}
+                    <div class="input-group-append">
+                        <span class="input-group-text">mm</span>
+                    </div>
+                </div>
+            </div>
+            {{ form_row(form.options.barcode_type) }}
+            {{ form_row(form.options.lines) }}
+        </div>
+
+        <div class="tab-pane" id="advanced" role="tabpanel" aria-labelledby="advanced-tab">
+            {{ form_row(form.options.additional_css) }}
+            {{ form_widget(form.options) }}
+        </div>
+    </div>
+
     {{ form_end(form) }}
     {% if pdf_data %}
         <div class="row">

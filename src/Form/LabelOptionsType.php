@@ -26,6 +26,7 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -94,6 +95,15 @@ class LabelOptionsType extends AbstractType
                 'rows' => 4,
             ],
             'config_name' => 'label_config',
+        ]);
+
+        $builder->add('additional_css', TextareaType::class, [
+            'label' => 'label_options.additional_css.label',
+            'empty_data' => '',
+            'attr' => [
+                'rows' => 4,
+            ],
+            'required' => false,
         ]);
     }
 

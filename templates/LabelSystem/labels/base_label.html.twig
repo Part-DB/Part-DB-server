@@ -8,6 +8,7 @@
     <meta name="keywords" content="Part-DB, Label, Barcode">
     <style>
         {% include("LabelSystem/labels/label_style.css.twig") %}
+        {{ options.additionalCss | escape("html") }}
     </style>
 </head>
 <body>

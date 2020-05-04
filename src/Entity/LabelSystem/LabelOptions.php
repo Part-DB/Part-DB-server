@@ -195,6 +195,46 @@ class LabelOptions
         return $this;
     }
 
+    /**
+     * Gets additional CSS (it will simply be attached 
+     * @return string
+     */
+    public function getAdditionalCss(): string
+    {
+        return $this->additional_css;
+    }
+
+    /**
+     *
+     * @param  string  $additional_css
+     * @return LabelOptions
+     */
+    public function setAdditionalCss(string $additional_css): LabelOptions
+    {
+        $this->additional_css = $additional_css;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLinesMode(): string
+    {
+        return $this->lines_mode;
+    }
+
+    /**
+     * @param  string  $lines_mode
+     * @return LabelOptions
+     */
+    public function setLinesMode(string $lines_mode): LabelOptions
+    {
+        $this->lines_mode = $lines_mode;
+        return $this;
+    }
+
+
+
 
 
 }
