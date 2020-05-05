@@ -108,8 +108,12 @@ class LabelController extends AbstractController
         if (($form->isSubmitted() && $form->isValid()) || ($generate && !$form->isSubmitted() && $profile !== null)) {
             $target_id = (string) $form->get('target_id')->getData();
             $targets = $this->findObjects($form_options->getSupportedElement(), $target_id);
-            $pdf_data = $this->labelGenerator->generateLabel($form_options, $targets);
-            $filename = $this->getLabelName($targets[0], $profile);
+            if (!empty($targets)) {
+                $pdf_data = $this->labelGenerator->generateLabel($form_options, $targets);
+                $filename = $this->getLabelName($targets[0], $profile);
+            } else {
+                $this->addFlash('warning', 'label_generator.no_entities_found');
+            }
         }
 
         return $this->render('LabelSystem/dialog.html.twig', [
