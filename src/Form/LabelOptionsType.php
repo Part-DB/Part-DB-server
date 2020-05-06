@@ -105,6 +105,23 @@ class LabelOptionsType extends AbstractType
             ],
             'required' => false,
         ]);
+
+        $builder->add('lines_mode', ChoiceType::class, [
+            'label' => 'label_options.lines_mode.label',
+            'choices' => [
+                'label_options.lines_mode.html' => 'html',
+                'label.options.lines_mode.twig' => 'twig',
+            ],
+            'help' => 'label_options.lines_mode.help',
+            'help_html' => true,
+            'expanded' => true,
+            'attr' => [
+                'class' => 'pt-2'
+            ],
+            'label_attr' => [
+                'class' => 'radio-custom radio-inline'
+            ]
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

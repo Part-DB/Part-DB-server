@@ -26,6 +26,7 @@ use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Part;
+use App\Exceptions\TwigModeException;
 use App\Form\LabelOptionsType;
 use App\Form\LabelSystem\LabelDialogType;
 use App\Helpers\LabelResponse;
@@ -35,6 +36,7 @@ use App\Services\LabelSystem\LabelGenerator;
 use App\Services\Misc\RangeParser;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,7 +55,8 @@ class LabelController extends AbstractController
     protected $elementTypeNameGenerator;
     protected $rangeParser;
 
-    public function __construct(LabelGenerator $labelGenerator, EntityManagerInterface $em, ElementTypeNameGenerator $elementTypeNameGenerator, RangeParser $rangeParser)
+    public function __construct(LabelGenerator $labelGenerator, EntityManagerInterface $em, ElementTypeNameGenerator $elementTypeNameGenerator,
+        RangeParser $rangeParser)
     {
         $this->labelGenerator = $labelGenerator;
         $this->em = $em;
@@ -109,8 +112,13 @@ class LabelController extends AbstractController
             $target_id = (string) $form->get('target_id')->getData();
             $targets = $this->findObjects($form_options->getSupportedElement(), $target_id);
             if (!empty($targets)) {
-                $pdf_data = $this->labelGenerator->generateLabel($form_options, $targets);
-                $filename = $this->getLabelName($targets[0], $profile);
+                try {
+                    $pdf_data = $this->labelGenerator->generateLabel($form_options, $targets);
+                    $filename = $this->getLabelName($targets[0], $profile);
+                } catch (TwigModeException $exception) {
+                    $form->get('options')->get('lines')->addError(new FormError($exception->getMessage()));
+                }
+
             } else {
                 $this->addFlash('warning', 'label_generator.no_entities_found');
             }

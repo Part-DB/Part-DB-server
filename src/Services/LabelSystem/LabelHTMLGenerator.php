@@ -22,24 +22,34 @@ namespace App\Services\LabelSystem;
 
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\LabelSystem\LabelOptions;
+use App\Exceptions\TwigModeException;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
+use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
+use Twig\Error\Error;
+use Twig\Error\SyntaxError;
 
-class LabelHTMLGenerator
+final class LabelHTMLGenerator
 {
     protected $twig;
     protected $elementTypeNameGenerator;
     protected $replacer;
     protected $barcodeGenerator;
+    protected $sandboxedTwigProvider;
+    protected $partdb_title;
+    protected $security;
 
     public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator, LabelTextReplacer $replacer, Environment $twig,
-        BarcodeGenerator $barcodeGenerator)
+        BarcodeGenerator $barcodeGenerator, SandboxedTwigProvider $sandboxedTwigProvider, Security $security, string $partdb_title)
     {
         $this->twig = $twig;
         $this->elementTypeNameGenerator = $elementTypeNameGenerator;
         $this->replacer = $replacer;
         $this->barcodeGenerator = $barcodeGenerator;
+        $this->sandboxedTwigProvider = $sandboxedTwigProvider;
+        $this->security = $security;
+        $this->partdb_title = $partdb_title;
     }
 
     public function getLabelHTML(LabelOptions $options, array $elements): string
@@ -49,14 +59,42 @@ class LabelHTMLGenerator
         }
 
         $twig_elements = [];
+
+        if ($options->getLinesMode() === 'twig') {
+            $sandboxed_twig = $this->sandboxedTwigProvider->getTwig($options);
+            $current_user = $this->security->getUser();
+        }
+
+        $page = 1;
         foreach ($elements as $element) {
+            if ($options->getLinesMode() === 'twig' && $sandboxed_twig !== null) {
+                try {
+                    $lines = $sandboxed_twig->render(
+                        'lines',
+                        [
+                            'element' => $element,
+                            'page' => $page,
+                            'user' => $current_user,
+                            'install_title' => $this->partdb_title,
+                        ]
+                    );
+                } catch (Error $exception) {
+                    throw new TwigModeException($exception);
+                }
+            } else {
+                $lines = $this->replacer->replace($options->getLines(), $element);
+            }
+
             $twig_elements[] = [
                 'element' => $element,
-                'lines' => $this->replacer->replace($options->getLines(), $element),
+                'lines' => $lines,
                 'barcode' => $this->barcodeGenerator->generateSVG($options, $element),
                 'barcode_content' => $this->barcodeGenerator->getContent($options, $element),
             ];
+
+            $page++;
         }
+
 
         return $this->twig->render('LabelSystem/labels/base_label.html.twig', [
             'meta_title' => $this->getPDFTitle($options, $elements[0]),
@@ -64,6 +102,7 @@ class LabelHTMLGenerator
             'options' => $options,
         ]);
     }
+
 
     protected function getPDFTitle(LabelOptions $options, object $element)
     {

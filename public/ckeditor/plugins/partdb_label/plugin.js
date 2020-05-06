@@ -83,6 +83,10 @@ function findLabelForPlaceholder(search)
     }
 }
 
+//Dont escape text inside of twig blocks
+CKEDITOR.config.protectedSource.push(/\{\{[\s\S]*?\}\}/g);
+CKEDITOR.config.protectedSource.push(/\{\%[\s\S]*?%\}/g);
+
 CKEDITOR.plugins.add('partdb_label', {
     hidpi: true,
     icons: 'placeholder',

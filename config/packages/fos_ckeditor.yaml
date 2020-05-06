@@ -21,7 +21,7 @@ fos_ck_editor:
             height: 100
             enterMode: 2
             toolbar: label_toolbar
-            extraPlugins: "partdb_label"
+            extraPlugins: ["partdb_label", "showprotected"]
             font_names: >
                 DejaVu Sans Mono/DejaVu Sans Mono;
                 DejaVu Sans/DejaVu Sans;
@@ -42,6 +42,9 @@ fos_ck_editor:
             filename:  "plugin.js"
         partdb_label:
             path:      "ckeditor/plugins/partdb_label/"
+            filename: "plugin.js"
+        showprotected:
+            path:      "ckeditor/plugins/showprotected/"
             filename: "plugin.js"
 
 
