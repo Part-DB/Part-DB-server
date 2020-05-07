@@ -32,8 +32,5 @@ class BarcodeParserTest extends TestCase
     {
 
     }
-
-    public function testNormalizeBarcodeContent()
-    {
-    }
+    
 }

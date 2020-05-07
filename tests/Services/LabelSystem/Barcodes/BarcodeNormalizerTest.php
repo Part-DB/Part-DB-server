@@ -44,7 +44,12 @@ class BarcodeNormalizerTest extends WebTestCase
             [['part', 123], 'https://localhost:8000/scan/part/123'],
             [['location', 4], 'http://foo.bar/part-db/scan/location/4'],
             [['under_score', 10], 'http://test/part-db/sub/scan/under_score/10/'],
-            //New Code39 barcodes:
+            //Current Code39 format:
+            [['lot', 10], 'L0010'],
+            [['lot', 123], 'L0123'],
+            [['lot', 123456], 'L123456'],
+            [['part', 2], 'P0002'],
+            //Development phase Code39 barcodes:
             [['lot', 10], 'L-000010'],
             [['lot', 10], 'Lß000010'],
             [['part', 123], 'P-000123'],

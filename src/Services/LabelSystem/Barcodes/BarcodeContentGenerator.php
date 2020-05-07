@@ -69,15 +69,15 @@ class BarcodeContentGenerator
 
     /**
      * Returns a Code that can be used in a 1D barcode.
-     * The return value has a format of "L-000123"
+     * The return value has a format of "L0123"
      * @param  AbstractDBElement  $target
      * @return string
      */
     public function get1DBarcodeContent(AbstractDBElement $target): string
     {
         $prefix = $this->classToString(self::PREFIX_MAP, $target);
-        $id = sprintf('%06d', $target->getID());
-        return $prefix . '-' . $id;
+        $id = sprintf('%04d', $target->getID());
+        return $prefix  . $id;
     }
 
     protected function classToString(array $map, object $target): string

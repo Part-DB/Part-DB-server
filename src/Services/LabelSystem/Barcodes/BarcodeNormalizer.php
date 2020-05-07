@@ -48,7 +48,18 @@ class BarcodeNormalizer
             return [$matches[1], (int) $matches[2]];
         }
 
-        //New Code39 barcodes use L-000001 format
+        //New Code39 barcode use L0001 format
+        if (preg_match('#^([A-Z])(\d{4,})$#', $input, $matches)) {
+            $prefix = $matches[1];
+            $id = (int) $matches[2];
+
+            if (!isset(self::PREFIX_TYPE_MAP[$prefix])) {
+                throw new \InvalidArgumentException('Unknown prefix ' . $prefix);
+            }
+            return [self::PREFIX_TYPE_MAP[$prefix], $id];
+        }
+
+        //During development the L-000001 format was used
         if (preg_match('#^(\w)-(\d{6,})$#', $input, $matches)) {
             $prefix = $matches[1];
             $id = (int) $matches[2];
