@@ -569,17 +569,25 @@ $(document).on("ajaxUI:reload", function() {
     })
 });
 
+//Reuse codereader between multiple requests
+const codeReader = new ZXing.BrowserMultiFormatReader();
+
 //Init barcode scanner
 $(document).on("ajaxUI:start ajaxUI:reload", function() {
 
     //Skip if we are not on scanner page...
     if (!document.getElementById('scan_dialog_form')) {
+
+        codeReader.reset();
+
         return;
     }
 
 
     let selectedDeviceId;
-    const codeReader = new ZXing.BrowserMultiFormatReader();
+
+
+    //Save it for later, so we can reset it
     console.log('ZXing code reader initialized');
     codeReader.listVideoInputDevices()
         .then((videoInputDevices) => {
