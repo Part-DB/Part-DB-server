@@ -20,7 +20,7 @@ parameters:
     sender_email: 'noreply@partdb.changeme' # The email address from which all emails are sent from
     sender_name: 'Part-DB Mailer' # The name that will be used for all mails sent by Part-DB
     allow_email_pw_reset: '%env(validMailDSN:MAILER_DSN)%' # Config if users are able, to reset their password by email. By default this enabled, when a mail server is configured.
-    locale_menu: ['en', 'de', 'fr', 'ru'] # The languages that are shown in user drop down menu
+    locale_menu: ['en', 'de', 'fr', 'ru', 'ja'] # The languages that are shown in user drop down menu
     # If this option is activated, IP addresses are anonymized to be GPDR compliant
     gpdr_compliance: true
 
