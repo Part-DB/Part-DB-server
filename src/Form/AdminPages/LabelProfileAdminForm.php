@@ -40,12 +40,16 @@ class LabelProfileAdminForm extends BaseEntityAdminForm
                 'class' => 'checkbox-custom',
             ],
         ]);
-        $builder->add('options', LabelOptionsType::class);
+        $builder->add('options', LabelOptionsType::class, [
+            'label' => false,
+            'disabled' => $options['disable_options'],
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
         $resolver->setDefault('data_class', LabelProfile::class);
+        $resolver->setDefault('disable_options', false);
     }
 }

@@ -165,11 +165,22 @@ abstract class BaseAdminController extends AbstractController
             $table = null;
         }
 
-        $form = $this->createForm($this->form_class, $entity, [
+        $form_options =  [
             'attachment_class' => $this->attachment_class,
             'parameter_class' => $this->parameter_class,
             'disabled' => null !== $timeTravel_timestamp ? true : null,
-        ]);
+        ];
+
+        //Disable editing of options, if user is not allowed to use twig...
+        if (
+            $entity instanceof LabelProfile
+            && $entity->getOptions()->getLinesMode() === 'twig'
+            && !$this->isGranted('@labels.use_twig')
+        ) {
+            $form_options['disable_options'] = true;
+        }
+
+        $form = $this->createForm($this->form_class, $entity, $form_options);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

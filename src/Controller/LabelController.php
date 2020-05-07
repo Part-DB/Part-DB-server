@@ -87,7 +87,12 @@ class LabelController extends AbstractController
             $label_options = new LabelOptions();
         }
 
-        $form = $this->createForm(LabelDialogType::class);
+        //We have to disable the options, if twig mode is selected and user is not allowed to use it.
+        $disable_options = $label_options->getLinesMode() === 'twig' && !$this->isGranted("@labels.use_twig");
+
+        $form = $this->createForm(LabelDialogType::class, null, [
+            'disable_options' => $disable_options,
+        ]);
 
         //Try to parse given target_type and target_id
         $target_type = $request->query->get('target_type', null);

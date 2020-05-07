@@ -29,9 +29,17 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class LabelOptionsType extends AbstractType
 {
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('width', NumberType::class, [
@@ -120,7 +128,8 @@ class LabelOptionsType extends AbstractType
             ],
             'label_attr' => [
                 'class' => 'radio-custom radio-inline'
-            ]
+            ],
+            'disabled' => !$this->security->isGranted('@labels.use_twig')
         ]);
     }
 

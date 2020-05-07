@@ -482,6 +482,9 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         label: "perm.self.delete_profiles"
         bit: 4
         alsoSet: ['read_profiles', 'edit_profiles', 'create_profiles']
-
+      use_twig:
+        label: "perm.labels.use_twig"
+        bit: 12
+        alsoSet: ['create_labels', 'edit_options']
 
 
