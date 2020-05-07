@@ -8388,5 +8388,47 @@ Element 3</target>
         <target>New empty label</target>
       </segment>
     </unit>
+    <unit id="LfMiT9B" name="label_options.additional_css.label">
+      <segment>
+        <source>label_options.additional_css.label</source>
+        <target>Additional styles (CSS)</target>
+      </segment>
+    </unit>
+    <unit id="7I9OV_t" name="label_options.lines_mode.html">
+      <segment>
+        <source>label_options.lines_mode.html</source>
+        <target>Placeholders</target>
+      </segment>
+    </unit>
+    <unit id="0A6Twij" name="label_options.lines_mode.label">
+      <segment>
+        <source>label_options.lines_mode.label</source>
+        <target>Parser mode</target>
+      </segment>
+    </unit>
+    <unit id="7ynbNyD" name="label_generator.no_entities_found">
+      <segment>
+        <source>label_generator.no_entities_found</source>
+        <target>No entities matching the range found.</target>
+      </segment>
+    </unit>
+    <unit id="dFMpKDI" name="label.options.lines_mode.twig">
+      <segment>
+        <source>label.options.lines_mode.twig</source>
+        <target>Twig</target>
+      </segment>
+    </unit>
+    <unit id="BybM1v9" name="label_options.lines_mode.help">
+      <segment>
+        <source>label_options.lines_mode.help</source>
+        <target><![CDATA[If you select Twig here, the content field is interpreted as Twig template. See <a href="https://twig.symfony.com/doc/3.x/templates.html">Twig documentation</a> and <a href="https://github.com/Part-DB/Part-DB-symfony/wiki/Labels#twig-mode">Wiki</a> for more informations.]]></target>
+      </segment>
+    </unit>
+    <unit id="xSJAE3a" name="label_generator.update">
+      <segment>
+        <source>label_generator.update</source>
+        <target>Update</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

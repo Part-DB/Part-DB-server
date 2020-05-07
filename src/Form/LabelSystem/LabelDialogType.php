@@ -57,7 +57,7 @@ class LabelDialogType extends AbstractType
 
         ]);
         $builder->add('update', SubmitType::class, [
-
+            'label' => 'label_generator.update',
         ]);
     }
 
