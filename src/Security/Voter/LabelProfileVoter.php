@@ -32,6 +32,8 @@ class LabelProfileVoter extends ExtendedVoter
         'create' => 'create_profiles',
         'edit' => 'edit_profiles',
         'delete' => 'delete_profiles',
+        'show_history' => 'show_history',
+        'revert_element' => 'revert_element',
     ];
 
     /**
