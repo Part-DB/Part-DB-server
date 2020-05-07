@@ -36,6 +36,7 @@ use App\Services\LabelSystem\LabelGenerator;
 use App\Services\Misc\RangeParser;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -43,6 +44,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/label")
@@ -54,14 +56,16 @@ class LabelController extends AbstractController
     protected $em;
     protected $elementTypeNameGenerator;
     protected $rangeParser;
+    protected $translator;
 
     public function __construct(LabelGenerator $labelGenerator, EntityManagerInterface $em, ElementTypeNameGenerator $elementTypeNameGenerator,
-        RangeParser $rangeParser)
+        RangeParser $rangeParser, TranslatorInterface $translator)
     {
         $this->labelGenerator = $labelGenerator;
         $this->em = $em;
         $this->elementTypeNameGenerator = $elementTypeNameGenerator;
         $this->rangeParser = $rangeParser;
+        $this->translator = $translator;
     }
 
     /**
@@ -120,7 +124,10 @@ class LabelController extends AbstractController
                 }
 
             } else {
-                $this->addFlash('warning', 'label_generator.no_entities_found');
+                //$this->addFlash('warning', 'label_generator.no_entities_found');
+                $form->get('target_id')->addError(
+                    new FormError($this->translator->trans('label_generator.no_entities_found'))
+                );
             }
         }
 
