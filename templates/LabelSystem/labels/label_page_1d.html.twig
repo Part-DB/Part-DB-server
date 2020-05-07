@@ -3,7 +3,7 @@
         {{ element.lines | raw }}
     </div>
     <div class="C39-container" style="">
-        <img class="C39" src="{{ inlineData(element.barcode, 'image/svg+xml') }}" height="30px">
+        <img class="C39" src="{{ element.barcode | data_uri(mime='image/svg+xml') }}" height="30px">
         <span class="C39-text">{{ element.barcode_content }}</span>
     </div>
 </div>

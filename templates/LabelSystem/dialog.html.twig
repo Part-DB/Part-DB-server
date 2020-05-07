@@ -58,7 +58,7 @@
 {% block additional_content %}
     {% if pdf_data %}
         <div class="card mt-2 p-1 border-secondary" style="resize: vertical; overflow: scroll; height: 250px">
-            <object id="pdf_preview"  data="{{ inlineData(pdf_data, 'application/pdf') | escape('html_attr') }}"style="height: inherit">
+            <object id="pdf_preview"  data="{{ pdf_data | data_uri(mime='application/pdf') }}"style="height: inherit">
             </object>
         </div>
     {% endif %}

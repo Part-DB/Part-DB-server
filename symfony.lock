@@ -866,6 +866,9 @@
     "twig/extra-bundle": {
         "version": "v3.0.0"
     },
+    "twig/html-extra": {
+        "version": "v3.0.3"
+    },
     "twig/inky-extra": {
         "version": "v3.0.0"
     },

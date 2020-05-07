@@ -55,6 +55,7 @@
         "tecnickcom/tc-lib-barcode": "^1.15",
         "twig/cssinliner-extra": "^3.0",
         "twig/extra-bundle": "^3.0",
+        "twig/html-extra": "^3.0",
         "twig/inky-extra": "^3.0",
         "twig/intl-extra": "^3.0",
         "twig/markdown-extra": "^3.0",
