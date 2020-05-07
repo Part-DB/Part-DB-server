@@ -50,13 +50,14 @@ class BarcodeGenerator
             case 'code93':
                 $type = 'C93';
                 break;
+            case 'code128':
+                $type = 'C128A';
+                break;
             case 'none':
                 return null;
             default:
                 throw new \InvalidArgumentException('Unknown label type!');
         }
-
-
 
         $bobj = $barcode->getBarcodeObj($type, $this->getContent($options, $target));
 
@@ -71,6 +72,7 @@ class BarcodeGenerator
                 return $this->barcodeContentGenerator->getURLContent($target);
             case 'code39':
             case 'code93':
+            case 'code128':
                 return $this->barcodeContentGenerator->get1DBarcodeContent($target);
             case 'none':
                 return null;

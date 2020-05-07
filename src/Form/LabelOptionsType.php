@@ -75,6 +75,7 @@ class LabelOptionsType extends AbstractType
             'choices' => [
                 'label_options.barcode_type.none' => 'none',
                 'label_options.barcode_type.qr' => 'qr',
+                'label_options.barcode_type.code128' => 'code128',
                 'label_options.barcode_type.code39' => 'code39',
                 'label_options.barcode_type.code93' => 'code93',
                 'label_options.barcode_type.datamatrix' => 'datamatrix',
@@ -83,7 +84,7 @@ class LabelOptionsType extends AbstractType
                 if (in_array($choice, ['qr', 'datamatrix'])) {
                     return 'label_options.barcode_type.2D';
                 }
-                if (in_array($choice, ['code39', 'code93'])) {
+                if (in_array($choice, ['code39', 'code93', 'code128'])) {
                     return 'label_options.barcode_type.1D';
                 }
 

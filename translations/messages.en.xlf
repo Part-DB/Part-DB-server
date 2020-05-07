@@ -8430,5 +8430,11 @@ Element 3</target>
         <target>Update</target>
       </segment>
     </unit>
+    <unit id="uIJQMqh" name="label_options.barcode_type.code128">
+      <segment>
+        <source>label_options.barcode_type.code128</source>
+        <target>Code 128 (recommended)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -18,7 +18,7 @@
             {% include "LabelSystem/labels/label_page_none.html.twig" %}
         {% elseif options.barcodeType in ['qr', 'datamatrix'] %}
             {% include "LabelSystem/labels/label_page_qr.html.twig" %}
-        {% elseif options.barcodeType in ['code39', 'code93'] %}
+        {% elseif options.barcodeType in ['code39', 'code93', 'code128'] %}
             {% include "LabelSystem/labels/label_page_1d.html.twig" %}
         {% endif %}
     </div>
