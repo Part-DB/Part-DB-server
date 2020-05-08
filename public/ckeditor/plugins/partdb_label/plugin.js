@@ -63,7 +63,7 @@ const PLACEHOLDERS = {
             ['[[ID]]', 'storelocation.id'],
             ['[[NAME]]', 'storelocation.name'],
             ['[[FULL_PATH]]', 'storelocation.full_path'],
-            ['[[PARENT_NAME]]', 'storelocation.parent_name'],
+            ['[[PARENT]]', 'storelocation.parent_name'],
             ['[[PARENT_FULL_PATH]]', 'storelocation.parent_full_path'],
             ['[[COMMENT]]', 'storelocation.comment'],
             ['[[COMMENT_T]]', 'storelocation.comment_t'],
