@@ -8436,5 +8436,41 @@ Element 3</target>
         <target>Code 128 (recommended)</target>
       </segment>
     </unit>
+    <unit id="qHJOVv6" name="label_generator.common">
+      <segment>
+        <source>label_generator.common</source>
+        <target>Common</target>
+      </segment>
+    </unit>
+    <unit id="wNFVz._" name="label_generator.profiles">
+      <segment>
+        <source>label_generator.profiles</source>
+        <target>Profiles</target>
+      </segment>
+    </unit>
+    <unit id="WLpYniK" name="label_generator.advanced">
+      <segment>
+        <source>label_generator.advanced</source>
+        <target>Advanced</target>
+      </segment>
+    </unit>
+    <unit id="CjbZJ5j" name="label_generator.selected_profile">
+      <segment>
+        <source>label_generator.selected_profile</source>
+        <target>Currently selected profile</target>
+      </segment>
+    </unit>
+    <unit id="HqINOSK" name="label_generator.edit_profile">
+      <segment>
+        <source>label_generator.edit_profile</source>
+        <target>Edit profile</target>
+      </segment>
+    </unit>
+    <unit id="fZChaHF" name="label_generator.load_profile">
+      <segment>
+        <source>label_generator.load_profile</source>
+        <target>Load profile</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

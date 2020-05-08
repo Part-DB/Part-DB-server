@@ -140,6 +140,7 @@ class LabelController extends AbstractController
             'form' => $form->createView(),
             'pdf_data' => $pdf_data,
             'filename' => $filename,
+            'profile' => $profile,
         ]);
     }
 
