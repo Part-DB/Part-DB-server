@@ -51,6 +51,8 @@ class ScanController extends AbstractController
      */
     public function dialog(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('@tools.label_scanner');
+
         $form = $this->createForm(ScanDialogType::class);
         $form->handleRequest($request);
 

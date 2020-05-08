@@ -291,6 +291,9 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       timetravel:
         label: "perm.tools.timeTravel"
         bit: 14
+      label_scanner:
+        label: "perm.tools.label_scanner"
+        bit: 16
 
   groups:
     label: "perm.groups"

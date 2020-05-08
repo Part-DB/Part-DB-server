@@ -17,16 +17,18 @@
 
     <div class="collapse navbar-collapse" id="navbarContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url("scan_dialog") }}">{% trans %}navbar.scanner.link{% endtrans %}</a>
-            </li>
+            {% if is_granted("@tools.label_scanner") %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url("scan_dialog") }}">{% trans %}navbar.scanner.link{% endtrans %}</a>
+                </li>
+            {% endif %}
         </ul>
 
         <div class="form-inline my-2 my-lg-0 ml-auto" id="searchbar">
             <!-- Searchbar -->
             {% include "_navbar_search.html.twig" %}
         </div>
-        
+
         <ul class="navbar-nav ml-3" id="login-content">
             <li class="nav-item dropdown">
                 <a href="#" class="dropdown-toggle link-anchor nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
