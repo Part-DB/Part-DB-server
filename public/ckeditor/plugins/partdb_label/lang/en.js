@@ -23,6 +23,7 @@ CKEDITOR.plugins.setLang( 'partdb_label', 'en', {
     'section.global': 'Globals',
     'section.part': 'Part',
     'section.part_lot': 'Part lot',
+    'section.storelocation': 'Storage location',
     'part.id': 'Database ID',
     'part.name': 'Part name',
     'part.category': 'Category',
@@ -55,4 +56,14 @@ CKEDITOR.plugins.setLang( 'partdb_label', 'en', {
     'lot.amount': 'Lot amount',
     'lot.location': 'Storage location',
     'lot.location_full': 'Storage location (Full path)',
+
+    'storelocation.id': 'Location ID',
+    'storelocation.name': 'Name',
+    'storelocation.full_path': 'Full path',
+    'storelocation.parent_name': 'Parent name',
+    'storelocation.parent_full_path': 'Parent full path',
+    'storelocation.comment': 'Comment',
+    'storelocation.comment_t': 'Comment (Text)',
+    'storelocation.last_modified': 'Last modified datetime',
+    'storelocation.creation_date': 'Createion datetime',
 } );

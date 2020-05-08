@@ -1,10 +1,18 @@
 {% extends "AdminPages/EntityAdminBase.html.twig" %}
+{% import "LabelSystem/dropdown_macro.html.twig" as dropdown %}
 
 {% block card_title %}
     <i class="fas fa-cube fa-fw"></i> {% trans %}storelocation.labelp{% endtrans %}
 {% endblock %}
 
 {% block additional_controls %}
+    {% if entity.id %}
+        <div class="row form-group">
+            <div class="offset-sm-3 col-sm-9">
+                {{ dropdown.profile_dropdown('storelocation', entity.id) }}
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block additional_pills %}

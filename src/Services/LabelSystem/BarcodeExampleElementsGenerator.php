@@ -37,9 +37,26 @@ class BarcodeExampleElementsGenerator
                 return $this->getExamplePart();
             case 'part_lot':
                 return $this->getExamplePartLot();
+            case 'storelocation':
+                return $this->getStorelocation();
             default:
                 throw new \InvalidArgumentException('Unknown $type.');
         }
+    }
+
+    protected function getStorelocation(): Storelocation
+    {
+        $storelocation = new Storelocation();
+        $storelocation->setName('Location 1');
+        $storelocation->setComment('Example comment');
+        $storelocation->updatedTimestamps();
+
+        $parent = new Storelocation();
+        $parent->setName('Parent');
+
+        $storelocation->setParent($parent);
+
+        return $storelocation;
     }
 
     protected function getStructuralData(string $class): AbstractStructuralDBElement

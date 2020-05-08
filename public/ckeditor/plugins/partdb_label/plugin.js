@@ -57,6 +57,20 @@ const PLACEHOLDERS = {
             ['[[LOCATION_FULL]]', 'lot.location_full'],
         ]
     },
+    storelocation: {
+        label: 'section.storelocation',
+        entries: [
+            ['[[ID]]', 'storelocation.id'],
+            ['[[NAME]]', 'storelocation.name'],
+            ['[[FULL_PATH]]', 'storelocation.full_path'],
+            ['[[PARENT_NAME]]', 'storelocation.parent_name'],
+            ['[[PARENT_FULL_PATH]]', 'storelocation.parent_full_path'],
+            ['[[COMMENT]]', 'storelocation.comment'],
+            ['[[COMMENT_T]]', 'storelocation.comment_t'],
+            ['[[LAST_MODIFIED]]', 'storelocation.last_modified'],
+            ['[[CREATION_DATE]]', 'storelocation.creation_date'],
+        ]
+    },
     global: {
         label: 'section.global',
         entries: [

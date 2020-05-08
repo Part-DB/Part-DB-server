@@ -62,7 +62,7 @@ class BarcodeContentGenerator
 
         return  $this->urlGenerator->generate('scan_qr', [
             'type' => $type,
-            'id' => $target->getID(),
+            'id' => $target->getID() ?? 0,
             '_locale' => null,
         ], UrlGeneratorInterface::ABSOLUTE_URL);
     }

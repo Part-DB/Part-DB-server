@@ -29,7 +29,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class LabelOptions
 {
     public const BARCODE_TYPES = ['none', /*'ean8',*/ 'qr', 'code39', 'datamatrix', 'code93', 'code128'];
-    public const SUPPORTED_ELEMENTS = ['part', 'part_lot'];
+    public const SUPPORTED_ELEMENTS = ['part', 'part_lot', 'storelocation'];
     public const PICTURE_TYPES = ['none', 'element_picture', 'main_attachment'];
 
     public const LINES_MODES = ['html', 'twig'];

@@ -23,6 +23,7 @@ CKEDITOR.plugins.setLang( 'partdb_label', 'de', {
     'section.global': 'Global',
     'section.part': 'Bauteil',
     'section.part_lot': 'Bauteilbestand',
+    'section.storelocation': 'Lagerort',
     'part.id': 'Datenbank ID',
     'part.name': 'Bauteilename',
     'part.category': 'Kategorie',
@@ -55,4 +56,14 @@ CKEDITOR.plugins.setLang( 'partdb_label', 'de', {
     'lot.amount': 'Bestandsmenge',
     'lot.location': 'Lagerort',
     'lot.location_full': 'Lagerort (Ganzer Pfad)',
+
+    'storelocation.id': 'Lagerort ID',
+    'storelocation.name': 'Name',
+    'storelocation.full_path': 'Ganzer Pfad',
+    'storelocation.parent_name': 'Name des Übergeordneten Elements',
+    'storelocation.parent_full_path': 'Ganzer Pfad des Übergeordneten Elements',
+    'storelocation.comment': 'Kommentar',
+    'storelocation.comment_t': 'Kommentar (Text)',
+    'storelocation.last_modified': 'Änderungsdatum',
+    'storelocation.creation_date': 'Erstellungsdatum',
 } );

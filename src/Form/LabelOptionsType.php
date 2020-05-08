@@ -65,7 +65,8 @@ class LabelOptionsType extends AbstractType
             'label' => 'label_options.supported_elements.label',
             'choices' => [
                 'part.label' => 'part',
-                'part_lot.label' => 'part_lot'
+                'part_lot.label' => 'part_lot',
+                'storelocation.label' => 'storelocation',
             ]
         ]);
 
