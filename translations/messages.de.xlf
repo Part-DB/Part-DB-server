@@ -34,7 +34,7 @@
     <unit id="lnjU5yu" name="admin.options">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:8</note>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:11</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:19</note>
         <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:8</note>
         <note priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:11</note>
         <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:8</note>
@@ -284,7 +284,7 @@
     </unit>
     <unit id="R949JGz" name="export_all.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:178</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:179</note>
         <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:167</note>
         <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:142</note>
       </notes>
@@ -295,7 +295,7 @@
     </unit>
     <unit id="zPSdxU4" name="mass_creation.help">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:184</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:185</note>
         <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:173</note>
       </notes>
       <segment>
@@ -340,6 +340,33 @@
         <target>Berechtigungen</target>
       </segment>
     </unit>
+    <unit id="Rr_.JrB" name="label_profile.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.caption</source>
+        <target>Labelprofile</target>
+      </segment>
+    </unit>
+    <unit id="QPqYdRg" name="label_profile.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.advanced</source>
+        <target>Erweitert</target>
+      </segment>
+    </unit>
+    <unit id="Pi_q_nj" name="label_profile.comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.comment</source>
+        <target>Kommentar</target>
+      </segment>
+    </unit>
     <unit id="Fum_mCX" name="manufacturer.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
@@ -363,7 +390,7 @@
     </unit>
     <unit id="vZGwiMS" name="storelocation.labelp">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:5</note>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:8</note>
         <note priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:4</note>
         <note priority="1">Part-DB1\templates\_sidebar.html.twig:8</note>
@@ -523,7 +550,6 @@ Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müs
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:4</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:4</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:63</note>
         <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:4</note>
         <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:4</note>
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:63</note>
@@ -537,8 +563,8 @@ Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müs
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:41</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:38</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:35</note>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:159</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:41</note>
         <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:38</note>
         <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:159</note>
       </notes>
@@ -549,8 +575,8 @@ Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müs
     </unit>
     <unit id="vTU.j2g" name="attachment.preview.alt">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:47</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:45</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:49</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:47</note>
         <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:47</note>
         <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:45</note>
       </notes>
@@ -561,9 +587,9 @@ Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müs
     </unit>
     <unit id="CNqXx.c" name="attachment.view">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:50</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:48</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:45</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:52</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:50</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:62</note>
         <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:50</note>
         <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:48</note>
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:45</note>
@@ -575,9 +601,9 @@ Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müs
     </unit>
     <unit id="HnHc.HV" name="attachment.file_not_found">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:56</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:54</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:38</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:58</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:56</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:43</note>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:166</note>
         <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:56</note>
         <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:54</note>
@@ -591,9 +617,9 @@ Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müs
     </unit>
     <unit id="vnfQKjk" name="attachment.secure">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:64</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:62</note>
-        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:64</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:66</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:64</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:48</note>
         <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:62</note>
       </notes>
       <segment>
@@ -603,8 +629,8 @@ Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müs
     </unit>
     <unit id="NCjSwVs" name="attachment.create">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:77</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:75</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:79</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:77</note>
         <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:77</note>
         <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:75</note>
       </notes>
@@ -615,8 +641,8 @@ Der Benutzer wird alle Zwei-Faktor-Authentifizierungmethoden neu einrichten müs
     </unit>
     <unit id="kxhr8KP" name="part_lot.edit.delete.confirm">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:82</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:80</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:84</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:82</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:33</note>
         <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:82</note>
         <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:80</note>
@@ -665,8 +691,8 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     <unit id="jix.mo1" name="edit.log_comment">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:16</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:43</note>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:283</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:45</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:286</note>
         <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:16</note>
         <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:43</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:267</note>
@@ -686,6 +712,15 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <segment>
         <source>entity.delete.recursive</source>
         <target>Rekursiv (alle Unterelemente) löschen</target>
+      </segment>
+    </unit>
+    <unit id="vlslklu" name="entity.duplicate">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_duplicate.html.twig:3</note>
+      </notes>
+      <segment>
+        <source>entity.duplicate</source>
+        <target>Element duplizieren</target>
       </segment>
     </unit>
     <unit id="4_pqNGT" name="export.format">
@@ -790,12 +825,12 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     <unit id="cMLFYZw" name="createdAt">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:11</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:59</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:60</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:76</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:77</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:6</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:69</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:12</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:53</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:77</note>
         <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:11</note>
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:59</note>
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:60</note>
@@ -816,7 +851,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:25</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:21</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:8</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:49</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:73</note>
         <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:25</note>
         <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:21</note>
         <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:8</note>
@@ -842,7 +877,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     <unit id="4FQqOUW" name="specifications.property">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:6</note>
-        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:120</note>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:125</note>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:6</note>
       </notes>
       <segment>
@@ -1125,7 +1160,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="haOas0X" name="Yes">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:87</note>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:92</note>
         <note priority="1">Part-DB1\templates\helper.twig:87</note>
       </notes>
       <segment>
@@ -1135,7 +1170,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="HqRCoTS" name="No">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:89</note>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:94</note>
         <note priority="1">Part-DB1\templates\helper.twig:89</note>
       </notes>
       <segment>
@@ -1145,7 +1180,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="PbJl5cf" name="specifications.value">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:121</note>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:126</note>
       </notes>
       <segment>
         <source>specifications.value</source>
@@ -1293,6 +1328,134 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <segment>
         <source>homepage.last_activity</source>
         <target>Letzte Aktivitäten</target>
+      </segment>
+    </unit>
+    <unit id="bqeaYn7" name="label_generator.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.title</source>
+        <target>Labelgenerator</target>
+      </segment>
+    </unit>
+    <unit id="qHJOVv6" name="label_generator.common">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.common</source>
+        <target>Allgemein</target>
+      </segment>
+    </unit>
+    <unit id="WLpYniK" name="label_generator.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.advanced</source>
+        <target>Erweitert</target>
+      </segment>
+    </unit>
+    <unit id="wNFVz._" name="label_generator.profiles">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:24</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.profiles</source>
+        <target>Profil</target>
+      </segment>
+    </unit>
+    <unit id="CjbZJ5j" name="label_generator.selected_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.selected_profile</source>
+        <target>Ausgewähltes Profil</target>
+      </segment>
+    </unit>
+    <unit id="HqINOSK" name="label_generator.edit_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:62</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.edit_profile</source>
+        <target>Profil ändern</target>
+      </segment>
+    </unit>
+    <unit id="fZChaHF" name="label_generator.load_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:75</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.load_profile</source>
+        <target>Profil laden</target>
+      </segment>
+    </unit>
+    <unit id="UFelt6r" name="label_generator.download">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:102</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.download</source>
+        <target>Download</target>
+      </segment>
+    </unit>
+    <unit id="fkESKHW" name="label_generator.label_btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.label_btn</source>
+        <target>Label erzeugen</target>
+      </segment>
+    </unit>
+    <unit id="xXkObqX" name="label_generator.label_empty">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.label_empty</source>
+        <target>Leeres Label</target>
+      </segment>
+    </unit>
+    <unit id="0qyoOfw" name="label_scanner.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.title</source>
+        <target>Scanner</target>
+      </segment>
+    </unit>
+    <unit id="Z0zU4lk" name="label_scanner.no_cam_found.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.no_cam_found.title</source>
+        <target>Keine Kamera gefunden</target>
+      </segment>
+    </unit>
+    <unit id="2Jk59Ug" name="label_scanner.no_cam_found.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.no_cam_found.text</source>
+        <target>Sie müssen eine Kamera anschließen und die Berechtigung erteilen, um den Scanner nutzen zu können. Sie können unten den Barcode manuell eingeben.</target>
+      </segment>
+    </unit>
+    <unit id="6qQTB7S" name="label_scanner.source_select">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:27</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.source_select</source>
+        <target>Kamera auswählen</target>
       </segment>
     </unit>
     <unit id="uKTMZBs" name="log.list.title">
@@ -1623,7 +1786,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="FIw9JVr" name="orderdetails.edit.delete.confirm">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:65</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:62</note>
         <note priority="1">Part-DB1\templates\Parts\edit\_orderdetails.html.twig:61</note>
       </notes>
       <segment>
@@ -1658,8 +1821,8 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     <unit id="BWS7Lck" name="comment.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:56</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:43</note>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:31</note>
-        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:56</note>
         <note priority="1">Part-DB1\templates\_navbar_search.html.twig:26</note>
         <note priority="1">templates\base.html.twig:62</note>
         <note priority="1">templates\Parts\show_part_info.html.twig:74</note>
@@ -1781,34 +1944,23 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Dateigröße</target>
       </segment>
     </unit>
-    <unit id="3Vc5_D2" name="attachment.external_file">
+    <unit id="gWj51jS" name="attachment.preview">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:34</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:34</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:54</note>
       </notes>
       <segment>
-        <source>attachment.external_file</source>
-        <target>Externe Datei</target>
+        <source>attachment.preview</source>
+        <target>Vorschaubild</target>
       </segment>
     </unit>
     <unit id="GSjs0LU" name="attachment.download">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:50</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:67</note>
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:50</note>
       </notes>
       <segment>
         <source>attachment.download</source>
         <target>Herunterladen</target>
-      </segment>
-    </unit>
-    <unit id="gexfRxf" name="attachment.edit">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:62</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:62</note>
-      </notes>
-      <segment>
-        <source>attachment.edit</source>
-        <target>Bearbeiten</target>
       </segment>
     </unit>
     <unit id="5PiNnoA" name="user.creating_user">
@@ -1897,6 +2049,18 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Hersteller</target>
       </segment>
     </unit>
+    <unit id="kTRK6H_" name="name.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:24</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:11</note>
+        <note priority="1">templates\base.html.twig:54</note>
+        <note priority="1">src\Form\PartType.php:62</note>
+      </notes>
+      <segment>
+        <source>name.label</source>
+        <target>Name</target>
+      </segment>
+    </unit>
     <unit id="xaKzTBt" name="part.back_to_info">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:27</note>
@@ -1982,8 +2146,8 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="LL2dt8U" name="part.avg_price.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:57</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:60</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:56</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:59</note>
         <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:57</note>
         <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:60</note>
         <note priority="1">templates\Parts\show_part_info.html.twig:51</note>
@@ -2065,7 +2229,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="aUihK3c" name="part_lots.description">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:7</note>
         <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:6</note>
       </notes>
       <segment>
@@ -2075,7 +2239,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="SOcXkyd" name="part_lots.storage_location">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:7</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:8</note>
         <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:7</note>
       </notes>
       <segment>
@@ -2085,7 +2249,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="jVYrm0U" name="part_lots.amount">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:9</note>
         <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:8</note>
       </notes>
       <segment>
@@ -2095,7 +2259,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="upshmqD" name="part_lots.location_unknown">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:22</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:24</note>
         <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:22</note>
       </notes>
       <segment>
@@ -2105,7 +2269,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="BTUni9r" name="part_lots.instock_unknown">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:29</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:31</note>
         <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:29</note>
       </notes>
       <segment>
@@ -2115,7 +2279,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="NFa2bFQ" name="part_lots.expiration_date">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:38</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:40</note>
         <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:38</note>
       </notes>
       <segment>
@@ -2125,7 +2289,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="axp.g13" name="part_lots.is_expired">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:46</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:48</note>
         <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:46</note>
       </notes>
       <segment>
@@ -2135,7 +2299,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="EWX1Sti" name="part_lots.need_refill">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:53</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:55</note>
         <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:53</note>
       </notes>
       <segment>
@@ -2223,7 +2387,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="cTsojYo" name="part.edit.btn">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:6</note>
         <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:4</note>
         <note priority="1">templates\Parts\show_part_info.html.twig:125</note>
       </notes>
@@ -2234,7 +2398,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="XGGYjnA" name="part.clone.btn">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:14</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:16</note>
         <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:14</note>
         <note priority="1">templates\Parts\show_part_info.html.twig:135</note>
       </notes>
@@ -2245,8 +2409,8 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="WzQH7wQ" name="part.create.btn">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:22</note>
-        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:22</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:24</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_action_bar.html.twig:4</note>
         <note priority="1">templates\Parts\show_part_info.html.twig:143</note>
       </notes>
       <segment>
@@ -2256,7 +2420,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="GayDkXI" name="part.delete.confirm_title">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:29</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:31</note>
         <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:29</note>
       </notes>
       <segment>
@@ -2266,7 +2430,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="v4cgmfN" name="part.delete.message">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:30</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:32</note>
         <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:30</note>
       </notes>
       <segment>
@@ -2276,7 +2440,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="CJHxw_e" name="part.delete">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:37</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:39</note>
         <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:37</note>
       </notes>
       <segment>
@@ -2366,7 +2530,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="5tFcxpX" name="entity.info.common.tab">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:17</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:22</note>
         <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:17</note>
       </notes>
       <segment>
@@ -2376,7 +2540,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="F0da8x0" name="entity.info.statistics.tab">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:20</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:26</note>
         <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:20</note>
       </notes>
       <segment>
@@ -2384,9 +2548,27 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Statistik</target>
       </segment>
     </unit>
+    <unit id="Msykg.Z" name="entity.info.attachments.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:31</note>
+      </notes>
+      <segment>
+        <source>entity.info.attachments.tab</source>
+        <target>Dateianhänge</target>
+      </segment>
+    </unit>
+    <unit id="8VfTCPf" name="entity.info.parameters.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:37</note>
+      </notes>
+      <segment>
+        <source>entity.info.parameters.tab</source>
+        <target>Parameter</target>
+      </segment>
+    </unit>
     <unit id="a0Bt1My" name="entity.info.name">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:30</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:54</note>
         <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:30</note>
       </notes>
       <segment>
@@ -2396,8 +2578,8 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="pqMTPTv" name="entity.info.parent">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:34</note>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:67</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:58</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:96</note>
         <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:34</note>
         <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:67</note>
       </notes>
@@ -2408,7 +2590,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="nDEGgY0" name="entity.edit.btn">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:46</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:70</note>
         <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:46</note>
       </notes>
       <segment>
@@ -2418,7 +2600,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
     </unit>
     <unit id="Rsrawma" name="entity.info.children_count">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:63</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:92</note>
         <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:63</note>
       </notes>
       <segment>
@@ -2464,7 +2646,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:53</note>
         <note category="file-source" priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:13</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:40</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:42</note>
         <note priority="1">Part-DB1\templates\security\2fa_base_form.html.twig:53</note>
         <note priority="1">Part-DB1\templates\security\U2F\u2f_login.html.twig:13</note>
         <note priority="1">Part-DB1\templates\_navbar.html.twig:40</note>
@@ -3015,7 +3197,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:3</note>
         <note category="file-source" priority="1">Part-DB1\templates\Users\user_info.html.twig:6</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:38</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:40</note>
         <note priority="1">Part-DB1\templates\Users\user_info.html.twig:3</note>
         <note priority="1">Part-DB1\templates\Users\user_info.html.twig:6</note>
         <note priority="1">Part-DB1\templates\_navbar.html.twig:38</note>
@@ -3125,7 +3307,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Users\user_settings.html.twig:3</note>
         <note category="file-source" priority="1">Part-DB1\templates\Users\user_settings.html.twig:6</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:37</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:39</note>
         <note priority="1">Part-DB1\templates\Users\user_settings.html.twig:3</note>
         <note priority="1">Part-DB1\templates\Users\user_settings.html.twig:6</note>
         <note priority="1">Part-DB1\templates\_navbar.html.twig:37</note>
@@ -3546,20 +3728,18 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Sidebar umschalten</target>
       </segment>
     </unit>
-    <unit id="iqU5ScK" name="barcode.scan">
+    <unit id="iCTvpEA" name="navbar.scanner.link">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:27</note>
-        <note priority="1">Part-DB1\templates\_navbar.html.twig:27</note>
-        <note priority="1">templates\base.html.twig:88</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:22</note>
       </notes>
       <segment>
-        <source>barcode.scan</source>
-        <target>Scanne Barcode</target>
+        <source>navbar.scanner.link</source>
+        <target>Scanner</target>
       </segment>
     </unit>
     <unit id="PRvW.EI" name="user.loggedin.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:36</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:38</note>
         <note priority="1">Part-DB1\templates\_navbar.html.twig:36</note>
         <note priority="1">templates\base.html.twig:97</note>
       </notes>
@@ -3570,7 +3750,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="rruB2OR" name="user.login">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:42</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:44</note>
         <note priority="1">Part-DB1\templates\_navbar.html.twig:42</note>
         <note priority="1">templates\base.html.twig:103</note>
       </notes>
@@ -3581,7 +3761,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="Eorzg9b" name="ui.toggle_darkmode">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:48</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:50</note>
         <note priority="1">Part-DB1\templates\_navbar.html.twig:48</note>
       </notes>
       <segment>
@@ -3591,7 +3771,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="oabvQfM" name="user.language_select">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:52</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:54</note>
         <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:97</note>
         <note priority="1">Part-DB1\templates\_navbar.html.twig:52</note>
         <note priority="1">Part-DB1\src\Form\UserSettingsType.php:97</note>
@@ -3614,18 +3794,6 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Suchoptionen</target>
       </segment>
     </unit>
-    <unit id="kTRK6H_" name="name.label">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:11</note>
-        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:10</note>
-        <note priority="1">templates\base.html.twig:54</note>
-        <note priority="1">src\Form\PartType.php:62</note>
-      </notes>
-      <segment>
-        <source>name.label</source>
-        <target>Name</target>
-      </segment>
-    </unit>
     <unit id="V2u6xXi" name="tags.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:23</note>
@@ -3638,8 +3806,8 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     <unit id="RezjOdV" name="storelocation.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:27</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:66</note>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:88</note>
-        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:22</note>
         <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:88</note>
         <note priority="1">templates\base.html.twig:60</note>
         <note priority="1">templates\Parts\show_part_info.html.twig:36</note>
@@ -3776,10 +3944,10 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="V1QubEL" name="attachment.download_failed">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:185</note>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:253</note>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:171</note>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:264</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:212</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:292</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:173</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:293</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:181</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:243</note>
         <note priority="1">Part-DB1\src\Controller\PartController.php:173</note>
@@ -3792,7 +3960,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="A7i8za4" name="entity.edit_flash">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:194</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:221</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:190</note>
       </notes>
       <segment>
@@ -3802,7 +3970,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="AoZHore" name="entity.edit_flash.invalid">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:203</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:230</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:196</note>
       </notes>
       <segment>
@@ -3812,7 +3980,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="8MJvWmd" name="entity.created_flash">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:262</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:301</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:252</note>
       </notes>
       <segment>
@@ -3822,7 +3990,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="zZdZuYS" name="entity.created_flash.invalid">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:268</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:307</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:258</note>
       </notes>
       <segment>
@@ -3832,7 +4000,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="lSfR7sD" name="attachment_type.deleted">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:360</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:398</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:352</note>
         <note priority="1">src\Controller\BaseAdminController.php:154</note>
       </notes>
@@ -3843,10 +4011,10 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="2bvWUoo" name="csfr_invalid">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:362</note>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserController.php:103</note>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:147</note>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:178</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:400</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserController.php:109</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:157</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:191</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:354</note>
         <note priority="1">Part-DB1\src\Controller\UserController.php:101</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:150</note>
@@ -3857,9 +4025,18 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>CSFR-Token ungültig! Laden Sie diese Seite erneut oder kontaktieren Sie einen Administrator, wenn das Problem bestehen bleibt!</target>
       </segment>
     </unit>
+    <unit id="7ynbNyD" name="label_generator.no_entities_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LabelController.php:134</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.no_entities_found</source>
+        <target>Keine Elemente gefunden</target>
+      </segment>
+    </unit>
     <unit id="BeMACpw" name="log.undo.target_not_found">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:150</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:149</note>
         <note priority="1">Part-DB1\src\Controller\LogController.php:154</note>
         <note priority="1">new</note>
       </notes>
@@ -3870,7 +4047,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="sG2PEwi" name="log.undo.revert_success">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:157</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:156</note>
         <note priority="1">Part-DB1\src\Controller\LogController.php:160</note>
         <note priority="1">new</note>
       </notes>
@@ -3881,7 +4058,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="GMilP1t" name="log.undo.element_undelete_success">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:177</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:176</note>
         <note priority="1">Part-DB1\src\Controller\LogController.php:180</note>
         <note priority="1">new</note>
       </notes>
@@ -3892,7 +4069,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="YJB8YZ6" name="log.undo.element_element_already_undeleted">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:179</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:178</note>
         <note priority="1">Part-DB1\src\Controller\LogController.php:182</note>
         <note priority="1">new</note>
       </notes>
@@ -3903,7 +4080,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="NI2CbLV" name="log.undo.element_delete_success">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:186</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:185</note>
         <note priority="1">Part-DB1\src\Controller\LogController.php:189</note>
         <note priority="1">new</note>
       </notes>
@@ -3914,7 +4091,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id=".D_N333" name="log.undo.element.element_already_delted">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:188</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:187</note>
         <note priority="1">Part-DB1\src\Controller\LogController.php:191</note>
         <note priority="1">new</note>
       </notes>
@@ -3925,7 +4102,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="Bz3n92Q" name="log.undo.element_change_undone">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:195</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:194</note>
         <note priority="1">Part-DB1\src\Controller\LogController.php:198</note>
         <note priority="1">new</note>
       </notes>
@@ -3936,7 +4113,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="Ne_xS01" name="log.undo.do_undelete_before">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:197</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:196</note>
         <note priority="1">Part-DB1\src\Controller\LogController.php:200</note>
         <note priority="1">new</note>
       </notes>
@@ -3947,7 +4124,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="GswNRna" name="log.undo.log_type_invalid">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:200</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:199</note>
         <note priority="1">Part-DB1\src\Controller\LogController.php:203</note>
         <note priority="1">new</note>
       </notes>
@@ -3958,7 +4135,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="6xOvKkk" name="part.edited_flash">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:180</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:182</note>
         <note priority="1">Part-DB1\src\Controller\PartController.php:182</note>
         <note priority="1">src\Controller\PartController.php:80</note>
       </notes>
@@ -3969,7 +4146,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="w57VDWn" name="part.edited_flash.invalid">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:184</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:186</note>
         <note priority="1">Part-DB1\src\Controller\PartController.php:186</note>
       </notes>
       <segment>
@@ -3979,7 +4156,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="suYw2UL" name="part.deleted">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:215</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:216</note>
         <note priority="1">Part-DB1\src\Controller\PartController.php:219</note>
       </notes>
       <segment>
@@ -3989,7 +4166,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="tG.Jfwp" name="part.created_flash">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:273</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:302</note>
         <note priority="1">Part-DB1\src\Controller\PartController.php:277</note>
         <note priority="1">Part-DB1\src\Controller\PartController.php:317</note>
         <note priority="1">src\Controller\PartController.php:113</note>
@@ -4002,7 +4179,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="LOw_XJ." name="part.created_flash.invalid">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:279</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:308</note>
         <note priority="1">Part-DB1\src\Controller\PartController.php:283</note>
       </notes>
       <segment>
@@ -4010,9 +4187,37 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Fehler beim Anlegen: Überprüfen Sie ihre Eingaben!</target>
       </segment>
     </unit>
+    <unit id="6T8GmmR" name="scan.qr_not_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:66</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:89</note>
+      </notes>
+      <segment state="translated">
+        <source>scan.qr_not_found</source>
+        <target>Kein Element gefunden</target>
+      </segment>
+    </unit>
+    <unit id="vXTqaTo" name="scan.format_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:69</note>
+      </notes>
+      <segment state="translated">
+        <source>scan.format_unknown</source>
+        <target>Format unbekannt</target>
+      </segment>
+    </unit>
+    <unit id="8CJPuTZ" name="scan.qr_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:86</note>
+      </notes>
+      <segment state="translated">
+        <source>scan.qr_success</source>
+        <target>Element gefunden</target>
+      </segment>
+    </unit>
     <unit id="B1T9Kt6" name="pw_reset.user_or_email">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:108</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:114</note>
         <note priority="1">Part-DB1\src\Controller\SecurityController.php:109</note>
       </notes>
       <segment>
@@ -4022,7 +4227,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="C_43E5l" name="pw_reset.request.success">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:125</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:131</note>
         <note priority="1">Part-DB1\src\Controller\SecurityController.php:126</note>
       </notes>
       <segment>
@@ -4032,7 +4237,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="Ytlen4L" name="pw_reset.username">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:156</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:162</note>
         <note priority="1">Part-DB1\src\Controller\SecurityController.php:160</note>
       </notes>
       <segment>
@@ -4042,7 +4247,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="kCND5gR" name="pw_reset.token">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:159</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:165</note>
         <note priority="1">Part-DB1\src\Controller\SecurityController.php:163</note>
       </notes>
       <segment>
@@ -4052,7 +4257,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="Kz.sA0j" name="pw_reset.new_pw.error">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:188</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:194</note>
         <note priority="1">Part-DB1\src\Controller\SecurityController.php:192</note>
       </notes>
       <segment>
@@ -4062,7 +4267,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="Uy8yPX1" name="pw_reset.new_pw.success">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:190</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\SecurityController.php:196</note>
         <note priority="1">Part-DB1\src\Controller\SecurityController.php:194</note>
       </notes>
       <segment>
@@ -4072,7 +4277,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="L8g8bFy" name="user.edit.reset_success">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserController.php:101</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserController.php:107</note>
         <note priority="1">Part-DB1\src\Controller\UserController.php:99</note>
       </notes>
       <segment>
@@ -4082,7 +4287,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="_OcjXRe" name="tfa_backup.no_codes_enabled">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:92</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:99</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:92</note>
       </notes>
       <segment>
@@ -4092,7 +4297,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="9UBDL1p" name="tfa_u2f.u2f_delete.not_existing">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:129</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:136</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:132</note>
       </notes>
       <segment>
@@ -4102,7 +4307,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="6waUw7j" name="tfa_u2f.u2f_delete.access_denied">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:136</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:143</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:139</note>
       </notes>
       <segment>
@@ -4112,7 +4317,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="Kn9dPI5" name="tfa.u2f.u2f_delete.success">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:144</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:151</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:147</note>
       </notes>
       <segment>
@@ -4122,7 +4327,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="h.BcrtU" name="tfa_trustedDevice.invalidate.success">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:176</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:186</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:180</note>
       </notes>
       <segment>
@@ -4132,7 +4337,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="PBKICdd" name="user.settings.saved_flash">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:218</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:233</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:226</note>
         <note priority="1">src\Controller\UserController.php:98</note>
       </notes>
@@ -4143,7 +4348,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="mPAd5JY" name="user.settings.pw_changed_flash">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:280</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:295</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:288</note>
         <note priority="1">src\Controller\UserController.php:130</note>
       </notes>
@@ -4154,7 +4359,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="xy.2mkA" name="user.settings.2fa.google.activated">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:298</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:315</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:306</note>
       </notes>
       <segment>
@@ -4164,7 +4369,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="RXjFD7H" name="user.settings.2fa.google.disabled">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:307</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:326</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:315</note>
       </notes>
       <segment>
@@ -4174,7 +4379,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="4ZUxld3" name="user.settings.2fa.backup_codes.regenerated">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:324</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:344</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:332</note>
       </notes>
       <segment>
@@ -4246,7 +4451,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="eTGx8tR" name="log.target_deleted">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\LogEntryTargetColumn.php:123</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\LogEntryTargetColumn.php:128</note>
         <note priority="1">Part-DB1\src\DataTables\Column\LogEntryTargetColumn.php:119</note>
       </notes>
       <segment>
@@ -4256,7 +4461,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="mzQZ0My" name="log.undo.undelete">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:58</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:57</note>
         <note priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:60</note>
         <note priority="1">new</note>
       </notes>
@@ -4267,7 +4472,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="PI8faHR" name="log.undo.undo">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:64</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:63</note>
         <note priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:66</note>
         <note priority="1">new</note>
       </notes>
@@ -4278,7 +4483,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="Q6mbDaS" name="log.undo.revert">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:84</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:83</note>
         <note priority="1">Part-DB1\src\DataTables\Column\RevertLogColumn.php:86</note>
         <note priority="1">new</note>
       </notes>
@@ -4289,7 +4494,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="6DOZlwQ" name="log.id">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:161</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:173</note>
         <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:161</note>
       </notes>
       <segment>
@@ -4299,7 +4504,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="cMZOrO7" name="log.timestamp">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:166</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:178</note>
         <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:166</note>
       </notes>
       <segment>
@@ -4309,7 +4514,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="Z0BzGVJ" name="log.type">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:171</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:183</note>
         <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:171</note>
       </notes>
       <segment>
@@ -4319,7 +4524,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="KNddOUS" name="log.level">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:179</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:191</note>
         <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:179</note>
       </notes>
       <segment>
@@ -4329,7 +4534,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="3Tv5Xzj" name="log.user">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:188</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:200</note>
         <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:188</note>
       </notes>
       <segment>
@@ -4339,7 +4544,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="bgbGrN5" name="log.target_type">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:201</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:213</note>
         <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:201</note>
       </notes>
       <segment>
@@ -4349,7 +4554,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id=".IgL4C2" name="log.target">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:214</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:226</note>
         <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:214</note>
       </notes>
       <segment>
@@ -4359,7 +4564,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="b4r5dEC" name="log.extra">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:219</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\LogDataTable.php:231</note>
         <note priority="1">Part-DB1\src\DataTables\LogDataTable.php:218</note>
         <note priority="1">new</note>
       </notes>
@@ -4522,7 +4727,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:260</note>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:262</note>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:91</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
         <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:208</note>
         <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:210</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
@@ -4535,7 +4740,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     <unit id="BEnlUff" name="m_status.announced">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:263</note>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:91</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
         <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:211</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
       </notes>
@@ -4547,7 +4752,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     <unit id="TN5xR7J" name="m_status.active">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:264</note>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:91</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
         <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:212</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
       </notes>
@@ -4559,7 +4764,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     <unit id="0McKh_8" name="m_status.nrfnd">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:265</note>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:91</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
         <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:213</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
       </notes>
@@ -4571,7 +4776,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     <unit id="L7yLwn0" name="m_status.eol">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:266</note>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:91</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
         <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:214</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
       </notes>
@@ -4583,7 +4788,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     <unit id="5jxVP1H" name="m_status.discontinued">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\DataTables\PartsDataTable.php:267</note>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:91</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:90</note>
         <note priority="1">Part-DB1\src\DataTables\PartsDataTable.php:215</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:88</note>
       </notes>
@@ -4634,7 +4839,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="HISU3ZB" name="flash.login_successful">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\EventSubscriber\LoginSuccessListener.php:82</note>
+        <note category="file-source" priority="1">Part-DB1\src\EventSubscriber\UserSystem\LoginSuccessSubscriber.php:82</note>
         <note priority="1">Part-DB1\src\EventSubscriber\LoginSuccessListener.php:82</note>
       </notes>
       <segment>
@@ -4764,7 +4969,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="_z1YTpv" name="attachment.edit.secure_file.help">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:109</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:113</note>
         <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:109</note>
       </notes>
       <segment>
@@ -4774,7 +4979,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="pCsSiaz" name="attachment.edit.url.help">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:123</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:127</note>
         <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:123</note>
       </notes>
       <segment>
@@ -4784,7 +4989,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="3ZnUiT_" name="attachment.edit.name">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:79</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:82</note>
         <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:79</note>
       </notes>
       <segment>
@@ -4794,7 +4999,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="kAlm7LR" name="attachment.edit.attachment_type">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:82</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:85</note>
         <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:82</note>
       </notes>
       <segment>
@@ -4804,7 +5009,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="xUV7Oz9" name="attachment.edit.show_in_table">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:91</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:94</note>
         <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:91</note>
       </notes>
       <segment>
@@ -4814,7 +5019,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="v6FVutS" name="attachment.edit.secure_file">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:102</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:105</note>
         <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:102</note>
       </notes>
       <segment>
@@ -4824,7 +5029,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="TRy0RSZ" name="attachment.edit.url">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:115</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:119</note>
         <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:115</note>
       </notes>
       <segment>
@@ -4834,7 +5039,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="ZZjrGgS" name="attachment.edit.download_url">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:129</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:133</note>
         <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:129</note>
       </notes>
       <segment>
@@ -4844,12 +5049,232 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="Pew.kQr" name="attachment.edit.file">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:142</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AttachmentFormType.php:146</note>
         <note priority="1">Part-DB1\src\Form\AttachmentFormType.php:142</note>
       </notes>
       <segment>
         <source>attachment.edit.file</source>
         <target>Datei hochladen</target>
+      </segment>
+    </unit>
+    <unit id="oZsKN5d" name="part.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:66</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:86</note>
+      </notes>
+      <segment>
+        <source>part.label</source>
+        <target>Bauteil</target>
+      </segment>
+    </unit>
+    <unit id="ucI6a2E" name="part_lot.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:66</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:87</note>
+      </notes>
+      <segment>
+        <source>part_lot.label</source>
+        <target>Bauteile Lot</target>
+      </segment>
+    </unit>
+    <unit id="FmESg.O" name="label_options.barcode_type.none">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:76</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.none</source>
+        <target>Keiner</target>
+      </segment>
+    </unit>
+    <unit id="MxYhcsN" name="label_options.barcode_type.qr">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:76</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.qr</source>
+        <target>QR-Code (empfohlen)</target>
+      </segment>
+    </unit>
+    <unit id="uIJQMqh" name="label_options.barcode_type.code128">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:76</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.code128</source>
+        <target>Code 128 (empfehlen)</target>
+      </segment>
+    </unit>
+    <unit id="56JwbDf" name="label_options.barcode_type.code39">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:76</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.code39</source>
+        <target>Code 39 (empfohlen)</target>
+      </segment>
+    </unit>
+    <unit id="lz068u3" name="label_options.barcode_type.code93">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:76</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.code93</source>
+        <target>Code 93</target>
+      </segment>
+    </unit>
+    <unit id="kPFpWmf" name="label_options.barcode_type.datamatrix">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:76</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.datamatrix</source>
+        <target>Datamatrix</target>
+      </segment>
+    </unit>
+    <unit id="7I9OV_t" name="label_options.lines_mode.html">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:121</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.lines_mode.html</source>
+        <target>HTML</target>
+      </segment>
+    </unit>
+    <unit id="dFMpKDI" name="label.options.lines_mode.twig">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:121</note>
+      </notes>
+      <segment state="translated">
+        <source>label.options.lines_mode.twig</source>
+        <target>Twig</target>
+      </segment>
+    </unit>
+    <unit id="BybM1v9" name="label_options.lines_mode.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:125</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.lines_mode.help</source>
+        <target>Wenn sie hier Twig auswählen, wird das Contentfeld als Twig-Template interpretiert. Weitere Hilfe gibt es in der &lt;a href="https://twig.symfony.com/doc/3.x/templates.html"&gt;Twig Dokumentation&lt;/a&gt; und dem &lt;a href="https://github.com/Part-DB/Part-DB-symfony/wiki/Labels#twig-mode"&gt;Wiki&lt;/a&gt;.</target>
+      </segment>
+    </unit>
+    <unit id="2d9g1o5" name="label_options.page_size.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:45</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.page_size.label</source>
+        <target>Größe</target>
+      </segment>
+    </unit>
+    <unit id="7ZEGFJ3" name="label_options.supported_elements.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:64</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.supported_elements.label</source>
+        <target>Elementtyp</target>
+      </segment>
+    </unit>
+    <unit id="eSLhawk" name="label_options.barcode_type.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:73</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.label</source>
+        <target>Barcodetyp</target>
+      </segment>
+    </unit>
+    <unit id="Z8_BSQ1" name="label_profile.lines.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:101</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.lines.label</source>
+        <target>Inhalt</target>
+      </segment>
+    </unit>
+    <unit id="LfMiT9B" name="label_options.additional_css.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:110</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.additional_css.label</source>
+        <target>Zusätzliches CSS</target>
+      </segment>
+    </unit>
+    <unit id="0A6Twij" name="label_options.lines_mode.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:119</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.lines_mode.label</source>
+        <target>Parser Modus</target>
+      </segment>
+    </unit>
+    <unit id="aPqzFJs" name="label_options.width.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:49</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.width.placeholder</source>
+        <target>Breite</target>
+      </segment>
+    </unit>
+    <unit id="t.j1KtN" name="label_options.height.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:58</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.height.placeholder</source>
+        <target>Höhe</target>
+      </segment>
+    </unit>
+    <unit id="nez5RLt" name="label_generator.target_id.range_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:48</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.target_id.range_hint</source>
+        <target>Sie können hier mehrere IDs (z.B. 1, 2, 3) und/oder einen Bereich angeben, um Barcodes für mehrere Elemente auf einmal zu erzeugen.</target>
+      </segment>
+    </unit>
+    <unit id="GN.UJxb" name="label_generator.target_id.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:45</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.target_id.label</source>
+        <target>Element IDs</target>
+      </segment>
+    </unit>
+    <unit id="xSJAE3a" name="label_generator.update">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:59</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.update</source>
+        <target>Update</target>
+      </segment>
+    </unit>
+    <unit id="QQCsPWt" name="scan_dialog.input">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\ScanDialogType.php:34</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>scan_dialog.input</source>
+        <target>Input</target>
+      </segment>
+    </unit>
+    <unit id="xENLE_d" name="scan_dialog.submit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\ScanDialogType.php:42</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>scan_dialog.submit</source>
+        <target>Absenden</target>
       </segment>
     </unit>
     <unit id="o.P_V00" name="parameters.name.placeholder">
@@ -4926,7 +5351,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="jv6wCpP" name="orderdetails.edit.supplierpartnr">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:75</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:72</note>
         <note priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:75</note>
       </notes>
       <segment>
@@ -4936,7 +5361,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="CimWRtu" name="orderdetails.edit.supplier">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:84</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:81</note>
         <note priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:84</note>
       </notes>
       <segment>
@@ -4946,7 +5371,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="qfScBBj" name="orderdetails.edit.url">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:90</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:87</note>
         <note priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:90</note>
       </notes>
       <segment>
@@ -4956,7 +5381,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="D_288lV" name="orderdetails.edit.obsolete">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:96</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:93</note>
         <note priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:96</note>
       </notes>
       <segment>
@@ -4966,7 +5391,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="7r_nI9R" name="orderdetails.edit.supplierpartnr.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:78</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:75</note>
         <note priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:78</note>
       </notes>
       <segment>
@@ -4976,7 +5401,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="HZwLFnu" name="part.edit.name">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:102</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:101</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:99</note>
       </notes>
       <segment>
@@ -4986,7 +5411,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="9MhdLlK" name="part.edit.description">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:110</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:109</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:107</note>
       </notes>
       <segment>
@@ -4996,7 +5421,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="Xzj9BP8" name="part.edit.mininstock">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:121</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:120</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:118</note>
       </notes>
       <segment>
@@ -5006,7 +5431,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="1VN9ldj" name="part.edit.category">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:130</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:129</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:127</note>
       </notes>
       <segment>
@@ -5016,7 +5441,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="IROdosg" name="part.edit.footprint">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:136</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:135</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:133</note>
       </notes>
       <segment>
@@ -5026,7 +5451,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="KHkWjTz" name="part.edit.tags">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:143</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:142</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:140</note>
       </notes>
       <segment>
@@ -5036,7 +5461,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="4ok13kM" name="part.edit.manufacturer.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:155</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:154</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:152</note>
       </notes>
       <segment>
@@ -5046,7 +5471,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="0qS9528" name="part.edit.manufacturer_url.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:162</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:161</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:159</note>
       </notes>
       <segment>
@@ -5056,7 +5481,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="tuRAA_9" name="part.edit.mpn">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:168</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:167</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:165</note>
       </notes>
       <segment>
@@ -5066,7 +5491,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="rcE_03k" name="part.edit.manufacturing_status">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:174</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:173</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:171</note>
       </notes>
       <segment>
@@ -5076,7 +5501,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="tdUi2VV" name="part.edit.needs_review">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:182</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:181</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:179</note>
       </notes>
       <segment>
@@ -5086,7 +5511,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="thxZ5LH" name="part.edit.is_favorite">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:190</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:189</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:187</note>
       </notes>
       <segment>
@@ -5096,7 +5521,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="epWuzE5" name="part.edit.mass">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:198</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:197</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:195</note>
       </notes>
       <segment>
@@ -5106,7 +5531,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="kpiGJo0" name="part.edit.partUnit">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:204</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:203</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:201</note>
       </notes>
       <segment>
@@ -5116,7 +5541,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="LTZRVlq" name="part.edit.comment">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:213</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:212</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:210</note>
       </notes>
       <segment>
@@ -5126,7 +5551,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="cIVLqUs" name="part.edit.master_attachment">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:249</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:250</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:246</note>
       </notes>
       <segment>
@@ -5136,7 +5561,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="vZwa6za" name="part.edit.save">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:292</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:295</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:276</note>
         <note priority="1">src\Form\PartType.php:91</note>
       </notes>
@@ -5147,7 +5572,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="_GqPyC3" name="part.edit.reset">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:293</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:296</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:277</note>
         <note priority="1">src\Form\PartType.php:92</note>
       </notes>
@@ -5158,7 +5583,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="wN.sxj3" name="part.edit.name.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:106</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:105</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:103</note>
       </notes>
       <segment>
@@ -5168,12 +5593,22 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="rMHwTBI" name="part.edit.description.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:116</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:115</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:113</note>
       </notes>
       <segment>
         <source>part.edit.description.placeholder</source>
         <target>z.B.  NPN 45V 0,1A 0,5W</target>
+      </segment>
+    </unit>
+    <unit id=".V3Lfkf" name="part.editmininstock.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:123</note>
+        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:121</note>
+      </notes>
+      <segment>
+        <source>part.editmininstock.placeholder</source>
+        <target>e.g. 1</target>
       </segment>
     </unit>
     <unit id="6QS4K7r" name="part_lot.edit.description">
@@ -5208,7 +5643,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="OPwK3Lq" name="part_lot.edit.instock_unknown">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:97</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:98</note>
         <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:97</note>
       </notes>
       <segment>
@@ -5218,7 +5653,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="uHBgsns" name="part_lot.edit.needs_refill">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:108</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:109</note>
         <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:108</note>
       </notes>
       <segment>
@@ -5228,7 +5663,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="xorQnlc" name="part_lot.edit.expiration_date">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:119</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:120</note>
         <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:119</note>
       </notes>
       <segment>
@@ -5238,7 +5673,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="OjwY78X" name="part_lot.edit.comment">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:125</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartLotType.php:128</note>
         <note priority="1">Part-DB1\src\Form\Part\PartLotType.php:125</note>
       </notes>
       <segment>
@@ -5297,20 +5732,9 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Zeitzone</target>
       </segment>
     </unit>
-    <unit id="HhQjrkN" name="user.theme.label">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:119</note>
-        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:119</note>
-        <note priority="1">src\Form\UserSettingsType.php:49</note>
-      </notes>
-      <segment>
-        <source>user.theme.label</source>
-        <target>Theme</target>
-      </segment>
-    </unit>
     <unit id="uGQ16Yq" name="user.currency.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:132</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:133</note>
         <note priority="1">Part-DB1\src\Form\UserSettingsType.php:132</note>
       </notes>
       <segment>
@@ -5320,7 +5744,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="FX3KkuQ" name="save">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:139</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:140</note>
         <note priority="1">Part-DB1\src\Form\UserSettingsType.php:139</note>
         <note priority="1">src\Form\UserSettingsType.php:53</note>
       </notes>
@@ -5331,7 +5755,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="Ab4wu0o" name="reset">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:140</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:141</note>
         <note priority="1">Part-DB1\src\Form\UserSettingsType.php:140</note>
         <note priority="1">src\Form\UserSettingsType.php:54</note>
       </notes>
@@ -5360,17 +5784,6 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment>
         <source>user_settings.timezone.placeholder</source>
         <target>Serverweite Zeitzone</target>
-      </segment>
-    </unit>
-    <unit id="Dpfk52." name="user_settings.theme.placeholder">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\UserSettingsType.php:129</note>
-        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:129</note>
-        <note priority="1">src\Form\UserSettingsType.php:50</note>
-      </notes>
-      <segment>
-        <source>user_settings.theme.placeholder</source>
-        <target>Serverweites Theme</target>
       </segment>
     </unit>
     <unit id="ExjMUEE" name="attachment.label">
@@ -5411,26 +5824,6 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment>
         <source>measurement_unit.label</source>
         <target>Maßeinheit</target>
-      </segment>
-    </unit>
-    <unit id="oZsKN5d" name="part.label">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:86</note>
-        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:86</note>
-      </notes>
-      <segment>
-        <source>part.label</source>
-        <target>Bauteil</target>
-      </segment>
-    </unit>
-    <unit id="ucI6a2E" name="part_lot.label">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:87</note>
-        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:87</note>
-      </notes>
-      <segment>
-        <source>part_lot.label</source>
-        <target>Bauteile Lot</target>
       </segment>
     </unit>
     <unit id="5lJftbn" name="currency.label">
@@ -5482,9 +5875,18 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Parameter</target>
       </segment>
     </unit>
+    <unit id="0koS1dD" name="label_profile.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:96</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.label</source>
+        <target>Labelprofil</target>
+      </segment>
+    </unit>
     <unit id=".nBJJBz" name="log.element_deleted.old_name.unknown">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:175</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:176</note>
         <note priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:161</note>
         <note priority="1">new</note>
       </notes>
@@ -5513,9 +5915,18 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Passwort Reset für Ihren Part-DB Account</target>
       </segment>
     </unit>
+    <unit id="_D86R1w" name="tree.tools.tools">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:108</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.tools</source>
+        <target>Tools</target>
+      </segment>
+    </unit>
     <unit id="sgHHET2" name="tree.tools.edit">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:107</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:109</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:107</note>
         <note priority="1">src\Services\ToolsTreeBuilder.php:74</note>
       </notes>
@@ -5526,7 +5937,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="RRgi9vd" name="tree.tools.show">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:108</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:110</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:108</note>
         <note priority="1">src\Services\ToolsTreeBuilder.php:81</note>
       </notes>
@@ -5537,7 +5948,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="nQkvo2A" name="tree.tools.system">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:109</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:111</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:109</note>
       </notes>
       <segment>
@@ -5545,9 +5956,27 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>System</target>
       </segment>
     </unit>
+    <unit id="Cd_wFWS" name="tree.tools.tools.label_dialog">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:123</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.tools.label_dialog</source>
+        <target>Labeldialog</target>
+      </segment>
+    </unit>
+    <unit id="fVHzYVj" name="tree.tools.tools.label_scanner">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:130</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.tools.label_scanner</source>
+        <target>Labelscanner</target>
+      </segment>
+    </unit>
     <unit id="Umzi6EP" name="tree.tools.edit.attachment_types">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:126</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:149</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:126</note>
         <note priority="1">src\Services\ToolsTreeBuilder.php:62</note>
       </notes>
@@ -5558,7 +5987,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="IWpzGV5" name="tree.tools.edit.categories">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:132</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:155</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:132</note>
         <note priority="1">src\Services\ToolsTreeBuilder.php:64</note>
       </notes>
@@ -5569,7 +5998,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="b2pLmAq" name="tree.tools.edit.devices">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:138</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:161</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:138</note>
         <note priority="1">src\Services\ToolsTreeBuilder.php:66</note>
       </notes>
@@ -5580,7 +6009,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="BFfweU_" name="tree.tools.edit.suppliers">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:144</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:167</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:144</note>
         <note priority="1">src\Services\ToolsTreeBuilder.php:68</note>
       </notes>
@@ -5591,7 +6020,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="bkM5GtE" name="tree.tools.edit.manufacturer">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:150</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:173</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:150</note>
         <note priority="1">src\Services\ToolsTreeBuilder.php:70</note>
       </notes>
@@ -5602,7 +6031,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="0uWeEo4" name="tree.tools.edit.storelocation">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:156</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:179</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:156</note>
       </notes>
       <segment>
@@ -5612,7 +6041,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="AQHSEDZ" name="tree.tools.edit.footprint">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:162</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:185</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:162</note>
       </notes>
       <segment>
@@ -5622,7 +6051,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="RBBr5gI" name="tree.tools.edit.currency">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:168</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:191</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:168</note>
       </notes>
       <segment>
@@ -5632,7 +6061,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="624h27t" name="tree.tools.edit.measurement_unit">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:174</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:197</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:174</note>
       </notes>
       <segment>
@@ -5640,9 +6069,18 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Maßeinheiten</target>
       </segment>
     </unit>
+    <unit id="YAalchf" name="tree.tools.edit.label_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:203</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.label_profile</source>
+        <target>Labelprofil</target>
+      </segment>
+    </unit>
     <unit id="CBX7i_1" name="tree.tools.edit.part">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:180</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:209</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:180</note>
       </notes>
       <segment>
@@ -5652,7 +6090,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="cMe4sAM" name="tree.tools.show.all_parts">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:197</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:227</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:197</note>
         <note priority="1">src\Services\ToolsTreeBuilder.php:77</note>
       </notes>
@@ -5663,7 +6101,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="aGy9QbC" name="tree.tools.show.all_attachments">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:203</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:233</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:203</note>
       </notes>
       <segment>
@@ -5673,7 +6111,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="4_7bZqX" name="tree.tools.show.statistics">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:210</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:240</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:210</note>
         <note priority="1">new</note>
       </notes>
@@ -5684,7 +6122,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="D1it4FK" name="tree.tools.system.users">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:229</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:259</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:229</note>
       </notes>
       <segment>
@@ -5694,7 +6132,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="7rI.aP2" name="tree.tools.system.groups">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:235</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:265</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:235</note>
       </notes>
       <segment>
@@ -5704,7 +6142,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="uwNvMFE" name="tree.tools.system.event_log">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:242</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:272</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:242</note>
         <note priority="1">new</note>
       </notes>
@@ -5724,14 +6162,57 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Neues Element</target>
       </segment>
     </unit>
-    <unit id=".V3Lfkf" name="part.editmininstock.placeholder">
+    <unit id="3Vc5_D2" name="attachment.external_file">
       <notes>
-        <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:121</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:34</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
-        <source>part.editmininstock.placeholder</source>
-        <target>e.g. 1</target>
+        <source>attachment.external_file</source>
+        <target>Externe Datei</target>
+      </segment>
+    </unit>
+    <unit id="gexfRxf" name="attachment.edit">
+      <notes>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:62</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>attachment.edit</source>
+        <target>Bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="iqU5ScK" name="barcode.scan">
+      <notes>
+        <note priority="1">Part-DB1\templates\_navbar.html.twig:27</note>
+        <note priority="1">templates\base.html.twig:88</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>barcode.scan</source>
+        <target>Scanne Barcode</target>
+      </segment>
+    </unit>
+    <unit id="HhQjrkN" name="user.theme.label">
+      <notes>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:119</note>
+        <note priority="1">src\Form\UserSettingsType.php:49</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>user.theme.label</source>
+        <target>Theme</target>
+      </segment>
+    </unit>
+    <unit id="Dpfk52." name="user_settings.theme.placeholder">
+      <notes>
+        <note priority="1">Part-DB1\src\Form\UserSettingsType.php:129</note>
+        <note priority="1">src\Form\UserSettingsType.php:50</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment>
+        <source>user_settings.theme.placeholder</source>
+        <target>Serverweites Theme</target>
       </segment>
     </unit>
     <unit id="CPJxiHz" name="M">
@@ -5756,7 +6237,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
     </unit>
     <unit id="47DEQpj" name="">
       <segment>
-        <source></source>
+        <source/>
         <target> </target>
       </segment>
     </unit>
@@ -8147,118 +8628,130 @@ Element 3</target>
         <target>__log.type.</target>
       </segment>
     </unit>
-    <unit id="Msykg.Z" name="entity.info.attachments.tab">
-      <segment>
-        <source>entity.info.attachments.tab</source>
-        <target>Dateianhänge</target>
-      </segment>
-    </unit>
-    <unit id="8VfTCPf" name="entity.info.parameters.tab">
-      <segment>
-        <source>entity.info.parameters.tab</source>
-        <target>Parameter</target>
-      </segment>
-    </unit>
-    <unit id="gWj51jS" name="attachment.preview">
-      <segment>
-        <source>attachment.preview</source>
-        <target>Vorschaubild</target>
-      </segment>
-    </unit>
     <unit id="WjnV7iC" name="tfa_u2f.key_added_successful">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>tfa_u2f.key_added_successful</source>
         <target>Sicherheitsschlüssel erfolgreich hinzugefügt.</target>
       </segment>
     </unit>
     <unit id="47ienTP" name="Username">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>Username</source>
         <target>Benutzername</target>
       </segment>
     </unit>
     <unit id="dVu9PKe" name="log.type.security.google_disabled">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>log.type.security.google_disabled</source>
         <target>Authenticator App deaktiviert</target>
       </segment>
     </unit>
     <unit id="HfccXTr" name="log.type.security.u2f_removed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>log.type.security.u2f_removed</source>
         <target>Sicherheitsschlüssel gelöscht</target>
       </segment>
     </unit>
     <unit id="zl1WXuM" name="log.type.security.u2f_added">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>log.type.security.u2f_added</source>
         <target>Sicherheitsschlüssel hinzugefügt</target>
       </segment>
     </unit>
     <unit id="9_jzHX6" name="log.type.security.backup_keys_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>log.type.security.backup_keys_reset</source>
         <target>Neue Backupkeys erzeugt</target>
       </segment>
     </unit>
     <unit id="h6zwXNp" name="log.type.security.google_enabled">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>log.type.security.google_enabled</source>
         <target>Authenticator App aktiviert</target>
       </segment>
     </unit>
     <unit id="XbsoHIr" name="log.type.security.password_changed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>log.type.security.password_changed</source>
         <target>Passwort geändert</target>
       </segment>
     </unit>
     <unit id="2q0_b3P" name="log.type.security.trusted_device_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>log.type.security.trusted_device_reset</source>
         <target>Vertrauenswürdige Geräte zurückgesetzt</target>
       </segment>
     </unit>
     <unit id="n8flY2e" name="log.type.collection_element_deleted">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>log.type.collection_element_deleted</source>
         <target>Kollektionselement gelöscht</target>
       </segment>
     </unit>
     <unit id="yNm8PCN" name="log.type.security.password_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>log.type.security.password_reset</source>
         <target>Passwort zurückgesetzt</target>
       </segment>
     </unit>
     <unit id="CsjgnTI" name="log.type.security.2fa_admin_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>log.type.security.2fa_admin_reset</source>
         <target>Zwei-Faktor-Authentifizierung durch Administrator zurückgesetzt</target>
       </segment>
     </unit>
-    <unit id="vlslklu" name="entity.duplicate">
-      <segment>
-        <source>entity.duplicate</source>
-        <target>Element duplizieren</target>
-      </segment>
-    </unit>
     <unit id="bJ.EAvM" name="log.type.user_not_allowed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>log.type.user_not_allowed</source>
         <target>Unerlaubter Zugriffsversuch</target>
       </segment>
     </unit>
     <unit id="Z28oTau" name="log.database_updated.success">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>log.database_updated.success</source>
         <target>Erfolgreich</target>
-      </segment>
-    </unit>
-    <unit id="iCTvpEA" name="navbar.scanner.link">
-      <segment>
-        <source>navbar.scanner.link</source>
-        <target>Scanner</target>
       </segment>
     </unit>
   </file>
