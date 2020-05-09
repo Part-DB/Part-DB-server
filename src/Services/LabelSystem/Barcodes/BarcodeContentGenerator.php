@@ -30,9 +30,9 @@ use App\Entity\Parts\Supplier;
 use App\Exceptions\EntityNotSupportedException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class BarcodeContentGenerator
+final class BarcodeContentGenerator
 {
-    protected $urlGenerator;
+    private $urlGenerator;
 
     public const PREFIX_MAP = [
         Part::class => 'P',
@@ -40,7 +40,7 @@ class BarcodeContentGenerator
         Storelocation::class => 'S'
     ];
 
-    protected const URL_MAP = [
+    private const URL_MAP = [
         Part::class => 'part',
         PartLot::class => 'lot',
         Storelocation::class => 'location',
@@ -80,7 +80,7 @@ class BarcodeContentGenerator
         return $prefix  . $id;
     }
 
-    protected function classToString(array $map, object $target): string
+    private function classToString(array $map, object $target): string
     {
         $class = get_class($target);
         if (isset($map[$class])) {

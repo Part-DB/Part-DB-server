@@ -32,13 +32,13 @@ use Twig\Error\SyntaxError;
 
 final class LabelHTMLGenerator
 {
-    protected $twig;
-    protected $elementTypeNameGenerator;
-    protected $replacer;
-    protected $barcodeGenerator;
-    protected $sandboxedTwigProvider;
-    protected $partdb_title;
-    protected $security;
+    private $twig;
+    private $elementTypeNameGenerator;
+    private $replacer;
+    private $barcodeGenerator;
+    private $sandboxedTwigProvider;
+    private $partdb_title;
+    private $security;
 
     public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator, LabelTextReplacer $replacer, Environment $twig,
         BarcodeGenerator $barcodeGenerator, SandboxedTwigProvider $sandboxedTwigProvider, Security $security, string $partdb_title)

@@ -25,11 +25,11 @@ use App\Entity\Parts\Part;
 use App\Services\SIFormatter;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class PartProvider implements PlaceholderProviderInterface
+final class PartProvider implements PlaceholderProviderInterface
 {
 
-    protected $siFormatter;
-    protected $translator;
+    private $siFormatter;
+    private $translator;
 
     public function __construct(SIFormatter $SIFormatter, TranslatorInterface $translator)
     {

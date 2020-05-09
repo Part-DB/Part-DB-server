@@ -24,9 +24,9 @@ use App\Entity\LabelSystem\LabelOptions;
 use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
 use Com\Tecnick\Barcode\Barcode;
 
-class BarcodeGenerator
+final class BarcodeGenerator
 {
-    protected $barcodeContentGenerator;
+    private $barcodeContentGenerator;
 
     public function __construct(BarcodeContentGenerator $barcodeContentGenerator)
     {

@@ -27,9 +27,9 @@ use App\Services\LabelSystem\PlaceholderProviders\PlaceholderProviderInterface;
  * It uses the PlaceholderProviders provided by PlaceholderProviderInterface classes.
  * @package App\Services\LabelSystem
  */
-class LabelTextReplacer
+final class LabelTextReplacer
 {
-    protected $providers;
+    private $providers;
 
     public function __construct(iterable $providers)
     {

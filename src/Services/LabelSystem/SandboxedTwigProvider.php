@@ -48,10 +48,10 @@ use Twig\Extra\Intl\IntlExtension;
 use Twig\Sandbox\SecurityPolicy;
 use Twig\Sandbox\SecurityPolicyInterface;
 
-class SandboxedTwigProvider
+final class SandboxedTwigProvider
 {
-    protected const ALLOWED_TAGS = ['apply', 'autoescape', 'do', 'for', 'if', 'set', 'verbatim', 'with'];
-    protected const ALLOWED_FILTERS = ['abs', 'batch', 'capitalize', 'column', 'country_name',
+    private const ALLOWED_TAGS = ['apply', 'autoescape', 'do', 'for', 'if', 'set', 'verbatim', 'with'];
+    private const ALLOWED_FILTERS = ['abs', 'batch', 'capitalize', 'column', 'country_name',
         'currency_name', 'currency_symbol', 'date', 'date_modify', 'default', 'escape', 'filter', 'first', 'format',
         'format_currency', 'format_date', 'format_datetime', 'format_number', 'format_time', 'join', 'keys',
         'language_name', 'last', 'length', 'locale_name', 'lower', 'map', 'merge', 'nl2br', 'raw', 'number_format',
@@ -60,9 +60,9 @@ class SandboxedTwigProvider
         //Part-DB specific filters:
         'moneyFormat', 'siFormat', 'amountFormat'];
 
-    protected const ALLOWED_FUNCTIONS = ['date', 'html_classes', 'max', 'min', 'random', 'range'];
+    private const ALLOWED_FUNCTIONS = ['date', 'html_classes', 'max', 'min', 'random', 'range'];
 
-    protected const ALLOWED_METHODS = [
+    private const ALLOWED_METHODS = [
         NamedElementInterface::class => ['getName'],
         AbstractDBElement::class => ['getID', '__toString'],
         TimeStampableInterface::class => ['getLastModified', 'getAddedDate'],
@@ -93,7 +93,7 @@ class SandboxedTwigProvider
             'getDepartment', 'getEmail']
 
     ];
-    protected const ALLOWED_PROPERTIES = [];
+    private const ALLOWED_PROPERTIES = [];
 
     private $appExtension;
 

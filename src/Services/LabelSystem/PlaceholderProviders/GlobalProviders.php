@@ -30,11 +30,11 @@ use Symfony\Component\Security\Core\Security;
  * Provides Placeholders for infos about global infos like Installation name or datetimes.
  * @package App\Services\LabelSystem\PlaceholderProviders
  */
-class GlobalProviders implements PlaceholderProviderInterface
+final class GlobalProviders implements PlaceholderProviderInterface
 {
 
-    protected $partdb_title;
-    protected $security;
+    private $partdb_title;
+    private $security;
 
     public function __construct(string $partdb_title, Security $security)
     {

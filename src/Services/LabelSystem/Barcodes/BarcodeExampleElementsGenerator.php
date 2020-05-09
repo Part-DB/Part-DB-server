@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace App\Services\LabelSystem;
+namespace App\Services\LabelSystem\Barcodes;
 
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parts\Category;
@@ -28,7 +28,7 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 
-class BarcodeExampleElementsGenerator
+final class BarcodeExampleElementsGenerator
 {
     public function getElement(string $type): object
     {
@@ -44,7 +44,7 @@ class BarcodeExampleElementsGenerator
         }
     }
 
-    protected function getStorelocation(): Storelocation
+    private function getStorelocation(): Storelocation
     {
         $storelocation = new Storelocation();
         $storelocation->setName('Location 1');
@@ -59,7 +59,7 @@ class BarcodeExampleElementsGenerator
         return $storelocation;
     }
 
-    protected function getStructuralData(string $class): AbstractStructuralDBElement
+    private function getStructuralData(string $class): AbstractStructuralDBElement
     {
         if (!is_a($class, AbstractStructuralDBElement::class, true)) {
            throw new \InvalidArgumentException('$class must be an child of AbstractStructuralDBElement');

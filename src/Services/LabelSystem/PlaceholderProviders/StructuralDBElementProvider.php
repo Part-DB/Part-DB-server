@@ -24,7 +24,7 @@ namespace App\Services\LabelSystem\PlaceholderProviders;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 
-class StructuralDBElementProvider implements PlaceholderProviderInterface
+final class StructuralDBElementProvider implements PlaceholderProviderInterface
 {
 
     public function replace(string $placeholder, object $label_target, array $options = []): ?string

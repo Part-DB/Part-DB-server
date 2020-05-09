@@ -56,7 +56,7 @@ use App\Form\AdminPages\MassCreationForm;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
-use App\Services\LabelSystem\BarcodeExampleElementsGenerator;
+use App\Services\LabelSystem\Barcodes\BarcodeExampleElementsGenerator;
 use App\Services\LabelSystem\LabelGenerator;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\HistoryHelper;

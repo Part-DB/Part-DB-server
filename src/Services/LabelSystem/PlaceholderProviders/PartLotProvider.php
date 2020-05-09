@@ -27,10 +27,10 @@ use App\Services\LabelSystem\LabelTextReplacer;
 use IntlDateFormatter;
 use Locale;
 
-class PartLotProvider implements PlaceholderProviderInterface
+final class PartLotProvider implements PlaceholderProviderInterface
 {
-    protected $labelTextReplacer;
-    protected $amountFormatter;
+    private $labelTextReplacer;
+    private $amountFormatter;
 
     public function __construct(LabelTextReplacer $labelTextReplacer, AmountFormatter $amountFormatter)
     {

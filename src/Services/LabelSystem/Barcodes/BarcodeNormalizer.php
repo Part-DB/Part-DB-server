@@ -21,9 +21,9 @@
 namespace App\Services\LabelSystem\Barcodes;
 
 
-class BarcodeNormalizer
+final class BarcodeNormalizer
 {
-    protected const PREFIX_TYPE_MAP = [
+    private const PREFIX_TYPE_MAP = [
         'L' => 'lot',
         'P' => 'part',
         'S' => 'location',

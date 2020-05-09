@@ -23,7 +23,7 @@ namespace App\Services\LabelSystem\PlaceholderProviders;
 
 use App\Entity\Contracts\NamedElementInterface;
 
-class NamedElementProvider implements PlaceholderProviderInterface
+final class NamedElementProvider implements PlaceholderProviderInterface
 {
 
     /**

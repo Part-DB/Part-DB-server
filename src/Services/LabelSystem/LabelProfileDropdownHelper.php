@@ -28,7 +28,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
-class LabelProfileDropdownHelper
+final class LabelProfileDropdownHelper
 {
     private $cache;
     private $entityManager;

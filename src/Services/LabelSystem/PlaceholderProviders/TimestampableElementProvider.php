@@ -24,7 +24,7 @@ use App\Entity\Contracts\TimeStampableInterface;
 use IntlDateFormatter;
 use Locale;
 
-class TimestampableElementProvider implements PlaceholderProviderInterface
+final class TimestampableElementProvider implements PlaceholderProviderInterface
 {
 
     /**

@@ -24,9 +24,9 @@ namespace App\Services\LabelSystem\PlaceholderProviders;
 use App\Entity\Base\AbstractDBElement;
 use App\Services\ElementTypeNameGenerator;
 
-class AbstractDBElementProvider implements PlaceholderProviderInterface
+final class AbstractDBElementProvider implements PlaceholderProviderInterface
 {
-    protected $elementTypeNameGenerator;
+    private $elementTypeNameGenerator;
 
     public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator)
     {

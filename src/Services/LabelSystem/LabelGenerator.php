@@ -30,7 +30,7 @@ use App\Services\ElementTypeNameGenerator;
 use Dompdf\Dompdf;
 use Twig\Environment;
 
-class LabelGenerator
+final class LabelGenerator
 {
     public const CLASS_SUPPORT_MAPPING = [
         'part' => Part::class,
@@ -40,7 +40,7 @@ class LabelGenerator
 
     public const MM_TO_POINTS_FACTOR = 2.83465;
 
-    protected $labelHTMLGenerator;
+    private $labelHTMLGenerator;
 
     public function __construct(LabelHTMLGenerator $labelHTMLGenerator)
     {

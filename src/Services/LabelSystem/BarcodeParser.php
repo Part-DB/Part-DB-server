@@ -26,10 +26,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class BarcodeParser
+final class BarcodeParser
 {
-    protected $urlGenerator;
-    protected $em;
+    private $urlGenerator;
+    private $em;
 
 
     public function __construct(UrlGeneratorInterface $urlGenerator, EntityManagerInterface $entityManager)
