@@ -22,7 +22,7 @@ namespace App\Controller;
 
 
 use App\Form\LabelSystem\ScanDialogType;
-use App\Services\LabelSystem\BarcodeParser;
+use App\Services\LabelSystem\Barcodes\BarcodeRedirector;
 use App\Services\LabelSystem\Barcodes\BarcodeNormalizer;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,7 +40,7 @@ class ScanController extends AbstractController
     protected $barcodeParser;
     protected $barcodeNormalizer;
 
-    public function __construct(BarcodeParser $barcodeParser, BarcodeNormalizer $barcodeNormalizer)
+    public function __construct(BarcodeRedirector $barcodeParser, BarcodeNormalizer $barcodeNormalizer)
     {
         $this->barcodeParser = $barcodeParser;
         $this->barcodeNormalizer = $barcodeNormalizer;
@@ -61,7 +61,7 @@ class ScanController extends AbstractController
             try {
                 [$type, $id] = $this->barcodeNormalizer->normalizeBarcodeContent($input);
                 try {
-                    return $this->redirect($this->barcodeParser->getQRRedirectTarget($type, $id));
+                    return $this->redirect($this->barcodeParser->getRedirectURL($type, $id));
                 } catch (EntityNotFoundException $exception) {
                     $this->addFlash('success', 'scan.qr_not_found');
                 }
@@ -84,7 +84,7 @@ class ScanController extends AbstractController
     {
         try {
             $this->addFlash('success', 'scan.qr_success');
-            return $this->redirect($this->barcodeParser->getQRRedirectTarget($type, $id));
+            return $this->redirect($this->barcodeParser->getRedirectURL($type, $id));
         } catch (EntityNotFoundException $exception) {
             $this->addFlash('success', 'scan.qr_not_found');
             return $this->redirectToRoute('homepage');

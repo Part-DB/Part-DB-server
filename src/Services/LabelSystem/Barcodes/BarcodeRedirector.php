@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace App\Services\LabelSystem;
+namespace App\Services\LabelSystem\Barcodes;
 
 
 use App\Entity\Parts\PartLot;
@@ -26,7 +26,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-final class BarcodeParser
+final class BarcodeRedirector
 {
     private $urlGenerator;
     private $em;
@@ -45,7 +45,7 @@ final class BarcodeParser
      * @return string The URL to which should be redirected.
      * @throws EntityNotFoundException
      */
-    public function getQRRedirectTarget(string $type, int $id): string
+    public function getRedirectURL(string $type, int $id): string
     {
         switch ($type) {
             case 'part':

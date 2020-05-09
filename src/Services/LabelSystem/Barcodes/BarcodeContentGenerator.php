@@ -76,7 +76,7 @@ final class BarcodeContentGenerator
     public function get1DBarcodeContent(AbstractDBElement $target): string
     {
         $prefix = $this->classToString(self::PREFIX_MAP, $target);
-        $id = sprintf('%04d', $target->getID());
+        $id = sprintf('%04d', $target->getID() ?? 0);
         return $prefix  . $id;
     }
 

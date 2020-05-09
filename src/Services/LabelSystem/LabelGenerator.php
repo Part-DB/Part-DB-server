@@ -62,8 +62,6 @@ final class LabelGenerator
             $elements = [$elements];
         }
 
-        $elements_html = [];
-
         foreach ($elements as $element) {
             if (!$this->supports($options, $element)) {
                 throw new \InvalidArgumentException('The given options are not compatible with the given element!');
@@ -94,8 +92,14 @@ final class LabelGenerator
         return is_a($element, static::CLASS_SUPPORT_MAPPING[$supported_type]);
     }
 
+    /**
+     * Converts width and height given in mm to an size array, that can be used by DOMPDF for page size
+     * @param  float  $width The width of the paper
+     * @param  float  $height The height of the paper
+     * @return float[]
+     */
     public function mmToPointsArray(float $width, float $height): array
     {
-        return [0, 0, $width * self::MM_TO_POINTS_FACTOR, $height * self::MM_TO_POINTS_FACTOR];
+        return [0.0, 0.0, $width * self::MM_TO_POINTS_FACTOR, $height * self::MM_TO_POINTS_FACTOR];
     }
 }
