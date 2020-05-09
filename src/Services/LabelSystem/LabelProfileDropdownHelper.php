@@ -22,6 +22,7 @@ namespace App\Services\LabelSystem;
 
 
 use App\Entity\LabelSystem\LabelProfile;
+use App\Repository\LabelProfileRepository;
 use App\Services\UserCacheKeyGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Cache\ItemInterface;
@@ -45,6 +46,7 @@ class LabelProfileDropdownHelper
         $secure_class_name = str_replace('\\', '_', LabelProfile::class);
         $key = 'profile_dropdown_'.$this->keyGenerator->generateKey().'_'.$secure_class_name . '_' . $type;
 
+        /** @var LabelProfileRepository $repo */
         $repo = $this->entityManager->getRepository(LabelProfile::class);
 
         return $this->cache->get($key, function (ItemInterface $item) use ($repo, $type, $secure_class_name) {

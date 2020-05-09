@@ -67,7 +67,7 @@ final class LabelHTMLGenerator
 
         $page = 1;
         foreach ($elements as $element) {
-            if ($options->getLinesMode() === 'twig' && $sandboxed_twig !== null) {
+            if ($options->getLinesMode() === 'twig' && isset($sandboxed_twig) && isset($current_user)) {
                 try {
                     $lines = $sandboxed_twig->render(
                         'lines',
