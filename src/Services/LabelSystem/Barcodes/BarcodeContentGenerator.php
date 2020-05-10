@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,24 +23,18 @@
 
 namespace App\Services\LabelSystem\Barcodes;
 
-
 use App\Entity\Base\AbstractDBElement;
-use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
-use App\Entity\Parts\Supplier;
-use App\Exceptions\EntityNotSupportedException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class BarcodeContentGenerator
 {
-    private $urlGenerator;
-
     public const PREFIX_MAP = [
         Part::class => 'P',
         PartLot::class => 'L',
-        Storelocation::class => 'S'
+        Storelocation::class => 'S',
     ];
 
     private const URL_MAP = [
@@ -45,6 +42,7 @@ final class BarcodeContentGenerator
         PartLot::class => 'lot',
         Storelocation::class => 'location',
     ];
+    private $urlGenerator;
 
     public function __construct(UrlGeneratorInterface $urlGenerator)
     {
@@ -53,7 +51,7 @@ final class BarcodeContentGenerator
 
     /**
      * Generates a fixed URL to the given Element that can be embedded in a 2D code (e.g. QR code).
-     * @param  AbstractDBElement  $target
+     *
      * @return string
      */
     public function getURLContent(AbstractDBElement $target): string
@@ -69,15 +67,16 @@ final class BarcodeContentGenerator
 
     /**
      * Returns a Code that can be used in a 1D barcode.
-     * The return value has a format of "L0123"
-     * @param  AbstractDBElement  $target
+     * The return value has a format of "L0123".
+     *
      * @return string
      */
     public function get1DBarcodeContent(AbstractDBElement $target): string
     {
         $prefix = $this->classToString(self::PREFIX_MAP, $target);
         $id = sprintf('%04d', $target->getID() ?? 0);
-        return $prefix  . $id;
+
+        return $prefix.$id;
     }
 
     private function classToString(array $map, object $target): string
@@ -87,12 +86,12 @@ final class BarcodeContentGenerator
             return $map[$class];
         }
 
-        foreach($map as $class => $string) {
+        foreach ($map as $class => $string) {
             if (is_a($target, $class)) {
                 return $string;
             }
         }
 
-        throw new \InvalidArgumentException('Unknown object class ' . get_class($target));
+        throw new \InvalidArgumentException('Unknown object class '.get_class($target));
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,7 +23,6 @@
 
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
-
 use App\Entity\Base\AbstractDBElement;
 use App\Services\ElementTypeNameGenerator;
 
@@ -33,21 +35,16 @@ final class AbstractDBElementProvider implements PlaceholderProviderInterface
         $this->elementTypeNameGenerator = $elementTypeNameGenerator;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function replace(string $placeholder, object $label_target, array $options = []): ?string
     {
         if ($label_target instanceof AbstractDBElement) {
-
-            if ($placeholder === '[[TYPE]]') {
+            if ('[[TYPE]]' === $placeholder) {
                 return $this->elementTypeNameGenerator->getLocalizedTypeLabel($label_target);
             }
 
-            if ($placeholder === '[[ID]]') {
+            if ('[[ID]]' === $placeholder) {
                 return (string) ($label_target->getID() ?? 'unknown');
             }
-
         }
 
         return null;

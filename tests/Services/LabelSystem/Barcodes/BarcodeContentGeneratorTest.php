@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -24,20 +27,20 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class BarcodeContentGeneratorTest extends KernelTestCase
 {
-    /** @var BarcodeContentGenerator */
+    /**
+     * @var BarcodeContentGenerator
+     */
     private $service;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::bootKernel();
         $this->service = self::$container->get(BarcodeContentGenerator::class);
     }
-
 
     public function Barcode1DDataProvider(): array
     {
@@ -53,7 +56,7 @@ class BarcodeContentGeneratorTest extends KernelTestCase
         return [
             ['/scan/part/0', Part::class],
             ['/scan/lot/0', PartLot::class],
-            ['/scan/location/0', Storelocation::class]
+            ['/scan/location/0', Storelocation::class],
         ];
     }
 

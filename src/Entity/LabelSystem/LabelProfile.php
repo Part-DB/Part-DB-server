@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -32,7 +35,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="label_profiles")
  * @ORM\EntityListeners({"App\EntityListeners\TreeCacheInvalidationListener"})
  * @UniqueEntity({"name", "options.supported_element"})
- * @package App\Entity\LabelSystem
  */
 class LabelProfile extends AttachmentContainingDBElement
 {
@@ -73,14 +75,16 @@ class LabelProfile extends AttachmentContainingDBElement
         return $this->options;
     }
 
-    public function setOptions(LabelOptions $labelOptions): LabelProfile
+    public function setOptions(LabelOptions $labelOptions): self
     {
         $this->options = $labelOptions;
+
         return $this;
     }
 
     /**
      * Get the comment of the element.
+     *
      * @return string the comment
      */
     public function getComment(): ?string
@@ -91,11 +95,13 @@ class LabelProfile extends AttachmentContainingDBElement
     public function setComment(string $new_comment): string
     {
         $this->comment = $new_comment;
+
         return $this;
     }
 
     /**
      * Returns true, if this label profile should be shown in label generator quick menu.
+     *
      * @return bool
      */
     public function isShowInDropdown(): bool
@@ -105,20 +111,16 @@ class LabelProfile extends AttachmentContainingDBElement
 
     /**
      * Sets the show in dropdown menu.
-     * @param  bool  $show_in_dropdown
+     *
      * @return LabelProfile
      */
-    public function setShowInDropdown(bool $show_in_dropdown): LabelProfile
+    public function setShowInDropdown(bool $show_in_dropdown): self
     {
         $this->show_in_dropdown = $show_in_dropdown;
+
         return $this;
     }
 
-
-
-    /**
-     * @inheritDoc
-     */
     public function getIDString(): string
     {
         return 'LP'.sprintf('%09d', $this->getID());

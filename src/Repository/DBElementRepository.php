@@ -52,7 +52,7 @@ class DBElementRepository extends EntityRepository
 
     /**
      * Find all elements that match a list of IDs.
-     * @param  array  $ids
+     *
      * @return AbstractDBElement[]
      */
     public function getElementsFromIDArray(array $ids): array

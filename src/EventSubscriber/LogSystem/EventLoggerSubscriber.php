@@ -70,12 +70,16 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 class EventLoggerSubscriber implements EventSubscriber
 {
-    /** @var array The given fields will not be saved, because they contain sensitive informations */
+    /**
+     * @var array The given fields will not be saved, because they contain sensitive informations
+     */
     protected const FIELD_BLACKLIST = [
         User::class => ['password', 'need_pw_change', 'googleAuthenticatorSecret', 'backupCodes', 'trustedDeviceCookieVersion', 'pw_reset_token', 'backupCodesGenerationDate'],
     ];
 
-    /** @var array If elements of the given class are deleted, a log for the given fields will be triggered */
+    /**
+     * @var array If elements of the given class are deleted, a log for the given fields will be triggered
+     */
     protected const TRIGGER_ASSOCIATION_LOG_WHITELIST = [
         PartLot::class => ['part'],
         Orderdetail::class => ['part'],

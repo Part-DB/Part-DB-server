@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -22,20 +25,19 @@ namespace App\Tests\Services\LabelSystem;
 
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
-use App\Services\AmountFormatter;
 use App\Services\LabelSystem\LabelTextReplacer;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class LabelTextReplacerTest extends WebTestCase
 {
-
     /**
      * @var LabelTextReplacer
      */
     protected $service;
 
-    /** @var Part */
+    /**
+     * @var Part
+     */
     protected $target;
 
     protected function setUp(): void
@@ -76,7 +78,7 @@ class LabelTextReplacerTest extends WebTestCase
             ['[[UNKNOWN]] Test', '[[UNKNOWN]] Test'],
             ["[[NAME\n]] [[NAME ]]", "[[NAME\n]] [[NAME ]]"],
             ['[[]]', '[[]]'],
-            ['TEST[[ ]]TEST', 'TEST[[ ]]TEST']
+            ['TEST[[ ]]TEST', 'TEST[[ ]]TEST'],
         ];
     }
 

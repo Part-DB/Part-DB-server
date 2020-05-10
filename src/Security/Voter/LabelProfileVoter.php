@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,13 +23,11 @@
 
 namespace App\Security\Voter;
 
-
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\UserSystem\User;
 
 class LabelProfileVoter extends ExtendedVoter
 {
-
     protected const MAPPING = [
         'read' => 'read_profiles',
         'create' => 'create_profiles',
@@ -36,21 +37,15 @@ class LabelProfileVoter extends ExtendedVoter
         'revert_element' => 'revert_element',
     ];
 
-    /**
-     * @inheritDoc
-     */
     protected function voteOnUser($attribute, $subject, User $user): bool
     {
         return $this->resolver->inherit($user, 'labels', self::MAPPING[$attribute]) ?? false;
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function supports($attribute, $subject)
     {
         if ($subject instanceof LabelProfile) {
-            if (!isset(self::MAPPING[$attribute])) {
+            if (! isset(self::MAPPING[$attribute])) {
                 return false;
             }
 

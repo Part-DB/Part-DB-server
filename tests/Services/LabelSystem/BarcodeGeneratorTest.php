@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -23,16 +26,16 @@ namespace App\Tests\Services\LabelSystem;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\Parts\Part;
 use App\Services\LabelSystem\BarcodeGenerator;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 final class BarcodeGeneratorTest extends WebTestCase
 {
-
-    /** @var BarcodeGenerator */
+    /**
+     * @var BarcodeGenerator
+     */
     protected $services;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::bootKernel();
         $this->services = self::$container->get(BarcodeGenerator::class);
@@ -50,7 +53,7 @@ final class BarcodeGeneratorTest extends WebTestCase
             $content = $this->services->generateSVG($options, $part);
 
             //When type is none, service must return null.
-            if ($type === 'none') {
+            if ('none' === $type) {
                 $this->assertNull($content);
             } else {
                 $this->assertIsString($content);
@@ -70,10 +73,10 @@ final class BarcodeGeneratorTest extends WebTestCase
             $svg = $this->services->generateSVG($options, $part);
 
             //When type is none, service must return null.
-            if ($type === "none") {
+            if ('none' === $type) {
                 $this->assertNull($svg);
             } else {
-                $this->assertStringContainsStringIgnoringCase("SVG", $svg);
+                $this->assertStringContainsStringIgnoringCase('SVG', $svg);
             }
         }
     }

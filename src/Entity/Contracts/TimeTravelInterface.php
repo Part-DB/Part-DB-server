@@ -33,7 +33,9 @@ interface TimeTravelInterface
      */
     public function hasOldDataInformations(): bool;
 
-    /** Returns the data the entity had before this log entry. */
+    /**
+     * Returns the data the entity had before this log entry.
+     */
     public function getOldData(): array;
 
     /**

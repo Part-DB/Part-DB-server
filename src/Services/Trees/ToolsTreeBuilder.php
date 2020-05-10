@@ -211,7 +211,6 @@ class ToolsTreeBuilder
             );
         }
 
-
         return $nodes;
     }
 

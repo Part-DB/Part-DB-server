@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -28,29 +31,24 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TimestampableElementProviderTest extends WebTestCase
 {
-    /** @var GlobalProviders */
+    /**
+     * @var GlobalProviders
+     */
     protected $service;
 
     protected $target;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::bootKernel();
         \Locale::setDefault('en');
         $this->service = self::$container->get(TimestampableElementProvider::class);
-        $this->target = new class implements TimeStampableInterface {
-
-            /**
-             * @inheritDoc
-             */
+        $this->target = new class() implements TimeStampableInterface {
             public function getLastModified(): ?DateTime
             {
                 return new \DateTime('2000-01-01');
             }
 
-            /**
-             * @inheritDoc
-             */
             public function getAddedDate(): ?DateTime
             {
                 return new \DateTime('2000-01-01');

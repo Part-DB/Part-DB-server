@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -24,18 +27,18 @@ use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
-use App\Services\LabelSystem\Barcodes\BarcodeExampleElementsGenerator;
 use App\Services\LabelSystem\SandboxedTwigProvider;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Twig\Sandbox\SecurityError;
 
 class SandboxedTwigProviderTest extends WebTestCase
 {
-    /** @var SandboxedTwigProvider */
+    /**
+     * @var SandboxedTwigProvider
+     */
     private $service;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::bootKernel();
         $this->service = self::$container->get(SandboxedTwigProvider::class);
@@ -65,26 +68,25 @@ class SandboxedTwigProviderTest extends WebTestCase
             '],
             ['
                 {{ part.reviewNeeded }} {{ part.tags }} {{ part.mass }}
-            ']
+            '],
         ];
     }
 
     public function twigNotAllowedDataProvider(): array
     {
         return [
-            ["{% block test %} {% endblock %}"],
-            ["{% deprecated test %}"],
-            ["{% flush %}"],
+            ['{% block test %} {% endblock %}'],
+            ['{% deprecated test %}'],
+            ['{% flush %}'],
             ["{{ part.setName('test') }}"],
-            ["{{ part.setCategory(null) }}"]
+            ['{{ part.setCategory(null) }}'],
         ];
     }
-
 
     /**
      * @dataProvider twigDataProvider
      */
-    public function testTwigFeatures(string $twig)
+    public function testTwigFeatures(string $twig): void
     {
         $options = new LabelOptions();
         $options->setSupportedElement('part');
@@ -104,7 +106,7 @@ class SandboxedTwigProviderTest extends WebTestCase
     /**
      * @dataProvider twigNotAllowedDataProvider
      */
-    public function testTwigForbidden(string $twig)
+    public function testTwigForbidden(string $twig): void
     {
         $this->expectException(SecurityError::class);
 

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,15 +23,11 @@
 
 namespace App\Services\LabelSystem;
 
-
-use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
-use App\Services\ElementTypeNameGenerator;
 use Dompdf\Dompdf;
-use Twig\Environment;
 
 final class LabelGenerator
 {
@@ -48,44 +47,43 @@ final class LabelGenerator
     }
 
     /**
-     * @param  LabelOptions  $options
-     * @param  object|object[]  $elements An element or an array of elements for which labels should be generated
+     * @param object|object[] $elements An element or an array of elements for which labels should be generated
+     *
      * @return string
      */
     public function generateLabel(LabelOptions $options, $elements): string
     {
-        if (!is_array($elements) && !is_object($elements)) {
+        if (! is_array($elements) && ! is_object($elements)) {
             throw new \InvalidArgumentException('$element must be an object or an array of objects!');
         }
 
-        if (!is_array($elements)) {
+        if (! is_array($elements)) {
             $elements = [$elements];
         }
 
         foreach ($elements as $element) {
-            if (!$this->supports($options, $element)) {
+            if (! $this->supports($options, $element)) {
                 throw new \InvalidArgumentException('The given options are not compatible with the given element!');
             }
         }
-
 
         $dompdf = new Dompdf();
         $dompdf->setPaper($this->mmToPointsArray($options->getWidth(), $options->getHeight()));
         $dompdf->loadHtml($this->labelHTMLGenerator->getLabelHTML($options, $elements));
         $dompdf->render();
+
         return $dompdf->output();
     }
 
     /**
      * Check if the given LabelOptions can be used with $element.
-     * @param  LabelOptions  $options
-     * @param  object  $element
+     *
      * @return bool
      */
     public function supports(LabelOptions $options, object $element)
     {
         $supported_type = $options->getSupportedElement();
-        if (!isset(static::CLASS_SUPPORT_MAPPING[$supported_type])) {
+        if (! isset(static::CLASS_SUPPORT_MAPPING[$supported_type])) {
             throw new \InvalidArgumentException('Supported type name of the Label options not known!');
         }
 
@@ -93,9 +91,11 @@ final class LabelGenerator
     }
 
     /**
-     * Converts width and height given in mm to an size array, that can be used by DOMPDF for page size
-     * @param  float  $width The width of the paper
-     * @param  float  $height The height of the paper
+     * Converts width and height given in mm to an size array, that can be used by DOMPDF for page size.
+     *
+     * @param float $width  The width of the paper
+     * @param float $height The height of the paper
+     *
      * @return float[]
      */
     public function mmToPointsArray(float $width, float $height): array

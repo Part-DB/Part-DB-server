@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of Twig.
  *
@@ -75,19 +77,19 @@ final class InheritanceSecurityPolicy implements SecurityPolicyInterface
     public function checkSecurity($tags, $filters, $functions): void
     {
         foreach ($tags as $tag) {
-            if (!\in_array($tag, $this->allowedTags)) {
+            if (! \in_array($tag, $this->allowedTags, true)) {
                 throw new SecurityNotAllowedTagError(sprintf('Tag "%s" is not allowed.', $tag), $tag);
             }
         }
 
         foreach ($filters as $filter) {
-            if (!\in_array($filter, $this->allowedFilters)) {
+            if (! \in_array($filter, $this->allowedFilters, true)) {
                 throw new SecurityNotAllowedFilterError(sprintf('Filter "%s" is not allowed.', $filter), $filter);
             }
         }
 
         foreach ($functions as $function) {
-            if (!\in_array($function, $this->allowedFunctions)) {
+            if (! \in_array($function, $this->allowedFunctions, true)) {
                 throw new SecurityNotAllowedFunctionError(sprintf('Function "%s" is not allowed.', $function), $function);
             }
         }
@@ -103,7 +105,7 @@ final class InheritanceSecurityPolicy implements SecurityPolicyInterface
         $method = strtr($method, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
         foreach ($this->allowedMethods as $class => $methods) {
             if ($obj instanceof $class) {
-                $allowed = \in_array($method, $methods);
+                $allowed = \in_array($method, $methods, true);
 
                 //CHANGED: Only break if we the method is allowed, otherwise try it on the other methods
                 if ($allowed) {
@@ -112,8 +114,9 @@ final class InheritanceSecurityPolicy implements SecurityPolicyInterface
             }
         }
 
-        if (!$allowed) {
+        if (! $allowed) {
             $class = \get_class($obj);
+
             throw new SecurityNotAllowedMethodError(sprintf('Calling "%s" method on a "%s" object is not allowed.', $method, $class), $class, $method);
         }
     }
@@ -123,7 +126,7 @@ final class InheritanceSecurityPolicy implements SecurityPolicyInterface
         $allowed = false;
         foreach ($this->allowedProperties as $class => $properties) {
             if ($obj instanceof $class) {
-                $allowed = \in_array($property, \is_array($properties) ? $properties : [$properties]);
+                $allowed = \in_array($property, \is_array($properties) ? $properties : [$properties], true);
 
                 //CHANGED: Only break if we the method is allowed, otherwise try it on the other methods
                 if ($allowed) {
@@ -132,8 +135,9 @@ final class InheritanceSecurityPolicy implements SecurityPolicyInterface
             }
         }
 
-        if (!$allowed) {
+        if (! $allowed) {
             $class = \get_class($obj);
+
             throw new SecurityNotAllowedPropertyError(sprintf('Calling "%s" property on a "%s" object is not allowed.', $property, $class), $class, $property);
         }
     }

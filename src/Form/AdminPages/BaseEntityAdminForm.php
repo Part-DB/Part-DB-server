@@ -45,7 +45,6 @@ namespace App\Form\AdminPages;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
-use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Form\AttachmentFormType;
 use App\Form\ParameterType;
@@ -106,7 +105,7 @@ class BaseEntityAdminForm extends AbstractType
                     'class' => get_class($entity),
                     'required' => false,
                     'label' => 'parent.label',
-                    'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
+                    'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity),
                 ]
             )
                 ->add(
@@ -119,7 +118,7 @@ class BaseEntityAdminForm extends AbstractType
                         'label_attr' => [
                             'class' => 'checkbox-custom',
                         ],
-                        'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+                        'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
                     ]
                 );
         }
@@ -135,7 +134,7 @@ class BaseEntityAdminForm extends AbstractType
                         'rows' => 4,
                     ],
                     'help' => 'bbcode.hint',
-                    'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+                    'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
                 ]
             );
         }
@@ -178,7 +177,7 @@ class BaseEntityAdminForm extends AbstractType
                     'entry_type' => ParameterType::class,
                     'allow_add' => $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
                     'allow_delete' => $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-                    'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+                    'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
                     'reindex_enable' => true,
                     'label' => false,
                     'by_reference' => false,

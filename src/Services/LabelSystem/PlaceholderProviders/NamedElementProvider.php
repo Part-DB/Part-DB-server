@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,18 +23,13 @@
 
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
-
 use App\Entity\Contracts\NamedElementInterface;
 
 final class NamedElementProvider implements PlaceholderProviderInterface
 {
-
-    /**
-     * @inheritDoc
-     */
     public function replace(string $placeholder, object $label_target, array $options = []): ?string
     {
-        if ($label_target instanceof NamedElementInterface && $placeholder === '[[NAME]]') {
+        if ($label_target instanceof NamedElementInterface && '[[NAME]]' === $placeholder) {
             return $label_target->getName();
         }
 

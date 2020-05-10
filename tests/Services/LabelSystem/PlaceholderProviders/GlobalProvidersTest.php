@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -22,17 +25,18 @@ namespace App\Tests\Services\LabelSystem\PlaceholderProviders;
 
 use App\Entity\Parts\Part;
 use App\Services\LabelSystem\PlaceholderProviders\GlobalProviders;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class GlobalProvidersTest extends WebTestCase
 {
-    /** @var GlobalProviders */
+    /**
+     * @var GlobalProviders
+     */
     protected $service;
 
     protected $target;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::bootKernel();
         $this->service = self::$container->get(GlobalProviders::class);

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,13 +24,15 @@
 namespace App\Services\Misc;
 
 /**
- * This Parser allows to parse number ranges like 1-3, 4, 5
+ * This Parser allows to parse number ranges like 1-3, 4, 5.
  */
 class RangeParser
 {
     /**
      * Converts the given range string to an array of all numbers in the given range.
-     * @param  string  $range_str A range string like '1-3, 5, 6'
+     *
+     * @param string $range_str A range string like '1-3, 5, 6'
+     *
      * @return int[] An array with all numbers from the range (e.g. [1, 2, 3, 5, 6]
      */
     public function parse(string $range_str): array
@@ -48,7 +53,7 @@ class RangeParser
             } elseif (empty($number)) { //Allow empty tokens
                 continue;
             } else {
-                throw new \InvalidArgumentException('Invalid range encoutered: ' . $number);
+                throw new \InvalidArgumentException('Invalid range encoutered: '.$number);
             }
         }
 
@@ -58,13 +63,16 @@ class RangeParser
 
     /**
      * Checks if the given string is a valid range.
-     * @param  string  $range_str The string that should be checked
+     *
+     * @param string $range_str The string that should be checked
+     *
      * @return bool True if the string is valid, false if not.
      */
     public function isValidRange(string $range_str): bool
     {
         try {
             $this->parse($range_str);
+
             return true;
         } catch (\InvalidArgumentException $exception) {
             return false;
@@ -86,8 +94,8 @@ class RangeParser
         $tmp = [];
         while ($min <= $max) {
             $tmp[] = $min;
-            $min++;
-        };
+            ++$min;
+        }
 
         return $tmp;
     }

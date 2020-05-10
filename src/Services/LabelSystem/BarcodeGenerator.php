@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -40,18 +43,23 @@ final class BarcodeGenerator
         switch ($options->getBarcodeType()) {
             case 'qr':
                 $type = 'QRCODE';
+
                 break;
             case 'datamatrix':
                 $type = 'DATAMATRIX';
+
                 break;
             case 'code39':
                 $type = 'C39';
+
                 break;
             case 'code93':
                 $type = 'C93';
+
                 break;
             case 'code128':
                 $type = 'C128A';
+
                 break;
             case 'none':
                 return null;
@@ -80,5 +88,4 @@ final class BarcodeGenerator
                 throw new \InvalidArgumentException('Unknown label type!');
         }
     }
-
 }

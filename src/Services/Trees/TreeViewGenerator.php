@@ -118,13 +118,13 @@ class TreeViewGenerator
                 $item->addTag((string) \count($item->getNodes()));
             }
 
-            if (! empty($href_type) && $item->getId() !== null) {
+            if (! empty($href_type) && null !== $item->getId()) {
                 $entity = $this->em->getPartialReference($class, $item->getId());
                 $item->setHref($this->urlGenerator->getURL($entity, $href_type));
             }
 
             //Translate text if text starts with $$
-            if (substr($item->getText(), 0, 2) === '$$') {
+            if ('$$' === substr($item->getText(), 0, 2)) {
                 $item->setText($this->translator->trans(substr($item->getText(), 2)));
             }
         }

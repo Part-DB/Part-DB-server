@@ -28,7 +28,9 @@ use App\Entity\UserSystem\User;
 
 class OrderdetailVoter extends ExtendedVoter
 {
-    /** @var string[] When this permsission are encountered, they are checked on part */
+    /**
+     * @var string[] When this permsission are encountered, they are checked on part
+     */
     protected const PART_PERMS = ['show_history', 'revert_element'];
 
     protected function voteOnUser($attribute, $subject, User $user): bool

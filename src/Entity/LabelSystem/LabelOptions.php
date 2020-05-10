@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -96,12 +99,12 @@ class LabelOptions
     }
 
     /**
-     * @param  float  $width
      * @return LabelOptions
      */
-    public function setWidth(float $width): LabelOptions
+    public function setWidth(float $width): self
     {
         $this->width = $width;
+
         return $this;
     }
 
@@ -114,12 +117,12 @@ class LabelOptions
     }
 
     /**
-     * @param  float  $height
      * @return LabelOptions
      */
-    public function setHeight(float $height): LabelOptions
+    public function setHeight(float $height): self
     {
         $this->height = $height;
+
         return $this;
     }
 
@@ -132,12 +135,12 @@ class LabelOptions
     }
 
     /**
-     * @param  string  $barcode_type
      * @return LabelOptions
      */
-    public function setBarcodeType(string $barcode_type): LabelOptions
+    public function setBarcodeType(string $barcode_type): self
     {
         $this->barcode_type = $barcode_type;
+
         return $this;
     }
 
@@ -150,12 +153,12 @@ class LabelOptions
     }
 
     /**
-     * @param  string  $picture_type
      * @return LabelOptions
      */
-    public function setPictureType(string $picture_type): LabelOptions
+    public function setPictureType(string $picture_type): self
     {
         $this->picture_type = $picture_type;
+
         return $this;
     }
 
@@ -168,12 +171,12 @@ class LabelOptions
     }
 
     /**
-     * @param  string  $supported_element
      * @return LabelOptions
      */
-    public function setSupportedElement(string $supported_element): LabelOptions
+    public function setSupportedElement(string $supported_element): self
     {
         $this->supported_element = $supported_element;
+
         return $this;
     }
 
@@ -186,17 +189,18 @@ class LabelOptions
     }
 
     /**
-     * @param  string  $lines
      * @return LabelOptions
      */
-    public function setLines(string $lines): LabelOptions
+    public function setLines(string $lines): self
     {
         $this->lines = $lines;
+
         return $this;
     }
 
     /**
-     * Gets additional CSS (it will simply be attached 
+     * Gets additional CSS (it will simply be attached.
+     *
      * @return string
      */
     public function getAdditionalCss(): string
@@ -205,13 +209,12 @@ class LabelOptions
     }
 
     /**
-     *
-     * @param  string  $additional_css
      * @return LabelOptions
      */
-    public function setAdditionalCss(string $additional_css): LabelOptions
+    public function setAdditionalCss(string $additional_css): self
     {
         $this->additional_css = $additional_css;
+
         return $this;
     }
 
@@ -224,17 +227,12 @@ class LabelOptions
     }
 
     /**
-     * @param  string  $lines_mode
      * @return LabelOptions
      */
-    public function setLinesMode(string $lines_mode): LabelOptions
+    public function setLinesMode(string $lines_mode): self
     {
         $this->lines_mode = $lines_mode;
+
         return $this;
     }
-
-
-
-
-
 }

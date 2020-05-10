@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -24,11 +27,9 @@ use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Exceptions\TwigModeException;
 use App\Services\ElementTypeNameGenerator;
-use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
 use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
 use Twig\Error\Error;
-use Twig\Error\SyntaxError;
 
 final class LabelHTMLGenerator
 {
@@ -60,14 +61,14 @@ final class LabelHTMLGenerator
 
         $twig_elements = [];
 
-        if ($options->getLinesMode() === 'twig') {
+        if ('twig' === $options->getLinesMode()) {
             $sandboxed_twig = $this->sandboxedTwigProvider->getTwig($options);
             $current_user = $this->security->getUser();
         }
 
         $page = 1;
         foreach ($elements as $element) {
-            if ($options->getLinesMode() === 'twig' && isset($sandboxed_twig) && isset($current_user)) {
+            if ('twig' === $options->getLinesMode() && isset($sandboxed_twig) && isset($current_user)) {
                 try {
                     $lines = $sandboxed_twig->render(
                         'lines',
@@ -92,9 +93,8 @@ final class LabelHTMLGenerator
                 'barcode_content' => $this->barcodeGenerator->getContent($options, $element),
             ];
 
-            $page++;
+            ++$page;
         }
-
 
         return $this->twig->render('LabelSystem/labels/base_label.html.twig', [
             'meta_title' => $this->getPDFTitle($options, $elements[0]),
@@ -103,8 +103,7 @@ final class LabelHTMLGenerator
         ]);
     }
 
-
-    protected function getPDFTitle(LabelOptions $options, object $element)
+    private function getPDFTitle(LabelOptions $options, object $element)
     {
         if ($element instanceof NamedElementInterface) {
             return $this->elementTypeNameGenerator->getTypeNameCombination($element, false);

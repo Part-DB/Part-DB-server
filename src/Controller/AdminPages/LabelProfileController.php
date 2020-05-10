@@ -43,12 +43,8 @@ declare(strict_types=1);
 namespace App\Controller\AdminPages;
 
 use App\Entity\Attachments\AttachmentType;
-use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Entity\Attachments\LabelAttachment;
 use App\Entity\LabelSystem\LabelProfile;
-use App\Entity\Parameters\AttachmentTypeParameter;
-use App\Form\AdminPages\AttachmentTypeAdminForm;
-use App\Form\AdminPages\BaseEntityAdminForm;
 use App\Form\AdminPages\LabelProfileAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;

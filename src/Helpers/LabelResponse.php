@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,8 +23,6 @@
 
 namespace App\Helpers;
 
-
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,6 +40,7 @@ class LabelResponse extends Response
 
         $this->setAutoEtag();
         $this->setAutoLastModified();
+
         return $this;
     }
 
@@ -46,8 +48,7 @@ class LabelResponse extends Response
     {
         parent::prepare($request);
 
-        $this->headers->set('Content-Type','application/pdf');
-
+        $this->headers->set('Content-Type', 'application/pdf');
 
         if ('HTTP/1.0' !== $request->server->get('SERVER_PROTOCOL')) {
             $this->setProtocolVersion('1.1');
@@ -89,7 +90,7 @@ class LabelResponse extends Response
      */
     public function setContentDisposition($disposition, $filename, $filenameFallback = '')
     {
-        if ('' === $filenameFallback && (!preg_match('/^[\x20-\x7e]*$/', $filename) || false !== strpos($filename, '%'))) {
+        if ('' === $filenameFallback && (! preg_match('/^[\x20-\x7e]*$/', $filename) || false !== strpos($filename, '%'))) {
             $encoding = mb_detect_encoding($filename, null, true) ?: '8bit';
 
             for ($i = 0, $filenameLength = mb_strlen($filename, $encoding); $i < $filenameLength; ++$i) {
@@ -108,5 +109,4 @@ class LabelResponse extends Response
 
         return $this;
     }
-
 }

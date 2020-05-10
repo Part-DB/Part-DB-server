@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,7 +23,6 @@
 
 namespace App\Form;
 
-
 use App\Entity\LabelSystem\LabelOptions;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
@@ -40,7 +42,7 @@ class LabelOptionsType extends AbstractType
         $this->security = $security;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('width', NumberType::class, [
             'label' => 'label_options.page_size.label',
@@ -49,7 +51,7 @@ class LabelOptionsType extends AbstractType
                 'placeholder' => 'label_options.width.placeholder',
                 'min' => 0,
                 'step' => 'any',
-            ]
+            ],
         ]);
         $builder->add('height', NumberType::class, [
             'label' => false,
@@ -58,7 +60,7 @@ class LabelOptionsType extends AbstractType
                 'placeholder' => 'label_options.height.placeholder',
                 'min' => 0,
                 'step' => 'any',
-            ]
+            ],
         ]);
 
         $builder->add('supported_element', ChoiceType::class, [
@@ -67,11 +69,11 @@ class LabelOptionsType extends AbstractType
                 'part.label' => 'part',
                 'part_lot.label' => 'part_lot',
                 'storelocation.label' => 'storelocation',
-            ]
+            ],
         ]);
 
         $builder->add('barcode_type', ChoiceType::class, [
-           'label' => 'label_options.barcode_type.label',
+            'label' => 'label_options.barcode_type.label',
             'empty_data' => 'none',
             'choices' => [
                 'label_options.barcode_type.none' => 'none',
@@ -82,10 +84,10 @@ class LabelOptionsType extends AbstractType
                 'label_options.barcode_type.datamatrix' => 'datamatrix',
             ],
             'group_by' => function ($choice, $key, $value) {
-                if (in_array($choice, ['qr', 'datamatrix'])) {
+                if (in_array($choice, ['qr', 'datamatrix'], true)) {
                     return 'label_options.barcode_type.2D';
                 }
-                if (in_array($choice, ['code39', 'code93', 'code128'])) {
+                if (in_array($choice, ['code39', 'code93', 'code128'], true)) {
                     return 'label_options.barcode_type.1D';
                 }
 
@@ -95,7 +97,6 @@ class LabelOptionsType extends AbstractType
                 'class' => 'selectpicker',
                 'data-live-search' => true,
             ],
-
         ]);
 
         $builder->add('lines', CKEditorType::class, [
@@ -126,16 +127,16 @@ class LabelOptionsType extends AbstractType
             'help_html' => true,
             'expanded' => true,
             'attr' => [
-                'class' => 'pt-2'
+                'class' => 'pt-2',
             ],
             'label_attr' => [
-                'class' => 'radio-custom radio-inline'
+                'class' => 'radio-custom radio-inline',
             ],
-            'disabled' => !$this->security->isGranted('@labels.use_twig')
+            'disabled' => ! $this->security->isGranted('@labels.use_twig'),
         ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('data_class', LabelOptions::class);
     }

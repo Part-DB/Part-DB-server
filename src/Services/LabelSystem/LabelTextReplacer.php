@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -25,7 +28,6 @@ use App\Services\LabelSystem\PlaceholderProviders\PlaceholderProviderInterface;
 /**
  * This service replaces the Placeholders of the user provided lines with the proper informations.
  * It uses the PlaceholderProviders provided by PlaceholderProviderInterface classes.
- * @package App\Services\LabelSystem
  */
 final class LabelTextReplacer
 {
@@ -39,16 +41,18 @@ final class LabelTextReplacer
     /**
      * Determine the replacement for a single placeholder. It is iterated over all Replacement Providers.
      * If the given string is not a placeholder or the placeholder is not known, it will be returned unchanged.
-     * @param  string  $placeholder The placeholder that should be replaced. (e.g. '%%PLACEHOLDER%%')
-     * @param  object  $target The object that should be used for the placeholder info source.
-     * @return string  If the placeholder was valid, the replaced info. Otherwise the passed string.
+     *
+     * @param string $placeholder The placeholder that should be replaced. (e.g. '%%PLACEHOLDER%%')
+     * @param object $target      The object that should be used for the placeholder info source.
+     *
+     * @return string If the placeholder was valid, the replaced info. Otherwise the passed string.
      */
     public function handlePlaceholder(string $placeholder, object $target): string
     {
         foreach ($this->providers as $provider) {
             /** @var PlaceholderProviderInterface $provider */
             $ret = $provider->replace($placeholder, $target);
-            if ($ret !== null) {
+            if (null !== $ret) {
                 return $ret;
             }
         }
@@ -58,8 +62,10 @@ final class LabelTextReplacer
 
     /**
      * Replaces all placeholders in the input lines.
-     * @param  string  $lines The input lines that should be replaced
-     * @param  object  $target The object that should be used as source for the informations.
+     *
+     * @param string $lines  The input lines that should be replaced
+     * @param object $target The object that should be used as source for the informations.
+     *
      * @return string The Lines with replaced informations.
      */
     public function replace(string $lines, object $target): string

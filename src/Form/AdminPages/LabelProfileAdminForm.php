@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,7 +23,6 @@
 
 namespace App\Form\AdminPages;
 
-
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Form\LabelOptionsType;
@@ -30,9 +32,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LabelProfileAdminForm extends BaseEntityAdminForm
 {
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        parent::configureOptions($resolver);
+        $resolver->setDefault('data_class', LabelProfile::class);
+        $resolver->setDefault('disable_options', false);
+    }
+
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
     {
-
         $builder->add('show_in_dropdown', CheckboxType::class, [
             'required' => false,
             'label' => 'label_profile.showInDropdown',
@@ -44,12 +52,5 @@ class LabelProfileAdminForm extends BaseEntityAdminForm
             'label' => false,
             'disabled' => $options['disable_options'],
         ]);
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        parent::configureOptions($resolver);
-        $resolver->setDefault('data_class', LabelProfile::class);
-        $resolver->setDefault('disable_options', false);
     }
 }

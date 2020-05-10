@@ -46,7 +46,6 @@ use App\DataTables\LogDataTable;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\LabelSystem\LabelProfile;
-use App\Entity\Parts\PartLot;
 use App\Entity\UserSystem\User;
 use App\Events\SecurityEvent;
 use App\Events\SecurityEvents;
@@ -94,7 +93,9 @@ abstract class BaseAdminController extends AbstractController
     protected $historyHelper;
     protected $timeTravel;
     protected $dataTableFactory;
-    /** @var EventDispatcher */
+    /**
+     * @var EventDispatcher
+     */
     protected $eventDispatcher;
     protected $labelGenerator;
     protected $barcodeExampleGenerator;
@@ -165,7 +166,7 @@ abstract class BaseAdminController extends AbstractController
             $table = null;
         }
 
-        $form_options =  [
+        $form_options = [
             'attachment_class' => $this->attachment_class,
             'parameter_class' => $this->parameter_class,
             'disabled' => null !== $timeTravel_timestamp ? true : false,
@@ -174,8 +175,8 @@ abstract class BaseAdminController extends AbstractController
         //Disable editing of options, if user is not allowed to use twig...
         if (
             $entity instanceof LabelProfile
-            && $entity->getOptions()->getLinesMode() === 'twig'
-            && !$this->isGranted('@labels.use_twig')
+            && 'twig' === $entity->getOptions()->getLinesMode()
+            && ! $this->isGranted('@labels.use_twig')
         ) {
             $form_options['disable_options'] = true;
         }

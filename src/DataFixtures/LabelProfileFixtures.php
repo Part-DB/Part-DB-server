@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,7 +23,6 @@
 
 namespace App\DataFixtures;
 
-
 use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\LabelSystem\LabelProfile;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -29,7 +31,6 @@ use Doctrine\Persistence\ObjectManager;
 
 class LabelProfileFixtures extends Fixture
 {
-
     protected $em;
 
     public function __construct(EntityManagerInterface $entityManager)
@@ -37,9 +38,9 @@ class LabelProfileFixtures extends Fixture
         $this->em = $entityManager;
     }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
-        $this->em->getConnection()->exec("ALTER TABLE `label_profiles` AUTO_INCREMENT = 1;");
+        $this->em->getConnection()->exec('ALTER TABLE `label_profiles` AUTO_INCREMENT = 1;');
 
         $profile1 = new LabelProfile();
         $profile1->setName('Profile 1');
@@ -77,13 +78,12 @@ class LabelProfileFixtures extends Fixture
 
         $manager->persist($profile3);
 
-
         $profile4 = new LabelProfile();
         $profile4->setName('Profile 4');
         $profile4->setShowInDropdown(true);
 
         $option4 = new LabelOptions();
-        $option4->setLines("{{ element.name }}");
+        $option4->setLines('{{ element.name }}');
         $option4->setBarcodeType('code39');
         $option4->setSupportedElement('part');
         $option4->setLinesMode('twig');

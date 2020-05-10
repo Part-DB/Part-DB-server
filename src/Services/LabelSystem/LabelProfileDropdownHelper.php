@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -19,7 +22,6 @@
  */
 
 namespace App\Services\LabelSystem;
-
 
 use App\Entity\LabelSystem\LabelProfile;
 use App\Repository\LabelProfileRepository;
@@ -44,7 +46,7 @@ final class LabelProfileDropdownHelper
     public function getDropdownProfiles(string $type): array
     {
         $secure_class_name = str_replace('\\', '_', LabelProfile::class);
-        $key = 'profile_dropdown_'.$this->keyGenerator->generateKey().'_'.$secure_class_name . '_' . $type;
+        $key = 'profile_dropdown_'.$this->keyGenerator->generateKey().'_'.$secure_class_name.'_'.$type;
 
         /** @var LabelProfileRepository $repo */
         $repo = $this->entityManager->getRepository(LabelProfile::class);

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,11 +23,9 @@
 
 namespace App\Form\LabelSystem;
 
-
 use App\Form\LabelOptionsType;
 use App\Validator\Constraints\Misc\ValidRange;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -40,7 +41,7 @@ class LabelDialogType extends AbstractType
         $this->security = $security;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('target_id', TextType::class, [
             'required' => true,
@@ -53,15 +54,14 @@ class LabelDialogType extends AbstractType
 
         $builder->add('options', LabelOptionsType::class, [
             'label' => false,
-            'disabled' => !$this->security->isGranted('@labels.edit_options') || $options['disable_options'],
-
+            'disabled' => ! $this->security->isGranted('@labels.edit_options') || $options['disable_options'],
         ]);
         $builder->add('update', SubmitType::class, [
             'label' => 'label_generator.update',
         ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
         $resolver->setDefault('mapped', false);

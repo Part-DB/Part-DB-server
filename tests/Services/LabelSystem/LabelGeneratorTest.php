@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -26,15 +29,16 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Services\LabelSystem\LabelGenerator;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class LabelGeneratorTest extends WebTestCase
 {
-    /** @var LabelGenerator */
+    /**
+     * @var LabelGenerator
+     */
     protected $service;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::bootKernel();
         $this->service = self::$container->get(LabelGenerator::class);
@@ -45,14 +49,14 @@ class LabelGeneratorTest extends WebTestCase
         return [
             ['part', Part::class],
             ['part_lot', PartLot::class],
-            ['storelocation', Storelocation::class]
+            ['storelocation', Storelocation::class],
         ];
     }
 
     /**
      * @dataProvider supportsDataProvider
      */
-    public function testSupports(string $type, string $class)
+    public function testSupports(string $type, string $class): void
     {
         $options = new LabelOptions();
         $options->setSupportedElement($type);
@@ -61,18 +65,17 @@ class LabelGeneratorTest extends WebTestCase
         $this->assertTrue($this->service->supports($options, new $class()));
 
         //Ensure that another class is not supported
-        $not_supported = new class extends AbstractDBElement {
-
+        $not_supported = new class() extends AbstractDBElement {
             public function getIDString(): string
             {
-                return "not_important";
+                return 'not_important';
             }
         };
 
         $this->assertFalse($this->service->supports($options, $not_supported));
     }
 
-    public function testMmToPointsArray()
+    public function testMmToPointsArray(): void
     {
         $this->assertSame(
             [0.0, 0.0, 141.7325, 85.0395],
@@ -80,7 +83,7 @@ class LabelGeneratorTest extends WebTestCase
         );
     }
 
-    public function testGenerateLabel()
+    public function testGenerateLabel(): void
     {
         $part = new Part();
         $options = new LabelOptions();

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,28 +24,23 @@
 namespace App\Tests\Services\LabelSystem\PlaceholderProviders;
 
 use App\Entity\Contracts\NamedElementInterface;
-use App\Entity\Parts\Part;
-use App\Services\LabelSystem\PlaceholderProviders\GlobalProviders;
 use App\Services\LabelSystem\PlaceholderProviders\NamedElementProvider;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class NamedElementProviderTest extends WebTestCase
 {
-    /** @var NamedElementProvider */
+    /**
+     * @var NamedElementProvider
+     */
     protected $service;
 
     protected $target;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::bootKernel();
         $this->service = self::$container->get(NamedElementProvider::class);
-        $this->target = new class implements NamedElementInterface {
-
-            /**
-             * @inheritDoc
-             */
+        $this->target = new class() implements NamedElementInterface {
             public function getName(): string
             {
                 return 'This is my Name';
@@ -53,7 +51,7 @@ class NamedElementProviderTest extends WebTestCase
     public function dataProvider(): array
     {
         return [
-            ['This is my Name', '[[NAME]]']
+            ['This is my Name', '[[NAME]]'],
         ];
     }
 

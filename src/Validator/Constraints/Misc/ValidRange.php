@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,12 +23,10 @@
 
 namespace App\Validator\Constraints\Misc;
 
-
 use Symfony\Component\Validator\Constraint;
 
 /**
  * @Annotation
- * @package App\Validator\Constraints\Misc
  */
 class ValidRange extends Constraint
 {

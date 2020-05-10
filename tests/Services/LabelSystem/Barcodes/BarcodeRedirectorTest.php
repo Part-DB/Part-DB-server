@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -22,15 +25,16 @@ namespace App\Tests\Services\LabelSystem\Barcodes;
 
 use App\Services\LabelSystem\Barcodes\BarcodeRedirector;
 use Doctrine\ORM\EntityNotFoundException;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class BarcodeRedirectorTest extends KernelTestCase
 {
-    /** @var BarcodeRedirector */
+    /**
+     * @var BarcodeRedirector
+     */
     private $service;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::bootKernel();
         $this->service = self::$container->get(BarcodeRedirector::class);
@@ -42,7 +46,7 @@ class BarcodeRedirectorTest extends KernelTestCase
             ['part', '/en/part/1'],
             //Part lot redirects to Part info page (Part lot 1 is associated with part 3
             ['lot', '/en/part/3'],
-            ['location', '/en/store_location/1/parts']
+            ['location', '/en/store_location/1/parts'],
         ];
     }
 

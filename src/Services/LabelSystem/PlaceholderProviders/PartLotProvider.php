@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,7 +23,6 @@
 
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
-
 use App\Entity\Parts\PartLot;
 use App\Services\AmountFormatter;
 use App\Services\LabelSystem\LabelTextReplacer;
@@ -41,20 +43,20 @@ final class PartLotProvider implements PlaceholderProviderInterface
     public function replace(string $placeholder, object $label_target, array $options = []): ?string
     {
         if ($label_target instanceof PartLot) {
-            if ($placeholder === '[[LOT_ID]]') {
+            if ('[[LOT_ID]]' === $placeholder) {
                 return $label_target->getID() ?? 'unknown';
             }
 
-            if ($placeholder === '[[LOT_NAME]]') {
+            if ('[[LOT_NAME]]' === $placeholder) {
                 return $label_target->getName();
             }
 
-            if ($placeholder === '[[LOT_COMMENT]]') {
+            if ('[[LOT_COMMENT]]' === $placeholder) {
                 return $label_target->getComment();
             }
 
-            if ($placeholder === '[[EXPIRATION_DATE]]') {
-                if ($label_target->getExpirationDate() === null) {
+            if ('[[EXPIRATION_DATE]]' === $placeholder) {
+                if (null === $label_target->getExpirationDate()) {
                     return '';
                 }
                 $formatter = IntlDateFormatter::create(
@@ -67,21 +69,21 @@ final class PartLotProvider implements PlaceholderProviderInterface
                 return $formatter->format($label_target->getExpirationDate());
             }
 
-            if ($placeholder === '[[AMOUNT]]') {
+            if ('[[AMOUNT]]' === $placeholder) {
                 if ($label_target->isInstockUnknown()) {
                     return '?';
                 }
+
                 return $this->amountFormatter->format($label_target->getAmount(), $label_target->getPart()->getPartUnit());
             }
 
-            if ($placeholder === '[[LOCATION]]') {
+            if ('[[LOCATION]]' === $placeholder) {
                 return $label_target->getStorageLocation() ? $label_target->getStorageLocation()->getName() : '';
             }
 
-            if ($placeholder === '[[LOCATION_FULL]]') {
+            if ('[[LOCATION_FULL]]' === $placeholder) {
                 return $label_target->getStorageLocation() ? $label_target->getStorageLocation()->getFullPath() : '';
             }
-
 
             return $this->labelTextReplacer->handlePlaceholder($placeholder, $label_target->getPart());
         }

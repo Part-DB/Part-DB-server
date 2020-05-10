@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,12 +23,10 @@
 
 namespace App\Services\LabelSystem;
 
-
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Base\AbstractCompany;
 use App\Entity\Base\AbstractDBElement;
-use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Contracts\TimeStampableInterface;
@@ -45,7 +46,6 @@ use App\Twig\Sandbox\InheritanceSecurityPolicy;
 use Twig\Environment;
 use Twig\Extension\SandboxExtension;
 use Twig\Extra\Intl\IntlExtension;
-use Twig\Sandbox\SecurityPolicy;
 use Twig\Sandbox\SecurityPolicyInterface;
 
 final class SandboxedTwigProvider
@@ -58,7 +58,7 @@ final class SandboxedTwigProvider
         'reduce', 'replace', 'reverse', 'slice', 'sort', 'spaceless', 'split', 'striptags', 'timezone_name', 'title',
         'trim', 'upper', 'url_encode',
         //Part-DB specific filters:
-        'moneyFormat', 'siFormat', 'amountFormat'];
+        'moneyFormat', 'siFormat', 'amountFormat', ];
 
     private const ALLOWED_FUNCTIONS = ['date', 'html_classes', 'max', 'min', 'random', 'range'];
 
@@ -67,31 +67,30 @@ final class SandboxedTwigProvider
         AbstractDBElement::class => ['getID', '__toString'],
         TimeStampableInterface::class => ['getLastModified', 'getAddedDate'],
         AbstractStructuralDBElement::class => ['isChildOf', 'isRoot', 'getParent', 'getComment', 'getLevel',
-            'getFullPath', 'getPathArray', 'getChildren', 'isNotSelectable'],
+            'getFullPath', 'getPathArray', 'getChildren', 'isNotSelectable', ],
         AbstractCompany::class => ['getAddress', 'getPhoneNumber', 'getFaxNumber', 'getEmailAddress', 'getWebsite'],
         AttachmentContainingDBElement::class => ['getAttachments', 'getMasterPictureAttachment'],
         Attachment::class => ['isPicture', 'is3DModel', 'isExternal', 'isSecure', 'isBuiltIn', 'getExtension',
-            'getElement', 'getURL', 'getFilename', 'getAttachmentType', 'getShowInTable'],
+            'getElement', 'getURL', 'getFilename', 'getAttachmentType', 'getShowInTable', ],
         AbstractParameter::class => ['getFormattedValue', 'getGroup', 'getSymbol', 'getValueMin', 'getValueMax',
-            'getValueTypical', 'getUnit', 'getValueText'],
+            'getValueTypical', 'getUnit', 'getValueText', ],
         MeasurementUnit::class => ['getUnit', 'isInteger', 'useSIPrefix'],
         PartLot::class => ['isExpired', 'getDescription', 'getComment', 'getExpirationDate', 'getStorageLocation',
-            'getPart', 'isInstockUnknown', 'getAmount', 'getNeedsRefill'],
+            'getPart', 'isInstockUnknown', 'getAmount', 'getNeedsRefill', ],
         Storelocation::class => ['isFull', 'isOnlySinglePart', 'isLimitToExistingParts', 'getStorageType'],
         Supplier::class => ['getShippingCosts', 'getDefaultCurrency'],
         Part::class => ['isNeedsReview', 'getTags', 'getMass', 'getDescription', 'isFavorite', 'getCategory',
             'getFootprint', 'getPartLots', 'getPartUnit', 'useFloatAmount', 'getMinAmount', 'getAmountSum',
             'getManufacturerProductUrl', 'getCustomProductURL', 'getManufacturingStatus', 'getManufacturer',
-            'getManufacturerProductNumber', 'getOrderdetails', 'isObsolete'],
+            'getManufacturerProductNumber', 'getOrderdetails', 'isObsolete', ],
         Currency::class => ['getIsoCode', 'getInverseExchangeRate', 'getExchangeRate'],
         Orderdetail::class => ['getPart', 'getSupplier', 'getSupplierPartNr', 'getObsolete',
             'getPricedetails', 'findPriceForQty', ],
         Pricedetail::class => ['getOrderdetail', 'getPrice', 'getPricePerUnit', 'getPriceRelatedQuantity',
-            'getMinDiscountQuantity', 'getCurrency'],
+            'getMinDiscountQuantity', 'getCurrency', ],
         //Only allow very little information about users...
         User::class => ['isAnonymousUser', 'getUsername', 'getFullName', 'getFirstName', 'getLastName',
-            'getDepartment', 'getEmail']
-
+            'getDepartment', 'getEmail', ],
     ];
     private const ALLOWED_PROPERTIES = [];
 
@@ -104,14 +103,13 @@ final class SandboxedTwigProvider
 
     public function getTwig(LabelOptions $options): Environment
     {
-        if ($options->getLinesMode() !== 'twig') {
+        if ('twig' !== $options->getLinesMode()) {
             throw new \InvalidArgumentException('The LabelOptions must explicitly allow twig via lines_mode = "twig"!');
         }
 
-
         $loader = new \Twig\Loader\ArrayLoader([
-                                                   'lines' => $options->getLines(),
-                                               ]);
+            'lines' => $options->getLines(),
+        ]);
         $twig = new Environment($loader);
 
         //Second argument activate sandbox globally.
@@ -127,7 +125,7 @@ final class SandboxedTwigProvider
         return $twig;
     }
 
-    protected function getSecurityPolicy(): SecurityPolicyInterface
+    private function getSecurityPolicy(): SecurityPolicyInterface
     {
         return new InheritanceSecurityPolicy(
             self::ALLOWED_TAGS,

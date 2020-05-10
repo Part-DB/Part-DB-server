@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,14 +23,10 @@
 
 namespace App\Tests\Services\LabelSystem\PlaceholderProviders;
 
-use App\Entity\Contracts\TimeStampableInterface;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
-use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
-use App\Services\LabelSystem\PlaceholderProviders\GlobalProviders;
 use App\Services\LabelSystem\PlaceholderProviders\PartProvider;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -36,15 +35,19 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  */
 class PartProviderTest extends WebTestCase
 {
-    /** @var PartProvider */
+    /**
+     * @var PartProvider
+     */
     protected $service;
 
     protected $target;
 
-    /** @var \Doctrine\ORM\EntityManager */
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
     protected $em;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::bootKernel();
         $this->service = self::$container->get(PartProvider::class);

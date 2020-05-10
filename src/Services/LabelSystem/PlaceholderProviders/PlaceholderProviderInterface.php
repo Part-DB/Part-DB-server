@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,16 +23,16 @@
 
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
-
 interface PlaceholderProviderInterface
 {
-
     /**
      * Determines the real value of this placeholder.
      * If the placeholder is not supported, null must be returned.
-     * @param  string  $placeholder The placeholder (e.g. "%%PLACEHOLDER%%") that should be replaced
-     * @param  object  $label_target The object that is targeted by the label
-     * @param  array   $options  A list of options that can be used to specify the generated output further.
+     *
+     * @param string $placeholder  The placeholder (e.g. "%%PLACEHOLDER%%") that should be replaced
+     * @param object $label_target The object that is targeted by the label
+     * @param array  $options      A list of options that can be used to specify the generated output further.
+     *
      * @return string|null The real value of this placeholder, null if not supported.
      */
     public function replace(string $placeholder, object $label_target, array $options = []): ?string;

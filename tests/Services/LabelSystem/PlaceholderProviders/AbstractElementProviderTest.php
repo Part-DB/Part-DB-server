@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,29 +24,25 @@
 namespace App\Tests\Services\LabelSystem\PlaceholderProviders;
 
 use App\Entity\Base\AbstractDBElement;
-use App\Entity\Parts\Part;
 use App\Services\LabelSystem\PlaceholderProviders\AbstractDBElementProvider;
-use App\Services\LabelSystem\PlaceholderProviders\GlobalProviders;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class AbstractElementProviderTest extends WebTestCase
 {
-    /** @var AbstractDBElementProvider */
+    /**
+     * @var AbstractDBElementProvider
+     */
     protected $service;
 
     protected $target;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::bootKernel();
         $this->service = self::$container->get(AbstractDBElementProvider::class);
-        $this->target = new class extends AbstractDBElement {
+        $this->target = new class() extends AbstractDBElement {
             protected $id = 123;
 
-            /**
-             * @inheritDoc
-             */
             public function getIDString(): string
             {
                 return 'ignore';

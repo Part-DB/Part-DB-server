@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,29 +23,26 @@
 
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
-
-use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 
 final class StructuralDBElementProvider implements PlaceholderProviderInterface
 {
-
     public function replace(string $placeholder, object $label_target, array $options = []): ?string
     {
         if ($label_target instanceof AbstractStructuralDBElement) {
-            if ($placeholder === '[[COMMENT]]') {
+            if ('[[COMMENT]]' === $placeholder) {
                 return $label_target->getComment();
             }
-            if ($placeholder === '[[COMMENT_T]]') {
+            if ('[[COMMENT_T]]' === $placeholder) {
                 return strip_tags($label_target->getComment());
             }
-            if ($placeholder === '[[FULL_PATH]]') {
+            if ('[[FULL_PATH]]' === $placeholder) {
                 return $label_target->getFullPath();
             }
-            if ($placeholder === '[[PARENT]]') {
+            if ('[[PARENT]]' === $placeholder) {
                 return $label_target->getParent() ? $label_target->getParent()->getName() : '';
             }
-            if ($placeholder === '[[PARENT_FULL_PATH]]') {
+            if ('[[PARENT_FULL_PATH]]' === $placeholder) {
                 return $label_target->getParent() ? $label_target->getParent()->getFullPath() : '';
             }
         }

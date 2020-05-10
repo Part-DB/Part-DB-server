@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,16 +23,11 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Base\AbstractDBElement;
-use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\LabelSystem\LabelProfile;
-use App\Entity\Parts\Part;
 use App\Exceptions\TwigModeException;
-use App\Form\LabelOptionsType;
 use App\Form\LabelSystem\LabelDialogType;
-use App\Helpers\LabelResponse;
 use App\Repository\DBElementRepository;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\LabelSystem\LabelGenerator;
@@ -38,17 +36,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\SubmitButton;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/label")
- * @package App\Controller
  */
 class LabelController extends AbstractController
 {
@@ -77,7 +70,7 @@ class LabelController extends AbstractController
         $this->denyAccessUnlessGranted('@labels.create_labels');
 
         //If we inherit a LabelProfile, the user need to have access to it...
-        if ($profile !== null) {
+        if (null !== $profile) {
             $this->denyAccessUnlessGranted('read', $profile);
         }
 
@@ -88,7 +81,7 @@ class LabelController extends AbstractController
         }
 
         //We have to disable the options, if twig mode is selected and user is not allowed to use it.
-        $disable_options = $label_options->getLinesMode() === 'twig' && !$this->isGranted("@labels.use_twig");
+        $disable_options = 'twig' === $label_options->getLinesMode() && ! $this->isGranted('@labels.use_twig');
 
         $form = $this->createForm(LabelDialogType::class, null, [
             'disable_options' => $disable_options,
@@ -99,13 +92,12 @@ class LabelController extends AbstractController
         $target_id = $request->query->get('target_id', null);
         $generate = $request->query->getBoolean('generate', false);
 
-        if ($profile === null && is_string($target_type)) {
+        if (null === $profile && is_string($target_type)) {
             $label_options->setSupportedElement($target_type);
         }
         if (is_string($target_id)) {
             $form['target_id']->setData($target_id);
         }
-
 
         $form['options']->setData($label_options);
         $form->handleRequest($request);
@@ -117,17 +109,16 @@ class LabelController extends AbstractController
         $filename = 'invalid.pdf';
 
         //Generate PDF either when the form is submitted and valid, or the form  was not submit yet, and generate is set
-        if (($form->isSubmitted() && $form->isValid()) || ($generate && !$form->isSubmitted() && $profile !== null)) {
+        if (($form->isSubmitted() && $form->isValid()) || ($generate && ! $form->isSubmitted() && null !== $profile)) {
             $target_id = (string) $form->get('target_id')->getData();
             $targets = $this->findObjects($form_options->getSupportedElement(), $target_id);
-            if (!empty($targets)) {
+            if (! empty($targets)) {
                 try {
                     $pdf_data = $this->labelGenerator->generateLabel($form_options, $targets);
                     $filename = $this->getLabelName($targets[0], $profile);
                 } catch (TwigModeException $exception) {
                     $form->get('options')->get('lines')->addError(new FormError($exception->getMessage()));
                 }
-
             } else {
                 //$this->addFlash('warning', 'label_generator.no_entities_found');
                 $form->get('target_id')->addError(
@@ -146,15 +137,15 @@ class LabelController extends AbstractController
 
     protected function getLabelName(AbstractDBElement $element, ?LabelProfile $profile = null): string
     {
-        $ret = 'label_' . $this->elementTypeNameGenerator->getLocalizedTypeLabel($element);
+        $ret = 'label_'.$this->elementTypeNameGenerator->getLocalizedTypeLabel($element);
         $ret .= $element->getID();
 
-        return $ret . '.pdf';
+        return $ret.'.pdf';
     }
 
     protected function findObjects(string $type, string $ids): array
     {
-        if(!isset(LabelGenerator::CLASS_SUPPORT_MAPPING[$type])) {
+        if (! isset(LabelGenerator::CLASS_SUPPORT_MAPPING[$type])) {
             throw new \InvalidArgumentException('The given type is not known and can not be mapped to a class!');
         }
 
@@ -162,6 +153,7 @@ class LabelController extends AbstractController
 
         /** @var DBElementRepository $repo */
         $repo = $this->em->getRepository(LabelGenerator::CLASS_SUPPORT_MAPPING[$type]);
+
         return $repo->getElementsFromIDArray($id_array);
     }
 }

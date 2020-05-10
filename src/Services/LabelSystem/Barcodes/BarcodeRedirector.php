@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,7 +23,6 @@
 
 namespace App\Services\LabelSystem\Barcodes;
 
-
 use App\Entity\Parts\PartLot;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
@@ -31,7 +33,6 @@ final class BarcodeRedirector
     private $urlGenerator;
     private $em;
 
-
     public function __construct(UrlGeneratorInterface $urlGenerator, EntityManagerInterface $entityManager)
     {
         $this->urlGenerator = $urlGenerator;
@@ -39,10 +40,13 @@ final class BarcodeRedirector
     }
 
     /**
-     * Determines the URL to which the user should be redirected, when scanning a QR code
-     * @param  string  $type The type of the element that was scanned (e.g. 'part', 'lot', etc.)
-     * @param  int  $id The ID of the element that was scanned
+     * Determines the URL to which the user should be redirected, when scanning a QR code.
+     *
+     * @param string $type The type of the element that was scanned (e.g. 'part', 'lot', etc.)
+     * @param int    $id   The ID of the element that was scanned
+     *
      * @return string The URL to which should be redirected.
+     *
      * @throws EntityNotFoundException
      */
     public function getRedirectURL(string $type, int $id): string
@@ -53,7 +57,7 @@ final class BarcodeRedirector
             case 'lot':
                 //Try to determine the part to the given lot
                 $lot = $this->em->find(PartLot::class, $id);
-                if ($lot === null) {
+                if (null === $lot) {
                     throw new EntityNotFoundException();
                 }
 
@@ -63,7 +67,7 @@ final class BarcodeRedirector
                 return $this->urlGenerator->generate('part_list_store_location', ['id' => $id]);
 
             default:
-                throw new \InvalidArgumentException('Unknown $type: ' . $type);
+                throw new \InvalidArgumentException('Unknown $type: '.$type);
         }
     }
 }

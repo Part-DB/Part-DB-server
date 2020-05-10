@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -26,21 +29,16 @@ use Locale;
 
 final class TimestampableElementProvider implements PlaceholderProviderInterface
 {
-
-    /**
-     * @inheritDoc
-     */
     public function replace(string $placeholder, object $label_target, array $options = []): ?string
     {
         if ($label_target instanceof TimeStampableInterface) {
-            if ($placeholder === '[[LAST_MODIFIED]]') {
+            if ('[[LAST_MODIFIED]]' === $placeholder) {
                 return IntlDateFormatter::formatObject($label_target->getLastModified() ?? new \DateTime(), IntlDateFormatter::SHORT, Locale::getDefault());
             }
 
-            if ($placeholder === '[[CREATION_DATE]]') {
+            if ('[[CREATION_DATE]]' === $placeholder) {
                 return IntlDateFormatter::formatObject($label_target->getAddedDate() ?? new \DateTime(), IntlDateFormatter::SHORT, Locale::getDefault());
             }
-
         }
 
         return null;

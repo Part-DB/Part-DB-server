@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,13 +23,11 @@
 
 namespace App\Exceptions;
 
-
-use Throwable;
 use Twig\Error\Error;
 
 class TwigModeException extends \RuntimeException
 {
-    public function __construct(Error $previous = null)
+    public function __construct(?Error $previous = null)
     {
         parent::__construct($previous->getMessage(), 0, $previous);
     }

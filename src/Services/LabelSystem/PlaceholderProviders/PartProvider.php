@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,14 +23,12 @@
 
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
-
 use App\Entity\Parts\Part;
 use App\Services\SIFormatter;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class PartProvider implements PlaceholderProviderInterface
 {
-
     private $siFormatter;
     private $translator;
 
@@ -37,73 +38,71 @@ final class PartProvider implements PlaceholderProviderInterface
         $this->translator = $translator;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function replace(string $placeholder, object $part, array $options = []): ?string
     {
-        if (!$part instanceof Part) {
+        if (! $part instanceof Part) {
             return null;
         }
 
-        if ($placeholder === '[[CATEGORY]]') {
+        if ('[[CATEGORY]]' === $placeholder) {
             return $part->getCategory() ? $part->getCategory()->getName() : '';
         }
 
-        if ($placeholder === '[[CATEGORY_FULL]]') {
+        if ('[[CATEGORY_FULL]]' === $placeholder) {
             return $part->getCategory() ? $part->getCategory()->getFullPath() : '';
         }
 
-        if ($placeholder === '[[MANUFACTURER]]') {
+        if ('[[MANUFACTURER]]' === $placeholder) {
             return $part->getManufacturer() ? $part->getManufacturer()->getName() : '';
         }
 
-        if ($placeholder === '[[MANUFACTURER_FULL]]') {
+        if ('[[MANUFACTURER_FULL]]' === $placeholder) {
             return $part->getManufacturer() ? $part->getManufacturer()->getFullPath() : '';
         }
 
-        if ($placeholder === '[[FOOTPRINT]]') {
+        if ('[[FOOTPRINT]]' === $placeholder) {
             return $part->getFootprint() ? $part->getFootprint()->getName() : '';
         }
 
-        if ($placeholder === '[[FOOTPRINT_FULL]]') {
+        if ('[[FOOTPRINT_FULL]]' === $placeholder) {
             return $part->getFootprint() ? $part->getFootprint()->getFullPath() : '';
         }
 
-        if ($placeholder === '[[MASS]]') {
+        if ('[[MASS]]' === $placeholder) {
             return $part->getMass() ? $this->siFormatter->format($part->getMass(), 'g', 1) : '';
         }
 
-        if ($placeholder === '[[MPN]]') {
+        if ('[[MPN]]' === $placeholder) {
             return $part->getManufacturerProductNumber();
         }
 
-        if ($placeholder === '[[TAGS]]') {
+        if ('[[TAGS]]' === $placeholder) {
             return $part->getTags();
         }
 
-        if ($placeholder === '[[M_STATUS]]') {
-            if ($part->getManufacturingStatus() === '') {
+        if ('[[M_STATUS]]' === $placeholder) {
+            if ('' === $part->getManufacturingStatus()) {
                 return '';
             }
-            return $this->translator->trans('m_status.' . $part->getManufacturingStatus());
+
+            return $this->translator->trans('m_status.'.$part->getManufacturingStatus());
         }
 
         $parsedown = new \Parsedown();
 
-        if ($placeholder === '[[DESCRIPTION]]') {
+        if ('[[DESCRIPTION]]' === $placeholder) {
             return $parsedown->line($part->getDescription());
         }
 
-        if ($placeholder === '[[DESCRIPTION_T]]') {
+        if ('[[DESCRIPTION_T]]' === $placeholder) {
             return strip_tags($parsedown->line($part->getDescription()));
         }
 
-        if ($placeholder === '[[COMMENT]]') {
+        if ('[[COMMENT]]' === $placeholder) {
             return $parsedown->line($part->getComment());
         }
 
-        if ($placeholder === '[[COMMENT_T]]') {
+        if ('[[COMMENT_T]]' === $placeholder) {
             return strip_tags($parsedown->line($part->getComment()));
         }
 

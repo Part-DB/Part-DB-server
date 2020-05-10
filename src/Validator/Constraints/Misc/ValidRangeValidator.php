@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,7 +23,6 @@
 
 namespace App\Validator\Constraints\Misc;
 
-
 use App\Services\Misc\RangeParser;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -29,7 +31,6 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 class ValidRangeValidator extends ConstraintValidator
 {
-
     protected $rangeParser;
 
     public function __construct(RangeParser $rangeParser)
@@ -37,9 +38,9 @@ class ValidRangeValidator extends ConstraintValidator
         $this->rangeParser = $rangeParser;
     }
 
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
-        if (!$constraint instanceof ValidRange) {
+        if (! $constraint instanceof ValidRange) {
             throw new UnexpectedTypeException($constraint, ValidRange::class);
         }
 
@@ -49,11 +50,11 @@ class ValidRangeValidator extends ConstraintValidator
             return;
         }
 
-        if (!is_string($value)) {
+        if (! is_string($value)) {
             throw new UnexpectedValueException($value, 'string');
         }
 
-        if(!$this->rangeParser->isValidRange($value)) {
+        if (! $this->rangeParser->isValidRange($value)) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

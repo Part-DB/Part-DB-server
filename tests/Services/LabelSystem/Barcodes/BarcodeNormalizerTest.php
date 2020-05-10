@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -21,16 +24,16 @@
 namespace App\Tests\Services\LabelSystem\Barcodes;
 
 use App\Services\LabelSystem\Barcodes\BarcodeNormalizer;
-use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class BarcodeNormalizerTest extends WebTestCase
 {
-
-    /** @var BarcodeNormalizer */
+    /**
+     * @var BarcodeNormalizer
+     */
     protected $service;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::bootKernel();
         $this->service = self::$container->get(BarcodeNormalizer::class);
@@ -80,7 +83,7 @@ class BarcodeNormalizerTest extends WebTestCase
     /**
      * @dataProvider dataProvider
      */
-    public function testNormalizeBarcodeContent(array $expected, string $input)
+    public function testNormalizeBarcodeContent(array $expected, string $input): void
     {
         $this->assertSame($expected, $this->service->normalizeBarcodeContent($input));
     }
@@ -88,7 +91,7 @@ class BarcodeNormalizerTest extends WebTestCase
     /**
      * @dataProvider invalidDataProvider
      */
-    public function testInvalidFormats(string $input)
+    public function testInvalidFormats(string $input): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->service->normalizeBarcodeContent($input);

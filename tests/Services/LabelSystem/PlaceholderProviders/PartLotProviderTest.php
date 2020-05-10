@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,22 +23,22 @@
 
 namespace App\Tests\Services\LabelSystem\PlaceholderProviders;
 
-use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
-use App\Services\LabelSystem\PlaceholderProviders\NamedElementProvider;
 use App\Services\LabelSystem\PlaceholderProviders\PartLotProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class PartLotProviderTest extends WebTestCase
 {
-    /** @var PartLotProvider */
+    /**
+     * @var PartLotProvider
+     */
     protected $service;
 
     protected $target;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         self::bootKernel();
         \Locale::setDefault('en');

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,7 +23,6 @@
 
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
-
 use App\Entity\UserSystem\User;
 use IntlDateFormatter;
 use Locale;
@@ -28,11 +30,9 @@ use Symfony\Component\Security\Core\Security;
 
 /**
  * Provides Placeholders for infos about global infos like Installation name or datetimes.
- * @package App\Services\LabelSystem\PlaceholderProviders
  */
 final class GlobalProviders implements PlaceholderProviderInterface
 {
-
     private $partdb_title;
     private $security;
 
@@ -42,34 +42,32 @@ final class GlobalProviders implements PlaceholderProviderInterface
         $this->security = $security;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function replace(string $placeholder, object $label_target, array $options = []): ?string
     {
-        if ($placeholder === "[[INSTALL_NAME]]") {
+        if ('[[INSTALL_NAME]]' === $placeholder) {
             return $this->partdb_title;
         }
 
-
         $user = $this->security->getUser();
-        if ($placeholder === "[[USERNAME]]") {
+        if ('[[USERNAME]]' === $placeholder) {
             if ($user instanceof User) {
                 return $user->getName();
             }
+
             return 'anonymous';
         }
 
-        if ($placeholder === "[[USERNAME_FULL]]") {
+        if ('[[USERNAME_FULL]]' === $placeholder) {
             if ($user instanceof User) {
                 return $user->getFullName(true);
             }
+
             return 'anonymous';
         }
 
         $now = new \DateTime();
 
-        if ($placeholder === '[[DATETIME]]') {
+        if ('[[DATETIME]]' === $placeholder) {
             $formatter = IntlDateFormatter::create(
                 Locale::getDefault(),
                 IntlDateFormatter::SHORT,
@@ -80,7 +78,7 @@ final class GlobalProviders implements PlaceholderProviderInterface
             return $formatter->format($now);
         }
 
-        if ($placeholder === '[[DATE]]') {
+        if ('[[DATE]]' === $placeholder) {
             $formatter = IntlDateFormatter::create(
                 Locale::getDefault(),
                 IntlDateFormatter::SHORT,
@@ -91,7 +89,7 @@ final class GlobalProviders implements PlaceholderProviderInterface
             return $formatter->format($now);
         }
 
-        if ($placeholder === '[[TIME]]') {
+        if ('[[TIME]]' === $placeholder) {
             $formatter = IntlDateFormatter::create(
                 Locale::getDefault(),
                 IntlDateFormatter::NONE,

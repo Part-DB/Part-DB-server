@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -44,39 +47,6 @@ final class BarcodeExampleElementsGenerator
         }
     }
 
-    private function getStorelocation(): Storelocation
-    {
-        $storelocation = new Storelocation();
-        $storelocation->setName('Location 1');
-        $storelocation->setComment('Example comment');
-        $storelocation->updatedTimestamps();
-
-        $parent = new Storelocation();
-        $parent->setName('Parent');
-
-        $storelocation->setParent($parent);
-
-        return $storelocation;
-    }
-
-    private function getStructuralData(string $class): AbstractStructuralDBElement
-    {
-        if (!is_a($class, AbstractStructuralDBElement::class, true)) {
-           throw new \InvalidArgumentException('$class must be an child of AbstractStructuralDBElement');
-        }
-
-        /** @var AbstractStructuralDBElement $parent */
-        $parent = new $class();
-        $parent->setName('Example');
-
-        /** @var AbstractStructuralDBElement $child */
-        $child = new $class();
-        $child->setName((new \ReflectionClass($class))->getShortName());
-        $child->setParent($parent);
-
-        return $child;
-    }
-
     public function getExamplePart(): Part
     {
         $part = new Part();
@@ -98,7 +68,6 @@ final class BarcodeExampleElementsGenerator
         $part->setMinAmount(100);
         $part->setNeedsReview(true);
 
-
         return $part;
     }
 
@@ -114,5 +83,38 @@ final class BarcodeExampleElementsGenerator
         $lot->setAmount(123);
 
         return $lot;
+    }
+
+    private function getStorelocation(): Storelocation
+    {
+        $storelocation = new Storelocation();
+        $storelocation->setName('Location 1');
+        $storelocation->setComment('Example comment');
+        $storelocation->updatedTimestamps();
+
+        $parent = new Storelocation();
+        $parent->setName('Parent');
+
+        $storelocation->setParent($parent);
+
+        return $storelocation;
+    }
+
+    private function getStructuralData(string $class): AbstractStructuralDBElement
+    {
+        if (! is_a($class, AbstractStructuralDBElement::class, true)) {
+            throw new \InvalidArgumentException('$class must be an child of AbstractStructuralDBElement');
+        }
+
+        /** @var AbstractStructuralDBElement $parent */
+        $parent = new $class();
+        $parent->setName('Example');
+
+        /** @var AbstractStructuralDBElement $child */
+        $child = new $class();
+        $child->setName((new \ReflectionClass($class))->getShortName());
+        $child->setParent($parent);
+
+        return $child;
     }
 }

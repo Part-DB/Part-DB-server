@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,7 +23,6 @@
 
 namespace App\Services\LabelSystem\Barcodes;
 
-
 final class BarcodeNormalizer
 {
     private const PREFIX_TYPE_MAP = [
@@ -31,8 +33,8 @@ final class BarcodeNormalizer
 
     /**
      * Parses barcode content and normalizes it.
-     * Returns an array in the format ['part', 1]: First entry contains element type, second the ID of the element
-     * @param  string  $input
+     * Returns an array in the format ['part', 1]: First entry contains element type, second the ID of the element.
+     *
      * @return array
      */
     public function normalizeBarcodeContent(string $input): array
@@ -53,9 +55,10 @@ final class BarcodeNormalizer
             $prefix = $matches[1];
             $id = (int) $matches[2];
 
-            if (!isset(self::PREFIX_TYPE_MAP[$prefix])) {
-                throw new \InvalidArgumentException('Unknown prefix ' . $prefix);
+            if (! isset(self::PREFIX_TYPE_MAP[$prefix])) {
+                throw new \InvalidArgumentException('Unknown prefix '.$prefix);
             }
+
             return [self::PREFIX_TYPE_MAP[$prefix], $id];
         }
 
@@ -64,9 +67,10 @@ final class BarcodeNormalizer
             $prefix = $matches[1];
             $id = (int) $matches[2];
 
-            if (!isset(self::PREFIX_TYPE_MAP[$prefix])) {
-                throw new \InvalidArgumentException('Unknown prefix ' . $prefix);
+            if (! isset(self::PREFIX_TYPE_MAP[$prefix])) {
+                throw new \InvalidArgumentException('Unknown prefix '.$prefix);
             }
+
             return [self::PREFIX_TYPE_MAP[$prefix], $id];
         }
 
@@ -79,7 +83,6 @@ final class BarcodeNormalizer
         if (preg_match('#^(\d{7})\d?$#', $input, $matches)) {
             return ['part', (int) $matches[1]];
         }
-
 
         throw new \InvalidArgumentException('Unknown barcode format!');
     }

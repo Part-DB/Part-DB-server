@@ -120,7 +120,9 @@ abstract class AbstractLogEntry extends AbstractDBElement
     protected const TARGET_TYPE_PARAMETER = 18;
     protected const TARGET_TYPE_LABEL_PROFILE = 19;
 
-    /** @var array This const is used to convert the numeric level to a PSR-3 compatible log level */
+    /**
+     * @var array This const is used to convert the numeric level to a PSR-3 compatible log level
+     */
     protected const LEVEL_ID_TO_STRING = [
         self::LEVEL_EMERGENCY => LogLevel::EMERGENCY,
         self::LEVEL_ALERT => LogLevel::ALERT,

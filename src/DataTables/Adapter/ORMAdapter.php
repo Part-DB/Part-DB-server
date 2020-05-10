@@ -38,21 +38,33 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ORMAdapter extends AbstractAdapter
 {
-    /** @var EntityManager */
+    /**
+     * @var EntityManager
+     */
     protected $manager;
 
-    /** @var \Doctrine\ORM\Mapping\ClassMetadata */
+    /**
+     * @var \Doctrine\ORM\Mapping\ClassMetadata
+     */
     protected $metadata;
 
-    /** @var QueryBuilderProcessorInterface[] */
+    /**
+     * @var QueryBuilderProcessorInterface[]
+     */
     protected $criteriaProcessors;
-    /** @var ManagerRegistry */
+    /**
+     * @var ManagerRegistry
+     */
     private $registry;
 
-    /** @var int */
+    /**
+     * @var int
+     */
     private $hydrationMode;
 
-    /** @var QueryBuilderProcessorInterface[] */
+    /**
+     * @var QueryBuilderProcessorInterface[]
+     */
     private $queryBuilderProcessors;
 
     /**

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
@@ -20,20 +23,17 @@
 
 namespace App\Controller;
 
-
 use App\Form\LabelSystem\ScanDialogType;
-use App\Services\LabelSystem\Barcodes\BarcodeRedirector;
 use App\Services\LabelSystem\Barcodes\BarcodeNormalizer;
+use App\Services\LabelSystem\Barcodes\BarcodeRedirector;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/scan")
- * @package App\Controller
  */
 class ScanController extends AbstractController
 {
@@ -58,8 +58,10 @@ class ScanController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $input = $form['input']->getData();
+
             try {
                 [$type, $id] = $this->barcodeNormalizer->normalizeBarcodeContent($input);
+
                 try {
                     return $this->redirect($this->barcodeParser->getRedirectURL($type, $id));
                 } catch (EntityNotFoundException $exception) {
@@ -76,17 +78,17 @@ class ScanController extends AbstractController
     }
 
     /**
-     * The route definition for this action is done in routes.yaml, as it does not use the _locale prefix as the other routes
-     * @param  string  $type
-     * @param  int  $id
+     * The route definition for this action is done in routes.yaml, as it does not use the _locale prefix as the other routes.
      */
     public function scanQRCode(string $type, int $id): Response
     {
         try {
             $this->addFlash('success', 'scan.qr_success');
+
             return $this->redirect($this->barcodeParser->getRedirectURL($type, $id));
         } catch (EntityNotFoundException $exception) {
             $this->addFlash('success', 'scan.qr_not_found');
+
             return $this->redirectToRoute('homepage');
         }
     }

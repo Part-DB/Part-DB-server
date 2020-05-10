@@ -242,7 +242,7 @@ class EntityURLGenerator
             Currency::class => 'currency_edit',
             MeasurementUnit::class => 'measurement_unit_edit',
             Group::class => 'group_edit',
-            LabelProfile::class => 'label_profile_edit'
+            LabelProfile::class => 'label_profile_edit',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
@@ -272,7 +272,7 @@ class EntityURLGenerator
             Currency::class => 'currency_edit',
             MeasurementUnit::class => 'measurement_unit_edit',
             Group::class => 'group_edit',
-            LabelProfile::class => 'label_profile_edit'
+            LabelProfile::class => 'label_profile_edit',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
@@ -302,7 +302,7 @@ class EntityURLGenerator
             Currency::class => 'currency_new',
             MeasurementUnit::class => 'measurement_unit_new',
             Group::class => 'group_new',
-            LabelProfile::class => 'label_profile_new'
+            LabelProfile::class => 'label_profile_new',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity));
@@ -333,7 +333,7 @@ class EntityURLGenerator
             Currency::class => 'currency_clone',
             MeasurementUnit::class => 'measurement_unit_clone',
             Group::class => 'group_clone',
-            LabelProfile::class => 'label_profile_clone'
+            LabelProfile::class => 'label_profile_clone',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
@@ -376,7 +376,7 @@ class EntityURLGenerator
             Currency::class => 'currency_delete',
             MeasurementUnit::class => 'measurement_unit_delete',
             Group::class => 'group_delete',
-            LabelProfile::class => 'label_profile_delete'
+            LabelProfile::class => 'label_profile_delete',
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
