@@ -22,6 +22,7 @@ fos_ck_editor:
             enterMode: 2
             toolbar: label_toolbar
             extraPlugins: ["partdb_label", "showprotected"]
+            allowedContent: true
             font_names: >
                 DejaVu Sans Mono/DejaVu Sans Mono;
                 DejaVu Sans/DejaVu Sans;
