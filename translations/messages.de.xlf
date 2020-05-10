@@ -718,7 +718,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_duplicate.html.twig:3</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>entity.duplicate</source>
         <target>Element duplizieren</target>
       </segment>
@@ -1948,7 +1948,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:54</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>attachment.preview</source>
         <target>Vorschaubild</target>
       </segment>
@@ -2056,7 +2056,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <note priority="1">templates\base.html.twig:54</note>
         <note priority="1">src\Form\PartType.php:62</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>name.label</source>
         <target>Name</target>
       </segment>
@@ -2552,7 +2552,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:31</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>entity.info.attachments.tab</source>
         <target>Dateianhänge</target>
       </segment>
@@ -2561,7 +2561,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:37</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>entity.info.parameters.tab</source>
         <target>Parameter</target>
       </segment>
@@ -3732,7 +3732,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:22</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>navbar.scanner.link</source>
         <target>Scanner</target>
       </segment>
@@ -5062,7 +5062,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:66</note>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:86</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>part.label</source>
         <target>Bauteil</target>
       </segment>
@@ -5072,7 +5072,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:66</note>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:87</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>part_lot.label</source>
         <target>Bauteile Lot</target>
       </segment>
@@ -5606,7 +5606,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:123</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:121</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>part.editmininstock.placeholder</source>
         <target>e.g. 1</target>
       </segment>
@@ -6167,7 +6167,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:34</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>attachment.external_file</source>
         <target>Externe Datei</target>
       </segment>
@@ -6177,7 +6177,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:62</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>attachment.edit</source>
         <target>Bearbeiten</target>
       </segment>
@@ -6188,7 +6188,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <note priority="1">templates\base.html.twig:88</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>barcode.scan</source>
         <target>Scanne Barcode</target>
       </segment>
@@ -6199,7 +6199,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <note priority="1">src\Form\UserSettingsType.php:49</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>user.theme.label</source>
         <target>Theme</target>
       </segment>
@@ -6210,7 +6210,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <note priority="1">src\Form\UserSettingsType.php:50</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>user_settings.theme.placeholder</source>
         <target>Serverweites Theme</target>
       </segment>
@@ -8632,7 +8632,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>tfa_u2f.key_added_successful</source>
         <target>Sicherheitsschlüssel erfolgreich hinzugefügt.</target>
       </segment>
@@ -8641,7 +8641,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>Username</source>
         <target>Benutzername</target>
       </segment>
@@ -8650,7 +8650,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.security.google_disabled</source>
         <target>Authenticator App deaktiviert</target>
       </segment>
@@ -8659,7 +8659,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.security.u2f_removed</source>
         <target>Sicherheitsschlüssel gelöscht</target>
       </segment>
@@ -8668,7 +8668,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.security.u2f_added</source>
         <target>Sicherheitsschlüssel hinzugefügt</target>
       </segment>
@@ -8677,7 +8677,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.security.backup_keys_reset</source>
         <target>Neue Backupkeys erzeugt</target>
       </segment>
@@ -8686,7 +8686,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.security.google_enabled</source>
         <target>Authenticator App aktiviert</target>
       </segment>
@@ -8695,7 +8695,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.security.password_changed</source>
         <target>Passwort geändert</target>
       </segment>
@@ -8704,7 +8704,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.security.trusted_device_reset</source>
         <target>Vertrauenswürdige Geräte zurückgesetzt</target>
       </segment>
@@ -8713,7 +8713,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.collection_element_deleted</source>
         <target>Kollektionselement gelöscht</target>
       </segment>
@@ -8722,7 +8722,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.security.password_reset</source>
         <target>Passwort zurückgesetzt</target>
       </segment>
@@ -8731,7 +8731,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.security.2fa_admin_reset</source>
         <target>Zwei-Faktor-Authentifizierung durch Administrator zurückgesetzt</target>
       </segment>
@@ -8740,7 +8740,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.user_not_allowed</source>
         <target>Unerlaubter Zugriffsversuch</target>
       </segment>
@@ -8749,9 +8749,63 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.database_updated.success</source>
         <target>Erfolgreich</target>
+      </segment>
+    </unit>
+    <unit id="8jpgdV8" name="label_options.barcode_type.2D">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.2D</source>
+        <target>2D</target>
+      </segment>
+    </unit>
+    <unit id="O7.UnHb" name="label_options.barcode_type.1D">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.1D</source>
+        <target>1D</target>
+      </segment>
+    </unit>
+    <unit id="QMdRP48" name="perm.part.parameters">
+      <segment state="translated">
+        <source>perm.part.parameters</source>
+        <target>Parameter</target>
+      </segment>
+    </unit>
+    <unit id="_a9gfQw" name="perm.attachment_show_private">
+      <segment state="translated">
+        <source>perm.attachment_show_private</source>
+        <target>Private Anhänge zeigen</target>
+      </segment>
+    </unit>
+    <unit id="fcUq9AR" name="perm.tools.label_scanner">
+      <segment state="translated">
+        <source>perm.tools.label_scanner</source>
+        <target>Labelscanner</target>
+      </segment>
+    </unit>
+    <unit id="QSODEfC" name="perm.self.read_profiles">
+      <segment state="translated">
+        <source>perm.self.read_profiles</source>
+        <target>Profile anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="9ItKgrD" name="perm.self.create_profiles">
+      <segment state="translated">
+        <source>perm.self.create_profiles</source>
+        <target>Profil anlegen</target>
+      </segment>
+    </unit>
+    <unit id="j6yqWSf" name="perm.labels.use_twig">
+      <segment state="translated">
+        <source>perm.labels.use_twig</source>
+        <target>Twig Modus benutzen</target>
       </segment>
     </unit>
   </file>

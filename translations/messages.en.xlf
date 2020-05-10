@@ -344,7 +344,7 @@
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:4</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_profile.caption</source>
         <target>Label profiles</target>
       </segment>
@@ -353,7 +353,7 @@
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:8</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_profile.advanced</source>
         <target>Advanced</target>
       </segment>
@@ -362,7 +362,7 @@
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:9</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_profile.comment</source>
         <target>Comment</target>
       </segment>
@@ -719,7 +719,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_duplicate.html.twig:3</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>entity.duplicate</source>
         <target>Duplicate element</target>
       </segment>
@@ -1336,7 +1336,7 @@ Subelements will be moved upwards.]]></target>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:3</note>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:6</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_generator.title</source>
         <target>Label generator</target>
       </segment>
@@ -1345,7 +1345,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:16</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_generator.common</source>
         <target>Common</target>
       </segment>
@@ -1354,7 +1354,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:20</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_generator.advanced</source>
         <target>Advanced</target>
       </segment>
@@ -1363,7 +1363,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:24</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_generator.profiles</source>
         <target>Profiles</target>
       </segment>
@@ -1372,7 +1372,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:58</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_generator.selected_profile</source>
         <target>Currently selected profile</target>
       </segment>
@@ -1381,7 +1381,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:62</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_generator.edit_profile</source>
         <target>Edit profile</target>
       </segment>
@@ -1390,7 +1390,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:75</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_generator.load_profile</source>
         <target>Load profile</target>
       </segment>
@@ -1399,7 +1399,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:102</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_generator.download</source>
         <target>Download</target>
       </segment>
@@ -1409,7 +1409,7 @@ Subelements will be moved upwards.]]></target>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:3</note>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:5</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_generator.label_btn</source>
         <target>Generate label</target>
       </segment>
@@ -1418,7 +1418,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:20</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_generator.label_empty</source>
         <target>New empty label</target>
       </segment>
@@ -1427,7 +1427,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:3</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_scanner.title</source>
         <target>Label scanner</target>
       </segment>
@@ -1436,7 +1436,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:7</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_scanner.no_cam_found.title</source>
         <target>No webcam found</target>
       </segment>
@@ -1445,7 +1445,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:7</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_scanner.no_cam_found.text</source>
         <target>You need a webcam and give permission to use the scanner function. You can input the barcode code manually below.</target>
       </segment>
@@ -1454,7 +1454,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:27</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_scanner.source_select</source>
         <target>Select source</target>
       </segment>
@@ -1949,7 +1949,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:54</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>attachment.preview</source>
         <target>Preview picture</target>
       </segment>
@@ -2057,7 +2057,7 @@ Subelements will be moved upwards.]]></target>
         <note priority="1">templates\base.html.twig:54</note>
         <note priority="1">src\Form\PartType.php:62</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>name.label</source>
         <target>Name</target>
       </segment>
@@ -2553,7 +2553,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:31</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>entity.info.attachments.tab</source>
         <target>Attachments</target>
       </segment>
@@ -2562,7 +2562,7 @@ Subelements will be moved upwards.]]></target>
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:37</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>entity.info.parameters.tab</source>
         <target>Parameters</target>
       </segment>
@@ -3733,7 +3733,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:22</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>navbar.scanner.link</source>
         <target>Scanner</target>
       </segment>
@@ -4030,7 +4030,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Controller\LabelController.php:134</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_generator.no_entities_found</source>
         <target>No entities matching the range found.</target>
       </segment>
@@ -4193,7 +4193,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:66</note>
         <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:89</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>scan.qr_not_found</source>
         <target>No element found for the given barcode.</target>
       </segment>
@@ -4202,7 +4202,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:69</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>scan.format_unknown</source>
         <target>Format unknown!</target>
       </segment>
@@ -4211,7 +4211,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:86</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>scan.qr_success</source>
         <target>Element found.</target>
       </segment>
@@ -5063,7 +5063,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:66</note>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:86</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>part.label</source>
         <target>Part</target>
       </segment>
@@ -5073,7 +5073,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:66</note>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:87</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>part_lot.label</source>
         <target>Part lot</target>
       </segment>
@@ -5082,7 +5082,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:76</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_options.barcode_type.none</source>
         <target>None</target>
       </segment>
@@ -5091,7 +5091,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:76</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_options.barcode_type.qr</source>
         <target>QR Code (recommended)</target>
       </segment>
@@ -5100,7 +5100,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:76</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_options.barcode_type.code128</source>
         <target>Code 128 (recommended)</target>
       </segment>
@@ -5109,7 +5109,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:76</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_options.barcode_type.code39</source>
         <target>Code 39 (recommended)</target>
       </segment>
@@ -5118,7 +5118,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:76</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_options.barcode_type.code93</source>
         <target>Code 93</target>
       </segment>
@@ -5127,7 +5127,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:76</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_options.barcode_type.datamatrix</source>
         <target>Datamatrix</target>
       </segment>
@@ -5136,7 +5136,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:121</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_options.lines_mode.html</source>
         <target>Placeholders</target>
       </segment>
@@ -5145,7 +5145,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:121</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label.options.lines_mode.twig</source>
         <target>Twig</target>
       </segment>
@@ -5154,16 +5154,16 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:125</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_options.lines_mode.help</source>
-        <target><![CDATA[If you select Twig here, the content field is interpreted as Twig template. See <a href="https://twig.symfony.com/doc/3.x/templates.html">Twig documentation</a> and <a href="https://github.com/Part-DB/Part-DB-symfony/wiki/Labels#twig-mode">Wiki</a> for more informations.]]></target>
+        <target>If you select Twig here, the content field is interpreted as Twig template. See &lt;a href="https://twig.symfony.com/doc/3.x/templates.html"&gt;Twig documentation&lt;/a&gt; and &lt;a href="https://github.com/Part-DB/Part-DB-symfony/wiki/Labels#twig-mode"&gt;Wiki&lt;/a&gt; for more informations.</target>
       </segment>
     </unit>
     <unit id="2d9g1o5" name="label_options.page_size.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:45</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_options.page_size.label</source>
         <target>Label size</target>
       </segment>
@@ -5172,7 +5172,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:64</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_options.supported_elements.label</source>
         <target>Target type</target>
       </segment>
@@ -5181,7 +5181,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:73</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_options.barcode_type.label</source>
         <target>Barcode</target>
       </segment>
@@ -5190,7 +5190,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:101</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_profile.lines.label</source>
         <target>Content</target>
       </segment>
@@ -5199,7 +5199,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:110</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_options.additional_css.label</source>
         <target>Additional styles (CSS)</target>
       </segment>
@@ -5208,7 +5208,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:119</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_options.lines_mode.label</source>
         <target>Parser mode</target>
       </segment>
@@ -5217,7 +5217,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:49</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_options.width.placeholder</source>
         <target>Width</target>
       </segment>
@@ -5226,7 +5226,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:58</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_options.height.placeholder</source>
         <target>Height</target>
       </segment>
@@ -5235,7 +5235,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:48</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_generator.target_id.range_hint</source>
         <target>You can specify multiple IDs (e.g. 1,2,3) and/or a range (1-3) here to generate labels for multiple elements at once.</target>
       </segment>
@@ -5253,7 +5253,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:59</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_generator.update</source>
         <target>Update</target>
       </segment>
@@ -5263,7 +5263,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\ScanDialogType.php:34</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>scan_dialog.input</source>
         <target>Input</target>
       </segment>
@@ -5273,7 +5273,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\ScanDialogType.php:42</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>scan_dialog.submit</source>
         <target>Submit</target>
       </segment>
@@ -5607,7 +5607,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <note category="file-source" priority="1">Part-DB1\src\Form\Part\PartBaseType.php:123</note>
         <note priority="1">Part-DB1\src\Form\Part\PartBaseType.php:121</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>part.editmininstock.placeholder</source>
         <target>e.g. 1</target>
       </segment>
@@ -5880,7 +5880,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:96</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_profile.label</source>
         <target>Label profile</target>
       </segment>
@@ -5920,7 +5920,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:108</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>tree.tools.tools</source>
         <target>Tools</target>
       </segment>
@@ -5961,7 +5961,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:123</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>tree.tools.tools.label_dialog</source>
         <target>Label generator</target>
       </segment>
@@ -5970,7 +5970,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:130</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>tree.tools.tools.label_scanner</source>
         <target>Scanner</target>
       </segment>
@@ -6074,7 +6074,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:203</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>tree.tools.edit.label_profile</source>
         <target>Label profiles</target>
       </segment>
@@ -6168,7 +6168,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:34</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>attachment.external_file</source>
         <target>External file</target>
       </segment>
@@ -6178,7 +6178,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:62</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>attachment.edit</source>
         <target>Edit</target>
       </segment>
@@ -6189,7 +6189,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <note priority="1">templates\base.html.twig:88</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>barcode.scan</source>
         <target>Scan Barcode</target>
       </segment>
@@ -6200,7 +6200,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <note priority="1">src\Form\UserSettingsType.php:49</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>user.theme.label</source>
         <target>Theme</target>
       </segment>
@@ -6211,7 +6211,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <note priority="1">src\Form\UserSettingsType.php:50</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>user_settings.theme.placeholder</source>
         <target>Serverwide Theme</target>
       </segment>
@@ -8633,7 +8633,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>tfa_u2f.key_added_successful</source>
         <target>Security key added successfully.</target>
       </segment>
@@ -8642,7 +8642,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>Username</source>
         <target>Username</target>
       </segment>
@@ -8651,7 +8651,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.security.google_disabled</source>
         <target>Authenticator App disabled</target>
       </segment>
@@ -8660,7 +8660,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.security.u2f_removed</source>
         <target>Security key removed</target>
       </segment>
@@ -8669,7 +8669,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.security.u2f_added</source>
         <target>Security key added</target>
       </segment>
@@ -8678,7 +8678,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.security.backup_keys_reset</source>
         <target>Backup keys regenerated</target>
       </segment>
@@ -8687,7 +8687,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.security.google_enabled</source>
         <target>Authenticator App enabled</target>
       </segment>
@@ -8696,7 +8696,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.security.password_changed</source>
         <target>Password changed</target>
       </segment>
@@ -8705,7 +8705,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.security.trusted_device_reset</source>
         <target>Trusted devices resetted</target>
       </segment>
@@ -8714,7 +8714,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.collection_element_deleted</source>
         <target>Element of Collection deleted</target>
       </segment>
@@ -8723,7 +8723,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.security.password_reset</source>
         <target>Password reset</target>
       </segment>
@@ -8732,7 +8732,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.security.2fa_admin_reset</source>
         <target>Two Factor Reset by Administrator</target>
       </segment>
@@ -8741,7 +8741,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.type.user_not_allowed</source>
         <target>Unauthorised access attempt</target>
       </segment>
@@ -8750,7 +8750,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>log.database_updated.success</source>
         <target>Sucess</target>
       </segment>
@@ -8759,7 +8759,7 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_options.barcode_type.2D</source>
         <target>2D</target>
       </segment>
@@ -8768,43 +8768,43 @@ Element 3</target>
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>label_options.barcode_type.1D</source>
         <target>1D</target>
       </segment>
     </unit>
     <unit id="QMdRP48" name="perm.part.parameters">
-      <segment>
+      <segment state="translated">
         <source>perm.part.parameters</source>
         <target>Parameters</target>
       </segment>
     </unit>
     <unit id="_a9gfQw" name="perm.attachment_show_private">
-      <segment>
+      <segment state="translated">
         <source>perm.attachment_show_private</source>
         <target>View private attachments</target>
       </segment>
     </unit>
     <unit id="fcUq9AR" name="perm.tools.label_scanner">
-      <segment>
+      <segment state="translated">
         <source>perm.tools.label_scanner</source>
         <target>Label scanner</target>
       </segment>
     </unit>
     <unit id="QSODEfC" name="perm.self.read_profiles">
-      <segment>
+      <segment state="translated">
         <source>perm.self.read_profiles</source>
         <target>Read profiles</target>
       </segment>
     </unit>
     <unit id="9ItKgrD" name="perm.self.create_profiles">
-      <segment>
+      <segment state="translated">
         <source>perm.self.create_profiles</source>
         <target>Create profiles</target>
       </segment>
     </unit>
     <unit id="j6yqWSf" name="perm.labels.use_twig">
-      <segment>
+      <segment state="translated">
         <source>perm.labels.use_twig</source>
         <target>Use twig mode</target>
       </segment>
