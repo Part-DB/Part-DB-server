@@ -168,7 +168,7 @@ abstract class BaseAdminController extends AbstractController
         $form_options =  [
             'attachment_class' => $this->attachment_class,
             'parameter_class' => $this->parameter_class,
-            'disabled' => null !== $timeTravel_timestamp ? true : null,
+            'disabled' => null !== $timeTravel_timestamp ? true : false,
         ];
 
         //Disable editing of options, if user is not allowed to use twig...
