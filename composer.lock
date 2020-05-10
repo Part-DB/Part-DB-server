@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c3907def7965c1e7338ea973b7becfc",
+    "content-hash": "19cd1b3160aed1bd1f07a776339b462d",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -3853,16 +3853,16 @@
         },
         {
             "name": "r/u2f-two-factor-bundle",
-            "version": "dev-dev-symfony5",
+            "version": "dev-symfony5-support",
             "source": {
                 "type": "git",
-                "url": "https://github.com/stephanvierkant/u2f-two-factor-bundle.git",
-                "reference": "2adf2d83ffb9d82715cdd1d742daf8e42b7ef2d0"
+                "url": "https://github.com/jbtronics/u2f-two-factor-bundle.git",
+                "reference": "934e1c98e0dc7ef9ce731f9dfe87d5b86a38d9b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stephanvierkant/u2f-two-factor-bundle/zipball/2adf2d83ffb9d82715cdd1d742daf8e42b7ef2d0",
-                "reference": "2adf2d83ffb9d82715cdd1d742daf8e42b7ef2d0",
+                "url": "https://api.github.com/repos/jbtronics/u2f-two-factor-bundle/zipball/934e1c98e0dc7ef9ce731f9dfe87d5b86a38d9b7",
+                "reference": "934e1c98e0dc7ef9ce731f9dfe87d5b86a38d9b7",
                 "shasum": ""
             },
             "require": {
@@ -3881,7 +3881,7 @@
                 "tubssz/u2f-two-factor-bundle": "*"
             },
             "require-dev": {
-                "phpstan/phpstan": "^0.12.18"
+                "phpstan/phpstan": "^0.11.6"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -3913,9 +3913,9 @@
                 "yubikey"
             ],
             "support": {
-                "source": "https://github.com/stephanvierkant/u2f-two-factor-bundle/tree/dev-symfony5"
+                "source": "https://github.com/jbtronics/u2f-two-factor-bundle/tree/symfony5-support"
             },
-            "time": "2020-04-23T19:59:51+00:00"
+            "time": "2020-05-10T17:45:27+00:00"
         },
         {
             "name": "s9e/regexp-builder",
@@ -10490,16 +10490,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.23",
+            "version": "0.12.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "71e529efced79e055fa8318b692e7f7d03ea4e75"
+                "reference": "823a120fea50b68742b2be2285818202ecce511e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/71e529efced79e055fa8318b692e7f7d03ea4e75",
-                "reference": "71e529efced79e055fa8318b692e7f7d03ea4e75",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/823a120fea50b68742b2be2285818202ecce511e",
+                "reference": "823a120fea50b68742b2be2285818202ecce511e",
                 "shasum": ""
             },
             "require": {
@@ -10528,7 +10528,7 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
-            "time": "2020-05-05T12:55:44+00:00"
+            "time": "2020-05-10T14:25:55+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
