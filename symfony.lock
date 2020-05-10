@@ -699,7 +699,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "4.4",
-            "ref": "30efd98dd3b4ead6e9ad4713b1efc43bbe94bf77"
+            "ref": "7b4408dc203049666fe23fabed23cbadc6d8440f"
         },
         "files": [
             "./config/packages/security.yaml"
