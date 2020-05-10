@@ -296,12 +296,12 @@
         "version": "1.7.1"
     },
     "php-translation/symfony-bundle": {
-        "version": "0.4",
+        "version": "0.10",
         "recipe": {
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "master",
-            "version": "0.4",
-            "ref": "ee15ad002114fba7b694a7fe429419b518d43bc4"
+            "version": "0.10",
+            "ref": "7626dc2639039d9db29789b560171f2f2a9d8468"
         },
         "files": [
             "./config/packages/dev/php_translation.yaml",
@@ -446,7 +446,7 @@
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "master",
             "version": "1.0",
-            "ref": "410b9325a37ef86f1e47262c61738f6202202bca"
+            "ref": "71599f5b0fdeeeec0fb90e9b17c85e6f5e1350c1"
         },
         "files": [
             "./public/.htaccess"
@@ -473,7 +473,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "4.4",
-            "ref": "fead3ab2e80622c61d13dac0d21a3430a45efae8"
+            "ref": "ea8c0eda34fda57e7d5cd8cbd889e2a387e3472c"
         },
         "files": [
             "./bin/console",
