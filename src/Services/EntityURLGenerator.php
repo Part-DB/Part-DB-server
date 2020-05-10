@@ -47,6 +47,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Devices\Device;
+use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -133,7 +134,6 @@ class EntityURLGenerator
     {
         $map = [
             Part::class => 'part_info',
-
             //As long we does not have own things for it use edit page
             AttachmentType::class => 'attachment_type_edit',
             Category::class => 'category_edit',
@@ -146,6 +146,7 @@ class EntityURLGenerator
             Currency::class => 'currency_edit',
             MeasurementUnit::class => 'measurement_unit_edit',
             Group::class => 'group_edit',
+            LabelProfile::class => 'label_profile_edit',
         ];
 
         try {
@@ -241,6 +242,7 @@ class EntityURLGenerator
             Currency::class => 'currency_edit',
             MeasurementUnit::class => 'measurement_unit_edit',
             Group::class => 'group_edit',
+            LabelProfile::class => 'label_profile_edit'
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
@@ -270,6 +272,7 @@ class EntityURLGenerator
             Currency::class => 'currency_edit',
             MeasurementUnit::class => 'measurement_unit_edit',
             Group::class => 'group_edit',
+            LabelProfile::class => 'label_profile_edit'
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
@@ -299,6 +302,7 @@ class EntityURLGenerator
             Currency::class => 'currency_new',
             MeasurementUnit::class => 'measurement_unit_new',
             Group::class => 'group_new',
+            LabelProfile::class => 'label_profile_new'
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity));
@@ -329,6 +333,7 @@ class EntityURLGenerator
             Currency::class => 'currency_clone',
             MeasurementUnit::class => 'measurement_unit_clone',
             Group::class => 'group_clone',
+            LabelProfile::class => 'label_profile_clone'
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);
@@ -371,6 +376,7 @@ class EntityURLGenerator
             Currency::class => 'currency_delete',
             MeasurementUnit::class => 'measurement_unit_delete',
             Group::class => 'group_delete',
+            LabelProfile::class => 'label_profile_delete'
         ];
 
         return $this->urlGenerator->generate($this->mapToController($map, $entity), ['id' => $entity->getID()]);

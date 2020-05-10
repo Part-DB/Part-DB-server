@@ -25,6 +25,7 @@
         "@types/jquery.form": "^3.26.30",
         "@types/marked": "^0.7.2",
         "@types/typeahead": "^0.11.32",
+        "@zxing/library": "^0.16.3",
         "bootbox": "^5.4.0",
         "bootstrap-fileinput": "^5.0.1",
         "bootstrap-select": "^1.13.8",

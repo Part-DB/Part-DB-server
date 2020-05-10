@@ -45,6 +45,7 @@ namespace App\Services\Trees;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Devices\Device;
+use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -104,12 +105,34 @@ class ToolsTreeBuilder
             $item->tag(['tree_tools', 'groups', $this->keyGenerator->generateKey()]);
 
             $tree = [];
+            $tree[] = new TreeViewNode($this->translator->trans('tree.tools.tools'), null, $this->getToolsNode());
             $tree[] = new TreeViewNode($this->translator->trans('tree.tools.edit'), null, $this->getEditNodes());
             $tree[] = new TreeViewNode($this->translator->trans('tree.tools.show'), null, $this->getShowNodes());
             $tree[] = new TreeViewNode($this->translator->trans('tree.tools.system'), null, $this->getSystemNodes());
 
             return $tree;
         });
+    }
+
+    protected function getToolsNode(): array
+    {
+        $nodes = [];
+
+        if ($this->security->isGranted('@labels.create_labels')) {
+            $nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.tools.label_dialog'),
+                $this->urlGenerator->generate('label_dialog')
+            );
+        }
+
+        if ($this->security->isGranted('@tools.label_scanner')) {
+            $nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.tools.label_scanner'),
+                $this->urlGenerator->generate('scan_dialog')
+            );
+        }
+
+        return $nodes;
     }
 
     /**
@@ -175,12 +198,19 @@ class ToolsTreeBuilder
                 $this->urlGenerator->generate('measurement_unit_new')
             );
         }
+        if ($this->security->isGranted('read', new LabelProfile())) {
+            $nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.edit.label_profile'),
+                $this->urlGenerator->generate('label_profile_new')
+            );
+        }
         if ($this->security->isGranted('create', new Part())) {
             $nodes[] = new TreeViewNode(
                 $this->translator->trans('tree.tools.edit.part'),
                 $this->urlGenerator->generate('part_new')
             );
         }
+
 
         return $nodes;
     }

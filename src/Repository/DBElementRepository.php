@@ -50,6 +50,22 @@ class DBElementRepository extends EntityRepository
         $this->setField($element, 'id', $new_id);
     }
 
+    /**
+     * Find all elements that match a list of IDs.
+     * @param  array  $ids
+     * @return AbstractDBElement[]
+     */
+    public function getElementsFromIDArray(array $ids): array
+    {
+        $qb = $this->createQueryBuilder('element');
+        $q = $qb->select('element')
+            ->where('element.id IN (?1)')
+            ->setParameter(1, $ids)
+            ->getQuery();
+
+        return $q->getResult();
+    }
+
     protected function setField(AbstractDBElement $element, string $field, int $new_value): void
     {
         $reflection = new \ReflectionClass(get_class($element));

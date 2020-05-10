@@ -1,0 +1,17 @@
+<div>
+    <div class="row">
+        <div class="col-5">
+            <div class="qr-container">
+                <a href="{{ element.barcode_content }}">
+                    <img class="qr" src="{{ element.barcode | data_uri(mime='image/svg+xml') }}" width="100%" style="">
+                </a>
+            </div>
+            {#{{ element.barcode | raw }} #}
+        </div>
+        <div class="col-7">
+            <div class="lines-container">
+                {{ element.lines | raw }}
+            </div>
+        </div>
+    </div>
+</div>

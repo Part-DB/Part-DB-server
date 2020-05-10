@@ -178,6 +178,7 @@ class UserAdminForm extends AbstractType
                 'attr' => [
                     'class' => 'selectpicker',
                 ],
+                'choice_translation_domain' => false,
                 'placeholder' => 'user_settings.theme.placeholder',
                 'label' => 'user.theme.label',
                 'disabled' => ! $this->security->isGranted('change_user_settings', $entity),

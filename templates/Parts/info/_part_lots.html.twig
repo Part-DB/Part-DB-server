@@ -1,4 +1,5 @@
 {% import "helper.twig" as helper %}
+{% import "LabelSystem/dropdown_macro.html.twig" as dropdown %}
 
 <table class="table table-striped table-hover table-responsive-sm">
     <thead>
@@ -7,6 +8,7 @@
         <th>{% trans %}part_lots.storage_location{% endtrans %}</th>
         <th>{% trans %}part_lots.amount{% endtrans %}</th>
         <th></th> {# Tags row #}
+        <th></th> {# Button row #}
     </tr>
     </thead>
 
@@ -54,6 +56,9 @@
                         </span>
                     {% endif %}
                 </h6>
+            </td>
+            <td>
+                {{ dropdown.profile_dropdown('part_lot', lot.id, false) }}
             </td>
         </tr>
     {% endfor %}

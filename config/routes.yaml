@@ -3,6 +3,11 @@
 #    controller: App\Controller\DefaultController::index
 
 # Redirect every url without an locale to the locale of the user/the global base locale
+
+scan_qr:
+    path: /scan/{type}/{id}
+    controller: App\Controller\ScanController:scanQRCode
+
 redirector:
     path: /{url}
     requirements:

@@ -9,6 +9,7 @@
         <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractStructuralDBElement.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\LabelSystem\LabelProfile.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Manufacturer.php:0</note>
@@ -20,7 +21,6 @@
         <note category="file-source" priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
-        <note priority="1">Part-DB1\src\Entity\Attachments\AttachmentContainingDBElement.php:0</note>
         <note priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
         <note priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
         <note priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
@@ -168,12 +168,18 @@
       </segment>
     </unit>
     <unit id="lZvhKYu" name="validator.noneofitschild.self">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>validator.noneofitschild.self</source>
         <target>An element can not be its own parent.</target>
       </segment>
     </unit>
     <unit id="pr07aV4" name="validator.noneofitschild.children">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment>
         <source>validator.noneofitschild.children</source>
         <target>You can not assign children element as parent (This would cause loops).</target>

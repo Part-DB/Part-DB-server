@@ -291,6 +291,9 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       timetravel:
         label: "perm.tools.timeTravel"
         bit: 14
+      label_scanner:
+        label: "perm.tools.label_scanner"
+        bit: 16
 
   groups:
     label: "perm.groups"
@@ -466,11 +469,33 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       edit_options:
         label: "perm.self.edit_options"
         bit: 2
-      delete_profiles:
-        label: "perm.self.delete_profiles"
-        bit: 4
+        alsoSet: ['create_labels']
+      read_profiles:
+        label: "perm.self.read_profiles"
+        bit: 10
       edit_profiles:
         label: "perm.self.edit_profiles"
         bit: 6
+        alsoSet: ['read_profiles']
+      create_profiles:
+        label: "perm.self.create_profiles"
+        bit: 8
+        alsoSet: ['read_profiles', 'edit_profiles']
+      delete_profiles:
+        label: "perm.self.delete_profiles"
+        bit: 4
+        alsoSet: ['read_profiles', 'edit_profiles', 'create_profiles']
+      use_twig:
+        label: "perm.labels.use_twig"
+        bit: 12
+        alsoSet: ['create_labels', 'edit_options']
+      show_history:
+        label: "perm.show_history"
+        bit: 14
+        alsoSet: ['read_profiles']
+      revert_element:
+        label: "perm.revert_elements"
+        bit: 16
+        alsoSet: ['read_profiles', 'edit_profiles', 'create_profiles', 'delete_profiles']
 
 

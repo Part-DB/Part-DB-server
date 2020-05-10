@@ -45,6 +45,8 @@ namespace App\Controller\AdminPages;
 use App\DataTables\LogDataTable;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\LabelSystem\LabelProfile;
+use App\Entity\Parts\PartLot;
 use App\Entity\UserSystem\User;
 use App\Events\SecurityEvent;
 use App\Events\SecurityEvents;
@@ -54,6 +56,8 @@ use App\Form\AdminPages\MassCreationForm;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
+use App\Services\LabelSystem\Barcodes\BarcodeExampleElementsGenerator;
+use App\Services\LabelSystem\LabelGenerator;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\HistoryHelper;
 use App\Services\LogSystem\TimeTravel;
@@ -92,11 +96,14 @@ abstract class BaseAdminController extends AbstractController
     protected $dataTableFactory;
     /** @var EventDispatcher */
     protected $eventDispatcher;
+    protected $labelGenerator;
+    protected $barcodeExampleGenerator;
 
     public function __construct(TranslatorInterface $translator, UserPasswordEncoderInterface $passwordEncoder,
         AttachmentSubmitHandler $attachmentSubmitHandler,
         EventCommentHelper $commentHelper, HistoryHelper $historyHelper, TimeTravel $timeTravel,
-        DataTableFactory $dataTableFactory, EventDispatcherInterface $eventDispatcher)
+        DataTableFactory $dataTableFactory, EventDispatcherInterface $eventDispatcher, BarcodeExampleElementsGenerator $barcodeExampleGenerator,
+        LabelGenerator $labelGenerator)
     {
         if ('' === $this->entity_class || '' === $this->form_class || '' === $this->twig_template || '' === $this->route_base) {
             throw new InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');
@@ -118,6 +125,8 @@ abstract class BaseAdminController extends AbstractController
         $this->timeTravel = $timeTravel;
         $this->dataTableFactory = $dataTableFactory;
         $this->eventDispatcher = $eventDispatcher;
+        $this->barcodeExampleGenerator = $barcodeExampleGenerator;
+        $this->labelGenerator = $labelGenerator;
     }
 
     protected function _edit(AbstractNamedDBElement $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
@@ -156,11 +165,22 @@ abstract class BaseAdminController extends AbstractController
             $table = null;
         }
 
-        $form = $this->createForm($this->form_class, $entity, [
+        $form_options =  [
             'attachment_class' => $this->attachment_class,
             'parameter_class' => $this->parameter_class,
             'disabled' => null !== $timeTravel_timestamp ? true : null,
-        ]);
+        ];
+
+        //Disable editing of options, if user is not allowed to use twig...
+        if (
+            $entity instanceof LabelProfile
+            && $entity->getOptions()->getLinesMode() === 'twig'
+            && !$this->isGranted('@labels.use_twig')
+        ) {
+            $form_options['disable_options'] = true;
+        }
+
+        $form = $this->createForm($this->form_class, $entity, $form_options);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -210,11 +230,18 @@ abstract class BaseAdminController extends AbstractController
             $this->addFlash('error', 'entity.edit_flash.invalid');
         }
 
+        //Show preview for LabelProfile if needed.
+        if ($entity instanceof LabelProfile) {
+            $example = $this->barcodeExampleGenerator->getElement($entity->getOptions()->getSupportedElement());
+            $pdf_data = $this->labelGenerator->generateLabel($entity->getOptions(), $example);
+        }
+
         return $this->render($this->twig_template, [
             'entity' => $entity,
             'form' => $form->createView(),
             'route_base' => $this->route_base,
             'datatable' => $table,
+            'pdf_data' => $pdf_data ?? null,
             'timeTravel' => $timeTravel_timestamp,
         ]);
     }

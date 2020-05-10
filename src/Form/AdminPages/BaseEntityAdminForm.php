@@ -45,6 +45,8 @@ namespace App\Form\AdminPages;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\LabelSystem\LabelOptions;
+use App\Entity\LabelSystem\LabelProfile;
 use App\Form\AttachmentFormType;
 use App\Form\ParameterType;
 use App\Form\Type\MasterPictureAttachmentType;
@@ -94,35 +96,49 @@ class BaseEntityAdminForm extends AbstractType
                     'placeholder' => 'part.name.placeholder',
                 ],
                 'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            ])
-
-            ->add('parent', StructuralEntityType::class, [
-                'class' => get_class($entity),
-                'required' => false,
-                'label' => 'parent.label',
-                'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity),
-            ])
-
-            ->add('not_selectable', CheckboxType::class, [
-                'required' => false,
-                'label' => 'entity.edit.not_selectable',
-                'help' => 'entity.edit.not_selectable.help',
-                'label_attr' => [
-                    'class' => 'checkbox-custom',
-                ],
-                'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            ])
-
-            ->add('comment', CKEditorType::class, [
-                'required' => false,
-                'empty_data' => '',
-                'label' => 'comment.label',
-                'attr' => [
-                    'rows' => 4,
-                ],
-                'help' => 'bbcode.hint',
-                'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             ]);
+
+        if ($entity instanceof AbstractStructuralDBElement) {
+            $builder->add(
+                'parent',
+                StructuralEntityType::class,
+                [
+                    'class' => get_class($entity),
+                    'required' => false,
+                    'label' => 'parent.label',
+                    'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
+                ]
+            )
+                ->add(
+                    'not_selectable',
+                    CheckboxType::class,
+                    [
+                        'required' => false,
+                        'label' => 'entity.edit.not_selectable',
+                        'help' => 'entity.edit.not_selectable.help',
+                        'label_attr' => [
+                            'class' => 'checkbox-custom',
+                        ],
+                        'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+                    ]
+                );
+        }
+        if ($entity instanceof AbstractStructuralDBElement || $entity instanceof LabelProfile) {
+            $builder->add(
+                'comment',
+                CKEditorType::class,
+                [
+                    'required' => false,
+                    'empty_data' => '',
+                    'label' => 'comment.label',
+                    'attr' => [
+                        'rows' => 4,
+                    ],
+                    'help' => 'bbcode.hint',
+                    'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+                ]
+            );
+        }
 
         $this->additionalFormElements($builder, $options, $entity);
 
@@ -154,19 +170,25 @@ class BaseEntityAdminForm extends AbstractType
             'empty_data' => null,
         ]);
 
-        $builder->add('parameters', CollectionType::class, [
-            'entry_type' => ParameterType::class,
-            'allow_add' => $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            'allow_delete' => $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-            'reindex_enable' => true,
-            'label' => false,
-            'by_reference' => false,
-            'prototype_data' => new $options['parameter_class'](),
-            'entry_options' => [
-                'data_class' => $options['parameter_class'],
-            ],
-        ]);
+        if ($entity instanceof AbstractStructuralDBElement) {
+            $builder->add(
+                'parameters',
+                CollectionType::class,
+                [
+                    'entry_type' => ParameterType::class,
+                    'allow_add' => $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+                    'allow_delete' => $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+                    'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+                    'reindex_enable' => true,
+                    'label' => false,
+                    'by_reference' => false,
+                    'prototype_data' => new $options['parameter_class'](),
+                    'entry_options' => [
+                        'data_class' => $options['parameter_class'],
+                    ],
+                ]
+            );
+        }
 
         //Buttons
         $builder->add('save', SubmitType::class, [

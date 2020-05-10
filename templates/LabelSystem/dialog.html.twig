@@ -1,0 +1,116 @@
+{% extends 'main_card.html.twig' %}
+
+{% block title %}{% trans %}label_generator.title{% endtrans %}{% endblock %}
+
+{%- block card_title -%}
+    <i class="fas fa-qrcode fa-fw"></i> {% trans %}label_generator.title{% endtrans %}
+    {% if profile %}({{ profile.name }}){% endif %}
+{%- endblock -%}
+
+{% block card_content %}
+    {{ form_start(form) }}
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" id="common-tab" role="tab" aria-controls="common" aria-selected="true" href="#common"
+            >{% trans %}label_generator.common{% endtrans %}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" id="advanced-tab" role="tab" aria-controls="advanced" aria-selected="false" href="#advanced"
+            >{% trans %}label_generator.advanced{% endtrans %}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" id="profiles-tab" role="tab" aria-controls="profiles" aria-selected="false" href="#profiles"
+            >{% trans %}label_generator.profiles{% endtrans %}</a>
+        </li>
+    </ul>
+
+    <div class="tab-content mt-2">
+
+        <div class="tab-pane active" id="common" role="tabpanel" aria-labelledby="common-tab">
+            {{ form_row(form.target_id) }}
+
+            {{ form_row(form.options.supported_element) }}
+            <div class="form-group row">
+                {{ form_label(form.options.width) }}
+                <div class="input-group col-9">
+                    {{ form_widget(form.options.width) }}
+                    <div class="input-group-append input-group-prepend">
+                        <span class="input-group-text">x</span>
+                    </div>
+                    {{ form_widget(form.options.height) }}
+                    <div class="input-group-append">
+                        <span class="input-group-text">mm</span>
+                    </div>
+                </div>
+            </div>
+            {{ form_row(form.options.barcode_type) }}
+            {{ form_row(form.options.lines) }}
+        </div>
+
+        <div class="tab-pane" id="advanced" role="tabpanel" aria-labelledby="advanced-tab">
+            {{ form_row(form.options.additional_css) }}
+            {{ form_widget(form.options) }}
+        </div>
+
+        <div class="tab-pane" id="profiles" role="tabpanel" aria-labelledby="profiles-tab">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">{% trans %}label_generator.selected_profile{% endtrans %}</label>
+                <div class="col-sm-9">
+                    <span class="form-control-plaintext">{{ profile.name ?? '-' }}
+                        {% if profile %}
+                            <a href="{{ profile | entityURL('edit') }}" title="{% trans %}label_generator.edit_profile{% endtrans %}"
+                            ><i class="fas fa-edit"></i></a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="offset-sm-3 col-sm-9">
+                    <div class="dropdown">
+                        <button class="btn btn-info dropdown-toggle" type="button" id="loadProfilesButton"
+                                {% if not is_granted("@labels.create_labels") %}disabled{% endif %}
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {% trans %}label_generator.load_profile{% endtrans %}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="loadProfilesButton">
+                            {% if is_granted("@labels.create_labels") %}
+                                {% for type in constant("App\\Entity\\LabelSystem\\LabelOptions::SUPPORTED_ELEMENTS") %}
+                                    {% set profiles = label_profile_dropdown_helper.dropdownProfiles(type) %}
+                                    {% if profiles is not empty %}
+                                        <h6 class="dropdown-header">{{ (type~'.label') | trans }}</h6>
+                                    {% endif %}
+                                    {% for profile in profiles %}
+                                        <a class="dropdown-item" href="{{ path('label_dialog_profile', {'profile': profile.id }) }}">{{ profile.name }}</a>
+                                    {% endfor %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{ form_end(form) }}
+    {% if pdf_data %}
+        <div class="row">
+            <div class="col-sm-9 offset-sm-3">
+                <a data-no-ajax class="btn btn-secondary" href="#" onclick="this.href = document.getElementById('pdf_preview').data" download="{{ filename ?? '' }}">
+                    {% trans %}label_generator.download{% endtrans %}
+                </a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block additional_content %}
+    {% if pdf_data %}
+        <div class="card mt-2 p-1 border-secondary" style="resize: vertical; overflow: scroll; height: 250px">
+            <object id="pdf_preview"  data="{{ pdf_data | data_uri(mime='application/pdf') }}"style="height: inherit">
+            </object>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -17,7 +17,19 @@ fos_ck_editor:
             extraPlugins: "markdown"
             height: 60
             toolbar: description_toolbar
-
+        label_config:
+            height: 100
+            enterMode: 2
+            toolbar: label_toolbar
+            extraPlugins: ["partdb_label", "showprotected"]
+            allowedContent: true
+            font_names: >
+                DejaVu Sans Mono/DejaVu Sans Mono;
+                DejaVu Sans/DejaVu Sans;
+                DejaVu Serif/DejaVu Serif;
+                Helvetica/Helvetica, Arial, sans-serif;
+                Times New Roman/Times New Roman, Times, serif;
+                Courier New/Courier New, Courier, monospace;
 
     plugins:
         bbcode:
@@ -29,10 +41,25 @@ fos_ck_editor:
         specialchar:
             path:     "ckeditor/plugins/specialchar"
             filename:  "plugin.js"
+        partdb_label:
+            path:      "ckeditor/plugins/partdb_label/"
+            filename: "plugin.js"
+        showprotected:
+            path:      "ckeditor/plugins/showprotected/"
+            filename: "plugin.js"
 
 
     toolbars:
         configs:
+            label_toolbar:
+                - [ 'Bold', 'Italic', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]
+                - ['JustifyLeft', 'JustifyCenter', 'JustifyRight']
+                - ["SpecialChar"]
+                - ["Source"]
+                - "/"
+                - ['Format', 'FontSize', 'Font']
+                - ['Table', 'HorizontalRule']
+                - ['Placeholders']
             description_toolbar:
                 - [ 'Bold', 'Italic', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ]
                 - ["SpecialChar"]
