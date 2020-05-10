@@ -73,6 +73,12 @@ class LabelProfile extends AttachmentContainingDBElement
         return $this->options;
     }
 
+    public function setOptions(LabelOptions $labelOptions): LabelProfile
+    {
+        $this->options = $labelOptions;
+        return $this;
+    }
+
     /**
      * Get the comment of the element.
      * @return string the comment

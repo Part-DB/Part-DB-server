@@ -47,7 +47,7 @@ class ScanController extends AbstractController
     }
 
     /**
-     * @Route("/", name="scan_dialog")
+     * @Route("", name="scan_dialog")
      */
     public function dialog(Request $request): Response
     {
