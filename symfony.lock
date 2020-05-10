@@ -637,14 +637,13 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "4.3",
-            "ref": "170be6250b77b421f02e986e2853df86c7bd6516"
+            "ref": "6d0e35f749d5f4bfe1f011762875275cd3f9874f"
         },
         "files": [
             "./.env.test",
             "./bin/phpunit",
-            "./config/bootstrap.php",
             "./phpunit.xml.dist",
-            "./tests/.gitignore"
+            "./tests/bootstrap.php"
         ]
     },
     "symfony/polyfill-ctype": {
