@@ -24,34 +24,34 @@
         "ocramius/proxy-manager": "2.2.*",
         "omines/datatables-bundle": "^0.4.0",
         "php-translation/symfony-bundle": "^0.12.0",
-        "r/u2f-two-factor-bundle": "^0.7.0",
+        "r/u2f-two-factor-bundle": "dev-dev-symfony5",
         "s9e/text-formatter": "^2.1",
         "scheb/two-factor-bundle": "^4.11",
         "sensio/framework-extra-bundle": "^5.1",
         "sensiolabs/security-checker": "^6.0",
         "shivas/versioning-bundle": "^3.1",
         "symfony/apache-pack": "^1.0",
-        "symfony/asset": "4.4.*",
-        "symfony/console": "4.4.*",
-        "symfony/dotenv": "4.4.*",
-        "symfony/expression-language": "4.4.*",
+        "symfony/asset": "5.0.*",
+        "symfony/console": "5.0.*",
+        "symfony/dotenv": "5.0.*",
+        "symfony/expression-language": "5.0.*",
         "symfony/flex": "^1.1",
-        "symfony/form": "4.4.*",
-        "symfony/framework-bundle": "4.4.*",
-        "symfony/http-client": "4.4.*",
-        "symfony/http-kernel": "4.4.*",
-        "symfony/mailer": "4.4.*",
+        "symfony/form": "5.0.*",
+        "symfony/framework-bundle": "5.0.*",
+        "symfony/http-client": "5.0.*",
+        "symfony/http-kernel": "5.0.*",
+        "symfony/mailer": "5.0.*",
         "symfony/monolog-bundle": "^3.1",
         "symfony/orm-pack": "*",
-        "symfony/process": "4.4.*",
-        "symfony/security-bundle": "4.4.*",
+        "symfony/process": "5.0.*",
+        "symfony/security-bundle": "5.0.*",
         "symfony/serializer-pack": "*",
-        "symfony/translation": "4.4.*",
-        "symfony/twig-bundle": "4.4.*",
-        "symfony/validator": "4.4.*",
-        "symfony/web-link": "4.4.*",
+        "symfony/translation": "5.0.*",
+        "symfony/twig-bundle": "5.0.*",
+        "symfony/validator": "5.0.*",
+        "symfony/web-link": "5.0.*",
         "symfony/webpack-encore-bundle": "^1.1",
-        "symfony/yaml": "4.4.*",
+        "symfony/yaml": "5.0.*",
         "tecnickcom/tc-lib-barcode": "^1.15",
         "twig/cssinliner-extra": "^3.0",
         "twig/extra-bundle": "^3.0",
@@ -118,7 +118,13 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "4.4.*"
+            "require": "5.0.*"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/stephanvierkant/u2f-two-factor-bundle.git"
+        }
+    ]
 }
