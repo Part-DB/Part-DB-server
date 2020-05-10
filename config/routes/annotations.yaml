@@ -1,10 +1,14 @@
 controllers:
     resource: ../../src/Controller/
     type: annotation
-
     prefix: '{_locale}'
+    
     defaults:
         _locale: '%kernel.default_locale%'
     requirements:
         # Match only locales like de_DE or de
         _locale: "^[a-z]{2}(_[A-Z]{2})?$"
+
+kernel:
+    resource: ../../src/Kernel.php
+    type: annotation
