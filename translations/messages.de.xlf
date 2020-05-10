@@ -8754,5 +8754,59 @@ Element 3</target>
         <target>Erfolgreich</target>
       </segment>
     </unit>
+    <unit id="8jpgdV8" name="label_options.barcode_type.2D">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.2D</source>
+        <target>2D</target>
+      </segment>
+    </unit>
+    <unit id="O7.UnHb" name="label_options.barcode_type.1D">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.1D</source>
+        <target>1D</target>
+      </segment>
+    </unit>
+    <unit id="QMdRP48" name="perm.part.parameters">
+      <segment state="translated">
+        <source>perm.part.parameters</source>
+        <target>Parameter</target>
+      </segment>
+    </unit>
+    <unit id="_a9gfQw" name="perm.attachment_show_private">
+      <segment state="translated">
+        <source>perm.attachment_show_private</source>
+        <target>Private Anhänge zeigen</target>
+      </segment>
+    </unit>
+    <unit id="fcUq9AR" name="perm.tools.label_scanner">
+      <segment state="translated">
+        <source>perm.tools.label_scanner</source>
+        <target>Labelscanner</target>
+      </segment>
+    </unit>
+    <unit id="QSODEfC" name="perm.self.read_profiles">
+      <segment state="translated">
+        <source>perm.self.read_profiles</source>
+        <target>Profile anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="9ItKgrD" name="perm.self.create_profiles">
+      <segment state="translated">
+        <source>perm.self.create_profiles</source>
+        <target>Profil anlegen</target>
+      </segment>
+    </unit>
+    <unit id="j6yqWSf" name="perm.labels.use_twig">
+      <segment state="translated">
+        <source>perm.labels.use_twig</source>
+        <target>Twig Modus benutzen</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
