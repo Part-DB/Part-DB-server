@@ -22,6 +22,9 @@
 var Encore = require('@symfony/webpack-encore');
 const CopyPlugin = require('copy-webpack-plugin');
 
+const zlib = require('zlib');
+const CompressionPlugin = require("compression-webpack-plugin");
+
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
 if (!Encore.isRuntimeEnvironmentConfigured()) {
@@ -104,6 +107,26 @@ Encore
             to: 'themes/bootstrap.css'
         }
     ]))
+
+    .addPlugin(new CompressionPlugin({
+        filename: '[path].br[query]',
+        algorithm: 'brotliCompress',
+        test: /\.(js|css|html|svg)$/,
+        compressionOptions: {
+            // zlib’s `level` option matches Brotli’s `BROTLI_PARAM_QUALITY` option.
+            level: 11,
+        },
+        //threshold: 10240,
+        minRatio: 0.8,
+        deleteOriginalAssets: false,
+    }))
+
+    .addPlugin(new CompressionPlugin({
+        filename: '[path].gz[query]',
+        algorithm: 'gzip',
+        test: /\.(js|css|html|svg)$/,
+        deleteOriginalAssets: false,
+    }))
 
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()

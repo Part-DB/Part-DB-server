@@ -17,6 +17,42 @@ DirectoryIndex index.php
     Options -MultiViews
 </IfModule>
 
+# Specify Brotli-encoded assets
+<Files *.js.br>
+    AddType "text/javascript" .br
+    AddEncoding br .br
+</Files>
+<Files *.css.br>
+    AddType "text/css" .br
+    AddEncoding br .br
+</Files>
+<Files *.svg.br>
+    AddType "image/svg+xml" .br
+    AddEncoding br .br
+</Files>
+<Files *.html.br>
+    AddType "text/html" .br
+    AddEncoding br .br
+</Files>
+
+# Specify gzip-encoded assets
+<Files *.js.gz>
+    AddType "text/javascript" .gz
+    AddEncoding gz .gz
+</Files>
+<Files *.css.gz>
+    AddType "text/css" .gz
+    AddEncoding gz .gz
+</Files>
+<Files *.svg.gz>
+    AddType "image/svg+xml" .gz
+    AddEncoding gz .gz
+</Files>
+<Files *.html.gz>
+    AddType "text/html" .gz
+    AddEncoding gz .gz
+</Files>
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
@@ -53,6 +89,20 @@ DirectoryIndex index.php
     # Rewrite all other queries to the front controller.
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ %{ENV:BASE}/index.php [L]
+
+    # Turn on mod_rewrite
+    RewriteEngine On
+
+    # Serve pre-compressed Brotli assets
+    RewriteCond %{HTTP:Accept-Encoding} br
+    RewriteCond %{REQUEST_FILENAME}.br -f
+    RewriteRule ^(.*)$ $1.br [L]
+
+    # Serve pre-compressed gzip assets
+    RewriteCond %{HTTP:Accept-Encoding} gzip
+    RewriteCond %{REQUEST_FILENAME}.gz -f
+    RewriteRule ^(.*)$ $1.gz [L]
+
 </IfModule>
 
 <IfModule !mod_rewrite.c>
