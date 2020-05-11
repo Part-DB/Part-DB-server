@@ -346,8 +346,8 @@ $(document).on("ajaxUI:reload ajaxUI:start", function () {
     $('body').on('click', 'a[data-toggle=\'tab\']', function (e) {
         e.preventDefault()
         var tab_name = this.getAttribute('href')
-        if (history.pushState) {
-            history.pushState(null, null, tab_name)
+        if (history.replaceState) {
+            history.replaceState(null, null, tab_name)
         }
         else {
             location.hash = tab_name
