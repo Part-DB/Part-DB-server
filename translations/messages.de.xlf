@@ -9044,5 +9044,35 @@ Element 3</target>
         <target>Twig Modus benutzen</target>
       </segment>
     </unit>
+    <unit id="f_MQ1uL" name="label_profile.showInDropdown">
+      <segment state="translated">
+        <source>label_profile.showInDropdown</source>
+        <target>In Barcode Schnellauswahl anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="qrHwUh3" name="group.edit.enforce_2fa">
+      <segment state="translated">
+        <source>group.edit.enforce_2fa</source>
+        <target>Erzwinge Zwei-Faktor-Authentifizierung (2FA)</target>
+      </segment>
+    </unit>
+    <unit id="btZApXD" name="group.edit.enforce_2fa.help">
+      <segment state="translated">
+        <source>group.edit.enforce_2fa.help</source>
+        <target>Wenn diese Option aktiv ist, muss jedes direkte Mitglied dieser Gruppe, mindests einen zweiten Faktor zur Authentifizierung einrichten. Empfohlen z.B. für administrative Gruppen mit weitreichenden Berechtigungen.</target>
+      </segment>
+    </unit>
+    <unit id="i7QKlzx" name="selectpicker.empty">
+      <segment state="translated">
+        <source>selectpicker.empty</source>
+        <target>Nichts ausgewählt</target>
+      </segment>
+    </unit>
+    <unit id="TPI_1p0" name="selectpicker.nothing_selected">
+      <segment state="translated">
+        <source>selectpicker.nothing_selected</source>
+        <target>Nichts ausgewählt</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
