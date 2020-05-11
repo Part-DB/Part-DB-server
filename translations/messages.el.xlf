@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="el">
   <file id="messages.en">
+    <unit id="0Md_YOf" name="attachment_type.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\AttachmentTypeAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.caption</source>
+        <target>τύπος επισυναπτόμενου αρχείου</target>
+      </segment>
+    </unit>
     <unit id="OllfX2C" name="category.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:4</note>
@@ -17,7 +28,33 @@
       </notes>
       <segment state="translated">
         <source>category.labelp</source>
-        <target>κατηγορία</target>
+        <target>κατηγορίες</target>
+      </segment>
+    </unit>
+    <unit id="lnjU5yu" name="admin.options">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:11</note>
+        <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.options</source>
+        <target>Επιλογές</target>
+      </segment>
+    </unit>
+    <unit id="CuAPq5N" name="admin.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CompanyAdminBase.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CompanyAdminBase.html.twig:15</note>
+        <note priority="1">templates\AdminPages\CategoryAdmin.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.advanced</source>
+        <target>Προχωρημένες</target>
       </segment>
     </unit>
     <unit id="BJtSZa4" name="currency.caption">
@@ -27,7 +64,7 @@
       </notes>
       <segment state="translated">
         <source>currency.caption</source>
-        <target>νόμισμα</target>
+        <target>Νόμισμα</target>
       </segment>
     </unit>
     <unit id="dzfYFww" name="currency.iso_code.caption">
@@ -37,7 +74,28 @@
       </notes>
       <segment state="translated">
         <source>currency.iso_code.caption</source>
-        <target>νόμισμα</target>
+        <target>Κωδικός ISO</target>
+      </segment>
+    </unit>
+    <unit id="lrCa3tF" name="currency.symbol.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.symbol.caption</source>
+        <target>Σύμβολο Νομίσματος</target>
+      </segment>
+    </unit>
+    <unit id="tlgOYB5" name="device.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>device.caption</source>
+        <target>Συσκευή</target>
       </segment>
     </unit>
     <unit id="lQ8QeGr" name="search.placeholder">
@@ -60,7 +118,135 @@
       </notes>
       <segment state="translated">
         <source>search.placeholder</source>
-        <target>ψάχνω</target>
+        <target>Αναζήτηση</target>
+      </segment>
+    </unit>
+    <unit id="10f_Ka3" name="expandAll">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:23</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:23</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:3</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:13</note>
+        <note priority="1">templates\base.html.twig:166</note>
+        <note priority="1">templates\base.html.twig:193</note>
+        <note priority="1">templates\base.html.twig:221</note>
+      </notes>
+      <segment state="translated">
+        <source>expandAll</source>
+        <target>Επεκτείνετε όλα</target>
+      </segment>
+    </unit>
+    <unit id="eS_kUcS" name="reduceAll">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:27</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:27</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:4</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:17</note>
+        <note priority="1">templates\base.html.twig:167</note>
+        <note priority="1">templates\base.html.twig:194</note>
+        <note priority="1">templates\base.html.twig:222</note>
+      </notes>
+      <segment state="translated">
+        <source>reduceAll</source>
+        <target>Αναδίπλωση όλων</target>
+      </segment>
+    </unit>
+    <unit id="7uawYY6" name="standard.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:60</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:42</note>
+      </notes>
+      <segment state="translated">
+        <source>standard.label</source>
+        <target>Ιδιότητες</target>
+      </segment>
+    </unit>
+    <unit id="Fe5ax26" name="infos.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:61</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:43</note>
+      </notes>
+      <segment state="translated">
+        <source>infos.label</source>
+        <target>Πληροφορίες</target>
+      </segment>
+    </unit>
+    <unit id="Y2QKWU9" name="export.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:66</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:66</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>export.label</source>
+        <target>Εξαγωγή</target>
+      </segment>
+    </unit>
+    <unit id="k5fWSN4" name="import_export.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:68</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:68</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>import_export.label</source>
+        <target>Εισαγωγή / Εξαγωγή</target>
+      </segment>
+    </unit>
+    <unit id="sOYxh4M" name="mass_creation.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:69</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:69</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.label</source>
+        <target>Μαζική δημιουργία</target>
+      </segment>
+    </unit>
+    <unit id="wTQX7oE" name="admin.common">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:82</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:82</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:59</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.common</source>
+        <target>Κοινός</target>
+      </segment>
+    </unit>
+    <unit id="NmnCJhH" name="admin.attachments">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:86</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:86</note>
+      </notes>
+      <segment state="translated">
+        <source>admin.attachments</source>
+        <target>Συνημμένα</target>
+      </segment>
+    </unit>
+    <unit id="R949JGz" name="export_all.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:179</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:167</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:142</note>
+      </notes>
+      <segment state="translated">
+        <source>export_all.label</source>
+        <target>Εξαγωγή όλων των στοιχείων</target>
+      </segment>
+    </unit>
+    <unit id="zPSdxU4" name="mass_creation.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:185</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:173</note>
+      </notes>
+      <segment state="translated">
+        <source>mass_creation.help</source>
+        <target>Κάθε γραμμή θα ερμηνευτεί ως όνομα ενός στοιχείου, το οποίο θα δημιουργηθεί</target>
       </segment>
     </unit>
     <unit id="a5.CFfq" name="edit.caption">
@@ -71,7 +257,55 @@
       </notes>
       <segment state="translated">
         <source>edit.caption</source>
-        <target>διορθώνω</target>
+        <target>Επεξεργασία στοιχείου "%name"</target>
+      </segment>
+    </unit>
+    <unit id="bblk5.r" name="new.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>new.caption</source>
+        <target>Νέο στοιχείο</target>
+      </segment>
+    </unit>
+    <unit id="ZJ9SPOS" name="footprint.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:9</note>
+        <note priority="1">templates\base.html.twig:172</note>
+        <note priority="1">templates\base.html.twig:199</note>
+        <note priority="1">templates\base.html.twig:227</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.labelp</source>
+        <target>Footprints</target>
+      </segment>
+    </unit>
+    <unit id="ZOZqHeB" name="group.edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>group.edit.caption</source>
+        <target>Ομάδες</target>
+      </segment>
+    </unit>
+    <unit id="iK5P0V5" name="user.edit.permissions">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.permissions</source>
+        <target>Δικαιώματα</target>
       </segment>
     </unit>
     <unit id="Fum_mCX" name="manufacturer.caption">
@@ -82,7 +316,32 @@
       </notes>
       <segment state="translated">
         <source>manufacturer.caption</source>
-        <target>κατασκευαστή</target>
+        <target>Κατασκευαστές</target>
+      </segment>
+    </unit>
+    <unit id="6tFKnGD" name="measurement_unit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\MeasurementUnitAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\MeasurementUnitAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>measurement_unit.caption</source>
+        <target>Μονάδα μέτρησης</target>
+      </segment>
+    </unit>
+    <unit id="vZGwiMS" name="storelocation.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:5</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:8</note>
+        <note priority="1">templates\base.html.twig:171</note>
+        <note priority="1">templates\base.html.twig:198</note>
+        <note priority="1">templates\base.html.twig:226</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.labelp</source>
+        <target>Χώροι αποθήκευσης</target>
       </segment>
     </unit>
     <unit id="ykqfBBp" name="supplier.caption">
@@ -93,7 +352,1198 @@
       </notes>
       <segment state="translated">
         <source>supplier.caption</source>
-        <target>προμηθευτή</target>
+        <target>Προμηθευτές</target>
+      </segment>
+    </unit>
+    <unit id=".YoS4pi" name="user.edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.caption</source>
+        <target>Χρήστες</target>
+      </segment>
+    </unit>
+    <unit id="eDE4Z9X" name="user.edit.configuration">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:14</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:14</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.configuration</source>
+        <target>Παραμετροποίηση</target>
+      </segment>
+    </unit>
+    <unit id="3HIFZxy" name="user.edit.password">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.password</source>
+        <target>Κωδικός</target>
+      </segment>
+    </unit>
+    <unit id="CpSdWDM" name="user.edit.tfa.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.caption</source>
+        <target>Έλεγχος ταυτότητας δύο παραγόντων</target>
+      </segment>
+    </unit>
+    <unit id="QAuf3JI" name="user.edit.tfa.google_active">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.google_active</source>
+        <target>Εφαρμογή επαλήθευσης είναι ενεργή</target>
+      </segment>
+    </unit>
+    <unit id="7v_PSOf" name="tfa_backup.remaining_tokens">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:48</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:15</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:95</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:95</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.remaining_tokens</source>
+        <target>Υπόλοιποι εφεδρικοί κωδικοί υπολογίζονται</target>
+      </segment>
+    </unit>
+    <unit id="xhNIm7L" name="tfa_backup.generation_date">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:49</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\backup_codes.html.twig:17</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:96</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:49</note>
+        <note priority="1">Part-DB1\templates\Users\backup_codes.html.twig:17</note>
+        <note priority="1">Part-DB1\templates\Users\_2fa_settings.html.twig:96</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_backup.generation_date</source>
+        <target>Ημερομηνία παραγωγής των εφεδρικών κωδικών</target>
+      </segment>
+    </unit>
+    <unit id="_m6S_4Y" name="user.edit.tfa.disabled">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:53</note>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:53</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:60</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.disabled</source>
+        <target>Η μέθοδος δεν είναι ενεργοποιημένη</target>
+      </segment>
+    </unit>
+    <unit id="TagZ6I5" name="user.edit.tfa.u2f_keys_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:56</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:56</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.u2f_keys_count</source>
+        <target>Ενεργά κλειδιά ασφαλείας</target>
+      </segment>
+    </unit>
+    <unit id=".K9hu_c" name="user.edit.tfa.disable_tfa_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.disable_tfa_title</source>
+        <target>Θέλετε πραγματικά να προχωρήσετε;</target>
+      </segment>
+    </unit>
+    <unit id="xORuIU4" name="user.edit.tfa.disable_tfa_message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:72</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.disable_tfa_message</source>
+        <target>Αυτό θα απενεργοποιήσει &lt;b&gt; όλες τις ενεργές μεθόδους πολλαπλής ταυτοποίησης του χρήστη &lt;/b&gt; και θα διαγράψει τους &lt;b&gt; εφεδρικούς κώδικούς &lt;/ b&gt;!
+&lt;br&gt;
+Ο χρήστης θα πρέπει να ρυθμίσει ξανά όλες τις μεθόδους πολλαπλής ταυτοποίησης και να εκτυπώσει νέους εφεδρικούς κωδικούς! &lt;br&gt; &lt;br&gt;
+&lt;b&gt; Το κάνετε μόνο εάν είστε απολύτως σίγουρος για την ταυτότητα του χρήστη (ζητώντας βοήθεια), διαφορετικά ο λογαριασμός θα μπορούσε να παραβιαστεί από έναν εισβολέα! &lt;/b&gt;</target>
+      </segment>
+    </unit>
+    <unit id="02HvwiS" name="user.edit.tfa.disable_tfa.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:73</note>
+        <note priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:73</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit.tfa.disable_tfa.btn</source>
+        <target>Απενεργοποίηση της πολλαπλής μεθόδου τατυτοποίησης</target>
+      </segment>
+    </unit>
+    <unit id="0EjI8FY" name="attachment.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:63</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.delete</source>
+        <target>Διαγραφή</target>
+      </segment>
+    </unit>
+    <unit id="ffvhms1" name="attachment.external">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:41</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:38</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:35</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:159</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:38</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:159</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.external</source>
+        <target>Εξωτερικός</target>
+      </segment>
+    </unit>
+    <unit id="vTU.j2g" name="attachment.preview.alt">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:49</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.preview.alt</source>
+        <target>Επισύναψη μικρογραφίας</target>
+      </segment>
+    </unit>
+    <unit id="CNqXx.c" name="attachment.view">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:52</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:50</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:62</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:45</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.view</source>
+        <target>Προβολή</target>
+      </segment>
+    </unit>
+    <unit id="HnHc.HV" name="attachment.file_not_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:58</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:56</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:43</note>
+        <note category="file-source" priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:166</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:56</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:54</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:38</note>
+        <note priority="1">Part-DB1\src\DataTables\AttachmentDataTable.php:166</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.file_not_found</source>
+        <target>Το αρχείο δεν βρέθηκε</target>
+      </segment>
+    </unit>
+    <unit id="vnfQKjk" name="attachment.secure">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:66</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:64</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:62</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.secure</source>
+        <target>Προσωπικό συνημμένο</target>
+      </segment>
+    </unit>
+    <unit id="NCjSwVs" name="attachment.create">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:79</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:77</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:77</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:75</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.create</source>
+        <target>Προσθήκη συννημένου</target>
+      </segment>
+    </unit>
+    <unit id="kxhr8KP" name="part_lot.edit.delete.confirm">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:84</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:82</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:33</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_attachments.html.twig:82</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_attachments.html.twig:80</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\_lots.html.twig:33</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lot.edit.delete.confirm</source>
+        <target>Θέλετε πραγματικά να διαγράψετε αυτό το απόθεμα; Αυτό δεν μπορεί να αναιρεθεί!</target>
+      </segment>
+    </unit>
+    <unit id="RqM7iAG" name="entity.delete.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:2</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:2</note>
+        <note priority="1">templates\AdminPages\_delete_form.html.twig:2</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.delete.confirm_title</source>
+        <target>Θέλετε πραγματικά να διαγράψετε %name%;</target>
+      </segment>
+    </unit>
+    <unit id="0B3xeO2" name="entity.delete.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:3</note>
+        <note priority="1">templates\AdminPages\_delete_form.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.delete.message</source>
+        <target>Αυτό δεν μπορεί να αναιρεθεί!
+&lt;br&gt;
+Τα υποστοιχεία θα μετακινηθούν προς τα πάνω.</target>
+      </segment>
+    </unit>
+    <unit id="eyyICVM" name="entity.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:11</note>
+        <note priority="1">templates\AdminPages\_delete_form.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.delete</source>
+        <target>Διαγραφή στοιχείου</target>
+      </segment>
+    </unit>
+    <unit id="A15hzUY" name="entity.delete.recursive">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_delete_form.html.twig:24</note>
+        <note priority="1">templates\AdminPages\_delete_form.html.twig:12</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.delete.recursive</source>
+        <target>Διαγραφή αναδρομικών (όλα τα υποστοιχεία)</target>
+      </segment>
+    </unit>
+    <unit id="4_pqNGT" name="export.format">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:76</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:4</note>
+        <note priority="1">Part-DB1\src\Form\AdminPages\ImportType.php:76</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:4</note>
+        <note priority="1">src\Form\ImportType.php:67</note>
+      </notes>
+      <segment state="translated">
+        <source>export.format</source>
+        <target>Μορφή αρχείου</target>
+      </segment>
+    </unit>
+    <unit id="dA2Gh6w" name="export.level.simple">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:19</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>export.level.simple</source>
+        <target>Απλός</target>
+      </segment>
+    </unit>
+    <unit id="0UfNFxx" name="export.level.extended">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:20</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:20</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>export.level.extended</source>
+        <target>Επεκτάθηκε</target>
+      </segment>
+    </unit>
+    <unit id="dLPhjKy" name="export.level.full">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:21</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:21</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:21</note>
+      </notes>
+      <segment state="translated">
+        <source>export.level.full</source>
+        <target>Γεμάτος</target>
+      </segment>
+    </unit>
+    <unit id="5c8F8f2" name="export.include_children">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:31</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>export.include_children</source>
+        <target>Συμπεριλαβάνονται τα υποστοιχεία στην εξαγωγή</target>
+      </segment>
+    </unit>
+    <unit id="G8WtNph" name="export.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:39</note>
+        <note priority="1">templates\AdminPages\_export_form.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>export.btn</source>
+        <target>Εξαγωγή</target>
+      </segment>
+    </unit>
+    <unit id="2y0kouO" name="id.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:4</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:12</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:24</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:36</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:36</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:94</note>
+        <note priority="1">templates\Parts\edit_part_info.html.twig:12</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:11</note>
+      </notes>
+      <segment state="translated">
+        <source>id.label</source>
+        <target>Ταυτότητα</target>
+      </segment>
+    </unit>
+    <unit id="cMLFYZw" name="createdAt">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:11</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:76</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:77</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:69</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:12</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:77</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:59</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:60</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:69</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:53</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:101</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:248</note>
+      </notes>
+      <segment state="translated">
+        <source>createdAt</source>
+        <target>Δημιουργήθηκε στο</target>
+      </segment>
+    </unit>
+    <unit id="ZcUFNEJ" name="lastModified">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:25</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:21</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:73</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:25</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:21</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:49</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:114</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:263</note>
+      </notes>
+      <segment state="translated">
+        <source>lastModified</source>
+        <target>Τελευταία τροποποίηση</target>
+      </segment>
+    </unit>
+    <unit id="noZi5aQ" name="entity.info.parts_count">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_info.html.twig:38</note>
+        <note priority="1">Part-DB1\templates\AdminPages\_info.html.twig:38</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.parts_count</source>
+        <target>Αριθμός ανατλλακτικών με αυτό το στοιχείο</target>
+      </segment>
+    </unit>
+    <unit id="rpzRyMx" name="attachment.list.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\attachment_list.html.twig:3</note>
+        <note priority="1">Part-DB1\templates\attachment_list.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.list.title</source>
+        <target>Λίστα συνημμένων</target>
+      </segment>
+    </unit>
+    <unit id="79bMpjW" name="part_list.loading.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\attachment_list.html.twig:10</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\attachment_list.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>part_list.loading.caption</source>
+        <target>Φόρτωση</target>
+      </segment>
+    </unit>
+    <unit id="dJ3yFo4" name="part_list.loading.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\attachment_list.html.twig:11</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\attachment_list.html.twig:11</note>
+        <note priority="1">Part-DB1\templates\LogSystem\_log_table.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_parts_list.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>part_list.loading.message</source>
+        <target>Αυτό μπορεί να διαρκέσει λίγο. Εάν αυτό το μήνυμα δεν εξαφανιστεί, δοκιμάστε να φορτώσετε ξανά τη σελίδα.</target>
+      </segment>
+    </unit>
+    <unit id="ZQMol4U" name="vendor.base.javascript_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:68</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:68</note>
+        <note priority="1">templates\base.html.twig:246</note>
+      </notes>
+      <segment state="translated">
+        <source>vendor.base.javascript_hint</source>
+        <target>Παρακαλούμε ενεργοποιήστε το Javascript για να χρησιμοποιήσετε όλες τις δυνατότητες!</target>
+      </segment>
+    </unit>
+    <unit id="0rLRD9e" name="sidebar.big.toggle">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:73</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:73</note>
+      </notes>
+      <segment state="translated">
+        <source>sidebar.big.toggle</source>
+        <target>Εμφάνιση / Απόκρυψη της πλευρικής μπάρας</target>
+      </segment>
+    </unit>
+    <unit id="jgfKRbc" name="loading.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:95</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:95</note>
+        <note priority="1">templates\base.html.twig:271</note>
+      </notes>
+      <segment state="translated">
+        <source>loading.caption</source>
+        <target>Φόρτωση:</target>
+      </segment>
+    </unit>
+    <unit id="PbxPO3f" name="loading.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:96</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:96</note>
+        <note priority="1">templates\base.html.twig:272</note>
+      </notes>
+      <segment state="translated">
+        <source>loading.message</source>
+        <target>Αυτό μπορεί να διαρκέσει λίγο. Αν αυτά τα μηνύματα παραμείνουν για μεγάλο χρονικό διάστημα, δοκιμάστε να φορτώσετε ξανά τη σελίδα.</target>
+      </segment>
+    </unit>
+    <unit id="g3Hp.cE" name="loading.bar">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:101</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:101</note>
+        <note priority="1">templates\base.html.twig:277</note>
+      </notes>
+      <segment state="translated">
+        <source>loading.bar</source>
+        <target>Φορτώνει...</target>
+      </segment>
+    </unit>
+    <unit id="rIod4Xs" name="back_to_top">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\base.html.twig:112</note>
+        <note priority="1">Part-DB1\templates\base.html.twig:112</note>
+        <note priority="1">templates\base.html.twig:288</note>
+      </notes>
+      <segment state="translated">
+        <source>back_to_top</source>
+        <target>Επιστροφή στην κορυφή της σελίδας</target>
+      </segment>
+    </unit>
+    <unit id="yXZ1kdn" name="permission.edit.permission">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:35</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:35</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.edit.permission</source>
+        <target>Δικαιώματα</target>
+      </segment>
+    </unit>
+    <unit id="tFYZZcS" name="permission.edit.value">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:36</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:36</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.edit.value</source>
+        <target>Τιμή</target>
+      </segment>
+    </unit>
+    <unit id="KzyDL60" name="permission.legend.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:53</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:53</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.title</source>
+        <target>Επεξήγηση των καταστάσεων:</target>
+      </segment>
+    </unit>
+    <unit id="owrJ0Qw" name="permission.legend.disallow">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:57</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:57</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.disallow</source>
+        <target>Απαγορευμένος</target>
+      </segment>
+    </unit>
+    <unit id="1nY8d_O" name="permission.legend.allow">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:61</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:61</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.allow</source>
+        <target>Επιτρέπεται</target>
+      </segment>
+    </unit>
+    <unit id="uNMtwn9" name="permission.legend.inherit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:65</note>
+        <note priority="1">Part-DB1\templates\Form\permissionLayout.html.twig:65</note>
+      </notes>
+      <segment state="translated">
+        <source>permission.legend.inherit</source>
+        <target>Καθορισμός δικαιωμάτων από την ομάδα (μητρική)</target>
+      </segment>
+    </unit>
+    <unit id="QSE9MT9" name="bool.true">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:3</note>
+        <note priority="1">Part-DB1\templates\helper.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>bool.true</source>
+        <target>Αληθής</target>
+      </segment>
+    </unit>
+    <unit id="UlrxUmI" name="bool.false">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:5</note>
+        <note priority="1">Part-DB1\templates\helper.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>bool.false</source>
+        <target>Ψευδής</target>
+      </segment>
+    </unit>
+    <unit id="haOas0X" name="Yes">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:92</note>
+        <note priority="1">Part-DB1\templates\helper.twig:87</note>
+      </notes>
+      <segment state="translated">
+        <source>Yes</source>
+        <target>Ναι</target>
+      </segment>
+    </unit>
+    <unit id="HqRCoTS" name="No">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:94</note>
+        <note priority="1">Part-DB1\templates\helper.twig:89</note>
+      </notes>
+      <segment state="translated">
+        <source>No</source>
+        <target>Όχι</target>
+      </segment>
+    </unit>
+    <unit id="GDYG7.b" name="homepage.license">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:22</note>
+        <note priority="1">templates\homepage.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.license</source>
+        <target>Πληροφορίες σχετικά με τις άδειες</target>
+      </segment>
+    </unit>
+    <unit id="5nDb2pj" name="homepage.github.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:31</note>
+        <note priority="1">templates\homepage.html.twig:28</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.github.caption</source>
+        <target>Σελίδα έργου</target>
+      </segment>
+    </unit>
+    <unit id="7nCeHg7" name="homepage.github.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\homepage.html.twig:31</note>
+        <note priority="1">templates\homepage.html.twig:28</note>
+      </notes>
+      <segment state="translated">
+        <source>homepage.github.text</source>
+        <target>Οι λήψεις, οι αναφορές σφαλμάτων, η λίστα εργασιών, κ.λπ. μπορούν να βρεθούν &lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub σελίδα έργου&lt;/a&gt;</target>
+      </segment>
+    </unit>
+    <unit id="MUTx89j" name="attachment.file_size">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:10</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.file_size</source>
+        <target>Μέγεθος αρχείου</target>
+      </segment>
+    </unit>
+    <unit id="GSjs0LU" name="attachment.download">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:67</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:50</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.download</source>
+        <target>Κατεβάστε</target>
+      </segment>
+    </unit>
+    <unit id="t2TNwOq" name="Unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:13</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:28</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:13</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:28</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:50</note>
+      </notes>
+      <segment state="translated">
+        <source>Unknown</source>
+        <target>Άγνωστο</target>
+      </segment>
+    </unit>
+    <unit id="xQkqdM5" name="part.isFavorite">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:41</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:41</note>
+      </notes>
+      <segment state="translated">
+        <source>part.isFavorite</source>
+        <target>Αγαπημένα</target>
+      </segment>
+    </unit>
+    <unit id="qwRgUmm" name="part.minOrderAmount">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:46</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_extended_infos.html.twig:46</note>
+      </notes>
+      <segment state="translated">
+        <source>part.minOrderAmount</source>
+        <target>Ελάχιστο ποσό παραγγελίας</target>
+      </segment>
+    </unit>
+    <unit id="WB3sH1G" name="manufacturer.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:46</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:84</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:41</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:84</note>
+        <note priority="1">templates\base.html.twig:70</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:24</note>
+        <note priority="1">src\Form\PartType.php:80</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.label</source>
+        <target>Κατασκευαστής</target>
+      </segment>
+    </unit>
+    <unit id="LSnWIG7" name="description.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:32</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:32</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:18</note>
+        <note priority="1">templates\base.html.twig:58</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:31</note>
+        <note priority="1">src\Form\PartType.php:65</note>
+      </notes>
+      <segment state="translated">
+        <source>description.label</source>
+        <target>Περιγραφή</target>
+      </segment>
+    </unit>
+    <unit id="ZY57BXc" name="category.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:34</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:15</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:80</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:34</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:14</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:80</note>
+        <note priority="1">templates\base.html.twig:56</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:32</note>
+        <note priority="1">src\Form\PartType.php:74</note>
+      </notes>
+      <segment state="translated">
+        <source>category.label</source>
+        <target>Κατηγορία</target>
+      </segment>
+    </unit>
+    <unit id="J.AXbaM" name="instock.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:39</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:42</note>
+        <note priority="1">src\Form\PartType.php:69</note>
+      </notes>
+      <segment state="translated">
+        <source>instock.label</source>
+        <target>Σε απόθεμα</target>
+      </segment>
+    </unit>
+    <unit id="VYcxdrz" name="mininstock.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:41</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:41</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:44</note>
+        <note priority="1">src\Form\PartType.php:72</note>
+      </notes>
+      <segment state="translated">
+        <source>mininstock.label</source>
+        <target>Ελάχιστη τιμή αποθέματος</target>
+      </segment>
+    </unit>
+    <unit id="griVyRf" name="footprint.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:45</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:52</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:83</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\_navbar_search.html.twig:47</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:83</note>
+        <note priority="1">templates\base.html.twig:73</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.label</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="LL2dt8U" name="part.avg_price.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:56</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:59</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:57</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_main_infos.html.twig:60</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:51</note>
+      </notes>
+      <segment state="translated">
+        <source>part.avg_price.label</source>
+        <target>Μεση τιμή</target>
+      </segment>
+    </unit>
+    <unit id="3tdTZVD" name="part.supplier.name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:5</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>part.supplier.name</source>
+        <target>Όνομα</target>
+      </segment>
+    </unit>
+    <unit id="_SpdO.3" name="part.order.minamount">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:28</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:28</note>
+      </notes>
+      <segment state="translated">
+        <source>part.order.minamount</source>
+        <target>Ελάχιστο ποσό</target>
+      </segment>
+    </unit>
+    <unit id="4RsODVR" name="part.order.price">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:29</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>part.order.price</source>
+        <target>Τιμή</target>
+      </segment>
+    </unit>
+    <unit id="Lr0c8K3" name="part.order.single_price">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>part.order.single_price</source>
+        <target>Τιμή μονάδας</target>
+      </segment>
+    </unit>
+    <unit id="EKnfKFl" name="edit.caption_short">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:71</note>
+      </notes>
+      <segment state="translated">
+        <source>edit.caption_short</source>
+        <target>Επεξεργασία</target>
+      </segment>
+    </unit>
+    <unit id="qNZM46r" name="delete.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_order_infos.html.twig:72</note>
+      </notes>
+      <segment state="translated">
+        <source>delete.caption</source>
+        <target>Διαγραφή</target>
+      </segment>
+    </unit>
+    <unit id="aUihK3c" name="part_lots.description">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:7</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.description</source>
+        <target>Περιγραφή</target>
+      </segment>
+    </unit>
+    <unit id="SOcXkyd" name="part_lots.storage_location">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:8</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.storage_location</source>
+        <target>Τοποθεσία αποθήκευσης</target>
+      </segment>
+    </unit>
+    <unit id="jVYrm0U" name="part_lots.amount">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:9</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.amount</source>
+        <target>Ποσό</target>
+      </segment>
+    </unit>
+    <unit id="upshmqD" name="part_lots.location_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:24</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.location_unknown</source>
+        <target>Άγνωστη θέση αποθήκευσης</target>
+      </segment>
+    </unit>
+    <unit id="BTUni9r" name="part_lots.instock_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.instock_unknown</source>
+        <target>Άγνωστό ποσό</target>
+      </segment>
+    </unit>
+    <unit id="NFa2bFQ" name="part_lots.expiration_date">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:40</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:38</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.expiration_date</source>
+        <target>Ημερομηνία λήξης</target>
+      </segment>
+    </unit>
+    <unit id="axp.g13" name="part_lots.is_expired">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:48</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:46</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.is_expired</source>
+        <target>Έχει λήξει</target>
+      </segment>
+    </unit>
+    <unit id="EWX1Sti" name="part_lots.need_refill">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:55</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_part_lots.html.twig:53</note>
+      </notes>
+      <segment state="translated">
+        <source>part_lots.need_refill</source>
+        <target>Ανάγκη για νέα παραγγελία</target>
+      </segment>
+    </unit>
+    <unit id="E4S6Pvg" name="part.info.prev_picture">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:15</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.prev_picture</source>
+        <target>Προηγούμενη εικόνα</target>
+      </segment>
+    </unit>
+    <unit id="2PpQKL9" name="part.info.next_picture">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:19</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_picture.html.twig:19</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.next_picture</source>
+        <target>Επόμενη εικόνα</target>
+      </segment>
+    </unit>
+    <unit id="8zIQiUL" name="part.mass.tooltip">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:21</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:21</note>
+      </notes>
+      <segment state="translated">
+        <source>part.mass.tooltip</source>
+        <target>Σύνολο</target>
+      </segment>
+    </unit>
+    <unit id="9o2FQD1" name="part.needs_review.badge">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:30</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>part.needs_review.badge</source>
+        <target>Xρειάζεται επανεξέταση</target>
+      </segment>
+    </unit>
+    <unit id="dF6ZXKR" name="part.favorite.badge">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:39</note>
+      </notes>
+      <segment state="translated">
+        <source>part.favorite.badge</source>
+        <target>Αγαπημένα</target>
+      </segment>
+    </unit>
+    <unit id="EgLR013" name="part.obsolete.badge">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:47</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_sidebar.html.twig:47</note>
+      </notes>
+      <segment state="translated">
+        <source>part.obsolete.badge</source>
+        <target>Δεν είναι πλέον διαθέσιμο</target>
+      </segment>
+    </unit>
+    <unit id="cTsojYo" name="part.edit.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:6</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:4</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:125</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.btn</source>
+        <target>Επεξεργασία εξαρτήματος</target>
+      </segment>
+    </unit>
+    <unit id="XGGYjnA" name="part.clone.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:16</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:14</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:135</note>
+      </notes>
+      <segment state="translated">
+        <source>part.clone.btn</source>
+        <target>Κλωνοποίηση Εξαρτήματος</target>
+      </segment>
+    </unit>
+    <unit id="WzQH7wQ" name="part.create.btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:24</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_action_bar.html.twig:4</note>
+        <note priority="1">templates\Parts\show_part_info.html.twig:143</note>
+      </notes>
+      <segment state="translated">
+        <source>part.create.btn</source>
+        <target>Δημιουργία νέου εξαρτήματος</target>
+      </segment>
+    </unit>
+    <unit id="GayDkXI" name="part.delete.confirm_title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:31</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:29</note>
+      </notes>
+      <segment state="translated">
+        <source>part.delete.confirm_title</source>
+        <target>Θέλετε πραγματικά να διαγράψετε αυτό το εξάρτημα;</target>
+      </segment>
+    </unit>
+    <unit id="v4cgmfN" name="part.delete.message">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:32</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:30</note>
+      </notes>
+      <segment state="translated">
+        <source>part.delete.message</source>
+        <target>Αυτό το εξάρτημα και και κάθε σχετική πληροφορία (όπως συνημμένα, πληροφορίες σχετικά με τις τιμές κ.λπ.) θα διαγραφούν. Χωρις να υπάρχει η δυνατότητα σε αυτη την ενεργεια να αναίρεθεί!</target>
+      </segment>
+    </unit>
+    <unit id="CJHxw_e" name="part.delete">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:39</note>
+        <note priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>part.delete</source>
+        <target>Διαγραφή εξαρτήματος</target>
+      </segment>
+    </unit>
+    <unit id="7BufWRt" name="parts_list.all.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\all_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\all_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.all.title</source>
+        <target>Όλα τα εξαρτήματα</target>
+      </segment>
+    </unit>
+    <unit id="TOD4O3j" name="parts_list.category.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\category_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\category_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.category.title</source>
+        <target>Εξαρτήματα ανα κατηγορία</target>
+      </segment>
+    </unit>
+    <unit id="yCsUZQZ" name="parts_list.footprint.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\footprint_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\footprint_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.footprint.title</source>
+        <target>Εξαρτήματα ανα footprint</target>
+      </segment>
+    </unit>
+    <unit id="j4vXh3o" name="parts_list.manufacturer.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\manufacturer_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\manufacturer_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.manufacturer.title</source>
+        <target>Εξαρτήματα ανα κατασκευαστή</target>
+      </segment>
+    </unit>
+    <unit id="6uogzri" name="parts_list.search.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\search_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\search_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.search.title</source>
+        <target>Αναζήτηση εξαρτημάτων</target>
+      </segment>
+    </unit>
+    <unit id="gwE_D3w" name="parts_list.storelocation.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\store_location_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\store_location_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.storelocation.title</source>
+        <target>Εξαρτήματα ανα τοποθεσία αποθήκευσης</target>
+      </segment>
+    </unit>
+    <unit id="K3Nj1UQ" name="parts_list.supplier.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\supplier_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\supplier_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.supplier.title</source>
+        <target>Εξαρτήματα ανα προμηθευτή</target>
+      </segment>
+    </unit>
+    <unit id="DBlWwba" name="parts_list.tags.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\tags_list.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\tags_list.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>parts_list.tags.title</source>
+        <target>Εξαρτήματα ανα ετικέτα</target>
+      </segment>
+    </unit>
+    <unit id="5tFcxpX" name="entity.info.common.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:22</note>
+        <note priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:17</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.common.tab</source>
+        <target>Συνηθισμένος</target>
+      </segment>
+    </unit>
+    <unit id="3Vc5_D2" name="attachment.external_file">
+      <notes>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:34</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.external_file</source>
+        <target>Εξωτερικό αρχείο</target>
+      </segment>
+    </unit>
+    <unit id="gexfRxf" name="attachment.edit">
+      <notes>
+        <note priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:62</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.edit</source>
+        <target>Επεξεργασία</target>
       </segment>
     </unit>
     <unit id="47DEQpj" name="">
