@@ -38,19 +38,19 @@ DirectoryIndex index.php
 # Specify gzip-encoded assets
 <Files *.js.gz>
     AddType "text/javascript" .gz
-    AddEncoding gz .gz
+    AddEncoding gzip .gz
 </Files>
 <Files *.css.gz>
     AddType "text/css" .gz
-    AddEncoding gz .gz
+    AddEncoding gzip .gz
 </Files>
 <Files *.svg.gz>
     AddType "image/svg+xml" .gz
-    AddEncoding gz .gz
+    AddEncoding gzip .gz
 </Files>
 <Files *.html.gz>
     AddType "text/html" .gz
-    AddEncoding gz .gz
+    AddEncoding gzip .gz
 </Files>
 
 <IfModule mod_rewrite.c>
