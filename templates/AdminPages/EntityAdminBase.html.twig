@@ -42,12 +42,12 @@
             <fieldset>
                 <legend>
                     {% if entity.ID %}
-                        <strong>{% trans with {'%name': entity.name} %}edit.caption{% endtrans %}</strong>
+                        <strong>{% block edit_title %}{% trans with {'%name': entity.name} %}edit.caption{% endtrans %}{% endblock %}</strong>
                         {% if timeTravel is defined and timeTravel is not null %}
                             ({{ timeTravel|format_datetime('short') }})
                         {% endif %}
                     {% else %}
-                        <strong>{% trans %}new.caption{% endtrans %}</strong>
+                        <strong>{% block new_title %}{% trans %}new.caption{% endtrans %}{% endblock %}</strong>
                     {% endif %}
                 </legend>
                 {% if timeTravel is defined and timeTravel is not null %}

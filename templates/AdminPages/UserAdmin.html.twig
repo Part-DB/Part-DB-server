@@ -80,3 +80,11 @@
         {{ form_row(form.permissions) }}
     </div>
 {% endblock %}
+
+{% block edit_title %}
+    {% trans %}user.edit{% endtrans %}: <a href="{{ path('user_info', {'id': entity.id}) }}">{{ entity.name }}</a>
+{% endblock %}
+
+{% block new_title %}
+    {% trans %}user.new{% endtrans %}
+{% endblock %}

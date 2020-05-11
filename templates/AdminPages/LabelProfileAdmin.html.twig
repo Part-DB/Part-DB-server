@@ -50,3 +50,11 @@
         </div>
     {% endif %}
 {% endblock %}
+
+{% block edit_title %}
+    {% trans %}label_profile.edit{% endtrans %}: <a href="{{ path("label_dialog_profile", {"profile": entity.id}) }}" >{{ entity.name }}</a>
+{% endblock %}
+
+{% block new_title %}
+    {% trans %}label_profile.new{% endtrans %}
+{% endblock %}

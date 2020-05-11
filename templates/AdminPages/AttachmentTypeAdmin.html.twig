@@ -7,3 +7,11 @@
 {% block additional_controls %}
     {{ form_row(form.filetype_filter) }}
 {% endblock %}
+
+{% block edit_title %}
+    {% trans %}attachment_type.edit{% endtrans %}: {{ entity.name }}
+{% endblock %}
+
+{% block new_title %}
+    {% trans %}attachment_type.new{% endtrans %}
+{% endblock %}

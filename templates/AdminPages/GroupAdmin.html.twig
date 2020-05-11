@@ -19,3 +19,11 @@
 {% block additional_controls %}
     {{ form_row(form.enforce2FA) }}
 {% endblock %}
+
+{% block edit_title %}
+    {% trans %}group.edit{% endtrans %}: {{ entity.name }}
+{% endblock %}
+
+{% block new_title %}
+    {% trans %}group.new{% endtrans %}
+{% endblock %}

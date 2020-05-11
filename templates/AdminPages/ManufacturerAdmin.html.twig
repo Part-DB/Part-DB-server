@@ -3,3 +3,11 @@
 {% block card_title %}
     <i class="fas fa-industry fa-fw"></i> {% trans %}manufacturer.caption{% endtrans %}
 {% endblock %}
+
+{% block edit_title %}
+    {% trans %}manufacturer.edit{% endtrans %}: <a href="{{ path('part_list_manufacturer', {'id': entity.id}) }}">{{ entity.name }}</a>
+{% endblock %}
+
+{% block new_title %}
+    {% trans %}manufacturer.new{% endtrans %}
+{% endblock %}

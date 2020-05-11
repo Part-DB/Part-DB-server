@@ -24,3 +24,11 @@
     </span>
     {% endif %}
 {% endblock %}
+
+{% block edit_title %}
+    {% trans %}currency.edit{% endtrans %}: {{ entity.name }}
+{% endblock %}
+
+{% block new_title %}
+    {% trans %}currency.new{% endtrans %}
+{% endblock %}

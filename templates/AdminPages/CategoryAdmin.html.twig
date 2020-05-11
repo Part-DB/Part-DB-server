@@ -9,6 +9,14 @@
     <li class="nav-item"><a data-toggle="tab" class="nav-link link-anchor" href="#home_advanced">{% trans %}admin.advanced{% endtrans %}</a></li>
 {% endblock %}
 
+{% block edit_title %}
+    {% trans %}category.edit{% endtrans %}: <a href="{{ path('part_list_category', {'id': entity.id}) }}">{{ entity.name }}</a>
+{% endblock %}
+
+{% block new_title %}
+    {% trans %}category.new{% endtrans %}
+{% endblock %}
+
 {% block additional_panes %}
     <div class="tab-pane" id="home_options">
         {{ form_row(form.disable_footprints) }}

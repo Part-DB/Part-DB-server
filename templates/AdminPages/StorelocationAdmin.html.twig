@@ -27,3 +27,11 @@
         {{ form_row(form.only_single_part) }}
     </div>
 {% endblock %}
+
+{% block edit_title %}
+    {% trans %}storelocation.edit{% endtrans %}: <a href="{{ path('part_list_store_location', {'id': entity.id}) }}">{{ entity.name }}</a>
+{% endblock %}
+
+{% block new_title %}
+    {% trans %}storelocation.new{% endtrans %}
+{% endblock %}

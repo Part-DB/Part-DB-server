@@ -11,3 +11,11 @@
         {{ form_row(form.comment) }}
     </div>
 {% endblock %}
+
+{% block edit_title %}
+    {% trans %}supplier.edit{% endtrans %}: <a href="{{ path('part_list_supplier', {'id': entity.id}) }}">{{ entity.name }}</a>
+{% endblock %}
+
+{% block new_title %}
+    {% trans %}supplier.new{% endtrans %}
+{% endblock %}

@@ -8,3 +8,11 @@
     {{ form_row(form.master_picture_attachment) }}
     {{ form_row(form.footprint_3d) }}
 {% endblock %}
+
+{% block edit_title %}
+    {% trans %}footprint.edit{% endtrans %}: <a href="{{ path('part_list_footprint', {'id': entity.id}) }}">{{ entity.name }}</a>
+{% endblock %}
+
+{% block new_title %}
+    {% trans %}footprint.new{% endtrans %}
+{% endblock %}
