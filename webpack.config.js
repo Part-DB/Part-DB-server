@@ -108,7 +108,13 @@ Encore
         }
     ]))
 
-    .addPlugin(new CompressionPlugin({
+// uncomment if you use API Platform Admin (composer req api-admin)
+//.enableReactPreset()
+//.addEntry('admin', './assets/js/admin.js')
+;
+
+if (Encore.isProduction()) {
+    Encore.addPlugin(new CompressionPlugin({
         filename: '[path].br[query]',
         algorithm: 'brotliCompress',
         test: /\.(js|css|html|svg)$/,
@@ -121,16 +127,12 @@ Encore
         deleteOriginalAssets: false,
     }))
 
-    .addPlugin(new CompressionPlugin({
-        filename: '[path].gz[query]',
-        algorithm: 'gzip',
-        test: /\.(js|css|html|svg)$/,
-        deleteOriginalAssets: false,
-    }))
-
-    // uncomment if you use API Platform Admin (composer req api-admin)
-    //.enableReactPreset()
-    //.addEntry('admin', './assets/js/admin.js')
-;
+        .addPlugin(new CompressionPlugin({
+            filename: '[path].gz[query]',
+            algorithm: 'gzip',
+            test: /\.(js|css|html|svg)$/,
+            deleteOriginalAssets: false,
+        }))
+}
 
 module.exports = Encore.getWebpackConfig();
