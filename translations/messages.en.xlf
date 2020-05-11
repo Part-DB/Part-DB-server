@@ -153,28 +153,6 @@
         <target>Reduce All</target>
       </segment>
     </unit>
-    <unit id="a5.CFfq" name="edit.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
-        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
-        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:35</note>
-      </notes>
-      <segment state="translated">
-        <source>edit.caption</source>
-        <target>Edit element "%name"</target>
-      </segment>
-    </unit>
-    <unit id="bblk5.r" name="new.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
-        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
-        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:37</note>
-      </notes>
-      <segment state="translated">
-        <source>new.caption</source>
-        <target>New element</target>
-      </segment>
-    </unit>
     <unit id="tagdXMa" name="part.info.timetravel_hint">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:54</note>
@@ -301,6 +279,28 @@
       <segment state="translated">
         <source>mass_creation.help</source>
         <target>Each line will be interpreted as a name of a element, which will be created.</target>
+      </segment>
+    </unit>
+    <unit id="a5.CFfq" name="edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:35</note>
+      </notes>
+      <segment state="translated">
+        <source>edit.caption</source>
+        <target>Edit element "%name"</target>
+      </segment>
+    </unit>
+    <unit id="bblk5.r" name="new.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>new.caption</source>
+        <target>New element</target>
       </segment>
     </unit>
     <unit id="ZJ9SPOS" name="footprint.labelp">
@@ -3807,7 +3807,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     <unit id="RezjOdV" name="storelocation.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:27</note>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:66</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:68</note>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:88</note>
         <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:88</note>
         <note priority="1">templates\base.html.twig:60</note>
@@ -3945,8 +3945,8 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="V1QubEL" name="attachment.download_failed">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:212</note>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:292</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:213</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:293</note>
         <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:173</note>
         <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:293</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:181</note>
@@ -3961,7 +3961,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="A7i8za4" name="entity.edit_flash">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:221</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:222</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:190</note>
       </notes>
       <segment state="translated">
@@ -3971,7 +3971,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="AoZHore" name="entity.edit_flash.invalid">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:230</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:231</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:196</note>
       </notes>
       <segment state="translated">
@@ -3981,7 +3981,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="8MJvWmd" name="entity.created_flash">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:301</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:302</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:252</note>
       </notes>
       <segment state="translated">
@@ -3991,7 +3991,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="zZdZuYS" name="entity.created_flash.invalid">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:307</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:308</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:258</note>
       </notes>
       <segment state="translated">
@@ -4001,7 +4001,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="lSfR7sD" name="attachment_type.deleted">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:398</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:399</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:352</note>
         <note priority="1">src\Controller\BaseAdminController.php:154</note>
       </notes>
@@ -4012,10 +4012,10 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="2bvWUoo" name="csfr_invalid">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:400</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:401</note>
         <note category="file-source" priority="1">Part-DB1\src\Controller\UserController.php:109</note>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:157</note>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:191</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:159</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:193</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:354</note>
         <note priority="1">Part-DB1\src\Controller\UserController.php:101</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:150</note>
@@ -4028,7 +4028,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="7ynbNyD" name="label_generator.no_entities_found">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\LabelController.php:134</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LabelController.php:125</note>
       </notes>
       <segment state="translated">
         <source>label_generator.no_entities_found</source>
@@ -4190,8 +4190,8 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="6T8GmmR" name="scan.qr_not_found">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:66</note>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:89</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:68</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:90</note>
       </notes>
       <segment state="translated">
         <source>scan.qr_not_found</source>
@@ -4200,7 +4200,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="vXTqaTo" name="scan.format_unknown">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:69</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:71</note>
       </notes>
       <segment state="translated">
         <source>scan.format_unknown</source>
@@ -4288,7 +4288,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="_OcjXRe" name="tfa_backup.no_codes_enabled">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:99</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:101</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:92</note>
       </notes>
       <segment state="translated">
@@ -4298,7 +4298,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="9UBDL1p" name="tfa_u2f.u2f_delete.not_existing">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:136</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:138</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:132</note>
       </notes>
       <segment state="translated">
@@ -4308,7 +4308,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="6waUw7j" name="tfa_u2f.u2f_delete.access_denied">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:143</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:145</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:139</note>
       </notes>
       <segment state="translated">
@@ -4318,7 +4318,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="Kn9dPI5" name="tfa.u2f.u2f_delete.success">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:151</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:153</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:147</note>
       </notes>
       <segment state="translated">
@@ -4328,7 +4328,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="h.BcrtU" name="tfa_trustedDevice.invalidate.success">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:186</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:188</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:180</note>
       </notes>
       <segment state="translated">
@@ -4338,7 +4338,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="PBKICdd" name="user.settings.saved_flash">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:233</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:235</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:226</note>
         <note priority="1">src\Controller\UserController.php:98</note>
       </notes>
@@ -4349,7 +4349,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="mPAd5JY" name="user.settings.pw_changed_flash">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:295</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:297</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:288</note>
         <note priority="1">src\Controller\UserController.php:130</note>
       </notes>
@@ -4360,7 +4360,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="xy.2mkA" name="user.settings.2fa.google.activated">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:315</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:317</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:306</note>
       </notes>
       <segment state="translated">
@@ -4370,7 +4370,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="RXjFD7H" name="user.settings.2fa.google.disabled">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:326</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:328</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:315</note>
       </notes>
       <segment state="translated">
@@ -4380,7 +4380,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="4ZUxld3" name="user.settings.2fa.backup_codes.regenerated">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:344</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:346</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:332</note>
       </notes>
       <segment state="translated">
@@ -5060,7 +5060,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="oZsKN5d" name="part.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:66</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:68</note>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:86</note>
       </notes>
       <segment state="translated">
@@ -5070,7 +5070,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="ucI6a2E" name="part_lot.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:66</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:68</note>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:87</note>
       </notes>
       <segment state="translated">
@@ -5080,7 +5080,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="FmESg.O" name="label_options.barcode_type.none">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:76</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
       </notes>
       <segment state="translated">
         <source>label_options.barcode_type.none</source>
@@ -5089,7 +5089,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="MxYhcsN" name="label_options.barcode_type.qr">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:76</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
       </notes>
       <segment state="translated">
         <source>label_options.barcode_type.qr</source>
@@ -5098,7 +5098,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="uIJQMqh" name="label_options.barcode_type.code128">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:76</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
       </notes>
       <segment state="translated">
         <source>label_options.barcode_type.code128</source>
@@ -5107,7 +5107,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="56JwbDf" name="label_options.barcode_type.code39">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:76</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
       </notes>
       <segment state="translated">
         <source>label_options.barcode_type.code39</source>
@@ -5116,7 +5116,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="lz068u3" name="label_options.barcode_type.code93">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:76</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
       </notes>
       <segment state="translated">
         <source>label_options.barcode_type.code93</source>
@@ -5125,7 +5125,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="kPFpWmf" name="label_options.barcode_type.datamatrix">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:76</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
       </notes>
       <segment state="translated">
         <source>label_options.barcode_type.datamatrix</source>
@@ -5134,7 +5134,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="7I9OV_t" name="label_options.lines_mode.html">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:121</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:122</note>
       </notes>
       <segment state="translated">
         <source>label_options.lines_mode.html</source>
@@ -5143,7 +5143,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="dFMpKDI" name="label.options.lines_mode.twig">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:121</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:122</note>
       </notes>
       <segment state="translated">
         <source>label.options.lines_mode.twig</source>
@@ -5152,7 +5152,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="BybM1v9" name="label_options.lines_mode.help">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:125</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:126</note>
       </notes>
       <segment state="translated">
         <source>label_options.lines_mode.help</source>
@@ -5161,7 +5161,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="2d9g1o5" name="label_options.page_size.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:45</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:47</note>
       </notes>
       <segment state="translated">
         <source>label_options.page_size.label</source>
@@ -5170,7 +5170,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="7ZEGFJ3" name="label_options.supported_elements.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:64</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:66</note>
       </notes>
       <segment state="translated">
         <source>label_options.supported_elements.label</source>
@@ -5179,7 +5179,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="eSLhawk" name="label_options.barcode_type.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:73</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:75</note>
       </notes>
       <segment state="translated">
         <source>label_options.barcode_type.label</source>
@@ -5188,7 +5188,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="Z8_BSQ1" name="label_profile.lines.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:101</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:102</note>
       </notes>
       <segment state="translated">
         <source>label_profile.lines.label</source>
@@ -5197,7 +5197,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="LfMiT9B" name="label_options.additional_css.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:110</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:111</note>
       </notes>
       <segment state="translated">
         <source>label_options.additional_css.label</source>
@@ -5206,7 +5206,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="0A6Twij" name="label_options.lines_mode.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:119</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:120</note>
       </notes>
       <segment state="translated">
         <source>label_options.lines_mode.label</source>
@@ -5215,7 +5215,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="aPqzFJs" name="label_options.width.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:49</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:51</note>
       </notes>
       <segment state="translated">
         <source>label_options.width.placeholder</source>
@@ -5224,7 +5224,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="t.j1KtN" name="label_options.height.placeholder">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:58</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:60</note>
       </notes>
       <segment state="translated">
         <source>label_options.height.placeholder</source>
@@ -5233,7 +5233,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="nez5RLt" name="label_generator.target_id.range_hint">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:48</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:49</note>
       </notes>
       <segment state="translated">
         <source>label_generator.target_id.range_hint</source>
@@ -5242,7 +5242,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="GN.UJxb" name="label_generator.target_id.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:45</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:46</note>
       </notes>
       <segment state="translated">
         <source>label_generator.target_id.label</source>
@@ -5260,8 +5260,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="QQCsPWt" name="scan_dialog.input">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\ScanDialogType.php:34</note>
-        <note category="state" priority="1">new</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\ScanDialogType.php:36</note>
       </notes>
       <segment state="translated">
         <source>scan_dialog.input</source>
@@ -5270,8 +5269,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="xENLE_d" name="scan_dialog.submit">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\ScanDialogType.php:42</note>
-        <note category="state" priority="1">new</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\ScanDialogType.php:44</note>
       </notes>
       <segment state="translated">
         <source>scan_dialog.submit</source>
@@ -6091,7 +6089,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="cMe4sAM" name="tree.tools.show.all_parts">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:227</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:226</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:197</note>
         <note priority="1">src\Services\ToolsTreeBuilder.php:77</note>
       </notes>
@@ -6102,7 +6100,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="aGy9QbC" name="tree.tools.show.all_attachments">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:233</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:232</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:203</note>
       </notes>
       <segment state="translated">
@@ -6112,7 +6110,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="4_7bZqX" name="tree.tools.show.statistics">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:240</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:239</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:210</note>
         <note priority="1">new</note>
       </notes>
@@ -6123,7 +6121,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="D1it4FK" name="tree.tools.system.users">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:259</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:258</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:229</note>
       </notes>
       <segment state="translated">
@@ -6133,7 +6131,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="7rI.aP2" name="tree.tools.system.groups">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:265</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:264</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:235</note>
       </notes>
       <segment state="translated">
@@ -6143,7 +6141,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="uwNvMFE" name="tree.tools.system.event_log">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:272</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:271</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:242</note>
         <note priority="1">new</note>
       </notes>
@@ -8774,36 +8772,54 @@ Element 3</target>
       </segment>
     </unit>
     <unit id="QMdRP48" name="perm.part.parameters">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment state="translated">
         <source>perm.part.parameters</source>
         <target>Parameters</target>
       </segment>
     </unit>
     <unit id="_a9gfQw" name="perm.attachment_show_private">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment state="translated">
         <source>perm.attachment_show_private</source>
         <target>View private attachments</target>
       </segment>
     </unit>
     <unit id="fcUq9AR" name="perm.tools.label_scanner">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment state="translated">
         <source>perm.tools.label_scanner</source>
         <target>Label scanner</target>
       </segment>
     </unit>
     <unit id="QSODEfC" name="perm.self.read_profiles">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment state="translated">
         <source>perm.self.read_profiles</source>
         <target>Read profiles</target>
       </segment>
     </unit>
     <unit id="9ItKgrD" name="perm.self.create_profiles">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment state="translated">
         <source>perm.self.create_profiles</source>
         <target>Create profiles</target>
       </segment>
     </unit>
     <unit id="j6yqWSf" name="perm.labels.use_twig">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
       <segment state="translated">
         <source>perm.labels.use_twig</source>
         <target>Use twig mode</target>
