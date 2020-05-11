@@ -121,6 +121,7 @@ class StructuralEntityType extends AbstractType
             $tmp = [
                 'class' => 'selectpicker',
                 'data-live-search' => true,
+                'title' => 'selectpicker.nothing_selected',
             ];
             if ($options['empty_message']) {
                 $tmp['data-none-Selected-Text'] = $options['empty_message'];

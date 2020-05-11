@@ -95,6 +95,7 @@ class LabelOptionsType extends AbstractType
             },
             'attr' => [
                 'class' => 'selectpicker',
+                'title' => 'selectpicker.nothing_selected',
                 'data-live-search' => true,
             ],
         ]);

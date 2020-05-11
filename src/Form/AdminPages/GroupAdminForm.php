@@ -56,7 +56,7 @@ class GroupAdminForm extends BaseEntityAdminForm
         $builder->add('enforce2FA', CheckboxType::class, [
             'required' => false,
             'label' => 'group.edit.enforce_2fa',
-            'help' => 'entity.edit.enforce_2fa.help',
+            'help' => 'group.edit.enforce_2fa.help',
             'label_attr' => [
                 'class' => 'checkbox-custom',
             ],

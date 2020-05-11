@@ -17,7 +17,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:12</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>attachment_type.edit</source>
         <target>Edit file type</target>
       </segment>
@@ -27,7 +27,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:16</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>attachment_type.new</source>
         <target>New file type</target>
       </segment>
@@ -82,7 +82,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:13</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>category.edit</source>
         <target>Edit category</target>
       </segment>
@@ -92,7 +92,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:17</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>category.new</source>
         <target>New category</target>
       </segment>
@@ -132,7 +132,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:29</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>currency.edit</source>
         <target>Edit currency</target>
       </segment>
@@ -142,7 +142,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:33</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>currency.new</source>
         <target>New currency</target>
       </segment>
@@ -163,7 +163,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>device.edit</source>
         <target>Edit device</target>
       </segment>
@@ -173,7 +173,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>device.new</source>
         <target>New device</target>
       </segment>
@@ -403,7 +403,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:13</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>footprint.edit</source>
         <target>Edit footprint</target>
       </segment>
@@ -413,7 +413,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:17</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>footprint.new</source>
         <target>New footprint</target>
       </segment>
@@ -445,7 +445,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:24</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>group.edit</source>
         <target>Edit group</target>
       </segment>
@@ -455,7 +455,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:28</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>group.new</source>
         <target>New group</target>
       </segment>
@@ -492,7 +492,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:55</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>label_profile.edit</source>
         <target>Edit label profile</target>
       </segment>
@@ -502,7 +502,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:59</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>label_profile.new</source>
         <target>New label profile</target>
       </segment>
@@ -523,7 +523,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:8</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>manufacturer.edit</source>
         <target>Edit manufacturer</target>
       </segment>
@@ -533,7 +533,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:12</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>manufacturer.new</source>
         <target>New manufacturer</target>
       </segment>
@@ -568,7 +568,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:32</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>storelocation.edit</source>
         <target>Edit store location</target>
       </segment>
@@ -578,7 +578,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:36</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>storelocation.new</source>
         <target>New store location</target>
       </segment>
@@ -599,7 +599,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:16</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>supplier.edit</source>
         <target>Edit supplier</target>
       </segment>
@@ -609,7 +609,7 @@
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:20</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>supplier.new</source>
         <target>New supplier</target>
       </segment>
@@ -752,7 +752,7 @@ The user will have to set up all two-factor authentication methods again and pri
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:85</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>user.edit</source>
         <target>Edit user</target>
       </segment>
@@ -762,7 +762,7 @@ The user will have to set up all two-factor authentication methods again and pri
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:89</note>
         <note category="state" priority="1">new</note>
       </notes>
-      <segment state="translated">
+      <segment>
         <source>user.new</source>
         <target>New user</target>
       </segment>
@@ -6456,7 +6456,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
     </unit>
     <unit id="47DEQpj" name="">
       <segment>
-        <source/>
+        <source></source>
         <target> </target>
       </segment>
     </unit>
@@ -9043,6 +9043,36 @@ Element 3</target>
       <segment>
         <source>perm.labels.use_twig</source>
         <target>Use twig mode</target>
+      </segment>
+    </unit>
+    <unit id="f_MQ1uL" name="label_profile.showInDropdown">
+      <segment>
+        <source>label_profile.showInDropdown</source>
+        <target>Show in quick select</target>
+      </segment>
+    </unit>
+    <unit id="qrHwUh3" name="group.edit.enforce_2fa">
+      <segment>
+        <source>group.edit.enforce_2fa</source>
+        <target>Enforce Two-factor authentication (2FA)</target>
+      </segment>
+    </unit>
+    <unit id="btZApXD" name="group.edit.enforce_2fa.help">
+      <segment>
+        <source>group.edit.enforce_2fa.help</source>
+        <target>If this option is enabled, every direct member of this group, has to configure at least one second-factor for authentication. Recommended for administrative groups with much permissions.</target>
+      </segment>
+    </unit>
+    <unit id="i7QKlzx" name="selectpicker.empty">
+      <segment>
+        <source>selectpicker.empty</source>
+        <target>selectpicker.empty</target>
+      </segment>
+    </unit>
+    <unit id="TPI_1p0" name="selectpicker.nothing_selected">
+      <segment>
+        <source>selectpicker.nothing_selected</source>
+        <target>Nothing selected</target>
       </segment>
     </unit>
   </file>

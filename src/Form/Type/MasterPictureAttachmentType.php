@@ -63,6 +63,7 @@ class MasterPictureAttachmentType extends AbstractType
             'choice_translation_domain' => false,
             'attr' => [
                 'class' => 'selectpicker',
+                'title' => 'selectpicker.nothing_selected',
             ],
             'choice_attr' => function (Options $options) {
                 return  function ($choice, $key, $value) use ($options) {

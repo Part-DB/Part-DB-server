@@ -122,7 +122,7 @@ class UserSettingsType extends AbstractType
                 'attr' => [
                     'class' => 'selectpicker',
                 ],
-                'translation_domain' => false,
+                'choice_translation_domain' => false,
                 'choices' => User::AVAILABLE_THEMES,
                 'choice_label' => function ($entity, $key, $value) {
                     return $value;

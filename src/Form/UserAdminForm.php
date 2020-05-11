@@ -151,6 +151,7 @@ class UserAdminForm extends AbstractType
                 'required' => false,
                 'attr' => [
                     'class' => 'selectpicker',
+                    'title' => 'selectpicker.nothing_selected',
                     'data-live-search' => true,
                 ],
                 'placeholder' => 'user_settings.language.placeholder',
@@ -162,6 +163,7 @@ class UserAdminForm extends AbstractType
                 'required' => false,
                 'attr' => [
                     'class' => 'selectpicker',
+                    'title' => 'selectpicker.nothing_selected',
                     'data-live-search' => true,
                 ],
                 'placeholder' => 'user_settings.timezone.placeholder',
@@ -177,6 +179,7 @@ class UserAdminForm extends AbstractType
                 },
                 'attr' => [
                     'class' => 'selectpicker',
+                    'title' => 'selectpicker.nothing_selected',
                 ],
                 'choice_translation_domain' => false,
                 'placeholder' => 'user_settings.theme.placeholder',
