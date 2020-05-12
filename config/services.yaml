@@ -33,11 +33,19 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    ####################################################################################################################
+    # Email
+    ####################################################################################################################
+
     App\EventSubscriber\SetMailFromSubscriber:
         tags: ['kernel.event_subscriber']
         arguments:
             $email: '%partdb.mail.sender_email%'
             $name: '%partdb.mail.sender_name%'
+
+    ####################################################################################################################
+    # Log System
+    ####################################################################################################################
 
     App\Services\LogSystem\EventLogger:
         arguments:
@@ -48,17 +56,6 @@ services:
             $blacklist: []
             # Only the event classes specified here are saved to DB (set to []) to log all events
             $whitelist: []
-
-
-    Liip\ImagineBundle\Service\FilterService:
-        alias: 'liip_imagine.service.filter'
-
-    app.doctrine.elementListener:
-        class: App\Security\EntityListeners\ElementPermissionListener
-        public: false
-        autowire: true
-        tags:
-            - { name: "doctrine.orm.entity_listener" }
 
     App\EventSubscriber\LogSystem\EventLoggerSubscriber:
         arguments:
@@ -72,44 +69,6 @@ services:
         tags:
             - { name: 'doctrine.event_subscriber' }
 
-
-    tree_invalidation_listener:
-        class: App\EntityListeners\TreeCacheInvalidationListener
-        tags:
-            - { name: doctrine.orm.entity_listener }
-
-    attachment_delete_listener:
-        class: App\EntityListeners\AttachmentDeleteListener
-        tags:
-            - name: doctrine.orm.entity_listener
-
-    # Dont use JSONSerializable Interface,
-    serializer.normalizer.json_serializable:
-        class: Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer
-        tags:
-          - {name: serializer.normalizer, priority: -9000}
-
-    App\Controller\RedirectController:
-        arguments:
-            $default_locale: '%partdb.locale%'
-            $enforce_index_php: '%env(bool:NO_URL_REWRITE_AVAILABLE)%'
-
-    App\Command\UpdateExchangeRatesCommand:
-        arguments:
-            $base_current: '%partdb.default_currency%'
-
-    App\Form\Type\CurrencyEntityType:
-        arguments:
-            $base_currency: '%partdb.default_currency%'
-
-    App\Services\PricedetailHelper:
-        arguments:
-            $base_currency: '%partdb.default_currency%'
-
-    App\Services\MoneyFormatter:
-      arguments:
-        $base_currency: '%partdb.default_currency%'
-
     App\Form\AttachmentFormType:
         arguments:
             $allow_attachments_downloads: '%partdb.attachments.allow_downloads%'
@@ -119,17 +78,16 @@ services:
             $allow_attachments_downloads: '%partdb.attachments.allow_downloads%'
             $mimeTypes: '@mime_types'
 
-    App\Form\UserSettingsType:
-        arguments:
-            $demo_mode: '%partdb.demo_mode%'
+    ####################################################################################################################
+    # Attachment system
+    ####################################################################################################################
 
-    App\EventSubscriber\UserSystem\SetUserTimezoneSubscriber:
-        arguments:
-            $timezone: '%partdb.timezone%'
+    Liip\ImagineBundle\Service\FilterService:
+        alias: 'liip_imagine.service.filter'
 
-    App\Controller\SecurityController:
-        arguments:
-            $allow_email_pw_reset: '%partdb.users.email_pw_reset%'
+    App\EntityListeners\AttachmentDeleteListener:
+        tags:
+            - name: doctrine.orm.entity_listener
 
     App\Services\Attachments\AttachmentPathResolver:
         arguments:
@@ -143,20 +101,93 @@ services:
         arguments:
             $mimeTypes: '@mime_types'
 
+    ####################################################################################################################
+    # Security
+    ####################################################################################################################
+
+    App\Security\EntityListeners\ElementPermissionListener:
+        tags:
+            - { name: "doctrine.orm.entity_listener" }
+
+    ####################################################################################################################
+    # Cache
+    ####################################################################################################################
+
+    App\EntityListeners\TreeCacheInvalidationListener:
+        tags:
+            - { name: doctrine.orm.entity_listener }
+
+    ####################################################################################################################
+    # Price system
+    ####################################################################################################################
+    App\Command\UpdateExchangeRatesCommand:
+        arguments:
+            $base_current: '%partdb.default_currency%'
+
+    App\Form\Type\CurrencyEntityType:
+        arguments:
+            $base_currency: '%partdb.default_currency%'
+
+    App\Services\PricedetailHelper:
+        arguments:
+            $base_currency: '%partdb.default_currency%'
+
+    App\Services\MoneyFormatter:
+        arguments:
+            $base_currency: '%partdb.default_currency%'
+
+    ###################################################################################################################
+    # User system
+    ####################################################################################################################
+    App\Form\UserSettingsType:
+        arguments:
+            $demo_mode: '%partdb.demo_mode%'
+
+    App\EventSubscriber\UserSystem\SetUserTimezoneSubscriber:
+        arguments:
+            $timezone: '%partdb.timezone%'
+
+    App\Controller\SecurityController:
+        arguments:
+            $allow_email_pw_reset: '%partdb.users.email_pw_reset%'
+
     App\Services\TFA\BackupCodeGenerator:
         arguments:
             $code_length: 8
             $code_count: 15
 
-    App\Services\LabelSystem\LabelTextReplacer:
-        arguments:
-            $providers: !tagged_iterator 'app.label_placeholder_provider'
-
     App\Services\TranslationExtractor\PermissionExtractor:
         tags:
             - { name: 'translation.extractor', alias: 'permissionExtractor'}
+
+
+    ####################################################################################################################
+    # Label system
+    ####################################################################################################################
+    App\Services\LabelSystem\LabelTextReplacer:
+        arguments:
+            $providers: !tagged_iterator 'app.label_placeholder_provider'
 
     # PartLotProvider must be invoked before all other providers, so it can override %%NAME%% placeholder
     App\Services\LabelSystem\PlaceholderProviders\PartLotProvider:
         tags:
             - { name: 'app.label_placeholder_provider', priority: 10}
+
+    ####################################################################################################################
+    # Symfony overrides
+    ####################################################################################################################
+
+    # Dont use JSONSerializable Interface,
+    serializer.normalizer.json_serializable:
+        class: Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer
+        tags:
+          - {name: serializer.normalizer, priority: -9000}
+
+
+    ####################################################################################################################
+    # Miscellaneous
+    ####################################################################################################################
+    App\Controller\RedirectController:
+        arguments:
+            $default_locale: '%partdb.locale%'
+            $enforce_index_php: '%env(bool:NO_URL_REWRITE_AVAILABLE)%'
