@@ -93,8 +93,8 @@ Useful commands are:
  If you dont use Euro as base currency, you have to setup an fixer.io API key in `.env.local`.
 * `php bin/console app:clean-attachments`: Removes all unused files (files without an associated attachment) in attachments folder. 
 Normally Part-DB should be able to delete the attachment file, if you delete the attachment, but if you have some obsolete files left over from legacy Part-DB you can remove them safely with this command.
-* `php cache:clear`: Remove and rebuild all caches. If you encounter some weird issues in Part-DB, it maybe helps to run this command.
-* `php .\bin\console doctrine:migrations:up-to-date`: Check if your database is up to date.
+* `php bin/console cache:clear`: Remove and rebuild all caches. If you encounter some weird issues in Part-DB, it maybe helps to run this command.
+* `php bin\console doctrine:migrations:up-to-date`: Check if your database is up to date.
 
 ## Built with
 * [Symfony 4](https://symfony.com/): The main framework used for the serverside PHP
