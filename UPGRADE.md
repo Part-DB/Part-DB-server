@@ -7,7 +7,7 @@ The instructions on how to install the new version or upgrade from Part-DB 1.0 t
 ## Breaking Changes
 Please note that there are some breaking changes with the new version. 
 It is tried to keep the breaking changes as small as possible, so they should not have much impact for the most users:
- * PHP 7.2.5 is required now (Part-DB 0.5 supported PHP 5.4+, Part-DB 0.6 7.0). 
+ * PHP 7.2.5 is required now (Part-DB 0.5 required PHP 5.4+, Part-DB 0.6 PHP 7.0). 
   PHP 7.2.5 (or newer) is shipped by all current major Linux distros now (and can be installed by third party sources on others),
    Releases are available for Windows too, so almost everybody should be able to use PHP 7.2.5
  * Console access highly required. The installation of composer and frontend dependencies require console access, also 
@@ -16,6 +16,8 @@ It is tried to keep the breaking changes as small as possible, so they should no
  It is possible to migrate your existing BBCode to Markdown via `php bin/console php bin/console app:convert-bbcode`.
  * Server exceptions are not logged to Event log anymore. For security reasons (exceptions can contain sensitive informations)
  exceptions are only logged to server log (by default under './var/log'), so only the server admins can access it.
+ * Profile labels are now saved in Database (before they were saved in a seperate JSON file). The profiles of legacy Part-DB versions can not be imported into new Part-DB 1.0
+ * Label placeholders now use the `[[PLACEHOLDER]]` format instead of `%PLACEHOLDER%`. Also some placeholders has changed.
  
  ## Upgrade process
  1. Upgrade your existing Part-DB version the newest Part-DB 0.5.* version (in the moment Part-DB 0.5.8), like 

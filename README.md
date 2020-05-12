@@ -12,8 +12,10 @@ Part-DB is an Open-Source inventory managment system for your electronic compone
 It is installed on a web server and so can be accessed with any browser without the need to install additional software.
 
 The version in this Repository is a complete rewrite of the legacy [Part-DB](https://github.com/Part-DB/Part-DB) (Version < 1.0) based on a modern framework.
-In the moment it lacks many features from the old Part-DB and the testing and documentation is not finished, so
-this version is not recommendend for productive work!!
+In the moment it lacks some features from the old Part-DB and the testing and documentation is not finished.
+Part-DB is in undergoing development, that means features and appeareance can change, and the software can contain bugs.
+
+If you find a bug, please open an [Issue on Github](https://github.com/Part-DB/Part-DB-symfony/issues) so it can be fixed for everybody.
 
 ## Demo
 If you want to test Part-DB without installing it, you can use [this](https://part-db.herokuapp.com) Heroku instance. 
@@ -32,14 +34,14 @@ list of the features could change in the future. Features that are not working y
 * Inventory managment of your electronic parts. Each part can be assigned to a category, footprint, manufacturer 
 and multiple store locations and price informations. Parts can be grouped using tags. Support for file attachments like datasheets. 
 * Multi-Language support (currently German, English, Russian, Japanese and French (experimental))
-* Barcodes/Labels generator for parts and storage locations (*)
+* Barcodes/Labels generator for parts and storage locations
 * User system with groups and detailed permissions. 
 Two-factor authentication is supported (Google Authenticator and U2F keys) and can be enforced. Password reset via email can be setuped.
 * Import/Export system (*)
 * Project managment: Parts can be assigned to projects to manage how often a project can be build. (*)
 * Order managment: Collect parts that should be ordered during the next order on your distributor and automatically add
 it to your instock, when they arrive. (*)
-* Event log: Track what changes happens to your inventory, track which user does what. (*)
+* Event log: Track what changes happens to your inventory, track which user does what. Revert your parts to older versions.
 * Responsive design: You can use Part-DB on your PC, your tablet and your smartphone using the same interface.
 * PartKeepr import (*)
 
@@ -76,9 +78,23 @@ for additional informations.
 6. Install client side dependencies and build it: `yarn install` and `yarn build`
 7. _Optional_ (speeds up first load): Warmup cache: `php bin/console cache:warmup`
 8. Upgrade database to new scheme (or create it, when it was empty): `php bin/console doctrine:migrations:migrate` and follow the instructions given. **Caution**: This steps tamper with your database and could potentially destroy it. So make sure to make a backup of your database.
+9. You can configure Part-DB via `config/parameters.yaml`. You should check if settings match your expectations, after you installed/upgraded Part-DB. Check if `partdb.default_currency` matches your mainly used currency (this can not be changed after creating price informations). 
+   Run `php bin/console cache:clear` when you changed something.
 
 When you want to upgrade to a newer version, then just copy the new files into the folder
 and repeat the steps 4. to 7.
+
+## Useful console commands
+Part-DB provides some command consoles which can be invoked by `php bin/console [command]`. You can get help for every command with the parameter `--help`.
+Useful commands are:
+* `php bin/console app:set-password [username]`: Sets a new password for the user with the given username. Useful if you forget the password to your Part-DB instance.
+* `php bin/console app:show-logs`: Show last activty log on console. Use `-x` options, to include extra column.
+* `php bin/console app:update-exchange-rates`: Update the exchange rates of your currencies from internet. Setup this to be run in a cronjob to always get up-to-date exchange rates.
+ If you dont use Euro as base currency, you have to setup an fixer.io API key in `.env.local`.
+* `php bin/console app:clean-attachments`: Removes all unused files (files without an associated attachment) in attachments folder. 
+Normally Part-DB should be able to delete the attachment file, if you delete the attachment, but if you have some obsolete files left over from legacy Part-DB you can remove them safely with this command.
+* `php cache:clear`: Remove and rebuild all caches. If you encounter some weird issues in Part-DB, it maybe helps to run this command.
+* `php .\bin\console doctrine:migrations:up-to-date`: Check if your database is up to date.
 
 ## Built with
 * [Symfony 4](https://symfony.com/): The main framework used for the serverside PHP
