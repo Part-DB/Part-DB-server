@@ -42,7 +42,6 @@ declare(strict_types=1);
 
 namespace App\Form\AdminPages;
 
-use App\Entity\Attachments\Attachment;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\LabelSystem\LabelProfile;
@@ -52,7 +51,6 @@ use App\Form\Type\MasterPictureAttachmentType;
 use App\Form\Type\StructuralEntityType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use function get_class;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -66,12 +64,10 @@ use Symfony\Component\Security\Core\Security;
 class BaseEntityAdminForm extends AbstractType
 {
     protected $security;
-    protected $params;
 
-    public function __construct(Security $security, ParameterBagInterface $params)
+    public function __construct(Security $security)
     {
         $this->security = $security;
-        $this->params = $params;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

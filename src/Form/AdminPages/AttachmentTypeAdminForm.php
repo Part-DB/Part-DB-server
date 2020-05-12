@@ -44,7 +44,6 @@ namespace App\Form\AdminPages;
 
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Services\Attachments\FileTypeFilterTools;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -54,10 +53,10 @@ class AttachmentTypeAdminForm extends BaseEntityAdminForm
 {
     protected $filterTools;
 
-    public function __construct(Security $security, ParameterBagInterface $params, FileTypeFilterTools $filterTools)
+    public function __construct(Security $security, FileTypeFilterTools $filterTools)
     {
         $this->filterTools = $filterTools;
-        parent::__construct($security, $params);
+        parent::__construct($security);
     }
 
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void

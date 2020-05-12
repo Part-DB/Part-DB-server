@@ -68,7 +68,7 @@ class HomepageController extends AbstractController
 
     public function getBanner(): string
     {
-        $banner = $this->getParameter('banner');
+        $banner = $this->getParameter('partdb.banner');
         if (empty($banner)) {
             $banner_path = $this->kernel->getProjectDir()
                 .DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'banner.md';

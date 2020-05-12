@@ -1,0 +1,43 @@
+# Here you can configure the global behavior of Part-DB
+
+parameters:
+
+  ######################################################################################################################
+  # Common
+  ######################################################################################################################
+  partdb.locale: 'en'                                         # The default language to use serverwide
+  partdb.timezone: 'Europe/Berlin'                            # The default timezone
+  partdb.title: 'Part-DB'                                     # The title shown inside of Part-DB (e.g. in the navbar and on homepage)
+  partdb.banner: '%env(trim:string:BANNER)%'                  # The info text shown in the homepage, if empty config/banner.md is used
+  partdb.default_currency: 'EUR'                              # The currency that is used inside the DB (and is assumed when no currency is set). This can not be changed later, so be sure to set it the currency used in your country
+  partdb.global_theme: ''                                     # The theme to use globally (see public/build/themes/ for choices, use name without .css). Set to '' for default bootstrap theme
+  partdb.locale_menu: ['en', 'de', 'fr', 'ru', 'ja']          # The languages that are shown in user drop down menu
+
+  ######################################################################################################################
+  # Users and Privacy
+  ######################################################################################################################
+  partdb.gpdr_compliance: true                                # If this option is activated, IP addresses are anonymized to be GPDR compliant
+  partdb.users.use_gravatar: true                             # Set to false, if no Gravatar images should be used for user profiles.
+  partdb.users.email_pw_reset: '%env(validMailDSN:MAILER_DSN)%' # Config if users are able, to reset their password by email. By default this enabled, when a mail server is configured.
+
+  ######################################################################################################################
+  # Mail settings
+  ######################################################################################################################
+  partdb.mail.sender_email: 'noreply@partdb.changeme'         # The email address from which all emails are sent from
+  partdb.mail.sender_name: 'Part-DB Mailer'                   # The name that will be used for all mails sent by Part-DB
+
+  ######################################################################################################################
+  # Attachments and files
+  ######################################################################################################################
+  partdb.attachments.allow_downloads: false                   # Allow users to download attachments to server. Warning: This can be dangerous, because via that feature attackers maybe can access ressources on your intranet!
+  partdb.attachments.dir.media: 'public/media/'               # The folder where uploaded attachment files are saved (must be in public folder)
+  partdb.attachments.dir.secure: 'uploads/'                   # The folder where secured attachment files are saved (must not be in public/)
+
+  ######################################################################################################################
+  # Miscellaneous
+  ######################################################################################################################
+  partdb.demo_mode: '%env(bool:DEMO_MODE)%'                   # If set to true, all potentially dangerous things are disabled (like changing passwords of the own user)
+
+
+
+

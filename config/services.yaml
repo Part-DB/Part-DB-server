@@ -4,38 +4,18 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 
-parameters:
-    locale: 'en'                # Set the default language to use her
-    timezone: 'Europe/Berlin'
-    partdb_title: 'Part-DB'     # The title shown inside of Part-DB (e.g. in the navbar and on homepage)
-    banner: '%env(trim:string:BANNER)%'    # The info text shown in the homepage, if empty config/banner.md is used
-    use_gravatar: true          # Set to false, if no Gravatar images should be used for user profiles.
-    default_currency: 'EUR'     # The currency that should be used
-    media_directory: 'public/media/' # The folder where uploaded attachment files are saved
-    secure_media_directory: 'uploads/' # The folder where secured attachment files are saved (must not be in public/)
-    global_theme: ''            # The theme to use globally (see public/build/themes/ for choices). Set to '' for default bootstrap theme
-    # Allow users to download attachments to server. Warning: This can be dangerous, because via that feature attackers maybe can access ressources on your intranet!
-    allow_attachments_downloads: false
-    demo_mode: '%env(bool:DEMO_MODE)%' # If set to true, all potentially dangerous things are disabled (like changing passwords of the own user)
-    sender_email: 'noreply@partdb.changeme' # The email address from which all emails are sent from
-    sender_name: 'Part-DB Mailer' # The name that will be used for all mails sent by Part-DB
-    allow_email_pw_reset: '%env(validMailDSN:MAILER_DSN)%' # Config if users are able, to reset their password by email. By default this enabled, when a mail server is configured.
-    locale_menu: ['en', 'de', 'fr', 'ru', 'ja'] # The languages that are shown in user drop down menu
-    # If this option is activated, IP addresses are anonymized to be GPDR compliant
-    gpdr_compliance: true
-
-
 services:
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
-            bool $demo_mode: '%demo_mode%'
-            bool $gpdr_compliance : '%gpdr_compliance%'
+            bool $demo_mode: '%partdb.demo_mode%'
+            bool $gpdr_compliance : '%partdb.gpdr_compliance%'
             bool $kernel_debug: '%kernel.debug%'
             string $kernel_cache_dir: '%kernel.cache_dir%'
-            string $partdb_title: '%partdb_title%'
+            string $partdb_title: '%partdb.title%'
+            string $default_currency: '%partdb.default_currency%'
 
     _instanceof:
         App\Services\LabelSystem\PlaceholderProviders\PlaceholderProviderInterface:
@@ -56,8 +36,8 @@ services:
     App\EventSubscriber\SetMailFromSubscriber:
         tags: ['kernel.event_subscriber']
         arguments:
-            $email: '%sender_email%'
-            $name: '%sender_name%'
+            $email: '%partdb.mail.sender_email%'
+            $name: '%partdb.mail.sender_name%'
 
     App\Services\LogSystem\EventLogger:
         arguments:
@@ -111,51 +91,51 @@ services:
 
     App\Controller\RedirectController:
         arguments:
-            $default_locale: '%locale%'
+            $default_locale: '%partdb.locale%'
             $enforce_index_php: '%env(bool:NO_URL_REWRITE_AVAILABLE)%'
 
     App\Command\UpdateExchangeRatesCommand:
         arguments:
-            $base_current: '%default_currency%'
+            $base_current: '%partdb.default_currency%'
 
     App\Form\Type\CurrencyEntityType:
         arguments:
-            $base_currency: '%default_currency%'
+            $base_currency: '%partdb.default_currency%'
 
     App\Services\PricedetailHelper:
         arguments:
-            $base_currency: '%default_currency%'
+            $base_currency: '%partdb.default_currency%'
 
     App\Services\MoneyFormatter:
       arguments:
-        $base_currency: '%default_currency%'
+        $base_currency: '%partdb.default_currency%'
 
     App\Form\AttachmentFormType:
         arguments:
-            $allow_attachments_downloads: '%allow_attachments_downloads%'
+            $allow_attachments_downloads: '%partdb.attachments.allow_downloads%'
 
     App\Services\Attachments\AttachmentSubmitHandler:
         arguments:
-            $allow_attachments_downloads: '%allow_attachments_downloads%'
+            $allow_attachments_downloads: '%partdb.attachments.allow_downloads%'
             $mimeTypes: '@mime_types'
 
     App\Form\UserSettingsType:
         arguments:
-            $demo_mode: '%demo_mode%'
+            $demo_mode: '%partdb.demo_mode%'
 
     App\EventSubscriber\UserSystem\SetUserTimezoneSubscriber:
         arguments:
-            $timezone: '%timezone%'
+            $timezone: '%partdb.timezone%'
 
     App\Controller\SecurityController:
         arguments:
-            $allow_email_pw_reset: '%allow_email_pw_reset%'
+            $allow_email_pw_reset: '%partdb.users.email_pw_reset%'
 
     App\Services\Attachments\AttachmentPathResolver:
         arguments:
             $project_dir: '%kernel.project_dir%'
-            $media_path: '%media_directory%'
-            $secure_path: '%secure_media_directory%'
+            $media_path: '%partdb.attachments.dir.media%'
+            $secure_path: '%partdb.attachments.dir.secure%'
             $footprints_path: 'public/img/footprints'
             $models_path: null
 

@@ -7,7 +7,7 @@ scheb_two_factor:
 
     google:
         enabled: true                   # If Google Authenticator should be enabled, default false
-        server_name: '%partdb_title%'   # Server name used in QR code
+        server_name: '%partdb.title%'   # Server name used in QR code
         issuer: 'Part-DB'               # Issuer name used in QR code
         digits: 6                       # Number of digits in authentication code
         window: 1                       # How many codes before/after the current one would be accepted as valid

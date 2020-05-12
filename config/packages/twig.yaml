@@ -6,10 +6,10 @@ twig:
         '%kernel.project_dir%/assets/css': css
 
     globals:
-        partdb_title: '%partdb_title%'
-        default_currency: '%default_currency%'
-        global_theme: '%global_theme%'
-        allow_email_pw_reset: '%allow_email_pw_reset%'
-        locale_menu: '%locale_menu%'
+        partdb_title: '%partdb.title%'
+        default_currency: '%partdb.default_currency%'
+        global_theme: '%partdb.global_theme%'
+        allow_email_pw_reset: '%partdb.users.email_pw_reset%'
+        locale_menu: '%partdb.locale_menu%'
         attachment_manager: '@App\Services\Attachments\AttachmentManager'
         label_profile_dropdown_helper: '@App\Services\LabelSystem\LabelProfileDropdownHelper'

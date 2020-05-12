@@ -47,9 +47,18 @@ use App\Entity\PriceInformations\Currency;
 use App\Form\Type\StructuralEntityType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Security\Core\Security;
 
 class SupplierForm extends CompanyForm
 {
+    protected $default_currency;
+
+    public function __construct(Security $security, string $default_currency)
+    {
+        parent::__construct($security);
+        $this->default_currency = $default_currency;
+    }
+
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
     {
         $is_new = null === $entity->getID();
@@ -66,7 +75,7 @@ class SupplierForm extends CompanyForm
 
         $builder->add('shipping_costs', MoneyType::class, [
             'required' => false,
-            'currency' => $this->params->get('default_currency'),
+            'currency' => $this->default_currency,
             'scale' => 3,
             'label' => 'supplier.shipping_costs.label',
             'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity),

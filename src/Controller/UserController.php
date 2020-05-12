@@ -193,7 +193,7 @@ class UserController extends AdminPages\BaseAdminController
             return $table->getResponse();
         }
 
-        if ($this->getParameter('use_gravatar')) {
+        if ($this->getParameter('partdb.users.use_gravatar')) {
             $avatar = $this->getGravatar($user->getEmail(), 200, 'identicon');
         } else {
             $avatar = $packages->getUrl('/img/default_avatar.png');
