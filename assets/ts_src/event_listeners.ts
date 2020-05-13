@@ -21,7 +21,6 @@ import {ajaxUI} from "./ajax_ui";
 import "bootbox";
 import "marked";
 import * as marked from "marked";
-import "qrcode";
 import {parse} from "marked";
 import * as ZXing from "@zxing/library";
 
@@ -510,15 +509,6 @@ $(document).on("ajaxUI:start ajaxUI:reload attachment:create", function() {
     $('select.attachment_type_selector').change(updater).each(updater);
 });
 
-$(document).on("ajaxUI:start ajaxUI:reload", function() {
-    $('.qrcode').each(function() {
-        let canvas = $(this);
-        //@ts-ignore
-        QRCode.toCanvas(canvas[0], canvas.data('content'), function(error) {
-            if(error) console.error(error);
-        })
-    });
-});
 
 $(document).on("ajaxUI:start ajaxUI:reload", function() {
     function setTooltip(btn, message) {
