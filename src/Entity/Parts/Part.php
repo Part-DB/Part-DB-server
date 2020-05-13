@@ -165,6 +165,13 @@ class Part extends AttachmentContainingDBElement
             foreach ($orderdetails as $orderdetail) {
                 $this->addOrderdetail(clone $orderdetail);
             }
+
+            //Deep clone parameters
+            $parameters = $this->parameters;
+            $this->parameters = new ArrayCollection();
+            foreach ($parameters as $parameter) {
+                $this->addParameter(clone $parameter);
+            }
         }
         parent::__clone();
     }

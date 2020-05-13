@@ -107,6 +107,19 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
         $this->parameters = new ArrayCollection();
     }
 
+    public function __clone()
+    {
+        if ($this->id) {
+            //Deep clone parameters
+            $parameters = $this->parameters;
+            $this->parameters = new ArrayCollection();
+            foreach ($parameters as $parameter) {
+                $this->addParameter(clone $parameter);
+            }
+        }
+        parent::__clone();
+    }
+
     /******************************************************************************
      * StructuralDBElement constructor.
      *****************************************************************************/
