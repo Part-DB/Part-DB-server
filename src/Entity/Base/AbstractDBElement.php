@@ -87,14 +87,6 @@ abstract class AbstractDBElement implements \JsonSerializable
         return $this->id;
     }
 
-    /**
-     * Returns the ID as an string, defined by the element class.
-     * This should have a form like P000014, for a part with ID 14.
-     *
-     * @return string The ID as a string;
-     */
-    abstract public function getIDString(): string;
-
     public function jsonSerialize()
     {
         return ['@id' => $this->getID()];

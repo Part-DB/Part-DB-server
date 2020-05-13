@@ -86,15 +86,4 @@ class DevicePart extends AbstractDBElement
      * @ORM\JoinColumn(name="id_part", referencedColumnName="id")
      */
     protected $part;
-
-    /**
-     * Returns the ID as an string, defined by the element class.
-     * This should have a form like P000014, for a part with ID 14.
-     *
-     * @return string The ID as a string;
-     */
-    public function getIDString(): string
-    {
-        return 'DP'.sprintf('%06d', $this->getID());
-    }
 }

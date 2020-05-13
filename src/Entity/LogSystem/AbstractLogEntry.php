@@ -306,11 +306,6 @@ abstract class AbstractLogEntry extends AbstractDBElement
         return $this->typeString;
     }
 
-    public function getIDString(): string
-    {
-        return 'LOG'.$this->getID();
-    }
-
     /**
      * Returns the class name of the target element associated with this log entry.
      * Returns null, if this log entry is not associated with an log entry.

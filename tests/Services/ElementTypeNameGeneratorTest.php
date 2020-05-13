@@ -83,10 +83,6 @@ class ElementTypeNameGeneratorTest extends WebTestCase
         //Test exception for unknpwn type
         $this->expectException(EntityNotSupportedException::class);
         $this->service->getLocalizedTypeLabel(new class() extends AbstractDBElement {
-            public function getIDString(): string
-            {
-                return 'Stub';
-            }
         });
     }
 

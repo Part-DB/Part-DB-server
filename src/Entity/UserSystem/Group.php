@@ -132,17 +132,6 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
         return $this;
     }
 
-    /**
-     * Returns the ID as an string, defined by the element class.
-     * This should have a form like P000014, for a part with ID 14.
-     *
-     * @return string The ID as a string;
-     */
-    public function getIDString(): string
-    {
-        return 'G'.sprintf('%06d', $this->getID());
-    }
-
     public function getPermissions(): PermissionsEmbed
     {
         return $this->permissions;

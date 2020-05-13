@@ -154,7 +154,7 @@ class ConvertBBCodeCommand extends Command
             foreach ($results as $result) {
                 /** @var AbstractNamedDBElement $result */
                 $io->writeln(
-                    'Convert entity: '.$result->getName().' ('.$result->getIDString().')',
+                    'Convert entity: '.$result->getName().' (' . get_class($result) . ': ' . $result->getID() . ')',
                     OutputInterface::VERBOSITY_VERBOSE
                 );
                 foreach ($properties as $property) {

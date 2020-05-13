@@ -387,11 +387,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement
         return $this;
     }
 
-    public function getIDString(): string
-    {
-        return 'PM'.sprintf('%09d', $this->getID());
-    }
-
     /**
      * Return a string representation and (if possible) with its unit.
      *

@@ -120,9 +120,4 @@ class LabelProfile extends AttachmentContainingDBElement
 
         return $this;
     }
-
-    public function getIDString(): string
-    {
-        return 'LP'.sprintf('%09d', $this->getID());
-    }
 }

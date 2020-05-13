@@ -65,12 +65,7 @@ class LabelGeneratorTest extends WebTestCase
         $this->assertTrue($this->service->supports($options, new $class()));
 
         //Ensure that another class is not supported
-        $not_supported = new class() extends AbstractDBElement {
-            public function getIDString(): string
-            {
-                return 'not_important';
-            }
-        };
+        $not_supported = new class() extends AbstractDBElement {};
 
         $this->assertFalse($this->service->supports($options, $not_supported));
     }
