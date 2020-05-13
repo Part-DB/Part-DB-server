@@ -153,28 +153,6 @@
         <target>Свернуть всё</target>
       </segment>
     </unit>
-    <unit id="a5.CFfq" name="edit.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
-        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
-        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:35</note>
-      </notes>
-      <segment state="translated">
-        <source>edit.caption</source>
-        <target>Редактировать элемент "%name"</target>
-      </segment>
-    </unit>
-    <unit id="bblk5.r" name="new.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
-        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
-        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:37</note>
-      </notes>
-      <segment state="translated">
-        <source>new.caption</source>
-        <target>Новый элемент</target>
-      </segment>
-    </unit>
     <unit id="tagdXMa" name="part.info.timetravel_hint">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:54</note>
@@ -301,6 +279,28 @@
       <segment state="translated">
         <source>mass_creation.help</source>
         <target>Каждая строка будет интерпретирована как имя создаваемого элемента</target>
+      </segment>
+    </unit>
+    <unit id="a5.CFfq" name="edit.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:35</note>
+      </notes>
+      <segment state="translated">
+        <source>edit.caption</source>
+        <target>Редактировать элемент "%name"</target>
+      </segment>
+    </unit>
+    <unit id="bblk5.r" name="new.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
+        <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
+        <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>new.caption</source>
+        <target>Новый элемент</target>
       </segment>
     </unit>
     <unit id="ZJ9SPOS" name="footprint.labelp">
@@ -3636,7 +3636,7 @@
     <unit id="RezjOdV" name="storelocation.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:27</note>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:66</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:68</note>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:88</note>
         <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:88</note>
         <note priority="1">templates\base.html.twig:60</note>
@@ -3774,8 +3774,8 @@
     </unit>
     <unit id="V1QubEL" name="attachment.download_failed">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:212</note>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:292</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:213</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:293</note>
         <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:173</note>
         <note category="file-source" priority="1">Part-DB1\src\Controller\PartController.php:293</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:181</note>
@@ -3790,7 +3790,7 @@
     </unit>
     <unit id="A7i8za4" name="entity.edit_flash">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:221</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:222</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:190</note>
       </notes>
       <segment state="translated">
@@ -3800,7 +3800,7 @@
     </unit>
     <unit id="AoZHore" name="entity.edit_flash.invalid">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:230</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:231</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:196</note>
       </notes>
       <segment state="translated">
@@ -3810,7 +3810,7 @@
     </unit>
     <unit id="8MJvWmd" name="entity.created_flash">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:301</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:302</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:252</note>
       </notes>
       <segment state="translated">
@@ -3820,7 +3820,7 @@
     </unit>
     <unit id="zZdZuYS" name="entity.created_flash.invalid">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:307</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:308</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:258</note>
       </notes>
       <segment state="translated">
@@ -3830,7 +3830,7 @@
     </unit>
     <unit id="lSfR7sD" name="attachment_type.deleted">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:398</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:399</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:352</note>
         <note priority="1">src\Controller\BaseAdminController.php:154</note>
       </notes>
@@ -3841,10 +3841,10 @@
     </unit>
     <unit id="2bvWUoo" name="csfr_invalid">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:400</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:401</note>
         <note category="file-source" priority="1">Part-DB1\src\Controller\UserController.php:109</note>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:157</note>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:191</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:159</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:193</note>
         <note priority="1">Part-DB1\src\Controller\AdminPages\BaseAdminController.php:354</note>
         <note priority="1">Part-DB1\src\Controller\UserController.php:101</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:150</note>
@@ -4080,7 +4080,7 @@
     </unit>
     <unit id="_OcjXRe" name="tfa_backup.no_codes_enabled">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:99</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:101</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:92</note>
       </notes>
       <segment state="translated">
@@ -4090,7 +4090,7 @@
     </unit>
     <unit id="9UBDL1p" name="tfa_u2f.u2f_delete.not_existing">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:136</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:138</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:132</note>
       </notes>
       <segment state="translated">
@@ -4100,7 +4100,7 @@
     </unit>
     <unit id="6waUw7j" name="tfa_u2f.u2f_delete.access_denied">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:143</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:145</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:139</note>
       </notes>
       <segment state="translated">
@@ -4110,7 +4110,7 @@
     </unit>
     <unit id="Kn9dPI5" name="tfa.u2f.u2f_delete.success">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:151</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:153</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:147</note>
       </notes>
       <segment state="translated">
@@ -4120,7 +4120,7 @@
     </unit>
     <unit id="h.BcrtU" name="tfa_trustedDevice.invalidate.success">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:186</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:188</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:180</note>
       </notes>
       <segment state="translated">
@@ -4130,7 +4130,7 @@
     </unit>
     <unit id="PBKICdd" name="user.settings.saved_flash">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:233</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:235</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:226</note>
         <note priority="1">src\Controller\UserController.php:98</note>
       </notes>
@@ -4141,7 +4141,7 @@
     </unit>
     <unit id="mPAd5JY" name="user.settings.pw_changed_flash">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:295</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:297</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:288</note>
         <note priority="1">src\Controller\UserController.php:130</note>
       </notes>
@@ -4152,7 +4152,7 @@
     </unit>
     <unit id="xy.2mkA" name="user.settings.2fa.google.activated">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:315</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:317</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:306</note>
       </notes>
       <segment state="translated">
@@ -4162,7 +4162,7 @@
     </unit>
     <unit id="RXjFD7H" name="user.settings.2fa.google.disabled">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:326</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:328</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:315</note>
       </notes>
       <segment state="translated">
@@ -4172,7 +4172,7 @@
     </unit>
     <unit id="4ZUxld3" name="user.settings.2fa.backup_codes.regenerated">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:344</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\UserSettingsController.php:346</note>
         <note priority="1">Part-DB1\src\Controller\UserSettingsController.php:332</note>
       </notes>
       <segment state="translated">
@@ -4852,7 +4852,7 @@
     </unit>
     <unit id="oZsKN5d" name="part.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:66</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:68</note>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:86</note>
       </notes>
       <segment state="translated">
@@ -4862,7 +4862,7 @@
     </unit>
     <unit id="ucI6a2E" name="part_lot.label">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:66</note>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:68</note>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:87</note>
       </notes>
       <segment state="translated">
@@ -5638,7 +5638,7 @@
     </unit>
     <unit id="cMe4sAM" name="tree.tools.show.all_parts">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:227</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:226</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:197</note>
         <note priority="1">src\Services\ToolsTreeBuilder.php:77</note>
       </notes>
@@ -5649,7 +5649,7 @@
     </unit>
     <unit id="aGy9QbC" name="tree.tools.show.all_attachments">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:233</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:232</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:203</note>
       </notes>
       <segment state="translated">
@@ -5659,7 +5659,7 @@
     </unit>
     <unit id="4_7bZqX" name="tree.tools.show.statistics">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:240</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:239</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:210</note>
         <note priority="1">new</note>
       </notes>
@@ -5670,7 +5670,7 @@
     </unit>
     <unit id="D1it4FK" name="tree.tools.system.users">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:259</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:258</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:229</note>
       </notes>
       <segment state="translated">
@@ -5680,7 +5680,7 @@
     </unit>
     <unit id="7rI.aP2" name="tree.tools.system.groups">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:265</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:264</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:235</note>
       </notes>
       <segment state="translated">
@@ -5690,7 +5690,7 @@
     </unit>
     <unit id="uwNvMFE" name="tree.tools.system.event_log">
       <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:272</note>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:271</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:242</note>
         <note priority="1">new</note>
       </notes>
