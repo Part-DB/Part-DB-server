@@ -111,6 +111,11 @@ abstract class AttachmentContainingDBElement extends AbstractNamedDBElement impl
     {
         $this->attachments->removeElement($attachment);
 
+        //Check if this is the master attachment -> remove it from master attachment too, or it can not be deleted from DB...
+        if ($attachment === $this->getMasterPictureAttachment()) {
+            $this->setMasterPictureAttachment(null);
+        }
+
         return $this;
     }
 }

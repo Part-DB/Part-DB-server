@@ -48,6 +48,7 @@ use App\Services\Attachments\AttachmentPathResolver;
 use App\Services\Attachments\AttachmentReverseSearch;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\PostRemove;
 use Doctrine\ORM\Mapping\PreUpdate;
 use SplFileInfo;
@@ -93,6 +94,25 @@ class AttachmentDeleteListener
 
             $file = new SplFileInfo($real_path);
             $this->attachmentReverseSearch->deleteIfNotUsed($file);
+        }
+    }
+
+    /**
+     * Ensure that attachments are not used in preview, so that they can be deleted (without integrity violation).
+     * @ORM\PreRemove()
+     */
+    public function preRemoveHandler(Attachment $attachment, LifecycleEventArgs $event): void
+    {
+        //Ensure that the attachment that will be deleted, is not used as preview picture anymore...
+        $attachment_holder = $attachment->getElement();
+
+        if ($attachment_holder === null) {
+            return;
+        }
+
+        //... Otherwise remove it as preview picture
+        if ($attachment_holder->getMasterPictureAttachment() === $attachment) {
+            $attachment_holder->setMasterPictureAttachment(null);
         }
     }
 
