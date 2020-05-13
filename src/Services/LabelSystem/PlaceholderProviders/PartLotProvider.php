@@ -63,7 +63,6 @@ final class PartLotProvider implements PlaceholderProviderInterface
                     Locale::getDefault(),
                     IntlDateFormatter::SHORT,
                     IntlDateFormatter::NONE
-                //$label_target->getExpirationDate()->getTimezone()
                 );
 
                 return $formatter->format($label_target->getExpirationDate());

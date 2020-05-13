@@ -59,11 +59,10 @@ class TimestampableElementProviderTest extends WebTestCase
     public function dataProvider(): array
     {
         \Locale::setDefault('en');
-        $formatted = \IntlDateFormatter::formatObject(new \DateTime('2000-01-01'), \IntlDateFormatter::SHORT);
 
         return [
-            [$formatted, '[[LAST_MODIFIED]]'],
-            [$formatted, '[[CREATION_DATE]]'],
+            ['1/1/00, 12:00 AM', '[[LAST_MODIFIED]]'],
+            ['1/1/00, 12:00 AM', '[[CREATION_DATE]]'],
         ];
     }
 
