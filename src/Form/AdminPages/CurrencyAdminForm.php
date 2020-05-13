@@ -46,9 +46,18 @@ use App\Entity\Base\AbstractNamedDBElement;
 use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Security\Core\Security;
 
 class CurrencyAdminForm extends BaseEntityAdminForm
 {
+    private $default_currency;
+
+    public function __construct(Security $security, string $default_currency)
+    {
+        parent::__construct($security);
+        $this->default_currency = $default_currency;
+    }
+
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void
     {
         $is_new = null === $entity->getID();
@@ -68,7 +77,7 @@ class CurrencyAdminForm extends BaseEntityAdminForm
         $builder->add('exchange_rate', MoneyType::class, [
             'required' => false,
             'label' => 'currency.edit.exchange_rate',
-            'currency' => $this->params->get('default_currency'),
+            'currency' => $this->default_currency,
             'scale' => 6,
             'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
