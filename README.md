@@ -96,6 +96,10 @@ Normally Part-DB should be able to delete the attachment file, if you delete the
 * `php bin/console cache:clear`: Remove and rebuild all caches. If you encounter some weird issues in Part-DB, it maybe helps to run this command.
 * `php bin\console doctrine:migrations:up-to-date`: Check if your database is up to date.
 
+## Donate for development
+If you want to donate to the Part-DB developer, see the sponsor button in the top bar (next to the repo name).
+There you will find various methods to support development on a monthly or a one time base.
+
 ## Built with
 * [Symfony 4](https://symfony.com/): The main framework used for the serverside PHP
 * [Bootstrap 4](https://getbootstrap.com/) and [Fontawesome](https://fontawesome.com/) : Used for the webpages
