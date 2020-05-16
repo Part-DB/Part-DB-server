@@ -254,6 +254,7 @@ abstract class BaseAdminController extends AbstractController
             'pdf_data' => $pdf_data ?? null,
             'timeTravel' => $timeTravel_timestamp,
             'repo' => $repo,
+            'partsContainingElement' => $repo instanceof PartsContainingRepositoryInterface,
         ]);
     }
 
