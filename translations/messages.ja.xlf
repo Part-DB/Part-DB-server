@@ -268,7 +268,7 @@
       </notes>
       <segment state="translated">
         <source>export_all.label</source>
-        <target>全要素をエクスポートする</target>
+        <target>すべてエクスポートする</target>
       </segment>
     </unit>
     <unit id="zPSdxU4" name="mass_creation.help">
@@ -300,7 +300,7 @@
       </notes>
       <segment state="translated">
         <source>new.caption</source>
-        <target>新しい要素</target>
+        <target>新規作成</target>
       </segment>
     </unit>
     <unit id="ZJ9SPOS" name="footprint.labelp">
@@ -660,7 +660,7 @@
       </notes>
       <segment state="translated">
         <source>entity.delete</source>
-        <target>要素を削除</target>
+        <target>削除</target>
       </segment>
     </unit>
     <unit id="jix.mo1" name="edit.log_comment">
@@ -695,7 +695,7 @@
       </notes>
       <segment state="translated">
         <source>entity.duplicate</source>
-        <target>要素が重複</target>
+        <target>複製</target>
       </segment>
     </unit>
     <unit id="4_pqNGT" name="export.format">
@@ -1017,7 +1017,7 @@
       </notes>
       <segment state="translated">
         <source>loading.caption</source>
-        <target>読み込み中：</target>
+        <target>読み込み中:</target>
       </segment>
     </unit>
     <unit id="PbxPO3f" name="loading.message">
@@ -1080,7 +1080,7 @@
       </notes>
       <segment state="translated">
         <source>permission.legend.title</source>
-        <target>状態について：</target>
+        <target>状態について</target>
       </segment>
     </unit>
     <unit id="owrJ0Qw" name="permission.legend.disallow">
@@ -1120,7 +1120,7 @@
       </notes>
       <segment state="translated">
         <source>bool.true</source>
-        <target>真</target>
+        <target>はい</target>
       </segment>
     </unit>
     <unit id="UlrxUmI" name="bool.false">
@@ -1130,7 +1130,7 @@
       </notes>
       <segment state="translated">
         <source>bool.false</source>
-        <target>偽</target>
+        <target>いいえ</target>
       </segment>
     </unit>
     <unit id="haOas0X" name="Yes">
@@ -1344,7 +1344,7 @@
       </notes>
       <segment state="translated">
         <source>mail.footer.email_sent_by</source>
-        <target>このメールは自動送信です：</target>
+        <target>このメールは自動送信です:</target>
       </segment>
     </unit>
     <unit id="AchaWxK" name="mail.footer.dont_reply">
@@ -2362,7 +2362,7 @@
       </notes>
       <segment state="translated">
         <source>parts_list.supplier.title</source>
-        <target>部品と供給業者</target>
+        <target>部品とサプライヤー</target>
       </segment>
     </unit>
     <unit id="DBlWwba" name="parts_list.tags.title">
@@ -2674,7 +2674,7 @@
       </notes>
       <segment state="translated">
         <source>tfa_u2f.explanation</source>
-        <target>U2F/FIDO互換のセキュリティキー（例：YubiKeyやNitroKey）により、ユーザーフレンドリーで安全な二要素認証を実現できます。セキュリティキーはここで登録することができ、二要素認証が必要な場合は、USB経由でキーを挿入するか、NFC経由でデバイスに入力するだけです。</target>
+        <target>U2F/FIDO互換のセキュリティキー（例: YubiKeyやNitroKey）により、ユーザーフレンドリーで安全な二要素認証を実現できます。セキュリティキーはここで登録することができ、二要素認証が必要な場合は、USB経由でキーを挿入するか、NFC経由でデバイスに入力するだけです。</target>
       </segment>
     </unit>
     <unit id="DMC2yTT" name="tfa_u2f.add_key.backup_hint">
@@ -2694,7 +2694,7 @@
       </notes>
       <segment state="translated">
         <source>r_u2f_two_factor.name</source>
-        <target>表示されているキー名（例：バックアップ）</target>
+        <target>表示されているキー名（例: バックアップ）</target>
       </segment>
     </unit>
     <unit id="HI4_6dF" name="tfa_u2f.add_key.add_button">
@@ -3289,7 +3289,7 @@
       </notes>
       <segment state="translated">
         <source>tfa_google.step.download</source>
-        <target>認証アプリをダウンロード (例： &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"&gt;Google Authenticator&lt;/a&gt; や &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp"&gt;FreeOTP Authenticator&lt;/a&gt;)</target>
+        <target>認証アプリをダウンロード (例: &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"&gt;Google Authenticator&lt;/a&gt; や &lt;a class="link-external" target="_blank" href="https://play.google.com/store/apps/details?id=org.fedorahosted.freeotp"&gt;FreeOTP Authenticator&lt;/a&gt;)</target>
       </segment>
     </unit>
     <unit id="TXv.pXw" name="tfa_google.step.scan">
@@ -3584,7 +3584,7 @@
       </notes>
       <segment state="translated">
         <source>user.loggedin.label</source>
-        <target>以下としてログイン：</target>
+        <target>以下としてログイン:</target>
       </segment>
     </unit>
     <unit id="rruB2OR" name="user.login">
@@ -3678,7 +3678,7 @@
       </notes>
       <segment state="translated">
         <source>supplier.label</source>
-        <target>供給業者</target>
+        <target>サプライヤー</target>
       </segment>
     </unit>
     <unit id="Bs5QvO0" name="search.deactivateBarcode">
@@ -3778,7 +3778,7 @@
       </notes>
       <segment state="translated">
         <source>supplier.labelp</source>
-        <target>供給業者</target>
+        <target>サプライヤー</target>
       </segment>
     </unit>
     <unit id="V1QubEL" name="attachment.download_failed">
@@ -3981,7 +3981,7 @@
       </notes>
       <segment state="translated">
         <source>part.edited_flash.invalid</source>
-        <target>保存中のエラー：入力を確認してください</target>
+        <target>保存中のエラー: 入力を確認してください</target>
       </segment>
     </unit>
     <unit id="suYw2UL" name="part.deleted">
@@ -4014,7 +4014,7 @@
       </notes>
       <segment state="translated">
         <source>part.created_flash.invalid</source>
-        <target>作成中のエラー：入力を確認してください。</target>
+        <target>作成中のエラー: 入力を確認してください。</target>
       </segment>
     </unit>
     <unit id="B1T9Kt6" name="pw_reset.user_or_email">
@@ -4226,7 +4226,7 @@
       </notes>
       <segment state="translated">
         <source>true</source>
-        <target>真</target>
+        <target>はい</target>
       </segment>
     </unit>
     <unit id=".LzxZZC" name="false">
@@ -4248,7 +4248,7 @@
       </notes>
       <segment state="translated">
         <source>false</source>
-        <target>偽</target>
+        <target>いいえ</target>
       </segment>
     </unit>
     <unit id="eTGx8tR" name="log.target_deleted">
@@ -4482,7 +4482,7 @@
       </notes>
       <segment state="translated">
         <source>part.table.addedDate</source>
-        <target>作成日：</target>
+        <target>作成日:</target>
       </segment>
     </unit>
     <unit id="eDb7mzC" name="part.table.lastModified">
@@ -4492,7 +4492,7 @@
       </notes>
       <segment state="translated">
         <source>part.table.lastModified</source>
-        <target>最終更新：</target>
+        <target>最終更新:</target>
       </segment>
     </unit>
     <unit id="DJ9YTs_" name="part.table.needsReview">
@@ -4786,7 +4786,7 @@
       </notes>
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>外部ファイルのURLを指定できます。内部リソース（例：フットプリント）の検索に使用するキーワードを入力することもできます。</target>
+        <target>外部ファイルのURLを指定できます。内部リソース（例: フットプリント）の検索に使用するキーワードを入力することもできます。</target>
       </segment>
     </unit>
     <unit id="3ZnUiT_" name="attachment.edit.name">
@@ -4885,7 +4885,7 @@
       </notes>
       <segment state="translated">
         <source>parameters.name.placeholder</source>
-        <target>例：DC電流ゲイン</target>
+        <target>例: DC電流ゲイン</target>
       </segment>
     </unit>
     <unit id="3LWIDYM" name="parameters.symbol.placeholder">
@@ -4894,7 +4894,7 @@
       </notes>
       <segment state="translated">
         <source>parameters.symbol.placeholder</source>
-        <target>例：h_{FE}</target>
+        <target>例: h_{FE}</target>
       </segment>
     </unit>
     <unit id="w7bfLKj" name="parameters.text.placeholder">
@@ -4903,7 +4903,7 @@
       </notes>
       <segment state="translated">
         <source>parameters.text.placeholder</source>
-        <target>例：試験条件</target>
+        <target>例: 試験条件</target>
       </segment>
     </unit>
     <unit id="6utToZ6" name="parameters.max.placeholder">
@@ -4912,7 +4912,7 @@
       </notes>
       <segment state="translated">
         <source>parameters.max.placeholder</source>
-        <target>例：350</target>
+        <target>例: 350</target>
       </segment>
     </unit>
     <unit id="BypUOrf" name="parameters.min.placeholder">
@@ -4921,7 +4921,7 @@
       </notes>
       <segment state="translated">
         <source>parameters.min.placeholder</source>
-        <target>例：100</target>
+        <target>例: 100</target>
       </segment>
     </unit>
     <unit id="VmYIvYF" name="parameters.typical.placeholder">
@@ -4930,7 +4930,7 @@
       </notes>
       <segment state="translated">
         <source>parameters.typical.placeholder</source>
-        <target>例：200</target>
+        <target>例: 200</target>
       </segment>
     </unit>
     <unit id="kvhGoo0" name="parameters.unit.placeholder">
@@ -4939,7 +4939,7 @@
       </notes>
       <segment state="translated">
         <source>parameters.unit.placeholder</source>
-        <target>例：V</target>
+        <target>例: V</target>
       </segment>
     </unit>
     <unit id="kL5OSi8" name="parameter.group.placeholder">
@@ -4948,7 +4948,7 @@
       </notes>
       <segment state="translated">
         <source>parameter.group.placeholder</source>
-        <target>例：技術仕様</target>
+        <target>例: 技術仕様</target>
       </segment>
     </unit>
     <unit id="jv6wCpP" name="orderdetails.edit.supplierpartnr">
@@ -4968,7 +4968,7 @@
       </notes>
       <segment state="translated">
         <source>orderdetails.edit.supplier</source>
-        <target>供給業者</target>
+        <target>サプライヤー</target>
       </segment>
     </unit>
     <unit id="qfScBBj" name="orderdetails.edit.url">
@@ -4998,7 +4998,7 @@
       </notes>
       <segment state="translated">
         <source>orderdetails.edit.supplierpartnr.placeholder</source>
-        <target>例：BC 547</target>
+        <target>例: BC 547</target>
       </segment>
     </unit>
     <unit id="HZwLFnu" name="part.edit.name">
@@ -5190,7 +5190,7 @@
       </notes>
       <segment state="translated">
         <source>part.edit.name.placeholder</source>
-        <target>例：BC547</target>
+        <target>例: BC547</target>
       </segment>
     </unit>
     <unit id="rMHwTBI" name="part.edit.description.placeholder">
@@ -5200,7 +5200,7 @@
       </notes>
       <segment state="translated">
         <source>part.edit.description.placeholder</source>
-        <target>例：NPN 45V, 0,1A, 0,5W</target>
+        <target>例: NPN 45V, 0,1A, 0,5W</target>
       </segment>
     </unit>
     <unit id=".V3Lfkf" name="part.editmininstock.placeholder">
@@ -5210,7 +5210,7 @@
       </notes>
       <segment state="translated">
         <source>part.editmininstock.placeholder</source>
-        <target>例：1</target>
+        <target>例: 1</target>
       </segment>
     </unit>
     <unit id="6QS4K7r" name="part_lot.edit.description">
@@ -5581,7 +5581,7 @@
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.suppliers</source>
-        <target>供給業者</target>
+        <target>サプライヤー</target>
       </segment>
     </unit>
     <unit id="bkM5GtE" name="tree.tools.edit.manufacturer">
@@ -5716,7 +5716,7 @@
       </notes>
       <segment state="translated">
         <source>entity.tree.new</source>
-        <target>新しい要素</target>
+        <target>新規作成</target>
       </segment>
     </unit>
     <unit id="3Vc5_D2" name="attachment.external_file">
@@ -5909,7 +5909,7 @@
       </notes>
       <segment state="translated">
         <source>log.collection_deleted.deleted</source>
-        <target>削除された要素：</target>
+        <target>削除された要素: </target>
       </segment>
     </unit>
     <unit id="rOLpDSq" name="go.exclamation">
@@ -6012,7 +6012,7 @@
       </notes>
       <segment state="translated">
         <source>category.edit.default_comment.placeholder</source>
-        <target>例：スイッチングに使える</target>
+        <target>例: スイッチングに使える</target>
       </segment>
     </unit>
     <unit id="n13qerD" name="tfa_backup.regenerate_codes">
@@ -6294,7 +6294,7 @@
       </notes>
       <segment state="translated">
         <source>entity.create</source>
-        <target>要素を作成</target>
+        <target>新規作成</target>
       </segment>
     </unit>
     <unit id="bBoYWyf" name="entity.edit.save">
@@ -6667,7 +6667,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>measurement_unit.edit.use_si_prefix.help</source>
-        <target>このオプションを有効化すると、SI接頭辞を付けて値を出力します（例：1200gを1.2kg）</target>
+        <target>このオプションを有効化すると、SI接頭辞を付けて値を出力します（例: 1200gを1.2kg）</target>
       </segment>
     </unit>
     <unit id="zha3lRe" name="measurement_unit.edit.unit_symbol">
@@ -6687,7 +6687,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>measurement_unit.edit.unit_symbol.placeholder</source>
-        <target>例：m</target>
+        <target>例: m</target>
       </segment>
     </unit>
     <unit id="L68lNgx" name="storelocation.edit.is_full.label">
@@ -6797,7 +6797,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>user.username.placeholder</source>
-        <target>例：t.yamada</target>
+        <target>例: t.yamada</target>
       </segment>
     </unit>
     <unit id="birjZUl" name="user.firstName.placeholder">
@@ -6807,7 +6807,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>user.firstName.placeholder</source>
-        <target>例：太郎</target>
+        <target>例: 太郎</target>
       </segment>
     </unit>
     <unit id="Z9pc7NJ" name="user.lastName.placeholder">
@@ -6817,7 +6817,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>user.lastName.placeholder</source>
-        <target>例：山田</target>
+        <target>例: 山田</target>
       </segment>
     </unit>
     <unit id="VLB.yla" name="user.email.placeholder">
@@ -6827,7 +6827,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>user.email.placeholder</source>
-        <target>例：t.yamada@ecorp.com</target>
+        <target>例: t.yamada@ecorp.com</target>
       </segment>
     </unit>
     <unit id="UjUjKNF" name="user.department.placeholder">
@@ -6837,7 +6837,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>user.department.placeholder</source>
-        <target>例：開発</target>
+        <target>例: 開発</target>
       </segment>
     </unit>
     <unit id="C65DPNY" name="user.settings.pw_new.label">
@@ -7006,7 +7006,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>part.description.placeholder</source>
-        <target>例：NPN 45V 0,1A 0,5W</target>
+        <target>例: NPN 45V 0,1A 0,5W</target>
       </segment>
     </unit>
     <unit id="w_lfSsB" name="part.instock.placeholder">
@@ -7017,7 +7017,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>part.instock.placeholder</source>
-        <target>例：10</target>
+        <target>例: 10</target>
       </segment>
     </unit>
     <unit id="58zdDWF" name="part.mininstock.placeholder">
@@ -7028,7 +7028,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>part.mininstock.placeholder</source>
-        <target>例：5</target>
+        <target>例: 5</target>
       </segment>
     </unit>
     <unit id="gAFUu2a" name="homepage.basedOn">
@@ -7038,7 +7038,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>homepage.basedOn</source>
-        <target>オリジナルのPart-DBの作者：</target>
+        <target>オリジナルのPart-DBの作者: </target>
       </segment>
     </unit>
     <unit id="PlY3xmo" name="homepage.others">
@@ -7058,7 +7058,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>part.order.price_per</source>
-        <target>あたりの価格：</target>
+        <target>あたりの価格: </target>
       </segment>
     </unit>
     <unit id="1n22zD9" name="part.withdraw.caption">
