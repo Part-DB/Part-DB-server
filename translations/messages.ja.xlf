@@ -268,7 +268,7 @@
       </notes>
       <segment state="translated">
         <source>export_all.label</source>
-        <target>全要素をエクスポートする</target>
+        <target>すべてエクスポートする</target>
       </segment>
     </unit>
     <unit id="zPSdxU4" name="mass_creation.help">
@@ -300,7 +300,7 @@
       </notes>
       <segment state="translated">
         <source>new.caption</source>
-        <target>新しい要素</target>
+        <target>新規作成</target>
       </segment>
     </unit>
     <unit id="ZJ9SPOS" name="footprint.labelp">
