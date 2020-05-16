@@ -60,7 +60,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class Store location.
  *
- * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Parts\StorelocationRepository")
  * @ORM\Table("`storelocations`")
  */
 class Storelocation extends AbstractPartsContainingDBElement
@@ -83,15 +83,6 @@ class Storelocation extends AbstractPartsContainingDBElement
      * @ORM\JoinColumn(name="storage_type_id", referencedColumnName="id")
      */
     protected $storage_type;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Part", fetch="EXTRA_LAZY")
-     * @ORM\JoinTable(name="part_lots",
-     *    joinColumns={@ORM\JoinColumn(name="id_store_location", referencedColumnName="id")},
-     *    inverseJoinColumns={@ORM\JoinColumn(name="id_part", referencedColumnName="id")}
-     * )
-     */
-    protected $parts;
 
     /** @var Collection<int, StorelocationParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\StorelocationParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)

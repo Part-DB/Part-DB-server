@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\Validator\Constraints;
 
 use App\Entity\Parts\PartLot;
+use App\Entity\Parts\Storelocation;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
@@ -75,7 +76,8 @@ class ValidPartLotValidator extends ConstraintValidator
 
         //We can only validate the values if we know the storelocation
         if ($value->getStorageLocation()) {
-            $parts = $value->getStorageLocation()->getParts();
+            $repo = $this->em->getRepository(Storelocation::class);
+            $parts = $repo->getParts($value);
 
             //Check for isFull() attribute
             if ($value->getStorageLocation()->isFull()) {

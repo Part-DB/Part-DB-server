@@ -79,7 +79,7 @@ trait BasicPropertyTrait
     /**
      * @var Category The category this part belongs too (e.g. Resistors). Use tags, for more complex grouping.
      *               Every part must have a category.
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="parts")
+     * @ORM\ManyToOne(targetEntity="Category")
      * @ORM\JoinColumn(name="id_category", referencedColumnName="id", nullable=false)
      * @ColumnSecurity(prefix="category", type="App\Entity\Parts\Category")
      * @Selectable()
@@ -88,7 +88,7 @@ trait BasicPropertyTrait
 
     /**
      * @var Footprint|null The footprint of this part (e.g. DIP8)
-     * @ORM\ManyToOne(targetEntity="Footprint", inversedBy="parts")
+     * @ORM\ManyToOne(targetEntity="Footprint")
      * @ORM\JoinColumn(name="id_footprint", referencedColumnName="id")
      * @ColumnSecurity(prefix="footprint", type="App\Entity\Parts\Footprint")
      * @Selectable()

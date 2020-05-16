@@ -60,7 +60,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class Footprint.
  *
- * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Parts\FootprintRepository")
  * @ORM\Table("`footprints`")
  */
 class Footprint extends AbstractPartsContainingDBElement
@@ -77,10 +77,6 @@ class Footprint extends AbstractPartsContainingDBElement
      */
     protected $children;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Part", mappedBy="footprint", fetch="EXTRA_LAZY")
-     */
-    protected $parts;
     /**
      * @var Collection<int, FootprintAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\FootprintAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)

@@ -38,8 +38,8 @@
     <label class="col-form-label col-md-3">{% trans %}entity.info.parts_count{% endtrans %}</label>
     <div class="col-md-9">
         <p class="form-control-static">
-            {% if entity.id and entity.parts is defined %}
-                {{ entity.parts | length }}
+            {% if entity.id and repo.partsCount is defined %}
+                {{ repo.partsCount(entity) }}
             {% else %}
                 -
             {% endif %}

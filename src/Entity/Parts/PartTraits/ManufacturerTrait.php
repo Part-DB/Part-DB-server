@@ -54,7 +54,7 @@ trait ManufacturerTrait
 {
     /**
      * @var Manufacturer|null The manufacturer of this part
-     * @ORM\ManyToOne(targetEntity="Manufacturer", inversedBy="parts")
+     * @ORM\ManyToOne(targetEntity="Manufacturer")
      * @ORM\JoinColumn(name="id_manufacturer", referencedColumnName="id")
      * @ColumnSecurity(prefix="manufacturer", type="App\Entity\Parts\Manufacturer")
      * @Selectable()

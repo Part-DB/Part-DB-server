@@ -32,7 +32,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class AttachmentType.
  *
- * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Parts\CategoryRepository")
  * @ORM\Table(name="`categories`")
  */
 class Category extends AbstractPartsContainingDBElement
@@ -48,11 +48,6 @@ class Category extends AbstractPartsContainingDBElement
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     protected $parent;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Part", mappedBy="category", fetch="EXTRA_LAZY")
-     */
-    protected $parts;
 
     /**
      * @var string

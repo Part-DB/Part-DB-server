@@ -94,7 +94,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-4">{% trans %}entity.info.parent{% endtrans %}:</label>
-                                    <span class="col-sm form-control-static">{{ entity.parts | length }}</span>
+                                    <span class="col-sm form-control-static">{{ repo.partsCount(entity) }}</span>
                                 </div>
                             </div>
                         </div>

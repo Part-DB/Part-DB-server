@@ -18,21 +18,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-declare(strict_types=1);
+namespace App\Repository\Parts;
 
-namespace App\Entity\Base;
+use App\Repository\AbstractPartsContainingRepository;
 
-use App\Entity\Parts\Part;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-
-/**
- * Class PartsContainingDBElement.
- *
- * @ORM\MappedSuperclass(repositoryClass="App\Repository\AbstractPartsContainingRepository")
- */
-abstract class AbstractPartsContainingDBElement extends AbstractStructuralDBElement
+class ManufacturerRepository extends AbstractPartsContainingRepository
 {
 
+    public function getParts(object $element, array $order_by = ['name' => 'ASC']): array
+    {
+        return $this->getPartsByField($element, $order_by, 'manufacturer');
+    }
+
+    public function getPartsCount(object $element): int
+    {
+        return $this->getPartsCountByField($element, 'manufacturer');
+    }
 }

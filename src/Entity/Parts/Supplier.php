@@ -62,7 +62,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class Supplier.
  *
- * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Parts\SupplierRepository")
  * @ORM\Table("`suppliers`")
  */
 class Supplier extends AbstractCompany
@@ -99,15 +99,6 @@ class Supplier extends AbstractCompany
      * @Assert\PositiveOrZero()
      */
     protected $shipping_costs;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Part", fetch="EXTRA_LAZY")
-     * @ORM\JoinTable(name="orderdetails",
-     *     joinColumns={@ORM\JoinColumn(name="id_supplier", referencedColumnName="id")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="part_id", referencedColumnName="id")}
-     * )
-     */
-    protected $parts;
 
     /**
      * @var Collection<int, SupplierAttachment>

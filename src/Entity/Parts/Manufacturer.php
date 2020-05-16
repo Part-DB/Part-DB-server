@@ -60,7 +60,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class Manufacturer.
  *
- * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Parts\ManufacturerRepository")
  * @ORM\Table("`manufacturers`")
  */
 class Manufacturer extends AbstractCompany
@@ -77,10 +77,6 @@ class Manufacturer extends AbstractCompany
      */
     protected $children;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Part", mappedBy="manufacturer", fetch="EXTRA_LAZY")
-     */
-    protected $parts;
     /**
      * @var Collection<int, ManufacturerAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ManufacturerAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)

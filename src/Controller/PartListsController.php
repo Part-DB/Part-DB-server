@@ -48,6 +48,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
+use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -57,6 +58,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PartListsController extends AbstractController
 {
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     /**
      * @Route("/category/{id}/parts", name="part_list_category")
      *
@@ -74,6 +82,7 @@ class PartListsController extends AbstractController
         return $this->render('Parts/lists/category_list.html.twig', [
             'datatable' => $table,
             'entity' => $category,
+            'repo' => $this->entityManager->getRepository(Category::class),
         ]);
     }
 
@@ -94,6 +103,7 @@ class PartListsController extends AbstractController
         return $this->render('Parts/lists/footprint_list.html.twig', [
             'datatable' => $table,
             'entity' => $footprint,
+            'repo' => $this->entityManager->getRepository(Footprint::class),
         ]);
     }
 
@@ -114,6 +124,7 @@ class PartListsController extends AbstractController
         return $this->render('Parts/lists/manufacturer_list.html.twig', [
             'datatable' => $table,
             'entity' => $manufacturer,
+            'repo' => $this->entityManager->getRepository(Manufacturer::class),
         ]);
     }
 
@@ -134,6 +145,7 @@ class PartListsController extends AbstractController
         return $this->render('Parts/lists/store_location_list.html.twig', [
             'datatable' => $table,
             'entity' => $storelocation,
+            'repo' => $this->entityManager->getRepository(Storelocation::class),
         ]);
     }
 
@@ -154,6 +166,7 @@ class PartListsController extends AbstractController
         return $this->render('Parts/lists/supplier_list.html.twig', [
             'datatable' => $table,
             'entity' => $supplier,
+            'repo' => $this->entityManager->getRepository(Supplier::class),
         ]);
     }
 

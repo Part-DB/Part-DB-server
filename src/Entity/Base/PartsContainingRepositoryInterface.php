@@ -18,21 +18,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-declare(strict_types=1);
-
 namespace App\Entity\Base;
 
+
 use App\Entity\Parts\Part;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Class PartsContainingDBElement.
- *
- * @ORM\MappedSuperclass(repositoryClass="App\Repository\AbstractPartsContainingRepository")
- */
-abstract class AbstractPartsContainingDBElement extends AbstractStructuralDBElement
+interface PartsContainingRepositoryInterface
 {
+    /**
+     * Returns all parts associated with this element.
+     * @param  object $element The element for which the parts should be determined.
+     * @param  array  $order_by The order of the parts. Format ['name' => 'ASC']
+     * @return Part[]
+     */
+    public function getParts(object $element, array $order_by = ['name' => 'ASC']): array;
 
+    /**
+     * Gets the count of the parts associated with this element.
+     * @param  object $element The element for which the parts should be determined.
+     * @return int
+     */
+    public function getPartsCount(object $element): int;
 }

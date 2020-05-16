@@ -45,6 +45,7 @@ namespace App\Controller\AdminPages;
 use App\DataTables\LogDataTable;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\Base\PartsContainingRepositoryInterface;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\UserSystem\User;
 use App\Events\SecurityEvent;
@@ -52,6 +53,7 @@ use App\Events\SecurityEvents;
 use App\Exceptions\AttachmentDownloadException;
 use App\Form\AdminPages\ImportType;
 use App\Form\AdminPages\MassCreationForm;
+use App\Repository\AbstractPartsContainingRepository;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
@@ -100,11 +102,13 @@ abstract class BaseAdminController extends AbstractController
     protected $labelGenerator;
     protected $barcodeExampleGenerator;
 
+    protected $entityManager;
+
     public function __construct(TranslatorInterface $translator, UserPasswordEncoderInterface $passwordEncoder,
         AttachmentSubmitHandler $attachmentSubmitHandler,
         EventCommentHelper $commentHelper, HistoryHelper $historyHelper, TimeTravel $timeTravel,
         DataTableFactory $dataTableFactory, EventDispatcherInterface $eventDispatcher, BarcodeExampleElementsGenerator $barcodeExampleGenerator,
-        LabelGenerator $labelGenerator)
+        LabelGenerator $labelGenerator, EntityManagerInterface $entityManager)
     {
         if ('' === $this->entity_class || '' === $this->form_class || '' === $this->twig_template || '' === $this->route_base) {
             throw new InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');
@@ -128,6 +132,7 @@ abstract class BaseAdminController extends AbstractController
         $this->eventDispatcher = $eventDispatcher;
         $this->barcodeExampleGenerator = $barcodeExampleGenerator;
         $this->labelGenerator = $labelGenerator;
+        $this->entityManager = $entityManager;
     }
 
     protected function _edit(AbstractNamedDBElement $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
@@ -237,6 +242,10 @@ abstract class BaseAdminController extends AbstractController
             $pdf_data = $this->labelGenerator->generateLabel($entity->getOptions(), $example);
         }
 
+        /** @var AbstractPartsContainingRepository $repo */
+        $repo = $this->entityManager->getRepository($this->entity_class);
+
+
         return $this->render($this->twig_template, [
             'entity' => $entity,
             'form' => $form->createView(),
@@ -244,6 +253,7 @@ abstract class BaseAdminController extends AbstractController
             'datatable' => $table,
             'pdf_data' => $pdf_data ?? null,
             'timeTravel' => $timeTravel_timestamp,
+            'repo' => $repo,
         ]);
     }
 
@@ -356,6 +366,7 @@ abstract class BaseAdminController extends AbstractController
             }
             $em->flush();
         }
+
 
         return $this->render($this->twig_template, [
             'entity' => $new_entity,

@@ -54,7 +54,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * This unit represents the unit in which the amount of parts in stock are measured.
  * This could be something like N, grams, meters, etc...
  *
- * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Parts\MeasurementUnitRepository")
  * @ORM\Table(name="`measurement_units`")
  * @UniqueEntity("unit")
  */
@@ -94,10 +94,6 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      */
     protected $parent;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Part", mappedBy="partUnit", fetch="EXTRA_LAZY")
-     */
-    protected $parts;
     /**
      * @var Collection<int, MeasurementUnitAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\MeasurementUnitAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
