@@ -3957,16 +3957,16 @@
         },
         {
             "name": "s9e/text-formatter",
-            "version": "2.5.0",
+            "version": "2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/s9e/TextFormatter.git",
-                "reference": "1f92145ebeba84dc3736c608d2e56cdf1c3e31fa"
+                "reference": "9cb0710514fe8eb7e4c662483b6bb2ad028e046b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/s9e/TextFormatter/zipball/1f92145ebeba84dc3736c608d2e56cdf1c3e31fa",
-                "reference": "1f92145ebeba84dc3736c608d2e56cdf1c3e31fa",
+                "url": "https://api.github.com/repos/s9e/TextFormatter/zipball/9cb0710514fe8eb7e4c662483b6bb2ad028e046b",
+                "reference": "9cb0710514fe8eb7e4c662483b6bb2ad028e046b",
                 "shasum": ""
             },
             "require": {
@@ -3992,7 +3992,7 @@
             },
             "type": "library",
             "extra": {
-                "version": "2.5.0"
+                "version": "2.6.0"
             },
             "autoload": {
                 "psr-4": {
@@ -4022,7 +4022,7 @@
                 "parser",
                 "shortcodes"
             ],
-            "time": "2020-04-29T16:11:43+00:00"
+            "time": "2020-05-17T14:01:20+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
