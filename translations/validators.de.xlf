@@ -167,5 +167,11 @@
         <target>Der Benutzername darf nur Buchstaben, Zahlen, Unterstriche, Punkte, Plus- oder Minuszeichen enthalten.</target>
       </segment>
     </unit>
+    <unit id="ayNr6QK" name="validator.select_valid_category">
+      <segment>
+        <source>validator.select_valid_category</source>
+        <target>Bitte wählen Sie eine gültige Kategorie.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

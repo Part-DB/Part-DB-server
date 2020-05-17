@@ -131,6 +131,9 @@ class PartBaseType extends AbstractType
                 'label' => 'part.edit.category',
                 'disable_not_selectable' => true,
                 'disabled' => ! $this->security->isGranted('category.edit', $part),
+                'constraints' => [
+
+                ]
             ])
             ->add('footprint', StructuralEntityType::class, [
                 'class' => Footprint::class,

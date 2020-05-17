@@ -185,5 +185,11 @@
         <target>You can not assign children element as parent (This would cause loops).</target>
       </segment>
     </unit>
+    <unit id="ayNr6QK" name="validator.select_valid_category">
+      <segment>
+        <source>validator.select_valid_category</source>
+        <target>Please select a valid category!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

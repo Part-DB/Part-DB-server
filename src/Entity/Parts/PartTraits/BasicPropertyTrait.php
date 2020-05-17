@@ -46,6 +46,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Security\Annotations\ColumnSecurity;
 use App\Validator\Constraints\Selectable;
+use Symfony\Component\Validator\Constraints as Assert;
 
 trait BasicPropertyTrait
 {
@@ -83,6 +84,7 @@ trait BasicPropertyTrait
      * @ORM\JoinColumn(name="id_category", referencedColumnName="id", nullable=false)
      * @ColumnSecurity(prefix="category", type="App\Entity\Parts\Category")
      * @Selectable()
+     * @Assert\NotNull(message="validator.select_valid_category")
      */
     protected $category;
 
@@ -196,7 +198,7 @@ trait BasicPropertyTrait
      *
      * @return $this
      */
-    public function setCategory(Category $category): self
+    public function setCategory(?Category $category): self
     {
         $this->category = $category;
 
