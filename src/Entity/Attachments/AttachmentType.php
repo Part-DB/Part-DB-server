@@ -91,7 +91,7 @@ class AttachmentType extends AbstractStructuralDBElement
      */
     public function getAttachmentsForType(): Collection
     {
-        return $this->attachments;
+        return $this->attachments_with_type;
     }
 
     /**

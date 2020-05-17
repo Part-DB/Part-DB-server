@@ -43,10 +43,14 @@ declare(strict_types=1);
 namespace App\Controller\AdminPages;
 
 use App\DataTables\LogDataTable;
+use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractNamedDBElement;
+use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Base\PartsContainingRepositoryInterface;
 use App\Entity\LabelSystem\LabelProfile;
+use App\Entity\PriceInformations\Currency;
+use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Events\SecurityEvent;
 use App\Events\SecurityEvents;
@@ -384,6 +388,35 @@ abstract class BaseAdminController extends AbstractController
 
         if ($this->isCsrfTokenValid('delete'.$entity->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            //Check if we can delete the part (it must not contain Parts)
+            if ($entity instanceof AbstractPartsContainingDBElement) {
+                /** @var AbstractPartsContainingRepository $repo */
+                $repo = $this->entityManager->getRepository($this->entity_class);
+                if ($repo->getPartsCount($entity) > 0) {
+                    $this->addFlash('error', 'entity.delete.must_not_contain_parts');
+                    return $this->redirectToRoute($this->route_base.'_new');
+                }
+            } elseif ($entity instanceof AttachmentType) {
+                if ($entity->getAttachmentsForType()->count() > 0) {
+                    $this->addFlash('error', 'entity.delete.must_not_contain_attachments');
+                    return $this->redirectToRoute($this->route_base.'_new');
+                }
+            } elseif ($entity instanceof Currency) {
+                if ($entity->getPricedetails()->count() > 0) {
+                    $this->addFlash('error', 'entity.delete.must_not_contain_prices');
+                    return $this->redirectToRoute($this->route_base.'_new');
+                }
+            } elseif ($entity instanceof Group) {
+                if ($entity->getUsers()->count() > 0) {
+                    $this->addFlash('error', 'entity.delete.must_not_contain_users');
+                    return $this->redirectToRoute($this->route_base.'_new');
+                }
+            } elseif ($entity instanceof User) {
+                //TODO: Find a better solution
+                $this->addFlash('error', 'Currently it is not possible to delete a user, as this would break the log... This will be implemented later...');
+                return $this->redirectToRoute($this->route_base.'_new');
+            }
 
             //Check if we need to remove recursively
             if ($entity instanceof AbstractStructuralDBElement && $request->get('delete_recursive', false)) {

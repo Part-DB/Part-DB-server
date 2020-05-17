@@ -47,6 +47,7 @@ use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\GroupParameter;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\ValidPermission;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -102,10 +103,12 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      */
     protected $parameters;
 
+
     public function __construct()
     {
         parent::__construct();
         $this->permissions = new PermissionsEmbed();
+        $this->users = new ArrayCollection();
     }
 
     /**
@@ -135,5 +138,10 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     public function getPermissions(): PermissionsEmbed
     {
         return $this->permissions;
+    }
+
+    public function getUsers(): Collection
+    {
+        return $this->users;
     }
 }

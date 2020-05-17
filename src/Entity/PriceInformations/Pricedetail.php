@@ -82,7 +82,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     /**
      * @var ?Currency The currency used for the current price information.
      *                If this is null, the global base unit is assumed.
-     * @ORM\ManyToOne(targetEntity="Currency")
+     * @ORM\ManyToOne(targetEntity="Currency", inversedBy="pricedetails")
      * @ORM\JoinColumn(name="id_currency", referencedColumnName="id", nullable=true)
      * @Selectable()
      */

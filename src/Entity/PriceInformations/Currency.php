@@ -45,6 +45,7 @@ namespace App\Entity\PriceInformations;
 use App\Entity\Attachments\CurrencyAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\CurrencyParameter;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -102,6 +103,25 @@ class Currency extends AbstractStructuralDBElement
      * @Assert\Valid()
      */
     protected $parameters;
+
+    /** @var Collection<int, Pricedetail>
+     * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Pricedetail", mappedBy="currency")
+     */
+    protected $pricedetails;
+
+    public function __construct()
+    {
+        $this->pricedetails = new ArrayCollection();
+        parent::__construct();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getPricedetails(): Collection
+    {
+        return $this->pricedetails;
+    }
 
     /**
      * Returns the 3 letter ISO code of this currency.
