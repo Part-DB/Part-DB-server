@@ -44,6 +44,7 @@ namespace App\Validator\Constraints;
 
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
@@ -77,7 +78,12 @@ class ValidPartLotValidator extends ConstraintValidator
         //We can only validate the values if we know the storelocation
         if ($value->getStorageLocation()) {
             $repo = $this->em->getRepository(Storelocation::class);
-            $parts = $repo->getParts($value);
+            //We can only determine associated parts, if the part have an ID
+            if ($value->getID() !== null) {
+                $parts = new ArrayCollection($repo->getParts($value));
+            } else {
+                $parts = new ArrayCollection([]);
+            }
 
             //Check for isFull() attribute
             if ($value->getStorageLocation()->isFull()) {
