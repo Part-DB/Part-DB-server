@@ -114,7 +114,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * @var Part The part that is stored in this lot
-     * @ORM\ManyToOne(targetEntity="Part")
+     * @ORM\ManyToOne(targetEntity="Part", inversedBy="partLots")
      * @ORM\JoinColumn(name="id_part", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Assert\NotNull()
      */
