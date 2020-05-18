@@ -81,6 +81,7 @@ class AttachmentType extends AbstractStructuralDBElement
     {
         parent::__construct();
         $this->attachments = new ArrayCollection();
+        $this->attachments_with_type = new ArrayCollection();
     }
 
     /**
