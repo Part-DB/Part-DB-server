@@ -11,6 +11,8 @@ doctrine:
                 class: App\Helpers\UTCDateTimeType
             date:
                 class: App\Helpers\UTCDateTimeType
+            big_decimal:
+                class: App\Helpers\BigDecimalType
 
         schema_filter: ~^(?!internal)~
         profiling_collect_backtrace: true

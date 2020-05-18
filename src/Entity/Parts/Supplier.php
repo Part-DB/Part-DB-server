@@ -54,7 +54,10 @@ use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Base\AbstractCompany;
 use App\Entity\Parameters\SupplierParameter;
 use App\Entity\PriceInformations\Currency;
+use App\Validator\Constraints\BigDecimal\BigDecimalPositiveOrZero;
 use App\Validator\Constraints\Selectable;
+use Brick\Math\BigDecimal;
+use Brick\Math\BigNumber;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -94,9 +97,9 @@ class Supplier extends AbstractCompany
     protected $default_currency;
 
     /**
-     * @var string|null the shipping costs that have to be paid, when ordering via this supplier
-     * @ORM\Column(name="shipping_costs", nullable=true, type="decimal", precision=11, scale=5)
-     * @Assert\PositiveOrZero()
+     * @var BigDecimal|null the shipping costs that have to be paid, when ordering via this supplier
+     * @ORM\Column(name="shipping_costs", nullable=true, type="big_decimal", precision=11, scale=5)
+     * @BigDecimalPositiveOrZero()
      */
     protected $shipping_costs;
 
@@ -140,9 +143,9 @@ class Supplier extends AbstractCompany
     /**
      * Gets the shipping costs for an order with this supplier, given in base currency.
      *
-     * @return string|null A bcmath string with the shipping costs
+     * @return BigDecimal|null A BigDecimal with the shipping costs
      */
-    public function getShippingCosts(): ?string
+    public function getShippingCosts(): ?BigDecimal
     {
         return $this->shipping_costs;
     }
@@ -150,17 +153,13 @@ class Supplier extends AbstractCompany
     /**
      * Sets the shipping costs for an order with this supplier.
      *
-     * @param string|null $shipping_costs a bcmath string with the shipping costs
+     * @param string|null $shipping_costs a BigDecimal with the shipping costs
      *
      * @return Supplier
      */
-    public function setShippingCosts(?string $shipping_costs): self
+    public function setShippingCosts(?BigDecimal $shipping_costs): self
     {
-        /* Just a little hack to ensure that price has 5 digits after decimal point,
-         so that DB does not detect changes, when something like 0.4 is passed
-         Third parameter must have the scale value of decimal column. */
-        $this->shipping_costs = bcmul($shipping_costs, '1.0', 5);
-
+        $this->shipping_costs = $shipping_costs;
         return $this;
     }
 }

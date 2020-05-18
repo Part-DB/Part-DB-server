@@ -44,6 +44,7 @@ namespace App\Form\AdminPages;
 
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\PriceInformations\Currency;
+use App\Form\Type\BigDecimalMoneyType;
 use App\Form\Type\StructuralEntityType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -73,7 +74,7 @@ class SupplierForm extends CompanyForm
             'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity),
         ]);
 
-        $builder->add('shipping_costs', MoneyType::class, [
+        $builder->add('shipping_costs', BigDecimalMoneyType::class, [
             'required' => false,
             'currency' => $this->default_currency,
             'scale' => 3,

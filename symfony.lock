@@ -11,6 +11,9 @@
     "beberlei/doctrineextensions": {
         "version": "v1.2.6"
     },
+    "brick/math": {
+        "version": "0.8.15"
+    },
     "composer/semver": {
         "version": "1.5.0"
     },
