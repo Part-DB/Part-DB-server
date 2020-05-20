@@ -3,7 +3,6 @@
     "license": "AGPL-3.0-or-later",
     "require": {
         "php": "^7.2.5",
-        "ext-bcmath": "*",
         "ext-ctype": "*",
         "ext-gd": "*",
         "ext-iconv": "*",
@@ -78,6 +77,10 @@
         "symfony/test-pack": "^1.0",
         "symplify/easy-coding-standard": "^7.2.3",
         "vimeo/psalm": "^3.5"
+    },
+    "suggest": {
+        "ext-bcmath": "Used to improve price calculation performance",
+        "ext-gmp": "Used to improve price calculation performanice"
     },
     "config": {
         "preferred-install": {
