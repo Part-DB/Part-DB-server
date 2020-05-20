@@ -125,6 +125,7 @@ class StructuralEntityType extends AbstractType
             ];
             if ($options['empty_message']) {
                 $tmp['data-none-Selected-Text'] = $options['empty_message'];
+                $tmp['title'] = $options['empty_message'];
             }
 
             return $tmp;
