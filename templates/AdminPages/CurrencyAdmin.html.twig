@@ -20,7 +20,7 @@
     {{ form_row(form.exchange_rate) }}
     {% if entity.inverseExchangeRate %}
         <span class="form-text text-muted offset-3 col-9">
-        {{ '1'|format_currency(default_currency) }} = {{ entity.inverseExchangeRate | format_currency(entity.isoCode, {fraction_digit: 5}) }}
+        {{ '1'|format_currency(default_currency) }} = {{ entity.inverseExchangeRate.tofloat | format_currency(entity.isoCode, {fraction_digit: 5}) }}
     </span>
     {% endif %}
 {% endblock %}

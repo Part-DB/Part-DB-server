@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Entity\PriceInformations\Currency;
+use Brick\Math\BigDecimal;
 use function count;
 use Doctrine\ORM\EntityManagerInterface;
 use Exchanger\Exception\Exception;
@@ -122,10 +123,11 @@ class UpdateExchangeRatesCommand extends Command
 
         //Iterate over each candidate and update exchange rate
         foreach ($candidates as $currency) {
+            /** @var Currency $currency */
             try {
                 $rate = $swap->latest($currency->getIsoCode().'/'.$this->base_current);
-                $currency->setExchangeRate((string) $rate->getValue());
-                $io->note(sprintf('Set exchange rate of %s to %f', $currency->getIsoCode(), $currency->getExchangeRate()));
+                $currency->setExchangeRate(BigDecimal::of($rate->getValue()));
+                $io->note(sprintf('Set exchange rate of %s to %f', $currency->getIsoCode(), $currency->getExchangeRate()->toFloat()));
                 $this->em->persist($currency);
 
                 ++$success_counter;

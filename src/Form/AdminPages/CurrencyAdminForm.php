@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\Form\AdminPages;
 
 use App\Entity\Base\AbstractNamedDBElement;
+use App\Form\Type\BigDecimalMoneyType;
 use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -74,7 +75,7 @@ class CurrencyAdminForm extends BaseEntityAdminForm
             'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
-        $builder->add('exchange_rate', MoneyType::class, [
+        $builder->add('exchange_rate', BigDecimalMoneyType::class, [
             'required' => false,
             'label' => 'currency.edit.exchange_rate',
             'currency' => $this->default_currency,

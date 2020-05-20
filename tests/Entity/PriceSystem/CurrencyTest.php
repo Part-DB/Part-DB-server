@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\Tests\Entity\PriceSystem;
 
 use App\Entity\PriceInformations\Currency;
+use Brick\Math\BigDecimal;
 use PHPUnit\Framework\TestCase;
 
 class CurrencyTest extends TestCase
@@ -54,10 +55,10 @@ class CurrencyTest extends TestCase
         //By default the inverse exchange rate is not set:
         $this->assertNull($currency->getInverseExchangeRate());
 
-        $currency->setExchangeRate('0');
+        $currency->setExchangeRate(BigDecimal::zero());
         $this->assertNull($currency->getInverseExchangeRate());
 
-        $currency->setExchangeRate('1.45643');
-        $this->assertSame('0.68661', $currency->getInverseExchangeRate());
+        $currency->setExchangeRate(BigDecimal::of('1.45643'));
+        $this->assertSame(BigDecimal::of('0.68661'), $currency->getInverseExchangeRate());
     }
 }

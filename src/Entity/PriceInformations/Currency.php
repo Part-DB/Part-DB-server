@@ -45,6 +45,9 @@ namespace App\Entity\PriceInformations;
 use App\Entity\Attachments\CurrencyAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\CurrencyParameter;
+use App\Validator\Constraints\BigDecimal\BigDecimalPositive;
+use Brick\Math\BigDecimal;
+use Brick\Math\RoundingMode;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -63,10 +66,10 @@ class Currency extends AbstractStructuralDBElement
     public const PRICE_SCALE = 5;
 
     /**
-     * @var string|null The exchange rate between this currency and the base currency
+     * @var BigDecimal|null The exchange rate between this currency and the base currency
      *                  (how many base units the current currency is worth)
-     * @ORM\Column(type="decimal", precision=11, scale=5, nullable=true)
-     * @Assert\Positive()
+     * @ORM\Column(type="big_decimal", precision=11, scale=5, nullable=true)
+     * @BigDecimalPositive()
      */
     protected $exchange_rate;
 
@@ -148,22 +151,22 @@ class Currency extends AbstractStructuralDBElement
     /**
      * Returns the inverse exchange rate (how many of the current currency the base unit is worth).
      */
-    public function getInverseExchangeRate(): ?string
+    public function getInverseExchangeRate(): ?BigDecimal
     {
         $tmp = $this->getExchangeRate();
 
-        if (null === $tmp || '0' === $tmp) {
+        if (null === $tmp || $tmp->isZero()) {
             return null;
         }
 
-        return bcdiv('1', $tmp, static::PRICE_SCALE);
+        return BigDecimal::one()->dividedBy($tmp, $tmp->getScale(), RoundingMode::HALF_UP);
     }
 
     /**
      * Returns The exchange rate between this currency and the base currency
      * (how many base units the current currency is worth).
      */
-    public function getExchangeRate(): ?string
+    public function getExchangeRate(): ?BigDecimal
     {
         return $this->exchange_rate;
     }
@@ -171,12 +174,12 @@ class Currency extends AbstractStructuralDBElement
     /**
      * Sets the exchange rate of the currency.
      *
-     * @param string|null $exchange_rate The new exchange rate of the currency.
+     * @param BigDecimal|null $exchange_rate The new exchange rate of the currency.
      *                                   Set to null, if the exchange rate is unknown.
      *
      * @return Currency
      */
-    public function setExchangeRate(?string $exchange_rate): self
+    public function setExchangeRate(?BigDecimal $exchange_rate): self
     {
         $this->exchange_rate = $exchange_rate;
 

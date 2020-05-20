@@ -213,11 +213,11 @@ class PricedetailHelper
         $val_base = $value;
         if (null !== $originCurrency) {
             //Without an exchange rate we can not calculate the exchange rate
-            if (0.0 === (float) $originCurrency->getExchangeRate()) {
+            if ($originCurrency->getExchangeRate() === null || $originCurrency->getExchangeRate()->isZero()) {
                 return null;
             }
 
-            $val_base = bcmul($value, $originCurrency->getExchangeRate(), Pricedetail::PRICE_PRECISION);
+            $val_base = bcmul($value, (string) $originCurrency->getExchangeRate(), Pricedetail::PRICE_PRECISION);
         }
 
         //Convert value in base currency to target currency
@@ -228,7 +228,7 @@ class PricedetailHelper
                 return null;
             }
 
-            $val_target = bcmul($val_base, $targetCurrency->getInverseExchangeRate(), Pricedetail::PRICE_PRECISION);
+            $val_target = bcmul($val_base, (string) $targetCurrency->getInverseExchangeRate(), Pricedetail::PRICE_PRECISION);
         }
 
         return $val_target;

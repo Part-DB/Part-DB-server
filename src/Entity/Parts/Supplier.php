@@ -153,7 +153,7 @@ class Supplier extends AbstractCompany
     /**
      * Sets the shipping costs for an order with this supplier.
      *
-     * @param string|null $shipping_costs a BigDecimal with the shipping costs
+     * @param BigDecimal|null $shipping_costs a BigDecimal with the shipping costs
      *
      * @return Supplier
      */
