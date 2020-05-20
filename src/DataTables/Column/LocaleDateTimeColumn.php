@@ -75,7 +75,7 @@ class LocaleDateTimeColumn extends AbstractColumn
             Locale::getDefault(),
             $formatValues[$this->options['dateFormat']],
             $formatValues[$this->options['timeFormat']],
-            $value->getTimezone()
+            null
         );
 
         return $formatter->format($value->getTimestamp());
