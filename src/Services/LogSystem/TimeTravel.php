@@ -32,6 +32,7 @@ use App\Entity\Contracts\TimeTravelInterface;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\ElementEditedLogEntry;
+use Brick\Math\BigDecimal;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -184,6 +185,14 @@ class TimeTravel
 
         foreach ($old_data as $field => $data) {
             if ($metadata->hasField($field)) {
+
+                if ($metadata->getFieldMapping($field)['type'] === 'big_decimal') {
+                    //We need to convert the string to a BigDecimal first
+                    if (!$data instanceof BigDecimal) {
+                        $data = BigDecimal::of($data);
+                    }
+                }
+
                 $this->setField($element, $field, $data);
             }
             if ($metadata->hasAssociation($field)) {
@@ -217,6 +226,8 @@ class TimeTravel
         $reflection = new \ReflectionClass(get_class($element));
         $property = $reflection->getProperty($field);
         $property->setAccessible(true);
+
+
         $property->setValue($element, $new_value);
     }
 }
