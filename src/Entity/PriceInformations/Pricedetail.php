@@ -53,7 +53,10 @@ namespace App\Entity\PriceInformations;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Entity\Contracts\TimeStampableInterface;
+use App\Validator\Constraints\BigDecimal\BigDecimalPositive;
 use App\Validator\Constraints\Selectable;
+use Brick\Math\BigDecimal;
+use Brick\Math\RoundingMode;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -74,10 +77,10 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
 
     /**
      * @var string The price related to the detail. (Given in the selected currency)
-     * @ORM\Column(type="decimal", precision=11, scale=5)
-     * @Assert\Positive()
+     * @ORM\Column(type="big_decimal", precision=11, scale=5)
+     * @BigDecimalPositive()
      */
-    protected $price = '0.0';
+    protected $price;
 
     /**
      * @var ?Currency The currency used for the current price information.
@@ -118,7 +121,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
 
     public function __construct()
     {
-        bcscale(static::PRICE_PRECISION);
+        $this->price = BigDecimal::zero()->toScale(self::PRICE_PRECISION);
     }
 
     public function __clone()
@@ -149,9 +152,9 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * Returns the price associated with this pricedetail.
      * It is given in current currency and for the price related quantity.
      *
-     * @return string the price as string, like returned raw from DB
+     * @return BigDecimal the price as BigDecimal object, like returned raw from DB
      */
-    public function getPrice(): string
+    public function getPrice(): BigDecimal
     {
         return $this->price;
     }
@@ -159,23 +162,20 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     /**
      *  Get the price for a single unit in the currency associated with this price detail.
      *
-     *  @param float|string $multiplier The returned price (float or string) will be multiplied
+     *  @param float|string|BigDecimal $multiplier The returned price (float or string) will be multiplied
      *                                  with this multiplier.
      *
      *      You will get the price for $multiplier parts. If you want the price which is stored
      *           in the database, you have to pass the "price_related_quantity" count as $multiplier.
-     * @param float|string $multiplier The returned price (float or string) will be multiplied
-     *                                 with this multiplier.
      *
-     * @return string|null the price as a bcmath string
+     * @return BigDecimal the price as a bcmath string
      */
-    public function getPricePerUnit($multiplier = 1.0): ?string
+    public function getPricePerUnit($multiplier = 1.0): BigDecimal
     {
-        $multiplier = (string) $multiplier;
-        $tmp = bcmul($this->price, $multiplier, static::PRICE_PRECISION);
+        $tmp = BigDecimal::of($multiplier);
+        $tmp = $tmp->multipliedBy($this->price);
 
-        return bcdiv($tmp, (string) $this->price_related_quantity, static::PRICE_PRECISION);
-        //return ($this->price * $multiplier) / $this->price_related_quantity;
+        return $tmp->dividedBy($this->price_related_quantity, static::PRICE_PRECISION, RoundingMode::HALF_UP);
     }
 
     /**
@@ -265,7 +265,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     /**
      *  Set the price.
      *
-     * @param string $new_price the new price as a float number
+     * @param BigDecimal $new_price the new price as a float number
      *
      *      * This is the price for "price_related_quantity" parts!!
      *              * Example: if "price_related_quantity" is '10',
@@ -273,15 +273,9 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      *
      * @return $this
      */
-    public function setPrice(string $new_price): self
+    public function setPrice(BigDecimal $new_price): self
     {
-        //Assert::natural($new_price, 'The new price must be positive! Got %s!');
-
-        /* Just a little hack to ensure that price has 5 digits after decimal point,
-        so that DB does not detect changes, when something like 0.4 is passed
-        Third parameter must have the scale value of decimal column. */
-        $this->price = bcmul($new_price, '1.0', static::PRICE_PRECISION);
-
+        $this->price = $new_price->toScale(self::PRICE_PRECISION, RoundingMode::HALF_UP);
         return $this;
     }
 

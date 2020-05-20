@@ -53,6 +53,7 @@ use App\Services\MarkdownParser;
 use App\Services\MoneyFormatter;
 use App\Services\SIFormatter;
 use App\Services\Trees\TreeViewGenerator;
+use Brick\Math\BigDecimal;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
@@ -153,6 +154,10 @@ class AppExtension extends AbstractExtension
 
     public function formatCurrency($amount, ?Currency $currency = null, int $decimals = 5)
     {
+        if ($amount instanceof BigDecimal) {
+            $amount = (string) $amount;
+        }
+
         return $this->moneyFormatter->format($amount, $currency, $decimals);
     }
 

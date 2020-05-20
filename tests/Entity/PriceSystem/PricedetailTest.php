@@ -45,6 +45,7 @@ namespace App\Tests\Entity\PriceSystem;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
+use Brick\Math\BigDecimal;
 use PHPUnit\Framework\TestCase;
 
 class PricedetailTest extends TestCase
@@ -52,17 +53,17 @@ class PricedetailTest extends TestCase
     public function testGetPricePerUnit(): void
     {
         $pricedetail = new Pricedetail();
-        $pricedetail->setPrice('100.234');
+        $pricedetail->setPrice(BigDecimal::of('100.234'));
 
-        $this->assertSame('100.23400', $pricedetail->getPricePerUnit());
+        $this->assertSame('100.23400', (string) $pricedetail->getPricePerUnit());
 
         $pricedetail->setPriceRelatedQuantity(2.3);
-        $this->assertSame('43.58000', $pricedetail->getPricePerUnit());
-        $this->assertSame('139.45600', $pricedetail->getPricePerUnit('3.2'));
+        $this->assertSame('43.58000', (string) $pricedetail->getPricePerUnit());
+        $this->assertSame('139.45600', (string) $pricedetail->getPricePerUnit('3.2'));
 
-        $pricedetail->setPrice('10000000.2345'); //Ten million
+        $pricedetail->setPrice(BigDecimal::of('10000000.2345')); //Ten million
         $pricedetail->setPriceRelatedQuantity(1.234e9); //100 billion
-        $this->assertSame('0.00810', $pricedetail->getPricePerUnit());
+        $this->assertSame('0.00810', (string) $pricedetail->getPricePerUnit());
     }
 
     public function testGetPriceRelatedQuantity(): void

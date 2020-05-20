@@ -44,10 +44,11 @@ namespace App\Form\Part;
 
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\PriceInformations\Pricedetail;
+use App\Form\Type\BigDecimalMoneyType;
+use App\Form\Type\BigDecimalNumberType;
 use App\Form\Type\CurrencyEntityType;
 use App\Form\Type\SIUnitType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -70,7 +71,7 @@ class PricedetailType extends AbstractType
                 'class' => 'form-control-sm',
             ],
         ]);
-        $builder->add('price', NumberType::class, [
+        $builder->add('price', BigDecimalNumberType::class, [
             'label' => false,
             'scale' => 5,
             'html5' => true,

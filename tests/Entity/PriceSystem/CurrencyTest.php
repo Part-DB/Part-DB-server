@@ -59,6 +59,6 @@ class CurrencyTest extends TestCase
         $this->assertNull($currency->getInverseExchangeRate());
 
         $currency->setExchangeRate(BigDecimal::of('1.45643'));
-        $this->assertSame(BigDecimal::of('0.68661'), $currency->getInverseExchangeRate());
+        $this->assertSame((string) BigDecimal::of('0.68661'), (string) $currency->getInverseExchangeRate());
     }
 }

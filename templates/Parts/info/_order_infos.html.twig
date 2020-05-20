@@ -38,18 +38,21 @@
                         <tbody>
                         {% for detail in order.pricedetails %}
                         <tr>
+
                             <td>
                                 {{ detail.MinDiscountQuantity | amountFormat(part.partUnit) }}
                             </td>
                             <td>
                                 {{ detail.price | moneyFormat(detail.currency) }} / {{ detail.PriceRelatedQuantity | amountFormat(part.partUnit) }}
-                                {% if detail.currency != (app.user.currency ?? null) and pricedetail_helper.convertMoneyToCurrency(detail.price, detail.currency) > 0 %}
+                                {% set tmp = pricedetail_helper.convertMoneyToCurrency(detail.price, detail.currency) %}
+                                {% if detail.currency != (app.user.currency ?? null) and tmp is not null and tmp.GreaterThan(0) %}
                                     <span class="text-muted">({{ pricedetail_helper.convertMoneyToCurrency(detail.price, detail.currency, app.user.currency ?? null) | moneyFormat(app.user.currency ?? null) }})</span>
                                 {% endif %}
                             </td>
                             <td>
                                 {{ detail.PricePerUnit  | moneyFormat(detail.currency) }}
-                                {% if detail.currency != (app.user.currency ?? null) and pricedetail_helper.convertMoneyToCurrency(detail.PricePerUnit, detail.currency) > 0 %}
+                                {% set tmp = pricedetail_helper.convertMoneyToCurrency(detail.PricePerUnit, detail.currency) %}
+                                {% if detail.currency != (app.user.currency ?? null) and tmp is not null and tmp.GreaterThan(0) %}
                                     <span class="text-muted">({{ pricedetail_helper.convertMoneyToCurrency(detail.PricePerUnit, detail.currency, app.user.currency ?? null) | moneyFormat(app.user.currency ?? null) }})</span>
                                 {% endif %}
                             </td>

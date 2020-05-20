@@ -45,6 +45,8 @@ namespace App\Services;
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Pricedetail;
+use Brick\Math\BigDecimal;
+use Brick\Math\RoundingMode;
 use Doctrine\ORM\PersistentCollection;
 use Locale;
 
@@ -147,10 +149,10 @@ class PricedetailHelper
      *                                If set to null, the mininmum order amount for the part is used.
      * @param Currency|null $currency The currency in which the average price should be calculated
      *
-     * @return string|null The Average price as bcmath string. Returns null, if it was not possible to calculate the
+     * @return BigDecimal|null The Average price as bcmath string. Returns null, if it was not possible to calculate the
      *                     price for the given
      */
-    public function calculateAvgPrice(Part $part, ?float $amount = null, ?Currency $currency = null): ?string
+    public function calculateAvgPrice(Part $part, ?float $amount = null, ?Currency $currency = null): ?BigDecimal
     {
         if (null === $amount) {
             $amount = $this->getMinOrderAmount($part);
@@ -162,7 +164,7 @@ class PricedetailHelper
 
         $orderdetails = $part->getOrderdetails(true);
 
-        $avg = '0';
+        $avg = BigDecimal::zero();
         $count = 0;
 
         //Find the price for the amount, for the given
@@ -177,7 +179,7 @@ class PricedetailHelper
             $converted = $this->convertMoneyToCurrency($pricedetail->getPricePerUnit(), $pricedetail->getCurrency(), $currency);
             //Ignore price informations that can not be converted to base currency.
             if (null !== $converted) {
-                $avg = bcadd($avg, $converted, Pricedetail::PRICE_PRECISION);
+                $avg = $avg->plus($converted);
                 ++$count;
             }
         }
@@ -186,7 +188,7 @@ class PricedetailHelper
             return null;
         }
 
-        return bcdiv($avg, (string) $count, Pricedetail::PRICE_PRECISION);
+        return $avg->dividedBy($count)->toScale(Pricedetail::PRICE_PRECISION);
     }
 
     /**
@@ -197,40 +199,38 @@ class PricedetailHelper
      * @param Currency|null $targetCurrency The target currency, to which $value should be converted.
      *                                      Set to null, to use global base currency.
      *
-     * @return string|null The value in $targetCurrency given as bcmath string.
+     * @return BigDecimal|null The value in $targetCurrency given as bcmath string.
      *                     Returns null, if it was not possible to convert between both values (e.g. when the exchange rates are missing)
      */
-    public function convertMoneyToCurrency($value, ?Currency $originCurrency = null, ?Currency $targetCurrency = null): ?string
+    public function convertMoneyToCurrency(BigDecimal $value, ?Currency $originCurrency = null, ?Currency $targetCurrency = null): ?BigDecimal
     {
         //Skip conversion, if both currencies are same
         if ($originCurrency === $targetCurrency) {
             return $value;
         }
 
-        $value = (string) $value;
-
-        //Convert value to base currency
         $val_base = $value;
+        //Convert value to base currency
         if (null !== $originCurrency) {
             //Without an exchange rate we can not calculate the exchange rate
             if ($originCurrency->getExchangeRate() === null || $originCurrency->getExchangeRate()->isZero()) {
                 return null;
             }
 
-            $val_base = bcmul($value, (string) $originCurrency->getExchangeRate(), Pricedetail::PRICE_PRECISION);
+            $val_base = $value->multipliedBy($originCurrency->getExchangeRate());
         }
 
-        //Convert value in base currency to target currency
         $val_target = $val_base;
+        //Convert value in base currency to target currency
         if (null !== $targetCurrency) {
             //Without an exchange rate we can not calculate the exchange rate
             if (null === $targetCurrency->getExchangeRate()) {
                 return null;
             }
 
-            $val_target = bcmul($val_base, (string) $targetCurrency->getInverseExchangeRate(), Pricedetail::PRICE_PRECISION);
+            $val_target = $val_base->multipliedBy($targetCurrency->getInverseExchangeRate());
         }
 
-        return $val_target;
+        return $val_target->toScale(Pricedetail::PRICE_PRECISION, RoundingMode::HALF_UP);
     }
 }
