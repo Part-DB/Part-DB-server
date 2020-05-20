@@ -51,6 +51,7 @@ use Brick\Math\RoundingMode;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use DoctrineExtensions\Query\Mysql\Round;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -181,7 +182,14 @@ class Currency extends AbstractStructuralDBElement
      */
     public function setExchangeRate(?BigDecimal $exchange_rate): self
     {
-        $this->exchange_rate = $exchange_rate;
+        if ($exchange_rate === null) {
+            $this->exchange_rate = null;
+        }
+        $tmp = $exchange_rate->toScale(self::PRICE_SCALE, RoundingMode::HALF_UP);
+        //Only change the object, if the value changes, so that doctrine does not detect it as changed.
+        if ((string) $tmp !== (string) $this->exchange_rate) {
+            $this->exchange_rate = $exchange_rate;
+        }
 
         return $this;
     }

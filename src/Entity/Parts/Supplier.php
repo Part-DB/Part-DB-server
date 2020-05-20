@@ -159,7 +159,15 @@ class Supplier extends AbstractCompany
      */
     public function setShippingCosts(?BigDecimal $shipping_costs): self
     {
-        $this->shipping_costs = $shipping_costs;
+        if ($shipping_costs === null) {
+            $this->shipping_costs = null;
+        }
+
+        //Only change the object, if the value changes, so that doctrine does not detect it as changed.
+        if ((string) $shipping_costs !== (string) $this->shipping_costs) {
+            $this->shipping_costs = $shipping_costs;
+        }
+
         return $this;
     }
 }

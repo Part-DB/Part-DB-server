@@ -275,7 +275,11 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      */
     public function setPrice(BigDecimal $new_price): self
     {
-        $this->price = $new_price->toScale(self::PRICE_PRECISION, RoundingMode::HALF_UP);
+        $tmp = $new_price->toScale(self::PRICE_PRECISION, RoundingMode::HALF_UP);
+        //Only change the object, if the value changes, so that doctrine does not detect it as changed.
+        if ((string) $tmp !== (string) $this->price) {
+            $this->price = $tmp;
+        }
         return $this;
     }
 
