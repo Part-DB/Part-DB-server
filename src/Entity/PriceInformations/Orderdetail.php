@@ -56,6 +56,7 @@ use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Contracts\TimeStampableInterface;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -132,6 +133,24 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
             }
         }
         parent::__clone();
+    }
+
+    /**
+     * Helper for updating the timestamp. It is automatically called by doctrine before persisting.
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateTimestamps(): void
+    {
+        $this->lastModified = new DateTime('now');
+        if (null === $this->addedDate) {
+            $this->addedDate = new DateTime('now');
+        }
+
+        if ($this->part instanceof Part) {
+            $this->part->updateTimestamps();
+        }
     }
 
     /********************************************************************************

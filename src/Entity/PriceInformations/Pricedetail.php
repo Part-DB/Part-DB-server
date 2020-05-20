@@ -57,6 +57,7 @@ use App\Validator\Constraints\BigDecimal\BigDecimalPositive;
 use App\Validator\Constraints\Selectable;
 use Brick\Math\BigDecimal;
 use Brick\Math\RoundingMode;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -130,6 +131,24 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
             $this->addedDate = null;
         }
         parent::__clone();
+    }
+
+    /**
+     * Helper for updating the timestamp. It is automatically called by doctrine before persisting.
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateTimestamps(): void
+    {
+        $this->lastModified = new DateTime('now');
+        if (null === $this->addedDate) {
+            $this->addedDate = new DateTime('now');
+        }
+
+        if ($this->orderdetail instanceof Orderdetail) {
+            $this->orderdetail->updateTimestamps();
+        }
     }
 
     /********************************************************************************

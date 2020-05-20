@@ -62,7 +62,7 @@ final class BarcodeExampleElementsGenerator
         $part->setManufacturerProductNumber('CUSTOM MPN');
         $part->setTags('Tag1, Tag2, Tag3');
         $part->setManufacturingStatus('active');
-        $part->updatedTimestamps();
+        $part->updateTimestamps();
 
         $part->setFavorite(true);
         $part->setMinAmount(100);
@@ -90,7 +90,7 @@ final class BarcodeExampleElementsGenerator
         $storelocation = new Storelocation();
         $storelocation->setName('Location 1');
         $storelocation->setComment('Example comment');
-        $storelocation->updatedTimestamps();
+        $storelocation->updateTimestamps();
 
         $parent = new Storelocation();
         $parent->setName('Parent');

@@ -116,6 +116,14 @@ abstract class Attachment extends AbstractNamedDBElement
         }
     }
 
+    public function updateTimestamps(): void
+    {
+        parent::updateTimestamps();
+        if ($this->element instanceof AttachmentContainingDBElement) {
+            $this->element->updateTimestamps();
+        }
+    }
+
     /***********************************************************
      * Various function
      ***********************************************************/

@@ -172,7 +172,8 @@ class EventLoggerSubscriber implements EventSubscriber
         $em = $args->getEntityManager();
         $uow = $em->getUnitOfWork();
         // If the we have added any ElementCreatedLogEntries added in postPersist, we flush them here.
-        if ($uow->hasPendingInsertions()) {
+        $uow->computeChangeSets();
+        if ($uow->hasPendingInsertions() || !empty($uow->getScheduledEntityUpdates())) {
             $em->flush();
         }
 
@@ -265,6 +266,15 @@ class EventLoggerSubscriber implements EventSubscriber
     protected function logElementEdited(AbstractDBElement $entity, EntityManagerInterface $em): void
     {
         $uow = $em->getUnitOfWork();
+
+        /* We have to call that here again, so the foreign entity timestamps, that were changed in updateTimestamp
+           get persisted */
+        $changeSet = $uow->getEntityChangeSet($entity);
+
+        //Skip log entry, if only the lastModified field has changed...
+        if (isset($changeSet['lastModified']) && count($changeSet)) {
+            return;
+        }
 
         $log = new ElementEditedLogEntry($entity);
         if ($this->save_changed_data) {

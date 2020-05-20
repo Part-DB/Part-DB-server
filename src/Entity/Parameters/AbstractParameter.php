@@ -120,6 +120,14 @@ abstract class AbstractParameter extends AbstractNamedDBElement
         }
     }
 
+    public function updateTimestamps(): void
+    {
+        parent::updateTimestamps();
+        if ($this->element instanceof AbstractNamedDBElement) {
+            $this->element->updateTimestamps();
+        }
+    }
+
     /**
      * Returns the element this parameter belongs to.
      *

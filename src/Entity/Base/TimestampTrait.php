@@ -92,7 +92,7 @@ trait TimestampTrait
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function updatedTimestamps(): void
+    public function updateTimestamps(): void
     {
         $this->lastModified = new DateTime('now');
         if (null === $this->addedDate) {
