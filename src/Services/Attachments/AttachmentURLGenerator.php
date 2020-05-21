@@ -147,7 +147,9 @@ class AttachmentURLGenerator
 
         //For builtin ressources it is not useful to create a thumbnail
         //because the footprints images are small and highly optimized already.
-        if ('thumbnail_md' === $filter_name && $attachment->isBuiltIn()) {
+        if (('thumbnail_md' === $filter_name && $attachment->isBuiltIn())
+            //GD can not work with SVG, so serve it directly...
+            || $attachment->getExtension() === 'svg') {
             return $this->assets->getUrl($asset_path);
         }
 
