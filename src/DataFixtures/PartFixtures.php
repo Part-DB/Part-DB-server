@@ -34,6 +34,7 @@ use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
+use Brick\Math\BigDecimal;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -89,16 +90,16 @@ class PartFixtures extends Fixture
 
         $orderdetail = new Orderdetail();
         $orderdetail->setSupplier($manager->find(Supplier::class, 1));
-        $orderdetail->addPricedetail((new Pricedetail())->setPriceRelatedQuantity(1.0)->setPrice('10.0'));
-        $orderdetail->addPricedetail((new Pricedetail())->setPriceRelatedQuantity(10.0)->setPrice('15.0'));
+        $orderdetail->addPricedetail((new Pricedetail())->setPriceRelatedQuantity(1.0)->setPrice(BigDecimal::of('10.0')));
+        $orderdetail->addPricedetail((new Pricedetail())->setPriceRelatedQuantity(10.0)->setPrice(BigDecimal::of('15.0')));
         $part->addOrderdetail($orderdetail);
 
         $orderdetail = new Orderdetail();
         $orderdetail->setSupplierpartnr('BC 547');
         $orderdetail->setObsolete(true);
         $orderdetail->setSupplier($manager->find(Supplier::class, 1));
-        $orderdetail->addPricedetail((new Pricedetail())->setPriceRelatedQuantity(1.0)->setPrice('10.0'));
-        $orderdetail->addPricedetail((new Pricedetail())->setPriceRelatedQuantity(10.0)->setPrice('15.1'));
+        $orderdetail->addPricedetail((new Pricedetail())->setPriceRelatedQuantity(1.0)->setPrice(BigDecimal::of('10.0')));
+        $orderdetail->addPricedetail((new Pricedetail())->setPriceRelatedQuantity(10.0)->setPrice(BigDecimal::of('15.1')));
         $part->addOrderdetail($orderdetail);
 
         $attachment = new PartAttachment();
