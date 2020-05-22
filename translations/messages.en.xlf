@@ -9099,5 +9099,17 @@ Element 3</target>
         <target>Users still uses this group! Change their group, to be able to delete this group.</target>
       </segment>
     </unit>
+    <unit id="72lMzIQ" name="part.table.edit">
+      <segment>
+        <source>part.table.edit</source>
+        <target>Edit</target>
+      </segment>
+    </unit>
+    <unit id="AGwzXa0" name="part.table.edit.title">
+      <segment>
+        <source>part.table.edit.title</source>
+        <target>Edit part</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

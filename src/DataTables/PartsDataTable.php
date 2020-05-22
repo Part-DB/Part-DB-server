@@ -44,10 +44,12 @@ namespace App\DataTables;
 
 use App\DataTables\Adapter\FetchJoinORMAdapter;
 use App\DataTables\Column\EntityColumn;
+use App\DataTables\Column\IconLinkColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
 use App\DataTables\Column\PartAttachmentsColumn;
 use App\DataTables\Column\TagsColumn;
+use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -67,6 +69,7 @@ use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class PartsDataTable implements DataTableTypeInterface
@@ -76,6 +79,8 @@ final class PartsDataTable implements DataTableTypeInterface
     private $amountFormatter;
     private $previewGenerator;
     private $attachmentURLGenerator;
+    private $security;
+
     /**
      * @var EntityURLGenerator
      */
@@ -83,7 +88,7 @@ final class PartsDataTable implements DataTableTypeInterface
 
     public function __construct(EntityURLGenerator $urlGenerator, TranslatorInterface $translator,
         NodesListBuilder $treeBuilder, AmountFormatter $amountFormatter,
-        PartPreviewGenerator $previewGenerator, AttachmentURLGenerator $attachmentURLGenerator)
+        PartPreviewGenerator $previewGenerator, AttachmentURLGenerator $attachmentURLGenerator, Security $security)
     {
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
@@ -91,6 +96,7 @@ final class PartsDataTable implements DataTableTypeInterface
         $this->amountFormatter = $amountFormatter;
         $this->previewGenerator = $previewGenerator;
         $this->attachmentURLGenerator = $attachmentURLGenerator;
+        $this->security = $security;
     }
 
     public function configureOptions(OptionsResolver $optionsResolver): void
@@ -282,6 +288,17 @@ final class PartsDataTable implements DataTableTypeInterface
             ->add('attachments', PartAttachmentsColumn::class, [
                 'label' => $this->translator->trans('part.table.attachments'),
                 'visible' => false,
+            ])
+            ->add('edit', IconLinkColumn::class, [
+                'label' => $this->translator->trans('part.table.edit'),
+                'visible' => false,
+                'href' => function ($value, Part $context) {
+                    return $this->urlGenerator->editURL($context);
+                },
+                'disabled' => function ($value, Part $context) {
+                    return !$this->security->isGranted('edit', $context);
+                },
+                'title' => $this->translator->trans('part.table.edit.title'),
             ])
 
             ->addOrderBy('name')
