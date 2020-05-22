@@ -117,7 +117,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         yield ['/statistics'];
 
         //Typeahead
-        yield ['/typeahead/builtInResources/search/DIP8'];
+        yield ['/typeahead/builtInResources/search?query=DIP8'];
         yield ['/typeahead/tags/search/test'];
 
         //Label test
