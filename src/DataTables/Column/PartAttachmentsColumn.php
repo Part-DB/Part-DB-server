@@ -96,7 +96,7 @@ class PartAttachmentsColumn extends AbstractColumn
             $tmp .= sprintf(
                 '<a href="%s" title="%s" class="attach-table-icon" target="_blank" rel="noopener" data-no-ajax>%s</a>',
                 $this->urlGenerator->viewURL($attachment),
-                htmlspecialchars($attachment->getName()).': '.htmlspecialchars($attachment->getFilename()),
+                htmlspecialchars($attachment->getName()).': '.htmlspecialchars($attachment->getFilename() ?? $attachment->getHost() ?? ''),
                 $this->FAIconGenerator->generateIconHTML(
                     // Sometimes the extension can not be determined, so ensure a generic icon is shown
                     $this->FAIconGenerator->fileExtensionToFAType($attachment->getExtension() ?? 'file'),
