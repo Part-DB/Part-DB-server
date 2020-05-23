@@ -1,12 +1,31 @@
+<form method="post" action="{{ url("table_action") }}">
+    <input type="hidden" name="_token" value="{{ csrf_token('table_action') }}">
 
-<div id="part_list" class="" data-datatable data-settings='{{ datatable_settings(datatable)|escape('html_attr') }}'>
-    <div class="card-body">
-        <div class="card">
-            <div class="card-body">
-                <h4>{% trans %}part_list.loading.caption{% endtrans %}</h4>
-                <h6>{% trans %}part_list.loading.message{% endtrans %}</h6>
+    <input type="hidden" name="redirect_back" value="{{ app.request.uri }}">
+
+    <input type="hidden" name="ids" id="select_ids" value="">
+
+    <div class="d-none" id="select_panel">
+        <p><span id="select_count"></span> elements selected!</p>
+
+        <select name="action">
+            <option value="favorite">Favorite</option>
+            <option value="unfavorite">Unfavorite</option>
+            <option value="delete">Delete</option>
+        </select>
+
+        <button type="submit" class="btn btn-secondary">Submit</button>
+    </div>
+
+    <div id="part_list" class="" data-select="true" data-part_table="true" data-datatable data-settings='{{ datatable_settings(datatable)|escape('html_attr') }}'>
+        <div class="card-body">
+            <div class="card">
+                <div class="card-body">
+                    <h4>{% trans %}part_list.loading.caption{% endtrans %}</h4>
+                    <h6>{% trans %}part_list.loading.message{% endtrans %}</h6>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 
