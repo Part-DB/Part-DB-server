@@ -5,25 +5,32 @@
 
     <input type="hidden" name="ids" id="select_ids" value="">
 
-    <div class="d-none" id="select_panel">
-        <p><span id="select_count"></span> elements selected!</p>
+    <div class="d-none mb-2" id="select_panel">
+        {# <span id="select_count"></span> #}
+        <span class="badge badge-secondary">{% trans with {'%count%': '<span id="select_count"></span>'} %}part_list.action.part_count{% endtrans %}</span>
 
-        <select class="selectpicker" name="action" id="select_action" onchange="updateTargetSelect()">
-            <option value="favorite">Favorite</option>
-            <option value="unfavorite">Unfavorite</option>
-            <option value="delete">Delete</option>
+        <select class="selectpicker" name="action" id="select_action"
+                title="{% trans %}part_list.action.action.title{% endtrans %}" onchange="updateTargetSelect()" required>
+            <optgroup label="{% trans %}part_list.action.action.group.favorite{% endtrans %}">
+                <option value="favorite">{% trans %}part_list.action.action.favorite{% endtrans %}</option>
+                <option value="unfavorite">{% trans %}part_list.action.action.unfavorite{% endtrans %}</option>
+            </optgroup>
 
-            <option value="change_category" data-url="{{ path('select_category') }}">Change category</option>
-            <option value="change_footprint" data-url="{{ path('select_footprint') }}">Change footprint</option>
-            <option value="change_manufacturer" data-url="{{ path('select_manufacturer') }}">Change Manufacturer</option>
-            <option value="change_unit" data-url="{{ path('select_measurement_unit') }}">Change Unit</option>
+            <optgroup label="{% trans %}part_list.action.action.group.change_field{% endtrans %}">
+                <option value="change_category" data-url="{{ path('select_category') }}">{% trans %}part_list.action.action.change_category{% endtrans %}</option>
+                <option value="change_footprint" data-url="{{ path('select_footprint') }}">{% trans %}part_list.action.action.change_footprint{% endtrans %}</option>
+                <option value="change_manufacturer" data-url="{{ path('select_manufacturer') }}">{% trans %}part_list.action.action.change_manufacturer{% endtrans %}</option>
+                <option value="change_unit" data-url="{{ path('select_measurement_unit') }}">{% trans %}part_list.action.action.change_unit{% endtrans %}</option>
+            </optgroup>
+
+            <option value="delete">{% trans %}part_list.action.action.delete{% endtrans %}</option>
         </select>
 
         <select class="" style="display: none;" data-live-search="true" name="target" id="select_target">
-
+            {# This is left empty, as this will be filled by Javascript #}
         </select>
 
-        <button type="submit" class="btn btn-secondary">Submit</button>
+        <button type="submit" class="btn btn-secondary">{% trans %}part_list.action.submit{% endtrans %}</button>
     </div>
 
     <div id="part_list" class="" data-select="true" data-part_table="true" data-datatable data-settings='{{ datatable_settings(datatable)|escape('html_attr') }}'>
