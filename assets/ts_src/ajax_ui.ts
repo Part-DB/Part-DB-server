@@ -529,6 +529,7 @@ class AjaxUI {
                         'className': 'mr-2 btn-light',
                         "text": "<i class='fa fa-cog'></i>"
                     }],
+                    "select": $table.data('select') ?? false,
                     "rowCallback": function( row, data, index ) {
                         //Check if we have a level, then change color of this row
                         if (data.level) {
@@ -563,6 +564,30 @@ class AjaxUI {
                 let title = $('#part-card-header-src');
                 $('#part-card-header').html(title.html());
                 $(document).trigger('ajaxUI:dt_loaded');
+
+
+                if($table.data('part_table')) {
+                    //@ts-ignore
+                    $('#dt').on( 'select.dt deselect.dt', function ( e, dt, items ) {
+                        let selected_elements = dt.rows({selected: true});
+                        let count = selected_elements.count();
+
+                        if(count > 0) {
+                            $('#select_panel').removeClass('d-none');
+                        } else {
+                            $('#select_panel').addClass('d-none');
+                        }
+
+                        $('#select_count').text(count);
+
+                        let selected_ids_string = selected_elements.data().map(function(value, index) {
+                            return value['id']; }
+                            ).join(",");
+
+                        $('#select_ids').val(selected_ids_string);
+
+                    } );
+                }
 
                 //Attach event listener to update links after new page selection:
                 $('#dt').on('draw.dt column-visibility.dt', function() {

@@ -48,6 +48,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
+use App\Services\Parts\PartsTableActionHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -63,6 +64,37 @@ class PartListsController extends AbstractController
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
+    }
+
+    /**
+     * @Route("/table/action", name="table_action", methods={"POST"})
+     */
+    public function tableAction(Request $request, PartsTableActionHandler $actionHandler): Response
+    {
+        $redirect = $request->request->get('redirect_back');
+        $ids = $request->request->get('ids');
+        $action = $request->request->get('action');
+        $target = $request->request->get('target');
+
+        if (!$this->isCsrfTokenValid('table_action', $request->request->get('_token'))) {
+            $this->addFlash('error', 'csfr_invalid');
+            return $this->redirect($redirect);
+        }
+
+        if ($action === null || $ids === null) {
+            $this->addFlash('error', 'part.table.actions.no_params_given');
+        } else {
+            $parts = $actionHandler->idStringToArray($ids);
+            $actionHandler->handleAction($action, $parts, $target ? (int) $target : null);
+
+            //Save changes
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'part.table.actions.success');
+        }
+
+
+        return $this->redirect($redirect);
     }
 
     /**
