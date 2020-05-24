@@ -90,7 +90,7 @@ class PartListsController extends AbstractController
             //Save changes
             $this->entityManager->flush();
 
-            $this->addFlash('success', 'Done');
+            $this->addFlash('success', 'part.table.actions.success');
         }
 
 
