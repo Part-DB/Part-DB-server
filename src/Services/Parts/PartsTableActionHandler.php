@@ -21,6 +21,10 @@
 namespace App\Services\Parts;
 
 
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Footprint;
+use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -76,6 +80,22 @@ final class PartsTableActionHandler
                 case 'delete':
                     $this->denyAccessUnlessGranted('delete', $part);
                     $this->entityManager->remove($part);
+                    break;
+                case 'change_category':
+                    $this->denyAccessUnlessGranted('category.edit', $part);
+                    $part->setCategory($this->entityManager->find(Category::class, $target_id));
+                    break;
+                case 'change_footprint':
+                    $this->denyAccessUnlessGranted('footprint.edit', $part);
+                    $part->setFootprint($target_id === null ? null : $this->entityManager->find(Footprint::class, $target_id));
+                    break;
+                case 'change_manufacturer':
+                    $this->denyAccessUnlessGranted('manufacturer.edit', $part);
+                    $part->setManufacturer($target_id === null ? null : $this->entityManager->find(Manufacturer::class, $target_id));
+                    break;
+                case 'change_unit':
+                    $this->denyAccessUnlessGranted('unit.edit', $part);
+                    $part->setPartUnit($target_id === null ? null : $this->entityManager->find(MeasurementUnit::class, $target_id));
                     break;
 
                 default:

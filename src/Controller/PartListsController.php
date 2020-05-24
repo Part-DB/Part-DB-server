@@ -74,6 +74,7 @@ class PartListsController extends AbstractController
         $redirect = $request->request->get('redirect_back');
         $ids = $request->request->get('ids');
         $action = $request->request->get('action');
+        $target = $request->request->get('target');
 
         if (!$this->isCsrfTokenValid('table_action', $request->request->get('_token'))) {
             $this->addFlash('error', 'csfr_invalid');
@@ -84,7 +85,7 @@ class PartListsController extends AbstractController
             $this->addFlash('error', 'part.table.actions.no_params_given');
         } else {
             $parts = $actionHandler->idStringToArray($ids);
-            $actionHandler->handleAction($action, $parts, null);
+            $actionHandler->handleAction($action, $parts, $target ? (int) $target : null);
 
             //Save changes
             $this->entityManager->flush();

@@ -8,10 +8,19 @@
     <div class="d-none" id="select_panel">
         <p><span id="select_count"></span> elements selected!</p>
 
-        <select name="action">
+        <select class="selectpicker" name="action" id="select_action" onchange="updateTargetSelect()">
             <option value="favorite">Favorite</option>
             <option value="unfavorite">Unfavorite</option>
             <option value="delete">Delete</option>
+
+            <option value="change_category" data-url="{{ path('select_category') }}">Change category</option>
+            <option value="change_footprint" data-url="{{ path('select_footprint') }}">Change footprint</option>
+            <option value="change_manufacturer" data-url="{{ path('select_manufacturer') }}">Change Manufacturer</option>
+            <option value="change_unit" data-url="{{ path('select_measurement_unit') }}">Change Unit</option>
+        </select>
+
+        <select class="" style="display: none;" data-live-search="true" name="target" id="select_target">
+
         </select>
 
         <button type="submit" class="btn btn-secondary">Submit</button>
@@ -29,3 +38,46 @@
     </div>
 </form>
 
+<script>
+
+    function updateOptions(selector, json)
+    {
+        var select = document.querySelector(selector);
+
+        //Clear options
+        select.innerHTML = null;
+
+        for(i=0; i<json.length; i++) {
+            var json_opt = json[i];
+            var opt = document.createElement('option');
+            opt.value = json_opt.value;
+            opt.innerHTML = json_opt.text;
+
+            if(json_opt['data-subtext']) {
+                opt.dataset.subtext = json_opt['data-subtext'];
+            }
+
+            select.appendChild(opt);
+        }
+    }
+
+    function updateTargetSelect() {
+        var element = document.querySelector('#select_action');
+
+        var selected = element.options[element.options.selectedIndex];
+
+        var url = selected.dataset.url;
+
+        if (url) {
+
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => updateOptions('#select_target', data))
+                .then(data => $('#select_target').selectpicker('refresh'));
+
+        } else {
+            $('#select_target').selectpicker('hide');
+        }
+    }
+</script>
