@@ -14,7 +14,6 @@ jobs:
       matrix:
         operating-system: [ubuntu-latest, windows-latest, macos-latest]
         php-versions: ['7.2', '7.3', '7.4']
-        extensions: [mbstring, intl, gd, xsl, gmp, bcmath] 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
