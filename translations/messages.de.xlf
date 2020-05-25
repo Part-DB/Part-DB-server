@@ -9074,10 +9074,58 @@ Element 3</target>
         <target>Nichts ausgewählt</target>
       </segment>
     </unit>
+    <unit id="D6I2Q6C" name="entity.delete.must_not_contain_parts">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_parts</source>
+        <target>Dateityp enthält noch Bauteile. Ändere deren Dateityp, um diesen Dateityp zu löschen.</target>
+      </segment>
+    </unit>
     <unit id="hu8Y98Q" name="entity.delete.must_not_contain_attachments">
       <segment state="translated">
         <source>entity.delete.must_not_contain_attachments</source>
-        <target>Dateityp enthält noch Bauteile. Ändere deren Dateityp, um diesen Dateityp zu löschen.</target>
+        <target>Dateityp enthält noch Bauteile. Ändere deren Dateityp, um diesen Dateityp löschen zu können.</target>
+      </segment>
+    </unit>
+    <unit id="OewVQB8" name="entity.delete.must_not_contain_prices">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_prices</source>
+        <target>Währung enthält noch Bauteile. Ändere deren Dateityp, um diesen Dateityp zu löschen.</target>
+      </segment>
+    </unit>
+    <unit id="L93n2S_" name="entity.delete.must_not_contain_users">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_users</source>
+        <target>Benutzer sind noch Teil dieser Gruppe. Ändere deren Gruppe, um diese Gruppe löschen zu können.</target>
+      </segment>
+    </unit>
+    <unit id="72lMzIQ" name="part.table.edit">
+      <segment state="translated">
+        <source>part.table.edit</source>
+        <target>Ändern</target>
+      </segment>
+    </unit>
+    <unit id="vzWZTcS" name="part_list.action.action.change_category">
+      <segment state="translated">
+        <source>part_list.action.action.change_category</source>
+        <target>Kategorie ändern</target>
+      </segment>
+    </unit>
+    <unit id="5KmoqAw" name="part_list.action.action.change_manufacturer">
+      <segment state="translated">
+        <source>part_list.action.action.change_manufacturer</source>
+        <target>Hersteller ändern</target>
+      </segment>
+    </unit>
+    <unit id="CjaC2GZ" name="part_list.action.action.delete">
+      <segment state="translated">
+        <source>part_list.action.action.delete</source>
+        <target>Löschen</target>
+      </segment>
+    </unit>
+    <unit id="qKDo_nI" name="part_list.action.part_count">
+      <segment state="translated">
+        <source>part_list.action.part_count</source>
+        <target>%count% Bauteile ausgewählt!</target>
       </segment>
     </unit>
   </file>
