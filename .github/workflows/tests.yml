@@ -23,10 +23,6 @@ jobs:
       with:
         php-version: ${{ matrix.php-versions }}
         coverage: xdebug        
-        tools: php-cs-fixer, phpunit
-        
-    - name: Validate composer.json and composer.lock
-      run: composer validate
       
     - name: Install composer dependencies
       run: composer install --prefer-dist --no-progress
