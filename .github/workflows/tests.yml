@@ -22,9 +22,21 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php-versions }}
-        coverage: xdebug        
+        coverage: pcov        
       
     - name: Install composer dependencies
       run: composer install --prefer-dist --no-progress
     
+    - name: Setup node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12'
     
+    - name: Install yarn dependencies
+      run: yarn install
+    
+    - name: Build frontend
+      run: yarn build
+    
+    - name: Run PHPunit
+      run: ./bin/phpunit
