@@ -1,4 +1,4 @@
-name: PHP Composer
+name: PHP Tests
 
 on:
   push:
@@ -8,36 +8,36 @@ on:
 
 jobs:
   run:
+    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
         operating-system: [ubuntu-latest, windows-latest, macos-latest]
         php-versions: ['7.2', '7.3', '7.4']
         extensions: [mbstring, intl, gd, xsl, gmp, bcmath] 
-    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php-versions }}
-        coverage: pcov        
+      - name: Checkout
+        uses: actions/checkout@v2
       
-    - name: Install composer dependencies
-      run: composer install --prefer-dist --no-progress
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          coverage: pcov        
+      
+      - name: Install composer dependencies
+        run: composer install --prefer-dist --no-progress
     
-    - name: Setup node
-      uses: actions/setup-node@v1
-      with:
-        node-version: '12'
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
     
-    - name: Install yarn dependencies
-      run: yarn install
+      - name: Install yarn dependencies
+        run: yarn install
     
-    - name: Build frontend
-      run: yarn build
+      - name: Build frontend
+        run: yarn build
     
-    - name: Run PHPunit
-      run: ./bin/phpunit
+      - name: Run PHPunit
+        run: ./bin/phpunit
