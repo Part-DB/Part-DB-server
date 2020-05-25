@@ -14,13 +14,7 @@ jobs:
     env:
       APP_ENV: test
       SYMFONY_DEPRECATIONS_HELPER: disabled
-    
-    services:
-      mysql:
-        image: mysql:latest
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: laravel_tags
+      DATABASE_URL: 'mysql://root:1234@127.0.0.1:3306/part-db_test'
     
     strategy:
       matrix:
@@ -36,6 +30,13 @@ jobs:
           coverage: pcov
           extensions: mbstring, intl, gd, xsl, gmp, bcmath        
       
+      - name: Setup MySQL
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql version: 5.7
+          mysql database: 'part-db'
+          mysql root password: '1234'
+        
       - name: Install composer dependencies
         run: composer install --prefer-dist --no-progress
     
