@@ -11,8 +11,8 @@ on:
       - "!i10n_*"
     
 jobs:
-  run:
-    name: PHP ${{ matrix.php-versions }} Test
+  phpunit:
+    name: PHPUnit and coverage Test (${{ matrix.php-versions }})
     runs-on: ubuntu-latest
     
     env:
