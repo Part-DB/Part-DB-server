@@ -22,7 +22,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-          coverage: pcov        
+          coverage: pcov
+          extensions: mbstring, intl, gd, xsl, gmp, bcmath        
       
       - name: Install composer dependencies
         run: composer install --prefer-dist --no-progress
