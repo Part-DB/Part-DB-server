@@ -3,9 +3,11 @@ name: PHP Tests
 on:
   push:
     branches:
+      - '*'
       - "!i10n_*" # Dont test localization branches
   pull_request:
     branches:
+      - '*'
       - "!i10n_*"
     
 jobs:
