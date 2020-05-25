@@ -9089,7 +9089,7 @@ Element 3</target>
     <unit id="OewVQB8" name="entity.delete.must_not_contain_prices">
       <segment state="translated">
         <source>entity.delete.must_not_contain_prices</source>
-        <target>Währung enthält noch Bauteile. Ändere deren Dateityp, um diesen Dateityp zu löschen.</target>
+        <target>Währung enthält noch Bauteile. Ändere deren Währung, um diese Währung löschen zu können.</target>
       </segment>
     </unit>
     <unit id="L93n2S_" name="entity.delete.must_not_contain_users">
@@ -9104,10 +9104,46 @@ Element 3</target>
         <target>Ändern</target>
       </segment>
     </unit>
+    <unit id="AGwzXa0" name="part.table.edit.title">
+      <segment state="translated">
+        <source>part.table.edit.title</source>
+        <target>Bauteil ändern</target>
+      </segment>
+    </unit>
+    <unit id="uAVyHXQ" name="part_list.action.action.title">
+      <segment state="translated">
+        <source>part_list.action.action.title</source>
+        <target>Aktion auswählen</target>
+      </segment>
+    </unit>
+    <unit id="bAPfHqL" name="part_list.action.action.group.favorite">
+      <segment state="translated">
+        <source>part_list.action.action.group.favorite</source>
+        <target>Favorit</target>
+      </segment>
+    </unit>
+    <unit id="P5wWUv3" name="part_list.action.action.favorite">
+      <segment state="translated">
+        <source>part_list.action.action.favorite</source>
+        <target>Bauteile favorisieren</target>
+      </segment>
+    </unit>
+    <unit id="sfOQX5T" name="part_list.action.action.unfavorite">
+      <segment state="translated">
+        <source>part_list.action.action.unfavorite</source>
+        <target>Favorisierung aufheben</target>
+      </segment>
+    </unit>
     <unit id="vzWZTcS" name="part_list.action.action.change_category">
       <segment state="translated">
         <source>part_list.action.action.change_category</source>
         <target>Kategorie ändern</target>
+      </segment>
+    </unit>
+    <unit id="o0usAp." name="part_list.action.action.change_footprint">
+      <segment state="translated">
+        <source>part_list.action.action.change_footprint</source>
+        <target>Footprint ändern</target>
       </segment>
     </unit>
     <unit id="5KmoqAw" name="part_list.action.action.change_manufacturer">
@@ -9116,10 +9152,22 @@ Element 3</target>
         <target>Hersteller ändern</target>
       </segment>
     </unit>
+    <unit id="3i7xim8" name="part_list.action.action.change_unit">
+      <segment state="translated">
+        <source>part_list.action.action.change_unit</source>
+        <target>Maßeinheit ändern</target>
+      </segment>
+    </unit>
     <unit id="CjaC2GZ" name="part_list.action.action.delete">
       <segment state="translated">
         <source>part_list.action.action.delete</source>
         <target>Löschen</target>
+      </segment>
+    </unit>
+    <unit id="TdvpOc5" name="part_list.action.submit">
+      <segment state="translated">
+        <source>part_list.action.submit</source>
+        <target>Ok</target>
       </segment>
     </unit>
     <unit id="qKDo_nI" name="part_list.action.part_count">
