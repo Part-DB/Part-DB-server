@@ -19,6 +19,7 @@ jobs:
       APP_ENV: test
       SYMFONY_DEPRECATIONS_HELPER: disabled
       DATABASE_URL: 'mysql://root:1234@127.0.0.1:3306/part-db_test'
+      PHP_VERSION: ${{ matrix.php-versions }}
     
     strategy:
       matrix:
@@ -89,5 +90,10 @@ jobs:
       - name: Load fixtures
         run: php bin/console --env test doctrine:fixtures:load -n
     
-      - name: Run PHPunit
-        run: ./bin/phpunit
+      - name: Run PHPunit and generate coverage
+        run: ./bin/phpunit --coverage-clover=coverage.xml
+      
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
+        with:
+          env_vars: PHP_VERSION
