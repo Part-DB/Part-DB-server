@@ -40,4 +40,4 @@ jobs:
         run: yarn build
     
       - name: Run PHPunit
-        run: ./bin/phpunit
+        run: ./bin/phpunit --exclude-group DB
