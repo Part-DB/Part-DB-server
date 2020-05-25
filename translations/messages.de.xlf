@@ -9074,5 +9074,11 @@ Element 3</target>
         <target>Nichts ausgewählt</target>
       </segment>
     </unit>
+    <unit id="hu8Y98Q" name="entity.delete.must_not_contain_attachments">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_attachments</source>
+        <target>Dateityp enthält noch Bauteile. Ändere deren Dateityp, um diesen Dateityp zu löschen.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
