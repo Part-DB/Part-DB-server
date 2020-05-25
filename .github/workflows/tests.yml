@@ -11,11 +11,16 @@ jobs:
     name: PHP ${{ matrix.php-versions }} Test
     runs-on: ubuntu-latest
     
+    env:
+      APP_ENV: test
+      SYMFONY_DEPRECATIONS_HELPER: disabled
+    
     services:
       mysql:
         image: mysql:latest
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: laravel_tags
     
     strategy:
       matrix:
