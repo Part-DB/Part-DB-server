@@ -33,7 +33,7 @@ jobs:
       run: ./bin/console lint:yaml config --parse-tags
     
     - name: Lint twig templates
-      run: ./bin/console templates --env=prod
+      run: ./bin/console lint:twig templates --env=prod
     
     - name: Lint translations 
       run: ./bin/console lint:xliff translations
