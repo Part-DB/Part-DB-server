@@ -1,4 +1,4 @@
-name: PHP Tests
+name: PHPUnit Tests
 
 on:
   push:
@@ -79,7 +79,7 @@ jobs:
         run: yarn install
     
       - name: Build frontend
-        run: yarn build
+        run: yarn dev
     
       - name: Create DB
         run: php bin/console --env test doctrine:database:create --if-not-exists -n
