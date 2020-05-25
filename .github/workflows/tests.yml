@@ -5,14 +5,20 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
+    
 jobs:
   run:
-    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
-    runs-on: ${{ matrix.operating-system }}
+    name: PHP ${{ matrix.php-versions }} Test
+    runs-on: ubuntu-latest
+    
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+    
     strategy:
       matrix:
-        operating-system: [ubuntu-latest, windows-latest, macos-latest]
         php-versions: ['7.2', '7.3', '7.4']
     steps:
       - name: Checkout
@@ -39,5 +45,14 @@ jobs:
       - name: Build frontend
         run: yarn build
     
+      - name: Create DB
+        run: php bin/console --env test doctrine:database:create --if-not-exists -n
+    
+      - name: Do migrations
+        run: php bin/console --env tes doctrine:migrations:migrate -n
+    
+      - name: Load fixtures
+        run: php bin/console --env test doctrine:fixtures:load -n
+    
       - name: Run PHPunit
-        run: ./bin/phpunit --exclude-group DB
+        run: ./bin/phpunit
