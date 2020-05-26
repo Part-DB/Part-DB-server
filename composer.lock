@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac50404e523c74a9447d5ebf004fa4a8",
+    "content-hash": "da1b9b0e409094ff42c6f654ed9f0918",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -3898,16 +3898,16 @@
         },
         {
             "name": "r/u2f-two-factor-bundle",
-            "version": "dev-symfony5-support",
+            "version": "0.8.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jbtronics/u2f-two-factor-bundle.git",
-                "reference": "934e1c98e0dc7ef9ce731f9dfe87d5b86a38d9b7"
+                "url": "https://github.com/darookee/u2f-two-factor-bundle.git",
+                "reference": "36d8b6af1976b6959d32ccc9081c6ae7d842cf09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbtronics/u2f-two-factor-bundle/zipball/934e1c98e0dc7ef9ce731f9dfe87d5b86a38d9b7",
-                "reference": "934e1c98e0dc7ef9ce731f9dfe87d5b86a38d9b7",
+                "url": "https://api.github.com/repos/darookee/u2f-two-factor-bundle/zipball/36d8b6af1976b6959d32ccc9081c6ae7d842cf09",
+                "reference": "36d8b6af1976b6959d32ccc9081c6ae7d842cf09",
                 "shasum": ""
             },
             "require": {
@@ -3934,6 +3934,7 @@
                     "R\\U2FTwoFactorBundle\\": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3950,17 +3951,14 @@
             "description": "Use U2F-Keys as 2FA for Symfony2, using scheb/two-factor-bundle",
             "homepage": "https://github.com/darookee/u2f-two-factor-bundle",
             "keywords": [
-                "authentication",
+                "Authentication",
+                "Symfony2",
                 "fido",
-                "symfony2",
                 "two-factor",
                 "two-step",
                 "yubikey"
             ],
-            "support": {
-                "source": "https://github.com/jbtronics/u2f-two-factor-bundle/tree/symfony5-support"
-            },
-            "time": "2020-05-10T17:45:27+00:00"
+            "time": "2020-05-19T07:35:18+00:00"
         },
         {
             "name": "s9e/regexp-builder",
@@ -12375,7 +12373,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "r/u2f-two-factor-bundle": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
