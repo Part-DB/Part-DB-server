@@ -18,7 +18,7 @@ jobs:
     env:
       APP_ENV: test
       SYMFONY_DEPRECATIONS_HELPER: disabled
-      DATABASE_URL: 'mysql://root:1234@127.0.0.1:3306/part-db_test'
+      DATABASE_URL: 'mysql://root:root@127.0.0.1:3306/test'
       PHP_VERSION: ${{ matrix.php-versions }}
     
     strategy:
@@ -35,12 +35,12 @@ jobs:
           coverage: pcov
           extensions: mbstring, intl, gd, xsl, gmp, bcmath        
       
-      - name: Setup MySQL
-        uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql version: 5.7
-          mysql database: 'part-db'
-          mysql root password: '1234'
+      #- name: Setup MySQL
+      #  uses: mirromutth/mysql-action@v1.1
+      #  with:
+      #    mysql version: 5.7
+      #    mysql database: 'part-db'
+      #    mysql root password: '1234'
         
       ## Setup caches
       
