@@ -123,6 +123,9 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
+    "doctrine/sql-formatter": {
+        "version": "1.0.1"
+    },
     "dompdf/dompdf": {
         "version": "v0.8.5"
     },
@@ -179,9 +182,6 @@
     },
     "imagine/imagine": {
         "version": "1.2.2"
-    },
-    "jdorn/sql-formatter": {
-        "version": "v1.2.17"
     },
     "jean85/pretty-package-versions": {
         "version": "1.2"
