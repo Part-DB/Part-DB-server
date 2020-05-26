@@ -46,6 +46,7 @@
                         {% if timeTravel is defined and timeTravel is not null %}
                             ({{ timeTravel|format_datetime('short') }})
                         {% endif %}
+                        <span class="float-right">{% block quick_links %}{% endblock %}</span>
                     {% else %}
                         <strong>{% block new_title %}{% trans %}new.caption{% endtrans %}{% endblock %}</strong>
                     {% endif %}
