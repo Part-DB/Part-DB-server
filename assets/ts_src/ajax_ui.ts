@@ -363,7 +363,7 @@ class AjaxUI {
     private onAjaxError (event, request, settings) {
         'use strict';
         //Ignore aborted requests.
-        if (request.statusText =='abort') {
+        if (request.statusText =='abort' || request.status == 0) {
             return;
         }
 
