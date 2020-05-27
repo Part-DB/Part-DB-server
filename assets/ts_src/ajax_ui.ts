@@ -380,7 +380,7 @@ class AjaxUI {
         ajaxUI.hideProgressBar();
 
         //Create error text
-        let title = "";
+        let title = request.statusText;
 
         switch(request.status) {
             case 500:
