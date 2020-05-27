@@ -838,3 +838,40 @@ div.dataTables_wrapper div.dataTables_info {
     max-width: 500px;
     max-height: 250px;
 }
+
+/*******************************************
+ * Hovering carousel gallery
+ *******************************************/
+.carousel-caption-hover {
+    display: none;
+}
+
+.carousel .mask {
+    display: none;
+}
+
+.carousel:hover .mask {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: .5s ease;
+    background-color: #0a0909;
+    opacity: 0.7;
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+}
+
+.carousel-control {
+    display: none;
+}
+
+.carousel:hover .carousel-caption-hover {
+    display: block;
+}
+
+.carousel:hover .carousel-control {
+    display: flex;
+}

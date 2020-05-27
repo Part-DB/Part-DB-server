@@ -4,17 +4,28 @@
     <div id="pictureCarousel" class="carousel slide mb-2" data-interval="false">
         <div class="carousel-inner">
             {% for pic in pictures %}
+                {# @var pic App\Entity\Attachments\Attachment #}
                 <div class="carousel-item  {% if loop.first %}active{% endif %}">
-                    <img class="d-block w-100 img-fluid img-thumbnail bg-light" src="{{ pic | entityURL('file_view') }}" alt="">
+                    <a href="{{ pic | entityURL('file_view') }}" data-no-ajax target="_blank" rel="noopener">
+                        <img class="d-block w-100 img-fluid img-thumbnail bg-light" src="{{ pic | entityURL('file_view') }}" alt="">
+                        <div class="mask"></div>
+                        <div class="carousel-caption-hover">
+                            <div class="carousel-caption">
+                                <div><b>{{ pic.name }}</b></div>
+                                <div>{% if pic.filename %}({{ pic.filename }}) {% endif %}</div>
+                                <div>{{ elementTypeName(pic.element) }}</div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             {% endfor %}
         </div>
         {% if pictures | length > 1 %}
-            <a class="carousel-control-prev" href="#pictureCarousel" role="button" data-slide="prev">
+            <a class="carousel-control-prev carousel-control" href="#pictureCarousel" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">{% trans %}part.info.prev_picture{% endtrans %}</span>
             </a>
-            <a class="carousel-control-next" href="#pictureCarousel" role="button" data-slide="next">
+            <a class="carousel-control-next carousel-control" href="#pictureCarousel" role="button" data-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">{% trans %}part.info.next_picture{% endtrans %}</span>
             </a>
