@@ -340,6 +340,9 @@
     "phpstan/phpstan-symfony": {
         "version": "0.12.4"
     },
+    "psalm/plugin-symfony": {
+        "version": "v1.2.1"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },

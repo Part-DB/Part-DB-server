@@ -6,7 +6,13 @@
 
 {% block content %}
 
-    {% include "Parts/lists/_info_card.html.twig" with {'header_label': 'manufacturer.label'} %}
+    {% embed "Parts/lists/_info_card.html.twig" with {'header_label': 'manufacturer.label'} %}
+        {% block quick_links %}
+            <div class="mb-2">
+                {% include 'QuickLinks/_company.html.twig' %}
+            </div>
+        {% endblock %}
+    {% endembed %}
 
     {% include "Parts/lists/_action_bar.html.twig" with {'url_options': {'manufacturer': entity.iD}} %}
 

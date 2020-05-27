@@ -1,0 +1,16 @@
+<div class="btn-toolbar">
+    <div class="btn-group btn-block">
+        {% if entity.website is not empty %}
+            <a class="btn btn-outline-dark" href="{{ entity.website }}" title="{% trans %}company.edit.quick.website{% endtrans %}" data-no-ajax><i class="fas fa-globe fa-fw"></i></a>
+        {% endif %}
+        {% if entity.emailAddress is not empty %}
+            <a class="btn btn-outline-dark" href="mailto:{{ entity.emailAddress }}" title="{% trans %}company.edit.quick.email{% endtrans %}" data-no-ajax><i class="fas fa-envelope-open-text"></i></a>
+        {% endif %}
+        {% if entity.phoneNumber is not empty %}
+            <a class="btn btn-outline-dark" href="tel:{{ entity.phoneNumber | replace({' ': ''}) }}" title="{% trans %}company.edit.quick.phone{% endtrans %}" data-no-ajax><i class="fas fa-phone"></i></a>
+        {% endif %}
+        {% if entity.faxNumber is not empty %}
+            <a class="btn btn-outline-dark" href="tel:{{ entity.faxNumber | replace({' ': ''}) }}" title="{% trans %}company.edit.quick.fax{% endtrans %}" data-no-ajax><i class="fas fa-fax"></i></a>
+        {% endif %}
+    </div>
+</div>

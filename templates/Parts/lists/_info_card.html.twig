@@ -66,6 +66,8 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
+                                    {% block quick_links %}{% endblock %}
+
                                     <a class="btn btn-secondary btn-block mb-2" href="{{ entity | entityURL('edit') }}">
                                         <i class="fas fa-edit"></i> {% trans %}entity.edit.btn{% endtrans %}
                                     </a>

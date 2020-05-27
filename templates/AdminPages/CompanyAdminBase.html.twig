@@ -22,16 +22,5 @@
 {% endblock %}
 
 {% block quick_links %}
-    {% if entity.website is not empty %}
-        <a href="{{ entity.website }}" title="{% trans %}company.edit.quick.website{% endtrans %}" data-no-ajax><i class="fas fa-globe fa-fw fa-lg"></i></a>
-    {% endif %}
-    {% if entity.emailAddress is not empty %}
-        <a href="mailto:{{ entity.emailAddress }}" title="{% trans %}company.edit.quick.email{% endtrans %}" data-no-ajax><i class="fas fa-envelope-open-text fa-lg"></i></a>
-    {% endif %}
-    {% if entity.phoneNumber is not empty %}
-        <a href="tel:{{ entity.phoneNumber | replace({' ': ''}) }}" title="{% trans %}company.edit.quick.phone{% endtrans %}" data-no-ajax><i class="fas fa-phone fa-lg"></i></a>
-    {% endif %}
-    {% if entity.faxNumber is not empty %}
-        <a href="tel:{{ entity.faxNumber | replace({' ': ''}) }}" title="{% trans %}company.edit.quick.fax{% endtrans %}" data-no-ajax><i class="fas fa-fax fa-lg"></i></a>
-    {% endif %}
+    {% include 'QuickLinks/_company.html.twig' %}
 {% endblock %}
