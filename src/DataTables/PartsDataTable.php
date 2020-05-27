@@ -161,12 +161,18 @@ final class PartsDataTable implements DataTableTypeInterface
                         return '';
                     }
 
+                    $title = htmlspecialchars($preview_attachment->getName());
+                    if ($preview_attachment->getFilename()) {
+                        $title .= ' (' . htmlspecialchars($preview_attachment->getFilename()) . ')';
+                    }
+
                     return sprintf(
-                        '<img alt="%s" src="%s" data-thumbnail="%s" class="%s">',
+                        '<img alt="%s" src="%s" data-thumbnail="%s" class="%s" data-title="%s">',
                         'Part image',
                         $this->attachmentURLGenerator->getThumbnailURL($preview_attachment),
                         $this->attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_md'),
-                        'img-fluid hoverpic'
+                        'img-fluid hoverpic',
+                        $title
                     );
                 },
             ])
