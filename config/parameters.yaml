@@ -36,8 +36,8 @@ parameters:
   ######################################################################################################################
   # Error pages
   ######################################################################################################################
-  partdb.error_pages.admin_email: ''      # You can set an email address here, which is shown on an error page, how to contact an administrator
-  partdb.error_pages.show_help: false                          # If this is set to true, solutions to common problems are shown on error pages. Disable this, if you do not want your users to see them...
+  partdb.error_pages.admin_email: ''                          # You can set an email address here, which is shown on an error page, how to contact an administrator
+  partdb.error_pages.show_help: true                          # If this is set to true, solutions to common problems are shown on error pages. Disable this, if you do not want your users to see them...
 
   ######################################################################################################################
   # Miscellaneous
