@@ -34,6 +34,12 @@ parameters:
   partdb.attachments.dir.secure: 'uploads/'                   # The folder where secured attachment files are saved (must not be in public/)
 
   ######################################################################################################################
+  # Error pages
+  ######################################################################################################################
+  partdb.error_pages.admin_email: ''      # You can set an email address here, which is shown on an error page, how to contact an administrator
+  partdb.error_pages.show_help: false                          # If this is set to true, solutions to common problems are shown on error pages. Disable this, if you do not want your users to see them...
+
+  ######################################################################################################################
   # Miscellaneous
   ######################################################################################################################
   partdb.demo_mode: '%env(bool:DEMO_MODE)%'                   # If set to true, all potentially dangerous things are disabled (like changing passwords of the own user)

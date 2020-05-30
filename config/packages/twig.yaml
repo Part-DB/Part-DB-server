@@ -13,3 +13,5 @@ twig:
         locale_menu: '%partdb.locale_menu%'
         attachment_manager: '@App\Services\Attachments\AttachmentManager'
         label_profile_dropdown_helper: '@App\Services\LabelSystem\LabelProfileDropdownHelper'
+        error_page_admin_email: '%partdb.error_pages.admin_email%'
+        error_page_show_help: '%partdb.error_pages.show_help%'
