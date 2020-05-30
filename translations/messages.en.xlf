@@ -9213,5 +9213,11 @@ Element 3</target>
         <target>e.g. +49 1234 567890</target>
       </segment>
     </unit>
+    <unit id="tB_XJLr" name="part.edit.save_and_clone">
+      <segment>
+        <source>part.edit.save_and_clone</source>
+        <target>Save and clone</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -180,6 +180,12 @@ class PartController extends AbstractController
             $em->persist($part);
             $em->flush();
             $this->addFlash('info', 'part.edited_flash');
+
+            //Redirect to clone page if user wished that...
+            if ("save_and_clone" === $form->getClickedButton()->getName()) {
+                return $this->redirectToRoute('part_clone', ['id' => $part->getID()]);
+            }
+
             //Reload form, so the SIUnitType entries use the new part unit
             $form = $this->createForm(PartBaseType::class, $part);
         } elseif ($form->isSubmitted() && ! $form->isValid()) {
@@ -300,6 +306,11 @@ class PartController extends AbstractController
             $em->persist($new_part);
             $em->flush();
             $this->addFlash('success', 'part.created_flash');
+
+            //Redirect to clone page if user wished that...
+            if ("save_and_clone" === $form->getClickedButton()->getName()) {
+                return $this->redirectToRoute('part_clone', ['id' => $new_part->getID()]);
+            }
 
             return $this->redirectToRoute('part_edit', ['id' => $new_part->getID()]);
         }

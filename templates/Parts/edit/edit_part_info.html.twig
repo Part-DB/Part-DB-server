@@ -102,8 +102,12 @@
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
-                <div class="dropdown-menu p-2">
-                    {{ form_row(form.log_comment)}}
+                <div class="dropdown-menu">
+                    {{ form_widget(form.save_and_clone, {'attr': {'class': 'dropdown-item'}}) }}
+                    <div class="dropdown-divider"></div>
+                    <div class="p-2">
+                        {{ form_row(form.log_comment)}}
+                    </div>
                 </div>
             </div>
 
