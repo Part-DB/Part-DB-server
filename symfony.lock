@@ -379,6 +379,9 @@
     "s9e/regexp-builder": {
         "version": "1.4.3"
     },
+    "s9e/sweetdom": {
+        "version": "1.0.1"
+    },
     "s9e/text-formatter": {
         "version": "2.1.2"
     },
