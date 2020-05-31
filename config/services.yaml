@@ -78,6 +78,12 @@ services:
             $allow_attachments_downloads: '%partdb.attachments.allow_downloads%'
             $mimeTypes: '@mime_types'
 
+    App\EventSubscriber\LogSystem\LogoutLoggerListener:
+        tags:
+            - name: 'kernel.event_listener'
+              event: 'Symfony\Component\Security\Http\Event\LogoutEvent'
+              dispatcher: security.event_dispatcher.main
+
     ####################################################################################################################
     # Attachment system
     ####################################################################################################################

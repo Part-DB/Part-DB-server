@@ -16,7 +16,8 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: lazy
+            anonymous: true
+            lazy: true
             user_checker: App\Security\UserChecker
 
             two_factor:
@@ -40,7 +41,6 @@ security:
             logout:
                 path: logout
                 target: homepage
-                handlers: [App\EventSubscriber\LogSystem\LogoutLoggerHandler]
 
             remember_me:
                 secret:   '%kernel.secret%'
