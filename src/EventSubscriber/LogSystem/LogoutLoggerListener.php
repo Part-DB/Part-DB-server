@@ -48,12 +48,13 @@ use App\Services\LogSystem\EventLogger;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Http\Event\LogoutEvent;
 use Symfony\Component\Security\Http\Logout\LogoutHandlerInterface;
 
 /**
  * This handler logs to event log, if a user logs out.
  */
-class LogoutLoggerHandler implements LogoutHandlerInterface
+class LogoutLoggerListener
 {
     protected $logger;
     protected $gpdr_compliance;
@@ -64,8 +65,16 @@ class LogoutLoggerHandler implements LogoutHandlerInterface
         $this->gpdr_compliance = $gpdr_compliance;
     }
 
-    public function logout(Request $request, Response $response, TokenInterface $token): void
+
+    public function __invoke(LogoutEvent $event)
     {
+        $request = $event->getRequest();
+        $token = $event->getToken();
+
+        if ($token === null) {
+            return;
+        }
+
         $log = new UserLogoutLogEntry($request->getClientIp(), $this->gpdr_compliance);
         $user = $token->getUser();
         if ($user instanceof User) {

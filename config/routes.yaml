@@ -12,6 +12,6 @@ redirector:
     path: /{url}
     requirements:
         url: ".*"
-    controller: App\Controller\RedirectController:addLocalePart
+    controller: App\Controller\RedirectController::addLocalePart
     # Dont match localized routes (no redirection loop, if no root with that name exists)
     condition: "not (request.getPathInfo() matches '/^\\\\/[a-z]{2}(_[A-Z]{2})?\\\\//')"
