@@ -700,12 +700,12 @@
         "version": "v4.2.3"
     },
     "symfony/routing": {
-        "version": "4.2",
+        "version": "5.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "4.2",
-            "ref": "683dcb08707ba8d41b7e34adb0344bfd68d248a7"
+            "version": "5.1",
+            "ref": "b4f3e7c95e38b606eef467e8a42a8408fc460c43"
         },
         "files": [
             "./config/packages/prod/routing.yaml",
