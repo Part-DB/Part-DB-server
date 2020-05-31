@@ -52,6 +52,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -74,12 +75,12 @@ final class RegisterU2FSubscriber implements EventSubscriberInterface
      */
     private $eventDispatcher;
 
-    public function __construct(UrlGeneratorInterface $router, EntityManagerInterface $entityManager, FlashBagInterface $flashBag, EventDispatcherInterface $eventDispatcher, bool $demo_mode)
+    public function __construct(UrlGeneratorInterface $router, EntityManagerInterface $entityManager, SessionInterface $session, EventDispatcherInterface $eventDispatcher, bool $demo_mode)
     {
         $this->router = $router;
         $this->em = $entityManager;
         $this->demo_mode = $demo_mode;
-        $this->flashBag = $flashBag;
+        $this->flashBag = $session->getFlashBag();
         $this->eventDispatcher = $eventDispatcher;
     }
 
