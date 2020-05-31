@@ -285,14 +285,14 @@ class AttachmentTest extends TestCase
     public function testIsURL(): void
     {
         $url = '%MEDIA%/test.txt';
-        $this->assertFalse(Attachment::isURL($url));
+        $this->assertFalse(Attachment::isValidURL($url));
 
         $url = 'https://google.de';
-        $this->assertFalse(Attachment::isURL($url));
+        $this->assertFalse(Attachment::isValidURL($url));
 
         $url = 'ftp://google.de';
-        $this->assertTrue(Attachment::isURL($url, false, false));
-        $this->assertFalse(Attachment::isURL($url, false, true));
+        $this->assertTrue(Attachment::isValidURL($url, false, false));
+        $this->assertFalse(Attachment::isValidURL($url, false, true));
     }
 
     /**

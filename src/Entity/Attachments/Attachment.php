@@ -455,7 +455,7 @@ abstract class Attachment extends AbstractNamedDBElement
      *
      * @return bool True if the string is a valid URL. False, if the string is not an URL or invalid.
      */
-    public static function isURL(string $string, bool $path_required = true, bool $only_http = true): bool
+    public static function isValidURL(string $string, bool $path_required = true, bool $only_http = true): bool
     {
         if ($only_http) {   //Check if scheme is HTTPS or HTTP
             $scheme = parse_url($string, PHP_URL_SCHEME);
