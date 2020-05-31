@@ -56,6 +56,7 @@ use App\Form\ParameterType;
 use App\Form\Type\MasterPictureAttachmentType;
 use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
+use App\Form\WorkaroundCollectionType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -258,7 +259,7 @@ class PartBaseType extends AbstractType
         ]);
 
         //Orderdetails section
-        $builder->add('orderdetails', CollectionType::class, [
+        $builder->add('orderdetails', WorkaroundCollectionType::class, [
             'entry_type' => OrderdetailType::class,
             'allow_add' => $this->security->isGranted('orderdetails.create', $part),
             'allow_delete' => $this->security->isGranted('orderdetails.delete', $part),
