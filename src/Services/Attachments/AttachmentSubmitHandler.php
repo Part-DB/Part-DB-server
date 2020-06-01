@@ -44,6 +44,7 @@ namespace App\Services\Attachments;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
+use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Entity\Attachments\CategoryAttachment;
 use App\Entity\Attachments\CurrencyAttachment;
@@ -57,6 +58,7 @@ use App\Entity\Attachments\StorelocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
 use App\Exceptions\AttachmentDownloadException;
+use Symfony\Component\Form\FormInterface;
 use const DIRECTORY_SEPARATOR;
 use function get_class;
 use InvalidArgumentException;
@@ -78,14 +80,19 @@ class AttachmentSubmitHandler
     protected $allow_attachments_downloads;
     protected $httpClient;
     protected $mimeTypes;
+    protected $filterTools;
+
 
     public function __construct(AttachmentPathResolver $pathResolver, bool $allow_attachments_downloads,
-                                HttpClientInterface $httpClient, MimeTypesInterface $mimeTypes)
+                                HttpClientInterface $httpClient, MimeTypesInterface $mimeTypes,
+        FileTypeFilterTools $filterTools)
     {
         $this->pathResolver = $pathResolver;
         $this->allow_attachments_downloads = $allow_attachments_downloads;
         $this->httpClient = $httpClient;
         $this->mimeTypes = $mimeTypes;
+
+        $this->filterTools = $filterTools;
 
         //The mapping used to determine which folder will be used for an attachment type
         $this->folder_mapping = [
@@ -102,6 +109,26 @@ class AttachmentSubmitHandler
             SupplierAttachment::class => 'supplier',
             UserAttachment::class => 'user',
         ];
+    }
+
+    /**
+     * Check if the extension of the uploaded file is allowed for the given attachment type.
+     * Returns true, if the file is allowed, false if not.
+     * @param  Attachment  $attachment
+     * @param  UploadedFile  $uploadedFile
+     * @return bool
+     */
+    public function isValidFileExtension(AttachmentType $attachment_type, UploadedFile $uploadedFile): bool
+    {
+        //Only validate if the attachment type has specified an filetype filter:
+        if (empty($attachment_type->getFiletypeFilter())) {
+            return true;
+        }
+
+        return $this->filterTools->isExtensionAllowed(
+            $attachment_type->getFiletypeFilter(),
+            $uploadedFile->getClientOriginalExtension()
+        );
     }
 
     /**

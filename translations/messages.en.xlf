@@ -9219,5 +9219,11 @@ Element 3</target>
         <target>Save and clone</target>
       </segment>
     </unit>
+    <unit id="zpqGCO8" name="validator.file_ext_not_allowed">
+      <segment>
+        <source>validator.file_ext_not_allowed</source>
+        <target>File extension not allowed for this attachment type.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
