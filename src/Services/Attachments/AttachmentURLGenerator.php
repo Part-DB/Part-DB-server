@@ -91,6 +91,8 @@ class AttachmentURLGenerator
             $public_path = $this->public_path;
         }
 
+
+
         //Our absolute path must begin with public path or we can not use it for asset pathes.
         if (0 !== strpos($absolute_path, $public_path)) {
             return null;
@@ -98,6 +100,19 @@ class AttachmentURLGenerator
 
         //Return the part relative after public path.
         return substr($absolute_path, strlen($public_path) + 1);
+    }
+
+    /**
+     * Converts a placeholder path to a path to a image path.
+     *
+     * @param string      $placeholder_path the placeholder path that should be converted
+     *
+     * @return string|null
+     */
+    public function placeholderPathToAssetPath(string $placeholder_path): ?string
+    {
+        $absolute_path = $this->pathResolver->placeholderToRealPath($placeholder_path);
+        return $this->absolutePathToAssetPath($absolute_path);
     }
 
     /**

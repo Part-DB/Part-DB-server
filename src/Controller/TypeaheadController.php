@@ -42,9 +42,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\BuiltinAttachmentsFinder;
 use App\Services\TagFinder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -59,6 +61,15 @@ use Symfony\Component\Serializer\Serializer;
  */
 class TypeaheadController extends AbstractController
 {
+    protected $urlGenerator;
+    protected $assets;
+
+    public function __construct(AttachmentURLGenerator $URLGenerator, Packages $assets)
+    {
+        $this->urlGenerator = $URLGenerator;
+        $this->assets = $assets;
+    }
+
     /**
      * @Route("/builtInResources/search", name="typeahead_builtInRessources")
      *
@@ -69,6 +80,15 @@ class TypeaheadController extends AbstractController
         $query = $request->get('query');
         $array = $finder->find($query);
 
+        $result = [];
+
+        foreach ($array as $path) {
+            $result[] = [
+                'name' => $path,
+                'image' => $this->assets->getUrl($this->urlGenerator->placeholderPathToAssetPath($path)),
+            ];
+        }
+
         $normalizers = [
             new ObjectNormalizer(),
         ];
@@ -76,7 +96,7 @@ class TypeaheadController extends AbstractController
             new JsonEncoder(),
         ];
         $serializer = new Serializer($normalizers, $encoders);
-        $data = $serializer->serialize($array, 'json');
+        $data = $serializer->serialize($result, 'json');
 
         return new JsonResponse($data, 200, [], true);
     }

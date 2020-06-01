@@ -772,6 +772,9 @@ div.dataTables_wrapper div.dataTables_info {
     -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
     box-shadow: 0 5px 10px rgba(0,0,0,.2);
+
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 .tt-suggestion {
@@ -874,4 +877,11 @@ div.dataTables_wrapper div.dataTables_info {
 
 .carousel:hover .carousel-control {
     display: flex;
+}
+
+/***********************************************
+ * Typeahead image
+ ***********************************************/
+.typeahead-image {
+    width: 100%;
 }

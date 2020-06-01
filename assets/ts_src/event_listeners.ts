@@ -432,6 +432,7 @@ $(document).on("ajaxUI:reload ajaxUI:start attachment:create", function () {
             }
         });
 
+        //@ts-ignore
         $(this).typeahead({
                 hint: true,
                 highlight: true,
@@ -439,7 +440,18 @@ $(document).on("ajaxUI:reload ajaxUI:start attachment:create", function () {
             },
             {
                 name: 'states',
-                source: engine
+                source: engine,
+                limit: 250,
+                templates: {
+                    suggestion: function(data) {
+                        if (typeof data === "string") {
+                            return "<div>" + data + "</div>";
+                        } else if(typeof data === "object" && typeof data.image === "string") {
+                            return "<div class='row m-0'><div class='col-2 pl-0 pr-1'><img class='typeahead-image' src='" + data.image + "'/></div><div class='col-10'>" + data.name + "</div></div>"
+                        }
+                    },
+                },
+                display: 'name',
             });
 
         //Make the typeahead input fill the container (remove block-inline attr)

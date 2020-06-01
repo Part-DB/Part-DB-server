@@ -101,6 +101,7 @@ class AttachmentPathResolver
     /**
      * Converts a path passed by parameter from services.yaml (which can be an absolute path or relative to project dir)
      * to an absolute path. When a relative path is passed, the directory must exist or null is returned.
+     * Returns an absolute path with "/" no matter, what system is used.
      *
      * @internal
      *
@@ -132,8 +133,8 @@ class AttachmentPathResolver
             return null;
         }
 
-        //Otherwise return resolved path
-        return $tmp;
+        //Normalize file path (use / instead of \)
+        return str_replace('\\', '/', $tmp);
     }
 
     /**
