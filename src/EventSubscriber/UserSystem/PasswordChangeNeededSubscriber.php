@@ -45,6 +45,7 @@ namespace App\EventSubscriber\UserSystem;
 use App\Entity\UserSystem\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -81,6 +82,7 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
     public function __construct(Security $security, SessionInterface $session, HttpUtils $httpUtils)
     {
         $this->security = $security;
+        /** @var $session Session */
         $this->flashBag = $session->getFlashBag();
         $this->httpUtils = $httpUtils;
     }
