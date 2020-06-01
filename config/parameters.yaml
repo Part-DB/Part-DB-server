@@ -29,7 +29,7 @@ parameters:
   ######################################################################################################################
   # Attachments and files
   ######################################################################################################################
-  partdb.attachments.allow_downloads: false                   # Allow users to download attachments to server. Warning: This can be dangerous, because via that feature attackers maybe can access ressources on your intranet!
+  partdb.attachments.allow_downloads: '%env(bool:ALLOW_ATTACHMENT_DOWNLOADS)%'  # Allow users to download attachments to server. Warning: This can be dangerous, because via that feature attackers maybe can access ressources on your intranet!
   partdb.attachments.dir.media: 'public/media/'               # The folder where uploaded attachment files are saved (must be in public folder)
   partdb.attachments.dir.secure: 'uploads/'                   # The folder where secured attachment files are saved (must not be in public/)
 
@@ -44,6 +44,10 @@ parameters:
   ######################################################################################################################
   partdb.demo_mode: '%env(bool:DEMO_MODE)%'                   # If set to true, all potentially dangerous things are disabled (like changing passwords of the own user)
 
-
+  ######################################################################################################################
+  # Env default values
+  ######################################################################################################################
+  env(DEMO_MODE): 0
+  env(ALLOW_ATTACHMENT_DOWNLOADS): 0
 
 
