@@ -5454,6 +5454,51 @@
         <target>Высота</target>
       </segment>
     </unit>
+    <unit id="nez5RLt" name="label_generator.target_id.range_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:49</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.target_id.range_hint</source>
+        <target>Вы можете указать несколько ID (например 1,2,3) и/или диапазон (1-3) чтобы создать этикетки для нескольких элементов сразу. </target>
+      </segment>
+    </unit>
+    <unit id="GN.UJxb" name="label_generator.target_id.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:46</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.target_id.label</source>
+        <target>ID элемента</target>
+      </segment>
+    </unit>
+    <unit id="xSJAE3a" name="label_generator.update">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:59</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.update</source>
+        <target>Обновить</target>
+      </segment>
+    </unit>
+    <unit id="QQCsPWt" name="scan_dialog.input">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\ScanDialogType.php:36</note>
+      </notes>
+      <segment state="translated">
+        <source>scan_dialog.input</source>
+        <target>Ввод</target>
+      </segment>
+    </unit>
+    <unit id="xENLE_d" name="scan_dialog.submit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\ScanDialogType.php:44</note>
+      </notes>
+      <segment state="translated">
+        <source>scan_dialog.submit</source>
+        <target>Отправить</target>
+      </segment>
+    </unit>
     <unit id="o.P_V00" name="parameters.name.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:41</note>
@@ -6052,6 +6097,15 @@
         <target>Параметр</target>
       </segment>
     </unit>
+    <unit id="0koS1dD" name="label_profile.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:96</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.label</source>
+        <target>Профиль этикетки</target>
+      </segment>
+    </unit>
     <unit id=".nBJJBz" name="log.element_deleted.old_name.unknown">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:176</note>
@@ -6081,6 +6135,15 @@
       <segment state="translated">
         <source>pw_reset.email.subject</source>
         <target>Сброс пароль для вашего Part-DB аккаунта</target>
+      </segment>
+    </unit>
+    <unit id="_D86R1w" name="tree.tools.tools">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:108</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.tools</source>
+        <target>Инструменты</target>
       </segment>
     </unit>
     <unit id="sgHHET2" name="tree.tools.edit">
@@ -6113,6 +6176,24 @@
       <segment state="translated">
         <source>tree.tools.system</source>
         <target>Система</target>
+      </segment>
+    </unit>
+    <unit id="Cd_wFWS" name="tree.tools.tools.label_dialog">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:123</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.tools.label_dialog</source>
+        <target>Генератор этикеток</target>
+      </segment>
+    </unit>
+    <unit id="fVHzYVj" name="tree.tools.tools.label_scanner">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:130</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.tools.label_scanner</source>
+        <target>Сканер</target>
       </segment>
     </unit>
     <unit id="Umzi6EP" name="tree.tools.edit.attachment_types">
@@ -6208,6 +6289,15 @@
       <segment state="translated">
         <source>tree.tools.edit.measurement_unit</source>
         <target>Единица измерения</target>
+      </segment>
+    </unit>
+    <unit id="YAalchf" name="tree.tools.edit.label_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:203</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.label_profile</source>
+        <target>Профили этикетки</target>
       </segment>
     </unit>
     <unit id="CBX7i_1" name="tree.tools.edit.part">
@@ -8759,6 +8849,378 @@
       <segment state="translated">
         <source>log.type.</source>
         <target>Тип.</target>
+      </segment>
+    </unit>
+    <unit id="WjnV7iC" name="tfa_u2f.key_added_successful">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.key_added_successful</source>
+        <target> Ключ безопасности успешно добавлен.</target>
+      </segment>
+    </unit>
+    <unit id="47ienTP" name="Username">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>Username</source>
+        <target>Имя пользователя</target>
+      </segment>
+    </unit>
+    <unit id="dVu9PKe" name="log.type.security.google_disabled">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.google_disabled</source>
+        <target>Прил. аутентификации запрещено</target>
+      </segment>
+    </unit>
+    <unit id="HfccXTr" name="log.type.security.u2f_removed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.u2f_removed</source>
+        <target>Ключ безопасности удален</target>
+      </segment>
+    </unit>
+    <unit id="zl1WXuM" name="log.type.security.u2f_added">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.u2f_added</source>
+        <target>Ключ безопасности добавлен</target>
+      </segment>
+    </unit>
+    <unit id="9_jzHX6" name="log.type.security.backup_keys_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.backup_keys_reset</source>
+        <target>Запасные ключи пересозданы</target>
+      </segment>
+    </unit>
+    <unit id="h6zwXNp" name="log.type.security.google_enabled">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.google_enabled</source>
+        <target>Прил. Аутентификации разрешено</target>
+      </segment>
+    </unit>
+    <unit id="XbsoHIr" name="log.type.security.password_changed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.password_changed</source>
+        <target>Пароль изменен</target>
+      </segment>
+    </unit>
+    <unit id="2q0_b3P" name="log.type.security.trusted_device_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.trusted_device_reset</source>
+        <target>Доверенные устройства сброшены</target>
+      </segment>
+    </unit>
+    <unit id="n8flY2e" name="log.type.collection_element_deleted">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.collection_element_deleted</source>
+        <target>Элемент коллекции удален</target>
+      </segment>
+    </unit>
+    <unit id="yNm8PCN" name="log.type.security.password_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.password_reset</source>
+        <target>Пароль сброшен</target>
+      </segment>
+    </unit>
+    <unit id="CsjgnTI" name="log.type.security.2fa_admin_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.2fa_admin_reset</source>
+        <target>Администратор сбросил двухфакторную аутентификацию</target>
+      </segment>
+    </unit>
+    <unit id="bJ.EAvM" name="log.type.user_not_allowed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.user_not_allowed</source>
+        <target>Попытка неавторизованного доступа</target>
+      </segment>
+    </unit>
+    <unit id="Z28oTau" name="log.database_updated.success">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.database_updated.success</source>
+        <target>Успешно</target>
+      </segment>
+    </unit>
+    <unit id="8jpgdV8" name="label_options.barcode_type.2D">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.2D</source>
+        <target>2D</target>
+      </segment>
+    </unit>
+    <unit id="O7.UnHb" name="label_options.barcode_type.1D">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.1D</source>
+        <target>1D</target>
+      </segment>
+    </unit>
+    <unit id="QMdRP48" name="perm.part.parameters">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.parameters</source>
+        <target>Параметры</target>
+      </segment>
+    </unit>
+    <unit id="_a9gfQw" name="perm.attachment_show_private">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.attachment_show_private</source>
+        <target>Посмотреть личные вложения</target>
+      </segment>
+    </unit>
+    <unit id="fcUq9AR" name="perm.tools.label_scanner">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.label_scanner</source>
+        <target>Сканер этикеток</target>
+      </segment>
+    </unit>
+    <unit id="QSODEfC" name="perm.self.read_profiles">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.read_profiles</source>
+        <target>Читать профили</target>
+      </segment>
+    </unit>
+    <unit id="9ItKgrD" name="perm.self.create_profiles">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.create_profiles</source>
+        <target>Создать профили</target>
+      </segment>
+    </unit>
+    <unit id="j6yqWSf" name="perm.labels.use_twig">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.labels.use_twig</source>
+        <target>Использовать режим Twig</target>
+      </segment>
+    </unit>
+    <unit id="f_MQ1uL" name="label_profile.showInDropdown">
+      <segment state="translated">
+        <source>label_profile.showInDropdown</source>
+        <target>Показать быстрый выбор</target>
+      </segment>
+    </unit>
+    <unit id="qrHwUh3" name="group.edit.enforce_2fa">
+      <segment state="translated">
+        <source>group.edit.enforce_2fa</source>
+        <target>Применить двухфакторную аутентификацию (2FA)</target>
+      </segment>
+    </unit>
+    <unit id="btZApXD" name="group.edit.enforce_2fa.help">
+      <segment state="translated">
+        <source>group.edit.enforce_2fa.help</source>
+        <target>Если эта опция разрешена, каждый член данной группы обязан сконфигурировать как минимум один вторичный способ аутентификации. Рекомендовано для административных групп с большими правами.</target>
+      </segment>
+    </unit>
+    <unit id="i7QKlzx" name="selectpicker.empty">
+      <segment state="translated">
+        <source>selectpicker.empty</source>
+        <target>Ничего не выбрано</target>
+      </segment>
+    </unit>
+    <unit id="TPI_1p0" name="selectpicker.nothing_selected">
+      <segment state="translated">
+        <source>selectpicker.nothing_selected</source>
+        <target>Ничего не выбрано</target>
+      </segment>
+    </unit>
+    <unit id="D6I2Q6C" name="entity.delete.must_not_contain_parts">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_parts</source>
+        <target>Элемент все еще содержит компоненты! Переместите все компоненты чтобы удалить этот элемент.</target>
+      </segment>
+    </unit>
+    <unit id="hu8Y98Q" name="entity.delete.must_not_contain_attachments">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_attachments</source>
+        <target>Тип вложения по-прежнему содержит компоненты. Измените их тип, чтобы иметь возможность удалить этот тип вложения.</target>
+      </segment>
+    </unit>
+    <unit id="OewVQB8" name="entity.delete.must_not_contain_prices">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_prices</source>
+        <target>Валюта все еще содержит данные о ценах. Измените их валюту чтобы удалить этот элемент.</target>
+      </segment>
+    </unit>
+    <unit id="L93n2S_" name="entity.delete.must_not_contain_users">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_users</source>
+        <target>Пользователи все еще используют на эту группу. Измените их группы чтобы удалить этот элемент.</target>
+      </segment>
+    </unit>
+    <unit id="72lMzIQ" name="part.table.edit">
+      <segment state="translated">
+        <source>part.table.edit</source>
+        <target>Изменить</target>
+      </segment>
+    </unit>
+    <unit id="AGwzXa0" name="part.table.edit.title">
+      <segment state="translated">
+        <source>part.table.edit.title</source>
+        <target>Изменить компонент</target>
+      </segment>
+    </unit>
+    <unit id="uAVyHXQ" name="part_list.action.action.title">
+      <segment state="translated">
+        <source>part_list.action.action.title</source>
+        <target>Выбрать действие</target>
+      </segment>
+    </unit>
+    <unit id="bAPfHqL" name="part_list.action.action.group.favorite">
+      <segment state="translated">
+        <source>part_list.action.action.group.favorite</source>
+        <target>Избранный статус</target>
+      </segment>
+    </unit>
+    <unit id="P5wWUv3" name="part_list.action.action.favorite">
+      <segment state="translated">
+        <source>part_list.action.action.favorite</source>
+        <target>Избранное</target>
+      </segment>
+    </unit>
+    <unit id="sfOQX5T" name="part_list.action.action.unfavorite">
+      <segment state="translated">
+        <source>part_list.action.action.unfavorite</source>
+        <target>Удалить из избранного</target>
+      </segment>
+    </unit>
+    <unit id="xJa8HMi" name="part_list.action.action.group.change_field">
+      <segment state="translated">
+        <source>part_list.action.action.group.change_field</source>
+        <target>Сменить поле</target>
+      </segment>
+    </unit>
+    <unit id="vzWZTcS" name="part_list.action.action.change_category">
+      <segment state="translated">
+        <source>part_list.action.action.change_category</source>
+        <target>Сменить категорию</target>
+      </segment>
+    </unit>
+    <unit id="o0usAp." name="part_list.action.action.change_footprint">
+      <segment state="translated">
+        <source>part_list.action.action.change_footprint</source>
+        <target>Сменить посадочное место</target>
+      </segment>
+    </unit>
+    <unit id="5KmoqAw" name="part_list.action.action.change_manufacturer">
+      <segment state="translated">
+        <source>part_list.action.action.change_manufacturer</source>
+        <target>Сменить производителя</target>
+      </segment>
+    </unit>
+    <unit id="3i7xim8" name="part_list.action.action.change_unit">
+      <segment state="translated">
+        <source>part_list.action.action.change_unit</source>
+        <target>Сменить ед.измерения компонента</target>
+      </segment>
+    </unit>
+    <unit id="CjaC2GZ" name="part_list.action.action.delete">
+      <segment state="translated">
+        <source>part_list.action.action.delete</source>
+        <target>Удалить</target>
+      </segment>
+    </unit>
+    <unit id="TdvpOc5" name="part_list.action.submit">
+      <segment state="translated">
+        <source>part_list.action.submit</source>
+        <target>Отправить</target>
+      </segment>
+    </unit>
+    <unit id="qKDo_nI" name="part_list.action.part_count">
+      <segment state="translated">
+        <source>part_list.action.part_count</source>
+        <target>%count% компонентов выбрано!</target>
+      </segment>
+    </unit>
+    <unit id="ssOogP5" name="company.edit.quick.website">
+      <segment state="translated">
+        <source>company.edit.quick.website</source>
+        <target>Открыть сайт</target>
+      </segment>
+    </unit>
+    <unit id="5hU5mZK" name="company.edit.quick.email">
+      <segment state="translated">
+        <source>company.edit.quick.email</source>
+        <target>Отправить почту</target>
+      </segment>
+    </unit>
+    <unit id="cVAsYfX" name="company.edit.quick.phone">
+      <segment state="translated">
+        <source>company.edit.quick.phone</source>
+        <target>Позвонить по телефону</target>
+      </segment>
+    </unit>
+    <unit id="6YTFx7Y" name="company.edit.quick.fax">
+      <segment state="translated">
+        <source>company.edit.quick.fax</source>
+        <target>Послать факс</target>
+      </segment>
+    </unit>
+    <unit id="PKJDzwq" name="company.fax_number.placeholder">
+      <segment state="translated">
+        <source>company.fax_number.placeholder</source>
+        <target>н.р. +49 1234 567890</target>
+      </segment>
+    </unit>
+    <unit id="tB_XJLr" name="part.edit.save_and_clone">
+      <segment state="translated">
+        <source>part.edit.save_and_clone</source>
+        <target>Сохранить и клонировать</target>
       </segment>
     </unit>
   </file>
