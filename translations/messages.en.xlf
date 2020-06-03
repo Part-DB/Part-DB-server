@@ -9225,5 +9225,71 @@ Element 3</target>
         <target>File extension not allowed for this attachment type.</target>
       </segment>
     </unit>
+    <unit id="Wqa3lsL" name="tools.reel_calc.title">
+      <segment>
+        <source>tools.reel_calc.title</source>
+        <target>SMD Reel calculator</target>
+      </segment>
+    </unit>
+    <unit id="mdO7lU4" name="tools.reel_calc.inner_dia">
+      <segment>
+        <source>tools.reel_calc.inner_dia</source>
+        <target>Inner diameter</target>
+      </segment>
+    </unit>
+    <unit id="y9vRCcc" name="tools.reel_calc.outer_dia">
+      <segment>
+        <source>tools.reel_calc.outer_dia</source>
+        <target>Outer diameter</target>
+      </segment>
+    </unit>
+    <unit id="BjeRVFq" name="tools.reel_calc.tape_thick">
+      <segment>
+        <source>tools.reel_calc.tape_thick</source>
+        <target>Tape thickness</target>
+      </segment>
+    </unit>
+    <unit id="ip4Wa3T" name="tools.reel_calc.part_distance">
+      <segment>
+        <source>tools.reel_calc.part_distance</source>
+        <target>Part distance</target>
+      </segment>
+    </unit>
+    <unit id="Ysn3sXm" name="tools.reel_calc.update">
+      <segment>
+        <source>tools.reel_calc.update</source>
+        <target>Update</target>
+      </segment>
+    </unit>
+    <unit id="epp3lk7" name="tools.reel_calc.parts_per_meter">
+      <segment>
+        <source>tools.reel_calc.parts_per_meter</source>
+        <target>Parts per meter</target>
+      </segment>
+    </unit>
+    <unit id="3R0ANJW" name="tools.reel_calc.result_length">
+      <segment>
+        <source>tools.reel_calc.result_length</source>
+        <target>Tape length</target>
+      </segment>
+    </unit>
+    <unit id="SvtCM.I" name="tools.reel_calc.result_amount">
+      <segment>
+        <source>tools.reel_calc.result_amount</source>
+        <target>Approx. parts count</target>
+      </segment>
+    </unit>
+    <unit id="wwAQjbO" name="tools.reel_calc.outer_greater_inner_error">
+      <segment>
+        <source>tools.reel_calc.outer_greater_inner_error</source>
+        <target>Error: Outer diameter must be greater than inner diameter!</target>
+      </segment>
+    </unit>
+    <unit id="t3mMhMS" name="tools.reel_calc.missing_values.error">
+      <segment>
+        <source>tools.reel_calc.missing_values.error</source>
+        <target>Please fill in all values!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
