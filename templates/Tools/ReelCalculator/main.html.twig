@@ -1,5 +1,7 @@
 {% extends "main_card.html.twig" %}
 
+{# Reel and tape values according to this PDF: https://www.vishay.com/docs/20014/smdpack.pdf #}
+
 {% block title %}{% trans %}tools.reel_calc.title{% endtrans %}{% endblock %}
 
 {% block card_title %}
@@ -7,6 +9,7 @@
 {% endblock %}
 
 {% block card_content %}
+    <p class="text-muted">{% trans %}tools.reel_calc.explanation{% endtrans %}</p>
     <div class="row">
         <div class="col-sm-4">
             <img src="{{ asset('img/smd_reel/smd_reel.svg') }}" alt="Sizes explanation" class="img-fluid img-thumbnail">
@@ -15,7 +18,15 @@
             <div class="form-group row">
                 <label for="reel_dia_inner" class="col-sm-4 col-form-label">{% trans %}tools.reel_calc.inner_dia{% endtrans %} <var>d<sub>0</sub></var>:</label>
                 <div class="col-sm-8 input-group">
-                    <input class="form-control" id="reel_dia_inner" value="60" type="number" min="0">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu">
+                            <h6 class="dropdown-header">{% trans %}tools.reel_calc.load_preset{% endtrans %}</h6>
+                            <button class="dropdown-item" data-target="reel_dia_inner" data-value="60" onclick="loadPreset(this);">60 mm Reel</button>
+                            <button class="dropdown-item" data-target="reel_dia_inner" data-value="62" onclick="loadPreset(this);">62 mm Reel</button>
+                        </div>
+                    </div>
+                    <input class="form-control" id="reel_dia_inner" type="number" min="0">
                     <div class="input-group-append">
                         <span class="input-group-text">mm</span>
                     </div>
@@ -33,7 +44,20 @@
             <div class="form-group row">
                 <label for="reel_tape_thick" class="col-sm-4 col-form-label">{% trans %}tools.reel_calc.tape_thick{% endtrans %} <var>a</var>:</label>
                 <div class="col-sm-8 input-group">
-                    <input class="form-control" id="reel_tape_thick" type="number" min="0,8" value="0.6">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu">
+                            <h6 class="dropdown-header">{% trans %}tools.reel_calc.load_preset{% endtrans %}</h6>
+                            <button class="dropdown-item" data-target="reel_tape_thick" data-value="0.8" onclick="loadPreset(this);">8 mm Paper Tape 0603 (0.8 mm)</button>
+                            <button class="dropdown-item" data-target="reel_tape_thick" data-value="0.85" onclick="loadPreset(this);">8 mm Paper Tape 0805 (0.85 mm)</button>
+                            <button class="dropdown-item" data-target="reel_tape_thick" data-value="1" onclick="loadPreset(this);">8 mm Paper Tape 1206 (1 mm)</button>
+                            <div class="dropdown-divider"></div>
+                            <button class="dropdown-item" data-target="reel_tape_thick" data-value="0.9" onclick="loadPreset(this);">8 mm Blister 0603 (0.9 mm)</button>
+                            <button class="dropdown-item" data-target="reel_tape_thick" data-value="0.95" onclick="loadPreset(this);">8 mm Blister 0805 (0.95 mm)</button>
+                            <button class="dropdown-item" data-target="reel_tape_thick" data-value="1.1" onclick="loadPreset(this);">8 mm Blister 1206 (1.1 mm)</button>
+                        </div>
+                    </div>
+                    <input class="form-control" id="reel_tape_thick" type="number" min="0">
                     <div class="input-group-append">
                         <span class="input-group-text">mm</span>
                     </div>
@@ -42,7 +66,15 @@
             <div class="form-group row">
                 <label for="reel_part_distance" class="col-sm-4 col-form-label">{% trans %}tools.reel_calc.part_distance{% endtrans %} <var>b</var>:</label>
                 <div class="col-sm-8 input-group">
-                    <input  class="form-control" id="reel_part_distance" value="4" type="number" min="0">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu">
+                            <h6 class="dropdown-header">{% trans %}tools.reel_calc.load_preset{% endtrans %}</h6>
+                            <button class="dropdown-item" data-target="reel_part_distance" data-value="4" onclick="loadPreset(this);">8 mm Paper Tape 0603/0805/1206 (4 mm)</button>
+                        </div>
+                    </div>
+
+                    <input  class="form-control" id="reel_part_distance" type="number" min="0">
                     <div class="input-group-append">
                         <span class="input-group-text">mm</span>
                     </div>
@@ -79,48 +111,54 @@
 {% endblock %}
 
 {% block scripts %}
-<script>
-    function updateReelCalc() {
-        var dia_inner = document.getElementById('reel_dia_inner').value;
-        var dia_outer = document.getElementById('reel_dia_outer').value;
-        var tape_thickness = document.getElementById('reel_tape_thick').value;
-        var part_distance = document.getElementById('reel_part_distance').value;
+    <script>
+        function loadPreset(element) {
+            var target = document.getElementById(element.dataset.target);
 
-        if (dia_inner == "" || dia_outer == "" || tape_thickness == "") {
-            bootbox.alert("{% trans %}tools.reel_calc.missing_values.error{% endtrans %}");
-            return;
+            target.value = element.dataset.value;
         }
 
-        if (dia_outer**dia_outer < dia_inner**dia_inner) {
-            bootbox.alert("{% trans %}tools.reel_calc.outer_greater_inner_error{% endtrans %}");
-            return;
+        function updateReelCalc() {
+            var dia_inner = document.getElementById('reel_dia_inner').value;
+            var dia_outer = document.getElementById('reel_dia_outer').value;
+            var tape_thickness = document.getElementById('reel_tape_thick').value;
+            var part_distance = document.getElementById('reel_part_distance').value;
+
+            if (dia_inner == "" || dia_outer == "" || tape_thickness == "") {
+                bootbox.alert("{% trans %}tools.reel_calc.missing_values.error{% endtrans %}");
+                return;
+            }
+
+            if (dia_outer**dia_outer < dia_inner**dia_inner) {
+                bootbox.alert("{% trans %}tools.reel_calc.outer_greater_inner_error{% endtrans %}");
+                return;
+            }
+
+            var length = Math.PI * (dia_outer * dia_outer - dia_inner * dia_inner ) / (4 * tape_thickness);
+
+            var legth_formatted = length.toFixed(2) + ' mm';
+
+            if (length > 1000) {
+                length_formatted = (length / 1000).toFixed(2) + ' m';
+            } else if (length > 10) {
+                length_formatted = (length / 10).toFixed(2) + ' cm';
+            }
+
+            document.getElementById('result_length').textContent = length_formatted;
+
+            //Skip if no part_distance was given
+            if (part_distance == "" || part_distance == 0) {
+                return;
+            }
+
+            var parts_per_meter = 1 / (part_distance / 1000);
+
+            document.getElementById('result_parts_per_meter').textContent = parts_per_meter.toFixed(2) + ' 1/m';
+
+            var parts_amount = (length/1000) * parts_per_meter;
+
+            document.getElementById('result_amount').textContent = Math.floor(parts_amount);
+
         }
-
-        var length = Math.PI * (dia_outer * dia_outer - dia_inner * dia_inner ) / (4 * tape_thickness);
-
-        var legth_formatted = length.toFixed(2) + ' mm';
-
-        if (length > 1000) {
-            length_formatted = (length / 1000).toFixed(2) + ' m';
-        } else if (length > 10) {
-            length_formatted = (length / 10).toFixed(2) + ' cm';
-        }
-
-        document.getElementById('result_length').textContent = length_formatted;
-
-        //Skip if no part_distance was given
-        if (part_distance == "" || part_distance == 0) {
-            return;
-        }
-
-        var parts_per_meter = 1 / (part_distance / 1000);
-
-        document.getElementById('result_parts_per_meter').textContent = parts_per_meter.toFixed(2) + ' 1/m';
-
-        var parts_amount = (length/1000) * parts_per_meter;
-
-        document.getElementById('result_amount').textContent = Math.floor(parts_amount);
-
-    }
-</script>
+    </script>
 {% endblock %}

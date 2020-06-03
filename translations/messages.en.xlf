@@ -9291,5 +9291,17 @@ Element 3</target>
         <target>Please fill in all values!</target>
       </segment>
     </unit>
+    <unit id="k.OEkUU" name="tools.reel_calc.load_preset">
+      <segment>
+        <source>tools.reel_calc.load_preset</source>
+        <target>Load preset</target>
+      </segment>
+    </unit>
+    <unit id="xIL4yg1" name="tools.reel_calc.explanation">
+      <segment>
+        <source>tools.reel_calc.explanation</source>
+        <target>This calculator gives you an estimation, how many parts are remaining on an SMD reel. Measure the noted the dimensions on the reel (or use some of the presets) and click "Update" to get an result.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
