@@ -82,7 +82,7 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
     public function __construct(Security $security, SessionInterface $session, HttpUtils $httpUtils)
     {
         $this->security = $security;
-        /** @var $session Session */
+        /** @var Session $session */
         $this->flashBag = $session->getFlashBag();
         $this->httpUtils = $httpUtils;
     }
