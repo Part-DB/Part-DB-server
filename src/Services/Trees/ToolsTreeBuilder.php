@@ -105,10 +105,21 @@ class ToolsTreeBuilder
             $item->tag(['tree_tools', 'groups', $this->keyGenerator->generateKey()]);
 
             $tree = [];
-            $tree[] = new TreeViewNode($this->translator->trans('tree.tools.tools'), null, $this->getToolsNode());
-            $tree[] = new TreeViewNode($this->translator->trans('tree.tools.edit'), null, $this->getEditNodes());
-            $tree[] = new TreeViewNode($this->translator->trans('tree.tools.show'), null, $this->getShowNodes());
-            $tree[] = new TreeViewNode($this->translator->trans('tree.tools.system'), null, $this->getSystemNodes());
+            if (!empty($this->getToolsNode())) {
+                $tree[] = new TreeViewNode($this->translator->trans('tree.tools.tools'), null, $this->getToolsNode());
+            }
+
+            if (!empty($this->getEditNodes())) {
+                $tree[] = new TreeViewNode($this->translator->trans('tree.tools.edit'), null, $this->getEditNodes());
+            }
+            if (!empty($this->getShowNodes())) {
+                $tree[] = new TreeViewNode($this->translator->trans('tree.tools.show'), null, $this->getShowNodes());
+            }
+            if (!empty($this->getSystemNodes())) {
+                $tree[] = new TreeViewNode(
+                    $this->translator->trans('tree.tools.system'), null, $this->getSystemNodes()
+                );
+            }
 
             return $tree;
         });
