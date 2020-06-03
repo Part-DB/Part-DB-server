@@ -132,6 +132,13 @@ class ToolsTreeBuilder
             );
         }
 
+        if ($this->security->isGranted('@tools.reel_calculator')) {
+            $nodes[] = new TreeViewNode(
+                $this->translator->trans('tree.tools.tools.reel_calculator'),
+                $this->urlGenerator->generate('tools_reel_calculator')
+            );
+        }
+
         return $nodes;
     }
 

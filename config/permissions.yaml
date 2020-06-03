@@ -273,15 +273,15 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       labels:
         label: "perm.tools.labels"
         bit: 2
-      calculator:
-        label: "perm.tools.calculator"
-        bit: 4
-      footprints:
-        label: "perm.tools.footprints"
-        bit: 6
-      ic_logos:
-        label: "perm.tools.ic_logos"
-        bit: 8
+      #calculator:
+      #  label: "perm.tools.calculator"
+      #  bit: 4
+      #footprints:
+      #  label: "perm.tools.footprints"
+      #  bit: 6
+      #ic_logos:
+      #  label: "perm.tools.ic_logos"
+      #  bit: 8
       statistics:
         label: "perm.tools.statistics"
         bit: 10
@@ -294,6 +294,9 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       label_scanner:
         label: "perm.tools.label_scanner"
         bit: 16
+      reel_calculator:
+        label: "perm.tools.reel_calculator"
+        bit: 18
 
   groups:
     label: "perm.groups"

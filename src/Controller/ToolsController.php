@@ -21,6 +21,8 @@ class ToolsController extends AbstractController
      */
     public function reelCalculator() : Response
     {
+        $this->denyAccessUnlessGranted('@tools.reel_calculator');
+
         return $this->render("Tools/ReelCalculator/main.html.twig");
     }
 }

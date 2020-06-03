@@ -9303,5 +9303,17 @@ Element 3</target>
         <target>This calculator gives you an estimation, how many parts are remaining on an SMD reel. Measure the noted the dimensions on the reel (or use some of the presets) and click "Update" to get an result.</target>
       </segment>
     </unit>
+    <unit id="E1xAigo" name="perm.tools.reel_calculator">
+      <segment>
+        <source>perm.tools.reel_calculator</source>
+        <target>SMD Reel calculator</target>
+      </segment>
+    </unit>
+    <unit id="Q_6JPEr" name="tree.tools.tools.reel_calculator">
+      <segment>
+        <source>tree.tools.tools.reel_calculator</source>
+        <target>SMD Reel calculator</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

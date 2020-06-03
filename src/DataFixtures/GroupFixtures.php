@@ -82,7 +82,7 @@ class GroupFixtures extends Fixture
             'suppliers' => 5461,
             'manufacturers' => 5461,
             'attachment_types' => 1365,
-            'tools' => 87381,
+            'tools' => 349525,
             'labels' => 87381,
             'parts_category' => 5,
             'parts_minamount' => 5,
