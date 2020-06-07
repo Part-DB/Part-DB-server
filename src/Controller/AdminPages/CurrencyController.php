@@ -135,6 +135,7 @@ class CurrencyController extends BaseAdminController
             return false;
         }
 
+        //@phpstan-ignore-next-line
         if ($form->get('update_exchange_rate')->isClicked()) {
             $this->denyAccessUnlessGranted('edit', $entity);
             try {
