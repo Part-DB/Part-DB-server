@@ -142,6 +142,11 @@ services:
         arguments:
             $base_currency: '%partdb.default_currency%'
 
+    App\Services\ExchangeRateUpdater:
+        arguments:
+            $base_currency: '%partdb.default_currency%'
+            $swap: '@florianv_swap.swap'
+
     ###################################################################################################################
     # User system
     ####################################################################################################################

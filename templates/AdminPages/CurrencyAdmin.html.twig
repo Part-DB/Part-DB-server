@@ -18,6 +18,10 @@
     {% endif %}
 
     {{ form_row(form.exchange_rate) }}
+
+    {% if form.update_exchange_rate is defined %}
+        {{ form_row(form.update_exchange_rate, {attr: {class: 'btn-link'}}) }}
+    {% endif %}
     {% if entity.inverseExchangeRate %}
         <span class="form-text text-muted offset-3 col-9">
         {{ '1'|format_currency(default_currency) }} = {{ entity.inverseExchangeRate.tofloat | format_currency(entity.isoCode, {fraction_digit: 5}) }}

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "07efae478ec4174b9406bb3b35c8aa82",
+    "content-hash": "4c03a0cabed4fc08ab4f6e0fe85dd2bf",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1667,6 +1667,70 @@
                 "money"
             ],
             "time": "2020-06-05T12:28:59+00:00"
+        },
+        {
+            "name": "florianv/swap-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/florianv/symfony-swap.git",
+                "reference": "3d31a6cc5c37ab36e4af2a47664b47260a628b69"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/florianv/symfony-swap/zipball/3d31a6cc5c37ab36e4af2a47664b47260a628b69",
+                "reference": "3d31a6cc5c37ab36e4af2a47664b47260a628b69",
+                "shasum": ""
+            },
+            "require": {
+                "florianv/swap": "^4.0",
+                "php": "^5.6|^7.0",
+                "symfony/framework-bundle": "~3.0|~4.0|~5.0"
+            },
+            "require-dev": {
+                "nyholm/psr7": "^1.1",
+                "php-http/guzzle6-adapter": "^1.0",
+                "php-http/message": "^1.7",
+                "phpunit/phpunit": "~5.0",
+                "symfony/cache": "~3.0|~4.0|~5.0"
+            },
+            "suggest": {
+                "symfony/cache": "For caching"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Florianv\\SwapBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Florian Voutzinos",
+                    "email": "florian@voutzinos.com",
+                    "homepage": "http://florian.voutzinos.com"
+                }
+            ],
+            "description": "Integrates the Swap library with Symfony",
+            "homepage": "https://github.com/florianv/FlorianvSwapBundle",
+            "keywords": [
+                "Rate",
+                "bundle",
+                "conversion",
+                "currency",
+                "exchange",
+                "money",
+                "symfony"
+            ],
+            "time": "2020-05-12T11:25:49+00:00"
         },
         {
             "name": "friendsofsymfony/ckeditor-bundle",
@@ -12795,6 +12859,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "florianv/swap-bundle": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,

@@ -1,0 +1,6 @@
+florianv_swap:
+  providers:
+    exchange_rates_api: ~
+    fixer:
+      access_key: "%env(FIXER_API_KEY)%"
+    european_central_bank: ~           # European Central Bank

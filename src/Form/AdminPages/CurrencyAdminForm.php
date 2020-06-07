@@ -46,6 +46,7 @@ use App\Entity\Base\AbstractNamedDBElement;
 use App\Form\Type\BigDecimalMoneyType;
 use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Security\Core\Security;
 
@@ -82,5 +83,16 @@ class CurrencyAdminForm extends BaseEntityAdminForm
             'scale' => 6,
             'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
+
+        if(!$is_new) {
+            $builder->add(
+                'update_exchange_rate',
+                SubmitType::class,
+                [
+                    'label' => 'currency.edit.update_rate',
+                    'disabled' => ! $this->security->isGranted('edit', $entity)
+                ]
+            );
+        }
     }
 }

@@ -16,6 +16,7 @@
         "dompdf/dompdf": "^0.8.5",
         "erusev/parsedown": "^1.7",
         "florianv/swap": "^4.0",
+        "florianv/swap-bundle": "dev-master",
         "friendsofsymfony/ckeditor-bundle": "^2.0",
         "gregwar/captcha-bundle": "^2.1.0",
         "league/html-to-markdown": "^4.8",

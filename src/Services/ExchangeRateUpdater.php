@@ -1,0 +1,34 @@
+<?php
+
+
+namespace App\Services;
+
+
+use App\Entity\PriceInformations\Currency;
+use Brick\Math\BigDecimal;
+use Swap\Swap;
+
+class ExchangeRateUpdater
+{
+    private $base_currency;
+    private $swap;
+
+    public function __construct(string $base_currency, Swap $swap)
+    {
+        $this->base_currency = $base_currency;
+        $this->swap = $swap;
+    }
+
+    /**
+     * Updates the exchange rate of the given currency using the globally configured providers.
+     * @param  Currency  $currency
+     * @return Currency
+     */
+    public function update(Currency $currency): Currency
+    {
+        $rate = $this->swap->latest($currency->getIsoCode().'/'.$this->base_currency);
+        $currency->setExchangeRate(BigDecimal::of($rate->getValue()));
+        return $currency;
+    }
+
+}

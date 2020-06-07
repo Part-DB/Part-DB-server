@@ -150,6 +150,9 @@
     "florianv/swap": {
         "version": "3.5.0"
     },
+    "florianv/swap-bundle": {
+        "version": "5.0.0"
+    },
     "friendsofphp/php-cs-fixer": {
         "version": "2.2",
         "recipe": {

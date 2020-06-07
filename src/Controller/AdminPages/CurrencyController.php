@@ -47,14 +47,29 @@ use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Parameters\CurrencyParameter;
 use App\Entity\PriceInformations\Currency;
 use App\Form\AdminPages\CurrencyAdminForm;
+use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
+use App\Services\ExchangeRateUpdater;
+use App\Services\LabelSystem\Barcodes\BarcodeExampleElementsGenerator;
+use App\Services\LabelSystem\LabelGenerator;
+use App\Services\LogSystem\EventCommentHelper;
+use App\Services\LogSystem\HistoryHelper;
+use App\Services\LogSystem\TimeTravel;
 use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Exchanger\Exception\ChainException;
+use Exchanger\Exception\Exception;
+use Exchanger\Exception\UnsupportedCurrencyPairException;
+use Omines\DataTablesBundle\DataTableFactory;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/currency")
@@ -70,6 +85,40 @@ class CurrencyController extends BaseAdminController
     protected $attachment_class = CurrencyAttachment::class;
     protected $parameter_class = CurrencyParameter::class;
 
+    protected $exchangeRateUpdater;
+
+    public function __construct(
+        TranslatorInterface $translator,
+        UserPasswordEncoderInterface $passwordEncoder,
+        AttachmentSubmitHandler $attachmentSubmitHandler,
+        EventCommentHelper $commentHelper,
+        HistoryHelper $historyHelper,
+        TimeTravel $timeTravel,
+        DataTableFactory $dataTableFactory,
+        EventDispatcherInterface $eventDispatcher,
+        BarcodeExampleElementsGenerator $barcodeExampleGenerator,
+        LabelGenerator $labelGenerator,
+        EntityManagerInterface $entityManager,
+        ExchangeRateUpdater $exchangeRateUpdater
+
+    ) {
+        $this->exchangeRateUpdater = $exchangeRateUpdater;
+
+        parent::__construct(
+            $translator,
+            $passwordEncoder,
+            $attachmentSubmitHandler,
+            $commentHelper,
+            $historyHelper,
+            $timeTravel,
+            $dataTableFactory,
+            $eventDispatcher,
+            $barcodeExampleGenerator,
+            $labelGenerator,
+            $entityManager
+        );
+    }
+
     /**
      * @Route("/{id}", name="currency_delete", methods={"DELETE"})
      *
@@ -78,6 +127,30 @@ class CurrencyController extends BaseAdminController
     public function delete(Request $request, Currency $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
+    }
+
+    public function additionalActionEdit(FormInterface $form, AbstractNamedDBElement $entity): bool
+    {
+        if (!$entity instanceof Currency) {
+            return false;
+        }
+
+        if ($form->get('update_exchange_rate')->isClicked()) {
+            $this->denyAccessUnlessGranted('edit', $entity);
+            try {
+                $this->exchangeRateUpdater->update($entity);
+                $this->addFlash('info', 'currency.edit.exchange_rate_updated.success');
+            } catch (ChainException $exception) {
+                $exception = $exception->getExceptions()[0];
+                if ($exception instanceof UnsupportedCurrencyPairException || stripos($exception->getMessage(), "supported") !== false) {
+                    $this->addFlash('error', 'currency.edit.exchange_rate_update.unsupported_currency');
+                } else {
+                    $this->addFlash('error', 'currency.edit.exchange_rate_update.generic_error');
+                }
+            }
+        }
+
+        return true;
     }
 
     /**
