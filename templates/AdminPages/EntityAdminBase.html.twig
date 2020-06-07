@@ -1,197 +1,205 @@
 {% extends "main_card.html.twig" %}
 
-{% block card_type %}
-    {% if timeTravel is defined and timeTravel is not null %}
-        bg-primary-striped text-white
-    {% else %}
-        bg-primary text-white
-    {% endif %}
-{% endblock %}
+    {% block title %}
+        {% if entity.id is null %}
+            {{ block("new_title") }}
+        {% else %}
+            {{ block("edit_title") }}
+        {% endif %}
+    {% endblock %}
 
-{% form_theme form.log_comment 'bootstrap_4_layout.html.twig' %}
+    {% block card_type %}
+        {% if timeTravel is defined and timeTravel is not null %}
+            bg-primary-striped text-white
+        {% else %}
+            bg-primary text-white
+        {% endif %}
+    {% endblock %}
 
-{% block card_content %}
-    <div class="row">
-        <div class="col-sm-4">
+    {% form_theme form.log_comment 'bootstrap_4_layout.html.twig' %}
 
-            <div class="row">
-                <div class="col-8">
-                    <input id="tree-search" type="search" class="form-control" placeholder="{% trans %}search.placeholder{% endtrans %}">
+    {% block card_content %}
+        <div class="row">
+            <div class="col-sm-4">
+
+                <div class="row">
+                    <div class="col-8">
+                        <input id="tree-search" type="search" class="form-control" placeholder="{% trans %}search.placeholder{% endtrans %}">
+                    </div>
+                    <div class="btn-group btn-group-sm col-4" role="group">
+                        <button type="button" class="btn btn-outline-secondary" id="tree-expand"
+                                title="{% trans %}expandAll{% endtrans %}">
+                            <i class="fas fa-plus fa-fw"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" id="tree-reduce"
+                                title="{% trans %}reduceAll{% endtrans %}">
+                            <i class="fas fa-minus fa-fw"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="btn-group btn-group-sm col-4" role="group">
-                    <button type="button" class="btn btn-outline-secondary" id="tree-expand"
-                            title="{% trans %}expandAll{% endtrans %}">
-                        <i class="fas fa-plus fa-fw"></i>
-                    </button>
-                    <button type="button" class="btn btn-outline-secondary" id="tree-reduce"
-                            title="{% trans %}reduceAll{% endtrans %}">
-                        <i class="fas fa-minus fa-fw"></i>
-                    </button>
+
+                <div class="treeview-sm mt-2" id="tree" data-tree-data="{{ generateTreeData(entity) }}"
+                     data-tree-search="#tree-search" data-tree-expand="#tree-expand" data-tree-reduce="#tree-reduce">
+
                 </div>
+
             </div>
 
-            <div class="treeview-sm mt-2" id="tree" data-tree-data="{{ generateTreeData(entity) }}"
-                 data-tree-search="#tree-search" data-tree-expand="#tree-expand" data-tree-reduce="#tree-reduce">
+            <div class="col-sm-8">
 
-            </div>
-
-        </div>
-
-        <div class="col-sm-8">
-
-            <fieldset>
-                <legend>
-                    {% if entity.ID %}
-                        <strong>{% block edit_title %}{% trans with {'%name': entity.name} %}edit.caption{% endtrans %}{% endblock %}</strong>
-                        {% if timeTravel is defined and timeTravel is not null %}
-                            ({{ timeTravel|format_datetime('short') }})
+                <fieldset>
+                    <legend>
+                        {% if entity.ID %}
+                            <strong>{% block edit_title %}{% trans with {'%name': entity.name} %}edit.caption{% endtrans %}{% endblock %}</strong>
+                            {% if timeTravel is defined and timeTravel is not null %}
+                                ({{ timeTravel|format_datetime('short') }})
+                            {% endif %}
+                            <span class="float-right">{% block quick_links %}{% endblock %}</span>
+                        {% else %}
+                            <strong>{% block new_title %}{% trans %}new.caption{% endtrans %}{% endblock %}</strong>
                         {% endif %}
-                        <span class="float-right">{% block quick_links %}{% endblock %}</span>
-                    {% else %}
-                        <strong>{% block new_title %}{% trans %}new.caption{% endtrans %}{% endblock %}</strong>
+                    </legend>
+                    {% if timeTravel is defined and timeTravel is not null %}
+                        <b>{% trans with {'%timestamp%': timeTravel|format_datetime('short')} %}part.info.timetravel_hint{% endtrans %}</b>
                     {% endif %}
-                </legend>
-                {% if timeTravel is defined and timeTravel is not null %}
-                <b>{% trans with {'%timestamp%': timeTravel|format_datetime('short')} %}part.info.timetravel_hint{% endtrans %}</b>
-                {% endif %}
 
-                {{ form_errors(form) }}
+                    {{ form_errors(form) }}
 
-                <ul class="nav nav-tabs mt-2">
-                    <li class="nav-item"><a class="link-anchor active nav-link" data-toggle="tab" href="#home">{% trans %}standard.label{% endtrans %}</a></li>
-                    <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#info">{% trans %}infos.label{% endtrans %}</a></li>
-                    {% if datatable is defined %}
-                        <li class="nav-item {% if datatable is null %}not-allowed{% endif %}"><a data-toggle="tab" class="link-anchor nav-link {% if datatable is null %}disabled{% endif %}" href="#history">{% trans %}history.label{% endtrans %}</a></li>
-                    {% endif %}
-                    {% if entity.id %}
-                        <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#export">{% trans %}export.label{% endtrans %}</a> </li>
-                    {% else %}
-                        <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#import_export">{% trans %}import_export.label{% endtrans %}</a> </li>
-                        <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#mass_creation">{% trans %}mass_creation.label{% endtrans %}</a></li>
-                    {% endif %}
-                </ul>
-
-                <div class="tab-content mb-3 mt-3">
-
-                    <div id="home" class="tab-pane fade show active">
-
-                        {{ form_start(form) }}
-
-
-                        <ul class="nav nav-pills mb-2">
-                            <li class="nav-item">
-                                <a data-toggle="tab" class="nav-link link-anchor active" href="#common">{% trans %}admin.common{% endtrans %}</a>
-                            </li>
-                            {% block additional_pills %}{% endblock %}
-                            <li class="nav-item">
-                                <a data-toggle="tab" class="nav-link link-anchor" href="#attachments">{% trans %}admin.attachments{% endtrans %}</a>
-                            </li>
-                            {% if entity.parameters is defined %}
-                            <li class="nav-item">
-                                <a data-toggle="tab" class="nav-link link-anchor" href="#parameters">{% trans %}admin.parameters{% endtrans %}</a>
-                            </li>
-                            {% endif %}
-                        </ul>
-
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="common">
-                                {{ form_row(form.name) }}
-                                {% if form.parent%}
-                                    {{ form_row(form.parent) }}
-                                {% endif %}
-                                {% if form.not_selectable is defined %}
-                                    {{ form_row(form.not_selectable) }}
-                                {% endif %}
-
-                                {% block additional_controls %}{% endblock %}
-
-                                {% block comment %}
-                                    {{ form_row(form.comment) }}
-                                {% endblock %}
-
-                            </div>
-                            {% block additional_panes %}{% endblock %}
-
-                            <div class="tab-pane" id="attachments">
-                                {% include "AdminPages/_attachments.html.twig" %}
-                                {% block master_picture_block %}
-                                    {{ form_row(form.master_picture_attachment) }}
-                                {% endblock %}
-                            </div>
-
-                            {% if entity.parameters is defined %}
-                                <div id="parameters" class="tab-pane fade">
-                                    {% include "AdminPages/_parameters.html.twig" %}
-                                </div>
-                            {% endif %}
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-sm-9 offset-sm-3">
-                                <div class="btn-group">
-                                    {{ form_widget(form.save) }}
-                                    <button type="button" class="btn {% if entity.id is not null %}btn-primary{% else %}btn-success{% endif %} dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <div class="dropdown-menu p-2">
-                                        {{ form_row(form.log_comment)}}
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        {{ form_row(form.reset) }}
-                        {{ form_end(form) }}
-
-
-                        {# Only include on existing parts #}
+                    <ul class="nav nav-tabs mt-2">
+                        <li class="nav-item"><a class="link-anchor active nav-link" data-toggle="tab" href="#home">{% trans %}standard.label{% endtrans %}</a></li>
+                        <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#info">{% trans %}infos.label{% endtrans %}</a></li>
+                        {% if datatable is defined %}
+                            <li class="nav-item {% if datatable is null %}not-allowed{% endif %}"><a data-toggle="tab" class="link-anchor nav-link {% if datatable is null %}disabled{% endif %}" href="#history">{% trans %}history.label{% endtrans %}</a></li>
+                        {% endif %}
                         {% if entity.id %}
-                            {{ include('AdminPages/_duplicate.html.twig') }}
-                            {{ include('AdminPages/_delete_form.html.twig') }}
+                            <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#export">{% trans %}export.label{% endtrans %}</a> </li>
+                        {% else %}
+                            <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#import_export">{% trans %}import_export.label{% endtrans %}</a> </li>
+                            <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#mass_creation">{% trans %}mass_creation.label{% endtrans %}</a></li>
+                        {% endif %}
+                    </ul>
+
+                    <div class="tab-content mb-3 mt-3">
+
+                        <div id="home" class="tab-pane fade show active">
+
+                            {{ form_start(form) }}
+
+
+                            <ul class="nav nav-pills mb-2">
+                                <li class="nav-item">
+                                    <a data-toggle="tab" class="nav-link link-anchor active" href="#common">{% trans %}admin.common{% endtrans %}</a>
+                                </li>
+                                {% block additional_pills %}{% endblock %}
+                                <li class="nav-item">
+                                    <a data-toggle="tab" class="nav-link link-anchor" href="#attachments">{% trans %}admin.attachments{% endtrans %}</a>
+                                </li>
+                                {% if entity.parameters is defined %}
+                                    <li class="nav-item">
+                                        <a data-toggle="tab" class="nav-link link-anchor" href="#parameters">{% trans %}admin.parameters{% endtrans %}</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="common">
+                                    {{ form_row(form.name) }}
+                                    {% if form.parent%}
+                                        {{ form_row(form.parent) }}
+                                    {% endif %}
+                                    {% if form.not_selectable is defined %}
+                                        {{ form_row(form.not_selectable) }}
+                                    {% endif %}
+
+                                    {% block additional_controls %}{% endblock %}
+
+                                    {% block comment %}
+                                        {{ form_row(form.comment) }}
+                                    {% endblock %}
+
+                                </div>
+                                {% block additional_panes %}{% endblock %}
+
+                                <div class="tab-pane" id="attachments">
+                                    {% include "AdminPages/_attachments.html.twig" %}
+                                    {% block master_picture_block %}
+                                        {{ form_row(form.master_picture_attachment) }}
+                                    {% endblock %}
+                                </div>
+
+                                {% if entity.parameters is defined %}
+                                    <div id="parameters" class="tab-pane fade">
+                                        {% include "AdminPages/_parameters.html.twig" %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-9 offset-sm-3">
+                                    <div class="btn-group">
+                                        {{ form_widget(form.save) }}
+                                        <button type="button" class="btn {% if entity.id is not null %}btn-primary{% else %}btn-success{% endif %} dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu p-2">
+                                            {{ form_row(form.log_comment)}}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            {{ form_row(form.reset) }}
+                            {{ form_end(form) }}
+
+
+                            {# Only include on existing parts #}
+                            {% if entity.id %}
+                                {{ include('AdminPages/_duplicate.html.twig') }}
+                                {{ include('AdminPages/_delete_form.html.twig') }}
+                            {% endif %}
+
+                        </div>
+
+                        <div id="info" class="tab-pane fade">
+                            {% include "AdminPages/_info.html.twig" %}
+                        </div>
+
+                        {% if datatable is defined and datatable is not null %}
+                            <div id="history" class="tab-pane fade">
+                                {% include "LogSystem/_log_table.html.twig" %}
+                            </div>
                         {% endif %}
 
+                        {% if entity.id %}
+                            <div id="export" class="tab-pane fade">
+                                {% include 'AdminPages/_export_form.html.twig' with {'path' : path(route_base ~ '_export', {'id': entity.id})} %}
+                            </div>
+                        {% else %} {# For new element we have a combined import/export tab #}
+                            <div id="import_export" class="tab-pane fade">
+
+                                {{ form_start(import_form) }}
+
+                                {{ form_end(import_form) }}
+
+                                <hr>
+                                <fieldset>
+                                    <legend>{% trans %}export_all.label{% endtrans %}</legend>
+                                    {% include 'AdminPages/_export_form.html.twig' with {'path' : path('attachment_type_export_all')} %}
+                                </fieldset>
+                            </div>
+
+                            <div id="mass_creation" class="tab-pane fade">
+                                <span class="text-muted">{% trans %}mass_creation.help{% endtrans %}</span>
+                                {{ form(mass_creation_form) }}
+                            </div>
+
+
+                        {% endif %}
                     </div>
+                </fieldset>
+            </div>
 
-                    <div id="info" class="tab-pane fade">
-                        {% include "AdminPages/_info.html.twig" %}
-                    </div>
-
-                    {% if datatable is defined and datatable is not null %}
-                        <div id="history" class="tab-pane fade">
-                            {% include "LogSystem/_log_table.html.twig" %}
-                        </div>
-                    {% endif %}
-
-                    {% if entity.id %}
-                        <div id="export" class="tab-pane fade">
-                            {% include 'AdminPages/_export_form.html.twig' with {'path' : path(route_base ~ '_export', {'id': entity.id})} %}
-                        </div>
-                    {% else %} {# For new element we have a combined import/export tab #}
-                        <div id="import_export" class="tab-pane fade">
-
-                            {{ form_start(import_form) }}
-
-                            {{ form_end(import_form) }}
-
-                            <hr>
-                            <fieldset>
-                                <legend>{% trans %}export_all.label{% endtrans %}</legend>
-                                {% include 'AdminPages/_export_form.html.twig' with {'path' : path('attachment_type_export_all')} %}
-                            </fieldset>
-                        </div>
-
-                        <div id="mass_creation" class="tab-pane fade">
-                            <span class="text-muted">{% trans %}mass_creation.help{% endtrans %}</span>
-                            {{ form(mass_creation_form) }}
-                        </div>
-
-
-                    {% endif %}
-                </div>
-            </fieldset>
         </div>
-
-    </div>
-{% endblock %}
+    {% endblock %}
