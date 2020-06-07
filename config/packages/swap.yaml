@@ -1,6 +1,6 @@
 florianv_swap:
   providers:
-    exchange_rates_api: ~
-    fixer:
+    european_central_bank: ~                      # European Central Bank (only works for EUR base currency)
+    fixer:                                        # Fixer.io (needs an API key)
       access_key: "%env(FIXER_API_KEY)%"
-    european_central_bank: ~           # European Central Bank
+    exchange_rates_api: ~
