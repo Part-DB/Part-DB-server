@@ -12,6 +12,26 @@
         <target>Типы прикрепленных файлов</target>
       </segment>
     </unit>
+    <unit id="5cpaOO8" name="attachment_type.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.edit</source>
+        <target>Изменить тип файла</target>
+      </segment>
+    </unit>
+    <unit id="v83r0Yh" name="attachment_type.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.new</source>
+        <target>Новый тип файла</target>
+      </segment>
+    </unit>
     <unit id="OllfX2C" name="category.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:4</note>
@@ -57,6 +77,26 @@
         <target>Расширенные</target>
       </segment>
     </unit>
+    <unit id="eL_giUu" name="category.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:13</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit</source>
+        <target>Изменить категорию</target>
+      </segment>
+    </unit>
+    <unit id="AT4wfK_" name="category.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:17</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>category.new</source>
+        <target>Новая категория</target>
+      </segment>
+    </unit>
     <unit id="BJtSZa4" name="currency.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:4</note>
@@ -87,6 +127,26 @@
         <target>Знак валюты</target>
       </segment>
     </unit>
+    <unit id="pfHq2BO" name="currency.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:29</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.edit</source>
+        <target>Изменить валюту</target>
+      </segment>
+    </unit>
+    <unit id="b9Ed.K9" name="currency.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:33</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.new</source>
+        <target>Новая валюта</target>
+      </segment>
+    </unit>
     <unit id="tlgOYB5" name="device.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
@@ -96,6 +156,26 @@
       <segment state="translated">
         <source>device.caption</source>
         <target>Устройство</target>
+      </segment>
+    </unit>
+    <unit id="fu1Uc_k" name="device.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>device.edit</source>
+        <target>Изменить устройство</target>
+      </segment>
+    </unit>
+    <unit id="2z6Gm_r" name="device.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>device.new</source>
+        <target>Новое устройство</target>
       </segment>
     </unit>
     <unit id="lQ8QeGr" name="search.placeholder">
@@ -318,6 +398,26 @@
         <target>Посадочные места</target>
       </segment>
     </unit>
+    <unit id="U4500WS" name="footprint.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:13</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.edit</source>
+        <target>Изменить посадочное место</target>
+      </segment>
+    </unit>
+    <unit id="O3SliSK" name="footprint.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:17</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.new</source>
+        <target>Новое посадочное место</target>
+      </segment>
+    </unit>
     <unit id="ZOZqHeB" name="group.edit.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
@@ -340,6 +440,73 @@
         <target>Разрешения</target>
       </segment>
     </unit>
+    <unit id="BaTTHkG" name="group.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:24</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>group.edit</source>
+        <target>Изменить группу</target>
+      </segment>
+    </unit>
+    <unit id="vdjTPNv" name="group.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:28</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>group.new</source>
+        <target>Новая группа</target>
+      </segment>
+    </unit>
+    <unit id="Rr_.JrB" name="label_profile.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.caption</source>
+        <target>Профили этикеток</target>
+      </segment>
+    </unit>
+    <unit id="QPqYdRg" name="label_profile.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.advanced</source>
+        <target>Расширенные</target>
+      </segment>
+    </unit>
+    <unit id="Pi_q_nj" name="label_profile.comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.comment</source>
+        <target>Комментарий</target>
+      </segment>
+    </unit>
+    <unit id="VwVLyJA" name="label_profile.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:55</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.edit</source>
+        <target>Изменить профиль этикетки</target>
+      </segment>
+    </unit>
+    <unit id="lObewxU" name="label_profile.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:59</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.new</source>
+        <target>Новый профиль этикетки</target>
+      </segment>
+    </unit>
     <unit id="Fum_mCX" name="manufacturer.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
@@ -349,6 +516,26 @@
       <segment state="translated">
         <source>manufacturer.caption</source>
         <target>Производители</target>
+      </segment>
+    </unit>
+    <unit id="e41FWWa" name="manufacturer.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:8</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.edit</source>
+        <target>Изменить производителя</target>
+      </segment>
+    </unit>
+    <unit id="g4gO3Qs" name="manufacturer.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.new</source>
+        <target>Новый производитель</target>
       </segment>
     </unit>
     <unit id="6tFKnGD" name="measurement_unit.caption">
@@ -376,6 +563,26 @@
         <target>Хранилища</target>
       </segment>
     </unit>
+    <unit id="eSA7p5N" name="storelocation.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:32</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.edit</source>
+        <target>Изменить место хранения</target>
+      </segment>
+    </unit>
+    <unit id="eIvG1.A" name="storelocation.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:36</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.new</source>
+        <target>Новое место хранения</target>
+      </segment>
+    </unit>
     <unit id="ykqfBBp" name="supplier.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
@@ -385,6 +592,26 @@
       <segment state="translated">
         <source>supplier.caption</source>
         <target>Поставщики</target>
+      </segment>
+    </unit>
+    <unit id="DpVIJeK" name="supplier.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.edit</source>
+        <target>Изменить поставщика</target>
+      </segment>
+    </unit>
+    <unit id="AcG6iT_" name="supplier.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:20</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.new</source>
+        <target>Новый поставщик</target>
       </segment>
     </unit>
     <unit id=".YoS4pi" name="user.edit.caption">
@@ -518,6 +745,26 @@
       <segment state="translated">
         <source>user.edit.tfa.disable_tfa.btn</source>
         <target>Запретить все способы двухфакторной аутентификации</target>
+      </segment>
+    </unit>
+    <unit id="vQxH4zm" name="user.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:85</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit</source>
+        <target>Изменить пользователя</target>
+      </segment>
+    </unit>
+    <unit id="TvuuOMC" name="user.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:89</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>user.new</source>
+        <target>Новый пользователь</target>
       </segment>
     </unit>
     <unit id="0EjI8FY" name="attachment.delete">
@@ -686,6 +933,15 @@
       <segment state="translated">
         <source>entity.delete.recursive</source>
         <target>Удалить рекурсивно (все подэлементы)</target>
+      </segment>
+    </unit>
+    <unit id="vlslklu" name="entity.duplicate">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_duplicate.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.duplicate</source>
+        <target>Повторный элемент</target>
       </segment>
     </unit>
     <unit id="4_pqNGT" name="export.format">
@@ -1293,6 +1549,135 @@
       <segment state="translated">
         <source>homepage.last_activity</source>
         <target>Последние действия</target>
+      </segment>
+    </unit>
+    <unit id="bqeaYn7" name="label_generator.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.title</source>
+        <target>Генератор этикеток</target>
+      </segment>
+    </unit>
+    <unit id="qHJOVv6" name="label_generator.common">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.common</source>
+        <target>Общее</target>
+      </segment>
+    </unit>
+    <unit id="WLpYniK" name="label_generator.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.advanced</source>
+        <target>Расширенные</target>
+      </segment>
+    </unit>
+    <unit id="wNFVz._" name="label_generator.profiles">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:24</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.profiles</source>
+        <target>Профили</target>
+      </segment>
+    </unit>
+    <unit id="CjbZJ5j" name="label_generator.selected_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.selected_profile</source>
+        <target>Выбранный профиль</target>
+      </segment>
+    </unit>
+    <unit id="HqINOSK" name="label_generator.edit_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:62</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.edit_profile</source>
+        <target>Изменить профиль</target>
+      </segment>
+    </unit>
+    <unit id="fZChaHF" name="label_generator.load_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:75</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.load_profile</source>
+        <target>Загрузить профиль</target>
+      </segment>
+    </unit>
+    <unit id="UFelt6r" name="label_generator.download">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:102</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.download</source>
+        <target>Скачать</target>
+      </segment>
+    </unit>
+    <unit id="fkESKHW" name="label_generator.label_btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.label_btn</source>
+        <target>Генерировать этикетку</target>
+      </segment>
+    </unit>
+    <unit id="xXkObqX" name="label_generator.label_empty">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.label_empty</source>
+        <target>Новая пустая этикетка</target>
+      </segment>
+    </unit>
+    <unit id="0qyoOfw" name="label_scanner.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.title</source>
+        <target>Сканер этикеток</target>
+      </segment>
+    </unit>
+    <unit id="Z0zU4lk" name="label_scanner.no_cam_found.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.no_cam_found.title</source>
+        <target>Веб-камера не найдена</target>
+      </segment>
+    </unit>
+    <unit id="2Jk59Ug" name="label_scanner.no_cam_found.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.no_cam_found.text</source>
+        <target>Чтобы использовать функцию сканирования вам понадобится веб-камера и разрешение для ее использования. Ниже, вы можете ввести штрихкод вручную.
+</target>
+      </segment>
+    </unit>
+    <unit id="6qQTB7S" name="label_scanner.source_select">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:27</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.source_select</source>
+        <target>Выбор источника</target>
       </segment>
     </unit>
     <unit id="uKTMZBs" name="log.list.title">
@@ -3567,6 +3952,15 @@
         <target>Переключить боковую панель</target>
       </segment>
     </unit>
+    <unit id="iCTvpEA" name="navbar.scanner.link">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>navbar.scanner.link</source>
+        <target>Сканер</target>
+      </segment>
+    </unit>
     <unit id="PRvW.EI" name="user.loggedin.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:38</note>
@@ -3855,6 +4249,15 @@
         <target>CSFR жетон неверен. Перегрузите эту страницу или свяжитесь с администратором если это сообщение остаётся на экране.</target>
       </segment>
     </unit>
+    <unit id="7ynbNyD" name="label_generator.no_entities_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LabelController.php:125</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.no_entities_found</source>
+        <target>Ничего не найдено</target>
+      </segment>
+    </unit>
     <unit id="BeMACpw" name="log.undo.target_not_found">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:149</note>
@@ -4006,6 +4409,34 @@
       <segment state="translated">
         <source>part.created_flash.invalid</source>
         <target>Пожалуйста проверьте введенные данные!</target>
+      </segment>
+    </unit>
+    <unit id="6T8GmmR" name="scan.qr_not_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:68</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:90</note>
+      </notes>
+      <segment state="translated">
+        <source>scan.qr_not_found</source>
+        <target>По данному штрихкоду совпадений не найдено.</target>
+      </segment>
+    </unit>
+    <unit id="vXTqaTo" name="scan.format_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:71</note>
+      </notes>
+      <segment state="translated">
+        <source>scan.format_unknown</source>
+        <target>Неизвестный формат!</target>
+      </segment>
+    </unit>
+    <unit id="8CJPuTZ" name="scan.qr_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:86</note>
+      </notes>
+      <segment state="translated">
+        <source>scan.qr_success</source>
+        <target>Элемент найден.</target>
       </segment>
     </unit>
     <unit id="B1T9Kt6" name="pw_reset.user_or_email">
@@ -4870,6 +5301,204 @@
         <target>Лот на компонент</target>
       </segment>
     </unit>
+    <unit id="FmESg.O" name="label_options.barcode_type.none">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.none</source>
+        <target>Ничто</target>
+      </segment>
+    </unit>
+    <unit id="MxYhcsN" name="label_options.barcode_type.qr">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.qr</source>
+        <target>QR Код (рекомендуется)</target>
+      </segment>
+    </unit>
+    <unit id="uIJQMqh" name="label_options.barcode_type.code128">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.code128</source>
+        <target>Код 128 (рекомендуется)</target>
+      </segment>
+    </unit>
+    <unit id="56JwbDf" name="label_options.barcode_type.code39">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.code39</source>
+        <target>Код 39 (рекомендуется)</target>
+      </segment>
+    </unit>
+    <unit id="lz068u3" name="label_options.barcode_type.code93">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.code93</source>
+        <target>Код 93</target>
+      </segment>
+    </unit>
+    <unit id="kPFpWmf" name="label_options.barcode_type.datamatrix">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.datamatrix</source>
+        <target>Матричный Штрихкод</target>
+      </segment>
+    </unit>
+    <unit id="7I9OV_t" name="label_options.lines_mode.html">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:122</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.lines_mode.html</source>
+        <target>HTML</target>
+      </segment>
+    </unit>
+    <unit id="dFMpKDI" name="label.options.lines_mode.twig">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:122</note>
+      </notes>
+      <segment state="translated">
+        <source>label.options.lines_mode.twig</source>
+        <target>Twig</target>
+      </segment>
+    </unit>
+    <unit id="BybM1v9" name="label_options.lines_mode.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:126</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.lines_mode.help</source>
+        <target>Если здесь выбиран Twig, содержимое поля интерпретируется как шаблон Twig. Смотри &lt;a href="https://twig.symfony.com/doc/3.x/templates.html"&gt;документация Twig&lt;/a&gt; и &lt;a href="https://github.com/Part-DB/Part-DB-symfony/wiki/Labels#twig-mode"&gt;Wiki&lt;/a&gt; для пополнительной информации.</target>
+      </segment>
+    </unit>
+    <unit id="2d9g1o5" name="label_options.page_size.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:47</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.page_size.label</source>
+        <target>Размер этикетки</target>
+      </segment>
+    </unit>
+    <unit id="7ZEGFJ3" name="label_options.supported_elements.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:66</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.supported_elements.label</source>
+        <target>Тип элемента</target>
+      </segment>
+    </unit>
+    <unit id="eSLhawk" name="label_options.barcode_type.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:75</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.label</source>
+        <target>Штрихкод</target>
+      </segment>
+    </unit>
+    <unit id="Z8_BSQ1" name="label_profile.lines.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:102</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.lines.label</source>
+        <target>Содержание</target>
+      </segment>
+    </unit>
+    <unit id="LfMiT9B" name="label_options.additional_css.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:111</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.additional_css.label</source>
+        <target>Дополнительные стили (CSS)</target>
+      </segment>
+    </unit>
+    <unit id="0A6Twij" name="label_options.lines_mode.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:120</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.lines_mode.label</source>
+        <target>Режим парсера</target>
+      </segment>
+    </unit>
+    <unit id="aPqzFJs" name="label_options.width.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:51</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.width.placeholder</source>
+        <target>Ширина</target>
+      </segment>
+    </unit>
+    <unit id="t.j1KtN" name="label_options.height.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:60</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.height.placeholder</source>
+        <target>Высота</target>
+      </segment>
+    </unit>
+    <unit id="nez5RLt" name="label_generator.target_id.range_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:49</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.target_id.range_hint</source>
+        <target>Вы можете указать несколько ID (например 1,2,3) и/или диапазон (1-3) чтобы создать этикетки для нескольких элементов сразу. </target>
+      </segment>
+    </unit>
+    <unit id="GN.UJxb" name="label_generator.target_id.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:46</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.target_id.label</source>
+        <target>ID элемента</target>
+      </segment>
+    </unit>
+    <unit id="xSJAE3a" name="label_generator.update">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:59</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.update</source>
+        <target>Обновить</target>
+      </segment>
+    </unit>
+    <unit id="QQCsPWt" name="scan_dialog.input">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\ScanDialogType.php:36</note>
+      </notes>
+      <segment state="translated">
+        <source>scan_dialog.input</source>
+        <target>Ввод</target>
+      </segment>
+    </unit>
+    <unit id="xENLE_d" name="scan_dialog.submit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\ScanDialogType.php:44</note>
+      </notes>
+      <segment state="translated">
+        <source>scan_dialog.submit</source>
+        <target>Отправить</target>
+      </segment>
+    </unit>
     <unit id="o.P_V00" name="parameters.name.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:41</note>
@@ -5468,6 +6097,15 @@
         <target>Параметр</target>
       </segment>
     </unit>
+    <unit id="0koS1dD" name="label_profile.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:96</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.label</source>
+        <target>Профиль этикетки</target>
+      </segment>
+    </unit>
     <unit id=".nBJJBz" name="log.element_deleted.old_name.unknown">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:176</note>
@@ -5497,6 +6135,15 @@
       <segment state="translated">
         <source>pw_reset.email.subject</source>
         <target>Сброс пароль для вашего Part-DB аккаунта</target>
+      </segment>
+    </unit>
+    <unit id="_D86R1w" name="tree.tools.tools">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:108</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.tools</source>
+        <target>Инструменты</target>
       </segment>
     </unit>
     <unit id="sgHHET2" name="tree.tools.edit">
@@ -5529,6 +6176,24 @@
       <segment state="translated">
         <source>tree.tools.system</source>
         <target>Система</target>
+      </segment>
+    </unit>
+    <unit id="Cd_wFWS" name="tree.tools.tools.label_dialog">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:123</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.tools.label_dialog</source>
+        <target>Генератор этикеток</target>
+      </segment>
+    </unit>
+    <unit id="fVHzYVj" name="tree.tools.tools.label_scanner">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:130</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.tools.label_scanner</source>
+        <target>Сканер</target>
       </segment>
     </unit>
     <unit id="Umzi6EP" name="tree.tools.edit.attachment_types">
@@ -5624,6 +6289,15 @@
       <segment state="translated">
         <source>tree.tools.edit.measurement_unit</source>
         <target>Единица измерения</target>
+      </segment>
+    </unit>
+    <unit id="YAalchf" name="tree.tools.edit.label_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:203</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.label_profile</source>
+        <target>Профили этикетки</target>
       </segment>
     </unit>
     <unit id="CBX7i_1" name="tree.tools.edit.part">
@@ -8175,6 +8849,378 @@
       <segment state="translated">
         <source>log.type.</source>
         <target>Тип.</target>
+      </segment>
+    </unit>
+    <unit id="WjnV7iC" name="tfa_u2f.key_added_successful">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.key_added_successful</source>
+        <target> Ключ безопасности успешно добавлен.</target>
+      </segment>
+    </unit>
+    <unit id="47ienTP" name="Username">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>Username</source>
+        <target>Имя пользователя</target>
+      </segment>
+    </unit>
+    <unit id="dVu9PKe" name="log.type.security.google_disabled">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.google_disabled</source>
+        <target>Прил. аутентификации запрещено</target>
+      </segment>
+    </unit>
+    <unit id="HfccXTr" name="log.type.security.u2f_removed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.u2f_removed</source>
+        <target>Ключ безопасности удален</target>
+      </segment>
+    </unit>
+    <unit id="zl1WXuM" name="log.type.security.u2f_added">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.u2f_added</source>
+        <target>Ключ безопасности добавлен</target>
+      </segment>
+    </unit>
+    <unit id="9_jzHX6" name="log.type.security.backup_keys_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.backup_keys_reset</source>
+        <target>Запасные ключи пересозданы</target>
+      </segment>
+    </unit>
+    <unit id="h6zwXNp" name="log.type.security.google_enabled">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.google_enabled</source>
+        <target>Прил. Аутентификации разрешено</target>
+      </segment>
+    </unit>
+    <unit id="XbsoHIr" name="log.type.security.password_changed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.password_changed</source>
+        <target>Пароль изменен</target>
+      </segment>
+    </unit>
+    <unit id="2q0_b3P" name="log.type.security.trusted_device_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.trusted_device_reset</source>
+        <target>Доверенные устройства сброшены</target>
+      </segment>
+    </unit>
+    <unit id="n8flY2e" name="log.type.collection_element_deleted">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.collection_element_deleted</source>
+        <target>Элемент коллекции удален</target>
+      </segment>
+    </unit>
+    <unit id="yNm8PCN" name="log.type.security.password_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.password_reset</source>
+        <target>Пароль сброшен</target>
+      </segment>
+    </unit>
+    <unit id="CsjgnTI" name="log.type.security.2fa_admin_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.2fa_admin_reset</source>
+        <target>Администратор сбросил двухфакторную аутентификацию</target>
+      </segment>
+    </unit>
+    <unit id="bJ.EAvM" name="log.type.user_not_allowed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.user_not_allowed</source>
+        <target>Попытка неавторизованного доступа</target>
+      </segment>
+    </unit>
+    <unit id="Z28oTau" name="log.database_updated.success">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.database_updated.success</source>
+        <target>Успешно</target>
+      </segment>
+    </unit>
+    <unit id="8jpgdV8" name="label_options.barcode_type.2D">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.2D</source>
+        <target>2D</target>
+      </segment>
+    </unit>
+    <unit id="O7.UnHb" name="label_options.barcode_type.1D">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.1D</source>
+        <target>1D</target>
+      </segment>
+    </unit>
+    <unit id="QMdRP48" name="perm.part.parameters">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.parameters</source>
+        <target>Параметры</target>
+      </segment>
+    </unit>
+    <unit id="_a9gfQw" name="perm.attachment_show_private">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.attachment_show_private</source>
+        <target>Посмотреть личные вложения</target>
+      </segment>
+    </unit>
+    <unit id="fcUq9AR" name="perm.tools.label_scanner">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.label_scanner</source>
+        <target>Сканер этикеток</target>
+      </segment>
+    </unit>
+    <unit id="QSODEfC" name="perm.self.read_profiles">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.read_profiles</source>
+        <target>Читать профили</target>
+      </segment>
+    </unit>
+    <unit id="9ItKgrD" name="perm.self.create_profiles">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.create_profiles</source>
+        <target>Создать профили</target>
+      </segment>
+    </unit>
+    <unit id="j6yqWSf" name="perm.labels.use_twig">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.labels.use_twig</source>
+        <target>Использовать режим Twig</target>
+      </segment>
+    </unit>
+    <unit id="f_MQ1uL" name="label_profile.showInDropdown">
+      <segment state="translated">
+        <source>label_profile.showInDropdown</source>
+        <target>Показать быстрый выбор</target>
+      </segment>
+    </unit>
+    <unit id="qrHwUh3" name="group.edit.enforce_2fa">
+      <segment state="translated">
+        <source>group.edit.enforce_2fa</source>
+        <target>Применить двухфакторную аутентификацию (2FA)</target>
+      </segment>
+    </unit>
+    <unit id="btZApXD" name="group.edit.enforce_2fa.help">
+      <segment state="translated">
+        <source>group.edit.enforce_2fa.help</source>
+        <target>Если эта опция разрешена, каждый член данной группы обязан сконфигурировать как минимум один вторичный способ аутентификации. Рекомендовано для административных групп с большими правами.</target>
+      </segment>
+    </unit>
+    <unit id="i7QKlzx" name="selectpicker.empty">
+      <segment state="translated">
+        <source>selectpicker.empty</source>
+        <target>Ничего не выбрано</target>
+      </segment>
+    </unit>
+    <unit id="TPI_1p0" name="selectpicker.nothing_selected">
+      <segment state="translated">
+        <source>selectpicker.nothing_selected</source>
+        <target>Ничего не выбрано</target>
+      </segment>
+    </unit>
+    <unit id="D6I2Q6C" name="entity.delete.must_not_contain_parts">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_parts</source>
+        <target>Элемент все еще содержит компоненты! Переместите все компоненты чтобы удалить этот элемент.</target>
+      </segment>
+    </unit>
+    <unit id="hu8Y98Q" name="entity.delete.must_not_contain_attachments">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_attachments</source>
+        <target>Тип вложения по-прежнему содержит компоненты. Измените их тип, чтобы иметь возможность удалить этот тип вложения.</target>
+      </segment>
+    </unit>
+    <unit id="OewVQB8" name="entity.delete.must_not_contain_prices">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_prices</source>
+        <target>Валюта все еще содержит данные о ценах. Измените их валюту чтобы удалить этот элемент.</target>
+      </segment>
+    </unit>
+    <unit id="L93n2S_" name="entity.delete.must_not_contain_users">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_users</source>
+        <target>Пользователи все еще используют на эту группу. Измените их группы чтобы удалить этот элемент.</target>
+      </segment>
+    </unit>
+    <unit id="72lMzIQ" name="part.table.edit">
+      <segment state="translated">
+        <source>part.table.edit</source>
+        <target>Изменить</target>
+      </segment>
+    </unit>
+    <unit id="AGwzXa0" name="part.table.edit.title">
+      <segment state="translated">
+        <source>part.table.edit.title</source>
+        <target>Изменить компонент</target>
+      </segment>
+    </unit>
+    <unit id="uAVyHXQ" name="part_list.action.action.title">
+      <segment state="translated">
+        <source>part_list.action.action.title</source>
+        <target>Выбрать действие</target>
+      </segment>
+    </unit>
+    <unit id="bAPfHqL" name="part_list.action.action.group.favorite">
+      <segment state="translated">
+        <source>part_list.action.action.group.favorite</source>
+        <target>Избранный статус</target>
+      </segment>
+    </unit>
+    <unit id="P5wWUv3" name="part_list.action.action.favorite">
+      <segment state="translated">
+        <source>part_list.action.action.favorite</source>
+        <target>Избранное</target>
+      </segment>
+    </unit>
+    <unit id="sfOQX5T" name="part_list.action.action.unfavorite">
+      <segment state="translated">
+        <source>part_list.action.action.unfavorite</source>
+        <target>Удалить из избранного</target>
+      </segment>
+    </unit>
+    <unit id="xJa8HMi" name="part_list.action.action.group.change_field">
+      <segment state="translated">
+        <source>part_list.action.action.group.change_field</source>
+        <target>Сменить поле</target>
+      </segment>
+    </unit>
+    <unit id="vzWZTcS" name="part_list.action.action.change_category">
+      <segment state="translated">
+        <source>part_list.action.action.change_category</source>
+        <target>Сменить категорию</target>
+      </segment>
+    </unit>
+    <unit id="o0usAp." name="part_list.action.action.change_footprint">
+      <segment state="translated">
+        <source>part_list.action.action.change_footprint</source>
+        <target>Сменить посадочное место</target>
+      </segment>
+    </unit>
+    <unit id="5KmoqAw" name="part_list.action.action.change_manufacturer">
+      <segment state="translated">
+        <source>part_list.action.action.change_manufacturer</source>
+        <target>Сменить производителя</target>
+      </segment>
+    </unit>
+    <unit id="3i7xim8" name="part_list.action.action.change_unit">
+      <segment state="translated">
+        <source>part_list.action.action.change_unit</source>
+        <target>Сменить ед.измерения компонента</target>
+      </segment>
+    </unit>
+    <unit id="CjaC2GZ" name="part_list.action.action.delete">
+      <segment state="translated">
+        <source>part_list.action.action.delete</source>
+        <target>Удалить</target>
+      </segment>
+    </unit>
+    <unit id="TdvpOc5" name="part_list.action.submit">
+      <segment state="translated">
+        <source>part_list.action.submit</source>
+        <target>Отправить</target>
+      </segment>
+    </unit>
+    <unit id="qKDo_nI" name="part_list.action.part_count">
+      <segment state="translated">
+        <source>part_list.action.part_count</source>
+        <target>%count% компонентов выбрано!</target>
+      </segment>
+    </unit>
+    <unit id="ssOogP5" name="company.edit.quick.website">
+      <segment state="translated">
+        <source>company.edit.quick.website</source>
+        <target>Открыть сайт</target>
+      </segment>
+    </unit>
+    <unit id="5hU5mZK" name="company.edit.quick.email">
+      <segment state="translated">
+        <source>company.edit.quick.email</source>
+        <target>Отправить почту</target>
+      </segment>
+    </unit>
+    <unit id="cVAsYfX" name="company.edit.quick.phone">
+      <segment state="translated">
+        <source>company.edit.quick.phone</source>
+        <target>Позвонить по телефону</target>
+      </segment>
+    </unit>
+    <unit id="6YTFx7Y" name="company.edit.quick.fax">
+      <segment state="translated">
+        <source>company.edit.quick.fax</source>
+        <target>Послать факс</target>
+      </segment>
+    </unit>
+    <unit id="PKJDzwq" name="company.fax_number.placeholder">
+      <segment state="translated">
+        <source>company.fax_number.placeholder</source>
+        <target>н.р. +49 1234 567890</target>
+      </segment>
+    </unit>
+    <unit id="tB_XJLr" name="part.edit.save_and_clone">
+      <segment state="translated">
+        <source>part.edit.save_and_clone</source>
+        <target>Сохранить и клонировать</target>
       </segment>
     </unit>
   </file>

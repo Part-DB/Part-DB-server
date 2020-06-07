@@ -5826,7 +5826,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>part.editmininstock.placeholder</source>
-        <target>e.g. 1</target>
+        <target>z.B. 1</target>
       </segment>
     </unit>
     <unit id="6QS4K7r" name="part_lot.edit.description">
@@ -9059,7 +9059,7 @@ Element 3</target>
     <unit id="btZApXD" name="group.edit.enforce_2fa.help">
       <segment state="translated">
         <source>group.edit.enforce_2fa.help</source>
-        <target>Wenn diese Option aktiv ist, muss jedes direkte Mitglied dieser Gruppe, mindests einen zweiten Faktor zur Authentifizierung einrichten. Empfohlen z.B. für administrative Gruppen mit weitreichenden Berechtigungen.</target>
+        <target>Wenn diese Option aktiv ist, muss jedes direkte Mitglied dieser Gruppe, mindestens einen zweiten Faktor zur Authentifizierung einrichten. Empfohlen z.B. für administrative Gruppen mit weitreichenden Berechtigungen.</target>
       </segment>
     </unit>
     <unit id="i7QKlzx" name="selectpicker.empty">
@@ -9089,7 +9089,7 @@ Element 3</target>
     <unit id="OewVQB8" name="entity.delete.must_not_contain_prices">
       <segment state="translated">
         <source>entity.delete.must_not_contain_prices</source>
-        <target>Währung enthält noch Bauteile. Ändere deren Dateityp, um diesen Dateityp zu löschen.</target>
+        <target>Währung enthält noch Bauteile. Ändere deren Währung, um diese Währung löschen zu können.</target>
       </segment>
     </unit>
     <unit id="L93n2S_" name="entity.delete.must_not_contain_users">
@@ -9104,10 +9104,52 @@ Element 3</target>
         <target>Ändern</target>
       </segment>
     </unit>
+    <unit id="AGwzXa0" name="part.table.edit.title">
+      <segment state="translated">
+        <source>part.table.edit.title</source>
+        <target>Bauteil ändern</target>
+      </segment>
+    </unit>
+    <unit id="uAVyHXQ" name="part_list.action.action.title">
+      <segment state="translated">
+        <source>part_list.action.action.title</source>
+        <target>Aktion auswählen</target>
+      </segment>
+    </unit>
+    <unit id="bAPfHqL" name="part_list.action.action.group.favorite">
+      <segment state="translated">
+        <source>part_list.action.action.group.favorite</source>
+        <target>Favorit</target>
+      </segment>
+    </unit>
+    <unit id="P5wWUv3" name="part_list.action.action.favorite">
+      <segment state="translated">
+        <source>part_list.action.action.favorite</source>
+        <target>Bauteile favorisieren</target>
+      </segment>
+    </unit>
+    <unit id="sfOQX5T" name="part_list.action.action.unfavorite">
+      <segment state="translated">
+        <source>part_list.action.action.unfavorite</source>
+        <target>Favorisierung aufheben</target>
+      </segment>
+    </unit>
+    <unit id="xJa8HMi" name="part_list.action.action.group.change_field">
+      <segment state="translated">
+        <source>part_list.action.action.group.change_field</source>
+        <target>Change field</target>
+      </segment>
+    </unit>
     <unit id="vzWZTcS" name="part_list.action.action.change_category">
       <segment state="translated">
         <source>part_list.action.action.change_category</source>
         <target>Kategorie ändern</target>
+      </segment>
+    </unit>
+    <unit id="o0usAp." name="part_list.action.action.change_footprint">
+      <segment state="translated">
+        <source>part_list.action.action.change_footprint</source>
+        <target>Footprint ändern</target>
       </segment>
     </unit>
     <unit id="5KmoqAw" name="part_list.action.action.change_manufacturer">
@@ -9116,16 +9158,160 @@ Element 3</target>
         <target>Hersteller ändern</target>
       </segment>
     </unit>
+    <unit id="3i7xim8" name="part_list.action.action.change_unit">
+      <segment state="translated">
+        <source>part_list.action.action.change_unit</source>
+        <target>Maßeinheit ändern</target>
+      </segment>
+    </unit>
     <unit id="CjaC2GZ" name="part_list.action.action.delete">
       <segment state="translated">
         <source>part_list.action.action.delete</source>
         <target>Löschen</target>
       </segment>
     </unit>
+    <unit id="TdvpOc5" name="part_list.action.submit">
+      <segment state="translated">
+        <source>part_list.action.submit</source>
+        <target>Ok</target>
+      </segment>
+    </unit>
     <unit id="qKDo_nI" name="part_list.action.part_count">
       <segment state="translated">
         <source>part_list.action.part_count</source>
         <target>%count% Bauteile ausgewählt!</target>
+      </segment>
+    </unit>
+    <unit id="ssOogP5" name="company.edit.quick.website">
+      <segment state="translated">
+        <source>company.edit.quick.website</source>
+        <target>Website öffnen</target>
+      </segment>
+    </unit>
+    <unit id="5hU5mZK" name="company.edit.quick.email">
+      <segment state="translated">
+        <source>company.edit.quick.email</source>
+        <target>E-Mail senden</target>
+      </segment>
+    </unit>
+    <unit id="cVAsYfX" name="company.edit.quick.phone">
+      <segment state="translated">
+        <source>company.edit.quick.phone</source>
+        <target>Call phone</target>
+      </segment>
+    </unit>
+    <unit id="6YTFx7Y" name="company.edit.quick.fax">
+      <segment state="translated">
+        <source>company.edit.quick.fax</source>
+        <target>Fax senden</target>
+      </segment>
+    </unit>
+    <unit id="PKJDzwq" name="company.fax_number.placeholder">
+      <segment state="translated">
+        <source>company.fax_number.placeholder</source>
+        <target>z.B. +49 1234 567890</target>
+      </segment>
+    </unit>
+    <unit id="tB_XJLr" name="part.edit.save_and_clone">
+      <segment state="translated">
+        <source>part.edit.save_and_clone</source>
+        <target>Speichern und duplizieren</target>
+      </segment>
+    </unit>
+    <unit id="zpqGCO8" name="validator.file_ext_not_allowed">
+      <segment state="translated">
+        <source>validator.file_ext_not_allowed</source>
+        <target>Dateierweiterung nicht erlaubt für diesen Anhangstyp.</target>
+      </segment>
+    </unit>
+    <unit id="Wqa3lsL" name="tools.reel_calc.title">
+      <segment state="translated">
+        <source>tools.reel_calc.title</source>
+        <target>SMD Reel Rechner</target>
+      </segment>
+    </unit>
+    <unit id="mdO7lU4" name="tools.reel_calc.inner_dia">
+      <segment state="translated">
+        <source>tools.reel_calc.inner_dia</source>
+        <target>Innerer Durchmesser</target>
+      </segment>
+    </unit>
+    <unit id="y9vRCcc" name="tools.reel_calc.outer_dia">
+      <segment state="translated">
+        <source>tools.reel_calc.outer_dia</source>
+        <target>Äußerer Durchmesser</target>
+      </segment>
+    </unit>
+    <unit id="BjeRVFq" name="tools.reel_calc.tape_thick">
+      <segment state="translated">
+        <source>tools.reel_calc.tape_thick</source>
+        <target>Tape Dicke</target>
+      </segment>
+    </unit>
+    <unit id="ip4Wa3T" name="tools.reel_calc.part_distance">
+      <segment state="translated">
+        <source>tools.reel_calc.part_distance</source>
+        <target>Bauteile Abstand</target>
+      </segment>
+    </unit>
+    <unit id="Ysn3sXm" name="tools.reel_calc.update">
+      <segment state="translated">
+        <source>tools.reel_calc.update</source>
+        <target>Update</target>
+      </segment>
+    </unit>
+    <unit id="epp3lk7" name="tools.reel_calc.parts_per_meter">
+      <segment state="translated">
+        <source>tools.reel_calc.parts_per_meter</source>
+        <target>Bauteile pro Meter</target>
+      </segment>
+    </unit>
+    <unit id="3R0ANJW" name="tools.reel_calc.result_length">
+      <segment state="translated">
+        <source>tools.reel_calc.result_length</source>
+        <target>Tape Länge</target>
+      </segment>
+    </unit>
+    <unit id="SvtCM.I" name="tools.reel_calc.result_amount">
+      <segment state="translated">
+        <source>tools.reel_calc.result_amount</source>
+        <target>Ungefähre Anzahl Bauteile</target>
+      </segment>
+    </unit>
+    <unit id="wwAQjbO" name="tools.reel_calc.outer_greater_inner_error">
+      <segment state="translated">
+        <source>tools.reel_calc.outer_greater_inner_error</source>
+        <target>Fehler: Äußerer Durchmesser muss großer sein als der innere Durchmesser!</target>
+      </segment>
+    </unit>
+    <unit id="t3mMhMS" name="tools.reel_calc.missing_values.error">
+      <segment state="translated">
+        <source>tools.reel_calc.missing_values.error</source>
+        <target>Bitte alle Werte angeben!</target>
+      </segment>
+    </unit>
+    <unit id="k.OEkUU" name="tools.reel_calc.load_preset">
+      <segment state="translated">
+        <source>tools.reel_calc.load_preset</source>
+        <target>Preset laden</target>
+      </segment>
+    </unit>
+    <unit id="xIL4yg1" name="tools.reel_calc.explanation">
+      <segment state="translated">
+        <source>tools.reel_calc.explanation</source>
+        <target>Dieser Rechner erlaubt es Abzuschätzen wie viele Bauteile noch auf einer SMD Rolle (Reel) vorhanden sind. Messen Sie die angegeben Dimensionen auf der Rolle nach (oder nutzen Sie die Vorgaben) und drücken Sie "Update".</target>
+      </segment>
+    </unit>
+    <unit id="E1xAigo" name="perm.tools.reel_calculator">
+      <segment state="translated">
+        <source>perm.tools.reel_calculator</source>
+        <target>SMD Reel Rechner</target>
+      </segment>
+    </unit>
+    <unit id="Q_6JPEr" name="tree.tools.tools.reel_calculator">
+      <segment state="translated">
+        <source>tree.tools.tools.reel_calculator</source>
+        <target>SMD Reel Rechner</target>
       </segment>
     </unit>
   </file>
