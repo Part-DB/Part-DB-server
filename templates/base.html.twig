@@ -81,6 +81,10 @@
                             {% endblock %}
 
                         </div>
+
+                        {% block scripts %}
+
+                        {% endblock %}
                     </div>
                 </div>
             </div>
@@ -118,10 +122,6 @@
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
     {{ encore_entry_script_tags('ru2ftwofactor') }}
-{% endblock %}
-
-{% block scripts %}
-
 {% endblock %}
 </body>
 </html>
