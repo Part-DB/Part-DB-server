@@ -87,11 +87,12 @@ class AttachmentURLGenerator
      */
     public function absolutePathToAssetPath(string $absolute_path, ?string $public_path = null): ?string
     {
+        //Normalize file path (public path, use / as file path)
+        $absolute_path = str_replace('\\', '/', $absolute_path);
+
         if (null === $public_path) {
             $public_path = $this->public_path;
         }
-
-
 
         //Our absolute path must begin with public path or we can not use it for asset pathes.
         if (0 !== strpos($absolute_path, $public_path)) {
