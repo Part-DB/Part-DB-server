@@ -4,7 +4,7 @@
         {% if entity.id is null %}
             {{ block("new_title") }}
         {% else %}
-            {{ block("edit_title") }}
+            {{ block("edit_title")|striptags }}
         {% endif %}
     {% endblock %}
 
