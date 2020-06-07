@@ -114,7 +114,7 @@ class AttachmentSubmitHandler
     /**
      * Check if the extension of the uploaded file is allowed for the given attachment type.
      * Returns true, if the file is allowed, false if not.
-     * @param  Attachment  $attachment
+     * @param  AttachmentType  $attachment_type
      * @param  UploadedFile  $uploadedFile
      * @return bool
      */

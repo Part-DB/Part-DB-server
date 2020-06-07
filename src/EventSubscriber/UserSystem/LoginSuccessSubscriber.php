@@ -64,8 +64,8 @@ final class LoginSuccessSubscriber implements EventSubscriberInterface
 
     public function __construct(TranslatorInterface $translator, SessionInterface $session, EventLogger $eventLogger, bool $gpdr_compliance)
     {
-        $this->translator = $translator;
         /** @var Session $session */
+        $this->translator = $translator;
         $this->flashBag = $session->getFlashBag();
         $this->eventLogger = $eventLogger;
         $this->gpdr_compliance = $gpdr_compliance;

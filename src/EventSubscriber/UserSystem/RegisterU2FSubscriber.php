@@ -78,10 +78,10 @@ final class RegisterU2FSubscriber implements EventSubscriberInterface
 
     public function __construct(UrlGeneratorInterface $router, EntityManagerInterface $entityManager, SessionInterface $session, EventDispatcherInterface $eventDispatcher, bool $demo_mode)
     {
+        /** @var Session $session */
         $this->router = $router;
         $this->em = $entityManager;
         $this->demo_mode = $demo_mode;
-        /** @var Session $session */
         $this->flashBag = $session->getFlashBag();
         $this->eventDispatcher = $eventDispatcher;
     }
