@@ -44,6 +44,7 @@ namespace App\Controller;
 
 use App\DataTables\LogDataTable;
 use App\Entity\Attachments\UserAttachment;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\UserSystem\User;
 use App\Events\SecurityEvent;
 use App\Events\SecurityEvents;
@@ -56,6 +57,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Component\Asset\Packages;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -73,6 +75,21 @@ class UserController extends AdminPages\BaseAdminController
     protected $attachment_class = UserAttachment::class;
     //Just define a value here to prevent error. It is not used.
     protected $parameter_class = 'not used';
+
+    protected function additionalActionEdit(FormInterface $form, AbstractNamedDBElement $entity): bool
+    {
+        //Check if we editing a user and if we need to change the password of it
+        if ($entity instanceof User && !empty($form['new_password']->getData())) {
+            $password = $this->passwordEncoder->encodePassword($entity, $form['new_password']->getData());
+            $entity->setPassword($password);
+            //By default the user must change the password afterwards
+            $entity->setNeedPwChange(true);
+
+            $event = new SecurityEvent($entity);
+            $this->eventDispatcher->dispatch($event, SecurityEvents::PASSWORD_CHANGED);
+        }
+        return true;
+    }
 
     /**
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="user_edit")
@@ -113,6 +130,18 @@ class UserController extends AdminPages\BaseAdminController
         return $this->_edit($entity, $request, $em, $timestamp);
     }
 
+    protected function additionalActionNew(FormInterface $form, AbstractNamedDBElement $entity): bool
+    {
+        if ($entity instanceof User && ! empty($form['new_password']->getData())) {
+            $password = $this->passwordEncoder->encodePassword($entity, $form['new_password']->getData());
+            $entity->setPassword($password);
+            //By default the user must change the password afterwards
+            $entity->setNeedPwChange(true);
+        }
+
+        return true;
+    }
+
     /**
      * @Route("/new", name="user_new")
      * @Route("/{id}/clone", name="user_clone")
@@ -123,6 +152,17 @@ class UserController extends AdminPages\BaseAdminController
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?User $entity = null): Response
     {
         return $this->_new($request, $em, $importer, $entity);
+    }
+
+    protected function deleteCheck(AbstractNamedDBElement $entity): bool
+    {
+        if ($entity instanceof User) {
+            //TODO: Find a better solution
+            $this->addFlash('error', 'Currently it is not possible to delete a user, as this would break the log... This will be implemented later...');
+            return false;
+        }
+
+        return true;
     }
 
     /**

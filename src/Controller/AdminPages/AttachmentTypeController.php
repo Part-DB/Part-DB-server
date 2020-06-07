@@ -44,6 +44,7 @@ namespace App\Controller\AdminPages;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\AttachmentTypeAttachment;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Parameters\AttachmentTypeParameter;
 use App\Form\AdminPages\AttachmentTypeAdminForm;
 use App\Services\EntityExporter;
@@ -118,5 +119,16 @@ class AttachmentTypeController extends BaseAdminController
     public function exportEntity(AttachmentType $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);
+    }
+
+    protected function deleteCheck(AbstractNamedDBElement $entity): bool
+    {
+        if ($entity instanceof AttachmentType) {
+            if ($entity->getAttachmentsForType()->count() > 0) {
+                $this->addFlash('error', 'entity.delete.must_not_contain_attachments');
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -44,6 +44,7 @@ namespace App\Controller\AdminPages;
 
 use App\DataTables\LogDataTable;
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
@@ -139,11 +140,8 @@ abstract class BaseAdminController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    protected function _edit(AbstractNamedDBElement $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
+    protected function revertElementIfNeeded(AbstractDBElement $entity, ?string $timestamp): ?\DateTime
     {
-        $this->denyAccessUnlessGranted('read', $entity);
-
-        $timeTravel_timestamp = null;
         if (null !== $timestamp) {
             $this->denyAccessUnlessGranted('@tools.timetravel');
             $this->denyAccessUnlessGranted('show_history', $entity);
@@ -155,7 +153,27 @@ abstract class BaseAdminController extends AbstractController
                 $timeTravel_timestamp = new \DateTime($timestamp);
             }
             $this->timeTravel->revertEntityToTimestamp($entity, $timeTravel_timestamp);
+
+            return $timeTravel_timestamp;
         }
+        return null;
+    }
+
+    /**
+     * Perform some additional actions, when the form was valid, but before the entity is saved.
+     * @return bool Return true, to save entity normally, return false, to abort saving.
+     */
+    protected function additionalActionEdit(FormInterface $form, AbstractNamedDBElement $entity): bool
+    {
+        return true;
+    }
+
+    protected function _edit(AbstractNamedDBElement $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
+    {
+        $this->denyAccessUnlessGranted('read', $entity);
+
+        $timeTravel_timestamp = $this->revertElementIfNeeded($entity, $timestamp);
+
 
         if ($this->isGranted('show_history', $entity)) {
             $table = $this->dataTableFactory->createFromType(
@@ -194,41 +212,38 @@ abstract class BaseAdminController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            //Check if we editing a user and if we need to change the password of it
-            if ($entity instanceof User && ! empty($form['new_password']->getData())) {
-                $password = $this->passwordEncoder->encodePassword($entity, $form['new_password']->getData());
-                $entity->setPassword($password);
-                //By default the user must change the password afterwards
-                $entity->setNeedPwChange(true);
+            if ($this->additionalActionEdit($form, $entity)) {
+                //Upload passed files
+                $attachments = $form['attachments'];
+                foreach ($attachments as $attachment) {
+                    /** @var FormInterface $attachment */
+                    $options = [
+                        'secure_attachment' => $attachment['secureFile']->getData(),
+                        'download_url' => $attachment['downloadURL']->getData(),
+                    ];
 
-                $event = new SecurityEvent($entity);
-                $this->eventDispatcher->dispatch($event, SecurityEvents::PASSWORD_CHANGED);
-            }
-
-            //Upload passed files
-            $attachments = $form['attachments'];
-            foreach ($attachments as $attachment) {
-                /** @var FormInterface $attachment */
-                $options = [
-                    'secure_attachment' => $attachment['secureFile']->getData(),
-                    'download_url' => $attachment['downloadURL']->getData(),
-                ];
-
-                try {
-                    $this->attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
-                } catch (AttachmentDownloadException $attachmentDownloadException) {
-                    $this->addFlash(
-                        'error',
-                        $this->translator->trans('attachment.download_failed').' '.$attachmentDownloadException->getMessage()
-                    );
+                    try {
+                        $this->attachmentSubmitHandler->handleFormSubmit(
+                            $attachment->getData(),
+                            $attachment['file']->getData(),
+                            $options
+                        );
+                    } catch (AttachmentDownloadException $attachmentDownloadException) {
+                        $this->addFlash(
+                            'error',
+                            $this->translator->trans(
+                                'attachment.download_failed'
+                            ).' '.$attachmentDownloadException->getMessage()
+                        );
+                    }
                 }
+
+                $this->commentHelper->setMessage($form['log_comment']->getData());
+
+                $em->persist($entity);
+                $em->flush();
+                $this->addFlash('success', 'entity.edit_flash');
             }
-
-            $this->commentHelper->setMessage($form['log_comment']->getData());
-
-            $em->persist($entity);
-            $em->flush();
-            $this->addFlash('success', 'entity.edit_flash');
 
             //Rebuild form, so it is based on the updated data. Important for the parent field!
             //We can not use dynamic form events here, because the parent entity list is build from database!
@@ -262,6 +277,15 @@ abstract class BaseAdminController extends AbstractController
         ]);
     }
 
+    /**
+     * Perform some additional actions, when the form was valid, but before the entity is saved.
+     * @return bool Return true, to save entity normally, return false, to abort saving.
+     */
+    protected function additionalActionNew(FormInterface $form, AbstractNamedDBElement $entity): bool
+    {
+        return true;
+    }
+
     protected function _new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?AbstractNamedDBElement $entity = null)
     {
         $master_picture_backup = null;
@@ -284,39 +308,42 @@ abstract class BaseAdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($new_entity instanceof User && ! empty($form['new_password']->getData())) {
-                $password = $this->passwordEncoder->encodePassword($new_entity, $form['new_password']->getData());
-                $new_entity->setPassword($password);
-                //By default the user must change the password afterwards
-                $new_entity->setNeedPwChange(true);
-            }
 
-            //Upload passed files
-            $attachments = $form['attachments'];
-            foreach ($attachments as $attachment) {
-                /** @var FormInterface $attachment */
-                $options = [
-                    'secure_attachment' => $attachment['secureFile']->getData(),
-                    'download_url' => $attachment['downloadURL']->getData(),
-                ];
+            //Perform additional actions
+            if ($this->additionalActionNew($form, $new_entity)) {
+                //Upload passed files
+                $attachments = $form['attachments'];
+                foreach ($attachments as $attachment) {
+                    /** @var FormInterface $attachment */
+                    $options = [
+                        'secure_attachment' => $attachment['secureFile']->getData(),
+                        'download_url' => $attachment['downloadURL']->getData(),
+                    ];
 
-                try {
-                    $this->attachmentSubmitHandler->handleFormSubmit($attachment->getData(), $attachment['file']->getData(), $options);
-                } catch (AttachmentDownloadException $attachmentDownloadException) {
-                    $this->addFlash(
-                        'error',
-                        $this->translator->trans('attachment.download_failed').' '.$attachmentDownloadException->getMessage()
-                    );
+                    try {
+                        $this->attachmentSubmitHandler->handleFormSubmit(
+                            $attachment->getData(),
+                            $attachment['file']->getData(),
+                            $options
+                        );
+                    } catch (AttachmentDownloadException $attachmentDownloadException) {
+                        $this->addFlash(
+                            'error',
+                            $this->translator->trans(
+                                'attachment.download_failed'
+                            ).' '.$attachmentDownloadException->getMessage()
+                        );
+                    }
                 }
+
+                $this->commentHelper->setMessage($form['log_comment']->getData());
+
+                $em->persist($new_entity);
+                $em->flush();
+                $this->addFlash('success', 'entity.created_flash');
+
+                return $this->redirectToRoute($this->route_base.'_edit', ['id' => $new_entity->getID()]);
             }
-
-            $this->commentHelper->setMessage($form['log_comment']->getData());
-
-            $em->persist($new_entity);
-            $em->flush();
-            $this->addFlash('success', 'entity.created_flash');
-
-            return $this->redirectToRoute($this->route_base.'_edit', ['id' => $new_entity->getID()]);
         }
 
         if ($form->isSubmitted() && ! $form->isValid()) {
@@ -382,6 +409,24 @@ abstract class BaseAdminController extends AbstractController
         ]);
     }
 
+    /**
+     * Performs checks if the element can be deleted safely. Otherwise an flash message is added.
+     * @param  AbstractNamedDBElement  $entity The element that should be checked.
+     * @return bool True if the the element can be deleted, false if not
+     */
+    protected function deleteCheck(AbstractNamedDBElement $entity): bool
+    {
+        if ($entity instanceof AbstractPartsContainingDBElement) {
+            /** @var AbstractPartsContainingRepository $repo */
+            $repo = $this->entityManager->getRepository($this->entity_class);
+            if ($repo->getPartsCount($entity) > 0) {
+                $this->addFlash('error', 'entity.delete.must_not_contain_parts');
+                return false;
+            }
+        }
+        return true;
+    }
+
     protected function _delete(Request $request, AbstractNamedDBElement $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         $this->denyAccessUnlessGranted('delete', $entity);
@@ -389,33 +434,8 @@ abstract class BaseAdminController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$entity->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
 
-            //Check if we can delete the part (it must not contain Parts)
-            if ($entity instanceof AbstractPartsContainingDBElement) {
-                /** @var AbstractPartsContainingRepository $repo */
-                $repo = $this->entityManager->getRepository($this->entity_class);
-                if ($repo->getPartsCount($entity) > 0) {
-                    $this->addFlash('error', 'entity.delete.must_not_contain_parts');
-                    return $this->redirectToRoute($this->route_base.'_new');
-                }
-            } elseif ($entity instanceof AttachmentType) {
-                if ($entity->getAttachmentsForType()->count() > 0) {
-                    $this->addFlash('error', 'entity.delete.must_not_contain_attachments');
-                    return $this->redirectToRoute($this->route_base.'_new');
-                }
-            } elseif ($entity instanceof Currency) {
-                if ($entity->getPricedetails()->count() > 0) {
-                    $this->addFlash('error', 'entity.delete.must_not_contain_prices');
-                    return $this->redirectToRoute($this->route_base.'_new');
-                }
-            } elseif ($entity instanceof Group) {
-                if ($entity->getUsers()->count() > 0) {
-                    $this->addFlash('error', 'entity.delete.must_not_contain_users');
-                    return $this->redirectToRoute($this->route_base.'_new');
-                }
-            } elseif ($entity instanceof User) {
-                //TODO: Find a better solution
-                $this->addFlash('error', 'Currently it is not possible to delete a user, as this would break the log... This will be implemented later...');
-                return $this->redirectToRoute($this->route_base.'_new');
+            if (!$this->deleteCheck($entity)) {
+                return $this->redirectToRoute($this->route_base.'_edit', ['id' => $entity->getID()]);
             }
 
             //Check if we need to remove recursively
@@ -452,18 +472,14 @@ abstract class BaseAdminController extends AbstractController
     protected function _exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
         $entity = new $this->entity_class();
-
         $this->denyAccessUnlessGranted('read', $entity);
-
         $entities = $em->getRepository($this->entity_class)->findAll();
-
         return $exporter->exportEntityFromRequest($entities, $request);
     }
 
     protected function _exportEntity(AbstractNamedDBElement $entity, EntityExporter $exporter, Request $request): \Symfony\Component\HttpFoundation\Response
     {
         $this->denyAccessUnlessGranted('read', $entity);
-
         return $exporter->exportEntityFromRequest($entity, $request);
     }
 }

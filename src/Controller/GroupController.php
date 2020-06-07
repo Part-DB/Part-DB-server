@@ -44,6 +44,7 @@ namespace App\Controller;
 
 use App\Controller\AdminPages\BaseAdminController;
 use App\Entity\Attachments\GroupAttachment;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Parameters\GroupParameter;
 use App\Entity\UserSystem\Group;
 use App\Form\AdminPages\GroupAdminForm;
@@ -119,5 +120,17 @@ class GroupController extends BaseAdminController
     public function exportEntity(Group $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);
+    }
+
+    public function deleteCheck(AbstractNamedDBElement $entity): bool
+    {
+        if ($entity instanceof Group) {
+            if ($entity->getUsers()->count() > 0) {
+                $this->addFlash('error', 'entity.delete.must_not_contain_users');
+                return false;
+            }
+        }
+
+        return true;
     }
 }

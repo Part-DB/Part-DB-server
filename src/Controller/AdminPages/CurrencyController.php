@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\Controller\AdminPages;
 
 use App\Entity\Attachments\CurrencyAttachment;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Parameters\CurrencyParameter;
 use App\Entity\PriceInformations\Currency;
 use App\Form\AdminPages\CurrencyAdminForm;
@@ -120,5 +121,17 @@ class CurrencyController extends BaseAdminController
     public function exportEntity(Currency $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);
+    }
+
+    public function deleteCheck(AbstractNamedDBElement $entity): bool
+    {
+        if ($entity instanceof Currency) {
+            if ($entity->getPricedetails()->count() > 0) {
+                $this->addFlash('error', 'entity.delete.must_not_contain_prices');
+                return false;
+            }
+        }
+
+        return true;
     }
 }
