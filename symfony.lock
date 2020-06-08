@@ -14,6 +14,9 @@
     "brick/math": {
         "version": "0.8.15"
     },
+    "composer/ca-bundle": {
+        "version": "1.2.7"
+    },
     "composer/semver": {
         "version": "1.5.0"
     },
@@ -213,6 +216,18 @@
     },
     "monolog/monolog": {
         "version": "1.24.0"
+    },
+    "nelmio/security-bundle": {
+        "version": "2.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.4",
+            "ref": "65726efb67ff51d89de38195bc0d230fa811f64d"
+        },
+        "files": [
+            "./config/packages/nelmio_security.yaml"
+        ]
     },
     "netresearch/jsonmapper": {
         "version": "v1.6.0"
@@ -914,6 +929,9 @@
     },
     "twig/twig": {
         "version": "v2.6.2"
+    },
+    "ua-parser/uap-php": {
+        "version": "v3.9.8"
     },
     "vimeo/psalm": {
         "version": "3.5.1"
