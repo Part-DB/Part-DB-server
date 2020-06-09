@@ -9223,5 +9223,89 @@
         <target>Сохранить и клонировать</target>
       </segment>
     </unit>
+    <unit id="zpqGCO8" name="validator.file_ext_not_allowed">
+      <segment state="translated">
+        <source>validator.file_ext_not_allowed</source>
+        <target>Такой тип файла не разрешен для данного вида вложений.</target>
+      </segment>
+    </unit>
+    <unit id="Wqa3lsL" name="tools.reel_calc.title">
+      <segment state="translated">
+        <source>tools.reel_calc.title</source>
+        <target>Калькулятор катушек SMD</target>
+      </segment>
+    </unit>
+    <unit id="mdO7lU4" name="tools.reel_calc.inner_dia">
+      <segment state="translated">
+        <source>tools.reel_calc.inner_dia</source>
+        <target>Внутренний диаметр</target>
+      </segment>
+    </unit>
+    <unit id="y9vRCcc" name="tools.reel_calc.outer_dia">
+      <segment state="translated">
+        <source>tools.reel_calc.outer_dia</source>
+        <target>Наружный диаметр</target>
+      </segment>
+    </unit>
+    <unit id="BjeRVFq" name="tools.reel_calc.tape_thick">
+      <segment state="translated">
+        <source>tools.reel_calc.tape_thick</source>
+        <target>Толщина ленты</target>
+      </segment>
+    </unit>
+    <unit id="ip4Wa3T" name="tools.reel_calc.part_distance">
+      <segment state="translated">
+        <source>tools.reel_calc.part_distance</source>
+        <target>Расстояние между компонентами</target>
+      </segment>
+    </unit>
+    <unit id="Ysn3sXm" name="tools.reel_calc.update">
+      <segment state="translated">
+        <source>tools.reel_calc.update</source>
+        <target>Обновить</target>
+      </segment>
+    </unit>
+    <unit id="epp3lk7" name="tools.reel_calc.parts_per_meter">
+      <segment state="translated">
+        <source>tools.reel_calc.parts_per_meter</source>
+        <target>Компонентов на метр</target>
+      </segment>
+    </unit>
+    <unit id="3R0ANJW" name="tools.reel_calc.result_length">
+      <segment state="translated">
+        <source>tools.reel_calc.result_length</source>
+        <target>Длина ленты</target>
+      </segment>
+    </unit>
+    <unit id="SvtCM.I" name="tools.reel_calc.result_amount">
+      <segment state="translated">
+        <source>tools.reel_calc.result_amount</source>
+        <target>Прибл. кол-во компонентов</target>
+      </segment>
+    </unit>
+    <unit id="wwAQjbO" name="tools.reel_calc.outer_greater_inner_error">
+      <segment state="translated">
+        <source>tools.reel_calc.outer_greater_inner_error</source>
+        <target>Ошибка: Наружный диаметр должен быть больше внутреннего!</target>
+      </segment>
+    </unit>
+    <unit id="t3mMhMS" name="tools.reel_calc.missing_values.error">
+      <segment state="translated">
+        <source>tools.reel_calc.missing_values.error</source>
+        <target>Пожалуйста заполните все значения!</target>
+      </segment>
+    </unit>
+    <unit id="k.OEkUU" name="tools.reel_calc.load_preset">
+      <segment state="translated">
+        <source>tools.reel_calc.load_preset</source>
+        <target>Загрузить конфигурацию</target>
+      </segment>
+    </unit>
+    <unit id="xIL4yg1" name="tools.reel_calc.explanation">
+      <segment state="translated">
+        <source>tools.reel_calc.explanation</source>
+        <target>Этот калькулятор показывает приблизительный остаток SMD компонентов на катушке.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
