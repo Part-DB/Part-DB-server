@@ -9307,5 +9307,17 @@
         <target>Этот калькулятор показывает приблизительный остаток SMD компонентов на катушке.</target>
       </segment>
     </unit>
+    <unit id="E1xAigo" name="perm.tools.reel_calculator">
+      <segment state="translated">
+        <source>perm.tools.reel_calculator</source>
+        <target>Калькулятор катушки SMD</target>
+      </segment>
+    </unit>
+    <unit id="Q_6JPEr" name="tree.tools.tools.reel_calculator">
+      <segment state="translated">
+        <source>tree.tools.tools.reel_calculator</source>
+        <target>Калькулятор катушки SMD</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
