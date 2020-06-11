@@ -12,6 +12,26 @@
         <target>Types pour fichiers joints</target>
       </segment>
     </unit>
+    <unit id="5cpaOO8" name="attachment_type.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.edit</source>
+        <target>Modifier le type de pièce jointe</target>
+      </segment>
+    </unit>
+    <unit id="v83r0Yh" name="attachment_type.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.new</source>
+        <target>Nouveau type de pièce jointe</target>
+      </segment>
+    </unit>
     <unit id="OllfX2C" name="category.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:4</note>
@@ -57,6 +77,26 @@
         <target>Avancé</target>
       </segment>
     </unit>
+    <unit id="eL_giUu" name="category.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:13</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit</source>
+        <target>Éditer la catégorie</target>
+      </segment>
+    </unit>
+    <unit id="AT4wfK_" name="category.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:17</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>category.new</source>
+        <target>Nouvelle catégorie</target>
+      </segment>
+    </unit>
     <unit id="BJtSZa4" name="currency.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:4</note>
@@ -87,6 +127,26 @@
         <target>Symbole de la devise</target>
       </segment>
     </unit>
+    <unit id="pfHq2BO" name="currency.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:29</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.edit</source>
+        <target>Editer la devise</target>
+      </segment>
+    </unit>
+    <unit id="b9Ed.K9" name="currency.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:33</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.new</source>
+        <target>Nouvelle devise</target>
+      </segment>
+    </unit>
     <unit id="tlgOYB5" name="device.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
@@ -96,6 +156,26 @@
       <segment state="translated">
         <source>device.caption</source>
         <target>Appareil</target>
+      </segment>
+    </unit>
+    <unit id="fu1Uc_k" name="device.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>device.edit</source>
+        <target>Modifier projet</target>
+      </segment>
+    </unit>
+    <unit id="2z6Gm_r" name="device.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>device.new</source>
+        <target>Nouveau projet</target>
       </segment>
     </unit>
     <unit id="lQ8QeGr" name="search.placeholder">
@@ -318,6 +398,26 @@
         <target>Empreintes</target>
       </segment>
     </unit>
+    <unit id="U4500WS" name="footprint.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:13</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.edit</source>
+        <target>Editer l'empreinte</target>
+      </segment>
+    </unit>
+    <unit id="O3SliSK" name="footprint.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:17</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.new</source>
+        <target>Nouvelle empreinte</target>
+      </segment>
+    </unit>
     <unit id="ZOZqHeB" name="group.edit.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
@@ -340,6 +440,73 @@
         <target>Permissions</target>
       </segment>
     </unit>
+    <unit id="BaTTHkG" name="group.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:24</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>group.edit</source>
+        <target>Editer le groupe</target>
+      </segment>
+    </unit>
+    <unit id="vdjTPNv" name="group.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:28</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>group.new</source>
+        <target>Nouveau groupe</target>
+      </segment>
+    </unit>
+    <unit id="Rr_.JrB" name="label_profile.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.caption</source>
+        <target>Profil des étiquettes</target>
+      </segment>
+    </unit>
+    <unit id="QPqYdRg" name="label_profile.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.advanced</source>
+        <target>Avancé</target>
+      </segment>
+    </unit>
+    <unit id="Pi_q_nj" name="label_profile.comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.comment</source>
+        <target>Commentaire</target>
+      </segment>
+    </unit>
+    <unit id="VwVLyJA" name="label_profile.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:55</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.edit</source>
+        <target>Editer profil d'étiquette</target>
+      </segment>
+    </unit>
+    <unit id="lObewxU" name="label_profile.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:59</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.new</source>
+        <target>Nouveau profil d'étiquette</target>
+      </segment>
+    </unit>
     <unit id="Fum_mCX" name="manufacturer.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
@@ -349,6 +516,26 @@
       <segment state="translated">
         <source>manufacturer.caption</source>
         <target>Fabricants</target>
+      </segment>
+    </unit>
+    <unit id="e41FWWa" name="manufacturer.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:8</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.edit</source>
+        <target>Modifiez le fabricant</target>
+      </segment>
+    </unit>
+    <unit id="g4gO3Qs" name="manufacturer.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.new</source>
+        <target>Nouveau fabricant</target>
       </segment>
     </unit>
     <unit id="6tFKnGD" name="measurement_unit.caption">
@@ -374,6 +561,26 @@
       <segment state="translated">
         <source>storelocation.labelp</source>
         <target>Emplacement de stockage</target>
+      </segment>
+    </unit>
+    <unit id="eSA7p5N" name="storelocation.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:32</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.edit</source>
+        <target>Modifier l'emplacement de stockage</target>
+      </segment>
+    </unit>
+    <unit id="eIvG1.A" name="storelocation.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:36</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.new</source>
+        <target>Nouvel emplacement de stockage</target>
       </segment>
     </unit>
     <unit id="ykqfBBp" name="supplier.caption">
