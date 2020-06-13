@@ -131,7 +131,9 @@ class AttachmentDeleteListener
         $file = $this->attachmentHelper->attachmentToFile($attachment);
         //Only delete if the attachment has a valid file.
         if (null !== $file) {
-            $this->attachmentReverseSearch->deleteIfNotUsed($file);
+            /* The original file has already been removed, so we have to decrease the threshold to zero,
+            as any remaining attachment depends on this attachment, and we must not delete this file! */
+            $this->attachmentReverseSearch->deleteIfNotUsed($file, 0);
         }
     }
 }
