@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
+use App\Migrations\AbstractMultiPlatformMigration;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
@@ -29,14 +30,14 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190902140506 extends AbstractMigration
+final class Version20190902140506 extends AbstractMultiPlatformMigration
 {
     public function getDescription(): string
     {
         return 'Upgrade database from old Part-DB 0.5 Version (dbVersion 26)';
     }
 
-    public function up(Schema $schema): void
+    public function mySQLUp(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
@@ -192,7 +193,7 @@ final class Version20190902140506 extends AbstractMigration
         $this->addSql("UPDATE `internal` SET `keyValue` = '99' WHERE `internal`.`keyName` = 'dbVersion'");
     }
 
-    public function down(Schema $schema): void
+    public function mySQLDown(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
@@ -315,5 +316,15 @@ final class Version20190902140506 extends AbstractMigration
         $this->addSql('ALTER TABLE `users` CHANGE name name VARCHAR(32) NOT NULL COLLATE utf8_general_ci, CHANGE need_pw_change need_pw_change TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE first_name first_name TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE last_name last_name TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE department department TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE email email TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE config_language config_language TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE config_timezone config_timezone TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE config_theme config_theme TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE config_currency config_currency TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE last_modified last_modified DATETIME DEFAULT \'0000-00-00 00:00:00\' NOT NULL, CHANGE perms_labels perms_labels SMALLINT NOT NULL');
         $this->addSql('DROP INDEX uniq_1483a5e95e237e06 ON `users`');
         $this->addSql('CREATE UNIQUE INDEX name ON `users` (name)');
+    }
+
+    public function sqLiteUp(Schema $schema): void
+    {
+        $this->skipIf(true, "Migration not needed for SQLite. Skipping...");
+    }
+
+    public function sqLiteDown(Schema $schema): void
+    {
+        $this->skipIf(true, "Migration not needed for SQLite. Skipping...");
     }
 }

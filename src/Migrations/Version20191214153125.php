@@ -22,20 +22,21 @@ declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
+use App\Migrations\AbstractMultiPlatformMigration;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20191214153125 extends AbstractMigration
+final class Version20191214153125 extends AbstractMultiPlatformMigration
 {
     public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema): void
+    public function mySQLUp(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
@@ -46,7 +47,7 @@ final class Version20191214153125 extends AbstractMigration
         $this->addSql('ALTER TABLE users ADD google_authenticator_secret VARCHAR(255) DEFAULT NULL, ADD backup_codes LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\', ADD backup_codes_generation_date DATETIME DEFAULT NULL, ADD trusted_device_cookie_version INT NOT NULL');
     }
 
-    public function down(Schema $schema): void
+    public function mySQLDown(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
@@ -54,5 +55,15 @@ final class Version20191214153125 extends AbstractMigration
         $this->addSql('DROP TABLE u2f_keys');
         $this->addSql('ALTER TABLE `groups` DROP enforce_2fa');
         $this->addSql('ALTER TABLE `users` DROP google_authenticator_secret, DROP backup_codes, DROP backup_codes_generation_date, DROP trusted_device_cookie_version');
+    }
+
+    public function sqLiteUp(Schema $schema): void
+    {
+        $this->skipIf(true, "Migration not needed for SQLite. Skipping...");
+    }
+
+    public function sqLiteDown(Schema $schema): void
+    {
+        $this->skipIf(true, "Migration not needed for SQLite. Skipping...");
     }
 }

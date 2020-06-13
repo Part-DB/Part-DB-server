@@ -45,6 +45,7 @@ it to your instock, when they arrive. (*)
 * Event log: Track what changes happens to your inventory, track which user does what. Revert your parts to older versions.
 * Responsive design: You can use Part-DB on your PC, your tablet and your smartphone using the same interface.
 * PartKeepr import (*)
+* MySQL and SQLite (experimental) supported as database backends
 
 With this features Part-DB is useful to hobbyists, who want to keep track of their private electronic parts inventory,
 or makerspaces, where many users have should have (controlled) access to the shared inventory.
@@ -54,7 +55,7 @@ Part-DB is also used by small companies and universities for managing their inve
 ## Requirements
  * A **web server** (like Apache2 or nginx) that is capable of running [Symfony 4](https://symfony.com/doc/current/reference/requirements.html),
  this includes a minimum PHP version of **PHP 7.2.5**
- * A **MySQL** (at least 5.6.5) /**MariaDB** (at least 10.0.1) database server
+ * A **MySQL** (at least 5.6.5) /**MariaDB** (at least 10.0.1) database server if you do not want to use SQLite.
  * Shell access to your server is highly suggested!
  * For building the client side assets **yarn** and **nodejs** is needed.
  
@@ -71,7 +72,8 @@ See [UPGRADE](UPGRADE.md) for more infos.
 for additional informations.
 3. Copy the global config file `cp .env .env.local` and edit `.env.local`:
     * Change the line `APP_ENV=dev` to `APP_ENV=prod`
-    * Change the value of `DATABASE_URL=` to your needs (see [here](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url)) for the format.
+    * If you do not want to use SQLite, change the value of `DATABASE_URL=` to your needs (see [here](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url)) for the format.
+      In bigger instances with concurrent accesses, MySQL is more performant. This can not be changed easily later, so choose wisely.
 4. Install composer dependencies and generate autoload files: `composer install --no-dev`
 5. If you have put Part-DB into a sub-directory on your server (like `part-db/`), you have to edit the file 
 `webpack.config.js` and uncomment the lines (remove the `//` before the lines) `.setPublicPath('/part-db/build')` (line 43) and

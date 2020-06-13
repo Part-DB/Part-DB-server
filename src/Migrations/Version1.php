@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
+use App\Migrations\AbstractMultiPlatformMigration;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
@@ -29,22 +30,17 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version1 extends AbstractMigration
+final class Version1 extends AbstractMultiPlatformMigration
 {
     public function getDescription(): string
     {
         return 'Creates an inital empty database';
     }
 
-    public function up(Schema $schema): void
+    public function mySQLUp(Schema $schema): void
     {
-        try {
-            //Check if we can use this migration method:
-            $version = (int) $this->connection->fetchColumn("SELECT keyValue AS version FROM `internal` WHERE `keyName` = 'dbVersion'");
-            $this->skipIf($version > 0, 'Old Part-DB Database detected! Continue with upgrade...');
-        } catch (DBALException $dBALException) {
-            //when the table was not found, we can proceed, because we have an empty DB!
-        }
+
+        $this->skipIf($this->getOldDBVersion() > 0, 'Old Part-DB Database detected! Continue with upgrade...');
 
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
@@ -142,7 +138,7 @@ final class Version1 extends AbstractMigration
                     5461, 5461, 1365, 1365); 
 EOD;
         $this->addSql($sql);
-        $admin_pw = '$2y$10$36AnqCBS.YnHlVdM4UQ0oOCV7BjU7NmE0qnAVEex65AyZw1cbcEjq';
+        $admin_pw = $this->getInitalAdminPW();
         $sql = <<<EOD
             INSERT IGNORE INTO `users`
             (`id`,`name`,`password`,`first_name`,`last_name`,`department`,
@@ -176,7 +172,7 @@ EOD;
         $this->addSql("UPDATE `groups` SET `perms_labels` = '85' WHERE `groups`.`id` = 3;");
     }
 
-    public function down(Schema $schema): void
+    public function mySQLDown(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
@@ -227,5 +223,16 @@ EOD;
         $this->addSql('DROP TABLE `orderdetails`');
         $this->addSql('DROP TABLE `pricedetails`');
         $this->addSql('DROP TABLE `groups`');
+    }
+
+
+    public function sqLiteUp(Schema $schema): void
+    {
+        $this->skipIf(true, "Migration not needed for SQLite. Skipping...");
+    }
+
+    public function sqLiteDown(Schema $schema): void
+    {
+        $this->skipIf(true, "Migration not needed for SQLite. Skipping...");
     }
 }

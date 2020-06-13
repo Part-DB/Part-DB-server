@@ -22,20 +22,21 @@ declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
+use App\Migrations\AbstractMultiPlatformMigration;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190913141126 extends AbstractMigration
+final class Version20190913141126 extends AbstractMultiPlatformMigration
 {
     public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema): void
+    public function mySQLUp(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
@@ -70,7 +71,7 @@ final class Version20190913141126 extends AbstractMigration
         $this->write('[!!!] Permissions were updated! Please check if they fit your expectations!');
     }
 
-    public function down(Schema $schema): void
+    public function mySQLDown(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
@@ -79,5 +80,15 @@ final class Version20190913141126 extends AbstractMigration
         $this->addSql('ALTER TABLE `users` DROP FOREIGN KEY FK_1483A5E938248176');
         $this->addSql('DROP INDEX IDX_1483A5E938248176 ON `users`');
         $this->addSql('ALTER TABLE `users` ADD config_currency VARCHAR(255) NOT NULL COLLATE utf8_general_ci, ADD perms_parts_instock SMALLINT NOT NULL, ADD perms_parts_mininstock SMALLINT NOT NULL, ADD perms_parts_storelocation SMALLINT NOT NULL, DROP currency_id, DROP settings, DROP perms_parts_category, DROP perms_parts_minamount, DROP perms_parts_lots, DROP perms_parts_tags, DROP perms_parts_unit, DROP perms_parts_mass, DROP perms_parts_status, DROP perms_parts_mpn, DROP perms_currencies, DROP perms_measurement_units');
+    }
+
+    public function sqLiteUp(Schema $schema): void
+    {
+        $this->skipIf(true, "Migration not needed for SQLite. Skipping...");
+    }
+
+    public function sqLiteDown(Schema $schema): void
+    {
+        $this->skipIf(true, "Migration not needed for SQLite. Skipping...");
     }
 }

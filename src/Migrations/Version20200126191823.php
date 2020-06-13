@@ -22,20 +22,21 @@ declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
+use App\Migrations\AbstractMultiPlatformMigration;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200126191823 extends AbstractMigration
+final class Version20200126191823 extends AbstractMultiPlatformMigration
 {
     public function getDescription(): string
     {
         return 'Improve the schema of the log table';
     }
 
-    public function up(Schema $schema): void
+    public function mySQLUp(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
@@ -46,7 +47,7 @@ final class Version20200126191823 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_8F3F68C56B3CA4B ON log (id_user)');
     }
 
-    public function down(Schema $schema): void
+    public function mySQLDown(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
@@ -57,5 +58,15 @@ final class Version20200126191823 extends AbstractMigration
         $this->addSql('DROP INDEX idx_8f3f68c56b3ca4b ON log');
         $this->addSql('CREATE INDEX id_user ON log (id_user)');
         $this->addSql('ALTER TABLE log ADD CONSTRAINT FK_8F3F68C56B3CA4B FOREIGN KEY (id_user) REFERENCES `users` (id)');
+    }
+
+    public function sqLiteUp(Schema $schema): void
+    {
+        $this->skipIf(true, "Migration not needed for SQLite. Skipping...");
+    }
+
+    public function sqLiteDown(Schema $schema): void
+    {
+        $this->skipIf(true, "Migration not needed for SQLite. Skipping...");
     }
 }
