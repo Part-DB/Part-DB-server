@@ -197,5 +197,23 @@
         <target>Can not add new parts to this location as it is marked as "Only Existing"</target>
       </segment>
     </unit>
+    <unit id="3xoKOIS" name="validator.part_lot.location_full.no_increase">
+      <segment>
+        <source>validator.part_lot.location_full.no_increase</source>
+        <target>Location is full. Amount can not be increased (new value must be smaller than {{ old_amount }}).</target>
+      </segment>
+    </unit>
+    <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
+      <segment>
+        <source>validator.part_lot.location_full</source>
+        <target>Location is full. Can not add new parts to it.</target>
+      </segment>
+    </unit>
+    <unit id="BNQk2e7" name="validator.part_lot.single_part">
+      <segment>
+        <source>validator.part_lot.single_part</source>
+        <target>This location can only contain a single part and it is already full!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

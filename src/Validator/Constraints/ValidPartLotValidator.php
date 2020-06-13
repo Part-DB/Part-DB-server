@@ -92,8 +92,8 @@ class ValidPartLotValidator extends ConstraintValidator
 
                 //Amount increasment is not allowed
                 if ($db_lot && $value->getAmount() > $db_lot['amount']) {
-                    $this->context->buildViolation('validator.part_lot.location_full.no_increasment')
-                        ->setParameter('{{ old_amount }}', $db_lot['amount'])
+                    $this->context->buildViolation('validator.part_lot.location_full.no_increase')
+                        ->setParameter('{{ old_amount }}', (string) $db_lot['amount'])
                         ->atPath('amount')->addViolation();
                 }
 
