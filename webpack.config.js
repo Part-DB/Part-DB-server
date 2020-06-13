@@ -24,6 +24,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 const zlib = require('zlib');
 const CompressionPlugin = require("compression-webpack-plugin");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -134,5 +135,10 @@ if (Encore.isProduction()) {
             deleteOriginalAssets: false,
         }))
 }
+
+if (Encore.isDev()) {
+    Encore.addPlugin(new BundleAnalyzerPlugin());
+}
+
 
 module.exports = Encore.getWebpackConfig();

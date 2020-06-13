@@ -7,6 +7,7 @@
         "jquery": "^3.5.1",
         "popper.js": "^1.14.7",
         "regenerator-runtime": "^0.13.2",
+        "webpack-bundle-analyzer": "^3.8.0",
         "webpack-notifier": "^1.6.0"
     },
     "license": "AGPL-3.0-or-later",
@@ -30,6 +31,7 @@
         "bootstrap-fileinput": "^5.0.1",
         "bootstrap-select": "^1.13.8",
         "bootswatch": "^4.3.1",
+        "bs-custom-file-input": "^1.3.4",
         "clipboard": "^2.0.4",
         "compression-webpack-plugin": "^4.0.0",
         "copy-webpack-plugin": "^5.0.4",
