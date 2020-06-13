@@ -137,7 +137,8 @@ if (Encore.isProduction()) {
 }
 
 if (Encore.isDev()) {
-    Encore.addPlugin(new BundleAnalyzerPlugin());
+    //Only uncomment if needed, as this cause problems with Github actions (job does not finish)
+    //Encore.addPlugin(new BundleAnalyzerPlugin());
 }
 
 
