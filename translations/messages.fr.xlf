@@ -12,6 +12,26 @@
         <target>Types pour fichiers joints</target>
       </segment>
     </unit>
+    <unit id="5cpaOO8" name="attachment_type.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.edit</source>
+        <target>Modifier le type de pièce jointe</target>
+      </segment>
+    </unit>
+    <unit id="v83r0Yh" name="attachment_type.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\AttachmentTypeAdmin.html.twig:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment_type.new</source>
+        <target>Nouveau type de pièce jointe</target>
+      </segment>
+    </unit>
     <unit id="OllfX2C" name="category.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:4</note>
@@ -57,6 +77,26 @@
         <target>Avancé</target>
       </segment>
     </unit>
+    <unit id="eL_giUu" name="category.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:13</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>category.edit</source>
+        <target>Éditer la catégorie</target>
+      </segment>
+    </unit>
+    <unit id="AT4wfK_" name="category.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CategoryAdmin.html.twig:17</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>category.new</source>
+        <target>Nouvelle catégorie</target>
+      </segment>
+    </unit>
     <unit id="BJtSZa4" name="currency.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:4</note>
@@ -87,6 +127,26 @@
         <target>Symbole de la devise</target>
       </segment>
     </unit>
+    <unit id="pfHq2BO" name="currency.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:29</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.edit</source>
+        <target>Editer la devise</target>
+      </segment>
+    </unit>
+    <unit id="b9Ed.K9" name="currency.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\CurrencyAdmin.html.twig:33</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>currency.new</source>
+        <target>Nouvelle devise</target>
+      </segment>
+    </unit>
     <unit id="tlgOYB5" name="device.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
@@ -96,6 +156,26 @@
       <segment state="translated">
         <source>device.caption</source>
         <target>Appareil</target>
+      </segment>
+    </unit>
+    <unit id="fu1Uc_k" name="device.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>device.edit</source>
+        <target>Modifier projet</target>
+      </segment>
+    </unit>
+    <unit id="2z6Gm_r" name="device.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>device.new</source>
+        <target>Nouveau projet</target>
       </segment>
     </unit>
     <unit id="lQ8QeGr" name="search.placeholder">
@@ -318,6 +398,26 @@
         <target>Empreintes</target>
       </segment>
     </unit>
+    <unit id="U4500WS" name="footprint.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:13</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.edit</source>
+        <target>Editer l'empreinte</target>
+      </segment>
+    </unit>
+    <unit id="O3SliSK" name="footprint.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\FootprintAdmin.html.twig:17</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>footprint.new</source>
+        <target>Nouvelle empreinte</target>
+      </segment>
+    </unit>
     <unit id="ZOZqHeB" name="group.edit.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:4</note>
@@ -340,6 +440,73 @@
         <target>Permissions</target>
       </segment>
     </unit>
+    <unit id="BaTTHkG" name="group.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:24</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>group.edit</source>
+        <target>Editer le groupe</target>
+      </segment>
+    </unit>
+    <unit id="vdjTPNv" name="group.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\GroupAdmin.html.twig:28</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>group.new</source>
+        <target>Nouveau groupe</target>
+      </segment>
+    </unit>
+    <unit id="Rr_.JrB" name="label_profile.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.caption</source>
+        <target>Profil des étiquettes</target>
+      </segment>
+    </unit>
+    <unit id="QPqYdRg" name="label_profile.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.advanced</source>
+        <target>Avancé</target>
+      </segment>
+    </unit>
+    <unit id="Pi_q_nj" name="label_profile.comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.comment</source>
+        <target>Commentaire</target>
+      </segment>
+    </unit>
+    <unit id="VwVLyJA" name="label_profile.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:55</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.edit</source>
+        <target>Editer profil d'étiquette</target>
+      </segment>
+    </unit>
+    <unit id="lObewxU" name="label_profile.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\LabelProfileAdmin.html.twig:59</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.new</source>
+        <target>Nouveau profil d'étiquette</target>
+      </segment>
+    </unit>
     <unit id="Fum_mCX" name="manufacturer.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:4</note>
@@ -349,6 +516,26 @@
       <segment state="translated">
         <source>manufacturer.caption</source>
         <target>Fabricants</target>
+      </segment>
+    </unit>
+    <unit id="e41FWWa" name="manufacturer.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:8</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.edit</source>
+        <target>Modifiez le fabricant</target>
+      </segment>
+    </unit>
+    <unit id="g4gO3Qs" name="manufacturer.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\ManufacturerAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>manufacturer.new</source>
+        <target>Nouveau fabricant</target>
       </segment>
     </unit>
     <unit id="6tFKnGD" name="measurement_unit.caption">
@@ -376,6 +563,26 @@
         <target>Emplacement de stockage</target>
       </segment>
     </unit>
+    <unit id="eSA7p5N" name="storelocation.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:32</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.edit</source>
+        <target>Modifier l'emplacement de stockage</target>
+      </segment>
+    </unit>
+    <unit id="eIvG1.A" name="storelocation.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\StorelocationAdmin.html.twig:36</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>storelocation.new</source>
+        <target>Nouvel emplacement de stockage</target>
+      </segment>
+    </unit>
     <unit id="ykqfBBp" name="supplier.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:4</note>
@@ -385,6 +592,26 @@
       <segment state="translated">
         <source>supplier.caption</source>
         <target>Fournisseurs</target>
+      </segment>
+    </unit>
+    <unit id="DpVIJeK" name="supplier.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:16</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.edit</source>
+        <target>Modifier le fournisseur</target>
+      </segment>
+    </unit>
+    <unit id="AcG6iT_" name="supplier.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\SupplierAdmin.html.twig:20</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>supplier.new</source>
+        <target>Nouveau fournisseur</target>
       </segment>
     </unit>
     <unit id=".YoS4pi" name="user.edit.caption">
@@ -518,6 +745,26 @@ L'utilisateur devra configurer à nouveau toutes les méthodes d'authentificatio
       <segment state="translated">
         <source>user.edit.tfa.disable_tfa.btn</source>
         <target>Désactiver toutes les méthodes d'authentification à deux facteurs</target>
+      </segment>
+    </unit>
+    <unit id="vQxH4zm" name="user.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:85</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>user.edit</source>
+        <target>Modifier l'utilisateur</target>
+      </segment>
+    </unit>
+    <unit id="TvuuOMC" name="user.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\UserAdmin.html.twig:89</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>user.new</source>
+        <target>Nouvel utilisateur</target>
       </segment>
     </unit>
     <unit id="0EjI8FY" name="attachment.delete">
@@ -688,6 +935,15 @@ Les sous éléments seront déplacés vers le haut.</target>
         <target>Suppression récursive (tous les sous éléments)</target>
       </segment>
     </unit>
+    <unit id="vlslklu" name="entity.duplicate">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_duplicate.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.duplicate</source>
+        <target>Dupliquer l’élément</target>
+      </segment>
+    </unit>
     <unit id="4_pqNGT" name="export.format">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_export_form.html.twig:4</note>
@@ -837,6 +1093,107 @@ Les sous éléments seront déplacés vers le haut.</target>
       <segment state="translated">
         <source>entity.info.parts_count</source>
         <target>Nombre de composants avec cet élément</target>
+      </segment>
+    </unit>
+    <unit id="4FQqOUW" name="specifications.property">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:6</note>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:125</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.property</source>
+        <target>Paramètre</target>
+      </segment>
+    </unit>
+    <unit id="N4F6wz5" name="specifications.symbol">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:7</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.symbol</source>
+        <target>Symbole</target>
+      </segment>
+    </unit>
+    <unit id="ManEcyM" name="specifications.value_min">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:8</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:8</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value_min</source>
+        <target>Min.</target>
+      </segment>
+    </unit>
+    <unit id="BzRKVPC" name="specifications.value_typ">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:9</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:9</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value_typ</source>
+        <target>Typ.</target>
+      </segment>
+    </unit>
+    <unit id="WLVXsOF" name="specifications.value_max">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:10</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value_max</source>
+        <target>Max.</target>
+      </segment>
+    </unit>
+    <unit id="mRpl2vJ" name="specifications.unit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:11</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:11</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.unit</source>
+        <target>Unité</target>
+      </segment>
+    </unit>
+    <unit id="05vM0Vp" name="specifications.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:12</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:12</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.text</source>
+        <target>Texte</target>
+      </segment>
+    </unit>
+    <unit id="t9lgp3U" name="specifications.group">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:13</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:13</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.group</source>
+        <target>Groupe</target>
+      </segment>
+    </unit>
+    <unit id="MZTH_sJ" name="specification.create">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:26</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:26</note>
+      </notes>
+      <segment state="translated">
+        <source>specification.create</source>
+        <target>Nouveau paramètre</target>
+      </segment>
+    </unit>
+    <unit id="eEuzINH" name="parameter.delete.confirm">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\_parameters.html.twig:31</note>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\_specifications.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>parameter.delete.confirm</source>
+        <target>Souhaitez-vous vraiment supprimer ce paramètre ?</target>
       </segment>
     </unit>
     <unit id="rpzRyMx" name="attachment.list.title">
@@ -1043,6 +1400,15 @@ Show/Hide sidebar</target>
         <target>Non</target>
       </segment>
     </unit>
+    <unit id="PbJl5cf" name="specifications.value">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\helper.twig:126</note>
+      </notes>
+      <segment state="translated">
+        <source>specifications.value</source>
+        <target>Valeur</target>
+      </segment>
+    </unit>
     <unit id="Qj.Hpb." name="version.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:7</note>
@@ -1184,6 +1550,134 @@ Show/Hide sidebar</target>
       <segment state="translated">
         <source>homepage.last_activity</source>
         <target>Activité récente</target>
+      </segment>
+    </unit>
+    <unit id="bqeaYn7" name="label_generator.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:6</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.title</source>
+        <target>Générateur d'étiquettes</target>
+      </segment>
+    </unit>
+    <unit id="qHJOVv6" name="label_generator.common">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:16</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.common</source>
+        <target>Commun</target>
+      </segment>
+    </unit>
+    <unit id="WLpYniK" name="label_generator.advanced">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.advanced</source>
+        <target>Avancé</target>
+      </segment>
+    </unit>
+    <unit id="wNFVz._" name="label_generator.profiles">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:24</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.profiles</source>
+        <target>Profils</target>
+      </segment>
+    </unit>
+    <unit id="CjbZJ5j" name="label_generator.selected_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.selected_profile</source>
+        <target>Profil actuellement sélectionné</target>
+      </segment>
+    </unit>
+    <unit id="HqINOSK" name="label_generator.edit_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:62</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.edit_profile</source>
+        <target>Modifier le profil</target>
+      </segment>
+    </unit>
+    <unit id="fZChaHF" name="label_generator.load_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:75</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.load_profile</source>
+        <target>Charger le profil</target>
+      </segment>
+    </unit>
+    <unit id="UFelt6r" name="label_generator.download">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dialog.html.twig:102</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.download</source>
+        <target>Télécharger</target>
+      </segment>
+    </unit>
+    <unit id="fkESKHW" name="label_generator.label_btn">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:3</note>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:5</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.label_btn</source>
+        <target>Générer une étiquette</target>
+      </segment>
+    </unit>
+    <unit id="xXkObqX" name="label_generator.label_empty">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\dropdown_macro.html.twig:20</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.label_empty</source>
+        <target>Nouvelle étiquette vide</target>
+      </segment>
+    </unit>
+    <unit id="0qyoOfw" name="label_scanner.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:3</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.title</source>
+        <target>Lecteur d'étiquettes</target>
+      </segment>
+    </unit>
+    <unit id="Z0zU4lk" name="label_scanner.no_cam_found.title">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.no_cam_found.title</source>
+        <target>Aucune webcam trouvée</target>
+      </segment>
+    </unit>
+    <unit id="2Jk59Ug" name="label_scanner.no_cam_found.text">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:7</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.no_cam_found.text</source>
+        <target>Vous devez disposer d'une webcam et donner l'autorisation d'utiliser la fonction de scanner. Vous pouvez entrer le code à barres manuellement ci-dessous.</target>
+      </segment>
+    </unit>
+    <unit id="6qQTB7S" name="label_scanner.source_select">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\LabelSystem\Scanner\dialog.html.twig:27</note>
+      </notes>
+      <segment state="translated">
+        <source>label_scanner.source_select</source>
+        <target>Sélectionnez une source</target>
       </segment>
     </unit>
     <unit id="uKTMZBs" name="log.list.title">
@@ -1442,6 +1936,15 @@ Show/Hide sidebar</target>
         <target>Informations pour la commande</target>
       </segment>
     </unit>
+    <unit id="fLuFk_2" name="part.edit.tab.specifications">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:58</note>
+      </notes>
+      <segment state="translated">
+        <source>part.edit.tab.specifications</source>
+        <target>Caractéristiques</target>
+      </segment>
+    </unit>
     <unit id="LgSgFFj" name="part.edit.tab.comment">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\edit\edit_part_info.html.twig:64</note>
@@ -1552,6 +2055,15 @@ Show/Hide sidebar</target>
         <target>Commentaire</target>
       </segment>
     </unit>
+    <unit id="Y2.Edoh" name="part.info.specifications">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:64</note>
+      </notes>
+      <segment state="translated">
+        <source>part.info.specifications</source>
+        <target>Caractéristiques</target>
+      </segment>
+    </unit>
     <unit id="MZz0rtU" name="attachment.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\show_part_info.html.twig:74</note>
@@ -1652,6 +2164,15 @@ Show/Hide sidebar</target>
       <segment state="translated">
         <source>attachment.file_size</source>
         <target>Taille du fichier</target>
+      </segment>
+    </unit>
+    <unit id="gWj51jS" name="attachment.preview">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_attachments_info.html.twig:54</note>
+      </notes>
+      <segment state="translated">
+        <source>attachment.preview</source>
+        <target>Aperçu de l'image</target>
       </segment>
     </unit>
     <unit id="GSjs0LU" name="attachment.download">
@@ -2068,6 +2589,24 @@ Show/Hide sidebar</target>
         <target>N'est plus disponible</target>
       </segment>
     </unit>
+    <unit id="PYWb1Wy" name="parameters.extracted_from_description">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:10</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.extracted_from_description</source>
+        <target>Automatiquement extrait de la description</target>
+      </segment>
+    </unit>
+    <unit id="xuDIeTd" name="parameters.auto_extracted_from_comment">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_specifications.html.twig:15</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.auto_extracted_from_comment</source>
+        <target>Automatiquement extrait du commentaire</target>
+      </segment>
+    </unit>
     <unit id="cTsojYo" name="part.edit.btn">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\Parts\info\_tools.html.twig:6</note>
@@ -2229,6 +2768,24 @@ Show/Hide sidebar</target>
       <segment state="translated">
         <source>entity.info.statistics.tab</source>
         <target>Statistiques</target>
+      </segment>
+    </unit>
+    <unit id="Msykg.Z" name="entity.info.attachments.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:31</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.attachments.tab</source>
+        <target>Pièces jointes</target>
+      </segment>
+    </unit>
+    <unit id="8VfTCPf" name="entity.info.parameters.tab">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\Parts\lists\_info_card.html.twig:37</note>
+      </notes>
+      <segment state="translated">
+        <source>entity.info.parameters.tab</source>
+        <target>Caractéristiques</target>
       </segment>
     </unit>
     <unit id="a0Bt1My" name="entity.info.name">
@@ -3393,6 +3950,15 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
         <target>Activer/désactiver la barre latérale</target>
       </segment>
     </unit>
+    <unit id="iCTvpEA" name="navbar.scanner.link">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:22</note>
+      </notes>
+      <segment state="translated">
+        <source>navbar.scanner.link</source>
+        <target>Scanner</target>
+      </segment>
+    </unit>
     <unit id="PRvW.EI" name="user.loggedin.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_navbar.html.twig:38</note>
@@ -3448,6 +4014,15 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       <segment state="translated">
         <source>search.options.label</source>
         <target>Options de recherche</target>
+      </segment>
+    </unit>
+    <unit id="V2u6xXi" name="tags.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_navbar_search.html.twig:23</note>
+      </notes>
+      <segment state="translated">
+        <source>tags.label</source>
+        <target>Tags</target>
       </segment>
     </unit>
     <unit id="RezjOdV" name="storelocation.label">
@@ -3672,6 +4247,15 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
         <target>Le jeton RFTS n'est pas valable ! Rechargez cette page ou contactez un administrateur si le problème persiste !</target>
       </segment>
     </unit>
+    <unit id="7ynbNyD" name="label_generator.no_entities_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\LabelController.php:125</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.no_entities_found</source>
+        <target>Aucune entité correspondant à la gamme trouvée.</target>
+      </segment>
+    </unit>
     <unit id="BeMACpw" name="log.undo.target_not_found">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Controller\LogController.php:149</note>
@@ -3823,6 +4407,34 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       <segment state="translated">
         <source>part.created_flash.invalid</source>
         <target>Erreur lors de la création : Vérifiez vos données !</target>
+      </segment>
+    </unit>
+    <unit id="6T8GmmR" name="scan.qr_not_found">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:68</note>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:90</note>
+      </notes>
+      <segment state="translated">
+        <source>scan.qr_not_found</source>
+        <target>Aucun élément trouvé pour le code-barres donné.</target>
+      </segment>
+    </unit>
+    <unit id="vXTqaTo" name="scan.format_unknown">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:71</note>
+      </notes>
+      <segment state="translated">
+        <source>scan.format_unknown</source>
+        <target>Format inconnu !</target>
+      </segment>
+    </unit>
+    <unit id="8CJPuTZ" name="scan.qr_success">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Controller\ScanController.php:86</note>
+      </notes>
+      <segment state="translated">
+        <source>scan.qr_success</source>
+        <target>Élément trouvé.</target>
       </segment>
     </unit>
     <unit id="B1T9Kt6" name="pw_reset.user_or_email">
@@ -4687,6 +5299,276 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
         <target>Lot de composant</target>
       </segment>
     </unit>
+    <unit id="FmESg.O" name="label_options.barcode_type.none">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.none</source>
+        <target>Aucun</target>
+      </segment>
+    </unit>
+    <unit id="MxYhcsN" name="label_options.barcode_type.qr">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.qr</source>
+        <target>QR Code (recommandé)</target>
+      </segment>
+    </unit>
+    <unit id="uIJQMqh" name="label_options.barcode_type.code128">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.code128</source>
+        <target>Code 128 (recommandé)</target>
+      </segment>
+    </unit>
+    <unit id="56JwbDf" name="label_options.barcode_type.code39">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.code39</source>
+        <target>Code 39 (recommandé)</target>
+      </segment>
+    </unit>
+    <unit id="lz068u3" name="label_options.barcode_type.code93">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.code93</source>
+        <target>Code 93</target>
+      </segment>
+    </unit>
+    <unit id="kPFpWmf" name="label_options.barcode_type.datamatrix">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:78</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.datamatrix</source>
+        <target>Datamatrix</target>
+      </segment>
+    </unit>
+    <unit id="7I9OV_t" name="label_options.lines_mode.html">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:122</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.lines_mode.html</source>
+        <target>Placeholders</target>
+      </segment>
+    </unit>
+    <unit id="dFMpKDI" name="label.options.lines_mode.twig">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:122</note>
+      </notes>
+      <segment state="translated">
+        <source>label.options.lines_mode.twig</source>
+        <target>Twig</target>
+      </segment>
+    </unit>
+    <unit id="BybM1v9" name="label_options.lines_mode.help">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:126</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.lines_mode.help</source>
+        <target>Si vous sélectionnez Twig ici, le champ de contenu est interprété comme un modèle Twig. Voir &lt;a href="https://twig.symfony.com/doc/3.x/templates.html"&gt;Documentation de Twig&lt;/a&gt; et &lt;a href="https://github.com/Part-DB/Part-DB-symfony/wiki/Labels#twig-mode"&gt;Wiki&lt;/a&gt; pour plus d'informations.</target>
+      </segment>
+    </unit>
+    <unit id="2d9g1o5" name="label_options.page_size.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:47</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.page_size.label</source>
+        <target>Taille de l'étiquette</target>
+      </segment>
+    </unit>
+    <unit id="7ZEGFJ3" name="label_options.supported_elements.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:66</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.supported_elements.label</source>
+        <target>Type de cible</target>
+      </segment>
+    </unit>
+    <unit id="eSLhawk" name="label_options.barcode_type.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:75</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.label</source>
+        <target>Code barre</target>
+      </segment>
+    </unit>
+    <unit id="Z8_BSQ1" name="label_profile.lines.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:102</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.lines.label</source>
+        <target>Contenu</target>
+      </segment>
+    </unit>
+    <unit id="LfMiT9B" name="label_options.additional_css.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:111</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.additional_css.label</source>
+        <target>Styles supplémentaires (CSS)</target>
+      </segment>
+    </unit>
+    <unit id="0A6Twij" name="label_options.lines_mode.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:120</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.lines_mode.label</source>
+        <target>Parser mode</target>
+      </segment>
+    </unit>
+    <unit id="aPqzFJs" name="label_options.width.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:51</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.width.placeholder</source>
+        <target>Largeur</target>
+      </segment>
+    </unit>
+    <unit id="t.j1KtN" name="label_options.height.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelOptionsType.php:60</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.height.placeholder</source>
+        <target>Hauteur</target>
+      </segment>
+    </unit>
+    <unit id="nez5RLt" name="label_generator.target_id.range_hint">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:49</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.target_id.range_hint</source>
+        <target>Vous pouvez spécifier ici plusieurs ID (par exemple 1,2,3) et/ou une plage (1-3) pour générer des étiquettes pour plusieurs éléments à la fois.</target>
+      </segment>
+    </unit>
+    <unit id="GN.UJxb" name="label_generator.target_id.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:46</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.target_id.label</source>
+        <target>ID des cibles</target>
+      </segment>
+    </unit>
+    <unit id="xSJAE3a" name="label_generator.update">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\LabelDialogType.php:59</note>
+      </notes>
+      <segment state="translated">
+        <source>label_generator.update</source>
+        <target>Actualisation</target>
+      </segment>
+    </unit>
+    <unit id="QQCsPWt" name="scan_dialog.input">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\ScanDialogType.php:36</note>
+      </notes>
+      <segment state="translated">
+        <source>scan_dialog.input</source>
+        <target>Saisie</target>
+      </segment>
+    </unit>
+    <unit id="xENLE_d" name="scan_dialog.submit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\LabelSystem\ScanDialogType.php:44</note>
+      </notes>
+      <segment state="translated">
+        <source>scan_dialog.submit</source>
+        <target>Soumettre</target>
+      </segment>
+    </unit>
+    <unit id="o.P_V00" name="parameters.name.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:41</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.name.placeholder</source>
+        <target>ex.  Gain de courant DC</target>
+      </segment>
+    </unit>
+    <unit id="3LWIDYM" name="parameters.symbol.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:50</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.symbol.placeholder</source>
+        <target>ex. h_{FE}</target>
+      </segment>
+    </unit>
+    <unit id="w7bfLKj" name="parameters.text.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:60</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.text.placeholder</source>
+        <target>ex. Test conditions</target>
+      </segment>
+    </unit>
+    <unit id="6utToZ6" name="parameters.max.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:71</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.max.placeholder</source>
+        <target>ex. 350</target>
+      </segment>
+    </unit>
+    <unit id="BypUOrf" name="parameters.min.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:82</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.min.placeholder</source>
+        <target>ex. 100</target>
+      </segment>
+    </unit>
+    <unit id="VmYIvYF" name="parameters.typical.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:93</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.typical.placeholder</source>
+        <target>ex. 200</target>
+      </segment>
+    </unit>
+    <unit id="kvhGoo0" name="parameters.unit.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:103</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.unit.placeholder</source>
+        <target>ex. V</target>
+      </segment>
+    </unit>
+    <unit id="kL5OSi8" name="parameter.group.placeholder">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Form\ParameterType.php:114</note>
+      </notes>
+      <segment state="translated">
+        <source>parameter.group.placeholder</source>
+        <target>ex. Spécifications techniques</target>
+      </segment>
+    </unit>
     <unit id="jv6wCpP" name="orderdetails.edit.supplierpartnr">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Form\Part\OrderdetailType.php:72</note>
@@ -5204,6 +6086,24 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
         <target>Utilisateur</target>
       </segment>
     </unit>
+    <unit id="CxpVbHB" name="parameter.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:95</note>
+      </notes>
+      <segment state="translated">
+        <source>parameter.label</source>
+        <target>Caractéristique</target>
+      </segment>
+    </unit>
+    <unit id="0koS1dD" name="label_profile.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:96</note>
+      </notes>
+      <segment state="translated">
+        <source>label_profile.label</source>
+        <target>Profil d'étiquette</target>
+      </segment>
+    </unit>
     <unit id=".nBJJBz" name="log.element_deleted.old_name.unknown">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\LogSystem\LogEntryExtraFormatter.php:176</note>
@@ -5233,6 +6133,15 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       <segment state="translated">
         <source>pw_reset.email.subject</source>
         <target>Réinitialisation du mot de passe de votre compte Part-DB</target>
+      </segment>
+    </unit>
+    <unit id="_D86R1w" name="tree.tools.tools">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:108</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.tools</source>
+        <target>Outils</target>
       </segment>
     </unit>
     <unit id="sgHHET2" name="tree.tools.edit">
@@ -5265,6 +6174,24 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       <segment state="translated">
         <source>tree.tools.system</source>
         <target>Système</target>
+      </segment>
+    </unit>
+    <unit id="Cd_wFWS" name="tree.tools.tools.label_dialog">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:123</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.tools.label_dialog</source>
+        <target>Générateur d'étiquettes</target>
+      </segment>
+    </unit>
+    <unit id="fVHzYVj" name="tree.tools.tools.label_scanner">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:130</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.tools.label_scanner</source>
+        <target>Scanner</target>
       </segment>
     </unit>
     <unit id="Umzi6EP" name="tree.tools.edit.attachment_types">
@@ -5360,6 +6287,15 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       <segment state="translated">
         <source>tree.tools.edit.measurement_unit</source>
         <target>Unité de mesure</target>
+      </segment>
+    </unit>
+    <unit id="YAalchf" name="tree.tools.edit.label_profile">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:203</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.label_profile</source>
+        <target>Profils d'étiquettes</target>
       </segment>
     </unit>
     <unit id="CBX7i_1" name="tree.tools.edit.part">
@@ -7910,6 +8846,498 @@ exemple de ville</target>
       <segment state="translated">
         <source>log.type.</source>
         <target>Type.</target>
+      </segment>
+    </unit>
+    <unit id="WjnV7iC" name="tfa_u2f.key_added_successful">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>tfa_u2f.key_added_successful</source>
+        <target>Clé de sécurité ajoutée avec succès.</target>
+      </segment>
+    </unit>
+    <unit id="47ienTP" name="Username">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>Username</source>
+        <target>Nom d'utilisateur</target>
+      </segment>
+    </unit>
+    <unit id="dVu9PKe" name="log.type.security.google_disabled">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.google_disabled</source>
+        <target>Application d'authentification désactivée</target>
+      </segment>
+    </unit>
+    <unit id="HfccXTr" name="log.type.security.u2f_removed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.u2f_removed</source>
+        <target>Clé de sécurité enlevée</target>
+      </segment>
+    </unit>
+    <unit id="zl1WXuM" name="log.type.security.u2f_added">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.u2f_added</source>
+        <target>Clé de sécurité ajoutée</target>
+      </segment>
+    </unit>
+    <unit id="9_jzHX6" name="log.type.security.backup_keys_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.backup_keys_reset</source>
+        <target>Clés de sauvegarde régénérées</target>
+      </segment>
+    </unit>
+    <unit id="h6zwXNp" name="log.type.security.google_enabled">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.google_enabled</source>
+        <target>Application Authenticator activée</target>
+      </segment>
+    </unit>
+    <unit id="XbsoHIr" name="log.type.security.password_changed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.password_changed</source>
+        <target>Mot de passe modifié</target>
+      </segment>
+    </unit>
+    <unit id="2q0_b3P" name="log.type.security.trusted_device_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.trusted_device_reset</source>
+        <target>Appareils de confiance réinitialisés</target>
+      </segment>
+    </unit>
+    <unit id="n8flY2e" name="log.type.collection_element_deleted">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.collection_element_deleted</source>
+        <target>Élément de collecte supprimé</target>
+      </segment>
+    </unit>
+    <unit id="yNm8PCN" name="log.type.security.password_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.password_reset</source>
+        <target>Réinitialisation du mot de passe</target>
+      </segment>
+    </unit>
+    <unit id="CsjgnTI" name="log.type.security.2fa_admin_reset">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.security.2fa_admin_reset</source>
+        <target>Réinitialisation à deux facteurs par l'administrateur</target>
+      </segment>
+    </unit>
+    <unit id="bJ.EAvM" name="log.type.user_not_allowed">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.type.user_not_allowed</source>
+        <target>Tentative d'accès non autorisé</target>
+      </segment>
+    </unit>
+    <unit id="Z28oTau" name="log.database_updated.success">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>log.database_updated.success</source>
+        <target>Succès</target>
+      </segment>
+    </unit>
+    <unit id="8jpgdV8" name="label_options.barcode_type.2D">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.2D</source>
+        <target>2D</target>
+      </segment>
+    </unit>
+    <unit id="O7.UnHb" name="label_options.barcode_type.1D">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>label_options.barcode_type.1D</source>
+        <target>1D</target>
+      </segment>
+    </unit>
+    <unit id="QMdRP48" name="perm.part.parameters">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.part.parameters</source>
+        <target>Caractéristiques</target>
+      </segment>
+    </unit>
+    <unit id="_a9gfQw" name="perm.attachment_show_private">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.attachment_show_private</source>
+        <target>Voir les pièces jointes privées</target>
+      </segment>
+    </unit>
+    <unit id="fcUq9AR" name="perm.tools.label_scanner">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.tools.label_scanner</source>
+        <target>Lecteur d'étiquettes</target>
+      </segment>
+    </unit>
+    <unit id="QSODEfC" name="perm.self.read_profiles">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.read_profiles</source>
+        <target>Lire les profils</target>
+      </segment>
+    </unit>
+    <unit id="9ItKgrD" name="perm.self.create_profiles">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.self.create_profiles</source>
+        <target>Créer des profils</target>
+      </segment>
+    </unit>
+    <unit id="j6yqWSf" name="perm.labels.use_twig">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.labels.use_twig</source>
+        <target>Utiliser le mode twig</target>
+      </segment>
+    </unit>
+    <unit id="f_MQ1uL" name="label_profile.showInDropdown">
+      <segment state="translated">
+        <source>label_profile.showInDropdown</source>
+        <target>Afficher en sélection rapide</target>
+      </segment>
+    </unit>
+    <unit id="qrHwUh3" name="group.edit.enforce_2fa">
+      <segment state="translated">
+        <source>group.edit.enforce_2fa</source>
+        <target>Imposer l'authentification à deux facteurs (2FA)</target>
+      </segment>
+    </unit>
+    <unit id="btZApXD" name="group.edit.enforce_2fa.help">
+      <segment state="translated">
+        <source>group.edit.enforce_2fa.help</source>
+        <target>Si cette option est activée, chaque membre direct de ce groupe doit configurer au moins un deuxième facteur d'authentification. Recommandé pour les groupes administratifs ayant beaucoup de permissions.</target>
+      </segment>
+    </unit>
+    <unit id="i7QKlzx" name="selectpicker.empty">
+      <segment state="translated">
+        <source>selectpicker.empty</source>
+        <target>Rien n'est sélectionné</target>
+      </segment>
+    </unit>
+    <unit id="TPI_1p0" name="selectpicker.nothing_selected">
+      <segment state="translated">
+        <source>selectpicker.nothing_selected</source>
+        <target>Rien n'est sélectionné</target>
+      </segment>
+    </unit>
+    <unit id="D6I2Q6C" name="entity.delete.must_not_contain_parts">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_parts</source>
+        <target>L'élement contient encore des parties ! Vous devez déplacer les parties pour pouvoir supprimer cet élément.</target>
+      </segment>
+    </unit>
+    <unit id="hu8Y98Q" name="entity.delete.must_not_contain_attachments">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_attachments</source>
+        <target>Le type de pièce jointe contient toujours des pièces jointes. Changez leur type, pour pouvoir supprimer ce type de pièce jointe.</target>
+      </segment>
+    </unit>
+    <unit id="OewVQB8" name="entity.delete.must_not_contain_prices">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_prices</source>
+        <target>La devise contient encore des prix. Vous devez changer leur devise pour pouvoir supprimer cet élément.</target>
+      </segment>
+    </unit>
+    <unit id="L93n2S_" name="entity.delete.must_not_contain_users">
+      <segment state="translated">
+        <source>entity.delete.must_not_contain_users</source>
+        <target>Des utilisateurs utilisent toujours ce groupe ! Changez les de groupe pour pouvoir supprimer ce groupe.</target>
+      </segment>
+    </unit>
+    <unit id="72lMzIQ" name="part.table.edit">
+      <segment state="translated">
+        <source>part.table.edit</source>
+        <target>Modifier</target>
+      </segment>
+    </unit>
+    <unit id="AGwzXa0" name="part.table.edit.title">
+      <segment state="translated">
+        <source>part.table.edit.title</source>
+        <target>Modifier composant</target>
+      </segment>
+    </unit>
+    <unit id="uAVyHXQ" name="part_list.action.action.title">
+      <segment state="translated">
+        <source>part_list.action.action.title</source>
+        <target>Sélectionnez une action</target>
+      </segment>
+    </unit>
+    <unit id="bAPfHqL" name="part_list.action.action.group.favorite">
+      <segment state="translated">
+        <source>part_list.action.action.group.favorite</source>
+        <target>Statut favori</target>
+      </segment>
+    </unit>
+    <unit id="P5wWUv3" name="part_list.action.action.favorite">
+      <segment state="translated">
+        <source>part_list.action.action.favorite</source>
+        <target>Favorable</target>
+      </segment>
+    </unit>
+    <unit id="sfOQX5T" name="part_list.action.action.unfavorite">
+      <segment state="translated">
+        <source>part_list.action.action.unfavorite</source>
+        <target>Défavorable</target>
+      </segment>
+    </unit>
+    <unit id="xJa8HMi" name="part_list.action.action.group.change_field">
+      <segment state="translated">
+        <source>part_list.action.action.group.change_field</source>
+        <target>Modifier le champ</target>
+      </segment>
+    </unit>
+    <unit id="vzWZTcS" name="part_list.action.action.change_category">
+      <segment state="translated">
+        <source>part_list.action.action.change_category</source>
+        <target>Modifier la catégorie</target>
+      </segment>
+    </unit>
+    <unit id="o0usAp." name="part_list.action.action.change_footprint">
+      <segment state="translated">
+        <source>part_list.action.action.change_footprint</source>
+        <target>Modifier l'empreinte</target>
+      </segment>
+    </unit>
+    <unit id="5KmoqAw" name="part_list.action.action.change_manufacturer">
+      <segment state="translated">
+        <source>part_list.action.action.change_manufacturer</source>
+        <target>Modifier le fabricant</target>
+      </segment>
+    </unit>
+    <unit id="3i7xim8" name="part_list.action.action.change_unit">
+      <segment state="translated">
+        <source>part_list.action.action.change_unit</source>
+        <target>Modifier l'unité</target>
+      </segment>
+    </unit>
+    <unit id="CjaC2GZ" name="part_list.action.action.delete">
+      <segment state="translated">
+        <source>part_list.action.action.delete</source>
+        <target>Supprimer</target>
+      </segment>
+    </unit>
+    <unit id="TdvpOc5" name="part_list.action.submit">
+      <segment state="translated">
+        <source>part_list.action.submit</source>
+        <target>Soumettre</target>
+      </segment>
+    </unit>
+    <unit id="qKDo_nI" name="part_list.action.part_count">
+      <segment state="translated">
+        <source>part_list.action.part_count</source>
+        <target>%count% composants sélectionnés !</target>
+      </segment>
+    </unit>
+    <unit id="ssOogP5" name="company.edit.quick.website">
+      <segment state="translated">
+        <source>company.edit.quick.website</source>
+        <target>Ouvrir le site web</target>
+      </segment>
+    </unit>
+    <unit id="5hU5mZK" name="company.edit.quick.email">
+      <segment state="translated">
+        <source>company.edit.quick.email</source>
+        <target>Envoyer un e-mail</target>
+      </segment>
+    </unit>
+    <unit id="cVAsYfX" name="company.edit.quick.phone">
+      <segment state="translated">
+        <source>company.edit.quick.phone</source>
+        <target>Téléphoner</target>
+      </segment>
+    </unit>
+    <unit id="6YTFx7Y" name="company.edit.quick.fax">
+      <segment state="translated">
+        <source>company.edit.quick.fax</source>
+        <target>Envoyer une télécopie</target>
+      </segment>
+    </unit>
+    <unit id="PKJDzwq" name="company.fax_number.placeholder">
+      <segment state="translated">
+        <source>company.fax_number.placeholder</source>
+        <target>ex. +33 12 34 56 78 90</target>
+      </segment>
+    </unit>
+    <unit id="tB_XJLr" name="part.edit.save_and_clone">
+      <segment state="translated">
+        <source>part.edit.save_and_clone</source>
+        <target>Sauvegarder et dupliquer</target>
+      </segment>
+    </unit>
+    <unit id="zpqGCO8" name="validator.file_ext_not_allowed">
+      <segment state="translated">
+        <source>validator.file_ext_not_allowed</source>
+        <target>L'extension de fichier n'est pas autorisée pour ce type de pièce jointe.</target>
+      </segment>
+    </unit>
+    <unit id="Wqa3lsL" name="tools.reel_calc.title">
+      <segment state="translated">
+        <source>tools.reel_calc.title</source>
+        <target>Calculateur de bobines CMS</target>
+      </segment>
+    </unit>
+    <unit id="mdO7lU4" name="tools.reel_calc.inner_dia">
+      <segment state="translated">
+        <source>tools.reel_calc.inner_dia</source>
+        <target>Diamètre intérieur</target>
+      </segment>
+    </unit>
+    <unit id="y9vRCcc" name="tools.reel_calc.outer_dia">
+      <segment state="translated">
+        <source>tools.reel_calc.outer_dia</source>
+        <target>Diamètre extérieur</target>
+      </segment>
+    </unit>
+    <unit id="BjeRVFq" name="tools.reel_calc.tape_thick">
+      <segment state="translated">
+        <source>tools.reel_calc.tape_thick</source>
+        <target>Épaisseur du ruban</target>
+      </segment>
+    </unit>
+    <unit id="ip4Wa3T" name="tools.reel_calc.part_distance">
+      <segment state="translated">
+        <source>tools.reel_calc.part_distance</source>
+        <target>Distance entre les composants</target>
+      </segment>
+    </unit>
+    <unit id="Ysn3sXm" name="tools.reel_calc.update">
+      <segment state="translated">
+        <source>tools.reel_calc.update</source>
+        <target>Actualiser</target>
+      </segment>
+    </unit>
+    <unit id="epp3lk7" name="tools.reel_calc.parts_per_meter">
+      <segment state="translated">
+        <source>tools.reel_calc.parts_per_meter</source>
+        <target>Composants par mètre</target>
+      </segment>
+    </unit>
+    <unit id="3R0ANJW" name="tools.reel_calc.result_length">
+      <segment state="translated">
+        <source>tools.reel_calc.result_length</source>
+        <target>Longueur de la bande</target>
+      </segment>
+    </unit>
+    <unit id="SvtCM.I" name="tools.reel_calc.result_amount">
+      <segment state="translated">
+        <source>tools.reel_calc.result_amount</source>
+        <target>Nbre approximatif de composants</target>
+      </segment>
+    </unit>
+    <unit id="wwAQjbO" name="tools.reel_calc.outer_greater_inner_error">
+      <segment state="translated">
+        <source>tools.reel_calc.outer_greater_inner_error</source>
+        <target>Erreur : Le diamètre extérieur doit être supérieur au diamètre intérieur !</target>
+      </segment>
+    </unit>
+    <unit id="t3mMhMS" name="tools.reel_calc.missing_values.error">
+      <segment state="translated">
+        <source>tools.reel_calc.missing_values.error</source>
+        <target>Veuillez remplir toutes les valeurs !</target>
+      </segment>
+    </unit>
+    <unit id="k.OEkUU" name="tools.reel_calc.load_preset">
+      <segment state="translated">
+        <source>tools.reel_calc.load_preset</source>
+        <target>Charger la présélection</target>
+      </segment>
+    </unit>
+    <unit id="xIL4yg1" name="tools.reel_calc.explanation">
+      <segment state="translated">
+        <source>tools.reel_calc.explanation</source>
+        <target>Ce calculateur vous donne une estimation du nombre de pièces qui restent sur une bobine de CMS. Mesurez les dimensions notées sur la bobine (ou utilisez certains des préréglages) et cliquez sur "Actualiser" pour obtenir un résultat.</target>
+      </segment>
+    </unit>
+    <unit id="E1xAigo" name="perm.tools.reel_calculator">
+      <segment state="translated">
+        <source>perm.tools.reel_calculator</source>
+        <target>Calculateur de bobines CMS</target>
+      </segment>
+    </unit>
+    <unit id="Q_6JPEr" name="tree.tools.tools.reel_calculator">
+      <segment state="translated">
+        <source>tree.tools.tools.reel_calculator</source>
+        <target>Calculateur de bobines CMS</target>
+      </segment>
+    </unit>
+    <unit id="D481NZD" name="currency.edit.exchange_rate_update.generic_error">
+      <segment state="translated">
+        <source>currency.edit.exchange_rate_update.generic_error</source>
+        <target>Erreur générique</target>
+      </segment>
+    </unit>
+    <unit id="jSf6Wmz" name="currency.edit.exchange_rate_update.unsupported_currency">
+      <segment state="translated">
+        <source>currency.edit.exchange_rate_update.unsupported_currency</source>
+        <target>Devise non prise en charge</target>
+      </segment>
+    </unit>
+    <unit id="1HcqCmo" name="currency.edit.update_rate">
+      <segment state="translated">
+        <source>currency.edit.update_rate</source>
+        <target>Taux de rafraîchissement</target>
+      </segment>
+    </unit>
+    <unit id="E_M7mZ5" name="currency.edit.exchange_rate_updated.success">
+      <segment state="translated">
+        <source>currency.edit.exchange_rate_updated.success</source>
+        <target>Succès</target>
       </segment>
     </unit>
   </file>
