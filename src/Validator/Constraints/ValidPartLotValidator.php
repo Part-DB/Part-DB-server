@@ -80,7 +80,7 @@ class ValidPartLotValidator extends ConstraintValidator
             $repo = $this->em->getRepository(Storelocation::class);
             //We can only determine associated parts, if the part have an ID
             if ($value->getID() !== null) {
-                $parts = new ArrayCollection($repo->getParts($value));
+                $parts = new ArrayCollection($repo->getParts($value->getStorageLocation()));
             } else {
                 $parts = new ArrayCollection([]);
             }
@@ -112,7 +112,7 @@ class ValidPartLotValidator extends ConstraintValidator
             }
 
             //Check for only single part
-            if ($value->getStorageLocation()->isLimitToExistingParts()) {
+            if ($value->getStorageLocation()->isOnlySinglePart()) {
                 if (($parts->count() > 0) && ! $parts->contains($value->getPart())) {
                     $this->context->buildViolation('validator.part_lot.single_part')
                         ->atPath('storage_location')->addViolation();

@@ -191,5 +191,11 @@
         <target>Please select a valid category!</target>
       </segment>
     </unit>
+    <unit id="6vIlN5q" name="validator.part_lot.only_existing">
+      <segment>
+        <source>validator.part_lot.only_existing</source>
+        <target>Can not add new parts to this location as it is marked as "Only Existing"</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

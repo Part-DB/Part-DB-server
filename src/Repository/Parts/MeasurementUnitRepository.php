@@ -20,6 +20,8 @@
 
 namespace App\Repository\Parts;
 
+use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\MeasurementUnit;
 use App\Repository\AbstractPartsContainingRepository;
 
 class MeasurementUnitRepository extends AbstractPartsContainingRepository
@@ -27,11 +29,19 @@ class MeasurementUnitRepository extends AbstractPartsContainingRepository
 
     public function getParts(object $element, array $order_by = ['name' => 'ASC']): array
     {
+        if (!$element instanceof MeasurementUnit) {
+            throw new \InvalidArgumentException('$element must be an MeasurementUnit!');
+        }
+
         return $this->getPartsByField($element, $order_by, 'partUnit');
     }
 
     public function getPartsCount(object $element): int
     {
+        if (!$element instanceof MeasurementUnit) {
+            throw new \InvalidArgumentException('$element must be an MeasurementUnit!');
+        }
+
         return $this->getPartsCountByField($element, 'partUnit');
     }
 }
