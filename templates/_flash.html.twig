@@ -1,6 +1,6 @@
 {# The container to show the flash messages #}
 
-<div class="toast-container" id="message-container">
+<div class="toast-container" id="message-container" style="min-width: 20%;">
     {% for label, messages in app.flashes() %}
         {% for message in messages %}
             {% set flash_title = label|replace({'success': 'flash.success', 'error': 'flash.error'
@@ -10,14 +10,14 @@
 
             {% set flash_bg = label|replace({'success': 'bg-success text-white',
                 'error': 'bg-danger text-white', 'warning': 'bg-warning text-white',
-                'notice': 'bg-info text-white', 'info': 'bg'})%}
+                'notice': 'bg-info text-white', 'info': 'bg-light'})%}
 
-            <div class="toast " role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+            <div class="toast shadow" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
                 <div class="toast-header {{ flash_bg }}">
                     {# <img src="..." class="rounded mr-2" alt="...">#}
                     <i class="fas fa-fw {{ flash_symbol }} mr-2"></i>
                     <strong class="mr-auto">{{ flash_title|trans }}</strong>
-                    {#<small class="text-muted">11 mins ago</small> #}
+                    <small class="text-muted">{{ "now" | format_datetime("short", "short") }}</small>
                     <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
