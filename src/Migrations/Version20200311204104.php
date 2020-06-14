@@ -36,7 +36,7 @@ final class Version20200311204104 extends AbstractMultiPlatformMigration
             'SET perms_parts_parameters = 681 WHERE (id = 2 AND name = "readonly");';
         $this->addSql($sql);
 
-        $this->write('<question>[!!!] Permissions were updated! Please check if they fit your expectations!</question>');
+        $this->printPermissionUpdateMessage();
     }
 
     public function mySQLDown(Schema $schema): void

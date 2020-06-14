@@ -11,6 +11,8 @@ use Scheb\TwoFactorBundle\Model\Email\TwoFactorInterface;
 
 abstract class AbstractMultiPlatformMigration extends AbstractMigration
 {
+    protected $permissions_updated = false;
+
     public function up(Schema $schema): void
     {
         $db_type = $this->connection->getDatabasePlatform()->getName();
@@ -68,6 +70,18 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
     {
         //CHANGEME: Improve this
         return '$2y$10$36AnqCBS.YnHlVdM4UQ0oOCV7BjU7NmE0qnAVEex65AyZw1cbcEjq';
+    }
+
+    public function printPermissionUpdateMessage(): void
+    {
+        $this->permissions_updated = true;
+        //$this->write('<question>[!!!] Permissions were updated! Please check if they fit your expectations!</question>');
+    }
+
+    public function postUp(Schema $schema): void
+    {
+        parent::postUp($schema);
+        $this->write('<question>[!!!] Permissions were updated! Please check if they fit your expectations!</question>');
     }
 
     abstract public function mySQLUp(Schema $schema): void;

@@ -68,7 +68,7 @@ final class Version20190913141126 extends AbstractMultiPlatformMigration
 
         $this->addSql($sql);
 
-        $this->write('[!!!] Permissions were updated! Please check if they fit your expectations!');
+        $this->printPermissionUpdateMessage();
     }
 
     public function mySQLDown(Schema $schema): void

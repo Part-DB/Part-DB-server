@@ -136,7 +136,7 @@ EOD;
 EOD;
         $this->addSql($sql);
 
-
+        $this->printPermissionUpdateMessage();
     }
 
     public function sqLiteDown(Schema $schema): void
