@@ -80,9 +80,11 @@ for additional informations.
  `.setManifestKeyPrefix('build/')` (line 44). You have to replace `/part-db` with your own path on line 44.
 6. Install client side dependencies and build it: `yarn install` and `yarn build`
 7. _Optional_ (speeds up first load): Warmup cache: `php bin/console cache:warmup`
-8. Upgrade database to new scheme (or create it, when it was empty): `php bin/console doctrine:migrations:migrate` and follow the instructions given. **Caution**: This steps tamper with your database and could potentially destroy it. So make sure to make a backup of your database.
+8. Upgrade database to new scheme (or create it, when it was empty): `php bin/console doctrine:migrations:migrate` and follow the instructions given. During the process the password for the admin is user is shown. Copy it. **Caution**: This steps tamper with your database and could potentially destroy it. So make sure to make a backup of your database.
 9. You can configure Part-DB via `config/parameters.yaml`. You should check if settings match your expectations, after you installed/upgraded Part-DB. Check if `partdb.default_currency` matches your mainly used currency (this can not be changed after creating price informations). 
    Run `php bin/console cache:clear` when you changed something.
+10. Access Part-DB in your browser (under the URL you put it) and login with user *admin*. Password is the one outputted during DB setup.
+   If you can not remember the password, set a new one with `php bin/console app:set-password admin`. You can create new users with the admin user and start using Part-DB.
 
 When you want to upgrade to a newer version, then just copy the new files into the folder
 and repeat the steps 4. to 7.
@@ -97,8 +99,10 @@ Useful commands are:
 * `php bin/console app:clean-attachments`: Removes all unused files (files without an associated attachment) in attachments folder. 
 Normally Part-DB should be able to delete the attachment file, if you delete the attachment, but if you have some obsolete files left over from legacy Part-DB you can remove them safely with this command.
 * `php bin/console cache:clear`: Remove and rebuild all caches. If you encounter some weird issues in Part-DB, it maybe helps to run this command.
-* `php bin\console doctrine:migrations:up-to-date`: Check if your database is up to date.
+* `php bin/console doctrine:migrations:up-to-date`: Check if your database is up to date.
 
+* Normally a random password is generated when the admin user is created during inital database creation.
+You can set the inital admin password, by setting the `INITIAL_ADMIN_PW` env var.
 ## Donate for development
 If you want to donate to the Part-DB developer, see the sponsor button in the top bar (next to the repo name).
 There you will find various methods to support development on a monthly or a one time base.

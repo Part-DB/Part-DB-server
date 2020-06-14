@@ -7,11 +7,13 @@ namespace App\Migrations;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
-use Scheb\TwoFactorBundle\Model\Email\TwoFactorInterface;
 
 abstract class AbstractMultiPlatformMigration extends AbstractMigration
 {
+    public const ADMIN_PW_LENGTH = 10;
+
     protected $permissions_updated = false;
+    protected $admin_pw = "";
 
     public function up(Schema $schema): void
     {
@@ -66,22 +68,39 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
         }
     }
 
+    /**
+     * Returns the hash of a new random password, created for the initial admin user, which can be written to DB.
+     * The plaintext version of the password will be outputed to user after this migration.
+     * @return string
+     */
     public function getInitalAdminPW(): string
     {
-        //CHANGEME: Improve this
-        return '$2y$10$36AnqCBS.YnHlVdM4UQ0oOCV7BjU7NmE0qnAVEex65AyZw1cbcEjq';
+        if (empty($this->admin_pw)) {
+            if (!empty($_ENV['INITIAL_ADMIN_PW'])) {
+                $this->admin_pw = $_ENV['INITIAL_ADMIN_PW'];
+            } else {
+                $this->admin_pw = substr(md5(random_bytes(10)), 0, static::ADMIN_PW_LENGTH);
+            }
+        }
+
+        //As we dont have access to container, just use the default PHP pw hash function
+        return password_hash($this->admin_pw, PASSWORD_DEFAULT);
     }
 
     public function printPermissionUpdateMessage(): void
     {
         $this->permissions_updated = true;
-        //$this->write('<question>[!!!] Permissions were updated! Please check if they fit your expectations!</question>');
     }
 
     public function postUp(Schema $schema): void
     {
         parent::postUp($schema);
         $this->write('<question>[!!!] Permissions were updated! Please check if they fit your expectations!</question>');
+
+        if (!empty($this->admin_pw)) {
+            $this->write('');
+            $this->write('<bg=yellow;fg=black>The initial password for the "admin" user is: ' . $this->admin_pw . '</>');
+        }
     }
 
     abstract public function mySQLUp(Schema $schema): void;
