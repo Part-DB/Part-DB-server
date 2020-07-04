@@ -3,6 +3,8 @@ docker-compose.yml
 .dockerignore
 tests/
 
+.git
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
