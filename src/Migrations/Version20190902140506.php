@@ -52,7 +52,7 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
         }
 
         //Deactive SQL Modes (especially NO_ZERO_DATE, which prevents updating)
-        $this->addSql("SET sql_mode = ''");
+        //$this->addSql("SET sql_mode = ''");
 
         //Rename attachment tables (fix typos)
         $this->addSql('RENAME TABLE `attachement_types` TO `attachment_types`;');
@@ -208,14 +208,14 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
         $this->addSql('DROP TABLE `measurement_units`');
         $this->addSql('DROP TABLE part_lots');
         $this->addSql('ALTER TABLE `attachment_types` DROP FOREIGN KEY FK_EFAED719727ACA70');
-        $this->addSql('ALTER TABLE `attachment_types` DROP filetype_filter, DROP not_selectable, CHANGE comment comment TEXT DEFAULT NULL COLLATE utf8_unicode_ci, CHANGE name name TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE last_modified last_modified DATETIME DEFAULT \'0000-00-00 00:00:00\' NOT NULL');
+        $this->addSql('ALTER TABLE `attachment_types` DROP filetype_filter, DROP not_selectable, CHANGE comment comment TEXT DEFAULT NULL COLLATE utf8_unicode_ci, CHANGE name name TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
         $this->addSql('DROP INDEX idx_efaed719727aca70 ON `attachment_types`');
         $this->addSql('CREATE INDEX attachement_types_parent_id_k ON `attachment_types` (parent_id)');
         $this->addSql('ALTER TABLE `attachment_types` ADD CONSTRAINT FK_EFAED719727ACA70 FOREIGN KEY (parent_id) REFERENCES `attachment_types` (id)');
         $this->addSql('ALTER TABLE `attachments` DROP FOREIGN KEY FK_47C4FAD61F1F2A24');
         $this->addSql('ALTER TABLE `attachments` DROP FOREIGN KEY FK_47C4FAD6C54C8C93');
         $this->addSql('ALTER TABLE `attachments` DROP FOREIGN KEY FK_47C4FAD61F1F2A24');
-        $this->addSql('ALTER TABLE `attachments` DROP datetime_added, CHANGE type_id type_id INT NOT NULL, CHANGE show_in_table show_in_table TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE filename filename MEDIUMTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE name name TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE last_modified last_modified DATETIME DEFAULT \'0000-00-00 00:00:00\' NOT NULL');
+        $this->addSql('ALTER TABLE `attachments` DROP datetime_added, CHANGE type_id type_id INT NOT NULL, CHANGE show_in_table show_in_table TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE filename filename MEDIUMTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE name name TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
         $this->addSql('CREATE INDEX attachements_class_name_k ON `attachments` (class_name)');
         $this->addSql('DROP INDEX idx_47c4fad61f1f2a24 ON `attachments`');
         $this->addSql('CREATE INDEX attachements_element_id_k ON `attachments` (element_id)');
@@ -224,7 +224,7 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE `attachments` ADD CONSTRAINT FK_47C4FAD6C54C8C93 FOREIGN KEY (type_id) REFERENCES `attachment_types` (id)');
         $this->addSql('ALTER TABLE `attachments` ADD CONSTRAINT FK_47C4FAD61F1F2A24 FOREIGN KEY (element_id) REFERENCES `parts` (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE `categories` DROP FOREIGN KEY FK_3AF34668727ACA70');
-        $this->addSql('ALTER TABLE `categories` DROP not_selectable, CHANGE disable_footprints disable_footprints TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE disable_manufacturers disable_manufacturers TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE disable_autodatasheets disable_autodatasheets TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE disable_properties disable_properties TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE comment comment TEXT DEFAULT NULL COLLATE utf8_unicode_ci, CHANGE name name TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE last_modified last_modified DATETIME DEFAULT \'0000-00-00 00:00:00\' NOT NULL');
+        $this->addSql('ALTER TABLE `categories` DROP not_selectable, CHANGE disable_footprints disable_footprints TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE disable_manufacturers disable_manufacturers TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE disable_autodatasheets disable_autodatasheets TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE disable_properties disable_properties TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE comment comment TEXT DEFAULT NULL COLLATE utf8_unicode_ci, CHANGE name name TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
         $this->addSql('DROP INDEX idx_3af34668727aca70 ON `categories`');
         $this->addSql('CREATE INDEX categories_parent_id_k ON `categories` (parent_id)');
         $this->addSql('ALTER TABLE `categories` ADD CONSTRAINT FK_3AF34668727ACA70 FOREIGN KEY (parent_id) REFERENCES `categories` (id)');
@@ -241,21 +241,21 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE `device_parts` ADD CONSTRAINT FK_AFC547992F180363 FOREIGN KEY (id_device) REFERENCES `devices` (id)');
         $this->addSql('ALTER TABLE `device_parts` ADD CONSTRAINT FK_AFC54799C22F6CC4 FOREIGN KEY (id_part) REFERENCES `parts` (id)');
         $this->addSql('ALTER TABLE `devices` DROP FOREIGN KEY FK_11074E9A727ACA70');
-        $this->addSql('ALTER TABLE `devices` DROP not_selectable, CHANGE order_quantity order_quantity INT DEFAULT 0 NOT NULL, CHANGE order_only_missing_parts order_only_missing_parts TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE comment comment TEXT DEFAULT NULL COLLATE utf8_unicode_ci, CHANGE name name TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE last_modified last_modified DATETIME DEFAULT \'0000-00-00 00:00:00\' NOT NULL');
+        $this->addSql('ALTER TABLE `devices` DROP not_selectable, CHANGE order_quantity order_quantity INT DEFAULT 0 NOT NULL, CHANGE order_only_missing_parts order_only_missing_parts TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE comment comment TEXT DEFAULT NULL COLLATE utf8_unicode_ci, CHANGE name name TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
         $this->addSql('DROP INDEX idx_11074e9a727aca70 ON `devices`');
         $this->addSql('CREATE INDEX devices_parent_id_k ON `devices` (parent_id)');
         $this->addSql('ALTER TABLE `devices` ADD CONSTRAINT FK_11074E9A727ACA70 FOREIGN KEY (parent_id) REFERENCES `devices` (id)');
         $this->addSql('ALTER TABLE `footprints` DROP FOREIGN KEY FK_A34D68A2727ACA70');
-        $this->addSql('ALTER TABLE `footprints` DROP not_selectable, CHANGE comment comment TEXT DEFAULT NULL COLLATE utf8_unicode_ci, CHANGE name name TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE last_modified last_modified DATETIME DEFAULT \'0000-00-00 00:00:00\' NOT NULL');
+        $this->addSql('ALTER TABLE `footprints` DROP not_selectable, CHANGE comment comment TEXT DEFAULT NULL COLLATE utf8_unicode_ci, CHANGE name name TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
         $this->addSql('DROP INDEX idx_a34d68a2727aca70 ON `footprints`');
         $this->addSql('CREATE INDEX footprints_parent_id_k ON `footprints` (parent_id)');
         $this->addSql('ALTER TABLE `footprints` ADD CONSTRAINT FK_A34D68A2727ACA70 FOREIGN KEY (parent_id) REFERENCES `footprints` (id)');
         $this->addSql('ALTER TABLE `groups` DROP FOREIGN KEY FK_F06D3970727ACA70');
         $this->addSql('DROP INDEX IDX_F06D3970727ACA70 ON `groups`');
-        $this->addSql('ALTER TABLE `groups` DROP not_selectable, CHANGE comment comment MEDIUMTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE name name VARCHAR(32) NOT NULL COLLATE utf8_general_ci, CHANGE last_modified last_modified DATETIME DEFAULT \'0000-00-00 00:00:00\' NOT NULL, CHANGE perms_labels perms_labels SMALLINT NOT NULL');
+        $this->addSql('ALTER TABLE `groups` DROP not_selectable, CHANGE comment comment MEDIUMTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE name name VARCHAR(32) NOT NULL COLLATE utf8_general_ci, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, CHANGE perms_labels perms_labels SMALLINT NOT NULL');
         $this->addSql('CREATE UNIQUE INDEX name ON `groups` (name)');
         $this->addSql('ALTER TABLE `manufacturers` DROP FOREIGN KEY FK_94565B12727ACA70');
-        $this->addSql('ALTER TABLE `manufacturers` DROP not_selectable, CHANGE address address MEDIUMTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE phone_number phone_number TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE fax_number fax_number TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE email_address email_address TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE website website TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE auto_product_url auto_product_url TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE comment comment TEXT DEFAULT NULL COLLATE utf8_unicode_ci, CHANGE name name TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE last_modified last_modified DATETIME DEFAULT \'0000-00-00 00:00:00\' NOT NULL');
+        $this->addSql('ALTER TABLE `manufacturers` DROP not_selectable, CHANGE address address MEDIUMTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE phone_number phone_number TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE fax_number fax_number TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE email_address email_address TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE website website TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE auto_product_url auto_product_url TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE comment comment TEXT DEFAULT NULL COLLATE utf8_unicode_ci, CHANGE name name TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
         $this->addSql('DROP INDEX idx_94565b12727aca70 ON `manufacturers`');
         $this->addSql('CREATE INDEX manufacturers_parent_id_k ON `manufacturers` (parent_id)');
         $this->addSql('ALTER TABLE `manufacturers` ADD CONSTRAINT FK_94565B12727ACA70 FOREIGN KEY (parent_id) REFERENCES `manufacturers` (id)');
@@ -278,7 +278,7 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE `parts` DROP FOREIGN KEY FK_6940A7FE5697F554');
         $this->addSql('ALTER TABLE `parts` DROP FOREIGN KEY FK_6940A7FE7E371A10');
         $this->addSql('ALTER TABLE `parts` DROP FOREIGN KEY FK_6940A7FE1ECB93AE');
-        $this->addSql('ALTER TABLE `parts` ADD instock INT DEFAULT 0 NOT NULL, ADD mininstock INT DEFAULT 0 NOT NULL, DROP minamount, DROP manufacturer_product_number, DROP manufacturing_status, DROP needs_review, DROP tags, DROP mass, CHANGE id_category id_category INT DEFAULT 0 NOT NULL, CHANGE last_modified last_modified DATETIME DEFAULT \'0000-00-00 00:00:00\' NOT NULL, CHANGE name name MEDIUMTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE favorite favorite TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE order_quantity order_quantity INT DEFAULT 1 NOT NULL, CHANGE manual_order manual_order TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE manufacturer_product_url manufacturer_product_url TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE id_part_unit id_storelocation INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE `parts` ADD instock INT DEFAULT 0 NOT NULL, ADD mininstock INT DEFAULT 0 NOT NULL, DROP minamount, DROP manufacturer_product_number, DROP manufacturing_status, DROP needs_review, DROP tags, DROP mass, CHANGE id_category id_category INT DEFAULT 0 NOT NULL, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, CHANGE name name MEDIUMTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE favorite favorite TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE order_quantity order_quantity INT DEFAULT 1 NOT NULL, CHANGE manual_order manual_order TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE manufacturer_product_url manufacturer_product_url TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE id_part_unit id_storelocation INT DEFAULT NULL');
         $this->addSql('ALTER TABLE `parts` ADD CONSTRAINT parts_id_storelocation_fk FOREIGN KEY (id_storelocation) REFERENCES storelocations (id)');
         $this->addSql('CREATE INDEX favorite ON `parts` (favorite)');
         $this->addSql('CREATE INDEX parts_id_storelocation_k ON `parts` (id_storelocation)');
@@ -301,19 +301,19 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE `pricedetails` ADD CONSTRAINT FK_C68C44594A01DDC7 FOREIGN KEY (orderdetails_id) REFERENCES `orderdetails` (id) ON DELETE CASCADE');
         $this->addSql('DROP INDEX IDX_7517020B270BFF1 ON `storelocations`');
         $this->addSql('ALTER TABLE `storelocations` DROP FOREIGN KEY FK_7517020727ACA70');
-        $this->addSql('ALTER TABLE `storelocations` DROP storage_type_id, DROP only_single_part, DROP limit_to_existing_parts, DROP not_selectable, CHANGE is_full is_full TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE comment comment TEXT DEFAULT NULL COLLATE utf8_unicode_ci, CHANGE name name TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE last_modified last_modified DATETIME DEFAULT \'0000-00-00 00:00:00\' NOT NULL');
+        $this->addSql('ALTER TABLE `storelocations` DROP storage_type_id, DROP only_single_part, DROP limit_to_existing_parts, DROP not_selectable, CHANGE is_full is_full TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE comment comment TEXT DEFAULT NULL COLLATE utf8_unicode_ci, CHANGE name name TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
         $this->addSql('DROP INDEX idx_7517020727aca70 ON `storelocations`');
         $this->addSql('CREATE INDEX storelocations_parent_id_k ON `storelocations` (parent_id)');
         $this->addSql('ALTER TABLE `storelocations` ADD CONSTRAINT FK_7517020727ACA70 FOREIGN KEY (parent_id) REFERENCES `storelocations` (id)');
         $this->addSql('DROP INDEX IDX_AC28B95CECD792C0 ON `suppliers`');
         $this->addSql('ALTER TABLE `suppliers` DROP FOREIGN KEY FK_AC28B95C727ACA70');
-        $this->addSql('ALTER TABLE `suppliers` DROP default_currency_id, DROP shipping_costs, DROP not_selectable, CHANGE address address MEDIUMTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE phone_number phone_number TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE fax_number fax_number TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE email_address email_address TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE website website TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE auto_product_url auto_product_url TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE comment comment TEXT DEFAULT NULL COLLATE utf8_unicode_ci, CHANGE name name TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE last_modified last_modified DATETIME DEFAULT \'0000-00-00 00:00:00\' NOT NULL');
+        $this->addSql('ALTER TABLE `suppliers` DROP default_currency_id, DROP shipping_costs, DROP not_selectable, CHANGE address address MEDIUMTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE phone_number phone_number TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE fax_number fax_number TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE email_address email_address TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE website website TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE auto_product_url auto_product_url TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE comment comment TEXT DEFAULT NULL COLLATE utf8_unicode_ci, CHANGE name name TINYTEXT NOT NULL COLLATE utf8_unicode_ci, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
         $this->addSql('DROP INDEX idx_ac28b95c727aca70 ON `suppliers`');
         $this->addSql('CREATE INDEX suppliers_parent_id_k ON `suppliers` (parent_id)');
         $this->addSql('ALTER TABLE `suppliers` ADD CONSTRAINT FK_AC28B95C727ACA70 FOREIGN KEY (parent_id) REFERENCES `suppliers` (id)');
         $this->addSql('ALTER TABLE `users` DROP FOREIGN KEY FK_1483A5E9FE54D947');
         $this->addSql('DROP INDEX IDX_1483A5E9FE54D947 ON `users`');
-        $this->addSql('ALTER TABLE `users` CHANGE name name VARCHAR(32) NOT NULL COLLATE utf8_general_ci, CHANGE need_pw_change need_pw_change TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE first_name first_name TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE last_name last_name TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE department department TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE email email TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE config_language config_language TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE config_timezone config_timezone TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE config_theme config_theme TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE config_currency config_currency TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE last_modified last_modified DATETIME DEFAULT \'0000-00-00 00:00:00\' NOT NULL, CHANGE perms_labels perms_labels SMALLINT NOT NULL');
+        $this->addSql('ALTER TABLE `users` CHANGE name name VARCHAR(32) NOT NULL COLLATE utf8_general_ci, CHANGE need_pw_change need_pw_change TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE first_name first_name TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE last_name last_name TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE department department TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE email email TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE config_language config_language TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE config_timezone config_timezone TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE config_theme config_theme TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE config_currency config_currency TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, CHANGE perms_labels perms_labels SMALLINT NOT NULL');
         $this->addSql('DROP INDEX uniq_1483a5e95e237e06 ON `users`');
         $this->addSql('CREATE UNIQUE INDEX name ON `users` (name)');
     }
