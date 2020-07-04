@@ -204,7 +204,7 @@
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "master",
             "version": "1.8",
-            "ref": "1d42bc3f713130582e6e0c475c49bc327ab0a2a2"
+            "ref": "5a5bdc2d0e2533ed6935d5ae562f2b318a8fc1ee"
         },
         "files": [
             "./config/packages/liip_imagine.yaml",
@@ -581,7 +581,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "5.1",
-            "ref": "37b4ec59eda3eb89705f21a0da7231862495ce0a"
+            "ref": "ffcb76bab779154c0a7d8cddb9f448c2c45a4e50"
         },
         "files": [
             "./config/packages/cache.yaml",
