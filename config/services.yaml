@@ -39,6 +39,9 @@ services:
     Swap\Swap:
         alias: 'florianv_swap.swap'
 
+    Doctrine\Migrations\DependencyFactory:
+        alias: 'doctrine.migrations.dependency_factory'
+
     ####################################################################################################################
     # Email
     ####################################################################################################################

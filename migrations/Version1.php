@@ -22,10 +22,8 @@ declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
-use App\Migrations\AbstractMultiPlatformMigration;
-use Doctrine\DBAL\DBALException;
+use App\Migration\AbstractMultiPlatformMigration;
 use Doctrine\DBAL\Schema\Schema;
-use Doctrine\Migrations\AbstractMigration;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
@@ -40,7 +38,7 @@ final class Version1 extends AbstractMultiPlatformMigration
     public function mySQLUp(Schema $schema): void
     {
 
-        $this->skipIf($this->getOldDBVersion() > 0, 'Old Part-DB Database detected! Continue with upgrade...');
+        $this->warnIf($this->getOldDBVersion() > 0, 'Old Part-DB Database detected! Continue with upgrade...');
 
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
@@ -228,11 +226,11 @@ EOD;
 
     public function sqLiteUp(Schema $schema): void
     {
-        $this->skipIf(true, "Migration not needed for SQLite. Skipping...");
+        $this->warnIf(true, "Migration not needed for SQLite. Skipping...");
     }
 
     public function sqLiteDown(Schema $schema): void
     {
-        $this->skipIf(true, "Migration not needed for SQLite. Skipping...");
+        $this->warIf(true, "Migration not needed for SQLite. Skipping...");
     }
 }

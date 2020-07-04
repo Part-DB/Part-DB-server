@@ -22,10 +22,9 @@ declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
-use App\Migrations\AbstractMultiPlatformMigration;
+use App\Migration\AbstractMultiPlatformMigration;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Schema;
-use Doctrine\Migrations\AbstractMigration;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
@@ -48,7 +47,7 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
             $this->abortIf(26 !== $version, 'This database migration can only be used if the database version is 26! Install Part-DB 0.5.6 and update database there!');
         } catch (DBALException $dBALException) {
             //when the table was not found, then you can not use this migration
-            $this->skipIf(true, 'Empty database detected. Skip migration.');
+            $this->warnIf(true, 'Empty database detected. Skip migration.');
         }
 
         //Deactive SQL Modes (especially NO_ZERO_DATE, which prevents updating)
@@ -320,11 +319,11 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
 
     public function sqLiteUp(Schema $schema): void
     {
-        $this->skipIf(true, "Migration not needed for SQLite. Skipping...");
+        $this->warnIf(true, "Migration not needed for SQLite. Skipping...");
     }
 
     public function sqLiteDown(Schema $schema): void
     {
-        $this->skipIf(true, "Migration not needed for SQLite. Skipping...");
+        $this->warnIf(true, "Migration not needed for SQLite. Skipping...");
     }
 }

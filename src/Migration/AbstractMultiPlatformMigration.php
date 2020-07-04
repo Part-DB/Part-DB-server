@@ -1,12 +1,14 @@
 <?php
 
 
-namespace App\Migrations;
+namespace App\Migration;
 
 
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
+use Psr\Log\LoggerInterface;
 
 abstract class AbstractMultiPlatformMigration extends AbstractMigration
 {
@@ -14,6 +16,14 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
 
     protected $permissions_updated = false;
     protected $admin_pw = "";
+
+    protected $logger;
+
+    public function __construct(Connection $connection, LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+        AbstractMigration::__construct($connection, $logger);
+    }
 
     public function up(Schema $schema): void
     {
@@ -95,11 +105,12 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
     public function postUp(Schema $schema): void
     {
         parent::postUp($schema);
-        $this->write('<question>[!!!] Permissions were updated! Please check if they fit your expectations!</question>');
+        $this->logger->warning('<question>[!!!] Permissions were updated! Please check if they fit your expectations!</question>');
 
         if (!empty($this->admin_pw)) {
-            $this->write('');
-            $this->write('<bg=yellow;fg=black>The initial password for the "admin" user is: ' . $this->admin_pw . '</>');
+            $this->logger->warning('');
+            $this->logger->warning('<bg=yellow;fg=black>The initial password for the "admin" user is: ' . $this->admin_pw . '</>');
+            $this->logger->warning('');
         }
     }
 

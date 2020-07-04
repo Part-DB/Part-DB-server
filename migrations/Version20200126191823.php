@@ -22,9 +22,8 @@ declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
-use App\Migrations\AbstractMultiPlatformMigration;
+use App\Migration\AbstractMultiPlatformMigration;
 use Doctrine\DBAL\Schema\Schema;
-use Doctrine\Migrations\AbstractMigration;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
@@ -62,11 +61,11 @@ final class Version20200126191823 extends AbstractMultiPlatformMigration
 
     public function sqLiteUp(Schema $schema): void
     {
-        $this->skipIf(true, "Migration not needed for SQLite. Skipping...");
+        $this->warnIf(true, "Migration not needed for SQLite. Skipping...");
     }
 
     public function sqLiteDown(Schema $schema): void
     {
-        $this->skipIf(true, "Migration not needed for SQLite. Skipping...");
+        $this->warnIf(true, "Migration not needed for SQLite. Skipping...");
     }
 }

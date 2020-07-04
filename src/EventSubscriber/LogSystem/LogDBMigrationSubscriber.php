@@ -45,8 +45,10 @@ namespace App\EventSubscriber\LogSystem;
 use App\Entity\LogSystem\DatabaseUpdatedLogEntry;
 use App\Services\LogSystem\EventLogger;
 use Doctrine\Common\EventSubscriber;
+use Doctrine\Migrations\DependencyFactory;
 use Doctrine\Migrations\Event\MigrationsEventArgs;
 use Doctrine\Migrations\Events;
+use Doctrine\Migrations\Version\AliasResolver;
 
 /**
  * This subscriber logs databaseMigrations to Event log.
@@ -57,21 +59,24 @@ class LogDBMigrationSubscriber implements EventSubscriber
     protected $new_version = null;
 
     protected $eventLogger;
+    protected $aliasResolver;
 
-    public function __construct(EventLogger $eventLogger)
+    public function __construct(EventLogger $eventLogger, DependencyFactory $dependencyFactory)
     {
         $this->eventLogger = $eventLogger;
+        $this->aliasResolver = $dependencyFactory->getVersionAliasResolver();
     }
 
     public function onMigrationsMigrated(MigrationsEventArgs $args): void
     {
         //Dont do anything if this was a dry run
-        if ($args->isDryRun()) {
+        if ($args->getMigratorConfiguration()->isDryRun()) {
             return;
         }
 
         //Save the version after the migration
-        $this->new_version = $args->getConfiguration()->getCurrentVersion();
+        //$this->new_version = $args->getMigratorConfiguration()->getCurrentVersion();
+        $this->new_version = (string) $this->aliasResolver->resolveVersionAlias('current');
 
         //After everything is done, write the results to DB log
         $this->old_version = empty($this->old_version) ? 'legacy/empty' : $this->old_version;
@@ -89,7 +94,8 @@ class LogDBMigrationSubscriber implements EventSubscriber
     {
         // Save the version before any migration
         if (null === $this->old_version) {
-            $this->old_version = $args->getConfiguration()->getCurrentVersion();
+            //$this->old_version = $args->getConfiguration()->getCurrentVersion();
+            $this->old_version = (string) $this->aliasResolver->resolveVersionAlias('current');
         }
     }
 
