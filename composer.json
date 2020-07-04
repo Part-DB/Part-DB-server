@@ -24,7 +24,7 @@
         "nelmio/security-bundle": "^2.9",
         "nyholm/psr7": "^1.1",
         "ocramius/proxy-manager": "2.2.*",
-        "omines/datatables-bundle": "^0.4.0",
+        "omines/datatables-bundle": "^0.5.0",
         "php-translation/symfony-bundle": "^0.12.0",
         "r/u2f-two-factor-bundle": "^0.8.0",
         "s9e/text-formatter": "^2.1",
