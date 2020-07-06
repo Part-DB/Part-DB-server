@@ -48,6 +48,7 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
         } catch (DBALException $dBALException) {
             //when the table was not found, then you can not use this migration
             $this->warnIf(true, 'Empty database detected. Skip migration.');
+            return;
         }
 
         //Deactive SQL Modes (especially NO_ZERO_DATE, which prevents updating)

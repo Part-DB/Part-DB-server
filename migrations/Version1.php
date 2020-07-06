@@ -37,8 +37,11 @@ final class Version1 extends AbstractMultiPlatformMigration
 
     public function mySQLUp(Schema $schema): void
     {
-
-        $this->warnIf($this->getOldDBVersion() > 0, 'Old Part-DB Database detected! Continue with upgrade...');
+        //Skip if old DB is detected
+        if ($this->getOldDBVersion() > 0) {
+            $this->warnIf(true, 'Old Part-DB Database detected! Continue with upgrade...');
+            return;
+        }
 
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
