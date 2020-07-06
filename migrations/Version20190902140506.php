@@ -52,7 +52,7 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
         }
 
         //Deactive SQL Modes (especially NO_ZERO_DATE, which prevents updating)
-        //$this->addSql("SET sql_mode = ''");
+        $this->addSql("SET sql_mode = ''");
 
         //Rename attachment tables (fix typos)
         $this->addSql('RENAME TABLE `attachement_types` TO `attachment_types`;');
