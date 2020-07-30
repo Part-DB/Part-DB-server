@@ -39,7 +39,7 @@ jobs:
       run: ./bin/console lint:xliff translations
 
     - name: Check dependencies for security
-      run: ./bin/console security:check
+      uses: symfonycorp/security-checker-action@v2
     
     - name: Check doctrine mapping
       run: ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
