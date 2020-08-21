@@ -39,7 +39,7 @@
 
 
 
-        {% if theme %}
+        {% if theme and theme in constant('App\\Entity\\UserSystem\\User::AVAILABLE_THEMES') %}
             <link rel="stylesheet" href="{{ preload(asset('build/themes/' ~ theme ~ '.css'), {as: 'style'}) }}">
         {% else %}
             <link rel="stylesheet" href="{{ preload(asset('build/themes/bootstrap.css'), {as: 'style'}) }}">
