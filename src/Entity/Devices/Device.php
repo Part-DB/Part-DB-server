@@ -60,7 +60,7 @@ use InvalidArgumentException;
 /**
  * Class AttachmentType.
  *
- * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Parts\DeviceRepository")
  * @ORM\Table(name="`devices`")
  */
 class Device extends AbstractPartsContainingDBElement
