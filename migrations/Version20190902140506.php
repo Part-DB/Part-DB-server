@@ -316,6 +316,10 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE `users` CHANGE name name VARCHAR(32) NOT NULL COLLATE utf8_general_ci, CHANGE need_pw_change need_pw_change TINYINT(1) DEFAULT \'0\' NOT NULL, CHANGE first_name first_name TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE last_name last_name TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE department department TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE email email TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE config_language config_language TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE config_timezone config_timezone TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE config_theme config_theme TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE config_currency config_currency TINYTEXT DEFAULT NULL COLLATE utf8_general_ci, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, CHANGE perms_labels perms_labels SMALLINT NOT NULL');
         $this->addSql('DROP INDEX uniq_1483a5e95e237e06 ON `users`');
         $this->addSql('CREATE UNIQUE INDEX name ON `users` (name)');
+
+        //Migrate theme config to new format
+        $this->addSql('UPDATE users SET users.config_theme = REPLACE(users.config_theme ,".min.css", "") WHERE users.config_theme LIKE "%.min.css"');
+        $this->addSql('UPDATE users SET users.config_theme = REPLACE(users.config_theme ,".css", "") WHERE users.config_theme LIKE "%.css"');
     }
 
     public function sqLiteUp(Schema $schema): void
