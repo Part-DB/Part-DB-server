@@ -103,7 +103,7 @@ class LogDataTable implements DataTableTypeInterface
         $optionsResolver->setAllowedTypes('mode', 'string');
 
         $optionsResolver->setNormalizer('filter_elements', function (Options $options, $value) {
-            if (! is_array($value)) {
+            if (!is_array($value)) {
                 return [$value];
             }
 
@@ -254,8 +254,8 @@ class LogDataTable implements DataTableTypeInterface
             },
             'disabled' => function ($value, AbstractLogEntry $context) {
                 return
-                    ! $this->security->isGranted('@tools.timetravel')
-                    || ! $this->security->isGranted('show_history', $context->getTargetClass());
+                    !$this->security->isGranted('@tools.timetravel')
+                    || !$this->security->isGranted('show_history', $context->getTargetClass());
             },
         ]);
 
@@ -293,7 +293,7 @@ class LogDataTable implements DataTableTypeInterface
             ]);
         }
 
-        if (! empty($options['filter_elements'])) {
+        if (!empty($options['filter_elements'])) {
             foreach ($options['filter_elements'] as $element) {
                 /** @var AbstractDBElement $element */
 

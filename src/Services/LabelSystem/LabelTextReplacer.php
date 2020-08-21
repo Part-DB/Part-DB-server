@@ -43,7 +43,7 @@ final class LabelTextReplacer
      * If the given string is not a placeholder or the placeholder is not known, it will be returned unchanged.
      *
      * @param string $placeholder The placeholder that should be replaced. (e.g. '%%PLACEHOLDER%%')
-     * @param object $target      The object that should be used for the placeholder info source.
+     * @param object $target      the object that should be used for the placeholder info source
      *
      * @return string If the placeholder was valid, the replaced info. Otherwise the passed string.
      */
@@ -64,9 +64,9 @@ final class LabelTextReplacer
      * Replaces all placeholders in the input lines.
      *
      * @param string $lines  The input lines that should be replaced
-     * @param object $target The object that should be used as source for the informations.
+     * @param object $target the object that should be used as source for the informations
      *
-     * @return string The Lines with replaced informations.
+     * @return string the Lines with replaced informations
      */
     public function replace(string $lines, object $target): string
     {

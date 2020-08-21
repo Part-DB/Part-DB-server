@@ -86,8 +86,6 @@ class LogEntryRepository extends DBElementRepository
      *
      * @param string $class The class of the element that should be undeleted
      * @param int    $id    The ID of the element that should be deleted
-     *
-     * @return ElementDeletedLogEntry
      */
     public function getUndeleteDataForElement(string $class, int $id): ElementDeletedLogEntry
     {
@@ -171,7 +169,7 @@ class LogEntryRepository extends DBElementRepository
         $query = $qb->getQuery();
         $count = $query->getSingleScalarResult();
 
-        return ! ($count > 0);
+        return !($count > 0);
     }
 
     /**
@@ -180,8 +178,6 @@ class LogEntryRepository extends DBElementRepository
      * @param string $order
      * @param null   $limit
      * @param null   $offset
-     *
-     * @return array
      */
     public function getLogsOrderedByTimestamp($order = 'DESC', $limit = null, $offset = null): array
     {
@@ -191,8 +187,8 @@ class LogEntryRepository extends DBElementRepository
     /**
      * Gets the target element associated with the logentry.
      *
-     * @return AbstractDBElement|null Returns the associated DBElement or null if the log either has no target or the element
-     *                                was deleted from DB.
+     * @return AbstractDBElement|null returns the associated DBElement or null if the log either has no target or the element
+     *                                was deleted from DB
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -213,7 +209,7 @@ class LogEntryRepository extends DBElementRepository
     /**
      * Returns the last user that has edited the given element.
      *
-     * @return User|null A user object, or null if no user could be determined.
+     * @return User|null a user object, or null if no user could be determined
      */
     public function getLastEditingUser(AbstractDBElement $element): ?User
     {
@@ -223,7 +219,7 @@ class LogEntryRepository extends DBElementRepository
     /**
      * Returns the user that has created the given element.
      *
-     * @return User|null A user object, or null if no user could be determined.
+     * @return User|null a user object, or null if no user could be determined
      */
     public function getCreatingUser(AbstractDBElement $element): ?User
     {

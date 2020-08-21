@@ -20,7 +20,6 @@
 
 namespace App\Form\Type;
 
-
 use Brick\Math\BigDecimal;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
@@ -41,7 +40,7 @@ class BigDecimalNumberType extends AbstractType implements DataTransformerInterf
 
     public function transform($value)
     {
-        if ($value === null) {
+        if (null === $value) {
             return null;
         }
 
@@ -54,7 +53,7 @@ class BigDecimalNumberType extends AbstractType implements DataTransformerInterf
 
     public function reverseTransform($value)
     {
-        if ($value === null) {
+        if (null === $value) {
             return null;
         }
 

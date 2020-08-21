@@ -57,7 +57,6 @@ use App\Entity\PriceInformations\Currency;
 use App\Validator\Constraints\BigDecimal\BigDecimalPositiveOrZero;
 use App\Validator\Constraints\Selectable;
 use Brick\Math\BigDecimal;
-use Brick\Math\BigNumber;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -120,8 +119,6 @@ class Supplier extends AbstractCompany
 
     /**
      * Gets the currency that should be used by default, when creating a orderdetail with this supplier.
-     *
-     * @return Currency|null
      */
     public function getDefaultCurrency(): ?Currency
     {
@@ -159,7 +156,7 @@ class Supplier extends AbstractCompany
      */
     public function setShippingCosts(?BigDecimal $shipping_costs): self
     {
-        if ($shipping_costs === null) {
+        if (null === $shipping_costs) {
             $this->shipping_costs = null;
         }
 

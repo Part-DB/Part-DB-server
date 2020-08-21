@@ -69,8 +69,6 @@ class CategoryController extends BaseAdminController
 
     /**
      * @Route("/{id}", name="category_delete", methods={"DELETE"})
-     *
-     * @return RedirectResponse
      */
     public function delete(Request $request, Category $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
@@ -80,8 +78,6 @@ class CategoryController extends BaseAdminController
     /**
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="category_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
-     *
-     * @return Response
      */
     public function edit(Category $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
@@ -92,8 +88,6 @@ class CategoryController extends BaseAdminController
      * @Route("/new", name="category_new")
      * @Route("/{id}/clone", name="category_clone")
      * @Route("/")
-     *
-     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Category $entity = null): Response
     {
@@ -102,8 +96,6 @@ class CategoryController extends BaseAdminController
 
     /**
      * @Route("/export", name="category_export_all")
-     *
-     * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
@@ -112,8 +104,6 @@ class CategoryController extends BaseAdminController
 
     /**
      * @Route("/{id}/export", name="category_export")
-     *
-     * @return Response
      */
     public function exportEntity(Category $entity, EntityExporter $exporter, Request $request): Response
     {

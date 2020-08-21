@@ -200,8 +200,6 @@ class EventLoggerSubscriber implements EventSubscriber
 
     /**
      * Checks if the field of the given element should be saved (if it is not blacklisted).
-     *
-     * @return bool
      */
     public function shouldFieldBeSaved(AbstractDBElement $element, string $field_name): bool
     {
@@ -297,14 +295,12 @@ class EventLoggerSubscriber implements EventSubscriber
 
     /**
      * Filter out every forbidden field and return the cleaned array.
-     *
-     * @return array
      */
     protected function filterFieldRestrictions(AbstractDBElement $element, array $fields): array
     {
         unset($fields['lastModified']);
 
-        if (! $this->hasFieldRestrictions($element)) {
+        if (!$this->hasFieldRestrictions($element)) {
             return $fields;
         }
 
@@ -322,7 +318,7 @@ class EventLoggerSubscriber implements EventSubscriber
     {
         $uow = $em->getUnitOfWork();
 
-        if (! $logEntry instanceof ElementEditedLogEntry && ! $logEntry instanceof ElementDeletedLogEntry) {
+        if (!$logEntry instanceof ElementEditedLogEntry && !$logEntry instanceof ElementDeletedLogEntry) {
             throw new \InvalidArgumentException('$logEntry must be ElementEditedLogEntry or ElementDeletedLogEntry!');
         }
 
@@ -349,12 +345,12 @@ class EventLoggerSubscriber implements EventSubscriber
     /**
      * Check if the given entity can be logged.
      *
-     * @return bool True, if the given entity can be logged.
+     * @return bool true, if the given entity can be logged
      */
     protected function validEntity(object $entity): bool
     {
         //Dont log logentries itself!
-        if ($entity instanceof AbstractDBElement && ! $entity instanceof AbstractLogEntry) {
+        if ($entity instanceof AbstractDBElement && !$entity instanceof AbstractLogEntry) {
             return true;
         }
 

@@ -51,8 +51,6 @@ class EventCommentHelper
 
     /**
      * Returns the currently set message, or null if no message is set yet.
-     *
-     * @return string|null
      */
     public function getMessage(): ?string
     {
@@ -69,8 +67,6 @@ class EventCommentHelper
 
     /**
      * Check if a message is currently set.
-     *
-     * @return bool
      */
     public function isMessageSet(): bool
     {

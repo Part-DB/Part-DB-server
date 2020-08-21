@@ -70,8 +70,6 @@ class AttachmentTypeController extends BaseAdminController
 
     /**
      * @Route("/{id}", name="attachment_type_delete", methods={"DELETE"})
-     *
-     * @return RedirectResponse
      */
     public function delete(Request $request, AttachmentType $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
@@ -81,8 +79,6 @@ class AttachmentTypeController extends BaseAdminController
     /**
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="attachment_type_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
-     *
-     * @return Response
      */
     public function edit(AttachmentType $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
@@ -93,8 +89,6 @@ class AttachmentTypeController extends BaseAdminController
      * @Route("/new", name="attachment_type_new")
      * @Route("/{id}/clone", name="attachment_type_clone")
      * @Route("/")
-     *
-     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?AttachmentType $entity = null): Response
     {
@@ -103,8 +97,6 @@ class AttachmentTypeController extends BaseAdminController
 
     /**
      * @Route("/export", name="attachment_type_export_all")
-     *
-     * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
@@ -113,8 +105,6 @@ class AttachmentTypeController extends BaseAdminController
 
     /**
      * @Route("/{id}/export", name="attachment_type_export")
-     *
-     * @return Response
      */
     public function exportEntity(AttachmentType $entity, EntityExporter $exporter, Request $request): Response
     {
@@ -126,9 +116,11 @@ class AttachmentTypeController extends BaseAdminController
         if ($entity instanceof AttachmentType) {
             if ($entity->getAttachmentsForType()->count() > 0) {
                 $this->addFlash('error', 'entity.delete.must_not_contain_attachments');
+
                 return false;
             }
         }
+
         return true;
     }
 }

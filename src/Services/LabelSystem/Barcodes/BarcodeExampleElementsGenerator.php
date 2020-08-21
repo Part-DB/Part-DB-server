@@ -102,7 +102,7 @@ final class BarcodeExampleElementsGenerator
 
     private function getStructuralData(string $class): AbstractStructuralDBElement
     {
-        if (! is_a($class, AbstractStructuralDBElement::class, true)) {
+        if (!is_a($class, AbstractStructuralDBElement::class, true)) {
             throw new \InvalidArgumentException('$class must be an child of AbstractStructuralDBElement');
         }
 

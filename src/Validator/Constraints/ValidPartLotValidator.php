@@ -67,11 +67,11 @@ class ValidPartLotValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (! $constraint instanceof ValidPartLot) {
+        if (!$constraint instanceof ValidPartLot) {
             throw new UnexpectedTypeException($constraint, ValidPartLot::class);
         }
 
-        if (! $value instanceof PartLot) {
+        if (!$value instanceof PartLot) {
             throw new UnexpectedTypeException($value, PartLot::class);
         }
 
@@ -79,7 +79,7 @@ class ValidPartLotValidator extends ConstraintValidator
         if ($value->getStorageLocation()) {
             $repo = $this->em->getRepository(Storelocation::class);
             //We can only determine associated parts, if the part have an ID
-            if ($value->getID() !== null) {
+            if (null !== $value->getID()) {
                 $parts = new ArrayCollection($repo->getParts($value->getStorageLocation()));
             } else {
                 $parts = new ArrayCollection([]);
@@ -97,7 +97,7 @@ class ValidPartLotValidator extends ConstraintValidator
                         ->atPath('amount')->addViolation();
                 }
 
-                if (! $parts->contains($value->getPart())) {
+                if (!$parts->contains($value->getPart())) {
                     $this->context->buildViolation('validator.part_lot.location_full')
                         ->atPath('storage_location')->addViolation();
                 }
@@ -105,7 +105,7 @@ class ValidPartLotValidator extends ConstraintValidator
 
             //Check for onlyExisting
             if ($value->getStorageLocation()->isLimitToExistingParts()) {
-                if (! $parts->contains($value->getPart())) {
+                if (!$parts->contains($value->getPart())) {
                     $this->context->buildViolation('validator.part_lot.only_existing')
                         ->atPath('storage_location')->addViolation();
                 }
@@ -113,7 +113,7 @@ class ValidPartLotValidator extends ConstraintValidator
 
             //Check for only single part
             if ($value->getStorageLocation()->isOnlySinglePart()) {
-                if (($parts->count() > 0) && ! $parts->contains($value->getPart())) {
+                if (($parts->count() > 0) && !$parts->contains($value->getPart())) {
                     $this->context->buildViolation('validator.part_lot.single_part')
                         ->atPath('storage_location')->addViolation();
                 }

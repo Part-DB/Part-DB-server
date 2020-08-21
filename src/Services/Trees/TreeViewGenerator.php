@@ -82,7 +82,7 @@ class TreeViewGenerator
      *                                                          Set to empty string, to disable href field.
      * @param AbstractDBElement|null           $selectedElement The element that should be selected. If set to null, no element will be selected.
      *
-     * @return TreeViewNode[] An array of TreeViewNode[] elements of the root elements.
+     * @return TreeViewNode[] an array of TreeViewNode[] elements of the root elements
      */
     public function getTreeView(string $class, ?AbstractStructuralDBElement $parent = null, string $href_type = 'list_parts', ?AbstractDBElement $selectedElement = null): array
     {
@@ -114,11 +114,11 @@ class TreeViewGenerator
                 $item->setSelected(true);
             }
 
-            if (! empty($item->getNodes())) {
+            if (!empty($item->getNodes())) {
                 $item->addTag((string) \count($item->getNodes()));
             }
 
-            if (! empty($href_type) && null !== $item->getId()) {
+            if (!empty($href_type) && null !== $item->getId()) {
                 $entity = $this->em->getPartialReference($class, $item->getId());
                 $item->setHref($this->urlGenerator->getURL($entity, $href_type));
             }
@@ -138,16 +138,16 @@ class TreeViewGenerator
      * The treeview is generic, that means the href are null and ID values are set.
      *
      * @param string                           $class  The class for which the tree should be generated
-     * @param AbstractStructuralDBElement|null $parent The parent the root elements should have.
+     * @param AbstractStructuralDBElement|null $parent the parent the root elements should have
      *
      * @return TreeViewNode[]
      */
     public function getGenericTree(string $class, ?AbstractStructuralDBElement $parent = null): array
     {
-        if (! is_a($class, AbstractNamedDBElement::class, true)) {
+        if (!is_a($class, AbstractNamedDBElement::class, true)) {
             throw new \InvalidArgumentException('$class must be a class string that implements StructuralDBElement or NamedDBElement!');
         }
-        if (null !== $parent && ! is_a($parent, $class)) {
+        if (null !== $parent && !is_a($parent, $class)) {
             throw new \InvalidArgumentException('$parent must be of the type $class!');
         }
 

@@ -59,7 +59,7 @@ class LabelProfile extends AttachmentContainingDBElement
     protected $comment = '';
 
     /**
-     * @var bool Determines, if this label profile should be shown in the dropdown quick menu.
+     * @var bool determines, if this label profile should be shown in the dropdown quick menu
      * @ORM\Column(type="boolean")
      */
     protected $show_in_dropdown = true;
@@ -101,8 +101,6 @@ class LabelProfile extends AttachmentContainingDBElement
 
     /**
      * Returns true, if this label profile should be shown in label generator quick menu.
-     *
-     * @return bool
      */
     public function isShowInDropdown(): bool
     {

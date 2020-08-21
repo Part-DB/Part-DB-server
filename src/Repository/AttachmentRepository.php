@@ -27,8 +27,6 @@ class AttachmentRepository extends DBElementRepository
 {
     /**
      * Gets the count of all private/secure attachments.
-     *
-     * @return int
      */
     public function getPrivateAttachmentsCount(): int
     {
@@ -43,8 +41,6 @@ class AttachmentRepository extends DBElementRepository
 
     /**
      * Gets the count of all external attachments (attachments only containing an URL).
-     *
-     * @return int
      *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
@@ -64,8 +60,6 @@ class AttachmentRepository extends DBElementRepository
 
     /**
      * Gets the count of all attachments where an user uploaded an file.
-     *
-     * @return int
      *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException

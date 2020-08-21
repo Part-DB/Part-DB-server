@@ -45,7 +45,6 @@ namespace App\Form\AdminPages;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Form\Type\BigDecimalMoneyType;
 use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Security\Core\Security;
@@ -73,7 +72,7 @@ class CurrencyAdminForm extends BaseEntityAdminForm
                 'title' => 'selectpicker.nothing_selected',
                 'data-live-search' => true,
             ],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
         $builder->add('exchange_rate', BigDecimalMoneyType::class, [
@@ -81,16 +80,16 @@ class CurrencyAdminForm extends BaseEntityAdminForm
             'label' => 'currency.edit.exchange_rate',
             'currency' => $this->default_currency,
             'scale' => 6,
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
-        if(!$is_new) {
+        if (!$is_new) {
             $builder->add(
                 'update_exchange_rate',
                 SubmitType::class,
                 [
                     'label' => 'currency.edit.update_rate',
-                    'disabled' => ! $this->security->isGranted('edit', $entity)
+                    'disabled' => !$this->security->isGranted('edit', $entity),
                 ]
             );
         }

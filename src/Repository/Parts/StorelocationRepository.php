@@ -21,20 +21,18 @@
 namespace App\Repository\Parts;
 
 use App\Entity\Parts\Part;
-use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Repository\AbstractPartsContainingRepository;
 use Doctrine\ORM\QueryBuilder;
-use Symfony\Component\HttpKernel\HttpCache\Store;
 
 class StorelocationRepository extends AbstractPartsContainingRepository
 {
     /**
-     * @param  Storelocation  $element
+     * @param Storelocation $element
      */
     public function getParts(object $element, array $order_by = ['name' => 'ASC']): array
     {
-        if(!$element instanceof Storelocation) {
+        if (!$element instanceof Storelocation) {
             throw new \InvalidArgumentException('$element must be an Storelocation!');
         }
 
@@ -47,7 +45,7 @@ class StorelocationRepository extends AbstractPartsContainingRepository
             ->setParameter(1, $element);
 
         foreach ($order_by as $field => $order) {
-            $qb->addOrderBy('part.' . $field, $order);
+            $qb->addOrderBy('part.'.$field, $order);
         }
 
         return $qb->getQuery()->getResult();
@@ -55,7 +53,7 @@ class StorelocationRepository extends AbstractPartsContainingRepository
 
     public function getPartsCount(object $element): int
     {
-        if(!$element instanceof Storelocation) {
+        if (!$element instanceof Storelocation) {
             throw new \InvalidArgumentException('$element must be an Storelocation!');
         }
 
@@ -66,7 +64,6 @@ class StorelocationRepository extends AbstractPartsContainingRepository
             ->leftJoin('part.partLots', 'lots')
             ->where('lots.storage_location = ?1')
             ->setParameter(1, $element);
-
 
         return (int) $qb->getQuery()->getSingleScalarResult();
     }

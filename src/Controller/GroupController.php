@@ -72,8 +72,6 @@ class GroupController extends BaseAdminController
     /**
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="group_edit")
      * @Route("/{id}/", requirements={"id"="\d+"})
-     *
-     * @return Response
      */
     public function edit(Group $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
@@ -84,8 +82,6 @@ class GroupController extends BaseAdminController
      * @Route("/new", name="group_new")
      * @Route("/{id}/clone", name="group_clone")
      * @Route("/")
-     *
-     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Group $entity = null): Response
     {
@@ -94,8 +90,6 @@ class GroupController extends BaseAdminController
 
     /**
      * @Route("/{id}", name="group_delete", methods={"DELETE"})
-     *
-     * @return RedirectResponse
      */
     public function delete(Request $request, Group $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
@@ -104,8 +98,6 @@ class GroupController extends BaseAdminController
 
     /**
      * @Route("/export", name="group_export_all")
-     *
-     * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
@@ -114,8 +106,6 @@ class GroupController extends BaseAdminController
 
     /**
      * @Route("/{id}/export", name="group_export")
-     *
-     * @return Response
      */
     public function exportEntity(Group $entity, EntityExporter $exporter, Request $request): Response
     {
@@ -127,6 +117,7 @@ class GroupController extends BaseAdminController
         if ($entity instanceof Group) {
             if ($entity->getUsers()->count() > 0) {
                 $this->addFlash('error', 'entity.delete.must_not_contain_users');
+
                 return false;
             }
         }

@@ -44,7 +44,6 @@ namespace App\EventSubscriber\UserSystem;
 
 use App\Entity\UserSystem\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -97,15 +96,15 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
         $user = $this->security->getUser();
         $request = $event->getRequest();
 
-        if (! $event->isMasterRequest()) {
+        if (!$event->isMasterRequest()) {
             return;
         }
-        if (! $user instanceof User) {
+        if (!$user instanceof User) {
             return;
         }
 
         //Abort if we dont need to redirect the user.
-        if (! $user->isNeedPwChange() && ! static::TFARedirectNeeded($user)) {
+        if (!$user->isNeedPwChange() && !static::TFARedirectNeeded($user)) {
             return;
         }
 
@@ -140,15 +139,15 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
      * That is the case if the group of the user enforces 2FA, but the user has neither Google Authenticator nor an
      * U2F key setup.
      *
-     * @param User $user The user for which should be checked if it needs to be redirected.
+     * @param User $user the user for which should be checked if it needs to be redirected
      *
-     * @return bool True if the user needs to be redirected.
+     * @return bool true if the user needs to be redirected
      */
     public static function TFARedirectNeeded(User $user): bool
     {
         $tfa_enabled = $user->isU2FAuthEnabled() || $user->isGoogleAuthenticatorEnabled();
 
-        if (null !== $user->getGroup() && $user->getGroup()->isEnforce2FA() && ! $tfa_enabled) {
+        if (null !== $user->getGroup() && $user->getGroup()->isEnforce2FA() && !$tfa_enabled) {
             return true;
         }
 

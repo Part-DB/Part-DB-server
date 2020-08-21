@@ -61,7 +61,7 @@ class ValidGoogleAuthCodeValidator extends ConstraintValidator
 
     public function validate($value, Constraint $constraint): void
     {
-        if (! $constraint instanceof ValidGoogleAuthCode) {
+        if (!$constraint instanceof ValidGoogleAuthCode) {
             throw new UnexpectedTypeException($constraint, ValidGoogleAuthCode::class);
         }
 
@@ -69,11 +69,11 @@ class ValidGoogleAuthCodeValidator extends ConstraintValidator
             return;
         }
 
-        if (! \is_string($value)) {
+        if (!\is_string($value)) {
             throw new UnexpectedValueException($value, 'string');
         }
 
-        if (! ctype_digit($value)) {
+        if (!ctype_digit($value)) {
             $this->context->addViolation('validator.google_code.only_digits_allowed');
         }
 
@@ -89,7 +89,7 @@ class ValidGoogleAuthCodeValidator extends ConstraintValidator
             $user = $this->context->getObject()->getParent()->getData();
 
             //Check if the given code is valid
-            if (! $this->googleAuthenticator->checkCode($user, $value)) {
+            if (!$this->googleAuthenticator->checkCode($user, $value)) {
                 $this->context->addViolation('validator.google_code.wrong_code');
             }
         }

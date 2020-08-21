@@ -58,7 +58,6 @@ use App\Entity\Attachments\StorelocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
 use App\Exceptions\AttachmentDownloadException;
-use Symfony\Component\Form\FormInterface;
 use const DIRECTORY_SEPARATOR;
 use function get_class;
 use InvalidArgumentException;
@@ -81,7 +80,6 @@ class AttachmentSubmitHandler
     protected $httpClient;
     protected $mimeTypes;
     protected $filterTools;
-
 
     public function __construct(AttachmentPathResolver $pathResolver, bool $allow_attachments_downloads,
                                 HttpClientInterface $httpClient, MimeTypesInterface $mimeTypes,
@@ -114,9 +112,6 @@ class AttachmentSubmitHandler
     /**
      * Check if the extension of the uploaded file is allowed for the given attachment type.
      * Returns true, if the file is allowed, false if not.
-     * @param  AttachmentType  $attachment_type
-     * @param  UploadedFile  $uploadedFile
-     * @return bool
      */
     public function isValidFileExtension(AttachmentType $attachment_type, UploadedFile $uploadedFile): bool
     {
@@ -174,7 +169,7 @@ class AttachmentSubmitHandler
         }
 
         //Ensure the given attachment class is known to mapping
-        if (! isset($this->folder_mapping[get_class($attachment)])) {
+        if (!isset($this->folder_mapping[get_class($attachment)])) {
             throw new InvalidArgumentException('The given attachment class is not known! The passed class was: '.get_class($attachment));
         }
         //Ensure the attachment has an assigned element
@@ -260,13 +255,13 @@ class AttachmentSubmitHandler
 
         //Determine the old filepath
         $old_path = $this->pathResolver->placeholderToRealPath($attachment->getPath());
-        if (! file_exists($old_path)) {
+        if (!file_exists($old_path)) {
             return $attachment;
         }
 
         $filename = basename($old_path);
         //If the basename is not one of the new unique on, we have to save the old filename
-        if (! preg_match('#\w+-\w{13}\.#', $filename)) {
+        if (!preg_match('#\w+-\w{13}\.#', $filename)) {
             //Save filename to attachment field
             $attachment->setFilename($attachment->getFilename());
         }
@@ -298,7 +293,7 @@ class AttachmentSubmitHandler
     protected function downloadURL(Attachment $attachment, array $options): Attachment
     {
         //Check if we are allowed to download files
-        if (! $this->allow_attachments_downloads) {
+        if (!$this->allow_attachments_downloads) {
             throw new RuntimeException('Download of attachments is not allowed!');
         }
 
@@ -348,7 +343,7 @@ class AttachmentSubmitHandler
 
             //Check if we have a extension given
             $pathinfo = pathinfo($filename);
-            if (! empty($pathinfo['extension'])) {
+            if (!empty($pathinfo['extension'])) {
                 $new_ext = $pathinfo['extension'];
             } else { //Otherwise we have to guess the extension for the new file, based on its content
                 $new_ext = $this->mimeTypes->getExtensions($this->mimeTypes->guessMimeType($tmp_path))[0] ?? 'tmp';

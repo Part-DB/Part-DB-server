@@ -39,8 +39,6 @@ trait ParametersTrait
     /**
      *  Return all associated specifications.
      *
-     * @return Collection
-     *
      * @psalm-return Collection<int, PartParameter>
      */
     public function getParameters(): \Doctrine\Common\Collections\Collection

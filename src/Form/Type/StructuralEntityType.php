@@ -134,8 +134,6 @@ class StructuralEntityType extends AbstractType
 
     /**
      * Gets the entries from database and return an array of them.
-     *
-     * @return array
      */
     public function getEntries(Options $options): array
     {

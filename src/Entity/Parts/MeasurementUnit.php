@@ -109,7 +109,6 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      */
     protected $parameters;
 
-
     /**
      * @return string
      */

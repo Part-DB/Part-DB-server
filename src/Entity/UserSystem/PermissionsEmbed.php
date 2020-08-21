@@ -340,7 +340,7 @@ class PermissionsEmbed
      */
     public function getBitValue(string $permission_name, int $bit_n): int
     {
-        if (! $this->isValidPermissionName($permission_name)) {
+        if (!$this->isValidPermissionName($permission_name)) {
             throw new InvalidArgumentException(sprintf('No permission with the name "%s" is existing!', $permission_name));
         }
 
@@ -410,7 +410,7 @@ class PermissionsEmbed
      */
     public function setBitValue(string $permission_name, int $bit_n, int $new_value): self
     {
-        if (! $this->isValidPermissionName($permission_name)) {
+        if (!$this->isValidPermissionName($permission_name)) {
             throw new InvalidArgumentException('No permission with the given name is existing!');
         }
 
@@ -429,7 +429,7 @@ class PermissionsEmbed
      */
     public function getRawPermissionValue(string $permission_name): int
     {
-        if (! $this->isValidPermissionName($permission_name)) {
+        if (!$this->isValidPermissionName($permission_name)) {
             throw new InvalidArgumentException('No permission with the given name is existing!');
         }
 
@@ -446,7 +446,7 @@ class PermissionsEmbed
      */
     public function setRawPermissionValue(string $permission_name, int $value): self
     {
-        if (! $this->isValidPermissionName($permission_name)) {
+        if (!$this->isValidPermissionName($permission_name)) {
             throw new InvalidArgumentException(sprintf('No permission with the given name %s is existing!', $permission_name));
         }
 
@@ -466,7 +466,7 @@ class PermissionsEmbed
      */
     public function setRawPermissionValues(array $values, ?array $values2 = null): self
     {
-        if (! empty($values2)) {
+        if (!empty($values2)) {
             $values = array_combine($values, $values2);
         }
 
@@ -493,6 +493,7 @@ class PermissionsEmbed
         }
 
         $mask = 0b11 << $n; //Create a mask for the data
+
         return ($data & $mask) >> $n; //Apply mask and shift back
     }
 

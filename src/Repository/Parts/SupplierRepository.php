@@ -21,7 +21,6 @@
 namespace App\Repository\Parts;
 
 use App\Entity\Parts\Part;
-use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Repository\AbstractPartsContainingRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -30,7 +29,7 @@ class SupplierRepository extends AbstractPartsContainingRepository
 {
     public function getParts(object $element, array $order_by = ['name' => 'ASC']): array
     {
-        if(!$element instanceof Supplier) {
+        if (!$element instanceof Supplier) {
             throw new \InvalidArgumentException('$element must be an Supplier!');
         }
 
@@ -43,7 +42,7 @@ class SupplierRepository extends AbstractPartsContainingRepository
             ->setParameter(1, $element);
 
         foreach ($order_by as $field => $order) {
-            $qb->addOrderBy('part.' . $field, $order);
+            $qb->addOrderBy('part.'.$field, $order);
         }
 
         return $qb->getQuery()->getResult();
@@ -51,7 +50,7 @@ class SupplierRepository extends AbstractPartsContainingRepository
 
     public function getPartsCount(object $element): int
     {
-        if(!$element instanceof Supplier) {
+        if (!$element instanceof Supplier) {
             throw new \InvalidArgumentException('$element must be an Supplier!');
         }
 
@@ -62,7 +61,6 @@ class SupplierRepository extends AbstractPartsContainingRepository
             ->leftJoin('part.orderdetails', 'orderdetail')
             ->where('orderdetail.supplier = ?1')
             ->setParameter(1, $element);
-
 
         return (int) $qb->getQuery()->getSingleScalarResult();
     }

@@ -60,13 +60,13 @@ class GroupAdminForm extends BaseEntityAdminForm
             'label_attr' => [
                 'class' => 'checkbox-custom',
             ],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
         $builder->add('permissions', PermissionsType::class, [
             'mapped' => false,
             'data' => $builder->getData(),
-            'disabled' => ! $this->security->isGranted('edit_permissions', $entity),
+            'disabled' => !$this->security->isGranted('edit_permissions', $entity),
         ]);
     }
 }

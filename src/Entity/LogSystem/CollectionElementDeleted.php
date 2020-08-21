@@ -54,8 +54,6 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
 
     /**
      * Get the name of the collection (on target element) that was changed.
-     *
-     * @return string
      */
     public function getCollectionName(): string
     {
@@ -65,8 +63,6 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
     /**
      * Gets the name of the element that was deleted.
      * Return null, if the element did not have a name.
-     *
-     * @return string|null
      */
     public function getOldName(): ?string
     {
@@ -75,8 +71,6 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
 
     /**
      * Returns the class of the deleted element.
-     *
-     * @return string
      */
     public function getDeletedElementClass(): string
     {
@@ -85,8 +79,6 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
 
     /**
      * Returns the ID of the deleted element.
-     *
-     * @return int
      */
     public function getDeletedElementID(): int
     {

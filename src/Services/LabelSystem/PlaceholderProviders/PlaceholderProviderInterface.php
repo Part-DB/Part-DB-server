@@ -31,9 +31,9 @@ interface PlaceholderProviderInterface
      *
      * @param string $placeholder  The placeholder (e.g. "%%PLACEHOLDER%%") that should be replaced
      * @param object $label_target The object that is targeted by the label
-     * @param array  $options      A list of options that can be used to specify the generated output further.
+     * @param array  $options      a list of options that can be used to specify the generated output further
      *
-     * @return string|null The real value of this placeholder, null if not supported.
+     * @return string|null the real value of this placeholder, null if not supported
      */
     public function replace(string $placeholder, object $label_target, array $options = []): ?string;
 }

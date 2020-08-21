@@ -60,8 +60,6 @@ class DatabaseUpdatedLogEntry extends AbstractLogEntry
 
     /**
      * Checks if the database update was successful.
-     *
-     * @return bool
      */
     public function isSuccessful(): bool
     {
@@ -71,8 +69,6 @@ class DatabaseUpdatedLogEntry extends AbstractLogEntry
 
     /**
      * Gets the database version before update.
-     *
-     * @return string
      */
     public function getOldVersion(): string
     {
@@ -81,8 +77,6 @@ class DatabaseUpdatedLogEntry extends AbstractLogEntry
 
     /**
      * Gets the (target) database version after update.
-     *
-     * @return string
      */
     public function getNewVersion(): string
     {

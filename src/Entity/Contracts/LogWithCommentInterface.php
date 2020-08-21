@@ -27,16 +27,12 @@ interface LogWithCommentInterface
 {
     /**
      * Checks if this log entry has a user provided comment.
-     *
-     * @return bool
      */
     public function hasComment(): bool;
 
     /**
      * Gets the user provided comment associated with this log entry.
      * Returns null if not comment was set.
-     *
-     * @return string|null
      */
     public function getComment(): ?string;
 

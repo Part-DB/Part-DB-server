@@ -51,7 +51,6 @@ use R\U2FTwoFactorBundle\Event\RegisterEvent;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -96,9 +95,9 @@ final class RegisterU2FSubscriber implements EventSubscriberInterface
     public function onRegister(RegisterEvent $event): void
     {
         //Skip adding of U2F key on demo mode
-        if (! $this->demo_mode) {
+        if (!$this->demo_mode) {
             $user = $event->getUser();
-            if (! $user instanceof User) {
+            if (!$user instanceof User) {
                 throw new \InvalidArgumentException('Only User objects can be registered for U2F!');
             }
 

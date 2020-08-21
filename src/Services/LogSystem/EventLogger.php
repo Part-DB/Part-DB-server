@@ -68,7 +68,7 @@ class EventLogger
      * Adds the given log entry to the Log, if the entry fullfills the global configured criterias.
      * The change will not be flushed yet.
      *
-     * @return bool Returns true, if the event was added to log.
+     * @return bool returns true, if the event was added to log
      */
     public function log(AbstractLogEntry $logEntry): bool
     {
@@ -99,7 +99,7 @@ class EventLogger
     /**
      * Adds the given log entry to the Log, if the entry fullfills the global configured criterias and flush afterwards.
      *
-     * @return bool Returns true, if the event was added to log.
+     * @return bool returns true, if the event was added to log
      */
     public function logAndFlush(AbstractLogEntry $logEntry): bool
     {
@@ -126,12 +126,12 @@ class EventLogger
         }
 
         //Check if the event type is black listed
-        if (! empty($blacklist) && $this->isObjectClassInArray($logEntry, $blacklist)) {
+        if (!empty($blacklist) && $this->isObjectClassInArray($logEntry, $blacklist)) {
             return false;
         }
 
         //Check for whitelisting
-        if (! empty($whitelist) && ! $this->isObjectClassInArray($logEntry, $whitelist)) {
+        if (!empty($whitelist) && !$this->isObjectClassInArray($logEntry, $whitelist)) {
             return false;
         }
 
@@ -143,9 +143,7 @@ class EventLogger
      * Check if the object type is given in the classes array. This also works for inherited types.
      *
      * @param object   $object  The object which should be checked
-     * @param string[] $classes The list of class names that should be used for checking.
-     *
-     * @return bool
+     * @param string[] $classes the list of class names that should be used for checking
      */
     protected function isObjectClassInArray(object $object, array $classes): bool
     {

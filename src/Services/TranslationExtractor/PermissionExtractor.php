@@ -68,7 +68,7 @@ final class PermissionExtractor implements ExtractorInterface
      */
     public function extract($resource, MessageCatalogue $catalogue): void
     {
-        if (! $this->finished) {
+        if (!$this->finished) {
             //Extract for every group...
             foreach ($this->permission_structure['groups'] as $group) {
                 if (isset($group['label'])) {

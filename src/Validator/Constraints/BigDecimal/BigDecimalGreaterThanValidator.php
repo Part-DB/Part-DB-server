@@ -20,7 +20,6 @@
 
 namespace App\Validator\Constraints\BigDecimal;
 
-
 use Brick\Math\BigDecimal;
 use Symfony\Component\Validator\Constraints\AbstractComparisonValidator;
 use Symfony\Component\Validator\Constraints\GreaterThan;

@@ -59,7 +59,7 @@ class SecurityEventLogEntry extends AbstractLogEntry
 
     public function setTargetElement(?AbstractDBElement $element): AbstractLogEntry
     {
-        if (! $element instanceof User) {
+        if (!$element instanceof User) {
             throw new \InvalidArgumentException('Target element must be a User object!');
         }
 
@@ -89,8 +89,6 @@ class SecurityEventLogEntry extends AbstractLogEntry
 
     /**
      * Return what event this log entry represents (e.g. password_reset).
-     *
-     * @return string
      */
     public function getEventType(): string
     {
@@ -104,8 +102,6 @@ class SecurityEventLogEntry extends AbstractLogEntry
 
     /**
      * Return the (anonymized) IP address used to login the user.
-     *
-     * @return string
      */
     public function getIPAddress(): string
     {
@@ -115,7 +111,7 @@ class SecurityEventLogEntry extends AbstractLogEntry
     /**
      * Sets the IP address used to login the user.
      *
-     * @param string $ip        The IP address used to login the user.
+     * @param string $ip        the IP address used to login the user
      * @param bool   $anonymize Anonymize the IP address (remove last block) to be GPDR compliant
      *
      * @return $this

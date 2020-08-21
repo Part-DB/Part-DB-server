@@ -54,7 +54,7 @@ class LabelDialogType extends AbstractType
 
         $builder->add('options', LabelOptionsType::class, [
             'label' => false,
-            'disabled' => ! $this->security->isGranted('@labels.edit_options') || $options['disable_options'],
+            'disabled' => !$this->security->isGranted('@labels.edit_options') || $options['disable_options'],
         ]);
         $builder->add('update', SubmitType::class, [
             'label' => 'label_generator.update',

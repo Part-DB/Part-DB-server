@@ -87,7 +87,7 @@ class AttachmentPathResolverTest extends WebTestCase
         $this->assertSame(self::$projectDir_orig, self::$service->parameterToAbsolutePath(self::$projectDir));
 
         //Relative pathes should be resolved
-        $expected = str_replace('\\', '/',self::$projectDir_orig.DIRECTORY_SEPARATOR.'src');
+        $expected = str_replace('\\', '/', self::$projectDir_orig.DIRECTORY_SEPARATOR.'src');
         $this->assertSame($expected, self::$service->parameterToAbsolutePath('src'));
         $this->assertSame($expected, self::$service->parameterToAbsolutePath('./src'));
 

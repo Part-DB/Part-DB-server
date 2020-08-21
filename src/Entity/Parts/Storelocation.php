@@ -136,8 +136,6 @@ class Storelocation extends AbstractPartsContainingDBElement
 
     /**
      * When this property is set, only one part (but many instock) is allowed to be stored in this store location.
-     *
-     * @return bool
      */
     public function isOnlySinglePart(): bool
     {
@@ -156,8 +154,6 @@ class Storelocation extends AbstractPartsContainingDBElement
 
     /**
      * When this property is set, it is only possible to increase the instock of parts, that are already stored here.
-     *
-     * @return bool
      */
     public function isLimitToExistingParts(): bool
     {
@@ -174,9 +170,6 @@ class Storelocation extends AbstractPartsContainingDBElement
         return $this;
     }
 
-    /**
-     * @return MeasurementUnit|null
-     */
     public function getStorageType(): ?MeasurementUnit
     {
         return $this->storage_type;

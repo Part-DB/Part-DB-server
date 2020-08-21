@@ -99,7 +99,6 @@ class Footprint extends AbstractPartsContainingDBElement
      */
     protected $parameters;
 
-
     /****************************************
      * Getters
      ****************************************/

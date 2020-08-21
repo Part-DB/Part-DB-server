@@ -64,7 +64,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     protected $symbol = '';
 
     /**
-     * @var float|null The guaranteed minimum value of this property.
+     * @var float|null the guaranteed minimum value of this property
      * @Assert\Type({"float","null"})
      * @Assert\LessThanOrEqual(propertyPath="value_typical", message="parameters.validator.min_lesser_typical")
      * @Assert\LessThan(propertyPath="value_max", message="parameters.validator.min_lesser_max")
@@ -73,14 +73,14 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     protected $value_min;
 
     /**
-     * @var float|null The typical value of this property.
+     * @var float|null the typical value of this property
      * @Assert\Type({"null", "float"})
      * @ORM\Column(type="float", nullable=true)
      */
     protected $value_typical;
 
     /**
-     * @var float|null The maximum value of this property.
+     * @var float|null the maximum value of this property
      * @Assert\Type({"float", "null"})
      * @Assert\GreaterThanOrEqual(propertyPath="value_typical", message="parameters.validator.max_greater_typical")
      * @ORM\Column(type="float", nullable=true)
@@ -95,13 +95,13 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     protected $unit = '';
 
     /**
-     * @var string A text value for the given property.
+     * @var string a text value for the given property
      * @ORM\Column(type="string", nullable=false)
      */
     protected $value_text = '';
 
     /**
-     * @var string The group this parameter belongs to.
+     * @var string the group this parameter belongs to
      * @ORM\Column(type="string", nullable=false, name="param_group")
      */
     protected $group = '';
@@ -109,7 +109,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     /**
      * Mapping is done in sub classes.
      *
-     * @var AbstractDBElement|null The element to which this parameter belongs to.
+     * @var AbstractDBElement|null the element to which this parameter belongs to
      */
     protected $element;
 
@@ -130,8 +130,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Returns the element this parameter belongs to.
-     *
-     * @return AbstractDBElement|null
      */
     public function getElement(): ?AbstractDBElement
     {
@@ -141,8 +139,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     /**
      * Return a formatted string version of the values of the string.
      * Based on the set values it can return something like this: 34 V (12 V ... 50 V) [Text].
-     *
-     * @return string
      */
     public function getFormattedValue(): string
     {
@@ -188,7 +184,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      */
     public function setElement(AbstractDBElement $element): self
     {
-        if (! is_a($element, static::ALLOWED_ELEMENT_CLASS)) {
+        if (!is_a($element, static::ALLOWED_ELEMENT_CLASS)) {
             throw new InvalidArgumentException(sprintf('The element associated with a %s must be a %s!', static::class, static::ALLOWED_ELEMENT_CLASS));
         }
 
@@ -211,8 +207,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Returns the name of the group this parameter is associated to (e.g. Technical Parameters).
-     *
-     * @return string
      */
     public function getGroup(): string
     {
@@ -233,8 +227,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Returns the mathematical symbol for this specification (e.g. "V_CB").
-     *
-     * @return string
      */
     public function getSymbol(): string
     {
@@ -255,8 +247,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Returns The guaranteed minimum value of this property.
-     *
-     * @return float|null
      */
     public function getValueMin(): ?float
     {
@@ -277,8 +267,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Returns the typical value of this property.
-     *
-     * @return float|null
      */
     public function getValueTypical(): ?float
     {
@@ -287,8 +275,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Return a formatted version with the minimum value with the unit of this parameter.
-     *
-     * @return string
      */
     public function getValueTypicalWithUnit(): string
     {
@@ -297,8 +283,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Return a formatted version with the maximum value with the unit of this parameter.
-     *
-     * @return string
      */
     public function getValueMaxWithUnit(): string
     {
@@ -307,8 +291,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Return a formatted version with the typical value with the unit of this parameter.
-     *
-     * @return string
      */
     public function getValueMinWithUnit(): string
     {
@@ -331,8 +313,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Returns the guaranteed maximum value.
-     *
-     * @return float|null
      */
     public function getValueMax(): ?float
     {
@@ -353,8 +333,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Returns the unit used by the value (e.g. "V").
-     *
-     * @return string
      */
     public function getUnit(): string
     {
@@ -375,8 +353,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Returns the text value.
-     *
-     * @return string
      */
     public function getValueText(): string
     {
@@ -397,13 +373,11 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * Return a string representation and (if possible) with its unit.
-     *
-     * @return string
      */
     protected function formatWithUnit(float $value, string $format = '%g'): string
     {
         $str = \sprintf($format, $value);
-        if (! empty($this->unit)) {
+        if (!empty($this->unit)) {
             return $str.' '.$this->unit;
         }
 

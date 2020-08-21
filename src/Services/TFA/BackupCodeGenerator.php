@@ -53,8 +53,8 @@ class BackupCodeGenerator
     /**
      * BackupCodeGenerator constructor.
      *
-     * @param int $code_length How many characters a single code should have.
-     * @param int $code_count  How many codes are generated for a whole backup set.
+     * @param int $code_length how many characters a single code should have
+     * @param int $code_count  how many codes are generated for a whole backup set
      */
     public function __construct(int $code_length, int $code_count)
     {
@@ -75,7 +75,7 @@ class BackupCodeGenerator
      *
      * @return string The generated backup code (e.g. 1f3870be2)
      *
-     * @throws \Exception If no entropy source is available.
+     * @throws \Exception if no entropy source is available
      */
     public function generateSingleCode(): string
     {
@@ -87,7 +87,7 @@ class BackupCodeGenerator
     /**
      * Returns a full backup code set. The code count can be configured in the constructor.
      *
-     * @return string[] An array containing different backup codes.
+     * @return string[] an array containing different backup codes
      */
     public function generateCodeSet(): array
     {

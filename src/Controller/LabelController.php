@@ -81,7 +81,7 @@ class LabelController extends AbstractController
         }
 
         //We have to disable the options, if twig mode is selected and user is not allowed to use it.
-        $disable_options = 'twig' === $label_options->getLinesMode() && ! $this->isGranted('@labels.use_twig');
+        $disable_options = 'twig' === $label_options->getLinesMode() && !$this->isGranted('@labels.use_twig');
 
         $form = $this->createForm(LabelDialogType::class, null, [
             'disable_options' => $disable_options,
@@ -109,10 +109,10 @@ class LabelController extends AbstractController
         $filename = 'invalid.pdf';
 
         //Generate PDF either when the form is submitted and valid, or the form  was not submit yet, and generate is set
-        if (($form->isSubmitted() && $form->isValid()) || ($generate && ! $form->isSubmitted() && null !== $profile)) {
+        if (($form->isSubmitted() && $form->isValid()) || ($generate && !$form->isSubmitted() && null !== $profile)) {
             $target_id = (string) $form->get('target_id')->getData();
             $targets = $this->findObjects($form_options->getSupportedElement(), $target_id);
-            if (! empty($targets)) {
+            if (!empty($targets)) {
                 try {
                     $pdf_data = $this->labelGenerator->generateLabel($form_options, $targets);
                     $filename = $this->getLabelName($targets[0], $profile);
@@ -145,7 +145,7 @@ class LabelController extends AbstractController
 
     protected function findObjects(string $type, string $ids): array
     {
-        if (! isset(LabelGenerator::CLASS_SUPPORT_MAPPING[$type])) {
+        if (!isset(LabelGenerator::CLASS_SUPPORT_MAPPING[$type])) {
             throw new \InvalidArgumentException('The given type is not known and can not be mapped to a class!');
         }
 

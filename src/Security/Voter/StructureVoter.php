@@ -97,7 +97,7 @@ class StructureVoter extends ExtendedVoter
      */
     protected function instanceToPermissionName($subject): ?string
     {
-        if (! is_string($subject)) {
+        if (!is_string($subject)) {
             $class_name = get_class($subject);
         } else {
             $class_name = $subject;
@@ -122,8 +122,6 @@ class StructureVoter extends ExtendedVoter
      * The current user (or the anonymous user) is passed by $user.
      *
      * @param string $attribute
-     *
-     * @return bool
      */
     protected function voteOnUser($attribute, $subject, User $user): bool
     {

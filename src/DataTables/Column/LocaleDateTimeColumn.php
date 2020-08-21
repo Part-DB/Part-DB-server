@@ -59,7 +59,7 @@ class LocaleDateTimeColumn extends AbstractColumn
     {
         if (null === $value) {
             return $this->options['nullValue'];
-        } elseif (! $value instanceof DateTimeInterface) {
+        } elseif (!$value instanceof DateTimeInterface) {
             $value = new DateTime((string) $value);
         }
 

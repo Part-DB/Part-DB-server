@@ -57,7 +57,7 @@ class CompanyForm extends BaseEntityAdminForm
 
         $builder->add('address', TextareaType::class, [
             'label' => 'company.edit.address',
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'attr' => [
                 'placeholder' => 'company.edit.address.placeholder',
             ],
@@ -67,7 +67,7 @@ class CompanyForm extends BaseEntityAdminForm
 
         $builder->add('phone_number', TelType::class, [
             'label' => 'company.edit.phone_number',
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'attr' => [
                 'placeholder' => 'company.edit.phone_number.placeholder',
             ],
@@ -77,7 +77,7 @@ class CompanyForm extends BaseEntityAdminForm
 
         $builder->add('fax_number', TelType::class, [
             'label' => 'company.edit.fax_number',
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'attr' => [
                 'placeholder' => 'company.fax_number.placeholder',
             ],
@@ -87,7 +87,7 @@ class CompanyForm extends BaseEntityAdminForm
 
         $builder->add('email_address', EmailType::class, [
             'label' => 'company.edit.email',
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'attr' => [
                 'placeholder' => 'company.edit.email.placeholder',
             ],
@@ -97,7 +97,7 @@ class CompanyForm extends BaseEntityAdminForm
 
         $builder->add('website', UrlType::class, [
             'label' => 'company.edit.website',
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'attr' => [
                 'placeholder' => 'company.edit.website.placeholder',
             ],
@@ -108,7 +108,7 @@ class CompanyForm extends BaseEntityAdminForm
         $builder->add('auto_product_url', UrlType::class, [
             'label' => 'company.edit.auto_product_url',
             'help' => 'company.edit.auto_product_url.help',
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'attr' => [
                 'placeholder' => 'company.edit.auto_product_url.placeholder',
             ],

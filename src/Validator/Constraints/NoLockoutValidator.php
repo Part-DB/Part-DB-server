@@ -74,7 +74,7 @@ class NoLockoutValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (! $constraint instanceof NoLockout) {
+        if (!$constraint instanceof NoLockout) {
             throw new UnexpectedTypeException($constraint, NoLockout::class);
         }
 

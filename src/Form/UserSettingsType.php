@@ -72,27 +72,27 @@ class UserSettingsType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'user.username.label',
-                'disabled' => ! $this->security->isGranted('edit_username', $options['data']) || $this->demo_mode,
+                'disabled' => !$this->security->isGranted('edit_username', $options['data']) || $this->demo_mode,
             ])
             ->add('first_name', TextType::class, [
                 'required' => false,
                 'label' => 'user.firstName.label',
-                'disabled' => ! $this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
+                'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
             ->add('last_name', TextType::class, [
                 'required' => false,
                 'label' => 'user.lastName.label',
-                'disabled' => ! $this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
+                'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
             ->add('department', TextType::class, [
                 'required' => false,
                 'label' => 'user.department.label',
-                'disabled' => ! $this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
+                'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
             ->add('email', EmailType::class, [
                 'required' => false,
                 'label' => 'user.email.label',
-                'disabled' => ! $this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
+                'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
             ->add('language', LanguageType::class, [
                 'disabled' => $this->demo_mode,

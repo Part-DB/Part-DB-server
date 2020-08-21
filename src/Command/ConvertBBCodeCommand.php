@@ -154,14 +154,14 @@ class ConvertBBCodeCommand extends Command
             foreach ($results as $result) {
                 /** @var AbstractNamedDBElement $result */
                 $io->writeln(
-                    'Convert entity: '.$result->getName().' (' . get_class($result) . ': ' . $result->getID() . ')',
+                    'Convert entity: '.$result->getName().' ('.get_class($result).': '.$result->getID().')',
                     OutputInterface::VERBOSITY_VERBOSE
                 );
                 foreach ($properties as $property) {
                     //Retrieve bbcode from entity
                     $bbcode = $this->propertyAccessor->getValue($result, $property);
                     //Check if the current property really contains BBCode
-                    if (! preg_match(static::BBCODE_REGEX, $bbcode)) {
+                    if (!preg_match(static::BBCODE_REGEX, $bbcode)) {
                         continue;
                     }
                     $io->writeln(
@@ -182,7 +182,7 @@ class ConvertBBCodeCommand extends Command
         }
 
         //If we are not in dry run, save changes to DB
-        if (! $input->getOption('dry-run')) {
+        if (!$input->getOption('dry-run')) {
             $this->em->flush();
             $io->success('Changes saved to DB successfully!');
         }

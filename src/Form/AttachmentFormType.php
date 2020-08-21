@@ -115,7 +115,7 @@ class AttachmentFormType extends AbstractType
             'required' => false,
             'label' => 'attachment.edit.secure_file',
             'mapped' => false,
-            'disabled' => ! $this->security->isGranted('@parts_attachments.show_private'),
+            'disabled' => !$this->security->isGranted('@parts_attachments.show_private'),
             'attr' => [
                 'class' => 'form-control-sm',
             ],
@@ -143,7 +143,7 @@ class AttachmentFormType extends AbstractType
             'required' => false,
             'label' => 'attachment.edit.download_url',
             'mapped' => false,
-            'disabled' => ! $this->allow_attachments_download,
+            'disabled' => !$this->allow_attachments_download,
             'attr' => [
                 'class' => 'form-control-sm',
             ],
@@ -179,7 +179,7 @@ class AttachmentFormType extends AbstractType
             if ($attachment instanceof Attachment && $file instanceof UploadedFile && $attachment->getAttachmentType()) {
                 if (!$this->submitHandler->isValidFileExtension($attachment->getAttachmentType(), $file)) {
                     $event->getForm()->get('file')->addError(
-                        new FormError($this->translator->trans("validator.file_ext_not_allowed"))
+                        new FormError($this->translator->trans('validator.file_ext_not_allowed'))
                     );
                 }
             }

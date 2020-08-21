@@ -20,7 +20,6 @@
 
 namespace App\Services\Parts;
 
-
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -43,8 +42,10 @@ final class PartsTableActionHandler
     }
 
     /**
-     * Converts the given array to an array of Parts
-     * @param  string  $ids A comma separated list of Part IDs.
+     * Converts the given array to an array of Parts.
+     *
+     * @param string $ids a comma separated list of Part IDs
+     *
      * @return Part[]
      */
     public function idStringToArray(string $ids): array
@@ -53,13 +54,12 @@ final class PartsTableActionHandler
 
         /** @var DBElementRepository $repo */
         $repo = $this->entityManager->getRepository(Part::class);
+
         return $repo->getElementsFromIDArray($id_array);
     }
 
     /**
-     * @param  string  $action
-     * @param  Part[]  $selected_parts
-     * @param  int|null  $target_id
+     * @param Part[] $selected_parts
      */
     public function handleAction(string $action, array $selected_parts, ?int $target_id): void
     {
@@ -89,19 +89,19 @@ final class PartsTableActionHandler
                     break;
                 case 'change_footprint':
                     $this->denyAccessUnlessGranted('footprint.edit', $part);
-                    $part->setFootprint($target_id === null ? null : $this->entityManager->find(Footprint::class, $target_id));
+                    $part->setFootprint(null === $target_id ? null : $this->entityManager->find(Footprint::class, $target_id));
                     break;
                 case 'change_manufacturer':
                     $this->denyAccessUnlessGranted('manufacturer.edit', $part);
-                    $part->setManufacturer($target_id === null ? null : $this->entityManager->find(Manufacturer::class, $target_id));
+                    $part->setManufacturer(null === $target_id ? null : $this->entityManager->find(Manufacturer::class, $target_id));
                     break;
                 case 'change_unit':
                     $this->denyAccessUnlessGranted('unit.edit', $part);
-                    $part->setPartUnit($target_id === null ? null : $this->entityManager->find(MeasurementUnit::class, $target_id));
+                    $part->setPartUnit(null === $target_id ? null : $this->entityManager->find(MeasurementUnit::class, $target_id));
                     break;
 
                 default:
-                    throw new \InvalidArgumentException('The given action is unknown! (' . $action . ')');
+                    throw new \InvalidArgumentException('The given action is unknown! ('.$action.')');
             }
         }
     }

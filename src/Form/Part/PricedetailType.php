@@ -44,7 +44,6 @@ namespace App\Form\Part;
 
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\PriceInformations\Pricedetail;
-use App\Form\Type\BigDecimalMoneyType;
 use App\Form\Type\BigDecimalNumberType;
 use App\Form\Type\CurrencyEntityType;
 use App\Form\Type\SIUnitType;

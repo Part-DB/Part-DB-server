@@ -115,7 +115,7 @@ class ElementPermissionListener
             );
 
             //Check if user is allowed to read info, otherwise apply placeholder
-            if ((null !== $annotation) && ! $this->isGranted('read', $annotation, $element)) {
+            if ((null !== $annotation) && !$this->isGranted('read', $annotation, $element)) {
                 $property->setAccessible(true);
                 $value = $annotation->getPlaceholder();
 
@@ -162,8 +162,8 @@ class ElementPermissionListener
                 $property->setAccessible(true);
 
                 //If the user is not allowed to edit or read this property, reset all values.
-                if ((! $this->isGranted('read', $annotation, $element)
-                    || ! $this->isGranted('edit', $annotation, $element))) {
+                if ((!$this->isGranted('read', $annotation, $element)
+                    || !$this->isGranted('edit', $annotation, $element))) {
                     //Set value to old value, so that there a no change to this property
                     if (isset($old_data[$property->getName()])) {
                         $property->setValue($element, $old_data[$property->getName()]);
@@ -186,7 +186,7 @@ class ElementPermissionListener
      */
     protected function isRunningFromCLI()
     {
-        if (empty($_SERVER['REMOTE_ADDR']) && ! isset($_SERVER['HTTP_USER_AGENT']) && count($_SERVER['argv']) > 0) {
+        if (empty($_SERVER['REMOTE_ADDR']) && !isset($_SERVER['HTTP_USER_AGENT']) && count($_SERVER['argv']) > 0) {
             return true;
         }
 
@@ -219,7 +219,7 @@ class ElementPermissionListener
         }
 
         //Check if we have already have saved the permission, otherwise save it to cache
-        if (! isset($this->perm_cache[$mode][get_class($element)][$operation])) {
+        if (!isset($this->perm_cache[$mode][get_class($element)][$operation])) {
             $this->perm_cache[$mode][get_class($element)][$operation] = $this->security->isGranted($operation, $element);
         }
 

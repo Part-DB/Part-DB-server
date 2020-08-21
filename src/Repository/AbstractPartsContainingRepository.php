@@ -20,28 +20,26 @@
 
 namespace App\Repository;
 
-
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\PartsContainingRepositoryInterface;
 use App\Entity\Parts\Part;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\Criteria;
 
-abstract class AbstractPartsContainingRepository extends StructuralDBElementRepository
-    implements PartsContainingRepositoryInterface
+abstract class AbstractPartsContainingRepository extends StructuralDBElementRepository implements PartsContainingRepositoryInterface
 {
     /**
      * Returns all parts associated with this element.
-     * @param  AbstractPartsContainingDBElement $element The element for which the parts should be determined.
-     * @param  array  $order_by The order of the parts. Format ['name' => 'ASC']
+     *
+     * @param AbstractPartsContainingDBElement $element  the element for which the parts should be determined
+     * @param array                            $order_by The order of the parts. Format ['name' => 'ASC']
+     *
      * @return Part[]
      */
     abstract public function getParts(object $element, array $order_by = ['name' => 'ASC']): array;
 
     /**
      * Gets the count of the parts associated with this element.
-     * @param AbstractPartsContainingDBElement $element The element for which the parts should be determined.
-     * @return int
+     *
+     * @param AbstractPartsContainingDBElement $element the element for which the parts should be determined
      */
     abstract public function getPartsCount(object $element): int;
 
@@ -66,5 +64,4 @@ abstract class AbstractPartsContainingRepository extends StructuralDBElementRepo
 
         return $repo->count([$field_name => $element]);
     }
-
 }

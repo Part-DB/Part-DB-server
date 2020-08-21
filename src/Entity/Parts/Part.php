@@ -176,7 +176,6 @@ class Part extends AttachmentContainingDBElement
         parent::__clone();
     }
 
-
     /**
      *  Get all devices which uses this part.
      *

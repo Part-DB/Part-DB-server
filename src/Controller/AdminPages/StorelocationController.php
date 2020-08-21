@@ -90,8 +90,6 @@ class StorelocationController extends BaseAdminController
      * @Route("/new", name="store_location_new")
      * @Route("/{id}/clone", name="store_location_clone")
      * @Route("/")
-     *
-     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Storelocation $entity = null): Response
     {
@@ -100,8 +98,6 @@ class StorelocationController extends BaseAdminController
 
     /**
      * @Route("/export", name="store_location_export_all")
-     *
-     * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
@@ -110,8 +106,6 @@ class StorelocationController extends BaseAdminController
 
     /**
      * @Route("/{id}/export", name="store_location_export")
-     *
-     * @return Response
      */
     public function exportEntity(Storelocation $entity, EntityExporter $exporter, Request $request): Response
     {

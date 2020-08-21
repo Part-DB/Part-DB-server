@@ -50,8 +50,6 @@ class PartRepository extends NamedDBElementRepository
     /**
      * Gets the summed up instock of all parts (only parts without an measurent unit).
      *
-     * @return float
-     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
@@ -70,8 +68,6 @@ class PartRepository extends NamedDBElementRepository
 
     /**
      * Gets the number of parts that has price informations.
-     *
-     * @return int
      *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException

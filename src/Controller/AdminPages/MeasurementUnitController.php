@@ -92,8 +92,6 @@ class MeasurementUnitController extends BaseAdminController
      * @Route("/new", name="measurement_unit_new")
      * @Route("/{id}/clone", name="measurement_unit_clone")
      * @Route("/")
-     *
-     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?MeasurementUnit $entity = null): Response
     {
@@ -102,8 +100,6 @@ class MeasurementUnitController extends BaseAdminController
 
     /**
      * @Route("/export", name="measurement_unit_export_all")
-     *
-     * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
@@ -112,8 +108,6 @@ class MeasurementUnitController extends BaseAdminController
 
     /**
      * @Route("/{id}/export", name="measurement_unit_export")
-     *
-     * @return Response
      */
     public function exportEntity(AttachmentType $entity, EntityExporter $exporter, Request $request): Response
     {

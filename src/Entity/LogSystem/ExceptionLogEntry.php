@@ -61,8 +61,6 @@ class ExceptionLogEntry extends AbstractLogEntry
 
     /**
      * The class name of the exception that caused this log entry.
-     *
-     * @return string
      */
     public function getExceptionClass(): string
     {
@@ -71,8 +69,6 @@ class ExceptionLogEntry extends AbstractLogEntry
 
     /**
      * Returns the file where the exception happened.
-     *
-     * @return string
      */
     public function getFile(): string
     {
@@ -81,8 +77,6 @@ class ExceptionLogEntry extends AbstractLogEntry
 
     /**
      * Returns the line where the exception happened.
-     *
-     * @return int
      */
     public function getLine(): int
     {
@@ -91,8 +85,6 @@ class ExceptionLogEntry extends AbstractLogEntry
 
     /**
      * Return the message of the exception.
-     *
-     * @return string
      */
     public function getMessage(): string
     {

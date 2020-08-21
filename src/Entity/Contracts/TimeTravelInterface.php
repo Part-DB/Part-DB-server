@@ -29,7 +29,7 @@ interface TimeTravelInterface
     /**
      * Checks if this entry has informations which data has changed.
      *
-     * @return bool True if this entry has informations about the changed data.
+     * @return bool true if this entry has informations about the changed data
      */
     public function hasOldDataInformations(): bool;
 
@@ -40,8 +40,6 @@ interface TimeTravelInterface
 
     /**
      * Returns the the timestamp associated with this change.
-     *
-     * @return \DateTime
      */
     public function getTimestamp(): \DateTime;
 }

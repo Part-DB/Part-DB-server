@@ -45,7 +45,7 @@ final class BarcodeRedirector
      * @param string $type The type of the element that was scanned (e.g. 'part', 'lot', etc.)
      * @param int    $id   The ID of the element that was scanned
      *
-     * @return string The URL to which should be redirected.
+     * @return string the URL to which should be redirected
      *
      * @throws EntityNotFoundException
      */

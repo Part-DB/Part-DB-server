@@ -88,7 +88,7 @@ class CurrencyEntityType extends StructuralEntityType
     {
         //Similar to StructuralEntityType, but we use the currency symbol instead if available
 
-        if (! $choice instanceof Currency) {
+        if (!$choice instanceof Currency) {
             throw new \InvalidArgumentException('$choice must be an currency object!');
         }
 
@@ -117,7 +117,7 @@ class CurrencyEntityType extends StructuralEntityType
         /** @var Currency $choice */
         $tmp = [];
 
-        if (! empty($choice->getIsoCode())) {
+        if (!empty($choice->getIsoCode())) {
             //Show the name of the currency
             $tmp += ['data-subtext' => $choice->getName()];
         }

@@ -49,7 +49,7 @@ class LogAccessDeniedSubscriber implements EventSubscriberInterface
             $throwable = $throwable->getPrevious();
         }
         //Ignore everything except AccessDeniedExceptions
-        if (! $throwable instanceof AccessDeniedException) {
+        if (!$throwable instanceof AccessDeniedException) {
             return;
         }
 

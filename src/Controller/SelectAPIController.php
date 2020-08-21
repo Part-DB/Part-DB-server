@@ -20,7 +20,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -29,13 +28,11 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Services\Trees\NodesListBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/select_api")
- * @package App\Controller
  */
 class SelectAPIController extends AbstractController
 {
@@ -82,7 +79,7 @@ class SelectAPIController extends AbstractController
 
     protected function getResponseForClass(string $class, bool $include_empty = false): Response
     {
-        $test_obj = new $class;
+        $test_obj = new $class();
         $this->denyAccessUnlessGranted('read', $test_obj);
 
         $nodes = $this->nodesListBuilder->typeToNodesList($class);
@@ -107,12 +104,12 @@ class SelectAPIController extends AbstractController
         foreach ($nodes_list as $node) {
             /** @var AbstractStructuralDBElement $node */
             $entry = [
-                'text' => str_repeat('&nbsp;&nbsp;&nbsp;', $node->getLevel()) . htmlspecialchars($node->getName()),
+                'text' => str_repeat('&nbsp;&nbsp;&nbsp;', $node->getLevel()).htmlspecialchars($node->getName()),
                 'value' => $node->getID(),
                 'data-subtext' => $node->getParent() ? $node->getParent()->getFullPath() : null,
             ];
 
-            $entries[] =  $entry;
+            $entries[] = $entry;
         }
 
         return $entries;

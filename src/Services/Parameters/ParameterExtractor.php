@@ -40,7 +40,7 @@ class ParameterExtractor
      */
     public function extractParameters(string $input, string $class = PartParameter::class): array
     {
-        if (! is_a($class, AbstractParameter::class, true)) {
+        if (!is_a($class, AbstractParameter::class, true)) {
             throw new \InvalidArgumentException('$class must be a child class of AbstractParameter!');
         }
 
@@ -68,7 +68,7 @@ class ParameterExtractor
 
         $matches = [];
         \preg_match($regex, $input, $matches);
-        if (! empty($matches)) {
+        if (!empty($matches)) {
             [, $name, $value] = $matches;
             $value = trim($value);
 

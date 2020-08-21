@@ -20,24 +20,24 @@
 
 namespace App\Entity\Base;
 
-
 use App\Entity\Parts\Part;
-use Doctrine\Common\Collections\Collection;
 
 interface PartsContainingRepositoryInterface
 {
     /**
      * Returns all parts associated with this element.
-     * @param  object $element The element for which the parts should be determined.
-     * @param  array  $order_by The order of the parts. Format ['name' => 'ASC']
+     *
+     * @param object $element  the element for which the parts should be determined
+     * @param array  $order_by The order of the parts. Format ['name' => 'ASC']
+     *
      * @return Part[]
      */
     public function getParts(object $element, array $order_by = ['name' => 'ASC']): array;
 
     /**
      * Gets the count of the parts associated with this element.
-     * @param  object $element The element for which the parts should be determined.
-     * @return int
+     *
+     * @param object $element the element for which the parts should be determined
      */
     public function getPartsCount(object $element): int;
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Migration;
-
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -15,7 +13,7 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
     public const ADMIN_PW_LENGTH = 10;
 
     protected $permissions_updated = false;
-    protected $admin_pw = "";
+    protected $admin_pw = '';
 
     protected $logger;
 
@@ -61,11 +59,10 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
 
     /**
      * Gets the legacy Part-DB version number. Returns 0, if target database is not an legacy Part-DB database.
-     * @return int
      */
     public function getOldDBVersion(): int
     {
-        if ($this->connection->getDatabasePlatform()->getName() !== "mysql") {
+        if ('mysql' !== $this->connection->getDatabasePlatform()->getName()) {
             //Old Part-DB version only supported MySQL therefore only
             return 0;
         }
@@ -81,7 +78,6 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
     /**
      * Returns the hash of a new random password, created for the initial admin user, which can be written to DB.
      * The plaintext version of the password will be outputed to user after this migration.
-     * @return string
      */
     public function getInitalAdminPW(): string
     {
@@ -109,7 +105,7 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
 
         if (!empty($this->admin_pw)) {
             $this->logger->warning('');
-            $this->logger->warning('<bg=yellow;fg=black>The initial password for the "admin" user is: ' . $this->admin_pw . '</>');
+            $this->logger->warning('<bg=yellow;fg=black>The initial password for the "admin" user is: '.$this->admin_pw.'</>');
             $this->logger->warning('');
         }
     }

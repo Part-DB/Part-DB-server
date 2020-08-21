@@ -45,7 +45,7 @@ class LabelProfileVoter extends ExtendedVoter
     protected function supports($attribute, $subject)
     {
         if ($subject instanceof LabelProfile) {
-            if (! isset(self::MAPPING[$attribute])) {
+            if (!isset(self::MAPPING[$attribute])) {
                 return false;
             }
 

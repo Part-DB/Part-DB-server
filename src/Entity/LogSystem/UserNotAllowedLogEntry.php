@@ -61,8 +61,6 @@ class UserNotAllowedLogEntry extends AbstractLogEntry
 
     /**
      * Returns the path the user tried to accessed and what was denied.
-     *
-     * @return string
      */
     public function getPath(): string
     {

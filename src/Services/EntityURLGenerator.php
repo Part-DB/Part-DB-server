@@ -127,8 +127,6 @@ class EntityURLGenerator
 
     /**
      * Gets the URL to view the given element at a given timestamp.
-     *
-     * @return string
      */
     public function timeTravelURL(AbstractDBElement $entity, \DateTime $dateTime): string
     {
@@ -398,7 +396,7 @@ class EntityURLGenerator
         $class = get_class($entity);
 
         //Check if we have an direct mapping for the given class
-        if (! array_key_exists($class, $map)) {
+        if (!array_key_exists($class, $map)) {
             //Check if we need to check inheritance by looping through our map
             foreach (array_keys($map) as $key) {
                 if (is_a($entity, $key)) {

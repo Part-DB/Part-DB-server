@@ -40,7 +40,7 @@ class ValidRangeValidator extends ConstraintValidator
 
     public function validate($value, Constraint $constraint): void
     {
-        if (! $constraint instanceof ValidRange) {
+        if (!$constraint instanceof ValidRange) {
             throw new UnexpectedTypeException($constraint, ValidRange::class);
         }
 
@@ -50,11 +50,11 @@ class ValidRangeValidator extends ConstraintValidator
             return;
         }
 
-        if (! is_string($value)) {
+        if (!is_string($value)) {
             throw new UnexpectedValueException($value, 'string');
         }
 
-        if (! $this->rangeParser->isValidRange($value)) {
+        if (!$this->rangeParser->isValidRange($value)) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

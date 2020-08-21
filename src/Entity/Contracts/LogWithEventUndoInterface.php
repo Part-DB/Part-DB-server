@@ -29,15 +29,11 @@ interface LogWithEventUndoInterface
 {
     /**
      * Checks if this element undoes another event.
-     *
-     * @return bool
      */
     public function isUndoEvent(): bool;
 
     /**
      * Returns the ID of the undone event or null if no event is undone.
-     *
-     * @return int|null
      */
     public function getUndoEventID(): ?int;
 
@@ -52,8 +48,6 @@ interface LogWithEventUndoInterface
      * Returns the mode how the event was undone:
      * "undo" = Only a single event was applied to element
      * "revert" = Element was reverted to the state it was to the timestamp of the log.
-     *
-     * @return string
      */
     public function getUndoMode(): string;
 }

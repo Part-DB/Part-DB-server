@@ -180,8 +180,6 @@ class U2FKey implements TwoFactorKeyInterface
 
     /**
      * Gets the user, this U2F key belongs to.
-     *
-     * @return User
      */
     public function getUser(): User
     {
@@ -190,8 +188,6 @@ class U2FKey implements TwoFactorKeyInterface
 
     /**
      * The primary key ID of this key.
-     *
-     * @return int
      */
     public function getID(): int
     {

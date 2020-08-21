@@ -69,8 +69,6 @@ class FootprintController extends BaseAdminController
 
     /**
      * @Route("/{id}", name="footprint_delete", methods={"DELETE"})
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Request $request, Footprint $entity, StructuralElementRecursionHelper $recursionHelper): \Symfony\Component\HttpFoundation\RedirectResponse
     {
@@ -80,8 +78,6 @@ class FootprintController extends BaseAdminController
     /**
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="footprint_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
-     *
-     * @return Response
      */
     public function edit(Footprint $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
@@ -92,8 +88,6 @@ class FootprintController extends BaseAdminController
      * @Route("/new", name="footprint_new")
      * @Route("/{id}/clone", name="footprint_clone")
      * @Route("/")
-     *
-     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Footprint $entity = null): Response
     {
@@ -102,8 +96,6 @@ class FootprintController extends BaseAdminController
 
     /**
      * @Route("/export", name="footprint_export_all")
-     *
-     * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
@@ -112,8 +104,6 @@ class FootprintController extends BaseAdminController
 
     /**
      * @Route("/{id}/export", name="footprint_export")
-     *
-     * @return Response
      */
     public function exportEntity(AttachmentType $entity, EntityExporter $exporter, Request $request): Response
     {

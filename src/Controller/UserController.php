@@ -88,6 +88,7 @@ class UserController extends AdminPages\BaseAdminController
             $event = new SecurityEvent($entity);
             $this->eventDispatcher->dispatch($event, SecurityEvents::PASSWORD_CHANGED);
         }
+
         return true;
     }
 
@@ -132,7 +133,7 @@ class UserController extends AdminPages\BaseAdminController
 
     protected function additionalActionNew(FormInterface $form, AbstractNamedDBElement $entity): bool
     {
-        if ($entity instanceof User && ! empty($form['new_password']->getData())) {
+        if ($entity instanceof User && !empty($form['new_password']->getData())) {
             $password = $this->passwordEncoder->encodePassword($entity, $form['new_password']->getData());
             $entity->setPassword($password);
             //By default the user must change the password afterwards
@@ -146,8 +147,6 @@ class UserController extends AdminPages\BaseAdminController
      * @Route("/new", name="user_new")
      * @Route("/{id}/clone", name="user_clone")
      * @Route("/")
-     *
-     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?User $entity = null): Response
     {
@@ -159,6 +158,7 @@ class UserController extends AdminPages\BaseAdminController
         if ($entity instanceof User) {
             //TODO: Find a better solution
             $this->addFlash('error', 'Currently it is not possible to delete a user, as this would break the log... This will be implemented later...');
+
             return false;
         }
 
@@ -181,8 +181,6 @@ class UserController extends AdminPages\BaseAdminController
 
     /**
      * @Route("/export", name="user_export_all")
-     *
-     * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
@@ -191,8 +189,6 @@ class UserController extends AdminPages\BaseAdminController
 
     /**
      * @Route("/{id}/export", name="user_export")
-     *
-     * @return Response
      */
     public function exportEntity(User $entity, EntityExporter $exporter, Request $request): Response
     {
@@ -202,15 +198,13 @@ class UserController extends AdminPages\BaseAdminController
     /**
      * @Route("/info", name="user_info_self")
      * @Route("/{id}/info", name="user_info")
-     *
-     * @return Response
      */
     public function userInfo(?User $user, Packages $packages, Request $request, DataTableFactory $dataTableFactory): Response
     {
         //If no user id was passed, then we show info about the current user
         if (null === $user) {
             $tmp = $this->getUser();
-            if (! $tmp instanceof User) {
+            if (!$tmp instanceof User) {
                 throw new InvalidArgumentException('Userinfo only works for database users!');
             }
             $user = $tmp;

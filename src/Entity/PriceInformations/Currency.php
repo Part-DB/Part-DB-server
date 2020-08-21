@@ -51,7 +51,6 @@ use Brick\Math\RoundingMode;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use DoctrineExtensions\Query\Mysql\Round;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -68,7 +67,7 @@ class Currency extends AbstractStructuralDBElement
 
     /**
      * @var BigDecimal|null The exchange rate between this currency and the base currency
-     *                  (how many base units the current currency is worth)
+     *                      (how many base units the current currency is worth)
      * @ORM\Column(type="big_decimal", precision=11, scale=5, nullable=true)
      * @BigDecimalPositive()
      */
@@ -119,9 +118,6 @@ class Currency extends AbstractStructuralDBElement
         parent::__construct();
     }
 
-    /**
-     * @return Collection
-     */
     public function getPricedetails(): Collection
     {
         return $this->pricedetails;
@@ -176,13 +172,13 @@ class Currency extends AbstractStructuralDBElement
      * Sets the exchange rate of the currency.
      *
      * @param BigDecimal|null $exchange_rate The new exchange rate of the currency.
-     *                                   Set to null, if the exchange rate is unknown.
+     *                                       Set to null, if the exchange rate is unknown.
      *
      * @return Currency
      */
     public function setExchangeRate(?BigDecimal $exchange_rate): self
     {
-        if ($exchange_rate === null) {
+        if (null === $exchange_rate) {
             $this->exchange_rate = null;
         }
         $tmp = $exchange_rate->toScale(self::PRICE_SCALE, RoundingMode::HALF_UP);

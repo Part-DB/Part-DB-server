@@ -70,8 +70,6 @@ class ElementCreatedLogEntry extends AbstractLogEntry implements LogWithCommentI
 
     /**
      * Gets the instock when the part was created.
-     *
-     * @return string|null
      */
     public function getCreationInstockValue(): ?string
     {
@@ -80,8 +78,6 @@ class ElementCreatedLogEntry extends AbstractLogEntry implements LogWithCommentI
 
     /**
      * Checks if a creation instock value was saved with this entry.
-     *
-     * @return bool
      */
     public function hasCreationInstockValue(): bool
     {

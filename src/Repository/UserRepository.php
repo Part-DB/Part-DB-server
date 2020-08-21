@@ -60,8 +60,6 @@ final class UserRepository extends NamedDBElementRepository implements PasswordU
     /**
      * Returns the anonymous user.
      * The result is cached, so the database is only called once, after the anonymous user was found.
-     *
-     * @return User|null
      */
     public function getAnonymousUser(): ?User
     {

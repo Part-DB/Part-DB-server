@@ -20,12 +20,9 @@
 
 namespace App\Form\Type;
 
-
 use Brick\Math\BigDecimal;
-use Brick\Math\BigNumber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -43,7 +40,7 @@ class BigDecimalMoneyType extends AbstractType implements DataTransformerInterfa
 
     public function transform($value)
     {
-        if ($value === null) {
+        if (null === $value) {
             return null;
         }
 
@@ -56,7 +53,7 @@ class BigDecimalMoneyType extends AbstractType implements DataTransformerInterfa
 
     public function reverseTransform($value)
     {
-        if ($value === null) {
+        if (null === $value) {
             return null;
         }
 

@@ -78,10 +78,11 @@ class PartListsController extends AbstractController
 
         if (!$this->isCsrfTokenValid('table_action', $request->request->get('_token'))) {
             $this->addFlash('error', 'csfr_invalid');
+
             return $this->redirect($redirect);
         }
 
-        if ($action === null || $ids === null) {
+        if (null === $action || null === $ids) {
             $this->addFlash('error', 'part.table.actions.no_params_given');
         } else {
             $parts = $actionHandler->idStringToArray($ids);
@@ -92,7 +93,6 @@ class PartListsController extends AbstractController
 
             $this->addFlash('success', 'part.table.actions.success');
         }
-
 
         return $this->redirect($redirect);
     }

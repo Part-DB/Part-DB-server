@@ -130,7 +130,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      * @param AbstractStructuralDBElement $another_element the object to compare
      *                                                     IMPORTANT: both objects to compare must be from the same class (for example two "Device" objects)!
      *
-     * @return bool True, if this element is child of $another_element.
+     * @return bool true, if this element is child of $another_element
      *
      * @throws InvalidArgumentException if there was an error
      */
@@ -140,7 +140,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
 
         //Check if both elements compared, are from the same type
         // (we have to check inheritance, or we get exceptions when using doctrine entities (they have a proxy type):
-        if (! is_a($another_element, $class_name) && ! is_a($this, get_class($another_element))) {
+        if (!is_a($another_element, $class_name) && !is_a($this, get_class($another_element))) {
             throw new InvalidArgumentException('isChildOf() only works for objects of the same type!');
         }
 
@@ -156,7 +156,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     /**
      * Checks if this element is an root element (has no parent).
      *
-     * @return bool True if the this element is an root element.
+     * @return bool true if the this element is an root element
      */
     public function isRoot(): bool
     {
@@ -256,7 +256,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
         $tmp[] = $this;
 
         //We only allow 20 levels depth
-        while (! end($tmp)->isRoot() && count($tmp) < 20) {
+        while (!end($tmp)->isRoot() && count($tmp) < 20) {
             $tmp[] = end($tmp)->parent;
         }
 
@@ -283,9 +283,6 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
         return $this->children;
     }
 
-    /**
-     * @return bool
-     */
     public function isNotSelectable(): bool
     {
         return $this->not_selectable;
@@ -337,7 +334,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      */
     public function setChildren($elements): self
     {
-        if (! is_array($elements) && ! $elements instanceof Collection) {
+        if (!is_array($elements) && !$elements instanceof Collection) {
             throw new InvalidArgumentException('$elements must be an array or Collection!');
         }
 

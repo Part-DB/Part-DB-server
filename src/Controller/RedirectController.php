@@ -69,8 +69,6 @@ class RedirectController extends AbstractController
     /**
      * This function is called whenever a route was not matching the localized routes.
      * The purpose is to redirect the user to the localized version of the page.
-     *
-     * @return RedirectResponse
      */
     public function addLocalePart(Request $request): RedirectResponse
     {
@@ -79,7 +77,7 @@ class RedirectController extends AbstractController
 
         //Check if a user has set a preferred language setting:
         $user = $this->getUser();
-        if (($user instanceof User) && ! empty($user->getLanguage())) {
+        if (($user instanceof User) && !empty($user->getLanguage())) {
             $locale = $user->getLanguage();
         }
 
@@ -87,7 +85,7 @@ class RedirectController extends AbstractController
         $new_url = $request->getUriForPath('/'.$locale.$request->getPathInfo());
 
         //If either mod_rewrite is not enabled or the index.php version is enforced, add index.php to the string
-        if (($this->enforce_index_php || ! $this->checkIfModRewriteAvailable())
+        if (($this->enforce_index_php || !$this->checkIfModRewriteAvailable())
             && false === strpos($new_url, 'index.php')) {
             //Like Request::getUriForPath only with index.php
             $new_url = $request->getSchemeAndHttpHost().$request->getBaseUrl().'/index.php/'.$locale.$request->getPathInfo();
@@ -100,12 +98,10 @@ class RedirectController extends AbstractController
      * Check if mod_rewrite is available (URL rewriting is possible).
      * If this is true, we can redirect to /en, otherwise we have to redirect to index.php/en.
      * When the PHP is not used via Apache SAPI, we just assume that URL rewriting is available.
-     *
-     * @return bool
      */
     public function checkIfModRewriteAvailable(): bool
     {
-        if (! function_exists('apache_get_modules')) {
+        if (!function_exists('apache_get_modules')) {
             //If we can not check for apache modules, we just hope for the best and assume url rewriting is available
             //If you want to enforce index.php versions of the url, you can override this via ENV vars.
             return true;

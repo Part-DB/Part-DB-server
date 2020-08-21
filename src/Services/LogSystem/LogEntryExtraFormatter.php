@@ -77,8 +77,6 @@ class LogEntryExtraFormatter
 
     /**
      * Return an user viewable representation of the extra data in a log entry, styled for console output.
-     *
-     * @return string
      */
     public function formatConsole(AbstractLogEntry $logEntry): string
     {
@@ -92,7 +90,7 @@ class LogEntryExtraFormatter
                 $str .= '<error>'.$this->translator->trans($key).'</error>: ';
             }
             $str .= $value;
-            if (! empty($str)) {
+            if (!empty($str)) {
                 $tmp[] = $str;
             }
         }
@@ -102,8 +100,6 @@ class LogEntryExtraFormatter
 
     /**
      * Return a HTML formatted string containing a user viewable form of the Extra data.
-     *
-     * @return string
      */
     public function format(AbstractLogEntry $context): string
     {
@@ -117,7 +113,7 @@ class LogEntryExtraFormatter
                 $str .= '<b>'.$this->translator->trans($key).'</b>: ';
             }
             $str .= $value;
-            if (! empty($str)) {
+            if (!empty($str)) {
                 $tmp[] = $str;
             }
         }
@@ -187,7 +183,7 @@ class LogEntryExtraFormatter
                 '%s <i class="fas fa-long-arrow-alt-right"></i> %s (%s)',
                 $context->getOldInstock(),
                 $context->getNewInstock(),
-                (! $context->isWithdrawal() ? '+' : '-').$context->getDifference(true)
+                (!$context->isWithdrawal() ? '+' : '-').$context->getDifference(true)
             );
             $array['log.instock_changed.comment'] = htmlspecialchars($context->getComment());
         }

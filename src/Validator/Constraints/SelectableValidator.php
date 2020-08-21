@@ -61,7 +61,7 @@ class SelectableValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (! $constraint instanceof Selectable) {
+        if (!$constraint instanceof Selectable) {
             throw new UnexpectedTypeException($constraint, Selectable::class);
         }
 
@@ -72,7 +72,7 @@ class SelectableValidator extends ConstraintValidator
         }
 
         //Check type of value. Validating only works for StructuralDBElements
-        if (! $value instanceof AbstractStructuralDBElement) {
+        if (!$value instanceof AbstractStructuralDBElement) {
             throw new UnexpectedValueException($value, 'StructuralDBElement');
         }
 

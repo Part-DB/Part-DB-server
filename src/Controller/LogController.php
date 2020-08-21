@@ -145,7 +145,7 @@ class LogController extends AbstractController
             $this->dbRepository->changeID($element, $logEntry->getTargetID());
         }
 
-        if (! $element instanceof AbstractDBElement) {
+        if (!$element instanceof AbstractDBElement) {
             $this->addFlash('error', 'log.undo.target_not_found');
 
             return;

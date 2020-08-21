@@ -81,8 +81,6 @@ final class TreeViewNode implements JsonSerializable
     /**
      * Return the ID of the entity associated with this node.
      * Null if this node is not connected with an entity.
-     *
-     * @return int|null
      */
     public function getId(): ?int
     {
@@ -104,8 +102,6 @@ final class TreeViewNode implements JsonSerializable
 
     /**
      * Returns the node text.
-     *
-     * @return string
      */
     public function getText(): string
     {
@@ -115,7 +111,7 @@ final class TreeViewNode implements JsonSerializable
     /**
      * Sets the node text.
      *
-     * @param string $text The new node text.
+     * @param string $text the new node text
      *
      * @return TreeViewNode
      */
@@ -128,8 +124,6 @@ final class TreeViewNode implements JsonSerializable
 
     /**
      * Returns the href link.
-     *
-     * @return string|null
      */
     public function getHref(): ?string
     {
@@ -139,7 +133,7 @@ final class TreeViewNode implements JsonSerializable
     /**
      * Sets the href link.
      *
-     * @param string|null $href The new href link.
+     * @param string|null $href the new href link
      *
      * @return TreeViewNode
      */

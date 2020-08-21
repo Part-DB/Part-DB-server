@@ -150,7 +150,7 @@ class PricedetailHelper
      * @param Currency|null $currency The currency in which the average price should be calculated
      *
      * @return BigDecimal|null The Average price as bcmath string. Returns null, if it was not possible to calculate the
-     *                     price for the given
+     *                         price for the given
      */
     public function calculateAvgPrice(Part $part, ?float $amount = null, ?Currency $currency = null): ?BigDecimal
     {
@@ -200,7 +200,7 @@ class PricedetailHelper
      *                                      Set to null, to use global base currency.
      *
      * @return BigDecimal|null The value in $targetCurrency given as bcmath string.
-     *                     Returns null, if it was not possible to convert between both values (e.g. when the exchange rates are missing)
+     *                         Returns null, if it was not possible to convert between both values (e.g. when the exchange rates are missing)
      */
     public function convertMoneyToCurrency(BigDecimal $value, ?Currency $originCurrency = null, ?Currency $targetCurrency = null): ?BigDecimal
     {
@@ -213,7 +213,7 @@ class PricedetailHelper
         //Convert value to base currency
         if (null !== $originCurrency) {
             //Without an exchange rate we can not calculate the exchange rate
-            if ($originCurrency->getExchangeRate() === null || $originCurrency->getExchangeRate()->isZero()) {
+            if (null === $originCurrency->getExchangeRate() || $originCurrency->getExchangeRate()->isZero()) {
                 return null;
             }
 

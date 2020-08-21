@@ -70,9 +70,9 @@ class MasterPictureAttachmentType extends AbstractType
                     /** @var Attachment $choice */
                     $tmp = ['data-subtext' => $choice->getFilename() ?? 'URL'];
 
-                    if ('picture' === $options['filter'] && ! $choice->isPicture()) {
+                    if ('picture' === $options['filter'] && !$choice->isPicture()) {
                         $tmp += ['disabled' => 'disabled'];
-                    } elseif ('3d_model' === $options['filter'] && ! $choice->is3DModel()) {
+                    } elseif ('3d_model' === $options['filter'] && !$choice->is3DModel()) {
                         $tmp += ['disabled' => 'disabled'];
                     }
 
@@ -83,7 +83,7 @@ class MasterPictureAttachmentType extends AbstractType
             'choice_loader' => function (Options $options) {
                 return new CallbackChoiceLoader(function () use ($options) {
                     $entity = $options['entity'];
-                    if (! $entity instanceof AttachmentContainingDBElement) {
+                    if (!$entity instanceof AttachmentContainingDBElement) {
                         throw new \RuntimeException('$entity must have Attachments! (be of type AttachmentContainingDBElement)');
                     }
 

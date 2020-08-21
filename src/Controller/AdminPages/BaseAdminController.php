@@ -43,18 +43,13 @@ declare(strict_types=1);
 namespace App\Controller\AdminPages;
 
 use App\DataTables\LogDataTable;
-use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Base\PartsContainingRepositoryInterface;
 use App\Entity\LabelSystem\LabelProfile;
-use App\Entity\PriceInformations\Currency;
-use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
-use App\Events\SecurityEvent;
-use App\Events\SecurityEvents;
 use App\Exceptions\AttachmentDownloadException;
 use App\Form\AdminPages\ImportType;
 use App\Form\AdminPages\MassCreationForm;
@@ -156,12 +151,14 @@ abstract class BaseAdminController extends AbstractController
 
             return $timeTravel_timestamp;
         }
+
         return null;
     }
 
     /**
      * Perform some additional actions, when the form was valid, but before the entity is saved.
-     * @return bool Return true, to save entity normally, return false, to abort saving.
+     *
+     * @return bool return true, to save entity normally, return false, to abort saving
      */
     protected function additionalActionEdit(FormInterface $form, AbstractNamedDBElement $entity): bool
     {
@@ -173,7 +170,6 @@ abstract class BaseAdminController extends AbstractController
         $this->denyAccessUnlessGranted('read', $entity);
 
         $timeTravel_timestamp = $this->revertElementIfNeeded($entity, $timestamp);
-
 
         if ($this->isGranted('show_history', $entity)) {
             $table = $this->dataTableFactory->createFromType(
@@ -203,7 +199,7 @@ abstract class BaseAdminController extends AbstractController
         if (
             $entity instanceof LabelProfile
             && 'twig' === $entity->getOptions()->getLinesMode()
-            && ! $this->isGranted('@labels.use_twig')
+            && !$this->isGranted('@labels.use_twig')
         ) {
             $form_options['disable_options'] = true;
         }
@@ -251,7 +247,7 @@ abstract class BaseAdminController extends AbstractController
                 'attachment_class' => $this->attachment_class,
                 'parameter_class' => $this->parameter_class,
             ]);
-        } elseif ($form->isSubmitted() && ! $form->isValid()) {
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('error', 'entity.edit_flash.invalid');
         }
 
@@ -263,7 +259,6 @@ abstract class BaseAdminController extends AbstractController
 
         /** @var AbstractPartsContainingRepository $repo */
         $repo = $this->entityManager->getRepository($this->entity_class);
-
 
         return $this->render($this->twig_template, [
             'entity' => $entity,
@@ -279,7 +274,8 @@ abstract class BaseAdminController extends AbstractController
 
     /**
      * Perform some additional actions, when the form was valid, but before the entity is saved.
-     * @return bool Return true, to save entity normally, return false, to abort saving.
+     *
+     * @return bool return true, to save entity normally, return false, to abort saving
      */
     protected function additionalActionNew(FormInterface $form, AbstractNamedDBElement $entity): bool
     {
@@ -308,7 +304,6 @@ abstract class BaseAdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             //Perform additional actions
             if ($this->additionalActionNew($form, $new_entity)) {
                 //Upload passed files
@@ -346,7 +341,7 @@ abstract class BaseAdminController extends AbstractController
             }
         }
 
-        if ($form->isSubmitted() && ! $form->isValid()) {
+        if ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('error', 'entity.created_flash.invalid');
         }
 
@@ -399,7 +394,6 @@ abstract class BaseAdminController extends AbstractController
             $em->flush();
         }
 
-
         return $this->render($this->twig_template, [
             'entity' => $new_entity,
             'form' => $form->createView(),
@@ -411,7 +405,9 @@ abstract class BaseAdminController extends AbstractController
 
     /**
      * Performs checks if the element can be deleted safely. Otherwise an flash message is added.
-     * @param  AbstractNamedDBElement  $entity The element that should be checked.
+     *
+     * @param AbstractNamedDBElement $entity the element that should be checked
+     *
      * @return bool True if the the element can be deleted, false if not
      */
     protected function deleteCheck(AbstractNamedDBElement $entity): bool
@@ -421,9 +417,11 @@ abstract class BaseAdminController extends AbstractController
             $repo = $this->entityManager->getRepository($this->entity_class);
             if ($repo->getPartsCount($entity) > 0) {
                 $this->addFlash('error', 'entity.delete.must_not_contain_parts');
+
                 return false;
             }
         }
+
         return true;
     }
 
@@ -474,12 +472,14 @@ abstract class BaseAdminController extends AbstractController
         $entity = new $this->entity_class();
         $this->denyAccessUnlessGranted('read', $entity);
         $entities = $em->getRepository($this->entity_class)->findAll();
+
         return $exporter->exportEntityFromRequest($entities, $request);
     }
 
     protected function _exportEntity(AbstractNamedDBElement $entity, EntityExporter $exporter, Request $request): \Symfony\Component\HttpFoundation\Response
     {
         $this->denyAccessUnlessGranted('read', $entity);
+
         return $exporter->exportEntityFromRequest($entity, $request);
     }
 }

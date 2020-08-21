@@ -53,8 +53,6 @@ class InstockChangedLogEntry extends AbstractLogEntry
 
     /**
      * Get the old instock.
-     *
-     * @return int
      */
     public function getOldInstock(): int
     {
@@ -63,8 +61,6 @@ class InstockChangedLogEntry extends AbstractLogEntry
 
     /**
      * Get the new instock.
-     *
-     * @return int
      */
     public function getNewInstock(): int
     {
@@ -73,8 +69,6 @@ class InstockChangedLogEntry extends AbstractLogEntry
 
     /**
      * Gets the comment associated with the instock change.
-     *
-     * @return string
      */
     public function getComment(): string
     {
@@ -85,8 +79,6 @@ class InstockChangedLogEntry extends AbstractLogEntry
      * Returns the price that has to be payed for the change (in the base currency).
      *
      * @param bool $absolute Set this to true, if you want only get the absolute value of the price (without minus)
-     *
-     * @return float
      */
     public function getPrice(bool $absolute = false): float
     {
@@ -100,9 +92,9 @@ class InstockChangedLogEntry extends AbstractLogEntry
     /**
      * Returns the difference value of the change ($new_instock - $old_instock).
      *
-     * @param bool $absolute Set this to true if you want only the absolute value of the difference.
+     * @param bool $absolute set this to true if you want only the absolute value of the difference
      *
-     * @return int Difference is positive if instock has increased, negative if decreased.
+     * @return int difference is positive if instock has increased, negative if decreased
      */
     public function getDifference(bool $absolute = false): int
     {
@@ -122,7 +114,7 @@ class InstockChangedLogEntry extends AbstractLogEntry
     /**
      * Checks if the Change was an withdrawal of parts.
      *
-     * @return bool True if the change was an withdrawal, false if not.
+     * @return bool true if the change was an withdrawal, false if not
      */
     public function isWithdrawal(): bool
     {

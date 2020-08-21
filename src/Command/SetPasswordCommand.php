@@ -102,14 +102,14 @@ class SetPasswordCommand extends Command
             sprintf('You are going to change the password of %s with ID %d. Proceed?',
                 $user->getFullName(true), $user->getID()));
 
-        if (! $proceed) {
+        if (!$proceed) {
             return 1;
         }
 
         $success = false;
         $new_password = '';
 
-        while (! $success) {
+        while (!$success) {
             $pw1 = $io->askHidden('Please enter new password:');
             $pw2 = $io->askHidden('Please confirm:');
             if ($pw1 !== $pw2) {

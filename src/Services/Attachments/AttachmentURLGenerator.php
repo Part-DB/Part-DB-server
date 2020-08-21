@@ -106,13 +106,12 @@ class AttachmentURLGenerator
     /**
      * Converts a placeholder path to a path to a image path.
      *
-     * @param string      $placeholder_path the placeholder path that should be converted
-     *
-     * @return string|null
+     * @param string $placeholder_path the placeholder path that should be converted
      */
     public function placeholderPathToAssetPath(string $placeholder_path): ?string
     {
         $absolute_path = $this->pathResolver->placeholderToRealPath($placeholder_path);
+
         return $this->absolutePathToAssetPath($absolute_path);
     }
 
@@ -142,11 +141,11 @@ class AttachmentURLGenerator
      */
     public function getThumbnailURL(Attachment $attachment, string $filter_name = 'thumbnail_sm'): string
     {
-        if (! $attachment->isPicture()) {
+        if (!$attachment->isPicture()) {
             throw new InvalidArgumentException('Thumbnail creation only works for picture attachments!');
         }
 
-        if ($attachment->isExternal() && ! empty($attachment->getURL())) {
+        if ($attachment->isExternal() && !empty($attachment->getURL())) {
             return $attachment->getURL();
         }
 
@@ -165,7 +164,7 @@ class AttachmentURLGenerator
         //because the footprints images are small and highly optimized already.
         if (('thumbnail_md' === $filter_name && $attachment->isBuiltIn())
             //GD can not work with SVG, so serve it directly...
-            || $attachment->getExtension() === 'svg') {
+            || 'svg' === $attachment->getExtension()) {
             return $this->assets->getUrl($asset_path);
         }
 

@@ -39,7 +39,7 @@ abstract class AbstractNamedDBElement extends AbstractDBElement implements Named
     use TimestampTrait;
 
     /**
-     * @var string The name of this element.
+     * @var string the name of this element
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
      * @Groups({"simple", "extended", "full"})
@@ -92,8 +92,6 @@ abstract class AbstractNamedDBElement extends AbstractDBElement implements Named
      * Change the name of this element.
      *
      * @param string $new_name the new name
-     *
-     * @return self
      */
     public function setName(string $new_name): self
     {

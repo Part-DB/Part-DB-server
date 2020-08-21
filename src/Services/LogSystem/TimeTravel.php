@@ -52,9 +52,7 @@ class TimeTravel
      * Undeletes the element with the given ID.
      *
      * @param string $class The class name of the element that should be undeleted
-     * @param int    $id    The ID of the element that should be undeleted.
-     *
-     * @return AbstractDBElement
+     * @param int    $id    the ID of the element that should be undeleted
      */
     public function undeleteEntity(string $class, int $id): AbstractDBElement
     {
@@ -80,7 +78,7 @@ class TimeTravel
      */
     public function revertEntityToTimestamp(AbstractDBElement $element, \DateTime $timestamp, array $reverted_elements = []): void
     {
-        if (! $element instanceof TimeStampableInterface) {
+        if (!$element instanceof TimeStampableInterface) {
             throw new \InvalidArgumentException('$element must have a Timestamp!');
         }
 
@@ -154,7 +152,7 @@ class TimeTravel
                 foreach ($target_elements as $target_element) {
                     if (null !== $target_element && $element->getLastModified() >= $timestamp) {
                         //Remove the element from collection, if it did not existed at $timestamp
-                        if (! $this->repo->getElementExistedAtTimestamp($target_element, $timestamp)) {
+                        if (!$this->repo->getElementExistedAtTimestamp($target_element, $timestamp)) {
                             if ($target_elements instanceof Collection) {
                                 $target_elements->removeElement($target_element);
                             }
@@ -174,10 +172,10 @@ class TimeTravel
     public function applyEntry(AbstractDBElement $element, TimeTravelInterface $logEntry): void
     {
         //Skip if this does not provide any info...
-        if (! $logEntry->hasOldDataInformations()) {
+        if (!$logEntry->hasOldDataInformations()) {
             return;
         }
-        if (! $element instanceof TimeStampableInterface) {
+        if (!$element instanceof TimeStampableInterface) {
             return;
         }
         $metadata = $this->em->getClassMetadata(get_class($element));
@@ -185,8 +183,7 @@ class TimeTravel
 
         foreach ($old_data as $field => $data) {
             if ($metadata->hasField($field)) {
-
-                if ($metadata->getFieldMapping($field)['type'] === 'big_decimal') {
+                if ('big_decimal' === $metadata->getFieldMapping($field)['type']) {
                     //We need to convert the string to a BigDecimal first
                     if (!$data instanceof BigDecimal) {
                         $data = BigDecimal::of($data);
@@ -226,7 +223,6 @@ class TimeTravel
         $reflection = new \ReflectionClass(get_class($element));
         $property = $reflection->getProperty($field);
         $property->setAccessible(true);
-
 
         $property->setValue($element, $new_value);
     }

@@ -118,5 +118,4 @@ class AttachmentType extends AbstractStructuralDBElement
 
         return $this;
     }
-
 }

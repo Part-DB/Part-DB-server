@@ -209,7 +209,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      */
     public function getPriceRelatedQuantity(): float
     {
-        if ($this->orderdetail && $this->orderdetail->getPart() && ! $this->orderdetail->getPart()->useFloatAmount()) {
+        if ($this->orderdetail && $this->orderdetail->getPart() && !$this->orderdetail->getPart()->useFloatAmount()) {
             $tmp = round($this->price_related_quantity);
 
             return $tmp < 1 ? 1 : $tmp;
@@ -232,7 +232,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      */
     public function getMinDiscountQuantity(): float
     {
-        if ($this->orderdetail && $this->orderdetail->getPart() && ! $this->orderdetail->getPart()->useFloatAmount()) {
+        if ($this->orderdetail && $this->orderdetail->getPart() && !$this->orderdetail->getPart()->useFloatAmount()) {
             $tmp = round($this->min_discount_quantity);
 
             return $tmp < 1 ? 1 : $tmp;
@@ -299,6 +299,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
         if ((string) $tmp !== (string) $this->price) {
             $this->price = $tmp;
         }
+
         return $this;
     }
 

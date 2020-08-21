@@ -48,21 +48,19 @@ final class LabelGenerator
 
     /**
      * @param object|object[] $elements An element or an array of elements for which labels should be generated
-     *
-     * @return string
      */
     public function generateLabel(LabelOptions $options, $elements): string
     {
-        if (! is_array($elements) && ! is_object($elements)) {
+        if (!is_array($elements) && !is_object($elements)) {
             throw new \InvalidArgumentException('$element must be an object or an array of objects!');
         }
 
-        if (! is_array($elements)) {
+        if (!is_array($elements)) {
             $elements = [$elements];
         }
 
         foreach ($elements as $element) {
-            if (! $this->supports($options, $element)) {
+            if (!$this->supports($options, $element)) {
                 throw new \InvalidArgumentException('The given options are not compatible with the given element!');
             }
         }
@@ -83,7 +81,7 @@ final class LabelGenerator
     public function supports(LabelOptions $options, object $element)
     {
         $supported_type = $options->getSupportedElement();
-        if (! isset(static::CLASS_SUPPORT_MAPPING[$supported_type])) {
+        if (!isset(static::CLASS_SUPPORT_MAPPING[$supported_type])) {
             throw new \InvalidArgumentException('Supported type name of the Label options not known!');
         }
 

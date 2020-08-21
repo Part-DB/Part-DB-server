@@ -61,7 +61,7 @@ class NoneOfItsChildrenValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (! $constraint instanceof NoneOfItsChildren) {
+        if (!$constraint instanceof NoneOfItsChildren) {
             throw new UnexpectedTypeException($constraint, NoneOfItsChildren::class);
         }
 
@@ -72,7 +72,7 @@ class NoneOfItsChildrenValidator extends ConstraintValidator
         }
 
         //Check type of value. Validating only works for StructuralDBElements
-        if (! $value instanceof AbstractStructuralDBElement) {
+        if (!$value instanceof AbstractStructuralDBElement) {
             throw new UnexpectedValueException($value, 'StructuralDBElement');
         }
 

@@ -90,7 +90,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
         $client->request('GET', static::$base_path.'/new');
         $this->assertFalse($client->getResponse()->isRedirect());
         $this->assertSame($read, $client->getResponse()->isSuccessful(), 'Controller was not successful!');
-        $this->assertSame($read, ! $client->getResponse()->isForbidden(), 'Permission Checking not working!');
+        $this->assertSame($read, !$client->getResponse()->isForbidden(), 'Permission Checking not working!');
     }
 
     /**
@@ -115,7 +115,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
         $client->request('GET', static::$base_path.'/1');
         $this->assertFalse($client->getResponse()->isRedirect());
         $this->assertSame($read, $client->getResponse()->isSuccessful(), 'Controller was not successful!');
-        $this->assertSame($read, ! $client->getResponse()->isForbidden(), 'Permission Checking not working!');
+        $this->assertSame($read, !$client->getResponse()->isForbidden(), 'Permission Checking not working!');
     }
 
     public function deleteDataProvider(): array
@@ -152,6 +152,6 @@ abstract class AbstractAdminControllerTest extends WebTestCase
 
         //Page is redirected to '/new', when delete was successful
         $this->assertSame($delete, $client->getResponse()->isRedirect(static::$base_path.'/new'));
-        $this->assertSame($delete, ! $client->getResponse()->isForbidden(), 'Permission Checking not working!');
+        $this->assertSame($delete, !$client->getResponse()->isForbidden(), 'Permission Checking not working!');
     }
 }

@@ -135,8 +135,6 @@ class AppExtension extends AbstractExtension
 
     /**
      * This function/filter generates an path.
-     *
-     * @return string
      */
     public function loginPath(string $path): string
     {

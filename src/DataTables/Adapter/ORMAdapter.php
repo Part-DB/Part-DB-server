@@ -234,7 +234,7 @@ class ORMAdapter extends AbstractAdapter
 
         $qb->resetDQLPart('orderBy');
         $gb = $qb->getDQLPart('groupBy');
-        if (empty($gb) || ! $this->hasGroupByPart($identifier, $gb)) {
+        if (empty($gb) || !$this->hasGroupByPart($identifier, $gb)) {
             $qb->select($qb->expr()->count($identifier));
 
             return (int) $qb->getQuery()->getSingleScalarResult();

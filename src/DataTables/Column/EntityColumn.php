@@ -66,8 +66,6 @@ class EntityColumn extends AbstractColumn
      * The normalize function is responsible for converting parsed and processed data to a datatables-appropriate type.
      *
      * @param mixed $value The single value of the column
-     *
-     * @return mixed
      */
     public function normalize($value)
     {

@@ -72,7 +72,7 @@ class AmountFormatter
      */
     public function format($value, ?MeasurementUnit $unit = null, array $options = [])
     {
-        if (! is_numeric($value)) {
+        if (!is_numeric($value)) {
             throw new InvalidArgumentException('$value must be an numeric value!');
         }
         $value = (float) $value;
@@ -94,7 +94,7 @@ class AmountFormatter
         }
 
         //Otherwise just output it
-        if (! empty($options['unit'])) {
+        if (!empty($options['unit'])) {
             $format_string = '%.'.$options['decimals'].'f '.$options['unit'];
         } else { //Dont add space after number if no unit was specified
             $format_string = '%.'.$options['decimals'].'f';

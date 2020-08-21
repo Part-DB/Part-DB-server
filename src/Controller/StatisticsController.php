@@ -32,8 +32,6 @@ class StatisticsController extends AbstractController
 {
     /**
      * @Route("/statistics", name="statistics_view")
-     *
-     * @return Response
      */
     public function showStatistics(StatisticsHelper $helper): Response
     {

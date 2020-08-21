@@ -48,7 +48,6 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\Migrations\DependencyFactory;
 use Doctrine\Migrations\Event\MigrationsEventArgs;
 use Doctrine\Migrations\Events;
-use Doctrine\Migrations\Version\AliasResolver;
 
 /**
  * This subscriber logs databaseMigrations to Event log.

@@ -43,7 +43,7 @@ class EventUndoHelper
 
     public function setMode(string $mode): void
     {
-        if (! in_array($mode, self::ALLOWED_MODES, true)) {
+        if (!in_array($mode, self::ALLOWED_MODES, true)) {
             throw new \InvalidArgumentException('Invalid mode passed!');
         }
         $this->mode = $mode;
@@ -65,8 +65,6 @@ class EventUndoHelper
 
     /**
      * Returns event that is currently undone.
-     *
-     * @return AbstractLogEntry|null
      */
     public function getUndoneEvent(): ?AbstractLogEntry
     {
@@ -83,8 +81,6 @@ class EventUndoHelper
 
     /**
      * Check if a event is undone.
-     *
-     * @return bool
      */
     public function isUndo(): bool
     {

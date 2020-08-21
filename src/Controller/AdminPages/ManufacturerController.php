@@ -91,8 +91,6 @@ class ManufacturerController extends BaseAdminController
      * @Route("/new", name="manufacturer_new")
      * @Route("/{id}/clone", name="manufacturer_clone")
      * @Route("/")
-     *
-     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Manufacturer $entity = null): Response
     {
@@ -101,8 +99,6 @@ class ManufacturerController extends BaseAdminController
 
     /**
      * @Route("/export", name="manufacturer_export_all")
-     *
-     * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
@@ -111,8 +107,6 @@ class ManufacturerController extends BaseAdminController
 
     /**
      * @Route("/{id}/export", name="manufacturer_export")
-     *
-     * @return Response
      */
     public function exportEntity(Manufacturer $entity, EntityExporter $exporter, Request $request): Response
     {

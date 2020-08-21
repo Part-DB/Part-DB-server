@@ -203,7 +203,7 @@ class AttachmentPathResolver
         }
 
         //If the new string does not begin with a placeholder, it is invalid
-        if (! preg_match('#^%\w+%#', $real_path)) {
+        if (!preg_match('#^%\w+%#', $real_path)) {
             return null;
         }
 

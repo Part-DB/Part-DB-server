@@ -60,7 +60,7 @@ class MeasurementUnitAdminForm extends BaseEntityAdminForm
             'label_attr' => [
                 'class' => 'checkbox-custom',
             ],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
         $builder->add('use_si_prefix', CheckboxType::class, [
@@ -70,7 +70,7 @@ class MeasurementUnitAdminForm extends BaseEntityAdminForm
             'label_attr' => [
                 'class' => 'checkbox-custom',
             ],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
         $builder->add('unit', TextType::class, [
@@ -79,7 +79,7 @@ class MeasurementUnitAdminForm extends BaseEntityAdminForm
             'attr' => [
                 'placeholder' => 'measurement_unit.edit.unit_symbol.placeholder',
             ],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
     }
 }

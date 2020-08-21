@@ -50,7 +50,6 @@ use App\Form\Type\StructuralEntityType;
 use App\Form\WorkaroundCollectionType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -119,7 +118,7 @@ class OrderdetailType extends AbstractType
                 'prototype_data' => $dummy_pricedetail,
                 'by_reference' => false,
                 'entry_options' => [
-                    'disabled' => ! $this->security->isGranted('@parts_prices.edit'),
+                    'disabled' => !$this->security->isGranted('@parts_prices.edit'),
                     'measurement_unit' => $options['measurement_unit'],
                 ],
             ]);

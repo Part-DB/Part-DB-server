@@ -91,13 +91,13 @@ class EntityExporter
         $format = $request->get('format') ?? 'json';
 
         //Check if we have one of the supported formats
-        if (! in_array($format, ['json', 'csv', 'yaml', 'xml'], true)) {
+        if (!in_array($format, ['json', 'csv', 'yaml', 'xml'], true)) {
             throw new InvalidArgumentException('Given format is not supported!');
         }
 
         //Check export verbosity level
         $level = $request->get('level') ?? 'extended';
-        if (! in_array($level, ['simple', 'extended', 'full'], true)) {
+        if (!in_array($level, ['simple', 'extended', 'full'], true)) {
             throw new InvalidArgumentException('Given level is not supported!');
         }
 
@@ -145,7 +145,7 @@ class EntityExporter
         $response->headers->set('Content-Type', $content_type);
 
         //If view option is not specified, then download the file.
-        if (! $request->get('view')) {
+        if (!$request->get('view')) {
             if ($entity instanceof AbstractNamedDBElement) {
                 $entity_name = $entity->getName();
             } elseif (is_array($entity)) {

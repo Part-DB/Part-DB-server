@@ -111,7 +111,6 @@ class Category extends AbstractPartsContainingDBElement
      */
     protected $parameters;
 
-
     public function getPartnameHint(): string
     {
         return $this->partname_hint;

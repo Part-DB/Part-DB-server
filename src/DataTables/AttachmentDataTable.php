@@ -81,12 +81,11 @@ final class AttachmentDataTable implements DataTableTypeInterface
             'label' => '',
             'render' => function ($value, Attachment $context) {
                 if ($context->isPicture()
-                    && ! $context->isExternal()
+                    && !$context->isExternal()
                     && $this->attachmentHelper->isFileExisting($context)) {
-
                     $title = htmlspecialchars($context->getName());
                     if ($context->getFilename()) {
-                        $title .= ' (' . htmlspecialchars($context->getFilename()) . ')';
+                        $title .= ' ('.htmlspecialchars($context->getFilename()).')';
                     }
 
                     return sprintf(

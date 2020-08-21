@@ -171,7 +171,7 @@ class PermissionResolver
      */
     public function listOperationsForPermission(string $permission): array
     {
-        if (! $this->isValidPermission($permission)) {
+        if (!$this->isValidPermission($permission)) {
             throw new \InvalidArgumentException(sprintf('A permission with that name is not existing! Got %s.', $permission));
         }
         $operations = $this->permission_structure['perms'][$permission]['operations'];
@@ -210,7 +210,7 @@ class PermissionResolver
         $cache = new ConfigCache($this->cache_file, $this->is_debug);
 
         //Check if the cache is fresh, else regenerate it.
-        if (! $cache->isFresh()) {
+        if (!$cache->isFresh()) {
             $permission_file = __DIR__.'/../../config/permissions.yaml';
 
             //Read the permission config file...

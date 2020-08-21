@@ -76,7 +76,7 @@ abstract class ExtendedVoter extends Voter
         }
 
         // if the user is anonymous, we use the anonymous user.
-        if (! $user instanceof User) {
+        if (!$user instanceof User) {
             /** @var UserRepository $repo */
             $repo = $this->entityManager->getRepository(User::class);
             $user = $repo->getAnonymousUser();
@@ -93,8 +93,6 @@ abstract class ExtendedVoter extends Voter
      * The current user (or the anonymous user) is passed by $user.
      *
      * @param string $attribute
-     *
-     * @return bool
      */
     abstract protected function voteOnUser($attribute, $subject, User $user): bool;
 }

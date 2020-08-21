@@ -105,7 +105,7 @@ class PartBaseType extends AbstractType
                 'attr' => [
                     'placeholder' => 'part.edit.name.placeholder',
                 ],
-                'disabled' => ! $this->security->isGranted('name.edit', $part),
+                'disabled' => !$this->security->isGranted('name.edit', $part),
             ])
             ->add('description', CKEditorType::class, [
                 'required' => false,
@@ -116,7 +116,7 @@ class PartBaseType extends AbstractType
                     'placeholder' => 'part.edit.description.placeholder',
                     'rows' => 2,
                 ],
-                'disabled' => ! $this->security->isGranted('description.edit', $part),
+                'disabled' => !$this->security->isGranted('description.edit', $part),
             ])
             ->add('minAmount', SIUnitType::class, [
                 'attr' => [
@@ -125,23 +125,22 @@ class PartBaseType extends AbstractType
                 ],
                 'label' => 'part.edit.mininstock',
                 'measurement_unit' => $part->getPartUnit(),
-                'disabled' => ! $this->security->isGranted('minamount.edit', $part),
+                'disabled' => !$this->security->isGranted('minamount.edit', $part),
             ])
             ->add('category', StructuralEntityType::class, [
                 'class' => Category::class,
                 'label' => 'part.edit.category',
                 'disable_not_selectable' => true,
-                'disabled' => ! $this->security->isGranted('category.edit', $part),
+                'disabled' => !$this->security->isGranted('category.edit', $part),
                 'constraints' => [
-
-                ]
+                ],
             ])
             ->add('footprint', StructuralEntityType::class, [
                 'class' => Footprint::class,
                 'required' => false,
                 'label' => 'part.edit.footprint',
                 'disable_not_selectable' => true,
-                'disabled' => ! $this->security->isGranted('footprint.edit', $part),
+                'disabled' => !$this->security->isGranted('footprint.edit', $part),
             ])
             ->add('tags', TextType::class, [
                 'required' => false,
@@ -151,7 +150,7 @@ class PartBaseType extends AbstractType
                     'class' => 'tagsinput',
                     'data-autocomplete' => $this->urlGenerator->generate('typeahead_tags', ['query' => 'QUERY']),
                 ],
-                'disabled' => ! $this->security->isGranted('tags.edit', $part),
+                'disabled' => !$this->security->isGranted('tags.edit', $part),
             ]);
 
         //Manufacturer section
@@ -160,25 +159,25 @@ class PartBaseType extends AbstractType
             'required' => false,
             'label' => 'part.edit.manufacturer.label',
             'disable_not_selectable' => true,
-            'disabled' => ! $this->security->isGranted('manufacturer.edit', $part),
+            'disabled' => !$this->security->isGranted('manufacturer.edit', $part),
         ])
             ->add('manufacturer_product_url', UrlType::class, [
                 'required' => false,
                 'empty_data' => '',
                 'label' => 'part.edit.manufacturer_url.label',
-                'disabled' => ! $this->security->isGranted('mpn.edit', $part),
+                'disabled' => !$this->security->isGranted('mpn.edit', $part),
             ])
             ->add('manufacturer_product_number', TextType::class, [
                 'required' => false,
                 'empty_data' => '',
                 'label' => 'part.edit.mpn',
-                'disabled' => ! $this->security->isGranted('mpn.edit', $part),
+                'disabled' => !$this->security->isGranted('mpn.edit', $part),
             ])
             ->add('manufacturing_status', ChoiceType::class, [
                 'label' => 'part.edit.manufacturing_status',
                 'choices' => $status_choices,
                 'required' => false,
-                'disabled' => ! $this->security->isGranted('status.edit', $part),
+                'disabled' => !$this->security->isGranted('status.edit', $part),
             ]);
 
         //Advanced section
@@ -188,7 +187,7 @@ class PartBaseType extends AbstractType
             ],
             'required' => false,
             'label' => 'part.edit.needs_review',
-            'disabled' => ! $this->security->isGranted('edit', $part),
+            'disabled' => !$this->security->isGranted('edit', $part),
         ])
             ->add('favorite', CheckboxType::class, [
                 'label_attr' => [
@@ -196,20 +195,20 @@ class PartBaseType extends AbstractType
                 ],
                 'required' => false,
                 'label' => 'part.edit.is_favorite',
-                'disabled' => ! $this->security->isGranted('change_favorite', $part),
+                'disabled' => !$this->security->isGranted('change_favorite', $part),
             ])
             ->add('mass', SIUnitType::class, [
                 'unit' => 'g',
                 'label' => 'part.edit.mass',
                 'required' => false,
-                'disabled' => ! $this->security->isGranted('mass.edit', $part),
+                'disabled' => !$this->security->isGranted('mass.edit', $part),
             ])
             ->add('partUnit', StructuralEntityType::class, [
                 'class' => MeasurementUnit::class,
                 'required' => false,
                 'disable_not_selectable' => true,
                 'label' => 'part.edit.partUnit',
-                'disabled' => ! $this->security->isGranted('unit.edit', $part),
+                'disabled' => !$this->security->isGranted('unit.edit', $part),
             ]);
 
         //Comment section
@@ -219,7 +218,7 @@ class PartBaseType extends AbstractType
             'attr' => [
                 'rows' => 4,
             ],
-            'disabled' => ! $this->security->isGranted('comment.edit', $part),
+            'disabled' => !$this->security->isGranted('comment.edit', $part),
             'empty_data' => '',
         ]);
 
@@ -232,7 +231,7 @@ class PartBaseType extends AbstractType
             'label' => false,
             'entry_options' => [
                 'measurement_unit' => $part->getPartUnit(),
-                'disabled' => ! $this->security->isGranted('lots.edit', $part),
+                'disabled' => !$this->security->isGranted('lots.edit', $part),
             ],
             'by_reference' => false,
         ]);
@@ -246,14 +245,14 @@ class PartBaseType extends AbstractType
             'label' => false,
             'entry_options' => [
                 'data_class' => PartAttachment::class,
-                'disabled' => ! $this->security->isGranted('attachments.edit', $part),
+                'disabled' => !$this->security->isGranted('attachments.edit', $part),
             ],
             'by_reference' => false,
         ]);
 
         $builder->add('master_picture_attachment', MasterPictureAttachmentType::class, [
             'required' => false,
-            'disabled' => ! $this->security->isGranted('attachments.edit', $part),
+            'disabled' => !$this->security->isGranted('attachments.edit', $part),
             'label' => 'part.edit.master_attachment',
             'entity' => $part,
         ]);
@@ -269,7 +268,7 @@ class PartBaseType extends AbstractType
             'prototype_data' => new Orderdetail(),
             'entry_options' => [
                 'measurement_unit' => $part->getPartUnit(),
-                'disabled' => ! $this->security->isGranted('orderdetails.edit', $part),
+                'disabled' => !$this->security->isGranted('orderdetails.edit', $part),
             ],
         ]);
 
@@ -282,7 +281,7 @@ class PartBaseType extends AbstractType
             'by_reference' => false,
             'prototype_data' => new PartParameter(),
             'entry_options' => [
-                'disabled' => ! $this->security->isGranted('parameters.edit', $part),
+                'disabled' => !$this->security->isGranted('parameters.edit', $part),
                 'data_class' => PartParameter::class,
             ],
         ]);
@@ -298,7 +297,7 @@ class PartBaseType extends AbstractType
             //Buttons
             ->add('save', SubmitType::class, ['label' => 'part.edit.save'])
             ->add('save_and_clone', SubmitType::class, [
-                'label' => 'part.edit.save_and_clone'
+                'label' => 'part.edit.save_and_clone',
             ])
             ->add('reset', ResetType::class, ['label' => 'part.edit.reset']);
     }

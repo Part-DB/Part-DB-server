@@ -123,7 +123,7 @@ class CleanAttachmentsCommand extends Command
 
             $continue = $io->confirm(sprintf('Found %d abandoned files. Do you want to delete them? This can not be undone!', count($file_list)), false);
 
-            if (! $continue) {
+            if (!$continue) {
                 //We are finished here, when no files should be deleted
                 return 0;
             }

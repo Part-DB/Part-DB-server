@@ -65,8 +65,6 @@ class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterf
 
     /**
      * Checks if this log contains infos about which fields has changed.
-     *
-     * @return bool
      */
     public function hasChangedFieldsInfo(): bool
     {
@@ -115,7 +113,7 @@ class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterf
 
     public function hasOldDataInformations(): bool
     {
-        return ! empty($this->extra['d']);
+        return !empty($this->extra['d']);
     }
 
     public function getOldData(): array

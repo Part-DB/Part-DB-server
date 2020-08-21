@@ -32,12 +32,10 @@ class LabelProfileRepository extends NamedDBElementRepository
     /**
      * Find the profiles that are shown in the dropdown for the given type.
      * You should maybe use the cached version of this in LabelProfileDropdownHelper.
-     *
-     * @return array
      */
     public function getDropdownProfiles(string $type): array
     {
-        if (! in_array($type, LabelOptions::SUPPORTED_ELEMENTS, true)) {
+        if (!in_array($type, LabelOptions::SUPPORTED_ELEMENTS, true)) {
             throw new \InvalidArgumentException('Invalid supported_element type given.');
         }
 
@@ -64,7 +62,7 @@ class LabelProfileRepository extends NamedDBElementRepository
                 $type_children[] = $node;
             }
 
-            if (! empty($type_children)) {
+            if (!empty($type_children)) {
                 //Use default label e.g. 'part_label'. $$ marks that it will be translated in TreeViewGenerator
                 $tmp = new TreeViewNode('$$'.$type.'.label', null, $type_children);
 
@@ -78,14 +76,12 @@ class LabelProfileRepository extends NamedDBElementRepository
     /**
      * Find all LabelProfiles that can be used with the given type.
      *
-     * @param string $type     See LabelOptions::SUPPORTED_ELEMENTS for valid values.
+     * @param string $type     see LabelOptions::SUPPORTED_ELEMENTS for valid values
      * @param array  $order_by The way the results should be sorted. By default ordered by
-     *
-     * @return array
      */
     public function findForSupportedElement(string $type, array $order_by = ['name' => 'ASC']): array
     {
-        if (! in_array($type, LabelOptions::SUPPORTED_ELEMENTS, true)) {
+        if (!in_array($type, LabelOptions::SUPPORTED_ELEMENTS, true)) {
             throw new \InvalidArgumentException('Invalid supported_element type given.');
         }
 

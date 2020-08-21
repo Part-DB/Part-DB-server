@@ -77,8 +77,6 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/login", name="login", methods={"GET", "POST"})
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function login(AuthenticationUtils $authenticationUtils): \Symfony\Component\HttpFoundation\Response
     {
@@ -101,7 +99,7 @@ class SecurityController extends AbstractController
      */
     public function requestPwReset(PasswordResetManager $passwordReset, Request $request)
     {
-        if (! $this->allow_email_pw_reset) {
+        if (!$this->allow_email_pw_reset) {
             throw new AccessDeniedHttpException('The password reset via email is disabled!');
         }
 
@@ -145,7 +143,7 @@ class SecurityController extends AbstractController
      */
     public function pwResetNewPw(PasswordResetManager $passwordReset, Request $request, EntityManagerInterface $em, EventDispatcherInterface $eventDispatcher, ?string $user = null, ?string $token = null)
     {
-        if (! $this->allow_email_pw_reset) {
+        if (!$this->allow_email_pw_reset) {
             throw new AccessDeniedHttpException('The password reset via email is disabled!');
         }
 
@@ -190,7 +188,7 @@ class SecurityController extends AbstractController
             $data = $form->getData();
             //Try to set the new password
             $success = $passwordReset->setNewPassword($data['username'], $data['token'], $data['new_password']);
-            if (! $success) {
+            if (!$success) {
                 $this->addFlash('error', 'pw_reset.new_pw.error');
             } else {
                 $this->addFlash('success', 'pw_reset.new_pw.success');

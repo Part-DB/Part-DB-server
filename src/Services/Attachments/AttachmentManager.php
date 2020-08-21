@@ -72,7 +72,7 @@ class AttachmentManager
      */
     public function attachmentToFile(Attachment $attachment): ?SplFileInfo
     {
-        if ($attachment->isExternal() || ! $this->isFileExisting($attachment)) {
+        if ($attachment->isExternal() || !$this->isFileExisting($attachment)) {
             return null;
         }
 
@@ -150,7 +150,7 @@ class AttachmentManager
             return null;
         }
 
-        if (! $this->isFileExisting($attachment)) {
+        if (!$this->isFileExisting($attachment)) {
             return null;
         }
 

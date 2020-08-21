@@ -98,7 +98,7 @@ class PermissionGroupType extends AbstractType
         $resolver->setDefault('inherit', false);
 
         $resolver->setDefault('label', function (Options $options) {
-            if (! empty($this->perm_structure['groups'][$options['group_name']]['label'])) {
+            if (!empty($this->perm_structure['groups'][$options['group_name']]['label'])) {
                 return $this->perm_structure['groups'][$options['group_name']]['label'];
             }
 

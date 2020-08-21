@@ -60,7 +60,7 @@ class CategoryAdminForm extends BaseEntityAdminForm
             'label_attr' => [
                 'class' => 'checkbox-custom',
             ],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
         $builder->add('disable_manufacturers', CheckboxType::class, [
@@ -70,7 +70,7 @@ class CategoryAdminForm extends BaseEntityAdminForm
             'label_attr' => [
                 'class' => 'checkbox-custom',
             ],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
         $builder->add('disable_autodatasheets', CheckboxType::class, [
@@ -80,7 +80,7 @@ class CategoryAdminForm extends BaseEntityAdminForm
             'label_attr' => [
                 'class' => 'checkbox-custom',
             ],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
         $builder->add('disable_properties', CheckboxType::class, [
@@ -90,7 +90,7 @@ class CategoryAdminForm extends BaseEntityAdminForm
             'label_attr' => [
                 'class' => 'checkbox-custom',
             ],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
         $builder->add('partname_hint', TextType::class, [
@@ -100,7 +100,7 @@ class CategoryAdminForm extends BaseEntityAdminForm
             'attr' => [
                 'placeholder' => 'category.edit.partname_hint.placeholder',
             ],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
         $builder->add('partname_regex', TextType::class, [
@@ -110,7 +110,7 @@ class CategoryAdminForm extends BaseEntityAdminForm
             'attr' => [
                 'placeholder' => 'category.edit.partname_regex.placeholder',
             ],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
         $builder->add('default_description', TextType::class, [
@@ -120,7 +120,7 @@ class CategoryAdminForm extends BaseEntityAdminForm
             'attr' => [
                 'placeholder' => 'category.edit.default_description.placeholder',
             ],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
         $builder->add('default_comment', TextType::class, [
@@ -130,7 +130,7 @@ class CategoryAdminForm extends BaseEntityAdminForm
             'attr' => [
                 'placeholder' => 'category.edit.default_comment.placeholder',
             ],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
     }
 }

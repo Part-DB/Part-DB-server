@@ -73,12 +73,12 @@ class LabelOptions
     protected $supported_element = 'part';
 
     /**
-     * @var string Any additional CSS for the label.
+     * @var string any additional CSS for the label
      * @ORM\Column(type="text")
      */
     protected $additional_css = '';
 
-    /** @var string The mode that will be used to interpret the lines.
+    /** @var string The mode that will be used to interpret the lines
      * @Assert\Choice(choices=LabelOptions::LINES_MODES)
      * @ORM\Column(type="string")
      */
@@ -90,9 +90,6 @@ class LabelOptions
      */
     protected $lines = '';
 
-    /**
-     * @return float
-     */
     public function getWidth(): float
     {
         return $this->width;
@@ -108,9 +105,6 @@ class LabelOptions
         return $this;
     }
 
-    /**
-     * @return float
-     */
     public function getHeight(): float
     {
         return $this->height;
@@ -126,9 +120,6 @@ class LabelOptions
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getBarcodeType(): string
     {
         return $this->barcode_type;
@@ -144,9 +135,6 @@ class LabelOptions
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getPictureType(): string
     {
         return $this->picture_type;
@@ -162,9 +150,6 @@ class LabelOptions
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getSupportedElement(): string
     {
         return $this->supported_element;
@@ -180,9 +165,6 @@ class LabelOptions
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getLines(): string
     {
         return $this->lines;
@@ -200,8 +182,6 @@ class LabelOptions
 
     /**
      * Gets additional CSS (it will simply be attached.
-     *
-     * @return string
      */
     public function getAdditionalCss(): string
     {
@@ -218,9 +198,6 @@ class LabelOptions
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getLinesMode(): string
     {
         return $this->lines_mode;

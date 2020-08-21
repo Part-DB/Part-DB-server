@@ -68,12 +68,12 @@ final class SetUserTimezoneSubscriber implements EventSubscriberInterface
 
         //Check if the user has set a timezone
         $user = $this->security->getUser();
-        if ($user instanceof User && ! empty($user->getTimezone())) {
+        if ($user instanceof User && !empty($user->getTimezone())) {
             $timezone = $user->getTimezone();
         }
 
         //Fill with default value if needed
-        if (null === $timezone && ! empty($this->default_timezone)) {
+        if (null === $timezone && !empty($this->default_timezone)) {
             $timezone = $this->default_timezone;
         }
 

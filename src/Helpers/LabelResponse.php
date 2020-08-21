@@ -90,7 +90,7 @@ class LabelResponse extends Response
      */
     public function setContentDisposition($disposition, $filename, $filenameFallback = '')
     {
-        if ('' === $filenameFallback && (! preg_match('/^[\x20-\x7e]*$/', $filename) || false !== strpos($filename, '%'))) {
+        if ('' === $filenameFallback && (!preg_match('/^[\x20-\x7e]*$/', $filename) || false !== strpos($filename, '%'))) {
             $encoding = mb_detect_encoding($filename, null, true) ?: '8bit';
 
             for ($i = 0, $filenameLength = mb_strlen($filename, $encoding); $i < $filenameLength; ++$i) {

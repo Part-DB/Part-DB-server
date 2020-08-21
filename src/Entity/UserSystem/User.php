@@ -110,7 +110,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected $theme = '';
 
     /**
-     * @var string|null The hash of a token the user must provide when he wants to reset his password.
+     * @var string|null the hash of a token the user must provide when he wants to reset his password
      * @ORM\Column(type="string", nullable=true)
      */
     protected $pw_reset_token;
@@ -261,7 +261,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected $permissions;
 
     /**
-     * @var DateTime The time until the password reset token is valid.
+     * @var DateTime the time until the password reset token is valid
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $pw_reset_expires;
@@ -367,7 +367,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Gets the currency the user prefers when showing him prices.
      *
-     * @return Currency|null The currency the user prefers, or null if the global currency should be used.
+     * @return Currency|null the currency the user prefers, or null if the global currency should be used
      */
     public function getCurrency(): ?Currency
     {
@@ -389,7 +389,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Checks if this user is disabled (user cannot login any more).
      *
-     * @return bool True, if the user is disabled.
+     * @return bool true, if the user is disabled
      */
     public function isDisabled(): bool
     {
@@ -399,7 +399,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Sets the status if a user is disabled.
      *
-     * @param bool $disabled True if the user should be disabled.
+     * @param bool $disabled true if the user should be disabled
      *
      * @return User
      */
@@ -410,7 +410,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         return $this;
     }
 
-
     public function getPermissions(): PermissionsEmbed
     {
         return $this->permissions;
@@ -418,8 +417,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Check if the user needs a password change.
-     *
-     * @return bool
      */
     public function isNeedPwChange(): bool
     {
@@ -440,8 +437,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Returns the encrypted password reset token.
-     *
-     * @return string|null
      */
     public function getPwResetToken(): ?string
     {
@@ -462,8 +457,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Gets the datetime when the password reset token expires.
-     *
-     * @return DateTime
      */
     public function getPwResetExpires(): DateTime
     {
@@ -498,7 +491,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     {
         $tmp = $this->getFirstName();
         //Dont add a space, if the name has only one part (it would look strange)
-        if (! empty($this->getFirstName()) && ! empty($this->getLastName())) {
+        if (!empty($this->getFirstName()) && !empty($this->getLastName())) {
             $tmp .= ' ';
         }
         $tmp .= $this->getLastName();
@@ -513,14 +506,14 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Change the username of this user.
      *
-     * @param string $new_name The new username.
+     * @param string $new_name the new username
      *
      * @return $this
      */
     public function setName(string $new_name): AbstractNamedDBElement
     {
         // Anonymous user is not allowed to change its username
-        if (! $this->isAnonymousUser()) {
+        if (!$this->isAnonymousUser()) {
             $this->name = $new_name;
         }
 
@@ -529,8 +522,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Get the first name of the user.
-     *
-     * @return string|null
      */
     public function getFirstName(): ?string
     {
@@ -553,8 +544,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Get the last name of the user.
-     *
-     * @return string|null
      */
     public function getLastName(): ?string
     {
@@ -675,7 +664,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Gets the theme the users wants to see. See self::AVAILABLE_THEMES for valid values.
      *
-     * @return string|null The name of the theme the user wants to see, or null if the system wide should be used.
+     * @return string|null the name of the theme the user wants to see, or null if the system wide should be used
      */
     public function getTheme(): ?string
     {
@@ -723,8 +712,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Return true if the user should do two-factor authentication.
-     *
-     * @return bool
      */
     public function isGoogleAuthenticatorEnabled(): bool
     {
@@ -733,8 +720,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Return the user name that should be shown in Google Authenticator.
-     *
-     * @return string
      */
     public function getGoogleAuthenticatorUsername(): string
     {
@@ -744,8 +729,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Return the Google Authenticator secret
      * When an empty string is returned, the Google authentication is disabled.
-     *
-     * @return string|null
      */
     public function getGoogleAuthenticatorSecret(): ?string
     {
@@ -767,9 +750,9 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Check if the given code is a valid backup code.
      *
-     * @param string $code The code that should be checked.
+     * @param string $code the code that should be checked
      *
-     * @return bool True if the backup code is valid.
+     * @return bool true if the backup code is valid
      */
     public function isBackupCode(string $code): bool
     {
@@ -822,8 +805,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Return the date when the backup codes were generated.
-     *
-     * @return DateTime|null
      */
     public function getBackupCodesGenerationDate(): ?DateTime
     {
@@ -851,8 +832,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * Check if U2F is enabled.
-     *
-     * @return bool
      */
     public function isU2FAuthEnabled(): bool
     {
@@ -861,8 +840,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      *  Get all U2F Keys that are associated with this user.
-     *
-     * @return Collection
      *
      * @psalm-return Collection<int, TwoFactorKeyInterface>
      */

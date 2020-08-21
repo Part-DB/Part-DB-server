@@ -97,7 +97,7 @@ class UpdateExchangeRatesCommand extends Command
         $iso_code = $input->getArgument('iso_code');
         $repo = $this->em->getRepository(Currency::class);
 
-        if (! empty($iso_code)) {
+        if (!empty($iso_code)) {
             $candidates = $repo->findBy(['iso_code' => $iso_code]);
         } else {
             $candidates = $repo->findAll();

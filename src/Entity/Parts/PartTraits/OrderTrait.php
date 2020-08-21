@@ -213,7 +213,7 @@ trait OrderTrait
         }
 
         foreach ($all_orderdetails as $orderdetails) {
-            if (! $orderdetails->getObsolete()) {
+            if (!$orderdetails->getObsolete()) {
                 return false;
             }
         }

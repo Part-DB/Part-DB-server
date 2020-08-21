@@ -91,8 +91,6 @@ class SupplierController extends BaseAdminController
      * @Route("/new", name="supplier_new")
      * @Route("/{id}/clone", name="supplier_clone")
      * @Route("/")
-     *
-     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Supplier $entity = null): Response
     {
@@ -101,8 +99,6 @@ class SupplierController extends BaseAdminController
 
     /**
      * @Route("/export", name="supplier_export_all")
-     *
-     * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
@@ -111,8 +107,6 @@ class SupplierController extends BaseAdminController
 
     /**
      * @Route("/{id}/export", name="supplier_export")
-     *
-     * @return Response
      */
     public function exportEntity(Supplier $entity, EntityExporter $exporter, Request $request): Response
     {

@@ -69,8 +69,6 @@ class LabelProfileController extends BaseAdminController
 
     /**
      * @Route("/{id}", name="label_profile_delete", methods={"DELETE"})
-     *
-     * @return RedirectResponse
      */
     public function delete(Request $request, LabelProfile $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
@@ -80,8 +78,6 @@ class LabelProfileController extends BaseAdminController
     /**
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="label_profile_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
-     *
-     * @return Response
      */
     public function edit(LabelProfile $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
@@ -92,8 +88,6 @@ class LabelProfileController extends BaseAdminController
      * @Route("/new", name="label_profile_new")
      * @Route("/{id}/clone", name="label_profile_clone")
      * @Route("/")
-     *
-     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?AttachmentType $entity = null): Response
     {
@@ -102,8 +96,6 @@ class LabelProfileController extends BaseAdminController
 
     /**
      * @Route("/export", name="label_profile_export_all")
-     *
-     * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
@@ -112,8 +104,6 @@ class LabelProfileController extends BaseAdminController
 
     /**
      * @Route("/{id}/export", name="label_profile_export")
-     *
-     * @return Response
      */
     public function exportEntity(LabelProfile $entity, EntityExporter $exporter, Request $request): Response
     {

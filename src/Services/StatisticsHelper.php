@@ -61,8 +61,6 @@ class StatisticsHelper
     /**
      * Returns the summed instocked over all parts (only parts without a measurement unit).
      *
-     * @return float
-     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
@@ -74,8 +72,6 @@ class StatisticsHelper
     /**
      * Returns the number of all parts which have price informations.
      *
-     * @return int
-     *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
@@ -86,8 +82,6 @@ class StatisticsHelper
 
     /**
      * Returns the number of datastructures for the given type.
-     *
-     * @return int
      */
     public function getDataStructuresCount(string $type): int
     {
@@ -103,7 +97,7 @@ class StatisticsHelper
             'currency' => Currency::class,
         ];
 
-        if (! isset($arr[$type])) {
+        if (!isset($arr[$type])) {
             throw new \InvalidArgumentException('No count for the given type available!');
         }
 
@@ -115,8 +109,6 @@ class StatisticsHelper
 
     /**
      * Gets the count of all attachments.
-     *
-     * @return int
      */
     public function getAttachmentsCount(): int
     {
@@ -125,8 +117,6 @@ class StatisticsHelper
 
     /**
      * Gets the count of all private/secure attachments.
-     *
-     * @return int
      */
     public function getPrivateAttachmentsCount(): int
     {
@@ -135,8 +125,6 @@ class StatisticsHelper
 
     /**
      * Gets the count of all external (only containing an URL) attachments.
-     *
-     * @return int
      *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
@@ -148,8 +136,6 @@ class StatisticsHelper
 
     /**
      * Gets the count of all attachments where the user uploaded an file.
-     *
-     * @return int
      *
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException

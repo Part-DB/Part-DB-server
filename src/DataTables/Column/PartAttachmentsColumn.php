@@ -68,8 +68,6 @@ class PartAttachmentsColumn extends AbstractColumn
      * The normalize function is responsible for converting parsed and processed data to a datatables-appropriate type.
      *
      * @param mixed $value The single value of the column
-     *
-     * @return mixed
      */
     public function normalize($value)
     {
@@ -78,7 +76,7 @@ class PartAttachmentsColumn extends AbstractColumn
 
     public function render($value, $context)
     {
-        if (! $context instanceof Part) {
+        if (!$context instanceof Part) {
             throw new RuntimeException('$context must be a Part object!');
         }
         $tmp = '';

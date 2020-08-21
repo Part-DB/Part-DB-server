@@ -66,7 +66,7 @@ class RangeParser
      *
      * @param string $range_str The string that should be checked
      *
-     * @return bool True if the string is valid, false if not.
+     * @return bool true if the string is valid, false if not
      */
     public function isValidRange(string $range_str): bool
     {

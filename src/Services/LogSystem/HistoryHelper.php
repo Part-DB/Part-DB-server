@@ -38,8 +38,6 @@ class HistoryHelper
      *  Returns an array containing all elements that are associated with the argument.
      *  The returned array contains the given element.
      *
-     * @return array
-     *
      * @psalm-return array<\App\Entity\Parameters\AbstractParameter|array-key, mixed>
      */
     public function getAssociatedElements(AbstractDBElement $element): array

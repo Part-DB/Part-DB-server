@@ -103,7 +103,6 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      */
     protected $parameters;
 
-
     public function __construct()
     {
         parent::__construct();
@@ -113,8 +112,6 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
 
     /**
      * Check if the users of this group are enforced to have two factor authentification (2FA) enabled.
-     *
-     * @return bool
      */
     public function isEnforce2FA(): bool
     {
@@ -124,7 +121,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     /**
      * Sets if the user of this group are enforced to have two factor authentification enabled.
      *
-     * @param bool $enforce2FA True, if the users of this group are enforced to have 2FA enabled.
+     * @param bool $enforce2FA true, if the users of this group are enforced to have 2FA enabled
      *
      * @return $this
      */

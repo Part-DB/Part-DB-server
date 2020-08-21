@@ -77,19 +77,19 @@ final class InheritanceSecurityPolicy implements SecurityPolicyInterface
     public function checkSecurity($tags, $filters, $functions): void
     {
         foreach ($tags as $tag) {
-            if (! \in_array($tag, $this->allowedTags, true)) {
+            if (!\in_array($tag, $this->allowedTags, true)) {
                 throw new SecurityNotAllowedTagError(sprintf('Tag "%s" is not allowed.', $tag), $tag);
             }
         }
 
         foreach ($filters as $filter) {
-            if (! \in_array($filter, $this->allowedFilters, true)) {
+            if (!\in_array($filter, $this->allowedFilters, true)) {
                 throw new SecurityNotAllowedFilterError(sprintf('Filter "%s" is not allowed.', $filter), $filter);
             }
         }
 
         foreach ($functions as $function) {
-            if (! \in_array($function, $this->allowedFunctions, true)) {
+            if (!\in_array($function, $this->allowedFunctions, true)) {
                 throw new SecurityNotAllowedFunctionError(sprintf('Function "%s" is not allowed.', $function), $function);
             }
         }
@@ -114,7 +114,7 @@ final class InheritanceSecurityPolicy implements SecurityPolicyInterface
             }
         }
 
-        if (! $allowed) {
+        if (!$allowed) {
             $class = \get_class($obj);
 
             throw new SecurityNotAllowedMethodError(sprintf('Calling "%s" method on a "%s" object is not allowed.', $method, $class), $class, $method);
@@ -135,7 +135,7 @@ final class InheritanceSecurityPolicy implements SecurityPolicyInterface
             }
         }
 
-        if (! $allowed) {
+        if (!$allowed) {
             $class = \get_class($obj);
 
             throw new SecurityNotAllowedPropertyError(sprintf('Calling "%s" property on a "%s" object is not allowed.', $property, $class), $class, $property);

@@ -76,7 +76,7 @@ class StructuralElementRecursionHelper
         $children = $element->getChildren();
 
         //If we should call from top we execute the func here.
-        if (! $call_from_bottom) {
+        if (!$call_from_bottom) {
             $func($element);
         }
 

@@ -49,7 +49,6 @@ use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
 use App\DataTables\Column\PartAttachmentsColumn;
 use App\DataTables\Column\TagsColumn;
-use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -163,7 +162,7 @@ final class PartsDataTable implements DataTableTypeInterface
 
                     $title = htmlspecialchars($preview_attachment->getName());
                     if ($preview_attachment->getFilename()) {
-                        $title .= ' (' . htmlspecialchars($preview_attachment->getFilename()) . ')';
+                        $title .= ' ('.htmlspecialchars($preview_attachment->getFilename()).')';
                     }
 
                     return sprintf(
@@ -396,8 +395,8 @@ final class PartsDataTable implements DataTableTypeInterface
             $builder->andWhere('part.tags LIKE :tag')->setParameter('tag', '%'.$options['tag'].'%');
         }
 
-        if (! empty($options['search'])) {
-            if (! $options['search_options']['regex']) {
+        if (!empty($options['search'])) {
+            if (!$options['search_options']['regex']) {
                 //Dont show results, if no things are selected
                 $builder->andWhere('0=1');
                 $defined = false;

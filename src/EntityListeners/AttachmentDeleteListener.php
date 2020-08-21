@@ -99,6 +99,7 @@ class AttachmentDeleteListener
 
     /**
      * Ensure that attachments are not used in preview, so that they can be deleted (without integrity violation).
+     *
      * @ORM\PreRemove()
      */
     public function preRemoveHandler(Attachment $attachment, LifecycleEventArgs $event): void
@@ -106,7 +107,7 @@ class AttachmentDeleteListener
         //Ensure that the attachment that will be deleted, is not used as preview picture anymore...
         $attachment_holder = $attachment->getElement();
 
-        if ($attachment_holder === null) {
+        if (null === $attachment_holder) {
             return;
         }
 

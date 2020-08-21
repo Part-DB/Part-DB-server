@@ -65,7 +65,7 @@ class ValidFileFilterValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint): void
     {
-        if (! $constraint instanceof ValidFileFilter) {
+        if (!$constraint instanceof ValidFileFilter) {
             throw new UnexpectedTypeException($constraint, ValidFileFilter::class);
         }
 
@@ -73,12 +73,12 @@ class ValidFileFilterValidator extends ConstraintValidator
             return;
         }
 
-        if (! \is_string($value)) {
+        if (!\is_string($value)) {
             // throw this exception if your validator cannot handle the passed type so that it can be marked as invalid
             throw new UnexpectedValueException($value, 'string');
         }
 
-        if (! $this->filterTools->validateFilterString($value)) {
+        if (!$this->filterTools->validateFilterString($value)) {
             $this->context->buildViolation('validator.file_type_filter.invalid')
                 ->addViolation();
         }

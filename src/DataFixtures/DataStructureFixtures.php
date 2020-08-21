@@ -89,7 +89,7 @@ class DataStructureFixtures extends Fixture
      */
     public function createNodesForClass(string $class, ObjectManager $manager): void
     {
-        if (! new $class() instanceof AbstractStructuralDBElement) {
+        if (!new $class() instanceof AbstractStructuralDBElement) {
             throw new InvalidArgumentException('$class must be a StructuralDBElement!');
         }
 

@@ -133,7 +133,7 @@ class LabelOptionsType extends AbstractType
             'label_attr' => [
                 'class' => 'radio-custom radio-inline',
             ],
-            'disabled' => ! $this->security->isGranted('@labels.use_twig'),
+            'disabled' => !$this->security->isGranted('@labels.use_twig'),
         ]);
     }
 

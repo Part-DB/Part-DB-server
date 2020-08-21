@@ -93,7 +93,7 @@ class FAIconGenerator
      *
      * @param string $icon_class The icon which should be shown (e.g. fa-file-text)
      * @param string $style      The style of the icon 'fas'
-     * @param string $options    Any other css class attributes like size, etc.
+     * @param string $options    any other css class attributes like size, etc
      *
      * @return string The final html
      */

@@ -82,7 +82,7 @@ final class SymfonyDebugToolbarSubscriber implements EventSubscriberInterface
 
     public function onKernelResponse(ResponseEvent $event): void
     {
-        if (! $this->kernel_debug) {
+        if (!$this->kernel_debug) {
             return;
         }
 

@@ -71,7 +71,7 @@ class PermissionType extends AbstractType
         });
 
         $resolver->setDefault('label', function (Options $options) {
-            if (! empty($this->perm_structure['perms'][$options['perm_name']]['label'])) {
+            if (!empty($this->perm_structure['perms'][$options['perm_name']]['label'])) {
                 return $this->perm_structure['perms'][$options['perm_name']]['label'];
             }
 
@@ -79,7 +79,7 @@ class PermissionType extends AbstractType
         });
 
         $resolver->setDefault('multi_checkbox', function (Options $options) {
-            return ! $options['disabled'];
+            return !$options['disabled'];
         });
 
         $resolver->setDefaults([

@@ -81,10 +81,10 @@ class EntityImporter
         //Expand every line to a single entry:
         $names = explode("\n", $lines);
 
-        if (! is_a($class_name, AbstractStructuralDBElement::class, true)) {
+        if (!is_a($class_name, AbstractStructuralDBElement::class, true)) {
             throw new InvalidArgumentException('$class_name must be a StructuralDBElement type!');
         }
-        if (null !== $parent && ! is_a($parent, $class_name)) {
+        if (null !== $parent && !is_a($parent, $class_name)) {
             throw new InvalidArgumentException('$parent must have the same type as specified in $class_name!');
         }
 
@@ -201,7 +201,7 @@ class EntityImporter
             ]);
 
         //Ensure we have an array of entitity elements.
-        if (! is_array($entities)) {
+        if (!is_array($entities)) {
             $entities = [$entities];
         }
 

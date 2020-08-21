@@ -20,7 +20,6 @@
 
 namespace App\Validator\Constraints\BigDecimal;
 
-
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\NumberConstraintTrait;
 

@@ -51,8 +51,6 @@ final class BarcodeContentGenerator
 
     /**
      * Generates a fixed URL to the given Element that can be embedded in a 2D code (e.g. QR code).
-     *
-     * @return string
      */
     public function getURLContent(AbstractDBElement $target): string
     {
@@ -68,8 +66,6 @@ final class BarcodeContentGenerator
     /**
      * Returns a Code that can be used in a 1D barcode.
      * The return value has a format of "L0123".
-     *
-     * @return string
      */
     public function get1DBarcodeContent(AbstractDBElement $target): string
     {

@@ -62,8 +62,6 @@ class AttachmentFileController extends AbstractController
      * Download the selected attachment.
      *
      * @Route("/attachment/{id}/download", name="attachment_download")
-     *
-     * @return BinaryFileResponse
      */
     public function download(Attachment $attachment, AttachmentManager $helper): BinaryFileResponse
     {
@@ -77,7 +75,7 @@ class AttachmentFileController extends AbstractController
             throw new RuntimeException('You can not download external attachments!');
         }
 
-        if (! $helper->isFileExisting($attachment)) {
+        if (!$helper->isFileExisting($attachment)) {
             throw new RuntimeException('The file associated with the attachment is not existing!');
         }
 
@@ -94,8 +92,6 @@ class AttachmentFileController extends AbstractController
      * View the attachment.
      *
      * @Route("/attachment/{id}/view", name="attachment_view")
-     *
-     * @return BinaryFileResponse
      */
     public function view(Attachment $attachment, AttachmentManager $helper): BinaryFileResponse
     {
@@ -109,7 +105,7 @@ class AttachmentFileController extends AbstractController
             throw new RuntimeException('You can not download external attachments!');
         }
 
-        if (! $helper->isFileExisting($attachment)) {
+        if (!$helper->isFileExisting($attachment)) {
             throw new RuntimeException('The file associated with the attachment is not existing!');
         }
 

@@ -109,7 +109,7 @@ class ElementDeletedLogEntry extends AbstractLogEntry implements TimeTravelInter
 
     public function hasOldDataInformations(): bool
     {
-        return ! empty($this->extra['o']);
+        return !empty($this->extra['o']);
     }
 
     public function getOldData(): array

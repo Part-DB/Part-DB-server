@@ -90,7 +90,7 @@ class BaseEntityAdminForm extends AbstractType
                 'attr' => [
                     'placeholder' => 'part.name.placeholder',
                 ],
-                'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             ]);
 
         if ($entity instanceof AbstractStructuralDBElement) {
@@ -101,7 +101,7 @@ class BaseEntityAdminForm extends AbstractType
                     'class' => get_class($entity),
                     'required' => false,
                     'label' => 'parent.label',
-                    'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity),
+                    'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
                 ]
             )
                 ->add(
@@ -114,7 +114,7 @@ class BaseEntityAdminForm extends AbstractType
                         'label_attr' => [
                             'class' => 'checkbox-custom',
                         ],
-                        'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+                        'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
                     ]
                 );
         }
@@ -130,7 +130,7 @@ class BaseEntityAdminForm extends AbstractType
                         'rows' => 4,
                     ],
                     'help' => 'bbcode.hint',
-                    'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+                    'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
                 ]
             );
         }
@@ -144,7 +144,7 @@ class BaseEntityAdminForm extends AbstractType
             'allow_delete' => true,
             'label' => false,
             'reindex_enable' => true,
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'entry_options' => [
                 'data_class' => $options['attachment_class'],
             ],
@@ -153,7 +153,7 @@ class BaseEntityAdminForm extends AbstractType
 
         $builder->add('master_picture_attachment', MasterPictureAttachmentType::class, [
             'required' => false,
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             'label' => 'part.edit.master_attachment',
             'entity' => $entity,
         ]);
@@ -173,7 +173,7 @@ class BaseEntityAdminForm extends AbstractType
                     'entry_type' => ParameterType::class,
                     'allow_add' => $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
                     'allow_delete' => $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
-                    'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+                    'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
                     'reindex_enable' => true,
                     'label' => false,
                     'by_reference' => false,
@@ -191,11 +191,11 @@ class BaseEntityAdminForm extends AbstractType
             'attr' => [
                 'class' => $is_new ? 'btn-success' : '',
             ],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ])
             ->add('reset', ResetType::class, [
                 'label' => 'entity.edit.reset',
-                'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+                'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
             ]);
     }
 

@@ -21,14 +21,13 @@
 namespace App\Repository\Parts;
 
 use App\Entity\Parts\Footprint;
-use App\Entity\Parts\Storelocation;
 use App\Repository\AbstractPartsContainingRepository;
 
 class FootprintRepository extends AbstractPartsContainingRepository
 {
     public function getParts(object $element, array $order_by = ['name' => 'ASC']): array
     {
-        if(!$element instanceof Footprint) {
+        if (!$element instanceof Footprint) {
             throw new \InvalidArgumentException('$element must be an Footprint!');
         }
 
@@ -37,7 +36,7 @@ class FootprintRepository extends AbstractPartsContainingRepository
 
     public function getPartsCount(object $element): int
     {
-        if(!$element instanceof Footprint) {
+        if (!$element instanceof Footprint) {
             throw new \InvalidArgumentException('$element must be an Footprint!');
         }
 

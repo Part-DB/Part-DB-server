@@ -91,8 +91,6 @@ class PartController extends AbstractController
      * @Route("/{id}/info/{timestamp}", name="part_info")
      * @Route("/{id}", requirements={"id"="\d+"})
      *
-     * @return Response
-     *
      * @throws \Exception
      */
     public function show(Part $part, Request $request, TimeTravel $timeTravel, HistoryHelper $historyHelper,
@@ -144,8 +142,6 @@ class PartController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="part_edit")
-     *
-     * @return Response
      */
     public function edit(Part $part, Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
         AttachmentSubmitHandler $attachmentSubmitHandler): Response
@@ -183,13 +179,13 @@ class PartController extends AbstractController
 
             //Redirect to clone page if user wished that...
             //@phpstan-ignore-next-line
-            if ("save_and_clone" === $form->getClickedButton()->getName()) {
+            if ('save_and_clone' === $form->getClickedButton()->getName()) {
                 return $this->redirectToRoute('part_clone', ['id' => $part->getID()]);
             }
 
             //Reload form, so the SIUnitType entries use the new part unit
             $form = $this->createForm(PartBaseType::class, $part);
-        } elseif ($form->isSubmitted() && ! $form->isValid()) {
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('error', 'part.edited_flash.invalid');
         }
 
@@ -202,8 +198,6 @@ class PartController extends AbstractController
 
     /**
      * @Route("/{id}/delete", name="part_delete", methods={"DELETE"})
-     *
-     * @return RedirectResponse
      */
     public function delete(Request $request, Part $part): RedirectResponse
     {
@@ -229,8 +223,6 @@ class PartController extends AbstractController
     /**
      * @Route("/new", name="part_new")
      * @Route("/{id}/clone", name="part_clone")
-     *
-     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
         AttachmentSubmitHandler $attachmentSubmitHandler, ?Part $part = null): Response
@@ -310,14 +302,14 @@ class PartController extends AbstractController
 
             //Redirect to clone page if user wished that...
             //@phpstan-ignore-next-line
-            if ("save_and_clone" === $form->getClickedButton()->getName()) {
+            if ('save_and_clone' === $form->getClickedButton()->getName()) {
                 return $this->redirectToRoute('part_clone', ['id' => $new_part->getID()]);
             }
 
             return $this->redirectToRoute('part_edit', ['id' => $new_part->getID()]);
         }
 
-        if ($form->isSubmitted() && ! $form->isValid()) {
+        if ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('error', 'part.created_flash.invalid');
         }
 

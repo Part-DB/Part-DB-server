@@ -59,7 +59,6 @@ use App\Services\LogSystem\TimeTravel;
 use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Exchanger\Exception\ChainException;
-use Exchanger\Exception\Exception;
 use Exchanger\Exception\UnsupportedCurrencyPairException;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -100,7 +99,6 @@ class CurrencyController extends BaseAdminController
         LabelGenerator $labelGenerator,
         EntityManagerInterface $entityManager,
         ExchangeRateUpdater $exchangeRateUpdater
-
     ) {
         $this->exchangeRateUpdater = $exchangeRateUpdater;
 
@@ -121,8 +119,6 @@ class CurrencyController extends BaseAdminController
 
     /**
      * @Route("/{id}", name="currency_delete", methods={"DELETE"})
-     *
-     * @return RedirectResponse
      */
     public function delete(Request $request, Currency $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
@@ -143,7 +139,7 @@ class CurrencyController extends BaseAdminController
                 $this->addFlash('info', 'currency.edit.exchange_rate_updated.success');
             } catch (ChainException $exception) {
                 $exception = $exception->getExceptions()[0];
-                if ($exception instanceof UnsupportedCurrencyPairException || stripos($exception->getMessage(), "supported") !== false) {
+                if ($exception instanceof UnsupportedCurrencyPairException || false !== stripos($exception->getMessage(), 'supported')) {
                     $this->addFlash('error', 'currency.edit.exchange_rate_update.unsupported_currency');
                 } else {
                     $this->addFlash('error', 'currency.edit.exchange_rate_update.generic_error');
@@ -157,8 +153,6 @@ class CurrencyController extends BaseAdminController
     /**
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="currency_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
-     *
-     * @return Response
      */
     public function edit(Currency $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
@@ -169,8 +163,6 @@ class CurrencyController extends BaseAdminController
      * @Route("/new", name="currency_new")
      * @Route("/{id}/clone", name="currency_clone")
      * @Route("/")
-     *
-     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Currency $entity = null): Response
     {
@@ -179,8 +171,6 @@ class CurrencyController extends BaseAdminController
 
     /**
      * @Route("/export", name="currency_export_all")
-     *
-     * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
@@ -189,8 +179,6 @@ class CurrencyController extends BaseAdminController
 
     /**
      * @Route("/{id}/export", name="currency_export")
-     *
-     * @return Response
      */
     public function exportEntity(Currency $entity, EntityExporter $exporter, Request $request): Response
     {
@@ -202,6 +190,7 @@ class CurrencyController extends BaseAdminController
         if ($entity instanceof Currency) {
             if ($entity->getPricedetails()->count() > 0) {
                 $this->addFlash('error', 'entity.delete.must_not_contain_prices');
+
                 return false;
             }
         }

@@ -68,7 +68,7 @@ abstract class Attachment extends AbstractNamedDBElement
     public const INTERNAL_PLACEHOLDER = ['%BASE%', '%MEDIA%', '%SECURE%'];
 
     /**
-     * @var array Placeholders for attachments which using built in files.
+     * @var array placeholders for attachments which using built in files
      */
     public const BUILTIN_PLACEHOLDER = ['%FOOTPRINTS%', '%FOOTPRINTS3D%'];
 
@@ -182,7 +182,7 @@ abstract class Attachment extends AbstractNamedDBElement
             return true;
         }
 
-        return ! in_array($tmp[0], array_merge(static::INTERNAL_PLACEHOLDER, static::BUILTIN_PLACEHOLDER), false);
+        return !in_array($tmp[0], array_merge(static::INTERNAL_PLACEHOLDER, static::BUILTIN_PLACEHOLDER), false);
     }
 
     /**
@@ -233,7 +233,7 @@ abstract class Attachment extends AbstractNamedDBElement
             return null;
         }
 
-        if (! empty($this->original_filename)) {
+        if (!empty($this->original_filename)) {
             return strtolower(pathinfo($this->original_filename, PATHINFO_EXTENSION));
         }
 
@@ -256,7 +256,7 @@ abstract class Attachment extends AbstractNamedDBElement
      */
     public function getURL(): ?string
     {
-        if (! $this->isExternal() && ! $this->isBuiltIn()) {
+        if (!$this->isExternal() && !$this->isBuiltIn()) {
             return null;
         }
 
@@ -269,7 +269,7 @@ abstract class Attachment extends AbstractNamedDBElement
      */
     public function getHost(): ?string
     {
-        if (! $this->isExternal()) {
+        if (!$this->isExternal()) {
             return null;
         }
 
@@ -299,7 +299,7 @@ abstract class Attachment extends AbstractNamedDBElement
         }
 
         //If we have a stored original filename, then use it
-        if (! empty($this->original_filename)) {
+        if (!empty($this->original_filename)) {
             return $this->original_filename;
         }
 
@@ -345,7 +345,6 @@ abstract class Attachment extends AbstractNamedDBElement
         return $this->attachment_type;
     }
 
-
     /*****************************************************************************************************
      * Setters
      ***************************************************************************************************
@@ -367,7 +366,7 @@ abstract class Attachment extends AbstractNamedDBElement
      */
     public function setElement(AttachmentContainingDBElement $element): self
     {
-        if (! is_a($element, static::ALLOWED_ELEMENT_CLASS)) {
+        if (!is_a($element, static::ALLOWED_ELEMENT_CLASS)) {
             throw new InvalidArgumentException(sprintf('The element associated with a %s must be a %s!', static::class, static::ALLOWED_ELEMENT_CLASS));
         }
 
@@ -409,7 +408,7 @@ abstract class Attachment extends AbstractNamedDBElement
     public function setURL(?string $url): self
     {
         //Only set if the URL is not empty
-        if (! empty($url)) {
+        if (!empty($url)) {
             if (false !== strpos($url, '%BASE%') || false !== strpos($url, '%MEDIA%')) {
                 throw new InvalidArgumentException('You can not reference internal files via the url field! But nice try!');
             }

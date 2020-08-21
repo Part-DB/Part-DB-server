@@ -52,8 +52,6 @@ class GroupVoter extends ExtendedVoter
      * The current user (or the anonymous user) is passed by $user.
      *
      * @param string $attribute
-     *
-     * @return bool
      */
     protected function voteOnUser($attribute, $subject, User $user): bool
     {

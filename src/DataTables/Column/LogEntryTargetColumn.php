@@ -104,7 +104,7 @@ class LogEntryTargetColumn extends AbstractColumn
         $tmp = '';
 
         //The element is existing
-        if ($target instanceof NamedElementInterface && ! empty($target->getName())) {
+        if ($target instanceof NamedElementInterface && !empty($target->getName())) {
             try {
                 $tmp = sprintf(
                     '<a href="%s">%s</a>',

@@ -66,7 +66,7 @@ class MassCreationForm extends AbstractType
         //Disable import if user is not allowed to create elements.
         $entity = new $data['entity_class']();
         $perm_name = 'create';
-        $disabled = ! $this->security->isGranted($perm_name, $entity);
+        $disabled = !$this->security->isGranted($perm_name, $entity);
 
         $builder
             ->add('lines', TextareaType::class, [

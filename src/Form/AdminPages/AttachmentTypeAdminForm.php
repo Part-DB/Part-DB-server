@@ -71,7 +71,7 @@ class AttachmentTypeAdminForm extends BaseEntityAdminForm
                 'placeholder' => 'attachment_type.edit.filetype_filter.placeholder',
             ],
             'empty_data' => '',
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
         //Normalize data before writing it to database

@@ -20,7 +20,6 @@
 
 namespace App\Helpers;
 
-
 use Brick\Math\BigDecimal;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
@@ -35,13 +34,13 @@ class BigDecimalType extends Type
     }
 
     /**
-     * @param  string  $value
-     * @param  AbstractPlatform  $platform
+     * @param string $value
+     *
      * @return BigDecimal|\Brick\Math\BigNumber|mixed
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
-        if ($value === null) {
+        if (null === $value) {
             return null;
         }
 
@@ -49,13 +48,11 @@ class BigDecimalType extends Type
     }
 
     /**
-     * @param  BigDecimal  $value
-     * @param  AbstractPlatform  $platform
-     * @return mixed
+     * @param BigDecimal $value
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        if ($value === null) {
+        if (null === $value) {
             return null;
         }
 

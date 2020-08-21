@@ -73,7 +73,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     protected $description = '';
 
     /**
-     * @var string A comment stored with this lot.
+     * @var string a comment stored with this lot
      * @ORM\Column(type="text")
      */
     protected $comment = '';
@@ -107,7 +107,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     protected $amount = 0;
 
     /**
-     * @var bool Determines if this lot was manually marked for refilling.
+     * @var bool determines if this lot was manually marked for refilling
      * @ORM\Column(type="boolean")
      */
     protected $needs_refill = false;
@@ -127,7 +127,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
         }
         parent::__clone();
     }
-
 
     /**
      * Check if the current part lot is expired.
@@ -149,8 +148,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * Gets the description of the part lot. Similar to a "name" of the part lot.
-     *
-     * @return string
      */
     public function getDescription(): string
     {
@@ -171,8 +168,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * Gets the comment for this part lot.
-     *
-     * @return string
      */
     public function getComment(): string
     {
@@ -193,8 +188,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * Gets the expiration date for the part lot. Returns null, if no expiration date was set.
-     *
-     * @return DateTime|null
      */
     public function getExpirationDate(): ?DateTime
     {
@@ -239,8 +232,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * Return the part that is stored in this part lot.
-     *
-     * @return Part
      */
     public function getPart(): Part
     {
@@ -261,8 +252,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
     /**
      * Checks if the instock value in the part lot is unknown.
-     *
-     * @return bool
      */
     public function isInstockUnknown(): bool
     {
@@ -281,12 +270,9 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
         return $this;
     }
 
-    /**
-     * @return float
-     */
     public function getAmount(): float
     {
-        if ($this->part instanceof Part && ! $this->part->useFloatAmount()) {
+        if ($this->part instanceof Part && !$this->part->useFloatAmount()) {
             return round($this->amount);
         }
 
@@ -312,9 +298,6 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isNeedsRefill(): bool
     {
         return $this->needs_refill;

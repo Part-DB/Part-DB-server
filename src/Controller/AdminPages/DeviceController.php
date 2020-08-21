@@ -69,8 +69,6 @@ class DeviceController extends BaseAdminController
 
     /**
      * @Route("/{id}", name="device_delete", methods={"DELETE"})
-     *
-     * @return RedirectResponse
      */
     public function delete(Request $request, Device $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
@@ -80,8 +78,6 @@ class DeviceController extends BaseAdminController
     /**
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="device_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
-     *
-     * @return Response
      */
     public function edit(Device $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
@@ -92,8 +88,6 @@ class DeviceController extends BaseAdminController
      * @Route("/new", name="device_new")
      * @Route("/{id}/clone", name="device_clone")
      * @Route("/")
-     *
-     * @return Response
      */
     public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Device $entity = null): Response
     {
@@ -102,8 +96,6 @@ class DeviceController extends BaseAdminController
 
     /**
      * @Route("/export", name="device_export_all")
-     *
-     * @return Response
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
@@ -112,8 +104,6 @@ class DeviceController extends BaseAdminController
 
     /**
      * @Route("/{id}/export", name="device_export")
-     *
-     * @return Response
      */
     public function exportEntity(Device $entity, EntityExporter $exporter, Request $request): Response
     {

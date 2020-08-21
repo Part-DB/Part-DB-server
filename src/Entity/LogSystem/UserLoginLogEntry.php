@@ -63,8 +63,6 @@ class UserLoginLogEntry extends AbstractLogEntry
 
     /**
      * Return the (anonymized) IP address used to login the user.
-     *
-     * @return string
      */
     public function getIPAddress(): string
     {
@@ -74,7 +72,7 @@ class UserLoginLogEntry extends AbstractLogEntry
     /**
      * Sets the IP address used to login the user.
      *
-     * @param string $ip        The IP address used to login the user.
+     * @param string $ip        the IP address used to login the user
      * @param bool   $anonymize Anonymize the IP address (remove last block) to be GPDR compliant
      *
      * @return $this

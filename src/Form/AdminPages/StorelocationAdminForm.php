@@ -61,7 +61,7 @@ class StorelocationAdminForm extends BaseEntityAdminForm
             'label_attr' => [
                 'class' => 'checkbox-custom',
             ],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
         ]);
 
         $builder->add('limit_to_existing_parts', CheckboxType::class, [
@@ -71,7 +71,7 @@ class StorelocationAdminForm extends BaseEntityAdminForm
             'label_attr' => [
                 'class' => 'checkbox-custom',
             ],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
         ]);
 
         $builder->add('only_single_part', CheckboxType::class, [
@@ -81,7 +81,7 @@ class StorelocationAdminForm extends BaseEntityAdminForm
             'label_attr' => [
                 'class' => 'checkbox-custom',
             ],
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
         ]);
 
         $builder->add('storage_type', StructuralEntityType::class, [
@@ -90,7 +90,7 @@ class StorelocationAdminForm extends BaseEntityAdminForm
             'help' => 'storelocation.storage_type.help',
             'class' => MeasurementUnit::class,
             'disable_not_selectable' => true,
-            'disabled' => ! $this->security->isGranted($is_new ? 'create' : 'move', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
         ]);
     }
 }

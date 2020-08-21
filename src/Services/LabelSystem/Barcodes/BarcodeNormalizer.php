@@ -34,8 +34,6 @@ final class BarcodeNormalizer
     /**
      * Parses barcode content and normalizes it.
      * Returns an array in the format ['part', 1]: First entry contains element type, second the ID of the element.
-     *
-     * @return array
      */
     public function normalizeBarcodeContent(string $input): array
     {
@@ -55,7 +53,7 @@ final class BarcodeNormalizer
             $prefix = $matches[1];
             $id = (int) $matches[2];
 
-            if (! isset(self::PREFIX_TYPE_MAP[$prefix])) {
+            if (!isset(self::PREFIX_TYPE_MAP[$prefix])) {
                 throw new \InvalidArgumentException('Unknown prefix '.$prefix);
             }
 
@@ -67,7 +65,7 @@ final class BarcodeNormalizer
             $prefix = $matches[1];
             $id = (int) $matches[2];
 
-            if (! isset(self::PREFIX_TYPE_MAP[$prefix])) {
+            if (!isset(self::PREFIX_TYPE_MAP[$prefix])) {
                 throw new \InvalidArgumentException('Unknown prefix '.$prefix);
             }
 

@@ -55,6 +55,6 @@ class LabelProfileControllerTest extends AbstractAdminControllerTest
 
         //Page is redirected to '/new', when delete was successful
         $this->assertSame($delete, $client->getResponse()->isRedirect(static::$base_path.'/new'));
-        $this->assertSame($delete, ! $client->getResponse()->isForbidden(), 'Permission Checking not working!');
+        $this->assertSame($delete, !$client->getResponse()->isForbidden(), 'Permission Checking not working!');
     }
 }

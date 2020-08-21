@@ -91,9 +91,9 @@ class FileTypeFilterTools
         //Check for each element if it is valid:
         foreach ($elements as $element) {
             $element = trim($element);
-            if (! preg_match('#^\.\w+$#', $element) // .ext is allowed
-                && ! preg_match('#^[-\w.]+\/[-\w.]+#', $element) //Explicit MIME type is allowed
-                && ! in_array($element, static::ALLOWED_MIME_PLACEHOLDERS, false)) { //image/* is allowed
+            if (!preg_match('#^\.\w+$#', $element) // .ext is allowed
+                && !preg_match('#^[-\w.]+\/[-\w.]+#', $element) //Explicit MIME type is allowed
+                && !in_array($element, static::ALLOWED_MIME_PLACEHOLDERS, false)) { //image/* is allowed
                 return false;
             }
         }
@@ -139,7 +139,7 @@ class FileTypeFilterTools
                 $element = 'video/*';
             } elseif ('audio' === $element || 'audio/' === $element) {
                 $element = 'audio/*';
-            } elseif (! preg_match('#^[-\w.]+\/[-\w.*]+#', $element) && 0 !== strpos($element, '.')) {
+            } elseif (!preg_match('#^[-\w.]+\/[-\w.*]+#', $element) && 0 !== strpos($element, '.')) {
                 //Convert jpg to .jpg
                 $element = '.'.$element;
             }

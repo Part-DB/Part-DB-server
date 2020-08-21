@@ -65,7 +65,7 @@ class RevertLogColumn extends AbstractColumn
             return '';
         }
 
-        $disabled = ! $this->security->isGranted('revert_element', $context->getTargetClass());
+        $disabled = !$this->security->isGranted('revert_element', $context->getTargetClass());
 
         $tmp = '<div class="btn-group btn-group-sm">';
         $tmp .= sprintf(

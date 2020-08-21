@@ -63,7 +63,7 @@ class StructuralDBElementRepository extends NamedDBElementRepository
      * Gets a tree of TreeViewNode elements. The root elements has $parent as parent.
      * The treeview is generic, that means the href are null and ID values are set.
      *
-     * @param AbstractStructuralDBElement|null $parent The parent the root elements should have.
+     * @param AbstractStructuralDBElement|null $parent the parent the root elements should have
      *
      * @return TreeViewNode[]
      */
@@ -90,7 +90,7 @@ class StructuralDBElementRepository extends NamedDBElementRepository
      *
      * @param AbstractStructuralDBElement|null $parent This entity will be used as root element. Set to null, to use global root
      *
-     * @return AbstractStructuralDBElement[] A flattened list containing the tree elements.
+     * @return AbstractStructuralDBElement[] a flattened list containing the tree elements
      */
     public function toNodesList(?AbstractStructuralDBElement $parent = null): array
     {

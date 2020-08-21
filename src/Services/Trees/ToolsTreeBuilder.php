@@ -94,7 +94,7 @@ class ToolsTreeBuilder
      * Generates the tree for the tools menu.
      * The result is cached.
      *
-     * @return TreeViewNode[] The array containing all Nodes for the tools menu.
+     * @return TreeViewNode[] the array containing all Nodes for the tools menu
      */
     public function getTree(): array
     {
@@ -264,8 +264,6 @@ class ToolsTreeBuilder
 
     /**
      * This function creates the tree entries for the "system" node of the tools tree.
-     *
-     * @return array
      */
     protected function getSystemNodes(): array
     {

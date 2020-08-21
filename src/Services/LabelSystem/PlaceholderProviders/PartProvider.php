@@ -40,7 +40,7 @@ final class PartProvider implements PlaceholderProviderInterface
 
     public function replace(string $placeholder, object $part, array $options = []): ?string
     {
-        if (! $part instanceof Part) {
+        if (!$part instanceof Part) {
             return null;
         }
 

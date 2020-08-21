@@ -81,8 +81,6 @@ class HomepageController extends AbstractController
 
     /**
      * @Route("/", name="homepage")
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function homepage(Request $request, GitVersionInfo $versionInfo): Response
     {
