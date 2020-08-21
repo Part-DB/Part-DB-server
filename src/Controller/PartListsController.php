@@ -245,7 +245,8 @@ class PartListsController extends AbstractController
         ];
 
         $table = $dataTable->createFromType(PartsDataTable::class, [
-            'search' => $search, 'search_options' => $search_options,
+            'search' => $search,
+            'search_options' => $search_options,
         ])
             ->handleRequest($request);
 

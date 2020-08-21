@@ -13,7 +13,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         SetList::CLEAN_CODE,
         SetList::PSR_12,
         SetList::SYMFONY,
-        //SetList::SYMPLIFY
+        SetList::SYMPLIFY
     ]);
 
     $parameters->set(Option::PATHS, [

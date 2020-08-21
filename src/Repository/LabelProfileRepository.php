@@ -39,7 +39,10 @@ class LabelProfileRepository extends NamedDBElementRepository
             throw new \InvalidArgumentException('Invalid supported_element type given.');
         }
 
-        return $this->findBy(['options.supported_element' => $type, 'show_in_dropdown' => true], ['name' => 'ASC']);
+        return $this->findBy([
+            'options.supported_element' => $type,
+            'show_in_dropdown' => true,
+        ], ['name' => 'ASC']);
     }
 
     /**

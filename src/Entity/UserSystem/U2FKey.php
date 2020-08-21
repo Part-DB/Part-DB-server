@@ -50,8 +50,10 @@ use u2flib_server\Registration;
 /**
  * @ORM\Entity
  * @ORM\Table(name="u2f_keys",
- * uniqueConstraints={@ORM\UniqueConstraint(name="user_unique",columns={"user_id",
- * "key_handle"})})
+ * uniqueConstraints={
+ * @ORM\UniqueConstraint(name="user_unique",columns={"user_id",
+ * "key_handle"})
+ * })
  * @ORM\HasLifecycleCallbacks()
  */
 class U2FKey implements TwoFactorKeyInterface
