@@ -42,8 +42,6 @@ class SecurityEvent extends Event
 
     /**
      * Returns the affected user.
-     *
-     * @return User
      */
     public function getTargetUser(): User
     {

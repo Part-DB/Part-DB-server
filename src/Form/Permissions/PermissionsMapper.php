@@ -119,7 +119,7 @@ final class PermissionsMapper implements DataMapperInterface
      * @param mixed                       $viewData The compound form's view data that get mapped
      *                                              its children model data
      */
-    public function mapFormsToData($forms, &$viewData) :void
+    public function mapFormsToData($forms, &$viewData): void
     {
         if ($this->inherit) {
             throw new RuntimeException('The permission type is readonly when it is showing read only data!');

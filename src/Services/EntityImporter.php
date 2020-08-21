@@ -151,7 +151,7 @@ class EntityImporter
             $tmp = $this->validator->validate($entity);
 
             //When no validation error occured, persist entity to database (cascade must be set in entity)
-            if ($tmp === null) {
+            if (null === $tmp) {
                 $this->em->persist($entity);
             } else { //Log validation errors to global log.
                 $errors[$entity->getFullPath()] = $tmp;

@@ -75,8 +75,6 @@ final class LabelGenerator
 
     /**
      * Check if the given LabelOptions can be used with $element.
-     *
-     * @return bool
      */
     public function supports(LabelOptions $options, object $element): bool
     {

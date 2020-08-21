@@ -83,13 +83,13 @@ class MasterPictureAttachmentType extends AbstractType
             'choice_loader' => static function (Options $options) {
                 return new CallbackChoiceLoader(
                     static function () use ($options) {
-                    $entity = $options['entity'];
-                    if (!$entity instanceof AttachmentContainingDBElement) {
-                        throw new \RuntimeException('$entity must have Attachments! (be of type AttachmentContainingDBElement)');
-                    }
+                        $entity = $options['entity'];
+                        if (!$entity instanceof AttachmentContainingDBElement) {
+                            throw new \RuntimeException('$entity must have Attachments! (be of type AttachmentContainingDBElement)');
+                        }
 
-                    return $entity->getAttachments()->toArray();
-                });
+                        return $entity->getAttachments()->toArray();
+                    });
             },
         ]);
 

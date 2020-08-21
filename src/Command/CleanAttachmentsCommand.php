@@ -145,8 +145,6 @@ class CleanAttachmentsCommand extends Command
      * This function removes all empty folders inside $path. Taken from https://stackoverflow.com/a/1833681.
      *
      * @param string $path The path in which the empty folders should be deleted
-     *
-     * @return bool
      */
     protected function removeEmptySubFolders($path): bool
     {

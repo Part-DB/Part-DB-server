@@ -68,8 +68,6 @@ class StorelocationController extends BaseAdminController
 
     /**
      * @Route("/{id}", name="store_location_delete", methods={"DELETE"})
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Request $request, Storelocation $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
@@ -79,8 +77,6 @@ class StorelocationController extends BaseAdminController
     /**
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="store_location_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
-     *
-     * @return Response
      */
     public function edit(Storelocation $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {

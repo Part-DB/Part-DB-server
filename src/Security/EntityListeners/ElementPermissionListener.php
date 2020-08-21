@@ -166,9 +166,9 @@ class ElementPermissionListener
                         || !$this->isGranted('edit', $annotation, $element)) && isset(
                         $old_data[$property->getName()]
                     )) {
-                        $property->setValue($element, $old_data[$property->getName()]);
-                        $changed = true;
-                    }
+                    $property->setValue($element, $old_data[$property->getName()]);
+                    $changed = true;
+                }
 
                 if ($changed) {
                     //Schedule for update, so the post update method will be called

@@ -94,8 +94,8 @@ class NoLockoutValidator extends ConstraintValidator
                         'users',
                         'edit_permissions'
                     ) ?? false)) {
-                        $this->context->addViolation($constraint->message);
-                    }
+                $this->context->addViolation($constraint->message);
+            }
         }
     }
 }

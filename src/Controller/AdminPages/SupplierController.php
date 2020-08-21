@@ -69,8 +69,6 @@ class SupplierController extends BaseAdminController
 
     /**
      * @Route("/{id}", name="supplier_delete", methods={"DELETE"})
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Request $request, Supplier $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
@@ -80,8 +78,6 @@ class SupplierController extends BaseAdminController
     /**
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="supplier_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
-     *
-     * @return Response
      */
     public function edit(Supplier $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {

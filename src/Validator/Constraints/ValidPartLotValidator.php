@@ -113,9 +113,9 @@ class ValidPartLotValidator extends ConstraintValidator
             if ($value->getStorageLocation()->isOnlySinglePart() && ($parts->count() > 0) && !$parts->contains(
                     $value->getPart()
                 )) {
-                    $this->context->buildViolation('validator.part_lot.single_part')
+                $this->context->buildViolation('validator.part_lot.single_part')
                         ->atPath('storage_location')->addViolation();
-                }
+            }
         }
     }
 }

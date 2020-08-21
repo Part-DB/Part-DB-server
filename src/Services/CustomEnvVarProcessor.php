@@ -59,6 +59,7 @@ final class CustomEnvVarProcessor implements EnvVarProcessorInterface
                 return false;
             }
         }
+
         return false;
     }
 

@@ -69,8 +69,6 @@ class MeasurementUnitController extends BaseAdminController
 
     /**
      * @Route("/{id}", name="measurement_unit_delete", methods={"DELETE"})
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Request $request, MeasurementUnit $entity, StructuralElementRecursionHelper $recursionHelper): \Symfony\Component\HttpFoundation\RedirectResponse
     {
@@ -80,8 +78,6 @@ class MeasurementUnitController extends BaseAdminController
     /**
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="measurement_unit_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
-     *
-     * @return Response
      */
     public function edit(MeasurementUnit $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {

@@ -156,8 +156,8 @@ class TimeTravel
                                 $target_element,
                                 $timestamp
                             ) && $target_elements instanceof Collection) {
-                                $target_elements->removeElement($target_element);
-                            }
+                            $target_elements->removeElement($target_element);
+                        }
                         $this->revertEntityToTimestamp($target_element, $timestamp, $reverted_elements);
                     }
                 }

@@ -159,7 +159,7 @@ class EntityExporter
             $disposition = $response->headers->makeDisposition(
                 ResponseHeaderBag::DISPOSITION_ATTACHMENT,
                 $filename,
-                $string = preg_replace('![^'.preg_quote('-','!').'a-z0-_9\s]+!', '', strtolower($filename))
+                $string = preg_replace('![^'.preg_quote('-', '!').'a-z0-_9\s]+!', '', strtolower($filename))
             );
             // Set the content disposition
             $response->headers->set('Content-Disposition', $disposition);

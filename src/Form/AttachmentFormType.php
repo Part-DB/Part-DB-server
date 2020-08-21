@@ -178,10 +178,10 @@ class AttachmentFormType extends AbstractType
 
             if ($attachment instanceof Attachment && $file instanceof UploadedFile && $attachment->getAttachmentType(
                 ) && !$this->submitHandler->isValidFileExtension($attachment->getAttachmentType(), $file)) {
-                    $event->getForm()->get('file')->addError(
+                $event->getForm()->get('file')->addError(
                         new FormError($this->translator->trans('validator.file_ext_not_allowed'))
                     );
-                }
+            }
         });
 
         //Check the secure file checkbox, if file is in securefile location

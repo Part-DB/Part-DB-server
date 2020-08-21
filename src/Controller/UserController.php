@@ -97,8 +97,6 @@ class UserController extends AdminPages\BaseAdminController
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="user_edit")
      * @Route("/{id}/", requirements={"id"="\d+"})
      *
-     * @return Response
-     *
      * @throws \Exception
      */
     public function edit(User $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
@@ -168,8 +166,6 @@ class UserController extends AdminPages\BaseAdminController
 
     /**
      * @Route("/{id}", name="user_delete", methods={"DELETE"}, requirements={"id"="\d+"})
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Request $request, User $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
