@@ -23,7 +23,6 @@ return [
     Scheb\TwoFactorBundle\SchebTwoFactorBundle::class => ['all' => true],
     R\U2FTwoFactorBundle\RU2FTwoFactorBundle::class => ['all' => true],
     Translation\Bundle\TranslationBundle::class => ['all' => true],
-    Symplify\ParameterNameGuard\ParameterNameGuardBundle::class => ['dev' => true, 'test' => true],
     Florianv\SwapBundle\FlorianvSwapBundle::class => ['all' => true],
     Nelmio\SecurityBundle\NelmioSecurityBundle::class => ['all' => true],
 ];
