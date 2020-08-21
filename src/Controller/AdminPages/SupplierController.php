@@ -50,6 +50,7 @@ use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -71,7 +72,7 @@ class SupplierController extends BaseAdminController
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function delete(Request $request, Supplier $entity, StructuralElementRecursionHelper $recursionHelper)
+    public function delete(Request $request, Supplier $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
@@ -82,7 +83,7 @@ class SupplierController extends BaseAdminController
      *
      * @return Response
      */
-    public function edit(Supplier $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null)
+    public function edit(Supplier $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
         return $this->_edit($entity, $request, $em, $timestamp);
     }

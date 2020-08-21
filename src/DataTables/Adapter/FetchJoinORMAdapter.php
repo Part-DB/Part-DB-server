@@ -153,7 +153,7 @@ class FetchJoinORMAdapter extends ORMAdapter
         $query->setIdentifierPropertyPath($this->mapFieldToPropertyPath($identifier, $aliases));
     }
 
-    protected function getSimpleTotalCount(QueryBuilder $queryBuilder)
+    protected function getSimpleTotalCount(QueryBuilder $queryBuilder): int
     {
         /** The paginator count queries can be rather slow, so when query for total count (100ms or longer),
          * just return the entity count.

@@ -114,12 +114,10 @@ class GroupController extends BaseAdminController
 
     public function deleteCheck(AbstractNamedDBElement $entity): bool
     {
-        if ($entity instanceof Group) {
-            if ($entity->getUsers()->count() > 0) {
-                $this->addFlash('error', 'entity.delete.must_not_contain_users');
+        if (($entity instanceof Group) && $entity->getUsers()->count() > 0) {
+            $this->addFlash('error', 'entity.delete.must_not_contain_users');
 
-                return false;
-            }
+            return false;
         }
 
         return true;

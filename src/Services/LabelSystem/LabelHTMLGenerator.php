@@ -68,7 +68,7 @@ final class LabelHTMLGenerator
 
         $page = 1;
         foreach ($elements as $element) {
-            if ('twig' === $options->getLinesMode() && isset($sandboxed_twig) && isset($current_user)) {
+            if (isset($sandboxed_twig, $current_user) && 'twig' === $options->getLinesMode()) {
                 try {
                     $lines = $sandboxed_twig->render(
                         'lines',
@@ -103,7 +103,7 @@ final class LabelHTMLGenerator
         ]);
     }
 
-    private function getPDFTitle(LabelOptions $options, object $element)
+    private function getPDFTitle(LabelOptions $options, object $element): string
     {
         if ($element instanceof NamedElementInterface) {
             return $this->elementTypeNameGenerator->getTypeNameCombination($element, false);

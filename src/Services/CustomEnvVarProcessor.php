@@ -59,9 +59,10 @@ final class CustomEnvVarProcessor implements EnvVarProcessorInterface
                 return false;
             }
         }
+        return false;
     }
 
-    public static function getProvidedTypes()
+    public static function getProvidedTypes(): array
     {
         return [
             'validMailDSN' => 'bool',

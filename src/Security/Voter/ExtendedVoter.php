@@ -66,7 +66,7 @@ abstract class ExtendedVoter extends Voter
         $this->entityManager = $entityManager;
     }
 
-    final protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
+    final protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 

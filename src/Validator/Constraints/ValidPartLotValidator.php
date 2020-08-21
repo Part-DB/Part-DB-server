@@ -104,20 +104,18 @@ class ValidPartLotValidator extends ConstraintValidator
             }
 
             //Check for onlyExisting
-            if ($value->getStorageLocation()->isLimitToExistingParts()) {
-                if (!$parts->contains($value->getPart())) {
-                    $this->context->buildViolation('validator.part_lot.only_existing')
-                        ->atPath('storage_location')->addViolation();
-                }
+            if ($value->getStorageLocation()->isLimitToExistingParts() && !$parts->contains($value->getPart())) {
+                $this->context->buildViolation('validator.part_lot.only_existing')
+                    ->atPath('storage_location')->addViolation();
             }
 
             //Check for only single part
-            if ($value->getStorageLocation()->isOnlySinglePart()) {
-                if (($parts->count() > 0) && !$parts->contains($value->getPart())) {
+            if ($value->getStorageLocation()->isOnlySinglePart() && ($parts->count() > 0) && !$parts->contains(
+                    $value->getPart()
+                )) {
                     $this->context->buildViolation('validator.part_lot.single_part')
                         ->atPath('storage_location')->addViolation();
                 }
-            }
         }
     }
 }

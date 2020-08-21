@@ -102,7 +102,7 @@ class LogDataTable implements DataTableTypeInterface
         $optionsResolver->setAllowedTypes('filter_elements', ['array', 'object']);
         $optionsResolver->setAllowedTypes('mode', 'string');
 
-        $optionsResolver->setNormalizer('filter_elements', function (Options $options, $value) {
+        $optionsResolver->setNormalizer('filter_elements', static function (Options $options, $value) {
             if (!is_array($value)) {
                 return [$value];
             }
@@ -121,7 +121,7 @@ class LogDataTable implements DataTableTypeInterface
 
         $dataTable->add('symbol', TextColumn::class, [
             'label' => '',
-            'render' => function ($value, AbstractLogEntry $context) {
+            'render' => static function ($value, AbstractLogEntry $context) {
                 switch ($context->getLevelString()) {
                     case LogLevel::DEBUG:
                         $symbol = 'fa-bug';
@@ -191,7 +191,7 @@ class LogDataTable implements DataTableTypeInterface
             'label' => $this->translator->trans('log.level'),
             'visible' => 'system_log' === $options['mode'],
             'propertyPath' => 'levelString',
-            'render' => function (string $value, AbstractLogEntry $context) {
+            'render' => static function (string $value, AbstractLogEntry $context) {
                 return $value;
             },
         ]);

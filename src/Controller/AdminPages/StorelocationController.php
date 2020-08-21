@@ -49,6 +49,7 @@ use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -70,7 +71,7 @@ class StorelocationController extends BaseAdminController
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function delete(Request $request, Storelocation $entity, StructuralElementRecursionHelper $recursionHelper)
+    public function delete(Request $request, Storelocation $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
@@ -81,7 +82,7 @@ class StorelocationController extends BaseAdminController
      *
      * @return Response
      */
-    public function edit(Storelocation $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null)
+    public function edit(Storelocation $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
         return $this->_edit($entity, $request, $em, $timestamp);
     }

@@ -191,8 +191,8 @@ class ORMAdapter extends AbstractAdapter
             ;
         }
 
-        $query = $builder->getQuery();
-        $event = new ORMAdapterQueryEvent($query);
+        $q = $builder->getQuery();
+        $event = new ORMAdapterQueryEvent($q);
         $state->getDataTable()->getEventDispatcher()->dispatch($event, ORMAdapterEvents::PRE_QUERY);
 
         foreach ($query->iterate([], $this->hydrationMode) as $result) {
@@ -301,7 +301,7 @@ class ORMAdapter extends AbstractAdapter
             ->setDefaults([
                 'hydrate' => Query::HYDRATE_OBJECT,
                 'query' => [],
-                'criteria' => function (Options $options) {
+                'criteria' => static function (Options $options) {
                     return [new SearchCriteriaProvider()];
                 },
             ])
@@ -324,7 +324,9 @@ class ORMAdapter extends AbstractAdapter
     {
         if ($provider instanceof QueryBuilderProcessorInterface) {
             return $provider;
-        } elseif (is_callable($provider)) {
+        }
+
+        if (is_callable($provider)) {
             return new class($provider) implements QueryBuilderProcessorInterface {
                 private $callable;
 

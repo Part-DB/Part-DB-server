@@ -192,7 +192,7 @@ abstract class BaseAdminController extends AbstractController
         $form_options = [
             'attachment_class' => $this->attachment_class,
             'parameter_class' => $this->parameter_class,
-            'disabled' => null !== $timeTravel_timestamp ? true : false,
+            'disabled' => null !== $timeTravel_timestamp,
         ];
 
         //Disable editing of options, if user is not allowed to use twig...
@@ -476,7 +476,7 @@ abstract class BaseAdminController extends AbstractController
         return $exporter->exportEntityFromRequest($entities, $request);
     }
 
-    protected function _exportEntity(AbstractNamedDBElement $entity, EntityExporter $exporter, Request $request): \Symfony\Component\HttpFoundation\Response
+    protected function _exportEntity(AbstractNamedDBElement $entity, EntityExporter $exporter, Request $request): Response
     {
         $this->denyAccessUnlessGranted('read', $entity);
 

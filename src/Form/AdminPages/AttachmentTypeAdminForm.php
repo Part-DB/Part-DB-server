@@ -76,7 +76,7 @@ class AttachmentTypeAdminForm extends BaseEntityAdminForm
 
         //Normalize data before writing it to database
         $builder->get('filetype_filter')->addViewTransformer(new CallbackTransformer(
-            function ($value) {
+            static function ($value) {
                 return $value;
             },
             function ($value) {

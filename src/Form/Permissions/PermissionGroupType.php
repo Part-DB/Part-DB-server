@@ -69,11 +69,8 @@ class PermissionGroupType extends AbstractType
                 if ($permission['group'] !== $options['group_name']) {
                     continue;
                 }
-            } else {
-                //Skip perrmissions without groups unless we have this as blanko group
-                if ('*' !== $options['group_name']) {
-                    continue;
-                }
+            } elseif ('*' !== $options['group_name']) {
+                continue;
             }
 
             $builder->add($key, PermissionType::class, [
@@ -91,7 +88,7 @@ class PermissionGroupType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setDefault('group_name', function (Options $options) {
+        $resolver->setDefault('group_name', static function (Options $options) {
             return trim($options['name']);
         });
 

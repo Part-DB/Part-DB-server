@@ -44,7 +44,7 @@ final class PartLotProvider implements PlaceholderProviderInterface
     {
         if ($label_target instanceof PartLot) {
             if ('[[LOT_ID]]' === $placeholder) {
-                return $label_target->getID() ?? 'unknown';
+                return (string) ($label_target->getID() ?? 'unknown');
             }
 
             if ('[[LOT_NAME]]' === $placeholder) {

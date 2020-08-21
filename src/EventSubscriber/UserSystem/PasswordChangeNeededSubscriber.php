@@ -147,14 +147,10 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
     {
         $tfa_enabled = $user->isU2FAuthEnabled() || $user->isGoogleAuthenticatorEnabled();
 
-        if (null !== $user->getGroup() && $user->getGroup()->isEnforce2FA() && !$tfa_enabled) {
-            return true;
-        }
-
-        return false;
+        return null !== $user->getGroup() && $user->getGroup()->isEnforce2FA() && !$tfa_enabled;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::REQUEST => 'redirectToSettingsIfNeeded',

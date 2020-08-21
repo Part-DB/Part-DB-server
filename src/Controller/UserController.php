@@ -58,6 +58,7 @@ use InvalidArgumentException;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -100,7 +101,7 @@ class UserController extends AdminPages\BaseAdminController
      *
      * @throws \Exception
      */
-    public function edit(User $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null)
+    public function edit(User $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
         //Handle 2FA disabling
 
@@ -170,7 +171,7 @@ class UserController extends AdminPages\BaseAdminController
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function delete(Request $request, User $entity, StructuralElementRecursionHelper $recursionHelper)
+    public function delete(Request $request, User $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         if (User::ID_ANONYMOUS === $entity->getID()) {
             throw new InvalidArgumentException('You can not delete the anonymous user! It is needed for permission checking without a logged in user');

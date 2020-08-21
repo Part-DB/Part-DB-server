@@ -147,13 +147,11 @@ class LogEntryExtraFormatter
             );
         }
 
-        if ($context instanceof LogWithEventUndoInterface) {
-            if ($context->isUndoEvent()) {
-                if ('undo' === $context->getUndoMode()) {
-                    $array['log.undo_mode.undo'] = (string) $context->getUndoEventID();
-                } elseif ('revert' === $context->getUndoMode()) {
-                    $array['log.undo_mode.revert'] = (string) $context->getUndoEventID();
-                }
+        if (($context instanceof LogWithEventUndoInterface) && $context->isUndoEvent()) {
+            if ('undo' === $context->getUndoMode()) {
+                $array['log.undo_mode.undo'] = (string) $context->getUndoEventID();
+            } elseif ('revert' === $context->getUndoMode()) {
+                $array['log.undo_mode.revert'] = (string) $context->getUndoEventID();
             }
         }
 
@@ -192,7 +190,7 @@ class LogEntryExtraFormatter
             $array['log.collection_deleted.deleted'] = sprintf(
                 '%s: %s (%s)',
                 $this->elementTypeNameGenerator->getLocalizedTypeLabel($context->getDeletedElementClass()),
-                $context->getOldName() ?? $context->getDeletedElementID(),
+                $context->getOldName() ?? (string) $context->getDeletedElementID(),
                 $context->getCollectionName()
             );
         }

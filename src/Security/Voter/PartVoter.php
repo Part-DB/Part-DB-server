@@ -44,7 +44,6 @@ namespace App\Security\Voter;
 
 use App\Entity\Parts\Part;
 use App\Entity\UserSystem\User;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
  * A Voter that votes on Part entities.

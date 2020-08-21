@@ -41,7 +41,7 @@ trait ParametersTrait
      *
      * @psalm-return Collection<int, PartParameter>
      */
-    public function getParameters(): \Doctrine\Common\Collections\Collection
+    public function getParameters(): Collection
     {
         return $this->parameters;
     }

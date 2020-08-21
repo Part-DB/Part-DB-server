@@ -148,7 +148,7 @@ class CleanAttachmentsCommand extends Command
      *
      * @return bool
      */
-    protected function removeEmptySubFolders($path)
+    protected function removeEmptySubFolders($path): bool
     {
         $empty = true;
         foreach (glob($path.DIRECTORY_SEPARATOR.'*') as $file) {

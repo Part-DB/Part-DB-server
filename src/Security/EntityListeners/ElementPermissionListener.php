@@ -52,7 +52,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\PostLoad;
-use Doctrine\ORM\Mapping\PreUpdate;
 use function get_class;
 use InvalidArgumentException;
 use ReflectionClass;
@@ -162,14 +161,14 @@ class ElementPermissionListener
                 $property->setAccessible(true);
 
                 //If the user is not allowed to edit or read this property, reset all values.
+                //Set value to old value, so that there a no change to this property
                 if ((!$this->isGranted('read', $annotation, $element)
-                    || !$this->isGranted('edit', $annotation, $element))) {
-                    //Set value to old value, so that there a no change to this property
-                    if (isset($old_data[$property->getName()])) {
+                        || !$this->isGranted('edit', $annotation, $element)) && isset(
+                        $old_data[$property->getName()]
+                    )) {
                         $property->setValue($element, $old_data[$property->getName()]);
                         $changed = true;
                     }
-                }
 
                 if ($changed) {
                     //Schedule for update, so the post update method will be called
@@ -184,13 +183,9 @@ class ElementPermissionListener
      *
      * @return bool Returns true if the current programm is running from CLI (terminal)
      */
-    protected function isRunningFromCLI()
+    protected function isRunningFromCLI(): bool
     {
-        if (empty($_SERVER['REMOTE_ADDR']) && !isset($_SERVER['HTTP_USER_AGENT']) && count($_SERVER['argv']) > 0) {
-            return true;
-        }
-
-        return false;
+        return empty($_SERVER['REMOTE_ADDR']) && !isset($_SERVER['HTTP_USER_AGENT']) && count($_SERVER['argv']) > 0;
     }
 
     /**

@@ -118,7 +118,7 @@ final class PartsDataTable implements DataTableTypeInterface
         $optionsResolver->setAllowedTypes('search', ['null', 'string']);
 
         //Configure search options
-        $optionsResolver->setDefault('search_options', function (OptionsResolver $resolver): void {
+        $optionsResolver->setDefault('search_options', static function (OptionsResolver $resolver): void {
             $resolver->setDefaults([
                 'name' => true,
                 'category' => true,

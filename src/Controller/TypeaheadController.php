@@ -75,7 +75,7 @@ class TypeaheadController extends AbstractController
      *
      * @return JsonResponse
      */
-    public function builtInResources(Request $request, BuiltinAttachmentsFinder $finder)
+    public function builtInResources(Request $request, BuiltinAttachmentsFinder $finder): JsonResponse
     {
         $query = $request->get('query');
         $array = $finder->find($query);
@@ -106,7 +106,7 @@ class TypeaheadController extends AbstractController
      *
      * @return JsonResponse
      */
-    public function tags(string $query, TagFinder $finder)
+    public function tags(string $query, TagFinder $finder): JsonResponse
     {
         $array = $finder->searchTags($query);
 

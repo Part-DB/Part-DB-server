@@ -44,13 +44,11 @@ namespace App\Form\Type;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractStructuralDBElement;
-use App\Repository\StructuralDBElementRepository;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
-use Symfony\Component\Form\Exception;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -58,7 +56,6 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Choice;
 
 /**
  * This class provides a choice form type similar to EntityType, with the difference, that the tree structure
@@ -117,7 +114,7 @@ class StructuralEntityType extends AbstractType
 
         $resolver->setDefault('empty_message', null);
 
-        $resolver->setDefault('attr', function (Options $options) {
+        $resolver->setDefault('attr', static function (Options $options) {
             $tmp = [
                 'class' => 'selectpicker',
                 'data-live-search' => true,

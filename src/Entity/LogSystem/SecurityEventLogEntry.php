@@ -93,11 +93,7 @@ class SecurityEventLogEntry extends AbstractLogEntry
     public function getEventType(): string
     {
         $key = $this->extra['e'];
-        if (isset(static::SECURITY_TYPE_MAPPING[$key])) {
-            return static::SECURITY_TYPE_MAPPING[$key];
-        }
-
-        return 'unkown';
+        return static::SECURITY_TYPE_MAPPING[$key] ?? 'unkown';
     }
 
     /**

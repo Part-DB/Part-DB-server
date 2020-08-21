@@ -113,12 +113,10 @@ class AttachmentTypeController extends BaseAdminController
 
     protected function deleteCheck(AbstractNamedDBElement $entity): bool
     {
-        if ($entity instanceof AttachmentType) {
-            if ($entity->getAttachmentsForType()->count() > 0) {
-                $this->addFlash('error', 'entity.delete.must_not_contain_attachments');
+        if (($entity instanceof AttachmentType) && $entity->getAttachmentsForType()->count() > 0) {
+            $this->addFlash('error', 'entity.delete.must_not_contain_attachments');
 
-                return false;
-            }
+            return false;
         }
 
         return true;

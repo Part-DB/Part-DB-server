@@ -46,7 +46,7 @@ final class SecurityEventLoggerSubscriber implements EventSubscriberInterface
         $this->eventLogger = $eventLogger;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             SecurityEvents::U2F_ADDED => 'u2f_added',

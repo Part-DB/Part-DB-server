@@ -34,9 +34,9 @@ use App\Services\LabelSystem\LabelGenerator;
 use App\Services\Misc\RangeParser;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -65,7 +65,7 @@ class LabelController extends AbstractController
      * @Route("/dialog", name="label_dialog")
      * @Route("/{profile}/dialog", name="label_dialog_profile")
      */
-    public function generator(Request $request, ?LabelProfile $profile = null)
+    public function generator(Request $request, ?LabelProfile $profile = null): Response
     {
         $this->denyAccessUnlessGranted('@labels.create_labels');
 

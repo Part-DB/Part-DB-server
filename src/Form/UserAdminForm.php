@@ -49,7 +49,6 @@ use App\Entity\UserSystem\User;
 use App\Form\Permissions\PermissionsType;
 use App\Form\Type\CurrencyEntityType;
 use App\Form\Type\StructuralEntityType;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -174,7 +173,7 @@ class UserAdminForm extends AbstractType
             ->add('theme', ChoiceType::class, [
                 'required' => false,
                 'choices' => User::AVAILABLE_THEMES,
-                'choice_label' => function ($entity, $key, $value) {
+                'choice_label' => static function ($entity, $key, $value) {
                     return $value;
                 },
                 'attr' => [

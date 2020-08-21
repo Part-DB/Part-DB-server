@@ -85,7 +85,7 @@ class PricedetailHelper
             } else {
                 // We have to sort the pricedetails manually
                 $array = $pricedetails->map(
-                    function (Pricedetail $pricedetail) {
+                    static function (Pricedetail $pricedetail) {
                         return $pricedetail->getMinDiscountQuantity();
                     }
                 )->toArray();

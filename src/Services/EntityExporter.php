@@ -51,13 +51,6 @@ use ReflectionException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
-use Symfony\Component\Serializer\Encoder\CsvEncoder;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Encoder\YamlEncoder;
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 /**
@@ -166,7 +159,7 @@ class EntityExporter
             $disposition = $response->headers->makeDisposition(
                 ResponseHeaderBag::DISPOSITION_ATTACHMENT,
                 $filename,
-                $string = preg_replace('![^'.preg_quote('-').'a-z0-_9\s]+!', '', strtolower($filename))
+                $string = preg_replace('![^'.preg_quote('-','!').'a-z0-_9\s]+!', '', strtolower($filename))
             );
             // Set the content disposition
             $response->headers->set('Content-Disposition', $disposition);

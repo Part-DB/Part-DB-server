@@ -76,16 +76,14 @@ class UserVoter extends ExtendedVoter
      */
     protected function voteOnUser($attribute, $subject, User $user): bool
     {
-        if ($subject instanceof User) {
-            //Check if the checked user is the user itself
-            if ($subject->getID() === $user->getID() &&
-                $this->resolver->isValidOperation('self', $attribute)) {
-                //Then we also need to check the self permission
-                $tmp = $this->resolver->inherit($user, 'self', $attribute) ?? false;
-                //But if the self value is not allowed then use just the user value:
-                if ($tmp) {
-                    return $tmp;
-                }
+        //Check if the checked user is the user itself
+        if (($subject instanceof User) && $subject->getID() === $user->getID() &&
+            $this->resolver->isValidOperation('self', $attribute)) {
+            //Then we also need to check the self permission
+            $tmp = $this->resolver->inherit($user, 'self', $attribute) ?? false;
+            //But if the self value is not allowed then use just the user value:
+            if ($tmp) {
+                return $tmp;
             }
         }
 

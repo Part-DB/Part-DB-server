@@ -124,7 +124,7 @@ class TreeViewGenerator
             }
 
             //Translate text if text starts with $$
-            if ('$$' === substr($item->getText(), 0, 2)) {
+            if (strpos($item->getText(), '$$') === 0) {
                 $item->setText($this->translator->trans(substr($item->getText(), 2)));
             }
         }

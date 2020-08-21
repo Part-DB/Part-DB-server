@@ -88,12 +88,14 @@ class NoLockoutValidator extends ConstraintValidator
                 $user = $this->entityManager->getRepository(User::class)->getAnonymousUser();
             }
 
-            if ($user instanceof User) {
-                //Check if we the change_permission permission has changed from allow to disallow
-                if (false === ($this->resolver->inherit($user, 'users', 'edit_permissions') ?? false)) {
-                    $this->context->addViolation($constraint->message);
-                }
-            }
+            //Check if we the change_permission permission has changed from allow to disallow
+            if (($user instanceof User) && false === ($this->resolver->inherit(
+                        $user,
+                        'users',
+                        'edit_permissions'
+                    ) ?? false)) {
+                        $this->context->addViolation($constraint->message);
+                    }
         }
     }
 }

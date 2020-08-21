@@ -78,7 +78,7 @@ final class LabelGenerator
      *
      * @return bool
      */
-    public function supports(LabelOptions $options, object $element)
+    public function supports(LabelOptions $options, object $element): bool
     {
         $supported_type = $options->getSupportedElement();
         if (!isset(static::CLASS_SUPPORT_MAPPING[$supported_type])) {

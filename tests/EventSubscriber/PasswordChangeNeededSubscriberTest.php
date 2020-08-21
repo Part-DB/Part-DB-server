@@ -57,11 +57,11 @@ class PasswordChangeNeededSubscriberTest extends TestCase
 
         //A user without a group must not redirect
         $user->setGroup(null);
-        $this->assertFalse(\App\EventSubscriber\UserSystem\PasswordChangeNeededSubscriber::TFARedirectNeeded($user));
+        $this->assertFalse(PasswordChangeNeededSubscriber::TFARedirectNeeded($user));
 
         //When the group does not enforce the redirect the user must not be redirected
         $user->setGroup($group);
-        $this->assertFalse(\App\EventSubscriber\UserSystem\PasswordChangeNeededSubscriber::TFARedirectNeeded($user));
+        $this->assertFalse(PasswordChangeNeededSubscriber::TFARedirectNeeded($user));
 
         //The user must be redirected if the group enforces 2FA and it does not have a method
         $group->setEnforce2FA(true);

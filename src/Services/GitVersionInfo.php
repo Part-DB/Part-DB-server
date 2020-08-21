@@ -58,7 +58,7 @@ class GitVersionInfo
      *
      * @return string|null The current git branch name. Null, if this is no Git installation
      */
-    public function getGitBranchName()
+    public function getGitBranchName(): ?string
     {
         if (is_file($this->project_dir.'/.git/HEAD')) {
             $git = file($this->project_dir.'/.git/HEAD');
@@ -83,7 +83,7 @@ class GitVersionInfo
      *
      * @return string|null The hash of the last commit, null If this is no Git installation
      */
-    public function getGitCommitHash(int $length = 7)
+    public function getGitCommitHash(int $length = 7): ?string
     {
         $filename = $this->project_dir.'/.git/refs/remotes/origin/'.$this->getGitBranchName();
         if (is_file($filename)) {

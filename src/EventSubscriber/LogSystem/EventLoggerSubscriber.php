@@ -331,7 +331,8 @@ class EventLoggerSubscriber implements EventSubscriber
         $old_data = $this->filterFieldRestrictions($entity, $old_data);
 
         //Restrict length of string fields, to save memory...
-        $old_data = array_map(function ($value) {
+        $old_data = array_map(
+            static function ($value) {
             if (is_string($value)) {
                 return mb_strimwidth($value, 0, self::MAX_STRING_LENGTH, '...');
             }
@@ -350,10 +351,6 @@ class EventLoggerSubscriber implements EventSubscriber
     protected function validEntity(object $entity): bool
     {
         //Dont log logentries itself!
-        if ($entity instanceof AbstractDBElement && !$entity instanceof AbstractLogEntry) {
-            return true;
-        }
-
-        return false;
+        return $entity instanceof AbstractDBElement && !$entity instanceof AbstractLogEntry;
     }
 }

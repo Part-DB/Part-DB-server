@@ -187,12 +187,10 @@ class CurrencyController extends BaseAdminController
 
     public function deleteCheck(AbstractNamedDBElement $entity): bool
     {
-        if ($entity instanceof Currency) {
-            if ($entity->getPricedetails()->count() > 0) {
-                $this->addFlash('error', 'entity.delete.must_not_contain_prices');
+        if (($entity instanceof Currency) && $entity->getPricedetails()->count() > 0) {
+            $this->addFlash('error', 'entity.delete.must_not_contain_prices');
 
-                return false;
-            }
+            return false;
         }
 
         return true;

@@ -29,7 +29,7 @@ class BarcodeExtension extends AbstractExtension
     public function getFilters()
     {
         return [
-            new TwigFilter('barcodeSVG', function (string $content, string $type = 'QRCODE') {
+            new TwigFilter('barcodeSVG', static function (string $content, string $type = 'QRCODE') {
                 $barcodeFactory = new Barcode();
                 $barcode = $barcodeFactory->getBarcodeObj($type, $content);
 

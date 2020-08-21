@@ -66,7 +66,7 @@ class TagFinder
      *
      * @return string[] an array containing the tags that match the given keyword
      */
-    public function searchTags(string $keyword, array $options = [])
+    public function searchTags(string $keyword, array $options = []): array
     {
         $results = [];
         $keyword_regex = '/^'.preg_quote($keyword, '/').'/';

@@ -66,7 +66,7 @@ class PermissionsType extends AbstractType
     {
         $resolver->setDefaults([
             'show_legend' => true,
-            'constraints' => function (Options $options) {
+            'constraints' => static function (Options $options) {
                 if (!$options['disabled']) {
                     return [new NoLockout()];
                 }

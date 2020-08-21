@@ -78,7 +78,7 @@ class IconLinkColumn extends AbstractColumn
             return $provider;
         }
         if (is_callable($provider)) {
-            return call_user_func($provider, $value, $context);
+            return $provider($value, $context);
         }
 
         return false;
@@ -91,7 +91,7 @@ class IconLinkColumn extends AbstractColumn
             return $provider;
         }
         if (is_callable($provider)) {
-            return call_user_func($provider, $value, $context);
+            return $provider($value, $context);
         }
 
         return null;
@@ -104,7 +104,7 @@ class IconLinkColumn extends AbstractColumn
             return $provider;
         }
         if (is_callable($provider)) {
-            return call_user_func($provider, $value, $context);
+            return $provider($value, $context);
         }
 
         return null;
@@ -117,7 +117,7 @@ class IconLinkColumn extends AbstractColumn
             return $provider;
         }
         if (is_callable($provider)) {
-            return call_user_func($provider, $value, $context);
+            return $provider($value, $context);
         }
 
         return null;

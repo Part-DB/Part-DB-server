@@ -92,7 +92,7 @@ class LabelProfile extends AttachmentContainingDBElement
         return $this->comment;
     }
 
-    public function setComment(string $new_comment): string
+    public function setComment(string $new_comment): self
     {
         $this->comment = $new_comment;
 

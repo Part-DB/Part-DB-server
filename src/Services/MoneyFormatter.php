@@ -67,7 +67,7 @@ class MoneyFormatter
      *
      * @return string
      */
-    public function format($value, ?Currency $currency = null, $decimals = 5, bool $show_all_digits = false)
+    public function format($value, ?Currency $currency = null, $decimals = 5, bool $show_all_digits = false): string
     {
         $iso_code = $this->base_currency;
         if (null !== $currency && !empty($currency->getIsoCode())) {

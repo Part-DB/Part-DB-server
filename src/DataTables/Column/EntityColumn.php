@@ -79,7 +79,7 @@ class EntityColumn extends AbstractColumn
 
         $resolver->setRequired('property');
 
-        $resolver->setDefault('field', function (Options $option) {
+        $resolver->setDefault('field', static function (Options $option) {
             return $option['property'].'.name';
         });
 

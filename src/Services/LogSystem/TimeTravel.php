@@ -152,11 +152,12 @@ class TimeTravel
                 foreach ($target_elements as $target_element) {
                     if (null !== $target_element && $element->getLastModified() >= $timestamp) {
                         //Remove the element from collection, if it did not existed at $timestamp
-                        if (!$this->repo->getElementExistedAtTimestamp($target_element, $timestamp)) {
-                            if ($target_elements instanceof Collection) {
+                        if (!$this->repo->getElementExistedAtTimestamp(
+                                $target_element,
+                                $timestamp
+                            ) && $target_elements instanceof Collection) {
                                 $target_elements->removeElement($target_element);
                             }
-                        }
                         $this->revertEntityToTimestamp($target_element, $timestamp, $reverted_elements);
                     }
                 }
@@ -183,11 +184,9 @@ class TimeTravel
 
         foreach ($old_data as $field => $data) {
             if ($metadata->hasField($field)) {
-                if ('big_decimal' === $metadata->getFieldMapping($field)['type']) {
-                    //We need to convert the string to a BigDecimal first
-                    if (!$data instanceof BigDecimal) {
-                        $data = BigDecimal::of($data);
-                    }
+                //We need to convert the string to a BigDecimal first
+                if (!$data instanceof BigDecimal && ('big_decimal' === $metadata->getFieldMapping($field)['type'])) {
+                    $data = BigDecimal::of($data);
                 }
 
                 $this->setField($element, $field, $data);

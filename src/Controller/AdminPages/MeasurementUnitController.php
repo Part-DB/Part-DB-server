@@ -72,7 +72,7 @@ class MeasurementUnitController extends BaseAdminController
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function delete(Request $request, MeasurementUnit $entity, StructuralElementRecursionHelper $recursionHelper)
+    public function delete(Request $request, MeasurementUnit $entity, StructuralElementRecursionHelper $recursionHelper): \Symfony\Component\HttpFoundation\RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
@@ -83,7 +83,7 @@ class MeasurementUnitController extends BaseAdminController
      *
      * @return Response
      */
-    public function edit(MeasurementUnit $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null)
+    public function edit(MeasurementUnit $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
         return $this->_edit($entity, $request, $em, $timestamp);
     }

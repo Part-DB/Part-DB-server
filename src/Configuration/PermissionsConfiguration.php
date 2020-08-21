@@ -52,7 +52,7 @@ final class PermissionsConfiguration implements ConfigurationInterface
      *
      * @return TreeBuilder The tree builder
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('permissions');
         $rootNode = $treeBuilder->getRootNode();

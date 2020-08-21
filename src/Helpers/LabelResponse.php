@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -62,7 +61,7 @@ class LabelResponse extends Response
     /**
      * Automatically sets the Last-Modified header according the file modification date.
      */
-    public function setAutoLastModified()
+    public function setAutoLastModified(): LabelResponse
     {
         $this->setLastModified(new \DateTime());
 
@@ -72,7 +71,7 @@ class LabelResponse extends Response
     /**
      * Automatically sets the ETag header according to the checksum of the file.
      */
-    public function setAutoEtag()
+    public function setAutoEtag(): LabelResponse
     {
         $this->setEtag(base64_encode(hash('sha256', $this->content, true)));
 
@@ -88,7 +87,7 @@ class LabelResponse extends Response
      *
      * @return $this
      */
-    public function setContentDisposition($disposition, $filename, $filenameFallback = '')
+    public function setContentDisposition($disposition, $filename, $filenameFallback = ''): self
     {
         if ('' === $filenameFallback && (!preg_match('/^[\x20-\x7e]*$/', $filename) || false !== strpos($filename, '%'))) {
             $encoding = mb_detect_encoding($filename, null, true) ?: '8bit';

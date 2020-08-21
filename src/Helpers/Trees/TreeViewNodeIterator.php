@@ -55,7 +55,7 @@ final class TreeViewNodeIterator extends ArrayIterator implements RecursiveItera
         parent::__construct($nodes);
     }
 
-    public function hasChildren()
+    public function hasChildren(): bool
     {
         /** @var TreeViewNode $element */
         $element = $this->current();

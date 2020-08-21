@@ -70,7 +70,7 @@ class AmountFormatter
      *
      * @throws InvalidArgumentException thrown if $value is not numeric
      */
-    public function format($value, ?MeasurementUnit $unit = null, array $options = [])
+    public function format($value, ?MeasurementUnit $unit = null, array $options = []): string
     {
         if (!is_numeric($value)) {
             throw new InvalidArgumentException('$value must be an numeric value!');
@@ -106,7 +106,7 @@ class AmountFormatter
     protected function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'show_prefix' => function (Options $options) {
+            'show_prefix' => static function (Options $options) {
                 if (null !== $options['measurement_unit']) {
                     /** @var MeasurementUnit $unit */
                     $unit = $options['measurement_unit'];
@@ -116,7 +116,7 @@ class AmountFormatter
 
                 return false;
             },
-            'is_integer' => function (Options $options) {
+            'is_integer' => static function (Options $options) {
                 if (null !== $options['measurement_unit']) {
                     /** @var MeasurementUnit $unit */
                     $unit = $options['measurement_unit'];
@@ -126,7 +126,7 @@ class AmountFormatter
 
                 return true;
             },
-            'unit' => function (Options $options) {
+            'unit' => static function (Options $options) {
                 if (null !== $options['measurement_unit']) {
                     /** @var MeasurementUnit $unit */
                     $unit = $options['measurement_unit'];
@@ -144,7 +144,7 @@ class AmountFormatter
 
         $resolver->setAllowedTypes('decimals', 'int');
 
-        $resolver->setNormalizer('decimals', function (Options $options, $value) {
+        $resolver->setNormalizer('decimals', static function (Options $options, $value) {
             // If the unit is integer based, then dont show any decimals
             if ($options['is_integer']) {
                 return 0;

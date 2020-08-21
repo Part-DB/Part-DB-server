@@ -101,7 +101,7 @@ final class SetUserTimezoneSubscriber implements EventSubscriberInterface
      *
      * @return array The event names to listen to
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         //Set the timezone shortly before executing the controller
         return [

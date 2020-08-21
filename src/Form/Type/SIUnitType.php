@@ -69,7 +69,7 @@ final class SIUnitType extends AbstractType implements DataMapperInterface
     {
         $resolver->setDefaults([
             'measurement_unit' => null,
-            'show_prefix' => function (Options $options) {
+            'show_prefix' => static function (Options $options) {
                 if (null !== $options['measurement_unit']) {
                     /** @var MeasurementUnit $unit */
                     $unit = $options['measurement_unit'];
@@ -79,7 +79,7 @@ final class SIUnitType extends AbstractType implements DataMapperInterface
 
                 return false;
             },
-            'is_integer' => function (Options $options) {
+            'is_integer' => static function (Options $options) {
                 if (null !== $options['measurement_unit']) {
                     /** @var MeasurementUnit $unit */
                     $unit = $options['measurement_unit'];
@@ -89,7 +89,7 @@ final class SIUnitType extends AbstractType implements DataMapperInterface
 
                 return false;
             },
-            'unit' => function (Options $options) {
+            'unit' => static function (Options $options) {
                 if (null !== $options['measurement_unit']) {
                     /** @var MeasurementUnit $unit */
                     $unit = $options['measurement_unit'];
@@ -111,7 +111,7 @@ final class SIUnitType extends AbstractType implements DataMapperInterface
         $resolver->setDefaults([
             'min' => 0,
             'max' => '',
-            'step' => function (Options $options) {
+            'step' => static function (Options $options) {
                 if (true === $options['is_integer']) {
                     return 1;
                 }
@@ -185,7 +185,7 @@ final class SIUnitType extends AbstractType implements DataMapperInterface
                 $forms['prefix']->setData(0);
             }
 
-            return null;
+            return;
         }
 
         $data = $this->si_formatter->convertValue((float) $viewData);

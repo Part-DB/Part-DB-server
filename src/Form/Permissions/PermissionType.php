@@ -66,7 +66,7 @@ class PermissionType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setDefault('perm_name', function (Options $options) {
+        $resolver->setDefault('perm_name', static function (Options $options) {
             return $options['name'];
         });
 
@@ -78,7 +78,7 @@ class PermissionType extends AbstractType
             return $options['name'];
         });
 
-        $resolver->setDefault('multi_checkbox', function (Options $options) {
+        $resolver->setDefault('multi_checkbox', static function (Options $options) {
             return !$options['disabled'];
         });
 

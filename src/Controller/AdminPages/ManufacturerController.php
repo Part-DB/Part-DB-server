@@ -82,7 +82,7 @@ class ManufacturerController extends BaseAdminController
      *
      * @return Response
      */
-    public function edit(Manufacturer $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null)
+    public function edit(Manufacturer $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
         return $this->_edit($entity, $request, $em, $timestamp);
     }

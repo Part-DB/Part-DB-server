@@ -65,8 +65,8 @@ class MasterPictureAttachmentType extends AbstractType
                 'class' => 'selectpicker',
                 'title' => 'selectpicker.nothing_selected',
             ],
-            'choice_attr' => function (Options $options) {
-                return  function ($choice, $key, $value) use ($options) {
+            'choice_attr' => static function (Options $options) {
+                return  static function ($choice, $key, $value) use ($options) {
                     /** @var Attachment $choice */
                     $tmp = ['data-subtext' => $choice->getFilename() ?? 'URL'];
 
@@ -80,8 +80,9 @@ class MasterPictureAttachmentType extends AbstractType
                 };
             },
             'choice_label' => 'name',
-            'choice_loader' => function (Options $options) {
-                return new CallbackChoiceLoader(function () use ($options) {
+            'choice_loader' => static function (Options $options) {
+                return new CallbackChoiceLoader(
+                    static function () use ($options) {
                     $entity = $options['entity'];
                     if (!$entity instanceof AttachmentContainingDBElement) {
                         throw new \RuntimeException('$entity must have Attachments! (be of type AttachmentContainingDBElement)');

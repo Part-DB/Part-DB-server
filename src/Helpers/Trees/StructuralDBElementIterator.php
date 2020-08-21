@@ -54,7 +54,7 @@ final class StructuralDBElementIterator extends ArrayIterator implements Recursi
         parent::__construct($nodes);
     }
 
-    public function hasChildren()
+    public function hasChildren(): bool
     {
         /** @var AbstractStructuralDBElement $element */
         $element = $this->current();

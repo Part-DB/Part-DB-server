@@ -83,7 +83,7 @@ class LabelOptionsType extends AbstractType
                 'label_options.barcode_type.code93' => 'code93',
                 'label_options.barcode_type.datamatrix' => 'datamatrix',
             ],
-            'group_by' => function ($choice, $key, $value) {
+            'group_by' => static function ($choice, $key, $value) {
                 if (in_array($choice, ['qr', 'datamatrix'], true)) {
                     return 'label_options.barcode_type.2D';
                 }

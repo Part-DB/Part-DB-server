@@ -68,7 +68,7 @@ class RedirectControllerTest extends WebTestCase
         $this->userRepo = $this->em->getRepository(User::class);
     }
 
-    public function urlMatchDataProvider()
+    public function urlMatchDataProvider(): array
     {
         return [
             ['/', true],
@@ -99,7 +99,7 @@ class RedirectControllerTest extends WebTestCase
         $this->assertSame($expect_redirect, $response->isRedirect());
     }
 
-    public function urlAddLocaleDataProvider()
+    public function urlAddLocaleDataProvider(): array
     {
         return [
             //User locale, original target, redirect target

@@ -111,7 +111,7 @@ class AppExtension extends AbstractExtension
     public function getTests()
     {
         return [
-            new TwigTest('instanceof', function ($var, $instance) {
+            new TwigTest('instanceof', static function ($var, $instance) {
                 return $var instanceof $instance;
             }),
         ];
@@ -150,7 +150,7 @@ class AppExtension extends AbstractExtension
         return $this->entityURLGenerator->getURL($entity, $method);
     }
 
-    public function formatCurrency($amount, ?Currency $currency = null, int $decimals = 5)
+    public function formatCurrency($amount, ?Currency $currency = null, int $decimals = 5): string
     {
         if ($amount instanceof BigDecimal) {
             $amount = (string) $amount;
@@ -159,12 +159,12 @@ class AppExtension extends AbstractExtension
         return $this->moneyFormatter->format($amount, $currency, $decimals);
     }
 
-    public function siFormat($value, $unit, $decimals = 2, bool $show_all_digits = false)
+    public function siFormat($value, $unit, $decimals = 2, bool $show_all_digits = false): string
     {
-        return $this->siformatter->format($value, $unit, $decimals, $show_all_digits);
+        return $this->siformatter->format($value, $unit, $decimals);
     }
 
-    public function amountFormat($value, ?MeasurementUnit $unit, array $options = [])
+    public function amountFormat($value, ?MeasurementUnit $unit, array $options = []): string
     {
         return $this->amountFormatter->format($value, $unit, $options);
     }
