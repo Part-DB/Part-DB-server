@@ -10,7 +10,7 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "beberlei/doctrineextensions": "^1.2",
-        "brick/math": "^0.8.15",
+        "brick/math": "^0.9.0",
         "doctrine/annotations": "^1.6",
         "doctrine/doctrine-bundle": "^2.0",
         "dompdf/dompdf": "^0.8.5",
