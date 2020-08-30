@@ -276,4 +276,21 @@ class PartListsController extends AbstractController
 
         return $this->render('Parts/lists/all_list.html.twig', ['datatable' => $table]);
     }
+
+    /**
+     * @Route("/lowstock", name="parts_show_low_stock")
+     *
+     * @return JsonResponse|Response
+     */
+    public function showLowStock(Request $request, DataTableFactory $dataTable)
+    {
+        $table = $dataTable->createFromType(PartsDataTable::class, ['lowstock'=>true])
+            ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
+
+        return $this->render('Parts/lists/lowstock_list.html.twig', ['datatable' => $table]);
+    }
 }

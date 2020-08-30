@@ -245,6 +245,11 @@ class ToolsTreeBuilder
             $this->urlGenerator->generate('parts_show_all')
         );
 
+        $show_nodes[] = new TreeViewNode(
+            $this->translator->trans('tree.tools.show.low_stock_parts'),
+            $this->urlGenerator->generate('parts_show_low_stock')
+        );
+
         if ($this->security->isGranted('read', new PartAttachment())) {
             $show_nodes[] = new TreeViewNode(
                 $this->translator->trans('tree.tools.show.all_attachments'),

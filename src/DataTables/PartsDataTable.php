@@ -53,6 +53,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Services\AmountFormatter;
@@ -107,6 +108,7 @@ final class PartsDataTable implements DataTableTypeInterface
             'storelocation' => null,
             'supplier' => null,
             'tag' => null,
+            'lowstock' => null,
             'search' => null,
         ]);
 
@@ -115,6 +117,7 @@ final class PartsDataTable implements DataTableTypeInterface
         $optionsResolver->setAllowedTypes('manufacturer', ['null', Manufacturer::class]);
         $optionsResolver->setAllowedTypes('supplier', ['null', Supplier::class]);
         $optionsResolver->setAllowedTypes('tag', ['null', 'string']);
+        $optionsResolver->setAllowedTypes('lowstock', ['null', 'bool']);
         $optionsResolver->setAllowedTypes('search', ['null', 'string']);
 
         //Configure search options
@@ -233,7 +236,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ])
             ->add('minamount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.minamount'),
-                'visible' => false,
+                'visible' => isset($options["lowstock"]),
                 'render' => function ($value, Part $context) {
                     return $this->amountFormatter->format($value, $context->getPartUnit());
                 },
@@ -395,6 +398,16 @@ final class PartsDataTable implements DataTableTypeInterface
             $builder->andWhere('part.tags LIKE :tag')->setParameter('tag', '%'.$options['tag'].'%');
         }
 
+        if (isset($options['lowstock'])) {
+            $in = $builder->getEntityManager()->createQueryBuilder();
+            $in->select("parts.id")
+                ->from(Part::class, 'parts')
+                ->innerJoin("parts.partLots", "lots")
+                ->groupBy('parts.id')
+                ->having('SUM(lots.amount)<parts.minamount');
+            $builder->andWhere($builder->expr()->in('part', $in->getDQL()));
+        }
+        
         if (!empty($options['search'])) {
             if (!$options['search_options']['regex']) {
                 //Dont show results, if no things are selected
