@@ -81,6 +81,17 @@ class StatisticsHelper
     }
 
     /**
+     * Returns the number of all parts with low stock.
+     *
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getPartCountWithLowStock(): int
+    {
+        return $this->part_repo->getPartCountWithLowStock();
+    }
+
+    /**
      * Returns the number of datastructures for the given type.
      */
     public function getDataStructuresCount(string $type): int

@@ -44,6 +44,7 @@ namespace App\Repository;
 
 use App\Entity\Parts\PartLot;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 class PartRepository extends NamedDBElementRepository
 {
@@ -81,6 +82,33 @@ class PartRepository extends NamedDBElementRepository
             ->where('pricedetail.price > 0.0');
 
         $query = $qb->getQuery();
+
+        return (int) ($query->getSingleScalarResult() ?? 0);
+    }
+
+   /**
+     * Gets the number of parts that are low in stock.
+     *
+     * That is, it's total amount is smaller than the minimal amount.
+     *
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getPartCountWithLowStock(): int
+    {
+        /* Query to get total amount for every part.
+         * As sub-queries are not supported -> resort to native SQL request.*/
+        $rsm = new ResultSetMapping;
+        $rsm->addScalarResult("cnt", "count", 'integer');
+        $query = $this->getEntityManager()->createNativeQuery('
+            SELECT COUNT(DISTINCT parts.id) as cnt FROM parts
+            INNER JOIN (
+                SELECT parts.id FROM part_lots
+                INNER JOIN parts ON parts.id=part_lots.id_part
+                GROUP BY parts.id
+                HAVING SUM(part_lots.amount)<parts.minamount
+            ) AS low
+            ON low.id=parts.id',$rsm);
 
         return (int) ($query->getSingleScalarResult() ?? 0);
     }
