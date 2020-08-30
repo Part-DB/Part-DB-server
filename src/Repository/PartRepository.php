@@ -42,6 +42,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\ResultSetMapping;
@@ -96,19 +97,18 @@ class PartRepository extends NamedDBElementRepository
      */
     public function getPartCountWithLowStock(): int
     {
-        /* Query to get total amount for every part.
-         * As sub-queries are not supported -> resort to native SQL request.*/
-        $rsm = new ResultSetMapping;
-        $rsm->addScalarResult("cnt", "count", 'integer');
-        $query = $this->getEntityManager()->createNativeQuery('
-            SELECT COUNT(DISTINCT parts.id) as cnt FROM parts
-            INNER JOIN (
-                SELECT parts.id FROM part_lots
-                INNER JOIN parts ON parts.id=part_lots.id_part
-                GROUP BY parts.id
-                HAVING SUM(part_lots.amount)<parts.minamount
-            ) AS low
-            ON low.id=parts.id',$rsm);
+        $in = $this->getEntityManager()->createQueryBuilder();
+        $in->select("parts.id")
+            ->from(Part::class, "parts")
+            ->leftJoin("parts.partLots", "lots")
+            ->groupBy("parts.id")
+            ->having("SUM(lots.amount)<parts.minamount");
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select("COUNT(part.id)")
+            ->from(Part::class, "part")
+            ->where($qb->expr()->in("part.id", $in->getDQL()));
+
+        $query = $qb->getQuery();
 
         return (int) ($query->getSingleScalarResult() ?? 0);
     }
