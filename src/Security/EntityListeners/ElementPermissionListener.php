@@ -47,7 +47,7 @@ use App\Entity\UserSystem\User;
 use App\Security\Annotations\ColumnSecurity;
 use function count;
 use Doctrine\Common\Annotations\Reader;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\ORM\Mapping as ORM;
