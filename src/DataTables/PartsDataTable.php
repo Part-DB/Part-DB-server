@@ -42,7 +42,6 @@ declare(strict_types=1);
 
 namespace App\DataTables;
 
-use App\DataTables\Adapter\FetchJoinORMAdapter;
 use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\IconLinkColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
@@ -61,6 +60,7 @@ use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\EntityURLGenerator;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\QueryBuilder;
+use Omines\DataTablesBundle\Adapter\Doctrine\FetchJoinORMAdapter;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Column\BoolColumn;
 use Omines\DataTablesBundle\Column\MapColumn;
