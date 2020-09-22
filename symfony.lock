@@ -855,9 +855,6 @@
     "symfony/yaml": {
         "version": "v4.2.3"
     },
-    "symplify/auto-bind-parameter": {
-        "version": "v7.2.0"
-    },
     "symplify/autowire-array-parameter": {
         "version": "v7.2.0"
     },
