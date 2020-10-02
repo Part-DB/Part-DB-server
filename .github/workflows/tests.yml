@@ -100,3 +100,13 @@ jobs:
         uses: codecov/codecov-action@v1
         with:
           env_vars: PHP_VERSION
+          
+      - name: Test app:clean-attachments
+        run: php bin/console app:clean-attachments -n
+      
+      - name: Test app:convert-bbcode
+        run: php bin/console app:convert-bbcode -n
+      
+      - name: Test app:show-logs
+        run: php bin/console app:show-logs -n
+      
