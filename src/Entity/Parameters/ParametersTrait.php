@@ -39,7 +39,7 @@ trait ParametersTrait
     /**
      *  Return all associated specifications.
      *
-     * @psalm-return Collection<int, PartParameter>
+     * @psalm-return Collection<int, AbstractParameter>
      */
     public function getParameters(): Collection
     {

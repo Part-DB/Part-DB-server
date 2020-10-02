@@ -34,7 +34,7 @@ class BigDecimalType extends Type
     }
 
     /**
-     * @param string $value
+     * @param string|null $value
      *
      * @return BigDecimal|\Brick\Math\BigNumber|mixed
      */
@@ -48,7 +48,7 @@ class BigDecimalType extends Type
     }
 
     /**
-     * @param BigDecimal $value
+     * @param BigDecimal|null $value
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {

@@ -79,7 +79,7 @@ class BaseEntityAdminForm extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var AbstractStructuralDBElement $entity */
+        /** @var AbstractStructuralDBElement|LabelProfile|AbstractNamedDBElement $entity */
         $entity = $options['data'];
         $is_new = null === $entity->getID();
 

@@ -73,7 +73,7 @@ class UserSettingsController extends AbstractController
 {
     protected $demo_mode;
     /**
-     * @var EventDispatcher
+     * @var EventDispatcher|EventDispatcherInterface
      */
     protected $eventDispatcher;
 

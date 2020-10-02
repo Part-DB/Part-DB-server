@@ -51,14 +51,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 trait TimestampTrait
 {
     /**
-     * @var DateTime the date when this element was modified the last time
+     * @var DateTime|null the date when this element was modified the last time
      * @ORM\Column(type="datetime", name="last_modified", options={"default"="CURRENT_TIMESTAMP"})
      * @Groups({"extended", "full"})
      */
     protected $lastModified;
 
     /**
-     * @var DateTime the date when this element was created
+     * @var DateTime|null the date when this element was created
      * @ORM\Column(type="datetime", name="datetime_added", options={"default"="CURRENT_TIMESTAMP"})
      * @Groups({"extended", "full"})
      */

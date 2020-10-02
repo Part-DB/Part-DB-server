@@ -71,7 +71,7 @@ final class RegisterU2FSubscriber implements EventSubscriberInterface
     private $router;
 
     /**
-     * @var EventDispatcher
+     * @var EventDispatcher|EventDispatcherInterface
      */
     private $eventDispatcher;
 

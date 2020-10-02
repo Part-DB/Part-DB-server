@@ -96,7 +96,7 @@ abstract class BaseAdminController extends AbstractController
     protected $timeTravel;
     protected $dataTableFactory;
     /**
-     * @var EventDispatcher
+     * @var EventDispatcher|EventDispatcherInterface
      */
     protected $eventDispatcher;
     protected $labelGenerator;

@@ -26,6 +26,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Repository\DBElementRepository;
+use App\Repository\PartRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
@@ -52,7 +53,7 @@ final class PartsTableActionHandler
     {
         $id_array = explode(',', $ids);
 
-        /** @var DBElementRepository $repo */
+        /** @var PartRepository $repo */
         $repo = $this->entityManager->getRepository(Part::class);
 
         return $repo->getElementsFromIDArray($id_array);
