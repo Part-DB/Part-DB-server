@@ -112,6 +112,10 @@ class TreeViewGenerator
             $href_type = 'list_parts';
         }
 
+        if ($mode === 'devices') {
+            $href_type = '';
+        }
+
         $generic = $this->getGenericTree($class, $parent);
         $treeIterator = new TreeViewNodeIterator($generic);
         $recursiveIterator = new \RecursiveIteratorIterator($treeIterator, \RecursiveIteratorIterator::SELF_FIRST);
@@ -136,7 +140,7 @@ class TreeViewGenerator
             }
         }
 
-        if ($mode === 'list_parts_root') {
+        if ($mode === 'list_parts_root' ||$mode === 'devices') {
             $root_node = new TreeViewNode($this->translator->trans('tree.root_node.text'), null, $generic);
             $root_node->setExpanded(true);
             $generic = [$root_node];

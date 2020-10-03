@@ -139,7 +139,7 @@ class TreeController extends AbstractController
      */
     public function deviceTree(?Device $device = null): JsonResponse
     {
-        $tree = $this->treeGenerator->getTreeView(Device::class, $device, '');
+        $tree = $this->treeGenerator->getTreeView(Device::class, $device, 'devices');
 
         return new JsonResponse($tree);
     }
