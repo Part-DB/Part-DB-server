@@ -79,7 +79,7 @@ class TreeViewGenerator
      *
      * @param string                           $class           The class for which the treeView should be generated
      * @param AbstractStructuralDBElement|null $parent          The root nodes in the tree should have this element as parent (use null, if you want to get all entities)
-     * @param string                           $href_type       The link type that will be generated for the hyperlink section of each node (see EntityURLGenerator for possible values).
+     * @param string                           $mode            The link type that will be generated for the hyperlink section of each node (see EntityURLGenerator for possible values).
      *                                                          Set to empty string, to disable href field.
      * @param AbstractDBElement|null           $selectedElement The element that should be selected. If set to null, no element will be selected.
      *
