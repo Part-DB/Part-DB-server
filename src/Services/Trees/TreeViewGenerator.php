@@ -47,6 +47,7 @@ use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Helpers\Trees\TreeViewNode;
 use App\Helpers\Trees\TreeViewNodeIterator;
+use App\Helpers\Trees\TreeViewNodeState;
 use App\Repository\StructuralDBElementRepository;
 use App\Services\EntityURLGenerator;
 use App\Services\UserCacheKeyGenerator;
@@ -84,12 +85,14 @@ class TreeViewGenerator
      *
      * @return TreeViewNode[] an array of TreeViewNode[] elements of the root elements
      */
-    public function getTreeView(string $class, ?AbstractStructuralDBElement $parent = null, string $href_type = 'list_parts', ?AbstractDBElement $selectedElement = null): array
+    public function getTreeView(string $class, ?AbstractStructuralDBElement $parent = null, string $mode = 'list_parts', ?AbstractDBElement $selectedElement = null): array
     {
         $head = [];
 
+        $href_type = $mode;
+
         //When we use the newEdit type, add the New Element node.
-        if ('newEdit' === $href_type) {
+        if ('newEdit' === $mode) {
             //Generate the url for the new node
             $href = $this->urlGenerator->createURL(new $class());
             $new_node = new TreeViewNode($this->translator->trans('entity.tree.new'), $href);
@@ -103,6 +106,10 @@ class TreeViewGenerator
 
             //Every other treeNode will be used for edit
             $href_type = 'edit';
+        }
+
+        if ($mode === 'list_parts_root') {
+            $href_type = 'list_parts';
         }
 
         $generic = $this->getGenericTree($class, $parent);
@@ -127,6 +134,12 @@ class TreeViewGenerator
             if (0 === strpos($item->getText(), '$$')) {
                 $item->setText($this->translator->trans(substr($item->getText(), 2)));
             }
+        }
+
+        if ($mode === 'list_parts_root') {
+            $root_node = new TreeViewNode($this->translator->trans('tree.root_node.text'), null, $generic);
+            $root_node->setExpanded(true);
+            $generic = [$root_node];
         }
 
         return array_merge($head, $generic);

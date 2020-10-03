@@ -66,9 +66,10 @@ final class TreeViewNodeState implements JsonSerializable
         return $this->disabled;
     }
 
-    public function setDisabled(?bool $disabled): void
+    public function setDisabled(?bool $disabled): self
     {
         $this->disabled = $disabled;
+        return $this;
     }
 
     public function getExpanded(): ?bool
@@ -76,9 +77,10 @@ final class TreeViewNodeState implements JsonSerializable
         return $this->expanded;
     }
 
-    public function setExpanded(?bool $expanded): void
+    public function setExpanded(?bool $expanded): self
     {
         $this->expanded = $expanded;
+        return $this;
     }
 
     public function getSelected(): ?bool
@@ -86,9 +88,10 @@ final class TreeViewNodeState implements JsonSerializable
         return $this->selected;
     }
 
-    public function setSelected(?bool $selected): void
+    public function setSelected(?bool $selected): self
     {
         $this->selected = $selected;
+        return $this;
     }
 
     public function jsonSerialize()

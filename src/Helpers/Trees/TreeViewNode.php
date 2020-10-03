@@ -204,6 +204,18 @@ final class TreeViewNode implements JsonSerializable
         return $this;
     }
 
+    public function setExpanded(?bool $selected): self
+    {
+        //Lazy loading of state, so it does not need to get serialized and transfered, when it is empty.
+        if (null === $this->state) {
+            $this->state = new TreeViewNodeState();
+        }
+
+        $this->state->setExpanded(true);
+
+        return $this;
+    }
+
     public function getTags(): ?array
     {
         return $this->tags;

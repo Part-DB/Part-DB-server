@@ -9321,5 +9321,11 @@ Element 3</target>
         <target>Your password needs to be changed! Please set a new password.</target>
       </segment>
     </unit>
+    <unit id="uEMvuw8" name="tree.root_node.text">
+      <segment>
+        <source>tree.root_node.text</source>
+        <target>Root node</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -84,7 +84,7 @@ class TreeController extends AbstractController
      */
     public function categoryTree(?Category $category = null): JsonResponse
     {
-        $tree = $this->treeGenerator->getTreeView(Category::class, $category);
+        $tree = $this->treeGenerator->getTreeView(Category::class, $category, 'list_parts_root');
 
         return new JsonResponse($tree);
     }
@@ -95,7 +95,7 @@ class TreeController extends AbstractController
      */
     public function footprintTree(?Footprint $footprint = null): JsonResponse
     {
-        $tree = $this->treeGenerator->getTreeView(Footprint::class, $footprint);
+        $tree = $this->treeGenerator->getTreeView(Footprint::class, $footprint, 'list_parts_root');
 
         return new JsonResponse($tree);
     }
@@ -106,7 +106,7 @@ class TreeController extends AbstractController
      */
     public function locationTree(?Storelocation $location = null): JsonResponse
     {
-        $tree = $this->treeGenerator->getTreeView(Storelocation::class, $location);
+        $tree = $this->treeGenerator->getTreeView(Storelocation::class, $location, 'list_parts_root');
 
         return new JsonResponse($tree);
     }
@@ -117,7 +117,7 @@ class TreeController extends AbstractController
      */
     public function manufacturerTree(?Manufacturer $manufacturer = null): JsonResponse
     {
-        $tree = $this->treeGenerator->getTreeView(Manufacturer::class, $manufacturer);
+        $tree = $this->treeGenerator->getTreeView(Manufacturer::class, $manufacturer, 'list_parts_root');
 
         return new JsonResponse($tree);
     }
@@ -128,7 +128,7 @@ class TreeController extends AbstractController
      */
     public function supplierTree(?Supplier $supplier = null): JsonResponse
     {
-        $tree = $this->treeGenerator->getTreeView(Supplier::class, $supplier);
+        $tree = $this->treeGenerator->getTreeView(Supplier::class, $supplier, 'list_parts_root');
 
         return new JsonResponse($tree);
     }
