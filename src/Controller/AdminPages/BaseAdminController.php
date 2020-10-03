@@ -43,12 +43,14 @@ declare(strict_types=1);
 namespace App\Controller\AdminPages;
 
 use App\DataTables\LogDataTable;
+use App\Entity\Attachments\Attachment;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Base\PartsContainingRepositoryInterface;
 use App\Entity\LabelSystem\LabelProfile;
+use App\Entity\Parameters\AbstractParameter;
 use App\Entity\UserSystem\User;
 use App\Exceptions\AttachmentDownloadException;
 use App\Form\AdminPages\ImportType;
@@ -114,12 +116,12 @@ abstract class BaseAdminController extends AbstractController
             throw new InvalidArgumentException('You have to override the $entity_class, $form_class, $route_base and $twig_template value in your subclasss!');
         }
 
-        if ('' === $this->attachment_class) {
-            throw new InvalidArgumentException('You have to override the $attachment_class value in your subclass!');
+        if ('' === $this->attachment_class || !is_a($this->attachment_class, Attachment::class, true)) {
+            throw new InvalidArgumentException('You have to override the $attachment_class value with a valid Attachment class in your subclass!');
         }
 
-        if ('' === $this->parameter_class) {
-            throw new InvalidArgumentException('You have to override the $parameter_class value in your subclass!');
+        if ('' === $this->parameter_class || !is_a($this->parameter_class, AbstractParameter::class, true)) {
+            throw new InvalidArgumentException('You have to override the $parameter_class value with a valid Parameter class in your subclass!');
         }
 
         $this->translator = $translator;

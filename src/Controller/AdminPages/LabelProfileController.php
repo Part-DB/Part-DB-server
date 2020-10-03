@@ -45,6 +45,7 @@ namespace App\Controller\AdminPages;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\LabelAttachment;
 use App\Entity\LabelSystem\LabelProfile;
+use App\Entity\Parameters\AbstractParameter;
 use App\Form\AdminPages\LabelProfileAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
@@ -54,6 +55,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authenticator\AbstractPreAuthenticatedAuthenticator;
 
 /**
  * @Route("/label_profile")
@@ -65,7 +67,8 @@ class LabelProfileController extends BaseAdminController
     protected $form_class = LabelProfileAdminForm::class;
     protected $route_base = 'label_profile';
     protected $attachment_class = LabelAttachment::class;
-    protected $parameter_class = 'not_used';
+    //Just a placeholder
+    protected $parameter_class = AbstractParameter::class;
 
     /**
      * @Route("/{id}", name="label_profile_delete", methods={"DELETE"})

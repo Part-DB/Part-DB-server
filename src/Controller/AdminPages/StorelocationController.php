@@ -42,6 +42,7 @@ declare(strict_types=1);
 
 namespace App\Controller\AdminPages;
 
+use App\Entity\Attachments\StorelocationAttachment;
 use App\Entity\Parameters\StorelocationParameter;
 use App\Entity\Parts\Storelocation;
 use App\Form\AdminPages\StorelocationAdminForm;
@@ -63,7 +64,7 @@ class StorelocationController extends BaseAdminController
     protected $twig_template = 'AdminPages/StorelocationAdmin.html.twig';
     protected $form_class = StorelocationAdminForm::class;
     protected $route_base = 'store_location';
-    protected $attachment_class = StorelocationAdminForm::class;
+    protected $attachment_class = StorelocationAttachment::class;
     protected $parameter_class = StorelocationParameter::class;
 
     /**
