@@ -45,6 +45,7 @@ namespace App\Controller;
 use App\DataTables\LogDataTable;
 use App\Entity\Attachments\UserAttachment;
 use App\Entity\Base\AbstractNamedDBElement;
+use App\Entity\Parameters\AbstractParameter;
 use App\Entity\UserSystem\User;
 use App\Events\SecurityEvent;
 use App\Events\SecurityEvents;
@@ -75,7 +76,7 @@ class UserController extends AdminPages\BaseAdminController
     protected $route_base = 'user';
     protected $attachment_class = UserAttachment::class;
     //Just define a value here to prevent error. It is not used.
-    protected $parameter_class = 'not used';
+    protected $parameter_class = AbstractParameter::class;
 
     protected function additionalActionEdit(FormInterface $form, AbstractNamedDBElement $entity): bool
     {
