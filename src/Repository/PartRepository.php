@@ -75,7 +75,7 @@ class PartRepository extends NamedDBElementRepository
     public function getPartsCountWithPrice(): int
     {
         $qb = $this->createQueryBuilder('part');
-        $qb->select('COUNT(part)')
+        $qb->select('COUNT(DISTINCT part)')
             ->innerJoin('part.orderdetails', 'orderdetail')
             ->innerJoin('orderdetail.pricedetails', 'pricedetail')
             ->where('pricedetail.price > 0.0');
