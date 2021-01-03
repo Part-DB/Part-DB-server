@@ -58,12 +58,12 @@ class LogDBMigrationSubscriber implements EventSubscriber
     protected $new_version = null;
 
     protected $eventLogger;
-    protected $aliasResolver;
+    protected $dependencyFactory;
 
     public function __construct(EventLogger $eventLogger, DependencyFactory $dependencyFactory)
     {
         $this->eventLogger = $eventLogger;
-        $this->aliasResolver = $dependencyFactory->getVersionAliasResolver();
+        $this->dependencyFactory = $dependencyFactory;
     }
 
     public function onMigrationsMigrated(MigrationsEventArgs $args): void
@@ -72,6 +72,8 @@ class LogDBMigrationSubscriber implements EventSubscriber
         if ($args->getMigratorConfiguration()->isDryRun()) {
             return;
         }
+
+        $aliasResolver = $this->dependencyFactory->getVersionAliasResolver();
 
         //Save the version after the migration
         //$this->new_version = $args->getMigratorConfiguration()->getCurrentVersion();
@@ -83,7 +85,7 @@ class LogDBMigrationSubscriber implements EventSubscriber
 
         try {
             $log = new DatabaseUpdatedLogEntry($this->old_version, $this->new_version);
-            $this->eventLogger->logAndFlush($log);
+            //$this->eventLogger->logAndFlush($log);
         } catch (\Throwable $exception) {
             //Ignore any exception occuring here...
         }
@@ -93,8 +95,10 @@ class LogDBMigrationSubscriber implements EventSubscriber
     {
         // Save the version before any migration
         if (null === $this->old_version) {
+            $aliasResolver = $this->dependencyFactory->getVersionAliasResolver();
+
             //$this->old_version = $args->getConfiguration()->getCurrentVersion();
-            $this->old_version = (string) $this->aliasResolver->resolveVersionAlias('current');
+            $this->old_version = (string) $aliasResolver->resolveVersionAlias('current');
         }
     }
 
