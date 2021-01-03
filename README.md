@@ -65,7 +65,7 @@ Anyhow, the migrations that will be made, are not compatible with the old Part-D
 Also after the migration it is not possible to go back to the old database scheme, so make sure to make a backup of your database beforehand.
 See [UPGRADE](UPGRADE.md) for more infos.
 
-*Hint:* A docker image is available under [jbtronics/part-db1](https://hub.docker.com/repository/docker/jbtronics/part-db1).
+*Hint:* A docker image is available under [jbtronics/part-db1](https://hub.docker.com/r/jbtronics/part-db1).
 
 1. Copy or clone this repository into a folder on your server.
 2. Configure your webserver to serve from the `public/` folder. See [here](https://symfony.com/doc/current/setup/web_server_configuration.html)
