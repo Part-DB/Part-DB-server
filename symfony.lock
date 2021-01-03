@@ -74,7 +74,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "2.0",
-            "ref": "a9f2463b9f73efe74482f831f03a204a41328555"
+            "ref": "368794356c1fb634e58b38ad2addb36933f2e73e"
         },
         "files": [
             "./config/packages/doctrine.yaml",
@@ -89,7 +89,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "3.0",
-            "ref": "fc52d86631a6dfd9fdf3381d0b7e3df2069e51b3"
+            "ref": "e5b542d4ef47d8a003c91beb35650c76907f7e53"
         },
         "files": [
             "./src/DataFixtures/AppFixtures.php"
@@ -328,7 +328,7 @@
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "master",
             "version": "0.10",
-            "ref": "7626dc2639039d9db29789b560171f2f2a9d8468"
+            "ref": "5c712c2758c3cccb964713f0061493b8ce2dd430"
         },
         "files": [
             "./config/packages/dev/php_translation.yaml",
@@ -567,17 +567,18 @@
         "version": "v4.2.3"
     },
     "symfony/framework-bundle": {
-        "version": "5.1",
+        "version": "5.2",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "5.1",
-            "ref": "ffcb76bab779154c0a7d8cddb9f448c2c45a4e50"
+            "version": "5.2",
+            "ref": "6ec87563dcc85cd0c48856dcfbfc29610506d250"
         },
         "files": [
             "./config/packages/cache.yaml",
             "./config/packages/framework.yaml",
             "./config/packages/test/framework.yaml",
+            "./config/preload.php",
             "./config/routes/dev/framework.yaml",
             "./config/services.yaml",
             "./public/index.php",
@@ -842,11 +843,14 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "1.6",
-            "ref": "69e1d805ad95964088bd510c05995e87dc391564"
+            "ref": "f362ed8e8aa99a8cb216e6bdb2ac833dfb7643dd"
         },
         "files": [
-            "./assets/css/app.css",
-            "./assets/js/app.js",
+            "./assets/app.js",
+            "./assets/bootstrap.js",
+            "./assets/controllers.json",
+            "./assets/controllers/hello_controller.js",
+            "./assets/styles/app.css",
             "./config/packages/assets.yaml",
             "./config/packages/prod/webpack_encore.yaml",
             "./config/packages/test/webpack_encore.yaml",
