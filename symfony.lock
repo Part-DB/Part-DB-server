@@ -924,9 +924,6 @@
     "webmozart/assert": {
         "version": "1.4.0"
     },
-    "webmozart/glob": {
-        "version": "4.1.0"
-    },
     "webmozart/path-util": {
         "version": "2.3.0"
     },
