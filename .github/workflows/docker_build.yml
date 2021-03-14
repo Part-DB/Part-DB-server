@@ -28,8 +28,6 @@ jobs:
           images: |
             jbtronics/part-db1
             ghcr.io/Part-DB/part-db1
-          # add git short SHA as Docker tag
-          tag-sha: true
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
