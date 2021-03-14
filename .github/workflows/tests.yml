@@ -13,7 +13,8 @@ on:
 jobs:
   phpunit:
     name: PHPUnit and coverage Test (${{ matrix.php-versions }})
-    runs-on: ubuntu-latest
+    # Ubuntu 20.04 ships MySQL 8.0 which causes problems with login, so we just use ubuntu 18.04 for now...
+    runs-on: ubuntu-18.04
     
     env:
       APP_ENV: test
@@ -38,9 +39,6 @@ jobs:
       - name: Start MySQL
         run: sudo systemctl start mysql.service
 
-      - name: Setup MySQL authentication method that PHP understands
-        run: sudo mysql -u root --password="root" -e "ALTER USER root IDENTIFIED WITH mysql_native_password BY 'root';"
-    
       #- name: Setup MySQL
       #  uses: mirromutth/mysql-action@v1.1
       #  with:
