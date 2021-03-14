@@ -37,6 +37,9 @@ jobs:
     
       - name: Start MySQL
         run: sudo systemctl start mysql.service
+
+      - name: Setup MySQL authentication method that PHP understands
+        run: sudo mysql -u root -e "ALTER USER root IDENTIFIED WITH mysql_native_password BY '';"
     
       #- name: Setup MySQL
       #  uses: mirromutth/mysql-action@v1.1
