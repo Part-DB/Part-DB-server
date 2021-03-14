@@ -6,7 +6,7 @@
 ![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%207.2-green)
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/jbtronics/part-db1)
-![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/jbtronics/part-db1)
+![Docker Build Status](https://github.com/Part-DB/Part-DB-symfony/workflows/Docker%20Image%20Build/badge.svg)
 
 # Part-DB
 Part-DB is an Open-Source inventory managment system for your electronic components.
