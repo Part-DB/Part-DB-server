@@ -66,7 +66,6 @@ class PasswordResetManager
     {
         $this->em = $em;
         $this->mailer = $mailer;
-        /** @var PasswordEncoderInterface passwordEncoder */
         $this->passwordEncoder = $encoderFactory->getEncoder(User::class);
         $this->translator = $translator;
         $this->userPasswordEncoder = $userPasswordEncoder;
