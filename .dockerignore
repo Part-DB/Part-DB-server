@@ -2,7 +2,7 @@ Dockerfile
 docker-compose.yml
 .dockerignore
 tests/
-
+docs/
 .git
 
 ###> symfony/framework-bundle ###

@@ -1,0 +1,13 @@
+version: '3.3'
+services:
+  partdb:
+    container_name: partdb
+    # By default Part-DB will be running under Port 8080, you can change it here
+    ports:
+      - '8080:80'
+    volumes:
+      # By default
+      - ./uploads:/var/www/html/uploads
+      - ./public_media:/var/www/html/public/media
+    restart: unless-stopped
+    image: jbtronics/part-db1:master
