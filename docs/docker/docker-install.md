@@ -6,7 +6,7 @@
 Part-DB can be installed via docker. A pre-built docker image is available under [jbtronics/part-db1](https://hub.docker.com/repository/docker/jbtronics/part-db1/).
 In the moment the master tag should be used (which is built from the latest commits in the master branch), as no tagged releases are available yet.
 
-The easiest way to use it is to use the docker-compose.yml available [here]():
+The easiest way to use it is to use the docker-compose.yml available [here](https://raw.githubusercontent.com/Part-DB/Part-DB-symfony/master/docs/docker/docker-compose.yaml):
 0. Install docker and docker-compose like described under https://docs.docker.com/compose/install/
 1. Create a folder where the Part-DB data should live
 2. Download docker-compose.yml and move it to the folder created above
