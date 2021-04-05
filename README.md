@@ -53,7 +53,7 @@ or makerspaces, where many users have should have (controlled) access to the sha
 Part-DB is also used by small companies and universities for managing their inventory.
 
 ## Requirements
- * A **web server** (like Apache2 or nginx) that is capable of running [Symfony 4](https://symfony.com/doc/current/reference/requirements.html),
+ * A **web server** (like Apache2 or nginx) that is capable of running [Symfony 5](https://symfony.com/doc/current/reference/requirements.html),
  this includes a minimum PHP version of **PHP 7.2.5**
  * A **MySQL** (at least 5.6.5) /**MariaDB** (at least 10.0.1) database server if you do not want to use SQLite.
  * Shell access to your server is highly suggested!
@@ -108,7 +108,7 @@ If you want to donate to the Part-DB developer, see the sponsor button in the to
 There you will find various methods to support development on a monthly or a one time base.
 
 ## Built with
-* [Symfony 4](https://symfony.com/): The main framework used for the serverside PHP
+* [Symfony 5](https://symfony.com/): The main framework used for the serverside PHP
 * [Bootstrap 4](https://getbootstrap.com/) and [Fontawesome](https://fontawesome.com/) : Used for the webpages
 
 ## Authors
