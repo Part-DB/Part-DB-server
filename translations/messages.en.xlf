@@ -7538,7 +7538,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>user.edit.user_disabled</source>
-        <target>User disbaled (no login possible)</target>
+        <target>User disabled (no login possible)</target>
       </segment>
     </unit>
     <unit id="zPJhxi6" name="user.create">
