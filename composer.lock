@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "01b955d9abab44d57e49ce44832e8f17",
+    "content-hash": "2e65cd1f6e6c463db7556910a9e56489",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -2709,27 +2709,30 @@
         },
         {
             "name": "league/html-to-markdown",
-            "version": "4.10.0",
+            "version": "5.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/html-to-markdown.git",
-                "reference": "0868ae7a552e809e5cd8f93ba022071640408e88"
+                "reference": "e5600a2c5ce7b7571b16732c7086940f56f7abec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/html-to-markdown/zipball/0868ae7a552e809e5cd8f93ba022071640408e88",
-                "reference": "0868ae7a552e809e5cd8f93ba022071640408e88",
+                "url": "https://api.github.com/repos/thephpleague/html-to-markdown/zipball/e5600a2c5ce7b7571b16732c7086940f56f7abec",
+                "reference": "e5600a2c5ce7b7571b16732c7086940f56f7abec",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-xml": "*",
-                "php": ">=5.3.3"
+                "php": "^7.2.5 || ^8.0"
             },
             "require-dev": {
-                "mikehaertl/php-shellcommand": "~1.1.0",
-                "phpunit/phpunit": "^4.8|^5.7",
-                "scrutinizer/ocular": "~1.1"
+                "mikehaertl/php-shellcommand": "^1.1.0",
+                "phpstan/phpstan": "^0.12.82",
+                "phpunit/phpunit": "^8.5 || ^9.2",
+                "scrutinizer/ocular": "^1.6",
+                "unleashedtech/php-coding-standard": "^2.7",
+                "vimeo/psalm": "^4.6"
             },
             "bin": [
                 "bin/html-to-markdown"
@@ -2737,7 +2740,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.10-dev"
+                    "dev-master": "5.1-dev"
                 }
             },
             "autoload": {
@@ -2771,7 +2774,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/html-to-markdown/issues",
-                "source": "https://github.com/thephpleague/html-to-markdown/tree/4.10.0"
+                "source": "https://github.com/thephpleague/html-to-markdown/tree/5.0.1"
             },
             "funding": [
                 {
@@ -2787,11 +2790,11 @@
                     "type": "github"
                 },
                 {
-                    "url": "https://www.patreon.com/colinodell",
-                    "type": "patreon"
+                    "url": "https://tidelift.com/funding/github/packagist/league/html-to-markdown",
+                    "type": "tidelift"
                 }
             ],
-            "time": "2020-07-01T00:34:03+00:00"
+            "time": "2021-09-17T20:00:27+00:00"
         },
         {
             "name": "liip/imagine-bundle",
@@ -3165,29 +3168,33 @@
         },
         {
             "name": "nikolaposa/version",
-            "version": "3.2.0",
+            "version": "4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikolaposa/version.git",
-                "reference": "7ff2bbf2fe6a47efe47832d6198924e99b4a4f5a"
+                "reference": "0aada6b801962c084ae465f7569397dc2186b6a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikolaposa/version/zipball/7ff2bbf2fe6a47efe47832d6198924e99b4a4f5a",
-                "reference": "7ff2bbf2fe6a47efe47832d6198924e99b4a4f5a",
+                "url": "https://api.github.com/repos/nikolaposa/version/zipball/0aada6b801962c084ae465f7569397dc2186b6a7",
+                "reference": "0aada6b801962c084ae465f7569397dc2186b6a7",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2.0"
+                "beberlei/assert": "^3.2",
+                "php": "^7.2 || ^8.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.0",
-                "phpunit/phpunit": "^6.0 || ^7.0"
+                "friendsofphp/php-cs-fixer": "^2.17",
+                "phpstan/phpstan": "^0.12.10",
+                "phpstan/phpstan-beberlei-assert": "^0.12.2",
+                "phpstan/phpstan-phpunit": "^0.12.6",
+                "phpunit/phpunit": "^8.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2.x-dev"
+                    "dev-master": "4.0.x-dev"
                 }
             },
             "autoload": {
@@ -3216,9 +3223,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikolaposa/version/issues",
-                "source": "https://github.com/nikolaposa/version/tree/master"
+                "source": "https://github.com/nikolaposa/version/tree/4.1.0"
             },
-            "time": "2019-08-11T08:31:54+00:00"
+            "time": "2020-12-12T10:47:10+00:00"
         },
         {
             "name": "nyholm/nsa",
@@ -5175,34 +5182,36 @@
         },
         {
             "name": "shivas/versioning-bundle",
-            "version": "3.2.4",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shivas/versioning-bundle.git",
-                "reference": "f17c797bdd651a714f2b114a61db60eb2cbeee4f"
+                "reference": "3654392b9f9d7fb4f70f9d98ec4f4304208ca6e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shivas/versioning-bundle/zipball/f17c797bdd651a714f2b114a61db60eb2cbeee4f",
-                "reference": "f17c797bdd651a714f2b114a61db60eb2cbeee4f",
+                "url": "https://api.github.com/repos/shivas/versioning-bundle/zipball/3654392b9f9d7fb4f70f9d98ec4f4304208ca6e5",
+                "reference": "3654392b9f9d7fb4f70f9d98ec4f4304208ca6e5",
                 "shasum": ""
             },
             "require": {
-                "nikolaposa/version": "^2.2 || ^3",
-                "php": "^7.1",
+                "nikolaposa/version": "^4",
+                "php": "^7.2 || ^8",
                 "symfony/console": "^3.4 || ^4 || ^5",
                 "symfony/framework-bundle": "^3.4 || ^4 || ^5",
                 "symfony/process": "^3.4 || ^4 || ^5"
             },
             "require-dev": {
-                "mikey179/vfsstream": "^1.6",
+                "mikey179/vfsstream": "^2",
+                "nyholm/symfony-bundle-test": "^1.7",
                 "phpunit/phpunit": "^7 || ^8",
-                "symfony/phpunit-bridge": "^5"
+                "symfony/phpunit-bridge": "^5",
+                "twig/twig": "^2 || ^3"
             },
             "type": "symfony-bundle",
             "autoload": {
                 "psr-4": {
-                    "Shivas\\VersioningBundle\\": ""
+                    "Shivas\\VersioningBundle\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -5226,10 +5235,10 @@
             ],
             "support": {
                 "issues": "https://github.com/shivas/versioning-bundle/issues",
-                "source": "https://github.com/shivas/versioning-bundle/tree/3.2.4",
+                "source": "https://github.com/shivas/versioning-bundle/tree/4.0.0",
                 "wiki": "https://github.com/shivas/versioning-bundle/wiki"
             },
-            "time": "2021-02-14T16:16:33+00:00"
+            "time": "2021-05-15T17:44:47+00:00"
         },
         {
             "name": "spomky-labs/otphp",
