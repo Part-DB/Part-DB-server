@@ -681,6 +681,9 @@
     "symfony/options-resolver": {
         "version": "v4.2.3"
     },
+    "symfony/password-hasher": {
+        "version": "v5.3.8"
+    },
     "symfony/phpunit-bridge": {
         "version": "4.3",
         "recipe": {
