@@ -172,7 +172,7 @@
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "master",
             "version": "2.0",
-            "ref": "8eb1cd0962ded6a6d6e1e5a9b6d3e888f9f94ff6"
+            "ref": "f5ad42002183a6881962683e6d84bbb25cdfce5d"
         },
         "files": [
             "./config/packages/fos_ckeditor.yaml"
@@ -208,7 +208,7 @@
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "master",
             "version": "1.8",
-            "ref": "5a5bdc2d0e2533ed6935d5ae562f2b318a8fc1ee"
+            "ref": "ffbb72e74598f04cc7f79f9fc736c77eeb98f569"
         },
         "files": [
             "./config/packages/liip_imagine.yaml",
@@ -254,7 +254,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "1.0",
-            "ref": "7c0a9352a57376f04f5444e74565102c3a23d0c7"
+            "ref": "0cd4d2d0e7f646fda75f9944f747a56e6ed13d4c"
         },
         "files": [
             "./config/packages/nyholm_psr7.yaml"
@@ -377,7 +377,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "4.7",
-            "ref": "3b372539f3886b07a7d80ff58d70abb6f2e4219a"
+            "ref": "b5b34fa22319ac1f7f6c180b30e160841c154a1e"
         },
         "files": [
             "./.env.test",
@@ -506,7 +506,7 @@
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "master",
             "version": "1.0",
-            "ref": "71599f5b0fdeeeec0fb90e9b17c85e6f5e1350c1"
+            "ref": "9d254a22efca7264203eea98b866f16f944b2f09"
         },
         "files": [
             "./public/.htaccess"
@@ -528,12 +528,12 @@
         "version": "v4.2.3"
     },
     "symfony/console": {
-        "version": "5.1",
+        "version": "5.3",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "5.1",
-            "ref": "c6d02bdfba9da13c22157520e32a602dbee8a75c"
+            "version": "5.3",
+            "ref": "da0c8be8157600ad34f10ff0c9cc91232522e047"
         },
         "files": [
             "./bin/console"
@@ -755,6 +755,9 @@
             "./config/packages/routing.yaml",
             "./config/routes.yaml"
         ]
+    },
+    "symfony/runtime": {
+        "version": "v5.3.4"
     },
     "symfony/security-bundle": {
         "version": "5.1",
