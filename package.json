@@ -1,15 +1,15 @@
 {
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.7.2",
-        "@symfony/stimulus-bridge": "^2.1.0",
-        "@symfony/webpack-encore": "1.6.1",
+        "@symfony/stimulus-bridge": "^2.0.0",
+        "@symfony/webpack-encore": "^1.6.1",
         "bootstrap": "^4.4.1",
         "core-js": "^3.6.4",
         "jquery": "^3.5.1",
         "popper.js": "^1.14.7",
         "@popperjs/core": "^2.10.2",
         "regenerator-runtime": "^0.13.2",
-        "stimulus": "^3.0.0",
+        "stimulus": "^2.0.0",
         "webpack-bundle-analyzer": "^4.3.0",
         "webpack-notifier": "^1.6.0"
     },
