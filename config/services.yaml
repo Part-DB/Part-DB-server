@@ -42,6 +42,7 @@ services:
     Doctrine\Migrations\DependencyFactory:
         alias: 'doctrine.migrations.dependency_factory'
 
+
     ####################################################################################################################
     # Email
     ####################################################################################################################
@@ -210,3 +211,7 @@ services:
         arguments:
             $default_locale: '%partdb.locale%'
             $enforce_index_php: '%env(bool:NO_URL_REWRITE_AVAILABLE)%'
+
+    App\Doctrine\Purger\ResetAutoIncrementPurgerFactory:
+        tags:
+            - { name: 'doctrine.fixtures.purger_factory', alias: 'reset_autoincrement_purger' }

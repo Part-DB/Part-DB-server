@@ -50,8 +50,6 @@ class PartFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $table_name = $this->em->getClassMetadata(Part::class)->getTableName();
-        $this->em->getConnection()->exec("ALTER TABLE `${table_name}` AUTO_INCREMENT = 1;");
 
         /** Simple part */
         $part = new Part();

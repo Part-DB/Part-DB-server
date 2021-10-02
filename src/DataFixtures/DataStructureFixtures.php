@@ -93,9 +93,6 @@ class DataStructureFixtures extends Fixture
             throw new InvalidArgumentException('$class must be a StructuralDBElement!');
         }
 
-        $table_name = $this->em->getClassMetadata($class)->getTableName();
-        $this->em->getConnection()->exec("ALTER TABLE `${table_name}` AUTO_INCREMENT = 1;");
-
         /** @var AbstractStructuralDBElement $node1 */
         $node1 = new $class();
         $node1->setName('Node 1');

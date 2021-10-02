@@ -40,7 +40,6 @@ class LabelProfileFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $this->em->getConnection()->exec('ALTER TABLE `label_profiles` AUTO_INCREMENT = 1;');
 
         $profile1 = new LabelProfile();
         $profile1->setName('Profile 1');

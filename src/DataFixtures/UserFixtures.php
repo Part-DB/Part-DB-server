@@ -61,9 +61,6 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        //Reset autoincrement
-        $this->em->getConnection()->exec('ALTER TABLE `users` AUTO_INCREMENT = 1;');
-
         $anonymous = new User();
         $anonymous->setName('anonymous');
         $anonymous->setGroup($this->getReference(GroupFixtures::READONLY));
