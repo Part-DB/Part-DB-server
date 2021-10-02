@@ -61,6 +61,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
@@ -199,7 +200,7 @@ class UserSettingsController extends AbstractController
      *
      * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator, BackupCodeManager $backupCodeManager)
+    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator, BackupCodeManager $backupCodeManager)
     {
         /** @var User */
         $user = $this->getUser();
@@ -284,7 +285,7 @@ class UserSettingsController extends AbstractController
 
         //Check if password if everything was correct, then save it to User and DB
         if (!$this->demo_mode && $pw_form->isSubmitted() && $pw_form->isValid()) {
-            $password = $passwordEncoder->encodePassword($user, $pw_form['new_password']->getData());
+            $password = $passwordEncoder->hashPassword($user, $pw_form['new_password']->getData());
             $user->setPassword($password);
 
             //After the change reset the password change needed setting

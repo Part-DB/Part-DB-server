@@ -52,7 +52,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class SetPasswordCommand extends Command
 {
@@ -62,7 +62,7 @@ class SetPasswordCommand extends Command
     protected $encoder;
     protected $eventDispatcher;
 
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder, EventDispatcherInterface $eventDispatcher)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordEncoder, EventDispatcherInterface $eventDispatcher)
     {
         $this->entityManager = $entityManager;
         $this->encoder = $passwordEncoder;
@@ -122,7 +122,7 @@ class SetPasswordCommand extends Command
         }
 
         //Encode password
-        $hash = $this->encoder->encodePassword($user, $new_password);
+        $hash = $this->encoder->hashPassword($user, $new_password);
         $user->setPassword($hash);
 
         //And save it to databae

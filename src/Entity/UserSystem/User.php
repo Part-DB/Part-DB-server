@@ -57,6 +57,7 @@ use App\Entity\PriceInformations\Currency;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPermission;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use function count;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -83,7 +84,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\EntityListeners({"App\EntityListeners\TreeCacheInvalidationListener"})
  * @UniqueEntity("name", message="validator.user.username_already_used")
  */
-class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface, BackupCodeInterface, TrustedDeviceInterface, U2FTwoFactorInterface, PreferredProviderInterface
+class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface, BackupCodeInterface, TrustedDeviceInterface, U2FTwoFactorInterface, PreferredProviderInterface, PasswordAuthenticatedUserInterface
 {
     //use MasterAttachmentTrait;
 
@@ -304,6 +305,11 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     public function getUsername(): string
     {
         return (string) $this->name;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->getUsername();
     }
 
     /**

@@ -66,6 +66,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -88,7 +89,7 @@ class CurrencyController extends BaseAdminController
 
     public function __construct(
         TranslatorInterface $translator,
-        UserPasswordEncoderInterface $passwordEncoder,
+        UserPasswordHasherInterface $passwordEncoder,
         AttachmentSubmitHandler $attachmentSubmitHandler,
         EventCommentHelper $commentHelper,
         HistoryHelper $historyHelper,

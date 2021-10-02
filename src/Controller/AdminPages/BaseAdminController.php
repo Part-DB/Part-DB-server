@@ -76,6 +76,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -106,7 +107,7 @@ abstract class BaseAdminController extends AbstractController
 
     protected $entityManager;
 
-    public function __construct(TranslatorInterface $translator, UserPasswordEncoderInterface $passwordEncoder,
+    public function __construct(TranslatorInterface $translator, UserPasswordHasherInterface $passwordEncoder,
         AttachmentSubmitHandler $attachmentSubmitHandler,
         EventCommentHelper $commentHelper, HistoryHelper $historyHelper, TimeTravel $timeTravel,
         DataTableFactory $dataTableFactory, EventDispatcherInterface $eventDispatcher, BarcodeExampleElementsGenerator $barcodeExampleGenerator,

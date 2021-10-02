@@ -47,6 +47,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -61,12 +63,12 @@ class PasswordResetManager
     protected $userPasswordEncoder;
 
     public function __construct(MailerInterface $mailer, EntityManagerInterface $em,
-                                TranslatorInterface $translator, UserPasswordEncoderInterface $userPasswordEncoder,
-                                EncoderFactoryInterface $encoderFactory)
+                                TranslatorInterface $translator, UserPasswordHasherInterface $userPasswordEncoder,
+                                PasswordHasherFactoryInterface $encoderFactory)
     {
         $this->em = $em;
         $this->mailer = $mailer;
-        $this->passwordEncoder = $encoderFactory->getEncoder(User::class);
+        $this->passwordEncoder = $encoderFactory->getPasswordHasher(User::class);
         $this->translator = $translator;
         $this->userPasswordEncoder = $userPasswordEncoder;
     }
@@ -83,7 +85,7 @@ class PasswordResetManager
         }
 
         $unencrypted_token = md5(random_bytes(32));
-        $user->setPwResetToken($this->passwordEncoder->encodePassword($unencrypted_token, null));
+        $user->setPwResetToken($this->passwordEncoder->hash($unencrypted_token, null));
 
         //Determine the expiration datetime of
         $expiration_date = new \DateTime();
@@ -138,12 +140,12 @@ class PasswordResetManager
         }
 
         //Check if token is valid
-        if (!$this->passwordEncoder->isPasswordValid($user->getPwResetToken(), $token, null)) {
+        if (!$this->passwordEncoder->verify($user->getPwResetToken(), $token, null)) {
             return false;
         }
 
         //When everything was valid, apply the new password
-        $user->setPassword($this->userPasswordEncoder->encodePassword($user, $new_password));
+        $user->setPassword($this->userPasswordEncoder->hashPassword($user, $new_password));
 
         //Remove token
         $user->setPwResetToken(null);

@@ -96,7 +96,7 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
         $user = $this->security->getUser();
         $request = $event->getRequest();
 
-        if (!$event->isMasterRequest()) {
+        if (!$event->isMainRequest()) {
             return;
         }
         if (!$user instanceof User) {

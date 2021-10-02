@@ -31,7 +31,7 @@ use Symfony\Component\Validator\Constraints\NumberConstraintTrait;
  */
 class BigDecimalPositive extends GreaterThan
 {
-    use NumberConstraintTrait;
+    use BigNumberConstraintTrait;
 
     public $message = 'This value should be positive.';
 
@@ -44,4 +44,5 @@ class BigDecimalPositive extends GreaterThan
     {
         return BigDecimalGreaterThanValidator::class;
     }
+
 }

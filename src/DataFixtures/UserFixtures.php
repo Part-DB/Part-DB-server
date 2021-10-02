@@ -46,6 +46,7 @@ use App\Entity\UserSystem\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture
@@ -53,7 +54,7 @@ class UserFixtures extends Fixture
     protected $encoder;
     protected $em;
 
-    public function __construct(UserPasswordEncoderInterface $encoder, EntityManagerInterface $entityManager)
+    public function __construct(UserPasswordHasherInterface $encoder, EntityManagerInterface $entityManager)
     {
         $this->em = $entityManager;
         $this->encoder = $encoder;
@@ -65,12 +66,12 @@ class UserFixtures extends Fixture
         $anonymous->setName('anonymous');
         $anonymous->setGroup($this->getReference(GroupFixtures::READONLY));
         $anonymous->setNeedPwChange(false);
-        $anonymous->setPassword($this->encoder->encodePassword($anonymous, 'test'));
+        $anonymous->setPassword($this->encoder->hashPassword($anonymous, 'test'));
         $manager->persist($anonymous);
 
         $admin = new User();
         $admin->setName('admin');
-        $admin->setPassword($this->encoder->encodePassword($admin, 'test'));
+        $admin->setPassword($this->encoder->hashPassword($admin, 'test'));
         $admin->setNeedPwChange(false);
         $admin->setGroup($this->getReference(GroupFixtures::ADMINS));
         $manager->persist($admin);
@@ -79,14 +80,14 @@ class UserFixtures extends Fixture
         $user->setName('user');
         $user->setNeedPwChange(false);
         $user->setFirstName('Test')->setLastName('User');
-        $user->setPassword($this->encoder->encodePassword($user, 'test'));
+        $user->setPassword($this->encoder->hashPassword($user, 'test'));
         $user->setGroup($this->getReference(GroupFixtures::USERS));
         $manager->persist($user);
 
         $noread = new User();
         $noread->setName('noread');
         $noread->setNeedPwChange(false);
-        $noread->setPassword($this->encoder->encodePassword($noread, 'test'));
+        $noread->setPassword($this->encoder->hashPassword($noread, 'test'));
         $manager->persist($noread);
 
         $manager->flush();

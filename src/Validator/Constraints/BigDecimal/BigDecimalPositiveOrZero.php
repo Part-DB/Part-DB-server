@@ -31,7 +31,7 @@ use Symfony\Component\Validator\Constraints\NumberConstraintTrait;
  */
 class BigDecimalPositiveOrZero extends GreaterThanOrEqual
 {
-    use NumberConstraintTrait;
+    use BigNumberConstraintTrait;
 
     public $message = 'This value should be either positive or zero.';
 
