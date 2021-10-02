@@ -110,7 +110,7 @@ Encore
             {
                 from: 'node_modules/bootswatch/dist/*/*.min.css',
                 to({ context, absoluteFilename }) {
-                    const regexp = /.*([\/\\])(.+)([\/\\]).*\.css$/;
+                    const regexp = /.*([\/\\])(.+)([\/\\]).*\.css$/g;
                     const array = [...absoluteFilename.matchAll(regexp)];
                     return 'themes/'+array[0][2]+'[ext]';
                 }
