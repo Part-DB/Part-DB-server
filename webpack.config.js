@@ -105,17 +105,21 @@ Encore
     // uncomment to get integrity="..." attributes on your script & link tags
     // requires WebpackEncoreBundle 1.4 or higher
     .enableIntegrityHashes(Encore.isProduction())
-    .addPlugin(new CopyPlugin([
-        {
-            from: 'node_modules/bootswatch/dist/*/*.min.css',
-            to: 'themes/[2].[ext]',
-            test: /.*([\/\\])(.+)([\/\\]).*\.css$/
-        },
-        {
-            from: 'node_modules/bootstrap/dist/css/bootstrap.min.css',
-            to: 'themes/bootstrap.css'
-        }
-    ]))
+    .addPlugin(new CopyPlugin({
+        patterns: [
+            {
+                from: 'node_modules/bootswatch/dist/*/*.min.css',
+                to({ context, absoluteFilename }) {
+                    const regexp = /.*([\/\\])(.+)([\/\\]).*\.css$/;
+                    const array = [...absoluteFilename.matchAll(regexp)];
+                    return 'themes/'+array[0][2]+'[ext]';
+                }
+            },
+            {
+                from: 'node_modules/bootstrap/dist/css/bootstrap.min.css',
+                to: 'themes/bootstrap.css'
+            }
+        ]}))
 
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
