@@ -71,13 +71,13 @@
     "require-dev": {
         "dama/doctrine-test-bundle": "^6.0",
         "doctrine/doctrine-fixtures-bundle": "^3.2",
-        "ekino/phpstan-banned-code": "^0.3.1",
+        "ekino/phpstan-banned-code": "^0.5.0",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.8",
         "phpstan/phpstan-doctrine": "^0.12.9",
         "phpstan/phpstan-symfony": "^0.12.4",
         "phpunit/phpunit": "^8.5",
-        "psalm/plugin-symfony": "^2.1.1",
+        "psalm/plugin-symfony": "^3.0.3",
         "roave/security-advisories": "dev-master",
         "symfony/browser-kit": "^5.2",
         "symfony/css-selector": "^5.2",
@@ -86,7 +86,7 @@
         "symfony/phpunit-bridge": "^5.3",
         "symfony/stopwatch": "^5.2",
         "symfony/web-profiler-bundle": "^5.2",
-        "symplify/easy-coding-standard": "^8.2.9",
+        "symplify/easy-coding-standard": "^9.4.70",
         "vimeo/psalm": "^4.3.2"
     },
     "suggest": {
