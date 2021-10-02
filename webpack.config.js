@@ -124,7 +124,7 @@ Encore
 
 if (Encore.isProduction()) {
     Encore.addPlugin(new CompressionPlugin({
-        filename: '[path].br[query]',
+        filename: '[path][base].br',
         algorithm: 'brotliCompress',
         test: /\.(js|css|html|svg)$/,
         compressionOptions: {
@@ -137,7 +137,7 @@ if (Encore.isProduction()) {
     }))
 
         .addPlugin(new CompressionPlugin({
-            filename: '[path].gz[query]',
+            filename: '[path][base].gz',
             algorithm: 'gzip',
             test: /\.(js|css|html|svg)$/,
             deleteOriginalAssets: false,
