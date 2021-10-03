@@ -22,6 +22,7 @@
         "florianv/swap-bundle": "dev-master",
         "friendsofsymfony/ckeditor-bundle": "^2.0",
         "gregwar/captcha-bundle": "^2.1.0",
+        "league/csv": "^9.6",
         "league/html-to-markdown": "^5.0.1",
         "liip/imagine-bundle": "^2.2",
         "nelmio/security-bundle": "^2.9",
