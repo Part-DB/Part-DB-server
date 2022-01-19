@@ -36,30 +36,30 @@
         "sensio/framework-extra-bundle": "^6.1.1",
         "shivas/versioning-bundle": "^4.0",
         "symfony/apache-pack": "^1.0",
-        "symfony/asset": "5.3.*",
-        "symfony/console": "5.3.*",
-        "symfony/dotenv": "5.3.*",
-        "symfony/expression-language": "5.3.*",
+        "symfony/asset": "5.4.*",
+        "symfony/console": "5.4.*",
+        "symfony/dotenv": "5.4.*",
+        "symfony/expression-language": "5.4.*",
         "symfony/flex": "^1.1",
-        "symfony/form": "5.3.*",
-        "symfony/framework-bundle": "5.3.*",
-        "symfony/http-client": "5.3.*",
-        "symfony/http-kernel": "5.3.*",
-        "symfony/mailer": "5.3.*",
+        "symfony/form": "5.4.*",
+        "symfony/framework-bundle": "5.4.*",
+        "symfony/http-client": "5.4.*",
+        "symfony/http-kernel": "5.4.*",
+        "symfony/mailer": "5.4.*",
         "symfony/monolog-bundle": "^3.1",
-        "symfony/process": "5.3.*",
-        "symfony/property-access": "5.3.*",
-        "symfony/property-info": "5.3.*",
-        "symfony/proxy-manager-bridge": "5.3.*",
-        "symfony/runtime": "5.3.*",
-        "symfony/security-bundle": "5.3.*",
-        "symfony/serializer": "5.3.*",
-        "symfony/translation": "5.3.*",
-        "symfony/twig-bundle": "5.3.*",
-        "symfony/validator": "5.3.*",
-        "symfony/web-link": "5.3.*",
+        "symfony/process": "5.4.*",
+        "symfony/property-access": "5.4.*",
+        "symfony/property-info": "5.4.*",
+        "symfony/proxy-manager-bridge": "5.4.*",
+        "symfony/runtime": "5.4.*",
+        "symfony/security-bundle": "5.4.*",
+        "symfony/serializer": "5.4.*",
+        "symfony/translation": "5.4.*",
+        "symfony/twig-bundle": "5.4.*",
+        "symfony/validator": "5.4.*",
+        "symfony/web-link": "5.4.*",
         "symfony/webpack-encore-bundle": "^1.1",
-        "symfony/yaml": "5.3.*",
+        "symfony/yaml": "5.4.*",
         "tecnickcom/tc-lib-barcode": "^1.15",
         "twig/cssinliner-extra": "^3.0",
         "twig/extra-bundle": "^3.0",
@@ -100,7 +100,13 @@
         "platform": {
             "php": "7.2.5"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "symfony/flex": true,
+            "phpstan/extension-installer": true,
+            "symfony/runtime": true
+        }
     },
     "autoload": {
         "psr-4": {
@@ -133,7 +139,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "5.3.*"
+            "require": "5.4.*"
         }
     }
 }
