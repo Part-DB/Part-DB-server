@@ -51,7 +51,7 @@
         "jquery-form": "^4.2.2",
         "jszip": "^3.2.0",
         "katex": "^0.13.0",
-        "marked": "^3.0.1",
+        "marked": "^4.0.10",
         "patternfly-bootstrap-treeview": "^2.1.8",
         "pdfmake": "^0.2.2",
         "ts-loader": "^9.2.6",
