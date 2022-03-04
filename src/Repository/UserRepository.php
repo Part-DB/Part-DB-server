@@ -106,7 +106,7 @@ final class UserRepository extends NamedDBElementRepository implements PasswordU
     {
         if ($user instanceof User) {
             $user->setPassword($newEncodedPassword);
-            $this->getEntityManager()->flush($user);
+            $this->getEntityManager()->flush();
         }
     }
 }

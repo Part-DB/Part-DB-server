@@ -74,7 +74,7 @@ class UrlOrBuiltinValidator extends UrlValidator
         //After the %PLACEHOLDER% comes a slash, so we can check if we have a placholder via explode
         $tmp = explode('/', $value);
         //Builtins must have a %PLACEHOLDER% construction
-        if (!empty($tmp) && \in_array($tmp[0], $constraint->allowed_placeholders, false)) {
+        if (\in_array($tmp[0], $constraint->allowed_placeholders, false)) {
             return;
         }
 

@@ -30,6 +30,7 @@ use Twig\TwigFunction;
 
 class LastUserExtension extends AbstractExtension
 {
+    /** @var \App\Repository\LogEntryRepository */
     private $repo;
 
     public function __construct(EntityManagerInterface $em)
