@@ -304,18 +304,18 @@
         "version": "1.7.1"
     },
     "php-translation/symfony-bundle": {
-        "version": "0.10",
+        "version": "0.12",
         "recipe": {
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "master",
             "version": "0.10",
-            "ref": "5c712c2758c3cccb964713f0061493b8ce2dd430"
+            "ref": "f3ca4e4da63897d177e58da78626c20648c0e102"
         },
         "files": [
-            "./config/packages/dev/php_translation.yaml",
-            "./config/packages/php_translation.yaml",
-            "./config/routes/dev/php_translation.yaml",
-            "./config/routes/php_translation.yaml"
+            "config/packages/dev/php_translation.yaml",
+            "config/packages/php_translation.yaml",
+            "config/routes/dev/php_translation.yaml",
+            "config/routes/php_translation.yaml"
         ]
     },
     "php-translation/symfony-storage": {
