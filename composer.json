@@ -2,7 +2,7 @@
     "type": "project",
     "license": "AGPL-3.0-or-later",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.3",
         "ext-ctype": "*",
         "ext-gd": "*",
         "ext-iconv": "*",
@@ -72,21 +72,21 @@
     "require-dev": {
         "dama/doctrine-test-bundle": "^6.0",
         "doctrine/doctrine-fixtures-bundle": "^3.2",
-        "ekino/phpstan-banned-code": "^0.5.0",
+        "ekino/phpstan-banned-code": "^v1.0.0",
         "phpstan/extension-installer": "^1.0",
-        "phpstan/phpstan": "^0.12.8",
-        "phpstan/phpstan-doctrine": "^0.12.9",
-        "phpstan/phpstan-symfony": "^0.12.4",
+        "phpstan/phpstan": "^1.4.7",
+        "phpstan/phpstan-doctrine": "^1.2.11",
+        "phpstan/phpstan-symfony": "^1.1.7",
         "psalm/plugin-symfony": "^3.0.3",
         "roave/security-advisories": "dev-master",
         "symfony/browser-kit": "^5.2",
         "symfony/css-selector": "^5.2",
         "symfony/debug-bundle": "^5.2",
         "symfony/maker-bundle": "^1.13",
-        "symfony/phpunit-bridge": "^5.3",
+        "symfony/phpunit-bridge": "5.4.*",
         "symfony/stopwatch": "^5.2",
         "symfony/web-profiler-bundle": "^5.2",
-        "symplify/easy-coding-standard": "^9.4.70",
+        "symplify/easy-coding-standard": "^10.1.1",
         "vimeo/psalm": "^4.3.2"
     },
     "suggest": {
@@ -98,7 +98,7 @@
             "*": "dist"
         },
         "platform": {
-            "php": "7.2.5"
+            "php": "7.3.0"
         },
         "sort-packages": true,
         "allow-plugins": {

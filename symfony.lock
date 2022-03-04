@@ -17,6 +17,9 @@
     "composer/ca-bundle": {
         "version": "1.2.7"
     },
+    "composer/package-versions-deprecated": {
+        "version": "1.11.99.4"
+    },
     "composer/pcre": {
         "version": "1.0.0"
     },
@@ -132,9 +135,6 @@
     },
     "doctrine/persistence": {
         "version": "v1.1.0"
-    },
-    "doctrine/reflection": {
-        "version": "v1.0.0"
     },
     "doctrine/sql-formatter": {
         "version": "1.0.1"
@@ -286,9 +286,6 @@
     },
     "phenx/php-svg-lib": {
         "version": "v0.3.3"
-    },
-    "php": {
-        "version": "7.2.5"
     },
     "php-http/discovery": {
         "version": "1.7.0"
