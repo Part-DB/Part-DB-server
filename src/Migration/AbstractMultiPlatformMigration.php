@@ -4,6 +4,7 @@ namespace App\Migration;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Driver\AbstractMySQLDriver;
 use Doctrine\DBAL\Driver\AbstractSQLiteDriver;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
@@ -123,7 +124,7 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
      */
     public function getDatabaseType(): ?string
     {
-        if ($this->connection->getDriver() instanceof AbstractMySQLPlatform) {
+        if ($this->connection->getDriver() instanceof AbstractMySQLDriver) {
             return 'mysql';
         }
 
