@@ -68,6 +68,7 @@ class Storelocation extends AbstractPartsContainingDBElement
     /**
      * @ORM\OneToMany(targetEntity="Storelocation", mappedBy="parent")
      * @ORM\OrderBy({"name" = "ASC"})
+     * @var Collection
      */
     protected $children;
 

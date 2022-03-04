@@ -40,6 +40,7 @@ class Category extends AbstractPartsContainingDBElement
     /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
      * @ORM\OrderBy({"name" = "ASC"})
+     * @var Collection
      */
     protected $children;
 

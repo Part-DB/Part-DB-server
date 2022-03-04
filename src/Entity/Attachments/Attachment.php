@@ -178,10 +178,6 @@ abstract class Attachment extends AbstractNamedDBElement
         //After the %PLACEHOLDER% comes a slash, so we can check if we have a placeholder via explode
         $tmp = explode('/', $this->path);
 
-        if (empty($tmp)) {
-            return true;
-        }
-
         return !in_array($tmp[0], array_merge(static::INTERNAL_PLACEHOLDER, static::BUILTIN_PLACEHOLDER), false);
     }
 
@@ -195,10 +191,6 @@ abstract class Attachment extends AbstractNamedDBElement
     {
         //After the %PLACEHOLDER% comes a slash, so we can check if we have a placeholder via explode
         $tmp = explode('/', $this->path);
-
-        if (empty($tmp)) {
-            return false;
-        }
 
         return '%SECURE%' === $tmp[0];
     }
@@ -437,9 +429,6 @@ abstract class Attachment extends AbstractNamedDBElement
         //After the %PLACEHOLDER% comes a slash, so we can check if we have a placeholder via explode
         $tmp = explode('/', $path);
         //Builtins must have a %PLACEHOLDER% construction
-        if (empty($tmp)) {
-            return false;
-        }
 
         return in_array($tmp[0], static::BUILTIN_PLACEHOLDER, false);
     }

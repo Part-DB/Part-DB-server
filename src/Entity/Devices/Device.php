@@ -68,6 +68,7 @@ class Device extends AbstractPartsContainingDBElement
     /**
      * @ORM\OneToMany(targetEntity="Device", mappedBy="parent")
      * @ORM\OrderBy({"name" = "ASC"})
+     * @var Collection
      */
     protected $children;
 

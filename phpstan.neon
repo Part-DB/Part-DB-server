@@ -8,3 +8,4 @@ parameters:
     excludes_analyse:
         - src/DataTables/Adapter/*
         - src/Configuration/*
+        - src/Doctrine/Purger/*
