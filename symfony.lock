@@ -784,25 +784,22 @@
         ]
     },
     "symfony/webpack-encore-bundle": {
-        "version": "1.9",
+        "version": "1.14",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "1.9",
-            "ref": "0f274572ea315eb3b5884518a50ca43f211b4534"
+            "version": "1.10",
+            "ref": "2858aeed7e1d81a45365c049eb533cc8827e380b"
         },
         "files": [
-            "./assets/app.js",
-            "./assets/bootstrap.js",
-            "./assets/controllers.json",
-            "./assets/controllers/hello_controller.js",
-            "./assets/styles/app.css",
-            "./config/packages/assets.yaml",
-            "./config/packages/prod/webpack_encore.yaml",
-            "./config/packages/test/webpack_encore.yaml",
-            "./config/packages/webpack_encore.yaml",
-            "./package.json",
-            "./webpack.config.js"
+            "assets/app.js",
+            "assets/bootstrap.js",
+            "assets/controllers.json",
+            "assets/controllers/hello_controller.js",
+            "assets/styles/app.css",
+            "config/packages/webpack_encore.yaml",
+            "package.json",
+            "webpack.config.js"
         ]
     },
     "symfony/yaml": {
