@@ -26,15 +26,16 @@
 
 // any CSS you require will output into a single css file (app.css in this case)
 
-require('../css/app.css');
+// Main CSS files
+import '../css/app.css';
+
+// start the Stimulus application
+import '../bootstrap';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 const $ = require('jquery');
 
 //Only include javascript
-
-
-
 import '@fortawesome/fontawesome-free/css/all.css'
 
 import 'datatables.net-bs4/css/dataTables.bootstrap4.css'
@@ -47,8 +48,10 @@ import "patternfly-bootstrap-treeview/src/css/bootstrap-treeview.css"
 
 import "bootstrap-fileinput/css/fileinput.css"
 
-require('bootstrap');
+//import * as Turbo from "@hotwired/turbo"
 
+require('bootstrap');
+/**
 //require( 'jszip' );
 //#require( 'pdfmake' );
 require( 'datatables.net-bs4' );
@@ -97,9 +100,9 @@ import 'katex/dist/katex.css';
 window.ClipboardJS = require('clipboard');
 
 require('../ts_src/ajax_ui');
-import {ajaxUI} from "../ts_src/ajax_ui";
+//import {ajaxUI} from "../ts_src/ajax_ui";
 
-window.ajaxUI = ajaxUI;
+//window.ajaxUI = ajaxUI;
 
 //Require all events;
 require('../ts_src/event_listeners');
@@ -125,8 +128,8 @@ try {
 }
 
 //Start AjaxUI AFTER all event has been registered
-$(document).ready(ajaxUI.start());
+//$(document).ready(ajaxUI.start());
 
-
+*/
 
 //console.log('Hello Webpack Encore! Edit me in assets/js/app.js');

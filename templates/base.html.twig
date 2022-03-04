@@ -47,6 +47,11 @@
 
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        {{ encore_entry_script_tags('ru2ftwofactor') }}
+    {% endblock %}
 </head>
 <body data-base-url="{{ url('homepage', {'_locale': app.request.locale}) }}">
 {% block body %}
@@ -119,9 +124,6 @@
 
 
 {% endblock %}
-{% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
-    {{ encore_entry_script_tags('ru2ftwofactor') }}
-{% endblock %}
+
 </body>
 </html>
