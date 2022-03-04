@@ -749,6 +749,9 @@
             "templates/base.html.twig"
         ]
     },
+    "symfony/ux-turbo": {
+        "version": "v2.0.1"
+    },
     "symfony/validator": {
         "version": "5.4",
         "recipe": {

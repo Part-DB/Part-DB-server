@@ -25,4 +25,5 @@ return [
     Translation\Bundle\TranslationBundle::class => ['all' => true],
     Florianv\SwapBundle\FlorianvSwapBundle::class => ['all' => true],
     Nelmio\SecurityBundle\NelmioSecurityBundle::class => ['all' => true],
+    Symfony\UX\Turbo\TurboBundle::class => ['all' => true],
 ];
