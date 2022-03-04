@@ -41,15 +41,16 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
-        try {
-            //Check if we can use this migration method:
-            $version = (int) $this->connection->fetchColumn("SELECT keyValue AS version FROM `internal` WHERE `keyName` = 'dbVersion'");
-            $this->abortIf(26 !== $version, 'This database migration can only be used if the database version is 26! Install Part-DB 0.5.6 and update database there!');
-        } catch (DBALException $dBALException) {
-            //when the table was not found, then you can not use this migration
+        //Check if we can use this migration method:
+        $version = $this->getOldDBVersion();
+
+        //If we dont have an old databse, skip this migration
+        if ($version === 0) {
             $this->warnIf(true, 'Empty database detected. Skip migration.');
             return;
         }
+
+        $this->abortIf(26 !== $version, 'This database migration can only be used if the database version is 26! Install Part-DB 0.5.6 and update database there!');
 
         //Deactive SQL Modes (especially NO_ZERO_DATE, which prevents updating)
         $this->addSql("SET sql_mode = ''");

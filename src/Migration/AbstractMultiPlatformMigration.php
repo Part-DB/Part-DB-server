@@ -4,6 +4,7 @@ namespace App\Migration;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 use Psr\Log\LoggerInterface;
@@ -68,8 +69,12 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
         }
 
         try {
-            return (int) $this->connection->fetchColumn("SELECT keyValue AS version FROM `internal` WHERE `keyName` = 'dbVersion'");
-        } catch (DBALException $dBALException) {
+            $version = $this->connection->fetchOne("SELECT keyValue AS version FROM `internal` WHERE `keyName` = 'dbVersion'");
+            if (is_bool($version)) {
+                return 0;
+            }
+            return (int) $version;
+        } catch (Exception $dBALException) {
             //when the table was not found, we can proceed, because we have an empty DB!
             return 0;
         }
