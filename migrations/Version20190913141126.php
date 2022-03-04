@@ -38,7 +38,7 @@ final class Version20190913141126 extends AbstractMultiPlatformMigration
     public function mySQLUp(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->getDatabaseType(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE `groups` ADD perms_parts_category SMALLINT NOT NULL, ADD perms_parts_minamount SMALLINT NOT NULL, ADD perms_parts_lots SMALLINT NOT NULL, ADD perms_parts_tags SMALLINT NOT NULL, ADD perms_parts_unit SMALLINT NOT NULL, ADD perms_parts_mass SMALLINT NOT NULL, ADD perms_parts_status SMALLINT NOT NULL, ADD perms_parts_mpn SMALLINT NOT NULL, ADD perms_currencies INT NOT NULL, ADD perms_measurement_units INT NOT NULL, DROP perms_parts_instock, DROP perms_parts_mininstock, DROP perms_parts_storelocation');
         $this->addSql('ALTER TABLE users ADD currency_id INT DEFAULT NULL, ADD settings LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\', ADD perms_parts_category SMALLINT NOT NULL, ADD perms_parts_minamount SMALLINT NOT NULL, ADD perms_parts_lots SMALLINT NOT NULL, ADD perms_parts_tags SMALLINT NOT NULL, ADD perms_parts_unit SMALLINT NOT NULL, ADD perms_parts_mass SMALLINT NOT NULL, ADD perms_parts_status SMALLINT NOT NULL, ADD perms_parts_mpn SMALLINT NOT NULL, ADD perms_currencies INT NOT NULL, ADD perms_measurement_units INT NOT NULL, DROP config_currency, DROP perms_parts_instock, DROP perms_parts_mininstock, DROP perms_parts_storelocation');
@@ -73,7 +73,7 @@ final class Version20190913141126 extends AbstractMultiPlatformMigration
     public function mySQLDown(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->getDatabaseType(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE `groups` ADD perms_parts_instock SMALLINT NOT NULL, ADD perms_parts_mininstock SMALLINT NOT NULL, ADD perms_parts_storelocation SMALLINT NOT NULL, DROP perms_parts_category, DROP perms_parts_minamount, DROP perms_parts_lots, DROP perms_parts_tags, DROP perms_parts_unit, DROP perms_parts_mass, DROP perms_parts_status, DROP perms_parts_mpn, DROP perms_currencies, DROP perms_measurement_units');
         $this->addSql('ALTER TABLE `users` DROP FOREIGN KEY FK_1483A5E938248176');

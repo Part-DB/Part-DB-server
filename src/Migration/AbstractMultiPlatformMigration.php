@@ -4,7 +4,9 @@ namespace App\Migration;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Driver\AbstractSQLiteDriver;
 use Doctrine\DBAL\Exception;
+use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 use Psr\Log\LoggerInterface;
@@ -26,7 +28,7 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $db_type = $this->connection->getDatabasePlatform()->getName();
+        $db_type = $this->getDatabaseType();
 
         switch ($db_type) {
             case 'mysql':
@@ -43,7 +45,7 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $db_type = $this->connection->getDatabasePlatform()->getName();
+        $db_type = $this->getDatabaseType();
 
         switch ($db_type) {
             case 'mysql':
@@ -53,7 +55,7 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
                 $this->sqLiteDown($schema);
                 break;
             default:
-                $this->abortIf(true, "Database type '$db_type' is not supported!");
+                $this->abortIf(true, "Database type is not supported!");
                 break;
         }
     }
@@ -63,7 +65,7 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
      */
     public function getOldDBVersion(): int
     {
-        if ('mysql' !== $this->connection->getDatabasePlatform()->getName()) {
+        if ('mysql' !== $this->getDatabaseType()) {
             //Old Part-DB version only supported MySQL therefore only
             return 0;
         }
@@ -113,6 +115,23 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
             $this->logger->warning('<bg=yellow;fg=black>The initial password for the "admin" user is: '.$this->admin_pw.'</>');
             $this->logger->warning('');
         }
+    }
+
+    /**
+     * Returns the database type of the used database.
+     * @return string|null Returns 'mysql' for MySQL/MariaDB and 'sqlite' for SQLite. Returns null if unknown type
+     */
+    public function getDatabaseType(): ?string
+    {
+        if ($this->connection->getDriver() instanceof AbstractMySQLPlatform) {
+            return 'mysql';
+        }
+
+        if ($this->connection->getDriver() instanceof AbstractSQLiteDriver) {
+            return 'sqlite';
+        }
+
+        return null;
     }
 
     abstract public function mySQLUp(Schema $schema): void;

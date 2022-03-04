@@ -38,7 +38,7 @@ final class Version20190924113252 extends AbstractMultiPlatformMigration
     public function mySQLUp(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->getDatabaseType(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE users ADD id_preview_attachement INT DEFAULT NULL, ADD pw_reset_token VARCHAR(255) DEFAULT NULL, ADD pw_reset_expires DATETIME DEFAULT NULL, ADD disabled TINYINT(1) NOT NULL, DROP config_image_path');
         $this->addSql('ALTER TABLE users ADD CONSTRAINT FK_1483A5E96DEDCEC2 FOREIGN KEY (id_preview_attachement) REFERENCES `attachments` (id)');
@@ -124,7 +124,7 @@ final class Version20190924113252 extends AbstractMultiPlatformMigration
     public function mySQLDown(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->getDatabaseType(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE `attachment_types` DROP FOREIGN KEY FK_EFAED7196DEDCEC2');
         $this->addSql('DROP INDEX IDX_EFAED7196DEDCEC2 ON `attachment_types`');

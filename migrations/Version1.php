@@ -43,8 +43,7 @@ final class Version1 extends AbstractMultiPlatformMigration
             return;
         }
 
-        // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->getDatabaseType(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE TABLE `attachment_types` (id INT AUTO_INCREMENT NOT NULL, parent_id INT DEFAULT NULL, filetype_filter LONGTEXT NOT NULL, comment LONGTEXT NOT NULL, not_selectable TINYINT(1) NOT NULL, name VARCHAR(255) NOT NULL, last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, datetime_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, INDEX IDX_EFAED719727ACA70 (parent_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE `categories` (id INT AUTO_INCREMENT NOT NULL, parent_id INT DEFAULT NULL, partname_hint LONGTEXT NOT NULL, partname_regex LONGTEXT NOT NULL, disable_footprints TINYINT(1) NOT NULL, disable_manufacturers TINYINT(1) NOT NULL, disable_autodatasheets TINYINT(1) NOT NULL, disable_properties TINYINT(1) NOT NULL, default_description LONGTEXT NOT NULL, default_comment LONGTEXT NOT NULL, comment LONGTEXT NOT NULL, not_selectable TINYINT(1) NOT NULL, name VARCHAR(255) NOT NULL, last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, datetime_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, INDEX IDX_3AF34668727ACA70 (parent_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
@@ -176,7 +175,7 @@ EOD;
     public function mySQLDown(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->getDatabaseType(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE `attachment_types` DROP FOREIGN KEY FK_EFAED719727ACA70');
         $this->addSql('ALTER TABLE `attachments` DROP FOREIGN KEY FK_47C4FAD6C54C8C93');
@@ -234,6 +233,6 @@ EOD;
 
     public function sqLiteDown(Schema $schema): void
     {
-        $this->warIf(true, "Migration not needed for SQLite. Skipping...");
+        $this->warnIf(true, "Migration not needed for SQLite. Skipping...");
     }
 }

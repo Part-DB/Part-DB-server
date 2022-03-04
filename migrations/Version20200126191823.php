@@ -38,7 +38,7 @@ final class Version20200126191823 extends AbstractMultiPlatformMigration
     public function mySQLUp(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->getDatabaseType(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE log CHANGE datetime datetime DATETIME NOT NULL, CHANGE level level TINYINT, CHANGE extra extra LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\'');
         $this->addSql('DROP INDEX id_user ON log');
@@ -49,7 +49,7 @@ final class Version20200126191823 extends AbstractMultiPlatformMigration
     public function mySQLDown(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->getDatabaseType(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE log DROP FOREIGN KEY FK_8F3F68C56B3CA4B');
         $this->addSql('ALTER TABLE log DROP FOREIGN KEY FK_8F3F68C56B3CA4B');

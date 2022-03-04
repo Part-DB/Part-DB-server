@@ -39,7 +39,7 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
     public function mySQLUp(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->getDatabaseType(), 'Migration can only be executed safely on \'mysql\'.');
 
         //Check if we can use this migration method:
         $version = $this->getOldDBVersion();
@@ -197,7 +197,7 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
     public function mySQLDown(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->getDatabaseType(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE currencies DROP FOREIGN KEY FK_37C44693727ACA70');
         $this->addSql('ALTER TABLE `suppliers` DROP FOREIGN KEY FK_AC28B95CECD792C0');
