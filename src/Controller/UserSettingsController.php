@@ -350,14 +350,14 @@ class UserSettingsController extends AbstractController
          * Output both forms
          *****************************/
 
-        return $this->render('Users/user_settings.html.twig', [
+        return $this->renderForm('Users/user_settings.html.twig', [
             'user' => $user,
-            'settings_form' => $form->createView(),
-            'pw_form' => $pw_form->createView(),
+            'settings_form' => $form,
+            'pw_form' => $pw_form,
             'page_need_reload' => $page_need_reload,
 
-            'google_form' => $google_form->createView(),
-            'backup_form' => $backup_form->createView(),
+            'google_form' => $google_form,
+            'backup_form' => $backup_form,
             'tfa_google' => [
                 'enabled' => $google_enabled,
                 'qrContent' => $googleAuthenticator->getQRContent($user),

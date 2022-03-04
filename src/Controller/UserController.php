@@ -239,10 +239,10 @@ class UserController extends AdminPages\BaseAdminController
             'data' => $user,
         ]);
 
-        return $this->render('Users/user_info.html.twig', [
+        return $this->renderForm('Users/user_info.html.twig', [
             'user' => $user,
             'avatar' => $avatar,
-            'form' => $builder->getForm()->createView(),
+            'form' => $builder->getForm(),
             'datatable' => $table,
         ]);
     }

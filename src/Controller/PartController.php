@@ -189,11 +189,11 @@ class PartController extends AbstractController
             $this->addFlash('error', 'part.edited_flash.invalid');
         }
 
-        return $this->render('Parts/edit/edit_part_info.html.twig',
-                             [
-                                'part' => $part,
-                                 'form' => $form->createView(),
-                            ]);
+        return $this->renderForm('Parts/edit/edit_part_info.html.twig',
+            [
+                'part' => $part,
+                'form' => $form,
+            ]);
     }
 
     /**
@@ -313,10 +313,10 @@ class PartController extends AbstractController
             $this->addFlash('error', 'part.created_flash.invalid');
         }
 
-        return $this->render('Parts/edit/new_part.html.twig',
-                             [
-                                'part' => $new_part,
-                                 'form' => $form->createView(),
-                            ]);
+        return $this->renderForm('Parts/edit/new_part.html.twig',
+            [
+                'part' => $new_part,
+                'form' => $form,
+            ]);
     }
 }
