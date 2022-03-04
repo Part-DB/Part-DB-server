@@ -7,7 +7,9 @@ namespace App\Doctrine\Purger;
 use Doctrine\Common\DataFixtures\Purger\ORMPurgerInterface;
 use Doctrine\Common\DataFixtures\Purger\PurgerInterface;
 use Doctrine\Common\DataFixtures\Sorter\TopologicalSorter;
+use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Schema\Identifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -134,13 +136,19 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
         }
 
         $connection            = $this->em->getConnection();
-        $filterExpr            = $connection->getConfiguration()->getFilterSchemaAssetsExpression();
+        $filterExpr            = method_exists(
+            $connection->getConfiguration(),
+            'getFilterSchemaAssetsExpression'
+        ) ? $connection->getConfiguration()->getFilterSchemaAssetsExpression() : null;
         $emptyFilterExpression = empty($filterExpr);
 
-        $schemaAssetsFilter = method_exists($connection->getConfiguration(), 'getSchemaAssetsFilter') ? $connection->getConfiguration()->getSchemaAssetsFilter() : null;
+        $schemaAssetsFilter = method_exists(
+            $connection->getConfiguration(),
+            'getSchemaAssetsFilter'
+        ) ? $connection->getConfiguration()->getSchemaAssetsFilter() : null;
 
         //Disable foreign key checks
-        if($platform->getName() === 'mysql') {
+        if($platform instanceof AbstractMySQLPlatform) {
             $connection->executeQuery('SET foreign_key_checks = 0;');
         }
 
@@ -161,20 +169,20 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
             }
 
             if ($this->purgeMode === self::PURGE_MODE_DELETE) {
-                $connection->executeUpdate($this->getDeleteFromTableSQL($tbl, $platform));
+                $connection->executeStatement($this->getDeleteFromTableSQL($tbl, $platform));
             } else {
-                $connection->executeUpdate($platform->getTruncateTableSQL($tbl, true));
+                $connection->executeStatement($platform->getTruncateTableSQL($tbl, true));
             }
 
             //Reseting autoincrement is only supported on MySQL platforms
-            if ($platform->getName() === 'mysql') {
+            if ($platform instanceof AbstractMySQLPlatform) {
                 $connection->beginTransaction();
                 $connection->executeQuery($this->getResetAutoIncrementSQL($tbl, $platform));
             }
         }
 
         //Reenable foreign key checks
-        if($platform->getName() === 'mysql') {
+        if($platform instanceof AbstractMySQLPlatform) {
             $connection->executeQuery('SET foreign_key_checks = 1;');
         }
     }
@@ -270,7 +278,10 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
     private function getTableName(ClassMetadata $class, AbstractPlatform $platform): string
     {
         if (isset($class->table['schema']) && ! method_exists($class, 'getSchemaName')) {
-            return $class->table['schema'] . '.' . $this->em->getConfiguration()->getQuoteStrategy()->getTableName($class, $platform);
+            return $class->table['schema'] . '.' .
+                $this->em->getConfiguration()
+                    ->getQuoteStrategy()
+                    ->getTableName($class, $platform);
         }
 
         return $this->em->getConfiguration()->getQuoteStrategy()->getTableName($class, $platform);
@@ -285,7 +296,10 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
         AbstractPlatform $platform
     ): string {
         if (isset($assoc['joinTable']['schema']) && ! method_exists($class, 'getSchemaName')) {
-            return $assoc['joinTable']['schema'] . '.' . $this->em->getConfiguration()->getQuoteStrategy()->getJoinTableName($assoc, $class, $platform);
+            return $assoc['joinTable']['schema'] . '.' .
+                $this->em->getConfiguration()
+                    ->getQuoteStrategy()
+                    ->getJoinTableName($assoc, $class, $platform);
         }
 
         return $this->em->getConfiguration()->getQuoteStrategy()->getJoinTableName($assoc, $class, $platform);
