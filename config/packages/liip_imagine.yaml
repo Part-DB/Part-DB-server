@@ -1,4 +1,4 @@
-# See dos how to configure the bundle: https://symfony.com/doc/current/bundles/LiipImagineBundle/basic-usage.html
+# Documentation on how to configure the bundle can be found at: https://symfony.com/doc/current/bundles/LiipImagineBundle/basic-usage.html
 liip_imagine:
     # valid drivers options include "gd" or "gmagick" or "imagick"
     driver: "gd"

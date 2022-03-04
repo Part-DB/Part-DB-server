@@ -204,16 +204,16 @@
         "version": "4.8.2"
     },
     "liip/imagine-bundle": {
-        "version": "1.8",
+        "version": "2.7",
         "recipe": {
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "master",
             "version": "1.8",
-            "ref": "ffbb72e74598f04cc7f79f9fc736c77eeb98f569"
+            "ref": "d1227d002b70d1a1f941d91845fcd7ac7fbfc929"
         },
         "files": [
-            "./config/packages/liip_imagine.yaml",
-            "./config/routes/liip_imagine.yaml"
+            "config/packages/liip_imagine.yaml",
+            "config/routes/liip_imagine.yaml"
         ]
     },
     "lorenzo/pinky": {
