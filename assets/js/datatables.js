@@ -1,185 +1,122 @@
-/**
- * Symfony DataTables Bundle
- * (c) Omines Internetbureau B.V. - https://omines.nl/
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- * @author Niels Keurentjes <niels.keurentjes@omines.com>
- */
+"use strict";
 
-(function($) {
-    /**
-     * Initializes the datatable dynamically.
-     */
-    $.fn.initDataTables = function(config, options) {
+import 'datatables.net-bs4';
+import 'datatables.net-buttons-bs4';
+import 'datatables.net-buttons/js/buttons.colVis.js';
+//require( 'datatables.net-buttons/js/buttons.html5.js' );
+//require( 'datatables.net-buttons/js/buttons.print.js' );
+import 'datatables.net-fixedheader-bs4';
+import 'datatables.net-select-bs4';
+import 'datatables.net-colreorder-bs4';
+import 'datatables.net-responsive-bs4';
+import 'datatables.net-responsive-bs4/css/responsive.bootstrap4.css';
+import './lib/datatables';
 
-        //Update default used url, so it reflects the current location (useful on single side apps)
-        //CHANGED jbtronics: Preserve the get parameters (needed so we can pass additional params to query)
-        $.fn.initDataTables.defaults.url = window.location.origin + window.location.pathname + window.location.search;
 
-        var root = this,
-            config = $.extend({}, $.fn.initDataTables.defaults, config),
-            state = ''
-        ;
+const DatatablesHelper = class {
+    constructor() {
+        this.registerLoadHandler(() => this.initDataTables());
+    }
 
-        // Load page state if needed
-        switch (config.state) {
-            case 'fragment':
-                state = window.location.hash;
-                break;
-            case 'query':
-                state = window.location.search;
-                break;
-        }
-        state = (state.length > 1 ? deparam(state.substr(1)) : {});
-        var persistOptions = config.state === 'none' ? {} : {
-            stateSave: true,
-            stateLoadCallback: function(s, cb) {
-                // Only need stateSave to expose state() function as loading lazily is not possible otherwise
-                return null;
-            }
-        };
+    registerLoadHandler(fn) {
+        document.addEventListener('turbo:load', fn);
+    }
 
-        return new Promise((fulfill, reject) => {
-            // Perform initial load
-            $.ajax(config.url, {
-                method: config.method,
-                data: {
-                    _dt: config.name,
-                    _init: true
-                }
-            }).done(function(data) {
-                var baseState;
+    initDataTables()
+    {
+        //@ts-ignore
+        $($.fn.DataTable.tables()).DataTable().fixedHeader.disable();
+        //@ts-ignore
+        $($.fn.DataTable.tables()).DataTable().destroy();
 
-                // Merge all options from different sources together and add the Ajax loader
-                var dtOpts = $.extend({}, data.options, config.options, options, persistOptions, {
-                    ajax: function (request, drawCallback, settings) {
-                        if (data) {
-                            data.draw = request.draw;
-                            drawCallback(data);
-                            data = null;
-                            if (Object.keys(state).length && dt.state != null) {
-                                var merged = $.extend(true, {}, dt.state(), state);
-                                dt
-                                    .order(merged.order)
-                                    .search(merged.search.search)
-                                    .page.len(merged.length)
-                                    .page(merged.start / merged.length)
-                                    .draw(false);
+        //Find all datatables and init it.
+        let $tables = $('[data-datatable]');
+        $.each($tables, function(index, table) {
+            let $table = $(table);
+            let settings = $table.data('settings');
+
+            //@ts-ignore
+            var promise = $('#part_list').initDataTables(settings,
+                {
+                    colReorder: true,
+                    responsive: true,
+                    "fixedHeader": { header: $(window).width() >= 768, //Only enable fixedHeaders on devices with big screen. Fixes scrolling issues on smartphones.
+                        headerOffset: $("#navbar").height()},
+                    "buttons": [ {
+                        "extend": 'colvis',
+                        'className': 'mr-2 btn-light',
+                        "text": "<i class='fa fa-cog'></i>"
+                    }],
+                    "select": $table.data('select') ?? false,
+                    "rowCallback": function( row, data, index ) {
+                        //Check if we have a level, then change color of this row
+                        if (data.level) {
+                            let style = "";
+                            switch(data.level) {
+                                case "emergency":
+                                case "alert":
+                                case "critical":
+                                case "error":
+                                    style = "table-danger";
+                                    break;
+                                case "warning":
+                                    style = "table-warning";
+                                    break;
+                                case "notice":
+                                    style = "table-info";
+                                    break;
                             }
-                        } else {
-                            request._dt = config.name;
-                            $.ajax(config.url, {
-                                method: config.method,
-                                data: request
-                            }).done(function(data) {
-                                drawCallback(data);
-                            })
+
+                            if (style){
+                                $(row).addClass(style);
+                            }
                         }
                     }
                 });
 
-                root.html(data.template);
-                dt = $('table', root).DataTable(dtOpts);
-                if (config.state !== 'none') {
-                    dt.on('draw.dt', function(e) {
-                        var data = $.param(dt.state()).split('&');
+            //Register links.
+            promise.then(function() {
+                //ajaxUI.registerLinks();
 
-                        // First draw establishes state, subsequent draws run diff on the first
-                        if (!baseState) {
-                            baseState = data;
+                //Set the correct title in the table.
+                let title = $('#part-card-header-src');
+                $('#part-card-header').html(title.html());
+                $(document).trigger('ajaxUI:dt_loaded');
+
+
+                if($table.data('part_table')) {
+                    //@ts-ignore
+                    $('#dt').on( 'select.dt deselect.dt', function ( e, dt, items ) {
+                        let selected_elements = dt.rows({selected: true});
+                        let count = selected_elements.count();
+
+                        if(count > 0) {
+                            $('#select_panel').removeClass('d-none');
                         } else {
-                            var diff = data.filter(el => { return baseState.indexOf(el) === -1 && el.indexOf('time=') !== 0; });
-                            switch (config.state) {
-                                case 'fragment':
-                                    history.replaceState(null, null, window.location.origin + window.location.pathname + window.location.search
-                                        + '#' + decodeURIComponent(diff.join('&')));
-                                    break;
-                                case 'query':
-                                    history.replaceState(null, null, window.location.origin + window.location.pathname
-                                        + '?' + decodeURIComponent(diff.join('&') + window.location.hash));
-                                    break;
-                            }
+                            $('#select_panel').addClass('d-none');
                         }
-                    })
+
+                        $('#select_count').text(count);
+
+                        let selected_ids_string = selected_elements.data().map(function(value, index) {
+                            return value['id']; }
+                        ).join(",");
+
+                        $('#select_ids').val(selected_ids_string);
+
+                    } );
                 }
 
-                fulfill(dt);
-            }).fail(function(xhr, cause, msg) {
-                console.error('DataTables request failed: ' + msg);
-                reject(cause);
+                //Attach event listener to update links after new page selection:
+                $('#dt').on('draw.dt column-visibility.dt', function() {
+                    //ajaxUI.registerLinks();
+                    $(document).trigger('ajaxUI:dt_loaded');
+                });
             });
         });
-    };
 
-    /**
-     * Provide global component defaults.
-     */
-    $.fn.initDataTables.defaults = {
-        method: 'POST',
-        state: 'fragment',
-        url: window.location.origin + window.location.pathname
-    };
-
-    /**
-     * Convert a querystring to a proper array - reverses $.param
-     */
-    function deparam(params, coerce) {
-        var obj = {},
-            coerce_types = {'true': !0, 'false': !1, 'null': null};
-        $.each(params.replace(/\+/g, ' ').split('&'), function (j, v) {
-            var param = v.split('='),
-                key = decodeURIComponent(param[0]),
-                val,
-                cur = obj,
-                i = 0,
-                keys = key.split(']['),
-                keys_last = keys.length - 1;
-
-            if (/\[/.test(keys[0]) && /\]$/.test(keys[keys_last])) {
-                keys[keys_last] = keys[keys_last].replace(/\]$/, '');
-                keys = keys.shift().split('[').concat(keys);
-                keys_last = keys.length - 1;
-            } else {
-                keys_last = 0;
-            }
-
-            if (param.length === 2) {
-                val = decodeURIComponent(param[1]);
-
-                if (coerce) {
-                    val = val && !isNaN(val) ? +val              // number
-                        : val === 'undefined' ? undefined         // undefined
-                            : coerce_types[val] !== undefined ? coerce_types[val] // true, false, null
-                                : val;                                                // string
-                }
-
-                if (keys_last) {
-                    for (; i <= keys_last; i++) {
-                        key = keys[i] === '' ? cur.length : keys[i];
-                        cur = cur[key] = i < keys_last
-                            ? cur[key] || (keys[i + 1] && isNaN(keys[i + 1]) ? {} : [])
-                            : val;
-                    }
-
-                } else {
-                    if ($.isArray(obj[key])) {
-                        obj[key].push(val);
-                    } else if (obj[key] !== undefined) {
-                        obj[key] = [obj[key], val];
-                    } else {
-                        obj[key] = val;
-                    }
-                }
-
-            } else if (key) {
-                obj[key] = coerce
-                    ? undefined
-                    : '';
-            }
-        });
-
-        return obj;
+        console.debug('Datatables inited.');
     }
-}($));
+}
+
+export default new DatatablesHelper();

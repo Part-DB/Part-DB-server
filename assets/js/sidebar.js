@@ -1,7 +1,5 @@
 'use strict';
 
-import * as Turbo from '@hotwired/turbo';
-
 const SidebarHelper = class {
     constructor() {
         this.BASE = $("body").data("base-url");
