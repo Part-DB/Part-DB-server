@@ -1,16 +1,17 @@
+
 {% macro sidebar_dropdown(target) %}
-<li class="dropdown-header">{% trans %}actions{% endtrans %}</li>
-<li><a href="#" class="tree-btns dropdown-item" data-mode="expand" data-target="{{ target }}">{% trans %}expandAll{% endtrans %}</a></li>
-<li><a href="#" class="tree-btns dropdown-item" data-mode="collapse" data-target="{{ target }}">{% trans %}reduceAll{% endtrans %}</a></li>
-<li role="separator" class="dropdown-divider"></li>
-<li class="dropdown-header">{% trans %}datasource{% endtrans %}</li>
-<li><a href="#" class="tree-btns dropdown-item" data-mode="categories" data-target="{{ target }}">{% trans %}category.labelp{% endtrans %}</a></li>
-<li><a href="#" class="tree-btns dropdown-item" data-mode="locations" data-target="{{ target }}">{% trans %}storelocation.labelp{% endtrans %}</a></li>
-<li><a href="#" class="tree-btns dropdown-item" data-mode="footprints" data-target="{{ target }}">{% trans %}footprint.labelp{% endtrans %}</a></li>
-<li><a href="#" class="tree-btns dropdown-item" data-mode="manufacturers" data-target="{{ target }}">{% trans %}manufacturer.labelp{% endtrans %}</a></li>
-<li><a href="#" class="tree-btns dropdown-item" data-mode="suppliers" data-target="{{ target }}">{% trans %}supplier.labelp{% endtrans %}</a></li>
-<li><a href="#" class="tree-btns dropdown-item" data-mode="devices" data-target="{{ target }}">{% trans %}device.labelp{% endtrans %}</a></li>
-<li><a href="#" class="tree-btns dropdown-item" data-mode="tools" data-target="{{ target }}">{% trans %}tools.label{% endtrans %}</a></li>
+    <li class="dropdown-header">{% trans %}actions{% endtrans %}</li>
+    <li><a href="#" class="tree-btns dropdown-item" data-mode="expand" data-target="{{ target }}">{% trans %}expandAll{% endtrans %}</a></li>
+    <li><a href="#" class="tree-btns dropdown-item" data-mode="collapse" data-target="{{ target }}">{% trans %}reduceAll{% endtrans %}</a></li>
+    <li role="separator" class="dropdown-divider"></li>
+    <li class="dropdown-header">{% trans %}datasource{% endtrans %}</li>
+    <li><a href="#" class="tree-btns dropdown-item" data-mode="categories" data-target="{{ target }}">{% trans %}category.labelp{% endtrans %}</a></li>
+    <li><a href="#" class="tree-btns dropdown-item" data-mode="locations" data-target="{{ target }}">{% trans %}storelocation.labelp{% endtrans %}</a></li>
+    <li><a href="#" class="tree-btns dropdown-item" data-mode="footprints" data-target="{{ target }}">{% trans %}footprint.labelp{% endtrans %}</a></li>
+    <li><a href="#" class="tree-btns dropdown-item" data-mode="manufacturers" data-target="{{ target }}">{% trans %}manufacturer.labelp{% endtrans %}</a></li>
+    <li><a href="#" class="tree-btns dropdown-item" data-mode="suppliers" data-target="{{ target }}">{% trans %}supplier.labelp{% endtrans %}</a></li>
+    <li><a href="#" class="tree-btns dropdown-item" data-mode="devices" data-target="{{ target }}">{% trans %}device.labelp{% endtrans %}</a></li>
+    <li><a href="#" class="tree-btns dropdown-item" data-mode="tools" data-target="{{ target }}">{% trans %}tools.label{% endtrans %}</a></li>
 {% endmacro %}
 
 <ul class="nav flex-column">

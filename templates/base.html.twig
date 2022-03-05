@@ -58,7 +58,9 @@
 
     <header>
 
-        {% include "_navbar.html.twig" %}
+        <turbo-frame id="navbar-frame" target="content" data-turbo-action="advance">
+            {% include "_navbar.html.twig" %}
+        </turbo-frame>
 
         {% include "_flash.html.twig" %}
 
@@ -69,7 +71,9 @@
             <div class="row">
                 <div class="collapse d-md-block bg-light" id="sidebar-container">
                     <nav  class="fixed-sidebar col-md-3 col-lg-2 " id="fixed-sidebar">
-                        {% include "_sidebar.html.twig" %}
+                        <turbo-frame id="sidebar" target="content" data-turbo-action="advance">
+                            {% include "_sidebar.html.twig" %}
+                        </turbo-frame>
                         <noscript><b>{% trans %}vendor.base.javascript_hint{% endtrans %}</b></noscript>
                     </nav>
                 </div>
@@ -79,7 +83,7 @@
                         <i class="fas fa-angle-left"></i>
                     </button>
                     <div class="container-fluid mr-0 pr-0" id="content-container">
-                        <turbo-frame id="content">
+                        <turbo-frame id="content" data-turbo-action="advance">
                             {# Here will be the real content be injected#}
 
                             {% block content %}

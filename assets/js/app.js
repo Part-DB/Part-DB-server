@@ -35,6 +35,8 @@ import '../bootstrap';
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 const $ = require('jquery');
 
+import './events_base'
+
 //Only include javascript
 import '@fortawesome/fontawesome-free/css/all.css'
 
@@ -48,9 +50,14 @@ import "patternfly-bootstrap-treeview/src/css/bootstrap-treeview.css"
 
 import "bootstrap-fileinput/css/fileinput.css"
 
-//import * as Turbo from "@hotwired/turbo"
 
 require('bootstrap');
+
+// Import Bootstrap treeview
+import "patternfly-bootstrap-treeview";
+
+import "./sidebar"
+
 /**
 //require( 'jszip' );
 //#require( 'pdfmake' );
@@ -72,7 +79,7 @@ window.Bloodhound =  require('corejs-typeahead/dist/bloodhound.js');
 //Define jquery globally
 window.$ = window.jQuery = require("jquery");
 
-require('patternfly-bootstrap-treeview/src/js/bootstrap-treeview');
+
 
 require('bootstrap-fileinput');
 
