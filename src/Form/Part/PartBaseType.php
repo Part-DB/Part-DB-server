@@ -147,6 +147,7 @@ class PartBaseType extends AbstractType
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'tagsinput',
+                    'data-controller' => 'elements--tagsinput',
                     'data-autocomplete' => $this->urlGenerator->generate('typeahead_tags', ['query' => 'QUERY']),
                 ],
                 'disabled' => !$this->security->isGranted('tags.edit', $part),

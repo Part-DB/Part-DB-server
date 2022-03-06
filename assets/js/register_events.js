@@ -8,10 +8,6 @@ import "bootstrap-fileinput/css/fileinput.css"
 import "./lib/jquery.tristate"
 import "bootstrap-fileinput";
 
-import 'corejs-typeahead';
-const Bloodhound = require('corejs-typeahead/dist/bloodhound.js');
-import './lib/tagsinput';
-
 
 
 const RegisterEventHelper = class {
@@ -25,8 +21,6 @@ const RegisterEventHelper = class {
 
         this.registerSpecialCharInput();
         this.registerHoverPics();
-
-        this.registerAutocompleteTagsinput();
     }
 
     registerLoadHandler(fn) {
@@ -95,42 +89,6 @@ const RegisterEventHelper = class {
                 $('.tristate:checkbox', $row).tristate('state', new_state);
             });
         })
-    }
-    
-    registerAutocompleteTagsinput() {
-        this.registerLoadHandler(() => {
-            $('input.tagsinput').each(function() {
-
-                //Use typeahead if an autocomplete url was specified.
-                if($(this).data('autocomplete')) {
-
-                    //@ts-ignore
-                    var engine = new Bloodhound({
-                        //@ts-ignore
-                        datumTokenizer: Bloodhound.tokenizers.obj.whitespace(''),
-                        //@ts-ignore
-                        queryTokenizer: Bloodhound.tokenizers.obj.whitespace(''),
-                        remote: {
-                            url: $(this).data('autocomplete'),
-                            wildcard: 'QUERY'
-                        }
-                    });
-
-                    //@ts-ignore
-                    $(this).tagsinput({
-                        typeaheadjs: {
-                            name: 'tags',
-                            source: engine.ttAdapter()
-                        }
-                    });
-
-
-                } else { //Init tagsinput without typeahead
-                    //@ts-ignore
-                    $(this).tagsinput();
-                }
-            })
-        });
     }
 
     registerSpecialCharInput() {
