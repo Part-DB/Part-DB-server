@@ -108,7 +108,7 @@
             <div class="tab-content" id="myTabContent">
                 {% if part.comment is not empty %}
                     <div class="tab-pane fade show" id="comment" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="container-fluid mt-2 latex">
+                        <div class="container-fluid mt-2 latex" data-controller="common--latex">
                             {{ part.comment|markdown }}
                         </div>
                     </div>

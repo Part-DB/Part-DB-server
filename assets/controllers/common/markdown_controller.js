@@ -10,6 +10,12 @@ export default class extends Controller {
     {
         this.configureMarked();
         this.render();
+
+        //Dispatch an event that we are now finished
+        const event = new CustomEvent('markdown:finished', {
+           bubbles: true
+        });
+        this.element.dispatchEvent(event);
     }
 
     render() {
