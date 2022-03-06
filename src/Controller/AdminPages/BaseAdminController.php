@@ -400,8 +400,8 @@ abstract class BaseAdminController extends AbstractController
         return $this->renderForm($this->twig_template, [
             'entity' => $new_entity,
             'form' => $form,
-            'import_form' => $import_form->createView(),
-            'mass_creation_form' => $mass_creation_form->createView(),
+            'import_form' => $import_form,
+            'mass_creation_form' => $mass_creation_form,
             'route_base' => $this->route_base,
         ]);
     }

@@ -295,9 +295,17 @@ class PartBaseType extends AbstractType
 
         $builder
             //Buttons
-            ->add('save', SubmitType::class, ['label' => 'part.edit.save'])
+            ->add('save', SubmitType::class, [
+                'label' => 'part.edit.save',
+                'attr' => [
+                    'value' => 'save'
+                ]
+            ])
             ->add('save_and_clone', SubmitType::class, [
                 'label' => 'part.edit.save_and_clone',
+                'attr' => [
+                    'value' => 'save-and-clone'
+                ]
             ])
             ->add('reset', ResetType::class, ['label' => 'part.edit.reset']);
     }
