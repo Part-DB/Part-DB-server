@@ -35,29 +35,14 @@ import '../bootstrap';
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 const $ = require('jquery');
 
-import './events_base'
-
 //Only include javascript
 import '@fortawesome/fontawesome-free/css/all.css'
 
-import 'datatables.net-bs4/css/dataTables.bootstrap4.css'
-import 'datatables.net-buttons-bs4/css/buttons.bootstrap4.css'
-import 'datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.css'
-import 'datatables.net-select-bs4/css/select.bootstrap4.css'
-import 'bootstrap-select/dist/css/bootstrap-select.css'
-
-import "patternfly-bootstrap-treeview/src/css/bootstrap-treeview.css"
-
-import "bootstrap-fileinput/css/fileinput.css"
-
-
 require('bootstrap');
-
-// Import Bootstrap treeview
-import "patternfly-bootstrap-treeview";
 
 import "./sidebar"
 import "./datatables";
+//import "./tab_remember";
 import "./register_events";
 
 /**
