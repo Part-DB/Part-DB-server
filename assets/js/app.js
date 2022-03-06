@@ -45,6 +45,9 @@ import "./datatables";
 //import "./tab_remember";
 import "./register_events";
 
+//Define jquery globally
+window.$ = window.jQuery = require("jquery")
+
 /**
 
  require('bootstrap-select');
@@ -52,8 +55,7 @@ require('jquery-form');
 require('corejs-typeahead/dist/typeahead.bundle.min');
 window.Bloodhound =  require('corejs-typeahead/dist/bloodhound.js');
 
-//Define jquery globally
-window.$ = window.jQuery = require("jquery");
+;
 
 
 

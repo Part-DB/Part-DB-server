@@ -52,10 +52,6 @@
         $("#" + min_discount_id).val(new_min_amount);
         $("#" + price_related_id).val("1");
 
-
-        //Reinit the selectpickers
-        $(".selectpicker").selectpicker();
-
     }
 
     function delete_orderdetail_entry(btn) {
@@ -77,9 +73,5 @@
         newForm = newForm.replace(/__name__/g, index);
 
         $holder.children("tbody").append(newForm);
-
-        //Reinit the selectpickers
-        $(".selectpicker").selectpicker();
-
     }
 </script>

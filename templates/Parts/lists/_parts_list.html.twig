@@ -9,7 +9,7 @@
         {# <span id="select_count"></span> #}
         <span class="badge badge-secondary">{% trans with {'%count%': '<span id="select_count"></span>'} %}part_list.action.part_count{% endtrans %}</span>
 
-        <select class="selectpicker" name="action" id="select_action"
+        <select class="selectpicker" name="action" id="select_action" data-controller="elements--selectpicker"
                 title="{% trans %}part_list.action.action.title{% endtrans %}" onchange="updateTargetSelect()" required>
             <optgroup label="{% trans %}part_list.action.action.group.favorite{% endtrans %}">
                 <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="favorite">{% trans %}part_list.action.action.favorite{% endtrans %}</option>

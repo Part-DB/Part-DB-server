@@ -117,6 +117,7 @@ class StructuralEntityType extends AbstractType
         $resolver->setDefault('attr', static function (Options $options) {
             $tmp = [
                 'class' => 'selectpicker',
+                'data-controller' => 'elements--selectpicker',
                 'data-live-search' => true,
                 'title' => 'selectpicker.nothing_selected',
             ];

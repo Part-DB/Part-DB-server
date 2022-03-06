@@ -1,11 +1,10 @@
 'use strict';
 
 //CSS
-import 'bootstrap-select/dist/css/bootstrap-select.css'
 import "bootstrap-fileinput/css/fileinput.css"
 
 //JS
-import "bootstrap-select";
+
 import "./lib/jquery.tristate"
 import "bootstrap-fileinput";
 
@@ -23,8 +22,6 @@ const RegisterEventHelper = class {
         this.registerJumpToTopBtn();
 
         this.registerTriStateCheckboxes();
-
-        this.registerBootstrapSelectPicker();
 
         this.registerSpecialCharInput();
         this.registerHoverPics();
@@ -99,16 +96,7 @@ const RegisterEventHelper = class {
             });
         })
     }
-
-    registerBootstrapSelectPicker() {
-        this.registerLoadHandler(() => {
-            $(".selectpicker").selectpicker({
-                dropdownAlignRight: 'auto',
-                container: '#content',
-            });
-        });
-    }
-
+    
     registerAutocompleteTagsinput() {
         this.registerLoadHandler(() => {
             $('input.tagsinput').each(function() {

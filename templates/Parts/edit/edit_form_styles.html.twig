@@ -7,7 +7,7 @@
             <div class="input-group input-group-sm">
                 {{ form_widget(form.price) }}
                 <div class="input-group-append">
-                    {{ form_widget(form.currency, {'attr': {'class': 'selectpicker form-control-sm'}}) }}
+                    {{ form_widget(form.currency, {'attr': {'class': 'selectpicker form-control-sm', 'data-controller': 'elements--selectpicker'}}) }}
                 </div>
             </div>
             {{ form_errors(form.price) }}
