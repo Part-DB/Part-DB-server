@@ -98,7 +98,7 @@ Encore
     //.enableSassLoader()
 
     // uncomment if you use TypeScript
-    .enableTypeScriptLoader()
+    //.enableTypeScriptLoader()
 
     // uncomment if you use React
     //.enableReactPreset()
@@ -124,8 +124,18 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
-
 ;
+
+//Copy bootstrap map if in debug mode
+if (Encore.isDev()) {
+    Encore.addPlugin(new CopyPlugin({
+        patterns: [
+            {
+                from: 'node_modules/bootstrap/dist/css/bootstrap.min.css.map',
+                to: 'themes/bootstrap.min.css.map'
+            }
+        ]}))
+}
 
 if (Encore.isProduction()) {
     Encore.addPlugin(new CompressionPlugin({
@@ -151,7 +161,7 @@ if (Encore.isProduction()) {
 
 if (Encore.isDev()) {
     //Only uncomment if needed, as this cause problems with Github actions (job does not finish)
-    //Encore.addPlugin(new BundleAnalyzerPlugin());
+    Encore.addPlugin(new BundleAnalyzerPlugin());
 }
 
 
