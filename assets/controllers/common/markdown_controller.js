@@ -8,7 +8,7 @@ export default class extends Controller {
 
     connect()
     {
-        console.log('Markdown controller called');
+        this.configureMarked();
         this.render();
     }
 
