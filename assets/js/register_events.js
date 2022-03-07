@@ -14,12 +14,13 @@ const RegisterEventHelper = class {
     constructor() {
         this.registerToasts();
         this.registerTooltips();
-        this.registerFileInput();
         this.registerJumpToTopBtn();
 
         this.registerTriStateCheckboxes();
+        this.registerFileInput();
 
         this.registerSpecialCharInput();
+
         this.registerHoverPics();
     }
 
