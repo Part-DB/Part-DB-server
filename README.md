@@ -89,6 +89,10 @@ for additional informations.
 When you want to upgrade to a newer version, then just copy the new files into the folder
 and repeat the steps 4. to 7.
 
+### Reverse proxy
+If you are using a reverse proxy, you have to ensure that the proxies sets the `X-Forwarded-*` headers correctly, or you will get HTTP/HTTPS mixup and wrong hostnames.
+If the reverse proxy is on a different server (or it cannot access Part-DB via localhost) you have to set the `TRUSTED_PROXIES` env variable to match your reverse proxies IP-address (or IP block). You can do this in your `.env.local` or (when using docker) in your `docker-compose.yml` file.
+
 ## Useful console commands
 Part-DB provides some command consoles which can be invoked by `php bin/console [command]`. You can get help for every command with the parameter `--help`.
 Useful commands are:
