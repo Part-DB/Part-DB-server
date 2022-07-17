@@ -70,7 +70,7 @@
         "webmozart/assert": "^1.4"
     },
     "require-dev": {
-        "dama/doctrine-test-bundle": "^6.0",
+        "dama/doctrine-test-bundle": "^7.0",
         "doctrine/doctrine-fixtures-bundle": "^3.2",
         "ekino/phpstan-banned-code": "^v1.0.0",
         "phpstan/extension-installer": "^1.0",
