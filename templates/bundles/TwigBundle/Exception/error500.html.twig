@@ -19,9 +19,10 @@
             <li>Run <kbd>yarn install</kbd> and <kbd>yarn build</kbd> in Part-DB folder.</li>
             <li>Run <kbd>php bin/console cache:clear</kbd></li>
         </ul>
-    {% elseif exception.class == "Doctrine\\DBAL\\Exception\\InvalidFieldNameException" %}
-        <i>Invalid database schema.</i> Try following things:
+    {% elseif exception.class == "Doctrine\\DBAL\\Exception\\InvalidFieldNameException" or exception.class == "Doctrine\\DBAL\\Exception\\TableNotFoundException" %}
+        <i>Invalid or not existing database schema.</i> Try following things:
         <ul>
+            <li>Check if the <code>DATABASE_URL</code> in <code>.env.local</code> is correct</li>
             <li>Run <kbd>php bin/console doctrine:migrations:migrate</kbd> to upgrade database schema</li>
             <li>Run <kbd>php bin/console cache:clear</kbd></li>
         </ul>
