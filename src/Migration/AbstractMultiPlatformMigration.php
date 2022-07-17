@@ -8,6 +8,9 @@ use Doctrine\DBAL\Driver\AbstractMySQLDriver;
 use Doctrine\DBAL\Driver\AbstractSQLiteDriver;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
+use Doctrine\DBAL\Platforms\MariaDBPlatform;
+use Doctrine\DBAL\Platforms\MySQLPlatform;
+use Doctrine\DBAL\Platforms\SqlitePlatform;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 use Psr\Log\LoggerInterface;
@@ -124,11 +127,11 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
      */
     public function getDatabaseType(): ?string
     {
-        if ($this->connection->getDriver() instanceof AbstractMySQLDriver) {
+        if ($this->connection->getDatabasePlatform() instanceof AbstractMySQLPlatform) {
             return 'mysql';
         }
 
-        if ($this->connection->getDriver() instanceof AbstractSQLiteDriver) {
+        if ($this->connection->getDatabasePlatform() instanceof SqlitePlatform) {
             return 'sqlite';
         }
 
