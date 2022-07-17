@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c4ac70981c57fa93949b71e2529efd5f",
+    "content-hash": "3e77321349e607d5ab25704629060ff1",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -12350,40 +12350,40 @@
         },
         {
             "name": "dama/doctrine-test-bundle",
-            "version": "v6.7.5",
+            "version": "v7.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dmaicher/doctrine-test-bundle.git",
-                "reference": "af6f8e8c56fcfdf2ae039b97607883961a14af9c"
+                "reference": "279a554556bed387a6aaae0c13cc982d4874773b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dmaicher/doctrine-test-bundle/zipball/af6f8e8c56fcfdf2ae039b97607883961a14af9c",
-                "reference": "af6f8e8c56fcfdf2ae039b97607883961a14af9c",
+                "url": "https://api.github.com/repos/dmaicher/doctrine-test-bundle/zipball/279a554556bed387a6aaae0c13cc982d4874773b",
+                "reference": "279a554556bed387a6aaae0c13cc982d4874773b",
                 "shasum": ""
             },
             "require": {
-                "doctrine/dbal": "^2.9.3 || ^3.0",
-                "doctrine/doctrine-bundle": "^1.11 || ^2.0",
+                "doctrine/dbal": "^3.3",
+                "doctrine/doctrine-bundle": "^2.2.2",
                 "ext-json": "*",
-                "php": "^7.1 || ^8.0",
+                "php": "^7.3 || ^8.0",
                 "psr/cache": "^1.0 || ^2.0 || ^3.0",
-                "symfony/cache": "^4.4 || ^5.3 || ^6.0",
-                "symfony/framework-bundle": "^4.4 || ^5.3 || ^6.0"
+                "symfony/cache": "^4.4 || ^5.4 || ^6.0",
+                "symfony/framework-bundle": "^4.4 || ^5.4 || ^6.0"
             },
             "require-dev": {
                 "behat/behat": "^3.0",
                 "doctrine/cache": "^1.12",
                 "phpstan/phpstan": "^1.2",
-                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
-                "symfony/phpunit-bridge": "^5.3 || ^6.0",
-                "symfony/process": "^4.4 || ^5.3 || ^6.0",
-                "symfony/yaml": "^4.4 || ^5.3 || ^6.0"
+                "phpunit/phpunit": "^8.0 || ^9.0",
+                "symfony/phpunit-bridge": "^6.0",
+                "symfony/process": "^4.4 || ^5.4 || ^6.0",
+                "symfony/yaml": "^4.4 || ^5.4 || ^6.0"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.x-dev"
+                    "dev-master": "7.x-dev"
                 }
             },
             "autoload": {
@@ -12411,9 +12411,9 @@
             ],
             "support": {
                 "issues": "https://github.com/dmaicher/doctrine-test-bundle/issues",
-                "source": "https://github.com/dmaicher/doctrine-test-bundle/tree/v6.7.5"
+                "source": "https://github.com/dmaicher/doctrine-test-bundle/tree/v7.1.1"
             },
-            "time": "2022-02-08T16:00:51+00:00"
+            "time": "2022-07-01T12:06:31+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -14253,16 +14253,16 @@
         },
         {
             "name": "symplify/easy-coding-standard",
-            "version": "10.3.3",
+            "version": "11.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/easy-coding-standard.git",
-                "reference": "c93878b3c052321231519b6540e227380f90be17"
+                "reference": "ee347cd02e2aea9f706fc3f67ea0fc19cc0ca606"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/easy-coding-standard/zipball/c93878b3c052321231519b6540e227380f90be17",
-                "reference": "c93878b3c052321231519b6540e227380f90be17",
+                "url": "https://api.github.com/repos/symplify/easy-coding-standard/zipball/ee347cd02e2aea9f706fc3f67ea0fc19cc0ca606",
+                "reference": "ee347cd02e2aea9f706fc3f67ea0fc19cc0ca606",
                 "shasum": ""
             },
             "require": {
@@ -14292,7 +14292,7 @@
             ],
             "description": "Prefixed scoped version of ECS package",
             "support": {
-                "source": "https://github.com/symplify/easy-coding-standard/tree/10.3.3"
+                "source": "https://github.com/symplify/easy-coding-standard/tree/11.0.8"
             },
             "funding": [
                 {
@@ -14304,7 +14304,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-06-13T14:03:37+00:00"
+            "time": "2022-07-05T11:49:37+00:00"
         },
         {
             "name": "vimeo/psalm",

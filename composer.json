@@ -86,7 +86,7 @@
         "symfony/phpunit-bridge": "5.4.*",
         "symfony/stopwatch": "^5.2",
         "symfony/web-profiler-bundle": "^5.2",
-        "symplify/easy-coding-standard": "^10.1.1",
+        "symplify/easy-coding-standard": "^11.0",
         "vimeo/psalm": "^4.3.2"
     },
     "suggest": {
