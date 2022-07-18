@@ -67,6 +67,8 @@ See [UPGRADE](UPGRADE.md) for more infos.
 
 *Hint:* A docker image is available under [jbtronics/part-db1](https://hub.docker.com/r/jbtronics/part-db1). How to setup Part-DB via docker is described [here](https://github.com/Part-DB/Part-DB-symfony/blob/master/docs/docker/docker-install.md).
 
+**Below you find some general hints for installtion, see [here](docs/installation/installation_guide-debian.md) for a detailed guide how to install Part-DB on Debian/Ubuntu.**
+
 1. Copy or clone this repository into a folder on your server.
 2. Configure your webserver to serve from the `public/` folder. See [here](https://symfony.com/doc/current/setup/web_server_configuration.html)
 for additional informations.
@@ -74,7 +76,7 @@ for additional informations.
     * Change the line `APP_ENV=dev` to `APP_ENV=prod`
     * If you do not want to use SQLite, change the value of `DATABASE_URL=` to your needs (see [here](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url)) for the format.
       In bigger instances with concurrent accesses, MySQL is more performant. This can not be changed easily later, so choose wisely.
-4. Install composer dependencies and generate autoload files: `composer install --no-dev`
+4. Install composer dependencies and generate autoload files: `composer install -o --no-dev`
 5. If you have put Part-DB into a sub-directory on your server (like `part-db/`), you have to edit the file 
 `webpack.config.js` and uncomment the lines (remove the `//` before the lines) `.setPublicPath('/part-db/build')` (line 43) and
  `.setManifestKeyPrefix('build/')` (line 44). You have to replace `/part-db` with your own path on line 44.
