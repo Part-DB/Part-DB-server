@@ -1,4 +1,4 @@
-FROM php:7-apache
+FROM php:8.1-apache
 
 # Install needed dependencies for PHP build
 RUN apt-get update &&  apt-get install -y pkg-config curl libcurl4-openssl-dev libicu-dev \
