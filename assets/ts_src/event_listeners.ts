@@ -536,7 +536,7 @@ $(document).on("ajaxUI:start ajaxUI:reload", function() {
     }
 
     //@ts-ignore
-    var clipboard = new ClipboardJS('.btn');
+    var clipboard = new ClipboardJS('.btn[data-clipboard-target], .btn[data-clipboard-text], .btn[data-clipboard-action]');
     clipboard.on('success', function(e) {
         setTooltip(e.trigger, 'Copied!');
         hideTooltip(e.trigger);
