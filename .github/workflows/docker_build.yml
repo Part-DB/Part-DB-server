@@ -30,6 +30,9 @@ jobs:
           # Mark the image build from master as latest (as we dont have really releases yet)
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=branch,
+            type=ref,event=tag,
+
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
