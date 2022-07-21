@@ -16,7 +16,7 @@ RUN docker-php-ext-configure gd \
 RUN docker-php-ext-install pdo_mysql curl intl mbstring bcmath zip xml xsl
 
 # Enable opcache and configure it recommended for symfony (see https://symfony.com/doc/current/performance.html)
-docker-php-ext-enable opcache; \
+RUN docker-php-ext-enable opcache; \
 	{ \
 		echo 'opcache.memory_consumption=256'; \
 		echo 'opcache.max_accelerated_files=20000'; \
