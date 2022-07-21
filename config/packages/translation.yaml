@@ -1,5 +1,7 @@
 framework:
     default_locale: '%partdb.locale%'
+    # Just enable the locales we need for performance reasons.
+    enabled_locale: '%partdb.locale_menu%'
     translator:
         default_path: '%kernel.project_dir%/translations'
         fallbacks:
