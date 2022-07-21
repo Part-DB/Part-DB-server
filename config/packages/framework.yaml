@@ -2,7 +2,10 @@
 framework:
     secret: '%env(APP_SECRET)%'
     csrf_protection: true
-    http_method_override: false
+
+    # Must be set to true, to enable the change of HTTP methhod via _method parameter, otherwise our delete routines does not work anymore
+    # TODO: Rework delete routines to work without _method parameter as it is not recommended anymore (see https://github.com/symfony/symfony/issues/45278)
+    http_method_override: true
 
     # Allow users to configure trusted hosts via .env variables
     # see https://symfony.com/doc/current/reference/configuration/framework.html#trusted-hosts
