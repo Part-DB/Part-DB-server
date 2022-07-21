@@ -15,6 +15,17 @@ RUN docker-php-ext-configure gd \
 # Install other needed PHP extensions
 RUN docker-php-ext-install pdo_mysql curl intl mbstring bcmath zip xml xsl
 
+# Enable opcache and configure it recommended for symfony (see https://symfony.com/doc/current/performance.html)
+docker-php-ext-enable opcache; \
+	{ \
+		echo 'opcache.memory_consumption=256'; \
+		echo 'opcache.max_accelerated_files=20000'; \
+		echo 'opcache.validate_timestamp=0'; \
+        # Configure Realpath cache for performance
+        echo 'realpath_cache_size=4096K'; \
+        echo 'realpath_cache_ttl=600'; \
+      } > /usr/local/etc/php/conf.d/symfony-recommended.ini
+
 # Install yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
