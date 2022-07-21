@@ -12,8 +12,8 @@ RUN docker-php-ext-configure gd \
     --with-freetype \
     && docker-php-ext-install gd
 
-   # Install other needed PHP extensions
-RUN docker-php-ext-install pdo_mysql curl intl mbstring bcmath gd zip xml xsl
+# Install other needed PHP extensions
+RUN docker-php-ext-install pdo_mysql curl intl mbstring bcmath zip xml xsl
 
 # Install yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
