@@ -11,7 +11,7 @@ services:
       - ./public_media:/var/www/html/public/media
       - ./db:/var/www/html/var/db
     restart: unless-stopped
-    image: jbtronics/part-db1:master
+    image: jbtronics/part-db1:latest
     environment:
       # Put SQLite database in our mapped folder. You can configure some other kind of database here too.
       - DATABASE_URL=sqlite:///%kernel.project_dir%/var/db/app.db
