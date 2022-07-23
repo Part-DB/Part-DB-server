@@ -45,6 +45,7 @@ namespace App\Services\Attachments;
 use App\Entity\Attachments\Attachment;
 use InvalidArgumentException;
 use Liip\ImagineBundle\Service\FilterService;
+use Psr\Log\LoggerInterface;
 use RuntimeException;
 use function strlen;
 use Symfony\Component\Asset\Packages;
@@ -59,15 +60,18 @@ class AttachmentURLGenerator
     protected $attachmentHelper;
     protected $filterService;
 
+    protected $logger;
+
     public function __construct(Packages $assets, AttachmentPathResolver $pathResolver,
                                 UrlGeneratorInterface $urlGenerator, AttachmentManager $attachmentHelper,
-                                FilterService $filterService)
+                                FilterService $filterService, LoggerInterface $logger)
     {
         $this->assets = $assets;
         $this->pathResolver = $pathResolver;
         $this->urlGenerator = $urlGenerator;
         $this->attachmentHelper = $attachmentHelper;
         $this->filterService = $filterService;
+        $this->logger = $logger;
 
         //Determine a normalized path to the public folder (assets are relative to this folder)
         $this->public_path = $this->pathResolver->parameterToAbsolutePath('public');
@@ -168,8 +172,14 @@ class AttachmentURLGenerator
             return $this->assets->getUrl($asset_path);
         }
 
-        //Otherwise we can serve the relative path via Asset component
-        return $this->filterService->getUrlOfFilteredImage($asset_path, $filter_name);
+        try {
+            //Otherwise we can serve the relative path via Asset component
+            return $this->filterService->getUrlOfFilteredImage($asset_path, $filter_name);
+        } catch (\Imagine\Exception\RuntimeException $e) {
+            //If the filter fails, we can not serve the thumbnail and fall back to the original image and log an warning
+            $this->logger->warning('Could not open thumbnail for attachment with ID ' . $attachment->getID() . ': ' . $e->getMessage());
+            return $this->assets->getUrl($asset_path);
+        }
     }
 
     /**

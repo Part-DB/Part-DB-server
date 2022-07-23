@@ -2,7 +2,7 @@
     "type": "project",
     "license": "AGPL-3.0-or-later",
     "require": {
-        "php": "^7.3",
+        "php": "^7.3 || ^8.0",
         "ext-ctype": "*",
         "ext-gd": "*",
         "ext-iconv": "*",
@@ -16,7 +16,7 @@
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.9",
-        "dompdf/dompdf": "^1.0.1",
+        "dompdf/dompdf": "^2.0.0",
         "erusev/parsedown": "^1.7",
         "florianv/swap": "^4.0",
         "florianv/swap-bundle": "dev-master",
@@ -71,7 +71,7 @@
         "webmozart/assert": "^1.4"
     },
     "require-dev": {
-        "dama/doctrine-test-bundle": "^6.0",
+        "dama/doctrine-test-bundle": "^7.0",
         "doctrine/doctrine-fixtures-bundle": "^3.2",
         "ekino/phpstan-banned-code": "^v1.0.0",
         "phpstan/extension-installer": "^1.0",
@@ -87,7 +87,7 @@
         "symfony/phpunit-bridge": "5.4.*",
         "symfony/stopwatch": "^5.2",
         "symfony/web-profiler-bundle": "^5.2",
-        "symplify/easy-coding-standard": "^10.1.1",
+        "symplify/easy-coding-standard": "^11.0",
         "vimeo/psalm": "^4.3.2"
     },
     "suggest": {

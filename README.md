@@ -7,6 +7,7 @@
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/jbtronics/part-db1)
 ![Docker Build Status](https://github.com/Part-DB/Part-DB-symfony/workflows/Docker%20Image%20Build/badge.svg)
+[![Crowdin](https://badges.crowdin.net/e/8325196085d4bee8c04b75f7c915452a/localized.svg)](https://part-db.crowdin.com/part-db)
 
 # Part-DB
 Part-DB is an Open-Source inventory managment system for your electronic components.
@@ -67,6 +68,8 @@ See [UPGRADE](UPGRADE.md) for more infos.
 
 *Hint:* A docker image is available under [jbtronics/part-db1](https://hub.docker.com/r/jbtronics/part-db1). How to setup Part-DB via docker is described [here](https://github.com/Part-DB/Part-DB-symfony/blob/master/docs/docker/docker-install.md).
 
+**Below you find some general hints for installtion, see [here](docs/installation/installation_guide-debian.md) for a detailed guide how to install Part-DB on Debian/Ubuntu.**
+
 1. Copy or clone this repository into a folder on your server.
 2. Configure your webserver to serve from the `public/` folder. See [here](https://symfony.com/doc/current/setup/web_server_configuration.html)
 for additional informations.
@@ -74,7 +77,7 @@ for additional informations.
     * Change the line `APP_ENV=dev` to `APP_ENV=prod`
     * If you do not want to use SQLite, change the value of `DATABASE_URL=` to your needs (see [here](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url)) for the format.
       In bigger instances with concurrent accesses, MySQL is more performant. This can not be changed easily later, so choose wisely.
-4. Install composer dependencies and generate autoload files: `composer install --no-dev`
+4. Install composer dependencies and generate autoload files: `composer install -o --no-dev`
 5. If you have put Part-DB into a sub-directory on your server (like `part-db/`), you have to edit the file 
 `webpack.config.js` and uncomment the lines (remove the `//` before the lines) `.setPublicPath('/part-db/build')` (line 43) and
  `.setManifestKeyPrefix('build/')` (line 44). You have to replace `/part-db` with your own path on line 44.
@@ -88,6 +91,10 @@ for additional informations.
 
 When you want to upgrade to a newer version, then just copy the new files into the folder
 and repeat the steps 4. to 7.
+
+### Reverse proxy
+If you are using a reverse proxy, you have to ensure that the proxies sets the `X-Forwarded-*` headers correctly, or you will get HTTP/HTTPS mixup and wrong hostnames.
+If the reverse proxy is on a different server (or it cannot access Part-DB via localhost) you have to set the `TRUSTED_PROXIES` env variable to match your reverse proxies IP-address (or IP block). You can do this in your `.env.local` or (when using docker) in your `docker-compose.yml` file.
 
 ## Useful console commands
 Part-DB provides some command consoles which can be invoked by `php bin/console [command]`. You can get help for every command with the parameter `--help`.

@@ -113,6 +113,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      * @var Supplier
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Supplier", inversedBy="orderdetails")
      * @ORM\JoinColumn(name="id_supplier", referencedColumnName="id")
+     * @Assert\NotNull(message="validator.orderdetail.supplier_must_not_be_null")
      */
     protected $supplier;
 

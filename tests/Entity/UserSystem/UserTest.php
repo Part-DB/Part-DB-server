@@ -88,10 +88,12 @@ class UserTest extends TestCase
     public function testSetBackupCodes(): void
     {
         $user = new User();
+        $this->assertNull($user->getBackupCodesGenerationDate());
+
         $codes = ['test', 'invalid', 'test'];
         $user->setBackupCodes($codes);
         // Backup Codes generation date must be changed!
-        $this->assertEqualsWithDelta(new DateTime(), $user->getBackupCodesGenerationDate(), 0.1);
+        $this->assertInstanceOf(\DateTime::class, $user->getBackupCodesGenerationDate());
         $this->assertSame($codes, $user->getBackupCodes());
 
         //Test what happens if we delete the backup keys

@@ -19,6 +19,9 @@ The docker image uses a SQLite database and all data (database, uploads and othe
 ## Direct use of docker image
 You can use the `jbtronics/part-db1:master` image directly. You have to expose the port 80 to a host port and configure volumes for `/var/www/html/uploads` and `/var/www/html/public/media`.
 
+If you want to use SQLite database (which is default), you have to configure Part-DB to put the database file in a mapped volume via the `DATABASE_URL` environment variable.
+For example if you set `DATABASE_URL=sqlite:///%kernel.project_dir%/var/db/app.db` then you will have to map the `/var/www/html/var/db/` folder to the docker container (see docker-compose.yaml for example).
+
 You also have to create the database like described above in step 4.
 
 ## Running console commands

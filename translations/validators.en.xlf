@@ -215,5 +215,17 @@
         <target>This location can only contain a single part and it is already full!</target>
       </segment>
     </unit>
+    <unit id="4gPskOG" name="validator.attachment.must_not_be_null">
+      <segment>
+        <source>validator.attachment.must_not_be_null</source>
+        <target>You must select an attachment type!</target>
+      </segment>
+    </unit>
+    <unit id="cDDVrWT" name="validator.orderdetail.supplier_must_not_be_null">
+      <segment>
+        <source>validator.orderdetail.supplier_must_not_be_null</source>
+        <target>You must select an supplier!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

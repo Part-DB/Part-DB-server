@@ -50,4 +50,5 @@ parameters:
   env(DEMO_MODE): 0
   env(ALLOW_ATTACHMENT_DOWNLOADS): 0
 
-
+  env(TRUSTED_PROXIES): '127.0.0.1' #By default trust only our own server
+  env(TRUSTED_HOSTS): '' # Trust all host names by default

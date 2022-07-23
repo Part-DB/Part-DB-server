@@ -25,6 +25,7 @@ namespace App\Entity\Attachments;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use function in_array;
 use InvalidArgumentException;
 use LogicException;
@@ -105,6 +106,7 @@ abstract class Attachment extends AbstractNamedDBElement
      * @ORM\ManyToOne(targetEntity="AttachmentType", inversedBy="attachments_with_type")
      * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
      * @Selectable()
+     * @Assert\NotNull(message="validator.attachment.must_not_be_null")
      */
     protected $attachment_type;
 
