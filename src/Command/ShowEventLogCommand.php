@@ -90,7 +90,7 @@ class ShowEventLogCommand extends Command
         $total_count = $this->repo->count([]);
         $max_page = (int) ceil($total_count / $limit);
 
-        if ($page > $max_page) {
+        if ($page > $max_page && $max_page > 0) {
             $io->error("There is no page ${page}! The maximum page is ${max_page}.");
 
             return 1;
