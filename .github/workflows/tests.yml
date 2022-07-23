@@ -98,12 +98,12 @@ jobs:
     
       - name: Create DB
         run: php bin/console --env test doctrine:database:create --if-not-exists -n
-        if: {{ matrix.db-type }} == 'mysql'
+        if: matrix.db-type == 'mysql'
 
       # Checkinf for existance is not supported for sqlite, so do it without it
       - name: Create DB
         run: php bin/console --env test doctrine:database:create -n
-        if: {{ matrix.db-type }} == 'sqlite'
+        if: {matrix.db-type == 'sqlite'
     
       - name: Do migrations
         run: php bin/console --env test doctrine:migrations:migrate -n
