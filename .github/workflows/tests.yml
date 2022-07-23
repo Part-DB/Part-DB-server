@@ -15,20 +15,31 @@ jobs:
     name: PHPUnit and coverage Test (${{ matrix.php-versions }})
     # Ubuntu 20.04 ships MySQL 8.0 which causes problems with login, so we just use ubuntu 18.04 for now...
     runs-on: ubuntu-18.04
-    
-    env:
-      APP_ENV: test
-      SYMFONY_DEPRECATIONS_HELPER: disabled
-      DATABASE_URL: 'mysql://root:root@127.0.0.1:3306/test'
-      PHP_VERSION: ${{ matrix.php-versions }}
-    
+
     strategy:
       matrix:
-        php-versions: ['7.3', '7.4', '8.0', '8.1']
+        php-versions: [ '7.3', '7.4', '8.0', '8.1' ]
+        db-type: [ 'mysql', 'sqlite' ]
+
+    env:
+      # Note that we set DATABASE URL later based on our db-type matrix value
+      APP_ENV: test
+      SYMFONY_DEPRECATIONS_HELPER: disabled
+      PHP_VERSION: ${{ matrix.php-versions }}
+      DB_TYPE: ${{ matrix.db-type }}
+
     steps:
+      - name: Set Database env for MySQL
+        run: echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/test" >> $GITHUB_ENV
+        if: matrix.db-type == 'mysql'
+
+      - name: Set Database env for SQLite
+        run: echo "DATABASE_URL="sqlite:///%kernel.project_dir%/var/app_test.db"" >> $GITHUB_ENV
+        if: matrix.db-type == 'sqlite'
+
       - name: Checkout
-        uses: actions/checkout@v2
-      
+        uses: actions/checkout@v3
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -63,7 +74,7 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
 
-      - uses: actions/cache@v1
+      - uses: actions/cache@v3
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -75,9 +86,9 @@ jobs:
         run: composer install --prefer-dist --no-progress
     
       - name: Setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: '12'
+          node-version: '16'
     
       - name: Install yarn dependencies
         run: yarn install
@@ -98,9 +109,9 @@ jobs:
         run: ./bin/phpunit --coverage-clover=coverage.xml
       
       - name: Upload coverage
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v3
         with:
-          env_vars: PHP_VERSION
+          env_vars: PHP_VERSION,DB_TYPE
           
       - name: Test app:clean-attachments
         run: php bin/console app:clean-attachments -n
