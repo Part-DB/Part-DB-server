@@ -233,7 +233,7 @@ final class TreeViewNode implements JsonSerializable
         return $this;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $ret = [
             'text' => $this->text,

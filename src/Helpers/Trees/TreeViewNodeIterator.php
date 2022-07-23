@@ -63,7 +63,7 @@ final class TreeViewNodeIterator extends ArrayIterator implements RecursiveItera
         return !empty($element->getNodes());
     }
 
-    public function getChildren()
+    public function getChildren(): TreeViewNodeIterator
     {
         /** @var TreeViewNode $element */
         $element = $this->current();
