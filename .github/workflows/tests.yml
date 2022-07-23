@@ -12,7 +12,7 @@ on:
     
 jobs:
   phpunit:
-    name: PHPUnit and coverage Test (${{ matrix.php-versions }})
+    name: PHPUnit and coverage Test (PHP ${{ matrix.php-versions }}, ${{ matrix.db-type }})
     # Ubuntu 20.04 ships MySQL 8.0 which causes problems with login, so we just use ubuntu 18.04 for now...
     runs-on: ubuntu-18.04
 
@@ -98,6 +98,12 @@ jobs:
     
       - name: Create DB
         run: php bin/console --env test doctrine:database:create --if-not-exists -n
+        if: {{ matrix.db-type }} == 'mysql'
+
+      # Checkinf for existance is not supported for sqlite, so do it without it
+      - name: Create DB
+        run: php bin/console --env test doctrine:database:create -n
+        if: {{ matrix.db-type }} == 'sqlite'
     
       - name: Do migrations
         run: php bin/console --env test doctrine:migrations:migrate -n
