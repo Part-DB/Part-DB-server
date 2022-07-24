@@ -53,6 +53,7 @@ use App\Entity\PriceInformations\Orderdetail;
 use App\Form\AttachmentFormType;
 use App\Form\ParameterType;
 use App\Form\Type\MasterPictureAttachmentType;
+use App\Form\Type\RichTextEditorType;
 use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
 use App\Form\WorkaroundCollectionType;
@@ -63,6 +64,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -106,11 +108,11 @@ class PartBaseType extends AbstractType
                 ],
                 'disabled' => !$this->security->isGranted('name.edit', $part),
             ])
-            ->add('description', CKEditorType::class, [
+            ->add('description', RichTextEditorType::class, [
                 'required' => false,
                 'empty_data' => '',
                 'label' => 'part.edit.description',
-                'config_name' => 'description_config',
+                'mode' => 'single_line',
                 'attr' => [
                     'placeholder' => 'part.edit.description.placeholder',
                     'rows' => 2,
@@ -206,12 +208,13 @@ class PartBaseType extends AbstractType
             ]);
 
         //Comment section
-        $builder->add('comment', CKEditorType::class, [
+        $builder->add('comment', RichTextEditorType::class, [
             'required' => false,
             'label' => 'part.edit.comment',
             'attr' => [
                 'rows' => 4,
             ],
+
             'disabled' => !$this->security->isGranted('comment.edit', $part),
             'empty_data' => '',
         ]);
