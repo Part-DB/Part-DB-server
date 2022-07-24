@@ -68,7 +68,7 @@
                                 <div class="col-sm-3">
                                     {% block quick_links %}{% endblock %}
 
-                                    <a class="btn btn-secondary btn-block mb-2" href="{{ entity | entityURL('edit') }}">
+                                    <a class="btn btn-secondary w-100 mb-2" href="{{ entity | entityURL('edit') }}">
                                         <i class="fas fa-edit"></i> {% trans %}entity.edit.btn{% endtrans %}
                                     </a>
                                     <div class="">
@@ -82,7 +82,7 @@
                                     </div>
 
                                     {% if entity is instanceof("App\\Entity\\Parts\\Storelocation") %}
-                                        {{ dropdown.profile_dropdown('storelocation', entity.id, true, 'btn-secondary btn-block mt-2') }}
+                                        {{ dropdown.profile_dropdown('storelocation', entity.id, true, 'btn-secondary w-100 mt-2') }}
                                     {% endif %}
 
                                 </div>

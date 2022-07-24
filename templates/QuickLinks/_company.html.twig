@@ -1,16 +1,16 @@
 <div class="btn-toolbar">
-    <div class="btn-group btn-block">
+    <div class="btn-group">
         {% if entity.website is not empty %}
-            <a class="btn btn-outline-dark" href="{{ entity.website }}" title="{% trans %}company.edit.quick.website{% endtrans %}" data-turbo="false"><i class="fas fa-globe fa-fw"></i></a>
+            <a class="btn btn-outline-secondary" href="{{ entity.website }}" title="{% trans %}company.edit.quick.website{% endtrans %}" data-turbo="false"><i class="fas fa-globe fa-fw"></i></a>
         {% endif %}
         {% if entity.emailAddress is not empty %}
-            <a class="btn btn-outline-dark" href="mailto:{{ entity.emailAddress }}" title="{% trans %}company.edit.quick.email{% endtrans %}" data-turbo="false"><i class="fas fa-envelope-open-text"></i></a>
+            <a class="btn btn-outline-secondary" href="mailto:{{ entity.emailAddress }}" title="{% trans %}company.edit.quick.email{% endtrans %}" data-turbo="false"><i class="fas fa-envelope-open-text"></i></a>
         {% endif %}
         {% if entity.phoneNumber is not empty %}
-            <a class="btn btn-outline-dark" href="tel:{{ entity.phoneNumber | replace({' ': ''}) }}" title="{% trans %}company.edit.quick.phone{% endtrans %}" data-turbo="false"><i class="fas fa-phone"></i></a>
+            <a class="btn btn-outline-secondary" href="tel:{{ entity.phoneNumber | replace({' ': ''}) }}" title="{% trans %}company.edit.quick.phone{% endtrans %}" data-turbo="false"><i class="fas fa-phone"></i></a>
         {% endif %}
         {% if entity.faxNumber is not empty %}
-            <a class="btn btn-outline-dark" href="tel:{{ entity.faxNumber | replace({' ': ''}) }}" title="{% trans %}company.edit.quick.fax{% endtrans %}" data-turbo="false"><i class="fas fa-fax"></i></a>
+            <a class="btn btn-outline-secondary" href="tel:{{ entity.faxNumber | replace({' ': ''}) }}" title="{% trans %}company.edit.quick.fax{% endtrans %}" data-turbo="false"><i class="fas fa-fax"></i></a>
         {% endif %}
     </div>
 </div>

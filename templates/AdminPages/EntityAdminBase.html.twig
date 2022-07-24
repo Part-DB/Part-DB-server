@@ -140,7 +140,7 @@
                                     <div class="btn-group">
                                         {{ form_widget(form.save) }}
                                         <button type="button" class="btn {% if entity.id is not null %}btn-primary{% else %}btn-success{% endif %} dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <span class="sr-only">Toggle Dropdown</span>
+                                            <span class="visually-hidden">Toggle Dropdown</span>
                                         </button>
                                         <div class="dropdown-menu p-2">
                                             {{ form_row(form.log_comment)}}
