@@ -21,6 +21,11 @@ const ErrorHandlerHelper = class {
             return;
         }
 
+        //Ignore status 422 as this means a symfony validation error occured and we need to show it to user. This is no (unexpected) error.
+        if (response.status = 422) {
+            return;
+        }
+
         if(fetchResponse.failed) {
             //Create error text
             let title = response.statusText + ' (Status ' + response.status + ')';
