@@ -1,7 +1,7 @@
 'use strict';
 
 import { Controller } from '@hotwired/stimulus';
-import * as marked from "marked";
+import { marked } from "marked";
 import DOMPurify from 'dompurify';
 
 export default class extends Controller {
