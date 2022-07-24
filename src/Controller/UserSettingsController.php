@@ -354,7 +354,7 @@ class UserSettingsController extends AbstractController
             'user' => $user,
             'settings_form' => $form,
             'pw_form' => $pw_form,
-            'page_need_reload' => $page_need_reload,
+            'global_reload_needed' => $page_need_reload,
 
             'google_form' => $google_form,
             'backup_form' => $backup_form,

@@ -6,10 +6,6 @@
     {% trans %}user.settings.label{% endtrans %}{% endblock %}
 
 {% block card_content %}
-    {% if page_need_reload %}
-        <script>window.location.href = window.location.href;</script>
-    {% endif %}
-
     {{ form_start(settings_form) }}
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
