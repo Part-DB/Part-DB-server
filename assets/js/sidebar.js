@@ -152,6 +152,9 @@ const SidebarHelper = class {
      * @param url The url from where the data should be loaded
      */
     initTree(tree, url) {
+        //Get primary color from css variable
+        const primary_color = getComputedStyle(document.documentElement).getPropertyValue('--bs-info');
+
         //let contextmenu_handler = this.onNodeContextmenu;
         $.getJSON(this.BASE + url, function (data) {
             // @ts-ignore
@@ -160,7 +163,7 @@ const SidebarHelper = class {
                 enableLinks: true,
                 showIcon: false,
                 showBorder: true,
-                searchResultBackColor: '#ffc107',
+                searchResultBackColor: primary_color,
                 searchResultColor: '#000',
                 onNodeSelected: function(event, data) {
                     if(data.href) {
