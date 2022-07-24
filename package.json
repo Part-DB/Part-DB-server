@@ -28,7 +28,7 @@
         "@zxing/library": "^0.19.1",
         "bootbox": "^5.4.0",
         "bootstrap-fileinput": "^5.0.1",
-        "bootstrap-select": "^1.13.8",
+        "bootstrap-select": "v1.14.0-beta3",
         "bootswatch": "^5.1.3",
         "bs-custom-file-input": "^1.3.4",
         "clipboard": "^2.0.4",

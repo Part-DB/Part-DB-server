@@ -30,7 +30,8 @@ const RegisterEventHelper = class {
     registerTooltips() {
         this.registerLoadHandler(() => {
             $(".tooltip").remove();
-            $('a[title], button[title], span[title], h6[title], h3[title], i.fas[title]')
+            //Exclude dropdown buttons from tooltips, otherwise we run into endless errors from bootstrap (bootstrap.esm.js:614 Bootstrap doesn't allow more than one instance per element. Bound instance: bs.dropdown.)
+            $('a[title], button[title]:not([data-bs-toggle="dropdown"]), span[title], h6[title], h3[title], i.fas[title]')
                 //@ts-ignore
                 .tooltip("hide").tooltip({container: "body", placement: "auto", boundary: 'window'});
         });

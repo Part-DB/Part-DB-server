@@ -115,3 +115,14 @@
     {%- endif -%}
 {%- endblock tristate_widget %}
 
+{%- block choice_widget_collapsed -%}
+    {# Only add the BS5 form-select class if we dont use bootstrap-selectpicker  #}
+    {% if attr["data-controller"] is defined and attr["data-controller"] != "elements--selectpicker" %}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-select')|trim}) -%}
+    {% else %}
+        {# If it is an selectpicker add form-control class to fill whole width #}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
+    {% endif %}
+
+    {{- block("choice_widget_collapsed", "bootstrap_base_layout.html.twig") -}}
+{%- endblock choice_widget_collapsed -%}
