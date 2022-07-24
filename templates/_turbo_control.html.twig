@@ -15,4 +15,4 @@
     <div {{ stimulus_controller('turbo/global_reload') }}></div>
 {% endif %}
 
-<div class="d-none" data-title="{% apply title %}{{ page_title }}{% endapply %}" {{ stimulus_controller('turbo/title') }}></div>
+<div class="d-none" data-title="{% apply trim %}{{ current_page_title }}{% endapply %}" {{ stimulus_controller('turbo/title') }}></div>
