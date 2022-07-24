@@ -6,7 +6,7 @@
             {% for pic in pictures %}
                 {# @var pic App\Entity\Attachments\Attachment #}
                 <div class="carousel-item  {% if loop.first %}active{% endif %}">
-                    <a href="{{ pic | entityURL('file_view') }}" data-no-ajax target="_blank" rel="noopener">
+                    <a href="{{ pic | entityURL('file_view') }}" data-turbo="false" target="_blank" rel="noopener">
                         <img class="d-block w-100 img-fluid img-thumbnail bg-light" src="{{ pic | entityURL('file_view') }}" alt="">
                         <div class="mask"></div>
                         <div class="carousel-caption-hover">

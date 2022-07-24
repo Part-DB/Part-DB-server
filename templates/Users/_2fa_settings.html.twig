@@ -96,7 +96,7 @@
                         <p><b>{% trans %}tfa_backup.generation_date{% endtrans %}:</b> {{ user.backupCodesGenerationDate | format_datetime }}</p>
                     </div>
                     <div class="offset-sm-3">
-                        <a href="{{ url('show_backup_codes') }}" target="_blank" data-no-ajax class="btn btn-primary">{% trans %}tfa_backup.show_codes{% endtrans %}</a>
+                        <a href="{{ url('show_backup_codes') }}" target="_blank" data-turbo="false" class="btn btn-primary">{% trans %}tfa_backup.show_codes{% endtrans %}</a>
                     </div>
 
                     <div class="offset-sm-3 mt-2">

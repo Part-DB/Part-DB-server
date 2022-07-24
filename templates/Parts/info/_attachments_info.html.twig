@@ -59,10 +59,10 @@
             <td><div class="btn-group" role="group" aria-label="">
                     <a {% if attachment_manager.fileExisting(attachment) %}href="{{ attachment|entityURL('file_view') }}"{% endif %} target="_blank"
                        class="btn btn-secondary {% if not attachment_manager.fileExisting(attachment) or (attachment.secure and not is_granted("show_secure", attachment))  %}disabled{% endif %}"
-                       data-no-ajax title="{% trans %}attachment.view{% endtrans %}" rel="noopener">
+                       data-turbo="false" title="{% trans %}attachment.view{% endtrans %}" rel="noopener">
                         <i class="fas fa-eye fa-fw"></i>
                     </a>
-                    <a {% if attachment_manager.fileExisting(attachment)  %}href="{{ attachment|entityURL('file_download') }}"{% endif %} data-no-ajax
+                    <a {% if attachment_manager.fileExisting(attachment)  %}href="{{ attachment|entityURL('file_download') }}"{% endif %} data-turbo="false"
                        class="btn btn-secondary {% if not attachment_manager.fileExisting(attachment) or (attachment.secure and not is_granted("show_secure", attachment)) %}disabled{% endif %}"
                        title="{% trans %}attachment.download{% endtrans %}">
                         <i class="fas fa-download fa-fw"></i>
