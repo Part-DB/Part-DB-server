@@ -55,20 +55,19 @@
 </head>
 <body data-base-url="{{ url('homepage', {'_locale': app.request.locale}) }}">
 {% block body %}
-
     <header>
-
         <turbo-frame id="navbar-frame" target="content" data-turbo-action="advance">
             {% include "_navbar.html.twig" %}
         </turbo-frame>
-
-        {% include "_flash.html.twig" %}
 
     </header>
 
     <main>
         <div class="container-fluid">
             <div class="row">
+
+                {% include "_toast_container.html.twig" %}
+
                 <div class="collapse d-md-block bg-light" id="sidebar-container">
                     <nav  class="fixed-sidebar col-md-3 col-lg-2 " id="fixed-sidebar">
                         <turbo-frame id="sidebar" target="content" data-turbo-action="advance">
@@ -89,6 +88,16 @@
                             {% block content %}
                             {% endblock %}
 
+                            <div class="toasts-global d-none">
+                            {% for label, messages in app.flashes() %}
+                                {% for message in messages %}
+                                    {{ include('_toast.html.twig', {
+                                        'label': label,
+                                        'message': message
+                                    }) }}
+                                {% endfor %}
+                            {% endfor %}
+                            </div>
                         </turbo-frame>
 
                         {% block scripts %}
@@ -107,7 +116,6 @@
        title="{% trans %}back_to_top{% endtrans %}" data-toggle="tooltip" data-placement="left">
         <i class="fas fa-angle-up fa-fw"></i>
     </a>
-
 
 {% endblock %}
 

@@ -12,7 +12,6 @@ import "bootstrap-fileinput";
 
 const RegisterEventHelper = class {
     constructor() {
-        this.registerToasts();
         this.registerTooltips();
         this.registerJumpToTopBtn();
 
@@ -26,10 +25,6 @@ const RegisterEventHelper = class {
 
     registerLoadHandler(fn) {
         document.addEventListener('turbo:load', fn);
-    }
-
-    registerToasts() {
-        this.registerLoadHandler(() =>  $(".toast").toast('show'));
     }
 
     registerTooltips() {
