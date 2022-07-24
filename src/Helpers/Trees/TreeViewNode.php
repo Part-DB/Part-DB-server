@@ -255,6 +255,10 @@ final class TreeViewNode implements JsonSerializable
             $ret['state'] = $this->state;
         }
 
+        if ($this->href == null) {
+            $ret['selectable'] = false;
+        }
+
         return $ret;
     }
 }
