@@ -66,16 +66,16 @@
                     {{ form_errors(form) }}
 
                     <ul class="nav nav-tabs mt-2">
-                        <li class="nav-item"><a class="link-anchor active nav-link" data-toggle="tab" href="#home">{% trans %}standard.label{% endtrans %}</a></li>
-                        <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#info">{% trans %}infos.label{% endtrans %}</a></li>
+                        <li class="nav-item"><a class="link-anchor active nav-link" data-bs-toggle="tab" href="#home">{% trans %}standard.label{% endtrans %}</a></li>
+                        <li class="nav-item"><a data-bs-toggle="tab" class="link-anchor nav-link" href="#info">{% trans %}infos.label{% endtrans %}</a></li>
                         {% if datatable is defined %}
-                            <li class="nav-item {% if datatable is null %}not-allowed{% endif %}"><a data-toggle="tab" class="link-anchor nav-link {% if datatable is null %}disabled{% endif %}" href="#history">{% trans %}history.label{% endtrans %}</a></li>
+                            <li class="nav-item {% if datatable is null %}not-allowed{% endif %}"><a data-bs-toggle="tab" class="link-anchor nav-link {% if datatable is null %}disabled{% endif %}" href="#history">{% trans %}history.label{% endtrans %}</a></li>
                         {% endif %}
                         {% if entity.id %}
-                            <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#export">{% trans %}export.label{% endtrans %}</a> </li>
+                            <li class="nav-item"><a data-bs-toggle="tab" class="link-anchor nav-link" href="#export">{% trans %}export.label{% endtrans %}</a> </li>
                         {% else %}
-                            <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#import_export">{% trans %}import_export.label{% endtrans %}</a> </li>
-                            <li class="nav-item"><a data-toggle="tab" class="link-anchor nav-link" href="#mass_creation">{% trans %}mass_creation.label{% endtrans %}</a></li>
+                            <li class="nav-item"><a data-bs-toggle="tab" class="link-anchor nav-link" href="#import_export">{% trans %}import_export.label{% endtrans %}</a> </li>
+                            <li class="nav-item"><a data-bs-toggle="tab" class="link-anchor nav-link" href="#mass_creation">{% trans %}mass_creation.label{% endtrans %}</a></li>
                         {% endif %}
                     </ul>
 
@@ -88,15 +88,15 @@
 
                             <ul class="nav nav-pills mb-2">
                                 <li class="nav-item">
-                                    <a data-toggle="tab" class="nav-link link-anchor active" href="#common">{% trans %}admin.common{% endtrans %}</a>
+                                    <a data-bs-toggle="tab" class="nav-link link-anchor active" href="#common">{% trans %}admin.common{% endtrans %}</a>
                                 </li>
                                 {% block additional_pills %}{% endblock %}
                                 <li class="nav-item">
-                                    <a data-toggle="tab" class="nav-link link-anchor" href="#attachments">{% trans %}admin.attachments{% endtrans %}</a>
+                                    <a data-bs-toggle="tab" class="nav-link link-anchor" href="#attachments">{% trans %}admin.attachments{% endtrans %}</a>
                                 </li>
                                 {% if entity.parameters is defined %}
                                     <li class="nav-item">
-                                        <a data-toggle="tab" class="nav-link link-anchor" href="#parameters">{% trans %}admin.parameters{% endtrans %}</a>
+                                        <a data-bs-toggle="tab" class="nav-link link-anchor" href="#parameters">{% trans %}admin.parameters{% endtrans %}</a>
                                     </li>
                                 {% endif %}
                             </ul>

@@ -41,7 +41,7 @@
         <div class="">
             <ul class="nav nav-tabs" id="partTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link {% if part.partLots %}active{% endif %}" id="part_lots-tab" data-toggle="tab"
+                    <a class="nav-link {% if part.partLots %}active{% endif %}" id="part_lots-tab" data-bs-toggle="tab"
                        href="#part_lots" role="tab">
                         <i class="fas fa-box fa-fw"></i>
                         {% trans %}part.part_lots.label{% endtrans %}
@@ -50,7 +50,7 @@
                 </li>
                 {% if part.comment is not empty %}
                     <li class="nav-item">
-                        <a class="nav-link" id="comment-tab" data-toggle="tab"
+                        <a class="nav-link" id="comment-tab" data-bs-toggle="tab"
                            href="#comment" role="tab">
                             <i class="fas fa-comment-alt fa-fw"></i>
                             {% trans %}comment.label{% endtrans %}
@@ -59,7 +59,7 @@
                 {% endif %}
                 {% if part.parameters is not empty or description_params is not empty or comment_params is not empty %}
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" role="tab" href="#specifications">
+                        <a class="nav-link" data-bs-toggle="tab" role="tab" href="#specifications">
                             <i class="fas fa-atlas fa-fw"></i>
                             {% trans %}part.info.specifications{% endtrans %}
                             <span class="badge badge-secondary">{{ part.parameters | length }}</span>
@@ -68,7 +68,7 @@
                 {% endif %}
                 {% if part.attachments is not empty %}
                     <li class="nav-item">
-                        <a class="nav-link" id="attachment-tab" data-toggle="tab"
+                        <a class="nav-link" id="attachment-tab" data-bs-toggle="tab"
                            href="#attachments" role="tab">
                             <i class="fas fa-paperclip fa-fw"></i>
                             {% trans %}attachment.labelp{% endtrans %}
@@ -78,7 +78,7 @@
                 {% endif %}
                 {% if part.orderdetails is not empty %}
                     <li class="nav-item">
-                        <a class="nav-link" id="supplier-tab" data-toggle="tab" href="#suppliers" role="tab">
+                        <a class="nav-link" id="supplier-tab" data-bs-toggle="tab" href="#suppliers" role="tab">
                             <i class="fas fa-shopping-cart fa-fw"></i>
                             {% trans %}vendor.partinfo.shopping_infos{% endtrans %}
                             <span class="badge badge-secondary">{{ part.orderdetails | length }}</span>
@@ -86,19 +86,19 @@
                     </li>
                 {% endif %}
                 <li class="nav-item {% if datatable is null %}not-allowed{% endif %}">
-                    <a class="nav-link {% if datatable is null %}disabled{% endif %}" id="history-tab" data-toggle="tab" href="#history" role="tab">
+                    <a class="nav-link {% if datatable is null %}disabled{% endif %}" id="history-tab" data-bs-toggle="tab" href="#history" role="tab">
                         <i class="fas fa-history"></i>
                         {% trans %}vendor.partinfo.history{% endtrans %}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="tools-tab" data-toggle="tab" href="#tools" role="tab">
+                    <a class="nav-link" id="tools-tab" data-bs-toggle="tab" href="#tools" role="tab">
                         <i class="fas fa-tools"></i>
                         {% trans %}tools.label{% endtrans %}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="extended_info-tab" data-toggle="tab" href="#extended_info" role="tab">
+                    <a class="nav-link" id="extended_info-tab" data-bs-toggle="tab" href="#extended_info" role="tab">
                         <i class="fas fa-clipboard-list"></i>
                         {% trans %}extended_info.label{% endtrans %}
                     </a>

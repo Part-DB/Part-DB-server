@@ -73,7 +73,7 @@
         {% for group in form %}
             <li class="nav-item">
                 <a class="nav-link {% if loop.first %}active{% endif %}"
-                   data-toggle="tab" role="tab" href="#group_row_{{ group.vars.name }}">{{ group.vars.label | trans }}</a>
+                   data-bs-toggle="tab" role="tab" href="#group_row_{{ group.vars.name }}">{{ group.vars.label | trans }}</a>
             </li>
         {% endfor %}
     </ul>

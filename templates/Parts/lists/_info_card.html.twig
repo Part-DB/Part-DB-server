@@ -5,7 +5,7 @@
 
 <div class="card mb-3">
     <div class="card-header">
-        <a class="card-link" data-toggle="collapse" href="#entityInfo">
+        <a class="card-link" data-bs-toggle="collapse" href="#entityInfo">
             {% if entity.masterPictureAttachment is not null and attachment_manager.isFileExisting(entity.masterPictureAttachment) %}
                 <img class="hoverpic ms-0 me-0 d-inline" data-thumbnail="{{ entity.masterPictureAttachment | entityURL('file_view') }}" src="{{ attachment_thumbnail(entity.masterPictureAttachment, 'thumbnail_sm') }}">
             {% endif %}
@@ -17,28 +17,28 @@
             <div class="row">
                 <div class="col-sm-2">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                        <a class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
                             <i class="fas fa-info-circle fa-fw"></i>
                             {% trans %}entity.info.common.tab{% endtrans %}
                         </a>
-                        <a class="nav-link" id="v-pills-statistics-tab" data-toggle="pill" href="#v-pills-statistics" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                        <a class="nav-link" id="v-pills-statistics-tab" data-bs-toggle="pill" href="#v-pills-statistics" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                             <i class="fas fa-chart-pie fa-fw"></i>
                             {% trans %}entity.info.statistics.tab{% endtrans %}
                         </a>
                         {% if entity.attachments is not empty %}
-                        <a class="nav-link" id="v-pills-attachments-tab" data-toggle="pill" href="#v-pills-attachments" role="tab" aria-controls="v-pills-attachments" aria-selected="false">
+                        <a class="nav-link" id="v-pills-attachments-tab" data-bs-toggle="pill" href="#v-pills-attachments" role="tab" aria-controls="v-pills-attachments" aria-selected="false">
                             <i class="fas fa-paperclip fa-fw"></i>
                             {% trans %}entity.info.attachments.tab{% endtrans %}
                         </a>
                         {% endif %}
                         {% if entity.parameters is not empty %}
-                            <a class="nav-link" id="v-pills-parameters-tab" data-toggle="pill" href="#v-pills-parameters" role="tab" aria-controls="v-pills-parameters" aria-selected="false">
+                            <a class="nav-link" id="v-pills-parameters-tab" data-bs-toggle="pill" href="#v-pills-parameters" role="tab" aria-controls="v-pills-parameters" aria-selected="false">
                                 <i class="fas fa-atlas fa-fw"></i>
                                 {% trans %}entity.info.parameters.tab{% endtrans %}
                             </a>
                         {% endif %}
                         {% if entity.comment is not empty %}
-                            <a class="nav-link" id="v-pills-comment-tab" data-toggle="pill" href="#v-pills-comment" role="tab">
+                            <a class="nav-link" id="v-pills-comment-tab" data-bs-toggle="pill" href="#v-pills-comment" role="tab">
                                 <i class="fas fa-comment-alt fa-fw"></i>
                                 {% trans %}comment.label{% endtrans %}
                             </a>
