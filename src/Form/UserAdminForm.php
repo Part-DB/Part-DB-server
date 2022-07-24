@@ -149,7 +149,6 @@ class UserAdminForm extends AbstractType
             ->add('language', LanguageType::class, [
                 'required' => false,
                 'attr' => [
-                    'class' => 'selectpicker',
                     'data-controller' => 'elements--selectpicker',
                     'title' => 'selectpicker.nothing_selected',
                     'data-live-search' => true,
@@ -162,7 +161,6 @@ class UserAdminForm extends AbstractType
             ->add('timezone', TimezoneType::class, [
                 'required' => false,
                 'attr' => [
-                    'class' => 'selectpicker',
                     'data-controller' => 'elements--selectpicker',
                     'title' => 'selectpicker.nothing_selected',
                     'data-live-search' => true,
@@ -179,7 +177,6 @@ class UserAdminForm extends AbstractType
                     return $value;
                 },
                 'attr' => [
-                    'class' => 'selectpicker',
                     'data-controller' => 'elements--selectpicker',
                     'title' => 'selectpicker.nothing_selected',
                 ],

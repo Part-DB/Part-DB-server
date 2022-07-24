@@ -81,7 +81,6 @@ class PartLotType extends AbstractType
             'required' => false,
             'disable_not_selectable' => true,
             'attr' => [
-                'class' => 'selectpicker form-control-sm',
                 'data-controller' => 'elements--selectpicker',
                 'title' => 'selectpicker.nothing_selected',
                 'data-live-search' => true,
