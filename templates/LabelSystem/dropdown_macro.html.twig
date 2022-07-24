@@ -1,7 +1,7 @@
 {% macro profile_dropdown(type, id = null, include_text = true, btn_type = 'btn-secondary') %}
     <div class="dropdown">
         <button type="button" class="btn {{ btn_type }} dropdown-toggle" title="{% trans %}label_generator.label_btn{% endtrans %}"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {% if not is_granted("@labels.create_labels") %}disabled{% endif %}>
+                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" {% if not is_granted("@labels.create_labels") %}disabled{% endif %}>
             <i class="fas fa-fw fa-qrcode"></i> {% if include_text %}{% trans %}label_generator.label_btn{% endtrans %}{% endif %}
         </button>
         <div class="dropdown-menu">

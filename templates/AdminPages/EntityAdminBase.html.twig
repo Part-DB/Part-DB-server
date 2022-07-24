@@ -54,7 +54,7 @@
                             {% if timeTravel is defined and timeTravel is not null %}
                                 ({{ timeTravel|format_datetime('short') }})
                             {% endif %}
-                            <span class="float-right">{% block quick_links %}{% endblock %}</span>
+                            <span class="float-end">{% block quick_links %}{% endblock %}</span>
                         {% else %}
                             <strong>{% block new_title %}{% trans %}new.caption{% endtrans %}{% endblock %}</strong>
                         {% endif %}
@@ -139,7 +139,7 @@
                                 <div class="col-sm-9 offset-sm-3">
                                     <div class="btn-group">
                                         {{ form_widget(form.save) }}
-                                        <button type="button" class="btn {% if entity.id is not null %}btn-primary{% else %}btn-success{% endif %} dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <button type="button" class="btn {% if entity.id is not null %}btn-primary{% else %}btn-success{% endif %} dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="sr-only">Toggle Dropdown</span>
                                         </button>
                                         <div class="dropdown-menu p-2">

@@ -9,11 +9,11 @@
 
 <div class="toast shadow" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000" {{ stimulus_controller('common/toast') }}>
     <div class="toast-header {{ flash_bg }}">
-        {# <img src="..." class="rounded mr-2" alt="...">#}
-        <i class="fas fa-fw {{ flash_symbol }} mr-2"></i>
-        <strong class="mr-auto">{{ flash_title|trans }}</strong>
+        {# <img src="..." class="rounded me-2" alt="...">#}
+        <i class="fas fa-fw {{ flash_symbol }} me-2"></i>
+        <strong class="me-auto">{{ flash_title|trans }}</strong>
         <small class="{% if "text-white" in flash_bg %}text-white{% else %}text-muted{% endif %}">{{ "now" | format_datetime("short", "short") }}</small>
-        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <button type="button" class="ms-2 mb-1 close" data-dismiss="toast" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>

@@ -20,7 +20,7 @@
     {% if timeTravel != null %}
         <i>({{ timeTravel | format_datetime('short') }})</i>
     {% endif %}
-    <div class="float-right">
+    <div class="float-end">
         {% trans %}id.label{% endtrans %}: {{ part.id }}
     </div>
 {% endblock %}

@@ -243,6 +243,11 @@ showing the sidebar (on devices with md or higher)
 * Bootstrap extensions
 *****************************************/
 
+/* Dont underline links */
+a {
+    text-decoration: none;
+}
+
 .w-fit {
     width: -moz-fit-content;
     width: fit-content;

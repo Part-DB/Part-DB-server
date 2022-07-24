@@ -71,7 +71,7 @@
                     <div class="dropdown">
                         <button class="btn btn-info dropdown-toggle" type="button" id="loadProfilesButton"
                                 {% if not is_granted("@labels.create_labels") %}disabled{% endif %}
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {% trans %}label_generator.load_profile{% endtrans %}
                         </button>
                         <div class="dropdown-menu" aria-labelledby="loadProfilesButton">

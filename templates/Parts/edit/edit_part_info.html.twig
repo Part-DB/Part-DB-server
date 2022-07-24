@@ -8,7 +8,7 @@
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     {% trans with {'%name%': part.name} %}part.edit.card_title{% endtrans %}
     <b><a href="{{ part|entityURL('info') }}" class="text-white">{{ part.name }}</a></b>
-    <div class="float-right">
+    <div class="float-end">
         {% trans %}id.label{% endtrans %}: {{ part.id }}
     </div>
 {% endblock %}
@@ -99,7 +99,7 @@
         <div class="col-sm-9 offset-sm-3">
             <div class="btn-group">
                 {{ form_widget(form.save) }}
-                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu">

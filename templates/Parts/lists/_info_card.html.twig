@@ -7,7 +7,7 @@
     <div class="card-header">
         <a class="card-link" data-toggle="collapse" href="#entityInfo">
             {% if entity.masterPictureAttachment is not null and attachment_manager.isFileExisting(entity.masterPictureAttachment) %}
-                <img class="hoverpic ml-0 mr-0 d-inline" data-thumbnail="{{ entity.masterPictureAttachment | entityURL('file_view') }}" src="{{ attachment_thumbnail(entity.masterPictureAttachment, 'thumbnail_sm') }}">
+                <img class="hoverpic ms-0 me-0 d-inline" data-thumbnail="{{ entity.masterPictureAttachment | entityURL('file_view') }}" src="{{ attachment_thumbnail(entity.masterPictureAttachment, 'thumbnail_sm') }}">
             {% endif %}
             {{ header_label | trans }}: <b>{{ entity.name }}</b>
         </a>

@@ -1,19 +1,19 @@
 "use strict";
 //Styles
-import 'datatables.net-bs4/css/dataTables.bootstrap4.css'
-import 'datatables.net-buttons-bs4/css/buttons.bootstrap4.css'
-import 'datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.css'
-import 'datatables.net-select-bs4/css/select.bootstrap4.css'
-import 'datatables.net-responsive-bs4/css/responsive.bootstrap4.css';
+import 'datatables.net-bs5/css/dataTables.bootstrap5.css'
+import 'datatables.net-buttons-bs5/css/buttons.bootstrap5.css'
+import 'datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.css'
+import 'datatables.net-select-bs5/css/select.bootstrap5.css'
+import 'datatables.net-responsive-bs5/css/responsive.bootstrap5.css';
 
 //JS
-import 'datatables.net-bs4';
-import 'datatables.net-buttons-bs4';
+import 'datatables.net-bs5';
+import 'datatables.net-buttons-bs5';
 import 'datatables.net-buttons/js/buttons.colVis.js';
-import 'datatables.net-fixedheader-bs4';
-import 'datatables.net-select-bs4';
-import 'datatables.net-colreorder-bs4';
-import 'datatables.net-responsive-bs4';
+import 'datatables.net-fixedheader-bs5';
+import 'datatables.net-select-bs5';
+import 'datatables.net-colreorder-bs5';
+import 'datatables.net-responsive-bs5';
 import './lib/datatables';
 
 
