@@ -25,6 +25,7 @@
     <link rel="mask-icon" href="{{ asset('icon/safari-pinned-tab.svg') }}" color="#5bbad5">
 
     <title>{% apply trim %}{% block title %}{{ partdb_title}}{% endblock %}{% endapply %}</title>
+    {% set page_title = block("title") %}
     {% block stylesheets %}
         {# Include the main bootstrap theme based on user/global setting #}
 
@@ -58,13 +59,11 @@
         <turbo-frame id="navbar-frame" target="content" data-turbo-action="advance">
             {% include "_navbar.html.twig" %}
         </turbo-frame>
-
     </header>
 
     <main>
         <div class="container-fluid">
             <div class="row">
-
                 {% include "_toast_container.html.twig" %}
 
                 <div class="collapse d-md-block bg-light" id="sidebar-container">
@@ -87,21 +86,7 @@
                             {% block content %}
                             {% endblock %}
 
-                            <div class="toasts-global d-none">
-                                {% for label, messages in app.flashes() %}
-                                    {% for message in messages %}
-                                        {{ include('_toast.html.twig', {
-                                            'label': label,
-                                            'message': message
-                                        }) }}
-                                    {% endfor %}
-                                {% endfor %}
-                            </div>
-
-                            {# Allow pages to request a fully reload of everything #}
-                            {% if global_reload_needed is defined and global_reload_needed %}
-                                <div {{ stimulus_controller('turbo/global_reload') }}></div>
-                            {% endif %}
+                            {% include "_turbo_control.html.twig" %}
 
                         </turbo-frame>
                         {% block scripts %}
