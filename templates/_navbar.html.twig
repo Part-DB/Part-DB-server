@@ -52,11 +52,13 @@
                     </div>
                     <li role="separator" class="dropdown-divider"></li>
                     <h6 class="dropdown-header">{% trans %}user.language_select{% endtrans %}</h6>
+                    <div id="locale-select-menu">
                     {% for locale in locale_menu %}
                         <a class="dropdown-item" data-turbo="false" href="{{ path(app.request.attributes.get('_route'),
                             app.request.attributes.get('_route_params')|merge({'_locale': locale})) }}">
                             {{ locale|language_name }} ({{ locale|upper }})</a>
                     {% endfor %}
+                    </div>
                 </ul>
             </li>
         </ul>
