@@ -1,4 +1,10 @@
-{% extends 'bootstrap_4_horizontal_layout.html.twig' %}
+{% extends 'bootstrap_5_horizontal_layout.html.twig' %}
+
+{# Make form rows smaller #}
+{% block form_row -%}
+    {%- set row_attr = row_attr|merge({"class": "mb-2"})  -%}
+    {{- parent() -}}
+{%- endblock form_row %}
 
 {% block file_widget -%}
     {%- set type = type|default('file') -%}
