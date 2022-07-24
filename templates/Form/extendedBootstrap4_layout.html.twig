@@ -104,7 +104,7 @@
     {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
     {%- if 'checkbox-custom' in parent_label_class -%}
         {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-check-input')|trim}) -%}
-        <div class="custom-control custom-checkbox{{ 'checkbox-inline' in parent_label_class ? ' custom-control-inline' }}">
+        <div class="custom-control custom-checkbox{{ 'checkbox-inline' in parent_label_class ? ' form-check-inline' }}">
             {{- form_label(form, null, { widget: block('tr_parent') }) -}}
         </div>
     {%- else -%}

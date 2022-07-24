@@ -45,6 +45,7 @@ import "./datatables";
 import "./error_handler";
 //import "./tab_remember";
 import "./register_events";
+import "./tristate_checkboxes";
 
 //Define jquery globally
 window.$ = window.jQuery = require("jquery")

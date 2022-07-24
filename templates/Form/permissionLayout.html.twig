@@ -29,7 +29,7 @@
 
 {% block permission_group_row %}
     {{ form_errors(form) }}
-    <table class="table table-bordered table-sm">
+    <table class="table table-bordered table-sm table-striped table-hover">
         <thead>
         <tr>
             <th>{% trans %}permission.edit.permission{% endtrans %}</th>
@@ -52,17 +52,17 @@
         <div class="mb-2">
             <label><b>{% trans %}permission.legend.title{% endtrans %}:</b></label>
             <div>
-                <div class="custom-control custom-control-inline custom-checkbox">
-                    <input type="checkbox" hidden class="form-check-input">
-                    <label class="form-check-label">{% trans %}permission.legend.disallow{% endtrans %}</label>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" disabled>
+                    <label class="form-check-label opacity-100">{% trans %}permission.legend.disallow{% endtrans %}</label>
                 </div>
-                <div class="custom-control custom-control-inline custom-checkbox">
-                    <input class="form-check-input" type="checkbox" hidden checked>
-                    <label class="form-check-label">{% trans %}permission.legend.allow{% endtrans %}</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" disabled>
+                    <label class="form-check-label  opacity-100">{% trans %}permission.legend.allow{% endtrans %}</label>
                 </div>
-                <div class="custom-control custom-control-inline custom-checkbox">
-                    <input type="checkbox" class="tristate form-check-input" hidden indeterminate="indeterminate">
-                    <label class="form-check-label">{% trans %}permission.legend.inherit{% endtrans %}</label>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" class="tristate form-check-input" indeterminate="indeterminate" disabled>
+                    <label class="form-check-label opacity-100">{% trans %}permission.legend.inherit{% endtrans %}</label>
                 </div>
             </div>
         </div>

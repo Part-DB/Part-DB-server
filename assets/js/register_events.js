@@ -5,7 +5,6 @@ import "bootstrap-fileinput/css/fileinput.css"
 
 //JS
 
-import "./lib/jquery.tristate"
 import "bootstrap-fileinput";
 
 
@@ -14,8 +13,6 @@ const RegisterEventHelper = class {
     constructor() {
         this.registerTooltips();
         this.registerJumpToTopBtn();
-
-        this.registerTriStateCheckboxes();
         this.registerFileInput();
 
         this.registerSpecialCharInput();
@@ -65,27 +62,6 @@ const RegisterEventHelper = class {
                 return false;
             }).tooltip();
         });
-    }
-
-    registerTriStateCheckboxes() {
-        this.registerLoadHandler(() => {
-            $(".tristate").tristate( {
-                checked:            "true",
-                unchecked:          "false",
-                indeterminate:      "indeterminate",
-            });
-
-            $('.permission_multicheckbox:checkbox').change(function() {
-                //Find the other checkboxes in this row, and change their value
-                var $row = $(this).parents('tr');
-
-                //@ts-ignore
-                var new_state = $(this).tristate('state');
-
-                //@ts-ignore
-                $('.tristate:checkbox', $row).tristate('state', new_state);
-            });
-        })
     }
 
     registerSpecialCharInput() {
