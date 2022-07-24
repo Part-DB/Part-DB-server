@@ -46,7 +46,7 @@ const ErrorHandlerHelper = class {
                         let msg = `Error calling <a href="${url}">${url}</a>. `;
                         msg += 'Try to reload the page or contact the administrator if this error persists.'
 
-                        msg += '<br><br><a class=\"btn btn-link\" data-toggle=\"collapse\" href=\"#iframe_div\" >' + 'View details' + "</a>";
+                        msg += '<br><br><a class=\"btn btn-link\" data-bs-toggle=\"collapse\" href=\"#iframe_div\" >' + 'View details' + "</a>";
                         msg += "<div class=\" collapse\" id='iframe_div'><iframe height='512' width='100%' id='error-iframe'></iframe></div>";
 
                         return msg;
