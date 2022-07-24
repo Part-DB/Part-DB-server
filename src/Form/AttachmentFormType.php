@@ -106,9 +106,6 @@ class AttachmentFormType extends AbstractType
             'attr' => [
                 'class' => 'form-control-sm',
             ],
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
         ]);
 
         $builder->add('secureFile', CheckboxType::class, [
@@ -120,9 +117,6 @@ class AttachmentFormType extends AbstractType
                 'class' => 'form-control-sm',
             ],
             'help' => 'attachment.edit.secure_file.help',
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
         ]);
 
         $builder->add('url', TextType::class, [
@@ -146,9 +140,6 @@ class AttachmentFormType extends AbstractType
             'disabled' => !$this->allow_attachments_download,
             'attr' => [
                 'class' => 'form-control-sm',
-            ],
-            'label_attr' => [
-                'class' => 'checkbox-custom',
             ],
         ]);
 

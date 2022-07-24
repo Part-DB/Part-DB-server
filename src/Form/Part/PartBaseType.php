@@ -182,17 +182,11 @@ class PartBaseType extends AbstractType
 
         //Advanced section
         $builder->add('needsReview', CheckboxType::class, [
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
             'required' => false,
             'label' => 'part.edit.needs_review',
             'disabled' => !$this->security->isGranted('edit', $part),
         ])
             ->add('favorite', CheckboxType::class, [
-                'label_attr' => [
-                    'class' => 'checkbox-custom',
-                ],
                 'required' => false,
                 'label' => 'part.edit.is_favorite',
                 'disabled' => !$this->security->isGranted('change_favorite', $part),

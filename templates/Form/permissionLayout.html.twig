@@ -3,9 +3,9 @@
         <td>
             {% if multi_checkbox %}
 
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input tristate permission_multicheckbox" id="mulit_check_{{ form.vars.label }}">
-                    <label class="custom-control-label" for="mulit_check_{{ form.vars.label }}">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input tristate permission_multicheckbox" id="mulit_check_{{ form.vars.label }}">
+                    <label class="form-check-label" for="mulit_check_{{ form.vars.label }}">
                         <b>{{ form.vars.label | trans }}</b>
                     </label>
                 </div>
@@ -53,16 +53,16 @@
             <label><b>{% trans %}permission.legend.title{% endtrans %}:</b></label>
             <div>
                 <div class="custom-control custom-control-inline custom-checkbox">
-                    <input type="checkbox" hidden class="custom-control-input">
-                    <label class="custom-control-label">{% trans %}permission.legend.disallow{% endtrans %}</label>
+                    <input type="checkbox" hidden class="form-check-input">
+                    <label class="form-check-label">{% trans %}permission.legend.disallow{% endtrans %}</label>
                 </div>
                 <div class="custom-control custom-control-inline custom-checkbox">
-                    <input class="custom-control-input" type="checkbox" hidden checked>
-                    <label class="custom-control-label">{% trans %}permission.legend.allow{% endtrans %}</label>
+                    <input class="form-check-input" type="checkbox" hidden checked>
+                    <label class="form-check-label">{% trans %}permission.legend.allow{% endtrans %}</label>
                 </div>
                 <div class="custom-control custom-control-inline custom-checkbox">
-                    <input type="checkbox" class="tristate custom-control-input" hidden indeterminate="indeterminate">
-                    <label class="custom-control-label">{% trans %}permission.legend.inherit{% endtrans %}</label>
+                    <input type="checkbox" class="tristate form-check-input" hidden indeterminate="indeterminate">
+                    <label class="form-check-label">{% trans %}permission.legend.inherit{% endtrans %}</label>
                 </div>
             </div>
         </div>

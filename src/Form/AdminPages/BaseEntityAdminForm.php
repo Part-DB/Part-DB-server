@@ -111,9 +111,6 @@ class BaseEntityAdminForm extends AbstractType
                         'required' => false,
                         'label' => 'entity.edit.not_selectable',
                         'help' => 'entity.edit.not_selectable.help',
-                        'label_attr' => [
-                            'class' => 'checkbox-custom',
-                        ],
                         'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
                     ]
                 );

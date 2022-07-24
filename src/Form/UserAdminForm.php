@@ -214,18 +214,12 @@ class UserAdminForm extends AbstractType
 
             ->add('need_pw_change', CheckboxType::class, [
                 'required' => false,
-                'label_attr' => [
-                    'class' => 'checkbox-custom',
-                ],
                 'label' => 'user.edit.needs_pw_change',
                 'disabled' => !$this->security->isGranted('set_password', $entity),
             ])
 
             ->add('disabled', CheckboxType::class, [
                 'required' => false,
-                'label_attr' => [
-                    'class' => 'checkbox-custom',
-                ],
                 'label' => 'user.edit.user_disabled',
                 'disabled' => !$this->security->isGranted('set_password', $entity)
                     || $entity === $this->security->getUser(),

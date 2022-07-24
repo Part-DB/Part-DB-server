@@ -57,9 +57,6 @@ class MeasurementUnitAdminForm extends BaseEntityAdminForm
             'required' => false,
             'label' => 'measurement_unit.edit.is_integer',
             'help' => 'measurement_unit.edit.is_integer.help',
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
@@ -67,9 +64,6 @@ class MeasurementUnitAdminForm extends BaseEntityAdminForm
             'required' => false,
             'label' => 'measurement_unit.edit.use_si_prefix',
             'help' => 'measurement_unit.edit.use_si_prefix.help',
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 

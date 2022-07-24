@@ -103,15 +103,9 @@ class PartLotType extends AbstractType
             'attr' => [
                 'class' => 'form-control-sm',
             ],
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
         ]);
 
         $builder->add('needs_refill', CheckboxType::class, [
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
             'label' => 'part_lot.edit.needs_refill',
             'attr' => [
                 'class' => 'form-control-sm',

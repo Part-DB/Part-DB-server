@@ -20,8 +20,8 @@
             </div>
             {% if entity.parent is defined  %}
                 <div class="ms-2 custom-control custom-checkbox custom-control-inline">
-                    <input type="checkbox" class="custom-control-input" id="recursive" name="delete_recursive">
-                    <label class="custom-control-label" for="recursive">{% trans %}entity.delete.recursive{% endtrans %}</label>
+                    <input type="checkbox" class="form-check-input" id="recursive" name="delete_recursive">
+                    <label class="form-check-label" for="recursive">{% trans %}entity.delete.recursive{% endtrans %}</label>
                 </div>
             {% endif %}
         </div>
