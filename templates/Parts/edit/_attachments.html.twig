@@ -23,18 +23,18 @@
                     {% if not attach.external %}
                         <br><br>
                         <h6>
-                        <span class="badge badge-primary">
+                        <span class="badge bg-primary">
                             <i class="fas fa-fw {{ ext_to_fa_icon(attach.extension) }}"></i> {{ attach.filename }}
                         </span>
                             <br>
-                            <span class="badge badge-secondary">
+                            <span class="badge bg-secondary">
                             <i class="fas fa-hdd fa-fw"></i> {{ attachment_manager.humanFileSize(attach) }}
                         </span>
                         </h6>
                     {% else %}
                         <br><br>
                         <h6>
-                        <span class="badge badge-primary">
+                        <span class="badge bg-primary">
                             <i class="fas fa-fw fa-globe"></i> {% trans %}attachment.external{% endtrans %}
                         </span>
                         </h6>
@@ -52,7 +52,7 @@
                 {% else %}
                     <br><br>
                     <h6>
-                    <span class="badge badge-warning">
+                    <span class="badge bg-warning">
                         <i class="fas fa-exclamation-circle fa-fw"></i> {% trans %}attachment.file_not_found{% endtrans %}
                     </span>
                     </h6>
@@ -60,7 +60,7 @@
 
                 {% if attach.secure %}
                     <h6>
-                           <span class="badge badge-success">
+                           <span class="badge bg-success">
                                 <i class="fas fa-fw fa-shield-alt"></i> {% trans %}attachment.secure{% endtrans %}
                            </span>
                     </h6>

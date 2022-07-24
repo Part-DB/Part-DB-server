@@ -45,7 +45,7 @@
                        href="#part_lots" role="tab">
                         <i class="fas fa-box fa-fw"></i>
                         {% trans %}part.part_lots.label{% endtrans %}
-                        <span class="badge badge-secondary">{{ part.partLots | length }}</span>
+                        <span class="badge bg-secondary">{{ part.partLots | length }}</span>
                     </a>
                 </li>
                 {% if part.comment is not empty %}
@@ -62,7 +62,7 @@
                         <a class="nav-link" data-bs-toggle="tab" role="tab" href="#specifications">
                             <i class="fas fa-atlas fa-fw"></i>
                             {% trans %}part.info.specifications{% endtrans %}
-                            <span class="badge badge-secondary">{{ part.parameters | length }}</span>
+                            <span class="badge bg-secondary">{{ part.parameters | length }}</span>
                         </a>
                     </li>
                 {% endif %}
@@ -72,7 +72,7 @@
                            href="#attachments" role="tab">
                             <i class="fas fa-paperclip fa-fw"></i>
                             {% trans %}attachment.labelp{% endtrans %}
-                            <span class="badge badge-secondary">{{ part.attachments | length }}</span>
+                            <span class="badge bg-secondary">{{ part.attachments | length }}</span>
                         </a>
                     </li>
                 {% endif %}
@@ -81,7 +81,7 @@
                         <a class="nav-link" id="supplier-tab" data-bs-toggle="tab" href="#suppliers" role="tab">
                             <i class="fas fa-shopping-cart fa-fw"></i>
                             {% trans %}vendor.partinfo.shopping_infos{% endtrans %}
-                            <span class="badge badge-secondary">{{ part.orderdetails | length }}</span>
+                            <span class="badge bg-secondary">{{ part.orderdetails | length }}</span>
                         </a>
                     </li>
                 {% endif %}

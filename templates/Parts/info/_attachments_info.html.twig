@@ -31,26 +31,26 @@
             </td>
             <td class="align-middle h6">
                 {% if attachment.external %}
-                    <span class="badge badge-primary">
+                    <span class="badge bg-primary">
                             <i class="fas fa-fw fa-globe"></i> {% trans %}attachment.external{% endtrans %}
                         </span>
                 {% elseif attachment_manager.fileExisting(attachment) %}
-                    <span class="badge badge-secondary">
+                    <span class="badge bg-secondary">
                         <i class="fas fa-hdd fa-fw"></i> {{ attachment_manager.humanFileSize(attachment) }}
                     </span>
                 {% else %}
-                    <span class="badge badge-warning">
+                    <span class="badge bg-warning">
                         <i class="fas fa-exclamation-circle fa-fw"></i> {% trans %}attachment.file_not_found{% endtrans %}
                     </span>
                 {% endif %}
                 {% if attachment.secure %}
-                    <br><span class="badge badge-success">
+                    <br><span class="badge bg-success">
                         <i class="fas fa-fw fa-shield-alt"></i> {% trans %}attachment.secure{% endtrans %}
                     </span>
                 {% endif %}
                 {% if attachment == part.masterPictureAttachment %}
                     <br>
-                    <span class="badge badge-primary">
+                    <span class="badge bg-primary">
                         <i class="fas fa-id-card"></i> {% trans %}attachment.preview{% endtrans %}
                     </span>
                 {% endif %}

@@ -20,14 +20,14 @@
                 {% if lot.storageLocation %}
                     {{ helper.structural_entity_link(lot.storageLocation) }}
                 {% else %}
-                    <span class="badge badge-pill badge-warning">
+                    <span class="badge rounded-pill bg-warning">
                         <i class="fas fa-question-circle fa-fw"></i> {% trans %}part_lots.location_unknown{% endtrans %}
                     </span>
                 {% endif %}
             </td>
             <td>
                 {% if lot.instockUnknown %}
-                    <span class="badge badge-pill badge-warning">
+                    <span class="badge rounded-pill bg-warning">
                         <i class="fas fa-question-circle fa-fw"></i> {% trans %}part_lots.instock_unknown{% endtrans %}
                     </span>
                 {% else %}
@@ -37,20 +37,20 @@
             <td>
                 <h6>
                     {% if lot.expirationDate %}
-                        <span class="badge badge-info" title="{% trans %}part_lots.expiration_date{% endtrans %}">
+                        <span class="badge bg-info" title="{% trans %}part_lots.expiration_date{% endtrans %}">
                             <i class="fas fa-calendar-alt fa-fw"></i> {{ lot.expirationDate | format_date() }}
                         </span>
                     {% endif %}
                     {% if lot.expired %}
                         <br>
-                        <span class="badge badge-warning">
+                        <span class="badge bg-warning">
                             <i class="fas fa-exclamation-circle fa-fw"></i>
                             {% trans %}part_lots.is_expired{% endtrans %}
                         </span>
                     {% endif %}
                     {% if lot.needsRefill %}
                         <br>
-                        <span class="badge badge-warning">
+                        <span class="badge bg-warning">
                             <i class="fas fa-dolly fa-fw"></i>
                             {% trans %}part_lots.need_refill{% endtrans %}
                         </span>

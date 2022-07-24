@@ -7,7 +7,7 @@
 
     <div class="d-none mb-2" id="select_panel">
         {# <span id="select_count"></span> #}
-        <span class="badge badge-secondary">{% trans with {'%count%': '<span id="select_count"></span>'} %}part_list.action.part_count{% endtrans %}</span>
+        <span class="badge bg-secondary">{% trans with {'%count%': '<span id="select_count"></span>'} %}part_list.action.part_count{% endtrans %}</span>
 
         <select class="selectpicker" name="action" id="select_action" data-controller="elements--selectpicker"
                 title="{% trans %}part_list.action.action.title{% endtrans %}" onchange="updateTargetSelect()" required>
