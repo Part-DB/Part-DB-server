@@ -29,7 +29,7 @@ RUN docker-php-ext-enable opcache; \
 # Install node and yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash - && apt-get update && apt-get install -y nodejs yarn && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - && apt-get update && apt-get install -y nodejs yarn && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*
 
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
