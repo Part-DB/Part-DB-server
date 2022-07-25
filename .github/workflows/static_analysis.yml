@@ -2,9 +2,13 @@ name: Static analysis
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - '*'
+      - "!i10n_*" # Dont test localization branches
   pull_request:
-    branches: [ master ]
+    branches:
+      - '*'
+      - "!i10n_*"
 
 jobs:
   phpstan:
