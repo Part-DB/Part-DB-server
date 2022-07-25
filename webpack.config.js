@@ -131,7 +131,8 @@ Encore
         // See https://ckeditor.com/docs/ckeditor5/latest/features/ui-language.html
         language: 'en',
         addMainLanguageTranslationsToAllAssets: true,
-        additionalLanguages: 'all'
+        additionalLanguages: 'all',
+        outputDirectory: 'ckeditor_translations'
     } ) )
 
     // Use raw-loader for CKEditor 5 SVG files.

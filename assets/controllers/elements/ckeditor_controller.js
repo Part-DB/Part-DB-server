@@ -28,7 +28,11 @@ export default class extends Controller {
             return;
         }
 
-        EDITOR_TYPE.create(this.element)
+        const language = document.body.dataset.locale ?? "en";
+
+        EDITOR_TYPE.create(this.element, {
+            language: language,
+        })
             .then(editor => {
                 if(this.element.disabled) {
                     editor.enableReadOnlyMode("readonly");
@@ -39,8 +43,8 @@ export default class extends Controller {
             .catch(error => {
                 console.error(error);
             });
-
-       /* const watchdog = new EditorWatchdog();
+        /*
+       const watchdog = new EditorWatchdog();
         watchdog.setCreator((elementOrData, editorConfig) => {
             return EDITOR_TYPE.create(elementOrData, editorConfig)
                 .then(editor => {
@@ -56,7 +60,8 @@ export default class extends Controller {
         });
 
         watchdog.create(this.element, {
-
-        });*/
+        }).catch(error => {
+            console.error(error);
+        }); */
     }
 }
