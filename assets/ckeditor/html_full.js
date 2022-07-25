@@ -61,8 +61,6 @@ import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline.js';
 import WordCount from '@ckeditor/ckeditor5-word-count/src/wordcount.js';
 import EditorWatchdog from '@ckeditor/ckeditor5-watchdog/src/editorwatchdog.js';
 
-import ExtendedMarkdown from "./plugins/extendedmarkdown.js";
-
 class Editor extends ClassicEditor {}
 
 // Plugins to include in the build.
@@ -98,8 +96,8 @@ Editor.builtinPlugins = [
     LinkImage,
     List,
     ListProperties,
-    //MediaEmbed,
-    //MediaEmbedToolbar,
+    MediaEmbed,
+    MediaEmbedToolbar,
     Paragraph,
     PasteFromOffice,
     RemoveFormat,
@@ -121,8 +119,7 @@ Editor.builtinPlugins = [
     TableProperties,
     TableToolbar,
     Underline,
-    WordCount,
-    ExtendedMarkdown
+    WordCount
 ];
 
 // Editor configuration.
@@ -158,7 +155,7 @@ Editor.defaultConfig = {
             'imageUpload',
             'blockQuote',
             'insertTable',
-            //'mediaEmbed',
+            'mediaEmbed',
             'code',
             'codeBlock',
             'htmlEmbed',

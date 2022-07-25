@@ -18,7 +18,7 @@ class RichTextEditorType extends AbstractType
         $resolver->setAllowedValues('mode', ['full', 'single_line']);
 
         $resolver->setDefault('output_format', 'markdown');
-        $resolver->setAllowedValues('output_format', ['markdown']);
+        $resolver->setAllowedValues('output_format', ['markdown', 'html']);
     }
 
     public function getBlockPrefix()
