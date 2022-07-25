@@ -94,7 +94,7 @@ jobs:
         run: yarn install
     
       - name: Build frontend
-        run: yarn dev
+        run: yarn watch
     
       - name: Create DB
         run: php bin/console --env test doctrine:database:create --if-not-exists -n
