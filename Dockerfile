@@ -48,7 +48,6 @@ RUN a2enmod rewrite
 USER www-data
 RUN composer install -a --no-dev && composer clear-cache
 RUN yarn install && yarn build && yarn cache clean
-RUN php bin/console --env=prod ckeditor:install --clear=skip
 
 # Use demo env to output logs to stdout
 ENV APP_ENV=demo
