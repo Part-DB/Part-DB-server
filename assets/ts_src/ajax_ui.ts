@@ -182,6 +182,7 @@ class AjaxUI {
                 break;
             case "devices":
                 ajaxUI.initTree("#" + target_id, 'tree/devices');
+                ajaxUI.initTree("#" + target_id, 'tree/devices');
                 break;
         }
 

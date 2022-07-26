@@ -42,6 +42,7 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
+use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\PriceInformations\Currency;
 use App\Services\Trees\NodesListBuilder;
@@ -50,6 +51,9 @@ use Symfony\Component\Intl\Currencies;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * An entity to select a currency shortly
+ */
 class CurrencyEntityType extends StructuralEntityType
 {
     protected $base_currency;
@@ -82,51 +86,41 @@ class CurrencyEntityType extends StructuralEntityType
 
             return Currencies::getSymbol($iso_code);
         });
+
+        $resolver->setDefault('used_to_select_parent', false);
+
+        //If short is set to true, then the name of the entity will only shown in the dropdown list not in the selected value.
+        $resolver->setDefault('short', false);
     }
 
-    public function generateChoiceLabels(AbstractStructuralDBElement $choice, $key, $value, $options): string
+    protected function getChoiceContent(AbstractStructuralDBElement $choice, $key, $value, $options): string
     {
-        //Similar to StructuralEntityType, but we use the currency symbol instead if available
-
-        if (!$choice instanceof Currency) {
-            throw new \InvalidArgumentException('$choice must be an currency object!');
+        if(!$choice instanceof Currency) {
+            throw new \RuntimeException('$choice must be an instance of Currency!');
         }
 
+        //Generate the level spacing
         /** @var AbstractStructuralDBElement|null $parent */
         $parent = $options['subentities_of'];
-
-        /*** @var Currency $choice */
+        /*** @var AbstractStructuralDBElement $choice */
         $level = $choice->getLevel();
         //If our base entity is not the root level, we need to change the level, to get zero position
         if (null !== $options['subentities_of']) {
             $level -= $parent->getLevel() - 1;
         }
 
-        $tmp = str_repeat('&nbsp;&nbsp;&nbsp;', $level); //Use 3 spaces for intendation
-        if (empty($choice->getIsoCode())) {
-            $tmp .= htmlspecialchars($choice->getName());
-        } else {
+        $tmp = str_repeat('<span class="picker-level"></span>', $level);
+
+        //Show currency symbol or ISO code and the name of the currency
+        if(!empty($choice->getIsoCode())) {
             $tmp .= Currencies::getSymbol($choice->getIsoCode());
+            //Add currency name as badge
+            $tmp .= sprintf('<span class="badge bg-primary ms-2 %s">%s</span>', $options['short'] ? 'picker-hs' : '' , htmlspecialchars($choice->getName()));
+        } else {
+            $tmp .= htmlspecialchars($choice->getName());
         }
 
         return $tmp;
     }
 
-    protected function generateChoiceAttr(AbstractStructuralDBElement $choice, $key, $value, $options): array
-    {
-        /** @var Currency $choice */
-        $tmp = [];
-
-        if (!empty($choice->getIsoCode())) {
-            //Show the name of the currency
-            $tmp += ['data-subtext' => $choice->getName()];
-        }
-
-        //Disable attribute if the choice is marked as not selectable
-        if ($options['disable_not_selectable'] && $choice->isNotSelectable()) {
-            $tmp += ['disabled' => 'disabled'];
-        }
-
-        return $tmp;
-    }
 }

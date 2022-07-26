@@ -239,13 +239,34 @@ class StructuralEntityType extends AbstractType
         return $this->em->find($options['class'], $value->getID());
     }
 
+    /**
+     * This generates the HTML code that will be rendered by selectpicker
+     * @return string
+     */
+    protected function getChoiceContent(AbstractStructuralDBElement $choice, $key, $value, $options): string
+    {
+        $html = "";
+
+        //Add element name, use a class as whitespace which hides when not used in dropdown list
+        $html .= $this->getElementNameWithLevelWhitespace($choice, $options, '<span class="picker-level"></span>');
+
+        if ($options['show_fullpath_in_subtext'] && null !== $choice->getParent()) {
+            $html .= '<span class="ms-3 badge rounded-pill bg-secondary float-end"><i class="fa-solid fa-folder-tree"></i>&nbsp;' . trim(htmlspecialchars($choice->getParent()->getFullPath())) . '</span>';
+        }
+
+        if ($choice instanceof AttachmentType && !empty($choice->getFiletypeFilter())) {
+            $html .= '<span class="ms-3 badge bg-warning"><i class="fa-solid fa-file-circle-exclamation"></i>&nbsp;' . trim(htmlspecialchars($choice->getFiletypeFilter())) . '</span>';
+        }
+
+        return $html;
+    }
+
+
     protected function generateChoiceAttr(AbstractStructuralDBElement $choice, $key, $value, $options): array
     {
         $tmp = [];
 
-        if ($options['show_fullpath_in_subtext'] && null !== $choice->getParent()) {
-            $tmp += ['data-subtext' => $choice->getParent()->getFullPath()];
-        }
+
 
         //Disable attribute if the choice is marked as not selectable
         if ($options['disable_not_selectable'] && $choice->isNotSelectable()) {
@@ -256,10 +277,13 @@ class StructuralEntityType extends AbstractType
             $tmp += ['data-filetype_filter' => $choice->getFiletypeFilter()];
         }
 
+        //Add the HTML content that will be shown finally in the selectpicker
+        $tmp += ['data-content' => $this->getChoiceContent($choice, $key, $value, $options)];
+
         return $tmp;
     }
 
-    protected function generateChoiceLabels(AbstractStructuralDBElement $choice, $key, $value, $options): string
+    protected function getElementNameWithLevelWhitespace(AbstractStructuralDBElement $choice, $options, $whitespace = "&nbsp;&nbsp;&nbsp;"): string
     {
         /** @var AbstractStructuralDBElement|null $parent */
         $parent = $options['subentities_of'];
@@ -271,9 +295,15 @@ class StructuralEntityType extends AbstractType
             $level -= $parent->getLevel() - 1;
         }
 
-        $tmp = str_repeat('&nbsp;&nbsp;&nbsp;', $level); //Use 3 spaces for intendation
+        $tmp = str_repeat($whitespace, $level); //Use 3 spaces for intendation
         $tmp .= htmlspecialchars($choice->getName());
 
         return $tmp;
+    }
+
+    protected function generateChoiceLabels(AbstractStructuralDBElement $choice, $key, $value, $options): string
+    {
+        //Just for compatibility reasons for the case selectpicker should not work. The real value is generated in the getChoiceContent() method
+        return $this->getElementNameWithLevelWhitespace($choice, $options, " ");
     }
 }
