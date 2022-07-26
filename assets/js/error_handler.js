@@ -17,12 +17,12 @@ const ErrorHandlerHelper = class {
         const response = fetchResponse.response;
 
         //Ignore aborted requests.
-        if (response.statusText =='abort' || response.status == 0) {
+        if (response.statusText === 'abort' || response.status == 0) {
             return;
         }
 
         //Ignore status 422 as this means a symfony validation error occured and we need to show it to user. This is no (unexpected) error.
-        if (response.status = 422) {
+        if (response.status == 422) {
             return;
         }
 
