@@ -57,7 +57,6 @@ use App\Form\Type\RichTextEditorType;
 use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
 use App\Form\WorkaroundCollectionType;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -112,7 +111,7 @@ class PartBaseType extends AbstractType
                 'required' => false,
                 'empty_data' => '',
                 'label' => 'part.edit.description',
-                'mode' => 'single_line',
+                'mode' => 'markdown-single_line',
                 'attr' => [
                     'placeholder' => 'part.edit.description.placeholder',
                     'rows' => 2,
@@ -214,7 +213,7 @@ class PartBaseType extends AbstractType
             'attr' => [
                 'rows' => 4,
             ],
-
+            'mode' => 'markdown-full',
             'disabled' => !$this->security->isGranted('comment.edit', $part),
             'empty_data' => '',
         ]);

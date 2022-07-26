@@ -2,7 +2,7 @@ import {Controller} from "@hotwired/stimulus";
 
 import { default as FullEditor } from "../../ckeditor/markdown_full";
 import { default as SingleLineEditor} from "../../ckeditor/markdown_single_line";
-import { default as HTMLEditor } from "../../ckeditor/html_full";
+import { default as HTMLLabelEditor } from "../../ckeditor/html_label";
 
 import EditorWatchdog from '@ckeditor/ckeditor5-watchdog/src/editorwatchdog';
 
@@ -11,21 +11,22 @@ import EditorWatchdog from '@ckeditor/ckeditor5-watchdog/src/editorwatchdog';
 export default class extends Controller {
     connect() {
         const mode = this.element.dataset.mode;
-        const output_format = this.element.dataset.outputFormat;
 
         let EDITOR_TYPE = "Invalid";
 
-        if(output_format == 'markdown') {
-            if(mode == 'full') {
+        switch (mode) {
+            case "markdown-full":
                 EDITOR_TYPE = FullEditor['Editor'];
-            } else if(mode == 'single_line') {
+                break;
+            case "markdown-single_line":
                 EDITOR_TYPE = SingleLineEditor['Editor'];
-            }
-        } else if(output_format == 'html') {
-            EDITOR_TYPE = HTMLEditor['Editor'];
-        } else {
-            console.error("Unknown output format: " + output-format);
-            return;
+                break;
+            case "html-label":
+                EDITOR_TYPE = HTMLLabelEditor['Editor'];
+                break;
+            default:
+                console.error("Unknown mode: " + mode);
+                return;
         }
 
         const language = document.body.dataset.locale ?? "en";
@@ -34,7 +35,7 @@ export default class extends Controller {
             language: language,
         }
 
-       const watchdog = new EditorWatchdog();
+        const watchdog = new EditorWatchdog();
         watchdog.setCreator((elementOrData, editorConfig) => {
             return EDITOR_TYPE.create(elementOrData, editorConfig)
                 .then(editor => {

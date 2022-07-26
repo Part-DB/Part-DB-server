@@ -11,6 +11,8 @@ const ALLOWED_TAGS = [
 	'ins',
 	'small',
 	'abbr',
+	'br',
+	'span',
 ];
 
 

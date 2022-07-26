@@ -5,6 +5,25 @@ const ALLOWED_TAGS = [
 	//Common elements
 	'sup',
 	'sub',
+	'u',
+	'kbd',
+	'mark',
+	'ins',
+	'small',
+	'abbr',
+	'br',
+
+	//Block elements
+	'span',
+	'p',
+	'img',
+
+
+
+	//These commands are somehow ignored: TODO
+	'left',
+	'center',
+	'right',
 ];
 
 /**

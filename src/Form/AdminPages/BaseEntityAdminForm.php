@@ -48,6 +48,7 @@ use App\Entity\LabelSystem\LabelProfile;
 use App\Form\AttachmentFormType;
 use App\Form\ParameterType;
 use App\Form\Type\MasterPictureAttachmentType;
+use App\Form\Type\RichTextEditorType;
 use App\Form\Type\StructuralEntityType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use function get_class;
@@ -118,7 +119,7 @@ class BaseEntityAdminForm extends AbstractType
         if ($entity instanceof AbstractStructuralDBElement || $entity instanceof LabelProfile) {
             $builder->add(
                 'comment',
-                CKEditorType::class,
+                RichTextEditorType::class,
                 [
                     'required' => false,
                     'empty_data' => '',
@@ -126,7 +127,7 @@ class BaseEntityAdminForm extends AbstractType
                     'attr' => [
                         'rows' => 4,
                     ],
-                    'help' => 'bbcode.hint',
+                    'mode' => 'markdown-full',
                     'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
                 ]
             );

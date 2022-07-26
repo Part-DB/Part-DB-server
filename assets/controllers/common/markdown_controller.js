@@ -4,6 +4,8 @@ import { Controller } from '@hotwired/stimulus';
 import { marked } from "marked";
 import DOMPurify from 'dompurify';
 
+import "../../css/markdown.css";
+
 export default class extends Controller {
 
     connect()
@@ -33,9 +35,14 @@ export default class extends Controller {
             a.setAttribute('rel', 'noopener');
         }
 
-        //Apply bootstrap styles to
+        //Apply bootstrap styles to tables
         for(let table of this.element.querySelectorAll('table')) {
             table.classList.add('table', 'table-hover', 'table-striped', 'table-bordered', 'table-sm');
+        }
+
+        //Make header line dark
+        for(let head of this.element.querySelectorAll('thead')) {
+            head.classList.add('table-dark');
         }
     }
 

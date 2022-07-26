@@ -60,6 +60,7 @@ import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar.js';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline.js';
 import WordCount from '@ckeditor/ckeditor5-word-count/src/wordcount.js';
 import EditorWatchdog from '@ckeditor/ckeditor5-watchdog/src/editorwatchdog.js';
+import TodoList from '@ckeditor/ckeditor5-list/src/todolist';
 
 import ExtendedMarkdown from "./plugins/extendedMarkdown.js";
 
@@ -67,7 +68,6 @@ class Editor extends ClassicEditor {}
 
 // Plugins to include in the build.
 Editor.builtinPlugins = [
-    Alignment,
     Autoformat,
     Base64UploadAdapter,
     BlockQuote,
@@ -78,14 +78,11 @@ Editor.builtinPlugins = [
     FindAndReplace,
     FontBackgroundColor,
     FontColor,
-    FontFamily,
     FontSize,
     GeneralHtmlSupport,
     Heading,
     Highlight,
     HorizontalLine,
-    HtmlComment,
-    HtmlEmbed,
     Image,
     ImageResize,
     ImageStyle,
@@ -97,7 +94,6 @@ Editor.builtinPlugins = [
     Link,
     LinkImage,
     List,
-    ListProperties,
     //MediaEmbed,
     //MediaEmbedToolbar,
     Paragraph,
@@ -115,13 +111,10 @@ Editor.builtinPlugins = [
     Subscript,
     Superscript,
     Table,
-    TableCaption,
-    TableCellProperties,
-    TableColumnResize,
     TableProperties,
     TableToolbar,
     Underline,
-    WordCount,
+    TodoList,
     ExtendedMarkdown
 ];
 
@@ -130,7 +123,6 @@ Editor.defaultConfig = {
     toolbar: {
         items: [
             'heading',
-            'alignment',
             '|',
             'bold',
             'italic',
@@ -145,7 +137,6 @@ Editor.defaultConfig = {
             'fontColor',
             'fontSize',
             '|',
-            'fontFamily',
             'link',
             'bulletedList',
             'numberedList',
@@ -161,7 +152,7 @@ Editor.defaultConfig = {
             //'mediaEmbed',
             'code',
             'codeBlock',
-            'htmlEmbed',
+            'todoList',
             '|',
             'undo',
             'redo',
@@ -187,6 +178,12 @@ Editor.defaultConfig = {
             'tableCellProperties',
             'tableProperties'
         ]
+    },
+    list: {
+        properties: {
+            styles: false,
+
+        }
     }
 };
 
