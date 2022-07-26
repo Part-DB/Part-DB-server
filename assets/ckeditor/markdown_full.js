@@ -63,6 +63,7 @@ import EditorWatchdog from '@ckeditor/ckeditor5-watchdog/src/editorwatchdog.js';
 import TodoList from '@ckeditor/ckeditor5-list/src/todolist';
 
 import ExtendedMarkdown from "./plugins/extendedMarkdown.js";
+import SpecialCharactersEmoji from "./plugins/special_characters_emoji";
 
 class Editor extends ClassicEditor {}
 
@@ -115,7 +116,10 @@ Editor.builtinPlugins = [
     TableToolbar,
     Underline,
     TodoList,
-    ExtendedMarkdown
+
+    //Our own extensions
+    ExtendedMarkdown,
+    SpecialCharactersEmoji
 ];
 
 // Editor configuration.

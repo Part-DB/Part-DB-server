@@ -75,6 +75,7 @@
         "datatables.net-responsive-bs5": "^2.2.3",
         "datatables.net-select-bs5": "^1.2.7",
         "dompurify": "^2.0.6",
+        "emoji.json": "^13.1.0",
         "exports-loader": "^3.0.0",
         "jszip": "^3.2.0",
         "katex": "^0.16.0",

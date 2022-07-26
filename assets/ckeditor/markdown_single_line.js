@@ -30,6 +30,7 @@ import EditorWatchdog from '@ckeditor/ckeditor5-watchdog/src/editorwatchdog.js';
 
 import ExtendedMarkdownInline from "./plugins/extendedMarkdownInline";
 import SingleLinePlugin from "./plugins/singleLine";
+import SpecialCharactersEmoji from "./plugins/special_characters_emoji";
 
 class Editor extends ClassicEditor {}
 
@@ -61,6 +62,7 @@ Editor.builtinPlugins = [
 
     ExtendedMarkdownInline,
     SingleLinePlugin,
+    SpecialCharactersEmoji
 ];
 
 // Editor configuration.
