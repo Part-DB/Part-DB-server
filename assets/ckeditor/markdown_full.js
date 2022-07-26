@@ -61,7 +61,7 @@ import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline.js';
 import WordCount from '@ckeditor/ckeditor5-word-count/src/wordcount.js';
 import EditorWatchdog from '@ckeditor/ckeditor5-watchdog/src/editorwatchdog.js';
 
-import ExtendedMarkdown from "./plugins/extendedmarkdown.js";
+import ExtendedMarkdown from "./plugins/extendedMarkdown.js";
 
 class Editor extends ClassicEditor {}
 
