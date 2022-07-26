@@ -30,20 +30,10 @@ export default class extends Controller {
 
         const language = document.body.dataset.locale ?? "en";
 
-        EDITOR_TYPE.create(this.element, {
+        const config = {
             language: language,
-        })
-            .then(editor => {
-                if(this.element.disabled) {
-                    editor.enableReadOnlyMode("readonly");
-                }
+        }
 
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        /*
        const watchdog = new EditorWatchdog();
         watchdog.setCreator((elementOrData, editorConfig) => {
             return EDITOR_TYPE.create(elementOrData, editorConfig)
@@ -59,9 +49,8 @@ export default class extends Controller {
                 });
         });
 
-        watchdog.create(this.element, {
-        }).catch(error => {
+        watchdog.create(this.element, config).catch(error => {
             console.error(error);
-        }); */
+        });
     }
 }
