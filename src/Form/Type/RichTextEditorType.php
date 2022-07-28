@@ -16,6 +16,9 @@ class RichTextEditorType extends AbstractType
 
         $resolver->setDefault('mode', 'markdown-full');
         $resolver->setAllowedValues('mode', ['html-label', 'markdown-single_line', 'markdown-full']);
+
+        $resolver->setDefault('required', false);
+
     }
 
     public function getBlockPrefix()
@@ -34,10 +37,14 @@ class RichTextEditorType extends AbstractType
     {
         $tmp = [];
 
+        //Set novalidate attribute or we will get problems that form can not be submitted as textarea is not focusable
+        $tmp['novalidate'] = 'novalidate';
+
         $tmp['data-mode'] = $options['mode'];
 
         //Add our data-controller element to the textarea
         $tmp['data-controller'] = 'elements--ckeditor';
+
 
         return $tmp;
     }

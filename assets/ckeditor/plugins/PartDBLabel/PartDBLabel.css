@@ -1,0 +1,22 @@
+.cke_placeholder {
+    background: #ffff00;
+    padding: 4px 2px;
+    outline-offset: -2px;
+    line-height: 1em;
+    margin: 0 1px;
+}
+
+.cke_placeholder::selection {
+    display: none;
+}
+
+/*.cke_overflow_dropdown {
+    overflow: auto;
+    height: 40vh;
+}*/
+
+/** Make long editor dropdown panels scrollable */
+.ck-dropdown__panel {
+    overflow: auto;
+    max-height: 40vh;
+}

@@ -60,6 +60,7 @@ import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar.js';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline.js';
 import WordCount from '@ckeditor/ckeditor5-word-count/src/wordcount.js';
 import EditorWatchdog from '@ckeditor/ckeditor5-watchdog/src/editorwatchdog.js';
+import PartDBLabel from "./plugins/PartDBLabel/PartDBLabel";
 
 class Editor extends ClassicEditor {}
 
@@ -119,13 +120,16 @@ Editor.builtinPlugins = [
     TableProperties,
     TableToolbar,
     Underline,
-    WordCount
+    WordCount,
+
+    PartDBLabel
 ];
 
 // Editor configuration.
 Editor.defaultConfig = {
     toolbar: {
         items: [
+            'partdb_label',
             'heading',
             'alignment',
             '|',
