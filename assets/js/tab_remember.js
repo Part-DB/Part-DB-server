@@ -1,5 +1,7 @@
 "use strict";
 
+import {Tab} from "bootstrap";
+
 /**
  * This listener keeps track of which tab is currently selected (using hash and localstorage) and will try to open
  * that tab on reload. That means that if the user changes something, he does not have to switch back to the tab
@@ -7,42 +9,48 @@
  */
 class TabRememberHelper {
     constructor() {
-        document.addEventListener("turbo:load", this.onLoad);
+        document.addEventListener("turbo:load", this.onLoad.bind(this));
     }
 
 
     onLoad(event) {
         //Determine which tab should be shown (use hash if specified, otherwise use localstorage)
-        let $activeTab = null;
+        let activeTab = null;
         if (location.hash) {
-            $activeTab = $('a[href=\'' + location.hash + '\']');
+            activeTab = document.querySelector('[href=\'' + location.hash + '\']');
         } else if (localStorage.getItem('activeTab')) {
-            $activeTab = $('a[href="' + localStorage.getItem('activeTab') + '"]');
+            activeTab = document.querySelector('[href="' + localStorage.getItem('activeTab') + '"]');
         }
 
-        if ($activeTab) {
-            //Findout if the tab has any parent tab we have to show before
-            var parents = $($activeTab).parents('.tab-pane');
-            parents.each(function (n) {
-                $('a[href="#' + $(this).attr('id') + '"]').tab('show');
-            });
-            //Finally show the active tab itself
-            $activeTab.tab('show');
-        }
+        if (activeTab) {
 
-        $('body').on('click', 'a[data-bs-toggle=\'tab\']', function (e) {
-            e.preventDefault()
-            var tab_name = this.getAttribute('href')
-            if (history.replaceState) {
-                history.replaceState(null, null, tab_name)
-            } else {
-                location.hash = tab_name
+            let parent = activeTab.parentElement.closest('.tab-pane');
+
+            //Iterate over each parent tab and show it
+            while(parent) {
+                Tab.getOrCreateInstance(parent).show();
+
+                parent = parent.parentElement.closest('.tab-pane');
             }
-            localStorage.setItem('activeTab', tab_name)
 
-            $(this).tab('show');
-            return false;
-        });
+            //Finally show the active tab itself
+            Tab.getOrCreateInstance(activeTab).show();
+        }
+
+        //Register listener for tab change
+        document.addEventListener('shown.bs.tab', this.onTabChange.bind(this));
+    }
+
+    onTabChange(event) {
+        const tab = event.target;
+
+        let tab_name = tab.getAttribute('href')
+        if (history.replaceState) {
+            history.replaceState(null, null, tab_name)
+        } else {
+            location.hash = tab_name
+        }
+        localStorage.setItem('activeTab', tab_name)
     }
 
 }
