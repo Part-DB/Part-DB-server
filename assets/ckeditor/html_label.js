@@ -173,6 +173,30 @@ Editor.defaultConfig = {
         shouldNotGroupWhenFull: true
     },
     language: 'en',
+    fontFamily: {
+        options: [
+            'default',
+            'DejaVu Sans Mono, monospace',
+            'DejaVu Sans, sans-serif',
+            'DejaVu Serif, serif',
+            'Helvetica, Arial, sans-serif',
+            'Times New Roman, Times, serif',
+            'Courier New, Courier, monospace'
+        ],
+        supportAllValues: true
+    },
+    'fontSize': {
+        options: [
+            8,
+            11,
+            13,
+            'default',
+            17,
+            19,
+            21,
+        ],
+        supportAllValues: true
+    },
     image: {
         toolbar: [
             'imageTextAlternative',
