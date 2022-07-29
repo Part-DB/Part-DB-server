@@ -103,9 +103,6 @@ class AttachmentFormType extends AbstractType
         $builder->add('showInTable', CheckboxType::class, [
             'required' => false,
             'label' => 'attachment.edit.show_in_table',
-            'attr' => [
-                'class' => 'form-control-sm',
-            ],
         ]);
 
         $builder->add('secureFile', CheckboxType::class, [
@@ -113,9 +110,6 @@ class AttachmentFormType extends AbstractType
             'label' => 'attachment.edit.secure_file',
             'mapped' => false,
             'disabled' => !$this->security->isGranted('@parts_attachments.show_private'),
-            'attr' => [
-                'class' => 'form-control-sm',
-            ],
             'help' => 'attachment.edit.secure_file.help',
         ]);
 
@@ -138,9 +132,6 @@ class AttachmentFormType extends AbstractType
             'label' => 'attachment.edit.download_url',
             'mapped' => false,
             'disabled' => !$this->allow_attachments_download,
-            'attr' => [
-                'class' => 'form-control-sm',
-            ],
         ]);
 
         $builder->add('file', FileType::class, [
