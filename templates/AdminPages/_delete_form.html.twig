@@ -1,6 +1,6 @@
-<form method="post" class="" action="{{ entity|entityURL('delete') }}"
-      data-delete-form data-title="{% trans  with {'%name%': entity.name }%}entity.delete.confirm_title{% endtrans %}"
-      data-message="{% trans %}entity.delete.message{% endtrans %}">
+<form method="post" class="" action="{{ entity|entityURL('delete') }}" {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
+      data-delete-title="{% trans  with {'%name%': entity.name }%}entity.delete.confirm_title{% endtrans %}"
+      data-delete-message="{% trans %}entity.delete.message{% endtrans %}">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ entity.id) }}">
     <div class="form-group">
