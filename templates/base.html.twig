@@ -107,10 +107,10 @@
     {# Back to top buton #}
 
     <!-- Back to top button -->
-    <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button"
-       title="{% trans %}back_to_top{% endtrans %}" data-bs-toggle="tooltip" data-placement="left">
+    <button id="back-to-top" class="btn btn-primary back-to-top" role="button" title="{% trans %}back_to_top{% endtrans %}"
+            {{ stimulus_controller('common/back_to_top') }} {{ stimulus_action('common/back_to_top', 'backToTop') }}>
         <i class="fas fa-angle-up fa-fw"></i>
-    </a>
+    </button>
 
 {% endblock %}
 
