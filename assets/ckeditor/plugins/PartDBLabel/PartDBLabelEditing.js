@@ -46,9 +46,9 @@ export default class PartDBLabelEditing extends Plugin {
             },
             model: ( viewElement, { writer: modelWriter } ) => {
                 // Extract the "name" from "{name}".
-                const name = viewElement.getChild( 0 ).data.slice( 1, -1 );
+                const name = viewElement.getChild( 0 ).data;
 
-                return modelWriter.createElement( 'label-placeholder', { name } );
+                return modelWriter.createElement( 'partdb_label', { name } );
             }
         } );
 
