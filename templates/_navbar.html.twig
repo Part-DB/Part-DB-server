@@ -58,9 +58,9 @@
                                                   aria-hidden="true"></i> {% trans %}user.login{% endtrans %}</a>
                         {% endif %}
                         <li role="separator" class="dropdown-divider" id="toggleDarkmodeSeparator"></li>
-                        <div class="px-4 px-3" id="toggleDarkmodeContainer">
+                        <div class="px-4 px-3" id="toggleDarkmodeContainer hidden" {{ stimulus_controller('common/darkmode') }}>
                             <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input" id="toggleDarkmode">
+                                <input type="checkbox" class="form-check-input" id="toggleDarkmode" {{ stimulus_action('common/darkmode', 'toggleDarkmode', 'change') }}>
                                 <label class="form-check-label"
                                        for="toggleDarkmode">{% trans %}ui.toggle_darkmode{% endtrans %}</label>
                             </div>
