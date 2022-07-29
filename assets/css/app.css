@@ -25,11 +25,11 @@
 /* Add padding for fixed header bar */
 body {
     overflow-x: hidden;
-    position: relative;
+    /*position: relative;*/
     padding-top: 70px;
     /* Use font size like in BS3 */
-    font-size: 14px;
-    line-height: 1.428;
+    /*font-size: 14px;
+    line-height: 1.428;*/
 }
 
 @media  (min-width: 768px) {
