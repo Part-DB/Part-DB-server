@@ -43,7 +43,7 @@ require('bootstrap');
 import "./sidebar"
 import "./datatables";
 import "./error_handler";
-//import "./tab_remember";
+import "./tab_remember";
 import "./register_events";
 import "./tristate_checkboxes";
 

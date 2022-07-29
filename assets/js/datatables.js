@@ -17,7 +17,7 @@ import 'datatables.net-responsive-bs5';
 import './lib/datatables';
 
 
-const DatatablesHelper = class {
+class DatatablesHelper {
     constructor() {
         this.registerLoadHandler(() => this.initDataTables());
     }

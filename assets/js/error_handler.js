@@ -4,7 +4,7 @@ import * as bootbox from "bootbox";
  * If this class is imported the user is shown an error dialog if he calls an page via Turbo and an error is responded.
  * @type {ErrorHandlerHelper}
  */
-const ErrorHandlerHelper = class {
+class ErrorHandlerHelper {
     constructor() {
         console.log('Error Handler registered');
 

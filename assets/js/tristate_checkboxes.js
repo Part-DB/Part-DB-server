@@ -2,7 +2,7 @@
 
 import "./lib/jquery.tristate"
 
-const TristateHelper = class {
+class TristateHelper {
     constructor() {
         this.registerTriStateCheckboxes();
         this.registerSubmitHandler();

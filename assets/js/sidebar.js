@@ -3,7 +3,7 @@
 import "patternfly-bootstrap-treeview/src/css/bootstrap-treeview.css"
 import "patternfly-bootstrap-treeview";
 
-const SidebarHelper = class {
+class SidebarHelper {
     constructor() {
         this.BASE = $("body").data("base-url");
         //If path doesn't end with slash, add it.

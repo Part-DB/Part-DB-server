@@ -9,7 +9,7 @@ import "bootstrap-fileinput";
 
 
 
-const RegisterEventHelper = class {
+class RegisterEventHelper {
     constructor() {
         this.registerTooltips();
         this.registerJumpToTopBtn();
