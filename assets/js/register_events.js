@@ -7,6 +7,7 @@ import "bootstrap-fileinput/css/fileinput.css"
 
 import "bootstrap-fileinput";
 
+import {Popover} from "bootstrap";
 
 
 class RegisterEventHelper {
@@ -16,8 +17,6 @@ class RegisterEventHelper {
         this.registerFileInput();
 
         this.registerSpecialCharInput();
-
-        this.registerHoverPics();
     }
 
     registerLoadHandler(fn) {
@@ -32,10 +31,6 @@ class RegisterEventHelper {
                 //@ts-ignore
                 .tooltip("hide").tooltip({container: "body", placement: "auto", boundary: 'window'});
         });
-    }
-
-    registerHoverPics() {
-
     }
 
     registerFileInput() {
