@@ -162,7 +162,8 @@ Editor.defaultConfig = {
             'redo',
             'findAndReplace',
             'sourceEditing',
-        ]
+        ],
+        shouldNotGroupWhenFull: true
     },
     language: 'en',
     image: {

@@ -129,7 +129,6 @@ Editor.builtinPlugins = [
 Editor.defaultConfig = {
     toolbar: {
         items: [
-            'partdb_label',
             'heading',
             'alignment',
             '|',
@@ -168,7 +167,10 @@ Editor.defaultConfig = {
             'redo',
             'findAndReplace',
             'sourceEditing',
-        ]
+            '|',
+            'partdb_label',
+        ],
+        shouldNotGroupWhenFull: true
     },
     language: 'en',
     image: {
