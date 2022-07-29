@@ -1,6 +1,6 @@
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 
-require('./lang/en.js');
+require('./lang/de.js');
 
 import { addListToDropdown, createDropdown } from '@ckeditor/ckeditor5-ui/src/dropdown/utils';
 
@@ -23,7 +23,7 @@ export default class PartDBLabelUI extends Plugin {
             dropdownView.buttonView.set( {
                 // The t() function helps localize the editor. All strings enclosed in t() can be
                 // translated and change when the language of the editor changes.
-                label: t( 'part_db.label' ),
+                label: t( 'Label Placeholder' ),
                 tooltip: true,
                 withText: true
             } );
@@ -45,64 +45,64 @@ export default class PartDBLabelUI extends Plugin {
 
 const PLACEHOLDERS = [
     {
-        label: 'section.part',
+        label: 'Part',
         entries: [
-            ['[[ID]]', 'part.id'],
-            ['[[NAME]]', 'part.name'],
-            ['[[CATEGORY]]', 'part.category'],
-            ['[[CATEGORY_FULL]]', 'part.category_full'],
-            ['[[MANUFACTURER]]', 'part.manufacturer'],
-            ['[[MANUFACTURER_FULL]]', 'part.manufacturer_full'],
-            ['[[FOOTPRINT]]', 'part.footprint'],
-            ['[[FOOTPRINT_FULL]]', 'part.footprint'],
-            ['[[MASS]]', 'part.mass'],
-            ['[[MPN]]', 'part.mpn'],
-            ['[[TAGS]]', 'part.tags'],
-            ['[[M_STATUS]]', 'part.status'],
-            ['[[DESCRIPTION]]', 'part.description'],
-            ['[[DESCRIPTION_T]]', 'part.description_t'],
-            ['[[COMMENT]]', 'part.comment'],
-            ['[[COMMENT_T]]', 'part.comment_t'],
-            ['[[LAST_MODIFIED]]', 'part.last_modified'],
-            ['[[CREATION_DATE]]', 'part.creation_date'],
+            ['[[ID]]', 'Database ID'],
+            ['[[NAME]]', 'Part name'],
+            ['[[CATEGORY]]', 'Category'],
+            ['[[CATEGORY_FULL]]', 'Category (Full path)'],
+            ['[[MANUFACTURER]]', 'Manufacturer'],
+            ['[[MANUFACTURER_FULL]]', 'Manufacturer (Full path)'],
+            ['[[FOOTPRINT]]', 'Footprint'],
+            ['[[FOOTPRINT_FULL]]', 'Footprint (Full path)'],
+            ['[[MASS]]', 'Mass'],
+            ['[[MPN]]', 'Manufacturer Product Number (MPN)'],
+            ['[[TAGS]]', 'Tags'],
+            ['[[M_STATUS]]', 'Manufacturing status'],
+            ['[[DESCRIPTION]]', 'Description'],
+            ['[[DESCRIPTION_T]]', 'Description (plain text)'],
+            ['[[COMMENT]]', 'Comment'],
+            ['[[COMMENT_T]]', 'Comment (plain text)'],
+            ['[[LAST_MODIFIED]]', 'Last modified datetime'],
+            ['[[CREATION_DATE]]', 'Creation datetime'],
         ]
     },
     {
-        label: 'section.part_lot',
+        label: 'Part lot',
         entries: [
-            ['[[LOT_ID]]', 'lot.id'],
-            ['[[LOT_NAME]]', 'lot.name'],
-            ['[[LOT_COMMENT]]', 'lot.comment'],
-            ['[[EXPIRATION_DATE]]', 'lot.expiration_date'],
-            ['[[AMOUNT]]', 'lot.amount'],
-            ['[[LOCATION]]', 'lot.location'],
-            ['[[LOCATION_FULL]]', 'lot.location_full'],
+            ['[[LOT_ID]]', 'Lot ID'],
+            ['[[LOT_NAME]]', 'Lot name'],
+            ['[[LOT_COMMENT]]', 'Lot comment'],
+            ['[[EXPIRATION_DATE]]', 'Lot expiration date'],
+            ['[[AMOUNT]]', 'Lot amount'],
+            ['[[LOCATION]]', 'Storage location'],
+            ['[[LOCATION_FULL]]', 'Storage location (Full path)'],
         ]
     },
     {
-        label: 'section.storelocation',
+        label: 'Storage location',
         entries: [
-            ['[[ID]]', 'storelocation.id'],
-            ['[[NAME]]', 'storelocation.name'],
-            ['[[FULL_PATH]]', 'storelocation.full_path'],
-            ['[[PARENT]]', 'storelocation.parent_name'],
-            ['[[PARENT_FULL_PATH]]', 'storelocation.parent_full_path'],
-            ['[[COMMENT]]', 'storelocation.comment'],
-            ['[[COMMENT_T]]', 'storelocation.comment_t'],
-            ['[[LAST_MODIFIED]]', 'storelocation.last_modified'],
-            ['[[CREATION_DATE]]', 'storelocation.creation_date'],
+            ['[[ID]]', 'Location ID'],
+            ['[[NAME]]', 'Name'],
+            ['[[FULL_PATH]]', 'Full path'],
+            ['[[PARENT]]', 'Parent name'],
+            ['[[PARENT_FULL_PATH]]', 'Parent full path'],
+            ['[[COMMENT]]', 'Comment'],
+            ['[[COMMENT_T]]', 'Comment (plain text)'],
+            ['[[LAST_MODIFIED]]', 'Last modified datetime'],
+            ['[[CREATION_DATE]]', 'Creation datetime'],
         ]
     },
     {
-        label: 'section.global',
+        label: 'Globals',
         entries: [
-            ['[[USERNAME]]', 'global.username'],
-            ['[[USERNAME_FULL]]', 'global.username_full'],
-            ['[[DATETIME]]', 'global.datetime'],
-            ['[[DATE]]', 'global.date'],
-            ['[[TIME]]', 'global.time'],
-            ['[[INSTALL_NAME]]', 'global.install_name'],
-            ['[[TYPE]]', 'global.type']
+            ['[[USERNAME]]', 'Username'],
+            ['[[USERNAME_FULL]]', 'Username (including name)'],
+            ['[[DATETIME]]', 'Current datetime'],
+            ['[[DATE]]', 'Current date'],
+            ['[[TIME]]', 'Current time'],
+            ['[[INSTALL_NAME]]', 'Instance name'],
+            ['[[TYPE]]', 'Target type']
         ],
     },
 ];
