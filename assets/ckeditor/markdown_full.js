@@ -180,7 +180,6 @@ Editor.defaultConfig = {
             'tableColumn',
             'tableRow',
             'mergeTableCells',
-            'tableCellProperties',
             'tableProperties'
         ]
     },
