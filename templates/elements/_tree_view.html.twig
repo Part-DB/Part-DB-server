@@ -1,0 +1,19 @@
+<div {{ stimulus_controller('elements/tree') }} data-tree-data="{{ generateTreeData(entity) }}">
+    <div class="row" >
+        <div class="col-8">
+            <input type="search" class="form-control" placeholder="{% trans %}search.placeholder{% endtrans %}" {{ stimulus_action('elements/tree', 'searchInput') }}>
+        </div>
+        <div class="btn-group btn-group-sm col-4" role="group">
+            <button type="button" class="btn btn-outline-secondary" {{ stimulus_action('elements/tree', 'expandAll') }}
+                    title="{% trans %}expandAll{% endtrans %}">
+                <i class="fas fa-plus fa-fw"></i>
+            </button>
+            <button type="button" class="btn btn-outline-secondary" {{ stimulus_action('elements/tree', 'collapseAll') }}
+                    title="{% trans %}reduceAll{% endtrans %}">
+                <i class="fas fa-minus fa-fw"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="treeview-sm mt-2" {{ stimulus_target('elements/tree', 'tree') }}></div>
+</div>
