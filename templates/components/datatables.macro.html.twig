@@ -1,0 +1,69 @@
+{% macro datatable(datatable, controller = 'elements/datatables/datatables') %}
+    <div {{ stimulus_controller(controller) }} data-dt-settings='{{ datatable_settings(datatable)|escape('html_attr') }}' data-dt-url="{{ app.request.pathInfo }}">
+        <div {{ stimulus_target(controller, 'dt') }}>
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>{% trans %}part_list.loading.caption{% endtrans %}</h4>
+                        <h6>{% trans %}part_list.loading.message{% endtrans %}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro logDataTable(dt) %}
+    {{ _self.datatable(dt, 'elements/datatables/log') }}
+{% endmacro %}
+
+{% macro partsDatatableWithForm(datatable) %}
+    <form method="post" action="{{ path("table_action") }}"
+            {{ stimulus_controller('elements/datatables/parts') }} data-dt-settings='{{ datatable_settings(datatable)|escape('html_attr') }}' data-dt-url="{{ app.request.pathInfo }}">
+        <input type="hidden" name="_token" value="{{ csrf_token('table_action') }}">
+
+        <input type="hidden" name="redirect_back" value="{{ app.request.uri }}">
+
+        <input type="hidden" name="ids" {{ stimulus_target('elements/datatables/parts', 'selectIDs') }} value="">
+
+        <div class="d-none mb-2" {{ stimulus_target('elements/datatables/parts', 'selectPanel') }}>
+            {# <span id="select_count"></span> #}
+            <span class="badge bg-secondary">{% trans with {'%count%': '<span ' ~ stimulus_target('elements/datatables/parts', 'selectCount') ~ '></span>'} %}part_list.action.part_count{% endtrans %}</span>
+
+            <select class="selectpicker" name="action" data-controller="elements--selectpicker" {{ stimulus_action('elements/datatables/parts', 'updateTargetPicker', 'change') }}
+                    title="{% trans %}part_list.action.action.title{% endtrans %}" required>
+                <optgroup label="{% trans %}part_list.action.action.group.favorite{% endtrans %}">
+                    <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="favorite">{% trans %}part_list.action.action.favorite{% endtrans %}</option>
+                    <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="unfavorite">{% trans %}part_list.action.action.unfavorite{% endtrans %}</option>
+                </optgroup>
+
+                <optgroup label="{% trans %}part_list.action.action.group.change_field{% endtrans %}">
+                    <option {% if not is_granted('@parts_category.edit') %}disabled{% endif %} value="change_category" data-url="{{ path('select_category') }}">{% trans %}part_list.action.action.change_category{% endtrans %}</option>
+                    <option {% if not is_granted('@parts_footprint.edit') %}disabled{% endif %} value="change_footprint" data-url="{{ path('select_footprint') }}">{% trans %}part_list.action.action.change_footprint{% endtrans %}</option>
+                    <option {% if not is_granted('@parts_manufacturer.edit') %}disabled{% endif %} value="change_manufacturer" data-url="{{ path('select_manufacturer') }}">{% trans %}part_list.action.action.change_manufacturer{% endtrans %}</option>
+                    <option {% if not is_granted('@parts_unit.edit') %}disabled{% endif %} value="change_unit" data-url="{{ path('select_measurement_unit') }}">{% trans %}part_list.action.action.change_unit{% endtrans %}</option>
+                </optgroup>
+
+                <option {% if not is_granted('@parts.delete') %}disabled{% endif %} value="delete">{% trans %}part_list.action.action.delete{% endtrans %}</option>
+            </select>
+
+            <select class="" style="display: none;" data-live-search="true" name="target" {{ stimulus_target('elements/datatables/parts', 'selectTargetPicker') }}>
+                {# This is left empty, as this will be filled by Javascript #}
+            </select>
+
+            <button type="submit" class="btn btn-secondary">{% trans %}part_list.action.submit{% endtrans %}</button>
+        </div>
+
+        <div {{ stimulus_target('elements/datatables/parts', 'dt') }}>
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>{% trans %}part_list.loading.caption{% endtrans %}</h4>
+                        <h6>{% trans %}part_list.loading.message{% endtrans %}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endmacro %}

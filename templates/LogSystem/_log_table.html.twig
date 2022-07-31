@@ -1,16 +1,11 @@
+{% import "components/datatables.macro.html.twig" as datatables %}
+
 <form method="post" action="{{ url("log_undo") }}"
         {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
       data-delete-title="{% trans %}log.undo.confirm_title{% endtrans %}"
       data-delete-message="{% trans %}log.undo.confirm_message{% endtrans %}">
     <input type="hidden" name="redirect_back" value="{{ app.request.uri }}">
-    <div id="part_list" class="" data-datatable data-settings='{{ datatable_settings(datatable) }}'>
-        <div class="card-body">
-            <div class="card">
-                <div class="card-body">
-                    <h4>{% trans %}part_list.loading.caption{% endtrans %}</h4>
-                    <h6>{% trans %}part_list.loading.message{% endtrans %}</h6>
-                </div>
-            </div>
-        </div>
-    </div>
+
+    {{ datatables.logDataTable(datatable) }}
+
 </form>

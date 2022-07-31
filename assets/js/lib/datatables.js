@@ -43,7 +43,7 @@
 
         return new Promise((fulfill, reject) => {
             // Perform initial load
-            $.ajax(config.url, {
+            $.ajax(typeof config.url === 'function' ? config.url(null) : config.url, {
                 method: config.method,
                 data: {
                     _dt: config.name,
@@ -53,15 +53,17 @@
                 var baseState;
 
                 // Merge all options from different sources together and add the Ajax loader
-                var dtOpts = $.extend({}, data.options, config.options, options, persistOptions, {
+                var dtOpts = $.extend({}, data.options, typeof config.options === 'function' ? {} : config.options, options, persistOptions, {
                     ajax: function (request, drawCallback, settings) {
                         if (data) {
                             data.draw = request.draw;
                             drawCallback(data);
                             data = null;
-                            if (Object.keys(state).length && dt.state != null) {
-                                var merged = $.extend(true, {}, dt.state(), state);
-                                dt
+                            if (Object.keys(state).length) {
+                                var api = new $.fn.dataTable.Api( settings );
+                                var merged = $.extend(true, {}, api.state(), state);
+
+                                api
                                     .order(merged.order)
                                     .search(merged.search.search)
                                     .page.len(merged.length)
@@ -70,7 +72,7 @@
                             }
                         } else {
                             request._dt = config.name;
-                            $.ajax(config.url, {
+                            $.ajax(typeof config.url === 'function' ? config.url(dt) : config.url, {
                                 method: config.method,
                                 data: request
                             }).done(function(data) {
@@ -79,6 +81,10 @@
                         }
                     }
                 });
+
+                if (typeof config.options === 'function') {
+                    dtOpts = config.options(dtOpts);
+                }
 
                 root.html(data.template);
                 dt = $('table', root).DataTable(dtOpts);
@@ -120,6 +126,80 @@
         method: 'POST',
         state: 'fragment',
         url: window.location.origin + window.location.pathname
+    };
+
+    /**
+     * Server-side export.
+     */
+    $.fn.initDataTables.exportBtnAction = function(exporterName, settings) {
+        settings = $.extend({}, $.fn.initDataTables.defaults, settings);
+
+        return function(e, dt) {
+            const params = $.param($.extend({}, dt.ajax.params(), {'_dt': settings.name, '_exporter': exporterName}));
+
+            // Credit: https://stackoverflow.com/a/23797348
+            const xhr = new XMLHttpRequest();
+            xhr.open(settings.method, settings.method === 'GET' ? (settings.url + '?' +  params) : settings.url, true);
+            xhr.responseType = 'arraybuffer';
+            xhr.onload = function () {
+                if (this.status === 200) {
+                    let filename = "";
+                    const disposition = xhr.getResponseHeader('Content-Disposition');
+                    if (disposition && disposition.indexOf('attachment') !== -1) {
+                        const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                        const matches = filenameRegex.exec(disposition);
+                        if (matches != null && matches[1]) {
+                            filename = matches[1].replace(/['"]/g, '');
+                        }
+                    }
+
+                    const type = xhr.getResponseHeader('Content-Type');
+
+                    let blob;
+                    if (typeof File === 'function') {
+                        try {
+                            blob = new File([this.response], filename, { type: type });
+                        } catch (e) { /* Edge */ }
+                    }
+
+                    if (typeof blob === 'undefined') {
+                        blob = new Blob([this.response], { type: type });
+                    }
+
+                    if (typeof window.navigator.msSaveBlob !== 'undefined') {
+                        // IE workaround for "HTML7007: One or more blob URLs were revoked by closing the blob for which they were created. These URLs will no longer resolve as the data backing the URL has been freed."
+                        window.navigator.msSaveBlob(blob, filename);
+                    }
+                    else {
+                        const URL = window.URL || window.webkitURL;
+                        const downloadUrl = URL.createObjectURL(blob);
+
+                        if (filename) {
+                            // use HTML5 a[download] attribute to specify filename
+                            const a = document.createElement("a");
+                            // safari doesn't support this yet
+                            if (typeof a.download === 'undefined') {
+                                window.location = downloadUrl;
+                            }
+                            else {
+                                a.href = downloadUrl;
+                                a.download = filename;
+                                document.body.appendChild(a);
+                                a.click();
+                            }
+                        }
+                        else {
+                            window.location = downloadUrl;
+                        }
+
+                        setTimeout(function() { URL.revokeObjectURL(downloadUrl); }, 100); // cleanup
+                    }
+                }
+            };
+
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.send(settings.method === 'POST' ? params : null);
+        }
     };
 
     /**
@@ -182,4 +262,4 @@
 
         return obj;
     }
-}($));
+}(jQuery));
