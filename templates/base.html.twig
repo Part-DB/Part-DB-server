@@ -82,9 +82,6 @@
                 </div>
 
                 <div class="col-md-9 col-lg-10 offset-md-3 offset-lg-2 ps-0" id="main">
-                    <button class="btn btn-outline-dark btn-sm p-0" type="button" id="sidebar-toggle-button" title="{% trans %}sidebar.big.toggle{% endtrans %}">
-                        <i class="fas fa-angle-left"></i>
-                    </button>
                     <div class="container-fluid me-0 pe-0" id="content-container">
                         <turbo-frame id="content" data-turbo-action="advance">
                             {# Here will be the real content be injected#}
@@ -110,6 +107,12 @@
     <button id="back-to-top" class="btn btn-primary back-to-top" role="button" title="{% trans %}back_to_top{% endtrans %}"
             {{ stimulus_controller('common/back_to_top') }} {{ stimulus_action('common/back_to_top', 'backToTop') }}>
         <i class="fas fa-angle-up fa-fw"></i>
+    </button>
+
+    {# Must be outside of the sidebar or it will be hidden too #}
+    <button class="btn btn-outline-dark btn-sm p-0" type="button" id="sidebar-toggle-button" title="{% trans %}sidebar.big.toggle{% endtrans %}"
+            {{ stimulus_controller('common/hide_sidebar') }} {{ stimulus_action('common/hide_sidebar', 'toggleSidebar') }}>
+        <i class="fas fa-angle-left"></i>
     </button>
 
 {% endblock %}
