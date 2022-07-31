@@ -62,7 +62,7 @@
 <body data-base-url="{{ url('homepage', {'_locale': app.request.locale}) }}" data-locale="{{ app.request.locale|default("en")|slice(0,2) }}">
 {% block body %}
     <header>
-        <turbo-frame id="navbar-frame" target="content" data-turbo-action="advance">
+        <turbo-frame id="navbar-frame" target="content" data-turbo-action="advance" data-turbo-permanent>
             {% include "_navbar.html.twig" %}
         </turbo-frame>
     </header>
@@ -74,7 +74,7 @@
 
                 <div class="collapse d-md-block bg-light" id="sidebar-container">
                     <nav  class="fixed-sidebar col-md-3 col-lg-2 " id="fixed-sidebar">
-                        <turbo-frame id="sidebar" target="content" data-turbo-action="advance">
+                        <turbo-frame id="sidebar" target="content" data-turbo-action="advance" data-turbo-permanent>
                             {% include "_sidebar.html.twig" %}
                         </turbo-frame>
                         <noscript><b>{% trans %}vendor.base.javascript_hint{% endtrans %}</b></noscript>

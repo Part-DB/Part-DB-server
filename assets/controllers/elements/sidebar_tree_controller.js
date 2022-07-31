@@ -10,6 +10,11 @@ export default class extends TreeController {
     _storage_key;
 
     connect() {
+        //Check if the tree is already initialized, if so then skip initialization (useful when going back) to in history using Turbo
+        if(this._isInitialized()) {
+            return;
+        }
+
         const default_mode = this.element.dataset.defaultMode;
 
         this._storage_key = 'tree_' + this.element.id;

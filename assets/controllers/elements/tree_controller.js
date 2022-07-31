@@ -97,6 +97,21 @@ export default class extends Controller {
         $(tree).treeview('search', [data]);
     }
 
+    /**
+     * Check if the tree is already initialized (meaning bootstrap treeview was called on the object)
+     * @private
+     */
+    _isInitialized() {
+        const $tree = $(this.treeTarget).treeview(true);
+
+        //If the tree is not initialized yet, we just get an empty jquery object with the treeview functions missing
+        if(typeof $tree.findNodes === 'undefined' ) {
+            return false;
+        }
+
+        return true;
+
+    }
 
     _getData() {
         //Use lambda function to preserve this context
