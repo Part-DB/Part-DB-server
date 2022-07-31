@@ -423,6 +423,13 @@ table .input-group-btn:last-child>.btn, table .input-group-btn:last-child>.btn-g
         display: none;
     }
 }
+
+/**
+ * Enforce white links on selected rows in datatables
+ */
+table.dataTable > tbody > tr.selected > td > a {
+    color: white !important;
+}
 /***************************************
 * Dropdown with radio buttons
 ***************************************/
