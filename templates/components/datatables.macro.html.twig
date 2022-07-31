@@ -19,7 +19,9 @@
 
 {% macro partsDatatableWithForm(datatable) %}
     <form method="post" action="{{ path("table_action") }}"
-            {{ stimulus_controller('elements/datatables/parts') }} data-dt-settings='{{ datatable_settings(datatable)|escape('html_attr') }}' data-dt-url="{{ app.request.pathInfo }}">
+            {{ stimulus_controller('elements/datatables/parts') }} data-dt-settings='{{ datatable_settings(datatable)|escape('html_attr') }}' data-dt-url="{{ app.request.pathInfo }}"
+            {{ stimulus_action('elements/datatables/parts', 'confirmDeletionAtSubmit') }}  data-delete-title="{% trans %}part_list.action.delete-title{% endtrans %}"
+          data-delete-message="{% trans %}part_list.action.delete-message{% endtrans %}">
         <input type="hidden" name="_token" value="{{ csrf_token('table_action') }}">
 
         <input type="hidden" name="redirect_back" value="{{ app.request.uri }}">

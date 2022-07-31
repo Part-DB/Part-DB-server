@@ -9333,5 +9333,23 @@ Element 3</target>
         <target>No elements existing!</target>
       </segment>
     </unit>
+    <unit id="4IH1qgL" name="part_list.action.delete-title">
+      <segment>
+        <source>part_list.action.delete-title</source>
+        <target>Do you really want to delete this parts?</target>
+      </segment>
+    </unit>
+    <unit id="te3YmqA" name="part_list.action.delete-message">
+      <segment>
+        <source>part_list.action.delete-message</source>
+        <target>These parts and any associated information (like attachments, price information, etc.) will be deleted. This can not be undone!</target>
+      </segment>
+    </unit>
+    <unit id="xd6OiPE" name="part.table.actions.success">
+      <segment>
+        <source>part.table.actions.success</source>
+        <target>Actions finished successfully.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
