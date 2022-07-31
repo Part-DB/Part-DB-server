@@ -240,9 +240,7 @@ showing the sidebar (on devices with md or higher)
 /****************************************
 * Bootstrap extensions
 *****************************************/
-
-/* Dont underline links */
-a {
+a.badge {
     text-decoration: none;
 }
 
