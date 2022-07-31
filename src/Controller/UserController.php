@@ -226,7 +226,8 @@ class UserController extends AdminPages\BaseAdminController
         }
 
         if ($this->getParameter('partdb.users.use_gravatar')) {
-            $avatar = $this->getGravatar($user->getEmail(), 200, 'identicon');
+            //If no email is existing just set some string to show a gravatar
+            $avatar = $this->getGravatar($user->getEmail() ?? 'partdb', 200, 'identicon');
         } else {
             $avatar = $packages->getUrl('/img/default_avatar.png');
         }
