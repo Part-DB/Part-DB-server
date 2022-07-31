@@ -16,6 +16,7 @@ class RegisterEventHelper {
     }
 
     registerLoadHandler(fn) {
+        document.addEventListener('turbo:render', fn);
         document.addEventListener('turbo:load', fn);
     }
 
@@ -38,7 +39,7 @@ class RegisterEventHelper {
     registerSpecialCharInput() {
         this.registerLoadHandler(() => {
             //@ts-ignore
-            $("input[type=text], textarea, input[type=search]").unbind("keydown").keydown(function (event) {
+            $("input[type=text], input[type=search]").unbind("keydown").keydown(function (event) {
                 let greek = event.altKey;
 
                 let greek_char = "";

@@ -27,7 +27,8 @@ class TristateHelper {
 
     registerTriStateCheckboxes() {
         //Initialize tristate checkboxes and if needed the multicheckbox functionality
-        document.addEventListener("turbo:load", () => {
+
+        const listener = () => {
             $(".tristate").tristate( {
                 checked:            "true",
                 unchecked:          "false",
@@ -44,7 +45,10 @@ class TristateHelper {
                 //@ts-ignore
                 $('.tristate:checkbox', $row).tristate('state', new_state);
             });
-        })
+        }
+
+        document.addEventListener("turbo:load", listener);
+        document.addEventListener("turbo:render", listener);
     }
 }
 
