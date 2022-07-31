@@ -6,6 +6,9 @@ import "patternfly-bootstrap-treeview";
 export default class extends Controller {
     static targets = [ "tree" ];
 
+    _url = null;
+    _data = null;
+
     connect() {
         const treeElement = this.treeTarget;
         if (!treeElement) {
@@ -13,9 +16,30 @@ export default class extends Controller {
             return;
         }
 
-        //Fetch data and initialize tree
-        this._getData().then(this._fillTree.bind(this));
+        this._url = this.element.dataset.treeUrl;
+        this._data = this.element.dataset.treeData;
 
+        this.reinitTree();
+    }
+
+    reinitTree()
+    {
+        //Fetch data and initialize tree
+        this._getData()
+            .then(this._fillTree.bind(this))
+            .catch((err) => {
+                console.error("Could not load the tree data: " + err);
+            });
+    }
+
+    setData(data) {
+        this._data = data;
+        this.reinitTree();
+    }
+
+    setURL(url) {
+        this._url = url;
+        this.reinitTree();
     }
 
     _fillTree(data) {
@@ -65,7 +89,7 @@ export default class extends Controller {
     }
 
     searchInput(event) {
-        const data = event.data;
+        const data = event.target.value;
         //Do nothing if no data was passed
 
         const tree = this.treeTarget;
@@ -73,10 +97,19 @@ export default class extends Controller {
         $(tree).treeview('search', [data]);
     }
 
+
     _getData() {
         //Use lambda function to preserve this context
         return new Promise((myResolve, myReject) => {
-            return myResolve(this.element.dataset.treeData);
+            //If a url is defined, fetch the data from the url
+            if (this._url) {
+                return fetch(this._url)
+                    .then((response) => myResolve(response.json()))
+                    .catch((err) => myReject(err));
+            }
+
+            //Otherwise load the data provided via the data attribute
+            return myResolve(this._data);
         });
     }
 }
