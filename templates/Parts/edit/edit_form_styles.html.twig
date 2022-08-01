@@ -93,7 +93,6 @@
             {{ form_widget(form) }}
         </td>
         <td>
-            {% dump(form) %}
             <button type="button" class="btn btn-danger lot_btn_delete" {{ collection.delete_btn() }}
                     {% if not is_granted('lots.delete', form.parent.parent.vars.data) %}disabled{% endif %}>
                 <i class="fas fa-trash-alt fa-fw"></i>
