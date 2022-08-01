@@ -3,6 +3,7 @@ require('bootstrap-select/js/bootstrap-select'); // we have to manually require 
 
 import {Controller} from "@hotwired/stimulus";
 import "bootstrap-select/dist/css/bootstrap-select.css";
+import "../../css/selectpicker_extensions.css";
 
 export default class extends Controller {
     connect() {

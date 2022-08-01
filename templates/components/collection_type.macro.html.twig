@@ -13,6 +13,10 @@
     {{ stimulus_action('elements/collection_type', 'createElement') }}
 {% endmacro %}
 
+{% macro create_pricedetail_btn() %}
+    {{ stimulus_action('elements/collection_type', 'createPricedetail') }}
+{% endmacro %}
+
 {% macro delete_btn() %}
     {{ stimulus_action('elements/collection_type', 'deleteElement') }}
 {% endmacro %}
