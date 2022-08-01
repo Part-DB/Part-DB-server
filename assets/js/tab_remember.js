@@ -50,7 +50,7 @@ class TabRememberHelper {
         if (activeTab) {
 
             //Reveal our tab selector (needed for nested tabs)
-            this.revealElementOnTab(element);
+            this.revealElementOnTab(activeTab);
 
             //Finally show the active tab itself
             Tab.getOrCreateInstance(activeTab).show();
