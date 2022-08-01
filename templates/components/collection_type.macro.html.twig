@@ -1,7 +1,7 @@
 {% macro controller(form, deleteMessage) %}
     {{ stimulus_controller('elements/collection_type', {
         'deleteMessage': 'parameter.delete.confirm'|trans,
-        'prototype': form_widget(form.parameters.vars.prototype)|e('html_attr')
+        'prototype': form_widget(form.vars.prototype)|e('html_attr')
     }) }}
 {% endmacro %}
 

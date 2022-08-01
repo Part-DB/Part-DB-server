@@ -1,8 +1,8 @@
-{% form_theme form with ['Parts/edit/edit_form_styles.html.twig', "bootstrap_4_layout.html.twig"] %}
+{% form_theme form with ['Parts/edit/edit_form_styles.html.twig'] %}
 
 {% import 'components/collection_type.macro.html.twig' as collection %}
 
-<div {{ collection.controller(form, 'parameter.delete.confirm') }}>
+<div {{ collection.controller(form.parameters, 'parameter.delete.confirm') }}>
     <table class="table table-striped table-sm table-bordered table-responsive-md" id="specifications_table" {{ collection.target() }}>
         <thead>
         <tr>
