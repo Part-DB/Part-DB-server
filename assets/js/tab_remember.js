@@ -12,8 +12,32 @@ class TabRememberHelper {
     constructor() {
         document.addEventListener("turbo:load", this.onLoad.bind(this));
 
+        document.addEventListener("turbo:frame-render", this.handleSymfonyValidationErrors.bind(this));
+
         //Capture is important here, as invalid events normally does not bubble
         document.addEventListener("invalid", this.onInvalid.bind(this), {capture: true});
+    }
+
+    handleSymfonyValidationErrors(event) {
+        const responseCode = event.detail.fetchResponse.response.status;
+
+        //We only care about 422 (symfony validation error)
+        if(responseCode !== 422) {
+            return;
+        }
+
+        //Find the first offending element and show it
+        //Symfony validation errors can occur on multiple types
+        const inputErrors = document.getElementsByClassName('is-invalid');
+        const blockErrors = document.getElementsByClassName('form-error-message');
+        const merged = [...inputErrors, ...blockErrors];
+
+        const first_element = merged[0] ?? null;
+        if(first_element) {
+            this.revealElementOnTab(first_element);
+        }
+
+        debugger;
     }
 
     /**
