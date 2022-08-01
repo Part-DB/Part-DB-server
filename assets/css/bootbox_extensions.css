@@ -1,0 +1,27 @@
+.modal-body > .bootbox-close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem 0.75rem;
+    z-index: 1;
+}
+.modal .bootbox-close-button {
+    font-weight: 100;
+}
+
+button.bootbox-close-button {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    -webkit-appearance: none;
+}
+
+.bootbox-close-button {
+    /* float: right; */
+    font-size: 1.40625rem;
+    font-weight: 600;
+    line-height: 1;
+    color: #000;
+    text-shadow: none;
+    opacity: .5;
+}

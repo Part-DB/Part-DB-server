@@ -63,6 +63,7 @@
 {% endblock %}
 
 {% block parameter_widget %}
+    {% import 'components/collection_type.macro.html.twig' as collection %}
     <tr>
         <td>{{ form_widget(form.name) }}{{ form_errors(form.name) }}</td>
         <td>{{ form_widget(form.symbol) }}{{ form_errors(form.symbol) }}</td>
@@ -73,7 +74,7 @@
         <td>{{ form_widget(form.value_text) }}{{ form_errors(form.value_text) }}</td>
         <td>{{ form_widget(form.group) }}{{ form_errors(form.group) }}</td>
         <td>
-            <button type="button" class="btn btn-danger btn-sm order_btn_delete {% if form.parent.vars.allow_delete is defined and  not form.parent.vars.allow_delete %}disabled{% endif %}" onclick="delete_specification_entry(this);" title="{% trans %}orderdetail.delete{% endtrans %}">
+            <button type="button" class="btn btn-danger btn-sm order_btn_delete {% if form.parent.vars.allow_delete is defined and  not form.parent.vars.allow_delete %}disabled{% endif %}" {{ collection.delete_btn() }} title="{% trans %}orderdetail.delete{% endtrans %}">
                 <i class="fas fa-trash-alt fa-fw"></i>
             </button>
             {{ form_errors(form) }}

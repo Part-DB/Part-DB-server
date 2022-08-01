@@ -1,0 +1,18 @@
+{% macro controller(form, deleteMessage) %}
+    {{ stimulus_controller('elements/collection_type', {
+        'deleteMessage': 'parameter.delete.confirm'|trans,
+        'prototype': form_widget(form.parameters.vars.prototype)|e('html_attr')
+    }) }}
+{% endmacro %}
+
+{% macro target() %}
+    {{ stimulus_target('elements/collection_type', 'target') }}
+{% endmacro %}
+
+{% macro create_btn() %}
+    {{ stimulus_action('elements/collection_type', 'createElement') }}
+{% endmacro %}
+
+{% macro delete_btn() %}
+    {{ stimulus_action('elements/collection_type', 'deleteElement') }}
+{% endmacro %}
