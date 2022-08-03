@@ -38,6 +38,13 @@ export default class extends Controller {
         const targetTable = this.targetTarget;
         const prototype = this.prototypeValue
 
+        if(!prototype) {
+            console.warn("Prototype is not set, we cannot create a new element. This is most likely due to missing permissions.");
+            bootbox.alert("You do not have the permsissions to create a new element. (No protoype element is set)");
+            return;
+        }
+
+
         //Apply the index to prototype to create our element to insert
         const newElementStr = this.htmlDecode(prototype.replace(/__name__/g, this.generateUID()));
 

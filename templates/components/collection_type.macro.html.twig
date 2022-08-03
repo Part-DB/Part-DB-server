@@ -1,8 +1,14 @@
 {% macro controller(form, deleteMessage) %}
-    {{ stimulus_controller('elements/collection_type', {
-        'deleteMessage': deleteMessage|trans,
-        'prototype': form_widget(form.vars.prototype)|e('html_attr')
-    }) }}
+    {% if form.vars.prototype is defined %}
+        {{ stimulus_controller('elements/collection_type', {
+            'deleteMessage': deleteMessage|trans,
+            'prototype': form_widget(form.vars.prototype)|e('html_attr')
+        }) }}
+    {% else %} {# If add_element is disabled/forbidden, prototype is not available #}
+        {{ stimulus_controller('elements/collection_type', {
+            'deleteMessage': deleteMessage|trans,
+        }) }}
+    {% endif %}
 {% endmacro %}
 
 {% macro target() %}
