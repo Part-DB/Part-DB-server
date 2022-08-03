@@ -114,7 +114,8 @@ class AttachmentFormType extends AbstractType
             'label' => 'attachment.edit.url',
             'required' => false,
             'attr' => [
-                'data-autocomplete' => $this->urlGenerator->generate('typeahead_builtInRessources', ['query' => 'QUERY']),
+                'data-controller' => 'elements--attachment-autocomplete',
+                'data-autocomplete' => $this->urlGenerator->generate('typeahead_builtInRessources', ['query' => '__QUERY__']),
                 //Disable browser autocomplete
                 'autocomplete' => 'off',
             ],
