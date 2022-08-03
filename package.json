@@ -56,7 +56,6 @@
         "@ckeditor/ckeditor5-upload": "^34.2.0",
         "@ckeditor/ckeditor5-watchdog": "^34.2.0",
         "@ckeditor/ckeditor5-word-count": "^34.2.0",
-        "@types/typeahead": "^0.11.32",
         "@zxing/library": "^0.19.1",
         "bootbox": "^5.4.0",
         "bootstrap-fileinput": "^5.0.1",
