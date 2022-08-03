@@ -115,7 +115,7 @@
 
 {%- block choice_widget_collapsed -%}
     {# Only add the BS5 form-select class if we dont use bootstrap-selectpicker  #}
-    {% if attr["data-controller"] is defined and attr["data-controller"] != "elements--selectpicker" %}
+    {% if attr["data-controller"] is defined and attr["data-controller"] not in ["elements--selectpicker"] %}
         {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-select')|trim}) -%}
     {% else %}
         {# If it is an selectpicker add form-control class to fill whole width #}

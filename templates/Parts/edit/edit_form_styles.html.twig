@@ -102,3 +102,73 @@
         </td>
     </tr>
 {% endblock %}
+
+{% block attachment_widget %}
+    {% import 'components/collection_type.macro.html.twig' as collection %}
+
+    {% dump(form) %}
+
+    <tr {{ stimulus_controller('elements/attachmenttype_change') }}>
+        <td>
+            {{ form_widget(form) }}
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger lot_btn_delete" {{ collection.delete_btn() }} {# {% if not is_granted('attachments.delete', part) %}disabled{% endif %}#}>
+                <i class="fas fa-trash-alt fa-fw"></i>
+                {% trans %}attachment.delete{% endtrans %}
+            </button>
+
+            {% set attach = form.vars.value %}
+
+            {% if attach is not null %}
+                {% if attachment_manager.fileExisting(attach) %}
+                    {% if not attach.external %}
+                        <br><br>
+                        <h6>
+                        <span class="badge bg-primary">
+                            <i class="fas fa-fw {{ ext_to_fa_icon(attach.extension) }}"></i> {{ attach.filename }}
+                        </span>
+                            <br>
+                            <span class="badge bg-secondary">
+                            <i class="fas fa-hdd fa-fw"></i> {{ attachment_manager.humanFileSize(attach) }}
+                        </span>
+                        </h6>
+                    {% else %}
+                        <br><br>
+                        <h6>
+                        <span class="badge bg-primary">
+                            <i class="fas fa-fw fa-globe"></i> {% trans %}attachment.external{% endtrans %}
+                        </span>
+                        </h6>
+                    {% endif %}
+
+                    {% if attach.secure and not is_granted('show_private', attach) %}
+                        {# Leave blank #}
+                    {% elseif attach.picture %}
+                        <a href="{{ attach | entityURL('file_view') }}" rel="noopener" target="_blank" data-turbo="false">
+                            <img class="img-fluid img-thumbnail thumbnail-sm" src="{{ attachment_thumbnail(attach, 'thumbnail_md') }}" alt="{% trans %}attachment.preview.alt{% endtrans %}" />
+                        </a>
+                    {% else %}
+                        <a href="{{ attach | entityURL('file_view') }}" rel="noopener" target="_blank" data-turbo="false" class="link-external">{% trans %}attachment.view{% endtrans %}</a>
+                    {% endif %}
+                {% else %}
+                    <br><br>
+                    <h6>
+                    <span class="badge bg-warning">
+                        <i class="fas fa-exclamation-circle fa-fw"></i> {% trans %}attachment.file_not_found{% endtrans %}
+                    </span>
+                    </h6>
+                {% endif %}
+
+                {% if attach.secure %}
+                    <h6>
+                           <span class="badge bg-success">
+                                <i class="fas fa-fw fa-shield-alt"></i> {% trans %}attachment.secure{% endtrans %}
+                           </span>
+                    </h6>
+                {% endif %}
+            {% endif %}
+
+        </td>
+    </tr>
+{% endblock %}

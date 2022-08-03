@@ -9351,5 +9351,11 @@ Element 3</target>
         <target>Actions finished successfully.</target>
       </segment>
     </unit>
+    <unit id="_3l6FO_" name="attachment.edit.delete.confirm">
+      <segment>
+        <source>attachment.edit.delete.confirm</source>
+        <target>Do you really want to delete this attachment?</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

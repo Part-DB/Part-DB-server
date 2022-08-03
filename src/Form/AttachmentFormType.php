@@ -95,9 +95,6 @@ class AttachmentFormType extends AbstractType
                 'label' => 'attachment.edit.attachment_type',
                 'class' => AttachmentType::class,
                 'disable_not_selectable' => true,
-                'attr' => [
-                    'class' => 'attachment_type_selector',
-                ],
             ]);
 
         $builder->add('showInTable', CheckboxType::class, [
@@ -139,9 +136,9 @@ class AttachmentFormType extends AbstractType
             'mapped' => false,
             'required' => false,
             'attr' => [
-                'class' => 'file',
+                /*'class' => 'file',
                 'data-show-preview' => 'false',
-                'data-show-upload' => 'false',
+                'data-show-upload' => 'false',*/
             ],
             'constraints' => [
                 //new AllowedFileExtension(),
@@ -185,5 +182,10 @@ class AttachmentFormType extends AbstractType
             'max_file_size' => '16M',
             'allow_builtins' => true,
         ]);
+    }
+
+    public function getBlockPrefix()
+    {
+        return 'attachment';
     }
 }
