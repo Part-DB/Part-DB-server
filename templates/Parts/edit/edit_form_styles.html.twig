@@ -106,8 +106,6 @@
 {% block attachment_widget %}
     {% import 'components/collection_type.macro.html.twig' as collection %}
 
-    {% dump(form) %}
-
     <tr {{ stimulus_controller('elements/attachmenttype_change') }}>
         <td>
             {{ form_widget(form) }}
