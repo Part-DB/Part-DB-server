@@ -99,7 +99,7 @@
     {% if pdf_data %}
         <div class="row">
             <div class="col-sm-9 offset-sm-3">
-                <a data-turbo="false" class="btn btn-secondary" href="#" onclick="this.href = document.getElementById('pdf_preview').data" download="{{ filename ?? '' }}">
+                <a data-turbo="false" class="btn btn-secondary" href="#" {{ stimulus_controller('pages/label_download_btn')}} {{ stimulus_action('pages/label_download_btn', 'download')}} download="{{ filename ?? '' }}">
                     {% trans %}label_generator.download{% endtrans %}
                 </a>
             </div>
