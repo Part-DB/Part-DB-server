@@ -40,7 +40,6 @@ import '@fortawesome/fontawesome-free/css/all.css'
 
 require('bootstrap');
 
-import "./datatables";
 import "./error_handler";
 import "./tab_remember";
 import "./register_events";
