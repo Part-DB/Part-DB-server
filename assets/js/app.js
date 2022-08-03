@@ -17,15 +17,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-/*
- * Welcome to your app's main JavaScript file!
- *
- * We recommend including the built version of this JavaScript file
- * (and its CSS file) in your base layout (base.html.twig).
- */
-
-// any CSS you require will output into a single css file (app.css in this case)
-
 // Main CSS files
 import '../css/app.css';
 
@@ -47,56 +38,3 @@ import "./tristate_checkboxes";
 
 //Define jquery globally
 window.$ = window.jQuery = require("jquery")
-
-
-/**
-
- require('bootstrap-select');
-require('jquery-form');
-require('corejs-typeahead/dist/typeahead.bundle.min');
-window.Bloodhound =  require('corejs-typeahead/dist/bloodhound.js');
-
-;
-
-
-
-require('bootstrap-fileinput');
-
-require('./datatables.js');
-
-window.bootbox = require('bootbox');
-
-require("marked");
-window.DOMPurify = require("dompurify");
-
-// Includes required for tag input
-require('./tagsinput.js');
-require('../css/tagsinput.css');
-
-//Tristate checkbox support
-require('./jquery.tristate.js');
-
-require('darkmode-js');
-
-//Equation rendering
-require('katex');
-window.renderMathInElement = require('katex/contrib/auto-render/auto-render').default;
-import 'katex/dist/katex.css';
-
-window.ClipboardJS = require('clipboard');
-
-require('../ts_src/ajax_ui');
-//import {ajaxUI} from "../ts_src/ajax_ui";
-
-//window.ajaxUI = ajaxUI;
-
-//Require all events;
-require('../ts_src/event_listeners');
-
-
-//Start AjaxUI AFTER all event has been registered
-//$(document).ready(ajaxUI.start());
-
-*/
-
-//console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
