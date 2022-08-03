@@ -108,8 +108,8 @@ class TagFinder
     {
         $resolver->setDefaults([
             'query_limit' => 75,
-            'return_limit' => 25,
-            'min_keyword_length' => 3,
+            'return_limit' => 75,
+            'min_keyword_length' => 2,
         ]);
     }
 }

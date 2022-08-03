@@ -112,6 +112,7 @@ class TypeaheadController extends AbstractController
         $encoders = [
             new JsonEncoder(),
         ];
+
         $serializer = new Serializer($normalizers, $encoders);
         $data = $serializer->serialize($array, 'json');
 

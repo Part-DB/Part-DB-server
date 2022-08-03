@@ -1,0 +1,4 @@
+.tagsinput.ts-wrapper.multi .ts-control > div {
+    background: var(--bs-secondary);
+    color: var(--bs-white);
+}
