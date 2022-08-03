@@ -10,7 +10,7 @@ export default class extends Controller {
             trigger: 'hover',
             placement: 'right',
             container: 'body',
-            'title': this.element.dataset.title ?? null,
+            'title': this.element.dataset.title ?? '',
             content: function () {
                 return '<img class="img-fluid" src="' + thumbnail_url + '" />';
             }
