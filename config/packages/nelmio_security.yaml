@@ -29,3 +29,32 @@ nelmio_security:
         policies:
             - 'no-referrer'
             - 'strict-origin-when-cross-origin'
+
+    csp:
+        enabled: true
+        hosts: [ ]
+        content_types: [ ]
+        enforce:
+            level1_fallback: false
+            browser_adaptive:
+                enabled: false
+            report-uri: '%router.request_context.base_url%/csp/report'
+            default-src:
+                - 'self'
+            img-src:
+                - '*'
+                - 'data:'
+            style-src:
+                - 'self'
+                - 'unsafe-inline'
+                - 'data:'
+            script-src:
+                - 'self'
+            object-src:
+                - 'self'
+                - 'data:'
+            frame-src:
+                - 'self'
+                - 'data:'
+            block-all-mixed-content: true # defaults to false, blocks HTTP content over HTTPS transport
+            # upgrade-insecure-requests: true # defaults to false, upgrades HTTP requests to HTTPS transport
