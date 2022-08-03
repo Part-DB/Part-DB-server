@@ -49,13 +49,13 @@
                         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                         <div class="dropdown-menu">
                             <h6 class="dropdown-header">{% trans %}tools.reel_calc.load_preset{% endtrans %}</h6>
-                            <button class="dropdown-item" data-target="reel_tape_thick" data-value="0.8" {{ stimulus_action('elements/preset_input', 'load') }}>8 mm Paper Tape 0603 (0.8 mm)</button>
-                            <button class="dropdown-item" data-target="reel_tape_thick" data-value="0.85" {{ stimulus_action('elements/preset_input', 'load') }}>8 mm Paper Tape 0805 (0.85 mm)</button>
-                            <button class="dropdown-item" data-target="reel_tape_thick" data-value="1" {{ stimulus_action('elements/preset_input', 'load') }}>8 mm Paper Tape 1206 (1 mm)</button>
+                            <button class="dropdown-item" data-value="0.8" {{ stimulus_action('elements/preset_input', 'load') }}>8 mm Paper Tape 0603 (0.8 mm)</button>
+                            <button class="dropdown-item" data-value="0.85" {{ stimulus_action('elements/preset_input', 'load') }}>8 mm Paper Tape 0805 (0.85 mm)</button>
+                            <button class="dropdown-item" data-value="1" {{ stimulus_action('elements/preset_input', 'load') }}>8 mm Paper Tape 1206 (1 mm)</button>
                             <div class="dropdown-divider"></div>
-                            <button class="dropdown-item" data-target="reel_tape_thick" data-value="0.9" {{ stimulus_action('elements/preset_input', 'load') }}>8 mm Blister 0603 (0.9 mm)</button>
-                            <button class="dropdown-item" data-target="reel_tape_thick" data-value="0.95" {{ stimulus_action('elements/preset_input', 'load') }}>8 mm Blister 0805 (0.95 mm)</button>
-                            <button class="dropdown-item" data-target="reel_tape_thick" data-value="1.1" {{ stimulus_action('elements/preset_input', 'load') }}>8 mm Blister 1206 (1.1 mm)</button>
+                            <button class="dropdown-item" data-value="0.9" {{ stimulus_action('elements/preset_input', 'load') }}>8 mm Blister 0603 (0.9 mm)</button>
+                            <button class="dropdown-item" data-value="0.95" {{ stimulus_action('elements/preset_input', 'load') }}>8 mm Blister 0805 (0.95 mm)</button>
+                            <button class="dropdown-item" data-value="1.1" {{ stimulus_action('elements/preset_input', 'load') }}>8 mm Blister 1206 (1.1 mm)</button>
                         </div>
                         <input class="form-control" id="reel_tape_thick" type="number" min="0" {{ stimulus_target('elements/preset_input', 'input') }}>
                         <span class="input-group-text">mm</span>
