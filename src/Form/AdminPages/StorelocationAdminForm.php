@@ -58,9 +58,6 @@ class StorelocationAdminForm extends BaseEntityAdminForm
             'required' => false,
             'label' => 'storelocation.edit.is_full.label',
             'help' => 'storelocation.edit.is_full.help',
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
         ]);
 
@@ -68,9 +65,6 @@ class StorelocationAdminForm extends BaseEntityAdminForm
             'required' => false,
             'label' => 'storelocation.limit_to_existing.label',
             'help' => 'storelocation.limit_to_existing.help',
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
         ]);
 
@@ -78,9 +72,6 @@ class StorelocationAdminForm extends BaseEntityAdminForm
             'required' => false,
             'label' => 'storelocation.only_single_part.label',
             'help' => 'storelocation.only_single_part.help',
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
         ]);
 

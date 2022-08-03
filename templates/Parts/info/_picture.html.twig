@@ -6,7 +6,7 @@
             {% for pic in pictures %}
                 {# @var pic App\Entity\Attachments\Attachment #}
                 <div class="carousel-item  {% if loop.first %}active{% endif %}">
-                    <a href="{{ pic | entityURL('file_view') }}" data-no-ajax target="_blank" rel="noopener">
+                    <a href="{{ pic | entityURL('file_view') }}" data-turbo="false" target="_blank" rel="noopener">
                         <img class="d-block w-100 img-fluid img-thumbnail bg-light" src="{{ pic | entityURL('file_view') }}" alt="">
                         <div class="mask"></div>
                         <div class="carousel-caption-hover">
@@ -23,11 +23,11 @@
         {% if pictures | length > 1 %}
             <a class="carousel-control-prev carousel-control" href="#pictureCarousel" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">{% trans %}part.info.prev_picture{% endtrans %}</span>
+                <span class="visually-hidden">{% trans %}part.info.prev_picture{% endtrans %}</span>
             </a>
             <a class="carousel-control-next carousel-control" href="#pictureCarousel" role="button" data-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">{% trans %}part.info.next_picture{% endtrans %}</span>
+                <span class="visually-hidden">{% trans %}part.info.next_picture{% endtrans %}</span>
             </a>
         {% endif %}
     </div>

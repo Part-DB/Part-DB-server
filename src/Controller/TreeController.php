@@ -80,7 +80,7 @@ class TreeController extends AbstractController
 
     /**
      * @Route("/category/{id}", name="tree_category")
-     * @Route("/categories")
+     * @Route("/categories", name="tree_category_root")
      */
     public function categoryTree(?Category $category = null): JsonResponse
     {
@@ -91,7 +91,7 @@ class TreeController extends AbstractController
 
     /**
      * @Route("/footprint/{id}", name="tree_footprint")
-     * @Route("/footprints")
+     * @Route("/footprints", name="tree_footprint_root")
      */
     public function footprintTree(?Footprint $footprint = null): JsonResponse
     {
@@ -102,7 +102,7 @@ class TreeController extends AbstractController
 
     /**
      * @Route("/location/{id}", name="tree_location")
-     * @Route("/locations")
+     * @Route("/locations", name="tree_location_root")
      */
     public function locationTree(?Storelocation $location = null): JsonResponse
     {
@@ -113,7 +113,7 @@ class TreeController extends AbstractController
 
     /**
      * @Route("/manufacturer/{id}", name="tree_manufacturer")
-     * @Route("/manufacturers")
+     * @Route("/manufacturers", name="tree_manufacturer_root")
      */
     public function manufacturerTree(?Manufacturer $manufacturer = null): JsonResponse
     {
@@ -124,7 +124,7 @@ class TreeController extends AbstractController
 
     /**
      * @Route("/supplier/{id}", name="tree_supplier")
-     * @Route("/suppliers")
+     * @Route("/suppliers", name="tree_supplier_root")
      */
     public function supplierTree(?Supplier $supplier = null): JsonResponse
     {
@@ -135,7 +135,7 @@ class TreeController extends AbstractController
 
     /**
      * @Route("/device/{id}", name="tree_device")
-     * @Route("/devices")
+     * @Route("/devices", name="tree_device_root")
      */
     public function deviceTree(?Device $device = null): JsonResponse
     {

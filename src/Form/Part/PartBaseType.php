@@ -53,10 +53,10 @@ use App\Entity\PriceInformations\Orderdetail;
 use App\Form\AttachmentFormType;
 use App\Form\ParameterType;
 use App\Form\Type\MasterPictureAttachmentType;
+use App\Form\Type\RichTextEditorType;
 use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
 use App\Form\WorkaroundCollectionType;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -106,11 +106,11 @@ class PartBaseType extends AbstractType
                 ],
                 'disabled' => !$this->security->isGranted('name.edit', $part),
             ])
-            ->add('description', CKEditorType::class, [
+            ->add('description', RichTextEditorType::class, [
                 'required' => false,
                 'empty_data' => '',
                 'label' => 'part.edit.description',
-                'config_name' => 'description_config',
+                'mode' => 'markdown-single_line',
                 'attr' => [
                     'placeholder' => 'part.edit.description.placeholder',
                     'rows' => 2,
@@ -147,7 +147,8 @@ class PartBaseType extends AbstractType
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'tagsinput',
-                    'data-autocomplete' => $this->urlGenerator->generate('typeahead_tags', ['query' => 'QUERY']),
+                    'data-controller' => 'elements--tagsinput',
+                    'data-autocomplete' => $this->urlGenerator->generate('typeahead_tags', ['query' => '__QUERY__']),
                 ],
                 'disabled' => !$this->security->isGranted('tags.edit', $part),
             ]);
@@ -181,17 +182,11 @@ class PartBaseType extends AbstractType
 
         //Advanced section
         $builder->add('needsReview', CheckboxType::class, [
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
             'required' => false,
             'label' => 'part.edit.needs_review',
             'disabled' => !$this->security->isGranted('edit', $part),
         ])
             ->add('favorite', CheckboxType::class, [
-                'label_attr' => [
-                    'class' => 'checkbox-custom',
-                ],
                 'required' => false,
                 'label' => 'part.edit.is_favorite',
                 'disabled' => !$this->security->isGranted('change_favorite', $part),
@@ -211,12 +206,13 @@ class PartBaseType extends AbstractType
             ]);
 
         //Comment section
-        $builder->add('comment', CKEditorType::class, [
+        $builder->add('comment', RichTextEditorType::class, [
             'required' => false,
             'label' => 'part.edit.comment',
             'attr' => [
                 'rows' => 4,
             ],
+            'mode' => 'markdown-full',
             'disabled' => !$this->security->isGranted('comment.edit', $part),
             'empty_data' => '',
         ]);
@@ -294,9 +290,17 @@ class PartBaseType extends AbstractType
 
         $builder
             //Buttons
-            ->add('save', SubmitType::class, ['label' => 'part.edit.save'])
+            ->add('save', SubmitType::class, [
+                'label' => 'part.edit.save',
+                'attr' => [
+                    'value' => 'save'
+                ]
+            ])
             ->add('save_and_clone', SubmitType::class, [
                 'label' => 'part.edit.save_and_clone',
+                'attr' => [
+                    'value' => 'save-and-clone'
+                ]
             ])
             ->add('reset', ResetType::class, ['label' => 'part.edit.reset']);
     }

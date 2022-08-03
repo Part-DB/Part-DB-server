@@ -10,39 +10,39 @@
     {% set disabled = attachment.secure and not is_granted("show_secure", attachment) %}
     {% if not attachment_helper or attachment_helper.fileExisting(attachment) %}
         {% if link and not disabled %}
-        <a target="_blank" data-no-ajax rel="noopener" href="{{ attachment|entityURL('file_view') }}">
+            <a target="_blank" data-turbo="false" rel="noopener" href="{{ attachment|entityURL('file_view') }}">
         {% endif %}
-            {% if attachment.picture %}
-                <img class="hoverpic" data-thumbnail="{{ attachment|entityURL('file_view') }}" src="{{ attachment|entityURL('file_view') }}">
-            {% else %}
-                <i class="text-dark {{ class }} {{ ext_to_fa_icon(attachment.extension) }}"></i>
-            {% endif %}
+        {% if attachment.picture %}
+            <img class="hoverpic" {{ stimulus_controller('elements/hoverpic') }} data-thumbnail="{{ attachment|entityURL('file_view') }}" src="{{ attachment|entityURL('file_view') }}">
+        {% else %}
+            <i class="text-dark {{ class }} {{ ext_to_fa_icon(attachment.extension) }}"></i>
+        {% endif %}
         {% if link and not disabled %}
-        </a>
+            </a>
         {% endif %}
     {% elseif not attachment_helper.fileExisting(attachment) %}
         <i class="{{ class }} fa-exclamation-triangle text-danger" title="{% trans %}attachment.file_not_found{% endtrans %}"></i>
     {% endif %}
 {% endmacro %}
 
-{% macro string_to_tags(string, class="badge badge-info") %}
+{% macro string_to_tags(string, class="badge bg-info") %}
     {% for tag in string|split(',') %}
-        <a href="{{ url('part_list_tags', {'tag': tag | trim}) }}" class="{{ class }}" >{{ tag | trim }}</a>
+        <a href="{{ url('part_list_tags', {'tag': tag | trim | url_encode}) }}" class="{{ class }}" >{{ tag | trim }}</a>
     {% endfor %}
 {% endmacro %}
 
 {% macro m_status_to_badge(status, class="badge") %}
     {% if status is not empty %}
-        {% set color = " badge-secondary" %}
+        {% set color = " bg-secondary" %}
 
         {% if status == "active" %}
-            {% set color = " badge-success" %}
+            {% set color = " bg-success" %}
         {% elseif status == "nrfnd" %}
-            {% set color = " badge-warning" %}
+            {% set color = " bg-warning" %}
         {% elseif status == "eol" %}
-            {% set color = " badge-warning" %}
+            {% set color = " bg-warning" %}
         {% elseif status == "discontinued" %}
-            {% set color = " badge-danger" %}
+            {% set color = " bg-danger" %}
         {% endif %}
 
         <span class="{{ class ~ color}}" title="{{ ("m_status." ~ status ~ ".help") | trans }}">
@@ -72,19 +72,19 @@
 {% endmacro %}
 
 {% macro breadcrumb_entity_link(entity, link_type = "list_parts") %}
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            {% for e in entity.pathArray %}
-                <li class="breadcrumb-item {% if loop.last %}active{% endif %}">
-                    {% if link_type is not empty and not loop.last and e.id is not null %}
-                        <a href="{{ e | entityURL(link_type) }}">{{ e.name }}</a>
-                    {% else %}
-                        {{ e.name }}
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ol>
-    </nav>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb py-2 px-3 rounded" style="background-color: var(--bs-gray-200);">
+                {% for e in entity.pathArray %}
+                    <li class="breadcrumb-item {% if loop.last %}active{% endif %}">
+                        {% if link_type is not empty and not loop.last and e.id is not null %}
+                            <a href="{{ e | entityURL(link_type) }}">{{ e.name }}</a>
+                        {% else %}
+                            {{ e.name }}
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ol>
+        </nav>
 {% endmacro %}
 
 {% macro bool_icon(bool) %}
@@ -119,20 +119,20 @@
 {% endmacro %}
 
 {% macro parameters_table(parameters) %}
-<table class="table table-hover table-striped table-sm">
-    <thead>
-    <tr>
-        <th>{% trans %}specifications.property{% endtrans %}</th>
-        <th>{% trans %}specifications.value{% endtrans %}</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for param in parameters %}
+    <table class="table table-hover table-striped table-sm">
+        <thead>
         <tr>
-            <td>{{ param.name }} {% if param.symbol is not empty %}<span class="latex">${{ param.symbol }}$</span>{% endif %}</td>
-            <td>{{ param.formattedValue }}</td>
+            <th>{% trans %}specifications.property{% endtrans %}</th>
+            <th>{% trans %}specifications.value{% endtrans %}</th>
         </tr>
-    {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        {% for param in parameters %}
+            <tr>
+                <td>{{ param.name }} {% if param.symbol is not empty %}<span class="latex" data-controller="common--latex">${{ param.symbol }}$</span>{% endif %}</td>
+                <td>{{ param.formattedValue }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endmacro parameters_table %}

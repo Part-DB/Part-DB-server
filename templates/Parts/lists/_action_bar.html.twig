@@ -1,6 +1,6 @@
 <div class="row mb-3">
     <div class="col">
-        <a href="{{ url('part_new', url_options) }}" class="btn btn-success float-left {% if not is_granted("@parts.create") or (entity is defined and entity.notSelectable) %}disabled{% endif %}"><i class="fas fa-plus-square fa-fw"></i>
+        <a href="{{ url('part_new', url_options) }}" class="btn btn-success float-start {% if not is_granted("@parts.create") or (entity is defined and entity.notSelectable) %}disabled{% endif %}"><i class="fas fa-plus-square fa-fw"></i>
             {% trans%}part.create.btn{% endtrans %}</a>
     </div>
 </div>

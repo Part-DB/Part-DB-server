@@ -98,7 +98,7 @@ class UserSettingsType extends AbstractType
                 'disabled' => $this->demo_mode,
                 'required' => false,
                 'attr' => [
-                    'class' => 'selectpicker',
+                    'data-controller' => 'elements--selectpicker',
                     'data-live-search' => true,
                 ],
                 'placeholder' => 'user_settings.language.placeholder',
@@ -109,7 +109,7 @@ class UserSettingsType extends AbstractType
                 'disabled' => $this->demo_mode,
                 'required' => false,
                 'attr' => [
-                    'class' => 'selectpicker',
+                    'data-controller' => 'elements--selectpicker',
                     'data-live-search' => true,
                 ],
                 'placeholder' => 'user_settings.timezone.placeholder',
@@ -120,7 +120,7 @@ class UserSettingsType extends AbstractType
                 'disabled' => $this->demo_mode,
                 'required' => false,
                 'attr' => [
-                    'class' => 'selectpicker',
+                    'data-controller' => 'elements--selectpicker',
                 ],
                 'choice_translation_domain' => false,
                 'choices' => User::AVAILABLE_THEMES,

@@ -1,14 +1,13 @@
 {% block pricedetail_widget %}
     {% form_theme form.currency 'Form/extendedBootstrap4_layout.html.twig' %}
+    {% import 'components/collection_type.macro.html.twig' as collection %}
 
     <tr>
         <td>{{ form_widget(form.min_discount_quantity, {'attr': {'class': 'form-control-sm'}}) }} {{ form_errors(form.min_discount_quantity) }}</td>
         <td>
             <div class="input-group input-group-sm">
                 {{ form_widget(form.price) }}
-                <div class="input-group-append">
-                    {{ form_widget(form.currency, {'attr': {'class': 'selectpicker form-control-sm'}}) }}
-                </div>
+                {{ form_widget(form.currency, {'attr': {'class': 'selectpicker form-control-sm', 'data-controller': 'elements--selectpicker'}}) }}
             </div>
             {{ form_errors(form.price) }}
             {{ form_errors(form.currency) }}
@@ -16,7 +15,7 @@
         <td>{{ form_widget(form.price_related_quantity, {'attr': {'class': 'form-control-sm'}}) }} {{ form_errors(form.price_related_quantity) }}</td>
         <td>
             <button type="button" class="btn btn-danger order_btn_delete btn-sm" title="{% trans %}orderdetail.delete{% endtrans %}"
-                    onclick="delete_pricedetail_entry(this);" {% if not is_granted('@parts_prices.delete') %}disabled{% endif %}>
+                    {{ collection.delete_btn() }} {% if not is_granted('@parts_prices.delete') %}disabled{% endif %}>
                 <i class="fas fa-trash-alt fa-fw"></i>
             </button>
             {{ form_errors(form) }}
@@ -25,37 +24,40 @@
 {% endblock %}
 
 {% block orderdetail_widget %}
+    {% import 'components/collection_type.macro.html.twig' as collection %}
     <tr>
         <td>
-            {{ form_row(form.supplier,  {'attr': {'class': 'form-control-sm'}}) }}
+            {{ form_row(form.supplier,  {'attr': {'class': 'form-control-sm form-control'}}) }}
             {{ form_row(form.supplierpartnr, {'attr': {'class': 'form-control-sm'}}) }}
             {{ form_row(form.supplier_product_url,  {'attr': {'class': 'form-control-sm'}}) }}
             {{ form_widget(form.obsolete) }}
         </td>
         <td>
-            <table class="table table-sm table-bordered" data-prototype="{% if form.pricedetails.vars.prototype is defined %}{{ form_widget(form.pricedetails.vars.prototype)|e('html_attr') }}{% endif %}">
-                <thead>
-                <tr>
-                    <th>{% trans %}pricedetails.edit.min_qty{% endtrans %}</th>
-                    <th>{% trans %}pricedetails.edit.price{% endtrans %}</th>
-                    <th>{% trans %}pricedetails.edit.price_qty{% endtrans %}</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for price in form.pricedetails %}
-                    {{ form_widget(price) }}
-                {% endfor %}
-                </tbody>
-            </table>
+            <div {{ collection.controller(form.pricedetails, 'pricedetails.edit.delete.confirm') }}>
+                <table class="table table-sm table-bordered" {{ collection.target() }}>
+                    <thead>
+                    <tr>
+                        <th>{% trans %}pricedetails.edit.min_qty{% endtrans %}</th>
+                        <th>{% trans %}pricedetails.edit.price{% endtrans %}</th>
+                        <th>{% trans %}pricedetails.edit.price_qty{% endtrans %}</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for price in form.pricedetails %}
+                        {{ form_widget(price) }}
+                    {% endfor %}
+                    </tbody>
+                </table>
 
-            <button type="button" class="btn btn-success" onclick="create_pricedetail_entry(this)" {% if not is_granted('@parts_prices.create') %}disabled{% endif %}>
-                <i class="fas fa-plus-square fa-fw"></i>
-                {% trans %}pricedetail.create{% endtrans %}
-            </button>
+                <button type="button" class="btn btn-success" {{ collection.create_pricedetail_btn() }} {% if not is_granted('@parts_prices.create') %}disabled{% endif %}>
+                    <i class="fas fa-plus-square fa-fw"></i>
+                    {% trans %}pricedetail.create{% endtrans %}
+                </button>
+            </div>
         </td>
         <td>
-            <button type="button" class="btn btn-danger order_btn_delete" onclick="delete_orderdetail_entry(this);" title="{% trans %}orderdetail.delete{% endtrans %}"
+            <button type="button" class="btn btn-danger order_btn_delete" {{ collection.delete_btn() }} title="{% trans %}orderdetail.delete{% endtrans %}"
                     {% if not is_granted('@parts_orderdetails.delete') %}disabled{% endif %}>
                 <i class="fas fa-trash-alt fa-fw"></i>
             </button>
@@ -65,6 +67,7 @@
 {% endblock %}
 
 {% block parameter_widget %}
+    {% import 'components/collection_type.macro.html.twig' as collection %}
     <tr>
         <td>{{ form_widget(form.name) }}{{ form_errors(form.name) }}</td>
         <td>{{ form_widget(form.symbol) }}{{ form_errors(form.symbol) }}</td>
@@ -75,10 +78,95 @@
         <td>{{ form_widget(form.value_text) }}{{ form_errors(form.value_text) }}</td>
         <td>{{ form_widget(form.group) }}{{ form_errors(form.group) }}</td>
         <td>
-            <button type="button" class="btn btn-danger btn-sm order_btn_delete {% if form.parent.vars.allow_delete is defined and  not form.parent.vars.allow_delete %}disabled{% endif %}" onclick="delete_specification_entry(this);" title="{% trans %}orderdetail.delete{% endtrans %}">
+            <button type="button" class="btn btn-danger btn-sm order_btn_delete {% if form.parent.vars.allow_delete is defined and  not form.parent.vars.allow_delete %}disabled{% endif %}" {{ collection.delete_btn() }} title="{% trans %}orderdetail.delete{% endtrans %}">
                 <i class="fas fa-trash-alt fa-fw"></i>
             </button>
             {{ form_errors(form) }}
+        </td>
+    </tr>
+{% endblock %}
+
+{% block part_lot_widget %}
+    {% import 'components/collection_type.macro.html.twig' as collection %}
+    <tr>
+        <td>
+            {{ form_widget(form) }}
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger lot_btn_delete" {{ collection.delete_btn() }}
+                    {% if not is_granted('lots.delete', form.parent.parent.vars.data) %}disabled{% endif %}>
+                <i class="fas fa-trash-alt fa-fw"></i>
+                {% trans %}part_lot.delete{% endtrans %}
+            </button>
+            {{ form_errors(form) }}
+        </td>
+    </tr>
+{% endblock %}
+
+{% block attachment_widget %}
+    {% import 'components/collection_type.macro.html.twig' as collection %}
+
+    <tr {{ stimulus_controller('elements/attachmenttype_change') }}>
+        <td>
+            {{ form_widget(form) }}
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger lot_btn_delete" {{ collection.delete_btn() }} {# {% if not is_granted('attachments.delete', part) %}disabled{% endif %}#}>
+                <i class="fas fa-trash-alt fa-fw"></i>
+                {% trans %}attachment.delete{% endtrans %}
+            </button>
+
+            {% set attach = form.vars.value %}
+
+            {% if attach is not null %}
+                {% if attachment_manager.fileExisting(attach) %}
+                    {% if not attach.external %}
+                        <br><br>
+                        <h6>
+                        <span class="badge bg-primary">
+                            <i class="fas fa-fw {{ ext_to_fa_icon(attach.extension) }}"></i> {{ attach.filename }}
+                        </span>
+                            <br>
+                            <span class="badge bg-secondary">
+                            <i class="fas fa-hdd fa-fw"></i> {{ attachment_manager.humanFileSize(attach) }}
+                        </span>
+                        </h6>
+                    {% else %}
+                        <br><br>
+                        <h6>
+                        <span class="badge bg-primary">
+                            <i class="fas fa-fw fa-globe"></i> {% trans %}attachment.external{% endtrans %}
+                        </span>
+                        </h6>
+                    {% endif %}
+
+                    {% if attach.secure and not is_granted('show_private', attach) %}
+                        {# Leave blank #}
+                    {% elseif attach.picture %}
+                        <a href="{{ attach | entityURL('file_view') }}" rel="noopener" target="_blank" data-turbo="false">
+                            <img class="img-fluid img-thumbnail thumbnail-sm" src="{{ attachment_thumbnail(attach, 'thumbnail_md') }}" alt="{% trans %}attachment.preview.alt{% endtrans %}" />
+                        </a>
+                    {% else %}
+                        <a href="{{ attach | entityURL('file_view') }}" rel="noopener" target="_blank" data-turbo="false" class="link-external">{% trans %}attachment.view{% endtrans %}</a>
+                    {% endif %}
+                {% else %}
+                    <br><br>
+                    <h6>
+                    <span class="badge bg-warning">
+                        <i class="fas fa-exclamation-circle fa-fw"></i> {% trans %}attachment.file_not_found{% endtrans %}
+                    </span>
+                    </h6>
+                {% endif %}
+
+                {% if attach.secure %}
+                    <h6>
+                           <span class="badge bg-success">
+                                <i class="fas fa-fw fa-shield-alt"></i> {% trans %}attachment.secure{% endtrans %}
+                           </span>
+                    </h6>
+                {% endif %}
+            {% endif %}
+
         </td>
     </tr>
 {% endblock %}

@@ -1,0 +1,26 @@
+{# Insert flashes #}
+<div class="toasts-global d-none">
+    {% for label, messages in app.flashes() %}
+        {% for message in messages %}
+            {{ include('_toast.html.twig', {
+                'label': label,
+                'message': message
+            }) }}
+        {% endfor %}
+    {% endfor %}
+</div>
+
+{# Allow pages to request a fully reload of everything #}
+{% if global_reload_needed is defined and global_reload_needed %}
+    <div {{ stimulus_controller('turbo/global_reload') }}></div>
+{% endif %}
+
+<div class="d-none" data-title="{% apply trim %}{{ current_page_title }}{% endapply %}" {{ stimulus_controller('turbo/title') }}></div>
+
+<div class="d-none" {{ stimulus_controller('turbo/locale_menu') }}>
+    {% for locale in locale_menu %}
+        <a class="dropdown-item" data-turbo="false" href="{{ path(app.request.attributes.get('_route'),
+            app.request.attributes.get('_route_params')|merge({'_locale': locale})) }}">
+            {{ locale|language_name }} ({{ locale|upper }})</a>
+    {% endfor %}
+</div>

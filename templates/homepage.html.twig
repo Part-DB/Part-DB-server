@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block content %}
-    <div class="jumbotron">
+    <div class="rounded p-4" style="background-color: var(--bs-gray-300);">
         <h1 class="display-3">{{ partdb_title }}</h1>
         <h4>
             {% trans %}version.caption{% endtrans %}: {{ shivas_app_version }}
@@ -11,7 +11,7 @@
         </h4>
         {% if banner is not empty %}
             <hr>
-            <div class="latex">
+            <div class="latex" data-controller="common--latex">
                 <h5>{{ banner | markdown }}</h5>
             </div>
         {% endif %}

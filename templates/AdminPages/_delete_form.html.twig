@@ -1,16 +1,16 @@
-<form method="post" class="" action="{{ entity|entityURL('delete') }}"
-      data-delete-form data-title="{% trans  with {'%name%': entity.name }%}entity.delete.confirm_title{% endtrans %}"
-      data-message="{% trans %}entity.delete.message{% endtrans %}">
+<form method="post" class="" action="{{ entity|entityURL('delete') }}" {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
+      data-delete-title="{% trans  with {'%name%': entity.name }%}entity.delete.confirm_title{% endtrans %}"
+      data-delete-message="{% trans %}entity.delete.message{% endtrans %}">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ entity.id) }}">
     <div class="form-group">
         <div class=""></div>
-        <div class="col-sm offset-sm-3 pl-2">
+        <div class="col-sm offset-sm-3 ps-2">
             {% set delete_disabled = (not is_granted("delete", entity)) or (entity.group is defined and entity.id == 1) %}
             <div class="btn-group">
                 <button class="btn btn-danger" {% if delete_disabled %}disabled{% endif %}>{% trans %}entity.delete{% endtrans %}</button>
-                <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="sr-only">Toggle Dropdown</span>
+                <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="visually-hidden">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu p-2">
                     <div class="form-group"><label for="delete_log_comment">{% trans %}edit.log_comment{% endtrans %}</label>
@@ -19,9 +19,9 @@
                 </div>
             </div>
             {% if entity.parent is defined  %}
-                <div class="ml-2 custom-control custom-checkbox custom-control-inline">
-                    <input type="checkbox" class="custom-control-input" id="recursive" name="delete_recursive">
-                    <label class="custom-control-label" for="recursive">{% trans %}entity.delete.recursive{% endtrans %}</label>
+                <div class="ms-2 custom-control custom-checkbox custom-control-inline">
+                    <input type="checkbox" class="form-check-input" id="recursive" name="delete_recursive">
+                    <label class="form-check-label" for="recursive">{% trans %}entity.delete.recursive{% endtrans %}</label>
                 </div>
             {% endif %}
         </div>

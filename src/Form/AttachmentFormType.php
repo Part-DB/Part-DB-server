@@ -95,20 +95,11 @@ class AttachmentFormType extends AbstractType
                 'label' => 'attachment.edit.attachment_type',
                 'class' => AttachmentType::class,
                 'disable_not_selectable' => true,
-                'attr' => [
-                    'class' => 'attachment_type_selector',
-                ],
             ]);
 
         $builder->add('showInTable', CheckboxType::class, [
             'required' => false,
             'label' => 'attachment.edit.show_in_table',
-            'attr' => [
-                'class' => 'form-control-sm',
-            ],
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
         ]);
 
         $builder->add('secureFile', CheckboxType::class, [
@@ -116,20 +107,15 @@ class AttachmentFormType extends AbstractType
             'label' => 'attachment.edit.secure_file',
             'mapped' => false,
             'disabled' => !$this->security->isGranted('@parts_attachments.show_private'),
-            'attr' => [
-                'class' => 'form-control-sm',
-            ],
             'help' => 'attachment.edit.secure_file.help',
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
         ]);
 
         $builder->add('url', TextType::class, [
             'label' => 'attachment.edit.url',
             'required' => false,
             'attr' => [
-                'data-autocomplete' => $this->urlGenerator->generate('typeahead_builtInRessources', ['query' => 'QUERY']),
+                'data-controller' => 'elements--attachment-autocomplete',
+                'data-autocomplete' => $this->urlGenerator->generate('typeahead_builtInRessources', ['query' => '__QUERY__']),
                 //Disable browser autocomplete
                 'autocomplete' => 'off',
             ],
@@ -144,12 +130,6 @@ class AttachmentFormType extends AbstractType
             'label' => 'attachment.edit.download_url',
             'mapped' => false,
             'disabled' => !$this->allow_attachments_download,
-            'attr' => [
-                'class' => 'form-control-sm',
-            ],
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
         ]);
 
         $builder->add('file', FileType::class, [
@@ -157,9 +137,9 @@ class AttachmentFormType extends AbstractType
             'mapped' => false,
             'required' => false,
             'attr' => [
-                'class' => 'file',
+                /*'class' => 'file',
                 'data-show-preview' => 'false',
-                'data-show-upload' => 'false',
+                'data-show-upload' => 'false',*/
             ],
             'constraints' => [
                 //new AllowedFileExtension(),
@@ -203,5 +183,10 @@ class AttachmentFormType extends AbstractType
             'max_file_size' => '16M',
             'allow_builtins' => true,
         ]);
+    }
+
+    public function getBlockPrefix()
+    {
+        return 'attachment';
     }
 }

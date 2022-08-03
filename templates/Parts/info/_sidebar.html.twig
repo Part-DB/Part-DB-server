@@ -18,7 +18,7 @@
 {% if part.mass %}
     <div>
         <h6>
-            <span class="badge badge-secondary" title="{% trans %}part.mass.tooltip{% endtrans %}"><i class="fas fa-weight-hanging fa-fw"></i> {{ part.mass | siFormat("g") }}</span>
+            <span class="badge bg-secondary" title="{% trans %}part.mass.tooltip{% endtrans %}"><i class="fas fa-weight-hanging fa-fw"></i> {{ part.mass | siFormat("g") }}</span>
         </h6>
     </div>
 {% endif %}
@@ -27,7 +27,7 @@
 {% if part.needsReview %}
     <div class="mt-1">
         <h6>
-            <span class="badge badge-warning"><i class="fas fa-ambulance fa-fw"></i> {% trans %}part.needs_review.badge{% endtrans %}</span>
+            <span class="badge bg-warning"><i class="fas fa-ambulance fa-fw"></i> {% trans %}part.needs_review.badge{% endtrans %}</span>
         </h6>
     </div>
 {% endif %}
@@ -36,7 +36,7 @@
 {% if part.favorite %}
     <div class="mt-1">
         <h6>
-            <span class="badge badge-success"><i class="fas fa-award fa-fw"></i> {% trans %}part.favorite.badge{% endtrans %}</span>
+            <span class="badge bg-success"><i class="fas fa-award fa-fw"></i> {% trans %}part.favorite.badge{% endtrans %}</span>
         </h6>
     </div>
 {% endif %}
@@ -44,7 +44,7 @@
 {% if part.obsolete %}
     <div class="mt-1">
         <h6>
-            <span class="badge badge-danger"><i class="fas fa-ghost fa-fw"></i> {% trans %}part.obsolete.badge{% endtrans %}</span>
+            <span class="badge bg-danger"><i class="fas fa-ghost fa-fw"></i> {% trans %}part.obsolete.badge{% endtrans %}</span>
         </h6>
     </div>
 {% endif %}

@@ -81,7 +81,7 @@ class PartLotType extends AbstractType
             'required' => false,
             'disable_not_selectable' => true,
             'attr' => [
-                'class' => 'selectpicker form-control-sm',
+                'data-controller' => 'elements--selectpicker',
                 'title' => 'selectpicker.nothing_selected',
                 'data-live-search' => true,
             ],
@@ -99,22 +99,10 @@ class PartLotType extends AbstractType
         $builder->add('instock_unknown', CheckboxType::class, [
             'required' => false,
             'label' => 'part_lot.edit.instock_unknown',
-            'attr' => [
-                'class' => 'form-control-sm',
-            ],
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
         ]);
 
         $builder->add('needs_refill', CheckboxType::class, [
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
             'label' => 'part_lot.edit.needs_refill',
-            'attr' => [
-                'class' => 'form-control-sm',
-            ],
             'required' => false,
         ]);
 

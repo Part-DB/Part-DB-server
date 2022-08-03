@@ -44,9 +44,6 @@ class LabelProfileAdminForm extends BaseEntityAdminForm
         $builder->add('show_in_dropdown', CheckboxType::class, [
             'required' => false,
             'label' => 'label_profile.showInDropdown',
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
         ]);
         $builder->add('options', LabelOptionsType::class, [
             'label' => false,

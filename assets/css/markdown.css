@@ -1,0 +1,53 @@
+/**
+ * Customization for markdown output
+ */
+
+.markdown .text-tiny {
+    font-size: .7em;
+}
+
+.markdown .text-small {
+    font-size: .85em;
+}
+
+.markdown .text-big {
+    font-size: 1.4em;
+}
+
+.markdown .text-huge {
+    font-size: 1.8em;
+}
+
+.markdown code {
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+
+.markdown pre {
+    display: block;
+    padding: 10px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.markdown img {
+    max-width: 35%;
+    vertical-align: middle;
+}
+
+.markdown blockquote {
+    padding: 10px 10px;
+    margin: 0 0 10px;
+    font-size: 18px;
+    border-left: 5px solid #aaa;
+}

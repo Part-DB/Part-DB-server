@@ -1,64 +1,83 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light border-bottom shadow-sm fixed-top py-0" id="navbar">
+    <div class="container-fluid">
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#sidebar-container">
+            <span class="visually-hidden">{% trans %}sidebar.toggle{% endtrans %}</span>
+            <!-- <span class="navbar-toggler-icon"></span> -->
+            <i class="fas fa-folder-open fa-lg fa-fw"></i>
+        </button>
 
-    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidebar-container">
-        <span class="sr-only">{% trans %}sidebar.toggle{% endtrans %}</span>
-        <!-- <span class="navbar-toggler-icon"></span> -->
-        <i class="fas fa-folder-open fa-lg fa-fw"></i>
-    </button>
+        <a class="navbar-brand" href="{{ path('homepage') }}"><i class="fa fa-microchip"
+                                                                 aria-hidden="true"></i> {{ partdb_title }}</a>
 
-    <a class="navbar-brand" href="{{ path('homepage') }}"><i class="fa fa-microchip" aria-hidden="true"></i> {{ partdb_title }}</a>
-
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-        <!-- <span class="navbar-toggler-icon"></span> -->
-        <i class="fas fa-bars  fa-lg"></i>
-    </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <!-- <span class="navbar-toggler-icon"></span> -->
+            <i class="fas fa-bars  fa-lg"></i>
+        </button>
 
 
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav me-auto">
+                {% if is_granted("@tools.label_scanner") %}
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           href="{{ url("scan_dialog") }}">{% trans %}navbar.scanner.link{% endtrans %}</a>
+                    </li>
+                {% endif %}
+            </ul>
 
-    <div class="collapse navbar-collapse" id="navbarContent">
-        <ul class="navbar-nav mr-auto">
-            {% if is_granted("@tools.label_scanner") %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url("scan_dialog") }}">{% trans %}navbar.scanner.link{% endtrans %}</a>
-                </li>
-            {% endif %}
-        </ul>
 
-        <div class="form-inline my-2 my-lg-0 ml-auto" id="searchbar">
-            <!-- Searchbar -->
             {% include "_navbar_search.html.twig" %}
-        </div>
 
-        <ul class="navbar-nav ml-3" id="login-content">
-            <li class="nav-item dropdown">
-                <a href="#" class="dropdown-toggle link-anchor nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    {% if app.user %}<i class="fa fa-user" aria-hidden="true"></i>{% else %}<i class="far fa-user" aria-hidden="true"></i>{% endif %} <span class="caret"></span></a>
-                <ul class="dropdown-menu dropdown-menu-right" id="login-menu">
-                    {% if app.user %}
-                        <a class="dropdown-item disabled" href="#" >{% trans %}user.loggedin.label{% endtrans %} <b>{{ app.user.firstName }} {{app.user.lastName}}</b> (@{{app.user.name}})</a>
-                        <a class="dropdown-item" href="{{ path("user_settings") }}"><i class="fa fa-cogs fa-fw" aria-hidden="true"></i> {% trans %}user.settings.label{% endtrans %}</a>
-                        <a class="dropdown-item" href="{{ path("user_info_self") }}"><i class="fa fa-info-circle fa-fw" aria-hidden="true"></i> {% trans %}user.info.label{% endtrans %}</a>
-                        <li role="separator" class="dropdown-divider"></li>
-                        <a class="dropdown-item"  href="{{ path('logout') }}" data-no-ajax><i class="fa fa-sign-out-alt fa-fw" aria-hidden="true"></i> {% trans %}user.logout{% endtrans %}</a>
-                    {% else %}
-                        <a class="dropdown-item" href="{{ path('login', {'_target_path': app.request.pathinfo | loginPath}) }}" id="login-link"><i class="fa fa-sign-in-alt fa-fw" aria-hidden="true"></i> {% trans %}user.login{% endtrans %}</a>
-                    {% endif %}
-                    <li role="separator" class="dropdown-divider" id="toggleDarkmodeSeparator" hidden></li>
-                    <div class="px-4 px-3" id="toggleDarkmodeContainer" hidden>
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="toggleDarkmode">
-                            <label class="custom-control-label" for="toggleDarkmode">{% trans %}ui.toggle_darkmode{% endtrans %}</label>
+
+            <ul class="navbar-nav ms-3" id="login-content">
+                <li class="nav-item dropdown">
+                    <a href="#" class="dropdown-toggle link-anchor nav-link" data-bs-toggle="dropdown" role="button"
+                       aria-haspopup="true" aria-expanded="false" id="navbar-user-dropdown-btn" data-bs-reference="window">
+                        {% if app.user %}<i class="fa fa-user" aria-hidden="true"></i>{% else %}<i class="far fa-user"
+                                                                                                   aria-hidden="true"></i>{% endif %}
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu dropdown-menu-end" id="login-menu" aria-labelledby="navbar-user-dropdown-btn">
+                        {% if app.user %}
+                            <a class="dropdown-item disabled" href="#">{% trans %}user.loggedin.label{% endtrans %}
+                                <b>{{ app.user.firstName }} {{ app.user.lastName }}</b> (@{{ app.user.name }})</a>
+                            <a class="dropdown-item" href="{{ path("user_settings") }}"><i class="fa fa-cogs fa-fw"
+                                                                                           aria-hidden="true"></i> {% trans %}user.settings.label{% endtrans %}
+                            </a>
+                            <a class="dropdown-item" href="{{ path("user_info_self") }}"><i
+                                        class="fa fa-info-circle fa-fw"
+                                        aria-hidden="true"></i> {% trans %}user.info.label{% endtrans %}</a>
+                            <li role="separator" class="dropdown-divider"></li>
+                            <a class="dropdown-item" href="{{ path('logout') }}" data-turbo="false"><i
+                                        class="fa fa-sign-out-alt fa-fw"
+                                        aria-hidden="true"></i> {% trans %}user.logout{% endtrans %}</a>
+                        {% else %}
+                            <a class="dropdown-item"
+                               href="{{ path('login', {'_target_path': app.request.pathinfo | loginPath}) }}"
+                               id="login-link"><i class="fa fa-sign-in-alt fa-fw"
+                                                  aria-hidden="true"></i> {% trans %}user.login{% endtrans %}</a>
+                        {% endif %}
+                        <li role="separator" class="dropdown-divider" id="toggleDarkmodeSeparator"></li>
+                        <div class="px-4 px-3" id="toggleDarkmodeContainer hidden" {{ stimulus_controller('common/darkmode') }}>
+                            <div class="form-check form-switch">
+                                <input type="checkbox" class="form-check-input" id="toggleDarkmode" {{ stimulus_action('common/darkmode', 'toggleDarkmode', 'change') }}>
+                                <label class="form-check-label"
+                                       for="toggleDarkmode">{% trans %}ui.toggle_darkmode{% endtrans %}</label>
+                            </div>
                         </div>
-                    </div>
-                    <li role="separator" class="dropdown-divider"></li>
-                    <h6 class="dropdown-header">{% trans %}user.language_select{% endtrans %}</h6>
-                    {% for locale in locale_menu %}
-                        <a class="dropdown-item" data-no-ajax href="{{ path(app.request.attributes.get('_route'),
-                            app.request.attributes.get('_route_params')|merge({'_locale': locale})) }}">
-                            {{ locale|language_name }} ({{ locale|upper }})</a>
-                    {% endfor %}
-                </ul>
-            </li>
-        </ul>
+                        <li role="separator" class="dropdown-divider"></li>
+                        <h6 class="dropdown-header">{% trans %}user.language_select{% endtrans %}</h6>
+                        <div id="locale-select-menu">
+                            {% for locale in locale_menu %}
+                                <a class="dropdown-item" data-turbo="false"
+                                   href="{{ path(app.request.attributes.get('_route'),
+                                       app.request.attributes.get('_route_params')|merge({'_locale': locale})) }}">
+                                    {{ locale|language_name }} ({{ locale|upper }})</a>
+                            {% endfor %}
+                        </div>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>

@@ -226,7 +226,8 @@ class UserController extends AdminPages\BaseAdminController
         }
 
         if ($this->getParameter('partdb.users.use_gravatar')) {
-            $avatar = $this->getGravatar($user->getEmail(), 200, 'identicon');
+            //If no email is existing just set some string to show a gravatar
+            $avatar = $this->getGravatar($user->getEmail() ?? 'partdb', 200, 'identicon');
         } else {
             $avatar = $packages->getUrl('/img/default_avatar.png');
         }
@@ -239,10 +240,10 @@ class UserController extends AdminPages\BaseAdminController
             'data' => $user,
         ]);
 
-        return $this->render('Users/user_info.html.twig', [
+        return $this->renderForm('Users/user_info.html.twig', [
             'user' => $user,
             'avatar' => $avatar,
-            'form' => $builder->getForm()->createView(),
+            'form' => $builder->getForm(),
             'datatable' => $table,
         ]);
     }

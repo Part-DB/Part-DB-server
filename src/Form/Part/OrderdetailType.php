@@ -92,9 +92,6 @@ class OrderdetailType extends AbstractType
 
         $builder->add('obsolete', CheckboxType::class, [
             'required' => false,
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
             'label' => 'orderdetails.edit.obsolete',
         ]);
 

@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace App\Form;
 
 use App\Entity\LabelSystem\LabelOptions;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use App\Form\Type\RichTextEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -94,19 +94,19 @@ class LabelOptionsType extends AbstractType
                 return null;
             },
             'attr' => [
-                'class' => 'selectpicker',
+                'data-controller' => 'elements--selectpicker',
                 'title' => 'selectpicker.nothing_selected',
                 'data-live-search' => true,
             ],
         ]);
 
-        $builder->add('lines', CKEditorType::class, [
+        $builder->add('lines', RichTextEditorType::class, [
             'label' => 'label_profile.lines.label',
             'empty_data' => '',
+            'mode' => 'html-label',
             'attr' => [
                 'rows' => 4,
             ],
-            'config_name' => 'label_config',
         ]);
 
         $builder->add('additional_css', TextareaType::class, [

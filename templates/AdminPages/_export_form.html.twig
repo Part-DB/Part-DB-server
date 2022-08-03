@@ -1,4 +1,4 @@
-<form class="form-horizontal" data-no-ajax method="post" action="{{ path }}">
+<form class="form-horizontal" data-turbo="false" method="post" action="{{ path }}">
 
     <div class="form-row">
         <label class="col-form-label col-md-3">{% trans %}export.format{% endtrans %}</label>
@@ -25,9 +25,9 @@
 
     <div class="form-row mt-2">
         <div class="offset-sm-3 col-sm">
-            <div class="custom-control custom-checkbox">
-                <input class="form-check-input custom-control-input" name="include_children" id="include_children" type="checkbox" checked>
-                <label class="form-check-label custom-control-label" for="include_children">
+            <div class="form-check">
+                <input class="form-check-input form-check-input" name="include_children" id="include_children" type="checkbox" checked>
+                <label class="form-check-label form-check-label" for="include_children">
                     {% trans %}export.include_children{% endtrans %}
                 </label>
             </div>

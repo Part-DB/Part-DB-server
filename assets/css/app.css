@@ -25,11 +25,11 @@
 /* Add padding for fixed header bar */
 body {
     overflow-x: hidden;
-    position: relative;
+    /*position: relative;*/
     padding-top: 70px;
     /* Use font size like in BS3 */
-    font-size: 14px;
-    line-height: 1.428;
+    /*font-size: 14px;
+    line-height: 1.428;*/
 }
 
 @media  (min-width: 768px) {
@@ -69,8 +69,6 @@ body {
         /*noinspection CssUnknownProperty*/
         scrollbar-width: none;
     }
-
-
 }
 
 /*noinspection W3CssValidation*/
@@ -242,6 +240,9 @@ showing the sidebar (on devices with md or higher)
 /****************************************
 * Bootstrap extensions
 *****************************************/
+a.badge {
+    text-decoration: none;
+}
 
 .w-fit {
     width: -moz-fit-content;
@@ -419,6 +420,13 @@ table .input-group-btn:last-child>.btn, table .input-group-btn:last-child>.btn-g
     .fixedHeader-floating {
         display: none;
     }
+}
+
+/**
+ * Enforce white links on selected rows in datatables
+ */
+table.dataTable > tbody > tr.selected > td > a {
+    color: white !important;
 }
 /***************************************
 * Dropdown with radio buttons
@@ -792,43 +800,6 @@ div.dataTables_wrapper div.dataTables_info {
     margin: 0;
 }
 
-/***************************************************
- * Markdown styles
- ***************************************************/
-.markdown code {
-    padding: 2px 4px;
-    font-size: 90%;
-    color: #c7254e;
-    background-color: #f9f2f4;
-    border-radius: 4px;
-}
-
-.markdown pre {
-    display: block;
-    padding: 10px;
-    margin: 0 0 10px;
-    font-size: 13px;
-    line-height: 1.42857143;
-    color: #333;
-    word-break: break-all;
-    word-wrap: break-word;
-    background-color: #f5f5f5;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.markdown img {
-    max-width: 35%;
-    vertical-align: middle;
-}
-
-.markdown blockquote {
-    padding: 10px 10px;
-    margin: 0 0 10px;
-    font-size: 18px;
-    border-left: 5px solid #aaa;
-}
-
 .darkmode-layer {
     z-index: 2020;
 }
@@ -885,3 +856,4 @@ div.dataTables_wrapper div.dataTables_info {
 .typeahead-image {
     width: 100%;
 }
+

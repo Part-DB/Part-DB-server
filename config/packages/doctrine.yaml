@@ -15,7 +15,8 @@ doctrine:
                 class: App\Helpers\BigDecimalType
 
         schema_filter: ~^(?!internal)~
-        profiling_collect_backtrace: true
+        # Only enable this when needed
+        profiling_collect_backtrace: false
 
     orm:
         auto_generate_proxy_classes: true

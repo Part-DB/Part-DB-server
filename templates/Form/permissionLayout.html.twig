@@ -3,9 +3,9 @@
         <td>
             {% if multi_checkbox %}
 
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input tristate permission_multicheckbox" id="mulit_check_{{ form.vars.label }}">
-                    <label class="custom-control-label" for="mulit_check_{{ form.vars.label }}">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input tristate permission_multicheckbox" id="mulit_check_{{ form.vars.label }}">
+                    <label class="form-check-label" for="mulit_check_{{ form.vars.label }}">
                         <b>{{ form.vars.label | trans }}</b>
                     </label>
                 </div>
@@ -29,7 +29,7 @@
 
 {% block permission_group_row %}
     {{ form_errors(form) }}
-    <table class="table table-bordered table-sm">
+    <table class="table table-bordered table-sm table-striped table-hover">
         <thead>
         <tr>
             <th>{% trans %}permission.edit.permission{% endtrans %}</th>
@@ -52,17 +52,17 @@
         <div class="mb-2">
             <label><b>{% trans %}permission.legend.title{% endtrans %}:</b></label>
             <div>
-                <div class="custom-control custom-control-inline custom-checkbox">
-                    <input type="checkbox" hidden class="custom-control-input">
-                    <label class="custom-control-label">{% trans %}permission.legend.disallow{% endtrans %}</label>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" disabled>
+                    <label class="form-check-label opacity-100">{% trans %}permission.legend.disallow{% endtrans %}</label>
                 </div>
-                <div class="custom-control custom-control-inline custom-checkbox">
-                    <input class="custom-control-input" type="checkbox" hidden checked>
-                    <label class="custom-control-label">{% trans %}permission.legend.allow{% endtrans %}</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" disabled>
+                    <label class="form-check-label  opacity-100">{% trans %}permission.legend.allow{% endtrans %}</label>
                 </div>
-                <div class="custom-control custom-control-inline custom-checkbox">
-                    <input type="checkbox" class="tristate custom-control-input" hidden indeterminate="indeterminate">
-                    <label class="custom-control-label">{% trans %}permission.legend.inherit{% endtrans %}</label>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" class="tristate form-check-input" indeterminate="indeterminate" disabled>
+                    <label class="form-check-label opacity-100">{% trans %}permission.legend.inherit{% endtrans %}</label>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
         {% for group in form %}
             <li class="nav-item">
                 <a class="nav-link {% if loop.first %}active{% endif %}"
-                   data-toggle="tab" role="tab" href="#group_row_{{ group.vars.name }}">{{ group.vars.label | trans }}</a>
+                   data-bs-toggle="tab" role="tab" href="#group_row_{{ group.vars.name }}">{{ group.vars.label | trans }}</a>
             </li>
         {% endfor %}
     </ul>

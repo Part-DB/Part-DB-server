@@ -3,42 +3,43 @@
 
 {{ helper.breadcrumb_entity_link(entity) }}
 
-<div class="card mb-3">
-    <div class="card-header">
-        <a class="card-link" data-toggle="collapse" href="#entityInfo">
+<div class="accordion">
+<div class="accordion-item mb-3">
+    <div class="accordion-header">
+        <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#entityInfo">
             {% if entity.masterPictureAttachment is not null and attachment_manager.isFileExisting(entity.masterPictureAttachment) %}
-                <img class="hoverpic ml-0 mr-0 d-inline" data-thumbnail="{{ entity.masterPictureAttachment | entityURL('file_view') }}" src="{{ attachment_thumbnail(entity.masterPictureAttachment, 'thumbnail_sm') }}">
+                <img class="hoverpic ms-0 me-0 d-inline" {{ stimulus_controller('elements/hoverpic') }} data-thumbnail="{{ entity.masterPictureAttachment | entityURL('file_view') }}" src="{{ attachment_thumbnail(entity.masterPictureAttachment, 'thumbnail_sm') }}">
             {% endif %}
-            {{ header_label | trans }}: <b>{{ entity.name }}</b>
-        </a>
+            {{ header_label | trans }}:&nbsp;<b>{{ entity.name }}</b>
+        </button>
     </div>
-    <div id="entityInfo" class="collapse">
-        <div class="card-body">
+    <div id="entityInfo" class="accordion-collapse collapse">
+        <div class="accordion-body">
             <div class="row">
                 <div class="col-sm-2">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                        <a class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
                             <i class="fas fa-info-circle fa-fw"></i>
                             {% trans %}entity.info.common.tab{% endtrans %}
                         </a>
-                        <a class="nav-link" id="v-pills-statistics-tab" data-toggle="pill" href="#v-pills-statistics" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                        <a class="nav-link" id="v-pills-statistics-tab" data-bs-toggle="pill" href="#v-pills-statistics" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                             <i class="fas fa-chart-pie fa-fw"></i>
                             {% trans %}entity.info.statistics.tab{% endtrans %}
                         </a>
                         {% if entity.attachments is not empty %}
-                        <a class="nav-link" id="v-pills-attachments-tab" data-toggle="pill" href="#v-pills-attachments" role="tab" aria-controls="v-pills-attachments" aria-selected="false">
+                        <a class="nav-link" id="v-pills-attachments-tab" data-bs-toggle="pill" href="#v-pills-attachments" role="tab" aria-controls="v-pills-attachments" aria-selected="false">
                             <i class="fas fa-paperclip fa-fw"></i>
                             {% trans %}entity.info.attachments.tab{% endtrans %}
                         </a>
                         {% endif %}
                         {% if entity.parameters is not empty %}
-                            <a class="nav-link" id="v-pills-parameters-tab" data-toggle="pill" href="#v-pills-parameters" role="tab" aria-controls="v-pills-parameters" aria-selected="false">
+                            <a class="nav-link" id="v-pills-parameters-tab" data-bs-toggle="pill" href="#v-pills-parameters" role="tab" aria-controls="v-pills-parameters" aria-selected="false">
                                 <i class="fas fa-atlas fa-fw"></i>
                                 {% trans %}entity.info.parameters.tab{% endtrans %}
                             </a>
                         {% endif %}
                         {% if entity.comment is not empty %}
-                            <a class="nav-link" id="v-pills-comment-tab" data-toggle="pill" href="#v-pills-comment" role="tab">
+                            <a class="nav-link" id="v-pills-comment-tab" data-bs-toggle="pill" href="#v-pills-comment" role="tab">
                                 <i class="fas fa-comment-alt fa-fw"></i>
                                 {% trans %}comment.label{% endtrans %}
                             </a>
@@ -68,7 +69,7 @@
                                 <div class="col-sm-3">
                                     {% block quick_links %}{% endblock %}
 
-                                    <a class="btn btn-secondary btn-block mb-2" href="{{ entity | entityURL('edit') }}">
+                                    <a class="btn btn-secondary w-100 mb-2" href="{{ entity | entityURL('edit') }}">
                                         <i class="fas fa-edit"></i> {% trans %}entity.edit.btn{% endtrans %}
                                     </a>
                                     <div class="">
@@ -82,7 +83,7 @@
                                     </div>
 
                                     {% if entity is instanceof("App\\Entity\\Parts\\Storelocation") %}
-                                        {{ dropdown.profile_dropdown('storelocation', entity.id, true, 'btn-secondary btn-block mt-2') }}
+                                        {{ dropdown.profile_dropdown('storelocation', entity.id, true, 'btn-secondary w-100 mt-2') }}
                                     {% endif %}
 
                                 </div>
@@ -118,7 +119,7 @@
 
                         {% if entity.comment is not empty %}
                             <div class="tab-pane fade" id="v-pills-comment" role="tabpanel" aria-labelledby="home-tab">
-                                <div class="container-fluid mt-2 latex">
+                                <div class="container-fluid mt-2 latex" data-controller="common--latex">
                                     {{ entity.comment|markdown }}
                                 </div>
                             </div>
@@ -128,4 +129,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

@@ -68,7 +68,7 @@ class CurrencyAdminForm extends BaseEntityAdminForm
             'label' => 'currency.edit.iso_code',
             'preferred_choices' => ['EUR', 'USD', 'GBP', 'JPY', 'CNY'],
             'attr' => [
-                'class' => 'selectpicker',
+                'data-controller' => 'elements--selectpicker',
                 'title' => 'selectpicker.nothing_selected',
                 'data-live-search' => true,
             ],

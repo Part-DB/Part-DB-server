@@ -68,7 +68,7 @@ class MarkdownParser
     public function markForRendering(string $markdown, bool $inline_mode = false): string
     {
         return sprintf(
-            '<div class="markdown" data-markdown="%s">%s</div>',
+            '<div class="markdown" data-markdown="%s" data-controller="common--markdown">%s</div>',
             htmlspecialchars($markdown),
             $this->translator->trans('markdown.loading')
         );

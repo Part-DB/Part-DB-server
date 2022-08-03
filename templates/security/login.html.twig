@@ -20,7 +20,7 @@
 {% endblock %}
 
 {% block card_content %}
-    <form action="{{ path('login') }}" method="post" data-no-ajax class="form-horizontal">
+    <form action="{{ path('login') }}" method="post" data-turbo="false" class="form-horizontal">
 
         <input type="hidden" name="_csrf_token"
                value="{{ csrf_token('authenticate') }}">
@@ -45,8 +45,8 @@
         <div class="form-group row">
             <div class="col-md-9 offset-md-3 col-lg-10 offset-lg-2">
                 <div class="custom-control custom-checkbox custom-control-inline">
-                    <input class="custom-control-input" name="_remember_me" id="remember_me" type="checkbox">
-                    <label class="custom-control-label" for="remember_me">
+                    <input class="form-check-input" name="_remember_me" id="remember_me" type="checkbox">
+                    <label class="form-check-label" for="remember_me">
                         {% trans %}login.rememberme{% endtrans %}
                     </label>
                 </div>

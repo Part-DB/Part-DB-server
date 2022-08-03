@@ -62,7 +62,7 @@ class MasterPictureAttachmentType extends AbstractType
             'filter' => 'picture',
             'choice_translation_domain' => false,
             'attr' => [
-                'class' => 'selectpicker',
+                'data-controller' => 'elements--selectpicker',
                 'title' => 'selectpicker.nothing_selected',
             ],
             'choice_attr' => static function (Options $options) {

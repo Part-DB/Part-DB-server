@@ -20,7 +20,6 @@
         "erusev/parsedown": "^1.7",
         "florianv/swap": "^4.0",
         "florianv/swap-bundle": "dev-master",
-        "friendsofsymfony/ckeditor-bundle": "^2.0",
         "gregwar/captcha-bundle": "^2.1.0",
         "league/html-to-markdown": "^5.0.1",
         "liip/imagine-bundle": "^2.2",
@@ -56,6 +55,7 @@
         "symfony/serializer": "5.4.*",
         "symfony/translation": "5.4.*",
         "symfony/twig-bundle": "5.4.*",
+        "symfony/ux-turbo": "^2.0",
         "symfony/validator": "5.4.*",
         "symfony/web-link": "5.4.*",
         "symfony/webpack-encore-bundle": "^1.1",
@@ -121,9 +121,7 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "ckeditor:install --clear=drop": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd",
-            "ckeditor:install": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"

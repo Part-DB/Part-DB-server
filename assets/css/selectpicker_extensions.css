@@ -1,0 +1,14 @@
+/***********************************************
+ * Special level whitespace characters that only show up when inside a bootstrap-select dropdown
+ ***********************************************/
+.dropdown-item span.picker-level::after {
+    content: "\00a0\00a0\00a0"; /* 3 spaces */
+}
+
+/** Bootstrap-select Hide on Selected element */
+.picker-hs {
+    display: none;
+}
+.dropdown-item .picker-hs {
+    display: inherit;
+}

@@ -112,9 +112,6 @@ class ImportType extends AbstractType
                 'data' => true,
                 'required' => false,
                 'label' => 'import.preserve_children',
-                'label_attr' => [
-                    'class' => 'checkbox-custom',
-                ],
                 'disabled' => $disabled,
             ])
             ->add('abort_on_validation_error', CheckboxType::class, [
@@ -122,9 +119,6 @@ class ImportType extends AbstractType
                 'required' => false,
                 'label' => 'import.abort_on_validation',
                 'help' => 'import.abort_on_validation.help',
-                'label_attr' => [
-                    'class' => 'checkbox-custom',
-                ],
                 'disabled' => $disabled,
             ])
 

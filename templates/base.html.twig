@@ -17,6 +17,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="msapplication-starturl" content="/en/">
 
+    <meta name="turbo-cache-control" content="no-cache">
+
 
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('icon/favicon.ico') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('icon/apple-touch-icon.png') }}">
@@ -24,8 +26,8 @@
     <link rel="icon" type="image/png" href="{{  asset('icon/favicon-16x16.png') }}" sizes="16x16">
     <link rel="mask-icon" href="{{ asset('icon/safari-pinned-tab.svg') }}" color="#5bbad5">
 
-
     <title>{% apply trim %}{% block title %}{{ partdb_title}}{% endblock %}{% endapply %}</title>
+    {% set current_page_title = block("title") %}
     {% block stylesheets %}
         {# Include the main bootstrap theme based on user/global setting #}
 
@@ -47,41 +49,51 @@
 
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        {{ encore_entry_script_tags('ru2ftwofactor') }}
+
+        {# load translation files for ckeditor #}
+        {% set two_chars_locale = app.request.locale|default("en")|slice(0,2) %}
+        {% if two_chars_locale != "en" %}
+            <script src="{{ asset("build/ckeditor_translations/" ~ two_chars_locale ~ ".js") }}"></script>
+        {% endif %}
+    {% endblock %}
 </head>
-<body data-base-url="{{ url('homepage', {'_locale': app.request.locale}) }}">
+<body data-base-url="{{ url('homepage', {'_locale': app.request.locale}) }}" data-locale="{{ app.request.locale|default("en")|slice(0,2) }}">
 {% block body %}
-
     <header>
-
-        {% include "_navbar.html.twig" %}
-
-        {% include "_flash.html.twig" %}
-
+        <turbo-frame id="navbar-frame" target="content" data-turbo-action="advance" data-turbo-permanent>
+            {% include "_navbar.html.twig" %}
+        </turbo-frame>
     </header>
 
     <main>
         <div class="container-fluid">
             <div class="row">
-                <div class="collapse d-md-block bg-light" id="sidebar-container">
-                    <nav  class="fixed-sidebar col-md-3 col-lg-2 " id="fixed-sidebar">
-                        {% include "_sidebar.html.twig" %}
+                {% include "_toast_container.html.twig" %}
+
+                <div class="collapse d-md-block" id="sidebar-container">
+                    <nav  class="fixed-sidebar col-md-3 col-lg-2 bg-body" id="fixed-sidebar">
+                        <turbo-frame id="sidebar" target="content" data-turbo-action="advance" data-turbo-permanent>
+                            {% include "_sidebar.html.twig" %}
+                        </turbo-frame>
                         <noscript><b>{% trans %}vendor.base.javascript_hint{% endtrans %}</b></noscript>
                     </nav>
                 </div>
 
-                <div class="col-md-9 col-lg-10 offset-md-3 offset-lg-2 pl-0" id="main">
-                    <button class="btn btn-outline-dark btn-sm p-0" type="button" id="sidebar-toggle-button" title="{% trans %}sidebar.big.toggle{% endtrans %}">
-                        <i class="fas fa-angle-left"></i>
-                    </button>
-                    <div class="container-fluid mr-0 pr-0" id="content">
-                        <div id="content-data">
+                <div class="col-md-9 col-lg-10 offset-md-3 offset-lg-2 ps-0" id="main">
+                    <div class="container-fluid me-0 pe-0" id="content-container">
+                        <turbo-frame id="content" data-turbo-action="advance">
                             {# Here will be the real content be injected#}
 
                             {% block content %}
                             {% endblock %}
 
-                        </div>
+                            {% include "_turbo_control.html.twig" %}
 
+                        </turbo-frame>
                         {% block scripts %}
 
                         {% endblock %}
@@ -91,37 +103,21 @@
         </div>
     </main>
 
-    {# Modal for loading bar #}
-    <div class="modal border-primary" id="progressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content shadow-lg">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{% trans %}loading.caption{% endtrans %}
-                        <small class="text-muted">{% trans %}loading.message{% endtrans %}</small></h5>
-                </div>
-                <div class="modal-body">
-                    <div class="progress-bar progress-bar-striped active progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0"
-                         aria-valuemax="100" style="width: 100%;">
-                        <span>{% trans %}loading.bar{% endtrans %}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     {# Back to top buton #}
 
     <!-- Back to top button -->
-    <a id="back-to-top" href="#" class="btn btn-primary back-to-top" data-no-ajax role="button"
-       title="{% trans %}back_to_top{% endtrans %}" data-toggle="tooltip" data-placement="left">
+    <button id="back-to-top" class="btn btn-primary back-to-top" role="button" title="{% trans %}back_to_top{% endtrans %}"
+            {{ stimulus_controller('common/back_to_top') }} {{ stimulus_action('common/back_to_top', 'backToTop') }}>
         <i class="fas fa-angle-up fa-fw"></i>
-    </a>
+    </button>
 
+    {# Must be outside of the sidebar or it will be hidden too #}
+    <button class="btn btn-outline-dark btn-sm p-0" type="button" id="sidebar-toggle-button" title="{% trans %}sidebar.big.toggle{% endtrans %}"
+            {{ stimulus_controller('common/hide_sidebar') }} {{ stimulus_action('common/hide_sidebar', 'toggleSidebar') }}>
+        <i class="fas fa-angle-left"></i>
+    </button>
 
 {% endblock %}
-{% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
-    {{ encore_entry_script_tags('ru2ftwofactor') }}
-{% endblock %}
+
 </body>
 </html>

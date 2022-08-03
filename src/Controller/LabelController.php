@@ -127,8 +127,8 @@ class LabelController extends AbstractController
             }
         }
 
-        return $this->render('LabelSystem/dialog.html.twig', [
-            'form' => $form->createView(),
+        return $this->renderForm('LabelSystem/dialog.html.twig', [
+            'form' => $form,
             'pdf_data' => $pdf_data,
             'filename' => $filename,
             'profile' => $profile,

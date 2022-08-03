@@ -1,0 +1,28 @@
+{% macro controller(form, deleteMessage) %}
+    {% if form.vars.prototype is defined %}
+        {{ stimulus_controller('elements/collection_type', {
+            'deleteMessage': deleteMessage|trans,
+            'prototype': form_widget(form.vars.prototype)|e('html_attr')
+        }) }}
+    {% else %} {# If add_element is disabled/forbidden, prototype is not available #}
+        {{ stimulus_controller('elements/collection_type', {
+            'deleteMessage': deleteMessage|trans,
+        }) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro target() %}
+    {{ stimulus_target('elements/collection_type', 'target') }}
+{% endmacro %}
+
+{% macro create_btn() %}
+    {{ stimulus_action('elements/collection_type', 'createElement') }}
+{% endmacro %}
+
+{% macro create_pricedetail_btn() %}
+    {{ stimulus_action('elements/collection_type', 'createPricedetail') }}
+{% endmacro %}
+
+{% macro delete_btn() %}
+    {{ stimulus_action('elements/collection_type', 'deleteElement') }}
+{% endmacro %}

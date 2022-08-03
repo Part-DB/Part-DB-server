@@ -16,7 +16,7 @@
                 <input type="text" class="form-control " name="keyName" id="keyName" placeholder="{{ 'r_u2f_two_factor.name'|trans }}"/>
             </div>
             <div class="col-3">
-                <button type="button" class="btn btn-success" onclick="u2fauth.register()">{% trans %}tfa_u2f.add_key.add_button{% endtrans %}</button>
+                <button type="button" class="btn btn-success" {{ stimulus_controller('pages/u2f_register') }}>{% trans %}tfa_u2f.add_key.add_button{% endtrans %}</button>
             </div>
         </div>
         <div id="u2fpressbutton" style="display: none;" class="text-center h4">{{ 'r_u2f_two_factor.pressbutton'|trans }}</div>

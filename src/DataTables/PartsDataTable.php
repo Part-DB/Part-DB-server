@@ -166,7 +166,7 @@ final class PartsDataTable implements DataTableTypeInterface
                     }
 
                     return sprintf(
-                        '<img alt="%s" src="%s" data-thumbnail="%s" class="%s" data-title="%s">',
+                        '<img alt="%s" src="%s" data-thumbnail="%s" class="%s" data-title="%s" data-controller="elements--hoverpic">',
                         'Part image',
                         $this->attachmentURLGenerator->getThumbnailURL($preview_attachment),
                         $this->attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_md'),
@@ -392,7 +392,7 @@ final class PartsDataTable implements DataTableTypeInterface
         }
 
         if (isset($options['tag'])) {
-            $builder->andWhere('part.tags LIKE :tag')->setParameter('tag', '%'.$options['tag'].'%');
+            $builder->andWhere('part.tags LIKE :tag')->setParameter('tag', $options['tag']);
         }
 
         if (!empty($options['search'])) {

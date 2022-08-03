@@ -1,0 +1,21 @@
+{% set flash_title = label|replace({'success': 'flash.success', 'error': 'flash.error'
+    , 'warning': 'flash.warning', 'notice': 'flash.notice', 'info': 'flash.info'}) %}
+        {% set flash_symbol = label|replace({'success': 'fa-check-circle', 'error': 'fa-exclamation-triangle'
+            , 'warning': 'fa-exclamation-circle', 'notice': 'fa-flag', 'info': 'fa-flag'}) %}
+
+        {% set flash_bg = label|replace({'success': 'bg-success text-white',
+            'error': 'bg-danger text-white', 'warning': 'bg-warning text-white',
+            'notice': 'bg-info text-white', 'info': 'bg-light'})%}
+
+<div class="toast shadow" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000" {{ stimulus_controller('common/toast') }}>
+    <div class="toast-header {{ flash_bg }}">
+        {# <img src="..." class="rounded me-2" alt="...">#}
+        <i class="fas fa-fw {{ flash_symbol }} me-2"></i>
+        <strong class="me-auto">{{ flash_title|trans }}</strong>
+        <small class="{% if "text-white" in flash_bg %}text-white{% else %}text-muted{% endif %}">{{ "now" | format_datetime("short", "short") }}</small>
+        <button type="button" class="ms-2 mb-1 btn-close {% if "text-white" in flash_bg %}btn-close-white{% endif %}" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body {{ flash_bg }}">
+        {{ message | trans }}
+    </div>
+</div>

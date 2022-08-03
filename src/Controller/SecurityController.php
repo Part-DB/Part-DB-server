@@ -131,8 +131,8 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('login');
         }
 
-        return $this->render('security/pw_reset_request.html.twig', [
-            'form' => $form->createView(),
+        return $this->renderForm('security/pw_reset_request.html.twig', [
+            'form' => $form,
         ]);
     }
 
@@ -203,8 +203,8 @@ class SecurityController extends AbstractController
             }
         }
 
-        return $this->render('security/pw_reset_new_pw.html.twig', [
-            'form' => $form->createView(),
+        return $this->renderForm('security/pw_reset_new_pw.html.twig', [
+            'form' => $form,
         ]);
     }
 

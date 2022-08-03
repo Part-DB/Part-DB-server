@@ -9,19 +9,19 @@
 
         <ul class="nav nav-tabs" id="tfa-tabs" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="google-tab" data-toggle="tab" href="#tfa-google" role="tab"
+                <a class="nav-link active" id="google-tab" data-bs-toggle="tab" href="#tfa-google" role="tab"
                    aria-controls="home" aria-selected="true">{% trans %}tfa.settings.google.tab{% endtrans %}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="backup-tab" data-toggle="tab" href="#tfa-backup" role="tab"
+                <a class="nav-link" id="backup-tab" data-bs-toggle="tab" href="#tfa-backup" role="tab"
                    aria-controls="profile" aria-selected="false">{% trans %}tfa.settings.bakup.tab{% endtrans %}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="u2f-tab" data-toggle="tab" href="#tfa-u2f" role="tab"
+                <a class="nav-link" id="u2f-tab" data-bs-toggle="tab" href="#tfa-u2f" role="tab"
                    aria-controls="profile" aria-selected="false">{% trans %}tfa.settings.u2f.tab{% endtrans %}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="trustedDevices-tab" data-toggle="tab" href="#tfa-trustedDevices" role="tab"
+                <a class="nav-link" id="trustedDevices-tab" data-bs-toggle="tab" href="#tfa-trustedDevices" role="tab"
                    aria-controls="profile" aria-selected="false">{% trans %}tfa.settings.trustedDevices.tab{% endtrans %}</a>
             </li>
         </ul>
@@ -29,7 +29,7 @@
             <div class="tab-pane fade show active" id="tfa-google" role="tabpanel" aria-labelledby="google-tab">
                 {% set google_form_attr = {}  %}
                 {% if tfa_google.enabled %}
-                    {% set google_form_attr = { 'data-delete-form': true,
+                    {% set google_form_attr = { 'data-delete-form': true, 'data-controller': 'elements--delete-btn', 'data-action': 'submit->elements--delete-btn#submit',
                         'data-title': 'tfa_google.disable.confirm_title' | trans, 'data-message': 'tfa_google.disable.confirm_message'|trans} %}
                 {% endif %}
 
@@ -54,7 +54,7 @@
                     </div>
 
                     <div class="offset-sm-3">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#manualSetupCollapse" aria-expanded="false" aria-controls="manualSetupCollapse">
+                        <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#manualSetupCollapse" aria-expanded="false" aria-controls="manualSetupCollapse">
                             {% trans %}tfa_google.manual_setup{% endtrans %}
                         </button>
                         <div class="collapse" id="manualSetupCollapse">
@@ -84,7 +84,7 @@
                         <span>{% trans %}tfa_backup.explanation{% endtrans %}</span>
                     </div>
                 {% else %}
-                    {% set backup_form_attr = { 'data-delete-form': true,
+                    {% set backup_form_attr = { 'data-delete-form': true, 'data-controller': 'elements--delete-btn', 'data-action': 'submit->elements--delete-btn#submit',
                         'data-title': 'tfa_backup.reset_codes.confirm_title' | trans, 'data-message': 'tfa_backup.reset_codes.confirm_message' | trans} %}
                     {{ form_start(backup_form, { 'attr': backup_form_attr}) }}
                     <div class="offset-sm-3">
@@ -96,7 +96,7 @@
                         <p><b>{% trans %}tfa_backup.generation_date{% endtrans %}:</b> {{ user.backupCodesGenerationDate | format_datetime }}</p>
                     </div>
                     <div class="offset-sm-3">
-                        <a href="{{ url('show_backup_codes') }}" target="_blank" data-no-ajax class="btn btn-primary">{% trans %}tfa_backup.show_codes{% endtrans %}</a>
+                        <a href="{{ url('show_backup_codes') }}" target="_blank" data-turbo="false" class="btn btn-primary">{% trans %}tfa_backup.show_codes{% endtrans %}</a>
                     </div>
 
                     <div class="offset-sm-3 mt-2">
@@ -112,8 +112,10 @@
 
                 {% if user.u2FKeys is not empty %}
                     <b>{% trans %}tfa_u2f.table_caption{% endtrans %}:</b>
-                    <form action="{{ url('u2f_delete') }}" method="post" data-delete-form data-title="{% trans %}tfa_u2f.delete_u2f.confirm_title{% endtrans %}"
-                          data-message="{% trans %}tfa_u2f.delete_u2f.confirm_message{% endtrans %}">
+                    <form action="{{ url('u2f_delete') }}" method="post"
+                            {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
+                          data-delete-title="{% trans %}tfa_u2f.delete_u2f.confirm_title{% endtrans %}"
+                          data-delete-message="{% trans %}tfa_u2f.delete_u2f.confirm_message{% endtrans %}">
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
                         <table class="table table-striped table-bordered table-sm mt-2">
@@ -146,8 +148,10 @@
 
             <div class="tab-pane fade" id="tfa-trustedDevices" role="tabpanel" aria-labelledby="trustedDevices-tab-tab">
                 <p>{% trans %}tfa_trustedDevices.explanation{% endtrans %}</p>
-                <form action="{{ url('tfa_trustedDevices_invalidate') }}" method="post" data-delete-form data-title="{% trans %}tfa_trustedDevices.invalidate.confirm_title{% endtrans %}"
-                      data-message="{% trans %}tfa_trustedDevices.invalidate.confirm_message{% endtrans %}">
+                <form action="{{ url('tfa_trustedDevices_invalidate') }}" method="post"
+                        {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
+                      data-delete-title="{% trans %}tfa_trustedDevices.invalidate.confirm_title{% endtrans %}"
+                      data-delete-message="{% trans %}tfa_trustedDevices.invalidate.confirm_message{% endtrans %}">
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="_token" value="{{ csrf_token('devices_reset' ~ user.id) }}">
 

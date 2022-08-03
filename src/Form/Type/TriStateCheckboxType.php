@@ -61,9 +61,6 @@ final class TriStateCheckboxType extends AbstractType implements DataTransformer
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'label_attr' => [
-                'class' => 'checkbox-custom checkbox-inline',
-            ],
             'attr' => [
                 'class' => 'tristate',
             ],
@@ -177,6 +174,7 @@ final class TriStateCheckboxType extends AbstractType implements DataTransformer
             case '':
                 return false;
             case 'indeterminate':
+            case 'null':
                 return null;
             default:
                 throw new InvalidArgumentException('Invalid value encountered!: '.$value);

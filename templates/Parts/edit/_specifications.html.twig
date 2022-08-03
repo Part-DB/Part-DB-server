@@ -1,7 +1,10 @@
-{% form_theme form with ['Parts/edit/edit_form_styles.html.twig', "bootstrap_4_layout.html.twig"] %}
+{% form_theme form with ['Parts/edit/edit_form_styles.html.twig'] %}
 
-<table class="table table-striped table-sm table-bordered table-responsive-md" id="specifications_table" data-prototype="{% if form.parameters.vars.prototype is defined %}{{ form_widget(form.parameters.vars.prototype)|e('html_attr') }}{% endif %}">
-    <thead>
+{% import 'components/collection_type.macro.html.twig' as collection %}
+
+<div {{ collection.controller(form.parameters, 'parameter.delete.confirm') }}>
+    <table class="table table-striped table-sm table-bordered table-responsive-md" id="specifications_table" {{ collection.target() }}>
+        <thead>
         <tr>
             <th>{% trans %}specifications.property{% endtrans %}</th>
             <th>{% trans %}specifications.symbol{% endtrans %}</th>
@@ -13,42 +16,16 @@
             <th>{% trans %}specifications.group{% endtrans %}</th>
             <th></th>
         </tr>
-    </thead>
-    <tbody>
-    {% for param in form.parameters %}
-        {{ form_widget(param) }}
-    {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        {% for param in form.parameters %}
+            {{ form_widget(param) }}
+        {% endfor %}
+        </tbody>
+    </table>
 
-<button type="button" class="btn btn-success" onclick="create_specification_entry(this)" {% if not is_granted('parameters.create', part) %}disabled{% endif %}>
-    <i class="fas fa-plus-square fa-fw"></i>
-    {% trans %}specification.create{% endtrans %}
-</button>
-
-<script>
-    function delete_specification_entry(btn) {
-        window.bootbox.confirm('{% trans %}parameter.delete.confirm{% endtrans %}', function (result) {
-            if(result) {
-                $(btn).closest("tr").remove();
-            }
-        });
-    }
-
-    function create_specification_entry(btn) {
-        //Determine the table, so we can determine, how many entries there are already.
-        $holder = $(btn).siblings("table");
-
-        var index = $holder.children("tbody").children("tr").length;
-        var newForm = $holder.data("prototype");
-
-        //Increase the index
-        newForm = newForm.replace(/__name__/g, index);
-
-        $holder.children("tbody").append(newForm);
-
-        //Reinit the selectpickers
-        //$(".selectpicker").selectpicker();
-
-    }
-</script>
+    <button type="button" class="btn btn-success"  {% if not is_granted('parameters.create', part) %}disabled{% endif %} {{ collection.create_btn() }}>
+        <i class="fas fa-plus-square fa-fw"></i>
+        {% trans %}specification.create{% endtrans %}
+    </button>
+</div>

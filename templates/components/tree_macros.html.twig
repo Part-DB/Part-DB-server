@@ -1,0 +1,62 @@
+{% macro sidebar_dropdown() %}
+    {# Format is [mode, route, label] #}
+    {% set data_sources = [
+        ['categories', path('tree_category_root'), 'category.labelp'],
+        ['locations', path('tree_location_root'), 'storelocation.labelp'],
+        ['footprints', path('tree_footprint_root'), 'footprint.labelp'],
+        ['manufacturer', path('tree_manufacturer_root'), 'manufacturer.labelp'],
+        ['suppliers', path('tree_supplier_root'), 'supplier.labelp'],
+        ['devices', path('tree_device_root'), 'device.labelp'],
+        ['tools', path('tree_tools'), 'tools.label'],
+    ] %}
+
+    <li class="dropdown-header">{% trans %}actions{% endtrans %}</li>
+    <li><button class="tree-btns dropdown-item" {{ stimulus_action('elements/sidebar_tree', 'expandAll') }}">{% trans %}expandAll{% endtrans %}</a></li>
+    <li><button class="tree-btns dropdown-item" {{ stimulus_action('elements/sidebar_tree', 'collapseAll') }}">{% trans %}reduceAll{% endtrans %}</a></li>
+    <li role="separator" class="dropdown-divider"></li>
+    <li class="dropdown-header">{% trans %}datasource{% endtrans %}</li>
+
+    {% for source in data_sources %}
+        <li><button class="tree-btns dropdown-item" data-mode="{{ source[0] }}" data-url="{{ source[1] }}" data-text="{{ source[2] | trans }}"
+                    {{ stimulus_action('elements/sidebar_tree', 'changeDataSource')  }}
+            >{{ source[2] | trans }}</button></li>
+    {% endfor %}
+{% endmacro %}
+
+{% macro treeview_sidebar(id, default_mode) %}
+    <div {{ stimulus_controller('elements/sidebar_tree') }} data-default-mode="{{ default_mode }}" id="{{ id }}">
+        <div class="input-group input-group-sm mb-2 mt-1">
+            <button class="btn btn-light dropdown-toggle" type="button"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            ><span class="sidebar-title" {{ stimulus_target('elements/sidebar_tree', 'sourceText') }}>Loading...</span></button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownCat">
+                {{ _self.sidebar_dropdown('tree-categories') }}
+            </ul>
+            <input type="search" class="form-control bg-light border-0" placeholder="{% trans %}search.placeholder{% endtrans %}" {{ stimulus_action('elements/sidebar_tree', 'searchInput') }}>
+        </div>
+
+        <div id="tree-categories" {{ stimulus_target('elements/sidebar_tree', 'tree') }}></div>
+    </div>
+{% endmacro %}
+
+{% macro treeview(entity) %}
+    <div {{ stimulus_controller('elements/tree') }} data-tree-data="{{ generateTreeData(entity) }}">
+        <div class="row" >
+            <div class="col-8">
+                <input type="search" class="form-control" placeholder="{% trans %}search.placeholder{% endtrans %}" {{ stimulus_action('elements/tree', 'searchInput') }}>
+            </div>
+            <div class="btn-group btn-group-sm col-4" role="group">
+                <button type="button" class="btn btn-outline-secondary" {{ stimulus_action('elements/tree', 'expandAll') }}
+                        title="{% trans %}expandAll{% endtrans %}">
+                    <i class="fas fa-plus fa-fw"></i>
+                </button>
+                <button type="button" class="btn btn-outline-secondary" {{ stimulus_action('elements/tree', 'collapseAll') }}
+                        title="{% trans %}reduceAll{% endtrans %}">
+                    <i class="fas fa-minus fa-fw"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="treeview-sm mt-2" {{ stimulus_target('elements/tree', 'tree') }}></div>
+    </div>
+{% endmacro %}

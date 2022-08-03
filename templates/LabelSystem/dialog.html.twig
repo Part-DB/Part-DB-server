@@ -12,15 +12,15 @@
 
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" id="common-tab" role="tab" aria-controls="common" aria-selected="true" href="#common"
+            <a class="nav-link active" data-bs-toggle="tab" id="common-tab" role="tab" aria-controls="common" aria-selected="true" href="#common"
             >{% trans %}label_generator.common{% endtrans %}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" id="advanced-tab" role="tab" aria-controls="advanced" aria-selected="false" href="#advanced"
+            <a class="nav-link" data-bs-toggle="tab" id="advanced-tab" role="tab" aria-controls="advanced" aria-selected="false" href="#advanced"
             >{% trans %}label_generator.advanced{% endtrans %}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" id="profiles-tab" role="tab" aria-controls="profiles" aria-selected="false" href="#profiles"
+            <a class="nav-link" data-bs-toggle="tab" id="profiles-tab" role="tab" aria-controls="profiles" aria-selected="false" href="#profiles"
             >{% trans %}label_generator.profiles{% endtrans %}</a>
         </li>
     </ul>
@@ -31,15 +31,16 @@
             {{ form_row(form.target_id) }}
 
             {{ form_row(form.options.supported_element) }}
-            <div class="form-group row">
+            <div class="mb-2 row">
                 {{ form_label(form.options.width) }}
-                <div class="input-group col-9">
-                    {{ form_widget(form.options.width) }}
-                    <div class="input-group-append input-group-prepend">
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        {{ form_widget(form.options.width) }}
+
                         <span class="input-group-text">x</span>
-                    </div>
-                    {{ form_widget(form.options.height) }}
-                    <div class="input-group-append">
+
+                        {{ form_widget(form.options.height) }}
+
                         <span class="input-group-text">mm</span>
                     </div>
                 </div>
@@ -71,7 +72,7 @@
                     <div class="dropdown">
                         <button class="btn btn-info dropdown-toggle" type="button" id="loadProfilesButton"
                                 {% if not is_granted("@labels.create_labels") %}disabled{% endif %}
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {% trans %}label_generator.load_profile{% endtrans %}
                         </button>
                         <div class="dropdown-menu" aria-labelledby="loadProfilesButton">
@@ -98,7 +99,7 @@
     {% if pdf_data %}
         <div class="row">
             <div class="col-sm-9 offset-sm-3">
-                <a data-no-ajax class="btn btn-secondary" href="#" onclick="this.href = document.getElementById('pdf_preview').data" download="{{ filename ?? '' }}">
+                <a data-turbo="false" class="btn btn-secondary" href="#" {{ stimulus_controller('pages/label_download_btn')}} {{ stimulus_action('pages/label_download_btn', 'download')}} download="{{ filename ?? '' }}">
                     {% trans %}label_generator.download{% endtrans %}
                 </a>
             </div>

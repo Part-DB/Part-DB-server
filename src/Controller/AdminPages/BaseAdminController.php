@@ -263,9 +263,9 @@ abstract class BaseAdminController extends AbstractController
         /** @var AbstractPartsContainingRepository $repo */
         $repo = $this->entityManager->getRepository($this->entity_class);
 
-        return $this->render($this->twig_template, [
+        return $this->renderForm($this->twig_template, [
             'entity' => $entity,
-            'form' => $form->createView(),
+            'form' => $form,
             'route_base' => $this->route_base,
             'datatable' => $table,
             'pdf_data' => $pdf_data ?? null,
@@ -397,11 +397,11 @@ abstract class BaseAdminController extends AbstractController
             $em->flush();
         }
 
-        return $this->render($this->twig_template, [
+        return $this->renderForm($this->twig_template, [
             'entity' => $new_entity,
-            'form' => $form->createView(),
-            'import_form' => $import_form->createView(),
-            'mass_creation_form' => $mass_creation_form->createView(),
+            'form' => $form,
+            'import_form' => $import_form,
+            'mass_creation_form' => $mass_creation_form,
             'route_base' => $this->route_base,
         ]);
     }

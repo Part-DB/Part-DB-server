@@ -57,9 +57,6 @@ class CategoryAdminForm extends BaseEntityAdminForm
             'required' => false,
             'label' => 'category.edit.disable_footprints',
             'help' => 'category.edit.disable_footprints.help',
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
@@ -67,9 +64,6 @@ class CategoryAdminForm extends BaseEntityAdminForm
             'required' => false,
             'label' => 'category.edit.disable_manufacturers',
             'help' => 'category.edit.disable_manufacturers.help',
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
@@ -77,9 +71,6 @@ class CategoryAdminForm extends BaseEntityAdminForm
             'required' => false,
             'label' => 'category.edit.disable_autodatasheets',
             'help' => 'category.edit.disable_autodatasheets.help',
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
@@ -87,9 +78,6 @@ class CategoryAdminForm extends BaseEntityAdminForm
             'required' => false,
             'label' => 'category.edit.disable_properties',
             'help' => 'category.edit.disable_properties.help',
-            'label_attr' => [
-                'class' => 'checkbox-custom',
-            ],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 

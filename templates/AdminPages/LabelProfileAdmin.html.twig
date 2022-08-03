@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block additional_pills %}
-    <li class="nav-item"><a data-toggle="tab" class="nav-link link-anchor" href="#tab_advanced">{% trans %}label_profile.advanced{% endtrans %}</a></li>
-    <li class="nav-item"><a data-toggle="tab" class="nav-link link-anchor" href="#tab_comment">{% trans %}label_profile.comment{% endtrans %}</a></li>
+    <li class="nav-item"><a data-bs-toggle="tab" class="nav-link link-anchor" href="#tab_advanced">{% trans %}label_profile.advanced{% endtrans %}</a></li>
+    <li class="nav-item"><a data-bs-toggle="tab" class="nav-link link-anchor" href="#tab_comment">{% trans %}label_profile.comment{% endtrans %}</a></li>
 {% endblock %}
 
 {% block additional_panes %}
@@ -25,15 +25,16 @@
 {% block additional_controls %}
     {{ form_row(form.show_in_dropdown) }}
     {{ form_row(form.options.supported_element) }}
-    <div class="form-group row">
+    <div class="mb-2 row">
         {{ form_label(form.options.width) }}
-        <div class="input-group col-9">
-            {{ form_widget(form.options.width) }}
-            <div class="input-group-append input-group-prepend">
+        <div class="col-sm-9">
+            <div class="input-group">
+                {{ form_widget(form.options.width) }}
+
                 <span class="input-group-text">x</span>
-            </div>
-            {{ form_widget(form.options.height) }}
-            <div class="input-group-append">
+
+                {{ form_widget(form.options.height) }}
+
                 <span class="input-group-text">mm</span>
             </div>
         </div>

@@ -1,4 +1,10 @@
-{% extends 'bootstrap_4_horizontal_layout.html.twig' %}
+{% extends 'bootstrap_5_horizontal_layout.html.twig' %}
+
+{# Make form rows smaller #}
+{% block form_row -%}
+    {%- set row_attr = row_attr|merge({"class": "mb-2"})  -%}
+    {{- parent() -}}
+{%- endblock form_row %}
 
 {% block file_widget -%}
     {%- set type = type|default('file') -%}
@@ -34,14 +40,12 @@
 {% block si_unit_widget %}
     <div class="input-group {% if sm %}input-group-sm{% endif %}">
         {{ form_widget(form.value) }}
-        <div class="input-group-append {% if sm %}input-group-sm{% endif %}">
             {% if form.prefix is defined %}
-                {{ form_widget(form.prefix, {'attr': {'class': 'custom-select'}}) }}
+                {{ form_widget(form.prefix, {'attr': {'class': 'form-select'}}) }}
             {% endif %}
             {% if unit is not empty %}
                 <label class="input-group-text">{{ unit }}</label>
             {% endif %}
-        </div>
     </div>
     {{ form_errors(form.value) }}
 {% endblock %}
@@ -58,7 +62,7 @@
         {% set is_parent_custom = parent_label_class is defined and ('checkbox-custom' in parent_label_class or 'radio-custom' in parent_label_class) %}
         {% set is_custom = label_attr.class is defined and ('checkbox-custom' in label_attr.class or 'radio-custom' in label_attr.class) %}
         {%- if is_parent_custom or is_custom -%}
-            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' custom-control-label')|trim}) -%}
+            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' form-check-label')|trim}) -%}
         {%- else %}
             {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' form-check-label')|trim}) -%}
         {%- endif %}
@@ -97,8 +101,8 @@
 {% block tristate_widget -%}
     {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
     {%- if 'checkbox-custom' in parent_label_class -%}
-        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' custom-control-input')|trim}) -%}
-        <div class="custom-control custom-checkbox{{ 'checkbox-inline' in parent_label_class ? ' custom-control-inline' }}">
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-check-input')|trim}) -%}
+        <div class="custom-control custom-checkbox{{ 'checkbox-inline' in parent_label_class ? ' form-check-inline' }}">
             {{- form_label(form, null, { widget: block('tr_parent') }) -}}
         </div>
     {%- else -%}
@@ -109,3 +113,14 @@
     {%- endif -%}
 {%- endblock tristate_widget %}
 
+{%- block choice_widget_collapsed -%}
+    {# Only add the BS5 form-select class if we dont use bootstrap-selectpicker  #}
+    {% if attr["data-controller"] is defined and attr["data-controller"] not in ["elements--selectpicker"] %}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-select')|trim}) -%}
+    {% else %}
+        {# If it is an selectpicker add form-control class to fill whole width #}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
+    {% endif %}
+
+    {{- block("choice_widget_collapsed", "bootstrap_base_layout.html.twig") -}}
+{%- endblock choice_widget_collapsed -%}

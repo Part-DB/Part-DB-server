@@ -26,10 +26,10 @@ RUN docker-php-ext-enable opcache; \
         echo 'realpath_cache_ttl=600'; \
       } > /usr/local/etc/php/conf.d/symfony-recommended.ini
 
-# Install yarn
+# Install node and yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt-get update && apt-get install -y yarn && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - && apt-get update && apt-get install -y nodejs yarn && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*
 
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -48,7 +48,6 @@ RUN a2enmod rewrite
 USER www-data
 RUN composer install -a --no-dev && composer clear-cache
 RUN yarn install && yarn build && yarn cache clean
-RUN php bin/console --env=prod ckeditor:install --clear=skip
 
 # Use demo env to output logs to stdout
 ENV APP_ENV=demo

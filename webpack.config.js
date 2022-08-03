@@ -25,6 +25,8 @@ const CopyPlugin = require('copy-webpack-plugin');
 const zlib = require('zlib');
 const CompressionPlugin = require("compression-webpack-plugin");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CKEditorWebpackPlugin = require( '@ckeditor/ckeditor5-dev-webpack-plugin' );
+const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -82,7 +84,8 @@ Encore
     .enableBuildNotifications()
     .enableSourceMaps(!Encore.isProduction())
     // enables hashed filenames (e.g. app.abc123.css)
-    .enableVersioning(Encore.isProduction())
+    //.enableVersioning(Encore.isProduction())
+    .enableVersioning()
 
     .configureBabel((config) => {
         config.plugins.push('@babel/plugin-proposal-class-properties');
@@ -97,7 +100,7 @@ Encore
     //.enableSassLoader()
 
     // uncomment if you use TypeScript
-    .enableTypeScriptLoader()
+    //.enableTypeScriptLoader()
 
     // uncomment if you use React
     //.enableReactPreset()
@@ -124,7 +127,53 @@ Encore
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
 
+    .addPlugin( new CKEditorWebpackPlugin( {
+        // See https://ckeditor.com/docs/ckeditor5/latest/features/ui-language.html
+        language: 'en',
+        addMainLanguageTranslationsToAllAssets: true,
+        additionalLanguages: 'all',
+        outputDirectory: 'ckeditor_translations'
+    } ) )
+
+    // Use raw-loader for CKEditor 5 SVG files.
+    .addRule( {
+        test: /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/,
+        loader: 'raw-loader'
+    } )
+
+    // Configure other image loaders to exclude CKEditor 5 SVG files.
+    .configureLoaderRule( 'images', loader => {
+        loader.exclude = /ckeditor5-[^/\\]+[/\\]theme[/\\]icons[/\\][^/\\]+\.svg$/;
+    } )
+
+    // Configure PostCSS loader.
+    .addLoader({
+        test: /ckeditor5-[^/\\]+[/\\]theme[/\\].+\.css$/,
+        loader: 'postcss-loader',
+        options: {
+            postcssOptions: styles.getPostCssConfig( {
+                themeImporter: {
+                    themePath: require.resolve( '@ckeditor/ckeditor5-theme-lark' )
+                },
+                minify: true
+            } )
+        }
+    } )
+
 ;
+
+
+
+//Copy bootstrap map if in debug mode
+if (Encore.isDev()) {
+    Encore.addPlugin(new CopyPlugin({
+        patterns: [
+            {
+                from: 'node_modules/bootstrap/dist/css/bootstrap.min.css.map',
+                to: 'themes/bootstrap.min.css.map'
+            }
+        ]}))
+}
 
 if (Encore.isProduction()) {
     Encore.addPlugin(new CompressionPlugin({
@@ -150,7 +199,7 @@ if (Encore.isProduction()) {
 
 if (Encore.isDev()) {
     //Only uncomment if needed, as this cause problems with Github actions (job does not finish)
-    //Encore.addPlugin(new BundleAnalyzerPlugin());
+    Encore.addPlugin(new BundleAnalyzerPlugin());
 }
 
 
