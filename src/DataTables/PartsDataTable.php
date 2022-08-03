@@ -392,7 +392,7 @@ final class PartsDataTable implements DataTableTypeInterface
         }
 
         if (isset($options['tag'])) {
-            $builder->andWhere('part.tags LIKE :tag')->setParameter('tag', '%'.$options['tag'].'%');
+            $builder->andWhere('part.tags LIKE :tag')->setParameter('tag', $options['tag']);
         }
 
         if (!empty($options['search'])) {

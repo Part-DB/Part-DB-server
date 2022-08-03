@@ -203,12 +203,13 @@ class PartListsController extends AbstractController
     }
 
     /**
-     * @Route("/parts/by_tag/{tag}", name="part_list_tags")
+     * @Route("/parts/by_tag/{tag}", name="part_list_tags", requirements={"tag": ".*"})
      *
      * @return JsonResponse|Response
      */
     public function showTag(string $tag, Request $request, DataTableFactory $dataTable)
     {
+        $tag = trim($tag);
         $table = $dataTable->createFromType(PartsDataTable::class, ['tag' => $tag])
             ->handleRequest($request);
 
