@@ -74,8 +74,8 @@
             <div class="row">
                 {% include "_toast_container.html.twig" %}
 
-                <div class="collapse d-md-block bg-light" id="sidebar-container">
-                    <nav  class="fixed-sidebar col-md-3 col-lg-2 " id="fixed-sidebar">
+                <div class="collapse d-md-block" id="sidebar-container">
+                    <nav  class="fixed-sidebar col-md-3 col-lg-2 bg-body" id="fixed-sidebar">
                         <turbo-frame id="sidebar" target="content" data-turbo-action="advance" data-turbo-permanent>
                             {% include "_sidebar.html.twig" %}
                         </turbo-frame>
