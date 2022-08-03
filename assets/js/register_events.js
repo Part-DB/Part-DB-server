@@ -1,16 +1,8 @@
 'use strict';
 
-//CSS
-import "bootstrap-fileinput/css/fileinput.css"
-
-//JS
-
-import "bootstrap-fileinput";
-
 class RegisterEventHelper {
     constructor() {
         this.registerTooltips();
-        this.registerFileInput();
 
         this.registerSpecialCharInput();
     }
@@ -27,12 +19,6 @@ class RegisterEventHelper {
             $('a[title], button[title]:not([data-bs-toggle="dropdown"]), span[title], h6[title], h3[title], i.fas[title]')
                 //@ts-ignore
                 .tooltip("hide").tooltip({container: "body", placement: "auto", boundary: 'window'});
-        });
-    }
-
-    registerFileInput() {
-        this.registerLoadHandler(() => {
-            $(".file").fileinput();
         });
     }
 
