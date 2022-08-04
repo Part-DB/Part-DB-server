@@ -47,6 +47,7 @@ parameters:
     - categories
     - devices
     - tools
+  partdb.sidebar.root_expanded: true                         # If this is set to true, the root node of the sidebar is expanded by default
 
   ######################################################################################################################
   # Miscellaneous

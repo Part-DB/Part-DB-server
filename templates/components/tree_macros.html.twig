@@ -35,7 +35,7 @@
             <input type="search" class="form-control bg-light border-0" placeholder="{% trans %}search.placeholder{% endtrans %}" {{ stimulus_action('elements/sidebar_tree', 'searchInput') }}>
         </div>
 
-        <div id="tree-categories" {{ stimulus_target('elements/sidebar_tree', 'tree') }}></div>
+        <div id="{{ id }}Tree" {{ stimulus_target('elements/sidebar_tree', 'tree') }}></div>
     </div>
 {% endmacro %}
 
