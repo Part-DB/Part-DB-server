@@ -27,7 +27,7 @@
 
 {% macro string_to_tags(string, class="badge bg-info") %}
     {% for tag in string|split(',') %}
-        <a href="{{ url('part_list_tags', {'tag': tag | trim | url_encode}) }}" class="{{ class }}" >{{ tag | trim }}</a>
+        <a href="{{ path('part_list_tags', {'tag': tag | trim | url_encode}) }}" class="{{ class }}" >{{ tag | trim }}</a>
     {% endfor %}
 {% endmacro %}
 
@@ -110,9 +110,9 @@
 
         {% if user is not null %}
             {% if user.fullName is not empty %}
-                <a href="{{ url('user_info', {"id": user.id}) }}" title="@{{ user.name }}"><i>({{ user.fullName }})</i></a>
+                <a href="{{ path('user_info', {"id": user.id}) }}" title="@{{ user.name }}"><i>({{ user.fullName }})</i></a>
             {% else %}
-                <a href="{{ url('user_info', {"id": user.id}) }}" title="@{{ user.name }}"><i>(@{{ user.name }})</i></a>
+                <a href="{{ path('user_info', {"id": user.id}) }}" title="@{{ user.name }}"><i>(@{{ user.name }})</i></a>
             {% endif %}
         {% endif %}
     {% endif %}

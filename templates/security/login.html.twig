@@ -61,6 +61,6 @@
     </form>
 
     {% if allow_email_pw_reset %}
-        <a class="offset-sm-2" href="{{ url('pw_reset_request') }}">{% trans %}pw_reset.password_forget{% endtrans %}</a>
+        <a class="offset-sm-2" href="{{ path('pw_reset_request') }}">{% trans %}pw_reset.password_forget{% endtrans %}</a>
     {% endif %}
 {% endblock %}

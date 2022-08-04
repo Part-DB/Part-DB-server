@@ -21,7 +21,7 @@
                 {% if is_granted("@tools.label_scanner") %}
                     <li class="nav-item">
                         <a class="nav-link"
-                           href="{{ url("scan_dialog") }}">{% trans %}navbar.scanner.link{% endtrans %}</a>
+                           href="{{ path("scan_dialog") }}">{% trans %}navbar.scanner.link{% endtrans %}</a>
                     </li>
                 {% endif %}
             </ul>

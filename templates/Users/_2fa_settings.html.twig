@@ -96,7 +96,7 @@
                         <p><b>{% trans %}tfa_backup.generation_date{% endtrans %}:</b> {{ user.backupCodesGenerationDate | format_datetime }}</p>
                     </div>
                     <div class="offset-sm-3">
-                        <a href="{{ url('show_backup_codes') }}" target="_blank" data-turbo="false" class="btn btn-primary">{% trans %}tfa_backup.show_codes{% endtrans %}</a>
+                        <a href="{{ path('show_backup_codes') }}" target="_blank" data-turbo="false" class="btn btn-primary">{% trans %}tfa_backup.show_codes{% endtrans %}</a>
                     </div>
 
                     <div class="offset-sm-3 mt-2">
@@ -112,7 +112,7 @@
 
                 {% if user.u2FKeys is not empty %}
                     <b>{% trans %}tfa_u2f.table_caption{% endtrans %}:</b>
-                    <form action="{{ url('u2f_delete') }}" method="post"
+                    <form action="{{ path('u2f_delete') }}" method="post"
                             {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
                           data-delete-title="{% trans %}tfa_u2f.delete_u2f.confirm_title{% endtrans %}"
                           data-delete-message="{% trans %}tfa_u2f.delete_u2f.confirm_message{% endtrans %}">
@@ -143,12 +143,12 @@
                     <p><b>{% trans %}tfa_u2f.no_keys_registered{% endtrans %}</b></p>
                 {% endif %}
 
-                <a href="{{ url('club_base_register_u2f') }}" class="btn btn-success"><i class="fas fa-plus-square fa-fw"></i> {% trans %}tfa_u2f.add_new_key{% endtrans %}</a>
+                <a href="{{ path('club_base_register_u2f') }}" class="btn btn-success"><i class="fas fa-plus-square fa-fw"></i> {% trans %}tfa_u2f.add_new_key{% endtrans %}</a>
             </div>
 
             <div class="tab-pane fade" id="tfa-trustedDevices" role="tabpanel" aria-labelledby="trustedDevices-tab-tab">
                 <p>{% trans %}tfa_trustedDevices.explanation{% endtrans %}</p>
-                <form action="{{ url('tfa_trustedDevices_invalidate') }}" method="post"
+                <form action="{{ path('tfa_trustedDevices_invalidate') }}" method="post"
                         {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
                       data-delete-title="{% trans %}tfa_trustedDevices.invalidate.confirm_title{% endtrans %}"
                       data-delete-message="{% trans %}tfa_trustedDevices.invalidate.confirm_message{% endtrans %}">
