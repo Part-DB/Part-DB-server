@@ -40,7 +40,7 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\Command;
+namespace App\Command\Migrations;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractNamedDBElement;
@@ -54,7 +54,6 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\Group;
 use App\Helpers\BBCodeToMarkdownConverter;
-use function count;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Console\Command\Command;
@@ -62,6 +61,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
+
+use function count;
 
 /**
  * This command converts the BBCode used by old Part-DB versions (<1.0), to the current used markdown format.
@@ -77,7 +78,7 @@ class ConvertBBCodeCommand extends Command
      */
     protected const BBCODE_REGEX = '/\\[.+\\].*\\[\\/.+\\]/';
 
-    protected static $defaultName = 'app:convert-bbcode';
+    protected static $defaultName = 'partdb:migrations:convert-bbcode|app:convert-bbcode';
 
     protected $em;
     protected $propertyAccessor;

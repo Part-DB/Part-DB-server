@@ -40,13 +40,11 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\Command;
+namespace App\Command\Attachments;
 
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentPathResolver;
 use App\Services\Attachments\AttachmentReverseSearch;
-use function count;
-use const DIRECTORY_SEPARATOR;
 use IntlDateFormatter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -57,9 +55,13 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Mime\MimeTypes;
 
+use function count;
+
+use const DIRECTORY_SEPARATOR;
+
 class CleanAttachmentsCommand extends Command
 {
-    protected static $defaultName = 'app:clean-attachments';
+    protected static $defaultName = 'partdb:attachments:clean-unused|app:clean-attachments';
 
     protected $attachment_helper;
     protected $reverseSearch;

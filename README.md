@@ -99,11 +99,11 @@ If the reverse proxy is on a different server (or it cannot access Part-DB via l
 ## Useful console commands
 Part-DB provides some command consoles which can be invoked by `php bin/console [command]`. You can get help for every command with the parameter `--help`.
 Useful commands are:
-* `php bin/console app:set-password [username]`: Sets a new password for the user with the given username. Useful if you forget the password to your Part-DB instance.
-* `php bin/console app:show-logs`: Show last activty log on console. Use `-x` options, to include extra column.
-* `php bin/console app:update-exchange-rates`: Update the exchange rates of your currencies from internet. Setup this to be run in a cronjob to always get up-to-date exchange rates.
+* `php bin/console partdb:users:set-password [username]`: Sets a new password for the user with the given username. Useful if you forget the password to your Part-DB instance.
+* `php bin/console partdb:logs:show`: Show last activty log on console. Use `-x` options, to include extra column.
+* `php bin/console partdb:currencies:update-exchange-rates`: Update the exchange rates of your currencies from internet. Setup this to be run in a cronjob to always get up-to-date exchange rates.
  If you dont use Euro as base currency, you have to setup an fixer.io API key in `.env.local`.
-* `php bin/console app:clean-attachments`: Removes all unused files (files without an associated attachment) in attachments folder. 
+* `php bin/console partdb:attachments:clean-unused`: Removes all unused files (files without an associated attachment) in attachments folder. 
 Normally Part-DB should be able to delete the attachment file, if you delete the attachment, but if you have some obsolete files left over from legacy Part-DB you can remove them safely with this command.
 * `php bin/console cache:clear`: Remove and rebuild all caches. If you encounter some weird issues in Part-DB, it maybe helps to run this command.
 * `php bin/console doctrine:migrations:up-to-date`: Check if your database is up to date.

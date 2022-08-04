@@ -40,7 +40,7 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\Command;
+namespace App\Command\Logs;
 
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
@@ -57,7 +57,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ShowEventLogCommand extends Command
 {
-    protected static $defaultName = 'app:show-logs';
+    protected static $defaultName = 'partdb:logs:show|app:show-logs';
     protected $entityManager;
     protected $translator;
     protected $elementTypeNameGenerator;

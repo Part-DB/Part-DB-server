@@ -13,7 +13,7 @@ It is tried to keep the breaking changes as small as possible, so they should no
  * Console access highly required. The installation of composer and frontend dependencies require console access, also 
  the managment commands are using CLI, so you should have console access on your server.
  * Markdown/HTML is now used instead of BBCode for rich text in description and command fields.
- It is possible to migrate your existing BBCode to Markdown via `php bin/console php bin/console app:convert-bbcode`.
+ It is possible to migrate your existing BBCode to Markdown via `php bin/console php bin/console partdb:migrations:convert-bbcode`.
  * Server exceptions are not logged to Event log anymore. For security reasons (exceptions can contain sensitive informations)
  exceptions are only logged to server log (by default under './var/log'), so only the server admins can access it.
  * Profile labels are now saved in Database (before they were saved in a seperate JSON file). The profiles of legacy Part-DB versions can not be imported into new Part-DB 1.0
@@ -25,7 +25,7 @@ It is tried to keep the breaking changes as small as possible, so they should no
  2. Make a backup of your database. If somethings goes wrong during migration, you can use this backup to start over.
  3. Setup the new Part-DB like described on [README](README.md) in section Installation. In `.env.local` enter the URL
  to your old Part-DB database.
- 4. Run `php bin/console app:convert-bbcode` to convert the BBCode used in comments and part description to the newly used markdown.
+ 4. Run `php bin/console partdb:migrations:convert-bbcode` to convert the BBCode used in comments and part description to the newly used markdown.
  5. Copy the content of `data/media` from the old Part-DB version into `public/media` in the new version.
  6. Run 'php bin/console cache:clear'
 

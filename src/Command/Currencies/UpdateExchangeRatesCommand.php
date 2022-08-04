@@ -40,23 +40,24 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\Command;
+namespace App\Command\Currencies;
 
 use App\Entity\PriceInformations\Currency;
 use App\Services\ExchangeRateUpdater;
-use function count;
 use Doctrine\ORM\EntityManagerInterface;
 use Exchanger\Exception\Exception;
-use function strlen;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+use function count;
+use function strlen;
+
 class UpdateExchangeRatesCommand extends Command
 {
-    protected static $defaultName = 'app:update-exchange-rates';
+    protected static $defaultName = 'partdb:currencies:update-exchange-rates|partdb:update-exchange-rates|app:update-exchange-rates';
 
     protected $base_current;
     protected $em;

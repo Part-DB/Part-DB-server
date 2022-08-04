@@ -40,7 +40,7 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\Command;
+namespace App\Command\User;
 
 use App\Entity\UserSystem\User;
 use App\Events\SecurityEvent;
@@ -56,7 +56,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class SetPasswordCommand extends Command
 {
-    protected static $defaultName = 'app:set-password';
+    protected static $defaultName = 'partdb:users:set-password|app:set-password|users:set-password';
 
     protected $entityManager;
     protected $encoder;
@@ -77,6 +77,7 @@ class SetPasswordCommand extends Command
             ->setDescription('Sets the password of a user')
             ->setHelp('This password allows you to set the password of a user, without knowing the old password.')
             ->addArgument('user', InputArgument::REQUIRED, 'The name of the user')
+
         ;
     }
 

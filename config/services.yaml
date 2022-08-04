@@ -142,7 +142,7 @@ services:
     ####################################################################################################################
     # Price system
     ####################################################################################################################
-    App\Command\UpdateExchangeRatesCommand:
+    App\Command\Currencies\UpdateExchangeRatesCommand:
         arguments:
             $base_current: '%partdb.default_currency%'
 

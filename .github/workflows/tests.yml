@@ -120,7 +120,7 @@ jobs:
           env_vars: PHP_VERSION,DB_TYPE
           
       - name: Test app:clean-attachments
-        run: php bin/console app:clean-attachments -n
+        run: php bin/console partdb:attachments:clean-unused -n
       
       - name: Test app:convert-bbcode
         run: php bin/console app:convert-bbcode -n
