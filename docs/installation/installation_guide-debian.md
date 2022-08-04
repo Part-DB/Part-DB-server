@@ -96,6 +96,13 @@ sudo yarn install
 sudo yarn build
 ```
 
+### Check if everything is installed
+To check if everything is installed, run the following command:
+```bash
+sudo -u www-data php bin/console partdb:check-requirements
+```
+The most things should be green, and no red ones. Yellow messages means optional dependencies which are not important but can improve performance and functionality.
+
 ## Create a database for Part-DB
 Part-DB by default uses a file based sqlite database to store the data. Use the following command to create the database. The database will normally created at `/var/www/partdb/var/app.db`.
 ```bash
