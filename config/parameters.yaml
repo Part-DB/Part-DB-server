@@ -40,6 +40,15 @@ parameters:
   partdb.error_pages.show_help: true                          # If this is set to true, solutions to common problems are shown on error pages. Disable this, if you do not want your users to see them...
 
   ######################################################################################################################
+  # Sidebar
+  ######################################################################################################################
+  # You can configures the default shown tree items in the sidebar here. You can add or remove entries here, to change the number of trees in the sidebar. The possible entries are: categories, locations, footprints, manufacturers, suppliers, devices, tools
+  partdb.sidebar.items:
+    - categories
+    - devices
+    - tools
+
+  ######################################################################################################################
   # Miscellaneous
   ######################################################################################################################
   partdb.demo_mode: '%env(bool:DEMO_MODE)%'                   # If set to true, all potentially dangerous things are disabled (like changing passwords of the own user)
