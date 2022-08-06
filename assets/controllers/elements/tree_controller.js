@@ -1,7 +1,9 @@
 import {Controller} from "@hotwired/stimulus";
 
-import "patternfly-bootstrap-treeview/src/css/bootstrap-treeview.css"
-import "patternfly-bootstrap-treeview";
+import "../../js/lib/bootstrap-treeview/src/css/bootstrap-treeview.css"
+//import "../../js/lib/bootstrap-treeview/src/js/bootstrap-treeview.js"
+
+import BSTreeView from "../../ts_src/BSTreeView";
 
 export default class extends Controller {
     static targets = [ "tree" ];
@@ -27,9 +29,9 @@ export default class extends Controller {
         //Fetch data and initialize tree
         this._getData()
             .then(this._fillTree.bind(this))
-            .catch((err) => {
+            /*.catch((err) => {
                 console.error("Could not load the tree data: " + err);
-            });
+            });*/
     }
 
     setData(data) {
@@ -46,9 +48,7 @@ export default class extends Controller {
         //Get primary color from css variable
         const primary_color = getComputedStyle(document.documentElement).getPropertyValue('--bs-warning');
 
-        const tree = this.treeTarget;
-
-        $(tree).treeview({
+        const tree = new BSTreeView(this.treeTarget, {
             data: data,
             enableLinks: true,
             showIcon: false,
@@ -62,7 +62,7 @@ export default class extends Controller {
                     let a = document.createElement('a');
                     a.setAttribute('href', data.href);
                     a.innerHTML = "";
-                    $(tree).append(a);
+                    document.body.appendChild(a);
                     a.click();
                     a.remove();
                 }
@@ -71,13 +71,13 @@ export default class extends Controller {
             expandIcon: "fas fa-plus fa-fw fa-treeview",
             collapseIcon: "fas fa-minus fa-fw fa-treeview"
         })
-            .on('initialized', function () {
+            /*.on('initialized', function () {
                 //Collapse all nodes after init
                 $(this).treeview('collapseAll', {silent: true});
 
                 //Reveal the selected ones
                 $(this).treeview('revealNode', [$(this).treeview('getSelected')]);
-            });
+            });*/
     }
 
     collapseAll() {
