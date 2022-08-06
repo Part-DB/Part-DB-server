@@ -55,7 +55,8 @@ export default class extends Controller {
             showBorder: true,
             searchResultBackColor: primary_color,
             searchResultColor: '#000',
-            onNodeSelected: function (event, data) {
+            onNodeSelected: function (event) {
+                const data = event.detail.data;
                 if (data.href) {
 
                     //Simulate a click so we just change the inner frame

@@ -90,7 +90,7 @@ export default class BSTreeView
     constructor(element: HTMLElement, options: BSTreeViewOptions|object)
     {
         this.element = element;
-        this._elementId = element.id;
+        this._elementId = element.id ?? "bs-treeview-" + Math.floor(Math.random() * 1000000);
         this._styleId = this._elementId + '-style';
 
         this._init(options);
@@ -115,7 +115,7 @@ export default class BSTreeView
         this._destroy();
         this._subscribeEvents();
 
-        this._triggerEvent('loading', null, new BSTreeViewEventOptions({silent: true}));
+        this._triggerEvent(EVENT_LOADING, null, new BSTreeViewEventOptions({silent: true}));
         this._load(this._options)
             .then((data) => {
                 // load done
@@ -123,7 +123,7 @@ export default class BSTreeView
             })
             .catch((error) => {
                 // load fail
-                this._triggerEvent('loadingFailed', error, new BSTreeViewEventOptions());
+                this._triggerEvent(EVENT_LOADING_FAILED, error, new BSTreeViewEventOptions());
             })
             .then((treeData) => {
                 // initialize data
@@ -182,7 +182,7 @@ export default class BSTreeView
         if (!this._initialized) return;
         this._initialized = false;
 
-        this._triggerEvent('destroyed', null, new BSTreeViewEventOptions());
+        this._triggerEvent(EVENT_DESTROYED, null, new BSTreeViewEventOptions());
 
         // Switch off events
         this._unsubscribeEvents();
@@ -355,7 +355,7 @@ export default class BSTreeView
         promise.then(() => {
             this._orderedNodes = this._sortNodes(this._nodes);
             this._inheritCheckboxChanges();
-            this._triggerEvent('initialized', Array.from(this._orderedNodes.values()));
+            this._triggerEvent(EVENT_INITIALIZED, Array.from(this._orderedNodes.values()));
         });
 
         return promise;
@@ -446,7 +446,7 @@ export default class BSTreeView
             }
 
             // add / update indexed collection
-            this._nodes[node.nodeId] = node;
+            this._nodes.set(node.nodeId, node);
         })
     };
 
@@ -496,7 +496,7 @@ export default class BSTreeView
     targetNode (target: HTMLElement): BSTreeViewNode {
         const nodeElement = target.closest('li.list-group-item') as HTMLElement;
         const nodeId = nodeElement.dataset.nodeId;
-        const node = this._nodes[nodeId];
+        const node = this._nodes.get(nodeId);
         if (!node) {
             console.warn('Error: node does not exist');
         }
@@ -557,7 +557,7 @@ export default class BSTreeView
             }
 
             // Optionally trigger event
-            this._triggerEvent('nodeExpanded', node, options);
+            this._triggerEvent(EVENT_NODE_EXPANDED, node, options);
         }
         else if (!state) {
 
@@ -580,7 +580,7 @@ export default class BSTreeView
             }
 
             // Optionally trigger event
-            this._triggerEvent('nodeCollapsed', node, options);
+            this._triggerEvent(EVENT_NODE_COLLAPSED, node, options);
         }
     };
 
@@ -649,7 +649,7 @@ export default class BSTreeView
             }
 
             // Optionally trigger event
-            this._triggerEvent('nodeSelected', node, options);
+            this._triggerEvent(EVENT_NODE_SELECTED, node, options);
         }
         else {
 
@@ -659,7 +659,7 @@ export default class BSTreeView
                 (this._findNodes('true', 'state.selected').length === 1)) {
                 // Fire the nodeSelected event if reselection is allowed
                 if (this._options.allowReselect) {
-                    this._triggerEvent('nodeSelected', node, options);
+                    this._triggerEvent(EVENT_NODE_SELECTED, node, options);
                 }
                 return this;
             }
@@ -679,7 +679,7 @@ export default class BSTreeView
             }
 
             // Optionally trigger event
-            this._triggerEvent('nodeUnselected', node, options);
+            this._triggerEvent(EVENT_NODE_UNSELECTED, node, options);
         }
 
         return this;
@@ -709,7 +709,7 @@ export default class BSTreeView
             // Temporarily swap the tree state
             node.state.checked = !node.state.checked;
 
-            currentNode = this._nodes[currentNode.parentId]
+            currentNode = this._nodes.get(currentNode.parentId);
             // Iterate through each parent node
             while (currentNode) {
 
@@ -721,7 +721,7 @@ export default class BSTreeView
                 // Set the state
                 this._setChecked(currentNode, state, childOptions);
 
-                currentNode = this._nodes[currentNode.parentId]
+                currentNode = this._nodes.get(currentNode.parentId);
             }
 
             if (node.nodes && node.nodes.length > 0) {
@@ -778,7 +778,7 @@ export default class BSTreeView
             }
 
             // Optionally trigger event
-            this._triggerEvent('nodeChecked', node, options);
+            this._triggerEvent(EVENT_NODE_CHECKED, node, options);
         }
         else if (state === null && this._options.hierarchicalCheck) {
 
@@ -796,7 +796,7 @@ export default class BSTreeView
             }
 
             // Optionally trigger event, partially checked is technically unchecked
-            this._triggerEvent('nodeUnchecked', node, options);
+            this._triggerEvent(EVENT_NODE_UNCHECKED, node, options);
         } else {
 
             // Set node state to unchecked
@@ -812,7 +812,7 @@ export default class BSTreeView
             }
 
             // Optionally trigger event
-            this._triggerEvent('nodeUnchecked', node, options);
+            this._triggerEvent(EVENT_NODE_UNCHECKED, node, options);
         }
     };
 
@@ -840,7 +840,7 @@ export default class BSTreeView
             }
 
             // Optionally trigger event
-            this._triggerEvent('nodeDisabled', node, options);
+            this._triggerEvent(EVENT_NODE_DISABLED, node, options);
         }
         else {
 
@@ -853,7 +853,7 @@ export default class BSTreeView
             }
 
             // Optionally trigger event
-            this._triggerEvent('nodeEnabled', node, options);
+            this._triggerEvent(EVENT_NODE_DISABLED, node, options);
         }
     };
 
@@ -903,7 +903,7 @@ export default class BSTreeView
             previousNode = node;
         });
 
-        this._triggerEvent('rendered', Array.from(this._orderedNodes.values()), new BSTreeViewEventOptions());
+        this._triggerEvent(EVENT_RENDERED, Array.from(this._orderedNodes.values()), new BSTreeViewEventOptions());
     };
 
     _renderNode(node: BSTreeViewNode, previousNode: BSTreeViewNode|null): void {
@@ -918,7 +918,9 @@ export default class BSTreeView
         }
 
         // Append .classes to the node
-        node.el.classList.add(...node.class.split(" "));
+        if(node.class) {
+            node.el.classList.add(...node.class.split(" "));
+        }
 
         // Set the #id of the node if specified
         if (node.id) {
@@ -1002,7 +1004,7 @@ export default class BSTreeView
         this._setVisible(node, node.state.visible);
 
         // Trigger nodeRendered event
-        this._triggerEvent('nodeRendered', node, new BSTreeViewEventOptions());
+        this._triggerEvent(EVENT_NODE_RENDERED, node, new BSTreeViewEventOptions());
     };
 
 // Add checkable icon
@@ -1203,7 +1205,7 @@ export default class BSTreeView
 
         let parentNodes = [];
         nodes.forEach((node) => {
-            const parentNode = node.parentId ? this._nodes[node.parentId] : false;
+            const parentNode = node.parentId ? this._nodes.get(node.parentId) : false;
             if (parentNode) {
                 parentNodes.push(parentNode);
             }
@@ -1394,7 +1396,7 @@ export default class BSTreeView
         nodes.forEach((node) => {
 
             // remove nodes from tree
-            parentNode = this._nodes[node.parentId];
+            parentNode = this._nodes.get(node.parentId);
             if (parentNode) {
                 targetNodes = parentNode.nodes;
             } else {
@@ -1424,7 +1426,7 @@ export default class BSTreeView
 
         // insert new node
         let targetNodes;
-        const parentNode = this._nodes[node.parentId];
+        const parentNode = this._nodes.get(node.parentId);
         if (parentNode) {
             targetNodes = parentNode.nodes;
         } else {

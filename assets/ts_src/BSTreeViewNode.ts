@@ -20,6 +20,7 @@ export default class BSTreeViewNode {
     hideCheckbox: boolean;
     nodes: BSTreeViewNode[];
     tooltip: string;
+    href: string;
 
     lazyLoad: boolean;
     tagsClass: string;
