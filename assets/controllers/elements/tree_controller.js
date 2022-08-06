@@ -3,13 +3,15 @@ import {Controller} from "@hotwired/stimulus";
 import "../../js/lib/bootstrap-treeview/src/css/bootstrap-treeview.css"
 //import "../../js/lib/bootstrap-treeview/src/js/bootstrap-treeview.js"
 
-import BSTreeView from "../../ts_src/BSTreeView";
+import {BSTreeView} from "@jbtronics/bs-treeview";
 
 export default class extends Controller {
     static targets = [ "tree" ];
 
     _url = null;
     _data = null;
+
+    _tree = null;
 
     connect() {
         const treeElement = this.treeTarget;
@@ -48,7 +50,7 @@ export default class extends Controller {
         //Get primary color from css variable
         const primary_color = getComputedStyle(document.documentElement).getPropertyValue('--bs-warning');
 
-        const tree = new BSTreeView(this.treeTarget, {
+        this._tree = new BSTreeView(this.treeTarget, {
             data: data,
             enableLinks: true,
             showIcon: false,
@@ -82,11 +84,11 @@ export default class extends Controller {
     }
 
     collapseAll() {
-        $(this.treeTarget).treeview('collapseAll', {silent: true});
+        this._tree.collapseAll({silent: true});
     }
 
     expandAll() {
-        $(this.treeTarget).treeview('expandAll', {silent: true});
+        this._tree.expandAll({silent: true});
     }
 
     searchInput(event) {
@@ -94,8 +96,8 @@ export default class extends Controller {
         //Do nothing if no data was passed
 
         const tree = this.treeTarget;
-        $(tree).treeview('collapseAll', {silent: true});
-        $(tree).treeview('search', [data]);
+        this._tree.collapseAll({silent: true});
+        this._tree.search([data]);
     }
 
     /**
@@ -103,15 +105,7 @@ export default class extends Controller {
      * @private
      */
     _isInitialized() {
-        const $tree = $(this.treeTarget).treeview(true);
-
-        //If the tree is not initialized yet, we just get an empty jquery object with the treeview functions missing
-        if(typeof $tree.findNodes === 'undefined' ) {
-            return false;
-        }
-
-        return true;
-
+       return this._tree !== null;
     }
 
     _getData() {
