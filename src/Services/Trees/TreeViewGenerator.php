@@ -45,11 +45,18 @@ namespace App\Services\Trees;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\Devices\Device;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Footprint;
+use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\Supplier;
 use App\Helpers\Trees\TreeViewNode;
 use App\Helpers\Trees\TreeViewNodeIterator;
 use App\Helpers\Trees\TreeViewNodeState;
 use App\Repository\StructuralDBElementRepository;
 use App\Services\EntityURLGenerator;
+use App\Services\MarkdownParser;
 use App\Services\UserCacheKeyGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Cache\ItemInterface;
@@ -147,12 +154,32 @@ class TreeViewGenerator
         }
 
         if (($mode === 'list_parts_root' || $mode === 'devices') && $this->rootNodeEnabled) {
-            $root_node = new TreeViewNode($this->translator->trans('tree.root_node.text'), null, $generic);
+            $root_node = new TreeViewNode($this->entityClassToRootNodeString($class), null, $generic);
             $root_node->setExpanded($this->rootNodeExpandedByDefault);
             $generic = [$root_node];
         }
 
         return array_merge($head, $generic);
+    }
+
+    protected function entityClassToRootNodeString(string $class): string
+    {
+        switch ($class) {
+            case Category::class:
+                return $this->translator->trans('category.labelp');
+            case Storelocation::class:
+                return $this->translator->trans('storelocation.labelp');
+            case Footprint::class:
+                return $this->translator->trans('footprint.labelp');
+            case Manufacturer::class:
+                return $this->translator->trans('manufacturer.labelp');
+            case Supplier::class:
+                return $this->translator->trans('supplier.labelp');
+            case Device::class:
+                return $this->translator->trans('device.labelp');
+            default:
+                return $this->translator->trans('tree.root_node.text');
+        }
     }
 
     /**
