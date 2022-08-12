@@ -1,13 +1,18 @@
 import {Controller} from "@hotwired/stimulus";
 
-import {BSTreeView, BS5Theme, FAIconTheme, EVENT_INITIALIZED} from "@jbtronics/bs-treeview";
+import {BSTreeView, BSTreeViewNode, BS5Theme, FAIconTheme, EVENT_INITIALIZED} from "@jbtronics/bs-treeview";
 import "@jbtronics/bs-treeview/styles/bs-treeview.css";
 
 export default class extends Controller {
     static targets = [ "tree" ];
 
+    /** @type {string} */
     _url = null;
+    /** @type {BSTreeViewNode[]} */
     _data = null;
+
+    /** @type {boolean} */
+    _showTags = false;
 
     /**
      * @type {BSTreeView}
@@ -24,6 +29,10 @@ export default class extends Controller {
 
         this._url = this.element.dataset.treeUrl;
         this._data = this.element.dataset.treeData;
+
+        if(this.element.dataset.treeShowTags === "true") {
+            this._showTags = true;
+        }
 
         this.reinitTree();
     }
@@ -55,7 +64,7 @@ export default class extends Controller {
 
         this._tree = new BSTreeView(this.treeTarget, {
             levels: 1,
-            //showTags: true,
+            showTags: this._showTags,
             data: data,
             showIcon: false,
             onNodeSelected: function (event) {

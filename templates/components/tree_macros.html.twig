@@ -40,7 +40,7 @@
 {% endmacro %}
 
 {% macro treeview(entity) %}
-    <div {{ stimulus_controller('elements/tree') }} data-tree-data="{{ generateTreeData(entity) }}">
+    <div {{ stimulus_controller('elements/tree') }} data-tree-data="{{ generateTreeData(entity) }}" data-tree-show-tags="true">
         <div class="row" >
             <div class="col-8">
                 <input type="search" class="form-control" placeholder="{% trans %}search.placeholder{% endtrans %}" {{ stimulus_action('elements/tree', 'searchInput') }}>
