@@ -1,9 +1,6 @@
 import {Controller} from "@hotwired/stimulus";
 import {default as TreeController} from "./tree_controller";
 
-import "patternfly-bootstrap-treeview/src/css/bootstrap-treeview.css"
-import "patternfly-bootstrap-treeview";
-
 export default class extends TreeController {
     static targets = [ "tree", 'sourceText' ];
 

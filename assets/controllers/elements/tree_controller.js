@@ -1,13 +1,24 @@
 import {Controller} from "@hotwired/stimulus";
 
-import "patternfly-bootstrap-treeview/src/css/bootstrap-treeview.css"
-import "patternfly-bootstrap-treeview";
+import {BSTreeView, BSTreeViewNode, BS5Theme, FAIconTheme, EVENT_INITIALIZED} from "@jbtronics/bs-treeview";
+import "@jbtronics/bs-treeview/styles/bs-treeview.css";
 
 export default class extends Controller {
     static targets = [ "tree" ];
 
+    /** @type {string} */
     _url = null;
+    /** @type {BSTreeViewNode[]} */
     _data = null;
+
+    /** @type {boolean} */
+    _showTags = false;
+
+    /**
+     * @type {BSTreeView}
+     * @private
+     */
+    _tree = null;
 
     connect() {
         const treeElement = this.treeTarget;
@@ -18,6 +29,10 @@ export default class extends Controller {
 
         this._url = this.element.dataset.treeUrl;
         this._data = this.element.dataset.treeData;
+
+        if(this.element.dataset.treeShowTags === "true") {
+            this._showTags = true;
+        }
 
         this.reinitTree();
     }
@@ -43,49 +58,58 @@ export default class extends Controller {
     }
 
     _fillTree(data) {
-        //Get primary color from css variable
-        const primary_color = getComputedStyle(document.documentElement).getPropertyValue('--bs-warning');
+        if(this._tree) {
+            this._tree.remove();
+        }
 
-        const tree = this.treeTarget;
-
-        $(tree).treeview({
+        this._tree = new BSTreeView(this.treeTarget, {
+            levels: 1,
+            showTags: this._showTags,
             data: data,
-            enableLinks: true,
             showIcon: false,
-            showBorder: true,
-            searchResultBackColor: primary_color,
-            searchResultColor: '#000',
-            onNodeSelected: function (event, data) {
-                if (data.href) {
+            onNodeSelected: (event) => {
+                const node = event.detail.node;
+                if (node.href) {
 
                     //Simulate a click so we just change the inner frame
                     let a = document.createElement('a');
-                    a.setAttribute('href', data.href);
+                    a.setAttribute('href', node.href);
                     a.innerHTML = "";
-                    $(tree).append(a);
+                    this.element.appendChild(a);
                     a.click();
                     a.remove();
                 }
             },
             //onNodeContextmenu: contextmenu_handler,
-            expandIcon: "fas fa-plus fa-fw fa-treeview",
-            collapseIcon: "fas fa-minus fa-fw fa-treeview"
-        })
-            .on('initialized', function () {
-                //Collapse all nodes after init
-                $(this).treeview('collapseAll', {silent: true});
+        }, [BS5Theme, FAIconTheme]);
 
-                //Reveal the selected ones
-                $(this).treeview('revealNode', [$(this).treeview('getSelected')]);
-            });
+        this.treeTarget.addEventListener(EVENT_INITIALIZED, (event) => {
+            /** @type {BSTreeView} */
+            const treeView = event.detail.treeView;
+            treeView.revealNode(treeView.getSelected());
+
+            //Add contextmenu event listener to the tree, which allows us to open the links in a new tab with a right click
+            treeView.getTreeElement().addEventListener("contextmenu", this._onContextMenu.bind(this));
+        });
+
+    }
+
+    _onContextMenu(event)
+    {
+        //Find the node that was clicked and open link in new tab
+        const node = this._tree._domToNode(event.target);
+        if(node && node.href) {
+            event.preventDefault();
+            window.open(node.href, '_blank');
+        }
     }
 
     collapseAll() {
-        $(this.treeTarget).treeview('collapseAll', {silent: true});
+        this._tree.collapseAll({silent: true});
     }
 
     expandAll() {
-        $(this.treeTarget).treeview('expandAll', {silent: true});
+        this._tree.expandAll({silent: true});
     }
 
     searchInput(event) {
@@ -93,8 +117,11 @@ export default class extends Controller {
         //Do nothing if no data was passed
 
         const tree = this.treeTarget;
-        $(tree).treeview('collapseAll', {silent: true});
-        $(tree).treeview('search', [data]);
+        this._tree.collapseAll({silent: true});
+        this._tree.search(data);
+
+        //Rereveal the selected node again
+        this._tree.revealNode(this._tree.getSelected());
     }
 
     /**
@@ -102,15 +129,7 @@ export default class extends Controller {
      * @private
      */
     _isInitialized() {
-        const $tree = $(this.treeTarget).treeview(true);
-
-        //If the tree is not initialized yet, we just get an empty jquery object with the treeview functions missing
-        if(typeof $tree.findNodes === 'undefined' ) {
-            return false;
-        }
-
-        return true;
-
+       return this._tree !== null;
     }
 
     _getData() {
