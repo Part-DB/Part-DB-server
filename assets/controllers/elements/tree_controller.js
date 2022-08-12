@@ -1,9 +1,7 @@
 import {Controller} from "@hotwired/stimulus";
 
-import "../../js/lib/bootstrap-treeview/src/css/bootstrap-treeview.css"
-//import "../../js/lib/bootstrap-treeview/src/js/bootstrap-treeview.js"
-
-import {BSTreeView} from "@jbtronics/bs-treeview";
+import {BSTreeView, BS5Theme, FAIconTheme, EVENT_INITIALIZED} from "@jbtronics/bs-treeview";
+import "@jbtronics/bs-treeview/styles/bs-treeview.css";
 
 export default class extends Controller {
     static targets = [ "tree" ];
@@ -11,6 +9,10 @@ export default class extends Controller {
     _url = null;
     _data = null;
 
+    /**
+     * @type {BSTreeView}
+     * @private
+     */
     _tree = null;
 
     connect() {
@@ -31,9 +33,9 @@ export default class extends Controller {
         //Fetch data and initialize tree
         this._getData()
             .then(this._fillTree.bind(this))
-            /*.catch((err) => {
+            .catch((err) => {
                 console.error("Could not load the tree data: " + err);
-            });*/
+            });
     }
 
     setData(data) {
@@ -47,23 +49,22 @@ export default class extends Controller {
     }
 
     _fillTree(data) {
-        //Get primary color from css variable
-        const primary_color = getComputedStyle(document.documentElement).getPropertyValue('--bs-warning');
+        if(this._tree) {
+            this._tree.remove();
+        }
 
         this._tree = new BSTreeView(this.treeTarget, {
+            levels: 1,
+            //showTags: true,
             data: data,
-            enableLinks: true,
             showIcon: false,
-            showBorder: true,
-            searchResultBackColor: primary_color,
-            searchResultColor: '#000',
             onNodeSelected: function (event) {
-                const data = event.detail.data;
-                if (data.href) {
+                const node = event.detail.node;
+                if (node.href) {
 
                     //Simulate a click so we just change the inner frame
                     let a = document.createElement('a');
-                    a.setAttribute('href', data.href);
+                    a.setAttribute('href', node.href);
                     a.innerHTML = "";
                     document.body.appendChild(a);
                     a.click();
@@ -71,16 +72,14 @@ export default class extends Controller {
                 }
             },
             //onNodeContextmenu: contextmenu_handler,
-            expandIcon: "fas fa-plus fa-fw fa-treeview",
-            collapseIcon: "fas fa-minus fa-fw fa-treeview"
-        })
-            /*.on('initialized', function () {
-                //Collapse all nodes after init
-                $(this).treeview('collapseAll', {silent: true});
+        }, [BS5Theme, FAIconTheme]);
 
-                //Reveal the selected ones
-                $(this).treeview('revealNode', [$(this).treeview('getSelected')]);
-            });*/
+        this.treeTarget.addEventListener(EVENT_INITIALIZED, (event) => {
+            const treeView = event.detail.treeView;
+            treeView.revealNode(treeView.getSelected());
+        });
+
+
     }
 
     collapseAll() {
@@ -97,7 +96,10 @@ export default class extends Controller {
 
         const tree = this.treeTarget;
         this._tree.collapseAll({silent: true});
-        this._tree.search([data]);
+        this._tree.search(data);
+
+        //Rereveal the selected node again
+        this._tree.revealNode(this._tree.getSelected());
     }
 
     /**
