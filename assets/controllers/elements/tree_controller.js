@@ -84,11 +84,24 @@ export default class extends Controller {
         }, [BS5Theme, FAIconTheme]);
 
         this.treeTarget.addEventListener(EVENT_INITIALIZED, (event) => {
+            /** @type {BSTreeView} */
             const treeView = event.detail.treeView;
             treeView.revealNode(treeView.getSelected());
+
+            //Add contextmenu event listener to the tree, which allows us to open the links in a new tab with a right click
+            treeView.getTreeElement().addEventListener("contextmenu", this._onContextMenu.bind(this));
         });
 
+    }
 
+    _onContextMenu(event)
+    {
+        //Find the node that was clicked and open link in new tab
+        const node = this._tree._domToNode(event.target);
+        if(node && node.href) {
+            event.preventDefault();
+            window.open(node.href, '_blank');
+        }
     }
 
     collapseAll() {
