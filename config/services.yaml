@@ -205,6 +205,7 @@ services:
     App\Services\Trees\TreeViewGenerator:
         arguments:
             $rootNodeExpandedByDefault: '%partdb.sidebar.root_expanded%'
+            $rootNodeEnabled: '%partdb.sidebar.root_node_enable%'
 
     ####################################################################################################################
     # Symfony overrides

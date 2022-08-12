@@ -48,6 +48,7 @@ parameters:
     - devices
     - tools
   partdb.sidebar.root_expanded: true                         # If this is set to true, the root node of the sidebar is expanded by default
+  partdb.sidebar.root_node_enable: true                      # Put all entities below a root node in the sidebar
 
   ######################################################################################################################
   # Miscellaneous

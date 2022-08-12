@@ -65,9 +65,10 @@ class TreeViewGenerator
     protected $translator;
 
     protected $rootNodeExpandedByDefault;
+    protected $rootNodeEnabled;
 
     public function __construct(EntityURLGenerator $URLGenerator, EntityManagerInterface $em,
-        TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator, TranslatorInterface $translator, bool $rootNodeExpandedByDefault)
+        TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator, TranslatorInterface $translator, bool $rootNodeExpandedByDefault, bool $rootNodeEnabled)
     {
         $this->urlGenerator = $URLGenerator;
         $this->em = $em;
@@ -76,6 +77,7 @@ class TreeViewGenerator
         $this->translator = $translator;
 
         $this->rootNodeExpandedByDefault = $rootNodeExpandedByDefault;
+        $this->rootNodeEnabled = $rootNodeEnabled;
     }
 
     /**
@@ -144,7 +146,7 @@ class TreeViewGenerator
             }
         }
 
-        if ($mode === 'list_parts_root' ||$mode === 'devices') {
+        if (($mode === 'list_parts_root' || $mode === 'devices') && $this->rootNodeEnabled) {
             $root_node = new TreeViewNode($this->translator->trans('tree.root_node.text'), null, $generic);
             $root_node->setExpanded($this->rootNodeExpandedByDefault);
             $generic = [$root_node];
