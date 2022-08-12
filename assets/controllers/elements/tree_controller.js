@@ -67,7 +67,7 @@ export default class extends Controller {
             showTags: this._showTags,
             data: data,
             showIcon: false,
-            onNodeSelected: function (event) {
+            onNodeSelected: (event) => {
                 const node = event.detail.node;
                 if (node.href) {
 
@@ -75,7 +75,7 @@ export default class extends Controller {
                     let a = document.createElement('a');
                     a.setAttribute('href', node.href);
                     a.innerHTML = "";
-                    document.body.appendChild(a);
+                    this.element.appendChild(a);
                     a.click();
                     a.remove();
                 }
