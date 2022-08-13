@@ -60,6 +60,8 @@ final class TreeViewNode implements JsonSerializable
 
     private $id;
 
+    private $icon;
+
     /**
      * Creates a new TreeView node with the given parameters.
      *
@@ -233,6 +235,24 @@ final class TreeViewNode implements JsonSerializable
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+
+    /**
+     * @param string|null $icon
+     */
+    public function setIcon(?string $icon): void
+    {
+        $this->icon = $icon;
+    }
+
+
+
     public function jsonSerialize(): array
     {
         $ret = [
@@ -257,6 +277,10 @@ final class TreeViewNode implements JsonSerializable
 
         if ($this->href == null) {
             $ret['selectable'] = false;
+        }
+
+        if ($this->icon != null) {
+            $ret['icon'] = $this->icon;
         }
 
         return $ret;

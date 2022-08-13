@@ -1345,9 +1345,9 @@
   integrity sha512-Q8kGjqwPqER+CtpQudbH+3Zgs2X4zb6pBAlr6NsKTXadg45pAOvxI9i4QpuHbwSzR2+x87HUm+rot9F/Pe8rxA==
 
 "@jbtronics/bs-treeview@^1.0.1":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@jbtronics/bs-treeview/-/bs-treeview-1.0.3.tgz#19a176fc84fbee5c7cc86c190ee351f480bdaf3d"
-  integrity sha512-9KU5bnrZr5saEfkTvUY5/sg1AS1tf5OvDiQmjHSnfygtVW77FI91jyuMOmn/7gGwPypPYI354wlMVvlgf9HroA==
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@jbtronics/bs-treeview/-/bs-treeview-1.0.4.tgz#aecd128c295ebd1af904d9a77f17dbf77a772b8f"
+  integrity sha512-ofhMY+4w0xYHcMPyw53EzWABzrzX2ecm50hhD9Kbb6h1/XsmLzVvHLIG9FYJ3eaIR0nTYF9a5L7mS14Qr/JChQ==
 
 "@jridgewell/gen-mapping@^0.1.0":
   version "0.1.1"

@@ -156,6 +156,8 @@ class TreeViewGenerator
         if (($mode === 'list_parts_root' || $mode === 'devices') && $this->rootNodeEnabled) {
             $root_node = new TreeViewNode($this->entityClassToRootNodeString($class), null, $generic);
             $root_node->setExpanded($this->rootNodeExpandedByDefault);
+            $root_node->setIcon($this->entityClassToRootNodeIcon($class));
+
             $generic = [$root_node];
         }
 
@@ -179,6 +181,27 @@ class TreeViewGenerator
                 return $this->translator->trans('device.labelp');
             default:
                 return $this->translator->trans('tree.root_node.text');
+        }
+    }
+
+    protected function entityClassToRootNodeIcon(string $class): ?string
+    {
+        $icon = "fa-fw fa-treeview fa-solid ";
+        switch ($class) {
+            case Category::class:
+                return $icon . 'fa-tags';
+            case Storelocation::class:
+                return $icon . 'fa-cube';
+            case Footprint::class:
+                return $icon . 'fa-microchip';
+            case Manufacturer::class:
+                return $icon . 'fa-industry';
+            case Supplier::class:
+                return $icon . 'fa-truck';
+            case Device::class:
+                return $icon . 'fa-archive';
+            default:
+                return null;
         }
     }
 

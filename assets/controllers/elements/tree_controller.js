@@ -66,7 +66,7 @@ export default class extends Controller {
             levels: 1,
             showTags: this._showTags,
             data: data,
-            showIcon: false,
+            showIcon: true,
             onNodeSelected: (event) => {
                 const node = event.detail.node;
                 if (node.href) {
