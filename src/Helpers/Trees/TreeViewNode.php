@@ -246,9 +246,10 @@ final class TreeViewNode implements JsonSerializable
     /**
      * @param string|null $icon
      */
-    public function setIcon(?string $icon): void
+    public function setIcon(?string $icon): self
     {
         $this->icon = $icon;
+        return $this;
     }
 
 

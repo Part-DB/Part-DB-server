@@ -106,19 +106,21 @@ class ToolsTreeBuilder
 
             $tree = [];
             if (!empty($this->getToolsNode())) {
-                $tree[] = new TreeViewNode($this->translator->trans('tree.tools.tools'), null, $this->getToolsNode());
+                $tree[] = (new TreeViewNode($this->translator->trans('tree.tools.tools'), null, $this->getToolsNode()))
+                    ->setIcon('fa-fw fa-treeview fa-solid fa-toolbox');
             }
 
             if (!empty($this->getEditNodes())) {
-                $tree[] = new TreeViewNode($this->translator->trans('tree.tools.edit'), null, $this->getEditNodes());
+                $tree[] = (new TreeViewNode($this->translator->trans('tree.tools.edit'), null, $this->getEditNodes()))
+                    ->setIcon('fa-fw fa-treeview fa-solid fa-pen-to-square');
             }
             if (!empty($this->getShowNodes())) {
-                $tree[] = new TreeViewNode($this->translator->trans('tree.tools.show'), null, $this->getShowNodes());
+                $tree[] = (new TreeViewNode($this->translator->trans('tree.tools.show'), null, $this->getShowNodes()))
+                    ->setIcon('fa-fw fa-treeview fa-solid fa-eye');
             }
             if (!empty($this->getSystemNodes())) {
-                $tree[] = new TreeViewNode(
-                    $this->translator->trans('tree.tools.system'), null, $this->getSystemNodes()
-                );
+                $tree[] = (new TreeViewNode($this->translator->trans('tree.tools.system'), null, $this->getSystemNodes()))
+                ->setIcon('fa-fw fa-treeview fa-solid fa-server');
             }
 
             return $tree;
@@ -130,24 +132,24 @@ class ToolsTreeBuilder
         $nodes = [];
 
         if ($this->security->isGranted('@labels.create_labels')) {
-            $nodes[] = new TreeViewNode(
+            $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.tools.label_dialog'),
                 $this->urlGenerator->generate('label_dialog')
-            );
+            ))->setIcon("fa-treeview fa-fw fa-solid fa-qrcode");
         }
 
         if ($this->security->isGranted('@tools.label_scanner')) {
-            $nodes[] = new TreeViewNode(
+            $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.tools.label_scanner'),
                 $this->urlGenerator->generate('scan_dialog')
-            );
+            ))->setIcon('fa-treeview fa-fw fa-solid fa-camera-retro');
         }
 
         if ($this->security->isGranted('@tools.reel_calculator')) {
-            $nodes[] = new TreeViewNode(
+            $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.tools.reel_calculator'),
                 $this->urlGenerator->generate('tools_reel_calculator')
-            );
+            ))->setIcon('fa-treeview fa-fw fa-solid fa-ruler');
         }
 
         return $nodes;
@@ -163,70 +165,70 @@ class ToolsTreeBuilder
         $nodes = [];
 
         if ($this->security->isGranted('read', new AttachmentType())) {
-            $nodes[] = new TreeViewNode(
+            $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.edit.attachment_types'),
                 $this->urlGenerator->generate('attachment_type_new')
-            );
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-file-alt');
         }
         if ($this->security->isGranted('read', new Category())) {
-            $nodes[] = new TreeViewNode(
+            $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.edit.categories'),
                 $this->urlGenerator->generate('category_new')
-            );
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-tags');
         }
         if ($this->security->isGranted('read', new Device())) {
-            $nodes[] = new TreeViewNode(
+            $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.edit.devices'),
                 $this->urlGenerator->generate('device_new')
-            );
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-archive');
         }
         if ($this->security->isGranted('read', new Supplier())) {
-            $nodes[] = new TreeViewNode(
+            $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.edit.suppliers'),
                 $this->urlGenerator->generate('supplier_new')
-            );
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-truck');
         }
         if ($this->security->isGranted('read', new Manufacturer())) {
-            $nodes[] = new TreeViewNode(
+            $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.edit.manufacturer'),
                 $this->urlGenerator->generate('manufacturer_new')
-            );
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-industry');
         }
         if ($this->security->isGranted('read', new Storelocation())) {
-            $nodes[] = new TreeViewNode(
+            $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.edit.storelocation'),
                 $this->urlGenerator->generate('store_location_new')
-            );
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-cube');
         }
         if ($this->security->isGranted('read', new Footprint())) {
-            $nodes[] = new TreeViewNode(
+            $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.edit.footprint'),
                 $this->urlGenerator->generate('footprint_new')
-            );
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-microchip');
         }
         if ($this->security->isGranted('read', new Currency())) {
-            $nodes[] = new TreeViewNode(
+            $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.edit.currency'),
                 $this->urlGenerator->generate('currency_new')
-            );
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-coins');
         }
         if ($this->security->isGranted('read', new MeasurementUnit())) {
-            $nodes[] = new TreeViewNode(
+            $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.edit.measurement_unit'),
                 $this->urlGenerator->generate('measurement_unit_new')
-            );
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-balance-scale');
         }
         if ($this->security->isGranted('read', new LabelProfile())) {
-            $nodes[] = new TreeViewNode(
+            $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.edit.label_profile'),
                 $this->urlGenerator->generate('label_profile_new')
-            );
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-qrcode');
         }
         if ($this->security->isGranted('create', new Part())) {
-            $nodes[] = new TreeViewNode(
+            $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.edit.part'),
                 $this->urlGenerator->generate('part_new')
-            );
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-plus-square');
         }
 
         return $nodes;
@@ -240,23 +242,23 @@ class ToolsTreeBuilder
     protected function getShowNodes(): array
     {
         $show_nodes = [];
-        $show_nodes[] = new TreeViewNode(
+        $show_nodes[] = (new TreeViewNode(
             $this->translator->trans('tree.tools.show.all_parts'),
             $this->urlGenerator->generate('parts_show_all')
-        );
+        ))->setIcon('fa-fw fa-treeview fa-solid fa-globe');
 
         if ($this->security->isGranted('read', new PartAttachment())) {
-            $show_nodes[] = new TreeViewNode(
+            $show_nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.show.all_attachments'),
                 $this->urlGenerator->generate('attachment_list')
-            );
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-paperclip');
         }
 
         if ($this->security->isGranted('@tools.statistics')) {
-            $show_nodes[] = new TreeViewNode(
+            $show_nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.show.statistics'),
                 $this->urlGenerator->generate('statistics_view')
-            );
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-chart-bar');
         }
 
         return $show_nodes;
@@ -270,23 +272,23 @@ class ToolsTreeBuilder
         $nodes = [];
 
         if ($this->security->isGranted('read', new User())) {
-            $nodes[] = new TreeViewNode(
+            $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.system.users'),
                 $this->urlGenerator->generate('user_new')
-            );
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-user');
         }
         if ($this->security->isGranted('read', new Group())) {
-            $nodes[] = new TreeViewNode(
+            $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.system.groups'),
                 $this->urlGenerator->generate('group_new')
-            );
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-users');
         }
 
         if ($this->security->isGranted('@system.show_logs')) {
-            $nodes[] = new TreeViewNode(
+            $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.system.event_log'),
                 $this->urlGenerator->generate('log_view')
-            );
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-binoculars');
         }
 
         return $nodes;
