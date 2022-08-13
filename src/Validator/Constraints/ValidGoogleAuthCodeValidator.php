@@ -44,6 +44,7 @@ namespace App\Validator\Constraints;
 
 use App\Entity\UserSystem\User;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
+use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticatorInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -54,7 +55,7 @@ class ValidGoogleAuthCodeValidator extends ConstraintValidator
 {
     protected $googleAuthenticator;
 
-    public function __construct(GoogleAuthenticator $googleAuthenticator)
+    public function __construct(GoogleAuthenticatorInterface $googleAuthenticator)
     {
         $this->googleAuthenticator = $googleAuthenticator;
     }

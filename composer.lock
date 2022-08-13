@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3599c75572b6f6a85032719ab3f122e4",
+    "content-hash": "5c3b75839d72914eca2152da433507d8",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -4761,74 +4761,6 @@
             "time": "2017-10-23T01:57:42+00:00"
         },
         {
-            "name": "r/u2f-two-factor-bundle",
-            "version": "0.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/darookee/u2f-two-factor-bundle.git",
-                "reference": "36d8b6af1976b6959d32ccc9081c6ae7d842cf09"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/darookee/u2f-two-factor-bundle/zipball/36d8b6af1976b6959d32ccc9081c6ae7d842cf09",
-                "reference": "36d8b6af1976b6959d32ccc9081c6ae7d842cf09",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/collections": "^1.6",
-                "doctrine/common": "*",
-                "ext-json": "*",
-                "php": "^7.1.3",
-                "scheb/two-factor-bundle": "^3.2.0|^4.0.0",
-                "symfony/event-dispatcher-contracts": "^2.0",
-                "symfony/framework-bundle": "^3.4|^4.0|^5.0",
-                "symfony/templating": "^3.4|^4.0|^5.0",
-                "yubico/u2flib-server": "^1.0.0"
-            },
-            "conflict": {
-                "godzillante/u2f-two-factor-bundle": "*",
-                "tubssz/u2f-two-factor-bundle": "*"
-            },
-            "require-dev": {
-                "phpstan/phpstan": "^0.11.6"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "R\\U2FTwoFactorBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nils Uliczka",
-                    "email": "nils.uliczka@darookee.net"
-                },
-                {
-                    "name": "Francesco De Francesco",
-                    "email": "francesco.defrancesco@gmail.com"
-                }
-            ],
-            "description": "Use U2F-Keys as 2FA for Symfony2, using scheb/two-factor-bundle",
-            "homepage": "https://github.com/darookee/u2f-two-factor-bundle",
-            "keywords": [
-                "Authentication",
-                "Symfony2",
-                "fido",
-                "two-factor",
-                "two-step",
-                "yubikey"
-            ],
-            "support": {
-                "issues": "https://github.com/darookee/u2f-two-factor-bundle/issues",
-                "source": "https://github.com/darookee/u2f-two-factor-bundle/tree/master"
-            },
-            "time": "2020-05-19T07:35:18+00:00"
-        },
-        {
             "name": "s9e/regexp-builder",
             "version": "1.4.6",
             "source": {
@@ -5042,52 +4974,27 @@
             "time": "2021-12-11T13:40:54+00:00"
         },
         {
-            "name": "scheb/two-factor-bundle",
-            "version": "v4.18.4",
+            "name": "scheb/2fa-backup-code",
+            "version": "v5.13.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/scheb/two-factor-bundle.git",
-                "reference": "78f5832d59ec49491ef27edc0fa03a3110139f5c"
+                "url": "https://github.com/scheb/2fa-backup-code.git",
+                "reference": "5584eb7a2c3deb80635c7173ad77858e51129c35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scheb/two-factor-bundle/zipball/78f5832d59ec49491ef27edc0fa03a3110139f5c",
-                "reference": "78f5832d59ec49491ef27edc0fa03a3110139f5c",
+                "url": "https://api.github.com/repos/scheb/2fa-backup-code/zipball/5584eb7a2c3deb80635c7173ad77858e51129c35",
+                "reference": "5584eb7a2c3deb80635c7173ad77858e51129c35",
                 "shasum": ""
             },
             "require": {
-                "lcobucci/jwt": "^3.2",
-                "paragonie/constant_time_encoding": "^2.2",
-                "php": ">=7.1.3",
-                "spomky-labs/otphp": "^9.1|^10.0",
-                "symfony/config": "^3.4|^4.0|^5.0",
-                "symfony/dependency-injection": "^3.4|^4.0|^5.0",
-                "symfony/event-dispatcher": "^3.4|^4.0|^5.0",
-                "symfony/framework-bundle": "^3.4|^4.0|^5.0",
-                "symfony/http-foundation": "^3.4|^4.0|^5.0",
-                "symfony/http-kernel": "^3.4|^4.0|^5.0",
-                "symfony/property-access": "^3.4|^4.0|^5.0",
-                "symfony/security-bundle": "^3.4|^4.0|^5.0",
-                "symfony/twig-bundle": "^3.4|^4.0|^5.0"
+                "scheb/2fa-bundle": "self.version"
             },
-            "require-dev": {
-                "doctrine/persistence": "^1.3|^2.0",
-                "escapestudios/symfony2-coding-standard": "^3.9",
-                "phpunit/phpunit": "^7.0|^8.0|^9.0",
-                "squizlabs/php_codesniffer": "^3.5",
-                "swiftmailer/swiftmailer": "^6.0",
-                "symfony/polyfill-php80": "^1.15",
-                "symfony/yaml": "^3.4|^4.0|^5.0",
-                "vimeo/psalm": "^3.11"
-            },
-            "type": "symfony-bundle",
+            "type": "library",
             "autoload": {
                 "psr-4": {
                     "Scheb\\TwoFactorBundle\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -5099,8 +5006,77 @@
                     "email": "me@christianscheb.de"
                 }
             ],
-            "description": "Provides two-factor authentication for Symfony applications",
-            "homepage": "https://github.com/scheb/two-factor-bundle",
+            "description": "Extends scheb/2fa-bundle with backup codes support",
+            "homepage": "https://github.com/scheb/2fa",
+            "keywords": [
+                "2fa",
+                "Authentication",
+                "backup-codes",
+                "symfony",
+                "two-factor",
+                "two-step"
+            ],
+            "support": {
+                "source": "https://github.com/scheb/2fa-backup-code/tree/v5.13.2"
+            },
+            "time": "2022-01-03T10:21:24+00:00"
+        },
+        {
+            "name": "scheb/2fa-bundle",
+            "version": "v5.13.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/scheb/2fa-bundle.git",
+                "reference": "dc575cc7bc94fa3a52b547698086f2ef015d2e81"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/scheb/2fa-bundle/zipball/dc575cc7bc94fa3a52b547698086f2ef015d2e81",
+                "reference": "dc575cc7bc94fa3a52b547698086f2ef015d2e81",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.2.5",
+                "symfony/config": "^4.4|^5.0",
+                "symfony/dependency-injection": "^4.4|^5.0",
+                "symfony/event-dispatcher": "^4.4|^5.0",
+                "symfony/framework-bundle": "^4.4|^5.0",
+                "symfony/http-foundation": "^4.4|^5.0",
+                "symfony/http-kernel": "^4.4|^5.0",
+                "symfony/property-access": "^4.4|^5.0",
+                "symfony/security-bundle": "^4.4.1|^5.0",
+                "symfony/twig-bundle": "^4.4|^5.0"
+            },
+            "conflict": {
+                "scheb/two-factor-bundle": "*"
+            },
+            "suggest": {
+                "scheb/2fa-backup-code": "Emergency codes when you have no access to other methods",
+                "scheb/2fa-email": "Send codes by email",
+                "scheb/2fa-google-authenticator": "Google Authenticator support",
+                "scheb/2fa-qr-code": "Generate QR codes for Google Authenticator / TOTP",
+                "scheb/2fa-totp": "Temporary one-time password (TOTP) support (Google Authenticator compatible)",
+                "scheb/2fa-trusted-device": "Trusted devices support"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Scheb\\TwoFactorBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Scheb",
+                    "email": "me@christianscheb.de"
+                }
+            ],
+            "description": "A generic interface to implement two-factor authentication in Symfony applications",
+            "homepage": "https://github.com/scheb/2fa",
             "keywords": [
                 "2fa",
                 "Authentication",
@@ -5109,11 +5085,108 @@
                 "two-step"
             ],
             "support": {
-                "issues": "https://github.com/scheb/two-factor-bundle/issues",
-                "source": "https://github.com/scheb/two-factor-bundle/tree/v4.18.4"
+                "source": "https://github.com/scheb/2fa-bundle/tree/v5.13.2"
             },
-            "abandoned": "scheb/2fa-bundle",
-            "time": "2020-10-30T19:24:18+00:00"
+            "time": "2022-04-16T10:18:34+00:00"
+        },
+        {
+            "name": "scheb/2fa-google-authenticator",
+            "version": "v5.13.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/scheb/2fa-google-authenticator.git",
+                "reference": "9477bfc47b5927fb165022dd75700aefdd45a8cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/scheb/2fa-google-authenticator/zipball/9477bfc47b5927fb165022dd75700aefdd45a8cc",
+                "reference": "9477bfc47b5927fb165022dd75700aefdd45a8cc",
+                "shasum": ""
+            },
+            "require": {
+                "paragonie/constant_time_encoding": "^2.2",
+                "scheb/2fa-bundle": "self.version",
+                "spomky-labs/otphp": "^9.1|^10.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Scheb\\TwoFactorBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Scheb",
+                    "email": "me@christianscheb.de"
+                }
+            ],
+            "description": "Extends scheb/2fa-bundle with two-factor authentication using Google Authenticator",
+            "homepage": "https://github.com/scheb/2fa",
+            "keywords": [
+                "2fa",
+                "Authentication",
+                "google-authenticator",
+                "symfony",
+                "two-factor",
+                "two-step"
+            ],
+            "support": {
+                "source": "https://github.com/scheb/2fa-google-authenticator/tree/v5.13.2"
+            },
+            "time": "2022-01-03T10:21:24+00:00"
+        },
+        {
+            "name": "scheb/2fa-trusted-device",
+            "version": "v5.13.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/scheb/2fa-trusted-device.git",
+                "reference": "acf5a1526eb2111fb7a82b9b52eb34b1ddfdc526"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/scheb/2fa-trusted-device/zipball/acf5a1526eb2111fb7a82b9b52eb34b1ddfdc526",
+                "reference": "acf5a1526eb2111fb7a82b9b52eb34b1ddfdc526",
+                "shasum": ""
+            },
+            "require": {
+                "lcobucci/jwt": "^3.4|^4.0",
+                "scheb/2fa-bundle": "self.version"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Scheb\\TwoFactorBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Scheb",
+                    "email": "me@christianscheb.de"
+                }
+            ],
+            "description": "Extends scheb/2fa-bundle with trusted devices support",
+            "homepage": "https://github.com/scheb/2fa",
+            "keywords": [
+                "2fa",
+                "Authentication",
+                "symfony",
+                "trusted-device",
+                "two-factor",
+                "two-step"
+            ],
+            "support": {
+                "source": "https://github.com/scheb/2fa-trusted-device/tree/v5.13.2"
+            },
+            "time": "2022-01-03T10:21:24+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -9883,74 +9956,6 @@
             "time": "2022-07-24T16:15:25+00:00"
         },
         {
-            "name": "symfony/templating",
-            "version": "v5.4.11",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/templating.git",
-                "reference": "3933eaad08c7f83672c53f635d7c3988252a658a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/templating/zipball/3933eaad08c7f83672c53f635d7c3988252a658a",
-                "reference": "3933eaad08c7f83672c53f635d7c3988252a658a",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2.5",
-                "symfony/polyfill-ctype": "~1.8"
-            },
-            "require-dev": {
-                "psr/log": "^1|^2|^3"
-            },
-            "suggest": {
-                "psr/log-implementation": "For using debug logging in loaders"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Templating\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Provides all the tools needed to build any kind of template system",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/templating/tree/v5.4.11"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2022-06-27T16:58:25+00:00"
-        },
-        {
             "name": "symfony/translation",
             "version": "v5.4.11",
             "source": {
@@ -11931,48 +11936,6 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
-        },
-        {
-            "name": "yubico/u2flib-server",
-            "version": "1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Yubico/php-u2flib-server.git",
-                "reference": "55d813acf68212ad2cadecde07551600d6971939"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Yubico/php-u2flib-server/zipball/55d813acf68212ad2cadecde07551600d6971939",
-                "reference": "55d813acf68212ad2cadecde07551600d6971939",
-                "shasum": ""
-            },
-            "require": {
-                "ext-openssl": "*",
-                "paragonie/random_compat": ">= 1",
-                "php": ">=5.6"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~5.7",
-                "vimeo/psalm": "^0|^1|^2"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "description": "Library for U2F implementation",
-            "homepage": "https://developers.yubico.com/php-u2flib-server",
-            "support": {
-                "issues": "https://github.com/Yubico/php-u2flib-server/issues",
-                "source": "https://github.com/Yubico/php-u2flib-server/tree/1.0.2"
-            },
-            "abandoned": true,
-            "time": "2018-09-07T08:16:44+00:00"
         }
     ],
     "packages-dev": [
@@ -14270,16 +14233,16 @@
         },
         {
             "name": "symplify/easy-coding-standard",
-            "version": "11.1.2",
+            "version": "11.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/easy-coding-standard.git",
-                "reference": "4c01fcf17b7f60cff21ab91d62a729aa9737f726"
+                "reference": "d70ff73140ef96b1faa04c93fc57b2b1e9d6d8bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/easy-coding-standard/zipball/4c01fcf17b7f60cff21ab91d62a729aa9737f726",
-                "reference": "4c01fcf17b7f60cff21ab91d62a729aa9737f726",
+                "url": "https://api.github.com/repos/symplify/easy-coding-standard/zipball/d70ff73140ef96b1faa04c93fc57b2b1e9d6d8bd",
+                "reference": "d70ff73140ef96b1faa04c93fc57b2b1e9d6d8bd",
                 "shasum": ""
             },
             "require": {
@@ -14309,7 +14272,7 @@
             ],
             "description": "Prefixed scoped version of ECS package",
             "support": {
-                "source": "https://github.com/symplify/easy-coding-standard/tree/11.1.2"
+                "source": "https://github.com/symplify/easy-coding-standard/tree/11.1.4"
             },
             "funding": [
                 {
@@ -14321,7 +14284,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-08-09T10:12:07+00:00"
+            "time": "2022-08-13T19:37:11+00:00"
         },
         {
             "name": "vimeo/psalm",

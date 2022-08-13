@@ -1,0 +1,19 @@
+# See the configuration reference at https://symfony.com/bundles/SchebTwoFactorBundle/5.x/configuration.html
+scheb_two_factor:
+
+    google:
+        enabled: true
+        template: security/2fa_form.html.twig
+
+    backup_codes:
+        enabled: true
+
+    trusted_device:
+        enabled: true
+
+    security_tokens:
+        - Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken
+        # If you're using guard-based authentication, you have to use this one:
+        # - Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken
+        # If you're using authenticator-based security (introduced in Symfony 5.1), you have to use this one:
+        # - Symfony\Component\Security\Http\Authenticator\Token\PostAuthenticationToken
