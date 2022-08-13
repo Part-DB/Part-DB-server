@@ -65,8 +65,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use function in_array;
-//use R\U2FTwoFactorBundle\Model\U2F\TwoFactorInterface as U2FTwoFactorInterface;
-//use R\U2FTwoFactorBundle\Model\U2F\TwoFactorKeyInterface;
+use R\U2FTwoFactorBundle\Model\U2F\TwoFactorInterface as U2FTwoFactorInterface;
+use R\U2FTwoFactorBundle\Model\U2F\TwoFactorKeyInterface;
 use Scheb\TwoFactorBundle\Model\BackupCodeInterface;
 use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
 use Scheb\TwoFactorBundle\Model\PreferredProviderInterface;
@@ -84,7 +84,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\EntityListeners({"App\EntityListeners\TreeCacheInvalidationListener"})
  * @UniqueEntity("name", message="validator.user.username_already_used")
  */
-class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface, BackupCodeInterface, TrustedDeviceInterface, /*U2FTwoFactorInterface,*/ PreferredProviderInterface, PasswordAuthenticatedUserInterface
+class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface, BackupCodeInterface, TrustedDeviceInterface, U2FTwoFactorInterface, PreferredProviderInterface, PasswordAuthenticatedUserInterface
 {
     //use MasterAttachmentTrait;
 

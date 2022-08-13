@@ -56,7 +56,7 @@ use u2flib_server\Registration;
  * })
  * @ORM\HasLifecycleCallbacks()
  */
-class U2FKey /*implements TwoFactorKeyInterface*/
+class U2FKey implements TwoFactorKeyInterface
 {
     use TimestampTrait;
 
@@ -112,13 +112,13 @@ class U2FKey /*implements TwoFactorKeyInterface*/
      **/
     protected $user;
 
-    /*public function fromRegistrationData(Registration $data): void
+    public function fromRegistrationData(Registration $data): void
     {
         $this->keyHandle = $data->keyHandle;
         $this->publicKey = $data->publicKey;
         $this->certificate = $data->certificate;
         $this->counter = $data->counter;
-    }*/
+    }
 
     public function getKeyHandle()
     {

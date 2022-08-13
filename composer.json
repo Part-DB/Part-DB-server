@@ -69,7 +69,8 @@
         "twig/inky-extra": "^3.0",
         "twig/intl-extra": "^3.0",
         "twig/markdown-extra": "^3.0",
-        "webmozart/assert": "^1.4"
+        "webmozart/assert": "^1.4",
+        "r/u2f-two-factor-bundle": "dev-scheb/2fa-support"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^7.0",
@@ -141,5 +142,11 @@
             "allow-contrib": false,
             "require": "5.4.*"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/jbtronics/u2f-two-factor-bundle.git"
+        }
+    ]
 }

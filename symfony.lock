@@ -354,6 +354,9 @@
     "psr/simple-cache": {
         "version": "1.0.1"
     },
+    "r/u2f-two-factor-bundle": {
+        "version": "dev-scheb/2fa-support"
+    },
     "roave/security-advisories": {
         "version": "dev-master"
     },

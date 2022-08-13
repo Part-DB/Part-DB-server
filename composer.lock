@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5c3b75839d72914eca2152da433507d8",
+    "content-hash": "186080614c26d1b307fd99823f281e22",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -4759,6 +4759,72 @@
                 "source": "https://github.com/php-fig/simple-cache/tree/master"
             },
             "time": "2017-10-23T01:57:42+00:00"
+        },
+        {
+            "name": "r/u2f-two-factor-bundle",
+            "version": "dev-scheb/2fa-support",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jbtronics/u2f-two-factor-bundle.git",
+                "reference": "3ba2d95de56a8ded97c841bbfac159f4350dbfdf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jbtronics/u2f-two-factor-bundle/zipball/3ba2d95de56a8ded97c841bbfac159f4350dbfdf",
+                "reference": "3ba2d95de56a8ded97c841bbfac159f4350dbfdf",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/collections": "^1.6",
+                "doctrine/common": "*",
+                "ext-json": "*",
+                "php": "^7.1.3|^8.0",
+                "scheb/2fa-bundle": "^5.0.0|^6.0.0",
+                "symfony/event-dispatcher-contracts": "^2.0",
+                "symfony/framework-bundle": "^5.0|^6.0",
+                "symfony/templating": "^5.0|^6.0",
+                "yubico/u2flib-server": "^1.0.0"
+            },
+            "conflict": {
+                "godzillante/u2f-two-factor-bundle": "*",
+                "tubssz/u2f-two-factor-bundle": "*"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.8.2"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "R\\U2FTwoFactorBundle\\": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nils Uliczka",
+                    "email": "nils.uliczka@darookee.net"
+                },
+                {
+                    "name": "Francesco De Francesco",
+                    "email": "francesco.defrancesco@gmail.com"
+                }
+            ],
+            "description": "Use U2F-Keys as 2FA for Symfony2, using scheb/two-factor-bundle",
+            "homepage": "https://github.com/darookee/u2f-two-factor-bundle",
+            "keywords": [
+                "authentication",
+                "fido",
+                "symfony2",
+                "two-factor",
+                "two-step",
+                "yubikey"
+            ],
+            "support": {
+                "source": "https://github.com/jbtronics/u2f-two-factor-bundle/tree/scheb/2fa-support"
+            },
+            "time": "2022-08-13T22:31:11+00:00"
         },
         {
             "name": "s9e/regexp-builder",
@@ -9956,6 +10022,74 @@
             "time": "2022-07-24T16:15:25+00:00"
         },
         {
+            "name": "symfony/templating",
+            "version": "v5.4.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/templating.git",
+                "reference": "3933eaad08c7f83672c53f635d7c3988252a658a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/templating/zipball/3933eaad08c7f83672c53f635d7c3988252a658a",
+                "reference": "3933eaad08c7f83672c53f635d7c3988252a658a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/polyfill-ctype": "~1.8"
+            },
+            "require-dev": {
+                "psr/log": "^1|^2|^3"
+            },
+            "suggest": {
+                "psr/log-implementation": "For using debug logging in loaders"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Templating\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides all the tools needed to build any kind of template system",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/templating/tree/v5.4.11"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-06-27T16:58:25+00:00"
+        },
+        {
             "name": "symfony/translation",
             "version": "v5.4.11",
             "source": {
@@ -11936,6 +12070,48 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "yubico/u2flib-server",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Yubico/php-u2flib-server.git",
+                "reference": "55d813acf68212ad2cadecde07551600d6971939"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Yubico/php-u2flib-server/zipball/55d813acf68212ad2cadecde07551600d6971939",
+                "reference": "55d813acf68212ad2cadecde07551600d6971939",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "paragonie/random_compat": ">= 1",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~5.7",
+                "vimeo/psalm": "^0|^1|^2"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "description": "Library for U2F implementation",
+            "homepage": "https://developers.yubico.com/php-u2flib-server",
+            "support": {
+                "issues": "https://github.com/Yubico/php-u2flib-server/issues",
+                "source": "https://github.com/Yubico/php-u2flib-server/tree/1.0.2"
+            },
+            "abandoned": true,
+            "time": "2018-09-07T08:16:44+00:00"
         }
     ],
     "packages-dev": [
@@ -14449,6 +14625,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "florianv/swap-bundle": 20,
+        "r/u2f-two-factor-bundle": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
