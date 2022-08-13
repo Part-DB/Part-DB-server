@@ -14,6 +14,8 @@ export default class extends Controller {
             create: true,
             maxItems: 1,
             createOnBlur: true,
+            //This a an ugly solution to disable the delimiter parsing of the TomSelect plugin
+            delimiter: 'VERY_L0NG_D€LIMITER_WHICH_WILL_NEVER_BE_ENCOUNTERED_IN_A_STRING',
             render: {
                 item: (data, escape) => {
                     return '<span>' + escape(data.label) + '</span>';
