@@ -377,7 +377,7 @@ btn-xs
     margin-right: auto;
 }
 
-.darkmode--activated .hoverpic:hover {
+.darkmode--activated .hoverpic:hover, {
     background: black;
 }
 
@@ -804,7 +804,9 @@ div.dataTables_wrapper div.dataTables_info {
     z-index: 2020;
 }
 
-.darkmode--activated img {
+/** If darkmode is enabled revert the blening for images and videos, as these should be shown not inverted */
+.darkmode--activated img,
+.darkmode--activated video {
     mix-blend-mode: difference;
 }
 
