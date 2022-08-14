@@ -119,7 +119,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
     }
 
     /**
-     * @param string $unit
+     * @param  string|null  $unit
      *
      * @return MeasurementUnit
      */

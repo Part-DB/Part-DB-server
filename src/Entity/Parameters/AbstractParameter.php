@@ -302,7 +302,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
     /**
      * Sets the typical value of this property.
      *
-     * @param float $value_typical
+     * @param  float|null  $value_typical
      *
      * @return $this
      */

@@ -342,7 +342,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     /**
      * Sets the target element associated with this element.
      *
-     * @param AbstractDBElement $element the element that should be associated with this element
+     * @param  AbstractDBElement|null  $element  the element that should be associated with this element
      *
      * @return $this
      */

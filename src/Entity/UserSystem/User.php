@@ -537,7 +537,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Change the first name of the user.
      *
-     * @param string $first_name The new first name
+     * @param  string|null  $first_name  The new first name
      *
      * @return $this
      */
@@ -559,7 +559,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Change the last name of the user.
      *
-     * @param string $last_name The new last name
+     * @param  string|null  $last_name  The new last name
      *
      * @return $this
      */
@@ -583,7 +583,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Change the department of the user.
      *
-     * @param string $department The new department
+     * @param  string|null  $department  The new department
      *
      * @return User
      */
@@ -607,7 +607,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * Change the email of the user.
      *
-     * @param string $email The new email adress
+     * @param  string|null  $email  The new email adress
      *
      * @return $this
      */

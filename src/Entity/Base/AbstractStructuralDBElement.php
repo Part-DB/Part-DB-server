@@ -297,7 +297,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     /**
      * Sets the new parent object.
      *
-     * @param self $new_parent The new parent object
+     * @param  AbstractStructuralDBElement|null  $new_parent  The new parent object
      *
      * @return AbstractStructuralDBElement
      */
@@ -316,7 +316,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     /**
      *  Set the comment.
      *
-     * @param string $new_comment the new comment
+     * @param  string|null  $new_comment  the new comment
      *
      * @return AbstractStructuralDBElement
      */

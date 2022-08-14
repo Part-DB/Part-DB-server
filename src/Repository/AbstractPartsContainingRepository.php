@@ -30,17 +30,18 @@ abstract class AbstractPartsContainingRepository extends StructuralDBElementRepo
     /**
      * Returns all parts associated with this element.
      *
-     * @param AbstractPartsContainingDBElement $element  the element for which the parts should be determined
-     * @param array                            $order_by The order of the parts. Format ['name' => 'ASC']
+     * @param  object  $element  the element for which the parts should be determined
+     * @param  array  $order_by  The order of the parts. Format ['name' => 'ASC']
      *
-     * @return Part[]
+     * @return Part
      */
     abstract public function getParts(object $element, array $order_by = ['name' => 'ASC']): array;
 
     /**
      * Gets the count of the parts associated with this element.
      *
-     * @param AbstractPartsContainingDBElement $element the element for which the parts should be determined
+     * @param  object  $element  the element for which the parts should be determined
+     * @return int
      */
     abstract public function getPartsCount(object $element): int;
 

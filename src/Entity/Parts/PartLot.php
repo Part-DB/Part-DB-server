@@ -197,7 +197,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
     /**
      * Sets the expiration date for the part lot. Set to null, if the part lot does not expires.
      *
-     * @param DateTime $expiration_date
+     * @param  DateTime|null  $expiration_date
      *
      * @return PartLot
      */

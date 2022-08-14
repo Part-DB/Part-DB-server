@@ -29,7 +29,9 @@ use InvalidArgumentException;
 class StorelocationRepository extends AbstractPartsContainingRepository
 {
     /**
-     * @param Storelocation $element
+     * @param  object  $element
+     * @param  array  $order_by
+     * @return array
      */
     public function getParts(object $element, array $order_by = ['name' => 'ASC']): array
     {

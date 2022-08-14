@@ -195,9 +195,6 @@ class LogEntryRepository extends DBElementRepository
      * @return AbstractDBElement|null returns the associated DBElement or null if the log either has no target or the element
      *                                was deleted from DB
      *
-     * @throws ORMException
-     * @throws OptimisticLockException
-     * @throws TransactionRequiredException
      */
     public function getTargetElement(AbstractLogEntry $logEntry): ?AbstractDBElement
     {

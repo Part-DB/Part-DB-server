@@ -132,7 +132,7 @@ class AppExtension extends AbstractExtension
     {
         $tree = $this->treeBuilder->getTreeView(get_class($element), null, $type, $element);
 
-        return json_encode($tree);
+        return json_encode($tree, JSON_THROW_ON_ERROR);
     }
 
     /**

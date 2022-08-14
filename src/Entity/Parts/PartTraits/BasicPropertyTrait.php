@@ -166,7 +166,7 @@ trait BasicPropertyTrait
     /**
      * Sets the description of this part.
      *
-     * @param string $new_description the new description
+     * @param  string|null  $new_description  the new description
      *
      * @return $this
      */
@@ -195,7 +195,7 @@ trait BasicPropertyTrait
      * Set the category of this Part.
      * The category property is required for every part, so you can not pass null like the other properties (footprints).
      *
-     * @param Category $category The new category of this part
+     * @param  Category|null  $category  The new category of this part
      *
      * @return $this
      */

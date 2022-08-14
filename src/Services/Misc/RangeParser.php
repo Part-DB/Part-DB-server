@@ -81,10 +81,10 @@ class RangeParser
         }
     }
 
-    protected function generateMinMaxRange(string $min, string $max): array
+    protected function generateMinMaxRange(string $min_, string $max_): array
     {
-        $min = (int) $min;
-        $max = (int) $max;
+        $min = (int) $min_;
+        $max = (int) $max_;
 
         //Ensure that $max > $min
         if ($min > $max) {

@@ -276,11 +276,11 @@ final class TreeViewNode implements JsonSerializable
             $ret['state'] = $this->state;
         }
 
-        if ($this->href == null) {
+        if ($this->href === null) {
             $ret['selectable'] = false;
         }
 
-        if ($this->icon != null) {
+        if ($this->icon !== null) {
             $ret['icon'] = $this->icon;
         }
 

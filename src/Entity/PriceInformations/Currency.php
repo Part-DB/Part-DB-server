@@ -134,7 +134,7 @@ class Currency extends AbstractStructuralDBElement
     }
 
     /**
-     * @param string $iso_code
+     * @param  string|null  $iso_code
      *
      * @return Currency
      */

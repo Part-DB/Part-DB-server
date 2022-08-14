@@ -81,7 +81,7 @@
         "phpstan/phpstan-doctrine": "^1.2.11",
         "phpstan/phpstan-symfony": "^1.1.7",
         "psalm/plugin-symfony": "^3.0.3",
-        "roave/security-advisories": "dev-master",
+        "roave/security-advisories": "dev-latest",
         "symfony/browser-kit": "^5.2",
         "symfony/css-selector": "^5.2",
         "symfony/debug-bundle": "^5.2",

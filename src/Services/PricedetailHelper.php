@@ -146,10 +146,10 @@ class PricedetailHelper
     /**
      * Calculates the average price of a part, when ordering the amount $amount.
      *
-     * @param Part          $part     the part for which the average price should be calculated
-     * @param float         $amount   The order amount for which the average price should be calculated.
+     * @param  Part  $part  the part for which the average price should be calculated
+     * @param  float|null  $amount  The order amount for which the average price should be calculated.
      *                                If set to null, the mininmum order amount for the part is used.
-     * @param Currency|null $currency The currency in which the average price should be calculated
+     * @param  Currency|null  $currency  The currency in which the average price should be calculated
      *
      * @return BigDecimal|null The Average price as bcmath string. Returns null, if it was not possible to calculate the
      *                         price for the given
