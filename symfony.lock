@@ -185,9 +185,6 @@
     "laminas/laminas-zendframework-bridge": {
         "version": "1.1.1"
     },
-    "lcobucci/jwt": {
-        "version": "3.3.1"
-    },
     "league/html-to-markdown": {
         "version": "4.8.2"
     },
@@ -260,9 +257,6 @@
     },
     "openlss/lib-array2xml": {
         "version": "1.0.0"
-    },
-    "paragonie/constant_time_encoding": {
-        "version": "v2.3.0"
     },
     "paragonie/random_compat": {
         "version": "v9.99.99"
@@ -361,7 +355,7 @@
         "version": "1.0.1"
     },
     "r/u2f-two-factor-bundle": {
-        "version": "0.7.0"
+        "version": "dev-scheb/2fa-support"
     },
     "roave/security-advisories": {
         "version": "dev-master"
@@ -378,17 +372,17 @@
     "sabberworm/php-css-parser": {
         "version": "8.3.0"
     },
-    "scheb/two-factor-bundle": {
-        "version": "3.16",
+    "scheb/2fa-bundle": {
+        "version": "5.13",
         "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "3.16",
-            "ref": "b5789cd9710e2ee555bf361079b991068a0f640b"
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.0",
+            "ref": "0a83961ef50ff91812b229a6f0caf28431d94aec"
         },
         "files": [
-            "./config/packages/scheb_two_factor.yaml",
-            "./config/routes/scheb_two_factor.yaml"
+            "./config/packages/scheb_2fa.yaml",
+            "./config/routes/scheb_2fa.yaml"
         ]
     },
     "sebastian/diff": {
@@ -408,9 +402,6 @@
     },
     "shivas/versioning-bundle": {
         "version": "3.1.3"
-    },
-    "spomky-labs/otphp": {
-        "version": "v9.1.4"
     },
     "symfony/apache-pack": {
         "version": "1.0",
@@ -702,9 +693,6 @@
     "symfony/string": {
         "version": "v5.1.0"
     },
-    "symfony/templating": {
-        "version": "v4.3.4"
-    },
     "symfony/translation": {
         "version": "5.3",
         "recipe": {
@@ -805,9 +793,6 @@
     "tecnickcom/tc-lib-color": {
         "version": "1.12.15"
     },
-    "thecodingmachine/safe": {
-        "version": "v0.1.16"
-    },
     "tijsverkoyen/css-to-inline-styles": {
         "version": "2.2.2"
     },
@@ -843,8 +828,5 @@
     },
     "webmozart/path-util": {
         "version": "2.3.0"
-    },
-    "yubico/u2flib-server": {
-        "version": "1.0.2"
     }
 }

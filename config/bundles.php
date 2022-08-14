@@ -19,10 +19,10 @@ return [
     DAMA\DoctrineTestBundle\DAMADoctrineTestBundle::class => ['test' => true],
     Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
     Gregwar\CaptchaBundle\GregwarCaptchaBundle::class => ['all' => true],
-    Scheb\TwoFactorBundle\SchebTwoFactorBundle::class => ['all' => true],
-    R\U2FTwoFactorBundle\RU2FTwoFactorBundle::class => ['all' => true],
     Translation\Bundle\TranslationBundle::class => ['all' => true],
     Florianv\SwapBundle\FlorianvSwapBundle::class => ['all' => true],
     Nelmio\SecurityBundle\NelmioSecurityBundle::class => ['all' => true],
     Symfony\UX\Turbo\TurboBundle::class => ['all' => true],
+    Scheb\TwoFactorBundle\SchebTwoFactorBundle::class => ['all' => true],
+    R\U2FTwoFactorBundle\RU2FTwoFactorBundle::class => ['all' => true],
 ];
