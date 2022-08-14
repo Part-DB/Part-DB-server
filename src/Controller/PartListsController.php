@@ -42,12 +42,14 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\DataTables\Filters\PartFilter;
 use App\DataTables\PartsDataTable;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
+use App\Form\Filters\PartFilterType;
 use App\Services\Parts\PartsTableActionHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
@@ -245,11 +247,11 @@ class PartListsController extends AbstractController
             'regex' => $request->query->getBoolean('regex'),
         ];
 
+
         $table = $dataTable->createFromType(PartsDataTable::class, [
             'search' => $search,
             'search_options' => $search_options,
-        ])
-            ->handleRequest($request);
+        ])->handleRequest($request);
 
         if ($table->isCallback()) {
             return $table->getResponse();
@@ -258,6 +260,7 @@ class PartListsController extends AbstractController
         return $this->render('Parts/lists/search_list.html.twig', [
             'datatable' => $table,
             'keyword' => $search,
+            'filterForm' => $filterForm->createView()
         ]);
     }
 
@@ -268,13 +271,22 @@ class PartListsController extends AbstractController
      */
     public function showAll(Request $request, DataTableFactory $dataTable)
     {
-        $table = $dataTable->createFromType(PartsDataTable::class)
+
+        $formRequest = clone $request;
+        $formRequest->setMethod('GET');
+        $filter = new PartFilter();
+        $filterForm = $this->createForm(PartFilterType::class, $filter, ['method' => 'GET']);
+        $filterForm->handleRequest($formRequest);
+
+        $table = $dataTable->createFromType(PartsDataTable::class, [
+            'filter' => $filter,
+        ])
             ->handleRequest($request);
 
         if ($table->isCallback()) {
             return $table->getResponse();
         }
 
-        return $this->render('Parts/lists/all_list.html.twig', ['datatable' => $table]);
+        return $this->render('Parts/lists/all_list.html.twig', ['datatable' => $table, 'filterForm' => $filterForm->createView()]);
     }
 }

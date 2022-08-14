@@ -6,6 +6,8 @@
 
 {% block content %}
 
+    {% include "Parts/lists/_filter.html.twig" %}
+
     {% include "Parts/lists/_action_bar.html.twig" with {'url_options': {}} %}
     {% include "Parts/lists/_parts_list.html.twig" %}
 

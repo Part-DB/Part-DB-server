@@ -48,6 +48,7 @@ use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
 use App\DataTables\Column\PartAttachmentsColumn;
 use App\DataTables\Column\TagsColumn;
+use App\DataTables\Filters\PartFilter;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -108,6 +109,7 @@ final class PartsDataTable implements DataTableTypeInterface
             'supplier' => null,
             'tag' => null,
             'search' => null,
+            'filter' => null
         ]);
 
         $optionsResolver->setAllowedTypes('category', ['null', Category::class]);
@@ -351,6 +353,13 @@ final class PartsDataTable implements DataTableTypeInterface
 
     private function buildCriteria(QueryBuilder $builder, array $options): void
     {
+
+        if (isset($options['filter']) && $options['filter'] instanceof PartFilter) {
+            $filter = $options['filter'];
+
+            $filter->apply($builder);
+        }
+
         if (isset($options['category'])) {
             $category = $options['category'];
             $list = $this->treeBuilder->typeToNodesList(Category::class, $category);
