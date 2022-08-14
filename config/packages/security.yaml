@@ -48,9 +48,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # This makes the logout route available during two-factor authentication, allows the user to cancel
-        - { path: ^/logout, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/logout, role: PUBLIC_ACCESS }
         # This ensures that the form can only be accessed when two-factor authentication is in progress
         - { path: "^/\\w{2}/2fa", role: IS_AUTHENTICATED_2FA_IN_PROGRESS }
         # We get into trouble with the U2F authentication, if the calls to the trees trigger an 2FA login
         # This settings should not do much harm, because a read only access to show available data structures is not really critical
-        - { path: "^/\\w{2}/tree", role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "^/\\w{2}/tree", role: PUBLIC_ACCESS }
