@@ -29,11 +29,13 @@ class PartFilterType extends AbstractType
         ]);
 
         $builder->add('needsReview', BooleanConstraintType::class, [
-           'label' => 'part.edit.needs_review'
+            'label' => 'part.edit.needs_review'
         ]);
 
         $builder->add('mass', NumberConstraintType::class, [
-            'label' => 'part.edit.mass'
+            'label' => 'part.edit.mass',
+            'text_suffix' => 'g',
+            'min' => 0,
         ]);
 
         $builder->add('submit', SubmitType::class, [

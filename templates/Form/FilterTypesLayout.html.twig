@@ -1,7 +1,11 @@
 {% block number_constraint_widget %}
     <div class="input-group">
-        {{ form_widget(form.operator) }}
+        {{ form_widget(form.operator, {"attr": {"class": "form-select"}}) }}
         {{ form_widget(form.value1) }}
+        <span class="input-group-text">AND</span>
         {{ form_widget(form.value2) }}
+        {% if form.vars["text_suffix"] %}
+            <span class="input-group-text">{{ form.vars["text_suffix"] }}</span>
+        {% endif %}
     </div>
 {% endblock %}
