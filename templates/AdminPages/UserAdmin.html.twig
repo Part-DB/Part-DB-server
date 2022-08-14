@@ -68,8 +68,8 @@
                 {% endif %}
 
                 <input type="hidden" name="_token" value="{{ csrf_token('reset_2fa' ~ entity.id) }}">
-                <button class="btn btn-warning" {% if tfa_disable_disabled %}disabled="disabled"{% endif %}
-                        data-delete-btn data-title="{% trans %}user.edit.tfa.disable_tfa_title{% endtrans %}" data-message="{% trans %}user.edit.tfa.disable_tfa_message{% endtrans %}"
+                <button class="btn btn-warning" {% if tfa_disable_disabled %}disabled="disabled"{% endif %} {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', 'click') }}
+                        data-delete-btn data-delete-title="{% trans %}user.edit.tfa.disable_tfa_title{% endtrans %}" data-delete-message="{% trans %}user.edit.tfa.disable_tfa_message{% endtrans %}"
                         type="submit" name="reset_2fa" value="reset_2fa">{% trans %}user.edit.tfa.disable_tfa.btn{% endtrans %}</button>
             </div>
         {% endif %}

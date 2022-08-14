@@ -30,7 +30,7 @@
                 {% set google_form_attr = {}  %}
                 {% if tfa_google.enabled %}
                     {% set google_form_attr = { 'data-delete-form': true, 'data-controller': 'elements--delete-btn', 'data-action': 'submit->elements--delete-btn#submit',
-                        'data-title': 'tfa_google.disable.confirm_title' | trans, 'data-message': 'tfa_google.disable.confirm_message'|trans} %}
+                        'data-delete-title': 'tfa_google.disable.confirm_title' | trans, 'data-delete-message': 'tfa_google.disable.confirm_message'|trans} %}
                 {% endif %}
 
                 {{ form_start(google_form, { 'attr': google_form_attr}) }}
@@ -85,7 +85,7 @@
                     </div>
                 {% else %}
                     {% set backup_form_attr = { 'data-delete-form': true, 'data-controller': 'elements--delete-btn', 'data-action': 'submit->elements--delete-btn#submit',
-                        'data-title': 'tfa_backup.reset_codes.confirm_title' | trans, 'data-message': 'tfa_backup.reset_codes.confirm_message' | trans} %}
+                        'data-delete-title': 'tfa_backup.reset_codes.confirm_title' | trans, 'data-delete-message': 'tfa_backup.reset_codes.confirm_message' | trans} %}
                     {{ form_start(backup_form, { 'attr': backup_form_attr}) }}
                     <div class="offset-sm-3">
                         <h6>{% trans %}tfa_backup.enabled{% endtrans %}</h6>

@@ -10,6 +10,33 @@ export default class extends Controller
         this._confirmed = false;
     }
 
+    click(event) {
+        //If a user has not already confirmed the deletion, just let turbo do its work
+        if(this._confirmed) {
+            this._confirmed = false;
+            return;
+        }
+
+        event.preventDefault();
+
+        const message = this.element.dataset.deleteMessage;
+        const title = this.element.dataset.deleteTitle;
+
+        const that = this;
+
+        const confirm = bootbox.confirm({
+            message: message, title: title, callback: function (result) {
+                //If the dialog was confirmed, then submit the form.
+                if (result) {
+                    that._confirmed = true;
+                    event.target.click();
+                } else {
+                    that._confirmed = false;
+                }
+            }
+        });
+    }
+
     submit(event) {
         //If a user has not already confirmed the deletion, just let turbo do its work
         if(this._confirmed) {
