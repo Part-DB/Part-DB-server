@@ -23,6 +23,9 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
+
 class AttachmentRepository extends DBElementRepository
 {
     /**
@@ -42,8 +45,8 @@ class AttachmentRepository extends DBElementRepository
     /**
      * Gets the count of all external attachments (attachments only containing an URL).
      *
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function getExternalAttachments(): int
     {
@@ -61,8 +64,8 @@ class AttachmentRepository extends DBElementRepository
     /**
      * Gets the count of all attachments where an user uploaded an file.
      *
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function getUserUploadedAttachments(): int
     {

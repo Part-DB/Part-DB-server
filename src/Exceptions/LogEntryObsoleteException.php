@@ -42,7 +42,9 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
-class LogEntryObsoleteException extends \RuntimeException
+use RuntimeException;
+
+class LogEntryObsoleteException extends RuntimeException
 {
     protected $message = 'This log entry is obsolete and exists only for compatibility reasons with old Part-DB versions. You should not use it!';
 }

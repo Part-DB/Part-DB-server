@@ -23,9 +23,10 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
+use RuntimeException;
 use Twig\Error\Error;
 
-class TwigModeException extends \RuntimeException
+class TwigModeException extends RuntimeException
 {
     public function __construct(?Error $previous = null)
     {

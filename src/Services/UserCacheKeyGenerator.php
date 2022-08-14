@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Entity\UserSystem\User;
+use Locale;
 use Symfony\Component\Security\Core\Security;
 
 /**
@@ -65,7 +66,7 @@ class UserCacheKeyGenerator
      */
     public function generateKey(?User $user = null): string
     {
-        $locale = \Locale::getDefault();
+        $locale = Locale::getDefault();
 
         //If no user was specified, use the currently used one.
         if (null === $user) {

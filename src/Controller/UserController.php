@@ -55,6 +55,7 @@ use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use InvalidArgumentException;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Component\Asset\Packages;
@@ -98,7 +99,7 @@ class UserController extends AdminPages\BaseAdminController
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="user_edit")
      * @Route("/{id}/", requirements={"id"="\d+"})
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function edit(User $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {

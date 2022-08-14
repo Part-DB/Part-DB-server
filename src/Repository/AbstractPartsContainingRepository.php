@@ -23,6 +23,7 @@ namespace App\Repository;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Base\PartsContainingRepositoryInterface;
 use App\Entity\Parts\Part;
+use InvalidArgumentException;
 
 abstract class AbstractPartsContainingRepository extends StructuralDBElementRepository implements PartsContainingRepositoryInterface
 {
@@ -46,7 +47,7 @@ abstract class AbstractPartsContainingRepository extends StructuralDBElementRepo
     protected function getPartsByField(object $element, array $order_by, string $field_name): array
     {
         if (!$element instanceof AbstractPartsContainingDBElement) {
-            throw new \InvalidArgumentException('$element must be an instance of AbstractPartContainingDBElement!');
+            throw new InvalidArgumentException('$element must be an instance of AbstractPartContainingDBElement!');
         }
 
         $repo = $this->getEntityManager()->getRepository(Part::class);
@@ -57,7 +58,7 @@ abstract class AbstractPartsContainingRepository extends StructuralDBElementRepo
     protected function getPartsCountByField(object $element, string $field_name): int
     {
         if (!$element instanceof AbstractPartsContainingDBElement) {
-            throw new \InvalidArgumentException('$element must be an instance of AbstractPartContainingDBElement!');
+            throw new InvalidArgumentException('$element must be an instance of AbstractPartContainingDBElement!');
         }
 
         $repo = $this->getEntityManager()->getRepository(Part::class);

@@ -23,6 +23,8 @@ declare(strict_types=1);
 
 namespace App\Services\LabelSystem\Barcodes;
 
+use InvalidArgumentException;
+
 final class BarcodeNormalizer
 {
     private const PREFIX_TYPE_MAP = [
@@ -54,7 +56,7 @@ final class BarcodeNormalizer
             $id = (int) $matches[2];
 
             if (!isset(self::PREFIX_TYPE_MAP[$prefix])) {
-                throw new \InvalidArgumentException('Unknown prefix '.$prefix);
+                throw new InvalidArgumentException('Unknown prefix '.$prefix);
             }
 
             return [self::PREFIX_TYPE_MAP[$prefix], $id];
@@ -66,7 +68,7 @@ final class BarcodeNormalizer
             $id = (int) $matches[2];
 
             if (!isset(self::PREFIX_TYPE_MAP[$prefix])) {
-                throw new \InvalidArgumentException('Unknown prefix '.$prefix);
+                throw new InvalidArgumentException('Unknown prefix '.$prefix);
             }
 
             return [self::PREFIX_TYPE_MAP[$prefix], $id];
@@ -82,6 +84,6 @@ final class BarcodeNormalizer
             return ['part', (int) $matches[1]];
         }
 
-        throw new \InvalidArgumentException('Unknown barcode format!');
+        throw new InvalidArgumentException('Unknown barcode format!');
     }
 }

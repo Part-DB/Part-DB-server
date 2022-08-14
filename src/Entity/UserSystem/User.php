@@ -721,7 +721,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     public function isGoogleAuthenticatorEnabled(): bool
     {
-        return $this->googleAuthenticatorSecret ? true : false;
+        return (bool)$this->googleAuthenticatorSecret;
     }
 
     /**

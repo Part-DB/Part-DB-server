@@ -43,15 +43,14 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Entity\UserSystem\User;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PasswordResetManager
@@ -88,7 +87,7 @@ class PasswordResetManager
         $user->setPwResetToken($this->passwordEncoder->hash($unencrypted_token, null));
 
         //Determine the expiration datetime of
-        $expiration_date = new \DateTime();
+        $expiration_date = new DateTime();
         $expiration_date->add(date_interval_create_from_date_string('1 day'));
         $user->setPwResetExpires($expiration_date);
 
@@ -135,7 +134,7 @@ class PasswordResetManager
         }
 
         //Check if token is expired yet
-        if ($user->getPwResetExpires() < new \DateTime()) {
+        if ($user->getPwResetExpires() < new DateTime()) {
             return false;
         }
 
@@ -149,7 +148,7 @@ class PasswordResetManager
 
         //Remove token
         $user->setPwResetToken(null);
-        $user->setPwResetExpires(new \DateTime());
+        $user->setPwResetExpires(new DateTime());
 
         //Save to DB
         $this->em->flush();

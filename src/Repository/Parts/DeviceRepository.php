@@ -9,6 +9,7 @@ use App\Entity\Devices\Device;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Repository\AbstractPartsContainingRepository;
+use InvalidArgumentException;
 
 class DeviceRepository extends AbstractPartsContainingRepository
 {
@@ -16,7 +17,7 @@ class DeviceRepository extends AbstractPartsContainingRepository
     public function getParts(object $element, array $order_by = ['name' => 'ASC']): array
     {
         if (!$element instanceof Device) {
-            throw new \InvalidArgumentException('$element must be an Device!');
+            throw new InvalidArgumentException('$element must be an Device!');
         }
 
 
@@ -27,7 +28,7 @@ class DeviceRepository extends AbstractPartsContainingRepository
     public function getPartsCount(object $element): int
     {
         if (!$element instanceof Device) {
-            throw new \InvalidArgumentException('$element must be an Device!');
+            throw new InvalidArgumentException('$element must be an Device!');
         }
 
         //TODO: Change this later, when properly implemented devices

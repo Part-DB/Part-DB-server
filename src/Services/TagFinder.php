@@ -46,6 +46,8 @@ use App\Entity\Parts\Part;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use function array_slice;
+
 /**
  * A service related for searching for tags. Mostly useful for autocomplete reasons.
  */
@@ -101,7 +103,7 @@ class TagFinder
 
         $results = array_unique($results);
         //Limit the returned tag count to specified value.
-        return \array_slice($results, 0, $options['return_limit']);
+        return array_slice($results, 0, $options['return_limit']);
     }
 
     protected function configureOptions(OptionsResolver $resolver): void

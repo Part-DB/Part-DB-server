@@ -49,6 +49,11 @@ use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Entity\UserSystem\User;
+use DateTime;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\TransactionRequiredException;
+use RuntimeException;
 
 class LogEntryRepository extends DBElementRepository
 {
@@ -108,7 +113,7 @@ class LogEntryRepository extends DBElementRepository
         $results = $query->execute();
 
         if (empty($results)) {
-            throw new \RuntimeException('No undelete data could be found for this element');
+            throw new RuntimeException('No undelete data could be found for this element');
         }
 
         return $results[0];
@@ -118,11 +123,11 @@ class LogEntryRepository extends DBElementRepository
      * Gets all log entries that are related to time travelling.
      *
      * @param AbstractDBElement $element The element for which the time travel data should be retrieved
-     * @param \DateTime         $until   Back to which timestamp should the data be get (including the timestamp)
+     * @param DateTime         $until   Back to which timestamp should the data be get (including the timestamp)
      *
      * @return AbstractLogEntry[]
      */
-    public function getTimetravelDataForElement(AbstractDBElement $element, \DateTime $until): array
+    public function getTimetravelDataForElement(AbstractDBElement $element, DateTime $until): array
     {
         $qb = $this->createQueryBuilder('log');
         $qb->select('log')
@@ -150,7 +155,7 @@ class LogEntryRepository extends DBElementRepository
      *
      * @return bool True if the element existed at the given timestamp
      */
-    public function getElementExistedAtTimestamp(AbstractDBElement $element, \DateTime $timestamp): bool
+    public function getElementExistedAtTimestamp(AbstractDBElement $element, DateTime $timestamp): bool
     {
         $qb = $this->createQueryBuilder('log');
         $qb->select('count(log)')
@@ -190,9 +195,9 @@ class LogEntryRepository extends DBElementRepository
      * @return AbstractDBElement|null returns the associated DBElement or null if the log either has no target or the element
      *                                was deleted from DB
      *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\TransactionRequiredException
+     * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws TransactionRequiredException
      */
     public function getTargetElement(AbstractLogEntry $logEntry): ?AbstractDBElement
     {

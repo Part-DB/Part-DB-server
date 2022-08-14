@@ -48,6 +48,8 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
+use function is_string;
+
 class ValidFileFilterValidator extends ConstraintValidator
 {
     protected $filterTools;
@@ -73,7 +75,7 @@ class ValidFileFilterValidator extends ConstraintValidator
             return;
         }
 
-        if (!\is_string($value)) {
+        if (!is_string($value)) {
             // throw this exception if your validator cannot handle the passed type so that it can be marked as invalid
             throw new UnexpectedValueException($value, 'string');
         }

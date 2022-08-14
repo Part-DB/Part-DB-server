@@ -22,6 +22,10 @@ use Twig\Sandbox\SecurityNotAllowedTagError;
 use Twig\Sandbox\SecurityPolicyInterface;
 use Twig\Template;
 
+use function get_class;
+use function in_array;
+use function is_array;
+
 /**
  * Represents a security policy which need to be enforced when sandbox mode is enabled.
  *
@@ -61,7 +65,7 @@ final class InheritanceSecurityPolicy implements SecurityPolicyInterface
         $this->allowedMethods = [];
         foreach ($methods as $class => $m) {
             $this->allowedMethods[$class] = array_map(
-                static function ($value) { return strtr($value, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'); }, \is_array($m) ? $m : [$m]);
+                static function ($value) { return strtr($value, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'); }, is_array($m) ? $m : [$m]);
         }
     }
 
@@ -78,19 +82,19 @@ final class InheritanceSecurityPolicy implements SecurityPolicyInterface
     public function checkSecurity($tags, $filters, $functions): void
     {
         foreach ($tags as $tag) {
-            if (!\in_array($tag, $this->allowedTags, true)) {
+            if (!in_array($tag, $this->allowedTags, true)) {
                 throw new SecurityNotAllowedTagError(sprintf('Tag "%s" is not allowed.', $tag), $tag);
             }
         }
 
         foreach ($filters as $filter) {
-            if (!\in_array($filter, $this->allowedFilters, true)) {
+            if (!in_array($filter, $this->allowedFilters, true)) {
                 throw new SecurityNotAllowedFilterError(sprintf('Filter "%s" is not allowed.', $filter), $filter);
             }
         }
 
         foreach ($functions as $function) {
-            if (!\in_array($function, $this->allowedFunctions, true)) {
+            if (!in_array($function, $this->allowedFunctions, true)) {
                 throw new SecurityNotAllowedFunctionError(sprintf('Function "%s" is not allowed.', $function), $function);
             }
         }
@@ -106,7 +110,7 @@ final class InheritanceSecurityPolicy implements SecurityPolicyInterface
         $method = strtr($method, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
         foreach ($this->allowedMethods as $class => $methods) {
             if ($obj instanceof $class) {
-                $allowed = \in_array($method, $methods, true);
+                $allowed = in_array($method, $methods, true);
 
                 //CHANGED: Only break if we the method is allowed, otherwise try it on the other methods
                 if ($allowed) {
@@ -116,7 +120,7 @@ final class InheritanceSecurityPolicy implements SecurityPolicyInterface
         }
 
         if (!$allowed) {
-            $class = \get_class($obj);
+            $class = get_class($obj);
 
             throw new SecurityNotAllowedMethodError(sprintf('Calling "%s" method on a "%s" object is not allowed.', $method, $class), $class, $method);
         }
@@ -127,7 +131,7 @@ final class InheritanceSecurityPolicy implements SecurityPolicyInterface
         $allowed = false;
         foreach ($this->allowedProperties as $class => $properties) {
             if ($obj instanceof $class) {
-                $allowed = \in_array($property, \is_array($properties) ? $properties : [$properties], true);
+                $allowed = in_array($property, is_array($properties) ? $properties : [$properties], true);
 
                 //CHANGED: Only break if we the method is allowed, otherwise try it on the other methods
                 if ($allowed) {
@@ -137,7 +141,7 @@ final class InheritanceSecurityPolicy implements SecurityPolicyInterface
         }
 
         if (!$allowed) {
-            $class = \get_class($obj);
+            $class = get_class($obj);
 
             throw new SecurityNotAllowedPropertyError(sprintf('Calling "%s" property on a "%s" object is not allowed.', $property, $class), $class, $property);
         }

@@ -33,6 +33,7 @@ use App\Services\ElementTypeNameGenerator;
 use App\Services\LabelSystem\LabelGenerator;
 use App\Services\Misc\RangeParser;
 use Doctrine\ORM\EntityManagerInterface;
+use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -146,7 +147,7 @@ class LabelController extends AbstractController
     protected function findObjects(string $type, string $ids): array
     {
         if (!isset(LabelGenerator::CLASS_SUPPORT_MAPPING[$type])) {
-            throw new \InvalidArgumentException('The given type is not known and can not be mapped to a class!');
+            throw new InvalidArgumentException('The given type is not known and can not be mapped to a class!');
         }
 
         $id_array = $this->rangeParser->parse($ids);

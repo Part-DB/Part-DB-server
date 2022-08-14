@@ -23,6 +23,8 @@ declare(strict_types=1);
 
 namespace App\Services\Misc;
 
+use InvalidArgumentException;
+
 /**
  * This Parser allows to parse number ranges like 1-3, 4, 5.
  */
@@ -53,7 +55,7 @@ class RangeParser
             } elseif (empty($number)) { //Allow empty tokens
                 continue;
             } else {
-                throw new \InvalidArgumentException('Invalid range encoutered: '.$number);
+                throw new InvalidArgumentException('Invalid range encoutered: '.$number);
             }
         }
 
@@ -74,7 +76,7 @@ class RangeParser
             $this->parse($range_str);
 
             return true;
-        } catch (\InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException $exception) {
             return false;
         }
     }

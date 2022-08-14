@@ -235,7 +235,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
         if ($this->orderdetail && $this->orderdetail->getPart() && !$this->orderdetail->getPart()->useFloatAmount()) {
             $tmp = round($this->min_discount_quantity);
 
-            return $tmp < 1 ? 1 : $tmp;
+            return max($tmp, 1);
         }
 
         return $this->min_discount_quantity;

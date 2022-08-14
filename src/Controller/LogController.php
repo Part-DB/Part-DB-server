@@ -52,9 +52,11 @@ use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Services\LogSystem\EventUndoHelper;
 use App\Services\LogSystem\TimeTravel;
 use Doctrine\ORM\EntityManagerInterface;
+use InvalidArgumentException;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -99,7 +101,7 @@ class LogController extends AbstractController
     /**
      * @Route("/undo", name="log_undo", methods={"POST"})
      */
-    public function undoRevertLog(Request $request, EventUndoHelper $eventUndoHelper): \Symfony\Component\HttpFoundation\RedirectResponse
+    public function undoRevertLog(Request $request, EventUndoHelper $eventUndoHelper): RedirectResponse
     {
         $mode = EventUndoHelper::MODE_UNDO;
         $id = $request->request->get('undo');
@@ -112,7 +114,7 @@ class LogController extends AbstractController
 
         $log_element = $this->entityManager->find(AbstractLogEntry::class, $id);
         if (null === $log_element) {
-            throw new \InvalidArgumentException('No log entry with the given ID is existing!');
+            throw new InvalidArgumentException('No log entry with the given ID is existing!');
         }
 
         $this->denyAccessUnlessGranted('revert_element', $log_element->getTargetClass());

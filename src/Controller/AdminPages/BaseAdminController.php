@@ -65,6 +65,7 @@ use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\HistoryHelper;
 use App\Services\LogSystem\TimeTravel;
 use App\Services\StructuralElementRecursionHelper;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Omines\DataTablesBundle\DataTableFactory;
@@ -77,7 +78,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -138,17 +138,17 @@ abstract class BaseAdminController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    protected function revertElementIfNeeded(AbstractDBElement $entity, ?string $timestamp): ?\DateTime
+    protected function revertElementIfNeeded(AbstractDBElement $entity, ?string $timestamp): ?DateTime
     {
         if (null !== $timestamp) {
             $this->denyAccessUnlessGranted('@tools.timetravel');
             $this->denyAccessUnlessGranted('show_history', $entity);
             //If the timestamp only contains numbers interpret it as unix timestamp
             if (ctype_digit($timestamp)) {
-                $timeTravel_timestamp = new \DateTime();
+                $timeTravel_timestamp = new DateTime();
                 $timeTravel_timestamp->setTimestamp((int) $timestamp);
             } else { //Try to parse it via DateTime
-                $timeTravel_timestamp = new \DateTime($timestamp);
+                $timeTravel_timestamp = new DateTime($timestamp);
             }
             $this->timeTravel->revertEntityToTimestamp($entity, $timeTravel_timestamp);
 
@@ -433,7 +433,8 @@ abstract class BaseAdminController extends AbstractController
         $this->denyAccessUnlessGranted('delete', $entity);
 
         if ($this->isCsrfTokenValid('delete'.$entity->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
+
+            $entityManager = $this->entityManager;
 
             if (!$this->deleteCheck($entity)) {
                 return $this->redirectToRoute($this->route_base.'_edit', ['id' => $entity->getID()]);

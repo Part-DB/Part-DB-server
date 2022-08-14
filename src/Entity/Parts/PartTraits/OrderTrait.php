@@ -44,6 +44,7 @@ namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\PriceInformations\Orderdetail;
 use App\Security\Annotations\ColumnSecurity;
+use Symfony\Component\Validator\Constraints as Assert;
 use function count;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

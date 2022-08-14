@@ -63,6 +63,7 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
 use App\Services\Attachments\AttachmentURLGenerator;
+use DateTime;
 use function array_key_exists;
 use function get_class;
 use InvalidArgumentException;
@@ -128,7 +129,7 @@ class EntityURLGenerator
     /**
      * Gets the URL to view the given element at a given timestamp.
      */
-    public function timeTravelURL(AbstractDBElement $entity, \DateTime $dateTime): string
+    public function timeTravelURL(AbstractDBElement $entity, DateTime $dateTime): string
     {
         $map = [
             Part::class => 'part_info',

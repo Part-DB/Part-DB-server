@@ -45,6 +45,7 @@ namespace App\Helpers\Trees;
 use App\Entity\Base\AbstractStructuralDBElement;
 use ArrayIterator;
 use Doctrine\Common\Collections\Collection;
+use InvalidArgumentException;
 use RecursiveIterator;
 
 final class StructuralDBElementIterator extends ArrayIterator implements RecursiveIterator
@@ -73,7 +74,7 @@ final class StructuralDBElementIterator extends ArrayIterator implements Recursi
         } elseif ($subelements instanceof Collection) {
             $array = $subelements->toArray();
         } else {
-            throw new \InvalidArgumentException('Invalid subelements type on $element!');
+            throw new InvalidArgumentException('Invalid subelements type on $element!');
         }
 
         return new self($array);

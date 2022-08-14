@@ -46,6 +46,8 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Security\Annotations\ColumnSecurity;
 use App\Validator\Constraints\Selectable;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * In this trait all manufacturer related properties of a part are collected (like MPN, manufacturer URL).

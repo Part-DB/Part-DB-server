@@ -59,9 +59,13 @@ use App\Services\EntityURLGenerator;
 use App\Services\MarkdownParser;
 use App\Services\UserCacheKeyGenerator;
 use Doctrine\ORM\EntityManagerInterface;
+use InvalidArgumentException;
+use RecursiveIteratorIterator;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+
+use function count;
 
 class TreeViewGenerator
 {
@@ -131,7 +135,7 @@ class TreeViewGenerator
 
         $generic = $this->getGenericTree($class, $parent);
         $treeIterator = new TreeViewNodeIterator($generic);
-        $recursiveIterator = new \RecursiveIteratorIterator($treeIterator, \RecursiveIteratorIterator::SELF_FIRST);
+        $recursiveIterator = new RecursiveIteratorIterator($treeIterator, RecursiveIteratorIterator::SELF_FIRST);
         foreach ($recursiveIterator as $item) {
             /** @var TreeViewNode $item */
             if (null !== $selectedElement && $item->getId() === $selectedElement->getID()) {
@@ -139,7 +143,7 @@ class TreeViewGenerator
             }
 
             if (!empty($item->getNodes())) {
-                $item->addTag((string) \count($item->getNodes()));
+                $item->addTag((string) count($item->getNodes()));
             }
 
             if (!empty($href_type) && null !== $item->getId()) {
@@ -218,10 +222,10 @@ class TreeViewGenerator
     public function getGenericTree(string $class, ?AbstractStructuralDBElement $parent = null): array
     {
         if (!is_a($class, AbstractNamedDBElement::class, true)) {
-            throw new \InvalidArgumentException('$class must be a class string that implements StructuralDBElement or NamedDBElement!');
+            throw new InvalidArgumentException('$class must be a class string that implements StructuralDBElement or NamedDBElement!');
         }
         if (null !== $parent && !is_a($parent, $class)) {
-            throw new \InvalidArgumentException('$parent must be of the type $class!');
+            throw new InvalidArgumentException('$parent must be of the type $class!');
         }
 
         /** @var StructuralDBElementRepository $repo */

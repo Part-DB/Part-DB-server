@@ -27,6 +27,7 @@ use App\Form\LabelSystem\ScanDialogType;
 use App\Services\LabelSystem\Barcodes\BarcodeNormalizer;
 use App\Services\LabelSystem\Barcodes\BarcodeRedirector;
 use Doctrine\ORM\EntityNotFoundException;
+use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -67,7 +68,7 @@ class ScanController extends AbstractController
                 } catch (EntityNotFoundException $exception) {
                     $this->addFlash('success', 'scan.qr_not_found');
                 }
-            } catch (\InvalidArgumentException $exception) {
+            } catch (InvalidArgumentException $exception) {
                 $this->addFlash('error', 'scan.format_unknown');
             }
         }

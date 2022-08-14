@@ -46,6 +46,8 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\PartLot;
 use App\Security\Annotations\ColumnSecurity;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * This trait collects all aspects of a part related to instock, part lots.

@@ -22,13 +22,14 @@ namespace App\Repository\Parts;
 
 use App\Entity\Parts\Category;
 use App\Repository\AbstractPartsContainingRepository;
+use InvalidArgumentException;
 
 class CategoryRepository extends AbstractPartsContainingRepository
 {
     public function getParts(object $element, array $order_by = ['name' => 'ASC']): array
     {
         if (!$element instanceof Category) {
-            throw new \InvalidArgumentException('$element must be an Category!');
+            throw new InvalidArgumentException('$element must be an Category!');
         }
 
         return $this->getPartsByField($element, $order_by, 'category');
@@ -37,7 +38,7 @@ class CategoryRepository extends AbstractPartsContainingRepository
     public function getPartsCount(object $element): int
     {
         if (!$element instanceof Category) {
-            throw new \InvalidArgumentException('$element must be an Category!');
+            throw new InvalidArgumentException('$element must be an Category!');
         }
 
         return $this->getPartsCountByField($element, 'category');

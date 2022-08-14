@@ -36,6 +36,9 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
+use InvalidArgumentException;
 
 class StatisticsHelper
 {
@@ -61,8 +64,8 @@ class StatisticsHelper
     /**
      * Returns the summed instocked over all parts (only parts without a measurement unit).
      *
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function getPartsInstockSum(): float
     {
@@ -72,8 +75,8 @@ class StatisticsHelper
     /**
      * Returns the number of all parts which have price informations.
      *
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function getPartsCountWithPrice(): int
     {
@@ -98,7 +101,7 @@ class StatisticsHelper
         ];
 
         if (!isset($arr[$type])) {
-            throw new \InvalidArgumentException('No count for the given type available!');
+            throw new InvalidArgumentException('No count for the given type available!');
         }
 
         /** @var EntityRepository $repo */
@@ -126,8 +129,8 @@ class StatisticsHelper
     /**
      * Gets the count of all external (only containing an URL) attachments.
      *
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function getExternalAttachmentsCount(): int
     {
@@ -137,8 +140,8 @@ class StatisticsHelper
     /**
      * Gets the count of all attachments where the user uploaded an file.
      *
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function getUserUploadedAttachmentsCount(): int
     {

@@ -44,6 +44,7 @@ namespace App\DataTables\Column;
 
 use DateTime;
 use DateTimeInterface;
+use Exception;
 use IntlDateFormatter;
 use Locale;
 use Omines\DataTablesBundle\Column\AbstractColumn;
@@ -58,7 +59,7 @@ class LocaleDateTimeColumn extends AbstractColumn
     /**
      * @param $value
      * @return bool|mixed|string
-     * @throws \Exception
+     * @throws Exception
      */
     public function normalize($value): string
     {

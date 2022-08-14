@@ -26,6 +26,7 @@ namespace App\Services\LogSystem;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\Part;
 
 class HistoryHelper
@@ -38,7 +39,7 @@ class HistoryHelper
      *  Returns an array containing all elements that are associated with the argument.
      *  The returned array contains the given element.
      *
-     * @psalm-return array<\App\Entity\Parameters\AbstractParameter|array-key, mixed>
+     * @psalm-return array<AbstractParameter|array-key, mixed>
      */
     public function getAssociatedElements(AbstractDBElement $element): array
     {

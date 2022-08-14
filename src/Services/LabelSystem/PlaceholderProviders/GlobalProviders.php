@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
 use App\Entity\UserSystem\User;
+use DateTime;
 use IntlDateFormatter;
 use Locale;
 use Symfony\Component\Security\Core\Security;
@@ -65,7 +66,7 @@ final class GlobalProviders implements PlaceholderProviderInterface
             return 'anonymous';
         }
 
-        $now = new \DateTime();
+        $now = new DateTime();
 
         if ('[[DATETIME]]' === $placeholder) {
             $formatter = IntlDateFormatter::create(

@@ -30,6 +30,8 @@ use InvalidArgumentException;
 use LogicException;
 use Symfony\Component\Validator\Constraints as Assert;
 
+use function sprintf;
+
 /**
  * @ORM\Entity()
  * @ORM\Table("parameters")
@@ -376,7 +378,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      */
     protected function formatWithUnit(float $value, string $format = '%g'): string
     {
-        $str = \sprintf($format, $value);
+        $str = sprintf($format, $value);
         if (!empty($this->unit)) {
             return $str.' '.$this->unit;
         }

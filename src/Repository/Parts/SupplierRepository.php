@@ -24,13 +24,14 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\Supplier;
 use App\Repository\AbstractPartsContainingRepository;
 use Doctrine\ORM\QueryBuilder;
+use InvalidArgumentException;
 
 class SupplierRepository extends AbstractPartsContainingRepository
 {
     public function getParts(object $element, array $order_by = ['name' => 'ASC']): array
     {
         if (!$element instanceof Supplier) {
-            throw new \InvalidArgumentException('$element must be an Supplier!');
+            throw new InvalidArgumentException('$element must be an Supplier!');
         }
 
         $qb = new QueryBuilder($this->getEntityManager());
@@ -51,7 +52,7 @@ class SupplierRepository extends AbstractPartsContainingRepository
     public function getPartsCount(object $element): int
     {
         if (!$element instanceof Supplier) {
-            throw new \InvalidArgumentException('$element must be an Supplier!');
+            throw new InvalidArgumentException('$element must be an Supplier!');
         }
 
         $qb = new QueryBuilder($this->getEntityManager());

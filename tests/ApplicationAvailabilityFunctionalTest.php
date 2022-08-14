@@ -42,6 +42,7 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
+use Generator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
@@ -73,7 +74,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         $this->assertTrue($client->getResponse()->isSuccessful(), 'Request not successful. Status code is '.$client->getResponse()->getStatusCode());
     }
 
-    public function urlProvider(): ?\Generator
+    public function urlProvider(): ?Generator
     {
         //Homepage
         //yield ['/'];

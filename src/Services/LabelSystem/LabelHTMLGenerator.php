@@ -27,6 +27,7 @@ use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Exceptions\TwigModeException;
 use App\Services\ElementTypeNameGenerator;
+use InvalidArgumentException;
 use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
 use Twig\Error\Error;
@@ -56,7 +57,7 @@ final class LabelHTMLGenerator
     public function getLabelHTML(LabelOptions $options, array $elements): string
     {
         if (empty($elements)) {
-            throw new \InvalidArgumentException('$elements must not be empty');
+            throw new InvalidArgumentException('$elements must not be empty');
         }
 
         $twig_elements = [];

@@ -25,6 +25,7 @@ namespace App\Repository;
 
 use App\Entity\Base\AbstractDBElement;
 use Doctrine\ORM\EntityRepository;
+use ReflectionClass;
 
 class DBElementRepository extends EntityRepository
 {
@@ -68,7 +69,7 @@ class DBElementRepository extends EntityRepository
 
     protected function setField(AbstractDBElement $element, string $field, int $new_value): void
     {
-        $reflection = new \ReflectionClass(get_class($element));
+        $reflection = new ReflectionClass(get_class($element));
         $property = $reflection->getProperty($field);
         $property->setAccessible(true);
         $property->setValue($element, $new_value);

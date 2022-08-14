@@ -288,7 +288,7 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
     }
 
     /**
-     * @param mixed[] $assoc
+     * @param  array  $assoc
      */
     private function getJoinTableName(
         array $assoc,

@@ -47,6 +47,7 @@ use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\PriceInformations\Currency;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
+use RuntimeException;
 use Symfony\Component\Intl\Currencies;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -96,7 +97,7 @@ class CurrencyEntityType extends StructuralEntityType
     protected function getChoiceContent(AbstractStructuralDBElement $choice, $key, $value, $options): string
     {
         if(!$choice instanceof Currency) {
-            throw new \RuntimeException('$choice must be an instance of Currency!');
+            throw new RuntimeException('$choice must be an instance of Currency!');
         }
 
         //Generate the level spacing

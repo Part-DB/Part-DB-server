@@ -25,6 +25,9 @@ namespace App\Services\Parameters;
 
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parameters\PartParameter;
+use InvalidArgumentException;
+
+use function preg_match;
 
 class ParameterExtractor
 {
@@ -41,7 +44,7 @@ class ParameterExtractor
     public function extractParameters(string $input, string $class = PartParameter::class): array
     {
         if (!is_a($class, AbstractParameter::class, true)) {
-            throw new \InvalidArgumentException('$class must be a child class of AbstractParameter!');
+            throw new InvalidArgumentException('$class must be a child class of AbstractParameter!');
         }
 
         //Restrict search length
@@ -67,7 +70,7 @@ class ParameterExtractor
         $regex = '/^(.*) *(?:=|:) *(.+)/u';
 
         $matches = [];
-        \preg_match($regex, $input, $matches);
+        preg_match($regex, $input, $matches);
         if (!empty($matches)) {
             [, $name, $value] = $matches;
             $value = trim($value);

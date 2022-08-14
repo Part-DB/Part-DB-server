@@ -43,6 +43,8 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Parts\PartLot;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\QueryBuilder;
 
 class PartRepository extends NamedDBElementRepository
@@ -50,8 +52,8 @@ class PartRepository extends NamedDBElementRepository
     /**
      * Gets the summed up instock of all parts (only parts without an measurent unit).
      *
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function getPartsInstockSum(): float
     {
@@ -69,8 +71,8 @@ class PartRepository extends NamedDBElementRepository
     /**
      * Gets the number of parts that has price informations.
      *
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function getPartsCountWithPrice(): int
     {

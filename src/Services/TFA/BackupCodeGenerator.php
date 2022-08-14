@@ -42,6 +42,9 @@ declare(strict_types=1);
 
 namespace App\Services\TFA;
 
+use Exception;
+use RuntimeException;
+
 /**
  * This class generates random backup codes for two factor authentication.
  */
@@ -59,10 +62,10 @@ class BackupCodeGenerator
     public function __construct(int $code_length, int $code_count)
     {
         if ($code_length > 32) {
-            throw new \RuntimeException('Backup code can have maximum 32 digits!');
+            throw new RuntimeException('Backup code can have maximum 32 digits!');
         }
         if ($code_length < 6) {
-            throw new \RuntimeException('Code must have at least 6 digits to ensure security!');
+            throw new RuntimeException('Code must have at least 6 digits to ensure security!');
         }
 
         $this->code_count = $code_count;
@@ -75,7 +78,7 @@ class BackupCodeGenerator
      *
      * @return string The generated backup code (e.g. 1f3870be2)
      *
-     * @throws \Exception if no entropy source is available
+     * @throws Exception if no entropy source is available
      */
     public function generateSingleCode(): string
     {

@@ -44,6 +44,8 @@ namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\Parts\Part;
 use App\Security\Annotations\ColumnSecurity;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Advanced properties of a part, not related to a more specific group.

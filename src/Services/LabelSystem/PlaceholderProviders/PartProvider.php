@@ -25,6 +25,7 @@ namespace App\Services\LabelSystem\PlaceholderProviders;
 
 use App\Entity\Parts\Part;
 use App\Services\SIFormatter;
+use Parsedown;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class PartProvider implements PlaceholderProviderInterface
@@ -88,7 +89,7 @@ final class PartProvider implements PlaceholderProviderInterface
             return $this->translator->trans('m_status.'.$part->getManufacturingStatus());
         }
 
-        $parsedown = new \Parsedown();
+        $parsedown = new Parsedown();
 
         if ('[[DESCRIPTION]]' === $placeholder) {
             return $parsedown->line($part->getDescription());

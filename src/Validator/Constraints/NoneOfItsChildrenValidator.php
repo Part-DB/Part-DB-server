@@ -96,8 +96,6 @@ class NoneOfItsChildrenValidator extends ConstraintValidator
             //Set the entity to a valid state
             $entity->setParent(null);
             $this->context->buildViolation($constraint->children_message)->addViolation();
-
-            return;
         }
     }
 }

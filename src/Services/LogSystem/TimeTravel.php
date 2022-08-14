@@ -33,9 +33,14 @@ use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\ElementEditedLogEntry;
 use Brick\Math\BigDecimal;
+use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Mapping\MappingException;
+use Exception;
+use InvalidArgumentException;
+use ReflectionClass;
 
 class TimeTravel
 {
@@ -74,16 +79,16 @@ class TimeTravel
      *
      * @param AbstractLogEntry[] $reverted_elements
      *
-     * @throws \Exception
+     * @throws Exception
      */
-    public function revertEntityToTimestamp(AbstractDBElement $element, \DateTime $timestamp, array $reverted_elements = []): void
+    public function revertEntityToTimestamp(AbstractDBElement $element, DateTime $timestamp, array $reverted_elements = []): void
     {
         if (!$element instanceof TimeStampableInterface) {
-            throw new \InvalidArgumentException('$element must have a Timestamp!');
+            throw new InvalidArgumentException('$element must have a Timestamp!');
         }
 
-        if ($timestamp > new \DateTime('now')) {
-            throw new \InvalidArgumentException('You can not travel to the future (yet)...');
+        if ($timestamp > new DateTime('now')) {
+            throw new InvalidArgumentException('You can not travel to the future (yet)...');
         }
 
         //Skip this process if already were reverted...
@@ -168,7 +173,7 @@ class TimeTravel
     /**
      * Apply the changeset in the given LogEntry to the element.
      *
-     * @throws \Doctrine\ORM\Mapping\MappingException
+     * @throws MappingException
      */
     public function applyEntry(AbstractDBElement $element, TimeTravelInterface $logEntry): void
     {
@@ -207,7 +212,7 @@ class TimeTravel
 
     protected function getField(AbstractDBElement $element, string $field)
     {
-        $reflection = new \ReflectionClass(get_class($element));
+        $reflection = new ReflectionClass(get_class($element));
         $property = $reflection->getProperty($field);
         $property->setAccessible(true);
 
@@ -215,11 +220,11 @@ class TimeTravel
     }
 
     /**
-     * @param \DateTime|int|null $new_value
+     * @param DateTime|int|null $new_value
      */
     protected function setField(AbstractDBElement $element, string $field, $new_value): void
     {
-        $reflection = new \ReflectionClass(get_class($element));
+        $reflection = new ReflectionClass(get_class($element));
         $property = $reflection->getProperty($field);
         $property->setAccessible(true);
 

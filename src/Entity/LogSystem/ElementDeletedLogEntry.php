@@ -50,6 +50,7 @@ use App\Entity\Contracts\TimeTravelInterface;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
 
 /**
  * @ORM\Entity()
@@ -153,7 +154,7 @@ class ElementDeletedLogEntry extends AbstractLogEntry implements TimeTravelInter
         } elseif ('revert' === $mode) {
             $this->extra['um'] = 2;
         } else {
-            throw new \InvalidArgumentException('Passed invalid $mode!');
+            throw new InvalidArgumentException('Passed invalid $mode!');
         }
 
         return $this;

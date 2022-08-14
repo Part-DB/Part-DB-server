@@ -25,6 +25,8 @@ namespace App\Form;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use ReflectionClass;
+use ReflectionException;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilder;
@@ -104,12 +106,12 @@ class CollectionTypeExtension extends AbstractTypeExtension
      * Set the option of the form.
      * This a bit hacky cause we access private properties....
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function setOption(FormBuilder $builder, string $option, $value): void
     {
         //We have to use FormConfigBuilder::class here, because options is private and not available in sub classes
-        $reflection = new \ReflectionClass(FormConfigBuilder::class);
+        $reflection = new ReflectionClass(FormConfigBuilder::class);
         $property = $reflection->getProperty('options');
         $property->setAccessible(true);
         $tmp = $property->getValue($builder);

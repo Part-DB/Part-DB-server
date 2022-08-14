@@ -50,6 +50,8 @@ use Brick\Math\RoundingMode;
 use Doctrine\ORM\PersistentCollection;
 use Locale;
 
+use function count;
+
 class PricedetailHelper
 {
     protected $base_currency;
@@ -74,7 +76,7 @@ class PricedetailHelper
         foreach ($orderdetails as $orderdetail) {
             $pricedetails = $orderdetail->getPricedetails();
             //The orderdetail must have pricedetails, otherwise this will not work!
-            if (0 === \count($pricedetails)) {
+            if (0 === count($pricedetails)) {
                 continue;
             }
 
@@ -121,7 +123,7 @@ class PricedetailHelper
         foreach ($orderdetails as $orderdetail) {
             $pricedetails = $orderdetail->getPricedetails();
             //The orderdetail must have pricedetails, otherwise this will not work!
-            if (0 === \count($pricedetails)) {
+            if (0 === count($pricedetails)) {
                 continue;
             }
 

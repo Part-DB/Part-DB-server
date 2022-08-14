@@ -30,6 +30,9 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
+use DateTime;
+use InvalidArgumentException;
+use ReflectionClass;
 
 final class BarcodeExampleElementsGenerator
 {
@@ -43,7 +46,7 @@ final class BarcodeExampleElementsGenerator
             case 'storelocation':
                 return $this->getStorelocation();
             default:
-                throw new \InvalidArgumentException('Unknown $type.');
+                throw new InvalidArgumentException('Unknown $type.');
         }
     }
 
@@ -78,7 +81,7 @@ final class BarcodeExampleElementsGenerator
 
         $lot->setDescription('Example Lot');
         $lot->setComment('Lot comment');
-        $lot->setExpirationDate(new \DateTime('+1 days'));
+        $lot->setExpirationDate(new DateTime('+1 days'));
         $lot->setStorageLocation($this->getStructuralData(Storelocation::class));
         $lot->setAmount(123);
 
@@ -103,7 +106,7 @@ final class BarcodeExampleElementsGenerator
     private function getStructuralData(string $class): AbstractStructuralDBElement
     {
         if (!is_a($class, AbstractStructuralDBElement::class, true)) {
-            throw new \InvalidArgumentException('$class must be an child of AbstractStructuralDBElement');
+            throw new InvalidArgumentException('$class must be an child of AbstractStructuralDBElement');
         }
 
         /** @var AbstractStructuralDBElement $parent */
@@ -112,7 +115,7 @@ final class BarcodeExampleElementsGenerator
 
         /** @var AbstractStructuralDBElement $child */
         $child = new $class();
-        $child->setName((new \ReflectionClass($class))->getShortName());
+        $child->setName((new ReflectionClass($class))->getShortName());
         $child->setParent($parent);
 
         return $child;

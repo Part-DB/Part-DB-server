@@ -45,6 +45,7 @@ namespace App\Form\Type;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Contracts\HasMasterAttachmentInterface;
+use RuntimeException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -85,7 +86,7 @@ class MasterPictureAttachmentType extends AbstractType
                     static function () use ($options) {
                         $entity = $options['entity'];
                         if (!$entity instanceof AttachmentContainingDBElement) {
-                            throw new \RuntimeException('$entity must have Attachments! (be of type AttachmentContainingDBElement)');
+                            throw new RuntimeException('$entity must have Attachments! (be of type AttachmentContainingDBElement)');
                         }
 
                         return $entity->getAttachments()->toArray();

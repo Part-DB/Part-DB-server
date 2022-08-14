@@ -28,6 +28,7 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use Dompdf\Dompdf;
+use InvalidArgumentException;
 
 final class LabelGenerator
 {
@@ -52,7 +53,7 @@ final class LabelGenerator
     public function generateLabel(LabelOptions $options, $elements): string
     {
         if (!is_array($elements) && !is_object($elements)) {
-            throw new \InvalidArgumentException('$element must be an object or an array of objects!');
+            throw new InvalidArgumentException('$element must be an object or an array of objects!');
         }
 
         if (!is_array($elements)) {
@@ -61,7 +62,7 @@ final class LabelGenerator
 
         foreach ($elements as $element) {
             if (!$this->supports($options, $element)) {
-                throw new \InvalidArgumentException('The given options are not compatible with the given element!');
+                throw new InvalidArgumentException('The given options are not compatible with the given element!');
             }
         }
 
@@ -80,7 +81,7 @@ final class LabelGenerator
     {
         $supported_type = $options->getSupportedElement();
         if (!isset(static::CLASS_SUPPORT_MAPPING[$supported_type])) {
-            throw new \InvalidArgumentException('Supported type name of the Label options not known!');
+            throw new InvalidArgumentException('Supported type name of the Label options not known!');
         }
 
         return is_a($element, static::CLASS_SUPPORT_MAPPING[$supported_type]);

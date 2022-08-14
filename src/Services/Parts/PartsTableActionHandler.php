@@ -28,6 +28,7 @@ use App\Entity\Parts\Part;
 use App\Repository\DBElementRepository;
 use App\Repository\PartRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use InvalidArgumentException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
 
@@ -67,7 +68,7 @@ final class PartsTableActionHandler
         //Iterate over the parts and apply the action to it:
         foreach ($selected_parts as $part) {
             if (!$part instanceof Part) {
-                throw new \InvalidArgumentException('$selected_parts must be an array of Part elements!');
+                throw new InvalidArgumentException('$selected_parts must be an array of Part elements!');
             }
 
             //We modify parts, so you have to have the permission to modify it
@@ -102,7 +103,7 @@ final class PartsTableActionHandler
                     break;
 
                 default:
-                    throw new \InvalidArgumentException('The given action is unknown! ('.$action.')');
+                    throw new InvalidArgumentException('The given action is unknown! ('.$action.')');
             }
         }
     }

@@ -23,8 +23,11 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
+use DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+use function ord;
 
 class LabelResponse extends Response
 {
@@ -63,7 +66,7 @@ class LabelResponse extends Response
      */
     public function setAutoLastModified(): LabelResponse
     {
-        $this->setLastModified(new \DateTime());
+        $this->setLastModified(new DateTime());
 
         return $this;
     }
@@ -95,7 +98,7 @@ class LabelResponse extends Response
             for ($i = 0, $filenameLength = mb_strlen($filename, $encoding); $i < $filenameLength; ++$i) {
                 $char = mb_substr($filename, $i, 1, $encoding);
 
-                if ('%' === $char || \ord($char) < 32 || \ord($char) > 126) {
+                if ('%' === $char || ord($char) < 32 || ord($char) > 126) {
                     $filenameFallback .= '_';
                 } else {
                     $filenameFallback .= $char;

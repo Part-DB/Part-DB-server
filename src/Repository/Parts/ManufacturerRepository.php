@@ -22,13 +22,14 @@ namespace App\Repository\Parts;
 
 use App\Entity\Parts\Manufacturer;
 use App\Repository\AbstractPartsContainingRepository;
+use InvalidArgumentException;
 
 class ManufacturerRepository extends AbstractPartsContainingRepository
 {
     public function getParts(object $element, array $order_by = ['name' => 'ASC']): array
     {
         if (!$element instanceof Manufacturer) {
-            throw new \InvalidArgumentException('$element must be an Manufacturer!');
+            throw new InvalidArgumentException('$element must be an Manufacturer!');
         }
 
         return $this->getPartsByField($element, $order_by, 'manufacturer');
@@ -37,7 +38,7 @@ class ManufacturerRepository extends AbstractPartsContainingRepository
     public function getPartsCount(object $element): int
     {
         if (!$element instanceof Manufacturer) {
-            throw new \InvalidArgumentException('$element must be an Manufacturer!');
+            throw new InvalidArgumentException('$element must be an Manufacturer!');
         }
 
         return $this->getPartsCountByField($element, 'manufacturer');

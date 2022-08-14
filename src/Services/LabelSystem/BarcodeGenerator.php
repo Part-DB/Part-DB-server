@@ -26,6 +26,7 @@ namespace App\Services\LabelSystem;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
 use Com\Tecnick\Barcode\Barcode;
+use InvalidArgumentException;
 
 final class BarcodeGenerator
 {
@@ -64,7 +65,7 @@ final class BarcodeGenerator
             case 'none':
                 return null;
             default:
-                throw new \InvalidArgumentException('Unknown label type!');
+                throw new InvalidArgumentException('Unknown label type!');
         }
 
         $bobj = $barcode->getBarcodeObj($type, $this->getContent($options, $target));
@@ -85,7 +86,7 @@ final class BarcodeGenerator
             case 'none':
                 return null;
             default:
-                throw new \InvalidArgumentException('Unknown label type!');
+                throw new InvalidArgumentException('Unknown label type!');
         }
     }
 }

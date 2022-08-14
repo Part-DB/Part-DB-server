@@ -26,6 +26,7 @@ namespace App\Repository;
 use App\Entity\LabelSystem\LabelOptions;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Helpers\Trees\TreeViewNode;
+use InvalidArgumentException;
 
 class LabelProfileRepository extends NamedDBElementRepository
 {
@@ -36,7 +37,7 @@ class LabelProfileRepository extends NamedDBElementRepository
     public function getDropdownProfiles(string $type): array
     {
         if (!in_array($type, LabelOptions::SUPPORTED_ELEMENTS, true)) {
-            throw new \InvalidArgumentException('Invalid supported_element type given.');
+            throw new InvalidArgumentException('Invalid supported_element type given.');
         }
 
         return $this->findBy([
@@ -85,7 +86,7 @@ class LabelProfileRepository extends NamedDBElementRepository
     public function findForSupportedElement(string $type, array $order_by = ['name' => 'ASC']): array
     {
         if (!in_array($type, LabelOptions::SUPPORTED_ELEMENTS, true)) {
-            throw new \InvalidArgumentException('Invalid supported_element type given.');
+            throw new InvalidArgumentException('Invalid supported_element type given.');
         }
 
         return $this->findBy(['options.supported_element' => $type], $order_by);

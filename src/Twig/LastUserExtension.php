@@ -24,13 +24,14 @@ declare(strict_types=1);
 namespace App\Twig;
 
 use App\Entity\LogSystem\AbstractLogEntry;
+use App\Repository\LogEntryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class LastUserExtension extends AbstractExtension
 {
-    /** @var \App\Repository\LogEntryRepository */
+    /** @var LogEntryRepository */
     private $repo;
 
     public function __construct(EntityManagerInterface $em)

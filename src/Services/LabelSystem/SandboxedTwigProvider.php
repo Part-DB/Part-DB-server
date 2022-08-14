@@ -43,9 +43,11 @@ use App\Entity\PriceInformations\Pricedetail;
 use App\Entity\UserSystem\User;
 use App\Twig\AppExtension;
 use App\Twig\Sandbox\InheritanceSecurityPolicy;
+use InvalidArgumentException;
 use Twig\Environment;
 use Twig\Extension\SandboxExtension;
 use Twig\Extra\Intl\IntlExtension;
+use Twig\Loader\ArrayLoader;
 use Twig\Sandbox\SecurityPolicyInterface;
 
 final class SandboxedTwigProvider
@@ -104,10 +106,10 @@ final class SandboxedTwigProvider
     public function getTwig(LabelOptions $options): Environment
     {
         if ('twig' !== $options->getLinesMode()) {
-            throw new \InvalidArgumentException('The LabelOptions must explicitly allow twig via lines_mode = "twig"!');
+            throw new InvalidArgumentException('The LabelOptions must explicitly allow twig via lines_mode = "twig"!');
         }
 
-        $loader = new \Twig\Loader\ArrayLoader([
+        $loader = new ArrayLoader([
             'lines' => $options->getLines(),
         ]);
         $twig = new Environment($loader);

@@ -46,6 +46,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Security\Annotations\ColumnSecurity;
 use App\Validator\Constraints\Selectable;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 trait BasicPropertyTrait

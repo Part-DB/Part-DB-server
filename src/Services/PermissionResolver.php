@@ -46,6 +46,7 @@ use App\Configuration\PermissionsConfiguration;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Security\Interfaces\HasPermissionsInterface;
+use InvalidArgumentException;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\Resource\FileResource;
@@ -172,7 +173,7 @@ class PermissionResolver
     public function listOperationsForPermission(string $permission): array
     {
         if (!$this->isValidPermission($permission)) {
-            throw new \InvalidArgumentException(sprintf('A permission with that name is not existing! Got %s.', $permission));
+            throw new InvalidArgumentException(sprintf('A permission with that name is not existing! Got %s.', $permission));
         }
         $operations = $this->permission_structure['perms'][$permission]['operations'];
 

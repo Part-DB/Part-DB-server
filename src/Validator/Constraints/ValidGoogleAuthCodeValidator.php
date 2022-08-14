@@ -51,6 +51,9 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
+use function is_string;
+use function strlen;
+
 class ValidGoogleAuthCodeValidator extends ConstraintValidator
 {
     protected $googleAuthenticator;
@@ -70,7 +73,7 @@ class ValidGoogleAuthCodeValidator extends ConstraintValidator
             return;
         }
 
-        if (!\is_string($value)) {
+        if (!is_string($value)) {
             throw new UnexpectedValueException($value, 'string');
         }
 
@@ -79,7 +82,7 @@ class ValidGoogleAuthCodeValidator extends ConstraintValidator
         }
 
         //Number must have 6 digits
-        if (6 !== \strlen($value)) {
+        if (6 !== strlen($value)) {
             $this->context->addViolation('validator.google_code.wrong_digit_count');
         }
 

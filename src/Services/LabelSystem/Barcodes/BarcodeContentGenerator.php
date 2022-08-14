@@ -27,6 +27,7 @@ use App\Entity\Base\AbstractDBElement;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
+use InvalidArgumentException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class BarcodeContentGenerator
@@ -88,6 +89,6 @@ final class BarcodeContentGenerator
             }
         }
 
-        throw new \InvalidArgumentException('Unknown object class '.get_class($target));
+        throw new InvalidArgumentException('Unknown object class '.get_class($target));
     }
 }

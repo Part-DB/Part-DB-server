@@ -61,6 +61,8 @@ use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Twig\TwigTest;
 
+use function get_class;
+
 class AppExtension extends AbstractExtension
 {
     protected $entityURLGenerator;
@@ -128,7 +130,7 @@ class AppExtension extends AbstractExtension
 
     public function treeData(AbstractDBElement $element, string $type = 'newEdit'): string
     {
-        $tree = $this->treeBuilder->getTreeView(\get_class($element), null, $type, $element);
+        $tree = $this->treeBuilder->getTreeView(get_class($element), null, $type, $element);
 
         return json_encode($tree);
     }

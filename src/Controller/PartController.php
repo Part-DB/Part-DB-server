@@ -60,7 +60,9 @@ use App\Services\LogSystem\HistoryHelper;
 use App\Services\LogSystem\TimeTravel;
 use App\Services\Parameters\ParameterExtractor;
 use App\Services\PricedetailHelper;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -91,7 +93,7 @@ class PartController extends AbstractController
      * @Route("/{id}/info/{timestamp}", name="part_info")
      * @Route("/{id}", requirements={"id"="\d+"})
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function show(Part $part, Request $request, TimeTravel $timeTravel, HistoryHelper $historyHelper,
         DataTableFactory $dataTable, ParameterExtractor $parameterExtractor, ?string $timestamp = null): Response
@@ -104,10 +106,10 @@ class PartController extends AbstractController
             $this->denyAccessUnlessGranted('show_history', $part);
             //If the timestamp only contains numbers interpret it as unix timestamp
             if (ctype_digit($timestamp)) {
-                $timeTravel_timestamp = new \DateTime();
+                $timeTravel_timestamp = new DateTime();
                 $timeTravel_timestamp->setTimestamp((int) $timestamp);
             } else { //Try to parse it via DateTime
-                $timeTravel_timestamp = new \DateTime($timestamp);
+                $timeTravel_timestamp = new DateTime($timestamp);
             }
             $timeTravel->revertEntityToTimestamp($part, $timeTravel_timestamp);
         }
@@ -199,12 +201,11 @@ class PartController extends AbstractController
     /**
      * @Route("/{id}/delete", name="part_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Part $part): RedirectResponse
+    public function delete(Request $request, Part $part, EntityManagerInterface $entityManager): RedirectResponse
     {
         $this->denyAccessUnlessGranted('delete', $part);
 
         if ($this->isCsrfTokenValid('delete'.$part->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
 
             $this->commentHelper->setMessage($request->request->get('log_comment', null));
 

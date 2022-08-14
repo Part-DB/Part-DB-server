@@ -27,6 +27,7 @@ use App\Entity\Base\AbstractDBElement;
 use App\Entity\UserSystem\User;
 use App\Events\SecurityEvents;
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\IpUtils;
 
 /**
@@ -60,7 +61,7 @@ class SecurityEventLogEntry extends AbstractLogEntry
     public function setTargetElement(?AbstractDBElement $element): AbstractLogEntry
     {
         if (!$element instanceof User) {
-            throw new \InvalidArgumentException('Target element must be a User object!');
+            throw new InvalidArgumentException('Target element must be a User object!');
         }
 
         return parent::setTargetElement($element);
@@ -75,7 +76,7 @@ class SecurityEventLogEntry extends AbstractLogEntry
     {
         $key = array_search($type, static::SECURITY_TYPE_MAPPING, true);
         if (false === $key) {
-            throw new \InvalidArgumentException('Given event type is not existing!');
+            throw new InvalidArgumentException('Given event type is not existing!');
         }
         $this->extra['e'] = $key;
 

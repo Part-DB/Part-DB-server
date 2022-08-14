@@ -27,6 +27,7 @@ use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\LogWithEventUndoInterface;
 use App\Entity\Contracts\NamedElementInterface;
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
 
 /**
  * @ORM\Entity()
@@ -104,7 +105,7 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
         } elseif ('revert' === $mode) {
             $this->extra['um'] = 2;
         } else {
-            throw new \InvalidArgumentException('Passed invalid $mode!');
+            throw new InvalidArgumentException('Passed invalid $mode!');
         }
 
         return $this;

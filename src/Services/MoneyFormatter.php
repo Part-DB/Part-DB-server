@@ -74,9 +74,9 @@ class MoneyFormatter
 
         $number_formatter = new NumberFormatter($this->locale, NumberFormatter::CURRENCY);
         if ($show_all_digits) {
-            $number_formatter->setAttribute(\NumberFormatter::FRACTION_DIGITS, $decimals);
+            $number_formatter->setAttribute(NumberFormatter::FRACTION_DIGITS, $decimals);
         } else {
-            $number_formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, $decimals);
+            $number_formatter->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, $decimals);
         }
 
         return $number_formatter->formatCurrency((float) $value, $iso_code);

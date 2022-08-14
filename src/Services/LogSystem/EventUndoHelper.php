@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Services\LogSystem;
 
 use App\Entity\LogSystem\AbstractLogEntry;
+use InvalidArgumentException;
 
 class EventUndoHelper
 {
@@ -44,7 +45,7 @@ class EventUndoHelper
     public function setMode(string $mode): void
     {
         if (!in_array($mode, self::ALLOWED_MODES, true)) {
-            throw new \InvalidArgumentException('Invalid mode passed!');
+            throw new InvalidArgumentException('Invalid mode passed!');
         }
         $this->mode = $mode;
     }

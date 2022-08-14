@@ -180,7 +180,7 @@ abstract class Attachment extends AbstractNamedDBElement
         //After the %PLACEHOLDER% comes a slash, so we can check if we have a placeholder via explode
         $tmp = explode('/', $this->path);
 
-        return !in_array($tmp[0], array_merge(static::INTERNAL_PLACEHOLDER, static::BUILTIN_PLACEHOLDER), false);
+        return !in_array($tmp[0], array_merge(static::INTERNAL_PLACEHOLDER, static::BUILTIN_PLACEHOLDER));
     }
 
     /**

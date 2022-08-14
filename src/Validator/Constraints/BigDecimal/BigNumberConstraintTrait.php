@@ -4,13 +4,15 @@ namespace App\Validator\Constraints\BigDecimal;
 
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 
+use function is_array;
+
 trait BigNumberConstraintTrait
 {
     private function configureNumberConstraintOptions($options): array
     {
         if (null === $options) {
             $options = [];
-        } elseif (!\is_array($options)) {
+        } elseif (!is_array($options)) {
             $options = [$this->getDefaultOption() => $options];
         }
 

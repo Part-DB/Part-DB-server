@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Entity\Base;
 
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 use Symfony\Component\Serializer\Annotation\DiscriminatorMap;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -55,7 +56,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      "user" = "App\Entity\User"
  *  })
  */
-abstract class AbstractDBElement implements \JsonSerializable
+abstract class AbstractDBElement implements JsonSerializable
 {
     /** @var int|null The Identification number for this part. This value is unique for the element in this table.
      * Null if the element is not saved to DB yet.

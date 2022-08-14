@@ -24,6 +24,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Contracts;
 
+use DateTime;
+
 interface TimeTravelInterface
 {
     /**
@@ -41,5 +43,5 @@ interface TimeTravelInterface
     /**
      * Returns the the timestamp associated with this change.
      */
-    public function getTimestamp(): \DateTime;
+    public function getTimestamp(): DateTime;
 }

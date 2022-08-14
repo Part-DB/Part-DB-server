@@ -518,8 +518,6 @@ class PermissionsEmbed
 
         $mask = 0b11 << $n; //Mask all bits that should be written
         $newval = $new << $n; //The new value.
-        $data = ($data & ~$mask) | ($newval & $mask);
-
-        return $data;
+        return ($data & ~$mask) | ($newval & $mask);
     }
 }

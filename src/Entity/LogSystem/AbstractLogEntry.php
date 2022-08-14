@@ -64,6 +64,7 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
 use Psr\Log\LogLevel;
 
 /**
@@ -263,7 +264,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     public function setLevel(int $level): self
     {
         if ($level < 0 || $this->level > 7) {
-            throw new \InvalidArgumentException(sprintf('$level must be between 0 and 7! %d given!', $level));
+            throw new InvalidArgumentException(sprintf('$level must be between 0 and 7! %d given!', $level));
         }
         $this->level = $level;
 
@@ -387,7 +388,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     final public static function levelIntToString(int $level): string
     {
         if (!isset(self::LEVEL_ID_TO_STRING[$level])) {
-            throw new \InvalidArgumentException('No level with this int is existing!');
+            throw new InvalidArgumentException('No level with this int is existing!');
         }
 
         return self::LEVEL_ID_TO_STRING[$level];
@@ -404,7 +405,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     {
         $tmp = array_flip(self::LEVEL_ID_TO_STRING);
         if (!isset($tmp[$level])) {
-            throw new \InvalidArgumentException('No level with this string is existing!');
+            throw new InvalidArgumentException('No level with this string is existing!');
         }
 
         return $tmp[$level];
@@ -418,7 +419,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     final public static function targetTypeIdToClass(int $type_id): string
     {
         if (!isset(self::TARGET_CLASS_MAPPING[$type_id])) {
-            throw new \InvalidArgumentException('No target type with this ID is existing!');
+            throw new InvalidArgumentException('No target type with this ID is existing!');
         }
 
         return self::TARGET_CLASS_MAPPING[$type_id];
@@ -446,6 +447,6 @@ abstract class AbstractLogEntry extends AbstractDBElement
             }
         }
 
-        throw new \InvalidArgumentException('No target ID for this class is existing!');
+        throw new InvalidArgumentException('No target ID for this class is existing!');
     }
 }

@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
 use App\Entity\Contracts\TimeStampableInterface;
+use DateTime;
 use IntlDateFormatter;
 use Locale;
 
@@ -35,11 +36,11 @@ final class TimestampableElementProvider implements PlaceholderProviderInterface
             $formatter = new IntlDateFormatter(Locale::getDefault(), IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
 
             if ('[[LAST_MODIFIED]]' === $placeholder) {
-                return $formatter->format($label_target->getLastModified() ?? new \DateTime());
+                return $formatter->format($label_target->getLastModified() ?? new DateTime());
             }
 
             if ('[[CREATION_DATE]]' === $placeholder) {
-                return $formatter->format($label_target->getAddedDate() ?? new \DateTime());
+                return $formatter->format($label_target->getAddedDate() ?? new DateTime());
             }
         }
 

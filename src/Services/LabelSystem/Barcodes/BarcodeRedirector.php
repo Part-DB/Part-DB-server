@@ -26,6 +26,7 @@ namespace App\Services\LabelSystem\Barcodes;
 use App\Entity\Parts\PartLot;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
+use InvalidArgumentException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class BarcodeRedirector
@@ -67,7 +68,7 @@ final class BarcodeRedirector
                 return $this->urlGenerator->generate('part_list_store_location', ['id' => $id]);
 
             default:
-                throw new \InvalidArgumentException('Unknown $type: '.$type);
+                throw new InvalidArgumentException('Unknown $type: '.$type);
         }
     }
 }

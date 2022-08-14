@@ -47,6 +47,7 @@ use App\Entity\Contracts\LogWithCommentInterface;
 use App\Entity\Contracts\LogWithEventUndoInterface;
 use App\Entity\Contracts\TimeTravelInterface;
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
 
 /**
  * @ORM\Entity()
@@ -157,7 +158,7 @@ class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterf
         } elseif ('revert' === $mode) {
             $this->extra['um'] = 2;
         } else {
-            throw new \InvalidArgumentException('Passed invalid $mode!');
+            throw new InvalidArgumentException('Passed invalid $mode!');
         }
 
         return $this;

@@ -35,6 +35,7 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
 use Brick\Math\BigDecimal;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -80,7 +81,7 @@ class PartFixtures extends Fixture
         $part->addPartLot($partLot1);
 
         $partLot2 = new PartLot();
-        $partLot2->setExpirationDate(new \DateTime());
+        $partLot2->setExpirationDate(new DateTime());
         $partLot2->setComment('Test');
         $partLot2->setNeedsRefill(true);
         $partLot2->setStorageLocation($manager->find(Storelocation::class, 3));

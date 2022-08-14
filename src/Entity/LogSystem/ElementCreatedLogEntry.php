@@ -48,6 +48,7 @@ use App\Entity\Contracts\LogWithEventUndoInterface;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
 
 /**
  * @ORM\Entity()
@@ -120,7 +121,7 @@ class ElementCreatedLogEntry extends AbstractLogEntry implements LogWithCommentI
         } elseif ('revert' === $mode) {
             $this->extra['um'] = 2;
         } else {
-            throw new \InvalidArgumentException('Passed invalid $mode!');
+            throw new InvalidArgumentException('Passed invalid $mode!');
         }
 
         return $this;

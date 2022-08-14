@@ -46,6 +46,7 @@ use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentPathResolver;
 use App\Services\Attachments\AttachmentReverseSearch;
 use IntlDateFormatter;
+use Locale;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -106,7 +107,7 @@ class CleanAttachmentsCommand extends Command
 
         $table = new Table($output);
         $table->setHeaders(['Filename', 'MIME Type', 'Last modified date']);
-        $dateformatter = IntlDateFormatter::create(\Locale::getDefault(), IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
+        $dateformatter = IntlDateFormatter::create(Locale::getDefault(), IntlDateFormatter::SHORT, IntlDateFormatter::SHORT);
 
         foreach ($finder as $file) {
             //If not attachment object uses this file, print it
