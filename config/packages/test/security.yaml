@@ -2,11 +2,11 @@
 security:
 
   # Disable password hashing during testing. This speeds up tests a lot
-  encoders:
-    App\Entity\UserSystem\User:
-      algorithm: plaintext
+  password_hashers:
+    Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'plaintext'
 
   firewalls:
     # replace 'main' by the name of your own firewall
     main:
+      entry_point: http_basic
       http_basic: ~
