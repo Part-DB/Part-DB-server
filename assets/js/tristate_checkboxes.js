@@ -1,49 +1,37 @@
 'use strict';
 
-import "./lib/jquery.tristate"
+import TristateCheckbox from "./lib/TristateCheckbox";
 
 class TristateHelper {
     constructor() {
         this.registerTriStateCheckboxes();
-        this.registerSubmitHandler();
-    }
-
-    registerSubmitHandler() {
-        document.addEventListener("turbo:submit-start", (e) => {
-            var form = e.detail.formSubmission.formElement;
-            var formData = e.detail.formSubmission.formData;
-
-            var $tristate_checkboxes = $('.tristate:checkbox', form);
-
-            //Iterate over each tristate checkbox in the form and set formData to the correct value
-            $tristate_checkboxes.each(function() {
-                var $checkbox = $(this);
-                var state = $checkbox.tristate('state');
-
-                formData.set($checkbox.attr('name'), state);
-            });
-        });
     }
 
     registerTriStateCheckboxes() {
         //Initialize tristate checkboxes and if needed the multicheckbox functionality
 
         const listener = () => {
-            $(".tristate").tristate( {
-                checked:            "true",
-                unchecked:          "false",
-                indeterminate:      "indeterminate",
+
+            const tristates = document.querySelectorAll("input.tristate");
+
+            tristates.forEach(tristate => {
+               TristateCheckbox.getInstance(tristate);
             });
 
-            $('.permission_multicheckbox:checkbox').change(function() {
-                //Find the other checkboxes in this row, and change their value
-                var $row = $(this).parents('tr');
 
-                //@ts-ignore
-                var new_state = $(this).tristate('state');
+            //Register multi checkboxes in permission tables
+            const multicheckboxes = document.querySelectorAll("input.permission_multicheckbox");
+            multicheckboxes.forEach(multicheckbox => {
+               multicheckbox.addEventListener("change", (event) => {
+                    const newValue =  TristateCheckbox.getInstance(event.target).state;
+                    const row = event.target.closest("tr");
 
-                //@ts-ignore
-                $('.tristate:checkbox', $row).tristate('state', new_state);
+                    //Find all tristate checkboxes in the same row and set their state to the new value
+                    const tristateCheckboxes = row.querySelectorAll("input.tristate");
+                    tristateCheckboxes.forEach(tristateCheckbox => {
+                        TristateCheckbox.getInstance(tristateCheckbox).state = newValue;
+                    });
+               });
             });
         }
 
