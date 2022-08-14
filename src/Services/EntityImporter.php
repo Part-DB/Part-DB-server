@@ -228,9 +228,9 @@ class EntityImporter
      * This functions corrects the parent setting based on the children value of the parent.
      *
      * @param iterable                         $entities the list of entities that should be fixed
-     * @param AbstractStructuralDBElement|null $parent   the parent, to which the entity should be set
+     * @param  AbstractStructuralDBElement|null  $parent   the parent, to which the entity should be set
      */
-    protected function correctParentEntites(iterable $entities, $parent = null): void
+    protected function correctParentEntites(iterable $entities, AbstractStructuralDBElement $parent = null): void
     {
         foreach ($entities as $entity) {
             /** @var AbstractStructuralDBElement $entity */

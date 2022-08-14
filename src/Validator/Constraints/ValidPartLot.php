@@ -52,7 +52,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class ValidPartLot extends Constraint
 {
-    public function getTargets()
+    public function getTargets(): string
     {
         return self::CLASS_CONSTRAINT;
     }

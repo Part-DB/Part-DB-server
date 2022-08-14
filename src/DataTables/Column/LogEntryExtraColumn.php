@@ -57,12 +57,16 @@ class LogEntryExtraColumn extends AbstractColumn
         $this->formatter = $formatter;
     }
 
+    /**
+     * @param $value
+     * @return mixed
+     */
     public function normalize($value)
     {
         return $value;
     }
 
-    public function render($value, $context)
+    public function render($value, $context): string
     {
         return $this->formatter->format($context);
     }

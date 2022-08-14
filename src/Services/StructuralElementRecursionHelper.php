@@ -62,10 +62,10 @@ class StructuralElementRecursionHelper
      *                                                      $func has the signature function(StructuralDBElement $element) : void
      * @param int                         $max_depth        The maximum depth for which should be recursivly called. So if this is set to 5, after the
      *                                                      5th level the execution is stopped.
-     * @param bool                        $call_from_bottom If set to true the bottom elements (elements with high level) will be called first.
+     * @param  bool  $call_from_bottom If set to true the bottom elements (elements with high level) will be called first.
      *                                                      Set to false if you want to call the top elements first.
      */
-    public function execute(AbstractStructuralDBElement $element, callable $func, int $max_depth = -1, $call_from_bottom = true): void
+    public function execute(AbstractStructuralDBElement $element, callable $func, int $max_depth = -1, bool $call_from_bottom = true): void
     {
         //Cancel if we reached our maximal allowed level. Must be zero because -1 is infinity levels
         if (0 === $max_depth) {

@@ -35,7 +35,7 @@ class BigDecimalGreaterThanValidator extends AbstractComparisonValidator
     /**
      * {@inheritdoc}
      */
-    protected function compareValues($value1, $value2)
+    protected function compareValues($value1, $value2): bool
     {
         if ($value1 instanceof BigDecimal) {
             $value1 = (string) $value1;
@@ -51,7 +51,7 @@ class BigDecimalGreaterThanValidator extends AbstractComparisonValidator
     /**
      * {@inheritdoc}
      */
-    protected function getErrorCode()
+    protected function getErrorCode(): ?string
     {
         return GreaterThan::TOO_LOW_ERROR;
     }

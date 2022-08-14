@@ -33,12 +33,12 @@ class BigDecimalMoneyType extends AbstractType implements DataTransformerInterfa
         $builder->addModelTransformer($this);
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return MoneyType::class;
     }
 
-    public function transform($value)
+    public function transform($value): ?string
     {
         if (null === $value) {
             return null;
@@ -51,7 +51,7 @@ class BigDecimalMoneyType extends AbstractType implements DataTransformerInterfa
         return $value;
     }
 
-    public function reverseTransform($value)
+    public function reverseTransform($value): ?BigDecimal
     {
         if (null === $value) {
             return null;

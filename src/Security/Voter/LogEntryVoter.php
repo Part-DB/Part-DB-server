@@ -49,7 +49,7 @@ class LogEntryVoter extends ExtendedVoter
 {
     public const ALLOWED_OPS = ['read', 'delete'];
 
-    protected function voteOnUser($attribute, $subject, User $user): bool
+    protected function voteOnUser(string $attribute, $subject, User $user): bool
     {
         if ('delete' === $attribute) {
             return $this->resolver->inherit($user, 'system', 'delete_logs') ?? false;
@@ -70,7 +70,7 @@ class LogEntryVoter extends ExtendedVoter
         return false;
     }
 
-    protected function supports($attribute, $subject)
+    protected function supports($attribute, $subject): bool
     {
         if ($subject instanceof AbstractLogEntry) {
             return in_array($subject, static::ALLOWED_OPS, true);

@@ -94,7 +94,7 @@ final class TreeViewNodeState implements JsonSerializable
         return $this;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $ret = [];
         if (null !== $this->selected) {

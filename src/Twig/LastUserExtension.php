@@ -38,7 +38,7 @@ class LastUserExtension extends AbstractExtension
         $this->repo = $em->getRepository(AbstractLogEntry::class);
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('getLastEditingUser', [$this->repo, 'getLastEditingUser']),

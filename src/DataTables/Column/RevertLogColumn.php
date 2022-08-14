@@ -42,12 +42,16 @@ class RevertLogColumn extends AbstractColumn
         $this->security = $security;
     }
 
+    /**
+     * @param $value
+     * @return mixed
+     */
     public function normalize($value)
     {
         return $value;
     }
 
-    public function render($value, $context)
+    public function render($value, $context): string
     {
         if (
             $context instanceof CollectionElementDeleted

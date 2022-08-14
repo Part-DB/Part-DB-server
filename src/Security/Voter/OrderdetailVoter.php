@@ -33,7 +33,7 @@ class OrderdetailVoter extends ExtendedVoter
      */
     protected const PART_PERMS = ['show_history', 'revert_element'];
 
-    protected function voteOnUser($attribute, $subject, User $user): bool
+    protected function voteOnUser(string $attribute, $subject, User $user): bool
     {
         if (in_array($attribute, self::PART_PERMS, true)) {
             return $this->resolver->inherit($user, 'parts', $attribute) ?? false;
@@ -42,7 +42,7 @@ class OrderdetailVoter extends ExtendedVoter
         return $this->resolver->inherit($user, 'parts_orderdetails', $attribute) ?? false;
     }
 
-    protected function supports($attribute, $subject)
+    protected function supports($attribute, $subject): bool
     {
         if (is_a($subject, Orderdetail::class, true)) {
             return in_array($attribute, array_merge(

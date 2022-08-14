@@ -28,7 +28,7 @@ class BigDecimalType extends Type
 {
     public const BIG_DECIMAL = 'big_decimal';
 
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
+    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
         return $platform->getDecimalTypeDeclarationSQL($fieldDeclaration);
     }
@@ -50,7 +50,7 @@ class BigDecimalType extends Type
     /**
      * @param BigDecimal|null $value
      */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if (null === $value) {
             return null;
@@ -59,12 +59,12 @@ class BigDecimalType extends Type
         return (string) $value;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return self::BIG_DECIMAL;
     }
 
-    public function requiresSQLCommentHint(AbstractPlatform $platform)
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {
         return true;
     }

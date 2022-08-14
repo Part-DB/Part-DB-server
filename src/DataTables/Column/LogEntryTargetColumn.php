@@ -78,12 +78,16 @@ class LogEntryTargetColumn extends AbstractColumn
         $this->translator = $translator;
     }
 
+    /**
+     * @param $value
+     * @return mixed
+     */
     public function normalize($value)
     {
         return $value;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): self
     {
         parent::configureOptions($resolver);
         $resolver->setDefault('show_associated', true);
@@ -92,7 +96,7 @@ class LogEntryTargetColumn extends AbstractColumn
         return $this;
     }
 
-    public function render($value, $context)
+    public function render($value, $context): string
     {
         if ($context instanceof UserNotAllowedLogEntry && $this->options['showAccessDeniedPath']) {
             return htmlspecialchars($context->getPath());

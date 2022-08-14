@@ -48,7 +48,7 @@ use Symfony\Component\DependencyInjection\Exception\EnvNotFoundException;
 
 final class CustomEnvVarProcessor implements EnvVarProcessorInterface
 {
-    public function getEnv($prefix, $name, Closure $getEnv)
+    public function getEnv($prefix, $name, Closure $getEnv): bool
     {
         if ('validMailDSN' === $prefix) {
             try {

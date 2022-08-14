@@ -59,6 +59,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -200,7 +201,7 @@ class UserSettingsController extends AbstractController
      *
      * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator, BackupCodeManager $backupCodeManager)
+    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator, BackupCodeManager $backupCodeManager, FormFactoryInterface $formFactory)
     {
         /** @var User */
         $user = $this->getUser();
@@ -330,7 +331,8 @@ class UserSettingsController extends AbstractController
             return $this->redirectToRoute('user_settings');
         }
 
-        $backup_form = $this->get('form.factory')->createNamedBuilder('backup_codes')->add('reset_codes', SubmitType::class, [
+
+        $backup_form = $formFactory->createNamedBuilder('backup_codes')->add('reset_codes', SubmitType::class, [
             'label' => 'tfa_backup.regenerate_codes',
             'attr' => [
                 'class' => 'btn-danger',

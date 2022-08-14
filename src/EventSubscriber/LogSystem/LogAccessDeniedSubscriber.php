@@ -58,7 +58,7 @@ class LogAccessDeniedSubscriber implements EventSubscriberInterface
         $this->logger->logAndFlush($log_entry);
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return ['kernel.exception' => 'onKernelException'];
     }

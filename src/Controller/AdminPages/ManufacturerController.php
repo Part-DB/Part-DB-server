@@ -71,7 +71,7 @@ class ManufacturerController extends BaseAdminController
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function delete(Request $request, Manufacturer $entity, StructuralElementRecursionHelper $recursionHelper)
+    public function delete(Request $request, Manufacturer $entity, StructuralElementRecursionHelper $recursionHelper): \Symfony\Component\HttpFoundation\RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }

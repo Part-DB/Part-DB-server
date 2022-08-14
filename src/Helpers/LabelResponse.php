@@ -33,7 +33,7 @@ class LabelResponse extends Response
         parent::__construct($content, $status, $headers);
     }
 
-    public function setContent($content)
+    public function setContent($content): self
     {
         parent::setContent($content);
 
@@ -43,7 +43,7 @@ class LabelResponse extends Response
         return $this;
     }
 
-    public function prepare(Request $request)
+    public function prepare(Request $request): self
     {
         parent::prepare($request);
 
@@ -81,13 +81,13 @@ class LabelResponse extends Response
     /**
      * Sets the Content-Disposition header with the given filename.
      *
-     * @param string $disposition      ResponseHeaderBag::DISPOSITION_INLINE or ResponseHeaderBag::DISPOSITION_ATTACHMENT
-     * @param string $filename         Optionally use this UTF-8 encoded filename instead of the real name of the file
-     * @param string $filenameFallback A fallback filename, containing only ASCII characters. Defaults to an automatically encoded filename
+     * @param  string  $disposition      ResponseHeaderBag::DISPOSITION_INLINE or ResponseHeaderBag::DISPOSITION_ATTACHMENT
+     * @param  string  $filename         Optionally use this UTF-8 encoded filename instead of the real name of the file
+     * @param  string  $filenameFallback A fallback filename, containing only ASCII characters. Defaults to an automatically encoded filename
      *
      * @return $this
      */
-    public function setContentDisposition($disposition, $filename, $filenameFallback = ''): self
+    public function setContentDisposition(string $disposition, string $filename, string $filenameFallback = ''): self
     {
         if ('' === $filenameFallback && (!preg_match('/^[\x20-\x7e]*$/', $filename) || false !== strpos($filename, '%'))) {
             $encoding = mb_detect_encoding($filename, null, true) ?: '8bit';

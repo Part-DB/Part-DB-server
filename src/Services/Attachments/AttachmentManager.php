@@ -163,11 +163,11 @@ class AttachmentManager
      * Returns a human readable version of the attachment file size.
      * For external attachments, null is returned.
      *
-     * @param int $decimals The number of decimals numbers that should be printed
+     * @param  int  $decimals The number of decimals numbers that should be printed
      *
      * @return string|null A string like 1.3M
      */
-    public function getHumanFileSize(Attachment $attachment, $decimals = 2): ?string
+    public function getHumanFileSize(Attachment $attachment, int $decimals = 2): ?string
     {
         $bytes = $this->getFileSize($attachment);
 

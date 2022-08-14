@@ -102,7 +102,7 @@ class LogDBMigrationSubscriber implements EventSubscriber
         }
     }
 
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             Events::onMigrationsMigrated,

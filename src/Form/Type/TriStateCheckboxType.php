@@ -68,7 +68,7 @@ final class TriStateCheckboxType extends AbstractType implements DataTransformer
         ]);
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'tristate';
     }

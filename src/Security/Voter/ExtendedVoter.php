@@ -92,7 +92,7 @@ abstract class ExtendedVoter extends Voter
      * Similar to voteOnAttribute, but checking for the anonymous user is already done.
      * The current user (or the anonymous user) is passed by $user.
      *
-     * @param string $attribute
+     * @param  string  $attribute
      */
-    abstract protected function voteOnUser($attribute, $subject, User $user): bool;
+    abstract protected function voteOnUser(string $attribute, $subject, User $user): bool;
 }

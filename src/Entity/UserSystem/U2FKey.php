@@ -120,10 +120,11 @@ class U2FKey implements TwoFactorKeyInterface
         $this->counter = $data->counter;
     }
 
-    public function getKeyHandle()
+    public function getKeyHandle(): string
     {
         return $this->keyHandle;
     }
+
 
     public function setKeyHandle($keyHandle): self
     {
@@ -132,7 +133,7 @@ class U2FKey implements TwoFactorKeyInterface
         return $this;
     }
 
-    public function getPublicKey()
+    public function getPublicKey(): string
     {
         return $this->publicKey;
     }
@@ -144,7 +145,7 @@ class U2FKey implements TwoFactorKeyInterface
         return $this;
     }
 
-    public function getCertificate()
+    public function getCertificate(): string
     {
         return $this->certificate;
     }
@@ -156,7 +157,7 @@ class U2FKey implements TwoFactorKeyInterface
         return $this;
     }
 
-    public function getCounter()
+    public function getCounter(): int
     {
         return $this->counter;
     }
@@ -168,7 +169,7 @@ class U2FKey implements TwoFactorKeyInterface
         return $this;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }

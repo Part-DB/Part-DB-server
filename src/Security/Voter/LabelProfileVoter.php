@@ -37,12 +37,12 @@ class LabelProfileVoter extends ExtendedVoter
         'revert_element' => 'revert_element',
     ];
 
-    protected function voteOnUser($attribute, $subject, User $user): bool
+    protected function voteOnUser(string $attribute, $subject, User $user): bool
     {
         return $this->resolver->inherit($user, 'labels', self::MAPPING[$attribute]) ?? false;
     }
 
-    protected function supports($attribute, $subject)
+    protected function supports($attribute, $subject): bool
     {
         if ($subject instanceof LabelProfile) {
             if (!isset(self::MAPPING[$attribute])) {

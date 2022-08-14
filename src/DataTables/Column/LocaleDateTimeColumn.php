@@ -55,7 +55,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class LocaleDateTimeColumn extends AbstractColumn
 {
-    public function normalize($value)
+    /**
+     * @param $value
+     * @return bool|mixed|string
+     * @throws \Exception
+     */
+    public function normalize($value): string
     {
         if (null === $value) {
             return $this->options['nullValue'];
@@ -81,7 +86,7 @@ class LocaleDateTimeColumn extends AbstractColumn
         return $formatter->format($value->getTimestamp());
     }
 
-    protected function configureOptions(OptionsResolver $resolver)
+    protected function configureOptions(OptionsResolver $resolver): self
     {
         parent::configureOptions($resolver);
 

@@ -76,7 +76,7 @@ class ShowEventLogCommand extends Command
         parent::__construct();
     }
 
-    public function execute(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
 

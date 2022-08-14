@@ -52,7 +52,7 @@ use App\Entity\UserSystem\User;
 
 class LogEntryRepository extends DBElementRepository
 {
-    public function findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null)
+    public function findBy(array $criteria, ?array $orderBy = null, $limit = null, $offset = null): array
     {
         //Emulate a target element criteria by splitting it manually in the needed criterias
         if (isset($criteria['target']) && $criteria['target'] instanceof AbstractDBElement) {
@@ -70,13 +70,13 @@ class LogEntryRepository extends DBElementRepository
      * Find log entries associated with the given element (the history of the element).
      *
      * @param AbstractDBElement $element The element for which the history should be generated
-     * @param string            $order   By default newest entries are shown first. Change this to ASC to show oldest entries first.
+     * @param  string  $order   By default newest entries are shown first. Change this to ASC to show oldest entries first.
      * @param null              $limit
      * @param null              $offset
      *
      * @return AbstractLogEntry[]
      */
-    public function getElementHistory(AbstractDBElement $element, $order = 'DESC', $limit = null, $offset = null): array
+    public function getElementHistory(AbstractDBElement $element, string $order = 'DESC', $limit = null, $offset = null): array
     {
         return $this->findBy(['element' => $element], ['timestamp' => $order], $limit, $offset);
     }
@@ -175,11 +175,11 @@ class LogEntryRepository extends DBElementRepository
     /**
      * Gets the last log entries ordered by timestamp.
      *
-     * @param string $order
+     * @param  string  $order
      * @param null   $limit
      * @param null   $offset
      */
-    public function getLogsOrderedByTimestamp($order = 'DESC', $limit = null, $offset = null): array
+    public function getLogsOrderedByTimestamp(string $order = 'DESC', $limit = null, $offset = null): array
     {
         return $this->findBy([], ['timestamp' => $order], $limit, $offset);
     }
@@ -226,7 +226,7 @@ class LogEntryRepository extends DBElementRepository
         return $this->getLastUser($element, ElementCreatedLogEntry::class);
     }
 
-    protected function getLastUser(AbstractDBElement $element, string $class)
+    protected function getLastUser(AbstractDBElement $element, string $class): ?User
     {
         $qb = $this->createQueryBuilder('log');
         $qb->select('log')

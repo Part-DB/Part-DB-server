@@ -62,10 +62,10 @@ class MoneyFormatter
      *
      * @param string|float  $value           the value that should be formatted
      * @param Currency|null $currency        The currency that should be used for formatting. If null the global one is used
-     * @param int           $decimals        the number of decimals that should be shown
+     * @param  int  $decimals        the number of decimals that should be shown
      * @param bool          $show_all_digits if set to true, all digits are shown, even if they are null
      */
-    public function format($value, ?Currency $currency = null, $decimals = 5, bool $show_all_digits = false): string
+    public function format($value, ?Currency $currency = null, int $decimals = 5, bool $show_all_digits = false): string
     {
         $iso_code = $this->base_currency;
         if (null !== $currency && !empty($currency->getIsoCode())) {

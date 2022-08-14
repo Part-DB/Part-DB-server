@@ -72,12 +72,12 @@ class StructureVoter extends ExtendedVoter
     /**
      * Determines if the attribute and subject are supported by this voter.
      *
-     * @param string $attribute An attribute
+     * @param  string  $attribute An attribute
      * @param mixed  $subject   The subject to secure, e.g. an object the user wants to access or any other PHP type
      *
      * @return bool True if the attribute and subject are supported, false otherwise
      */
-    protected function supports($attribute, $subject)
+    protected function supports(string $attribute, $subject): bool
     {
         if (is_object($subject) || is_string($subject)) {
             $permission_name = $this->instanceToPermissionName($subject);
@@ -121,9 +121,9 @@ class StructureVoter extends ExtendedVoter
      * Similar to voteOnAttribute, but checking for the anonymous user is already done.
      * The current user (or the anonymous user) is passed by $user.
      *
-     * @param string $attribute
+     * @param  string  $attribute
      */
-    protected function voteOnUser($attribute, $subject, User $user): bool
+    protected function voteOnUser(string $attribute, $subject, User $user): bool
     {
         $permission_name = $this->instanceToPermissionName($subject);
         //Just resolve the permission

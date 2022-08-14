@@ -49,61 +49,63 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class AttachmentPathResolverTest extends WebTestCase
 {
-    public static $media_path;
-    public static $footprint_path;
-    protected static $projectDir_orig;
-    protected static $projectDir;
+    protected $media_path;
+    protected $footprint_path;
+    protected $projectDir_orig;
+    protected $projectDir;
     /**
      * @var AmountFormatter
      */
-    protected static $service;
+    protected $service;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
-
-        self::bootKernel();
-        self::$projectDir_orig = realpath(self::$kernel->getProjectDir());
-        self::$projectDir = str_replace('\\', '/', self::$projectDir_orig);
-        self::$media_path = self::$projectDir.'/public/media';
-        self::$footprint_path = self::$projectDir.'/public/img/footprints';
-    }
-
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
+        parent::setUp();
 
         //Get an service instance.
         self::bootKernel();
-        self::$service = self::$container->get(AttachmentPathResolver::class);
+
+        $this->projectDir_orig = realpath(self::$kernel->getProjectDir());
+        $this->projectDir = str_replace('\\', '/', $this->projectDir_orig);
+        $this->media_path = $this->projectDir.'/public/media';
+        $this->footprint_path = $this->projectDir.'/public/img/footprints';
+
+        $this->service = self::getContainer()->get(AttachmentPathResolver::class);
     }
 
     public function testParameterToAbsolutePath(): void
     {
         //If null is passed, null must be returned
-        $this->assertNull(self::$service->parameterToAbsolutePath(null));
+        $this->assertNull($this->service->parameterToAbsolutePath(null));
 
         //Absolute path should be returned like they are (we use projectDir here, because we know that this dir exists)
-        $this->assertSame(self::$projectDir_orig, self::$service->parameterToAbsolutePath(self::$projectDir));
+        $this->assertSame($this->projectDir_orig, $this->service->parameterToAbsolutePath($this->projectDir));
 
         //Relative pathes should be resolved
-        $expected = str_replace('\\', '/', self::$projectDir_orig.DIRECTORY_SEPARATOR.'src');
-        $this->assertSame($expected, self::$service->parameterToAbsolutePath('src'));
-        $this->assertSame($expected, self::$service->parameterToAbsolutePath('./src'));
+        $expected = str_replace('\\', '/', $this->projectDir_orig.DIRECTORY_SEPARATOR.'src');
+        $this->assertSame($expected, $this->service->parameterToAbsolutePath('src'));
+        $this->assertSame($expected, $this->service->parameterToAbsolutePath('./src'));
 
         //Invalid pathes should return null
-        $this->assertNull(self::$service->parameterToAbsolutePath('/this/path/does/not/exist'));
-        $this->assertNull(self::$service->parameterToAbsolutePath('/./this/one/too'));
+        $this->assertNull($this->service->parameterToAbsolutePath('/this/path/does/not/exist'));
+        $this->assertNull($this->service->parameterToAbsolutePath('/./this/one/too'));
     }
 
     public function placeholderDataProvider(): array
     {
+        //We need to do initialization (again), as dataprovider is called before setUp()
+        self::bootKernel();
+        $this->projectDir_orig = realpath(self::$kernel->getProjectDir());
+        $this->projectDir = str_replace('\\', '/', $this->projectDir_orig);
+        $this->media_path = $this->projectDir.'/public/media';
+        $this->footprint_path = $this->projectDir.'/public/img/footprints';
+
         return [
-            ['%FOOTPRINTS%/test/test.jpg', self::$footprint_path.'/test/test.jpg'],
-            ['%FOOTPRINTS%/test/', self::$footprint_path.'/test/'],
-            ['%MEDIA%/test', self::$media_path.'/test'],
-            ['%MEDIA%', self::$media_path],
-            ['%FOOTPRINTS%', self::$footprint_path],
+            ['%FOOTPRINTS%/test/test.jpg', $this->footprint_path.'/test/test.jpg'],
+            ['%FOOTPRINTS%/test/', $this->footprint_path.'/test/'],
+            ['%MEDIA%/test', $this->media_path.'/test'],
+            ['%MEDIA%', $this->media_path],
+            ['%FOOTPRINTS%', $this->footprint_path],
             //Footprints 3D are disabled
             ['%FOOTPRINTS_3D%', null],
             //Check that invalid pathes return null
@@ -120,18 +122,25 @@ class AttachmentPathResolverTest extends WebTestCase
 
     public function realPathDataProvider(): array
     {
+        //We need to do initialization (again), as dataprovider is called before setUp()
+        self::bootKernel();
+        $this->projectDir_orig = realpath(self::$kernel->getProjectDir());
+        $this->projectDir = str_replace('\\', '/', $this->projectDir_orig);
+        $this->media_path = $this->projectDir.'/public/media';
+        $this->footprint_path = $this->projectDir.'/public/img/footprints';
+
         return [
-            [self::$media_path.'/test/img.jpg', '%MEDIA%/test/img.jpg'],
-            [self::$media_path.'/test/img.jpg', '%BASE%/data/media/test/img.jpg', true],
-            [self::$footprint_path.'/foo.jpg', '%FOOTPRINTS%/foo.jpg'],
-            [self::$footprint_path.'/foo.jpg', '%FOOTPRINTS%/foo.jpg', true],
+            [$this->media_path.'/test/img.jpg', '%MEDIA%/test/img.jpg'],
+            [$this->media_path.'/test/img.jpg', '%BASE%/data/media/test/img.jpg', true],
+            [$this->footprint_path.'/foo.jpg', '%FOOTPRINTS%/foo.jpg'],
+            [$this->footprint_path.'/foo.jpg', '%FOOTPRINTS%/foo.jpg', true],
             //Every kind of absolute path, that is not based with our placeholder dirs must be invald
             ['/etc/passwd', null],
             ['C:\\not\\existing.txt', null],
             //More then one placeholder is not allowed
-            [self::$footprint_path.'/test/'.self::$footprint_path, null],
+            [$this->footprint_path.'/test/'.$this->footprint_path, null],
             //Path must begin with path
-            ['/not/root'.self::$footprint_path, null],
+            ['/not/root'.$this->footprint_path, null],
         ];
     }
 
@@ -140,7 +149,7 @@ class AttachmentPathResolverTest extends WebTestCase
      */
     public function testPlaceholderToRealPath($param, $expected): void
     {
-        $this->assertSame($expected, self::$service->placeholderToRealPath($param));
+        $this->assertSame($expected, $this->service->placeholderToRealPath($param));
     }
 
     /**
@@ -148,6 +157,6 @@ class AttachmentPathResolverTest extends WebTestCase
      */
     public function testRealPathToPlaceholder($param, $expected, $old_method = false): void
     {
-        $this->assertSame($expected, self::$service->realPathToPlaceholder($param, $old_method));
+        $this->assertSame($expected, $this->service->realPathToPlaceholder($param, $old_method));
     }
 }

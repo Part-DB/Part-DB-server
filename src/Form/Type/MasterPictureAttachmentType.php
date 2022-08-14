@@ -96,7 +96,7 @@ class MasterPictureAttachmentType extends AbstractType
         $resolver->setAllowedValues('filter', ['', 'picture', '3d_model']);
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return ChoiceType::class;
     }

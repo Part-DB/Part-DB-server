@@ -28,12 +28,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class IconLinkColumn extends AbstractColumn
 {
+    /**
+     * @param $value
+     * @return mixed
+     */
     public function normalize($value)
     {
         return $value;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): self
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults([
@@ -51,7 +55,7 @@ class IconLinkColumn extends AbstractColumn
         return $this;
     }
 
-    public function render($value, $context)
+    public function render($value, $context): string
     {
         $href = $this->getHref($value, $context);
         $icon = $this->getIcon($value, $context);

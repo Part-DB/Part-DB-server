@@ -148,7 +148,7 @@ class StructuralEntityType extends AbstractType
         parent::buildView($view, $form, $options);
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return ChoiceType::class;
     }

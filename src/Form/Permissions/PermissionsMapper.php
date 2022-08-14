@@ -72,7 +72,7 @@ final class PermissionsMapper implements DataMapperInterface
      * @param mixed                       $viewData View data of the compound form being initialized
      * @param FormInterface[]|Traversable $forms    A list of {@link FormInterface} instances
      */
-    public function mapDataToForms($viewData, $forms)
+    public function mapDataToForms($viewData, $forms): void
     {
         foreach ($forms as $form) {
             if ($this->inherit) {

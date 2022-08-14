@@ -93,7 +93,7 @@ class AppExtension extends AbstractExtension
         $this->translator = $translator;
     }
 
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('entityURL', [$this, 'generateEntityURL']),
@@ -108,7 +108,7 @@ class AppExtension extends AbstractExtension
         ];
     }
 
-    public function getTests()
+    public function getTests(): array
     {
         return [
             new TwigTest('instanceof', static function ($var, $instance) {
@@ -117,7 +117,7 @@ class AppExtension extends AbstractExtension
         ];
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('generateTreeData', [$this, 'treeData']),

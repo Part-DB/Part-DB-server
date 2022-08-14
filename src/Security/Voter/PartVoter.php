@@ -54,7 +54,7 @@ class PartVoter extends ExtendedVoter
 {
     public const READ = 'read';
 
-    protected function supports($attribute, $subject)
+    protected function supports($attribute, $subject): bool
     {
         if (is_a($subject, Part::class, true)) {
             //Check if a sub permission should be checked -> $attribute has format name.edit
@@ -71,7 +71,7 @@ class PartVoter extends ExtendedVoter
         return false;
     }
 
-    protected function voteOnUser($attribute, $subject, User $user): bool
+    protected function voteOnUser(string $attribute, $subject, User $user): bool
     {
         //Check for sub permissions
         if (false !== strpos($attribute, '.')) {

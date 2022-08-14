@@ -26,7 +26,7 @@ use Twig\TwigFilter;
 
 class BarcodeExtension extends AbstractExtension
 {
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('barcodeSVG', static function (string $content, string $type = 'QRCODE') {

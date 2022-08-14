@@ -176,7 +176,7 @@ final class SIUnitType extends AbstractType implements DataMapperInterface
      *
      * @throws Exception\UnexpectedTypeException if the type of the data parameter is not supported
      */
-    public function mapDataToForms($viewData, $forms)
+    public function mapDataToForms($viewData, $forms): void
     {
         $forms = iterator_to_array($forms);
 
