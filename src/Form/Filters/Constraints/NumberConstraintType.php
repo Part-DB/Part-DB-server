@@ -32,6 +32,7 @@ class NumberConstraintType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $choices = [
+            '' => '',
             '=' => '=',
             '!=' => '!=',
             '<' => '<',
@@ -68,6 +69,7 @@ class NumberConstraintType extends AbstractType
         $builder->add('operator', ChoiceType::class, [
             'label' => 'filter.number_constraint.operator',
             'choices' => $choices,
+            'required' => false,
         ]);
     }
 

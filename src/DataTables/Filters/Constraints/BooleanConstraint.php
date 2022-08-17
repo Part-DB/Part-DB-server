@@ -5,7 +5,7 @@ namespace App\DataTables\Filters\Constraints;
 use App\DataTables\Filters\FilterInterface;
 use Doctrine\ORM\QueryBuilder;
 
-class BooleanConstraint extends AbstractSimpleConstraint
+class BooleanConstraint extends AbstractConstraint
 {
     /** @var bool|null The value of our constraint */
     protected $value;
@@ -34,12 +34,16 @@ class BooleanConstraint extends AbstractSimpleConstraint
         $this->value = $value;
     }
 
+    public function isEnabled(): bool
+    {
+        return $this->value !== null;
+    }
 
 
     public function apply(QueryBuilder $queryBuilder): void
     {
         //Do not apply a filter if value is null (filter is set to ignore)
-        if($this->value === null) {
+        if(!$this->isEnabled()) {
             return;
         }
 

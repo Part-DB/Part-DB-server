@@ -5,6 +5,7 @@ namespace App\Form\Filters;
 use App\DataTables\Filters\PartFilter;
 use App\Form\Filters\Constraints\BooleanConstraintType;
 use App\Form\Filters\Constraints\NumberConstraintType;
+use App\Form\Filters\Constraints\TextConstraintType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -36,6 +37,14 @@ class PartFilterType extends AbstractType
             'label' => 'part.edit.mass',
             'text_suffix' => 'g',
             'min' => 0,
+        ]);
+
+        $builder->add('name', TextConstraintType::class, [
+            'label' => 'part.edit.name',
+        ]);
+
+        $builder->add('description', TextConstraintType::class, [
+            'label' => 'part.edit.description',
         ]);
 
         $builder->add('submit', SubmitType::class, [

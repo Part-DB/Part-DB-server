@@ -4,10 +4,17 @@ namespace App\DataTables\Filters;
 
 use App\DataTables\Filters\Constraints\BooleanConstraint;
 use App\DataTables\Filters\Constraints\NumberConstraint;
+use App\DataTables\Filters\Constraints\TextConstraint;
 use Doctrine\ORM\QueryBuilder;
 
 class PartFilter implements FilterInterface
 {
+    /** @var TextConstraint */
+    protected $name;
+
+    /** @var TextConstraint */
+    protected $description;
+
     /** @var BooleanConstraint */
     protected $favorite;
 
@@ -38,11 +45,23 @@ class PartFilter implements FilterInterface
         return $this->mass;
     }
 
+    public function getName(): TextConstraint
+    {
+        return $this->name;
+    }
+
+    public function getDescription(): TextConstraint
+    {
+        return $this->description;
+    }
+
     public function __construct()
     {
         $this->favorite = new BooleanConstraint('part.favorite');
         $this->needsReview = new BooleanConstraint('part.needs_review');
         $this->mass = new NumberConstraint('part.mass');
+        $this->name = new TextConstraint('part.name');
+        $this->description = new TextConstraint('part.description');
     }
 
     public function apply(QueryBuilder $queryBuilder): void
@@ -50,5 +69,7 @@ class PartFilter implements FilterInterface
         $this->favorite->apply($queryBuilder);
         $this->needsReview->apply($queryBuilder);
         $this->mass->apply($queryBuilder);
+        $this->name->apply($queryBuilder);
+        $this->description->apply($queryBuilder);
     }
 }

@@ -9,3 +9,13 @@
         {% endif %}
     </div>
 {% endblock %}
+
+{% block text_constraint_widget %}
+    <div class="input-group">
+        {{ form_widget(form.operator, {"attr": {"class": "form-select"}}) }}
+        {{ form_widget(form.value) }}
+        {% if form.vars["text_suffix"] %}
+            <span class="input-group-text">{{ form.vars["text_suffix"] }}</span>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -5,7 +5,7 @@ namespace App\DataTables\Filters\Constraints;
 use Doctrine\ORM\QueryBuilder;
 use \RuntimeException;
 
-class NumberConstraint extends AbstractSimpleConstraint
+class NumberConstraint extends AbstractConstraint
 {
     public const ALLOWED_OPERATOR_VALUES = ['=', '!=', '<', '>', '<=', '>=', 'BETWEEN'];
 
@@ -62,7 +62,7 @@ class NumberConstraint extends AbstractSimpleConstraint
     /**
      * @return mixed|string
      */
-    public function getOperator()
+    public function getOperator(): string
     {
         return $this->operator;
     }
@@ -70,7 +70,7 @@ class NumberConstraint extends AbstractSimpleConstraint
     /**
      * @param  mixed|string  $operator
      */
-    public function setOperator($operator): void
+    public function setOperator(?string $operator): void
     {
         $this->operator = $operator;
     }
@@ -84,6 +84,12 @@ class NumberConstraint extends AbstractSimpleConstraint
         $this->operator = $operator;
     }
 
+    public function isEnabled(): bool
+    {
+        return $this->value1 !== null
+            && !empty($this->operator);
+    }
+
     public function apply(QueryBuilder $queryBuilder): void
     {
         //If no value is provided then we do not apply a filter
@@ -93,7 +99,7 @@ class NumberConstraint extends AbstractSimpleConstraint
 
         //Ensure we have an valid operator
         if(!in_array($this->operator, self::ALLOWED_OPERATOR_VALUES, true)) {
-            throw new \InvalidArgumentException('Invalid operator '. $this->operator . ' provided. Valid operators are '. implode(', ', self::ALLOWED_OPERATOR_VALUES));
+            throw new \RuntimeException('Invalid operator '. $this->operator . ' provided. Valid operators are '. implode(', ', self::ALLOWED_OPERATOR_VALUES));
         }
 
         if ($this->operator !== 'BETWEEN') {
