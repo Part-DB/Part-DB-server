@@ -9,6 +9,9 @@ use Doctrine\ORM\QueryBuilder;
 
 class PartFilter implements FilterInterface
 {
+
+    use CompoundFilterTrait;
+
     /** @var TextConstraint */
     protected $name;
 
@@ -66,10 +69,6 @@ class PartFilter implements FilterInterface
 
     public function apply(QueryBuilder $queryBuilder): void
     {
-        $this->favorite->apply($queryBuilder);
-        $this->needsReview->apply($queryBuilder);
-        $this->mass->apply($queryBuilder);
-        $this->name->apply($queryBuilder);
-        $this->description->apply($queryBuilder);
+        $this->applyAllChildFilters($queryBuilder);
     }
 }
