@@ -76,7 +76,7 @@ class NumberConstraint extends AbstractConstraint
     }
 
 
-    public function __construct(string $property, string $identifier = null, $value1 = null, $operator = '>', $value2 = null)
+    public function __construct(string $property, string $identifier = null, $value1 = null, $operator = null, $value2 = null)
     {
         parent::__construct($property, $identifier);
         $this->value1 = $value1;
