@@ -1,9 +1,13 @@
 {% block number_constraint_widget %}
-    <div class="input-group">
-        {{ form_widget(form.operator, {"attr": {"class": "form-select"}}) }}
+    <div class="input-group" {{ stimulus_controller('filters/number_constraint') }}>
+        {{ form_widget(form.operator, {"attr": {
+            "class": "form-select",
+            "data-filters--number-constraint-target": "operator",
+            "data-action": "change->filters--number-constraint#update"
+        }}) }}
         {{ form_widget(form.value1) }}
-        <span class="input-group-text">AND</span>
-        {{ form_widget(form.value2) }}
+        <span class="input-group-text d-none" {{ stimulus_target('filters/number_constraint', 'thingsToHide') }}>AND</span>
+        {{ form_widget(form.value2, {"attr": {"class": "d-none", "data-filters--number-constraint-target": "thingsToHide"}}) }}
         {% if form.vars["text_suffix"] %}
             <span class="input-group-text">{{ form.vars["text_suffix"] }}</span>
         {% endif %}
