@@ -27,13 +27,13 @@ class TextConstraintType extends AbstractType
     {
         $choices = [
             '' => '',
-            '=' => '=',
-            '!=' => '!=',
-            'STARTS' => 'STARTS',
-            'ENDS' => 'ENDS',
-            'CONTAINS' => 'CONTAINS',
-            'LIKE' => 'LIKE',
-            'REGEX' => 'REGEX',
+            'filter.text_constraint.value.operator.EQ' => '=',
+            'filter.text_constraint.value.operator.NEQ' => '!=',
+            'filter.text_constraint.value.operator.STARTS' => 'STARTS',
+            'filter.text_constraint.value.operator.ENDS' => 'ENDS',
+            'filter.text_constraint.value.operator.CONTAINS' => 'CONTAINS',
+            'filter.text_constraint.value.operator.LIKE' => 'LIKE',
+            'filter.text_constraint.value.operator.REGEX' => 'REGEX',
         ];
 
         $builder->add('value', SearchType::class, [

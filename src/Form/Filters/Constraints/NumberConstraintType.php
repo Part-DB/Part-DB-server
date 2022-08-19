@@ -39,7 +39,7 @@ class NumberConstraintType extends AbstractType
             '>' => '>',
             '<=' => '<=',
             '>=' => '>=',
-            'BETWEEN' => 'BETWEEN',
+            'filter.number_constraint.value.operator.BETWEEN' => 'BETWEEN',
         ];
 
         $builder->add('value1', NumberType::class, array_merge_recursive([

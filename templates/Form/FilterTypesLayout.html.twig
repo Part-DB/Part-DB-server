@@ -6,7 +6,7 @@
             "data-action": "change->filters--number-constraint#update"
         }}) }}
         {{ form_widget(form.value1) }}
-        <span class="input-group-text d-none" {{ stimulus_target('filters/number_constraint', 'thingsToHide') }}>AND</span>
+        <span class="input-group-text d-none" {{ stimulus_target('filters/number_constraint', 'thingsToHide') }}>{% trans %}filter.number_constraint.AND{% endtrans %}</span>
         {{ form_widget(form.value2, {"attr": {"class": "d-none", "data-filters--number-constraint-target": "thingsToHide"}}) }}
         {% if form.vars["text_suffix"] %}
             <span class="input-group-text">{{ form.vars["text_suffix"] }}</span>

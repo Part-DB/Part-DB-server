@@ -9357,5 +9357,59 @@ Element 3</target>
         <target>Do you really want to delete this attachment?</target>
       </segment>
     </unit>
+    <unit id="JtGEdQP" name="filter.text_constraint.value.operator.EQ">
+      <segment>
+        <source>filter.text_constraint.value.operator.EQ</source>
+        <target>Is</target>
+      </segment>
+    </unit>
+    <unit id="9RAGNGw" name="filter.text_constraint.value.operator.NEQ">
+      <segment>
+        <source>filter.text_constraint.value.operator.NEQ</source>
+        <target>Is not</target>
+      </segment>
+    </unit>
+    <unit id="N1AQsNF" name="filter.text_constraint.value.operator.STARTS">
+      <segment>
+        <source>filter.text_constraint.value.operator.STARTS</source>
+        <target>Starts with</target>
+      </segment>
+    </unit>
+    <unit id="3Rr21xj" name="filter.text_constraint.value.operator.CONTAINS">
+      <segment>
+        <source>filter.text_constraint.value.operator.CONTAINS</source>
+        <target>Contains</target>
+      </segment>
+    </unit>
+    <unit id="S_U21kw" name="filter.text_constraint.value.operator.ENDS">
+      <segment>
+        <source>filter.text_constraint.value.operator.ENDS</source>
+        <target>Ends with</target>
+      </segment>
+    </unit>
+    <unit id="l2ojG4Z" name="filter.text_constraint.value.operator.LIKE">
+      <segment>
+        <source>filter.text_constraint.value.operator.LIKE</source>
+        <target>LIKE pattern</target>
+      </segment>
+    </unit>
+    <unit id="hAcin33" name="filter.text_constraint.value.operator.REGEX">
+      <segment>
+        <source>filter.text_constraint.value.operator.REGEX</source>
+        <target>Regular expression</target>
+      </segment>
+    </unit>
+    <unit id="hWtqvI3" name="filter.number_constraint.value.operator.BETWEEN">
+      <segment>
+        <source>filter.number_constraint.value.operator.BETWEEN</source>
+        <target>Between</target>
+      </segment>
+    </unit>
+    <unit id="Pho_nY5" name="filter.number_constraint.AND">
+      <segment>
+        <source>filter.number_constraint.AND</source>
+        <target>and</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
