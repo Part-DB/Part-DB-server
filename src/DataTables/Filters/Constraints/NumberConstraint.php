@@ -12,13 +12,13 @@ class NumberConstraint extends AbstractConstraint
 
     /**
      * The value1 used for comparison (this is the main one used for all mono-value comparisons)
-     * @var float|null
+     * @var float|null|int|\DateTimeInterface
      */
     protected $value1;
 
     /**
      * The second value used when operator is RANGE; this is the upper bound of the range
-     * @var float|null
+     * @var float|null|int|\DateTimeInterface
      */
     protected $value2;
 
@@ -28,7 +28,7 @@ class NumberConstraint extends AbstractConstraint
     protected $operator;
 
     /**
-     * @return float|mixed|null
+     * @return float|int|null|\DateTimeInterface
      */
     public function getValue1()
     {
@@ -36,7 +36,7 @@ class NumberConstraint extends AbstractConstraint
     }
 
     /**
-     * @param  float|mixed|null  $value1
+     * @param  float|int|\DateTimeInterface|null  $value1
      */
     public function setValue1($value1): void
     {
@@ -44,7 +44,7 @@ class NumberConstraint extends AbstractConstraint
     }
 
     /**
-     * @return float|mixed|null
+     * @return float|int|null
      */
     public function getValue2()
     {
@@ -52,7 +52,7 @@ class NumberConstraint extends AbstractConstraint
     }
 
     /**
-     * @param  float|mixed|null  $value2
+     * @param  float|int|null  $value2
      */
     public function setValue2($value2): void
     {
@@ -60,7 +60,7 @@ class NumberConstraint extends AbstractConstraint
     }
 
     /**
-     * @return mixed|string
+     * @return string
      */
     public function getOperator(): string
     {
@@ -68,7 +68,7 @@ class NumberConstraint extends AbstractConstraint
     }
 
     /**
-     * @param  mixed|string  $operator
+     * @param  string  $operator
      */
     public function setOperator(?string $operator): void
     {

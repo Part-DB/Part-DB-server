@@ -19,3 +19,7 @@
         {% endif %}
     </div>
 {% endblock %}
+
+{% block date_time_constraint_widget %}
+    {{ block('number_constraint_widget') }}
+{% endblock %}

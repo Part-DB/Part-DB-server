@@ -4,9 +4,11 @@ namespace App\Form\Filters;
 
 use App\DataTables\Filters\PartFilter;
 use App\Form\Filters\Constraints\BooleanConstraintType;
+use App\Form\Filters\Constraints\DateTimeConstraintType;
 use App\Form\Filters\Constraints\NumberConstraintType;
 use App\Form\Filters\Constraints\TextConstraintType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\SubmitButton;
@@ -46,6 +48,15 @@ class PartFilterType extends AbstractType
         $builder->add('description', TextConstraintType::class, [
             'label' => 'part.edit.description',
         ]);
+
+        $builder->add('lastModified', DateTimeConstraintType::class, [
+            'label' => 'lastModified'
+        ]);
+
+        $builder->add('addedDate', DateTimeConstraintType::class, [
+            'label' => 'createdAt'
+        ]);
+
 
         $builder->add('submit', SubmitType::class, [
             'label' => 'Update',

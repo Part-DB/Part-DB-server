@@ -3,6 +3,7 @@
 namespace App\DataTables\Filters;
 
 use App\DataTables\Filters\Constraints\BooleanConstraint;
+use App\DataTables\Filters\Constraints\DateTimeConstraint;
 use App\DataTables\Filters\Constraints\NumberConstraint;
 use App\DataTables\Filters\Constraints\TextConstraint;
 use Doctrine\ORM\QueryBuilder;
@@ -26,6 +27,12 @@ class PartFilter implements FilterInterface
 
     /** @var NumberConstraint */
     protected $mass;
+
+    /** @var DateTimeConstraint */
+    protected $lastModified;
+
+    /** @var DateTimeConstraint */
+    protected $addedDate;
 
     /**
      * @return BooleanConstraint|false
@@ -58,13 +65,33 @@ class PartFilter implements FilterInterface
         return $this->description;
     }
 
+    /**
+     * @return DateTimeConstraint
+     */
+    public function getLastModified(): DateTimeConstraint
+    {
+        return $this->lastModified;
+    }
+
+    /**
+     * @return DateTimeConstraint
+     */
+    public function getAddedDate(): DateTimeConstraint
+    {
+        return $this->addedDate;
+    }
+
+
+
     public function __construct()
     {
-        $this->favorite = new BooleanConstraint('part.favorite');
+        $this->favorite = 
         $this->needsReview = new BooleanConstraint('part.needs_review');
         $this->mass = new NumberConstraint('part.mass');
         $this->name = new TextConstraint('part.name');
         $this->description = new TextConstraint('part.description');
+        $this->addedDate = new DateTimeConstraint('part.addedDate');
+        $this->lastModified = new DateTimeConstraint('part.lastModified');
     }
 
     public function apply(QueryBuilder $queryBuilder): void
