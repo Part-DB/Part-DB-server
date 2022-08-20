@@ -84,8 +84,6 @@ class HomepageController extends AbstractController
      */
     public function homepage(Request $request, GitVersionInfo $versionInfo): Response
     {
-        throw new \RuntimeException("Test");
-
         if ($this->isGranted('@tools.lastActivity')) {
             $table = $this->dataTable->createFromType(
                 LogDataTable::class,
