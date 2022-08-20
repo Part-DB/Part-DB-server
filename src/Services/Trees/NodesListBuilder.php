@@ -84,10 +84,20 @@ class NodesListBuilder
         return $this->cache->get($key, function (ItemInterface $item) use ($class_name, $parent, $secure_class_name) {
             // Invalidate when groups, a element with the class or the user changes
             $item->tag(['groups', 'tree_list', $this->keyGenerator->generateKey(), $secure_class_name]);
-            /** @var StructuralDBElementRepository */
-            $repo = $this->em->getRepository($class_name);
-
-            return $repo->toNodesList($parent);
+            return $this->em->getRepository($class_name)->toNodesList($parent);
         });
+    }
+
+    /**
+     * Returns a flattened list of all (recursive) children elements of the given AbstractStructuralDBElement.
+     * The value is cached for performance reasons.
+     *
+     * @template T
+     * @param  T $element
+     * @return T[]
+     */
+    public function getChildrenFlatList(AbstractStructuralDBElement $element): array
+    {
+        return $this->typeToNodesList(get_class($element), $element);
     }
 }

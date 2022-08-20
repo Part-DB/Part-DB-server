@@ -27,7 +27,7 @@ trait FilterTrait
      */
     protected function addSimpleAndConstraint(QueryBuilder $queryBuilder, string $property, string $parameterIdentifier, string $comparison_operator, $value): void
     {
-        $queryBuilder->andWhere(sprintf("%s %s :%s", $property, $comparison_operator, $parameterIdentifier));
+        $queryBuilder->andWhere(sprintf("%s %s (:%s)", $property, $comparison_operator, $parameterIdentifier));
         $queryBuilder->setParameter($parameterIdentifier, $value);
     }
 }

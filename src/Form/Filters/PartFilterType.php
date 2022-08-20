@@ -3,9 +3,11 @@
 namespace App\Form\Filters;
 
 use App\DataTables\Filters\PartFilter;
+use App\Entity\Parts\Category;
 use App\Form\Filters\Constraints\BooleanConstraintType;
 use App\Form\Filters\Constraints\DateTimeConstraintType;
 use App\Form\Filters\Constraints\NumberConstraintType;
+use App\Form\Filters\Constraints\StructuralEntityConstraintType;
 use App\Form\Filters\Constraints\TextConstraintType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -27,6 +29,11 @@ class PartFilterType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $builder->add('category', StructuralEntityConstraintType::class, [
+            'label' => 'part.edit.category',
+            'entity_class' => Category::class
+        ]);
+
         $builder->add('favorite', BooleanConstraintType::class, [
             'label' => 'part.edit.is_favorite'
         ]);

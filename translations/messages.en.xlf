@@ -9411,5 +9411,29 @@ Element 3</target>
         <target>and</target>
       </segment>
     </unit>
+    <unit id="NOmRxFG" name="filter.entity_constraint.operator.EQ">
+      <segment>
+        <source>filter.entity_constraint.operator.EQ</source>
+        <target>Is (excluding children)</target>
+      </segment>
+    </unit>
+    <unit id="7zxBnzb" name="filter.entity_constraint.operator.NEQ">
+      <segment>
+        <source>filter.entity_constraint.operator.NEQ</source>
+        <target>Is not (exluding children)</target>
+      </segment>
+    </unit>
+    <unit id="oX1nk5D" name="filter.entity_constraint.operator.INCLUDING_CHILDREN">
+      <segment>
+        <source>filter.entity_constraint.operator.INCLUDING_CHILDREN</source>
+        <target>Is (including children)</target>
+      </segment>
+    </unit>
+    <unit id="AS9s6LU" name="filter.entity_constraint.operator.EXCLUDING_CHILDREN">
+      <segment>
+        <source>filter.entity_constraint.operator.EXCLUDING_CHILDREN</source>
+        <target>Is not (excluding children)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

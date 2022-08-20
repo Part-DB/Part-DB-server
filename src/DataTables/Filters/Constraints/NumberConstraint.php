@@ -76,7 +76,7 @@ class NumberConstraint extends AbstractConstraint
     }
 
 
-    public function __construct(string $property, string $identifier = null, $value1 = null, $operator = null, $value2 = null)
+    public function __construct(string $property, string $identifier = null, $value1 = null, string $operator = null, $value2 = null)
     {
         parent::__construct($property, $identifier);
         $this->value1 = $value1;
@@ -93,7 +93,7 @@ class NumberConstraint extends AbstractConstraint
     public function apply(QueryBuilder $queryBuilder): void
     {
         //If no value is provided then we do not apply a filter
-        if ($this->value1 === null) {
+        if (!$this->isEnabled()) {
             return;
         }
 

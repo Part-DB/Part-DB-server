@@ -19,7 +19,7 @@ class TextConstraint extends AbstractConstraint
      */
     protected $value;
 
-    public function __construct(string $property, string $identifier = null, $value = null, $operator = '')
+    public function __construct(string $property, string $identifier = null, $value = null, string $operator = '')
     {
         parent::__construct($property, $identifier);
         $this->value = $value;

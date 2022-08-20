@@ -4,8 +4,11 @@ namespace App\DataTables\Filters;
 
 use App\DataTables\Filters\Constraints\BooleanConstraint;
 use App\DataTables\Filters\Constraints\DateTimeConstraint;
+use App\DataTables\Filters\Constraints\EntityConstraint;
 use App\DataTables\Filters\Constraints\NumberConstraint;
 use App\DataTables\Filters\Constraints\TextConstraint;
+use App\Entity\Parts\Category;
+use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\QueryBuilder;
 
 class PartFilter implements FilterInterface
@@ -33,6 +36,28 @@ class PartFilter implements FilterInterface
 
     /** @var DateTimeConstraint */
     protected $addedDate;
+
+    /** @var EntityConstraint */
+    protected $category;
+
+    public function __construct(NodesListBuilder $nodesListBuilder)
+    {
+        $this->favorite =
+        $this->needsReview = new BooleanConstraint('part.needs_review');
+        $this->mass = new NumberConstraint('part.mass');
+        $this->name = new TextConstraint('part.name');
+        $this->description = new TextConstraint('part.description');
+        $this->addedDate = new DateTimeConstraint('part.addedDate');
+        $this->lastModified = new DateTimeConstraint('part.lastModified');
+
+        $this->category = new EntityConstraint($nodesListBuilder, Category::class, 'part.category');
+    }
+
+    public function apply(QueryBuilder $queryBuilder): void
+    {
+        $this->applyAllChildFilters($queryBuilder);
+    }
+
 
     /**
      * @return BooleanConstraint|false
@@ -81,21 +106,8 @@ class PartFilter implements FilterInterface
         return $this->addedDate;
     }
 
-
-
-    public function __construct()
+    public function getCategory(): EntityConstraint
     {
-        $this->favorite = 
-        $this->needsReview = new BooleanConstraint('part.needs_review');
-        $this->mass = new NumberConstraint('part.mass');
-        $this->name = new TextConstraint('part.name');
-        $this->description = new TextConstraint('part.description');
-        $this->addedDate = new DateTimeConstraint('part.addedDate');
-        $this->lastModified = new DateTimeConstraint('part.lastModified');
-    }
-
-    public function apply(QueryBuilder $queryBuilder): void
-    {
-        $this->applyAllChildFilters($queryBuilder);
+        return $this->category;
     }
 }

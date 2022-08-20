@@ -51,6 +51,7 @@ use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Form\Filters\PartFilterType;
 use App\Services\Parts\PartsTableActionHandler;
+use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -260,7 +261,6 @@ class PartListsController extends AbstractController
         return $this->render('Parts/lists/search_list.html.twig', [
             'datatable' => $table,
             'keyword' => $search,
-            'filterForm' => $filterForm->createView()
         ]);
     }
 
@@ -269,12 +269,12 @@ class PartListsController extends AbstractController
      *
      * @return JsonResponse|Response
      */
-    public function showAll(Request $request, DataTableFactory $dataTable)
+    public function showAll(Request $request, DataTableFactory $dataTable, NodesListBuilder $nodesListBuilder)
     {
 
         $formRequest = clone $request;
         $formRequest->setMethod('GET');
-        $filter = new PartFilter();
+        $filter = new PartFilter($nodesListBuilder);
         $filterForm = $this->createForm(PartFilterType::class, $filter, ['method' => 'GET']);
         $filterForm->handleRequest($formRequest);
 
