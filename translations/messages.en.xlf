@@ -9441,5 +9441,23 @@ Element 3</target>
         <target>Database ID</target>
       </segment>
     </unit>
+    <unit id="RphtSCZ" name="filter.tags_constraint.operator.ANY">
+      <segment>
+        <source>filter.tags_constraint.operator.ANY</source>
+        <target>Any of the tags</target>
+      </segment>
+    </unit>
+    <unit id="So3q9VW" name="filter.tags_constraint.operator.ALL">
+      <segment>
+        <source>filter.tags_constraint.operator.ALL</source>
+        <target>All of the tags</target>
+      </segment>
+    </unit>
+    <unit id="mqkIc_4" name="filter.tags_constraint.operator.NONE">
+      <segment>
+        <source>filter.tags_constraint.operator.NONE</source>
+        <target>None of the tags</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

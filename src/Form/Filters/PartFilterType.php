@@ -12,6 +12,7 @@ use App\Form\Filters\Constraints\BooleanConstraintType;
 use App\Form\Filters\Constraints\DateTimeConstraintType;
 use App\Form\Filters\Constraints\NumberConstraintType;
 use App\Form\Filters\Constraints\StructuralEntityConstraintType;
+use App\Form\Filters\Constraints\TagsConstraintType;
 use App\Form\Filters\Constraints\TextConstraintType;
 use Svg\Tag\Text;
 use Symfony\Component\Form\AbstractType;
@@ -54,6 +55,10 @@ class PartFilterType extends AbstractType
         $builder->add('footprint', StructuralEntityConstraintType::class, [
             'label' => 'part.edit.footprint',
             'entity_class' => Footprint::class
+        ]);
+
+        $builder->add('tags', TagsConstraintType::class, [
+            'label' => 'part.edit.tags'
         ]);
 
         $builder->add('comment', TextConstraintType::class, [

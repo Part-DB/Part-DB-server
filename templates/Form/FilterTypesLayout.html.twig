@@ -18,7 +18,7 @@
     <div class="input-group">
         {{ form_widget(form.operator, {"attr": {"class": "form-select"}}) }}
         {{ form_widget(form.value) }}
-        {% if form.vars["text_suffix"] %}
+        {% if form.vars["text_suffix"] is defined and form.vars["text_suffix"] %}
             <span class="input-group-text">{{ form.vars["text_suffix"] }}</span>
         {% endif %}
     </div>
@@ -30,4 +30,8 @@
 
 {% block date_time_constraint_widget %}
     {{ block('number_constraint_widget') }}
+{% endblock %}
+
+{% block tags_constraint_widget %}
+    {{ block('text_constraint_widget') }}
 {% endblock %}

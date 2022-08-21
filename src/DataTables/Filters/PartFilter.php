@@ -6,6 +6,7 @@ use App\DataTables\Filters\Constraints\BooleanConstraint;
 use App\DataTables\Filters\Constraints\DateTimeConstraint;
 use App\DataTables\Filters\Constraints\EntityConstraint;
 use App\DataTables\Filters\Constraints\NumberConstraint;
+use App\DataTables\Filters\Constraints\Part\TagsConstraint;
 use App\DataTables\Filters\Constraints\TextConstraint;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -32,6 +33,9 @@ class PartFilter implements FilterInterface
 
     /** @var TextConstraint */
     protected $comment;
+
+    /** @var TagsConstraint */
+    protected $tags;
 
     /** @var NumberConstraint */
     protected $minAmount;
@@ -82,6 +86,7 @@ class PartFilter implements FilterInterface
         $this->comment = new TextConstraint('part.comment');
         $this->category = new EntityConstraint($nodesListBuilder, Category::class, 'part.category');
         $this->footprint = new EntityConstraint($nodesListBuilder, Footprint::class, 'part.footprint');
+        $this->tags = new TagsConstraint('part.tags');
 
         $this->favorite = new BooleanConstraint('part.favorite');
         $this->needsReview = new BooleanConstraint('part.needs_review');
@@ -239,7 +244,11 @@ class PartFilter implements FilterInterface
         return $this->manufacturer_product_number;
     }
 
-
-
-
+    /**
+     * @return TagsConstraint
+     */
+    public function getTags(): TagsConstraint
+    {
+        return $this->tags;
+    }
 }
