@@ -9435,5 +9435,11 @@ Element 3</target>
         <target>Is not (excluding children)</target>
       </segment>
     </unit>
+    <unit id="7.bq.cZ" name="part.filter.dbId">
+      <segment>
+        <source>part.filter.dbId</source>
+        <target>Database ID</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
