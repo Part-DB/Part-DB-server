@@ -41,6 +41,7 @@ class TextConstraintType extends AbstractType
                 'placeholder' => 'filter.text_constraint.value',
             ],
             'required' => false,
+            'empty_data' => '',
         ]);
 
 
