@@ -8,6 +8,8 @@
 
     {% include "Parts/lists/_info_card.html.twig" with {'header_label': 'category.label'} %}
 
+    {% include "Parts/lists/_filter.html.twig" %}
+
     {% include "Parts/lists/_action_bar.html.twig" with {'url_options': {'category': entity.iD}} %}
 
     {% include "Parts/lists/_parts_list.html.twig" %}

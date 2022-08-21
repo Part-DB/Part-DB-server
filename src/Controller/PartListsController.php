@@ -55,6 +55,7 @@ use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -63,10 +64,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class PartListsController extends AbstractController
 {
     private $entityManager;
+    private $nodesListBuilder;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, NodesListBuilder $nodesListBuilder)
     {
         $this->entityManager = $entityManager;
+        $this->nodesListBuilder = $nodesListBuilder;
     }
 
     /**
@@ -101,13 +104,42 @@ class PartListsController extends AbstractController
     }
 
     /**
+     * Disable the given form interface after creation of the form by removing and reattaching the form.
+     * @param  FormInterface  $form
+     * @return void
+     */
+    private function disableFormFieldAfterCreation(FormInterface $form, bool $disabled = true): void
+    {
+        $attrs = $form->getConfig()->getOptions();
+        $attrs['disabled'] = $disabled;
+
+        $parent = $form->getParent();
+        if ($parent === null) {
+            throw new \RuntimeException('This function can only be used on form fields that are children of another form!');
+        }
+
+        $parent->remove($form->getName());
+        $parent->add($form->getName(), get_class($form->getConfig()->getType()->getInnerType()), $attrs);
+    }
+
+    /**
      * @Route("/category/{id}/parts", name="part_list_category")
      *
      * @return JsonResponse|Response
      */
     public function showCategory(Category $category, Request $request, DataTableFactory $dataTable)
     {
-        $table = $dataTable->createFromType(PartsDataTable::class, ['category' => $category])
+        $formRequest = clone $request;
+        $formRequest->setMethod('GET');
+        $filter = new PartFilter($this->nodesListBuilder);
+
+        //Set the category as default filter and disable to change that constraint value
+        $filter->getCategory()->setOperator('INCLUDING_CHILDREN')->setValue($category);
+        $filterForm = $this->createForm(PartFilterType::class, $filter, ['method' => 'GET']);
+        $this->disableFormFieldAfterCreation($filterForm->get('category')->get('value'));
+        $filterForm->handleRequest($formRequest);
+
+        $table = $dataTable->createFromType(PartsDataTable::class, ['filter' => $filter])
             ->handleRequest($request);
 
         if ($table->isCallback()) {
@@ -118,6 +150,7 @@ class PartListsController extends AbstractController
             'datatable' => $table,
             'entity' => $category,
             'repo' => $this->entityManager->getRepository(Category::class),
+            'filterForm' => $filterForm->createView(),
         ]);
     }
 
@@ -269,12 +302,12 @@ class PartListsController extends AbstractController
      *
      * @return JsonResponse|Response
      */
-    public function showAll(Request $request, DataTableFactory $dataTable, NodesListBuilder $nodesListBuilder)
+    public function showAll(Request $request, DataTableFactory $dataTable)
     {
 
         $formRequest = clone $request;
         $formRequest->setMethod('GET');
-        $filter = new PartFilter($nodesListBuilder);
+        $filter = new PartFilter($this->nodesListBuilder);
         $filterForm = $this->createForm(PartFilterType::class, $filter, ['method' => 'GET']);
         $filterForm->handleRequest($formRequest);
 
