@@ -166,7 +166,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
                 }
 
                 return sprintf(
-                    '<span class="badge badge-warning">
+                    '<span class="badge bg-warning">
                         <i class="fas fa-exclamation-circle fa-fw"></i>%s
                         </span>',
                     $this->translator->trans('attachment.file_not_found')
