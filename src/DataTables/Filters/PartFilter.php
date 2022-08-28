@@ -5,6 +5,7 @@ namespace App\DataTables\Filters;
 use App\DataTables\Filters\Constraints\BooleanConstraint;
 use App\DataTables\Filters\Constraints\DateTimeConstraint;
 use App\DataTables\Filters\Constraints\EntityConstraint;
+use App\DataTables\Filters\Constraints\IntConstraint;
 use App\DataTables\Filters\Constraints\NumberConstraint;
 use App\DataTables\Filters\Constraints\Part\TagsConstraint;
 use App\DataTables\Filters\Constraints\TextConstraint;
@@ -70,6 +71,9 @@ class PartFilter implements FilterInterface
     /** @var EntityConstraint */
     protected $storelocation;
 
+    /** @var NumberConstraint */
+    protected $lotCount;
+
     /** @var EntityConstraint */
     protected $measurementUnit;
 
@@ -92,7 +96,7 @@ class PartFilter implements FilterInterface
         $this->needsReview = new BooleanConstraint('part.needs_review');
         $this->measurementUnit = new EntityConstraint($nodesListBuilder, MeasurementUnit::class, 'part.partUnit');
         $this->mass = new NumberConstraint('part.mass');
-        $this->dbId = new NumberConstraint('part.id');
+        $this->dbId = new IntConstraint('part.id');
         $this->addedDate = new DateTimeConstraint('part.addedDate');
         $this->lastModified = new DateTimeConstraint('part.lastModified');
 
@@ -104,6 +108,7 @@ class PartFilter implements FilterInterface
         $this->manufacturer_product_url = new TextConstraint('part.manufacturer_product_url');
 
         $this->storelocation = new EntityConstraint($nodesListBuilder, Storelocation::class, 'partLots.storage_location');
+        $this->lotCount = new IntConstraint('COUNT(partLots)');
     }
 
     public function apply(QueryBuilder $queryBuilder): void
@@ -242,6 +247,11 @@ class PartFilter implements FilterInterface
     public function getManufacturerProductNumber(): TextConstraint
     {
         return $this->manufacturer_product_number;
+    }
+
+    public function getLotCount(): NumberConstraint
+    {
+        return $this->lotCount;
     }
 
     /**

@@ -142,6 +142,11 @@ class PartFilterType extends AbstractType
             'min' => 0,
         ]);
 
+        $builder->add('lotCount', NumberConstraintType::class, [
+            'label' => 'part.filter.lot_count',
+            'min' => 0
+        ]);
+
 
         $builder->add('submit', SubmitType::class, [
             'label' => 'Update',
