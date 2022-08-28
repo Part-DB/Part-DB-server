@@ -9477,5 +9477,23 @@ Element 3</target>
         <target>Number of orderdetails</target>
       </segment>
     </unit>
+    <unit id="QnS490v" name="part.filter.lotExpirationDate">
+      <segment>
+        <source>part.filter.lotExpirationDate</source>
+        <target>Lot expiration date</target>
+      </segment>
+    </unit>
+    <unit id="fIZmzas" name="part.filter.lotNeedsRefill">
+      <segment>
+        <source>part.filter.lotNeedsRefill</source>
+        <target>Any lot needs refill</target>
+      </segment>
+    </unit>
+    <unit id="_ERegGt" name="part.filter.lotUnknwonAmount">
+      <segment>
+        <source>part.filter.lotUnknwonAmount</source>
+        <target>Any lot has unknown amount</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -77,6 +77,15 @@ class PartFilter implements FilterInterface
     /** @var IntConstraint */
     protected $lotCount;
 
+    /** @var BooleanConstraint */
+    protected $lotNeedsRefill;
+
+    /** @var BooleanConstraint */
+    protected $lotUnknownAmount;
+
+    /** @var DateTimeConstraint */
+    protected $lotExpirationDate;
+
     /** @var EntityConstraint */
     protected $measurementUnit;
 
@@ -107,7 +116,11 @@ class PartFilter implements FilterInterface
         $this->lastModified = new DateTimeConstraint('part.lastModified');
 
         $this->minAmount = new NumberConstraint('part.minAmount');
+        $this->lotCount = new IntConstraint('COUNT(partLots)');
         $this->supplier = new EntityConstraint($nodesListBuilder, Supplier::class, 'orderdetails.supplier');
+        $this->lotNeedsRefill = new BooleanConstraint('partLots.needs_refill');
+        $this->lotUnknownAmount = new BooleanConstraint('partLots.instock_unknown');
+        $this->lotExpirationDate = new DateTimeConstraint('partLots.expiration_date');
 
         $this->manufacturer = new EntityConstraint($nodesListBuilder, Manufacturer::class, 'part.manufacturer');
         $this->manufacturer_product_number = new TextConstraint('part.manufacturer_product_number');
@@ -115,7 +128,6 @@ class PartFilter implements FilterInterface
 
         $this->storelocation = new EntityConstraint($nodesListBuilder, Storelocation::class, 'partLots.storage_location');
 
-        $this->lotCount = new IntConstraint('COUNT(partLots)');
         $this->attachmentsCount = new IntConstraint('COUNT(attachments)');
         $this->orderdetailsCount = new IntConstraint('COUNT(orderdetails)');
     }
@@ -286,6 +298,31 @@ class PartFilter implements FilterInterface
     {
         return $this->attachmentsCount;
     }
+
+    /**
+     * @return BooleanConstraint
+     */
+    public function getLotNeedsRefill(): BooleanConstraint
+    {
+        return $this->lotNeedsRefill;
+    }
+
+    /**
+     * @return BooleanConstraint
+     */
+    public function getLotUnknownAmount(): BooleanConstraint
+    {
+        return $this->lotUnknownAmount;
+    }
+
+    /**
+     * @return DateTimeConstraint
+     */
+    public function getLotExpirationDate(): DateTimeConstraint
+    {
+        return $this->lotExpirationDate;
+    }
+
 
 
 }

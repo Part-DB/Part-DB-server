@@ -17,6 +17,7 @@ use App\Form\Filters\Constraints\TextConstraintType;
 use Svg\Tag\Text;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -154,6 +155,19 @@ class PartFilterType extends AbstractType
             'label' => 'part.filter.lot_count',
             'min' => 0,
             'step' => 1,
+        ]);
+
+        $builder->add('lotNeedsRefill', BooleanConstraintType::class, [
+            'label' => 'part.filter.lotNeedsRefill'
+        ]);
+
+        $builder->add('lotUnknownAmount', BooleanConstraintType::class, [
+            'label' => 'part.filter.lotUnknwonAmount'
+        ]);
+
+        $builder->add('lotExpirationDate', DateTimeConstraintType::class, [
+            'label' => 'part.filter.lotExpirationDate',
+            'input_type' => DateType::class,
         ]);
 
         /**

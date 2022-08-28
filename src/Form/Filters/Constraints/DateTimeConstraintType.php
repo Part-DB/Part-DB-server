@@ -24,6 +24,7 @@ class DateTimeConstraintType extends AbstractType
 
             'value1_options' => [], // Options for the first value input
             'value2_options' => [], // Options for the second value input
+            'input_type' => DateTimeType::class,
         ]);
     }
 
@@ -40,7 +41,7 @@ class DateTimeConstraintType extends AbstractType
             'filter.number_constraint.value.operator.BETWEEN' => 'BETWEEN',
         ];
 
-        $builder->add('value1', DateTimeType::class, array_merge_recursive([
+        $builder->add('value1', $options['input_type'], array_merge_recursive([
             'label' => 'filter.datetime_constraint.value1',
             'attr' => [
                 'placeholder' => 'filter.datetime_constraint.value1',
@@ -50,7 +51,7 @@ class DateTimeConstraintType extends AbstractType
             'widget' => 'single_text',
         ], $options['value1_options']));
 
-        $builder->add('value2', DateTimeType::class, array_merge_recursive([
+        $builder->add('value2', $options['input_type'], array_merge_recursive([
             'label' => 'filter.datetime_constraint.value2',
             'attr' => [
                 'placeholder' => 'filter.datetime_constraint.value2',
