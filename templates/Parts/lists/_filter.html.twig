@@ -15,6 +15,9 @@
                 <button class="nav-link" id="filter-stocks-tab" data-bs-toggle="tab" data-bs-target="#filter-stocks"><i class="fas fa-boxes fa-fw"></i> {% trans %}part.edit.tab.part_lots{% endtrans %}</button>
             </li>
             <li class="nav-item" role="presentation">
+                <button class="nav-link" id="filter-attachments-tab" data-bs-toggle="tab" data-bs-target="#filter-attachments"><i class="fas fa-paperclip fa-fw"></i> {% trans %}part.edit.tab.attachments{% endtrans %}</button>
+            </li>
+            <li class="nav-item" role="presentation">
                 <button class="nav-link" id="filter-orderdetails-tab" data-bs-toggle="tab" data-bs-target="#filter-orderdetails"><i class="fas fa-shopping-cart fa-fw"></i> {% trans %}part.edit.tab.orderdetails{% endtrans %}</button>
             </li>
         </ul>
@@ -50,10 +53,16 @@
             <div class="tab-pane pt-3" id="filter-stocks" role="tabpanel" aria-labelledby="filter-stocks-tab" tabindex="0">
                 {{ form_row(filterForm.storelocation) }}
                 {{ form_row(filterForm.minAmount) }}
+                {{ form_row(filterForm.lotCount) }}
+            </div>
+
+            <div class="tab-pane pt-3" id="filter-attachments" role="tabpanel" aria-labelledby="filter-attachments-tab" tabindex="0">
+                {{ form_row(filterForm.attachmentsCount) }}
             </div>
 
             <div class="tab-pane pt-3" id="filter-orderdetails" role="tabpanel" aria-labelledby="filter-orderdetails-tab" tabindex="0">
                 {{ form_row(filterForm.supplier) }}
+                {{ form_row(filterForm.orderdetailsCount) }}
             </div>
 
 

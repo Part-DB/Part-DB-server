@@ -17,6 +17,7 @@ use App\Form\Filters\Constraints\TextConstraintType;
 use Svg\Tag\Text;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\SubmitButton;
@@ -72,6 +73,7 @@ class PartFilterType extends AbstractType
         $builder->add('dbId', NumberConstraintType::class, [
             'label' => 'part.filter.dbId',
             'min' => 1,
+            'step' => 1,
         ]);
 
         $builder->add('favorite', BooleanConstraintType::class, [
@@ -128,6 +130,12 @@ class PartFilterType extends AbstractType
             'entity_class' => Manufacturer::class
         ]);
 
+        $builder->add('orderdetailsCount', NumberConstraintType::class, [
+            'label' => 'part.filter.orderdetails_count',
+           'step' => 1,
+           'min' => 0,
+        ]);
+
 
         /*
          * Stocks tabs
@@ -144,12 +152,26 @@ class PartFilterType extends AbstractType
 
         $builder->add('lotCount', NumberConstraintType::class, [
             'label' => 'part.filter.lot_count',
-            'min' => 0
+            'min' => 0,
+            'step' => 1,
         ]);
 
+        /**
+         * Attachments count
+         */
+        $builder->add('attachmentsCount', NumberConstraintType::class, [
+            'label' => 'part.filter.attachments_count',
+            'step' => 1,
+            'min' => 0,
+        ]);
 
         $builder->add('submit', SubmitType::class, [
             'label' => 'Update',
         ]);
+
+        $builder->add('reset', ResetType::class, [
+            'label' => 'Reset',
+        ]);
+
     }
 }

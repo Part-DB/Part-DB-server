@@ -348,7 +348,10 @@ final class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('part.orderdetails', 'orderdetails')
             ->leftJoin('orderdetails.supplier', 'suppliers')
             ->leftJoin('part.attachments', 'attachments')
-            ->leftJoin('part.partUnit', 'partUnit');
+            ->leftJoin('part.partUnit', 'partUnit')
+
+            ->groupBy('part')
+        ;
     }
 
     private function buildCriteria(QueryBuilder $builder, array $options): void

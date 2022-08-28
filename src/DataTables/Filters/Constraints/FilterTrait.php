@@ -47,10 +47,16 @@ trait FilterTrait
      */
     protected function addSimpleAndConstraint(QueryBuilder $queryBuilder, string $property, string $parameterIdentifier, string $comparison_operator, $value): void
     {
-        if($this->useHaving || $this->isAggregateFunctionString($property)) { //If the property is an aggregate function, we have to use the "having" instead of the "where"
-            $queryBuilder->andHaving(sprintf("%s %s (:%s)", $property, $comparison_operator, $parameterIdentifier));
+        if ($comparison_operator === 'IN') {
+            $expression = sprintf("%s %s (:%s)", $property, $comparison_operator, $parameterIdentifier);
         } else {
-            $queryBuilder->andWhere(sprintf("%s %s (:%s)", $property, $comparison_operator, $parameterIdentifier));
+            $expression = sprintf("%s %s :%s", $property, $comparison_operator, $parameterIdentifier);
+        }
+
+        if($this->useHaving || $this->isAggregateFunctionString($property)) { //If the property is an aggregate function, we have to use the "having" instead of the "where"
+            $queryBuilder->andHaving($expression);
+        } else {
+            $queryBuilder->andWhere($expression);
         }
 
         $queryBuilder->setParameter($parameterIdentifier, $value);

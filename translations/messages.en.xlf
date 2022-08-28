@@ -9459,5 +9459,23 @@ Element 3</target>
         <target>None of the tags</target>
       </segment>
     </unit>
+    <unit id="wgXINWq" name="part.filter.lot_count">
+      <segment>
+        <source>part.filter.lot_count</source>
+        <target>Number of lots</target>
+      </segment>
+    </unit>
+    <unit id="tjfJAIq" name="part.filter.attachments_count">
+      <segment>
+        <source>part.filter.attachments_count</source>
+        <target>Number of attachments</target>
+      </segment>
+    </unit>
+    <unit id="6Bt9ZhB" name="part.filter.orderdetails_count">
+      <segment>
+        <source>part.filter.orderdetails_count</source>
+        <target>Number of orderdetails</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

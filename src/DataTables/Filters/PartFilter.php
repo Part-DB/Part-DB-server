@@ -68,10 +68,13 @@ class PartFilter implements FilterInterface
     /** @var EntityConstraint */
     protected $supplier;
 
+    /** @var IntConstraint */
+    protected $orderdetailsCount;
+
     /** @var EntityConstraint */
     protected $storelocation;
 
-    /** @var NumberConstraint */
+    /** @var IntConstraint */
     protected $lotCount;
 
     /** @var EntityConstraint */
@@ -82,6 +85,9 @@ class PartFilter implements FilterInterface
 
     /** @var TextConstraint */
     protected $manufacturer_product_number;
+
+    /** @var IntConstraint */
+    protected $attachmentsCount;
 
     public function __construct(NodesListBuilder $nodesListBuilder)
     {
@@ -108,7 +114,10 @@ class PartFilter implements FilterInterface
         $this->manufacturer_product_url = new TextConstraint('part.manufacturer_product_url');
 
         $this->storelocation = new EntityConstraint($nodesListBuilder, Storelocation::class, 'partLots.storage_location');
+
         $this->lotCount = new IntConstraint('COUNT(partLots)');
+        $this->attachmentsCount = new IntConstraint('COUNT(attachments)');
+        $this->orderdetailsCount = new IntConstraint('COUNT(orderdetails)');
     }
 
     public function apply(QueryBuilder $queryBuilder): void
@@ -261,4 +270,22 @@ class PartFilter implements FilterInterface
     {
         return $this->tags;
     }
+
+    /**
+     * @return IntConstraint
+     */
+    public function getOrderdetailsCount(): IntConstraint
+    {
+        return $this->orderdetailsCount;
+    }
+
+    /**
+     * @return IntConstraint
+     */
+    public function getAttachmentsCount(): IntConstraint
+    {
+        return $this->attachmentsCount;
+    }
+
+
 }
