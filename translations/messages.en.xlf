@@ -9495,5 +9495,11 @@ Element 3</target>
         <target>Any lot has unknown amount</target>
       </segment>
     </unit>
+    <unit id="lRKoTj_" name="part.filter.attachmentName">
+      <segment>
+        <source>part.filter.attachmentName</source>
+        <target>Attachment name</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

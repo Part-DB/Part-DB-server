@@ -9,6 +9,7 @@ use App\DataTables\Filters\Constraints\IntConstraint;
 use App\DataTables\Filters\Constraints\NumberConstraint;
 use App\DataTables\Filters\Constraints\Part\TagsConstraint;
 use App\DataTables\Filters\Constraints\TextConstraint;
+use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -17,6 +18,7 @@ use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\QueryBuilder;
+use Svg\Tag\Text;
 
 class PartFilter implements FilterInterface
 {
@@ -98,6 +100,12 @@ class PartFilter implements FilterInterface
     /** @var IntConstraint */
     protected $attachmentsCount;
 
+    /** @var EntityConstraint */
+    protected $attachmentType;
+
+    /** @var TextConstraint */
+    protected $attachmentName;
+
     public function __construct(NodesListBuilder $nodesListBuilder)
     {
         $this->name = new TextConstraint('part.name');
@@ -129,6 +137,9 @@ class PartFilter implements FilterInterface
         $this->storelocation = new EntityConstraint($nodesListBuilder, Storelocation::class, 'partLots.storage_location');
 
         $this->attachmentsCount = new IntConstraint('COUNT(attachments)');
+        $this->attachmentType = new EntityConstraint($nodesListBuilder, AttachmentType::class, 'attachments.attachment_type');
+        $this->attachmentName = new TextConstraint('attachments.name');
+
         $this->orderdetailsCount = new IntConstraint('COUNT(orderdetails)');
     }
 
@@ -321,6 +332,22 @@ class PartFilter implements FilterInterface
     public function getLotExpirationDate(): DateTimeConstraint
     {
         return $this->lotExpirationDate;
+    }
+
+    /**
+     * @return EntityConstraint
+     */
+    public function getAttachmentType(): EntityConstraint
+    {
+        return $this->attachmentType;
+    }
+
+    /**
+     * @return TextConstraint
+     */
+    public function getAttachmentName(): TextConstraint
+    {
+        return $this->attachmentName;
     }
 
 

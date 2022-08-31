@@ -3,6 +3,7 @@
 namespace App\Form\Filters;
 
 use App\DataTables\Filters\PartFilter;
+use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -177,6 +178,15 @@ class PartFilterType extends AbstractType
             'label' => 'part.filter.attachments_count',
             'step' => 1,
             'min' => 0,
+        ]);
+
+        $builder->add('attachmentType', StructuralEntityConstraintType::class, [
+            'label' => 'attachment.attachment_type',
+            'entity_class' => AttachmentType::class
+        ]);
+
+        $builder->add('attachmentName', TextConstraintType::class, [
+            'label' => 'part.filter.attachmentName',
         ]);
 
         $builder->add('submit', SubmitType::class, [
