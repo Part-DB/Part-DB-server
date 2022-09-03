@@ -47,7 +47,7 @@ trait FilterTrait
      */
     protected function addSimpleAndConstraint(QueryBuilder $queryBuilder, string $property, string $parameterIdentifier, string $comparison_operator, $value): void
     {
-        if ($comparison_operator === 'IN') {
+        if ($comparison_operator === 'IN' || $comparison_operator === 'NOT IN') {
             $expression = sprintf("%s %s (:%s)", $property, $comparison_operator, $parameterIdentifier);
         } else {
             $expression = sprintf("%s %s :%s", $property, $comparison_operator, $parameterIdentifier);

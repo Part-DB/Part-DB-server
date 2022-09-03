@@ -3,6 +3,7 @@
 namespace App\DataTables\Filters;
 
 use App\DataTables\Filters\Constraints\BooleanConstraint;
+use App\DataTables\Filters\Constraints\ChoiceConstraint;
 use App\DataTables\Filters\Constraints\DateTimeConstraint;
 use App\DataTables\Filters\Constraints\EntityConstraint;
 use App\DataTables\Filters\Constraints\IntConstraint;
@@ -66,6 +67,9 @@ class PartFilter implements FilterInterface
 
     /** @var EntityConstraint */
     protected $manufacturer;
+
+    /** @var ChoiceConstraint */
+    protected $manufacturing_status;
 
     /** @var EntityConstraint */
     protected $supplier;
@@ -133,6 +137,7 @@ class PartFilter implements FilterInterface
         $this->manufacturer = new EntityConstraint($nodesListBuilder, Manufacturer::class, 'part.manufacturer');
         $this->manufacturer_product_number = new TextConstraint('part.manufacturer_product_number');
         $this->manufacturer_product_url = new TextConstraint('part.manufacturer_product_url');
+        $this->manufacturing_status = new ChoiceConstraint('part.manufacturing_status');
 
         $this->storelocation = new EntityConstraint($nodesListBuilder, Storelocation::class, 'partLots.storage_location');
 
@@ -348,6 +353,11 @@ class PartFilter implements FilterInterface
     public function getAttachmentName(): TextConstraint
     {
         return $this->attachmentName;
+    }
+
+    public function getManufacturingStatus(): ChoiceConstraint
+    {
+        return $this->manufacturing_status;
     }
 
 

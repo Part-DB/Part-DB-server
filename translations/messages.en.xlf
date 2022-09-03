@@ -9501,5 +9501,17 @@ Element 3</target>
         <target>Attachment name</target>
       </segment>
     </unit>
+    <unit id=".gg9fsx" name="filter.choice_constraint.operator.ANY">
+      <segment>
+        <source>filter.choice_constraint.operator.ANY</source>
+        <target>Any of</target>
+      </segment>
+    </unit>
+    <unit id="dbzWAHM" name="filter.choice_constraint.operator.NONE">
+      <segment>
+        <source>filter.choice_constraint.operator.NONE</source>
+        <target>None of</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

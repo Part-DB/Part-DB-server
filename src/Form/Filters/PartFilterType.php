@@ -10,6 +10,7 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Storelocation;
 use App\Form\Filters\Constraints\BooleanConstraintType;
+use App\Form\Filters\Constraints\ChoiceConstraintType;
 use App\Form\Filters\Constraints\DateTimeConstraintType;
 use App\Form\Filters\Constraints\NumberConstraintType;
 use App\Form\Filters\Constraints\StructuralEntityConstraintType;
@@ -121,6 +122,20 @@ class PartFilterType extends AbstractType
 
         $builder->add('manufacturer_product_number', TextConstraintType::class, [
             'label' => 'part.edit.mpn'
+        ]);
+
+        $status_choices = [
+            'm_status.unknown' => '',
+            'm_status.announced' => 'announced',
+            'm_status.active' => 'active',
+            'm_status.nrfnd' => 'nrfnd',
+            'm_status.eol' => 'eol',
+            'm_status.discontinued' => 'discontinued',
+        ];
+
+        $builder->add('manufacturing_status', ChoiceConstraintType::class, [
+            'label' => 'part.edit.manufacturing_status',
+            'choices' => $status_choices,
         ]);
 
         /*
