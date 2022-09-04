@@ -210,11 +210,11 @@ class PartFilterType extends AbstractType
         ]);
 
         $builder->add('submit', SubmitType::class, [
-            'label' => 'Update',
+            'label' => 'filter.submit',
         ]);
 
-        $builder->add('reset', ResetType::class, [
-            'label' => 'Reset',
+        $builder->add('discard', ResetType::class, [
+            'label' => 'filter.discard',
         ]);
 
     }

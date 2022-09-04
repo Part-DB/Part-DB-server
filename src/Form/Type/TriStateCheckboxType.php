@@ -171,10 +171,10 @@ final class TriStateCheckboxType extends AbstractType implements DataTransformer
             case 'true':
                 return true;
             case 'false':
-            case '':
                 return false;
             case 'indeterminate':
             case 'null':
+            case '':
                 return null;
             default:
                 throw new InvalidArgumentException('Invalid value encountered!: '.$value);

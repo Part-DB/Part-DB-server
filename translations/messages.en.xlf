@@ -9519,5 +9519,29 @@ Element 3</target>
         <target>Total amount</target>
       </segment>
     </unit>
+    <unit id="FGuEete" name="filter.submit">
+      <segment>
+        <source>filter.submit</source>
+        <target>Update</target>
+      </segment>
+    </unit>
+    <unit id="4jJXUNM" name="filter.discard">
+      <segment>
+        <source>filter.discard</source>
+        <target>Discard changes</target>
+      </segment>
+    </unit>
+    <unit id="uVrP0no" name="filter.clear_filters">
+      <segment>
+        <source>filter.clear_filters</source>
+        <target>Clear all filters</target>
+      </segment>
+    </unit>
+    <unit id="Rd0n9wc" name="filter.title">
+      <segment>
+        <source>filter.title</source>
+        <target>Filter</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
