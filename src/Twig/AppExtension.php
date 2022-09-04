@@ -42,9 +42,20 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
+use App\Entity\Attachments\Attachment;
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Devices\Device;
+use App\Entity\LabelSystem\LabelProfile;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Footprint;
+use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
+use App\Entity\Parts\Part;
+use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
+use App\Entity\UserSystem\Group;
+use App\Entity\UserSystem\User;
 use App\Services\AmountFormatter;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\EntityURLGenerator;
@@ -116,6 +127,12 @@ class AppExtension extends AbstractExtension
             new TwigTest('instanceof', static function ($var, $instance) {
                 return $var instanceof $instance;
             }),
+            new TwigTest('entity', static function ($var) {
+                return $var instanceof AbstractDBElement;
+            }),
+            new TwigTest('object', static function ($var) {
+                return is_object($var);
+            }),
         ];
     }
 
@@ -125,7 +142,29 @@ class AppExtension extends AbstractExtension
             new TwigFunction('generateTreeData', [$this, 'treeData']),
             new TwigFunction('attachment_thumbnail', [$this->attachmentURLGenerator, 'getThumbnailURL']),
             new TwigFunction('ext_to_fa_icon', [$this->FAIconGenerator, 'fileExtensionToFAType']),
+            new TwigFunction('entity_type', [$this, 'getEntityType']),
         ];
+    }
+
+    public function getEntityType($entity): ?string
+    {
+        $map = [
+            Part::class => 'part',
+            Footprint::class => 'footprint',
+            Storelocation::class => 'storelocation',
+            Manufacturer::class => 'manufacturer',
+            Category::class => 'category',
+            Device::class => 'device',
+            Attachment::class => 'attachment',
+            Supplier::class => 'supplier',
+            User::class => 'user',
+            Group::class => 'group',
+            Currency::class => 'currency',
+            MeasurementUnit::class => 'measurement_unit',
+            LabelProfile::class => 'label_profile',
+        ];
+
+        return $map[get_class($entity)] ?? null;
     }
 
     public function treeData(AbstractDBElement $element, string $type = 'newEdit'): string

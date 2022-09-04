@@ -9,6 +9,8 @@
         <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#entityInfo">
             {% if entity.masterPictureAttachment is not null and attachment_manager.isFileExisting(entity.masterPictureAttachment) %}
                 <img class="hoverpic ms-0 me-0 d-inline" {{ stimulus_controller('elements/hoverpic') }} data-thumbnail="{{ entity.masterPictureAttachment | entityURL('file_view') }}" src="{{ attachment_thumbnail(entity.masterPictureAttachment, 'thumbnail_sm') }}">
+            {% else %}
+                {{ helper.entity_icon(entity, "me-1") }}
             {% endif %}
             {{ header_label | trans }}:&nbsp;<b>{{ entity.name }}</b>
         </button>
