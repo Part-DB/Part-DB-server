@@ -173,6 +173,11 @@ class PartFilterType extends AbstractType
             'step' => 1,
         ]);
 
+        $builder->add('amountSum', NumberConstraintType::class, [
+            'label' => 'part.filter.amount_sum',
+            'min' => 0,
+        ]);
+
         $builder->add('lotNeedsRefill', BooleanConstraintType::class, [
             'label' => 'part.filter.lotNeedsRefill'
         ]);

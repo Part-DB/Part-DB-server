@@ -2,6 +2,7 @@
 
 namespace App\DataTables\Filters\Constraints;
 
+use Doctrine\DBAL\ParameterType;
 use Doctrine\ORM\QueryBuilder;
 use \RuntimeException;
 

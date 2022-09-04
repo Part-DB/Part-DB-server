@@ -9513,5 +9513,11 @@ Element 3</target>
         <target>None of</target>
       </segment>
     </unit>
+    <unit id="ZnYcxRf" name="part.filter.amount_sum">
+      <segment>
+        <source>part.filter.amount_sum</source>
+        <target>Total amount</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

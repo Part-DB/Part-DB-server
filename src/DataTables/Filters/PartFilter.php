@@ -19,7 +19,6 @@ use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\QueryBuilder;
-use Svg\Tag\Text;
 
 class PartFilter implements FilterInterface
 {
@@ -83,6 +82,9 @@ class PartFilter implements FilterInterface
     /** @var IntConstraint */
     protected $lotCount;
 
+    /** @var NumberConstraint */
+    protected $amountSum;
+
     /** @var BooleanConstraint */
     protected $lotNeedsRefill;
 
@@ -127,7 +129,12 @@ class PartFilter implements FilterInterface
         $this->addedDate = new DateTimeConstraint('part.addedDate');
         $this->lastModified = new DateTimeConstraint('part.lastModified');
 
-        $this->minAmount = new NumberConstraint('part.minAmount');
+        $this->minAmount = new NumberConstraint('part.minamount');
+        /* We have to use an IntConstraint here because otherwise we get just an empty result list when applying the filter
+           This seems to be related to the fact, that PDO does not have an float parameter type and using string type does not work in this situation (at least in SQLite)
+           TODO: Find a better solution here
+         */
+        $this->amountSum = new IntConstraint('amountSum');
         $this->lotCount = new IntConstraint('COUNT(partLots)');
         $this->supplier = new EntityConstraint($nodesListBuilder, Supplier::class, 'orderdetails.supplier');
         $this->lotNeedsRefill = new BooleanConstraint('partLots.needs_refill');
@@ -360,6 +367,10 @@ class PartFilter implements FilterInterface
         return $this->manufacturing_status;
     }
 
+    public function getAmountSum(): NumberConstraint
+    {
+        return $this->amountSum;
+    }
 
 
 }

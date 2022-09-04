@@ -53,6 +53,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Services\AmountFormatter;
@@ -232,6 +233,7 @@ final class PartsDataTable implements DataTableTypeInterface
 
                     return $this->amountFormatter->format($amount, $context->getPartUnit());
                 },
+                'orderField' => 'amountSum'
             ])
             ->add('minamount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.minamount'),
@@ -326,6 +328,7 @@ final class PartsDataTable implements DataTableTypeInterface
 
     private function getQuery(QueryBuilder $builder): void
     {
+
         $builder->distinct()->select('part')
             ->addSelect('category')
             ->addSelect('footprint')
@@ -337,6 +340,16 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addSelect('orderdetails')
             ->addSelect('attachments')
             ->addSelect('storelocations')
+            //Calculate amount sum using a subquery, so we can filter and sort by it
+            ->addSelect(
+                '(
+                    SELECT IFNULL(SUM(partLot.amount), 0.0)
+                    FROM '. PartLot::class. ' partLot
+                    WHERE partLot.part = part.id
+                    AND partLot.instock_unknown = false
+                    AND (partLot.expiration_date IS NULL OR partLot.expiration_date > CURRENT_DATE())
+                ) AS HIDDEN amountSum'
+            )
             ->from(Part::class, 'part')
             ->leftJoin('part.category', 'category')
             ->leftJoin('part.master_picture_attachment', 'master_picture_attachment')

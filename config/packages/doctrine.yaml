@@ -33,3 +33,4 @@ doctrine:
         dql:
             string_functions:
                 regexp: DoctrineExtensions\Query\Mysql\Regexp
+                ifnull: DoctrineExtensions\Query\Mysql\IfNull
