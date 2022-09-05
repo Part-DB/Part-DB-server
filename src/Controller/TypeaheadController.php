@@ -42,9 +42,22 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Parameters\AttachmentTypeParameter;
+use App\Entity\Parameters\CategoryParameter;
+use App\Entity\Parameters\DeviceParameter;
+use App\Entity\Parameters\FootprintParameter;
+use App\Entity\Parameters\GroupParameter;
+use App\Entity\Parameters\ManufacturerParameter;
+use App\Entity\Parameters\MeasurementUnitParameter;
+use App\Entity\Parameters\PartParameter;
+use App\Entity\Parameters\StorelocationParameter;
+use App\Entity\Parameters\SupplierParameter;
+use App\Entity\PriceInformations\Currency;
+use App\Repository\ParameterRepository;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\BuiltinAttachmentsFinder;
 use App\Services\TagFinder;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -97,6 +110,58 @@ class TypeaheadController extends AbstractController
         $data = $serializer->serialize($result, 'json');
 
         return new JsonResponse($data, 200, [], true);
+    }
+
+    /**
+     * This functions map the parameter type to the class, so we can access its repository
+     * @param  string  $type
+     * @return class-string
+     */
+    private function typeToParameterClass(string $type): string
+    {
+        switch ($type) {
+            case 'category':
+                return CategoryParameter::class;
+            case 'part':
+                return PartParameter::class;
+            case 'device':
+                return DeviceParameter::class;
+            case 'footprint':
+                return FootprintParameter::class;
+            case 'manufacturer':
+                return ManufacturerParameter::class;
+            case 'storelocation':
+                return StorelocationParameter::class;
+            case 'supplier':
+                return SupplierParameter::class;
+            case 'attachment_type':
+                return AttachmentTypeParameter::class;
+            case 'group':
+                return GroupParameter::class;
+            case 'measurement_unit':
+                return MeasurementUnitParameter::class;
+            case 'currency':
+                return Currency::class;
+
+            default:
+                throw new \InvalidArgumentException('Invalid parameter type: '.$type);
+        }
+    }
+
+    /**
+     * @Route("/parameters/{type}/search/{query}", name="typeahead_parameters", requirements={"type" = ".+"})
+     * @param  string  $query
+     * @return JsonResponse
+     */
+    public function parameters(string $type, EntityManagerInterface $entityManager, string $query = ""): JsonResponse
+    {
+        $class = $this->typeToParameterClass($type);
+        /** @var ParameterRepository $repository */
+        $repository = $entityManager->getRepository($class);
+
+        $data = $repository->autocompleteParamName($query);
+
+        return new JsonResponse($data);
     }
 
     /**

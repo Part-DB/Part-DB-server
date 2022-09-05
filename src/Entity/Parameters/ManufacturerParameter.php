@@ -28,7 +28,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\ParameterRepository")
  * @UniqueEntity(fields={"name", "group", "element"})
  */
 class ManufacturerParameter extends AbstractParameter
