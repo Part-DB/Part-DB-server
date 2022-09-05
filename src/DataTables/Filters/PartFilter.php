@@ -8,6 +8,7 @@ use App\DataTables\Filters\Constraints\DateTimeConstraint;
 use App\DataTables\Filters\Constraints\EntityConstraint;
 use App\DataTables\Filters\Constraints\IntConstraint;
 use App\DataTables\Filters\Constraints\NumberConstraint;
+use App\DataTables\Filters\Constraints\Part\ParameterConstraint;
 use App\DataTables\Filters\Constraints\Part\TagsConstraint;
 use App\DataTables\Filters\Constraints\TextConstraint;
 use App\Entity\Attachments\AttachmentType;
@@ -18,6 +19,7 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Services\Trees\NodesListBuilder;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 
 class PartFilter implements FilterInterface
@@ -112,6 +114,9 @@ class PartFilter implements FilterInterface
     /** @var TextConstraint */
     protected $attachmentName;
 
+    /** @var ArrayCollection<int, ParameterConstraint> */
+    protected $parameters;
+
     public function __construct(NodesListBuilder $nodesListBuilder)
     {
         $this->name = new TextConstraint('part.name');
@@ -153,6 +158,8 @@ class PartFilter implements FilterInterface
         $this->attachmentName = new TextConstraint('attachments.name');
 
         $this->orderdetailsCount = new IntConstraint('COUNT(orderdetails)');
+
+        $this->parameters = new ArrayCollection();
     }
 
     public function apply(QueryBuilder $queryBuilder): void
@@ -371,6 +378,15 @@ class PartFilter implements FilterInterface
     {
         return $this->amountSum;
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getParameters(): ArrayCollection
+    {
+        return $this->parameters;
+    }
+
 
 
 }

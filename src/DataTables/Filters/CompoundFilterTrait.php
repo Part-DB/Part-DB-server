@@ -2,6 +2,7 @@
 
 namespace App\DataTables\Filters;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\QueryBuilder;
 
 trait CompoundFilterTrait
@@ -22,6 +23,15 @@ trait CompoundFilterTrait
             //We only want filters (objects implementing FilterInterface)
             if($value instanceof FilterInterface) {
                 $filters[$property->getName()] = $value;
+            }
+
+            //Add filters in collections
+            if ($value instanceof Collection) {
+                foreach ($value as $key => $filter) {
+                    if($filter instanceof FilterInterface) {
+                        $filters[$property->getName() . '.' . (string) $key] = $filter;
+                    }
+                }
             }
         }
         return $filters;

@@ -13,11 +13,13 @@ use App\Form\Filters\Constraints\BooleanConstraintType;
 use App\Form\Filters\Constraints\ChoiceConstraintType;
 use App\Form\Filters\Constraints\DateTimeConstraintType;
 use App\Form\Filters\Constraints\NumberConstraintType;
+use App\Form\Filters\Constraints\ParameterConstraintType;
 use App\Form\Filters\Constraints\StructuralEntityConstraintType;
 use App\Form\Filters\Constraints\TagsConstraintType;
 use App\Form\Filters\Constraints\TextConstraintType;
 use Svg\Tag\Text;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
@@ -207,6 +209,14 @@ class PartFilterType extends AbstractType
 
         $builder->add('attachmentName', TextConstraintType::class, [
             'label' => 'part.filter.attachmentName',
+        ]);
+
+        $builder->add('parameters', CollectionType::class, [
+            'label' => 'parameter.label',
+            'entry_type' => ParameterConstraintType::class,
+            'allow_delete' => true,
+            'allow_add' => true,
+            'reindex_enable' => false,
         ]);
 
         $builder->add('submit', SubmitType::class, [

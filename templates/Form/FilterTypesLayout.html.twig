@@ -39,3 +39,20 @@
 {% block choice_constraint_widget %}
     {{ block('text_constraint_widget') }}
 {% endblock %}
+
+{% block parameter_constraint_widget %}
+    {% import 'components/collection_type.macro.html.twig' as collection %}
+    <tr {{ stimulus_controller('pages/parameters_autocomplete', {"url": url('typeahead_parameters', {"query": "__QUERY__", "type": "part"}) }) }} >
+        <td>{{ form_widget(form.name, {"attr": {"data-pages--parameters-autocomplete-target": "name"}}) }}</td>
+        <td {{ stimulus_controller('pages/latex_preview') }}>{{ form_widget(form.symbol, {"attr": {"data-pages--parameters-autocomplete-target": "symbol", "data-pages--latex-preview-target": "input"}}) }}<span {{ stimulus_target('pages/latex_preview', 'preview') }}></span></td>
+        <td></td>
+        <td {{ stimulus_controller('pages/latex_preview') }}>{{ form_widget(form.unit, {"attr": {"data-pages--parameters-autocomplete-target": "unit", "data-pages--latex-preview-target": "input"}}) }}<span {{ stimulus_target('pages/latex_preview', 'preview') }}></span></td>
+        <td></td>
+        <td>
+            <button type="button" class="btn btn-danger btn-sm" {{ collection.delete_btn() }} title="{% trans %}orderdetail.delete{% endtrans %}">
+                <i class="fas fa-trash-alt fa-fw"></i>
+            </button>
+            {{ form_errors(form) }}
+        </td>
+    </tr>
+{% endblock %}
