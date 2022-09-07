@@ -13,6 +13,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class NumberConstraintType extends AbstractType
 {
+    protected const CHOICES = [
+        '' => '',
+        '=' => '=',
+        '!=' => '!=',
+        '<' => '<',
+        '>' => '>',
+        '<=' => '<=',
+        '>=' => '>=',
+        'filter.number_constraint.value.operator.BETWEEN' => 'BETWEEN',
+    ];
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -31,17 +42,6 @@ class NumberConstraintType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $choices = [
-            '' => '',
-            '=' => '=',
-            '!=' => '!=',
-            '<' => '<',
-            '>' => '>',
-            '<=' => '<=',
-            '>=' => '>=',
-            'filter.number_constraint.value.operator.BETWEEN' => 'BETWEEN',
-        ];
-
         $builder->add('value1', NumberType::class, array_merge_recursive([
             'label' => 'filter.number_constraint.value1',
             'attr' => [
@@ -68,7 +68,7 @@ class NumberConstraintType extends AbstractType
 
         $builder->add('operator', ChoiceType::class, [
             'label' => 'filter.number_constraint.operator',
-            'choices' => $choices,
+            'choices' => static::CHOICES,
             'required' => false,
         ]);
     }

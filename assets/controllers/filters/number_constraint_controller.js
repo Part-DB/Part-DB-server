@@ -13,8 +13,14 @@ export default class extends Controller {
      */
     update()
     {
+        const two_element_values = [
+            "BETWEEN",
+            'RANGE_IN_RANGE',
+            'RANGE_INTERSECT_RANGE'
+        ];
+
         for (const thingToHide of this.thingsToHideTargets) {
-            thingToHide.classList.toggle("d-none", this.operatorTarget.value !== "BETWEEN");
+            thingToHide.classList.toggle("d-none",  !two_element_values.includes(this.operatorTarget.value));
         }
     }
 }

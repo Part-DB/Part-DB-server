@@ -41,6 +41,9 @@ class ParameterConstraintType extends AbstractType
             //'required' => false,
         ] );
 
+        $builder->add('value', ParameterValueConstraintType::class, [
+        ]);
+
         /*
          * I am not quite sure why this is needed, but somehow symfony tries to create a new instance of TextConstraint
          * instead of using the existing one for the prototype (or the one from empty data). This fails as the constructor of TextConstraint requires

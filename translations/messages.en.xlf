@@ -9543,5 +9543,95 @@ Element 3</target>
         <target>Filter</target>
       </segment>
     </unit>
+    <unit id="kTizqBM" name="filter.parameter_value_constraint.operator.=">
+      <segment>
+        <source>filter.parameter_value_constraint.operator.=</source>
+        <target>Typ. Value =</target>
+      </segment>
+    </unit>
+    <unit id="2Nf2h2a" name="filter.parameter_value_constraint.operator.!=">
+      <segment>
+        <source>filter.parameter_value_constraint.operator.!=</source>
+        <target>Typ. Value !=</target>
+      </segment>
+    </unit>
+    <unit id="0fmepxx" name="filter.parameter_value_constraint.operator.&lt;">
+      <segment>
+        <source>filter.parameter_value_constraint.operator.&lt;</source>
+        <target><![CDATA[Typ. Value <]]></target>
+      </segment>
+    </unit>
+    <unit id="ubkcT6U" name="filter.parameter_value_constraint.operator.&gt;">
+      <segment>
+        <source>filter.parameter_value_constraint.operator.&gt;</source>
+        <target><![CDATA[Typ. Value >]]></target>
+      </segment>
+    </unit>
+    <unit id="O4x0opb" name="filter.parameter_value_constraint.operator.&lt;=">
+      <segment>
+        <source>filter.parameter_value_constraint.operator.&lt;=</source>
+        <target><![CDATA[Typ. Value <=]]></target>
+      </segment>
+    </unit>
+    <unit id="ituiTs9" name="filter.parameter_value_constraint.operator.&gt;=">
+      <segment>
+        <source>filter.parameter_value_constraint.operator.&gt;=</source>
+        <target><![CDATA[Typ. Value >=]]></target>
+      </segment>
+    </unit>
+    <unit id="Y8B3A9X" name="filter.parameter_value_constraint.operator.BETWEEN">
+      <segment>
+        <source>filter.parameter_value_constraint.operator.BETWEEN</source>
+        <target>Typ. Value is between</target>
+      </segment>
+    </unit>
+    <unit id="FqUoIEy" name="filter.parameter_value_constraint.operator.IN_RANGE">
+      <segment>
+        <source>filter.parameter_value_constraint.operator.IN_RANGE</source>
+        <target>In Value range</target>
+      </segment>
+    </unit>
+    <unit id="v_1AWPE" name="filter.parameter_value_constraint.operator.NOT_IN_RANGE">
+      <segment>
+        <source>filter.parameter_value_constraint.operator.NOT_IN_RANGE</source>
+        <target>Not in Value range</target>
+      </segment>
+    </unit>
+    <unit id="X4hI3kL" name="filter.parameter_value_constraint.operator.GREATER_THAN_RANGE">
+      <segment>
+        <source>filter.parameter_value_constraint.operator.GREATER_THAN_RANGE</source>
+        <target>Greater than Value range</target>
+      </segment>
+    </unit>
+    <unit id="yQO92R2" name="filter.parameter_value_constraint.operator.GREATER_EQUAL_RANGE">
+      <segment>
+        <source>filter.parameter_value_constraint.operator.GREATER_EQUAL_RANGE</source>
+        <target>Greater equal than Value range</target>
+      </segment>
+    </unit>
+    <unit id="h8zJtL5" name="filter.parameter_value_constraint.operator.LESS_THAN_RANGE">
+      <segment>
+        <source>filter.parameter_value_constraint.operator.LESS_THAN_RANGE</source>
+        <target>Less than Value range</target>
+      </segment>
+    </unit>
+    <unit id="sxSjUOg" name="filter.parameter_value_constraint.operator.LESS_EQUAL_RANGE">
+      <segment>
+        <source>filter.parameter_value_constraint.operator.LESS_EQUAL_RANGE</source>
+        <target>Less equal than Value range</target>
+      </segment>
+    </unit>
+    <unit id="fqRL5fp" name="filter.parameter_value_constraint.operator.RANGE_IN_RANGE">
+      <segment>
+        <source>filter.parameter_value_constraint.operator.RANGE_IN_RANGE</source>
+        <target>Range is completly in Value range</target>
+      </segment>
+    </unit>
+    <unit id="PJgHP5E" name="filter.parameter_value_constraint.operator.RANGE_INTERSECT_RANGE">
+      <segment>
+        <source>filter.parameter_value_constraint.operator.RANGE_INTERSECT_RANGE</source>
+        <target>Range intersects Value range</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

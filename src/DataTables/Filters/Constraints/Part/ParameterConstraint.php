@@ -22,6 +22,9 @@ class ParameterConstraint extends AbstractConstraint
     /** @var TextConstraint */
     protected $value_text;
 
+    /** @var ParameterValueConstraint */
+    protected $value;
+
     /** @var string The alias to use for the subquery */
     protected $alias;
 
@@ -33,6 +36,7 @@ class ParameterConstraint extends AbstractConstraint
         $this->alias = uniqid('param_', false);
 
         $this->value_text = new TextConstraint($this->alias . '.value_text');
+        $this->value = new ParameterValueConstraint($this->alias );
     }
 
     public function isEnabled(): bool
@@ -71,6 +75,7 @@ class ParameterConstraint extends AbstractConstraint
 
         //Apply all subfilters
         $this->value_text->apply($subqb);
+        $this->value->apply($subqb);
 
         //Copy all parameters from the subquery to the main query
         //We can not use setParameters here, as this would override the exiting paramaters in queryBuilder
@@ -144,14 +149,12 @@ class ParameterConstraint extends AbstractConstraint
     }
 
     /**
-     * DO NOT USE THIS SETTER!
-     * This is just a workaround for collectionType behavior
-     * @param $value
-     * @return $this
+     * @return ParameterValueConstraint
      */
-    /*public function setValueText($value): self
+    public function getValue(): ParameterValueConstraint
     {
-        //Do not really set the value here, as we dont want to override the constraint created in the constructor
-        return $this;
-    }*/
+        return $this->value;
+    }
+
+
 }
