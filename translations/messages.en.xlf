@@ -9633,5 +9633,41 @@ Element 3</target>
         <target>Range intersects Value range</target>
       </segment>
     </unit>
+    <unit id="5Svrc5E" name="filter.text_constraint.value">
+      <segment>
+        <source>filter.text_constraint.value</source>
+        <target>No value set</target>
+      </segment>
+    </unit>
+    <unit id="EIwFuHJ" name="filter.number_constraint.value1">
+      <segment>
+        <source>filter.number_constraint.value1</source>
+        <target>No value set</target>
+      </segment>
+    </unit>
+    <unit id="nb9L_bM" name="filter.number_constraint.value2">
+      <segment>
+        <source>filter.number_constraint.value2</source>
+        <target>Maximum value</target>
+      </segment>
+    </unit>
+    <unit id="Chr6I.s" name="filter.datetime_constraint.value1">
+      <segment>
+        <source>filter.datetime_constraint.value1</source>
+        <target>No datetime set</target>
+      </segment>
+    </unit>
+    <unit id="OX2SbVT" name="filter.datetime_constraint.value2">
+      <segment>
+        <source>filter.datetime_constraint.value2</source>
+        <target>Maximum datetime</target>
+      </segment>
+    </unit>
+    <unit id="HsxzALM" name="filter.constraint.add">
+      <segment>
+        <source>filter.constraint.add</source>
+        <target>Add constraint</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
