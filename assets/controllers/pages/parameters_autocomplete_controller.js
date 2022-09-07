@@ -19,9 +19,13 @@ export default class extends Controller
 
         if (this.symbolTarget && symbol !== undefined) {
             this.symbolTarget.value = symbol;
+            //Trigger input event to update the preview
+            this.symbolTarget.dispatchEvent(new Event('input'));
         }
         if (this.unitTarget && unit !== undefined) {
             this.unitTarget.value = unit;
+            //Trigger input event to update the preview
+            this.unitTarget.dispatchEvent(new Event('input'));
         }
     }
 
