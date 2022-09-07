@@ -44,6 +44,7 @@ namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\PriceInformations\Orderdetail;
 use App\Security\Annotations\ColumnSecurity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use function count;
 use Doctrine\Common\Collections\Collection;
@@ -129,14 +130,9 @@ trait OrderTrait
     {
         //If needed hide the obsolete entries
         if ($hide_obsolete) {
-            $orderdetails = $this->orderdetails;
-            foreach ($orderdetails as $key => $details) {
-                if ($details->getObsolete()) {
-                    unset($orderdetails[$key]);
-                }
-            }
-
-            return $orderdetails;
+            return $this->orderdetails->filter(function (Orderdetail $orderdetail) {
+                return ! $orderdetail->getObsolete();
+            });
         }
 
         return $this->orderdetails;
