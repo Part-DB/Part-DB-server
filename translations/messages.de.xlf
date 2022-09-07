@@ -5321,7 +5321,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>label_options.barcode_type.code128</source>
-        <target>Code 128 (empfehlen)</target>
+        <target>Code 128 (empfohlen)</target>
       </segment>
     </unit>
     <unit id="56JwbDf" name="label_options.barcode_type.code39">
