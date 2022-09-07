@@ -362,6 +362,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('orderdetails.supplier', 'suppliers')
             ->leftJoin('part.attachments', 'attachments')
             ->leftJoin('part.partUnit', 'partUnit')
+            ->leftJoin('part.parameters', 'parameters')
 
             ->groupBy('part')
         ;

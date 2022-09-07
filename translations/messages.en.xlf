@@ -9669,5 +9669,17 @@ Element 3</target>
         <target>Add constraint</target>
       </segment>
     </unit>
+    <unit id=".CuxL5L" name="part.filter.parameters_count">
+      <segment>
+        <source>part.filter.parameters_count</source>
+        <target>Number of parameters</target>
+      </segment>
+    </unit>
+    <unit id="Dn0SKIi" name="part.filter.lotDescription">
+      <segment>
+        <source>part.filter.lotDescription</source>
+        <target>Lot description</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

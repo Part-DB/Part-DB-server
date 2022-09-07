@@ -21,6 +21,7 @@ use App\Entity\Parts\Supplier;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
+use Svg\Tag\Text;
 
 class PartFilter implements FilterInterface
 {
@@ -78,6 +79,9 @@ class PartFilter implements FilterInterface
     /** @var IntConstraint */
     protected $orderdetailsCount;
 
+    /** @var BooleanConstraint */
+    protected $obsolete;
+
     /** @var EntityConstraint */
     protected $storelocation;
 
@@ -89,6 +93,9 @@ class PartFilter implements FilterInterface
 
     /** @var BooleanConstraint */
     protected $lotNeedsRefill;
+
+    /** @var TextConstraint */
+    protected $lotDescription;
 
     /** @var BooleanConstraint */
     protected $lotUnknownAmount;
@@ -117,6 +124,9 @@ class PartFilter implements FilterInterface
     /** @var ArrayCollection<int, ParameterConstraint> */
     protected $parameters;
 
+    /** @var IntConstraint */
+    protected $parametersCount;
+
     public function __construct(NodesListBuilder $nodesListBuilder)
     {
         $this->name = new TextConstraint('part.name');
@@ -141,25 +151,28 @@ class PartFilter implements FilterInterface
          */
         $this->amountSum = new IntConstraint('amountSum');
         $this->lotCount = new IntConstraint('COUNT(partLots)');
-        $this->supplier = new EntityConstraint($nodesListBuilder, Supplier::class, 'orderdetails.supplier');
+
+        $this->storelocation = new EntityConstraint($nodesListBuilder, Storelocation::class, 'partLots.storage_location');
         $this->lotNeedsRefill = new BooleanConstraint('partLots.needs_refill');
         $this->lotUnknownAmount = new BooleanConstraint('partLots.instock_unknown');
         $this->lotExpirationDate = new DateTimeConstraint('partLots.expiration_date');
+        $this->lotDescription = new TextConstraint('partLots.description');
 
         $this->manufacturer = new EntityConstraint($nodesListBuilder, Manufacturer::class, 'part.manufacturer');
         $this->manufacturer_product_number = new TextConstraint('part.manufacturer_product_number');
         $this->manufacturer_product_url = new TextConstraint('part.manufacturer_product_url');
         $this->manufacturing_status = new ChoiceConstraint('part.manufacturing_status');
 
-        $this->storelocation = new EntityConstraint($nodesListBuilder, Storelocation::class, 'partLots.storage_location');
-
         $this->attachmentsCount = new IntConstraint('COUNT(attachments)');
         $this->attachmentType = new EntityConstraint($nodesListBuilder, AttachmentType::class, 'attachments.attachment_type');
         $this->attachmentName = new TextConstraint('attachments.name');
 
+        $this->supplier = new EntityConstraint($nodesListBuilder, Supplier::class, 'orderdetails.supplier');
         $this->orderdetailsCount = new IntConstraint('COUNT(orderdetails)');
+        $this->obsolete = new BooleanConstraint('orderdetails.obsolete');
 
         $this->parameters = new ArrayCollection();
+        $this->parametersCount = new IntConstraint('COUNT(parameters)');
     }
 
     public function apply(QueryBuilder $queryBuilder): void
@@ -386,6 +399,28 @@ class PartFilter implements FilterInterface
     {
         return $this->parameters;
     }
+
+    public function getParametersCount(): IntConstraint
+    {
+        return $this->parametersCount;
+    }
+
+    /**
+     * @return TextConstraint
+     */
+    public function getLotDescription(): TextConstraint
+    {
+        return $this->lotDescription;
+    }
+
+    /**
+     * @return BooleanConstraint
+     */
+    public function getObsolete(): BooleanConstraint
+    {
+        return $this->obsolete;
+    }
+
 
 
 

@@ -156,6 +156,9 @@ class PartFilterType extends AbstractType
            'min' => 0,
         ]);
 
+        $builder->add('obsolete', BooleanConstraintType::class, [
+            'label' => 'orderdetails.edit.obsolete'
+        ]);
 
         /*
          * Stocks tabs
@@ -194,6 +197,10 @@ class PartFilterType extends AbstractType
             'input_type' => DateType::class,
         ]);
 
+        $builder->add('lotDescription', TextConstraintType::class, [
+            'label' => 'part.filter.lotDescription',
+        ]);
+
         /**
          * Attachments count
          */
@@ -215,13 +222,19 @@ class PartFilterType extends AbstractType
         $constraint_prototype = new ParameterConstraint();
 
         $builder->add('parameters', CollectionType::class, [
-            'label' => 'parameter.label',
+            'label' => false,
             'entry_type' => ParameterConstraintType::class,
             'allow_delete' => true,
             'allow_add' => true,
             'reindex_enable' => false,
             'prototype_data' => $constraint_prototype,
             'empty_data' => $constraint_prototype,
+        ]);
+
+        $builder->add('parametersCount', NumberConstraintType::class, [
+            'label' => 'part.filter.parameters_count',
+            'step' => 1,
+            'min' => 0,
         ]);
 
         $builder->add('submit', SubmitType::class, [

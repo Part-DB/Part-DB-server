@@ -60,6 +60,7 @@
                 {{ form_row(filterForm.amountSum) }}
                 {{ form_row(filterForm.lotCount) }}
                 {{ form_row(filterForm.lotExpirationDate) }}
+                {{ form_row(filterForm.lotDescription) }}
                 {{ form_row(filterForm.lotNeedsRefill) }}
                 {{ form_row(filterForm.lotUnknownAmount) }}
             </div>
@@ -73,10 +74,12 @@
             <div class="tab-pane pt-3" id="filter-orderdetails" role="tabpanel" aria-labelledby="filter-orderdetails-tab" tabindex="0">
                 {{ form_row(filterForm.supplier) }}
                 {{ form_row(filterForm.orderdetailsCount) }}
+                {{ form_row(filterForm.obsolete) }}
             </div>
 
             <div class="tab-pane pt-3" id="filter-parameters" role="tabpanel" aria-labelledby="filter-parameters-tab" tabindex="0">
                 {% import 'components/collection_type.macro.html.twig' as collection %}
+                {{ form_row(filterForm.parametersCount) }}
 
                 <div {{ collection.controller(filterForm.parameters) }}>
                     <table class="table table-striped table-sm" id="lots_table" {{ collection.target() }}>
