@@ -2,6 +2,7 @@
 
 namespace App\Form\Filters;
 
+use App\DataTables\Filters\Constraints\Part\ParameterConstraint;
 use App\DataTables\Filters\PartFilter;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\Category;
@@ -211,12 +212,16 @@ class PartFilterType extends AbstractType
             'label' => 'part.filter.attachmentName',
         ]);
 
+        $constraint_prototype = new ParameterConstraint();
+
         $builder->add('parameters', CollectionType::class, [
             'label' => 'parameter.label',
             'entry_type' => ParameterConstraintType::class,
             'allow_delete' => true,
             'allow_add' => true,
             'reindex_enable' => false,
+            'prototype_data' => $constraint_prototype,
+            'empty_data' => $constraint_prototype,
         ]);
 
         $builder->add('submit', SubmitType::class, [

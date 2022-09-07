@@ -47,7 +47,7 @@
         <td {{ stimulus_controller('pages/latex_preview') }}>{{ form_widget(form.symbol, {"attr": {"data-pages--parameters-autocomplete-target": "symbol", "data-pages--latex-preview-target": "input"}}) }}<span {{ stimulus_target('pages/latex_preview', 'preview') }}></span></td>
         <td></td>
         <td {{ stimulus_controller('pages/latex_preview') }}>{{ form_widget(form.unit, {"attr": {"data-pages--parameters-autocomplete-target": "unit", "data-pages--latex-preview-target": "input"}}) }}<span {{ stimulus_target('pages/latex_preview', 'preview') }}></span></td>
-        <td></td>
+        <td>{{ form_widget(form.value_text) }}</td>
         <td>
             <button type="button" class="btn btn-danger btn-sm" {{ collection.delete_btn() }} title="{% trans %}orderdetail.delete{% endtrans %}">
                 <i class="fas fa-trash-alt fa-fw"></i>
