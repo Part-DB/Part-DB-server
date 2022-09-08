@@ -1,12 +1,14 @@
 {% extends "base.html.twig" %}
 
 {% block  title %}
-{% trans %}parts_list.all.title{% endtrans %}
+    {% trans %}parts_list.all.title{% endtrans %}
 {% endblock %}
 
 {% block content %}
 
-    {% include "Parts/lists/_filter.html.twig" %}
+    <div class="accordion mb-3">
+        {% include "Parts/lists/_filter.html.twig" %}
+    </div>
 
     {% include "Parts/lists/_action_bar.html.twig" with {'url_options': {}} %}
     {% include "Parts/lists/_parts_list.html.twig" %}
