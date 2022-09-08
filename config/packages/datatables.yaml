@@ -3,6 +3,9 @@ datatables:
 
     language_from_cdn: false
 
+    # Set to none, as we override the bundle mechanism with our own custom one
+    persist_state: none
+
     # Set options, as documented at https://datatables.net/reference/option/
     options:
         lengthMenu : [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]

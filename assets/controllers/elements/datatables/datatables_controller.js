@@ -23,8 +23,32 @@ export default class extends Controller {
 
     static targets = ['dt'];
 
+    static values = {
+        stateSaveTag: String
+    };
+
     /** The datatable instance associated with this controller instance */
     _dt;
+
+    getStateSaveKey() {
+        let key = 'dt_state_'
+
+        if(this.stateSaveTagValue) { //If a tag is provided, use it to store the state
+            key += this.stateSaveTagValue;
+        } else { //Otherwise generate one from the current url
+            key += window.location.pathname;
+        }
+
+        return key;
+    }
+
+    stateSaveCallback(settings, data) {
+        localStorage.setItem( this.getStateSaveKey(), JSON.stringify(data) );
+    }
+
+    stateLoadCallback(settings) {
+        return JSON.parse( localStorage.getItem(this.getStateSaveKey()) );
+    }
 
     connect() {
         //$($.fn.DataTable.tables()).DataTable().fixedHeader.disable();
@@ -55,6 +79,9 @@ export default class extends Controller {
                 }],
                 select: this.isSelectable(),
                 rowCallback: this._rowCallback.bind(this),
+                stateSave: true,
+                stateSaveCallback: this.stateSaveCallback.bind(this),
+                stateLoadCallback: this.stateLoadCallback.bind(this),
             })
             //Register error handler
             .catch(err => {
@@ -77,46 +104,6 @@ export default class extends Controller {
         //Allow to further configure the datatable
         promise.then(this._afterLoaded.bind(this));
 
-
-
-        //Register links.
-        /*promise.then(function() {
-
-            //Set the correct title in the table.
-            let title = $('#part-card-header-src');
-            $('#part-card-header').html(title.html());
-            $(document).trigger('ajaxUI:dt_loaded');
-
-
-            if($table.data('part_table')) {
-                //@ts-ignore
-                $('#dt').on( 'select.dt deselect.dt', function ( e, dt, items ) {
-                    let selected_elements = dt.rows({selected: true});
-                    let count = selected_elements.count();
-
-                    if(count > 0) {
-                        $('#select_panel').removeClass('d-none');
-                    } else {
-                        $('#select_panel').addClass('d-none');
-                    }
-
-                    $('#select_count').text(count);
-
-                    let selected_ids_string = selected_elements.data().map(function(value, index) {
-                        return value['id']; }
-                    ).join(",");
-
-                    $('#select_ids').val(selected_ids_string);
-
-                } );
-            }
-
-            //Attach event listener to update links after new page selection:
-            $('#dt').on('draw.dt column-visibility.dt', function() {
-                //ajaxUI.registerLinks();
-                $(document).trigger('ajaxUI:dt_loaded');
-            });
-        });*/
 
         console.debug('Datatables inited.');
     }
