@@ -65,11 +65,13 @@ class PartListsController extends AbstractController
 {
     private $entityManager;
     private $nodesListBuilder;
+    private $dataTableFactory;
 
-    public function __construct(EntityManagerInterface $entityManager, NodesListBuilder $nodesListBuilder)
+    public function __construct(EntityManagerInterface $entityManager, NodesListBuilder $nodesListBuilder, DataTableFactory $dataTableFactory)
     {
         $this->entityManager = $entityManager;
         $this->nodesListBuilder = $nodesListBuilder;
+        $this->dataTableFactory = $dataTableFactory;
     }
 
     /**
@@ -123,35 +125,60 @@ class PartListsController extends AbstractController
     }
 
     /**
-     * @Route("/category/{id}/parts", name="part_list_category")
-     *
-     * @return JsonResponse|Response
+     * Common implementation for the part list pages.
+     * @param  string  $template The template that should be rendered
+     * @param  array  $additonal_template_vars Any additional template variables that should be passed to the template
+     * @param  callable  $filter_changer A function that is called with the filter object as parameter. This function can be used to customize the filter
+     * @param  callable  $form_changer A function that is called with the form object as parameter. This function can be used to customize the form
+     * @return Response
      */
-    public function showCategory(Category $category, Request $request, DataTableFactory $dataTable)
+    protected function showListWithFilter(Request $request, string $template, ?callable $filter_changer = null, ?callable $form_changer = null, array $additonal_template_vars = []): Response
     {
         $formRequest = clone $request;
         $formRequest->setMethod('GET');
         $filter = new PartFilter($this->nodesListBuilder);
+        if($filter_changer !== null){
+            $filter_changer($filter);
+        }
 
-        //Set the category as default filter and disable to change that constraint value
-        $filter->getCategory()->setOperator('INCLUDING_CHILDREN')->setValue($category);
         $filterForm = $this->createForm(PartFilterType::class, $filter, ['method' => 'GET']);
-        $this->disableFormFieldAfterCreation($filterForm->get('category')->get('value'));
+        if($form_changer !== null) {
+            $form_changer($filterForm);
+        }
+
         $filterForm->handleRequest($formRequest);
 
-        $table = $dataTable->createFromType(PartsDataTable::class, ['filter' => $filter])
+        $table = $this->dataTableFactory->createFromType(PartsDataTable::class, ['filter' => $filter])
             ->handleRequest($request);
 
         if ($table->isCallback()) {
             return $table->getResponse();
         }
 
-        return $this->render('Parts/lists/category_list.html.twig', [
+        return $this->render($template, array_merge([
             'datatable' => $table,
-            'entity' => $category,
-            'repo' => $this->entityManager->getRepository(Category::class),
             'filterForm' => $filterForm->createView(),
-        ]);
+        ], $additonal_template_vars));
+    }
+
+    /**
+     * @Route("/category/{id}/parts", name="part_list_category")
+     *
+     * @return JsonResponse|Response
+     */
+    public function showCategory(Category $category, Request $request)
+    {
+        return $this->showListWithFilter($request,
+            'Parts/lists/category_list.html.twig',
+            function (PartFilter $filter) use ($category) {
+                $filter->getCategory()->setOperator('INCLUDING_CHILDREN')->setValue($category);
+            }, function (FormInterface $filterForm) {
+                $this->disableFormFieldAfterCreation($filterForm->get('category')->get('value'));
+            }, [
+                'entity' => $category,
+                'repo' => $this->entityManager->getRepository(Category::class),
+            ]
+        );
     }
 
     /**
@@ -159,20 +186,19 @@ class PartListsController extends AbstractController
      *
      * @return JsonResponse|Response
      */
-    public function showFootprint(Footprint $footprint, Request $request, DataTableFactory $dataTable)
+    public function showFootprint(Footprint $footprint, Request $request)
     {
-        $table = $dataTable->createFromType(PartsDataTable::class, ['footprint' => $footprint])
-            ->handleRequest($request);
-
-        if ($table->isCallback()) {
-            return $table->getResponse();
-        }
-
-        return $this->render('Parts/lists/footprint_list.html.twig', [
-            'datatable' => $table,
-            'entity' => $footprint,
-            'repo' => $this->entityManager->getRepository(Footprint::class),
-        ]);
+        return $this->showListWithFilter($request,
+            'Parts/lists/footprint_list.html.twig',
+            function (PartFilter $filter) use ($footprint) {
+                $filter->getFootprint()->setOperator('INCLUDING_CHILDREN')->setValue($footprint);
+            }, function (FormInterface $filterForm) {
+                $this->disableFormFieldAfterCreation($filterForm->get('footprint')->get('value'));
+            }, [
+                'entity' => $footprint,
+                'repo' => $this->entityManager->getRepository(Footprint::class),
+            ]
+        );
     }
 
     /**
@@ -180,20 +206,19 @@ class PartListsController extends AbstractController
      *
      * @return JsonResponse|Response
      */
-    public function showManufacturer(Manufacturer $manufacturer, Request $request, DataTableFactory $dataTable)
+    public function showManufacturer(Manufacturer $manufacturer, Request $request)
     {
-        $table = $dataTable->createFromType(PartsDataTable::class, ['manufacturer' => $manufacturer])
-            ->handleRequest($request);
-
-        if ($table->isCallback()) {
-            return $table->getResponse();
-        }
-
-        return $this->render('Parts/lists/manufacturer_list.html.twig', [
-            'datatable' => $table,
-            'entity' => $manufacturer,
-            'repo' => $this->entityManager->getRepository(Manufacturer::class),
-        ]);
+        return $this->showListWithFilter($request,
+            'Parts/lists/manufacturer_list.html.twig',
+            function (PartFilter $filter) use ($manufacturer) {
+                $filter->getManufacturer()->setOperator('INCLUDING_CHILDREN')->setValue($manufacturer);
+            }, function (FormInterface $filterForm) {
+                $this->disableFormFieldAfterCreation($filterForm->get('manufacturer')->get('value'));
+            }, [
+                'entity' => $manufacturer,
+                'repo' => $this->entityManager->getRepository(Manufacturer::class),
+            ]
+        );
     }
 
     /**
@@ -201,20 +226,19 @@ class PartListsController extends AbstractController
      *
      * @return JsonResponse|Response
      */
-    public function showStorelocation(Storelocation $storelocation, Request $request, DataTableFactory $dataTable)
+    public function showStorelocation(Storelocation $storelocation, Request $request)
     {
-        $table = $dataTable->createFromType(PartsDataTable::class, ['storelocation' => $storelocation])
-            ->handleRequest($request);
-
-        if ($table->isCallback()) {
-            return $table->getResponse();
-        }
-
-        return $this->render('Parts/lists/store_location_list.html.twig', [
-            'datatable' => $table,
-            'entity' => $storelocation,
-            'repo' => $this->entityManager->getRepository(Storelocation::class),
-        ]);
+        return $this->showListWithFilter($request,
+            'Parts/lists/store_location_list.html.twig',
+            function (PartFilter $filter) use ($storelocation) {
+                $filter->getStorelocation()->setOperator('INCLUDING_CHILDREN')->setValue($storelocation);
+            }, function (FormInterface $filterForm) {
+                $this->disableFormFieldAfterCreation($filterForm->get('storelocation')->get('value'));
+            }, [
+                'entity' => $storelocation,
+                'repo' => $this->entityManager->getRepository(Storelocation::class),
+            ]
+        );
     }
 
     /**
@@ -222,20 +246,19 @@ class PartListsController extends AbstractController
      *
      * @return JsonResponse|Response
      */
-    public function showSupplier(Supplier $supplier, Request $request, DataTableFactory $dataTable)
+    public function showSupplier(Supplier $supplier, Request $request)
     {
-        $table = $dataTable->createFromType(PartsDataTable::class, ['supplier' => $supplier])
-            ->handleRequest($request);
-
-        if ($table->isCallback()) {
-            return $table->getResponse();
-        }
-
-        return $this->render('Parts/lists/supplier_list.html.twig', [
-            'datatable' => $table,
-            'entity' => $supplier,
-            'repo' => $this->entityManager->getRepository(Supplier::class),
-        ]);
+        return $this->showListWithFilter($request,
+            'Parts/lists/supplier_list.html.twig',
+            function (PartFilter $filter) use ($supplier) {
+                $filter->getSupplier()->setOperator('INCLUDING_CHILDREN')->setValue($supplier);
+            }, function (FormInterface $filterForm) {
+                $this->disableFormFieldAfterCreation($filterForm->get('supplier')->get('value'));
+            }, [
+                'entity' => $supplier,
+                'repo' => $this->entityManager->getRepository(Supplier::class),
+            ]
+        );
     }
 
     /**
@@ -246,17 +269,17 @@ class PartListsController extends AbstractController
     public function showTag(string $tag, Request $request, DataTableFactory $dataTable)
     {
         $tag = trim($tag);
-        $table = $dataTable->createFromType(PartsDataTable::class, ['tag' => $tag])
-            ->handleRequest($request);
 
-        if ($table->isCallback()) {
-            return $table->getResponse();
-        }
-
-        return $this->render('Parts/lists/tags_list.html.twig', [
-            'tag' => $tag,
-            'datatable' => $table,
-        ]);
+        return $this->showListWithFilter($request,
+            'Parts/lists/tags_list.html.twig',
+            function (PartFilter $filter) use ($tag) {
+                $filter->getTags()->setOperator('ANY')->setValue($tag);
+            }, function (FormInterface $filterForm) {
+                $this->disableFormFieldAfterCreation($filterForm->get('tags')->get('value'));
+            }, [
+                'tag' => $tag,
+            ]
+        );
     }
 
     /**
@@ -304,22 +327,6 @@ class PartListsController extends AbstractController
      */
     public function showAll(Request $request, DataTableFactory $dataTable)
     {
-
-        $formRequest = clone $request;
-        $formRequest->setMethod('GET');
-        $filter = new PartFilter($this->nodesListBuilder);
-        $filterForm = $this->createForm(PartFilterType::class, $filter, ['method' => 'GET']);
-        $filterForm->handleRequest($formRequest);
-
-        $table = $dataTable->createFromType(PartsDataTable::class, [
-            'filter' => $filter,
-        ])
-            ->handleRequest($request);
-
-        if ($table->isCallback()) {
-            return $table->getResponse();
-        }
-
-        return $this->render('Parts/lists/all_list.html.twig', ['datatable' => $table, 'filterForm' => $filterForm->createView()]);
+        return $this->showListWithFilter($request,'Parts/lists/all_list.html.twig');
     }
 }

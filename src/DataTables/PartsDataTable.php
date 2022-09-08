@@ -370,55 +370,10 @@ final class PartsDataTable implements DataTableTypeInterface
 
     private function buildCriteria(QueryBuilder $builder, array $options): void
     {
-
+        //We do the most stuff here in the filter class
         if (isset($options['filter']) && $options['filter'] instanceof PartFilter) {
             $filter = $options['filter'];
-
             $filter->apply($builder);
-        }
-
-        if (isset($options['category'])) {
-            $category = $options['category'];
-            $list = $this->treeBuilder->typeToNodesList(Category::class, $category);
-            $list[] = $category;
-
-            $builder->andWhere('part.category IN (:cid)')->setParameter('cid', $list);
-        }
-
-        if (isset($options['footprint'])) {
-            $category = $options['footprint'];
-            $list = $this->treeBuilder->typeToNodesList(Footprint::class, $category);
-            $list[] = $category;
-
-            $builder->andWhere('part.footprint IN (:cid)')->setParameter('cid', $list);
-        }
-
-        if (isset($options['manufacturer'])) {
-            $category = $options['manufacturer'];
-            $list = $this->treeBuilder->typeToNodesList(Manufacturer::class, $category);
-            $list[] = $category;
-
-            $builder->andWhere('part.manufacturer IN (:cid)')->setParameter('cid', $list);
-        }
-
-        if (isset($options['storelocation'])) {
-            $location = $options['storelocation'];
-            $list = $this->treeBuilder->typeToNodesList(Storelocation::class, $location);
-            $list[] = $location;
-
-            $builder->andWhere('partLots.storage_location IN (:cid)')->setParameter('cid', $list);
-        }
-
-        if (isset($options['supplier'])) {
-            $supplier = $options['supplier'];
-            $list = $this->treeBuilder->typeToNodesList(Supplier::class, $supplier);
-            $list[] = $supplier;
-
-            $builder->andWhere('orderdetails.supplier IN (:cid)')->setParameter('cid', $list);
-        }
-
-        if (isset($options['tag'])) {
-            $builder->andWhere('part.tags LIKE :tag')->setParameter('tag', $options['tag']);
         }
 
         if (!empty($options['search'])) {
