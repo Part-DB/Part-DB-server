@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\DataTables;
 
 use App\DataTables\Column\LocaleDateTimeColumn;
+use App\DataTables\Column\PrettyBoolColumn;
 use App\Entity\Attachments\Attachment;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentURLGenerator;
@@ -50,7 +51,6 @@ use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
-use Omines\DataTablesBundle\Column\BoolColumn;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
@@ -184,37 +184,25 @@ final class AttachmentDataTable implements DataTableTypeInterface
                 'visible' => false,
             ]);
 
-        $dataTable->add('show_in_table', BoolColumn::class, [
+        $dataTable->add('show_in_table', PrettyBoolColumn::class, [
             'label' => 'attachment.edit.show_in_table',
-            'trueValue' => $this->translator->trans('true'),
-            'falseValue' => $this->translator->trans('false'),
-            'nullValue' => '',
             'visible' => false,
         ]);
 
-        $dataTable->add('isPicture', BoolColumn::class, [
+        $dataTable->add('isPicture', PrettyBoolColumn::class, [
             'label' => 'attachment.edit.isPicture',
-            'trueValue' => $this->translator->trans('true'),
-            'falseValue' => $this->translator->trans('false'),
-            'nullValue' => '',
             'visible' => false,
             'propertyPath' => 'picture',
         ]);
 
-        $dataTable->add('is3DModel', BoolColumn::class, [
+        $dataTable->add('is3DModel', PrettyBoolColumn::class, [
             'label' => 'attachment.edit.is3DModel',
-            'trueValue' => $this->translator->trans('true'),
-            'falseValue' => $this->translator->trans('false'),
-            'nullValue' => '',
             'visible' => false,
             'propertyPath' => '3dmodel',
         ]);
 
-        $dataTable->add('isBuiltin', BoolColumn::class, [
+        $dataTable->add('isBuiltin', PrettyBoolColumn::class, [
             'label' => 'attachment.edit.isBuiltin',
-            'trueValue' => $this->translator->trans('true'),
-            'falseValue' => $this->translator->trans('false'),
-            'nullValue' => '',
             'visible' => false,
             'propertyPath' => 'builtin',
         ]);
