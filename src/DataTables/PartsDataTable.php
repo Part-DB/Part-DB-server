@@ -47,6 +47,7 @@ use App\DataTables\Column\IconLinkColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
 use App\DataTables\Column\PartAttachmentsColumn;
+use App\DataTables\Column\PrettyBoolColumn;
 use App\DataTables\Column\TagsColumn;
 use App\DataTables\Filters\PartFilter;
 use App\Entity\Parts\Category;
@@ -255,18 +256,12 @@ final class PartsDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.lastModified'),
                 'visible' => false,
             ])
-            ->add('needs_review', BoolColumn::class, [
+            ->add('needs_review', PrettyBoolColumn::class, [
                 'label' => $this->translator->trans('part.table.needsReview'),
-                'trueValue' => $this->translator->trans('true'),
-                'falseValue' => $this->translator->trans('false'),
-                'nullValue' => '',
                 'visible' => false,
             ])
-            ->add('favorite', BoolColumn::class, [
+            ->add('favorite', PrettyBoolColumn::class, [
                 'label' => $this->translator->trans('part.table.favorite'),
-                'trueValue' => $this->translator->trans('true'),
-                'falseValue' => $this->translator->trans('false'),
-                'nullValue' => '',
                 'visible' => false,
             ])
             ->add('manufacturing_status', MapColumn::class, [
