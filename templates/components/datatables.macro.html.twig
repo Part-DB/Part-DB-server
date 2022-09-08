@@ -1,5 +1,5 @@
 {% macro datatable(datatable, controller = 'elements/datatables/datatables', state_save_tag = null) %}
-    <div {{ stimulus_controller(controller) }} data-dt-settings='{{ datatable_settings(datatable)|escape('html_attr') }}' data-dt-url="{{ app.request.requestUri }}">
+    <div {{ stimulus_controller(controller, {"stateSaveTag": state_save_tag}) }} data-dt-settings='{{ datatable_settings(datatable)|escape('html_attr') }}' data-dt-url="{{ app.request.requestUri }}">
         <div {{ stimulus_target(controller, 'dt') }}>
             <div class="card-body">
                 <div class="card">
