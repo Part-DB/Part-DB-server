@@ -123,6 +123,14 @@
                 </div>
             </div>
 
+            {# Retain the query parameters of the search form if it is existing #}
+            {% if searchFilter is defined %}
+                {% for property, value in searchFilter|toArray %}
+                    <input type="hidden" name="{{ property }}" data-no-clear="true" value="{{ value }}">
+                {% endfor %}
+
+            {% endif %}
+
             {{ form_end(filterForm) }}
         </div>
     </div>

@@ -35,6 +35,11 @@ export default class extends Controller {
     {
         const form = event.target.closest('form');
         for(const element of form.elements) {
+            // Do not clear elements with data-no-clear attribute
+            if(element.dataset.noClear) {
+                continue;
+            }
+
             element.disabled = true;
         }
 

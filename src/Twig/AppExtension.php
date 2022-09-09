@@ -65,6 +65,7 @@ use App\Services\MoneyFormatter;
 use App\Services\SIFormatter;
 use App\Services\Trees\TreeViewGenerator;
 use Brick\Math\BigDecimal;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
@@ -87,12 +88,14 @@ class AppExtension extends AbstractExtension
     protected $FAIconGenerator;
     protected $translator;
 
+    protected $objectNormalizer;
+
     public function __construct(EntityURLGenerator $entityURLGenerator, MarkdownParser $markdownParser,
         SerializerInterface $serializer, TreeViewGenerator $treeBuilder,
         MoneyFormatter $moneyFormatter,
         SIFormatter $SIFormatter, AmountFormatter $amountFormatter,
         AttachmentURLGenerator $attachmentURLGenerator,
-        FAIconGenerator $FAIconGenerator, TranslatorInterface $translator)
+        FAIconGenerator $FAIconGenerator, TranslatorInterface $translator, ObjectNormalizer $objectNormalizer)
     {
         $this->entityURLGenerator = $entityURLGenerator;
         $this->markdownParser = $markdownParser;
@@ -104,6 +107,8 @@ class AppExtension extends AbstractExtension
         $this->attachmentURLGenerator = $attachmentURLGenerator;
         $this->FAIconGenerator = $FAIconGenerator;
         $this->translator = $translator;
+
+        $this->objectNormalizer = $objectNormalizer;
     }
 
     public function getFilters(): array
@@ -118,6 +123,8 @@ class AppExtension extends AbstractExtension
             new TwigFilter('siFormat', [$this, 'siFormat']),
             new TwigFilter('amountFormat', [$this, 'amountFormat']),
             new TwigFilter('loginPath', [$this, 'loginPath']),
+
+            new TwigFilter('toArray', [$this, 'toArray'])
         ];
     }
 
@@ -172,6 +179,11 @@ class AppExtension extends AbstractExtension
         $tree = $this->treeBuilder->getTreeView(get_class($element), null, $type, $element);
 
         return json_encode($tree, JSON_THROW_ON_ERROR);
+    }
+
+    public function toArray($object): array
+    {
+        return $this->objectNormalizer->normalize($object, null);
     }
 
     /**

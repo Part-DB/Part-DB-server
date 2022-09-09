@@ -127,13 +127,15 @@ class PartListsController extends AbstractController
 
     /**
      * Common implementation for the part list pages.
-     * @param  string  $template The template that should be rendered
-     * @param  array  $additonal_template_vars Any additional template variables that should be passed to the template
-     * @param  callable  $filter_changer A function that is called with the filter object as parameter. This function can be used to customize the filter
-     * @param  callable  $form_changer A function that is called with the form object as parameter. This function can be used to customize the form
+     * @param  Request  $request The request to parse
+     * @param  string  $template  The template that should be rendered
+     * @param  callable|null  $filter_changer  A function that is called with the filter object as parameter. This function can be used to customize the filter
+     * @param  callable|null  $form_changer  A function that is called with the form object as parameter. This function can be used to customize the form
+     * @param  array  $additonal_template_vars  Any additional template variables that should be passed to the template
+     * @param  array  $additional_table_vars Any additional variables that should be passed to the table creation
      * @return Response
      */
-    protected function showListWithFilter(Request $request, string $template, ?callable $filter_changer = null, ?callable $form_changer = null, array $additonal_template_vars = []): Response
+    protected function showListWithFilter(Request $request, string $template, ?callable $filter_changer = null, ?callable $form_changer = null, array $additonal_template_vars = [], array $additional_table_vars = []): Response
     {
         $formRequest = clone $request;
         $formRequest->setMethod('GET');
@@ -149,7 +151,7 @@ class PartListsController extends AbstractController
 
         $filterForm->handleRequest($formRequest);
 
-        $table = $this->dataTableFactory->createFromType(PartsDataTable::class, ['filter' => $filter])
+        $table = $this->dataTableFactory->createFromType(PartsDataTable::class, array_merge(['filter' => $filter], $additional_table_vars))
             ->handleRequest($request);
 
         if ($table->isCallback()) {
@@ -312,18 +314,18 @@ class PartListsController extends AbstractController
     {
         $searchFilter = $this->searchRequestToFilter($request);
 
-        $table = $dataTable->createFromType(PartsDataTable::class, [
-            'search' => $searchFilter,
-        ])->handleRequest($request);
-
-        if ($table->isCallback()) {
-            return $table->getResponse();
-        }
-
-        return $this->render('Parts/lists/search_list.html.twig', [
-            'datatable' => $table,
-            'keyword' => $searchFilter->getQuery(),
-        ]);
+        return $this->showListWithFilter($request,
+            'Parts/lists/search_list.html.twig',
+            null,
+            null,
+            [
+                'keyword' => $searchFilter->getKeyword(),
+                'searchFilter' => $searchFilter,
+            ],
+            [
+                'search' => $searchFilter,
+            ]
+        );
     }
 
     /**

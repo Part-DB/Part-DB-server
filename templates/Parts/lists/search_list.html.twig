@@ -1,10 +1,14 @@
 {% extends "base.html.twig" %}
 
 {% block  title %}
-{% trans %}parts_list.search.title{% endtrans %} {{ keyword }}
+{% trans %}parts_list.search.title{% endtrans %}: {{ keyword }}
 {% endblock %}
 
 {% block content %}
+
+    <div class="accordion mb-3">
+        {% include "Parts/lists/_filter.html.twig" %}
+    </div>
 
     {% include "Parts/lists/_parts_list.html.twig" %}
 

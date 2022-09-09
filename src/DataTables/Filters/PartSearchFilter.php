@@ -9,7 +9,7 @@ class PartSearchFilter implements FilterInterface
 {
 
     /** @var string The string to query for */
-    protected $query;
+    protected $keyword;
 
     /** @var boolean Whether to use regex for searching */
     protected $regex = false;
@@ -49,7 +49,7 @@ class PartSearchFilter implements FilterInterface
 
     public function __construct(string $query)
     {
-        $this->query = $query;
+        $this->keyword = $query;
     }
 
     protected function getFieldsToSearch(): array
@@ -95,7 +95,7 @@ class PartSearchFilter implements FilterInterface
         $fields_to_search = $this->getFieldsToSearch();
 
         //If we have nothing to search for, do nothing
-        if (empty($fields_to_search) || empty($this->query)) {
+        if (empty($fields_to_search) || empty($this->keyword)) {
             return;
         }
 
@@ -115,27 +115,27 @@ class PartSearchFilter implements FilterInterface
 
         //For regex we pass the query as is, for like we add % to the start and end as wildcards
         if ($this->regex) {
-            $queryBuilder->setParameter('search_query', $this->query);
+            $queryBuilder->setParameter('search_query', $this->keyword);
         } else {
-            $queryBuilder->setParameter('search_query', '%' . $this->query . '%');
+            $queryBuilder->setParameter('search_query', '%' . $this->keyword . '%');
         }
     }
 
     /**
      * @return string
      */
-    public function getQuery(): string
+    public function getKeyword(): string
     {
-        return $this->query;
+        return $this->keyword;
     }
 
     /**
-     * @param  string  $query
+     * @param  string  $keyword
      * @return PartSearchFilter
      */
-    public function setQuery(string $query): PartSearchFilter
+    public function setKeyword(string $keyword): PartSearchFilter
     {
-        $this->query = $query;
+        $this->keyword = $keyword;
         return $this;
     }
 
