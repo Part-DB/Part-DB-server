@@ -4,8 +4,8 @@ import {Controller} from "@hotwired/stimulus";
 import 'datatables.net-bs5/css/dataTables.bootstrap5.css'
 import 'datatables.net-buttons-bs5/css/buttons.bootstrap5.css'
 import 'datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5.css'
-import 'datatables.net-select-bs5/css/select.bootstrap5.css'
 import 'datatables.net-responsive-bs5/css/responsive.bootstrap5.css';
+import 'datatables.net-select-bs5/css/select.bootstrap5.css';
 
 //JS
 import 'datatables.net-bs5';
@@ -63,26 +63,36 @@ export default class extends Controller {
         settings.url = this.element.dataset.dtUrl;
 
 
+        let options = {
+            colReorder: true,
+            responsive: true,
+            fixedHeader: {
+                header: $(window).width() >= 768, //Only enable fixedHeaders on devices with big screen. Fixes scrolling issues on smartphones.
+                headerOffset: $("#navbar").height()
+            },
+            buttons: [{
+                "extend": 'colvis',
+                'className': 'mr-2 btn-light',
+                'columns': ':not(.no-colvis)',
+                "text": "<i class='fa fa-cog'></i>"
+            }],
+
+
+            rowCallback: this._rowCallback.bind(this),
+            stateSave: true,
+            stateSaveCallback: this.stateSaveCallback.bind(this),
+            stateLoadCallback: this.stateLoadCallback.bind(this),
+        };
+
+        if(this.isSelectable()) {
+            options.select = {
+                style:    'multi+shift',
+                selector: 'td.select-checkbox'
+            };
+        }
+
         //@ts-ignore
-        const promise = $(this.dtTarget).initDataTables(settings,
-            {
-                colReorder: true,
-                responsive: true,
-                fixedHeader: {
-                    header: $(window).width() >= 768, //Only enable fixedHeaders on devices with big screen. Fixes scrolling issues on smartphones.
-                    headerOffset: $("#navbar").height()
-                },
-                buttons: [{
-                    "extend": 'colvis',
-                    'className': 'mr-2 btn-light',
-                    "text": "<i class='fa fa-cog'></i>"
-                }],
-                select: this.isSelectable(),
-                rowCallback: this._rowCallback.bind(this),
-                stateSave: true,
-                stateSaveCallback: this.stateSaveCallback.bind(this),
-                stateLoadCallback: this.stateLoadCallback.bind(this),
-            })
+        const promise = $(this.dtTarget).initDataTables(settings, options)
             //Register error handler
             .catch(err => {
                 console.error("Error initializing datatables: " + err);

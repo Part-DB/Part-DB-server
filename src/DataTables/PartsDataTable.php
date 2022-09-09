@@ -48,6 +48,7 @@ use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
 use App\DataTables\Column\PartAttachmentsColumn;
 use App\DataTables\Column\PrettyBoolColumn;
+use App\DataTables\Column\SelectColumn;
 use App\DataTables\Column\SIUnitNumberColumn;
 use App\DataTables\Column\TagsColumn;
 use App\DataTables\Filters\PartFilter;
@@ -121,8 +122,10 @@ final class PartsDataTable implements DataTableTypeInterface
         $options = $resolver->resolve($options);
 
         $dataTable
+            ->add('select', SelectColumn::class)
             ->add('picture', TextColumn::class, [
                 'label' => '',
+                'className' => 'no-colvis',
                 'render' => function ($value, Part $context) {
                     $preview_attachment = $this->previewGenerator->getTablePreviewAttachment($context);
                     if (null === $preview_attachment) {
