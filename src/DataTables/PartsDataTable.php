@@ -48,6 +48,7 @@ use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
 use App\DataTables\Column\PartAttachmentsColumn;
 use App\DataTables\Column\PrettyBoolColumn;
+use App\DataTables\Column\SIUnitNumberColumn;
 use App\DataTables\Column\TagsColumn;
 use App\DataTables\Filters\PartFilter;
 use App\DataTables\Filters\PartSearchFilter;
@@ -245,9 +246,10 @@ final class PartsDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.mpn'),
                 'visible' => false,
             ])
-            ->add('mass', TextColumn::class, [
+            ->add('mass', SIUnitNumberColumn::class, [
                 'label' => $this->translator->trans('part.table.mass'),
                 'visible' => false,
+                'unit' => 'g'
             ])
             ->add('tags', TagsColumn::class, [
                 'label' => $this->translator->trans('part.table.tags'),
