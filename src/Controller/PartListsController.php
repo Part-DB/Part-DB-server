@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\DataTables\Filters\PartFilter;
+use App\DataTables\Filters\PartSearchFilter;
 use App\DataTables\PartsDataTable;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -282,6 +283,26 @@ class PartListsController extends AbstractController
         );
     }
 
+    private function searchRequestToFilter(Request $request): PartSearchFilter
+    {
+        $filter = new PartSearchFilter($request->query->get('keyword', ''));
+
+        $filter->setName($request->query->getBoolean('name', true));
+        $filter->setCategory($request->query->getBoolean('category', true));
+        $filter->setDescription($request->query->getBoolean('description', true));
+        $filter->setTags($request->query->getBoolean('tags', true));
+        $filter->setStorelocation($request->query->getBoolean('storelocation', true));
+        $filter->setComment($request->query->getBoolean('comment', true));
+        $filter->setOrdernr($request->query->getBoolean('ordernr', true));
+        $filter->setSupplier($request->query->getBoolean('supplier', false));
+        $filter->setManufacturer($request->query->getBoolean('manufacturer', false));
+        $filter->setFootprint($request->query->getBoolean('footprint', false));
+
+        $filter->setRegex($request->query->getBoolean('regex', false));
+
+        return $filter;
+    }
+
     /**
      * @Route("/parts/search", name="parts_search")
      *
@@ -289,25 +310,10 @@ class PartListsController extends AbstractController
      */
     public function showSearch(Request $request, DataTableFactory $dataTable)
     {
-        $search = $request->query->get('keyword', '');
-        $search_options = [
-            'name' => $request->query->getBoolean('name'),
-            'description' => $request->query->getBoolean('description'),
-            'comment' => $request->query->getBoolean('comment'),
-            'category' => $request->query->getBoolean('category'),
-            'store_location' => $request->query->getBoolean('storelocation'),
-            'supplier' => $request->query->getBoolean('supplier'),
-            'ordernr' => $request->query->getBoolean('ordernr'),
-            'manufacturer' => $request->query->getBoolean('manufacturer'),
-            'footprint' => $request->query->getBoolean('footprint'),
-            'tags' => $request->query->getBoolean('tags'),
-            'regex' => $request->query->getBoolean('regex'),
-        ];
-
+        $searchFilter = $this->searchRequestToFilter($request);
 
         $table = $dataTable->createFromType(PartsDataTable::class, [
-            'search' => $search,
-            'search_options' => $search_options,
+            'search' => $searchFilter,
         ])->handleRequest($request);
 
         if ($table->isCallback()) {
@@ -316,7 +322,7 @@ class PartListsController extends AbstractController
 
         return $this->render('Parts/lists/search_list.html.twig', [
             'datatable' => $table,
-            'keyword' => $search,
+            'keyword' => $searchFilter->getQuery(),
         ]);
     }
 
