@@ -121,6 +121,7 @@ class LogDataTable implements DataTableTypeInterface
 
         $dataTable->add('symbol', TextColumn::class, [
             'label' => '',
+            'className' => 'no-colvis',
             'render' => static function ($value, AbstractLogEntry $context) {
                 switch ($context->getLevelString()) {
                     case LogLevel::DEBUG:

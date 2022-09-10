@@ -79,6 +79,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
     {
         $dataTable->add('picture', TextColumn::class, [
             'label' => '',
+            'className' => 'no-colvis',
             'render' => function ($value, Attachment $context) {
                 if ($context->isPicture()
                     && !$context->isExternal()
