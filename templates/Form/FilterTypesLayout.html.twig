@@ -28,6 +28,10 @@
     {{ block('text_constraint_widget') }}
 {% endblock %}
 
+{% block user_entity_constraint_widget %}
+    {{ block('text_constraint_widget') }}
+{% endblock %}
+
 {% block date_time_constraint_widget %}
     {{ block('number_constraint_widget') }}
 {% endblock %}

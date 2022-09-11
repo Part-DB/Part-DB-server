@@ -106,9 +106,8 @@ class LogFilterType extends AbstractType
             'choices' => self::TARGET_TYPE_CHOICES
         ]);
 
-        $builder->add('user', StructuralEntityConstraintType::class, [
+        $builder->add('user', UserEntityConstraintType::class, [
            'label'  => 'log.user',
-            'entity_class' => User::class,
         ]);
 
         $builder->add('targetType', ChoiceConstraintType::class, [
