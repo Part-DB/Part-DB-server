@@ -5,5 +5,53 @@
 {% block title %}{% trans %}attachment.list.title{% endtrans %}{% endblock %}
 
 {% block content %}
+    <div class="accordion mb-3" id="listAccordion">
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <button class="accordion-button collapsed py-2" data-bs-toggle="collapse" data-bs-target="#searchInfo" disabled>
+                    <i class="fa-solid fa-paperclip fa-fw"></i>
+                    {% trans %}attachment.list.title{% endtrans %}
+                </button>
+            </div>
+            <div id="searchInfo" class="accordion-collapse collapse" data-bs-parent="#listAccordion">
+                <div class="accordion-body">
+
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <button class="accordion-button collapsed py-2" type="button" data-bs-toggle="collapse" data-bs-target="#filterFormCollapse" aria-expanded="false" aria-controls="filterFormCollapse"><i class="fa-solid fa-filter fa-fw"></i> {% trans %}filter.title{% endtrans %}</button>
+            </div>
+            <div id="filterFormCollapse" class="accordion-collapse collapse" data-bs-parent="#listAccordion">
+                <div class="accordion-body">
+                    {{ form_start(filterForm, {"attr": {"data-controller": "helpers--form-cleanup", "data-action": "helpers--form-cleanup#submit"}}) }}
+
+                    {{ form_row(filterForm.name) }}
+                    {{ form_row(filterForm.attachmentType) }}
+                    {{ form_row(filterForm.targetType) }}
+                    {{ form_row(filterForm.showInTable) }}
+                    {{ form_row(filterForm.lastModified) }}
+                    {{ form_row(filterForm.addedDate) }}
+                    {{ form_row(filterForm.dbId) }}
+
+                    {{ form_row(filterForm.submit) }}
+                    {{ form_row(filterForm.discard) }}
+
+                    <div class="row mb-3">
+                        <div class="col-sm-9 offset-sm-3">
+                            <button type="button" class="btn btn-danger" {{ stimulus_action('helpers/form_cleanup', 'clearAll') }}>{% trans %}filter.clear_filters{% endtrans %}</button>
+                        </div>
+                    </div>
+
+                    {{ form_end(filterForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{ datatables.datatable(datatable) }}
 {% endblock %}

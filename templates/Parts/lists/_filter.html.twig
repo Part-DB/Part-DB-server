@@ -1,0 +1,137 @@
+<div class="accordion-item">
+    <div class="accordion-header">
+        <button class="accordion-button collapsed py-2" type="button" data-bs-toggle="collapse" data-bs-target="#filterFormCollapse" aria-expanded="false" aria-controls="filterFormCollapse"><i class="fa-solid fa-filter fa-fw"></i> {% trans %}filter.title{% endtrans %}</button>
+    </div>
+    <div id="filterFormCollapse" class="accordion-collapse collapse" data-bs-parent="#listAccordion">
+        <div class="accordion-body">
+            <ul class="nav nav-tabs" id="filterTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="filter-common-tab" data-bs-toggle="tab" data-bs-target="#filter-common"><i class="fas fa-id-card fa-fw"></i> {% trans %}part.edit.tab.common{% endtrans %}</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="filter-manufacturer-tab" data-bs-toggle="tab" data-bs-target="#filter-manufacturer"><i class="fas fa-industry fa-fw"></i> {% trans %}part.edit.tab.manufacturer{% endtrans %}</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="filter-advanced-tab" data-bs-toggle="tab" data-bs-target="#filter-advanced"><i class="fas fa-shapes fa-fw"></i> {% trans %}part.edit.tab.advanced{% endtrans %}</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="filter-stocks-tab" data-bs-toggle="tab" data-bs-target="#filter-stocks"><i class="fas fa-boxes fa-fw"></i> {% trans %}part.edit.tab.part_lots{% endtrans %}</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="filter-attachments-tab" data-bs-toggle="tab" data-bs-target="#filter-attachments"><i class="fas fa-paperclip fa-fw"></i> {% trans %}part.edit.tab.attachments{% endtrans %}</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="filter-orderdetails-tab" data-bs-toggle="tab" data-bs-target="#filter-orderdetails"><i class="fas fa-shopping-cart fa-fw"></i> {% trans %}part.edit.tab.orderdetails{% endtrans %}</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="filter-parameters-tab" data-bs-toggle="tab" data-bs-target="#filter-parameters"><i class="fas fa-atlas fa-fw"></i> {% trans %}part.edit.tab.specifications{% endtrans %}</button>
+                </li>
+            </ul>
+
+            {{ form_start(filterForm, {"attr": {"data-controller": "helpers--form-cleanup", "data-action": "helpers--form-cleanup#submit"}}) }}
+
+            <div class="tab-content">
+                <div class="tab-pane active pt-3" id="filter-common" role="tabpanel" aria-labelledby="filter-common-tab" tabindex="0">
+                    {{ form_row(filterForm.name) }}
+                    {{ form_row(filterForm.description) }}
+                    {{ form_row(filterForm.category) }}
+                    {{ form_row(filterForm.footprint) }}
+                    {{ form_row(filterForm.tags) }}
+                    {{ form_row(filterForm.comment) }}
+                </div>
+
+                <div class="tab-pane pt-3" id="filter-manufacturer" role="tabpanel" aria-labelledby="filter-manufacturer-tab" tabindex="0">
+                    {{ form_row(filterForm.manufacturer) }}
+                    {{ form_row(filterForm.manufacturing_status) }}
+                    {{ form_row(filterForm.manufacturer_product_number) }}
+                    {{ form_row(filterForm.manufacturer_product_url) }}
+                </div>
+
+                <div class="tab-pane pt-3" id="filter-advanced" role="tabpanel" aria-labelledby="filter-advanced-tab" tabindex="0">
+                    {{ form_row(filterForm.favorite) }}
+                    {{ form_row(filterForm.needsReview) }}
+                    {{ form_row(filterForm.measurementUnit) }}
+                    {{ form_row(filterForm.mass) }}
+                    {{ form_row(filterForm.dbId) }}
+                    {{ form_row(filterForm.lastModified) }}
+                    {{ form_row(filterForm.addedDate) }}
+                </div>
+
+                <div class="tab-pane pt-3" id="filter-stocks" role="tabpanel" aria-labelledby="filter-stocks-tab" tabindex="0">
+                    {{ form_row(filterForm.storelocation) }}
+                    {{ form_row(filterForm.minAmount) }}
+                    {{ form_row(filterForm.amountSum) }}
+                    {{ form_row(filterForm.lotCount) }}
+                    {{ form_row(filterForm.lotExpirationDate) }}
+                    {{ form_row(filterForm.lotDescription) }}
+                    {{ form_row(filterForm.lotNeedsRefill) }}
+                    {{ form_row(filterForm.lotUnknownAmount) }}
+                </div>
+
+                <div class="tab-pane pt-3" id="filter-attachments" role="tabpanel" aria-labelledby="filter-attachments-tab" tabindex="0">
+                    {{ form_row(filterForm.attachmentsCount) }}
+                    {{ form_row(filterForm.attachmentType) }}
+                    {{ form_row(filterForm.attachmentName) }}
+                </div>
+
+                <div class="tab-pane pt-3" id="filter-orderdetails" role="tabpanel" aria-labelledby="filter-orderdetails-tab" tabindex="0">
+                    {{ form_row(filterForm.supplier) }}
+                    {{ form_row(filterForm.orderdetailsCount) }}
+                    {{ form_row(filterForm.obsolete) }}
+                </div>
+
+                <div class="tab-pane pt-3" id="filter-parameters" role="tabpanel" aria-labelledby="filter-parameters-tab" tabindex="0">
+                    {% import 'components/collection_type.macro.html.twig' as collection %}
+                    {{ form_row(filterForm.parametersCount) }}
+
+                    <div {{ collection.controller(filterForm.parameters) }}>
+                        <table class="table table-striped table-sm" id="lots_table" {{ collection.target() }}>
+                            <thead>
+                            <tr>
+                                <th>{% trans %}specifications.property{% endtrans %}</th>
+                                <th>{% trans %}specifications.symbol{% endtrans %}</th>
+                                <th>{% trans %}specifications.value{% endtrans %}</th>
+                                <th>{% trans %}specifications.unit{% endtrans %}</th>
+                                <th>{% trans %}specifications.text{% endtrans %}</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            {% for param in filterForm.parameters %}
+                                {{ form_widget(param) }}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <button type="button" class="btn btn-success" {{ collection.create_btn() }}>
+                            <i class="fas fa-plus-square fa-fw"></i>
+                            {% trans %}filter.constraint.add{% endtrans %}
+                        </button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            {{ form_row(filterForm.submit) }}
+            {{ form_row(filterForm.discard) }}
+
+            <div class="row mb-3">
+                <div class="col-sm-9 offset-sm-3">
+                    <button type="button" class="btn btn-danger" {{ stimulus_action('helpers/form_cleanup', 'clearAll') }}>{% trans %}filter.clear_filters{% endtrans %}</button>
+                </div>
+            </div>
+
+            {# Retain the query parameters of the search form if it is existing #}
+            {% if searchFilter is defined %}
+                {% for property, value in searchFilter|toArray %}
+                    <input type="hidden" name="{{ property }}" data-no-clear="true" value="{{ value }}">
+                {% endfor %}
+
+            {% endif %}
+
+            {{ form_end(filterForm) }}
+        </div>
+    </div>
+</div>

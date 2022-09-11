@@ -33,7 +33,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use function sprintf;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\ParameterRepository")
  * @ORM\Table("parameters")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="smallint")

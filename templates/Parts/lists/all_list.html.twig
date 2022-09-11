@@ -1,10 +1,28 @@
 {% extends "base.html.twig" %}
 
 {% block  title %}
-{% trans %}parts_list.all.title{% endtrans %}
+    {% trans %}parts_list.all.title{% endtrans %}
 {% endblock %}
 
 {% block content %}
+
+    <div class="accordion mb-3" id="listAccordion">
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <button class="accordion-button collapsed py-2" data-bs-toggle="collapse" data-bs-target="#searchInfo" disabled>
+                    <i class="fa-solid fa-globe fa-fw"></i>
+                    {% trans %}parts_list.all.title{% endtrans %}
+                </button>
+            </div>
+            <div id="searchInfo" class="accordion-collapse collapse" data-bs-parent="#listAccordion">
+                <div class="accordion-body">
+
+                </div>
+            </div>
+        </div>
+
+        {% include "Parts/lists/_filter.html.twig" %}
+    </div>
 
     {% include "Parts/lists/_action_bar.html.twig" with {'url_options': {}} %}
     {% include "Parts/lists/_parts_list.html.twig" %}

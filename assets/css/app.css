@@ -754,6 +754,12 @@ div.dataTables_wrapper div.dataTables_info {
     display: inline-flex;
 }
 
+/** Fix datatables select-checkbox position */
+
+table.dataTable tr.selected td.select-checkbox:after, table.dataTable tr.selected th.select-checkbox:after {
+    margin-top: -28px !important;
+}
+
 /******************************************
 * Typeahead menu
 *******************************************/

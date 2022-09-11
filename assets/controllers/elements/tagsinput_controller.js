@@ -8,7 +8,6 @@ export default class extends Controller {
     _tomSelect;
 
     connect() {
-
         let settings = {
             plugins: {
                 remove_button:{

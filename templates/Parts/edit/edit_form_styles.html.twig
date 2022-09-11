@@ -68,13 +68,13 @@
 
 {% block parameter_widget %}
     {% import 'components/collection_type.macro.html.twig' as collection %}
-    <tr>
-        <td>{{ form_widget(form.name) }}{{ form_errors(form.name) }}</td>
-        <td>{{ form_widget(form.symbol) }}{{ form_errors(form.symbol) }}</td>
+    <tr {{ stimulus_controller('pages/parameters_autocomplete', {"url": url('typeahead_parameters', {"query": "__QUERY__", "type": form.vars["type"]})}) }}>
+        <td>{{ form_widget(form.name, {"attr": {"data-pages--parameters-autocomplete-target": "name"}}) }}{{ form_errors(form.name) }}</td>
+        <td {{ stimulus_controller('pages/latex_preview') }}>{{ form_widget(form.symbol, {"attr": {"data-pages--parameters-autocomplete-target": "symbol", "data-pages--latex-preview-target": "input"}}) }}{{ form_errors(form.symbol) }}<span {{ stimulus_target('pages/latex_preview', 'preview') }}></span></td>
         <td>{{ form_widget(form.value_min) }}{{ form_errors(form.value_min) }}</td>
         <td>{{ form_widget(form.value_typical) }}{{ form_errors(form.value_typical) }}</td>
         <td>{{ form_widget(form.value_max) }}{{ form_errors(form.value_max) }}</td>
-        <td>{{ form_widget(form.unit) }}{{ form_errors(form.unit) }}</td>
+        <td {{ stimulus_controller('pages/latex_preview') }}>{{ form_widget(form.unit, {"attr": {"data-pages--parameters-autocomplete-target": "unit", "data-pages--latex-preview-target": "input"}}) }}{{ form_errors(form.unit) }}<span {{ stimulus_target('pages/latex_preview', 'preview') }}></span></td>
         <td>{{ form_widget(form.value_text) }}{{ form_errors(form.value_text) }}</td>
         <td>{{ form_widget(form.group) }}{{ form_errors(form.group) }}</td>
         <td>

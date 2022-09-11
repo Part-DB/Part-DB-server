@@ -1,10 +1,81 @@
 {% extends "base.html.twig" %}
 
 {% block  title %}
-{% trans %}parts_list.search.title{% endtrans %} {{ keyword }}
+    {% trans %}parts_list.search.title{% endtrans %}: {{ keyword }}
 {% endblock %}
 
 {% block content %}
+
+    <div class="accordion mb-3" id="listAccordion">
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <button class="accordion-button collapsed py-2" data-bs-toggle="collapse" data-bs-target="#searchInfo">
+                    <i class="fa-solid fa-magnifying-glass fa-fw"></i>
+                    {% trans %}parts_list.search.title{% endtrans %}:&nbsp;<b>{{ keyword }}</b>
+                </button>
+            </div>
+            <div id="searchInfo" class="accordion-collapse collapse" data-bs-parent="#listAccordion">
+                <div class="accordion-body">
+                    <h4>{% trans with {"%keyword%": keyword} %}parts_list.search.searching_for{% endtrans %}</h4>
+                    {% trans %}parts_list.search_options.caption{% endtrans %}:
+
+
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.name %}checked{% endif %}>
+                        <label class="form-check-label justify-content-start">{% trans %}name.label{% endtrans %}</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.category %}checked{% endif %}>
+                        <label class="form-check-label justify-content-start">{% trans %}category.label{% endtrans %}</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.description %}checked{% endif %}>
+                        <label class="form-check-label justify-content-start">{% trans %}description.label{% endtrans %}</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.mpn %}checked{% endif %}>
+                        <label class="form-check-label justify-content-start">{% trans %}part.edit.mpn{% endtrans %}</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.tags %}checked{% endif %}>
+                        <label  class="form-check-label justify-content-start">{% trans %}tags.label{% endtrans %}</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.storelocation %}checked{% endif %}>
+                        <label class="form-check-label justify-content-start">{% trans %}storelocation.label{% endtrans %}</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.comment %}checked{% endif %}>
+                        <label class="form-check-label justify-content-start">{% trans %}comment.label{% endtrans %}</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.ordernr %}checked{% endif %}>
+                        <label for="search_supplierpartnr" class="form-check-label justify-content-start">{% trans %}ordernumber.label.short{% endtrans %}</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.supplier %}checked{% endif %}>
+                        <label for="search_supplier" class="form-check-label justify-content-start">{% trans %}supplier.label{% endtrans %}</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.manufacturer %}checked{% endif %}>
+                        <label for="search_manufacturer" class="form-check-label justify-content-start">{% trans %}manufacturer.label{% endtrans %}</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.footprint %}checked{% endif %}>
+                        <label for="search_footprint" class="form-check-label justify-content-start">{% trans %}footprint.label{% endtrans %}</label>
+                    </div>
+                    <hr>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" disabled {% if searchFilter.regex %}checked{% endif %}>
+                        <label for="regex" class="form-check-label justify-content-start">{% trans %}search.regexmatching{% endtrans %}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {% include "Parts/lists/_filter.html.twig" %}
+    </div>
 
     {% include "Parts/lists/_parts_list.html.twig" %}
 

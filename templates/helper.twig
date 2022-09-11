@@ -71,20 +71,58 @@
     {% endif %}
 {% endmacro %}
 
-{% macro breadcrumb_entity_link(entity, link_type = "list_parts") %}
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb py-2 px-3 rounded" style="background-color: var(--bs-gray-200);">
-                {% for e in entity.pathArray %}
-                    <li class="breadcrumb-item {% if loop.last %}active{% endif %}">
-                        {% if link_type is not empty and not loop.last and e.id is not null %}
-                            <a href="{{ e | entityURL(link_type) }}">{{ e.name }}</a>
-                        {% else %}
-                            {{ e.name }}
-                        {% endif %}
-                    </li>
-                {% endfor %}
-            </ol>
-        </nav>
+{% macro entity_icon(entity_or_type, classes = "", style = "") %}
+    {% set map = {
+        "attachment_type": ["fa-solid fa-file-alt", "attachment_type.label"],
+        "category": ["fa-solid fa-tags", "category.label"],
+        "currency": ["fa-solid fa-coins", "currency.label"],
+        "device": ["fa-solid fa-archive", "device.label"],
+        "footprint": ["fa-solid fa-microchip", "footprint.label"],
+        "group": ["fa-solid fa-users", "group.label"],
+        "label_profile": ["fa-solid fa-qrcode", "label_profile.label"],
+        "manufacturer": ["fa-solid fa-industry", "manufacturer.label"],
+        "measurement_unit": ["fa-solid fa-balance-scale", "measurement_unit.label"],
+        "storelocation": ["fa-solid fa-cube", "storelocation.label"],
+        "supplier": ["fa-solid fa-truck", "supplier.label"],
+        "user": ["fa-solid fa-user", "user.label"],
+    } %}
+
+    {% if entity_or_type is entity %}
+        {% set type = entity_type(entity_or_type) %}
+    {% else %}
+        {% set type = entity_or_type %}
+    {% endif %}
+
+    {% if type is not null and map[type] is defined %}
+        {% set icon = map[type][0] %}
+        {% set label = map[type][1] %}
+    {% else %}
+        {% set icon = "fa-solid fa-question" %}
+        {% set label = "Unknown type " ~ type %}
+    {% endif %}
+
+    <i class="fa-fw {{ icon }} {{ classes }}" style="{{ style }}" title="{{ label | trans }}"></i>
+{% endmacro %}
+
+{% macro breadcrumb_entity_link(entity, link_type = "list_parts", icon = "") %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb py-2 px-3 rounded" style="background-color: var(--bs-gray-200);">
+            {% if icon is not empty %}
+                <i class="{{ icon }} fa-fw me-1" style="line-height: inherit;"></i>
+            {% else %}
+                {{ _self.entity_icon(entity, "me-1", "line-height: inherit;") }}
+            {% endif %}
+            {% for e in entity.pathArray %}
+                <li class="breadcrumb-item {% if loop.last %}active{% endif %}">
+                    {% if link_type is not empty and not loop.last and e.id is not null %}
+                        <a href="{{ e | entityURL(link_type) }}">{{ e.name }}</a>
+                    {% else %}
+                        {{ e.name }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ol>
+    </nav>
 {% endmacro %}
 
 {% macro bool_icon(bool) %}

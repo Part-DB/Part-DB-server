@@ -43,14 +43,16 @@ declare(strict_types=1);
 namespace App\DataTables;
 
 use App\DataTables\Column\LocaleDateTimeColumn;
+use App\DataTables\Column\PrettyBoolColumn;
+use App\DataTables\Filters\AttachmentFilter;
 use App\Entity\Attachments\Attachment;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
 use Doctrine\ORM\QueryBuilder;
+use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
-use Omines\DataTablesBundle\Column\BoolColumn;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
 use Omines\DataTablesBundle\DataTableTypeInterface;
@@ -79,6 +81,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
     {
         $dataTable->add('picture', TextColumn::class, [
             'label' => '',
+            'className' => 'no-colvis',
             'render' => function ($value, Attachment $context) {
                 if ($context->isPicture()
                     && !$context->isExternal()
@@ -166,7 +169,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
                 }
 
                 return sprintf(
-                    '<span class="badge badge-warning">
+                    '<span class="badge bg-warning">
                         <i class="fas fa-exclamation-circle fa-fw"></i>%s
                         </span>',
                     $this->translator->trans('attachment.file_not_found')
@@ -184,37 +187,25 @@ final class AttachmentDataTable implements DataTableTypeInterface
                 'visible' => false,
             ]);
 
-        $dataTable->add('show_in_table', BoolColumn::class, [
+        $dataTable->add('show_in_table', PrettyBoolColumn::class, [
             'label' => 'attachment.edit.show_in_table',
-            'trueValue' => $this->translator->trans('true'),
-            'falseValue' => $this->translator->trans('false'),
-            'nullValue' => '',
             'visible' => false,
         ]);
 
-        $dataTable->add('isPicture', BoolColumn::class, [
+        $dataTable->add('isPicture', PrettyBoolColumn::class, [
             'label' => 'attachment.edit.isPicture',
-            'trueValue' => $this->translator->trans('true'),
-            'falseValue' => $this->translator->trans('false'),
-            'nullValue' => '',
             'visible' => false,
             'propertyPath' => 'picture',
         ]);
 
-        $dataTable->add('is3DModel', BoolColumn::class, [
+        $dataTable->add('is3DModel', PrettyBoolColumn::class, [
             'label' => 'attachment.edit.is3DModel',
-            'trueValue' => $this->translator->trans('true'),
-            'falseValue' => $this->translator->trans('false'),
-            'nullValue' => '',
             'visible' => false,
             'propertyPath' => '3dmodel',
         ]);
 
-        $dataTable->add('isBuiltin', BoolColumn::class, [
+        $dataTable->add('isBuiltin', PrettyBoolColumn::class, [
             'label' => 'attachment.edit.isBuiltin',
-            'trueValue' => $this->translator->trans('true'),
-            'falseValue' => $this->translator->trans('false'),
-            'nullValue' => '',
             'visible' => false,
             'propertyPath' => 'builtin',
         ]);
@@ -224,6 +215,12 @@ final class AttachmentDataTable implements DataTableTypeInterface
             'query' => function (QueryBuilder $builder): void {
                 $this->getQuery($builder);
             },
+            'criteria' => [
+                function (QueryBuilder $builder) use ($options): void {
+                    $this->buildCriteria($builder, $options);
+                },
+                new SearchCriteriaProvider(),
+            ],
         ]);
     }
 
@@ -235,5 +232,19 @@ final class AttachmentDataTable implements DataTableTypeInterface
             ->from(Attachment::class, 'attachment')
             ->leftJoin('attachment.attachment_type', 'attachment_type');
         //->leftJoin('attachment.element', 'element');
+    }
+
+    private function buildCriteria(QueryBuilder $builder, array $options): void
+    {
+        //We do the most stuff here in the filter class
+        if (isset($options['filter'])) {
+            if(!$options['filter'] instanceof AttachmentFilter) {
+                throw new \Exception('filter must be an instance of AttachmentFilter!');
+            }
+
+            $filter = $options['filter'];
+            $filter->apply($builder);
+        }
+
     }
 }

@@ -10,6 +10,61 @@ class ErrorHandlerHelper {
 
         const content = document.getElementById('content');
         content.addEventListener('turbo:before-fetch-response', (event) => this.handleError(event));
+
+        $(document).ajaxError(this.handleJqueryErrror.bind(this));
+    }
+
+    _showAlert(statusText, statusCode, location, responseHTML)
+    {
+        //Create error text
+        const title = statusText + ' (Status ' + statusCode + ')';
+
+        let trimString = function (string, length) {
+            return string.length > length ?
+                string.substring(0, length) + '...' :
+                string;
+        };
+
+        const short_location = trimString(location, 50);
+
+        const alert = bootbox.alert(
+            {
+                size: 'large',
+                message: function() {
+                    let url = location;
+                    let msg = `Error calling <a href="${url}">${short_location}</a>.<br>`;
+                    msg += '<b>Try to reload the page or contact the administrator if this error persists.</b>';
+
+                    msg += '<br><br><a class=\"btn btn-outline-secondary mb-2\" data-bs-toggle=\"collapse\" href=\"#iframe_div\" >' + 'View details' + "</a>";
+                    msg += "<div class=\" collapse\" id='iframe_div'><iframe height='512' width='100%' id='error-iframe'></iframe></div>";
+
+                    return msg;
+                },
+                title: title,
+                callback: function () {
+                    //Remove blur
+                    $('#content').removeClass('loading-content');
+                }
+
+            });
+
+        alert.init(function (){
+            var dstFrame = document.getElementById('error-iframe');
+            //@ts-ignore
+            var dstDoc = dstFrame.contentDocument || dstFrame.contentWindow.document;
+            dstDoc.write(responseHTML)
+            dstDoc.close();
+        });
+    }
+
+    handleJqueryErrror(event, jqXHR, ajaxSettings, thrownError)
+    {
+        //Ignore status 422 as this means a symfony validation error occured and we need to show it to user. This is no (unexpected) error.
+        if (jqXHR.status === 422) {
+            return;
+        }
+
+        this._showAlert(jqXHR.statusText, jqXHR.status, ajaxSettings.url, jqXHR.responseText);
     }
 
     handleError(event) {
@@ -27,52 +82,10 @@ class ErrorHandlerHelper {
         }
 
         if(fetchResponse.failed) {
-            //Create error text
-            let title = response.statusText + ' (Status ' + response.status + ')';
-
-            /**
-            switch(response.status) {
-                case 500:
-                    title =  'Internal Server Error!';
-                    break;
-                case 404:
-                    title = "Site not found!";
-                    break;
-                case 403:
-                    title = "Permission denied!";
-                    break;
-            } **/
-
-            const alert = bootbox.alert(
-                {
-                    size: 'large',
-                    message: function() {
-                        let url = fetchResponse.location.toString();
-                        let msg = `Error calling <a href="${url}">${url}</a>. `;
-                        msg += 'Try to reload the page or contact the administrator if this error persists.'
-
-                        msg += '<br><br><a class=\"btn btn-link\" data-bs-toggle=\"collapse\" href=\"#iframe_div\" >' + 'View details' + "</a>";
-                        msg += "<div class=\" collapse\" id='iframe_div'><iframe height='512' width='100%' id='error-iframe'></iframe></div>";
-
-                        return msg;
-                    },
-                    title: title,
-                    callback: function () {
-                        //Remove blur
-                        $('#content').removeClass('loading-content');
-                    }
-
-                });
-
-            //@ts-ignore
-            alert.init(function (){
-                response.text().then( (html) => {
-                    var dstFrame = document.getElementById('error-iframe');
-                    //@ts-ignore
-                    var dstDoc = dstFrame.contentDocument || dstFrame.contentWindow.document;
-                    dstDoc.write(html)
-                    dstDoc.close();
-                });
+            response.text().then(responseHTML => {
+                this._showAlert(response.statusText, response.status, fetchResponse.location.toString(), responseHTML);
+            }).catch(err => {
+                this._showAlert(response.statusText, response.status, fetchResponse.location.toString(), '<pre>' + err + '</pre>');
             });
         }
     }

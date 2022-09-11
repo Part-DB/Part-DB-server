@@ -1,0 +1,62 @@
+{% block number_constraint_widget %}
+    <div class="input-group" {{ stimulus_controller('filters/number_constraint') }}>
+        {{ form_widget(form.operator, {"attr": {
+            "class": "form-select",
+            "data-filters--number-constraint-target": "operator",
+            "data-action": "change->filters--number-constraint#update"
+        }}) }}
+        {{ form_widget(form.value1) }}
+        <span class="input-group-text d-none" {{ stimulus_target('filters/number_constraint', 'thingsToHide') }}>{% trans %}filter.number_constraint.AND{% endtrans %}</span>
+        {{ form_widget(form.value2, {"attr": {"class": "d-none", "data-filters--number-constraint-target": "thingsToHide"}}) }}
+        {% if form.vars["text_suffix"] %}
+            <span class="input-group-text">{{ form.vars["text_suffix"] }}</span>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block text_constraint_widget %}
+    <div class="input-group">
+        {{ form_widget(form.operator, {"attr": {"class": "form-select"}}) }}
+        {{ form_widget(form.value) }}
+        {% if form.vars["text_suffix"] is defined and form.vars["text_suffix"] %}
+            <span class="input-group-text">{{ form.vars["text_suffix"] }}</span>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block structural_entity_constraint_widget %}
+    {{ block('text_constraint_widget') }}
+{% endblock %}
+
+{% block user_entity_constraint_widget %}
+    {{ block('text_constraint_widget') }}
+{% endblock %}
+
+{% block date_time_constraint_widget %}
+    {{ block('number_constraint_widget') }}
+{% endblock %}
+
+{% block tags_constraint_widget %}
+    {{ block('text_constraint_widget') }}
+{% endblock %}
+
+{% block choice_constraint_widget %}
+    {{ block('text_constraint_widget') }}
+{% endblock %}
+
+{% block parameter_constraint_widget %}
+    {% import 'components/collection_type.macro.html.twig' as collection %}
+    <tr {{ stimulus_controller('pages/parameters_autocomplete', {"url": url('typeahead_parameters', {"query": "__QUERY__", "type": "part"}) }) }} >
+        <td class="col-sm-2">{{ form_widget(form.name, {"attr": {"data-pages--parameters-autocomplete-target": "name"}}) }}</td>
+        <td {{ stimulus_controller('pages/latex_preview') }}>{{ form_widget(form.symbol, {"attr": {"data-pages--parameters-autocomplete-target": "symbol", "data-pages--latex-preview-target": "input"}}) }}<span {{ stimulus_target('pages/latex_preview', 'preview') }}></span></td>
+        <td>{{ form_widget(form.value) }}</td>
+        <td {{ stimulus_controller('pages/latex_preview') }}>{{ form_widget(form.unit, {"attr": {"data-pages--parameters-autocomplete-target": "unit", "data-pages--latex-preview-target": "input"}}) }}<span {{ stimulus_target('pages/latex_preview', 'preview') }}></span></td>
+        <td>{{ form_widget(form.value_text) }}</td>
+        <td>
+            <button type="button" class="btn btn-danger btn-sm" {{ collection.delete_btn() }} title="{% trans %}orderdetail.delete{% endtrans %}">
+                <i class="fas fa-trash-alt fa-fw"></i>
+            </button>
+            {{ form_errors(form) }}
+        </td>
+    </tr>
+{% endblock %}

@@ -55,6 +55,7 @@ class TabRememberHelper {
         while(parent) {
             //Invoker can either be a button or a element
             let tabInvoker = document.querySelector("button[data-content='#" + parent.id + "']")
+                ?? document.querySelector("button[data-bs-target='#" + parent.id + "']")
                 ?? document.querySelector("a[href='#" + parent.id + "']");
             Tab.getOrCreateInstance(tabInvoker).show();
 

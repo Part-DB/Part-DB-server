@@ -103,12 +103,20 @@ export default class extends Controller {
     }
 
     deleteElement(event) {
-        bootbox.confirm(this.deleteMessageValue, (result) => {
-            if(result) {
-                const target = event.target;
-                //Remove the row element from the table
-                target.closest("tr").remove();
-            }
-        });
+        const del = () => {
+            const target = event.target;
+            //Remove the row element from the table
+            target.closest("tr").remove();
+        }
+
+        if(this.deleteMessageValue) {
+            bootbox.confirm(this.deleteMessageValue, (result) => {
+                if (result) {
+                    del();
+                }
+            });
+        } else {
+            del();
+        }
     }
 }

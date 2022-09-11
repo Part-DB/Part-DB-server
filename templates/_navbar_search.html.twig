@@ -19,6 +19,10 @@
                     <label for="search_description" class="form-check-label justify-content-start">{% trans %}description.label{% endtrans %}</label>
                 </div>
                 <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="search_mpn" name="mpn" value="1" checked>
+                    <label for="search_description" class="form-check-label justify-content-start">{% trans %}part.edit.mpn{% endtrans %}</label>
+                </div>
+                <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="search_tags" name="tags" value="1" checked>
                     <label for="search_tags" class="form-check-label justify-content-start">{% trans %}tags.label{% endtrans %}</label>
                 </div>
@@ -26,8 +30,8 @@
                     <input type="checkbox" class="form-check-input" id="search_storelocation" name="storelocation" value="1" checked>
                     <label for="search_storelocation" class="form-check-label justify-content-start">{% trans %}storelocation.label{% endtrans %}</label>
                 </div>
-                <div class=" custom-control custom-checkbox">
-                    <input type="checkbox" id="search_comment" class="form-check-input" id="search_comment" name="comment" value="1" checked>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="search_comment" name="comment" value="1" checked>
                     <label for="search_comment" class="form-check-label justify-content-start">{% trans %}comment.label{% endtrans %}</label>
                 </div>
                 {% if true %}
@@ -52,10 +56,7 @@
                         <label for="search_footprint" class="form-check-label justify-content-start">{% trans %}footprint.label{% endtrans %}</label>
                     </div>
                 {% endif %}
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="disable_pid_input" name="disable_pid_input" value="1">
-                    <label for="disable_pid_input" class="form-check-label justify-content-start">{% trans %}search.deactivateBarcode{% endtrans %}</label>
-                </div>
+                <hr>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="regex" name="regex" value="1">
                     <label for="regex" class="form-check-label justify-content-start">{% trans %}search.regexmatching{% endtrans %}</label>

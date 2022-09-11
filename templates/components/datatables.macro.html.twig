@@ -1,5 +1,5 @@
-{% macro datatable(datatable, controller = 'elements/datatables/datatables') %}
-    <div {{ stimulus_controller(controller) }} data-dt-settings='{{ datatable_settings(datatable)|escape('html_attr') }}' data-dt-url="{{ app.request.requestUri }}">
+{% macro datatable(datatable, controller = 'elements/datatables/datatables', state_save_tag = null) %}
+    <div {{ stimulus_controller(controller, {"stateSaveTag": state_save_tag}) }} data-dt-settings='{{ datatable_settings(datatable)|escape('html_attr') }}' data-dt-url="{{ app.request.requestUri }}">
         <div {{ stimulus_target(controller, 'dt') }}>
             <div class="card-body">
                 <div class="card">
@@ -17,9 +17,9 @@
     {{ _self.datatable(dt, 'elements/datatables/log') }}
 {% endmacro %}
 
-{% macro partsDatatableWithForm(datatable) %}
+{% macro partsDatatableWithForm(datatable, state_save_tag = 'parts') %}
     <form method="post" action="{{ path("table_action") }}"
-            {{ stimulus_controller('elements/datatables/parts') }} data-dt-settings='{{ datatable_settings(datatable)|escape('html_attr') }}' data-dt-url="{{ app.request.requestUri }}"
+            {{ stimulus_controller('elements/datatables/parts', {"stateSaveTag": state_save_tag}) }} data-dt-settings='{{ datatable_settings(datatable)|escape('html_attr') }}' data-dt-url="{{ app.request.requestUri }}"
             {{ stimulus_action('elements/datatables/parts', 'confirmDeletionAtSubmit') }}  data-delete-title="{% trans %}part_list.action.delete-title{% endtrans %}"
           data-delete-message="{% trans %}part_list.action.delete-message{% endtrans %}">
         <input type="hidden" name="_token" value="{{ csrf_token('table_action') }}">

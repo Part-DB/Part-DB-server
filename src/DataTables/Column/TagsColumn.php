@@ -79,7 +79,7 @@ class TagsColumn extends AbstractColumn
                 break;
             }
             $html .= sprintf(
-                '<a href="%s" class="badge badge-primary badge-table">%s</a>',
+                '<a href="%s" class="badge bg-primary badge-table">%s</a>',
                 $this->urlGenerator->generate('part_list_tags', ['tag' => $tag]),
                 htmlspecialchars($tag)
             );

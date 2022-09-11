@@ -47,11 +47,17 @@ use App\DataTables\Column\IconLinkColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
 use App\DataTables\Column\PartAttachmentsColumn;
+use App\DataTables\Column\PrettyBoolColumn;
+use App\DataTables\Column\SelectColumn;
+use App\DataTables\Column\SIUnitNumberColumn;
 use App\DataTables\Column\TagsColumn;
+use App\DataTables\Filters\PartFilter;
+use App\DataTables\Filters\PartSearchFilter;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Services\AmountFormatter;
@@ -101,48 +107,12 @@ final class PartsDataTable implements DataTableTypeInterface
     public function configureOptions(OptionsResolver $optionsResolver): void
     {
         $optionsResolver->setDefaults([
-            'category' => null,
-            'footprint' => null,
-            'manufacturer' => null,
-            'storelocation' => null,
-            'supplier' => null,
-            'tag' => null,
-            'search' => null,
+            'filter' => null,
+            'search' => null
         ]);
 
-        $optionsResolver->setAllowedTypes('category', ['null', Category::class]);
-        $optionsResolver->setAllowedTypes('footprint', ['null', Footprint::class]);
-        $optionsResolver->setAllowedTypes('manufacturer', ['null', Manufacturer::class]);
-        $optionsResolver->setAllowedTypes('supplier', ['null', Supplier::class]);
-        $optionsResolver->setAllowedTypes('tag', ['null', 'string']);
-        $optionsResolver->setAllowedTypes('search', ['null', 'string']);
-
-        //Configure search options
-        $optionsResolver->setDefault('search_options', static function (OptionsResolver $resolver): void {
-            $resolver->setDefaults([
-                'name' => true,
-                'category' => true,
-                'description' => true,
-                'store_location' => true,
-                'comment' => true,
-                'ordernr' => true,
-                'supplier' => false,
-                'manufacturer' => false,
-                'footprint' => false,
-                'tags' => false,
-                'regex' => false,
-            ]);
-            $resolver->setAllowedTypes('name', 'bool');
-            $resolver->setAllowedTypes('category', 'bool');
-            $resolver->setAllowedTypes('description', 'bool');
-            $resolver->setAllowedTypes('store_location', 'bool');
-            $resolver->setAllowedTypes('comment', 'bool');
-            $resolver->setAllowedTypes('supplier', 'bool');
-            $resolver->setAllowedTypes('manufacturer', 'bool');
-            $resolver->setAllowedTypes('footprint', 'bool');
-            $resolver->setAllowedTypes('tags', 'bool');
-            $resolver->setAllowedTypes('regex', 'bool');
-        });
+        $optionsResolver->setAllowedTypes('filter', [PartFilter::class, 'null']);
+        $optionsResolver->setAllowedTypes('search', [PartSearchFilter::class, 'null']);
     }
 
     public function configure(DataTable $dataTable, array $options): void
@@ -152,8 +122,10 @@ final class PartsDataTable implements DataTableTypeInterface
         $options = $resolver->resolve($options);
 
         $dataTable
+            ->add('select', SelectColumn::class)
             ->add('picture', TextColumn::class, [
                 'label' => '',
+                'className' => 'no-colvis',
                 'render' => function ($value, Part $context) {
                     $preview_attachment = $this->previewGenerator->getTablePreviewAttachment($context);
                     if (null === $preview_attachment) {
@@ -230,6 +202,7 @@ final class PartsDataTable implements DataTableTypeInterface
 
                     return $this->amountFormatter->format($amount, $context->getPartUnit());
                 },
+                'orderField' => 'amountSum'
             ])
             ->add('minamount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.minamount'),
@@ -251,18 +224,12 @@ final class PartsDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.lastModified'),
                 'visible' => false,
             ])
-            ->add('needs_review', BoolColumn::class, [
+            ->add('needs_review', PrettyBoolColumn::class, [
                 'label' => $this->translator->trans('part.table.needsReview'),
-                'trueValue' => $this->translator->trans('true'),
-                'falseValue' => $this->translator->trans('false'),
-                'nullValue' => '',
                 'visible' => false,
             ])
-            ->add('favorite', BoolColumn::class, [
+            ->add('favorite', PrettyBoolColumn::class, [
                 'label' => $this->translator->trans('part.table.favorite'),
-                'trueValue' => $this->translator->trans('true'),
-                'falseValue' => $this->translator->trans('false'),
-                'nullValue' => '',
                 'visible' => false,
             ])
             ->add('manufacturing_status', MapColumn::class, [
@@ -282,9 +249,10 @@ final class PartsDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.mpn'),
                 'visible' => false,
             ])
-            ->add('mass', TextColumn::class, [
+            ->add('mass', SIUnitNumberColumn::class, [
                 'label' => $this->translator->trans('part.table.mass'),
                 'visible' => false,
+                'unit' => 'g'
             ])
             ->add('tags', TagsColumn::class, [
                 'label' => $this->translator->trans('part.table.tags'),
@@ -324,6 +292,7 @@ final class PartsDataTable implements DataTableTypeInterface
 
     private function getQuery(QueryBuilder $builder): void
     {
+
         $builder->distinct()->select('part')
             ->addSelect('category')
             ->addSelect('footprint')
@@ -335,6 +304,16 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addSelect('orderdetails')
             ->addSelect('attachments')
             ->addSelect('storelocations')
+            //Calculate amount sum using a subquery, so we can filter and sort by it
+            ->addSelect(
+                '(
+                    SELECT IFNULL(SUM(partLot.amount), 0.0)
+                    FROM '. PartLot::class. ' partLot
+                    WHERE partLot.part = part.id
+                    AND partLot.instock_unknown = false
+                    AND (partLot.expiration_date IS NULL OR partLot.expiration_date > CURRENT_DATE())
+                ) AS HIDDEN amountSum'
+            )
             ->from(Part::class, 'part')
             ->leftJoin('part.category', 'category')
             ->leftJoin('part.master_picture_attachment', 'master_picture_attachment')
@@ -346,144 +325,26 @@ final class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('part.orderdetails', 'orderdetails')
             ->leftJoin('orderdetails.supplier', 'suppliers')
             ->leftJoin('part.attachments', 'attachments')
-            ->leftJoin('part.partUnit', 'partUnit');
+            ->leftJoin('part.partUnit', 'partUnit')
+            ->leftJoin('part.parameters', 'parameters')
+
+            ->groupBy('part')
+        ;
     }
 
     private function buildCriteria(QueryBuilder $builder, array $options): void
     {
-        if (isset($options['category'])) {
-            $category = $options['category'];
-            $list = $this->treeBuilder->typeToNodesList(Category::class, $category);
-            $list[] = $category;
-
-            $builder->andWhere('part.category IN (:cid)')->setParameter('cid', $list);
+        //Apply the search criterias first
+        if ($options['search'] instanceof PartSearchFilter) {
+            $search = $options['search'];
+            $search->apply($builder);
         }
 
-        if (isset($options['footprint'])) {
-            $category = $options['footprint'];
-            $list = $this->treeBuilder->typeToNodesList(Footprint::class, $category);
-            $list[] = $category;
-
-            $builder->andWhere('part.footprint IN (:cid)')->setParameter('cid', $list);
+        //We do the most stuff here in the filter class
+        if ($options['filter'] instanceof PartFilter) {
+            $filter = $options['filter'];
+            $filter->apply($builder);
         }
 
-        if (isset($options['manufacturer'])) {
-            $category = $options['manufacturer'];
-            $list = $this->treeBuilder->typeToNodesList(Manufacturer::class, $category);
-            $list[] = $category;
-
-            $builder->andWhere('part.manufacturer IN (:cid)')->setParameter('cid', $list);
-        }
-
-        if (isset($options['storelocation'])) {
-            $location = $options['storelocation'];
-            $list = $this->treeBuilder->typeToNodesList(Storelocation::class, $location);
-            $list[] = $location;
-
-            $builder->andWhere('partLots.storage_location IN (:cid)')->setParameter('cid', $list);
-        }
-
-        if (isset($options['supplier'])) {
-            $supplier = $options['supplier'];
-            $list = $this->treeBuilder->typeToNodesList(Supplier::class, $supplier);
-            $list[] = $supplier;
-
-            $builder->andWhere('orderdetails.supplier IN (:cid)')->setParameter('cid', $list);
-        }
-
-        if (isset($options['tag'])) {
-            $builder->andWhere('part.tags LIKE :tag')->setParameter('tag', $options['tag']);
-        }
-
-        if (!empty($options['search'])) {
-            if (!$options['search_options']['regex']) {
-                //Dont show results, if no things are selected
-                $builder->andWhere('0=1');
-                $defined = false;
-                if ($options['search_options']['name']) {
-                    $builder->orWhere('part.name LIKE :search');
-                    $defined = true;
-                }
-                if ($options['search_options']['description']) {
-                    $builder->orWhere('part.description LIKE :search');
-                    $defined = true;
-                }
-                if ($options['search_options']['comment']) {
-                    $builder->orWhere('part.comment LIKE :search');
-                    $defined = true;
-                }
-                if ($options['search_options']['category']) {
-                    $builder->orWhere('category.name LIKE :search');
-                    $defined = true;
-                }
-                if ($options['search_options']['manufacturer']) {
-                    $builder->orWhere('manufacturer.name LIKE :search');
-                    $defined = true;
-                }
-                if ($options['search_options']['footprint']) {
-                    $builder->orWhere('footprint.name LIKE :search');
-                    $defined = true;
-                }
-                if ($options['search_options']['tags']) {
-                    $builder->orWhere('part.tags LIKE :search');
-                    $defined = true;
-                }
-                if ($options['search_options']['store_location']) {
-                    $builder->orWhere('storelocations.name LIKE :search');
-                    $defined = true;
-                }
-                if ($options['search_options']['supplier']) {
-                    $builder->orWhere('suppliers.name LIKE :search');
-                    $defined = true;
-                }
-
-                if ($defined) {
-                    $builder->setParameter('search', '%'.$options['search'].'%');
-                }
-            } else { //Use REGEX
-                $builder->andWhere('0=1');
-                $defined = false;
-                if ($options['search_options']['name']) {
-                    $builder->orWhere('REGEXP(part.name, :search) = 1');
-                    $defined = true;
-                }
-                if ($options['search_options']['description']) {
-                    $builder->orWhere('REGEXP(part.description, :search) = 1');
-                    $defined = true;
-                }
-                if ($options['search_options']['comment']) {
-                    $builder->orWhere('REGEXP(part.comment, :search) = 1');
-                    $defined = true;
-                }
-                if ($options['search_options']['category']) {
-                    $builder->orWhere('REGEXP(category.name, :search) = 1');
-                    $defined = true;
-                }
-                if ($options['search_options']['manufacturer']) {
-                    $builder->orWhere('REGEXP(manufacturer.name, :search) = 1');
-                    $defined = true;
-                }
-                if ($options['search_options']['footprint']) {
-                    $builder->orWhere('REGEXP(footprint.name, :search) = 1');
-                    $defined = true;
-                }
-                if ($options['search_options']['tags']) {
-                    $builder->orWhere('REGEXP(part.tags, :search) = 1');
-                    $defined = true;
-                }
-                if ($options['search_options']['store_location']) {
-                    $builder->orWhere('REGEXP(storelocations.name, :search) = 1');
-                    $defined = true;
-                }
-                if ($options['search_options']['supplier']) {
-                    $builder->orWhere('REGEXP(suppliers.name, :search) = 1');
-                    $defined = true;
-                }
-
-                if ($defined) {
-                    $builder->setParameter('search', $options['search']);
-                }
-            }
-        }
     }
 }
