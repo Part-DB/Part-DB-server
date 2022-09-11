@@ -15,7 +15,7 @@ use App\Form\Filters\Constraints\ChoiceConstraintType;
 use App\Form\Filters\Constraints\DateTimeConstraintType;
 use App\Form\Filters\Constraints\NumberConstraintType;
 use App\Form\Filters\Constraints\ParameterConstraintType;
-use App\Form\Filters\Constraints\StructuralEntityConstraintType;
+use App\Form\Filters\Constraints\UserEntityConstraintType;
 use App\Form\Filters\Constraints\TagsConstraintType;
 use App\Form\Filters\Constraints\TextConstraintType;
 use Svg\Tag\Text;
@@ -54,12 +54,12 @@ class PartFilterType extends AbstractType
             'label' => 'part.edit.description',
         ]);
 
-        $builder->add('category', StructuralEntityConstraintType::class, [
+        $builder->add('category', UserEntityConstraintType::class, [
             'label' => 'part.edit.category',
             'entity_class' => Category::class
         ]);
 
-        $builder->add('footprint', StructuralEntityConstraintType::class, [
+        $builder->add('footprint', UserEntityConstraintType::class, [
             'label' => 'part.edit.footprint',
             'entity_class' => Footprint::class
         ]);
@@ -96,7 +96,7 @@ class PartFilterType extends AbstractType
             'min' => 0,
         ]);
 
-        $builder->add('measurementUnit', StructuralEntityConstraintType::class, [
+        $builder->add('measurementUnit', UserEntityConstraintType::class, [
             'label' => 'part.edit.partUnit',
             'entity_class' => MeasurementUnit::class
         ]);
@@ -114,7 +114,7 @@ class PartFilterType extends AbstractType
          * Manufacturer tab
          */
 
-        $builder->add('manufacturer', StructuralEntityConstraintType::class, [
+        $builder->add('manufacturer', UserEntityConstraintType::class, [
             'label' => 'part.edit.manufacturer.label',
             'entity_class' => Manufacturer::class
         ]);
@@ -145,7 +145,7 @@ class PartFilterType extends AbstractType
          * Purchasee informations
          */
 
-        $builder->add('supplier', StructuralEntityConstraintType::class, [
+        $builder->add('supplier', UserEntityConstraintType::class, [
             'label' => 'supplier.label',
             'entity_class' => Manufacturer::class
         ]);
@@ -163,7 +163,7 @@ class PartFilterType extends AbstractType
         /*
          * Stocks tabs
          */
-        $builder->add('storelocation', StructuralEntityConstraintType::class, [
+        $builder->add('storelocation', UserEntityConstraintType::class, [
             'label' => 'storelocation.label',
             'entity_class' => Storelocation::class
         ]);
@@ -210,7 +210,7 @@ class PartFilterType extends AbstractType
             'min' => 0,
         ]);
 
-        $builder->add('attachmentType', StructuralEntityConstraintType::class, [
+        $builder->add('attachmentType', UserEntityConstraintType::class, [
             'label' => 'attachment.attachment_type',
             'entity_class' => AttachmentType::class
         ]);

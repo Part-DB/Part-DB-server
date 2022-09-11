@@ -9,7 +9,7 @@ class ChoiceConstraint extends AbstractConstraint
     public const ALLOWED_OPERATOR_VALUES = ['ANY', 'NONE'];
 
     /**
-     * @var string[] The values to compare to
+     * @var string[]|int[] The values to compare to
      */
     protected $value;
 
@@ -19,7 +19,7 @@ class ChoiceConstraint extends AbstractConstraint
     protected $operator;
 
     /**
-     * @return string[]
+     * @return string[]|int[]
      */
     public function getValue(): array
     {
@@ -27,7 +27,7 @@ class ChoiceConstraint extends AbstractConstraint
     }
 
     /**
-     * @param  string[]  $value
+     * @param  string[]|int[]  $value
      * @return ChoiceConstraint
      */
     public function setValue(array $value): ChoiceConstraint

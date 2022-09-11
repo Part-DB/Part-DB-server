@@ -23,7 +23,7 @@ use App\Form\Filters\Constraints\BooleanConstraintType;
 use App\Form\Filters\Constraints\DateTimeConstraintType;
 use App\Form\Filters\Constraints\InstanceOfConstraintType;
 use App\Form\Filters\Constraints\NumberConstraintType;
-use App\Form\Filters\Constraints\StructuralEntityConstraintType;
+use App\Form\Filters\Constraints\UserEntityConstraintType;
 use App\Form\Filters\Constraints\TextConstraintType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
@@ -73,7 +73,7 @@ class AttachmentFilterType extends AbstractType
             ]
         ]);
 
-        $builder->add('attachmentType', StructuralEntityConstraintType::class, [
+        $builder->add('attachmentType', UserEntityConstraintType::class, [
             'label' => 'attachment.attachment_type',
             'entity_class' => AttachmentType::class
         ]);

@@ -47,6 +47,8 @@ use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\LogEntryExtraColumn;
 use App\DataTables\Column\LogEntryTargetColumn;
 use App\DataTables\Column\RevertLogColumn;
+use App\DataTables\Filters\AttachmentFilter;
+use App\DataTables\Filters\LogFilter;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\TimeTravelInterface;
 use App\Entity\LogSystem\AbstractLogEntry;
@@ -61,6 +63,7 @@ use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
+use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
@@ -97,10 +100,12 @@ class LogDataTable implements DataTableTypeInterface
         $optionsResolver->setDefaults([
             'mode' => 'system_log',
             'filter_elements' => [],
+            'filter' => null,
         ]);
 
         $optionsResolver->setAllowedTypes('filter_elements', ['array', 'object']);
         $optionsResolver->setAllowedTypes('mode', 'string');
+        $optionsResolver->setAllowedTypes('filter', LogFilter::class);
 
         $optionsResolver->setNormalizer('filter_elements', static function (Options $options, $value) {
             if (!is_array($value)) {
@@ -192,8 +197,8 @@ class LogDataTable implements DataTableTypeInterface
             'label' => $this->translator->trans('log.level'),
             'visible' => 'system_log' === $options['mode'],
             'propertyPath' => 'levelString',
-            'render' => static function (string $value, AbstractLogEntry $context) {
-                return $value;
+            'render' => function (string $value, AbstractLogEntry $context) {
+                return $this->translator->trans('log.level.'.$value);
             },
         ]);
 
@@ -271,7 +276,22 @@ class LogDataTable implements DataTableTypeInterface
             'query' => function (QueryBuilder $builder) use ($options): void {
                 $this->getQuery($builder, $options);
             },
+            'criteria' => [
+                function (QueryBuilder $builder) use ($options): void {
+                    $this->buildCriteria($builder, $options);
+                },
+                new SearchCriteriaProvider(),
+            ],
         ]);
+    }
+
+    private function buildCriteria(QueryBuilder $builder, array $options): void
+    {
+        if (!empty($options['filter'])) {
+            $filter = $options['filter'];
+            $filter->apply($builder);
+        }
+
     }
 
     protected function getQuery(QueryBuilder $builder, array $options): void
@@ -281,6 +301,7 @@ class LogDataTable implements DataTableTypeInterface
             ->from(AbstractLogEntry::class, 'log')
             ->leftJoin('log.user', 'user');
 
+        /* Do this here as we don't want to show up the global count of all log entries in the footer line, with these modes  */
         if ('last_activity' === $options['mode']) {
             $builder->where('log INSTANCE OF '.ElementCreatedLogEntry::class)
                 ->orWhere('log INSTANCE OF '.ElementDeletedLogEntry::class)

@@ -6,6 +6,7 @@ use App\DataTables\Filters\Constraints\BooleanConstraint;
 use App\DataTables\Filters\Constraints\DateTimeConstraint;
 use App\DataTables\Filters\Constraints\EntityConstraint;
 use App\DataTables\Filters\Constraints\InstanceOfConstraint;
+use App\DataTables\Filters\Constraints\IntConstraint;
 use App\DataTables\Filters\Constraints\NumberConstraint;
 use App\DataTables\Filters\Constraints\TextConstraint;
 use App\Entity\Attachments\AttachmentType;
@@ -40,7 +41,7 @@ class AttachmentFilter implements FilterInterface
 
     public function __construct(NodesListBuilder $nodesListBuilder)
     {
-        $this->dbId = new NumberConstraint('attachment.id');
+        $this->dbId = new IntConstraint('attachment.id');
         $this->name = new TextConstraint('attachment.name');
         $this->targetType = new InstanceOfConstraint('attachment');
         $this->attachmentType = new EntityConstraint($nodesListBuilder, AttachmentType::class, 'attachment.attachment_type');

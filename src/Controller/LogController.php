@@ -42,6 +42,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\DataTables\Filters\LogFilter;
 use App\DataTables\LogDataTable;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
@@ -49,6 +50,7 @@ use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
+use App\Form\Filters\LogFilterType;
 use App\Services\LogSystem\EventUndoHelper;
 use App\Services\LogSystem\TimeTravel;
 use Doctrine\ORM\EntityManagerInterface;
@@ -86,7 +88,17 @@ class LogController extends AbstractController
     {
         $this->denyAccessUnlessGranted('@system.show_logs');
 
-        $table = $dataTable->createFromType(LogDataTable::class)
+        $formRequest = clone $request;
+        $formRequest->setMethod('GET');
+        $filter = new LogFilter();
+
+        $filterForm = $this->createForm(LogFilterType::class, $filter, ['method' => 'GET']);
+
+        $filterForm->handleRequest($formRequest);
+
+        $table = $dataTable->createFromType(LogDataTable::class, [
+            'filter' => $filter,
+        ])
             ->handleRequest($request);
 
         if ($table->isCallback()) {
@@ -95,6 +107,7 @@ class LogController extends AbstractController
 
         return $this->render('LogSystem/log_list.html.twig', [
             'datatable' => $table,
+            'filterForm' => $filterForm->createView(),
         ]);
     }
 

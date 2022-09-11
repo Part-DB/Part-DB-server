@@ -447,6 +447,6 @@ abstract class AbstractLogEntry extends AbstractDBElement
             }
         }
 
-        throw new InvalidArgumentException('No target ID for this class is existing!');
+        throw new InvalidArgumentException('No target ID for this class is existing! (Class: '.$class.')');
     }
 }

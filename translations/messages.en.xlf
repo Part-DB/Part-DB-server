@@ -9699,5 +9699,77 @@ Element 3</target>
         <target>Associated element type</target>
       </segment>
     </unit>
+    <unit id="nUZamS5" name="log.level.debug">
+      <segment>
+        <source>log.level.debug</source>
+        <target>Debug</target>
+      </segment>
+    </unit>
+    <unit id="ZPxm2Ee" name="log.level.info">
+      <segment>
+        <source>log.level.info</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="NVXjDhG" name="log.level.notice">
+      <segment>
+        <source>log.level.notice</source>
+        <target>Notice</target>
+      </segment>
+    </unit>
+    <unit id="9ObjWuR" name="log.level.warning">
+      <segment>
+        <source>log.level.warning</source>
+        <target>Warning</target>
+      </segment>
+    </unit>
+    <unit id="WxMwuLP" name="log.level.error">
+      <segment>
+        <source>log.level.error</source>
+        <target>Error</target>
+      </segment>
+    </unit>
+    <unit id="idch78J" name="log.level.critical">
+      <segment>
+        <source>log.level.critical</source>
+        <target>Critical</target>
+      </segment>
+    </unit>
+    <unit id="jehoQTd" name="log.level.alert">
+      <segment>
+        <source>log.level.alert</source>
+        <target>Alert</target>
+      </segment>
+    </unit>
+    <unit id="XvKEDM0" name="log.level.emergency">
+      <segment>
+        <source>log.level.emergency</source>
+        <target>Emergency</target>
+      </segment>
+    </unit>
+    <unit id="sEvRe10" name="log.type.security">
+      <segment>
+        <source>log.type.security</source>
+        <target>Security related event</target>
+      </segment>
+    </unit>
+    <unit id="gJDmvym" name="log.type.instock_changed">
+      <segment>
+        <source>log.type.instock_changed</source>
+        <target>[LEGACY] Instock changed</target>
+      </segment>
+    </unit>
+    <unit id="4Od2HUk" name="device_part.label">
+      <segment>
+        <source>device_part.label</source>
+        <target>Device part</target>
+      </segment>
+    </unit>
+    <unit id="lJZCHHM" name="log.target_id">
+      <segment>
+        <source>log.target_id</source>
+        <target>Target element ID</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
