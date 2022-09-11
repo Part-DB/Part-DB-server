@@ -92,7 +92,7 @@ class NodesListBuilder
      * Returns a flattened list of all (recursive) children elements of the given AbstractStructuralDBElement.
      * The value is cached for performance reasons.
      *
-     * @template T
+     * @template T of AbstractStructuralDBElement
      * @param  T $element
      * @return T[]
      */

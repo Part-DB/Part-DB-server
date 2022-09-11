@@ -13,7 +13,8 @@ class BooleanConstraint extends AbstractConstraint
 
     public function __construct(string $property, string $identifier = null, ?bool $default_value = null)
     {
-        parent::__construct($property, $identifier, $default_value);
+        parent::__construct($property, $identifier);
+        $this->value = $default_value;
     }
 
     /**

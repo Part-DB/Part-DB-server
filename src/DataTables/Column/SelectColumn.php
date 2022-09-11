@@ -21,6 +21,8 @@ class SelectColumn extends AbstractColumn
             'className' => 'select-checkbox no-colvis',
             'visible' => true,
         ]);
+
+        return $this;
     }
 
     public function normalize($value)

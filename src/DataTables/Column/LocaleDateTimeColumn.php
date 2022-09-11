@@ -58,7 +58,7 @@ class LocaleDateTimeColumn extends AbstractColumn
 {
     /**
      * @param $value
-     * @return bool|mixed|string
+     * @return string
      * @throws Exception
      */
     public function normalize($value): string

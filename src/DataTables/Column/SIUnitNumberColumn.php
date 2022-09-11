@@ -21,6 +21,8 @@ class SIUnitNumberColumn extends AbstractColumn
 
         $resolver->setDefault('precision', 2);
         $resolver->setDefault('unit', '');
+
+        return $this;
     }
 
     public function normalize($value)

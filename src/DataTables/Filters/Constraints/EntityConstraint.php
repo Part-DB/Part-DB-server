@@ -8,7 +8,7 @@ use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * @template T
+ * @template T of AbstractDBElement
  */
 class EntityConstraint extends AbstractConstraint
 {
@@ -16,7 +16,7 @@ class EntityConstraint extends AbstractConstraint
     private const ALLOWED_OPERATOR_VALUES_STRUCTURAL = ['INCLUDING_CHILDREN', 'EXCLUDING_CHILDREN'];
 
     /**
-     * @var
+     * @var NodesListBuilder
      */
     protected $nodesListBuilder;
 
@@ -37,7 +37,7 @@ class EntityConstraint extends AbstractConstraint
 
     /**
      * @param  NodesListBuilder|null  $nodesListBuilder
-     * @param  class-string  $class
+     * @param  class-string<T>  $class
      * @param  string  $property
      * @param  string|null  $identifier
      * @param  null  $value
@@ -80,7 +80,7 @@ class EntityConstraint extends AbstractConstraint
     }
 
     /**
-     * @return mixed|null
+     * @return T|null
      */
     public function getValue(): ?AbstractDBElement
     {
