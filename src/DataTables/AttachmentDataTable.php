@@ -44,12 +44,14 @@ namespace App\DataTables;
 
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\PrettyBoolColumn;
+use App\DataTables\Filters\AttachmentFilter;
 use App\Entity\Attachments\Attachment;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
 use Doctrine\ORM\QueryBuilder;
+use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\DataTable;
@@ -213,6 +215,12 @@ final class AttachmentDataTable implements DataTableTypeInterface
             'query' => function (QueryBuilder $builder): void {
                 $this->getQuery($builder);
             },
+            'criteria' => [
+                function (QueryBuilder $builder) use ($options): void {
+                    $this->buildCriteria($builder, $options);
+                },
+                new SearchCriteriaProvider(),
+            ],
         ]);
     }
 
@@ -224,5 +232,19 @@ final class AttachmentDataTable implements DataTableTypeInterface
             ->from(Attachment::class, 'attachment')
             ->leftJoin('attachment.attachment_type', 'attachment_type');
         //->leftJoin('attachment.element', 'element');
+    }
+
+    private function buildCriteria(QueryBuilder $builder, array $options): void
+    {
+        //We do the most stuff here in the filter class
+        if (isset($options['filter'])) {
+            if(!$options['filter'] instanceof AttachmentFilter) {
+                throw new \Exception('filter must be an instance of AttachmentFilter!');
+            }
+
+            $filter = $options['filter'];
+            $filter->apply($builder);
+        }
+
     }
 }

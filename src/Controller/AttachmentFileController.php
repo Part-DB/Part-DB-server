@@ -43,9 +43,15 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\DataTables\AttachmentDataTable;
+use App\DataTables\Filters\AttachmentFilter;
+use App\DataTables\Filters\PartFilter;
+use App\DataTables\PartsDataTable;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\PartAttachment;
+use App\Form\Filters\AttachmentFilterType;
+use App\Form\Filters\PartFilterType;
 use App\Services\Attachments\AttachmentManager;
+use App\Services\Trees\NodesListBuilder;
 use Omines\DataTablesBundle\DataTableFactory;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -123,11 +129,19 @@ class AttachmentFileController extends AbstractController
      *
      * @return JsonResponse|Response
      */
-    public function attachmentsTable(DataTableFactory $dataTable, Request $request)
+    public function attachmentsTable(Request $request, DataTableFactory $dataTableFactory, NodesListBuilder $nodesListBuilder)
     {
         $this->denyAccessUnlessGranted('read', new PartAttachment());
 
-        $table = $dataTable->createFromType(AttachmentDataTable::class)
+        $formRequest = clone $request;
+        $formRequest->setMethod('GET');
+        $filter = new AttachmentFilter($nodesListBuilder);
+
+        $filterForm = $this->createForm(AttachmentFilterType::class, $filter, ['method' => 'GET']);
+
+        $filterForm->handleRequest($formRequest);
+
+        $table = $dataTableFactory->createFromType(AttachmentDataTable::class, ['filter' => $filter])
             ->handleRequest($request);
 
         if ($table->isCallback()) {
@@ -136,6 +150,7 @@ class AttachmentFileController extends AbstractController
 
         return $this->render('attachment_list.html.twig', [
             'datatable' => $table,
+            'filterForm' => $filterForm->createView(),
         ]);
     }
 }

@@ -9693,5 +9693,11 @@ Element 3</target>
         <target>Enabled search options</target>
       </segment>
     </unit>
+    <unit id="biszSr8" name="attachment.table.element_type">
+      <segment>
+        <source>attachment.table.element_type</source>
+        <target>Associated element type</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
