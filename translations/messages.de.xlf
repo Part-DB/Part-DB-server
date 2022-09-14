@@ -9740,5 +9740,23 @@ Element 3</target>
         <target>Sicherheitsereignis</target>
       </segment>
     </unit>
+    <unit id="gJDmvym" name="log.type.instock_changed">
+      <segment state="translated">
+        <source>log.type.instock_changed</source>
+        <target>[ALT] Bestand geändert</target>
+      </segment>
+    </unit>
+    <unit id="4Od2HUk" name="device_part.label">
+      <segment state="translated">
+        <source>device_part.label</source>
+        <target>Projektteil</target>
+      </segment>
+    </unit>
+    <unit id="lJZCHHM" name="log.target_id">
+      <segment state="translated">
+        <source>log.target_id</source>
+        <target>ID des Ziel Elements</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
