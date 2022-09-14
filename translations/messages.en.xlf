@@ -895,7 +895,7 @@ The user will have to set up all two-factor authentication methods again and pri
         <source>entity.delete.message</source>
         <target>This can not be undone!
 &lt;br&gt;
-Subelements will be moved upwards.</target>
+Sub elements will be moved upwards.</target>
       </segment>
     </unit>
     <unit id="eyyICVM" name="entity.delete">
@@ -932,7 +932,7 @@ Subelements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>entity.delete.recursive</source>
-        <target>Delete recursive (all subelements)</target>
+        <target>Delete recursive (all sub elements)</target>
       </segment>
     </unit>
     <unit id="vlslklu" name="entity.duplicate">
@@ -3511,7 +3511,7 @@ Subelements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>group.label</source>
-        <target>Gruppe:</target>
+        <target>Group:</target>
       </segment>
     </unit>
     <unit id="A7LFSdc" name="user.permissions">
@@ -4595,7 +4595,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>user.settings.2fa.google.disabled</source>
-        <target>Authenticator App erfolgreich deaktiviert.</target>
+        <target>Authenticator App successfully deactivated.</target>
       </segment>
     </unit>
     <unit id="4ZUxld3" name="user.settings.2fa.backup_codes.regenerated">
@@ -5195,7 +5195,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>attachment.edit.secure_file.help</source>
-        <target>An attachment marked private can only accessed by authenticated users with the proper permission. If this is activated no thumbnails are generated and access to file is less perfomant.</target>
+        <target>An attachment marked private can only be accessed by authenticated users with the proper permission. If this is activated no thumbnails are generated and access to file is less performant.</target>
       </segment>
     </unit>
     <unit id="pCsSiaz" name="attachment.edit.url.help">
@@ -5205,7 +5205,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>attachment.edit.url.help</source>
-        <target>You can specify a url to an external file here, or input an keyword which is used to search in builtin ressources (e.g. footprints)</target>
+        <target>You can specify an URL to an external file here, or input an keyword which is used to search in built-in resources (e.g. footprints)</target>
       </segment>
     </unit>
     <unit id="3ZnUiT_" name="attachment.edit.name">
@@ -7206,7 +7206,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>company.edit.auto_product_url</source>
-        <target>Product url</target>
+        <target>Product URL</target>
       </segment>
     </unit>
     <unit id="UaJhZGe" name="company.edit.auto_product_url.help">
@@ -8961,7 +8961,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>log.type.user_not_allowed</source>
-        <target>Unauthorised access attempt</target>
+        <target>Unauthorized access attempt</target>
       </segment>
     </unit>
     <unit id="Z28oTau" name="log.database_updated.success">
@@ -8970,7 +8970,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>log.database_updated.success</source>
-        <target>Sucess</target>
+        <target>Success</target>
       </segment>
     </unit>
     <unit id="8jpgdV8" name="label_options.barcode_type.2D">
@@ -9420,7 +9420,7 @@ Element 3</target>
     <unit id="7zxBnzb" name="filter.entity_constraint.operator.NEQ">
       <segment state="translated">
         <source>filter.entity_constraint.operator.NEQ</source>
-        <target>Is not (exluding children)</target>
+        <target>Is not (excluding children)</target>
       </segment>
     </unit>
     <unit id="oX1nk5D" name="filter.entity_constraint.operator.INCLUDING_CHILDREN">
