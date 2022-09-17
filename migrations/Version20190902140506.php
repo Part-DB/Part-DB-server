@@ -55,6 +55,24 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
         //Deactive SQL Modes (especially NO_ZERO_DATE, which prevents updating)
         $this->addSql("SET sql_mode = ''");
 
+        /**************************************************************************************************************
+         * Normalize old database -> bring it in a format we can later use (manually generated SQL)
+         **************************************************************************************************************/
+
+        //It seems that the old Part-DB versions saved a zero at group_id when no group was selected. This causes later problems with the foreign key, so we have to fix this by setting it to null.
+        $this->addSql('UPDATE users SET users.group_id = NULL WHERE users.group_id = 0;');
+
+        //Old Part-DB versions did not deleted orderdetails when deleting an Part. This causes problems with the foreign key, so we have to fix this by deleting all orderdetails which are not connected to a part.
+        $this->addSql('DELETE FROM `orderdetails` WHERE (SELECT COUNT(parts.id) FROM parts WHERE parts.id = orderdetails.part_id) = 0;');
+        //Same for pricedetails afterwards
+        $this->addSql('DELETE FROM `pricedetails` WHERE (SELECT COUNT(orderdetails.id) FROM orderdetails WHERE orderdetails.id = pricedetails.orderdetails_id) = 0;');
+        //For attachments
+        $this->addSql('DELETE FROM `attachements` WHERE attachements.class_name = "Part" AND (SELECT COUNT(parts.id) FROM parts WHERE parts.id = attachements.element_id) = 0;');
+
+        /**************************************************************************************************************
+         * Doctrine generated SQL
+         **************************************************************************************************************/
+
         //Rename attachment tables (fix typos)
         $this->addSql('RENAME TABLE `attachement_types` TO `attachment_types`;');
         $this->addSql('RENAME TABLE `attachements` TO `attachments`;');
