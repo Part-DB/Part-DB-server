@@ -1667,8 +1667,7 @@
       </notes>
       <segment state="translated">
         <source>label_scanner.no_cam_found.text</source>
-        <target>Чтобы использовать функцию сканирования вам понадобится веб-камера и разрешение для ее использования. Ниже, вы можете ввести штрихкод вручную.
-</target>
+        <target>Чтобы использовать функцию сканирования вам понадобится веб-камера и разрешение для ее использования. Ниже, вы можете ввести штрихкод вручную.</target>
       </segment>
     </unit>
     <unit id="6qQTB7S" name="label_scanner.source_select">
@@ -7220,7 +7219,7 @@
       </notes>
       <segment state="translated">
         <source>company.edit.auto_product_url.help</source>
-        <target>В этом поле задается ссылка на страницу компонента на сайте компании. %PARTNR% будет заменено на номер заказа.</target>
+        <target>В этом поле задается ссылка на страницу компонента на сайте компании. %PARTNUMBER% будет заменено на номер заказа.</target>
       </segment>
     </unit>
     <unit id="22S3ulf" name="company.edit.auto_product_url.placeholder">
@@ -7230,7 +7229,7 @@
       </notes>
       <segment state="translated">
         <source>company.edit.auto_product_url.placeholder</source>
-        <target>https://foo.bar/product/%PARTNR%</target>
+        <target>https://foo.bar/product/%PARTNUMBER%</target>
       </segment>
     </unit>
     <unit id="NZUfSAR" name="currency.edit.iso_code">
