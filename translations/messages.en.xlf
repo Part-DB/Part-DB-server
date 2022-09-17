@@ -7216,7 +7216,7 @@ Exampletown</target>
       </notes>
       <segment>
         <source>company.edit.auto_product_url.help</source>
-        <target>This field is used to determine an link to the part on the company page. %PARTNR% will be replaced with the order number.</target>
+        <target>This field is used to determine an link to the part on the company page. %PARTNUMBER% will be replaced with the order number.</target>
       </segment>
     </unit>
     <unit id="22S3ulf" name="company.edit.auto_product_url.placeholder">
@@ -7226,7 +7226,7 @@ Exampletown</target>
       </notes>
       <segment>
         <source>company.edit.auto_product_url.placeholder</source>
-        <target>https://foo.bar/product/%PARTNR%</target>
+        <target>https://foo.bar/product/%PARTNUMBER%</target>
       </segment>
     </unit>
     <unit id="NZUfSAR" name="currency.edit.iso_code">
