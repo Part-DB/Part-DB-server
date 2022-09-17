@@ -7217,7 +7217,7 @@ exemple de ville</target>
       </notes>
       <segment state="translated">
         <source>company.edit.auto_product_url.help</source>
-        <target>Si cette URL est définie, elle est utilisée pour générer l'URL d'un composant sur le site web du fabricant. Dans ce cas, %PARTNUMBER% sera remplacé par le numéro de commande.</target>
+        <target>Si cette URL est définie, elle est utilisée pour générer l'URL d'un composant sur le site web du fabricant. Dans ce cas, %PARTNR% sera remplacé par le numéro de commande.</target>
       </segment>
     </unit>
     <unit id="22S3ulf" name="company.edit.auto_product_url.placeholder">
@@ -7227,7 +7227,7 @@ exemple de ville</target>
       </notes>
       <segment state="translated">
         <source>company.edit.auto_product_url.placeholder</source>
-        <target>https://foo.bar/product/%PARTNUMBER%</target>
+        <target>https://foo.bar/product/%PARTNR%</target>
       </segment>
     </unit>
     <unit id="NZUfSAR" name="currency.edit.iso_code">
