@@ -7215,7 +7215,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>company.edit.auto_product_url.help</source>
-        <target>Wenn diese URL gesetzt ist, wird sie benutzt um die URL eines Bauteils auf der Website des Herstellers zu erzeugen. Dabei wird %PARTNUMBER% mit der Bestellnummer ersetzt.</target>
+        <target>Wenn diese URL gesetzt ist, wird sie benutzt um die URL eines Bauteils auf der Website des Herstellers zu erzeugen. Dabei wird %PARTNR% mit der Bestellnummer ersetzt.</target>
       </segment>
     </unit>
     <unit id="22S3ulf" name="company.edit.auto_product_url.placeholder">
@@ -7225,7 +7225,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>company.edit.auto_product_url.placeholder</source>
-        <target>https://foo.bar/product/%PARTNUMBER%</target>
+        <target>https://foo.bar/product/%PARTNR%</target>
       </segment>
     </unit>
     <unit id="NZUfSAR" name="currency.edit.iso_code">
