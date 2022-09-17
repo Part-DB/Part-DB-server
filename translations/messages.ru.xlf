@@ -7220,7 +7220,7 @@
       </notes>
       <segment state="translated">
         <source>company.edit.auto_product_url.help</source>
-        <target>В этом поле задается ссылка на страницу компонента на сайте компании. %PARTNUMBER% будет заменено на номер заказа.</target>
+        <target>В этом поле задается ссылка на страницу компонента на сайте компании. %PARTNR% будет заменено на номер заказа.</target>
       </segment>
     </unit>
     <unit id="22S3ulf" name="company.edit.auto_product_url.placeholder">
@@ -7230,7 +7230,7 @@
       </notes>
       <segment state="translated">
         <source>company.edit.auto_product_url.placeholder</source>
-        <target>https://foo.bar/product/%PARTNUMBER%</target>
+        <target>https://foo.bar/product/%PARTNR%</target>
       </segment>
     </unit>
     <unit id="NZUfSAR" name="currency.edit.iso_code">
