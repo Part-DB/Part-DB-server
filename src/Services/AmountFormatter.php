@@ -131,7 +131,8 @@ class AmountFormatter
                     /** @var MeasurementUnit $unit */
                     $unit = $options['measurement_unit'];
 
-                    return $unit->getUnit();
+                    //When no unit is set, return empty string so that this can be formatted properly
+                    return $unit->getUnit() ?? '';
                 }
 
                 return '';

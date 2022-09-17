@@ -893,9 +893,9 @@ The user will have to set up all two-factor authentication methods again and pri
       </notes>
       <segment>
         <source>entity.delete.message</source>
-        <target>This can not be undone!
-&lt;br&gt;
-Sub elements will be moved upwards.</target>
+        <target><![CDATA[This can not be undone!
+<br>
+Sub elements will be moved upwards.]]></target>
       </segment>
     </unit>
     <unit id="eyyICVM" name="entity.delete">
@@ -9316,457 +9316,457 @@ Element 3</target>
       </segment>
     </unit>
     <unit id="7FpEp24" name="user.pw_change_needed.flash">
-      <segment state="translated">
+      <segment>
         <source>user.pw_change_needed.flash</source>
         <target>Your password needs to be changed! Please set a new password.</target>
       </segment>
     </unit>
     <unit id="uEMvuw8" name="tree.root_node.text">
-      <segment state="translated">
+      <segment>
         <source>tree.root_node.text</source>
         <target>Root node</target>
       </segment>
     </unit>
     <unit id="EieqscF" name="part_list.action.select_null">
-      <segment state="translated">
+      <segment>
         <source>part_list.action.select_null</source>
         <target>No elements existing!</target>
       </segment>
     </unit>
     <unit id="4IH1qgL" name="part_list.action.delete-title">
-      <segment state="translated">
+      <segment>
         <source>part_list.action.delete-title</source>
         <target>Do you really want to delete these parts?</target>
       </segment>
     </unit>
     <unit id="te3YmqA" name="part_list.action.delete-message">
-      <segment state="translated">
+      <segment>
         <source>part_list.action.delete-message</source>
         <target>These parts and any associated information (like attachments, price information, etc.) will be deleted. This can not be undone!</target>
       </segment>
     </unit>
     <unit id="xd6OiPE" name="part.table.actions.success">
-      <segment state="translated">
+      <segment>
         <source>part.table.actions.success</source>
         <target>Actions finished successfully.</target>
       </segment>
     </unit>
     <unit id="_3l6FO_" name="attachment.edit.delete.confirm">
-      <segment state="translated">
+      <segment>
         <source>attachment.edit.delete.confirm</source>
         <target>Do you really want to delete this attachment?</target>
       </segment>
     </unit>
     <unit id="JtGEdQP" name="filter.text_constraint.value.operator.EQ">
-      <segment state="translated">
+      <segment>
         <source>filter.text_constraint.value.operator.EQ</source>
         <target>Is</target>
       </segment>
     </unit>
     <unit id="9RAGNGw" name="filter.text_constraint.value.operator.NEQ">
-      <segment state="translated">
+      <segment>
         <source>filter.text_constraint.value.operator.NEQ</source>
         <target>Is not</target>
       </segment>
     </unit>
     <unit id="N1AQsNF" name="filter.text_constraint.value.operator.STARTS">
-      <segment state="translated">
+      <segment>
         <source>filter.text_constraint.value.operator.STARTS</source>
         <target>Starts with</target>
       </segment>
     </unit>
     <unit id="3Rr21xj" name="filter.text_constraint.value.operator.CONTAINS">
-      <segment state="translated">
+      <segment>
         <source>filter.text_constraint.value.operator.CONTAINS</source>
         <target>Contains</target>
       </segment>
     </unit>
     <unit id="S_U21kw" name="filter.text_constraint.value.operator.ENDS">
-      <segment state="translated">
+      <segment>
         <source>filter.text_constraint.value.operator.ENDS</source>
         <target>Ends with</target>
       </segment>
     </unit>
     <unit id="l2ojG4Z" name="filter.text_constraint.value.operator.LIKE">
-      <segment state="translated">
+      <segment>
         <source>filter.text_constraint.value.operator.LIKE</source>
         <target>LIKE pattern</target>
       </segment>
     </unit>
     <unit id="hAcin33" name="filter.text_constraint.value.operator.REGEX">
-      <segment state="translated">
+      <segment>
         <source>filter.text_constraint.value.operator.REGEX</source>
         <target>Regular expression</target>
       </segment>
     </unit>
     <unit id="hWtqvI3" name="filter.number_constraint.value.operator.BETWEEN">
-      <segment state="translated">
+      <segment>
         <source>filter.number_constraint.value.operator.BETWEEN</source>
         <target>Between</target>
       </segment>
     </unit>
     <unit id="Pho_nY5" name="filter.number_constraint.AND">
-      <segment state="translated">
+      <segment>
         <source>filter.number_constraint.AND</source>
         <target>and</target>
       </segment>
     </unit>
     <unit id="NOmRxFG" name="filter.entity_constraint.operator.EQ">
-      <segment state="translated">
+      <segment>
         <source>filter.entity_constraint.operator.EQ</source>
         <target>Is (excluding children)</target>
       </segment>
     </unit>
     <unit id="7zxBnzb" name="filter.entity_constraint.operator.NEQ">
-      <segment state="translated">
+      <segment>
         <source>filter.entity_constraint.operator.NEQ</source>
         <target>Is not (excluding children)</target>
       </segment>
     </unit>
     <unit id="oX1nk5D" name="filter.entity_constraint.operator.INCLUDING_CHILDREN">
-      <segment state="translated">
+      <segment>
         <source>filter.entity_constraint.operator.INCLUDING_CHILDREN</source>
         <target>Is (including children)</target>
       </segment>
     </unit>
     <unit id="AS9s6LU" name="filter.entity_constraint.operator.EXCLUDING_CHILDREN">
-      <segment state="translated">
+      <segment>
         <source>filter.entity_constraint.operator.EXCLUDING_CHILDREN</source>
         <target>Is not (excluding children)</target>
       </segment>
     </unit>
     <unit id="7.bq.cZ" name="part.filter.dbId">
-      <segment state="translated">
+      <segment>
         <source>part.filter.dbId</source>
         <target>Database ID</target>
       </segment>
     </unit>
     <unit id="RphtSCZ" name="filter.tags_constraint.operator.ANY">
-      <segment state="translated">
+      <segment>
         <source>filter.tags_constraint.operator.ANY</source>
         <target>Any of the tags</target>
       </segment>
     </unit>
     <unit id="So3q9VW" name="filter.tags_constraint.operator.ALL">
-      <segment state="translated">
+      <segment>
         <source>filter.tags_constraint.operator.ALL</source>
         <target>All of the tags</target>
       </segment>
     </unit>
     <unit id="mqkIc_4" name="filter.tags_constraint.operator.NONE">
-      <segment state="translated">
+      <segment>
         <source>filter.tags_constraint.operator.NONE</source>
         <target>None of the tags</target>
       </segment>
     </unit>
     <unit id="wgXINWq" name="part.filter.lot_count">
-      <segment state="translated">
+      <segment>
         <source>part.filter.lot_count</source>
         <target>Number of lots</target>
       </segment>
     </unit>
     <unit id="tjfJAIq" name="part.filter.attachments_count">
-      <segment state="translated">
+      <segment>
         <source>part.filter.attachments_count</source>
         <target>Number of attachments</target>
       </segment>
     </unit>
     <unit id="6Bt9ZhB" name="part.filter.orderdetails_count">
-      <segment state="translated">
+      <segment>
         <source>part.filter.orderdetails_count</source>
         <target>Number of orderdetails</target>
       </segment>
     </unit>
     <unit id="QnS490v" name="part.filter.lotExpirationDate">
-      <segment state="translated">
+      <segment>
         <source>part.filter.lotExpirationDate</source>
         <target>Lot expiration date</target>
       </segment>
     </unit>
     <unit id="fIZmzas" name="part.filter.lotNeedsRefill">
-      <segment state="translated">
+      <segment>
         <source>part.filter.lotNeedsRefill</source>
         <target>Any lot needs refill</target>
       </segment>
     </unit>
     <unit id="_ERegGt" name="part.filter.lotUnknwonAmount">
-      <segment state="translated">
+      <segment>
         <source>part.filter.lotUnknwonAmount</source>
         <target>Any lot has unknown amount</target>
       </segment>
     </unit>
     <unit id="lRKoTj_" name="part.filter.attachmentName">
-      <segment state="translated">
+      <segment>
         <source>part.filter.attachmentName</source>
         <target>Attachment name</target>
       </segment>
     </unit>
     <unit id=".gg9fsx" name="filter.choice_constraint.operator.ANY">
-      <segment state="translated">
+      <segment>
         <source>filter.choice_constraint.operator.ANY</source>
         <target>Any of</target>
       </segment>
     </unit>
     <unit id="dbzWAHM" name="filter.choice_constraint.operator.NONE">
-      <segment state="translated">
+      <segment>
         <source>filter.choice_constraint.operator.NONE</source>
         <target>None of</target>
       </segment>
     </unit>
     <unit id="ZnYcxRf" name="part.filter.amount_sum">
-      <segment state="translated">
+      <segment>
         <source>part.filter.amount_sum</source>
         <target>Total amount</target>
       </segment>
     </unit>
     <unit id="FGuEete" name="filter.submit">
-      <segment state="translated">
+      <segment>
         <source>filter.submit</source>
         <target>Update</target>
       </segment>
     </unit>
     <unit id="4jJXUNM" name="filter.discard">
-      <segment state="translated">
+      <segment>
         <source>filter.discard</source>
         <target>Discard changes</target>
       </segment>
     </unit>
     <unit id="uVrP0no" name="filter.clear_filters">
-      <segment state="translated">
+      <segment>
         <source>filter.clear_filters</source>
         <target>Clear all filters</target>
       </segment>
     </unit>
     <unit id="Rd0n9wc" name="filter.title">
-      <segment state="translated">
+      <segment>
         <source>filter.title</source>
         <target>Filter</target>
       </segment>
     </unit>
     <unit id="kTizqBM" name="filter.parameter_value_constraint.operator.=">
-      <segment state="translated">
+      <segment>
         <source>filter.parameter_value_constraint.operator.=</source>
         <target>Typ. Value =</target>
       </segment>
     </unit>
     <unit id="2Nf2h2a" name="filter.parameter_value_constraint.operator.!=">
-      <segment state="translated">
+      <segment>
         <source>filter.parameter_value_constraint.operator.!=</source>
         <target>Typ. Value !=</target>
       </segment>
     </unit>
     <unit id="0fmepxx" name="filter.parameter_value_constraint.operator.&lt;">
-      <segment state="translated">
+      <segment>
         <source>filter.parameter_value_constraint.operator.&lt;</source>
-        <target>Typ. Value &lt;</target>
+        <target><![CDATA[Typ. Value <]]></target>
       </segment>
     </unit>
     <unit id="ubkcT6U" name="filter.parameter_value_constraint.operator.&gt;">
-      <segment state="translated">
+      <segment>
         <source>filter.parameter_value_constraint.operator.&gt;</source>
-        <target>Typ. Value &gt;</target>
+        <target><![CDATA[Typ. Value >]]></target>
       </segment>
     </unit>
     <unit id="O4x0opb" name="filter.parameter_value_constraint.operator.&lt;=">
-      <segment state="translated">
+      <segment>
         <source>filter.parameter_value_constraint.operator.&lt;=</source>
-        <target>Typ. Value &lt;=</target>
+        <target><![CDATA[Typ. Value <=]]></target>
       </segment>
     </unit>
     <unit id="ituiTs9" name="filter.parameter_value_constraint.operator.&gt;=">
-      <segment state="translated">
+      <segment>
         <source>filter.parameter_value_constraint.operator.&gt;=</source>
-        <target>Typ. Value &gt;=</target>
+        <target><![CDATA[Typ. Value >=]]></target>
       </segment>
     </unit>
     <unit id="Y8B3A9X" name="filter.parameter_value_constraint.operator.BETWEEN">
-      <segment state="translated">
+      <segment>
         <source>filter.parameter_value_constraint.operator.BETWEEN</source>
         <target>Typ. Value is between</target>
       </segment>
     </unit>
     <unit id="FqUoIEy" name="filter.parameter_value_constraint.operator.IN_RANGE">
-      <segment state="translated">
+      <segment>
         <source>filter.parameter_value_constraint.operator.IN_RANGE</source>
         <target>In Value range</target>
       </segment>
     </unit>
     <unit id="v_1AWPE" name="filter.parameter_value_constraint.operator.NOT_IN_RANGE">
-      <segment state="translated">
+      <segment>
         <source>filter.parameter_value_constraint.operator.NOT_IN_RANGE</source>
         <target>Not in Value range</target>
       </segment>
     </unit>
     <unit id="X4hI3kL" name="filter.parameter_value_constraint.operator.GREATER_THAN_RANGE">
-      <segment state="translated">
+      <segment>
         <source>filter.parameter_value_constraint.operator.GREATER_THAN_RANGE</source>
         <target>Greater than Value range</target>
       </segment>
     </unit>
     <unit id="yQO92R2" name="filter.parameter_value_constraint.operator.GREATER_EQUAL_RANGE">
-      <segment state="translated">
+      <segment>
         <source>filter.parameter_value_constraint.operator.GREATER_EQUAL_RANGE</source>
         <target>Greater equal than Value range</target>
       </segment>
     </unit>
     <unit id="h8zJtL5" name="filter.parameter_value_constraint.operator.LESS_THAN_RANGE">
-      <segment state="translated">
+      <segment>
         <source>filter.parameter_value_constraint.operator.LESS_THAN_RANGE</source>
         <target>Less than Value range</target>
       </segment>
     </unit>
     <unit id="sxSjUOg" name="filter.parameter_value_constraint.operator.LESS_EQUAL_RANGE">
-      <segment state="translated">
+      <segment>
         <source>filter.parameter_value_constraint.operator.LESS_EQUAL_RANGE</source>
         <target>Less equal than Value range</target>
       </segment>
     </unit>
     <unit id="fqRL5fp" name="filter.parameter_value_constraint.operator.RANGE_IN_RANGE">
-      <segment state="translated">
+      <segment>
         <source>filter.parameter_value_constraint.operator.RANGE_IN_RANGE</source>
         <target>Range is completly in Value range</target>
       </segment>
     </unit>
     <unit id="PJgHP5E" name="filter.parameter_value_constraint.operator.RANGE_INTERSECT_RANGE">
-      <segment state="translated">
+      <segment>
         <source>filter.parameter_value_constraint.operator.RANGE_INTERSECT_RANGE</source>
         <target>Range intersects Value range</target>
       </segment>
     </unit>
     <unit id="5Svrc5E" name="filter.text_constraint.value">
-      <segment state="translated">
+      <segment>
         <source>filter.text_constraint.value</source>
         <target>No value set</target>
       </segment>
     </unit>
     <unit id="EIwFuHJ" name="filter.number_constraint.value1">
-      <segment state="translated">
+      <segment>
         <source>filter.number_constraint.value1</source>
         <target>No value set</target>
       </segment>
     </unit>
     <unit id="nb9L_bM" name="filter.number_constraint.value2">
-      <segment state="translated">
+      <segment>
         <source>filter.number_constraint.value2</source>
         <target>Maximum value</target>
       </segment>
     </unit>
     <unit id="Chr6I.s" name="filter.datetime_constraint.value1">
-      <segment state="translated">
+      <segment>
         <source>filter.datetime_constraint.value1</source>
         <target>No datetime set</target>
       </segment>
     </unit>
     <unit id="OX2SbVT" name="filter.datetime_constraint.value2">
-      <segment state="translated">
+      <segment>
         <source>filter.datetime_constraint.value2</source>
         <target>Maximum datetime</target>
       </segment>
     </unit>
     <unit id="HsxzALM" name="filter.constraint.add">
-      <segment state="translated">
+      <segment>
         <source>filter.constraint.add</source>
         <target>Add constraint</target>
       </segment>
     </unit>
     <unit id=".CuxL5L" name="part.filter.parameters_count">
-      <segment state="translated">
+      <segment>
         <source>part.filter.parameters_count</source>
         <target>Number of parameters</target>
       </segment>
     </unit>
     <unit id="Dn0SKIi" name="part.filter.lotDescription">
-      <segment state="translated">
+      <segment>
         <source>part.filter.lotDescription</source>
         <target>Lot description</target>
       </segment>
     </unit>
     <unit id="W1rWF5g" name="parts_list.search.searching_for">
-      <segment state="translated">
+      <segment>
         <source>parts_list.search.searching_for</source>
-        <target>Searching parts with keyword &lt;b&gt;%keyword%&lt;/b&gt;</target>
+        <target><![CDATA[Searching parts with keyword <b>%keyword%</b>]]></target>
       </segment>
     </unit>
     <unit id="lkQ2zTi" name="parts_list.search_options.caption">
-      <segment state="translated">
+      <segment>
         <source>parts_list.search_options.caption</source>
         <target>Enabled search options</target>
       </segment>
     </unit>
     <unit id="biszSr8" name="attachment.table.element_type">
-      <segment state="translated">
+      <segment>
         <source>attachment.table.element_type</source>
         <target>Associated element type</target>
       </segment>
     </unit>
     <unit id="nUZamS5" name="log.level.debug">
-      <segment state="translated">
+      <segment>
         <source>log.level.debug</source>
         <target>Debug</target>
       </segment>
     </unit>
     <unit id="ZPxm2Ee" name="log.level.info">
-      <segment state="translated">
+      <segment>
         <source>log.level.info</source>
         <target>Info</target>
       </segment>
     </unit>
     <unit id="NVXjDhG" name="log.level.notice">
-      <segment state="translated">
+      <segment>
         <source>log.level.notice</source>
         <target>Notice</target>
       </segment>
     </unit>
     <unit id="9ObjWuR" name="log.level.warning">
-      <segment state="translated">
+      <segment>
         <source>log.level.warning</source>
         <target>Warning</target>
       </segment>
     </unit>
     <unit id="WxMwuLP" name="log.level.error">
-      <segment state="translated">
+      <segment>
         <source>log.level.error</source>
         <target>Error</target>
       </segment>
     </unit>
     <unit id="idch78J" name="log.level.critical">
-      <segment state="translated">
+      <segment>
         <source>log.level.critical</source>
         <target>Critical</target>
       </segment>
     </unit>
     <unit id="jehoQTd" name="log.level.alert">
-      <segment state="translated">
+      <segment>
         <source>log.level.alert</source>
         <target>Alert</target>
       </segment>
     </unit>
     <unit id="XvKEDM0" name="log.level.emergency">
-      <segment state="translated">
+      <segment>
         <source>log.level.emergency</source>
         <target>Emergency</target>
       </segment>
     </unit>
     <unit id="sEvRe10" name="log.type.security">
-      <segment state="translated">
+      <segment>
         <source>log.type.security</source>
         <target>Security related event</target>
       </segment>
     </unit>
     <unit id="gJDmvym" name="log.type.instock_changed">
-      <segment state="translated">
+      <segment>
         <source>log.type.instock_changed</source>
         <target>[LEGACY] Instock changed</target>
       </segment>
     </unit>
     <unit id="4Od2HUk" name="device_part.label">
-      <segment state="translated">
+      <segment>
         <source>device_part.label</source>
         <target>Device part</target>
       </segment>
     </unit>
     <unit id="lJZCHHM" name="log.target_id">
-      <segment state="translated">
+      <segment>
         <source>log.target_id</source>
         <target>Target element ID</target>
       </segment>

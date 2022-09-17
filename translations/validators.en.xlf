@@ -227,5 +227,11 @@
         <target>You must select an supplier!</target>
       </segment>
     </unit>
+    <unit id="k5DDdB4" name="validator.measurement_unit.use_si_prefix_needs_unit">
+      <segment>
+        <source>validator.measurement_unit.use_si_prefix_needs_unit</source>
+        <target>To enable SI prefixes, you have to set a unit symbol!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -77,8 +77,9 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
 
     /**
      * @var bool Determines if the unit can be used with SI Prefixes (kilo, giga, milli, etc.).
-     *           Useful for sizes like meters.
+     *           Useful for sizes like meters. For this the unit must be set
      * @ORM\Column(type="boolean", name="use_si_prefix")
+     * @Assert\Expression("this.isUseSIPrefix() == false or this.getUnit() != null", message="validator.measurement_unit.use_si_prefix_needs_unit")
      */
     protected $use_si_prefix = false;
 
