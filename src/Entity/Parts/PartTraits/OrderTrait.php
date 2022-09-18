@@ -43,7 +43,6 @@ declare(strict_types=1);
 namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\PriceInformations\Orderdetail;
-use App\Security\Annotations\ColumnSecurity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use function count;
@@ -59,7 +58,6 @@ trait OrderTrait
      * @var Orderdetail[]|Collection the details about how and where you can order this part
      * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
-     * @ColumnSecurity(prefix="orderdetails", type="collection")
      * @ORM\OrderBy({"supplierpartnr" = "ASC"})
      */
     protected $orderdetails;
@@ -67,14 +65,12 @@ trait OrderTrait
     /**
      * @var int
      * @ORM\Column(type="integer")
-     * @ColumnSecurity(prefix="order", type="integer")
      */
     protected int $order_quantity = 0;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
-     * @ColumnSecurity(prefix="order", type="boolean")
      */
     protected bool $manual_order = false;
 
@@ -82,8 +78,6 @@ trait OrderTrait
      * @var Orderdetail
      * @ORM\OneToOne(targetEntity="App\Entity\PriceInformations\Orderdetail")
      * @ORM\JoinColumn(name="order_orderdetails_id", referencedColumnName="id")
-     *
-     * @ColumnSecurity(prefix="order", type="object")
      */
     protected Orderdetail $order_orderdetail;
 

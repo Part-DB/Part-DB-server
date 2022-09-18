@@ -43,7 +43,6 @@ declare(strict_types=1);
 namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\Parts\Part;
-use App\Security\Annotations\ColumnSecurity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -55,21 +54,18 @@ trait AdvancedPropertyTrait
     /**
      * @var bool Determines if this part entry needs review (for example, because it is work in progress)
      * @ORM\Column(type="boolean")
-     * @ColumnSecurity(type="boolean")
      */
     protected bool $needs_review = false;
 
     /**
      * @var string a comma separated list of tags, associated with the part
      * @ORM\Column(type="text")
-     * @ColumnSecurity(type="string", prefix="tags", placeholder="")
      */
     protected string $tags = '';
 
     /**
      * @var float|null how much a single part unit weighs in grams
      * @ORM\Column(type="float", nullable=true)
-     * @ColumnSecurity(type="float", placeholder=null)
      * @Assert\PositiveOrZero()
      */
     protected ?float $mass = null;

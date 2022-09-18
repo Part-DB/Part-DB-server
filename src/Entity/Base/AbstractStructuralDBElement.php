@@ -45,7 +45,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @ORM\MappedSuperclass(repositoryClass="App\Repository\StructuralDBElementRepository")
  *
- * @ORM\EntityListeners({"App\Security\EntityListeners\ElementPermissionListener", "App\EntityListeners\TreeCacheInvalidationListener"})
+ * @ORM\EntityListeners({"App\EntityListeners\TreeCacheInvalidationListener"})
  *
  * @UniqueEntity(fields={"name", "parent"}, ignoreNull=false, message="structural.entity.unique_name")
  */
