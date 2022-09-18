@@ -85,7 +85,7 @@ class PasswordResetManager
         }
 
         $unencrypted_token = md5(random_bytes(32));
-        $user->setPwResetToken($this->passwordEncoder->hash($unencrypted_token, null));
+        $user->setPwResetToken($this->passwordEncoder->hash($unencrypted_token));
 
         //Determine the expiration datetime of
         $expiration_date = new DateTime();
@@ -140,7 +140,7 @@ class PasswordResetManager
         }
 
         //Check if token is valid
-        if (!$this->passwordEncoder->verify($user->getPwResetToken(), $token, null)) {
+        if (!$this->passwordEncoder->verify($user->getPwResetToken(), $token)) {
             return false;
         }
 

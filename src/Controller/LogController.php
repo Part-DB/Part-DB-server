@@ -51,6 +51,7 @@ use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Form\Filters\LogFilterType;
+use App\Repository\DBElementRepository;
 use App\Services\LogSystem\EventUndoHelper;
 use App\Services\LogSystem\TimeTravel;
 use Doctrine\ORM\EntityManagerInterface;
@@ -71,7 +72,7 @@ class LogController extends AbstractController
 {
     protected EntityManagerInterface $entityManager;
     protected TimeTravel $timeTravel;
-    protected EntityRepository $dbRepository;
+    protected DBElementRepository $dbRepository;
 
     public function __construct(EntityManagerInterface $entityManager, TimeTravel $timeTravel)
     {
