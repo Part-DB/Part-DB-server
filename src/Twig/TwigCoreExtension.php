@@ -11,7 +11,7 @@ use Twig\TwigTest;
 /**
  * The functionalities here extend the Twig with some core functions, which are independently of Part-DB.
  */
-class TwigCoreExtension extends AbstractExtension
+final class TwigCoreExtension extends AbstractExtension
 {
     protected $objectNormalizer;
 

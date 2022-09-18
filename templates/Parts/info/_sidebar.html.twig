@@ -18,7 +18,7 @@
 {% if part.mass %}
     <div>
         <h6>
-            <span class="badge bg-secondary" title="{% trans %}part.mass.tooltip{% endtrans %}"><i class="fas fa-weight-hanging fa-fw"></i> {{ part.mass | siFormat("g") }}</span>
+            <span class="badge bg-secondary" title="{% trans %}part.mass.tooltip{% endtrans %}"><i class="fas fa-weight-hanging fa-fw"></i> {{ part.mass | format_si("g") }}</span>
         </h6>
     </div>
 {% endif %}

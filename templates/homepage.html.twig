@@ -12,7 +12,7 @@
         {% if banner is not empty %}
             <hr>
             <div class="latex" data-controller="common--latex">
-                <h5>{{ banner | markdown }}</h5>
+                <h5>{{ banner | format_markdown }}</h5>
             </div>
         {% endif %}
     </div>

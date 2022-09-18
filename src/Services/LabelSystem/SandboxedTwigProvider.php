@@ -41,7 +41,7 @@ use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
 use App\Entity\UserSystem\User;
-use App\Twig\AppExtension;
+use App\Twig\FormatExtension;
 use App\Twig\Sandbox\InheritanceSecurityPolicy;
 use InvalidArgumentException;
 use Twig\Environment;
@@ -98,7 +98,7 @@ final class SandboxedTwigProvider
 
     private $appExtension;
 
-    public function __construct(AppExtension $appExtension)
+    public function __construct(FormatExtension $appExtension)
     {
         $this->appExtension = $appExtension;
     }

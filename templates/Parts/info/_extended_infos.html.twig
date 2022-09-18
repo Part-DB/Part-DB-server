@@ -45,7 +45,7 @@
     <tr>
         <td>{% trans %}part.minOrderAmount{% endtrans %}</td>
         <td>{% if  pricedetail_helper.minOrderAmount(part) %}
-                {{ pricedetail_helper.minOrderAmount(part) | amountFormat(part.partUnit) }}
+                {{ pricedetail_helper.minOrderAmount(part) | format_amount(part.partUnit) }}
             {% else %}
                 {% trans %}Unknown{% endtrans %}
             {% endif %}

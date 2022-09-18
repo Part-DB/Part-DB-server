@@ -97,7 +97,7 @@ class FAIconGenerator
      *
      * @return string The final html
      */
-    public function generateIconHTML(string $icon_class, string $style = 'fas', string $options = ''): string
+    public function generateIconHTML(string $icon_class, string $style = 'fa-solid', string $options = ''): string
     {
         //XSS protection
         $icon_class = htmlspecialchars($icon_class);

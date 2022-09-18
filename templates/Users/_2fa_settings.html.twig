@@ -41,7 +41,7 @@
 
                     <div class="offset-sm-3 row">
                         <div class="col-sm-3">
-                            <img width="100%" class="img-fluid" alt="{{ tfa_google.qrContent }}" src="{{ tfa_google.qrContent | barcodeSVG | data_uri("image/svg+xml") }}">
+                            <img width="100%" class="img-fluid" alt="{{ tfa_google.qrContent }}" src="{{ barcode_svg(tfa_google.qrContent) | data_uri("image/svg+xml") }}">
                         </div>
                         <div class="col-sm-9 my-auto">
                             <ol class="">

@@ -27,9 +27,10 @@ use App\Entity\LogSystem\AbstractLogEntry;
 use App\Repository\LogEntryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
 
-class UserExtension extends AbstractExtension
+final class UserExtension extends AbstractExtension
 {
     /** @var LogEntryRepository */
     private $repo;
@@ -37,6 +38,13 @@ class UserExtension extends AbstractExtension
     public function __construct(EntityManagerInterface $em)
     {
         $this->repo = $em->getRepository(AbstractLogEntry::class);
+    }
+
+    public function getFilters(): array
+    {
+        return [
+            new TwigFilter('remove_locale_from_path', [$this, 'removeLocaleFromPath']),
+        ];
     }
 
     public function getFunctions(): array
@@ -48,4 +56,22 @@ class UserExtension extends AbstractExtension
             new TwigFunction('creating_user', [$this->repo, 'getCreatingUser']),
         ];
     }
+
+    /**
+     * This function/filter generates an path.
+     */
+    public function removeLocaleFromPath(string $path): string
+    {
+        //Ensure the path has the correct format
+        if (!preg_match('/^\/\w{2}\//', $path)) {
+            throw new \InvalidArgumentException('The given path is not a localized path!');
+        }
+
+        $parts = explode('/', $path);
+        //Remove the part with locale
+        unset($parts[1]);
+
+        return implode('/', $parts);
+    }
+
 }

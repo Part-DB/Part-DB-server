@@ -122,7 +122,7 @@
                             {% if entity.comment is not empty %}
                                 <div class="tab-pane fade" id="v-pills-comment" role="tabpanel" aria-labelledby="home-tab">
                                     <div class="container-fluid mt-2 latex" data-controller="common--latex">
-                                        {{ entity.comment|markdown }}
+                                        {{ entity.comment|format_markdown }}
                                     </div>
                                 </div>
                             {% endif %}

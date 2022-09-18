@@ -75,83 +75,39 @@ use Twig\TwigTest;
 
 use function get_class;
 
-class AppExtension extends AbstractExtension
+final class FormatExtension extends AbstractExtension
 {
     protected $markdownParser;
-    protected $serializer;
-    protected $treeBuilder;
     protected $moneyFormatter;
     protected $siformatter;
     protected $amountFormatter;
-    protected $attachmentURLGenerator;
-    protected $FAIconGenerator;
-    protected $translator;
 
-    public function __construct(MarkdownParser $markdownParser,
-        SerializerInterface $serializer, TreeViewGenerator $treeBuilder,
-        MoneyFormatter $moneyFormatter,
-        SIFormatter $SIFormatter, AmountFormatter $amountFormatter,
-        AttachmentURLGenerator $attachmentURLGenerator,
-        FAIconGenerator $FAIconGenerator, TranslatorInterface $translator)
+
+    public function __construct(MarkdownParser $markdownParser, MoneyFormatter $moneyFormatter,
+        SIFormatter $SIFormatter, AmountFormatter $amountFormatter)
     {
         $this->markdownParser = $markdownParser;
-        $this->serializer = $serializer;
-        $this->treeBuilder = $treeBuilder;
         $this->moneyFormatter = $moneyFormatter;
         $this->siformatter = $SIFormatter;
         $this->amountFormatter = $amountFormatter;
-        $this->attachmentURLGenerator = $attachmentURLGenerator;
-        $this->FAIconGenerator = $FAIconGenerator;
-        $this->translator = $translator;
     }
 
     public function getFilters(): array
     {
         return [
-            new TwigFilter('markdown', [$this->markdownParser, 'markForRendering'], [
+            /* Mark the given text as markdown, which will be rendered in the browser */
+            new TwigFilter('format_markdown', [$this->markdownParser, 'markForRendering'], [
                 'pre_escape' => 'html',
                 'is_safe' => ['html'],
             ]),
-            new TwigFilter('moneyFormat', [$this, 'formatCurrency']),
-            new TwigFilter('siFormat', [$this, 'siFormat']),
-            new TwigFilter('amountFormat', [$this, 'amountFormat']),
-            new TwigFilter('loginPath', [$this, 'loginPath']),
+            /* Format the given amount as money, using a given currency */
+            new TwigFilter('format_money', [$this, 'formatCurrency']),
+            /* Format the given number using SI prefixes and the given unit (string) */
+            new TwigFilter('format_si', [$this, 'siFormat']),
+            /** Format the given amount using the given MeasurementUnit */
+            new TwigFilter('format_amount', [$this, 'amountFormat']),
         ];
     }
-
-
-
-    public function getFunctions(): array
-    {
-        return [
-            new TwigFunction('generateTreeData', [$this, 'treeData']),
-            new TwigFunction('attachment_thumbnail', [$this->attachmentURLGenerator, 'getThumbnailURL']),
-            new TwigFunction('ext_to_fa_icon', [$this->FAIconGenerator, 'fileExtensionToFAType']),
-        ];
-    }
-
-    public function treeData(AbstractDBElement $element, string $type = 'newEdit'): string
-    {
-        $tree = $this->treeBuilder->getTreeView(get_class($element), null, $type, $element);
-
-        return json_encode($tree, JSON_THROW_ON_ERROR);
-    }
-
-
-
-    /**
-     * This function/filter generates an path.
-     */
-    public function loginPath(string $path): string
-    {
-        $parts = explode('/', $path);
-        //Remove the part with
-        unset($parts[1]);
-
-        return implode('/', $parts);
-    }
-
-
 
     public function formatCurrency($amount, ?Currency $currency = null, int $decimals = 5): string
     {

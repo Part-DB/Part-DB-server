@@ -53,7 +53,7 @@
                                         aria-hidden="true"></i> {% trans %}user.logout{% endtrans %}</a>
                         {% else %}
                             <a class="dropdown-item"
-                               href="{{ path('login', {'_target_path': app.request.pathinfo | loginPath}) }}"
+                               href="{{ path('login', {'_target_path': app.request.pathinfo | remove_locale_from_path}) }}"
                                id="login-link"><i class="fa fa-sign-in-alt fa-fw"
                                                   aria-hidden="true"></i> {% trans %}user.login{% endtrans %}</a>
                         {% endif %}

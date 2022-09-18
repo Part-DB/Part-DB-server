@@ -16,26 +16,24 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
+use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
+use App\Services\Trees\TreeViewGenerator;
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Twig\TwigTest;
 
-class EntityExtension extends AbstractExtension
+final class EntityExtension extends AbstractExtension
 {
     protected $entityURLGenerator;
+    protected $treeBuilder;
+    private $nameGenerator;
 
-    public function __construct(EntityURLGenerator $entityURLGenerator)
+    public function __construct(EntityURLGenerator $entityURLGenerator, TreeViewGenerator $treeBuilder, ElementTypeNameGenerator $elementTypeNameGenerator)
     {
         $this->entityURLGenerator = $entityURLGenerator;
-    }
-
-    public function getFilters(): array
-    {
-        return [
-
-        ];
+        $this->treeBuilder = $treeBuilder;
+        $this->nameGenerator = $elementTypeNameGenerator;
     }
 
     public function getTests(): array
@@ -53,8 +51,21 @@ class EntityExtension extends AbstractExtension
         return [
             /* Returns a string representation of the given entity */
             new TwigFunction('entity_type', [$this, 'getEntityType']),
+            /* Returns the URL to the given entity */
             new TwigFunction('entity_url', [$this, 'generateEntityURL']),
+            /* Generates a JSON array of the given tree */
+            new TwigFunction('tree_data', [$this, 'treeData']),
+
+            /* Gets a human readable label for the type of the given entity */
+            new TwigFunction('entity_type_label', [$this->nameGenerator, 'getLocalizedTypeLabel']),
         ];
+    }
+
+    public function treeData(AbstractDBElement $element, string $type = 'newEdit'): string
+    {
+        $tree = $this->treeBuilder->getTreeView(get_class($element), null, $type, $element);
+
+        return json_encode($tree, JSON_THROW_ON_ERROR);
     }
 
     public function generateEntityURL(AbstractDBElement $entity, string $method = 'info'): string
