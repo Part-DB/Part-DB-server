@@ -70,20 +70,20 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      * @var string A short description about this lot, shown in table
      * @ORM\Column(type="text")
      */
-    protected $description = '';
+    protected string $description = '';
 
     /**
      * @var string a comment stored with this lot
      * @ORM\Column(type="text")
      */
-    protected $comment = '';
+    protected string $comment = '';
 
     /**
      * @var ?DateTime Set a time until when the lot must be used.
      *                Set to null, if the lot can be used indefinitely.
      * @ORM\Column(type="datetime", name="expiration_date", nullable=true)
      */
-    protected $expiration_date;
+    protected ?DateTime $expiration_date = null;
 
     /**
      * @var Storelocation|null The storelocation of this lot
@@ -91,26 +91,26 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      * @ORM\JoinColumn(name="id_store_location", referencedColumnName="id", nullable=true)
      * @Selectable()
      */
-    protected $storage_location;
+    protected ?Storelocation $storage_location = null;
 
     /**
      * @var bool If this is set to true, the instock amount is marked as not known
      * @ORM\Column(type="boolean")
      */
-    protected $instock_unknown = false;
+    protected bool $instock_unknown = false;
 
     /**
      * @var float For continuous sizes (length, volume, etc.) the instock is saved here.
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero()
      */
-    protected $amount = 0;
+    protected float $amount = 0.0;
 
     /**
      * @var bool determines if this lot was manually marked for refilling
      * @ORM\Column(type="boolean")
      */
-    protected $needs_refill = false;
+    protected bool $needs_refill = false;
 
     /**
      * @var Part The part that is stored in this lot
@@ -118,7 +118,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      * @ORM\JoinColumn(name="id_part", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Assert\NotNull()
      */
-    protected $part;
+    protected Part $part;
 
     public function __clone()
     {

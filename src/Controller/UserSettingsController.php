@@ -73,7 +73,8 @@ use Symfony\Component\Validator\Constraints\Length;
  */
 class UserSettingsController extends AbstractController
 {
-    protected $demo_mode;
+    protected bool $demo_mode;
+
     /**
      * @var EventDispatcher|EventDispatcherInterface
      */

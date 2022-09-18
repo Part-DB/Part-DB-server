@@ -66,24 +66,24 @@ class DevicePart extends AbstractDBElement
      * @var int
      * @ORM\Column(type="integer", name="quantity")
      */
-    protected $quantity;
+    protected int $quantity;
 
     /**
      * @var string
      * @ORM\Column(type="text", name="mountnames")
      */
-    protected $mountnames;
+    protected string $mountnames;
     /**
      * @var Device
      * @ORM\ManyToOne(targetEntity="Device", inversedBy="parts")
      * @ORM\JoinColumn(name="id_device", referencedColumnName="id")
      */
-    protected $device;
+    protected Device $device;
 
     /**
      * @var Part
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part")
      * @ORM\JoinColumn(name="id_part", referencedColumnName="id")
      */
-    protected $part;
+    protected Part $part;
 }

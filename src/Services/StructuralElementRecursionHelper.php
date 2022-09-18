@@ -47,7 +47,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class StructuralElementRecursionHelper
 {
-    protected $em;
+    protected EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $em)
     {

@@ -34,8 +34,8 @@ use Symfony\Component\Security\Core\Security;
  */
 final class GlobalProviders implements PlaceholderProviderInterface
 {
-    private $partdb_title;
-    private $security;
+    private string $partdb_title;
+    private Security $security;
 
     public function __construct(string $partdb_title, Security $security)
     {

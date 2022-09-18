@@ -15,26 +15,13 @@ class LogFilter implements FilterInterface
 {
     use CompoundFilterTrait;
 
-    /** @var DateTimeConstraint */
-    protected $timestamp;
-
-    /** @var IntConstraint */
-    protected $dbId;
-
-    /** @var ChoiceConstraint  */
-    protected $level;
-
-    /** @var InstanceOfConstraint */
-    protected $eventType;
-
-    /** @var ChoiceConstraint */
-    protected $targetType;
-
-    /** @var IntConstraint */
-    protected $targetId;
-
-    /** @var EntityConstraint */
-    protected $user;
+    protected DateTimeConstraint $timestamp;
+    protected IntConstraint $dbId;
+    protected ChoiceConstraint $level;
+    protected InstanceOfConstraint $eventType;
+    protected ChoiceConstraint $targetType;
+    protected IntConstraint $targetId;
+    protected EntityConstraint $user;
 
     public function __construct()
     {

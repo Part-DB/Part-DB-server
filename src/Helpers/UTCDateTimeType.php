@@ -54,7 +54,7 @@ use Doctrine\DBAL\Types\DateTimeType;
  */
 class UTCDateTimeType extends DateTimeType
 {
-    private static $utc_timezone;
+    private static ?DateTimeZone $utc_timezone = null;
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {

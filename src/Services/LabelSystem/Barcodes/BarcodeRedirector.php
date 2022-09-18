@@ -31,8 +31,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class BarcodeRedirector
 {
-    private $urlGenerator;
-    private $em;
+    private UrlGeneratorInterface $urlGenerator;
+    private EntityManagerInterface $em;
 
     public function __construct(UrlGeneratorInterface $urlGenerator, EntityManagerInterface $entityManager)
     {

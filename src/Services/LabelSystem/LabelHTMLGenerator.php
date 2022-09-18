@@ -34,13 +34,13 @@ use Twig\Error\Error;
 
 final class LabelHTMLGenerator
 {
-    private $twig;
-    private $elementTypeNameGenerator;
-    private $replacer;
-    private $barcodeGenerator;
-    private $sandboxedTwigProvider;
-    private $partdb_title;
-    private $security;
+    private Environment $twig;
+    private ElementTypeNameGenerator $elementTypeNameGenerator;
+    private LabelTextReplacer $replacer;
+    private BarcodeGenerator $barcodeGenerator;
+    private SandboxedTwigProvider $sandboxedTwigProvider;
+    private string $partdb_title;
+    private Security $security;
 
     public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator, LabelTextReplacer $replacer, Environment $twig,
         BarcodeGenerator $barcodeGenerator, SandboxedTwigProvider $sandboxedTwigProvider, Security $security, string $partdb_title)

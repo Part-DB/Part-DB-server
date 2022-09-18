@@ -31,8 +31,8 @@ use Locale;
 
 final class PartLotProvider implements PlaceholderProviderInterface
 {
-    private $labelTextReplacer;
-    private $amountFormatter;
+    private LabelTextReplacer $labelTextReplacer;
+    private AmountFormatter $amountFormatter;
 
     public function __construct(LabelTextReplacer $labelTextReplacer, AmountFormatter $amountFormatter)
     {

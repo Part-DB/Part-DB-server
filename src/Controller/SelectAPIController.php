@@ -36,8 +36,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class SelectAPIController extends AbstractController
 {
-    private $nodesListBuilder;
-    private $translator;
+    private NodesListBuilder $nodesListBuilder;
+    private TranslatorInterface $translator;
 
     public function __construct(NodesListBuilder $nodesListBuilder, TranslatorInterface $translator)
     {

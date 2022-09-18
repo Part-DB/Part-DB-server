@@ -13,7 +13,7 @@ use Twig\TwigTest;
  */
 final class TwigCoreExtension extends AbstractExtension
 {
-    protected $objectNormalizer;
+    protected ObjectNormalizer $objectNormalizer;
 
     public function __construct(ObjectNormalizer $objectNormalizer)
     {

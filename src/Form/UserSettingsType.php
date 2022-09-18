@@ -58,8 +58,8 @@ use Symfony\Component\Security\Core\Security;
 
 class UserSettingsType extends AbstractType
 {
-    protected $security;
-    protected $demo_mode;
+    protected Security $security;
+    protected bool $demo_mode;
 
     public function __construct(Security $security, bool $demo_mode)
     {

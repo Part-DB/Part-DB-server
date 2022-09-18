@@ -57,39 +57,39 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      * @var string The address of the company
      * @ORM\Column(type="string")
      */
-    protected $address = '';
+    protected string $address = '';
 
     /**
      * @var string The phone number of the company
      * @ORM\Column(type="string")
      */
-    protected $phone_number = '';
+    protected string $phone_number = '';
 
     /**
      * @var string The fax number of the company
      * @ORM\Column(type="string")
      */
-    protected $fax_number = '';
+    protected string $fax_number = '';
 
     /**
      * @var string The email address of the company
      * @ORM\Column(type="string")
      * @Assert\Email()
      */
-    protected $email_address = '';
+    protected string $email_address = '';
 
     /**
      * @var string The website of the company
      * @ORM\Column(type="string")
      * @Assert\Url()
      */
-    protected $website = '';
+    protected string $website = '';
 
     /**
      * @var string
      * @ORM\Column(type="string")
      */
-    protected $auto_product_url = '';
+    protected string $auto_product_url = '';
 
     /********************************************************************************
      *

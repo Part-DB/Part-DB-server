@@ -60,11 +60,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class AttachmentDataTable implements DataTableTypeInterface
 {
-    private $translator;
-    private $entityURLGenerator;
-    private $attachmentHelper;
-    private $elementTypeNameGenerator;
-    private $attachmentURLGenerator;
+    private TranslatorInterface $translator;
+    private EntityURLGenerator $entityURLGenerator;
+    private AttachmentManager $attachmentHelper;
+    private ElementTypeNameGenerator $elementTypeNameGenerator;
+    private AttachmentURLGenerator $attachmentURLGenerator;
 
     public function __construct(TranslatorInterface $translator, EntityURLGenerator $entityURLGenerator,
                                 AttachmentManager $attachmentHelper, AttachmentURLGenerator $attachmentURLGenerator,

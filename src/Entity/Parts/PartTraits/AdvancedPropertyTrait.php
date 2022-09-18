@@ -57,14 +57,14 @@ trait AdvancedPropertyTrait
      * @ORM\Column(type="boolean")
      * @ColumnSecurity(type="boolean")
      */
-    protected $needs_review = false;
+    protected bool $needs_review = false;
 
     /**
      * @var string a comma separated list of tags, associated with the part
      * @ORM\Column(type="text")
      * @ColumnSecurity(type="string", prefix="tags", placeholder="")
      */
-    protected $tags = '';
+    protected string $tags = '';
 
     /**
      * @var float|null how much a single part unit weighs in grams
@@ -72,7 +72,7 @@ trait AdvancedPropertyTrait
      * @ColumnSecurity(type="float", placeholder=null)
      * @Assert\PositiveOrZero()
      */
-    protected $mass;
+    protected ?float $mass = null;
 
     /**
      * Checks if this part is marked, for that it needs further review.

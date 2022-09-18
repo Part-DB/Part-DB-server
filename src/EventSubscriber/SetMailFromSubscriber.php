@@ -52,8 +52,8 @@ use Symfony\Component\Mime\Email;
  */
 final class SetMailFromSubscriber implements EventSubscriberInterface
 {
-    private $email;
-    private $name;
+    private string $email;
+    private string $name;
 
     public function __construct(string $email, string $name)
     {

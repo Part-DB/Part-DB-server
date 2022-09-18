@@ -54,6 +54,7 @@ use App\Form\Filters\LogFilterType;
 use App\Services\LogSystem\EventUndoHelper;
 use App\Services\LogSystem\TimeTravel;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use InvalidArgumentException;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -68,9 +69,9 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class LogController extends AbstractController
 {
-    protected $entityManager;
-    protected $timeTravel;
-    protected $dbRepository;
+    protected EntityManagerInterface $entityManager;
+    protected TimeTravel $timeTravel;
+    protected EntityRepository $dbRepository;
 
     public function __construct(EntityManagerInterface $entityManager, TimeTravel $timeTravel)
     {

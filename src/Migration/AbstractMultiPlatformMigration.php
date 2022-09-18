@@ -19,10 +19,10 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
 {
     public const ADMIN_PW_LENGTH = 10;
 
-    protected $permissions_updated = false;
-    protected $admin_pw = '';
+    protected bool $permissions_updated = false;
+    protected string $admin_pw = '';
 
-    protected $logger;
+    protected LoggerInterface $logger;
 
     public function __construct(Connection $connection, LoggerInterface $logger)
     {

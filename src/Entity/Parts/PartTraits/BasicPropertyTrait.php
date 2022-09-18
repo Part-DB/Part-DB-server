@@ -56,27 +56,27 @@ trait BasicPropertyTrait
      * @ORM\Column(type="text")
      * @ColumnSecurity(prefix="description")
      */
-    protected $description = '';
+    protected string $description = '';
 
     /**
      * @var string A comment/note related to this part
      * @ORM\Column(type="text")
      * @ColumnSecurity(prefix="comment")
      */
-    protected $comment = '';
+    protected string $comment = '';
 
     /**
      * @var bool Kept for compatibility (it is not used now, and I dont think it was used in old versions)
      * @ORM\Column(type="boolean")
      */
-    protected $visible = true;
+    protected bool $visible = true;
 
     /**
      * @var bool true, if the part is marked as favorite
      * @ORM\Column(type="boolean")
      * @ColumnSecurity(type="boolean")
      */
-    protected $favorite = false;
+    protected bool $favorite = false;
 
     /**
      * @var Category The category this part belongs too (e.g. Resistors). Use tags, for more complex grouping.
@@ -87,7 +87,7 @@ trait BasicPropertyTrait
      * @Selectable()
      * @Assert\NotNull(message="validator.select_valid_category")
      */
-    protected $category;
+    protected ?Category $category = null;
 
     /**
      * @var Footprint|null The footprint of this part (e.g. DIP8)
@@ -96,7 +96,7 @@ trait BasicPropertyTrait
      * @ColumnSecurity(prefix="footprint", type="App\Entity\Parts\Footprint")
      * @Selectable()
      */
-    protected $footprint;
+    protected ?Footprint $footprint = null;
 
     /**
      * Get the description string like it is saved in the database.

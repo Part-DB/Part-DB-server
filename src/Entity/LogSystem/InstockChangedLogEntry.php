@@ -49,7 +49,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class InstockChangedLogEntry extends AbstractLogEntry
 {
-    protected $typeString = 'instock_changed';
+    protected string $typeString = 'instock_changed';
 
     /**
      * Get the old instock.

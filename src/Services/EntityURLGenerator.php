@@ -76,11 +76,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class EntityURLGenerator
 {
-    protected $attachmentURLGenerator;
-    /**
-     * @var UrlGeneratorInterface
-     */
-    protected $urlGenerator;
+    protected UrlGeneratorInterface $urlGenerator;
+    protected AttachmentURLGenerator $attachmentURLGenerator;
 
     public function __construct(UrlGeneratorInterface $urlGenerator, AttachmentURLGenerator $attachmentURLGenerator)
     {

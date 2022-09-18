@@ -59,6 +59,7 @@ use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
+use App\Repository\LogEntryRepository;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -77,12 +78,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LogDataTable implements DataTableTypeInterface
 {
-    protected $elementTypeNameGenerator;
-    protected $translator;
-    protected $urlGenerator;
-    protected $entityURLGenerator;
-    protected $logRepo;
-    protected $security;
+    protected ElementTypeNameGenerator $elementTypeNameGenerator;
+    protected TranslatorInterface $translator;
+    protected UrlGeneratorInterface $urlGenerator;
+    protected EntityURLGenerator $entityURLGenerator;
+    protected LogEntryRepository $logRepo;
+    protected Security $security;
 
     public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator, TranslatorInterface $translator,
         UrlGeneratorInterface $urlGenerator, EntityURLGenerator $entityURLGenerator, EntityManagerInterface $entityManager, Security $security)

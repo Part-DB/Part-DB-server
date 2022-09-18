@@ -36,8 +36,8 @@ use InvalidArgumentException;
  */
 class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventUndoInterface
 {
-    protected $typeString = 'collection_element_deleted';
-    protected $level = self::LEVEL_INFO;
+    protected string $typeString = 'collection_element_deleted';
+    protected int $level = self::LEVEL_INFO;
 
     public function __construct(AbstractDBElement $changed_element, string $collection_name, AbstractDBElement $deletedElement)
     {

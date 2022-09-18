@@ -63,8 +63,8 @@ class FileTypeFilterTools
     protected const AUDIO_EXTS = ['mp3', 'flac', 'ogg', 'oga', 'wav', 'm4a', 'opus'];
     protected const ALLOWED_MIME_PLACEHOLDERS = ['image/*', 'audio/*', 'video/*'];
 
-    protected $mimeTypes;
-    protected $cache;
+    protected MimeTypesInterface $mimeTypes;
+    protected CacheInterface $cache;
 
     public function __construct(MimeTypesInterface $mimeTypes, CacheInterface $cache)
     {

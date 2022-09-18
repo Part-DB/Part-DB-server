@@ -52,7 +52,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class ValidPartLotValidator extends ConstraintValidator
 {
-    protected $em;
+    protected EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $em)
     {

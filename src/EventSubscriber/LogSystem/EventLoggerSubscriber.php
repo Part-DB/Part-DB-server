@@ -90,14 +90,14 @@ class EventLoggerSubscriber implements EventSubscriber
 
     protected const MAX_STRING_LENGTH = 2000;
 
-    protected $logger;
-    protected $serializer;
-    protected $eventCommentHelper;
-    protected $eventUndoHelper;
-    protected $save_changed_fields;
-    protected $save_changed_data;
-    protected $save_removed_data;
-    protected $propertyAccessor;
+    protected EventLogger $logger;
+    protected SerializerInterface $serializer;
+    protected EventCommentHelper $eventCommentHelper;
+    protected EventUndoHelper $eventUndoHelper;
+    protected bool $save_changed_fields;
+    protected bool $save_changed_data;
+    protected bool $save_removed_data;
+    protected PropertyAccessorInterface $propertyAccessor;
 
     public function __construct(EventLogger $logger, SerializerInterface $serializer, EventCommentHelper $commentHelper,
         bool $save_changed_fields, bool $save_changed_data, bool $save_removed_data, PropertyAccessorInterface $propertyAccessor,

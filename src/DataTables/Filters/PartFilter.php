@@ -28,104 +28,40 @@ class PartFilter implements FilterInterface
 
     use CompoundFilterTrait;
 
-    /** @var NumberConstraint */
-    protected $dbId;
-
-    /** @var TextConstraint */
-    protected $name;
-
-    /** @var TextConstraint */
-    protected $description;
-
-    /** @var TextConstraint */
-    protected $comment;
-
-    /** @var TagsConstraint */
-    protected $tags;
-
-    /** @var NumberConstraint */
-    protected $minAmount;
-
-    /** @var BooleanConstraint */
-    protected $favorite;
-
-    /** @var BooleanConstraint */
-    protected $needsReview;
-
-    /** @var NumberConstraint */
-    protected $mass;
-
-    /** @var DateTimeConstraint */
-    protected $lastModified;
-
-    /** @var DateTimeConstraint */
-    protected $addedDate;
-
-    /** @var EntityConstraint */
-    protected $category;
-
-    /** @var EntityConstraint */
-    protected $footprint;
-
-    /** @var EntityConstraint */
-    protected $manufacturer;
-
-    /** @var ChoiceConstraint */
-    protected $manufacturing_status;
-
-    /** @var EntityConstraint */
-    protected $supplier;
-
-    /** @var IntConstraint */
-    protected $orderdetailsCount;
-
-    /** @var BooleanConstraint */
-    protected $obsolete;
-
-    /** @var EntityConstraint */
-    protected $storelocation;
-
-    /** @var IntConstraint */
-    protected $lotCount;
-
-    /** @var NumberConstraint */
-    protected $amountSum;
-
-    /** @var BooleanConstraint */
-    protected $lotNeedsRefill;
-
-    /** @var TextConstraint */
-    protected $lotDescription;
-
-    /** @var BooleanConstraint */
-    protected $lotUnknownAmount;
-
-    /** @var DateTimeConstraint */
-    protected $lotExpirationDate;
-
-    /** @var EntityConstraint */
-    protected $measurementUnit;
-
-    /** @var TextConstraint */
-    protected $manufacturer_product_url;
-
-    /** @var TextConstraint */
-    protected $manufacturer_product_number;
-
-    /** @var IntConstraint */
-    protected $attachmentsCount;
-
-    /** @var EntityConstraint */
-    protected $attachmentType;
-
-    /** @var TextConstraint */
-    protected $attachmentName;
-
+    protected IntConstraint $dbId;
+    protected TextConstraint $name;
+    protected TextConstraint $description;
+    protected TextConstraint $comment;
+    protected TagsConstraint $tags;
+    protected NumberConstraint $minAmount;
+    protected BooleanConstraint $favorite;
+    protected BooleanConstraint $needsReview;
+    protected NumberConstraint $mass;
+    protected DateTimeConstraint $lastModified;
+    protected DateTimeConstraint $addedDate;
+    protected EntityConstraint $category;
+    protected EntityConstraint $footprint;
+    protected EntityConstraint $manufacturer;
+    protected ChoiceConstraint $manufacturing_status;
+    protected EntityConstraint $supplier;
+    protected IntConstraint $orderdetailsCount;
+    protected BooleanConstraint $obsolete;
+    protected EntityConstraint $storelocation;
+    protected IntConstraint $lotCount;
+    protected IntConstraint $amountSum;
+    protected BooleanConstraint $lotNeedsRefill;
+    protected TextConstraint $lotDescription;
+    protected BooleanConstraint $lotUnknownAmount;
+    protected DateTimeConstraint $lotExpirationDate;
+    protected EntityConstraint $measurementUnit;
+    protected TextConstraint $manufacturer_product_url;
+    protected TextConstraint $manufacturer_product_number;
+    protected IntConstraint $attachmentsCount;
+    protected EntityConstraint $attachmentType;
+    protected TextConstraint $attachmentName;
     /** @var ArrayCollection<int, ParameterConstraint> */
-    protected $parameters;
-
-    /** @var IntConstraint */
-    protected $parametersCount;
+    protected ArrayCollection $parameters;
+    protected IntConstraint $parametersCount;
 
     public function __construct(NodesListBuilder $nodesListBuilder)
     {

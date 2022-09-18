@@ -54,11 +54,8 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
  */
 abstract class ExtendedVoter extends Voter
 {
-    protected $entityManager;
-    /**
-     * @var PermissionResolver
-     */
-    protected $resolver;
+    protected EntityManagerInterface $entityManager;
+    protected PermissionResolver $resolver;
 
     public function __construct(PermissionResolver $resolver, EntityManagerInterface $entityManager)
     {

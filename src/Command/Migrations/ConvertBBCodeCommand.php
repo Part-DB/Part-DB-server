@@ -80,9 +80,9 @@ class ConvertBBCodeCommand extends Command
 
     protected static $defaultName = 'partdb:migrations:convert-bbcode|app:convert-bbcode';
 
-    protected $em;
-    protected $propertyAccessor;
-    protected $converter;
+    protected EntityManagerInterface $em;
+    protected PropertyAccessorInterface $propertyAccessor;
+    protected BBCodeToMarkdownConverter $converter;
 
     public function __construct(EntityManagerInterface $entityManager, PropertyAccessorInterface $propertyAccessor)
     {

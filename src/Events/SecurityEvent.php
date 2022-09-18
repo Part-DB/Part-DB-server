@@ -32,8 +32,7 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 class SecurityEvent extends Event
 {
-    protected $targetUser;
-    protected $from_cli;
+    protected User $targetUser;
 
     public function __construct(User $targetUser)
     {

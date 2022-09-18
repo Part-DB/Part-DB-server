@@ -57,7 +57,7 @@ trait MasterAttachmentTrait
      * @ORM\JoinColumn(name="id_preview_attachement", referencedColumnName="id")
      * @Assert\Expression("value == null or value.isPicture()", message="part.master_attachment.must_be_picture")
      */
-    protected $master_picture_attachment;
+    protected ?Attachment $master_picture_attachment = null;
 
     /**
      * Get the master picture "Attachment"-object of this part (if there is one).

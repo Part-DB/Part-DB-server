@@ -52,7 +52,7 @@ use function is_string;
 
 class ValidFileFilterValidator extends ConstraintValidator
 {
-    protected $filterTools;
+    protected FileTypeFilterTools $filterTools;
 
     public function __construct(FileTypeFilterTools $filterTools)
     {

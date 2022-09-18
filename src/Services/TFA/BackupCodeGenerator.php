@@ -50,8 +50,8 @@ use RuntimeException;
  */
 class BackupCodeGenerator
 {
-    protected $code_length;
-    protected $code_count;
+    protected int $code_length;
+    protected int $code_count;
 
     /**
      * BackupCodeGenerator constructor.

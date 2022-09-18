@@ -8,8 +8,8 @@ use Swap\Swap;
 
 class ExchangeRateUpdater
 {
-    private $base_currency;
-    private $swap;
+    private string $base_currency;
+    private Swap $swap;
 
     public function __construct(string $base_currency, Swap $swap)
     {

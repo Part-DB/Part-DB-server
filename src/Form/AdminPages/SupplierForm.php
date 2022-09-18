@@ -51,7 +51,7 @@ use Symfony\Component\Security\Core\Security;
 
 class SupplierForm extends CompanyForm
 {
-    protected $default_currency;
+    protected string $default_currency;
 
     public function __construct(Security $security, string $default_currency)
     {

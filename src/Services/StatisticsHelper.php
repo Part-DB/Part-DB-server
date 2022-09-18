@@ -34,6 +34,8 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
+use App\Repository\AttachmentRepository;
+use App\Repository\PartRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -42,9 +44,9 @@ use InvalidArgumentException;
 
 class StatisticsHelper
 {
-    protected $em;
-    protected $part_repo;
-    protected $attachment_repo;
+    protected EntityManagerInterface $em;
+    protected PartRepository $part_repo;
+    protected AttachmentRepository $attachment_repo;
 
     public function __construct(EntityManagerInterface $em)
     {

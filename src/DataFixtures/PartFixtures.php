@@ -42,7 +42,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class PartFixtures extends Fixture
 {
-    protected $em;
+    protected EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $entityManager)
     {

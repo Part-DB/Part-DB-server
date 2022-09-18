@@ -18,17 +18,17 @@ class EntityConstraint extends AbstractConstraint
     /**
      * @var NodesListBuilder
      */
-    protected $nodesListBuilder;
+    protected ?NodesListBuilder $nodesListBuilder;
 
     /**
      * @var class-string<T> The class to use for the comparison
      */
-    protected $class;
+    protected string $class;
 
     /**
      * @var string|null The operator to use
      */
-    protected $operator;
+    protected ?string $operator;
 
     /**
      * @var T The value to compare to

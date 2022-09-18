@@ -59,5 +59,5 @@ class AttachmentTypeAttachment extends Attachment
      * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\AttachmentType", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */
-    protected $element;
+    protected ?AttachmentContainingDBElement $element = null;
 }

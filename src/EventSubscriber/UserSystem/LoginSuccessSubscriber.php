@@ -46,6 +46,7 @@ use App\Entity\LogSystem\UserLoginLogEntry;
 use App\Entity\UserSystem\User;
 use App\Services\LogSystem\EventLogger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
@@ -57,10 +58,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class LoginSuccessSubscriber implements EventSubscriberInterface
 {
-    private $translator;
-    private $flashBag;
-    private $eventLogger;
-    private $gpdr_compliance;
+    private TranslatorInterface $translator;
+    private FlashBagInterface $flashBag;
+    private EventLogger $eventLogger;
+    private bool $gpdr_compliance;
 
     public function __construct(TranslatorInterface $translator, SessionInterface $session, EventLogger $eventLogger, bool $gpdr_compliance)
     {

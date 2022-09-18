@@ -44,7 +44,7 @@ abstract class AbstractNamedDBElement extends AbstractDBElement implements Named
      * @Assert\NotBlank()
      * @Groups({"simple", "extended", "full"})
      */
-    protected $name = '';
+    protected string $name = '';
 
     /******************************************************************************
      *

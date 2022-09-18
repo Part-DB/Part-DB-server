@@ -68,49 +68,47 @@ class U2FKey implements TwoFactorKeyInterface
      *
      * @var string
      **/
-    public $keyHandle;
+    public string $keyHandle;
 
     /**
      * @ORM\Column(type="string")
      *
      * @var string
      **/
-    public $publicKey;
+    public string $publicKey;
 
     /**
      * @ORM\Column(type="text")
      *
      * @var string
      **/
-    public $certificate;
+    public string $certificate;
 
     /**
      * @ORM\Column(type="string")
      *
      * @var int
      **/
-    public $counter;
+    public int $counter;
 
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    protected int $id;
 
     /**
      * @ORM\Column(type="string")
      *
      * @var string
      **/
-    protected $name;
+    protected string $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User", inversedBy="u2fKeys")
-     *
-     * @var User
      **/
-    protected $user;
+    protected ?User $user = null;
 
     public function fromRegistrationData(Registration $data): void
     {

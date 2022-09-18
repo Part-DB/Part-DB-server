@@ -33,8 +33,8 @@ class EventUndoHelper
 
     protected const ALLOWED_MODES = [self::MODE_REVERT, self::MODE_UNDO];
 
-    protected $undone_event;
-    protected $mode;
+    protected ?AbstractLogEntry $undone_event;
+    protected string $mode;
 
     public function __construct()
     {

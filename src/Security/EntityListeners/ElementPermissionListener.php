@@ -68,12 +68,12 @@ use Symfony\Component\Security\Core\Security;
  */
 class ElementPermissionListener
 {
-    protected $security;
-    protected $reader;
-    protected $em;
-    protected $disabled;
+    protected Security $security;
+    protected Reader $reader;
+    protected EntityManagerInterface $em;
+    protected bool $disabled;
 
-    protected $perm_cache;
+    protected array $perm_cache;
 
     public function __construct(Security $security, Reader $reader, EntityManagerInterface $em)
     {

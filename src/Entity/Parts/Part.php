@@ -103,7 +103,7 @@ class Part extends AttachmentContainingDBElement
      * @ColumnSecurity(type="datetime")
      * @ORM\Column(type="datetime", name="datetime_added", options={"default"="CURRENT_TIMESTAMP"})
      */
-    protected $addedDate;
+    protected ?DateTime $addedDate = null;
 
     /** *************************************************************
      * Overridden properties
@@ -115,7 +115,7 @@ class Part extends AttachmentContainingDBElement
      * @ORM\Column(type="string")
      * @ColumnSecurity(prefix="name")
      */
-    protected $name = '';
+    protected string $name = '';
 
     /**
      * @var Collection<int, PartAttachment>
@@ -131,7 +131,7 @@ class Part extends AttachmentContainingDBElement
      * @ColumnSecurity(type="datetime")
      * @ORM\Column(type="datetime", name="last_modified", options={"default"="CURRENT_TIMESTAMP"})
      */
-    protected $lastModified;
+    protected ?DateTime $lastModified = null;
 
     /**
      * @var Attachment
@@ -139,7 +139,7 @@ class Part extends AttachmentContainingDBElement
      * @ORM\JoinColumn(name="id_preview_attachement", referencedColumnName="id")
      * @Assert\Expression("value == null or value.isPicture()", message="part.master_attachment.must_be_picture")
      */
-    protected $master_picture_attachment;
+    protected ?Attachment $master_picture_attachment = null;
 
     public function __construct()
     {

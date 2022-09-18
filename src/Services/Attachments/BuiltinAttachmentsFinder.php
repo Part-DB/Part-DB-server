@@ -53,8 +53,8 @@ use Symfony\Contracts\Cache\CacheInterface;
  */
 class BuiltinAttachmentsFinder
 {
-    protected $pathResolver;
-    protected $cache;
+    protected AttachmentPathResolver $pathResolver;
+    protected CacheInterface $cache;
 
     public function __construct(CacheInterface $cache, AttachmentPathResolver $pathResolver)
     {

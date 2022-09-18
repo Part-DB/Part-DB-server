@@ -26,7 +26,7 @@ class NumberConstraint extends AbstractConstraint
     /**
      * @var string The operator to use
      */
-    protected $operator;
+    protected ?string $operator;
 
     /**
      * @return float|int|null|\DateTimeInterface

@@ -56,8 +56,8 @@ use Symfony\Component\Security\Core\Security;
  */
 final class LogoutDisabledUserSubscriber implements EventSubscriberInterface
 {
-    private $security;
-    private $urlGenerator;
+    private Security $security;
+    private UrlGeneratorInterface $urlGenerator;
 
     public function __construct(Security $security, UrlGeneratorInterface $urlGenerator)
     {

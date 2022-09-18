@@ -86,20 +86,20 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      * @var string
      * @ORM\Column(type="string")
      */
-    protected $supplierpartnr = '';
+    protected string $supplierpartnr = '';
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $obsolete = false;
+    protected bool $obsolete = false;
 
     /**
      * @var string
      * @ORM\Column(type="string")
      * @Assert\Url()
      */
-    protected $supplier_product_url = '';
+    protected string $supplier_product_url = '';
 
     /**
      * @var Part
@@ -107,7 +107,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      * @ORM\JoinColumn(name="part_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Assert\NotNull()
      */
-    protected $part;
+    protected ?Part $part = null;
 
     /**
      * @var Supplier
@@ -115,7 +115,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      * @ORM\JoinColumn(name="id_supplier", referencedColumnName="id")
      * @Assert\NotNull(message="validator.orderdetail.supplier_must_not_be_null")
      */
-    protected $supplier;
+    protected ?Supplier $supplier = null;
 
     public function __construct()
     {

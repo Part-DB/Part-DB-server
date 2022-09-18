@@ -77,10 +77,10 @@ use function get_class;
 
 final class FormatExtension extends AbstractExtension
 {
-    protected $markdownParser;
-    protected $moneyFormatter;
-    protected $siformatter;
-    protected $amountFormatter;
+    protected MarkdownParser $markdownParser;
+    protected MoneyFormatter $moneyFormatter;
+    protected SIFormatter $siformatter;
+    protected AmountFormatter $amountFormatter;
 
 
     public function __construct(MarkdownParser $markdownParser, MoneyFormatter $moneyFormatter,

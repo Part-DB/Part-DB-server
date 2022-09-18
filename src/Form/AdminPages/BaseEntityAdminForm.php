@@ -64,7 +64,7 @@ use Symfony\Component\Security\Core\Security;
 
 class BaseEntityAdminForm extends AbstractType
 {
-    protected $security;
+    protected Security $security;
 
     public function __construct(Security $security)
     {

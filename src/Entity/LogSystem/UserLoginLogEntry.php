@@ -52,7 +52,7 @@ use Symfony\Component\HttpFoundation\IpUtils;
  */
 class UserLoginLogEntry extends AbstractLogEntry
 {
-    protected $typeString = 'user_login';
+    protected string $typeString = 'user_login';
 
     public function __construct(string $ip_address, bool $anonymize = true)
     {

@@ -59,9 +59,9 @@ class UpdateExchangeRatesCommand extends Command
 {
     protected static $defaultName = 'partdb:currencies:update-exchange-rates|partdb:update-exchange-rates|app:update-exchange-rates';
 
-    protected $base_current;
-    protected $em;
-    protected $exchangeRateUpdater;
+    protected string $base_current;
+    protected EntityManagerInterface $em;
+    protected ExchangeRateUpdater $exchangeRateUpdater;
 
     public function __construct(string $base_current, EntityManagerInterface $entityManager, ExchangeRateUpdater $exchangeRateUpdater)
     {

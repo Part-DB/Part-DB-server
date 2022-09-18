@@ -61,7 +61,7 @@ trait ManufacturerTrait
      * @ColumnSecurity(prefix="manufacturer", type="App\Entity\Parts\Manufacturer")
      * @Selectable()
      */
-    protected $manufacturer;
+    protected ?Manufacturer $manufacturer = null;
 
     /**
      * @var string the url to the part on the manufacturer's homepage
@@ -69,14 +69,14 @@ trait ManufacturerTrait
      * @Assert\Url()
      * @ColumnSecurity(prefix="mpn", type="string", placeholder="")
      */
-    protected $manufacturer_product_url = '';
+    protected string $manufacturer_product_url = '';
 
     /**
      * @var string The product number used by the manufacturer. If this is set to "", the name field is used.
      * @ORM\Column(type="string")
      * @ColumnSecurity(prefix="mpn", type="string", placeholder="")
      */
-    protected $manufacturer_product_number = '';
+    protected string $manufacturer_product_number = '';
 
     /**
      * @var string The production status of this part. Can be one of the specified ones.
@@ -84,7 +84,7 @@ trait ManufacturerTrait
      * @Assert\Choice({"announced", "active", "nrfnd", "eol", "discontinued", ""})
      * @ColumnSecurity(type="string", prefix="status", placeholder="")
      */
-    protected $manufacturing_status = '';
+    protected string $manufacturing_status = '';
 
     /**
      * Get the link to the website of the article on the manufacturers website

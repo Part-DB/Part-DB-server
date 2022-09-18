@@ -33,8 +33,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RevertLogColumn extends AbstractColumn
 {
-    protected $translator;
-    protected $security;
+    protected TranslatorInterface $translator;
+    protected Security $security;
 
     public function __construct(TranslatorInterface $translator, Security $security)
     {

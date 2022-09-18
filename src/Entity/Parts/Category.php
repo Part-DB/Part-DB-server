@@ -54,49 +54,49 @@ class Category extends AbstractPartsContainingDBElement
      * @var string
      * @ORM\Column(type="text")
      */
-    protected $partname_hint = '';
+    protected string $partname_hint = '';
 
     /**
      * @var string
      * @ORM\Column(type="text")
      */
-    protected $partname_regex = '';
+    protected string $partname_regex = '';
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $disable_footprints = false;
+    protected bool $disable_footprints = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $disable_manufacturers = false;
+    protected bool $disable_manufacturers = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $disable_autodatasheets = false;
+    protected bool $disable_autodatasheets = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $disable_properties = false;
+    protected bool $disable_properties = false;
 
     /**
      * @var string
      * @ORM\Column(type="text")
      */
-    protected $default_description = '';
+    protected string $default_description = '';
 
     /**
      * @var string
      * @ORM\Column(type="text")
      */
-    protected $default_comment = '';
+    protected string $default_comment = '';
     /**
      * @var Collection<int, CategoryAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CategoryAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)

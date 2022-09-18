@@ -55,7 +55,7 @@ use function strlen;
  */
 class AttachmentManager
 {
-    protected $pathResolver;
+    protected AttachmentPathResolver $pathResolver;
 
     public function __construct(AttachmentPathResolver $pathResolver)
     {

@@ -66,8 +66,8 @@ class LogEntryExtraFormatter
 {
     protected const CONSOLE_SEARCH = ['<i class="fas fa-long-arrow-alt-right"></i>', '<i>', '</i>', '<b>', '</b>'];
     protected const CONSOLE_REPLACE = ['→', '<info>', '</info>', '<error>', '</error>'];
-    protected $translator;
-    protected $elementTypeNameGenerator;
+    protected TranslatorInterface $translator;
+    protected ElementTypeNameGenerator $elementTypeNameGenerator;
 
     public function __construct(TranslatorInterface $translator, ElementTypeNameGenerator $elementTypeNameGenerator)
     {

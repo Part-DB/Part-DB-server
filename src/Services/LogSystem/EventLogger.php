@@ -49,11 +49,11 @@ use Symfony\Component\Security\Core\Security;
 
 class EventLogger
 {
-    protected $minimum_log_level;
-    protected $blacklist;
-    protected $whitelist;
-    protected $em;
-    protected $security;
+    protected int $minimum_log_level;
+    protected array $blacklist;
+    protected array $whitelist;
+    protected EntityManagerInterface $em;
+    protected Security $security;
 
     public function __construct(int $minimum_log_level, array $blacklist, array $whitelist, EntityManagerInterface $em, Security $security)
     {

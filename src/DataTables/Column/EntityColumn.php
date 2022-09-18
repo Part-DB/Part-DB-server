@@ -53,8 +53,8 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 class EntityColumn extends AbstractColumn
 {
-    protected $urlGenerator;
-    protected $accessor;
+    protected EntityURLGenerator $urlGenerator;
+    protected PropertyAccessorInterface $accessor;
 
     public function __construct(EntityURLGenerator $URLGenerator, PropertyAccessorInterface $accessor)
     {

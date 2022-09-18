@@ -53,8 +53,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PermissionType extends AbstractType
 {
-    protected $resolver;
-    protected $perm_structure;
+    protected PermissionResolver $resolver;
+    protected array $perm_structure;
 
     public function __construct(PermissionResolver $resolver)
     {

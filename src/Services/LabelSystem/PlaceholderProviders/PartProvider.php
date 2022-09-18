@@ -30,8 +30,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class PartProvider implements PlaceholderProviderInterface
 {
-    private $siFormatter;
-    private $translator;
+    private SIFormatter $siFormatter;
+    private TranslatorInterface $translator;
 
     public function __construct(SIFormatter $SIFormatter, TranslatorInterface $translator)
     {

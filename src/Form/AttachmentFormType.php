@@ -67,12 +67,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AttachmentFormType extends AbstractType
 {
-    protected $attachment_helper;
-    protected $urlGenerator;
-    protected $allow_attachments_download;
-    protected $security;
-    protected $submitHandler;
-    protected $translator;
+    protected AttachmentManager $attachment_helper;
+    protected UrlGeneratorInterface $urlGenerator;
+    protected bool $allow_attachments_download;
+    protected Security $security;
+    protected AttachmentSubmitHandler $submitHandler;
+    protected TranslatorInterface $translator;
 
     public function __construct(AttachmentManager $attachmentHelper,
                                 UrlGeneratorInterface $urlGenerator, Security $security,

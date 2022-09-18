@@ -58,7 +58,7 @@ use Traversable;
 
 final class SIUnitType extends AbstractType implements DataMapperInterface
 {
-    protected $si_formatter;
+    protected SIFormatter $si_formatter;
 
     public function __construct(SIFormatter $SIFormatter)
     {

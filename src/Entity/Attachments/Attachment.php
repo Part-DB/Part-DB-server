@@ -82,24 +82,24 @@ abstract class Attachment extends AbstractNamedDBElement
      * @var string|null the original filename the file had, when the user uploaded it
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $original_filename;
+    protected ?string $original_filename = null;
 
     /**
      * @var string The path to the file relative to a placeholder path like %MEDIA%
      * @ORM\Column(type="string", name="path")
      */
-    protected $path = '';
+    protected string $path = '';
 
     /**
      * ORM mapping is done in sub classes (like PartAttachment).
      */
-    protected $element;
+    protected ?AttachmentContainingDBElement $element = null;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $show_in_table = false;
+    protected bool $show_in_table = false;
 
     /**
      * @var AttachmentType
@@ -108,7 +108,7 @@ abstract class Attachment extends AbstractNamedDBElement
      * @Selectable()
      * @Assert\NotNull(message="validator.attachment.must_not_be_null")
      */
-    protected $attachment_type;
+    protected ?AttachmentType $attachment_type = null;
 
     public function __construct()
     {

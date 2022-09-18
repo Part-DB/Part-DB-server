@@ -9,8 +9,8 @@ use Twig\TwigFunction;
 
 final class AttachmentExtension extends AbstractExtension
 {
-    protected $attachmentURLGenerator;
-    protected $FAIconGenerator;
+    protected AttachmentURLGenerator $attachmentURLGenerator;
+    protected FAIconGenerator $FAIconGenerator;
 
     public function __construct(AttachmentURLGenerator $attachmentURLGenerator, FAIconGenerator $FAIconGenerator)
     {
@@ -18,7 +18,7 @@ final class AttachmentExtension extends AbstractExtension
         $this->FAIconGenerator = $FAIconGenerator;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             /* Returns the URL to a thumbnail of the given attachment */

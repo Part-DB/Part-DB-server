@@ -55,7 +55,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TFAGoogleSettingsType extends AbstractType
 {
-    protected $translator;
 
     public function __construct()
     {

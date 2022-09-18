@@ -13,8 +13,8 @@ class VersionCommand extends Command
 {
     protected static $defaultName = 'partdb:version|app:version';
 
-    protected $versionManager;
-    protected $gitVersionInfo;
+    protected VersionManagerInterface $versionManager;
+    protected GitVersionInfo $gitVersionInfo;
 
     public function __construct(VersionManagerInterface $versionManager, GitVersionInfo $gitVersionInfo)
     {
@@ -43,7 +43,7 @@ class VersionCommand extends Command
 
         $io->success($message);
 
-        $io->info('PHP version: '. phpversion());
+        $io->info('PHP version: '.PHP_VERSION);
         $io->info('Symfony version: ' . $this->getApplication()->getVersion());
         $io->info('OS: '. php_uname());
         $io->info('PHP extension: '. implode(', ', get_loaded_extensions()));

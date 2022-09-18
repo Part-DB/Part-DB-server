@@ -60,7 +60,7 @@ use Symfony\Component\Security\Core\Security;
 
 class OrderdetailType extends AbstractType
 {
-    protected $security;
+    protected Security $security;
 
     public function __construct(Security $security)
     {

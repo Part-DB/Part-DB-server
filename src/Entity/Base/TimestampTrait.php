@@ -56,14 +56,14 @@ trait TimestampTrait
      * @ORM\Column(type="datetime", name="last_modified", options={"default"="CURRENT_TIMESTAMP"})
      * @Groups({"extended", "full"})
      */
-    protected $lastModified;
+    protected ?DateTime $lastModified = null;
 
     /**
      * @var DateTime|null the date when this element was created
      * @ORM\Column(type="datetime", name="datetime_added", options={"default"="CURRENT_TIMESTAMP"})
      * @Groups({"extended", "full"})
      */
-    protected $addedDate;
+    protected ?DateTime $addedDate = null;
 
     /**
      * Returns the last time when the element was modified.

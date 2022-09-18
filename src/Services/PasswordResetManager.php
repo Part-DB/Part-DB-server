@@ -51,15 +51,16 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PasswordResetManager
 {
-    protected $mailer;
-    protected $em;
-    protected $passwordEncoder;
-    protected $translator;
-    protected $userPasswordEncoder;
+    protected MailerInterface $mailer;
+    protected EntityManagerInterface $em;
+    protected PasswordHasherInterface $passwordEncoder;
+    protected TranslatorInterface $translator;
+    protected UserPasswordHasherInterface $userPasswordEncoder;
 
     public function __construct(MailerInterface $mailer, EntityManagerInterface $em,
                                 TranslatorInterface $translator, UserPasswordHasherInterface $userPasswordEncoder,

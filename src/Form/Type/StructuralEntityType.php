@@ -63,7 +63,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class StructuralEntityType extends AbstractType
 {
-    protected $em;
+    protected EntityManagerInterface $em;
 
     /**
      * @var NodesListBuilder

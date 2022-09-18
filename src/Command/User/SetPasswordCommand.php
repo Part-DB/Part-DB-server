@@ -58,9 +58,9 @@ class SetPasswordCommand extends Command
 {
     protected static $defaultName = 'partdb:users:set-password|app:set-password|users:set-password';
 
-    protected $entityManager;
-    protected $encoder;
-    protected $eventDispatcher;
+    protected EntityManagerInterface $entityManager;
+    protected UserPasswordHasherInterface $encoder;
+    protected EventDispatcherInterface $eventDispatcher;
 
     public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordEncoder, EventDispatcherInterface $eventDispatcher)
     {

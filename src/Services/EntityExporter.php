@@ -58,7 +58,7 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 class EntityExporter
 {
-    protected $serializer;
+    protected SerializerInterface $serializer;
 
     public function __construct(SerializerInterface $serializer)
     {

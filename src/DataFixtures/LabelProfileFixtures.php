@@ -31,7 +31,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class LabelProfileFixtures extends Fixture
 {
-    protected $em;
+    protected EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $entityManager)
     {

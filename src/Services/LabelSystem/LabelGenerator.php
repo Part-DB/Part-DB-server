@@ -40,7 +40,7 @@ final class LabelGenerator
 
     public const MM_TO_POINTS_FACTOR = 2.83465;
 
-    private $labelHTMLGenerator;
+    private LabelHTMLGenerator $labelHTMLGenerator;
 
     public function __construct(LabelHTMLGenerator $labelHTMLGenerator)
     {

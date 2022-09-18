@@ -55,7 +55,7 @@ use InvalidArgumentException;
  */
 class ElementCreatedLogEntry extends AbstractLogEntry implements LogWithCommentInterface, LogWithEventUndoInterface
 {
-    protected $typeString = 'element_created';
+    protected string $typeString = 'element_created';
 
     public function __construct(AbstractDBElement $new_element)
     {

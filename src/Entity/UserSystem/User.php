@@ -101,48 +101,48 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var bool Determines if the user is disabled (user can not log in)
      * @ORM\Column(type="boolean")
      */
-    protected $disabled = false;
+    protected bool $disabled = false;
 
     /**
      * @var string|null The theme
      * @ORM\Column(type="string", name="config_theme", nullable=true)
      * @Assert\Choice(choices=User::AVAILABLE_THEMES)
      */
-    protected $theme = '';
+    protected ?string $theme = '';
 
     /**
      * @var string|null the hash of a token the user must provide when he wants to reset his password
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $pw_reset_token;
+    protected ?string $pw_reset_token = null;
 
     /**
      * @ORM\Column(type="text", name="config_instock_comment_a")
      */
-    protected $instock_comment_a = '';
+    protected string $instock_comment_a = '';
 
     /**
      * @ORM\Column(type="text", name="config_instock_comment_w")
      */
-    protected $instock_comment_w = '';
+    protected string $instock_comment_w = '';
 
     /** @var int The version of the trusted device cookie. Used to invalidate all trusted device cookies at once.
      *  @ORM\Column(type="integer")
      */
-    protected $trustedDeviceCookieVersion = 0;
+    protected int $trustedDeviceCookieVersion = 0;
 
     /**
      * @var string[]|null A list of backup codes that can be used, if the user has no access to its Google Authenticator device
      * @ORM\Column(type="json")
      */
-    protected $backupCodes = [];
+    protected ?array $backupCodes = [];
 
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    protected $id;
+    protected ?int $id = null;
 
     /**
      * @var Group|null the group this user belongs to
@@ -150,58 +150,58 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
      * @Selectable()
      */
-    protected $group;
+    protected ?Group $group = null;
 
     /**
      * @var string|null The secret used for google authenticator
      * @ORM\Column(name="google_authenticator_secret", type="string", nullable=true)
      */
-    protected $googleAuthenticatorSecret;
+    protected ?string $googleAuthenticatorSecret = null;
 
     /**
      * @var string|null The timezone the user prefers
      * @ORM\Column(type="string", name="config_timezone", nullable=true)
      * @Assert\Timezone()
      */
-    protected $timezone = '';
+    protected ?string $timezone = '';
 
     /**
      * @var string|null The language/locale the user prefers
      * @ORM\Column(type="string", name="config_language", nullable=true)
      * @Assert\Language()
      */
-    protected $language = '';
+    protected ?string $language = '';
 
     /**
      * @var string|null The email address of the user
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Email()
      */
-    protected $email = '';
+    protected ?string $email = '';
 
     /**
      * @var string|null The department the user is working
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    protected $department = '';
+    protected ?string $department = '';
 
     /**
      * @var string|null The last name of the User
      * @ORM\Column(type="string", length=255,  nullable=true)
      */
-    protected $last_name = '';
+    protected ?string $last_name = '';
 
     /**
      * @var string|null The first name of the User
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    protected $first_name = '';
+    protected ?string $first_name = '';
 
     /**
      * @var bool True if the user needs to change password after log in
      * @ORM\Column(type="boolean")
      */
-    protected $need_pw_change = true;
+    protected bool $need_pw_change = true;
 
     /**
      * //@ORM\Column(type="json").
@@ -212,20 +212,20 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var string|null The hashed password
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $password;
+    protected ?string $password = null;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank
      * @Assert\Regex("/^[\w\.\+\-\$]+$/", message="user.invalid_username")
      */
-    protected $name = '';
+    protected string $name = '';
 
     /**
      * @var array
      * @ORM\Column(type="json")
      */
-    protected $settings = [];
+    protected ?array $settings = [];
 
     /**
      * @var Collection<int, UserAttachment>
@@ -237,7 +237,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /** @var DateTime|null The time when the backup codes were generated
      * @ORM\Column(type="datetime", nullable=true)
      */
-    protected $backupCodesGenerationDate;
+    protected ?DateTime $backupCodesGenerationDate = null;
 
     /** @var Collection<int, TwoFactorKeyInterface>
      * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\U2FKey", mappedBy="user", cascade={"REMOVE"}, orphanRemoval=true)

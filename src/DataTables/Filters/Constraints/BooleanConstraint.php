@@ -8,7 +8,7 @@ use Doctrine\ORM\QueryBuilder;
 class BooleanConstraint extends AbstractConstraint
 {
     /** @var bool|null The value of our constraint */
-    protected $value;
+    protected ?bool $value;
 
 
     public function __construct(string $property, string $identifier = null, ?bool $default_value = null)

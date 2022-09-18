@@ -35,7 +35,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class LogAccessDeniedSubscriber implements EventSubscriberInterface
 {
-    private $logger;
+    private EventLogger $logger;
 
     public function __construct(EventLogger $logger)
     {

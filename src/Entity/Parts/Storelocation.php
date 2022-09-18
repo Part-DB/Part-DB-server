@@ -83,7 +83,7 @@ class Storelocation extends AbstractPartsContainingDBElement
      * @ORM\ManyToOne(targetEntity="MeasurementUnit")
      * @ORM\JoinColumn(name="storage_type_id", referencedColumnName="id")
      */
-    protected $storage_type;
+    protected ?MeasurementUnit $storage_type = null;
 
     /** @var Collection<int, StorelocationParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\StorelocationParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -96,19 +96,19 @@ class Storelocation extends AbstractPartsContainingDBElement
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $is_full = false;
+    protected bool $is_full = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $only_single_part = false;
+    protected bool $only_single_part = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $limit_to_existing_parts = false;
+    protected bool $limit_to_existing_parts = false;
     /**
      * @var Collection<int, StorelocationAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\StorelocationAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)

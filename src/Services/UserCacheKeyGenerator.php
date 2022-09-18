@@ -51,7 +51,7 @@ use Symfony\Component\Security\Core\Security;
  */
 class UserCacheKeyGenerator
 {
-    protected $security;
+    protected Security $security;
 
     public function __construct(Security $security)
     {

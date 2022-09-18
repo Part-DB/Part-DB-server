@@ -27,7 +27,7 @@ class EventCommentHelper
 {
     protected const MAX_MESSAGE_LENGTH = 255;
 
-    protected $message;
+    protected ?string $message;
 
     public function __construct()
     {

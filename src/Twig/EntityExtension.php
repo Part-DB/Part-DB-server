@@ -25,9 +25,9 @@ use Twig\TwigTest;
 
 final class EntityExtension extends AbstractExtension
 {
-    protected $entityURLGenerator;
-    protected $treeBuilder;
-    private $nameGenerator;
+    protected EntityURLGenerator $entityURLGenerator;
+    protected TreeViewGenerator $treeBuilder;
+    private ElementTypeNameGenerator $nameGenerator;
 
     public function __construct(EntityURLGenerator $entityURLGenerator, TreeViewGenerator $treeBuilder, ElementTypeNameGenerator $elementTypeNameGenerator)
     {

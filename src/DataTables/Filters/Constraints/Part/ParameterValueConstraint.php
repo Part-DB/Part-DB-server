@@ -7,7 +7,7 @@ use Doctrine\ORM\QueryBuilder;
 
 class ParameterValueConstraint extends NumberConstraint
 {
-    protected $alias;
+    protected string $alias;
 
     public const ALLOWED_OPERATOR_VALUES = ['=', '!=', '<', '>', '<=', '>=', 'BETWEEN',
         //Additional operators

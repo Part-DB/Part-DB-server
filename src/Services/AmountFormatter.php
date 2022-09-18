@@ -52,7 +52,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class AmountFormatter
 {
-    protected $siFormatter;
+    protected SIFormatter $siFormatter;
 
     public function __construct(SIFormatter $siFormatter)
     {

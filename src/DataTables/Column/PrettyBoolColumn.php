@@ -7,8 +7,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PrettyBoolColumn extends AbstractColumn
 {
-
-    protected $translator;
+    protected TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {

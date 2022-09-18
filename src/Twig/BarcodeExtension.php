@@ -27,7 +27,7 @@ use Twig\TwigFunction;
 
 final class BarcodeExtension extends AbstractExtension
 {
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             /* Generates a barcode with the given Type and Data and returns it as an SVG represenation */

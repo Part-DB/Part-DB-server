@@ -46,7 +46,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 class GitVersionInfo
 {
-    protected $project_dir;
+    protected string $project_dir;
 
     public function __construct(KernelInterface $kernel)
     {

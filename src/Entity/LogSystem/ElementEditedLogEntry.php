@@ -54,7 +54,7 @@ use InvalidArgumentException;
  */
 class ElementEditedLogEntry extends AbstractLogEntry implements TimeTravelInterface, LogWithCommentInterface, LogWithEventUndoInterface
 {
-    protected $typeString = 'element_edited';
+    protected string $typeString = 'element_edited';
 
     public function __construct(AbstractDBElement $changed_element)
     {

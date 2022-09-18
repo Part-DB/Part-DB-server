@@ -13,7 +13,7 @@ class CheckRequirementsCommand extends Command
 {
     protected static $defaultName = 'partdb:check-requirements';
 
-    protected $params;
+    protected ContainerBagInterface $params;
 
     public function __construct(ContainerBagInterface $params)
     {

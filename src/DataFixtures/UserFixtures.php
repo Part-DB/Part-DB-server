@@ -50,8 +50,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
-    protected $encoder;
-    protected $em;
+    protected UserPasswordHasherInterface $encoder;
+    protected EntityManagerInterface $em;
 
     public function __construct(UserPasswordHasherInterface $encoder, EntityManagerInterface $entityManager)
     {

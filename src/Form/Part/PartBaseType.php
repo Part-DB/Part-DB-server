@@ -72,9 +72,8 @@ use Symfony\Component\Security\Core\Security;
 
 class PartBaseType extends AbstractType
 {
-    protected $security;
-    protected $trans;
-    protected $urlGenerator;
+    protected Security $security;
+    protected UrlGeneratorInterface $urlGenerator;
 
     public function __construct(Security $security, UrlGeneratorInterface $urlGenerator)
     {

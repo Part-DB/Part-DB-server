@@ -35,9 +35,9 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 final class SecurityEventLoggerSubscriber implements EventSubscriberInterface
 {
-    private $requestStack;
-    private $gpdr_compliant;
-    private $eventLogger;
+    private RequestStack $requestStack;
+    private bool $gpdr_compliant;
+    private EventLogger $eventLogger;
 
     public function __construct(RequestStack $requestStack, EventLogger $eventLogger, bool $gpdr_compliance)
     {

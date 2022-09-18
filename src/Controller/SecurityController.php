@@ -68,8 +68,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SecurityController extends AbstractController
 {
-    protected $translator;
-    protected $allow_email_pw_reset;
+    protected TranslatorInterface $translator;
+    protected bool $allow_email_pw_reset;
 
     public function __construct(TranslatorInterface $translator, bool $allow_email_pw_reset)
     {

@@ -47,7 +47,7 @@ use App\Entity\Parts\Part;
 
 class PartPreviewGenerator
 {
-    protected $attachmentHelper;
+    protected AttachmentManager $attachmentHelper;
 
     public function __construct(AttachmentManager $attachmentHelper)
     {

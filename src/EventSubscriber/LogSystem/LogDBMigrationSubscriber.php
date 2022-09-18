@@ -54,11 +54,11 @@ use Doctrine\Migrations\Events;
  */
 class LogDBMigrationSubscriber implements EventSubscriber
 {
-    protected $old_version = null;
-    protected $new_version = null;
+    protected ?string $old_version = null;
+    protected ?string $new_version = null;
 
-    protected $eventLogger;
-    protected $dependencyFactory;
+    protected EventLogger $eventLogger;
+    protected DependencyFactory $dependencyFactory;
 
     public function __construct(EventLogger $eventLogger, DependencyFactory $dependencyFactory)
     {

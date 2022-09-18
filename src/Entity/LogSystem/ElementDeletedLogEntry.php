@@ -57,7 +57,7 @@ use InvalidArgumentException;
  */
 class ElementDeletedLogEntry extends AbstractLogEntry implements TimeTravelInterface, LogWithCommentInterface, LogWithEventUndoInterface
 {
-    protected $typeString = 'element_deleted';
+    protected string $typeString = 'element_deleted';
 
     public function __construct(AbstractDBElement $deleted_element)
     {

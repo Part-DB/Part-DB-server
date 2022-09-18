@@ -49,7 +49,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class UserNotAllowedLogEntry extends AbstractLogEntry
 {
-    protected $typeString = 'user_not_allowed';
+    protected string $typeString = 'user_not_allowed';
 
     public function __construct(string $path)
     {

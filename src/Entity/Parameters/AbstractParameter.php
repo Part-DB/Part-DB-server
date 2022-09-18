@@ -63,7 +63,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      * @Assert\Length(max=20)
      * @ORM\Column(type="string", nullable=false)
      */
-    protected $symbol = '';
+    protected string $symbol = '';
 
     /**
      * @var float|null the guaranteed minimum value of this property
@@ -72,14 +72,14 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      * @Assert\LessThan(propertyPath="value_max", message="parameters.validator.min_lesser_max")
      * @ORM\Column(type="float", nullable=true)
      */
-    protected $value_min;
+    protected ?float $value_min = null;
 
     /**
      * @var float|null the typical value of this property
      * @Assert\Type({"null", "float"})
      * @ORM\Column(type="float", nullable=true)
      */
-    protected $value_typical;
+    protected ?float $value_typical = null;
 
     /**
      * @var float|null the maximum value of this property
@@ -87,26 +87,26 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      * @Assert\GreaterThanOrEqual(propertyPath="value_typical", message="parameters.validator.max_greater_typical")
      * @ORM\Column(type="float", nullable=true)
      */
-    protected $value_max;
+    protected ?float $value_max = null;
 
     /**
      * @var string The unit in which the value values are given (e.g. V)
      * @Assert\Length(max=5)
      * @ORM\Column(type="string", nullable=false)
      */
-    protected $unit = '';
+    protected string $unit = '';
 
     /**
      * @var string a text value for the given property
      * @ORM\Column(type="string", nullable=false)
      */
-    protected $value_text = '';
+    protected string $value_text = '';
 
     /**
      * @var string the group this parameter belongs to
      * @ORM\Column(type="string", nullable=false, name="param_group")
      */
-    protected $group = '';
+    protected string $group = '';
 
     /**
      * Mapping is done in sub classes.

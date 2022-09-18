@@ -51,17 +51,17 @@ use Symfony\Component\Filesystem\Filesystem;
  */
 class AttachmentPathResolver
 {
-    protected $project_dir;
+    protected string $project_dir;
 
-    protected $media_path;
-    protected $footprints_path;
-    protected $models_path;
-    protected $secure_path;
+    protected ?string $media_path;
+    protected ?string $footprints_path;
+    protected ?string $models_path;
+    protected ?string $secure_path;
 
-    protected $placeholders;
-    protected $pathes;
-    protected $placeholders_regex;
-    protected $pathes_regex;
+    protected array $placeholders;
+    protected array $pathes;
+    protected array $placeholders_regex;
+    protected array $pathes_regex;
 
     /**
      * AttachmentPathResolver constructor.

@@ -43,7 +43,8 @@ final class BarcodeContentGenerator
         PartLot::class => 'lot',
         Storelocation::class => 'location',
     ];
-    private $urlGenerator;
+
+    private UrlGeneratorInterface $urlGenerator;
 
     public function __construct(UrlGeneratorInterface $urlGenerator)
     {

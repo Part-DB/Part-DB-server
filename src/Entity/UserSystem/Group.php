@@ -76,7 +76,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     /**
      * @ORM\OneToMany(targetEntity="User", mappedBy="group")
      */
-    protected $users;
+    protected Collection $users;
 
     /**
      * @var bool If true all users associated with this group must have enabled some kind of 2 factor authentication

@@ -44,6 +44,7 @@ namespace App\EventSubscriber\UserSystem;
 
 use App\Entity\UserSystem\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -74,9 +75,9 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
      * @var string The route the user will redirected to, if he needs to change this password
      */
     public const REDIRECT_TARGET = 'user_settings';
-    private $security;
-    private $flashBag;
-    private $httpUtils;
+    private Security $security;
+    private FlashBagInterface $flashBag;
+    private HttpUtils $httpUtils;
 
     public function __construct(Security $security, SessionInterface $session, HttpUtils $httpUtils)
     {

@@ -14,7 +14,7 @@ class UserListCommand extends Command
 {
     protected static $defaultName = 'partdb:users:list|users:list';
 
-    protected $entityManager;
+    protected EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {

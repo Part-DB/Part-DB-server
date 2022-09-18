@@ -54,9 +54,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class EntityImporter
 {
-    protected $serializer;
-    protected $em;
-    protected $validator;
+    protected SerializerInterface $serializer;
+    protected EntityManagerInterface $em;
+    protected ValidatorInterface $validator;
 
     public function __construct(SerializerInterface $serializer, EntityManagerInterface $em, ValidatorInterface $validator)
     {

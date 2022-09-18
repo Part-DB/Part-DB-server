@@ -55,7 +55,7 @@ class AttachmentType extends AbstractStructuralDBElement
      * @ORM\Column(type="text")
      * @ValidFileFilter
      */
-    protected $filetype_filter = '';
+    protected string $filetype_filter = '';
     /**
      * @var Collection<int, AttachmentTypeAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\AttachmentTypeAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)

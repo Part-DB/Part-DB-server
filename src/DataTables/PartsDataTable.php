@@ -79,12 +79,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class PartsDataTable implements DataTableTypeInterface
 {
-    private $translator;
-    private $treeBuilder;
-    private $amountFormatter;
-    private $previewGenerator;
-    private $attachmentURLGenerator;
-    private $security;
+    private TranslatorInterface $translator;
+    private NodesListBuilder $treeBuilder;
+    private AmountFormatter $amountFormatter;
+    private PartPreviewGenerator $previewGenerator;
+    private AttachmentURLGenerator $attachmentURLGenerator;
+    private Security $security;
 
     /**
      * @var EntityURLGenerator

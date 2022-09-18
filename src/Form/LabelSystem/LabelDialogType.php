@@ -34,7 +34,7 @@ use Symfony\Component\Security\Core\Security;
 
 class LabelDialogType extends AbstractType
 {
-    protected $security;
+    protected Security $security;
 
     public function __construct(Security $security)
     {

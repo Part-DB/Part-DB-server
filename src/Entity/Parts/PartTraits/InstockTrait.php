@@ -70,7 +70,7 @@ trait InstockTrait
      * @Assert\PositiveOrZero()
      * @ColumnSecurity(prefix="minamount", type="integer")
      */
-    protected $minamount = 0;
+    protected float $minamount = 0;
 
     /**
      * @var ?MeasurementUnit the unit in which the part's amount is measured
@@ -78,7 +78,7 @@ trait InstockTrait
      * @ORM\JoinColumn(name="id_part_unit", referencedColumnName="id", nullable=true)
      * @ColumnSecurity(type="object", prefix="unit")
      */
-    protected $partUnit;
+    protected ?MeasurementUnit $partUnit = null;
 
     /**
      * Get all part lots where this part is stored.

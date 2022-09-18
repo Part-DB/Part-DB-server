@@ -74,8 +74,8 @@ use Symfony\Component\Serializer\Serializer;
  */
 class TypeaheadController extends AbstractController
 {
-    protected $urlGenerator;
-    protected $assets;
+    protected AttachmentURLGenerator $urlGenerator;
+    protected Packages $assets;
 
     public function __construct(AttachmentURLGenerator $URLGenerator, Packages $assets)
     {

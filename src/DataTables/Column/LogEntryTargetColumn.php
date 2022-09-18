@@ -52,6 +52,7 @@ use App\Entity\Parts\PartLot;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
 use App\Exceptions\EntityNotSupportedException;
+use App\Repository\LogEntryRepository;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -61,11 +62,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LogEntryTargetColumn extends AbstractColumn
 {
-    protected $em;
-    protected $entryRepository;
-    protected $entityURLGenerator;
-    protected $elementTypeNameGenerator;
-    protected $translator;
+    protected EntityManagerInterface $em;
+    protected LogEntryRepository $entryRepository;
+    protected EntityURLGenerator $entityURLGenerator;
+    protected ElementTypeNameGenerator $elementTypeNameGenerator;
+    protected TranslatorInterface $translator;
 
     public function __construct(EntityManagerInterface $entityManager, EntityURLGenerator $entityURLGenerator,
         ElementTypeNameGenerator $elementTypeNameGenerator, TranslatorInterface $translator)

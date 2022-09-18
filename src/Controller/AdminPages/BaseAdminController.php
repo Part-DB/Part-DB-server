@@ -90,22 +90,22 @@ abstract class BaseAdminController extends AbstractController
     protected $attachment_class = '';
     protected $parameter_class = '';
 
-    protected $passwordEncoder;
-    protected $translator;
-    protected $attachmentSubmitHandler;
-    protected $commentHelper;
+    protected UserPasswordHasherInterface $passwordEncoder;
+    protected TranslatorInterface $translator;
+    protected AttachmentSubmitHandler $attachmentSubmitHandler;
+    protected EventCommentHelper $commentHelper;
 
-    protected $historyHelper;
-    protected $timeTravel;
-    protected $dataTableFactory;
+    protected HistoryHelper $historyHelper;
+    protected TimeTravel $timeTravel;
+    protected DataTableFactory $dataTableFactory;
     /**
      * @var EventDispatcher|EventDispatcherInterface
      */
     protected $eventDispatcher;
-    protected $labelGenerator;
-    protected $barcodeExampleGenerator;
+    protected LabelGenerator $labelGenerator;
+    protected BarcodeExampleElementsGenerator $barcodeExampleGenerator;
 
-    protected $entityManager;
+    protected EntityManagerInterface $entityManager;
 
     public function __construct(TranslatorInterface $translator, UserPasswordHasherInterface $passwordEncoder,
         AttachmentSubmitHandler $attachmentSubmitHandler,

@@ -54,9 +54,9 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
  */
 class NodesListBuilder
 {
-    protected $em;
-    protected $cache;
-    protected $keyGenerator;
+    protected EntityManagerInterface $em;
+    protected TagAwareCacheInterface $cache;
+    protected UserCacheKeyGenerator $keyGenerator;
 
     public function __construct(EntityManagerInterface $em, TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator)
     {

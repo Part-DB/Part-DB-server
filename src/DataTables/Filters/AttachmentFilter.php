@@ -17,26 +17,13 @@ class AttachmentFilter implements FilterInterface
 {
     use CompoundFilterTrait;
 
-    /** @var NumberConstraint */
-    protected $dbId;
-
-    /** @var InstanceOfConstraint */
-    protected $targetType;
-
-    /** @var TextConstraint */
-    protected $name;
-
-    /** @var EntityConstraint */
-    protected $attachmentType;
-
-    /** @var BooleanConstraint */
-    protected $showInTable;
-
-    /** @var DateTimeConstraint */
-    protected $lastModified;
-
-    /** @var DateTimeConstraint */
-    protected $addedDate;
+    protected NumberConstraint $dbId;
+    protected InstanceOfConstraint $targetType;
+    protected TextConstraint $name;
+    protected EntityConstraint $attachmentType;
+    protected BooleanConstraint $showInTable;
+    protected DateTimeConstraint $lastModified;
+    protected DateTimeConstraint $addedDate;
 
 
     public function __construct(NodesListBuilder $nodesListBuilder)

@@ -12,12 +12,12 @@ abstract class AbstractConstraint implements FilterInterface
     /**
      * @var string The property where this BooleanConstraint should apply to
      */
-    protected $property;
+    protected string $property;
 
     /**
      * @var string
      */
-    protected $identifier;
+    protected string $identifier;
 
 
     /**

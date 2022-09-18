@@ -49,7 +49,7 @@ use App\Entity\UserSystem\User;
  */
 class BackupCodeManager
 {
-    protected $backupCodeGenerator;
+    protected BackupCodeGenerator $backupCodeGenerator;
 
     public function __construct(BackupCodeGenerator $backupCodeGenerator)
     {

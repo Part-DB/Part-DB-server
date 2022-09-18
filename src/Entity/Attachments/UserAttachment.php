@@ -60,5 +60,5 @@ class UserAttachment extends Attachment
      * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */
-    protected $element;
+    protected ?AttachmentContainingDBElement $element = null;
 }

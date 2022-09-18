@@ -65,19 +65,19 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      * @ORM\Column(type="text")
      * @Groups({"simple", "extended", "full"})
      */
-    protected $comment = '';
+    protected string $comment = '';
 
     /**
      * @var bool If this property is set, this element can not be selected for part properties.
      *           Useful if this element should be used only for grouping, sorting.
      * @ORM\Column(type="boolean")
      */
-    protected $not_selectable = false;
+    protected bool $not_selectable = false;
 
     /**
      * @var int
      */
-    protected $level = 0;
+    protected int $level = 0;
 
     /**
      * We can not define the mapping here or we will get an exception. Unfortunately we have to do the mapping in the
@@ -98,7 +98,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     /** @var string[] all names of all parent elements as a array of strings,
      *  the last array element is the name of the element itself
      */
-    private $full_path_strings = [];
+    private array $full_path_strings = [];
 
     public function __construct()
     {

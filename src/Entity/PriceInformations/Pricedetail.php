@@ -81,7 +81,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * @ORM\Column(type="big_decimal", precision=11, scale=5)
      * @BigDecimalPositive()
      */
-    protected $price;
+    protected BigDecimal $price;
 
     /**
      * @var ?Currency The currency used for the current price information.
@@ -90,27 +90,27 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * @ORM\JoinColumn(name="id_currency", referencedColumnName="id", nullable=true)
      * @Selectable()
      */
-    protected $currency;
+    protected ?Currency $currency = null;
 
     /**
      * @var float
      * @ORM\Column(type="float")
      * @Assert\Positive()
      */
-    protected $price_related_quantity = 1.0;
+    protected float $price_related_quantity = 1.0;
 
     /**
      * @var float
      * @ORM\Column(type="float")
      * @Assert\Positive()
      */
-    protected $min_discount_quantity = 1.0;
+    protected float $min_discount_quantity = 1.0;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $manual_input = true;
+    protected bool $manual_input = true;
 
     /**
      * @var Orderdetail|null
@@ -118,7 +118,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * @ORM\JoinColumn(name="orderdetails_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      * @Assert\NotNull()
      */
-    protected $orderdetail;
+    protected ?Orderdetail $orderdetail = null;
 
     public function __construct()
     {

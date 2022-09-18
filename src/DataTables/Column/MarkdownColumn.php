@@ -47,7 +47,7 @@ use Omines\DataTablesBundle\Column\AbstractColumn;
 
 class MarkdownColumn extends AbstractColumn
 {
-    protected $markdown;
+    protected MarkdownParser $markdown;
 
     public function __construct(MarkdownParser $markdown)
     {

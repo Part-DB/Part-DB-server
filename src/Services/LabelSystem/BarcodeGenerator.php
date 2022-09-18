@@ -30,7 +30,7 @@ use InvalidArgumentException;
 
 final class BarcodeGenerator
 {
-    private $barcodeContentGenerator;
+    private BarcodeContentGenerator $barcodeContentGenerator;
 
     public function __construct(BarcodeContentGenerator $barcodeContentGenerator)
     {

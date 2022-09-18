@@ -55,8 +55,8 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 class TreeCacheInvalidationListener
 {
-    protected $cache;
-    protected $keyGenerator;
+    protected TagAwareCacheInterface $cache;
+    protected UserCacheKeyGenerator $keyGenerator;
 
     public function __construct(TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator)
     {

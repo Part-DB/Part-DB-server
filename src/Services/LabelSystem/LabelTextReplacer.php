@@ -31,7 +31,7 @@ use App\Services\LabelSystem\PlaceholderProviders\PlaceholderProviderInterface;
  */
 final class LabelTextReplacer
 {
-    private $providers;
+    private iterable $providers;
 
     public function __construct(iterable $providers)
     {

@@ -48,8 +48,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LogEntryExtraColumn extends AbstractColumn
 {
-    protected $translator;
-    protected $formatter;
+    protected TranslatorInterface $translator;
+    protected LogEntryExtraFormatter $formatter;
 
     public function __construct(TranslatorInterface $translator, LogEntryExtraFormatter $formatter)
     {

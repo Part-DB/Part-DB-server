@@ -28,7 +28,7 @@ use App\Services\ElementTypeNameGenerator;
 
 final class AbstractDBElementProvider implements PlaceholderProviderInterface
 {
-    private $elementTypeNameGenerator;
+    private ElementTypeNameGenerator $elementTypeNameGenerator;
 
     public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator)
     {

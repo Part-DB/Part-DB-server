@@ -94,14 +94,14 @@ class Supplier extends AbstractCompany
      * @ORM\JoinColumn(name="default_currency_id", referencedColumnName="id", nullable=true)
      * @Selectable()
      */
-    protected $default_currency;
+    protected ?Currency $default_currency = null;
 
     /**
      * @var BigDecimal|null the shipping costs that have to be paid, when ordering via this supplier
      * @ORM\Column(name="shipping_costs", nullable=true, type="big_decimal", precision=11, scale=5)
      * @BigDecimalPositiveOrZero()
      */
-    protected $shipping_costs;
+    protected ?BigDecimal $shipping_costs = null;
 
     /**
      * @var Collection<int, SupplierAttachment>

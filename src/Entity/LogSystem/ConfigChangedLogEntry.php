@@ -50,7 +50,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ConfigChangedLogEntry extends AbstractLogEntry
 {
-    protected $typeString = 'config_changed';
+    protected string $typeString = 'config_changed';
 
     public function __construct()
     {

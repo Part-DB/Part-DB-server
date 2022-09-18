@@ -91,7 +91,7 @@ class Footprint extends AbstractPartsContainingDBElement
      * @ORM\ManyToOne(targetEntity="App\Entity\Attachments\FootprintAttachment")
      * @ORM\JoinColumn(name="id_footprint_3d", referencedColumnName="id")
      */
-    protected $footprint_3d;
+    protected ?FootprintAttachment $footprint_3d = null;
 
     /** @var Collection<int, FootprintParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\FootprintParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)

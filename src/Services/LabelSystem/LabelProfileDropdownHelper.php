@@ -32,9 +32,9 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
 
 final class LabelProfileDropdownHelper
 {
-    private $cache;
-    private $entityManager;
-    private $keyGenerator;
+    private TagAwareCacheInterface $cache;
+    private EntityManagerInterface $entityManager;
+    private UserCacheKeyGenerator $keyGenerator;
 
     public function __construct(TagAwareCacheInterface $treeCache, EntityManagerInterface $entityManager, UserCacheKeyGenerator $keyGenerator)
     {

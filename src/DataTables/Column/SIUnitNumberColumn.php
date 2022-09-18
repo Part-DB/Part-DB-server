@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SIUnitNumberColumn extends AbstractColumn
 {
-    protected $formatter;
+    protected SIFormatter $formatter;
 
     public function __construct(SIFormatter $formatter)
     {

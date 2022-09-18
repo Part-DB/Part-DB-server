@@ -62,19 +62,19 @@ class ColumnSecurity
     /**
      * @var string The name of the edit permission
      */
-    public $edit = 'edit';
+    public string $edit = 'edit';
     /**
      * @var string The name of the read permission
      */
-    public $read = 'read';
+    public string $read = 'read';
 
     /**
      * @var string A prefix for all permission names (e.g..edit, useful for Parts)
      */
-    public $prefix = '';
+    public string $prefix = '';
 
     /**
-     * @var string the placeholder that should be used, when the access to the property is denied
+     * @var mixed the placeholder that should be used, when the access to the property is denied
      */
     public $placeholder = null;
 

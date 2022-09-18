@@ -45,7 +45,7 @@ use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
  */
 class CollectionTypeExtension extends AbstractTypeExtension
 {
-    protected $propertyAccess;
+    protected PropertyAccessorInterface $propertyAccess;
 
     public function __construct(PropertyAccessorInterface $propertyAccess)
     {

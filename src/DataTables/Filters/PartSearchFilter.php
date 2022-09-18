@@ -9,43 +9,43 @@ class PartSearchFilter implements FilterInterface
 {
 
     /** @var string The string to query for */
-    protected $keyword;
+    protected string $keyword;
 
     /** @var boolean Whether to use regex for searching */
-    protected $regex = false;
+    protected bool $regex = false;
 
     /** @var bool Use name field for searching */
-    protected $name = true;
+    protected bool $name = true;
 
     /** @var bool Use category name for searching */
-    protected $category = true;
+    protected bool $category = true;
 
     /** @var bool Use description for searching */
-    protected $description = true;
+    protected bool $description = true;
 
     /** @var bool Use tags for searching */
-    protected $tags = true;
+    protected bool $tags = true;
 
     /** @var bool Use storelocation name for searching */
-    protected $storelocation = true;
+    protected bool $storelocation = true;
 
     /** @var bool Use comment field for searching */
-    protected $comment = true;
+    protected bool $comment = true;
 
     /** @var bool Use ordernr for searching */
-    protected $ordernr = true;
+    protected bool $ordernr = true;
 
     /** @var bool Use manufacturer product name for searching */
-    protected $mpn = true;
+    protected bool $mpn = true;
 
     /** @var bool Use supplier name for searching */
-    protected $supplier = false;
+    protected bool $supplier = false;
 
     /** @var bool Use manufacturer name for searching */
-    protected $manufacturer = false;
+    protected bool $manufacturer = false;
 
     /** @var bool Use footprint name for searching */
-    protected $footprint = false;
+    protected bool $footprint = false;
 
     public function __construct(string $query)
     {

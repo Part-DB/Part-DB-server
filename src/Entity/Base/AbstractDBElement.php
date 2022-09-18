@@ -65,7 +65,7 @@ abstract class AbstractDBElement implements JsonSerializable
      * @ORM\GeneratedValue()
      * @Groups({"full"})
      */
-    protected $id;
+    protected ?int $id = null;
 
     public function __clone()
     {

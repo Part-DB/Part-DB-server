@@ -46,11 +46,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class LabelController extends AbstractController
 {
-    protected $labelGenerator;
-    protected $em;
-    protected $elementTypeNameGenerator;
-    protected $rangeParser;
-    protected $translator;
+    protected LabelGenerator $labelGenerator;
+    protected EntityManagerInterface $em;
+    protected ElementTypeNameGenerator $elementTypeNameGenerator;
+    protected RangeParser $rangeParser;
+    protected TranslatorInterface $translator;
 
     public function __construct(LabelGenerator $labelGenerator, EntityManagerInterface $em, ElementTypeNameGenerator $elementTypeNameGenerator,
         RangeParser $rangeParser, TranslatorInterface $translator)

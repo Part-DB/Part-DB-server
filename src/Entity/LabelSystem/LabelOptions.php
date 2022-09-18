@@ -42,53 +42,53 @@ class LabelOptions
      * @Assert\Positive()
      * @ORM\Column(type="float")
      */
-    protected $width = 50.0;
+    protected float $width = 50.0;
 
     /**
      * @var float The page size of the label in mm
      * @Assert\Positive()
      * @ORM\Column(type="float")
      */
-    protected $height = 30.0;
+    protected float $height = 30.0;
 
     /**
      * @var string The type of the barcode that should be used in the label (e.g. 'qr')
      * @Assert\Choice(choices=LabelOptions::BARCODE_TYPES)
      * @ORM\Column(type="string")
      */
-    protected $barcode_type = 'none';
+    protected string $barcode_type = 'none';
 
     /**
      * @var string What image should be shown along the
      * @Assert\Choice(choices=LabelOptions::PICTURE_TYPES)
      * @ORM\Column(type="string")
      */
-    protected $picture_type = 'none';
+    protected string $picture_type = 'none';
 
     /**
      * @var string
      * @Assert\Choice(choices=LabelOptions::SUPPORTED_ELEMENTS)
      * @ORM\Column(type="string")
      */
-    protected $supported_element = 'part';
+    protected string $supported_element = 'part';
 
     /**
      * @var string any additional CSS for the label
      * @ORM\Column(type="text")
      */
-    protected $additional_css = '';
+    protected string $additional_css = '';
 
     /** @var string The mode that will be used to interpret the lines
      * @Assert\Choice(choices=LabelOptions::LINES_MODES)
      * @ORM\Column(type="string")
      */
-    protected $lines_mode = 'html';
+    protected string $lines_mode = 'html';
 
     /**
      * @var string
      * @ORM\Column(type="text")
      */
-    protected $lines = '';
+    protected string $lines = '';
 
     public function getWidth(): float
     {

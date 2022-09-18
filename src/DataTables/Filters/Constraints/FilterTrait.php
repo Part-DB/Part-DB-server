@@ -8,7 +8,7 @@ use Doctrine\ORM\QueryBuilder;
 trait FilterTrait
 {
 
-    protected $useHaving = false;
+    protected bool $useHaving = false;
 
     public function useHaving($value = true): self
     {

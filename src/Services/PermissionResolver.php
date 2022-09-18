@@ -56,8 +56,8 @@ class PermissionResolver
 {
     protected $permission_structure;
 
-    protected $is_debug;
-    protected $cache_file;
+    protected bool $is_debug;
+    protected string $cache_file;
 
     /**
      * PermissionResolver constructor.

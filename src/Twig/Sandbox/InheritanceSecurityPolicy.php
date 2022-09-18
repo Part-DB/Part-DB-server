@@ -35,11 +35,11 @@ use function is_array;
  */
 final class InheritanceSecurityPolicy implements SecurityPolicyInterface
 {
-    private $allowedTags;
-    private $allowedFilters;
-    private $allowedMethods;
-    private $allowedProperties;
-    private $allowedFunctions;
+    private array $allowedTags;
+    private array $allowedFilters;
+    private array $allowedMethods;
+    private array $allowedProperties;
+    private array $allowedFunctions;
 
     public function __construct(array $allowedTags = [], array $allowedFilters = [], array $allowedMethods = [], array $allowedProperties = [], array $allowedFunctions = [])
     {

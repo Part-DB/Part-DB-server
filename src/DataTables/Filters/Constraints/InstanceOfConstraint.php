@@ -14,12 +14,12 @@ class InstanceOfConstraint extends AbstractConstraint
     /**
      * @var string[] The values to compare to (fully qualified class names)
      */
-    protected $value;
+    protected array $value;
 
     /**
      * @var string The operator to use
      */
-    protected $operator;
+    protected string $operator;
 
     /**
      * @return string[]

@@ -53,7 +53,7 @@ use function array_slice;
  */
 class TagFinder
 {
-    protected $em;
+    protected EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $entityManager)
     {

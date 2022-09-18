@@ -11,22 +11,22 @@ use Svg\Tag\Text;
 class ParameterConstraint extends AbstractConstraint
 {
     /** @var string */
-    protected $name;
+    protected string $name;
 
     /** @var string */
-    protected $symbol;
+    protected string $symbol;
 
     /** @var string */
-    protected $unit;
+    protected string $unit;
 
     /** @var TextConstraint */
-    protected $value_text;
+    protected TextConstraint $value_text;
 
     /** @var ParameterValueConstraint */
-    protected $value;
+    protected ParameterValueConstraint $value;
 
     /** @var string The alias to use for the subquery */
-    protected $alias;
+    protected string $alias;
 
     public function __construct()
     {

@@ -77,9 +77,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class PartController extends AbstractController
 {
-    protected $pricedetailHelper;
-    protected $partPreviewGenerator;
-    protected $commentHelper;
+    protected PricedetailHelper $pricedetailHelper;
+    protected PartPreviewGenerator $partPreviewGenerator;
+    protected EventCommentHelper $commentHelper;
 
     public function __construct(PricedetailHelper $pricedetailHelper,
         PartPreviewGenerator $partPreviewGenerator, EventCommentHelper $commentHelper)

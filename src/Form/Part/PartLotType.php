@@ -57,7 +57,7 @@ use Symfony\Component\Security\Core\Security;
 
 class PartLotType extends AbstractType
 {
-    protected $security;
+    protected Security $security;
 
     public function __construct(Security $security)
     {

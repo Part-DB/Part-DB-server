@@ -84,16 +84,14 @@ class Device extends AbstractPartsContainingDBElement
     protected $parts;
 
     /**
-     * @var int
      * @ORM\Column(type="integer")
      */
-    protected $order_quantity = 0;
+    protected int $order_quantity = 0;
 
     /**
-     * @var bool
      * @ORM\Column(type="boolean")
      */
-    protected $order_only_missing_parts = false;
+    protected bool $order_only_missing_parts = false;
     /**
      * @var Collection<int, DeviceAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\DeviceAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)

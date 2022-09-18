@@ -12,7 +12,7 @@ class TextConstraint extends AbstractConstraint
     /**
      * @var string|null The operator to use
      */
-    protected $operator;
+    protected ?string $operator;
 
     /**
      * @var string The value to compare to

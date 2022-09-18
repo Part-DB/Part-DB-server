@@ -38,8 +38,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ScanController extends AbstractController
 {
-    protected $barcodeParser;
-    protected $barcodeNormalizer;
+    protected BarcodeRedirector $barcodeParser;
+    protected BarcodeNormalizer $barcodeNormalizer;
 
     public function __construct(BarcodeRedirector $barcodeParser, BarcodeNormalizer $barcodeNormalizer)
     {

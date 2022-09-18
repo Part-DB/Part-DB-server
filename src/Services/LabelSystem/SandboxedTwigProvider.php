@@ -96,7 +96,7 @@ final class SandboxedTwigProvider
     ];
     private const ALLOWED_PROPERTIES = [];
 
-    private $appExtension;
+    private FormatExtension $appExtension;
 
     public function __construct(FormatExtension $appExtension)
     {

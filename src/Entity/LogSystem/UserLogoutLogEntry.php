@@ -50,7 +50,7 @@ use Symfony\Component\HttpFoundation\IpUtils;
  */
 class UserLogoutLogEntry extends AbstractLogEntry
 {
-    protected $typeString = 'user_logout';
+    protected string $typeString = 'user_logout';
 
     public function __construct(string $ip_address, bool $anonymize = true)
     {

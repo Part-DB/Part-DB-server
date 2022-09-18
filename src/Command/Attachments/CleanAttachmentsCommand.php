@@ -64,10 +64,10 @@ class CleanAttachmentsCommand extends Command
 {
     protected static $defaultName = 'partdb:attachments:clean-unused|app:clean-attachments';
 
-    protected $attachment_helper;
-    protected $reverseSearch;
-    protected $mimeTypeGuesser;
-    protected $pathResolver;
+    protected AttachmentManager $attachment_helper;
+    protected AttachmentReverseSearch $reverseSearch;
+    protected MimeTypes $mimeTypeGuesser;
+    protected AttachmentPathResolver $pathResolver;
 
     public function __construct(AttachmentManager $attachmentHelper, AttachmentReverseSearch $reverseSearch, AttachmentPathResolver $pathResolver)
     {

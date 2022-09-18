@@ -53,10 +53,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RedirectController extends AbstractController
 {
-    protected $default_locale;
-    protected $translator;
-    protected $session;
-    protected $enforce_index_php;
+    protected string $default_locale;
+    protected TranslatorInterface $translator;
+    protected SessionInterface $session;
+    protected bool $enforce_index_php;
 
     public function __construct(string $default_locale, TranslatorInterface $translator, SessionInterface $session, bool $enforce_index_php)
     {

@@ -49,7 +49,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class DatabaseUpdatedLogEntry extends AbstractLogEntry
 {
-    protected $typeString = 'database_updated';
+    protected string $typeString = 'database_updated';
 
     public function __construct(string $oldVersion, string $newVersion)
     {

@@ -64,9 +64,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PartListsController extends AbstractController
 {
-    private $entityManager;
-    private $nodesListBuilder;
-    private $dataTableFactory;
+    private EntityManagerInterface $entityManager;
+    private NodesListBuilder $nodesListBuilder;
+    private DataTableFactory $dataTableFactory;
 
     public function __construct(EntityManagerInterface $entityManager, NodesListBuilder $nodesListBuilder, DataTableFactory $dataTableFactory)
     {

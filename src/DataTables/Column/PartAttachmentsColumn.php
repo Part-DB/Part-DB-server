@@ -53,9 +53,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PartAttachmentsColumn extends AbstractColumn
 {
-    protected $FAIconGenerator;
-    protected $urlGenerator;
-    protected $attachmentManager;
+    protected FAIconGenerator $FAIconGenerator;
+    protected EntityURLGenerator $urlGenerator;
+    protected AttachmentManager $attachmentManager;
 
     public function __construct(FAIconGenerator $FAIconGenerator, EntityURLGenerator $urlGenerator, AttachmentManager $attachmentManager)
     {

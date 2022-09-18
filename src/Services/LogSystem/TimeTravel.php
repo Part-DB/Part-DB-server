@@ -32,6 +32,7 @@ use App\Entity\Contracts\TimeTravelInterface;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\ElementEditedLogEntry;
+use App\Repository\LogEntryRepository;
 use Brick\Math\BigDecimal;
 use DateTime;
 use Doctrine\Common\Collections\Collection;
@@ -44,8 +45,8 @@ use ReflectionClass;
 
 class TimeTravel
 {
-    protected $em;
-    protected $repo;
+    protected EntityManagerInterface $em;
+    protected LogEntryRepository $repo;
 
     public function __construct(EntityManagerInterface $em)
     {

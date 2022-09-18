@@ -161,33 +161,33 @@ abstract class AbstractLogEntry extends AbstractDBElement
      * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User", fetch="EAGER")
      * @ORM\JoinColumn(name="id_user", nullable=false)
      */
-    protected $user;
+    protected ?User $user = null;
 
     /** @var DateTime The datetime the event associated with this log entry has occured
      * @ORM\Column(type="datetime", name="datetime")
      */
-    protected $timestamp;
+    protected ?DateTime $timestamp = null;
 
     /** @var int The priority level of the associated level. 0 is highest, 7 lowest
      * @ORM\Column(type="integer", name="level", columnDefinition="TINYINT(4) NOT NULL")
      */
-    protected $level;
+    protected int $level;
 
     /** @var int The ID of the element targeted by this event
      * @ORM\Column(name="target_id", type="integer", nullable=false)
      */
-    protected $target_id = 0;
+    protected int $target_id = 0;
 
     /** @var int The Type of the targeted element
      * @ORM\Column(name="target_type", type="smallint", nullable=false)
      */
-    protected $target_type = 0;
+    protected int $target_type = 0;
 
     /** @var string The type of this log entry, aka the description what has happened.
      * The mapping between the log entry class and the discriminator column is done by doctrine.
      * Each subclass should override this string to specify a better string.
      */
-    protected $typeString = 'unknown';
+    protected string $typeString = 'unknown';
 
     /** @var array The extra data in raw (short form) saved in the DB
      * @ORM\Column(name="extra", type="json")

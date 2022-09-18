@@ -11,12 +11,12 @@ class ChoiceConstraint extends AbstractConstraint
     /**
      * @var string[]|int[] The values to compare to
      */
-    protected $value;
+    protected array $value;
 
     /**
      * @var string The operator to use
      */
-    protected $operator;
+    protected string $operator;
 
     /**
      * @return string[]|int[]

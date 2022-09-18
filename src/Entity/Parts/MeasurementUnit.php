@@ -66,14 +66,14 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      * @ORM\Column(type="string", name="unit", nullable=true)
      * @Assert\Length(max=10)
      */
-    protected $unit;
+    protected string $unit;
 
     /**
      * @var bool Determines if the amount value associated with this unit should be treated as integer.
      *           Set to false, to measure continuous sizes likes masses or lengths.
      * @ORM\Column(type="boolean", name="is_integer")
      */
-    protected $is_integer = false;
+    protected bool $is_integer = false;
 
     /**
      * @var bool Determines if the unit can be used with SI Prefixes (kilo, giga, milli, etc.).
@@ -81,7 +81,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      * @ORM\Column(type="boolean", name="use_si_prefix")
      * @Assert\Expression("this.isUseSIPrefix() == false or this.getUnit() != null", message="validator.measurement_unit.use_si_prefix_needs_unit")
      */
-    protected $use_si_prefix = false;
+    protected bool $use_si_prefix = false;
 
     /**
      * @ORM\OneToMany(targetEntity="MeasurementUnit", mappedBy="parent", cascade={"persist"})

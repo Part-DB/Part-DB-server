@@ -34,8 +34,8 @@ use Symfony\Component\Security\Core\Security;
 
 final class PartsTableActionHandler
 {
-    private $entityManager;
-    private $security;
+    private EntityManagerInterface $entityManager;
+    private Security $security;
 
     public function __construct(EntityManagerInterface $entityManager, Security $security)
     {

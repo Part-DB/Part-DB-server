@@ -51,7 +51,7 @@ use Symfony\Component\Security\Core\Security;
 
 class CurrencyAdminForm extends BaseEntityAdminForm
 {
-    private $default_currency;
+    private string $default_currency;
 
     public function __construct(Security $security, string $default_currency)
     {

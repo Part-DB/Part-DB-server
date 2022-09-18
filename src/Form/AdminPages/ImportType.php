@@ -55,7 +55,7 @@ use Symfony\Component\Security\Core\Security;
 
 class ImportType extends AbstractType
 {
-    protected $security;
+    protected Security $security;
 
     public function __construct(Security $security)
     {

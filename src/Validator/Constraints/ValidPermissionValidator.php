@@ -50,8 +50,8 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class ValidPermissionValidator extends ConstraintValidator
 {
-    protected $resolver;
-    protected $perm_structure;
+    protected PermissionResolver $resolver;
+    protected array $perm_structure;
 
     public function __construct(PermissionResolver $resolver)
     {

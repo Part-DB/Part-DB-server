@@ -53,8 +53,8 @@ use Symfony\Component\Security\Core\Security;
  */
 final class SetUserTimezoneSubscriber implements EventSubscriberInterface
 {
-    private $default_timezone;
-    private $security;
+    private string $default_timezone;
+    private Security $security;
 
     public function __construct(string $timezone, Security $security)
     {

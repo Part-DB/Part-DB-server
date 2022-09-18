@@ -67,8 +67,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ElementTypeNameGenerator
 {
-    protected $translator;
-    protected $mapping;
+    protected TranslatorInterface $translator;
+    protected array $mapping;
 
     public function __construct(TranslatorInterface $translator)
     {

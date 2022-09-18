@@ -48,7 +48,7 @@ use SebastianBergmann\CodeCoverage\Report\Text;
 
 class BBCodeToMarkdownConverter
 {
-    protected $html_to_markdown;
+    protected HtmlConverter $html_to_markdown;
 
     public function __construct()
     {

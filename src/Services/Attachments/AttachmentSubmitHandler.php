@@ -74,12 +74,12 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  */
 class AttachmentSubmitHandler
 {
-    protected $pathResolver;
-    protected $folder_mapping;
-    protected $allow_attachments_downloads;
-    protected $httpClient;
-    protected $mimeTypes;
-    protected $filterTools;
+    protected AttachmentPathResolver $pathResolver;
+    protected array $folder_mapping;
+    protected bool $allow_attachments_downloads;
+    protected HttpClientInterface $httpClient;
+    protected MimeTypesInterface $mimeTypes;
+    protected FileTypeFilterTools $filterTools;
 
     public function __construct(AttachmentPathResolver $pathResolver, bool $allow_attachments_downloads,
                                 HttpClientInterface $httpClient, MimeTypesInterface $mimeTypes,

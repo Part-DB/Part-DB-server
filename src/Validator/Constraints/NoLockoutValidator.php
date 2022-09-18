@@ -53,10 +53,10 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class NoLockoutValidator extends ConstraintValidator
 {
-    protected $resolver;
-    protected $perm_structure;
-    protected $security;
-    protected $entityManager;
+    protected PermissionResolver $resolver;
+    protected array $perm_structure;
+    protected Security $security;
+    protected EntityManagerInterface $entityManager;
 
     public function __construct(PermissionResolver $resolver, Security $security, EntityManagerInterface $entityManager)
     {

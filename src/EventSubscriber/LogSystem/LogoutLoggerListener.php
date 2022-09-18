@@ -52,8 +52,8 @@ use Symfony\Component\Security\Http\Event\LogoutEvent;
  */
 class LogoutLoggerListener
 {
-    protected $logger;
-    protected $gpdr_compliance;
+    protected EventLogger $logger;
+    protected bool $gpdr_compliance;
 
     public function __construct(EventLogger $logger, bool $gpdr_compliance)
     {

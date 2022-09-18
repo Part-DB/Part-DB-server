@@ -51,7 +51,7 @@ use Symfony\Component\Security\Core\Security;
 
 class AttachmentTypeAdminForm extends BaseEntityAdminForm
 {
-    protected $filterTools;
+    protected FileTypeFilterTools $filterTools;
 
     public function __construct(Security $security, FileTypeFilterTools $filterTools)
     {

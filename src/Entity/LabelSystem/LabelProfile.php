@@ -50,19 +50,19 @@ class LabelProfile extends AttachmentContainingDBElement
      * @ORM\Embedded(class="LabelOptions")
      * @Assert\Valid()
      */
-    protected $options;
+    protected LabelOptions $options;
 
     /**
      * @var string The comment info for this element
      * @ORM\Column(type="text")
      */
-    protected $comment = '';
+    protected string $comment = '';
 
     /**
      * @var bool determines, if this label profile should be shown in the dropdown quick menu
      * @ORM\Column(type="boolean")
      */
-    protected $show_in_dropdown = true;
+    protected bool $show_in_dropdown = true;
 
     public function __construct()
     {

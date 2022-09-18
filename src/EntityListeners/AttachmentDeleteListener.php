@@ -59,9 +59,9 @@ use SplFileInfo;
  */
 class AttachmentDeleteListener
 {
-    protected $attachmentReverseSearch;
-    protected $attachmentHelper;
-    protected $pathResolver;
+    protected AttachmentReverseSearch $attachmentReverseSearch;
+    protected AttachmentManager $attachmentHelper;
+    protected AttachmentPathResolver $pathResolver;
 
     public function __construct(AttachmentReverseSearch $attachmentReverseSearch, AttachmentManager $attachmentHelper, AttachmentPathResolver $pathResolver)
     {

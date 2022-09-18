@@ -61,7 +61,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TreeController extends AbstractController
 {
-    protected $treeGenerator;
+    protected TreeViewGenerator $treeGenerator;
 
     public function __construct(TreeViewGenerator $treeGenerator)
     {

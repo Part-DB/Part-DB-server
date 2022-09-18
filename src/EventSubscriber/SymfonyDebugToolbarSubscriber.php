@@ -50,7 +50,7 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
  */
 final class SymfonyDebugToolbarSubscriber implements EventSubscriberInterface
 {
-    private $kernel_debug;
+    private bool $kernel_debug;
 
     public function __construct(bool $kernel_debug)
     {

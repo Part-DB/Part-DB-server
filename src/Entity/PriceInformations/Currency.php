@@ -71,14 +71,14 @@ class Currency extends AbstractStructuralDBElement
      * @ORM\Column(type="big_decimal", precision=11, scale=5, nullable=true)
      * @BigDecimalPositive()
      */
-    protected $exchange_rate;
+    protected ?BigDecimal $exchange_rate = null;
 
     /**
      * @var string the 3 letter ISO code of the currency
      * @ORM\Column(type="string")
      * @Assert\Currency()
      */
-    protected $iso_code;
+    protected string $iso_code;
 
     /**
      * @ORM\OneToMany(targetEntity="Currency", mappedBy="parent", cascade={"persist"})

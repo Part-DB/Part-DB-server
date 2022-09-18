@@ -50,7 +50,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ExceptionLogEntry extends AbstractLogEntry
 {
-    protected $typeString = 'exception';
+    protected string $typeString = 'exception';
 
     public function __construct()
     {

@@ -57,9 +57,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class CurrencyEntityType extends StructuralEntityType
 {
-    protected $base_currency;
+    protected ?string $base_currency;
 
-    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder, $base_currency)
+    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder, ?string $base_currency)
     {
         parent::__construct($em, $builder);
         $this->base_currency = $base_currency;

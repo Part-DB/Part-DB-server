@@ -53,14 +53,14 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class AttachmentURLGenerator
 {
-    protected $assets;
-    protected $public_path;
-    protected $pathResolver;
-    protected $urlGenerator;
-    protected $attachmentHelper;
-    protected $filterService;
+    protected Packages $assets;
+    protected string $public_path;
+    protected AttachmentPathResolver $pathResolver;
+    protected UrlGeneratorInterface $urlGenerator;
+    protected AttachmentManager $attachmentHelper;
+    protected FilterService $filterService;
 
-    protected $logger;
+    protected LoggerInterface $logger;
 
     public function __construct(Packages $assets, AttachmentPathResolver $pathResolver,
                                 UrlGeneratorInterface $urlGenerator, AttachmentManager $attachmentHelper,

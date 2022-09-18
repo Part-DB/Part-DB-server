@@ -69,14 +69,14 @@ trait OrderTrait
      * @ORM\Column(type="integer")
      * @ColumnSecurity(prefix="order", type="integer")
      */
-    protected $order_quantity = 0;
+    protected int $order_quantity = 0;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
      * @ColumnSecurity(prefix="order", type="boolean")
      */
-    protected $manual_order = false;
+    protected bool $manual_order = false;
 
     /**
      * @var Orderdetail
@@ -85,7 +85,7 @@ trait OrderTrait
      *
      * @ColumnSecurity(prefix="order", type="object")
      */
-    protected $order_orderdetail;
+    protected Orderdetail $order_orderdetail;
 
     /**
      * Get the selected order orderdetails of this part.

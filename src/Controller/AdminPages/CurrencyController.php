@@ -84,7 +84,7 @@ class CurrencyController extends BaseAdminController
     protected $attachment_class = CurrencyAttachment::class;
     protected $parameter_class = CurrencyParameter::class;
 
-    protected $exchangeRateUpdater;
+    protected ExchangeRateUpdater $exchangeRateUpdater;
 
     public function __construct(
         TranslatorInterface $translator,

@@ -44,6 +44,7 @@ namespace App\Command\Logs;
 
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\LogSystem\AbstractLogEntry;
+use App\Repository\LogEntryRepository;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\LogSystem\LogEntryExtraFormatter;
 use Doctrine\ORM\EntityManagerInterface;
@@ -58,11 +59,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ShowEventLogCommand extends Command
 {
     protected static $defaultName = 'partdb:logs:show|app:show-logs';
-    protected $entityManager;
-    protected $translator;
-    protected $elementTypeNameGenerator;
-    protected $repo;
-    protected $formatter;
+    protected EntityManagerInterface $entityManager;
+    protected TranslatorInterface $translator;
+    protected ElementTypeNameGenerator $elementTypeNameGenerator;
+    protected LogEntryRepository $repo;
+    protected LogEntryExtraFormatter $formatter;
 
     public function __construct(EntityManagerInterface $entityManager,
         TranslatorInterface $translator, ElementTypeNameGenerator $elementTypeNameGenerator, LogEntryExtraFormatter $formatter)

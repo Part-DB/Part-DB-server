@@ -49,7 +49,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class MarkdownParser
 {
-    protected $translator;
+    protected TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {

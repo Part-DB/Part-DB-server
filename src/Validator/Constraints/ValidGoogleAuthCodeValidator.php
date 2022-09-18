@@ -56,7 +56,7 @@ use function strlen;
 
 class ValidGoogleAuthCodeValidator extends ConstraintValidator
 {
-    protected $googleAuthenticator;
+    protected GoogleAuthenticatorInterface $googleAuthenticator;
 
     public function __construct(GoogleAuthenticatorInterface $googleAuthenticator)
     {

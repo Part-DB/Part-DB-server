@@ -48,8 +48,8 @@ use NumberFormatter;
 
 class MoneyFormatter
 {
-    protected $base_currency;
-    protected $locale;
+    protected string $base_currency;
+    protected string $locale;
 
     public function __construct(string $base_currency)
     {

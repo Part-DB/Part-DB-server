@@ -67,7 +67,7 @@ use Symfony\Component\Validator\Constraints\Length;
 
 class UserAdminForm extends AbstractType
 {
-    protected $security;
+    protected Security $security;
 
     public function __construct(Security $security)
     {

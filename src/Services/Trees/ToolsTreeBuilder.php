@@ -70,11 +70,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class ToolsTreeBuilder
 {
-    protected $translator;
-    protected $urlGenerator;
-    protected $keyGenerator;
-    protected $cache;
-    protected $security;
+    protected TranslatorInterface $translator;
+    protected UrlGeneratorInterface $urlGenerator;
+    protected UserCacheKeyGenerator $keyGenerator;
+    protected TagAwareCacheInterface $cache;
+    protected Security $security;
 
     public function __construct(TranslatorInterface $translator, UrlGeneratorInterface $urlGenerator,
         TagAwareCacheInterface $treeCache, UserCacheKeyGenerator $keyGenerator,

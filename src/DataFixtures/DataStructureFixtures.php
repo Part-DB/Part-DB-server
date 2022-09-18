@@ -58,7 +58,7 @@ use InvalidArgumentException;
 
 class DataStructureFixtures extends Fixture
 {
-    protected $em;
+    protected EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
