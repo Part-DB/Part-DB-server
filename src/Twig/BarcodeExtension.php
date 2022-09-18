@@ -35,7 +35,7 @@ final class BarcodeExtension extends AbstractExtension
         ];
     }
 
-    public function barcodeSVG(string $content, string $type): string
+    public function barcodeSVG(string $content, string $type = 'QRCODE'): string
     {
         $barcodeFactory = new Barcode();
         return $barcodeFactory->getBarcodeObj($type, $content)->getSvgCode();
