@@ -125,7 +125,7 @@
 
             {# Retain the query parameters of the search form if it is existing #}
             {% if searchFilter is defined %}
-                {% for property, value in searchFilter|toArray %}
+                {% for property, value in searchFilter|to_array %}
                     <input type="hidden" name="{{ property }}" data-no-clear="true" value="{{ value }}">
                 {% endfor %}
 

@@ -96,12 +96,12 @@ class EntityURLGenerator
      * @param mixed  $entity The element for which the page should be generated
      * @param string $type   The page type. Currently supported: 'info', 'edit', 'create', 'clone', 'list'/'list_parts'
      *
-     * @return string|null the link to the desired page
+     * @return string the link to the desired page
      *
      * @throws EntityNotSupportedException thrown if the entity is not supported for the given type
      * @throws InvalidArgumentException    thrown if the givent type is not existing
      */
-    public function getURL($entity, string $type): ?string
+    public function getURL($entity, string $type): string
     {
         switch ($type) {
             case 'info':

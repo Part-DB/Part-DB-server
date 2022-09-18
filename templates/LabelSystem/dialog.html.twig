@@ -60,7 +60,7 @@
                 <div class="col-sm-9">
                     <span class="form-control-plaintext">{{ profile.name ?? '-' }}
                         {% if profile %}
-                            <a href="{{ profile | entityURL('edit') }}" title="{% trans %}label_generator.edit_profile{% endtrans %}"
+                            <a href="{{ entity_url(profile, 'edit') }}" title="{% trans %}label_generator.edit_profile{% endtrans %}"
                             ><i class="fas fa-edit"></i></a>
                         {% endif %}
                     </span>

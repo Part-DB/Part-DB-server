@@ -10,10 +10,10 @@
     {% set disabled = attachment.secure and not is_granted("show_secure", attachment) %}
     {% if not attachment_helper or attachment_helper.fileExisting(attachment) %}
         {% if link and not disabled %}
-            <a target="_blank" data-turbo="false" rel="noopener" href="{{ attachment|entityURL('file_view') }}">
+            <a target="_blank" data-turbo="false" rel="noopener" href="{{ entity_url(attachment, 'file_view') }}">
         {% endif %}
         {% if attachment.picture %}
-            <img class="hoverpic" {{ stimulus_controller('elements/hoverpic') }} data-thumbnail="{{ attachment|entityURL('file_view') }}" src="{{ attachment|entityURL('file_view') }}">
+            <img class="hoverpic" {{ stimulus_controller('elements/hoverpic') }} data-thumbnail="{{ entity_url(attachment, 'file_view') }}" src="{{ entity_url(attachment, 'file_view') }}">
         {% else %}
             <i class="text-dark {{ class }} {{ ext_to_fa_icon(attachment.extension) }}"></i>
         {% endif %}
@@ -59,7 +59,7 @@
             {% for e in entity.pathArray %}
                 <li>
                     {% if link_type is not empty and e.id is not null %}
-                        <a href="{{ e | entityURL(link_type) }}">{{ e.name }}</a>
+                        <a href="{{ entity_url(e, link_type) }}">{{ e.name }}</a>
                     {% else %}
                         {{ e.name }}
                     {% endif %}
@@ -115,7 +115,7 @@
             {% for e in entity.pathArray %}
                 <li class="breadcrumb-item {% if loop.last %}active{% endif %}">
                     {% if link_type is not empty and not loop.last and e.id is not null %}
-                        <a href="{{ e | entityURL(link_type) }}">{{ e.name }}</a>
+                        <a href="{{ entity_url(e, link_type) }}">{{ e.name }}</a>
                     {% else %}
                         {{ e.name }}
                     {% endif %}
@@ -141,9 +141,9 @@
     {% endif %}
     {% if is_granted('show_users', entity) %}
         {% if lastModified == true %}
-            {% set user = getLastEditingUser(entity) %}
+            {% set user = last_editing_user(entity) %}
         {% else %}
-            {% set user = getCreatingUser(entity) %}
+            {% set user = creating_user(entity) %}
         {% endif %}
 
         {% if user is not null %}

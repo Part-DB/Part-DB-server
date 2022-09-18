@@ -1,5 +1,5 @@
 <div class="row mb-2">
     <div class="offset-3 col">
-        <a class="btn btn-info {% if not is_granted('create', entity) %}disabled{% endif %}" href="{{ entity | entityURL('clone') }}">{% trans %}entity.duplicate{% endtrans %}</a>
+        <a class="btn btn-info {% if not is_granted('create', entity) %}disabled{% endif %}" href="{{ entity_url(entity, 'clone') }}">{% trans %}entity.duplicate{% endtrans %}</a>
     </div>
 </div>

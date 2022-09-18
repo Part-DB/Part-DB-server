@@ -8,7 +8,7 @@
         <h5 class="text-muted pt-2" title="{% trans %}manufacturer.label{% endtrans %}">
             {% if part.manufacturer %}
                 {% if part.manufacturer.id is not null %}
-                    <a href="{{ part.manufacturer | entityURL('list_parts') }}">{{ part.manufacturer.name}}</a>
+                    <a href="{{ entity_url(part.manufacturer, 'list_parts') }}">{{ part.manufacturer.name}}</a>
                 {% else %}
                     {{ part.manufacturer.name }}
                 {% endif %}
@@ -24,9 +24,9 @@
         <h3 class="w-fit" title="{% trans %}name.label{% endtrans %}">{{ part.name }}
             {# You need edit permission to use the edit button #}
             {% if timeTravel is not null %}
-                <a href="{{ part|entityURL('info') }}"><i title="{% trans %}part.back_to_info{% endtrans %}" class="fas fa-fw fa-arrow-circle-left"></i></a>
+                <a href="{{ entity_url(part, 'info') }}"><i title="{% trans %}part.back_to_info{% endtrans %}" class="fas fa-fw fa-arrow-circle-left"></i></a>
             {% elseif is_granted('edit', part) %}
-                <a href="{{ part|entityURL('edit') }}"><i class="fas fa-fw fa-sm fa-edit"></i></a>
+                <a href="{{ entity_url(part, 'edit') }}"><i class="fas fa-fw fa-sm fa-edit"></i></a>
             {% endif %}
         </h3>
         <h6 class="text-muted w-fit" title="{% trans %}description.label{% endtrans %}"><span>{{ part.description|markdown(true) }}</span></h6>

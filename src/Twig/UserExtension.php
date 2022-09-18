@@ -29,7 +29,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class LastUserExtension extends AbstractExtension
+class UserExtension extends AbstractExtension
 {
     /** @var LogEntryRepository */
     private $repo;
@@ -42,8 +42,10 @@ class LastUserExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('getLastEditingUser', [$this->repo, 'getLastEditingUser']),
-            new TwigFunction('getCreatingUser', [$this->repo, 'getCreatingUser']),
+            /* Returns the user which has edited the given entity the last time. */
+            new TwigFunction('last_editing_user', [$this->repo, 'getLastEditingUser']),
+            /* Returns the user which has created the given entity. */
+            new TwigFunction('creating_user', [$this->repo, 'getCreatingUser']),
         ];
     }
 }

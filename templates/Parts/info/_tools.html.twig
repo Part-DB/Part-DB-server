@@ -1,7 +1,7 @@
 {% import "LabelSystem/dropdown_macro.html.twig" as dropdown %}
 
 {% if is_granted('edit', part) %}
-    <a href="{{ part|entityURL('edit') }}" class="btn btn-primary mt-3">
+    <a href="{{ entity_url(part, 'edit') }}" class="btn btn-primary mt-3">
         <i class="fas fa-fw fa-edit"></i>
         {% trans %}part.edit.btn{% endtrans %}
     </a>
@@ -11,7 +11,7 @@
 {% if is_granted('create', part) %}
     <br>
     <div class="btn-group mt-2">
-        <a class="btn btn-primary" href="{{ part|entityURL('clone') }}">
+        <a class="btn btn-primary" href="{{ entity_url(part, 'clone') }}">
             <i class="fas fa-clone"></i>
             {% trans %}part.clone.btn{% endtrans %}
         </a>
@@ -19,7 +19,7 @@
             <span class="caret"></span>
         </button>
         <div class="dropdown-menu" role="menu">
-            <a class="dropdown-item" href="{{ part|entityURL('create') }}">
+            <a class="dropdown-item" href="{{ entity_url(part, 'create') }}">
                 <i class="fas fa-plus-square"></i>
                 {% trans %}part.create.btn{% endtrans %}
             </a>
@@ -27,7 +27,7 @@
     </div>
 {% endif %}
 
-<form method="post" class="mt-2" action="{{ part|entityURL('delete') }}"
+<form method="post" class="mt-2" action="{{ entity_url(part, 'delete') }}"
         {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
       data-delete-title="{% trans  with {'%name%': part.name }%}part.delete.confirm_title{% endtrans %}"
       data-delete-message="{% trans %}part.delete.message{% endtrans %}">

@@ -77,7 +77,6 @@ use function get_class;
 
 class AppExtension extends AbstractExtension
 {
-    protected $entityURLGenerator;
     protected $markdownParser;
     protected $serializer;
     protected $treeBuilder;
@@ -88,16 +87,13 @@ class AppExtension extends AbstractExtension
     protected $FAIconGenerator;
     protected $translator;
 
-    protected $objectNormalizer;
-
-    public function __construct(EntityURLGenerator $entityURLGenerator, MarkdownParser $markdownParser,
+    public function __construct(MarkdownParser $markdownParser,
         SerializerInterface $serializer, TreeViewGenerator $treeBuilder,
         MoneyFormatter $moneyFormatter,
         SIFormatter $SIFormatter, AmountFormatter $amountFormatter,
         AttachmentURLGenerator $attachmentURLGenerator,
-        FAIconGenerator $FAIconGenerator, TranslatorInterface $translator, ObjectNormalizer $objectNormalizer)
+        FAIconGenerator $FAIconGenerator, TranslatorInterface $translator)
     {
-        $this->entityURLGenerator = $entityURLGenerator;
         $this->markdownParser = $markdownParser;
         $this->serializer = $serializer;
         $this->treeBuilder = $treeBuilder;
@@ -107,14 +103,11 @@ class AppExtension extends AbstractExtension
         $this->attachmentURLGenerator = $attachmentURLGenerator;
         $this->FAIconGenerator = $FAIconGenerator;
         $this->translator = $translator;
-
-        $this->objectNormalizer = $objectNormalizer;
     }
 
     public function getFilters(): array
     {
         return [
-            new TwigFilter('entityURL', [$this, 'generateEntityURL']),
             new TwigFilter('markdown', [$this->markdownParser, 'markForRendering'], [
                 'pre_escape' => 'html',
                 'is_safe' => ['html'],
@@ -123,25 +116,10 @@ class AppExtension extends AbstractExtension
             new TwigFilter('siFormat', [$this, 'siFormat']),
             new TwigFilter('amountFormat', [$this, 'amountFormat']),
             new TwigFilter('loginPath', [$this, 'loginPath']),
-
-            new TwigFilter('toArray', [$this, 'toArray'])
         ];
     }
 
-    public function getTests(): array
-    {
-        return [
-            new TwigTest('instanceof', static function ($var, $instance) {
-                return $var instanceof $instance;
-            }),
-            new TwigTest('entity', static function ($var) {
-                return $var instanceof AbstractDBElement;
-            }),
-            new TwigTest('object', static function ($var) {
-                return is_object($var);
-            }),
-        ];
-    }
+
 
     public function getFunctions(): array
     {
@@ -149,29 +127,7 @@ class AppExtension extends AbstractExtension
             new TwigFunction('generateTreeData', [$this, 'treeData']),
             new TwigFunction('attachment_thumbnail', [$this->attachmentURLGenerator, 'getThumbnailURL']),
             new TwigFunction('ext_to_fa_icon', [$this->FAIconGenerator, 'fileExtensionToFAType']),
-            new TwigFunction('entity_type', [$this, 'getEntityType']),
         ];
-    }
-
-    public function getEntityType($entity): ?string
-    {
-        $map = [
-            Part::class => 'part',
-            Footprint::class => 'footprint',
-            Storelocation::class => 'storelocation',
-            Manufacturer::class => 'manufacturer',
-            Category::class => 'category',
-            Device::class => 'device',
-            Attachment::class => 'attachment',
-            Supplier::class => 'supplier',
-            User::class => 'user',
-            Group::class => 'group',
-            Currency::class => 'currency',
-            MeasurementUnit::class => 'measurement_unit',
-            LabelProfile::class => 'label_profile',
-        ];
-
-        return $map[get_class($entity)] ?? null;
     }
 
     public function treeData(AbstractDBElement $element, string $type = 'newEdit'): string
@@ -181,10 +137,7 @@ class AppExtension extends AbstractExtension
         return json_encode($tree, JSON_THROW_ON_ERROR);
     }
 
-    public function toArray($object): array
-    {
-        return $this->objectNormalizer->normalize($object, null);
-    }
+
 
     /**
      * This function/filter generates an path.
@@ -198,10 +151,7 @@ class AppExtension extends AbstractExtension
         return implode('/', $parts);
     }
 
-    public function generateEntityURL(AbstractDBElement $entity, string $method = 'info'): string
-    {
-        return $this->entityURLGenerator->getURL($entity, $method);
-    }
+
 
     public function formatCurrency($amount, ?Currency $currency = null, int $decimals = 5): string
     {

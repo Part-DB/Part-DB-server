@@ -8,7 +8,7 @@
         <div class="accordion-header">
             <button class="accordion-button collapsed py-2" data-bs-toggle="collapse" data-bs-target="#entityInfo">
                 {% if entity.masterPictureAttachment is not null and attachment_manager.isFileExisting(entity.masterPictureAttachment) %}
-                    <img class="hoverpic ms-0 me-1 d-inline" {{ stimulus_controller('elements/hoverpic') }} data-thumbnail="{{ entity.masterPictureAttachment | entityURL('file_view') }}" src="{{ attachment_thumbnail(entity.masterPictureAttachment, 'thumbnail_sm') }}">
+                    <img class="hoverpic ms-0 me-1 d-inline" {{ stimulus_controller('elements/hoverpic') }} data-thumbnail="{{ entity_url(entity.masterPictureAttachment, 'file_view') }}" src="{{ attachment_thumbnail(entity.masterPictureAttachment, 'thumbnail_sm') }}">
                 {% else %}
                     {{ helper.entity_icon(entity, "me-1") }}
                 {% endif %}
@@ -71,7 +71,7 @@
                                     <div class="col-sm-3">
                                         {% block quick_links %}{% endblock %}
 
-                                        <a class="btn btn-secondary w-100 mb-2" href="{{ entity | entityURL('edit') }}">
+                                        <a class="btn btn-secondary w-100 mb-2" href="{{ entity_url(entity, 'edit') }}">
                                             <i class="fas fa-edit"></i> {% trans %}entity.edit.btn{% endtrans %}
                                         </a>
                                         <div class="">
