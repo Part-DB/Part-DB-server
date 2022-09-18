@@ -73,6 +73,10 @@ class UserCacheKeyGenerator
             $user = $this->security->getUser();
         }
 
+        if (!$user instanceof User){
+           throw new \RuntimeException('UserCacheKeyGenerator::generateKey() was called without a user, but no user is logged in!');
+        }
+
         //If the user is null, then treat it as anonymous user.
         //When the anonymous user is passed as user then use this path too.
         if (null === $user || User::ID_ANONYMOUS === $user->getID()) {
