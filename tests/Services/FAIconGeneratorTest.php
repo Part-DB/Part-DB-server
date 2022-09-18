@@ -85,7 +85,7 @@ class FAIconGeneratorTest extends WebTestCase
 
     public function testGenerateIconHTML(): void
     {
-        $this->assertSame('<i class="fas fa-file "></i>', $this->service->generateIconHTML('fa-file'));
+        $this->assertSame('<i class="fa-solid fa-file "></i>', $this->service->generateIconHTML('fa-file'));
         $this->assertSame('<i class="far fa-file "></i>', $this->service->generateIconHTML('fa-file', 'far'));
         $this->assertSame('<i class="far fa-file fa-2x"></i>', $this->service->generateIconHTML('fa-file', 'far', 'fa-2x'));
     }
