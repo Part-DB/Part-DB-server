@@ -722,6 +722,10 @@ div.dataTables_wrapper div.dataTables_info {
     white-space: normal;
 }
 
+th.select-checkbox {
+    min-width: 10px;
+}
+
 
 /*******************************
     Parts datatable styling
