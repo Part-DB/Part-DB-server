@@ -45,6 +45,23 @@ abstract class AbstractPartsContainingRepository extends StructuralDBElementRepo
      */
     abstract public function getPartsCount(object $element): int;
 
+    /**
+     * Returns the count of the parts associated with this element and all its children.
+     * Please be aware that this function is pretty slow on large trees!
+     * @param  AbstractPartsContainingDBElement  $element
+     * @return int
+     */
+    public function getPartsCountRecursive(AbstractPartsContainingDBElement $element): int
+    {
+        $count = $this->getPartsCount($element);
+
+        foreach ($element->getChildren() as $child) {
+            $count += $this->getPartsCountRecursive($child);
+        }
+
+        return $count;
+    }
+
     protected function getPartsByField(object $element, array $order_by, string $field_name): array
     {
         if (!$element instanceof AbstractPartsContainingDBElement) {

@@ -1092,7 +1092,7 @@ Sub elements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>entity.info.parts_count</source>
-        <target>Count of parts with this element</target>
+        <target>Number of parts with this element</target>
       </segment>
     </unit>
     <unit id="4FQqOUW" name="specifications.property">
@@ -9769,6 +9769,12 @@ Element 3</target>
       <segment>
         <source>log.target_id</source>
         <target>Target element ID</target>
+      </segment>
+    </unit>
+    <unit id="_vbPEFP" name="category.edit.partname_regex.placeholder">
+      <segment>
+        <source>category.edit.partname_regex.placeholder</source>
+        <target>Number of parts with this element or its subelements</target>
       </segment>
     </unit>
   </file>

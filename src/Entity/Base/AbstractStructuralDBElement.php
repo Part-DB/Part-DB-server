@@ -93,7 +93,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      * @NoneOfItsChildren()
      * @Groups({"include_parents"})
      */
-    protected $parent;
+    protected $parent = null;
 
     /** @var string[] all names of all parent elements as a array of strings,
      *  the last array element is the name of the element itself
@@ -271,16 +271,17 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      */
     public function getSubelements(): iterable
     {
-        return $this->children;
+        return $this->children ?? new ArrayCollection();
     }
 
     /**
+     * @see getSubelements()
      * @return Collection<static>|iterable
      * @psalm-return Collection<int, static>
      */
     public function getChildren(): iterable
     {
-        return $this->children;
+        return $this->getSubelements();
     }
 
     public function isNotSelectable(): bool
