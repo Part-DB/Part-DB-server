@@ -1092,7 +1092,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>entity.info.parts_count</source>
-        <target>Count of parts with this element</target>
+        <target>Number of parts with this element</target>
       </segment>
     </unit>
     <unit id="4FQqOUW" name="specifications.property">
@@ -7216,7 +7216,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>company.edit.auto_product_url.help</source>
-        <target>This field is used to determine an link to the part on the company page. %PARTNR% will be replaced with the order number.</target>
+        <target>This field is used to determine an link to the part on the company page. %PARTNUMBER% will be replaced with the order number.</target>
       </segment>
     </unit>
     <unit id="22S3ulf" name="company.edit.auto_product_url.placeholder">
@@ -7226,7 +7226,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>company.edit.auto_product_url.placeholder</source>
-        <target>https://foo.bar/product/%PARTNR%</target>
+        <target>https://foo.bar/product/%PARTNUMBER%</target>
       </segment>
     </unit>
     <unit id="NZUfSAR" name="currency.edit.iso_code">
@@ -9078,7 +9078,7 @@ Element 3</target>
     <unit id="D6I2Q6C" name="entity.delete.must_not_contain_parts">
       <segment state="translated">
         <source>entity.delete.must_not_contain_parts</source>
-        <target>Element still contains parts! You have to move the parts, to be able to delete this element.</target>
+        <target>Element "%PATH%" still contains parts! You have to move the parts, to be able to delete this element.</target>
       </segment>
     </unit>
     <unit id="hu8Y98Q" name="entity.delete.must_not_contain_attachments">
