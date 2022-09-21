@@ -3014,8 +3014,7 @@
       </notes>
       <segment state="translated">
         <source>tfa_u2f.http_warning</source>
-        <target>
-安全でないHTTPでアクセスしているため、U2Fが動作しない可能性が高いです（Bad Requestのエラーメッセージ）。セキュリティー キーを使用したい場合は、管理者に安全なHTTPSにするよう依頼してください。</target>
+        <target>安全でないHTTPでアクセスしているため、U2Fが動作しない可能性が高いです（Bad Requestのエラーメッセージ）。セキュリティー キーを使用したい場合は、管理者に安全なHTTPSにするよう依頼してください。</target>
       </segment>
     </unit>
     <unit id="Do6QuMa" name="r_u2f_two_factor.pressbutton">
