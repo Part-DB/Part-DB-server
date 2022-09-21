@@ -1,9 +1,9 @@
 <form class="form-horizontal" data-turbo="false" method="post" action="{{ path }}">
 
-    <div class="form-row">
+    <div class="row">
         <label class="col-form-label col-md-3">{% trans %}export.format{% endtrans %}</label>
-        <div class="col-sm">
-            <select class="form-control" name="format">
+        <div class="col-md-9">
+            <select class="form-select" name="format">
                 <option value="json">JSON</option>
                 <option value="xml">XML</option>
                 <option value="csv">CSV</option>
@@ -12,10 +12,10 @@
         </div>
     </div>
 
-    <div class="form-row mt-2">
+    <div class="row mt-2">
         <label class="col-form-label col-md-3">{% trans %}export.level{% endtrans %}</label>
-        <div class="col-sm">
-            <select class="form-control" name="level">
+        <div class="col-md-9">
+            <select class="form-select" name="level">
                 <option value="simple">{% trans %}export.level.simple{% endtrans %}</option>
                 <option value="extended" selected>{% trans %}export.level.extended{% endtrans %}</option>
                 <option value="full">{% trans %}export.level.full{% endtrans %}</option>
@@ -23,8 +23,8 @@
         </div>
     </div>
 
-    <div class="form-row mt-2">
-        <div class="offset-sm-3 col-sm">
+    <div class="row mt-2">
+        <div class="offset-md-3 col-sm">
             <div class="form-check">
                 <input class="form-check-input form-check-input" name="include_children" id="include_children" type="checkbox" checked>
                 <label class="form-check-label form-check-label" for="include_children">
@@ -34,7 +34,7 @@
         </div>
     </div>
 
-    <div class="form-row mt-2">
+    <div class="row mt-2">
         <div class="offset-sm-3 col-sm">
             <button type="submit" class="btn btn-primary">{% trans %}export.btn{% endtrans %}</button>
         </div>
