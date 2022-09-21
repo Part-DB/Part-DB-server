@@ -85,7 +85,7 @@ trait OrderTrait
      *
      * @ColumnSecurity(prefix="order", type="object")
      */
-    protected Orderdetail $order_orderdetail;
+    protected ?Orderdetail $order_orderdetail = null;
 
     /**
      * Get the selected order orderdetails of this part.

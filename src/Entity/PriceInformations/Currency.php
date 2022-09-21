@@ -78,7 +78,7 @@ class Currency extends AbstractStructuralDBElement
      * @ORM\Column(type="string")
      * @Assert\Currency()
      */
-    protected string $iso_code;
+    protected string $iso_code = "";
 
     /**
      * @ORM\OneToMany(targetEntity="Currency", mappedBy="parent", cascade={"persist"})

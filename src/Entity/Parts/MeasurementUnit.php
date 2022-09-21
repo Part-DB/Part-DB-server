@@ -66,7 +66,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      * @ORM\Column(type="string", name="unit", nullable=true)
      * @Assert\Length(max=10)
      */
-    protected string $unit;
+    protected ?string $unit = null;
 
     /**
      * @var bool Determines if the amount value associated with this unit should be treated as integer.
