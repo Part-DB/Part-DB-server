@@ -9077,7 +9077,7 @@ Element 3</target>
     <unit id="D6I2Q6C" name="entity.delete.must_not_contain_parts">
       <segment state="translated">
         <source>entity.delete.must_not_contain_parts</source>
-        <target>Dateityp enthält noch Bauteile. Ändere deren Dateityp, um diesen Dateityp zu löschen.</target>
+        <target>Element "%PATH%" enthält noch Bauteile. Bearbeite die Bauteile, um dieses Element löschen zu können.</target>
       </segment>
     </unit>
     <unit id="hu8Y98Q" name="entity.delete.must_not_contain_attachments">
@@ -9312,6 +9312,12 @@ Element 3</target>
       <segment state="translated">
         <source>tree.tools.tools.reel_calculator</source>
         <target>SMD Reel Rechner</target>
+      </segment>
+    </unit>
+    <unit id="7FpEp24" name="user.pw_change_needed.flash">
+      <segment state="translated">
+        <source>user.pw_change_needed.flash</source>
+        <target>Passwortänderung benötigt! Bitte setze ein neues Passwort.</target>
       </segment>
     </unit>
     <unit id="EieqscF" name="part_list.action.select_null">
