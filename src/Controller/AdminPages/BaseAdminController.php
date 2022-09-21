@@ -81,6 +81,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+use function Symfony\Component\Translation\t;
+
 abstract class BaseAdminController extends AbstractController
 {
     protected $entity_class = '';
@@ -419,7 +421,7 @@ abstract class BaseAdminController extends AbstractController
             /** @var AbstractPartsContainingRepository $repo */
             $repo = $this->entityManager->getRepository($this->entity_class);
             if ($repo->getPartsCount($entity) > 0) {
-                $this->addFlash('error', 'entity.delete.must_not_contain_parts');
+                $this->addFlash('error', t('entity.delete.must_not_contain_parts', ['%PATH%' => $entity->getFullPath()]));
 
                 return false;
             }
@@ -442,7 +444,18 @@ abstract class BaseAdminController extends AbstractController
 
             //Check if we need to remove recursively
             if ($entity instanceof AbstractStructuralDBElement && $request->get('delete_recursive', false)) {
-                $recursionHelper->delete($entity, false);
+                $can_delete = true;
+                //Check if any of the children can not be deleted, cause it contains parts
+                $recursionHelper->execute($entity, function (AbstractStructuralDBElement $element) use (&$can_delete) {
+                    if(!$this->deleteCheck($element)) {
+                        $can_delete = false;
+                    }
+                });
+                if($can_delete) {
+                    $recursionHelper->delete($entity, false);
+                } else {
+                    return $this->redirectToRoute($this->route_base.'_edit', ['id' => $entity->getID()]);
+                }
             } else {
                 if ($entity instanceof AbstractStructuralDBElement) {
                     $parent = $entity->getParent();

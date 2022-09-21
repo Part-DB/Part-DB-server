@@ -9078,7 +9078,7 @@ Element 3</target>
     <unit id="D6I2Q6C" name="entity.delete.must_not_contain_parts">
       <segment>
         <source>entity.delete.must_not_contain_parts</source>
-        <target>Element still contains parts! You have to move the parts, to be able to delete this element.</target>
+        <target>Element "%PATH%" still contains parts! You have to move the parts, to be able to delete this element.</target>
       </segment>
     </unit>
     <unit id="hu8Y98Q" name="entity.delete.must_not_contain_attachments">
