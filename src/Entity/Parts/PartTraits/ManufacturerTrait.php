@@ -84,7 +84,7 @@ trait ManufacturerTrait
      * @Assert\Choice({"announced", "active", "nrfnd", "eol", "discontinued", ""})
      * @ColumnSecurity(type="string", prefix="status", placeholder="")
      */
-    protected string $manufacturing_status = '';
+    protected ?string $manufacturing_status = '';
 
     /**
      * Get the link to the website of the article on the manufacturers website
