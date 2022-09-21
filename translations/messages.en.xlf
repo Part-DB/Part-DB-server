@@ -9771,9 +9771,9 @@ Element 3</target>
         <target>Target element ID</target>
       </segment>
     </unit>
-    <unit id="_vbPEFP" name="category.edit.partname_regex.placeholder">
+    <unit id="_vbPEFO" name="entity.info.parts_count_recursive">
       <segment>
-        <source>category.edit.partname_regex.placeholder</source>
+        <source>entity.info.parts_count_recursive</source>
         <target>Number of parts with this element or its subelements</target>
       </segment>
     </unit>
