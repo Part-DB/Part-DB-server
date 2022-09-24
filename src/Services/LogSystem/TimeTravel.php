@@ -39,6 +39,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\MappingException;
+use DoctrineExtensions\Query\Mysql\Date;
 use Exception;
 use InvalidArgumentException;
 use ReflectionClass;
@@ -172,6 +173,17 @@ class TimeTravel
     }
 
     /**
+     * This function decodes the array which is created during the json_encode of a datetime object and returns a DateTime object.
+     * @param  array  $input
+     * @return DateTime
+     * @throws Exception
+     */
+    private function dateTimeDecode(array $input): \DateTime
+    {
+        return new \DateTime($input['date'], new \DateTimeZone($input['timezone']));
+    }
+
+    /**
      * Apply the changeset in the given LogEntry to the element.
      *
      * @throws MappingException
@@ -193,6 +205,10 @@ class TimeTravel
                 //We need to convert the string to a BigDecimal first
                 if (!$data instanceof BigDecimal && ('big_decimal' === $metadata->getFieldMapping($field)['type'])) {
                     $data = BigDecimal::of($data);
+                }
+
+                if (!$data instanceof DateTime && ('datetime' === $metadata->getFieldMapping($field)['type'])) {
+                    $data = $this->dateTimeDecode($data);
                 }
 
                 $this->setField($element, $field, $data);
