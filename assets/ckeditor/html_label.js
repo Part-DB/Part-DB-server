@@ -207,6 +207,27 @@ Editor.defaultConfig = {
         ],
         supportAllValues: true
     },
+    // Allow all HTML features for our labels
+    htmlSupport: {
+        allow: [
+            {
+                name: /.*/,
+                attributes: true,
+                classes: true,
+                styles: true
+            }
+        ],
+        disallow: [
+            //Some rudimentary protection against XSS, even if it is not really needed as this is only parsed by DOMHTML which does not support any kind of script execution.
+            {
+                name: /^(head|body|html|script)$/i,
+            },
+            {
+                name: /.*/,
+                attributes: /^on.*/i
+            }
+        ]
+    },
     image: {
         toolbar: [
             'imageTextAlternative',
