@@ -762,7 +762,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     public function isBackupCode(string $code): bool
     {
-        return in_array($code, $this->backupCodes, true);
+        return in_array($code, $this->getBackupCodes(), true);
     }
 
     /**
@@ -772,7 +772,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     public function invalidateBackupCode(string $code): void
     {
-        $key = array_search($code, $this->backupCodes, true);
+        $key = array_search($code, $this->getBackupCodes(), true);
         if (false !== $key) {
             unset($this->backupCodes[$key]);
         }
