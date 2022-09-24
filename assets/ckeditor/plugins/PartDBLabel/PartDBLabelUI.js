@@ -147,6 +147,7 @@ function getDropdownItemsDefinitions(t) {
                 model: new Model( {
                     commandParam: entry[0],
                     label: t(entry[1]),
+                    tooltip: entry[0],
                     withText: true
                 } ),
             };
