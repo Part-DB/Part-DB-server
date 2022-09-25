@@ -58,7 +58,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * It is the connection between a part and its store locations.
  *
  * @ORM\Entity()
- * @ORM\Table(name="part_lots")
+ * @ORM\Table(name="part_lots", indexes={
+ *    @ORM\Index(name="part_lots_idx_instock_un_expiration_id_part", columns={"instock_unknown", "expiration_date", "id_part"}),
+ *    @ORM\Index(name="part_lots_idx_needs_refill", columns={"needs_refill"}),
+ * })
  * @ORM\HasLifecycleCallbacks()
  * @ValidPartLot()
  */

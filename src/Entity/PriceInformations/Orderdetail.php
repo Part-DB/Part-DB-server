@@ -66,7 +66,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class Orderdetail.
  *
- * @ORM\Table("`orderdetails`")
+ * @ORM\Table("`orderdetails`", indexes={
+ *    @ORM\Index(name="orderdetails_supplier_part_nr", columns={"supplierpartnr"}),
+ * })
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity({"supplierpartnr", "supplier", "part"})

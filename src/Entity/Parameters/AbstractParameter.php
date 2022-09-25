@@ -34,7 +34,11 @@ use function sprintf;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ParameterRepository")
- * @ORM\Table("parameters")
+ * @ORM\Table("parameters", indexes={
+ *    @ORM\Index(name="parameter_name_idx", columns={"name"}),
+ *    @ORM\Index(name="parameter_group_idx", columns={"param_group"}),
+ *    @ORM\Index(name="parameter_type_element_idx", columns={"type", "element_id"})
+ * })
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="smallint")
  * @ORM\DiscriminatorMap({
@@ -91,7 +95,6 @@ abstract class AbstractParameter extends AbstractNamedDBElement
 
     /**
      * @var string The unit in which the value values are given (e.g. V)
-     * @Assert\Length(max=5)
      * @ORM\Column(type="string", nullable=false)
      */
     protected string $unit = '';

@@ -66,7 +66,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class Pricedetail.
  *
  * @ORM\Entity()
- * @ORM\Table("`pricedetails`")
+ * @ORM\Table("`pricedetails`", indexes={
+ *     @ORM\Index(name="pricedetails_idx_min_discount", columns={"min_discount_quantity"}),
+ *     @ORM\Index(name="pricedetails_idx_min_discount_price_qty", columns={"min_discount_quantity", "price_related_quantity"}),
+ * })
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(fields={"min_discount_quantity", "orderdetail"})
  */

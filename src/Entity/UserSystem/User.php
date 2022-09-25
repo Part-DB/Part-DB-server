@@ -80,7 +80,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Also this entity is able to save some informations about the user, like the names, email-address and other info.
  *
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ORM\Table("`users`")
+ * @ORM\Table("`users`", indexes={
+ *    @ORM\Index(name="user_idx_username", columns={"name"})
+ * })
  * @ORM\EntityListeners({"App\EntityListeners\TreeCacheInvalidationListener"})
  * @UniqueEntity("name", message="validator.user.username_already_used")
  */

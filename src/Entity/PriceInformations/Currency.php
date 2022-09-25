@@ -59,7 +59,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @UniqueEntity("iso_code")
  * @ORM\Entity()
- * @ORM\Table(name="currencies")
+ * @ORM\Table(name="currencies", indexes={
+ *     @ORM\Index(name="name_idx", columns={"name"}),
+ *     @ORM\Index(name="parent_name_idx", columns={"parent_id", "name"}),
+ * })
  */
 class Currency extends AbstractStructuralDBElement
 {

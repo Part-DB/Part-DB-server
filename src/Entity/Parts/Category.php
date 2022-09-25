@@ -33,7 +33,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class AttachmentType.
  *
  * @ORM\Entity(repositoryClass="App\Repository\Parts\CategoryRepository")
- * @ORM\Table(name="`categories`")
+ * @ORM\Table(name="`categories`", indexes={
+ *     @ORM\Index(name="name_idx", columns={"name"}),
+ *     @ORM\Index(name="parent_name_idx", columns={"parent_id", "name"}),
+ * })
  */
 class Category extends AbstractPartsContainingDBElement
 {

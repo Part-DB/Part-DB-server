@@ -55,7 +55,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * This could be something like N, grams, meters, etc...
  *
  * @ORM\Entity(repositoryClass="App\Repository\Parts\MeasurementUnitRepository")
- * @ORM\Table(name="`measurement_units`")
+ * @ORM\Table(name="`measurement_units`", indexes={
+ *     @ORM\Index(name="name_idx", columns={"name"}),
+ *     @ORM\Index(name="parent_name_idx", columns={"parent_id", "name"}),
+ * })
  * @UniqueEntity("unit")
  */
 class MeasurementUnit extends AbstractPartsContainingDBElement

@@ -56,7 +56,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * This entity represents an user group.
  *
  * @ORM\Entity()
- * @ORM\Table("`groups`")
+ * @ORM\Table("`groups`", indexes={
+ *     @ORM\Index(name="name_idx", columns={"name"}),
+ *     @ORM\Index(name="parent_name_idx", columns={"parent_id", "name"}),
+ * })
  */
 class Group extends AbstractStructuralDBElement implements HasPermissionsInterface
 {
