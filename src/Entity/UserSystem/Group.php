@@ -57,8 +57,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity()
  * @ORM\Table("`groups`", indexes={
- *     @ORM\Index(name="name_idx", columns={"name"}),
- *     @ORM\Index(name="parent_name_idx", columns={"parent_id", "name"}),
+ *     @ORM\Index(name="group_idx_name", columns={"name"}),
+ *     @ORM\Index(name="group_idx_parent_name", columns={"parent_id", "name"}),
  * })
  */
 class Group extends AbstractStructuralDBElement implements HasPermissionsInterface
