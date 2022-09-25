@@ -65,6 +65,7 @@ body {
 
         /** Hide scrollbar in old Firefox and Edge **/
         -ms-overflow-style: none;
+        /*noinspection CssInvalidPropertyValue*/
         overflow: -moz-scrollbars-none;
         /*noinspection CssUnknownProperty*/
         scrollbar-width: none;
@@ -94,6 +95,7 @@ body {
 
         /** Hide scrollbar in Firefox and Edge **/
         -ms-overflow-style: none;
+        /*noinspection CssInvalidPropertyValue*/
         overflow: -moz-scrollbars-none;
         /* Use standard version for hiding the scrollbar */
         scrollbar-width: none;
@@ -377,7 +379,7 @@ btn-xs
     margin-right: auto;
 }
 
-.darkmode--activated .hoverpic:hover, {
+.darkmode--activated .hoverpic:hover {
     background: black;
 }
 
