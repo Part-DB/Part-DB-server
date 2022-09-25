@@ -20,6 +20,30 @@ final class Version20220925162725 extends AbstractMultiPlatformMigration
 
     public function mySQLUp(Schema $schema): void
     {
+        //Change row format to dynamic to allow longer indices (this step is only needed for databases created with an older MySQL/MariaDB version
+        $this->addSql('ALTER TABLE attachments ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE attachment_types ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE categories ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE devices ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE device_parts ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE footprints ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE groups ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE internal ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE label_profiles ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE log ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE manufacturers ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE measurement_units ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE migration_versions ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE orderdetails ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE parameters ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE parts ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE part_lots ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE pricedetails ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE storelocations ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE suppliers ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE u2f_keys ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE users ROW_FORMAT=DYNAMIC');
+
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE INDEX attachment_types_idx_name ON attachment_types (name)');
         $this->addSql('CREATE INDEX attachment_types_idx_parent_name ON attachment_types (parent_id, name)');
