@@ -70,14 +70,7 @@ export default class extends Controller {
             onNodeSelected: (event) => {
                 const node = event.detail.node;
                 if (node.href) {
-
-                    //Simulate a click so we just change the inner frame
-                    let a = document.createElement('a');
-                    a.setAttribute('href', node.href);
-                    a.innerHTML = "";
-                    this.element.appendChild(a);
-                    a.click();
-                    a.remove();
+                    window.Turbo.visit(node.href, {action: "advance"});
                 }
             },
             //onNodeContextmenu: contextmenu_handler,
