@@ -22,7 +22,6 @@ final class SidebarTreeUpdater
      * Returns the time when the sidebar tree was updated the last time.
      * The frontend uses this information to reload the sidebar tree.
      * @return \DateTimeInterface
-     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function getLastTreeUpdate(): \DateTimeInterface
     {
