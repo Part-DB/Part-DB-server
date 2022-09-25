@@ -44,6 +44,30 @@ final class Version20220925162725 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE u2f_keys ROW_FORMAT=DYNAMIC');
         $this->addSql('ALTER TABLE users ROW_FORMAT=DYNAMIC');
 
+        //Normalize charset encoding for all tables, as old installations might have different encodings
+        $this->addSql('ALTER TABLE attachments convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE attachment_types convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE categories convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE devices convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE device_parts convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE footprints convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE groups convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE internal convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE label_profiles convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE log convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE manufacturers convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE measurement_units convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE migration_versions convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE orderdetails convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE parameters convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE parts convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE part_lots convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE pricedetails convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE storelocations convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE suppliers convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE u2f_keys convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE users convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE INDEX attachment_types_idx_name ON attachment_types (name)');
         $this->addSql('CREATE INDEX attachment_types_idx_parent_name ON attachment_types (parent_id, name)');
