@@ -297,7 +297,7 @@ class LogDataTable implements DataTableTypeInterface
 
     protected function getQuery(QueryBuilder $builder, array $options): void
     {
-        $builder->distinct()->select('log')
+        $builder->select('log')
             ->addSelect('user')
             ->from(AbstractLogEntry::class, 'log')
             ->leftJoin('log.user', 'user');
