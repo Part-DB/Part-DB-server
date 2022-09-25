@@ -13,7 +13,7 @@
 </head>
 <body>
 {% for element in elements %}
-    <div style="page-break-inside: avoid; page-break-before: avoid; {% if not loop.last %}page-break-after: always;{% endif %}">
+    <div class="page">
         {% if options.barcodeType == 'none' %}
             {% include "LabelSystem/labels/label_page_none.html.twig" %}
         {% elseif options.barcodeType in ['qr', 'datamatrix'] %}
