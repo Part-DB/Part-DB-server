@@ -6,6 +6,8 @@ export default class extends TreeController {
 
     _storage_key;
 
+    _lastUpdate;
+
     connect() {
         //Check if the tree is already initialized, if so then skip initialization (useful when going back) to in history using Turbo
         if(this._isInitialized()) {
@@ -31,6 +33,25 @@ export default class extends TreeController {
         } else {
             this.setMode(default_mode);
         }
+
+        //Register an event listener which checks if the tree needs to be updated
+        document.addEventListener('turbo:render', this.doUpdateIfNeeded.bind(this));
+    }
+
+    doUpdateIfNeeded()
+    {
+        const info_element = document.getElementById('sidebar-last-time-updated');
+        const date_str = info_element.dataset.lastUpdate;
+        const server_last_update = new Date(date_str);
+
+        if(this._lastUpdate < server_last_update) {
+            console.log("Sidebar tree is outdated, reloading (last update: " + this._lastUpdate + ", server update: " + server_last_update + ")");
+            this._lastUpdate = new Date();
+
+
+
+            this.reinitTree();
+        }
     }
 
     setMode(mode) {
@@ -47,6 +68,9 @@ export default class extends TreeController {
         this.sourceTextTarget.innerText = text;
 
         this.setURL(url);
+
+        //Update the last update time
+        this._lastUpdate = new Date();
     }
 
     changeDataSource(event)
@@ -61,5 +85,7 @@ export default class extends TreeController {
 
         //Save the mode in local storage
         localStorage.setItem(this._storage_key, mode);
+
+        this._lastUpdate = new Date();
     }
 }
