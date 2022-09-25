@@ -24,6 +24,7 @@ final class Version20220925162725 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE attachments ROW_FORMAT=DYNAMIC');
         $this->addSql('ALTER TABLE attachment_types ROW_FORMAT=DYNAMIC');
         $this->addSql('ALTER TABLE categories ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE currencies ROW_FORMAT=DYNAMIC');
         $this->addSql('ALTER TABLE devices ROW_FORMAT=DYNAMIC');
         $this->addSql('ALTER TABLE device_parts ROW_FORMAT=DYNAMIC');
         $this->addSql('ALTER TABLE footprints ROW_FORMAT=DYNAMIC');
@@ -48,6 +49,7 @@ final class Version20220925162725 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE attachments convert to character set utf8mb4 collate utf8mb4_unicode_ci');
         $this->addSql('ALTER TABLE attachment_types convert to character set utf8mb4 collate utf8mb4_unicode_ci');
         $this->addSql('ALTER TABLE categories convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE currencies convert to character set utf8mb4 collate utf8mb4_unicode_ci');
         $this->addSql('ALTER TABLE devices convert to character set utf8mb4 collate utf8mb4_unicode_ci');
         $this->addSql('ALTER TABLE device_parts convert to character set utf8mb4 collate utf8mb4_unicode_ci');
         $this->addSql('ALTER TABLE footprints convert to character set utf8mb4 collate utf8mb4_unicode_ci');
