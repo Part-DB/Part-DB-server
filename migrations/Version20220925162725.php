@@ -28,7 +28,7 @@ final class Version20220925162725 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE devices ROW_FORMAT=DYNAMIC');
         $this->addSql('ALTER TABLE device_parts ROW_FORMAT=DYNAMIC');
         $this->addSql('ALTER TABLE footprints ROW_FORMAT=DYNAMIC');
-        $this->addSql('ALTER TABLE groups ROW_FORMAT=DYNAMIC');
+        $this->addSql('ALTER TABLE `groups` ROW_FORMAT=DYNAMIC');
         $this->addSql('ALTER TABLE label_profiles ROW_FORMAT=DYNAMIC');
         $this->addSql('ALTER TABLE log ROW_FORMAT=DYNAMIC');
         $this->addSql('ALTER TABLE manufacturers ROW_FORMAT=DYNAMIC');
@@ -52,7 +52,7 @@ final class Version20220925162725 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE devices convert to character set utf8mb4 collate utf8mb4_unicode_ci');
         $this->addSql('ALTER TABLE device_parts convert to character set utf8mb4 collate utf8mb4_unicode_ci');
         $this->addSql('ALTER TABLE footprints convert to character set utf8mb4 collate utf8mb4_unicode_ci');
-        $this->addSql('ALTER TABLE groups convert to character set utf8mb4 collate utf8mb4_unicode_ci');
+        $this->addSql('ALTER TABLE `groups` convert to character set utf8mb4 collate utf8mb4_unicode_ci');
         $this->addSql('ALTER TABLE label_profiles convert to character set utf8mb4 collate utf8mb4_unicode_ci');
         $this->addSql('ALTER TABLE log convert to character set utf8mb4 collate utf8mb4_unicode_ci');
         $this->addSql('ALTER TABLE manufacturers convert to character set utf8mb4 collate utf8mb4_unicode_ci');
@@ -85,8 +85,8 @@ final class Version20220925162725 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE device_parts CHANGE mountnames mountnames LONGTEXT NOT NULL');
         $this->addSql('CREATE INDEX footprint_idx_name ON footprints (name)');
         $this->addSql('CREATE INDEX footprint_idx_parent_name ON footprints (parent_id, name)');
-        $this->addSql('CREATE INDEX group_idx_name ON groups (name)');
-        $this->addSql('CREATE INDEX group_idx_parent_name ON groups (parent_id, name)');
+        $this->addSql('CREATE INDEX group_idx_name ON `groups` (name)');
+        $this->addSql('CREATE INDEX group_idx_parent_name ON `groups` (parent_id, name)');
         $this->addSql('ALTER TABLE log CHANGE level level TINYINT(4) NOT NULL');
         $this->addSql('CREATE INDEX log_idx_type ON log (type)');
         $this->addSql('CREATE INDEX log_idx_type_target ON log (type, target_type, target_id)');
