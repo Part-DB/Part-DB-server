@@ -44,6 +44,7 @@ namespace App\Controller;
 
 use App\Entity\UserSystem\U2FKey;
 use App\Entity\UserSystem\User;
+use App\Entity\UserSystem\WebauthnKey;
 use App\Events\SecurityEvent;
 use App\Events\SecurityEvents;
 use App\Form\TFAGoogleSettingsType;
@@ -130,6 +131,7 @@ class UserSettingsController extends AbstractController
         }
 
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            //Handle U2F key removal
             if ($request->request->has('key_id')) {
                 $key_id = $request->request->get('key_id');
                 $key_repo = $entityManager->getRepository(U2FKey::class);
@@ -138,18 +140,43 @@ class UserSettingsController extends AbstractController
                 if (null === $u2f) {
                     $this->addFlash('danger', 'tfa_u2f.u2f_delete.not_existing');
 
-                    throw new RuntimeException('Key not existing!');
+                    return $this->redirectToRoute('user_settings');
                 }
 
                 //User can only delete its own U2F keys
                 if ($u2f->getUser() !== $user) {
                     $this->addFlash('danger', 'tfa_u2f.u2f_delete.access_denied');
 
-                    throw new RuntimeException('You can only delete your own U2F keys!');
+                    return $this->redirectToRoute('user_settings');
                 }
 
                 $backupCodeManager->disableBackupCodesIfUnused($user);
                 $entityManager->remove($u2f);
+                $entityManager->flush();
+                $this->addFlash('success', 'tfa.u2f.u2f_delete.success');
+
+                $security_event = new SecurityEvent($user);
+                $this->eventDispatcher->dispatch($security_event, SecurityEvents::U2F_REMOVED);
+            } else if ($request->request->has('webauthn_key_id')) {
+                $key_id = $request->request->get('webauthn_key_id');
+                $key_repo = $entityManager->getRepository(WebauthnKey::class);
+                /** @var WebauthnKey|null $key */
+                $key = $key_repo->find($key_id);
+                if (null === $key) {
+                    $this->addFlash('error', 'tfa_u2f.u2f_delete.not_existing');
+
+                    return $this->redirectToRoute('user_settings');
+                }
+
+                //User can only delete its own U2F keys
+                if ($key->getUser() !== $user) {
+                    $this->addFlash('error', 'tfa_u2f.u2f_delete.access_denied');
+
+                    return $this->redirectToRoute('user_settings');
+                }
+
+                $backupCodeManager->disableBackupCodesIfUnused($user);
+                $entityManager->remove($key);
                 $entityManager->flush();
                 $this->addFlash('success', 'tfa.u2f.u2f_delete.success');
 

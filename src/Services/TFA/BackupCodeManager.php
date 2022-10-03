@@ -76,6 +76,10 @@ class BackupCodeManager
             return;
         }
 
+        if ($user->isWebAuthnAuthenticatorEnabled()) {
+            return;
+        }
+
         $user->setBackupCodes([]);
     }
 
