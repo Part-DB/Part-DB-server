@@ -21,6 +21,7 @@
         "florianv/swap": "^4.0",
         "florianv/swap-bundle": "dev-master",
         "gregwar/captcha-bundle": "^2.1.0",
+        "jbtronics/2fa-webauthn": "dev-master",
         "league/html-to-markdown": "^5.0.1",
         "liip/imagine-bundle": "^2.2",
         "nelmio/security-bundle": "^3.0",
@@ -69,8 +70,8 @@
         "twig/inky-extra": "^3.0",
         "twig/intl-extra": "^3.0",
         "twig/markdown-extra": "^3.0",
-        "webmozart/assert": "^1.4",
-        "jbtronics/2fa-webauthn": "dev-master"
+        "web-auth/webauthn-symfony-bundle": "^3.3",
+        "webmozart/assert": "^1.4"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^7.0",

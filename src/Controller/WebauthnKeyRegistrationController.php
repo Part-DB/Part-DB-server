@@ -2,17 +2,21 @@
 
 namespace App\Controller;
 
+use App\Entity\UserSystem\WebauthnKey;
+use Doctrine\ORM\EntityManagerInterface;
 use Jbtronics\TFAWebauthn\Services\TFAWebauthnRegistrationHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+
+use function Symfony\Component\Translation\t;
 
 class WebauthnKeyRegistrationController extends AbstractController
 {
     /**
      * @Route("/webauthn/register", name="webauthn_register")
      */
-    public function register(Request $request, TFAWebauthnRegistrationHelper $registrationHelper)
+    public function register(Request $request, TFAWebauthnRegistrationHelper $registrationHelper, EntityManagerInterface $em)
     {
 
         //If form was submitted, check the auth response
@@ -21,18 +25,33 @@ class WebauthnKeyRegistrationController extends AbstractController
 
             //Retrieve other data from the form, that you want to store with the key
             $keyName = $request->request->get('keyName');
+            if (empty($keyName)) {
+                $keyName = 'Key ' . date('Y-m-d H:i:s');
+            }
 
             //Check the response
-            $new_key = $registrationHelper->checkRegistrationResponse($webauthnResponse);
+            try {
+                $new_key = $registrationHelper->checkRegistrationResponse($webauthnResponse);
+            } catch (\Exception $exception) {
+                $this->addFlash('error', t('tfa_u2f.add_key.registration_error'));
+                return $this->redirectToRoute('webauthn_register');
+            }
 
-            dump($new_key);
+            $keyEntity = WebauthnKey::fromRegistration($new_key);
+            $keyEntity->setName($keyName);
+            $keyEntity->setUser($this->getUser());
+
+            $em->persist($keyEntity);
+            $em->flush();
+
 
             $this->addFlash('success', 'Key registered successfully');
+            return $this->redirectToRoute('user_settings');
         }
 
 
         return $this->render(
-            'Security/U2F/u2f_register.html.twig',
+            'Security/Webauthn/webauthn_register.html.twig',
             [
                 'registrationRequest' => $registrationHelper->generateRegistrationRequestAsJSON(),
             ]

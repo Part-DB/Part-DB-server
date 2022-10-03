@@ -117,11 +117,7 @@ class WebauthnTFA {
     constructor()
     {
         const register_dom_ready = (fn) => {
-            if (document.readyState !== 'loading') {
-                fn();
-            } else {
-                document.addEventListener('DOMContentLoaded', fn);
-            }
+            document.addEventListener('turbo:load', fn)
         }
 
         register_dom_ready(() => {
@@ -162,12 +158,6 @@ class WebauthnTFA {
                     this.register(form, {publicKey: options});
                 });
             }
-
-
-
-            //Catch submit event and do webauthn stuff
-
-
         });
     }
 

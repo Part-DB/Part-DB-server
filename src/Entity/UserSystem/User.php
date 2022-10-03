@@ -57,6 +57,7 @@ use App\Entity\PriceInformations\Currency;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPermission;
+use Jbtronics\TFAWebauthn\Model\LegacyU2FKeyInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Webauthn\PublicKeyCredentialUserEntity;
 use function count;
@@ -241,10 +242,16 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     protected ?DateTime $backupCodesGenerationDate = null;
 
-    /** @var Collection<int, TwoFactorKeyInterface>
+    /** @var Collection<int, LegacyU2FKeyInterface>
      * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\U2FKey", mappedBy="user", cascade={"REMOVE"}, orphanRemoval=true)
      */
     protected $u2fKeys;
+
+    /**
+     * @var Collection<int, WebauthnKey>
+     * @ORM\OneToMany(targetEntity="App\Entity\UserSystem\WebauthnKey", mappedBy="user", cascade={"REMOVE"}, orphanRemoval=true)
+     */
+    protected $webauthn_keys;
 
     /**
      * @var Currency|null The currency the user wants to see prices in.
@@ -274,6 +281,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         parent::__construct();
         $this->permissions = new PermissionsEmbed();
         $this->u2fKeys = new ArrayCollection();
+        $this->webauthn_keys = new ArrayCollection();
     }
 
     /**
@@ -851,7 +859,8 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     public function isWebAuthnAuthenticatorEnabled(): bool
     {
-        return count($this->u2fKeys) > 0;
+        return count($this->u2fKeys) > 0
+            || count($this->webauthn_keys) > 0;
     }
 
     public function getLegacyU2FKeys(): iterable
@@ -870,6 +879,11 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     public function getWebauthnKeys(): iterable
     {
-        return [];
+        return $this->webauthn_keys;
+    }
+
+    public function addWebauthnKey(WebauthnKey $webauthnKey): void
+    {
+        $this->webauthn_keys->add($webauthnKey);
     }
 }
