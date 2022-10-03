@@ -58,6 +58,7 @@ use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPermission;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Webauthn\PublicKeyCredentialUserEntity;
 use function count;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -65,8 +66,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use function in_array;
-use R\U2FTwoFactorBundle\Model\U2F\TwoFactorInterface as U2FTwoFactorInterface;
-use R\U2FTwoFactorBundle\Model\U2F\TwoFactorKeyInterface;
 use Scheb\TwoFactorBundle\Model\BackupCodeInterface;
 use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
 use Scheb\TwoFactorBundle\Model\PreferredProviderInterface;
@@ -74,6 +73,7 @@ use Scheb\TwoFactorBundle\Model\TrustedDeviceInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface;
 
 /**
  * This entity represents a user, which can log in and have permissions.
@@ -86,7 +86,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\EntityListeners({"App\EntityListeners\TreeCacheInvalidationListener"})
  * @UniqueEntity("name", message="validator.user.username_already_used")
  */
-class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface, BackupCodeInterface, TrustedDeviceInterface, U2FTwoFactorInterface, PreferredProviderInterface, PasswordAuthenticatedUserInterface
+class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface, BackupCodeInterface, TrustedDeviceInterface, WebauthnTwoFactorInterface, PreferredProviderInterface, PasswordAuthenticatedUserInterface
 {
     //use MasterAttachmentTrait;
 
@@ -838,48 +838,38 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         ++$this->trustedDeviceCookieVersion;
     }
 
-    /**
-     * Check if U2F is enabled.
-     */
-    public function isU2FAuthEnabled(): bool
+    public function getPreferredTwoFactorProvider(): ?string
+    {
+        //If U2F is available then prefer it
+        //if ($this->isU2FAuthEnabled()) {
+        //    return 'u2f_two_factor';
+        //}
+
+        //Otherwise use other methods
+        return null;
+    }
+
+    public function isWebAuthnAuthenticatorEnabled(): bool
     {
         return count($this->u2fKeys) > 0;
     }
 
-    /**
-     *  Get all U2F Keys that are associated with this user.
-     *
-     * @psalm-return Collection<int, TwoFactorKeyInterface>
-     */
-    public function getU2FKeys(): Collection
+    public function getLegacyU2FKeys(): iterable
     {
         return $this->u2fKeys;
     }
 
-    /**
-     * Add a U2F key to this user.
-     */
-    public function addU2FKey(TwoFactorKeyInterface $key): void
+    public function getWebAuthnUser(): PublicKeyCredentialUserEntity
     {
-        $this->u2fKeys->add($key);
+        return new PublicKeyCredentialUserEntity(
+            $this->getUsername(),
+            (string) $this->getId(),
+            $this->getFullName(),
+        );
     }
 
-    /**
-     * Remove a U2F key from this user.
-     */
-    public function removeU2FKey(TwoFactorKeyInterface $key): void
+    public function getWebauthnKeys(): iterable
     {
-        $this->u2fKeys->removeElement($key);
-    }
-
-    public function getPreferredTwoFactorProvider(): ?string
-    {
-        //If U2F is available then prefer it
-        if ($this->isU2FAuthEnabled()) {
-            return 'u2f_two_factor';
-        }
-
-        //Otherwise use other methods
-        return null;
+        return [];
     }
 }

@@ -176,6 +176,9 @@
     "imagine/imagine": {
         "version": "1.2.2"
     },
+    "jbtronics/2fa-webauthn": {
+        "version": "dev-master"
+    },
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
@@ -251,9 +254,6 @@
     },
     "openlss/lib-array2xml": {
         "version": "1.0.0"
-    },
-    "paragonie/random_compat": {
-        "version": "v9.99.99"
     },
     "phenx/php-font-lib": {
         "version": "0.5.1"
@@ -347,9 +347,6 @@
     },
     "psr/simple-cache": {
         "version": "1.0.1"
-    },
-    "r/u2f-two-factor-bundle": {
-        "version": "dev-scheb/2fa-support"
     },
     "roave/security-advisories": {
         "version": "dev-master"

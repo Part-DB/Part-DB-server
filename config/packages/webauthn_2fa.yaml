@@ -1,0 +1,5 @@
+tfa_webauthn:
+  enabled: true
+  template: 'Security/Webauthn/webauthn_login.html.twig'
+
+  rpName: '%partdb.title%'
