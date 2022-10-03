@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "acfef40c9197b33a535f02f56ae7fd3c",
+    "content-hash": "b95feb86013d63587055d6ab20e044b4",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -2427,11 +2427,17 @@
         },
         {
             "name": "jbtronics/2fa-webauthn",
-            "version": "dev-master",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jbtronics/2fa-webauthn.git",
+                "reference": "c4108d16ba7a3061d977fc92f577c69067e1d003"
+            },
             "dist": {
-                "type": "path",
-                "url": "../2fa-webauthn",
-                "reference": "6a004d54d5e3336291f383a57aaa449173971e5a"
+                "type": "zip",
+                "url": "https://api.github.com/repos/jbtronics/2fa-webauthn/zipball/c4108d16ba7a3061d977fc92f577c69067e1d003",
+                "reference": "c4108d16ba7a3061d977fc92f577c69067e1d003",
+                "shasum": ""
             },
             "require": {
                 "ext-json": "*",
@@ -2451,6 +2457,7 @@
                     "Jbtronics\\TFAWebauthn\\": "src/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2460,9 +2467,20 @@
                     "email": "mail@jan-boehmer.de"
                 }
             ],
-            "transport-options": {
-                "relative": true
-            }
+            "description": "Webauthn Two-Factor-Authentictication Plugin for scheb/2fa",
+            "keywords": [
+                "2fa",
+                "scheb-2fa",
+                "symfony",
+                "symfony-bundle",
+                "two-factor-authentication",
+                "webauthn"
+            ],
+            "support": {
+                "issues": "https://github.com/jbtronics/2fa-webauthn/issues",
+                "source": "https://github.com/jbtronics/2fa-webauthn/tree/v1.0.0"
+            },
+            "time": "2022-10-03T22:29:32+00:00"
         },
         {
             "name": "laminas/laminas-code",
@@ -15530,7 +15548,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "florianv/swap-bundle": 20,
-        "jbtronics/2fa-webauthn": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
