@@ -8694,16 +8694,6 @@ Exampletown</target>
         <target>Google</target>
       </segment>
     </unit>
-    <unit id="tST2X1R" name="tfa.provider.u2f_two_factor">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>tfa.provider.u2f_two_factor</source>
-        <target>セキュリティ キー (U2F)</target>
-      </segment>
-    </unit>
     <unit id="XTe6pUU" name="tfa.provider.google">
       <notes>
         <note priority="1">obsolete</note>
