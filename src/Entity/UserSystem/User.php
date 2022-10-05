@@ -853,6 +853,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         //    return 'u2f_two_factor';
         //}
 
+        if ($this->isWebAuthnAuthenticatorEnabled()) {
+            return 'webauthn_two_factor_provider';
+        }
+
         //Otherwise use other methods
         return null;
     }
