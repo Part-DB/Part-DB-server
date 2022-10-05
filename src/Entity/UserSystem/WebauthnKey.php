@@ -82,7 +82,7 @@ class WebauthnKey extends BasePublicKeyCredentialSource
 
     public static function fromRegistration(BasePublicKeyCredentialSource $registration): self
     {
-        return new static(
+        return new self(
             $registration->getPublicKeyCredentialId(),
             $registration->getType(),
             $registration->getTransports(),
