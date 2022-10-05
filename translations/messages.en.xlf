@@ -8692,14 +8692,10 @@ Element 3</target>
         <target>Google</target>
       </segment>
     </unit>
-    <unit id="tST2X1R" name="tfa.provider.u2f_two_factor">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
+    <unit id="tST2X1S" name="tfa.provider.webauthn_two_factor_provider">
       <segment state="translated">
-        <source>tfa.provider.u2f_two_factor</source>
-        <target>Security key (U2F)</target>
+        <source>tfa.provider.webauthn_two_factor_provider</source>
+        <target>Security key</target>
       </segment>
     </unit>
     <unit id="XTe6pUU" name="tfa.provider.google">
