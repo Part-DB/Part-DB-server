@@ -23,6 +23,8 @@ return [
     Florianv\SwapBundle\FlorianvSwapBundle::class => ['all' => true],
     Nelmio\SecurityBundle\NelmioSecurityBundle::class => ['all' => true],
     Symfony\UX\Turbo\TurboBundle::class => ['all' => true],
+    Jbtronics\TFAWebauthn\TFAWebauthnBundle::class => ['all' => true],
     Scheb\TwoFactorBundle\SchebTwoFactorBundle::class => ['all' => true],
-    R\U2FTwoFactorBundle\RU2FTwoFactorBundle::class => ['all' => true],
+    SpomkyLabs\CborBundle\SpomkyLabsCborBundle::class => ['all' => true],
+    Webauthn\Bundle\WebauthnBundle::class => ['all' => true],
 ];

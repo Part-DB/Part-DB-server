@@ -5,7 +5,3 @@
 
 2fa_login_check:
     path: /{_locale}/2fa_check
-
-r_u2f_register:
-    resource: "@RU2FTwoFactorBundle/Resources/config/routing.yml"
-    prefix: /{_locale}/user

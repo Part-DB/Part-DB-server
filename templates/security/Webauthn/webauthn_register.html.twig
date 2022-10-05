@@ -10,13 +10,13 @@
         <p class="text-warning"><b><i class="fas fa-exclamation-triangle fa-fw"></i> {% trans %}tfa_u2f.http_warning{% endtrans %}</b></p>
     {% endif %}
 
-    <form method="post" class="form" action="{{ path('club_base_register_u2f') }}" id="u2fForm" data-action="reg" data-request='{{ registrationRequest|raw }}'>
+    <form method="post" class="form" action="{{ path('webauthn_register') }}" data-webauthn-tfa-action="register" data-webauthn-tfa-data='{{ registrationRequest|raw }}'>
         <div id="u2fkeyname" class="form-group row">
             <div class="col-9">
-                <input type="text" class="form-control " name="keyName" id="keyName" placeholder="{{ 'r_u2f_two_factor.name'|trans }}"/>
+                <input type="text" class="form-control " name="keyName" id="keyName" placeholder="Shown key name"/>
             </div>
             <div class="col-3">
-                <button type="button" class="btn btn-success" {{ stimulus_controller('pages/u2f_register') }}>{% trans %}tfa_u2f.add_key.add_button{% endtrans %}</button>
+                <button type="submit" class="btn btn-success">{% trans %}tfa_u2f.add_key.add_button{% endtrans %}</button>
             </div>
         </div>
         <div id="u2fpressbutton" style="display: none;" class="text-center h4">{{ 'r_u2f_two_factor.pressbutton'|trans }}</div>

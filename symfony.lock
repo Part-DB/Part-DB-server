@@ -176,6 +176,9 @@
     "imagine/imagine": {
         "version": "1.2.2"
     },
+    "jbtronics/2fa-webauthn": {
+        "version": "dev-master"
+    },
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
@@ -251,9 +254,6 @@
     },
     "openlss/lib-array2xml": {
         "version": "1.0.0"
-    },
-    "paragonie/random_compat": {
-        "version": "v9.99.99"
     },
     "phenx/php-font-lib": {
         "version": "0.5.1"
@@ -348,9 +348,6 @@
     "psr/simple-cache": {
         "version": "1.0.1"
     },
-    "r/u2f-two-factor-bundle": {
-        "version": "dev-scheb/2fa-support"
-    },
     "roave/security-advisories": {
         "version": "dev-master"
     },
@@ -396,6 +393,9 @@
     },
     "shivas/versioning-bundle": {
         "version": "3.1.3"
+    },
+    "spomky-labs/cbor-bundle": {
+        "version": "v2.0.3"
     },
     "symfony/apache-pack": {
         "version": "1.0",
@@ -816,6 +816,15 @@
     },
     "vimeo/psalm": {
         "version": "3.5.1"
+    },
+    "web-auth/webauthn-symfony-bundle": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "3.0",
+            "ref": "9926090a80c2cceeffe96e6c3312b397ea55d4a7"
+        }
     },
     "webmozart/assert": {
         "version": "1.4.0"

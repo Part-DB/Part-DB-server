@@ -146,7 +146,7 @@ final class PasswordChangeNeededSubscriber implements EventSubscriberInterface
      */
     public static function TFARedirectNeeded(User $user): bool
     {
-        $tfa_enabled = $user->isU2FAuthEnabled() || $user->isGoogleAuthenticatorEnabled();
+        $tfa_enabled = $user->isWebAuthnAuthenticatorEnabled() || $user->isGoogleAuthenticatorEnabled();
 
         return null !== $user->getGroup() && $user->getGroup()->isEnforce2FA() && !$tfa_enabled;
     }
