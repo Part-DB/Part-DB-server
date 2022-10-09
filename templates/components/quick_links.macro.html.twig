@@ -1,0 +1,19 @@
+{# Renders an btn toolbar to quickly call/email or visit the website of a company #}
+{% macro company(entity) %}
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            {% if entity.website is not empty %}
+                <a class="btn btn-outline-secondary" href="{{ entity.website }}" title="{% trans %}company.edit.quick.website{% endtrans %}" target="_blank" rel="nofollow"><i class="fas fa-globe fa-fw"></i></a>
+            {% endif %}
+            {% if entity.emailAddress is not empty %}
+                <a class="btn btn-outline-secondary" href="mailto:{{ entity.emailAddress }}" title="{% trans %}company.edit.quick.email{% endtrans %}" target="_blank" rel="nofollow"><i class="fas fa-envelope-open-text"></i></a>
+            {% endif %}
+            {% if entity.phoneNumber is not empty %}
+                <a class="btn btn-outline-secondary" href="tel:{{ entity.phoneNumber | replace({' ': ''}) }}" title="{% trans %}company.edit.quick.phone{% endtrans %}" target="_blank" rel="nofollow"><i class="fas fa-phone"></i></a>
+            {% endif %}
+            {% if entity.faxNumber is not empty %}
+                <a class="btn btn-outline-secondary" href="tel:{{ entity.faxNumber | replace({' ': ''}) }}" title="{% trans %}company.edit.quick.fax{% endtrans %}" target="_blank" rel="nofollow"><i class="fas fa-fax"></i></a>
+            {% endif %}
+        </div>
+    </div>
+{% endmacro %}

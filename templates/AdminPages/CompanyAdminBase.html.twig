@@ -22,5 +22,6 @@
 {% endblock %}
 
 {% block quick_links %}
-    {% include 'QuickLinks/_company.html.twig' %}
+    {% import "components/quick_links.macro.html.twig" as quick_links %}
+    {{ quick_links.company(entity) }}
 {% endblock %}
