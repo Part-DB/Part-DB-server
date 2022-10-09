@@ -80,6 +80,8 @@ class PartListsController extends AbstractController
      */
     public function tableAction(Request $request, PartsTableActionHandler $actionHandler): Response
     {
+        $this->denyAccessUnlessGranted('@parts.edit');
+
         $redirect = $request->request->get('redirect_back');
         $ids = $request->request->get('ids');
         $action = $request->request->get('action');
@@ -137,6 +139,8 @@ class PartListsController extends AbstractController
      */
     protected function showListWithFilter(Request $request, string $template, ?callable $filter_changer = null, ?callable $form_changer = null, array $additonal_template_vars = [], array $additional_table_vars = []): Response
     {
+        $this->denyAccessUnlessGranted('@parts.read');
+
         $formRequest = clone $request;
         $formRequest->setMethod('GET');
         $filter = new PartFilter($this->nodesListBuilder);
