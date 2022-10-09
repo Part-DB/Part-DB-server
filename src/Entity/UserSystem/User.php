@@ -149,7 +149,8 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * @var Group|null the group this user belongs to
-     * @ORM\ManyToOne(targetEntity="Group", inversedBy="users", fetch="EAGER")
+     * DO NOT PUT A fetch eager here! Otherwise you can not unset the group of a user! This seems to be some kind of bug in doctrine. Maybe this is fixed in future versions.
+     * @ORM\ManyToOne(targetEntity="Group", inversedBy="users")
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
      * @Selectable()
      */
