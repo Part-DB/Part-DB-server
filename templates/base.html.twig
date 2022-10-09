@@ -64,7 +64,7 @@
 <body data-base-url="{{ path('homepage', {'_locale': app.request.locale}) }}" data-locale="{{ app.request.locale|default("en")|slice(0,2) }}">
 {% block body %}
     <header>
-        <turbo-frame id="navbar-frame" target="content" data-turbo-action="advance" data-turbo-permanent>
+        <turbo-frame id="navbar-frame" target="content" data-turbo-action="advance">
             {% include "_navbar.html.twig" %}
         </turbo-frame>
     </header>
