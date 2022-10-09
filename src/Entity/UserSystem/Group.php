@@ -88,7 +88,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     protected $enforce2FA = false;
     /**
      * @var Collection<int, GroupAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ManufacturerAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\GroupAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"name" = "ASC"})
      * @Assert\Valid()
      */
