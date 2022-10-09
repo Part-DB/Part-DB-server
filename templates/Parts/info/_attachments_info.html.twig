@@ -1,5 +1,3 @@
-{% import "helper.twig" as helper %}
-
 <table class="table table-striped table-sm table-hover table-responsive-sm">
     <thead>
     <tr>
@@ -18,7 +16,8 @@
     {% for attachment in part.attachments %}
         <tr>
             <td>
-                {{ helper.attachment_icon(attachment, attachment_manager) }}
+                {% import "components/attachments.macro.html.twig" as attachments %}
+                {{ attachments.attachment_icon(attachment, attachment_manager) }}
             </td>
             <td class="align-middle">{{ attachment.name }}</td>
             <td class="align-middle">{{ attachment.attachmentType.fullPath }}</td>

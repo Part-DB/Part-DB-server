@@ -6,25 +6,6 @@
     {% endif %}
 {% endmacro %}
 
-{% macro attachment_icon(attachment, attachment_helper, class = "fa-fw fas fa-3x", link = true) %}
-    {% set disabled = attachment.secure and not is_granted("show_secure", attachment) %}
-    {% if not attachment_helper or attachment_helper.fileExisting(attachment) %}
-        {% if link and not disabled %}
-            <a target="_blank" data-turbo="false" rel="noopener" href="{{ entity_url(attachment, 'file_view') }}">
-        {% endif %}
-        {% if attachment.picture %}
-            <img class="hoverpic" {{ stimulus_controller('elements/hoverpic') }} data-thumbnail="{{ entity_url(attachment, 'file_view') }}" src="{{ entity_url(attachment, 'file_view') }}">
-        {% else %}
-            <i class="text-dark {{ class }} {{ ext_to_fa_icon(attachment.extension) }}"></i>
-        {% endif %}
-        {% if link and not disabled %}
-            </a>
-        {% endif %}
-    {% elseif not attachment_helper.fileExisting(attachment) %}
-        <i class="{{ class }} fa-exclamation-triangle text-danger" title="{% trans %}attachment.file_not_found{% endtrans %}"></i>
-    {% endif %}
-{% endmacro %}
-
 {% macro string_to_tags(string, class="badge bg-info") %}
     {% for tag in string|split(',') %}
         <a href="{{ path('part_list_tags', {'tag': tag | trim | url_encode}) }}" class="{{ class }}" >{{ tag | trim }}</a>
