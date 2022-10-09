@@ -178,8 +178,13 @@ class TimeTravel
      * @return DateTime
      * @throws Exception
      */
-    private function dateTimeDecode(array $input): \DateTime
+    private function dateTimeDecode(?array $input): ?\DateTime
     {
+        //Allow null values
+        if ($input === null) {
+            return null;
+        }
+
         return new \DateTime($input['date'], new \DateTimeZone($input['timezone']));
     }
 
