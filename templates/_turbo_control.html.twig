@@ -22,7 +22,7 @@
 
 <div class="d-none" {{ stimulus_controller('turbo/locale_menu') }}>
     {% for locale in locale_menu %}
-        <a class="dropdown-item" data-turbo="false" href="{{ path(app.request.attributes.get('_route'),
+        <a class="dropdown-item" data-turbo="false" data-turbo-frame="_top" href="{{ path(app.request.attributes.get('_route'),
             app.request.attributes.get('_route_params')|merge({'_locale': locale})) }}">
             {{ locale|language_name }} ({{ locale|upper }})</a>
     {% endfor %}
