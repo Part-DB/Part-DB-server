@@ -51,5 +51,6 @@
         </div>
     </div>
 
-    {% include "LogSystem/_log_table.html.twig" %}
+    {% import "components/history_log_macros.html.twig" as log %}
+    {{ log.system_log_component(datatable) }}
 {% endblock %}

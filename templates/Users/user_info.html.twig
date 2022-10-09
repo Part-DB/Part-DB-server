@@ -75,7 +75,8 @@
 
     <div class="mt-2">
     {% if datatable is defined and datatable is not null %}
-        {% include "LogSystem/_log_table.html.twig" %}
+        {% import "components/history_log_macros.html.twig" as log %}
+        {{ log.element_history_component(datatable) }}
     {% endif %}
     </div>
 {% endblock %}

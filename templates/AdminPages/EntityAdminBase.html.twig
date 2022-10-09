@@ -152,7 +152,8 @@
 
                             {% if datatable is defined and datatable is not null %}
                                 <div id="history" class="tab-pane fade">
-                                    {% include "LogSystem/_log_table.html.twig" %}
+                                    {% import "components/history_log_macros.html.twig" as log %}
+                                    {{ log.element_history_component(datatable) }}
                                 </div>
                             {% endif %}
 
