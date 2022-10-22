@@ -16,6 +16,7 @@
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.9",
+        "doctrine/dbal": "3.4.*",
         "dompdf/dompdf": "^2.0.0",
         "erusev/parsedown": "^1.7",
         "florianv/swap": "^4.0",
