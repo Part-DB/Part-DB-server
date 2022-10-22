@@ -145,9 +145,5 @@
         }
     },
     "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/jbtronics/u2f-two-factor-bundle.git"
-        }
     ]
 }
