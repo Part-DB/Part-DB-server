@@ -44,8 +44,7 @@ namespace App\Entity\UserSystem;
 
 use App\Entity\Base\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
-use R\U2FTwoFactorBundle\Model\U2F\TwoFactorKeyInterface;
-use u2flib_server\Registration;
+use Jbtronics\TFAWebauthn\Model\LegacyU2FKeyInterface;
 
 /**
  * @ORM\Entity
@@ -56,7 +55,7 @@ use u2flib_server\Registration;
  * })
  * @ORM\HasLifecycleCallbacks()
  */
-class U2FKey implements TwoFactorKeyInterface
+class U2FKey implements LegacyU2FKeyInterface
 {
     use TimestampTrait;
 
@@ -109,14 +108,6 @@ class U2FKey implements TwoFactorKeyInterface
      * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User", inversedBy="u2fKeys")
      **/
     protected ?User $user = null;
-
-    public function fromRegistrationData(Registration $data): void
-    {
-        $this->keyHandle = $data->keyHandle;
-        $this->publicKey = $data->publicKey;
-        $this->certificate = $data->certificate;
-        $this->counter = $data->counter;
-    }
 
     public function getKeyHandle(): string
     {

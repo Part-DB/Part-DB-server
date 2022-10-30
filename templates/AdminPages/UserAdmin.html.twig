@@ -54,8 +54,8 @@
                     {% endif %}
                 </p>
                 <p><b>{% trans %}user.edit.tfa.u2f_keys_count{% endtrans %}:</b>
-                    {% if entity.u2FAuthEnabled %}
-                        {{ entity.u2FKeys | length }}
+                    {% if entity.webAuthnAuthenticatorEnabled %}
+                        {{ (entity.webauthnKeys | length) + (entity.legacyU2FKeys | length) }}
                     {% else %}
                         {% trans %}user.edit.tfa.disabled{% endtrans %}
                     {% endif %}
@@ -63,7 +63,7 @@
 
                 {% set tfa_disable_disabled = not is_granted('set_password', entity) %}
                 {# Disable button when he has no 2FA activated #}
-                {% if not entity.u2FAuthEnabled and not entity.googleAuthenticatorEnabled and entity.backupCodes is empty %}
+                {% if not entity.webAuthnAuthenticatorEnabled and not entity.googleAuthenticatorEnabled and entity.backupCodes is empty %}
                     {% set tfa_disable_disabled = true %}
                 {% endif %}
 

@@ -37,6 +37,14 @@ Object.assign( window.CKEDITOR_TRANSLATIONS[ 'de' ].dictionary, {
     'Storage location': 'Lagerort',
     'Storage location (Full path)': 'Lagerort (Vollständiger Pfad)',
 
+
+    'Barcodes': 'Barcodes',
+    'Content of the 1D barcodes (like Code 39)': 'Inhalt der 1D Barcodes (z.B. Code 39)',
+    'Content of the 2D barcodes (QR codes)': 'Inhalt der 2D Barcodes (QR Codes)',
+    'QR code linking to this element': 'QR Code verknüpft mit diesem Element',
+    'Code 128 barcode linking to this element': 'Code 128 Barcode verknüpft mit diesem Element',
+    'Code 39 barcode linking to this element': 'Code 39 Barcode verknüpft mit diesem Element',
+
     'Location ID': 'Lagerort ID',
     'Name': 'Name',
     'Full path': 'Vollständiger Pfad',
@@ -50,5 +58,6 @@ Object.assign( window.CKEDITOR_TRANSLATIONS[ 'de' ].dictionary, {
     'Current time': 'Aktuelle Zeit',
     'Instance name': 'Instanzname',
     'Target type': 'Zieltyp',
+    'URL of this Part-DB instance': 'URL dieser Part-DB Instanz',
 
 } );

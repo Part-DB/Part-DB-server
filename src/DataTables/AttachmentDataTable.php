@@ -226,7 +226,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
 
     private function getQuery(QueryBuilder $builder): void
     {
-        $builder->distinct()->select('attachment')
+        $builder->select('attachment')
             ->addSelect('attachment_type')
             //->addSelect('element')
             ->from(Attachment::class, 'attachment')

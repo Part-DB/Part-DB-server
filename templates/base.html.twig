@@ -52,7 +52,7 @@
 
     {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
-        {{ encore_entry_script_tags('ru2ftwofactor') }}
+        {{ encore_entry_script_tags('webauthn_tfa') }}
 
         {# load translation files for ckeditor #}
         {% set two_chars_locale = app.request.locale|default("en")|slice(0,2) %}
@@ -64,7 +64,7 @@
 <body data-base-url="{{ path('homepage', {'_locale': app.request.locale}) }}" data-locale="{{ app.request.locale|default("en")|slice(0,2) }}">
 {% block body %}
     <header>
-        <turbo-frame id="navbar-frame" target="content" data-turbo-action="advance" data-turbo-permanent>
+        <turbo-frame id="navbar-frame" target="content" data-turbo-action="advance">
             {% include "_navbar.html.twig" %}
         </turbo-frame>
     </header>

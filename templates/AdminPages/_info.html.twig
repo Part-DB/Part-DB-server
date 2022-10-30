@@ -1,15 +1,15 @@
 {% import "helper.twig" as helper %}
 
 <div class="form-group row">
-    <label class="col-form-label col-md-3">{% trans %}id.label{% endtrans %}</label>
-    <div class="col-md-9">
+    <label class="col-form-label col-md-4">{% trans %}id.label{% endtrans %}</label>
+    <div class="col-md-8">
         <p class="form-control-plaintext">{% if entity.iD %}{{ entity.id }}{% else %}-{% endif %}</p>
     </div>
 </div>
 
 <div class="form-group row">
-    <label class="col-form-label col-md-3">{% trans %}createdAt{% endtrans %}</label>
-    <div class="col-md-9">
+    <label class="col-form-label col-md-4">{% trans %}createdAt{% endtrans %}</label>
+    <div class="col-md-8">
         <p class="form-control-plaintext">
 
             {% if entity.id is not null and date(entity.addedDate) > date('1900/01/01') %}
@@ -22,8 +22,8 @@
 </div>
 
 <div class="form-group row">
-    <label class="col-form-label col-md-3">{% trans %}lastModified{% endtrans %}</label>
-    <div class="col-md-9">
+    <label class="col-form-label col-md-4">{% trans %}lastModified{% endtrans %}</label>
+    <div class="col-md-8">
         <p class="form-control-plaintext">
             {% if entity.id is not null and date(entity.lastModified) > date('1900/01/01') %}
                 {{ helper.date_user_combination(entity, true, "long") }}
@@ -35,9 +35,9 @@
 </div>
 
 <div class="form-group row">
-    <label class="col-form-label col-md-3">{% trans %}entity.info.parts_count{% endtrans %}</label>
-    <div class="col-md-9">
-        <p class="form-control-static">
+    <label class="col-form-label col-md-4">{% trans %}entity.info.parts_count{% endtrans %}</label>
+    <div class="col-md-8">
+        <p class="form-control-plaintext">
             {% if entity.id and partsContainingElement %}
                 {{ repo.partsCount(entity) }}
             {% else %}
@@ -46,3 +46,19 @@
         </p>
     </div>
 </div>
+
+{# Check if we really have a structural element #}
+{% if entity.parent is defined %}
+    <div class="form-group row">
+        <label class="col-form-label col-md-4">{% trans %}entity.info.parts_count_recursive{% endtrans %}</label>
+        <div class="col-md-8">
+            <p class="form-control-plaintext">
+                {% if entity.id and partsContainingElement %}
+                    {{ repo.partsCountRecursive(entity) }}
+                {% else %}
+                    -
+                {% endif %}
+            </p>
+        </div>
+    </div>
+{% endif %}

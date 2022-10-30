@@ -74,7 +74,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Otherwise this class would be too big, to be maintained.
  *
  * @ORM\Entity(repositoryClass="App\Repository\PartRepository")
- * @ORM\Table("`parts`")
+ * @ORM\Table("`parts`", indexes={
+ *    @ORM\Index(name="parts_idx_datet_name_last_id_needs", columns={"datetime_added", "name", "last_modified", "id", "needs_review"}),
+ *    @ORM\Index(name="parts_idx_name", columns={"name"}),
+ * })
  */
 class Part extends AttachmentContainingDBElement
 {

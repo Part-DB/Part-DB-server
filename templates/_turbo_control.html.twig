@@ -15,11 +15,14 @@
     <div {{ stimulus_controller('turbo/global_reload') }}></div>
 {% endif %}
 
+{# Insert info about when the sidebar trees were updated last time, so the sidebar_tree_controller can decide if it needs to reload the tree #}
+<span id="sidebar-last-time-updated" style="display: none;" data-last-update="{{ sidebar_tree_updater.lastTreeUpdate.format("Y-m-d\\TH:i:sP") }}"></span>
+
 <div class="d-none" data-title="{% apply trim %}{{ current_page_title }}{% endapply %}" {{ stimulus_controller('turbo/title') }}></div>
 
 <div class="d-none" {{ stimulus_controller('turbo/locale_menu') }}>
     {% for locale in locale_menu %}
-        <a class="dropdown-item" data-turbo="false" href="{{ path(app.request.attributes.get('_route'),
+        <a class="dropdown-item" data-turbo="false" data-turbo-frame="_top" href="{{ path(app.request.attributes.get('_route'),
             app.request.attributes.get('_route_params')|merge({'_locale': locale})) }}">
             {{ locale|language_name }} ({{ locale|upper }})</a>
     {% endfor %}

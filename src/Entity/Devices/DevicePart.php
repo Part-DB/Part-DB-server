@@ -78,12 +78,12 @@ class DevicePart extends AbstractDBElement
      * @ORM\ManyToOne(targetEntity="Device", inversedBy="parts")
      * @ORM\JoinColumn(name="id_device", referencedColumnName="id")
      */
-    protected Device $device;
+    protected ?Device $device = null;
 
     /**
      * @var Part
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part")
      * @ORM\JoinColumn(name="id_part", referencedColumnName="id")
      */
-    protected Part $part;
+    protected ?Part $part = null;
 }

@@ -65,7 +65,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class Supplier.
  *
  * @ORM\Entity(repositoryClass="App\Repository\Parts\SupplierRepository")
- * @ORM\Table("`suppliers`")
+ * @ORM\Table("`suppliers`", indexes={
+ *     @ORM\Index(name="supplier_idx_name", columns={"name"}),
+ *     @ORM\Index(name="supplier_idx_parent_name", columns={"parent_id", "name"}),
+ * })
  */
 class Supplier extends AbstractCompany
 {

@@ -61,7 +61,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class Store location.
  *
  * @ORM\Entity(repositoryClass="App\Repository\Parts\StorelocationRepository")
- * @ORM\Table("`storelocations`")
+ * @ORM\Table("`storelocations`", indexes={
+ *     @ORM\Index(name="location_idx_name", columns={"name"}),
+ *     @ORM\Index(name="location_idx_parent_name", columns={"parent_id", "name"}),
+ * })
  */
 class Storelocation extends AbstractPartsContainingDBElement
 {

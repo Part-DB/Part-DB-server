@@ -1667,8 +1667,7 @@
       </notes>
       <segment state="translated">
         <source>label_scanner.no_cam_found.text</source>
-        <target>Чтобы использовать функцию сканирования вам понадобится веб-камера и разрешение для ее использования. Ниже, вы можете ввести штрихкод вручную.
-</target>
+        <target>Чтобы использовать функцию сканирования вам понадобится веб-камера и разрешение для ее использования. Ниже, вы можете ввести штрихкод вручную.</target>
       </segment>
     </unit>
     <unit id="6qQTB7S" name="label_scanner.source_select">

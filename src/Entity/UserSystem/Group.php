@@ -56,7 +56,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * This entity represents an user group.
  *
  * @ORM\Entity()
- * @ORM\Table("`groups`")
+ * @ORM\Table("`groups`", indexes={
+ *     @ORM\Index(name="group_idx_name", columns={"name"}),
+ *     @ORM\Index(name="group_idx_parent_name", columns={"parent_id", "name"}),
+ * })
  */
 class Group extends AbstractStructuralDBElement implements HasPermissionsInterface
 {
@@ -75,8 +78,9 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
 
     /**
      * @ORM\OneToMany(targetEntity="User", mappedBy="group")
+     * @var Collection<User>
      */
-    protected Collection $users;
+    protected $users;
 
     /**
      * @var bool If true all users associated with this group must have enabled some kind of 2 factor authentication
@@ -85,7 +89,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     protected $enforce2FA = false;
     /**
      * @var Collection<int, GroupAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ManufacturerAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\GroupAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"name" = "ASC"})
      * @Assert\Valid()
      */

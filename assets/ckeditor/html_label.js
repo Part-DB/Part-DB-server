@@ -187,15 +187,46 @@ Editor.defaultConfig = {
     },
     'fontSize': {
         options: [
-            8,
-            11,
-            13,
             'default',
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
             17,
+            18,
             19,
+            20,
             21,
         ],
         supportAllValues: true
+    },
+    // Allow all HTML features for our labels
+    htmlSupport: {
+        allow: [
+            {
+                name: /.*/,
+                attributes: true,
+                classes: true,
+                styles: true
+            }
+        ],
+        disallow: [
+            //Some rudimentary protection against XSS, even if it is not really needed as this is only parsed by DOMHTML which does not support any kind of script execution.
+            {
+                name: /^(head|body|html|script)$/i,
+            },
+            {
+                name: /.*/,
+                attributes: /^on.*/i
+            }
+        ]
     },
     image: {
         toolbar: [
@@ -214,7 +245,7 @@ Editor.defaultConfig = {
             'tableCellProperties',
             'tableProperties'
         ]
-    }
+    },
 };
 
 export default { Editor, EditorWatchdog };

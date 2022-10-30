@@ -44,8 +44,12 @@ namespace App\Tests\Entity\UserSystem;
 
 use App\Entity\UserSystem\U2FKey;
 use App\Entity\UserSystem\User;
+use App\Entity\UserSystem\WebauthnKey;
 use DateTime;
+use Doctrine\Common\Collections\Collection;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
+use Webauthn\TrustPath\EmptyTrustPath;
 
 class UserTest extends TestCase
 {
@@ -142,13 +146,26 @@ class UserTest extends TestCase
         $this->assertGreaterThan($old_value, $user->getTrustedTokenVersion());
     }
 
-    public function testIsU2fEnabled(): void
+    public function testIsWebauthnEnabled(): void
     {
         $user = new User();
-        $user->addU2FKey(new U2FKey());
-        $this->assertTrue($user->isU2FAuthEnabled());
+        $user->addWebauthnKey(new WebauthnKey(
+            "Test",
+            "Test",
+            [],
+            "Test",
+            new EmptyTrustPath(),
+            Uuid::fromDateTime(new \DateTime()),
+            "",
+            "",
+            0
+        ));
+        $this->assertTrue($user->isWebAuthnAuthenticatorEnabled());
 
-        $user->getU2FKeys()->clear();
-        $this->assertFalse($user->isU2FAuthEnabled());
+        $result = $user->getWebauthnKeys();
+        if($result instanceof Collection){
+            $result->clear();
+        }
+        $this->assertFalse($user->isWebAuthnAuthenticatorEnabled());
     }
 }

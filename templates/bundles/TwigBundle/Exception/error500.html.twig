@@ -7,20 +7,20 @@
 
 {% block admin_info %}
     {% if exception.class == "Doctrine\\DBAL\\Exception\\ConnectionException" %}
-        <i>Can not connect to database.</i> Try follwing things:
+        <b><i>Can not connect to database.</i></b><br><p>Try following things:</p>
         <ul>
             <li>Check if the database server is running</li>
             <li>Ensure that <code>DATABASE_URL</code> in <code>.env.local</code> is correct: database name, user and password must be correct.</li>
             <li>Ensure that the database user has access to the database.</li>
         </ul>
     {% elseif exception.class == "Twig\\Error\\RuntimeError" and 'manifest.json' in exception.message %}
-        <i>Can not load frontend assets.</i> Try following things:
+        <b><i>Can not load frontend assets.</i></b><p>Try following things:</p>
         <ul>
             <li>Run <kbd>yarn install</kbd> and <kbd>yarn build</kbd> in Part-DB folder.</li>
             <li>Run <kbd>php bin/console cache:clear</kbd></li>
         </ul>
     {% elseif exception.class == "Doctrine\\DBAL\\Exception\\InvalidFieldNameException" or exception.class == "Doctrine\\DBAL\\Exception\\TableNotFoundException" %}
-        <i>Invalid or not existing database schema.</i> Try following things:
+        <b><i>Invalid or not existing database schema.</i></b><br><p>Try following things:</p>
         <ul>
             <li>Check if the <code>DATABASE_URL</code> in <code>.env.local</code> is correct</li>
             <li>Run <kbd>php bin/console doctrine:migrations:migrate</kbd> to upgrade database schema</li>

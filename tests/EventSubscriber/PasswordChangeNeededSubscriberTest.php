@@ -45,8 +45,11 @@ namespace App\Tests\EventSubscriber;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\U2FKey;
 use App\Entity\UserSystem\User;
+use App\Entity\UserSystem\WebauthnKey;
 use App\EventSubscriber\UserSystem\PasswordChangeNeededSubscriber;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
+use Webauthn\TrustPath\EmptyTrustPath;
 
 class PasswordChangeNeededSubscriberTest extends TestCase
 {
@@ -73,7 +76,17 @@ class PasswordChangeNeededSubscriberTest extends TestCase
 
         //User must not be redirect if 2FA is setup
         $user->setGoogleAuthenticatorSecret(null);
-        $user->addU2FKey(new U2FKey());
+        $user->addWebauthnKey(new WebauthnKey(
+            "Test",
+            "Test",
+            [],
+            "Test",
+            new EmptyTrustPath(),
+            Uuid::fromDateTime(new \DateTime()),
+            "",
+            "",
+            0
+        ));
         $this->assertFalse(PasswordChangeNeededSubscriber::TFARedirectNeeded($user));
     }
 }

@@ -292,8 +292,8 @@ final class PartsDataTable implements DataTableTypeInterface
 
     private function getQuery(QueryBuilder $builder): void
     {
-
-        $builder->distinct()->select('part')
+        //Distinct is very slow here, do not add this here (also I think this is not needed here, as the id column is always distinct)
+        $builder->select('part')
             ->addSelect('category')
             ->addSelect('footprint')
             ->addSelect('manufacturer')

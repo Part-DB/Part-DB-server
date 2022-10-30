@@ -8691,13 +8691,9 @@ Element 3</target>
         <target>Google</target>
       </segment>
     </unit>
-    <unit id="tST2X1R" name="tfa.provider.u2f_two_factor">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
+    <unit id="tST2X1S" name="tfa.provider.webauthn_two_factor_provider">
       <segment state="translated">
-        <source>tfa.provider.u2f_two_factor</source>
+        <source>tfa.provider.webauthn_two_factor_provider</source>
         <target>Sicherheitsschlüssel</target>
       </segment>
     </unit>
@@ -9077,7 +9073,7 @@ Element 3</target>
     <unit id="D6I2Q6C" name="entity.delete.must_not_contain_parts">
       <segment state="translated">
         <source>entity.delete.must_not_contain_parts</source>
-        <target>Dateityp enthält noch Bauteile. Ändere deren Dateityp, um diesen Dateityp zu löschen.</target>
+        <target>Element "%PATH%" enthält noch Bauteile. Bearbeite die Bauteile, um dieses Element löschen zu können.</target>
       </segment>
     </unit>
     <unit id="hu8Y98Q" name="entity.delete.must_not_contain_attachments">
@@ -9312,6 +9308,12 @@ Element 3</target>
       <segment state="translated">
         <source>tree.tools.tools.reel_calculator</source>
         <target>SMD Reel Rechner</target>
+      </segment>
+    </unit>
+    <unit id="7FpEp24" name="user.pw_change_needed.flash">
+      <segment state="translated">
+        <source>user.pw_change_needed.flash</source>
+        <target>Passwortänderung benötigt! Bitte setze ein neues Passwort.</target>
       </segment>
     </unit>
     <unit id="EieqscF" name="part_list.action.select_null">
@@ -9756,6 +9758,12 @@ Element 3</target>
       <segment state="translated">
         <source>log.target_id</source>
         <target>ID des Ziel Elements</target>
+      </segment>
+    </unit>
+    <unit id="_vbPEFO" name="entity.info.parts_count_recursive">
+      <segment state="translated">
+        <source>entity.info.parts_count_recursive</source>
+        <target>Bauteile mit diesem Element oder dessen Kindelementen</target>
       </segment>
     </unit>
   </file>

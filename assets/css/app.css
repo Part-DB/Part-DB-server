@@ -65,6 +65,7 @@ body {
 
         /** Hide scrollbar in old Firefox and Edge **/
         -ms-overflow-style: none;
+        /*noinspection CssInvalidPropertyValue*/
         overflow: -moz-scrollbars-none;
         /*noinspection CssUnknownProperty*/
         scrollbar-width: none;
@@ -94,6 +95,7 @@ body {
 
         /** Hide scrollbar in Firefox and Edge **/
         -ms-overflow-style: none;
+        /*noinspection CssInvalidPropertyValue*/
         overflow: -moz-scrollbars-none;
         /* Use standard version for hiding the scrollbar */
         scrollbar-width: none;
@@ -252,10 +254,10 @@ a.badge {
 .bg-primary-striped {
     background: repeating-linear-gradient(
             -45deg,
-            var(--primary),
-            var(--primary) 10px,
-            var(--info) 10px,
-            var(--info) 20px
+            var(--bs-primary),
+            var(--bs-primary) 10px,
+            var(--bs-info) 10px,
+            var(--bs-info) 20px
     )
 }
 
@@ -377,7 +379,7 @@ btn-xs
     margin-right: auto;
 }
 
-.darkmode--activated .hoverpic:hover, {
+.darkmode--activated .hoverpic:hover {
     background: black;
 }
 
@@ -722,16 +724,20 @@ div.dataTables_wrapper div.dataTables_info {
     white-space: normal;
 }
 
+th.select-checkbox {
+    min-width: 10px;
+}
+
 
 /*******************************
     Parts datatable styling
  ******************************/
 .attach-table-icon {
     margin-right: 0.7em;
-    color: var(--gray);
+    color: var(--bs-gray);
 }
 .attach-table-icon:hover {
-    color: var(--gray-dark);
+    color: var(--bs-gray-dark);
 }
 .badge-table {
     margin-right: 0.2em;

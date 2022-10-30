@@ -34,7 +34,12 @@ use LogicException;
  * Class Attachment.
  *
  * @ORM\Entity(repositoryClass="App\Repository\AttachmentRepository")
- * @ORM\Table(name="`attachments`")
+ * @ORM\Table(name="`attachments`", indexes={
+ *    @ORM\Index(name="attachments_idx_id_element_id_class_name", columns={"id", "element_id", "class_name"}),
+ *    @ORM\Index(name="attachments_idx_class_name_id", columns={"class_name", "id"}),
+ *    @ORM\Index(name="attachment_name_idx", columns={"name"}),
+ *    @ORM\Index(name="attachment_element_idx", columns={"class_name", "element_id"})
+ * })
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="class_name", type="string")
  * @ORM\DiscriminatorMap({
@@ -104,7 +109,7 @@ abstract class Attachment extends AbstractNamedDBElement
     /**
      * @var AttachmentType
      * @ORM\ManyToOne(targetEntity="AttachmentType", inversedBy="attachments_with_type")
-     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id", nullable=false)
      * @Selectable()
      * @Assert\NotNull(message="validator.attachment.must_not_be_null")
      */

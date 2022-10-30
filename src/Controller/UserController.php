@@ -113,7 +113,10 @@ class UserController extends AdminPages\BaseAdminController
                 $entity->setGoogleAuthenticatorSecret(null);
                 $entity->setBackupCodes([]);
                 //Remove all U2F keys
-                foreach ($entity->getU2FKeys() as $key) {
+                foreach ($entity->getLegacyU2FKeys() as $key) {
+                    $em->remove($key);
+                }
+                foreach ($entity->getWebAuthnKeys() as $key) {
                     $em->remove($key);
                 }
                 //Invalidate trusted devices

@@ -75,6 +75,11 @@ class TreeCacheInvalidationListener
         if ($element instanceof AbstractStructuralDBElement || $element instanceof LabelProfile) {
             $secure_class_name = str_replace('\\', '_', get_class($element));
             $this->cache->invalidateTags([$secure_class_name]);
+
+            //Trigger a sidebar reload for all users (see SidebarTreeUpdater service)
+            if(!$element instanceof LabelProfile) {
+                $this->cache->invalidateTags(['sidebar_tree_update']);
+            }
         }
 
         //If a user change, then invalidate all cached trees for him

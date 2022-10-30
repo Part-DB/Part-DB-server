@@ -71,7 +71,11 @@ use Psr\Log\LogLevel;
  * This entity describes a entry in the event log.
  *
  * @ORM\Entity(repositoryClass="App\Repository\LogEntryRepository")
- * @ORM\Table("log")
+ * @ORM\Table("log", indexes={
+ *    @ORM\Index(name="log_idx_type", columns={"type"}),
+ *    @ORM\Index(name="log_idx_type_target", columns={"type", "target_type", "target_id"}),
+ *    @ORM\Index(name="log_idx_datetime", columns={"datetime"}),
+ * })
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="smallint")
  * @ORM\DiscriminatorMap({

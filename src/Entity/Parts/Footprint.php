@@ -61,7 +61,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class Footprint.
  *
  * @ORM\Entity(repositoryClass="App\Repository\Parts\FootprintRepository")
- * @ORM\Table("`footprints`")
+ * @ORM\Table("`footprints`", indexes={
+ *     @ORM\Index(name="footprint_idx_name", columns={"name"}),
+ *     @ORM\Index(name="footprint_idx_parent_name", columns={"parent_id", "name"}),
+ * })
  */
 class Footprint extends AbstractPartsContainingDBElement
 {

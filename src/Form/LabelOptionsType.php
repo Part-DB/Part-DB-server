@@ -106,6 +106,7 @@ class LabelOptionsType extends AbstractType
             'mode' => 'html-label',
             'attr' => [
                 'rows' => 4,
+                'data-ck-class' => 'ck-html-label'
             ],
         ]);
 

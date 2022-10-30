@@ -27,14 +27,48 @@ use App\Entity\LabelSystem\LabelOptions;
 use App\Services\LabelSystem\Barcodes\BarcodeContentGenerator;
 use Com\Tecnick\Barcode\Barcode;
 use InvalidArgumentException;
+use PhpParser\Node\Stmt\Label;
+use Symfony\Component\Mime\MimeTypes;
+use Twig\Extra\Html\HtmlExtension;
 
 final class BarcodeGenerator
 {
     private BarcodeContentGenerator $barcodeContentGenerator;
 
+
     public function __construct(BarcodeContentGenerator $barcodeContentGenerator)
     {
         $this->barcodeContentGenerator = $barcodeContentGenerator;
+    }
+
+    public function generateHTMLBarcode(LabelOptions $options, object $target): ?string
+    {
+        $svg = $this->generateSVG($options, $target);
+        $base64 = $this->dataUri($svg, 'image/svg+xml');
+        return '<img src="'.$base64.'" width="100%" style="min-height: 25px;" alt="'. $this->getContent($options, $target) . '" />';
+    }
+
+     /**
+     * Creates a data URI (RFC 2397).
+     * Based on the Twig implementaion from HTMLExtension
+     *
+     * Length validation is not performed on purpose, validation should
+     * be done before calling this filter.
+     *
+     * @return string The generated data URI
+     */
+    private function dataUri(string $data, string $mime): string
+    {
+        $repr = 'data:';
+
+        $repr .= $mime;
+        if (0 === strpos($mime, 'text/')) {
+            $repr .= ','.rawurlencode($data);
+        } else {
+            $repr .= ';base64,'.base64_encode($data);
+        }
+
+        return $repr;
     }
 
     public function generateSVG(LabelOptions $options, object $target): ?string

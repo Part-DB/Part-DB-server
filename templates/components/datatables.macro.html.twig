@@ -13,8 +13,8 @@
     </div>
 {% endmacro %}
 
-{% macro logDataTable(dt) %}
-    {{ _self.datatable(dt, 'elements/datatables/log') }}
+{% macro logDataTable(dt, state_save_tag = null) %}
+    {{ _self.datatable(dt, 'elements/datatables/log', state_save_tag) }}
 {% endmacro %}
 
 {% macro partsDatatableWithForm(datatable, state_save_tag = 'parts') %}

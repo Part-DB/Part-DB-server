@@ -94,6 +94,16 @@ const PLACEHOLDERS = [
         ]
     },
     {
+        label: 'Barcodes',
+        entries: [
+            ['[[1D_CONTENT]]', 'Content of the 1D barcodes (like Code 39)'],
+            ['[[2D_CONTENT]]', 'Content of the 2D barcodes (QR codes)'],
+            ['[[BARCODE_QR]]', 'QR code linking to this element'],
+            ['[[BARCODE_C128]]', 'Code 128 barcode linking to this element'],
+            ['[[BARCODE_C39]]', 'Code 39 barcode linking to this element'],
+        ]
+    },
+    {
         label: 'Globals',
         entries: [
             ['[[USERNAME]]', 'Username'],
@@ -102,7 +112,8 @@ const PLACEHOLDERS = [
             ['[[DATE]]', 'Current date'],
             ['[[TIME]]', 'Current time'],
             ['[[INSTALL_NAME]]', 'Instance name'],
-            ['[[TYPE]]', 'Target type']
+            ['[[TYPE]]', 'Target type'],
+            ['[[INSTANCE_URL]]', 'URL of this Part-DB instance']
         ],
     },
 ];
@@ -136,6 +147,7 @@ function getDropdownItemsDefinitions(t) {
                 model: new Model( {
                     commandParam: entry[0],
                     label: t(entry[1]),
+                    tooltip: entry[0],
                     withText: true
                 } ),
             };

@@ -1,0 +1,19 @@
+/********************************************************************
+* HTML Label style override
+*********************************************************************/
+
+/** Should be the same settings, as in label_style.css */
+.ck-html-label .ck-content {
+    font-family: "DejaVu Sans Mono", monospace;
+    font-size: 12px;
+    line-height: 1.0;
+    font-size-adjust: 1.5;
+}
+
+.ck-html-label .ck-content p {
+    margin: 0;
+}
+
+.ck-html-label .ck-content hr {
+    margin: 2px;
+}

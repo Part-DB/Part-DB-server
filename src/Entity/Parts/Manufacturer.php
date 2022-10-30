@@ -61,7 +61,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class Manufacturer.
  *
  * @ORM\Entity(repositoryClass="App\Repository\Parts\ManufacturerRepository")
- * @ORM\Table("`manufacturers`")
+ * @ORM\Table("`manufacturers`", indexes={
+ *     @ORM\Index(name="manufacturer_name", columns={"name"}),
+ *     @ORM\Index(name="manufacturer_idx_parent_name", columns={"parent_id", "name"}),
+ * })
  */
 class Manufacturer extends AbstractCompany
 {

@@ -79,7 +79,7 @@ trait ManufacturerTrait
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Choice({"announced", "active", "nrfnd", "eol", "discontinued", ""})
      */
-    protected string $manufacturing_status = '';
+    protected ?string $manufacturing_status = '';
 
     /**
      * Get the link to the website of the article on the manufacturers website

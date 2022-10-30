@@ -27,6 +27,8 @@ use App\Entity\UserSystem\User;
 use DateTime;
 use IntlDateFormatter;
 use Locale;
+use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 
 /**
@@ -36,11 +38,13 @@ final class GlobalProviders implements PlaceholderProviderInterface
 {
     private string $partdb_title;
     private Security $security;
+    private UrlGeneratorInterface $url_generator;
 
-    public function __construct(string $partdb_title, Security $security)
+    public function __construct(string $partdb_title, Security $security, UrlGeneratorInterface $url_generator)
     {
         $this->partdb_title = $partdb_title;
         $this->security = $security;
+        $this->url_generator = $url_generator;
     }
 
     public function replace(string $placeholder, object $label_target, array $options = []): ?string
@@ -99,6 +103,10 @@ final class GlobalProviders implements PlaceholderProviderInterface
             );
 
             return $formatter->format($now);
+        }
+
+        if ('[[INSTANCE_URL]]' === $placeholder) {
+            return $this->url_generator->generate('homepage', [], UrlGenerator::ABSOLUTE_URL);
         }
 
         return null;

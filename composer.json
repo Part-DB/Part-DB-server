@@ -10,17 +10,19 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "beberlei/doctrineextensions": "^1.2",
-        "brick/math": "^0.10.2",
+        "brick/math": "^0.8.15",
         "composer/package-versions-deprecated": "1.11.99.4",
         "doctrine/annotations": "^1.6",
         "doctrine/doctrine-bundle": "^2.0",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.9",
+        "doctrine/dbal": "3.4.*",
         "dompdf/dompdf": "^2.0.0",
         "erusev/parsedown": "^1.7",
         "florianv/swap": "^4.0",
         "florianv/swap-bundle": "dev-master",
         "gregwar/captcha-bundle": "^2.1.0",
+        "jbtronics/2fa-webauthn": "^1.0.0",
         "league/html-to-markdown": "^5.0.1",
         "liip/imagine-bundle": "^2.2",
         "nelmio/security-bundle": "^3.0",
@@ -69,8 +71,8 @@
         "twig/inky-extra": "^3.0",
         "twig/intl-extra": "^3.0",
         "twig/markdown-extra": "^3.0",
-        "webmozart/assert": "^1.4",
-        "r/u2f-two-factor-bundle": "dev-scheb/2fa-support"
+        "web-auth/webauthn-symfony-bundle": "^3.3",
+        "webmozart/assert": "^1.4"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^7.0",
@@ -144,9 +146,5 @@
         }
     },
     "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/jbtronics/u2f-two-factor-bundle.git"
-        }
     ]
 }

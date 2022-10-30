@@ -12,3 +12,11 @@
 .dropdown-item .picker-hs {
     display: inherit;
 }
+
+/** Bootstrap-select Unhide on selected element */
+.picker-us {
+    display: inherit;
+}
+.dropdown-item .picker-us {
+    display: none;
+}

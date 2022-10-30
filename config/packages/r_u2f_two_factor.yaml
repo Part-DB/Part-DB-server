@@ -1,4 +1,0 @@
-ru2_f_two_factor:
-  formTemplate: "/security/U2F/u2f_login.html.twig"
-  registerTemplate: "/security/U2F/u2f_register.html.twig"
-  authCodeParameter: _auth_code

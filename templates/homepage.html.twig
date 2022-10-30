@@ -44,7 +44,8 @@
     <div class="card mt-3">
         <div class="card-header"><i class="fas fa-fw fa-history"></i> {% trans %}homepage.last_activity{% endtrans %}</div>
         <div class="card-body">
-            {% include "LogSystem/_log_table.html.twig" %}
+            {% import "components/history_log_macros.html.twig" as log %}
+            {{ log.last_activity_component(datatable) }}
         </div>
     </div>
     {% endif %}

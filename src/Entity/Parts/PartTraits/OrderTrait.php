@@ -79,7 +79,7 @@ trait OrderTrait
      * @ORM\OneToOne(targetEntity="App\Entity\PriceInformations\Orderdetail")
      * @ORM\JoinColumn(name="order_orderdetails_id", referencedColumnName="id")
      */
-    protected Orderdetail $order_orderdetail;
+    protected ?Orderdetail $order_orderdetail = null;
 
     /**
      * Get the selected order orderdetails of this part.

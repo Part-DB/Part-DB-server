@@ -253,7 +253,7 @@ class StructuralEntityType extends AbstractType
         $html .= $this->getElementNameWithLevelWhitespace($choice, $options, '<span class="picker-level"></span>');
 
         if ($options['show_fullpath_in_subtext'] && null !== $choice->getParent()) {
-            $html .= '<span class="ms-3 badge rounded-pill bg-secondary float-end"><i class="fa-solid fa-folder-tree"></i>&nbsp;' . trim(htmlspecialchars($choice->getParent()->getFullPath())) . '</span>';
+            $html .= '<span class="ms-3 badge rounded-pill bg-secondary float-end picker-us"><i class="fa-solid fa-folder-tree"></i>&nbsp;' . trim(htmlspecialchars($choice->getParent()->getFullPath())) . '</span>';
         }
 
         if ($choice instanceof AttachmentType && !empty($choice->getFiletypeFilter())) {

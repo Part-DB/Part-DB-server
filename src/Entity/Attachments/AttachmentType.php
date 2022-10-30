@@ -34,7 +34,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class AttachmentType.
  *
  * @ORM\Entity(repositoryClass="App\Repository\StructuralDBElementRepository")
- * @ORM\Table(name="`attachment_types`")
+ * @ORM\Table(name="`attachment_types`", indexes={
+ *     @ORM\Index(name="attachment_types_idx_name", columns={"name"}),
+ *     @ORM\Index(name="attachment_types_idx_parent_name", columns={"parent_id", "name"}),
+ * })
  */
 class AttachmentType extends AbstractStructuralDBElement
 {

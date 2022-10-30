@@ -1,0 +1,24 @@
+{% macro last_activity_component(datatable) %}
+    {{ _self.log_component(datatable, 'last_activity') }}
+{% endmacro %}
+
+{% macro element_history_component(datatable) %}
+    {{ _self.log_component(datatable, 'element_history') }}
+{% endmacro %}
+
+{% macro system_log_component(datatable) %}
+    {{ _self.log_component(datatable, 'system_log') }}
+{% endmacro %}
+
+{% macro log_component(datatable, tag = null) %}
+    {% import "components/datatables.macro.html.twig" as datatables %}
+
+    <form method="post" action="{{ path("log_undo") }}"
+            {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
+          data-delete-title="{% trans %}log.undo.confirm_title{% endtrans %}"
+          data-delete-message="{% trans %}log.undo.confirm_message{% endtrans %}">
+        <input type="hidden" name="redirect_back" value="{{ app.request.uri }}">
+
+        {{ datatables.logDataTable(datatable, tag) }}
+    </form>
+{% endmacro %}
