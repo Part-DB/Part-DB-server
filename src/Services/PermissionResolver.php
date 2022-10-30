@@ -81,6 +81,7 @@ class PermissionResolver
      * Check if a user/group is allowed to do the specified operation for the permission.
      *
      * See permissions.yaml for valid permission operation combinations.
+     * This function does not check, if the permission is valid!
      *
      * @param HasPermissionsInterface $user       the user/group for which the operation should be checked
      * @param string                  $permission the name of the permission for which should be checked
@@ -92,18 +93,13 @@ class PermissionResolver
     public function dontInherit(HasPermissionsInterface $user, string $permission, string $operation): ?bool
     {
         //Get the permissions from the user
-        $perm_list = $user->getPermissions();
-
-        //Determine bit number using our configuration
-        $bit = $this->permission_structure['perms'][$permission]['operations'][$operation]['bit'];
-
-        return $perm_list->getPermissionValue($permission, $bit);
+        return $user->getPermissions()->getPermissionValue($permission, $operation);
     }
 
     /**
      * Checks if a user is allowed to do the specified operation for the permission.
-     * In contrast to dontInherit() it tries to resolve the inherit values, of the user, by going upwards in the
-     * hierachy (user -> group -> parent group -> so on). But even in this case it is possible, that the inherit value
+     * In contrast to dontInherit() it tries to resolve to inherit values, of the user, by going upwards in the
+     * hierarchy (user -> group -> parent group -> so on). But even in this case it is possible, that to inherit value
      * could be resolved, and this function returns null.
      *
      * In that case the voter should set it manually to false by using ?? false.
@@ -153,10 +149,12 @@ class PermissionResolver
         //Get the permissions from the user
         $perm_list = $user->getPermissions();
 
-        //Determine bit number using our configuration
-        $bit = $this->permission_structure['perms'][$permission]['operations'][$operation]['bit'];
+        //Check if the permission/operation combination is valid
+        if (! $this->isValidOperation($permission, $operation)) {
+            throw new InvalidArgumentException('The permission/operation combination is not valid!');
+        }
 
-        $perm_list->setPermissionValue($permission, $bit, $new_val);
+        $perm_list->setPermissionValue($permission, $operation, $new_val);
     }
 
     /**

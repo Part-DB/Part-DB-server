@@ -265,11 +265,17 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     protected $currency;
 
+    /**
+     * @var PermissionData
+     * @ORM\Column(type="permission_data", nullable=false, name="permissions")
+     */
+    protected PermissionData $permissions;
+
     /** @var PermissionsEmbed
      * @ORM\Embedded(class="PermissionsEmbed", columnPrefix="perms_")
      * @ValidPermission()
      */
-    protected $permissions;
+    protected $permissions_old;
 
     /**
      * @var DateTime the time until the password reset token is valid
@@ -280,7 +286,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     public function __construct()
     {
         parent::__construct();
-        $this->permissions = new PermissionsEmbed();
+        $this->permissions = new PermissionData();
         $this->u2fKeys = new ArrayCollection();
         $this->webauthn_keys = new ArrayCollection();
     }
@@ -427,8 +433,12 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         return $this;
     }
 
-    public function getPermissions(): PermissionsEmbed
+    public function getPermissions(): PermissionData
     {
+        if (!isset($this->permissions)) {
+            $this->permissions = new PermissionData();
+        }
+
         return $this->permissions;
     }
 

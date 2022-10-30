@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\Tests\Services;
 
 use App\Entity\UserSystem\Group;
+use App\Entity\UserSystem\PermissionData;
 use App\Entity\UserSystem\PermissionsEmbed;
 use App\Entity\UserSystem\User;
 use App\Services\PermissionResolver;
@@ -69,42 +70,42 @@ class PermissionResolverTest extends WebTestCase
         $this->service = self::$container->get(PermissionResolver::class);
 
         //Set up a mocked user
-        $user_embed = new PermissionsEmbed();
-        $user_embed->setPermissionValue('parts', 0, true) //read
-            ->setPermissionValue('parts', 2, false) //edit
-            ->setPermissionValue('parts', 4, null) //create
-            ->setPermissionValue('parts', 30, null) //move
-            ->setPermissionValue('parts', 8, null); //delete
+        $user_perms = new PermissionData();
+        $user_perms->setPermissionValue('parts', 'read', true) //read
+            ->setPermissionValue('parts', 'edit', false) //edit
+            ->setPermissionValue('parts', 'create', null) //create
+            ->setPermissionValue('parts', 'move', null) //move
+            ->setPermissionValue('parts', 'delete', null); //delete
 
         $this->user = $this->createMock(User::class);
-        $this->user->method('getPermissions')->willReturn($user_embed);
+        $this->user->method('getPermissions')->willReturn($user_perms);
 
         $this->user_withoutGroup = $this->createMock(User::class);
-        $this->user_withoutGroup->method('getPermissions')->willReturn($user_embed);
+        $this->user_withoutGroup->method('getPermissions')->willReturn($user_perms);
         $this->user_withoutGroup->method('getGroup')->willReturn(null);
 
         //Set up a faked group
-        $group1_embed = new PermissionsEmbed();
-        $group1_embed->setPermissionValue('parts', 6, true)
-            ->setPermissionValue('parts', 8, false)
-            ->setPermissionValue('parts', 10, null)
-            ->setPermissionValue('parts', 0, false)
-            ->setPermissionValue('parts', 30, true)
-            ->setPermissionValue('parts', 2, true);
+        $group1_perms = new PermissionData();
+        $group1_perms
+            ->setPermissionValue('parts', 'delete', false)
+            ->setPermissionValue('parts', 'search', null)
+            ->setPermissionValue('parts', 'read', false)
+            ->setPermissionValue('parts', 'show_history', true)
+            ->setPermissionValue('parts', 'edit', true);
 
         $this->group = $this->createMock(Group::class);
-        $this->group->method('getPermissions')->willReturn($group1_embed);
+        $this->group->method('getPermissions')->willReturn($group1_perms);
 
         //Set this group for the user
         $this->user->method('getGroup')->willReturn($this->group);
 
         //parent group
-        $parent_group_embed = new PermissionsEmbed();
-        $parent_group_embed->setPermissionValue('parts', 12, true)
-            ->setPermissionValue('parts', 14, false)
-            ->setPermissionValue('parts', 16, null);
+        $parent_group_perms = new PermissionData();
+        $parent_group_perms->setPermissionValue('parts', 'all_parts', true)
+            ->setPermissionValue('parts', 'no_price_parts', false)
+            ->setPermissionValue('parts', 'obsolete_parts', null);
         $parent_group = $this->createMock(Group::class);
-        $parent_group->method('getPermissions')->willReturn($parent_group_embed);
+        $parent_group->method('getPermissions')->willReturn($parent_group_perms);
 
         $this->group->method('getParent')->willReturn($parent_group);
     }

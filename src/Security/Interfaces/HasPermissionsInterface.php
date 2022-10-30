@@ -42,9 +42,9 @@ declare(strict_types=1);
 
 namespace App\Security\Interfaces;
 
-use App\Entity\UserSystem\PermissionsEmbed;
+use App\Entity\UserSystem\PermissionData;
 
 interface HasPermissionsInterface
 {
-    public function getPermissions(): PermissionsEmbed;
+    public function getPermissions(): PermissionData;
 }

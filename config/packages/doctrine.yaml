@@ -13,6 +13,8 @@ doctrine:
                 class: App\Helpers\UTCDateTimeType
             big_decimal:
                 class: App\Helpers\BigDecimalType
+            permission_data:
+                class: App\Doctrine\Types\PermissionDataType
 
         schema_filter: ~^(?!internal)~
         # Only enable this when needed
