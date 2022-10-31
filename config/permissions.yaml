@@ -207,6 +207,14 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         label: "perm.delete_logs"
         alsoSet: 'show_logs'
 
+  attachments:
+    label: "perm.part.attachments"
+    operations:
+      show_private:
+        label: "perm.attachments.show_private"
+      list_attachments:
+        label: "perm.attachments.list_attachments"
+
   self:
     label: "perm.self"
     operations:

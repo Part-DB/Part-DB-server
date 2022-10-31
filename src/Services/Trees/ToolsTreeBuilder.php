@@ -247,7 +247,7 @@ class ToolsTreeBuilder
             $this->urlGenerator->generate('parts_show_all')
         ))->setIcon('fa-fw fa-treeview fa-solid fa-globe');
 
-        if ($this->security->isGranted('read', new PartAttachment())) {
+        if ($this->security->isGranted('@attachments.list_attachments')) {
             $show_nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.show.all_attachments'),
                 $this->urlGenerator->generate('attachment_list')

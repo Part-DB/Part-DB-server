@@ -72,7 +72,7 @@ abstract class ExtendedVoter extends Voter
             return false;
         }
 
-        // if the user is anonymous, we use the anonymous user.
+        // if the user is anonymous (meaning $user is null), we use the anonymous user.
         if (!$user instanceof User) {
             /** @var UserRepository $repo */
             $repo = $this->entityManager->getRepository(User::class);
