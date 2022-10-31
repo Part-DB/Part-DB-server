@@ -168,7 +168,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         label: "perm.show_history"
       revert_element:
         label: "perm.revert_elements"
-        alsoSet: ["read", "create", "delete", "edit_permissions", "show_history", "edit_infos", "change_group", "edit_username"]
+        alsoSet: ["read", "create", "delete", "edit_permissions", "show_history", "edit_infos", "edit_username"]
 
   #database:
   #  label: "perm.database"

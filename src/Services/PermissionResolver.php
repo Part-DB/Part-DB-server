@@ -151,7 +151,7 @@ class PermissionResolver
 
         //Check if the permission/operation combination is valid
         if (! $this->isValidOperation($permission, $operation)) {
-            throw new InvalidArgumentException('The permission/operation combination is not valid!');
+            throw new InvalidArgumentException(sprintf('The permission/operation combination "%s.%s" is not valid!', $permission, $operation));
         }
 
         $perm_list->setPermissionValue($permission, $operation, $new_val);
