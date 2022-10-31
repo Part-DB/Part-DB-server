@@ -2,6 +2,14 @@
 
 namespace App\Entity\UserSystem;
 
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * This class is used to store the permissions of a user.
+ * This has to be an embeddable or otherwise doctrine could not track the changes of the underlying data array (which is serialized to JSON in the database)
+ *
+ * @ORM\Embeddable()
+ */
 final class PermissionData implements \JsonSerializable
 {
     /**
@@ -17,8 +25,9 @@ final class PermissionData implements \JsonSerializable
      * permission => [
      *     operation => value,
      * ]
+     * @ORM\Column(type="json", name="data")
      */
-    protected array $data = [];
+    protected ?array $data = [];
 
     /**
      * Creates a new Permission Data Instance using the given data.
@@ -89,6 +98,11 @@ final class PermissionData implements \JsonSerializable
     {
         $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
         return new self($data);
+    }
+
+    public function __clone()
+    {
+        $this->data = $this->data;
     }
 
     /**

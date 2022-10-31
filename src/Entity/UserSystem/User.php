@@ -267,13 +267,13 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * @var PermissionData
-     * @ORM\Column(type="permission_data", nullable=false, name="permissions")
+     * @ValidPermission()
+     * @ORM\Embedded(class="PermissionData", columnPrefix="permissions_")
      */
     protected PermissionData $permissions;
 
     /** @var PermissionsEmbed
      * @ORM\Embedded(class="PermissionsEmbed", columnPrefix="perms_")
-     * @ValidPermission()
      */
     protected $permissions_old;
 
@@ -435,10 +435,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     public function getPermissions(): PermissionData
     {
-        if (!isset($this->permissions)) {
-            $this->permissions = new PermissionData();
-        }
-
         return $this->permissions;
     }
 
