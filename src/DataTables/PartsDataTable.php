@@ -163,20 +163,29 @@ final class PartsDataTable implements DataTableTypeInterface
             ])
             ->add('description', MarkdownColumn::class, [
                 'label' => $this->translator->trans('part.table.description'),
-            ])
-            ->add('category', EntityColumn::class, [
+            ]);
+
+        if ($this->security->isGranted('@categories.read')) {
+            $dataTable->add('category', EntityColumn::class, [
                 'label' => $this->translator->trans('part.table.category'),
                 'property' => 'category',
-            ])
-            ->add('footprint', EntityColumn::class, [
+            ]);
+        }
+
+        if ($this->security->isGranted('@footprints.read')) {
+            $dataTable->add('footprint', EntityColumn::class, [
                 'property' => 'footprint',
                 'label' => $this->translator->trans('part.table.footprint'),
-            ])
-            ->add('manufacturer', EntityColumn::class, [
+            ]);
+        }
+        if ($this->security->isGranted('@manufacturers.read')) {
+            $dataTable->add('manufacturer', EntityColumn::class, [
                 'property' => 'manufacturer',
                 'label' => $this->translator->trans('part.table.manufacturer'),
-            ])
-            ->add('storelocation', TextColumn::class, [
+            ]);
+        }
+        if ($this->security->isGranted('@storelocations.read')) {
+            $dataTable->add('storelocation', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.storeLocations'),
                 'render' => function ($value, Part $context) {
                     $tmp = [];
@@ -194,32 +203,38 @@ final class PartsDataTable implements DataTableTypeInterface
 
                     return implode('<br>', $tmp);
                 },
-            ])
-            ->add('amount', TextColumn::class, [
-                'label' => $this->translator->trans('part.table.amount'),
-                'render' => function ($value, Part $context) {
-                    $amount = $context->getAmountSum();
+            ]);
+        }
 
-                    return $this->amountFormatter->format($amount, $context->getPartUnit());
-                },
-                'orderField' => 'amountSum'
-            ])
+        $dataTable->add('amount', TextColumn::class, [
+            'label' => $this->translator->trans('part.table.amount'),
+            'render' => function ($value, Part $context) {
+                $amount = $context->getAmountSum();
+
+                return $this->amountFormatter->format($amount, $context->getPartUnit());
+            },
+            'orderField' => 'amountSum'
+        ])
             ->add('minamount', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.minamount'),
                 'visible' => false,
                 'render' => function ($value, Part $context) {
                     return $this->amountFormatter->format($value, $context->getPartUnit());
                 },
-            ])
-            ->add('partUnit', TextColumn::class, [
+            ]);
+
+        if ($this->security->isGranted('@footprints.read')) {
+            $dataTable->add('partUnit', TextColumn::class, [
                 'field' => 'partUnit.name',
                 'label' => $this->translator->trans('part.table.partUnit'),
                 'visible' => false,
-            ])
-            ->add('addedDate', LocaleDateTimeColumn::class, [
-                'label' => $this->translator->trans('part.table.addedDate'),
-                'visible' => false,
-            ])
+            ]);
+        }
+
+        $dataTable->add('addedDate', LocaleDateTimeColumn::class, [
+            'label' => $this->translator->trans('part.table.addedDate'),
+            'visible' => false,
+        ])
             ->add('lastModified', LocaleDateTimeColumn::class, [
                 'label' => $this->translator->trans('part.table.lastModified'),
                 'visible' => false,
