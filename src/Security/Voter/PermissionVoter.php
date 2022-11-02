@@ -83,7 +83,9 @@ class PermissionVoter extends ExtendedVoter
             $valid = $this->resolver->isValidOperation($perm, $op);
 
             //if an invalid operation is encountered, throw an exception so the developer knows it
-            //throw new \RuntimeException('Encountered invalid permission operation "'.$op.'" for permission "'.$perm.'"!');
+            if(!$valid) {
+                throw new \RuntimeException('Encountered invalid permission operation "'.$op.'" for permission "'.$perm.'"!');
+            }
 
             return true;
         }

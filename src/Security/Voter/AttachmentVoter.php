@@ -56,7 +56,7 @@ class AttachmentVoter extends ExtendedVoter
      */
     protected function voteOnUser(string $attribute, $subject, User $user): bool
     {
-        return $this->resolver->inherit($user, 'parts_attachments', $attribute) ?? false;
+        return $this->resolver->inherit($user, 'attachments', $attribute) ?? false;
     }
 
     /**
@@ -70,7 +70,7 @@ class AttachmentVoter extends ExtendedVoter
     protected function supports(string $attribute, $subject): bool
     {
         if (is_a($subject, Attachment::class, true)) {
-            return in_array($attribute, $this->resolver->listOperationsForPermission('parts_attachments'), false);
+            return in_array($attribute, $this->resolver->listOperationsForPermission('attachments'), false);
         }
 
         //Allow class name as subject
