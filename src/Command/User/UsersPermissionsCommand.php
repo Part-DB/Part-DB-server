@@ -65,18 +65,23 @@ class UsersPermissionsCommand extends Command
         $edit_mapping = $this->renderPermissionTable($output, $user, $inherit);
 
         while($edit_mode) {
-            $index_to_edit = $io->ask('Which permission do you want to edit? Enter the index (e.g. 2-4) to edit or "q" to quit', 'q');
+            $index_to_edit = $io->ask('Which permission do you want to edit? Enter the index (e.g. 2-4) to edit, * for all permissions or "q" to quit', 'q');
             if ($index_to_edit === 'q') {
                 break;
             }
 
-            if (!isset($edit_mapping[$index_to_edit])) {
+            if (!isset($edit_mapping[$index_to_edit]) && $index_to_edit !== '*') {
                 $io->error('Invalid index');
                 continue;
             }
 
-            [$perm_to_edit, $op_to_edit] = $edit_mapping[$index_to_edit];
-            $io->note('Editing permission ' . $perm_to_edit . ' with operation <options=bold>' . $op_to_edit);
+            if ($index_to_edit === '*') {
+                $io->warning('You are about to edit all permissions. This will overwrite all permissions!');
+            } else {
+                [$perm_to_edit, $op_to_edit] = $edit_mapping[$index_to_edit];
+                $io->note('Editing permission ' . $perm_to_edit . ' with operation <options=bold>' . $op_to_edit);
+            }
+
 
             $new_value_str = $io->ask('Enter the new value for the permission (A = allow, D = disallow, I = inherit)');
             switch (strtolower($new_value_str)) {
@@ -97,9 +102,18 @@ class UsersPermissionsCommand extends Command
                     continue 2;
             }
 
-            $user->getPermissions()->setPermissionValue($perm_to_edit, $op_to_edit, $new_value);
+            if ($index_to_edit === '*') {
+                $this->permissionResolver->setAllPermissions($user, $new_value);
+                $io->success('Permission updated successfully');
+                $this->entityManager->flush();
+
+                break; //Show the new table
+            } else {
+                $this->permissionResolver->setPermission($user, $perm_to_edit, $op_to_edit, $new_value);
+            }
+
             //Ensure that all operations are set accordingly
-            $this->ensureCorrectPermissions($user);
+            $this->permissionResolver->ensureCorrectSetOperations($user);
             $io->success('Permission updated successfully');
 
             //Save to DB
@@ -182,22 +196,5 @@ class UsersPermissionsCommand extends Command
         }
 
         return '???';
-    }
-
-    protected function ensureCorrectPermissions(User $user): void
-    {
-        $perm_structure = $this->permissionResolver->getPermissionStructure();
-
-        foreach ($perm_structure['perms'] as $perm_key => $permission) {
-            foreach ($permission['operations'] as $op_key => $op) {
-                if (!empty($op['alsoSet']) &&
-                    true === $this->permissionResolver->dontInherit($user, $perm_key, $op_key)) {
-                    //Set every op listed in also Set
-                    foreach ($op['alsoSet'] as $set_also) {
-                        $this->permissionResolver->setPermission($user, $perm_key, $set_also, true);
-                    }
-                }
-            }
-        }
     }
 }

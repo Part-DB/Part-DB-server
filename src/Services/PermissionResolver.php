@@ -204,6 +204,42 @@ class PermissionResolver
             isset($this->permission_structure['perms'][$permission]['operations'][$operation]);
     }
 
+    /**
+     * This functions sets all operations mentioned in the alsoSet value of a permission, so that the structure is always valid.
+     * @param  User  $user
+     * @return void
+     */
+    public function ensureCorrectSetOperations(HasPermissionsInterface $user): void
+    {
+        //Check for each permission and operation, for an alsoSet attribute
+        foreach ($this->permission_structure['perms'] as $perm_key => $permission) {
+            foreach ($permission['operations'] as $op_key => $op) {
+                if (!empty($op['alsoSet']) &&
+                    true === $this->dontInherit($user, $perm_key, $op_key)) {
+                    //Set every op listed in also Set
+                    foreach ($op['alsoSet'] as $set_also) {
+                        $this->setPermission($user, $perm_key, $set_also, true);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Sets all possible operations of all possible permissions of the given entity to the given value.
+     * @param  HasPermissionsInterface  $perm_holder
+     * @param  bool|null  $new_value
+     * @return void
+     */
+    public function setAllPermissions(HasPermissionsInterface $perm_holder, ?bool $new_value): void
+    {
+        foreach ($this->permission_structure['perms'] as $perm_key => $permission) {
+            foreach ($permission['operations'] as $op_key => $op) {
+                $this->setPermission($perm_holder, $perm_key, $op_key, $new_value);
+            }
+        }
+    }
+
     protected function generatePermissionStructure()
     {
         $cache = new ConfigCache($this->cache_file, $this->is_debug);

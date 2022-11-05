@@ -56,7 +56,6 @@ class ValidPermissionValidator extends ConstraintValidator
     public function __construct(PermissionResolver $resolver)
     {
         $this->resolver = $resolver;
-        $this->perm_structure = $resolver->getPermissionStructure();
     }
 
     /**
@@ -74,17 +73,6 @@ class ValidPermissionValidator extends ConstraintValidator
         /** @var HasPermissionsInterface $perm_holder */
         $perm_holder = $this->context->getObject();
 
-        //Check for each permission and operation, for an alsoSet attribute
-        foreach ($this->perm_structure['perms'] as $perm_key => $permission) {
-            foreach ($permission['operations'] as $op_key => $op) {
-                if (!empty($op['alsoSet']) &&
-                    true === $this->resolver->dontInherit($perm_holder, $perm_key, $op_key)) {
-                    //Set every op listed in also Set
-                    foreach ($op['alsoSet'] as $set_also) {
-                        $this->resolver->setPermission($perm_holder, $perm_key, $set_also, true);
-                    }
-                }
-            }
-        }
+        $this->resolver->ensureCorrectSetOperations($perm_holder);
     }
 }
