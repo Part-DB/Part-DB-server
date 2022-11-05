@@ -19,7 +19,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class UsersPermissionsCommand extends Command
 {
     protected static $defaultName = 'partdb:users:permissions';
-    protected static $defaultDescription = 'View the permissions of a given user';
+    protected static $defaultDescription = 'View and edit the permissions of a given user';
 
     protected EntityManagerInterface $entityManager;
     protected UserRepository $userRepository;
@@ -41,6 +41,7 @@ class UsersPermissionsCommand extends Command
         $this
             ->addArgument('user', InputArgument::REQUIRED, 'The username of the user to view')
             ->addOption('noInherit', null, InputOption::VALUE_NONE, 'Do not inherit permissions from groups')
+            ->addOption('edit', '', InputOption::VALUE_NONE, 'Edit the permissions of the user')
         ;
     }
 
@@ -48,7 +49,8 @@ class UsersPermissionsCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $username = $input->getArgument('user');
-        $inherit = !$input->getOption('noInherit');
+        $edit_mode = $input->getOption('edit');
+        $inherit = !$input->getOption('noInherit') && !$edit_mode; //Show the non inherited perms in edit mode
 
         //Find user
         $io->note('Finding user with username: ' . $username);
@@ -60,13 +62,63 @@ class UsersPermissionsCommand extends Command
 
         $io->note(sprintf('Found user %s with ID %d', $user->getFullName(true), $user->getId()));
 
-        $this->renderPermissionTable($output, $user, $inherit);
+        $edit_mapping = $this->renderPermissionTable($output, $user, $inherit);
+
+        while($edit_mode) {
+            $index_to_edit = $io->ask('Which permission do you want to edit? Enter the index (e.g. 2-4) to edit or "q" to quit', 'q');
+            if ($index_to_edit === 'q') {
+                break;
+            }
+
+            if (!isset($edit_mapping[$index_to_edit])) {
+                $io->error('Invalid index');
+                continue;
+            }
+
+            [$perm_to_edit, $op_to_edit] = $edit_mapping[$index_to_edit];
+            $io->note('Editing permission ' . $perm_to_edit . ' with operation <options=bold>' . $op_to_edit);
+
+            $new_value_str = $io->ask('Enter the new value for the permission (A = allow, D = disallow, I = inherit)');
+            switch (strtolower($new_value_str)) {
+                case 'a':
+                case 'allow':
+                    $new_value = true;
+                    break;
+                case 'd':
+                case 'disallow':
+                    $new_value = false;
+                    break;
+                case 'i':
+                case 'inherit':
+                    $new_value = null;
+                    break;
+                default:
+                    $io->error('Invalid value');
+                    continue 2;
+            }
+
+            $user->getPermissions()->setPermissionValue($perm_to_edit, $op_to_edit, $new_value);
+            //Ensure that all operations are set accordingly
+            $this->ensureCorrectPermissions($user);
+            $io->success('Permission updated successfully');
+
+            //Save to DB
+            $this->entityManager->flush();
+        }
+
+        if ($edit_mode) {
+            $io->note('New permissions:');
+            $this->renderPermissionTable($output, $user, true);
+        }
 
         return Command::SUCCESS;
     }
 
     protected function renderPermissionTable(OutputInterface $output, User $user, bool $inherit): array
     {
+        //We fill this with index and perm/op combination for later use
+        $edit_mapping = [];
+
         $table = new Table($output);
 
         $perms = $this->permissionResolver->getPermissionStructure()['perms'];
@@ -84,12 +136,20 @@ class UsersPermissionsCommand extends Command
         foreach ($perms as $perm_name => $perm_obj) {
             $op_index = 1;
             foreach ($perm_obj['operations'] as $operation_name => $operation_obj) {
+
+                $index = sprintf('%d-%d', $perm_index, $op_index);
+
                 $table->addRow([
-                    sprintf('%d-%d', $perm_index, $op_index),
+                    $index,
                     $this->translator->trans($perm_obj['label']), //Permission name
                     $this->translator->trans($operation_obj['label']), //Operation name
                     $this->getPermissionValue($user, $perm_name, $operation_name, $inherit),
                 ]);
+
+                //Save index and perm/op combination for editing later
+                $edit_mapping[$index] = [
+                    $perm_name, $operation_name,
+                ];
 
                 $op_index++;
             }
@@ -99,6 +159,8 @@ class UsersPermissionsCommand extends Command
         }
 
         $table->render();
+
+        return $edit_mapping;
     }
 
     protected function getPermissionValue(User $user, string $permission, string $op, bool $inherit = true): string
@@ -120,5 +182,22 @@ class UsersPermissionsCommand extends Command
         }
 
         return '???';
+    }
+
+    protected function ensureCorrectPermissions(User $user): void
+    {
+        $perm_structure = $this->permissionResolver->getPermissionStructure();
+
+        foreach ($perm_structure['perms'] as $perm_key => $permission) {
+            foreach ($permission['operations'] as $op_key => $op) {
+                if (!empty($op['alsoSet']) &&
+                    true === $this->permissionResolver->dontInherit($user, $perm_key, $op_key)) {
+                    //Set every op listed in also Set
+                    foreach ($op['alsoSet'] as $set_also) {
+                        $this->permissionResolver->setPermission($user, $perm_key, $set_also, true);
+                    }
+                }
+            }
+        }
     }
 }
