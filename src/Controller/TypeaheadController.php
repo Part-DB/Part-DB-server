@@ -156,6 +156,11 @@ class TypeaheadController extends AbstractController
     public function parameters(string $type, EntityManagerInterface $entityManager, string $query = ""): JsonResponse
     {
         $class = $this->typeToParameterClass($type);
+
+        $test_obj = new $class();
+        //Ensure user has the correct permissions
+        $this->denyAccessUnlessGranted('read', $test_obj);
+
         /** @var ParameterRepository $repository */
         $repository = $entityManager->getRepository($class);
 
@@ -169,6 +174,8 @@ class TypeaheadController extends AbstractController
      */
     public function tags(string $query, TagFinder $finder): JsonResponse
     {
+        $this->denyAccessUnlessGranted('@parts.read');
+
         $array = $finder->searchTags($query);
 
         $normalizers = [
