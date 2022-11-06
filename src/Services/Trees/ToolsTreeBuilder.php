@@ -242,10 +242,13 @@ class ToolsTreeBuilder
     protected function getShowNodes(): array
     {
         $show_nodes = [];
-        $show_nodes[] = (new TreeViewNode(
-            $this->translator->trans('tree.tools.show.all_parts'),
-            $this->urlGenerator->generate('parts_show_all')
-        ))->setIcon('fa-fw fa-treeview fa-solid fa-globe');
+
+        if ($this->security->isGranted('@parts.read')) {
+            $show_nodes[] = (new TreeViewNode(
+                $this->translator->trans('tree.tools.show.all_parts'),
+                $this->urlGenerator->generate('parts_show_all')
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-globe');
+        }
 
         if ($this->security->isGranted('@attachments.list_attachments')) {
             $show_nodes[] = (new TreeViewNode(
