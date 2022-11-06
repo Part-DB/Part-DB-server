@@ -26,8 +26,9 @@
                 {% endif %}
             </ul>
 
-
-            {% include "_navbar_search.html.twig" %}
+            {% if is_granted('@parts.read') %}
+                {% include "_navbar_search.html.twig" %}
+            {% endif %}
 
 
             <ul class="navbar-nav ms-3" id="login-content">
