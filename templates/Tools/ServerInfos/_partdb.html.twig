@@ -1,0 +1,66 @@
+{% import "helper.twig" as helper %}
+
+<table class="table table-sm table-striped table-hover table-bordered">
+    <tbody>
+    <tr>
+        <td>Part-DB Version</td>
+        <td>{{ shivas_app_version }} {% if git_branch is not empty or git_commit is not empty %}({{ git_branch ?? '' }}/{{ git_commit ?? '' }}){% endif %}</td>
+    </tr>
+    <tr>
+        <td>Symfony environment</td>
+        <td>{{ enviroment }} (Debug: {{ helper.boolean_badge(is_debug) }})</td>
+    </tr>
+    <tr>
+        <td>Part-DB Instance name</td>
+        <td>{{ partdb_title }}</td>
+    </tr>
+    <tr>
+        <td>Default locale</td>
+        <td>{{ default_locale | locale_name }} ({{ default_locale }})</td>
+    </tr>
+    <tr>
+        <td>Default timezone</td>
+        <td>{{ default_timezone }}</td>
+    </tr>
+    <tr>
+        <td>Default Currency</td>
+        <td>{{ default_currency | currency_name }} ({{ default_currency }}, {{ default_currency | currency_symbol }})</td>
+    </tr>
+    <tr>
+        <td>Default theme</td>
+        <td>{{ default_theme | default('bootstrap') }}</td>
+    </tr>
+    <tr>
+        <td>Enabled locales</td>
+        <td>{{ helper.array_to_tags(enabled_locales | map(l => "#{l|locale_name} (#{l})")) }}</td>
+    </tr>
+    <tr>
+        <td>Demo Mode</td>
+        <td>{{ helper.boolean_badge(demo_mode) }}</td>
+    </tr>
+    <tr>
+        <td>GPDR Compliance Mode</td>
+        <td>{{ helper.boolean_badge(gpdr_compliance) }}</td>
+    </tr>
+    <tr>
+        <td>Use Gravatar</td>
+        <td>{{ helper.boolean_badge(use_gravatar) }}</td>
+    </tr>
+    <tr>
+        <td>Password Reset via Email enabled</td>
+        <td>{{ helper.boolean_badge(email_password_reset) }}</td>
+    </tr>
+    <tr>
+        <td>Configured E-Mail sender</td>
+        <td>{{ email_sender }} ({{ email_sender_name }})</td>
+    </tr>
+    <tr>
+        <td>Allow server-side download of attachments</td>
+        <td>{{ helper.boolean_badge(allow_attachments_downloads) }}</td>
+    </tr>
+    <tr>
+        <td>Detailed error pages enabled</td>
+        <td>{{ helper.boolean_badge(detailed_error_pages) }} (Admin Contact email: {{ error_page_admin_email }})</td>
+    </tr>
+    </tbody>
+</table>

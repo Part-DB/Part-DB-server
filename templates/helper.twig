@@ -6,6 +6,30 @@
     {% endif %}
 {% endmacro %}
 
+{% macro array_to_tags(tags, class="badge bg-primary") %}
+    {% for tag in tags %}
+        <span class="{{ class }}">{{ tag | trim }}</span>
+    {% endfor %}
+{% endmacro %}
+
+{% macro bool_icon(bool) %}
+    {% if bool %}
+        <i class="fas fa-check-circle fa-fw" title="{% trans %}Yes{% endtrans %}"></i>
+    {% else %}
+        <i class="fas fa-times-circle fa-fw" title="{% trans %}No{% endtrans %}"></i>
+    {% endif %}
+{% endmacro %}
+
+{% macro boolean_badge(value, class="badge") %}
+    {% if value %}
+        {% set class = class ~ ' bg-success' %}
+    {% else %}
+        {% set class = class ~ ' bg-danger' %}
+    {% endif %}
+
+    <span class="{{ class }}">{{ _self.bool_icon(value) }} {{ _self.boolean(value) }}</span>
+{% endmacro %}
+
 {% macro string_to_tags(string, class="badge bg-info") %}
     {% for tag in string|split(',') %}
         <a href="{{ path('part_list_tags', {'tag': tag | trim | url_encode}) }}" class="{{ class }}" >{{ tag | trim }}</a>
@@ -104,14 +128,6 @@
             {% endfor %}
         </ol>
     </nav>
-{% endmacro %}
-
-{% macro bool_icon(bool) %}
-    {% if bool %}
-        <i class="fas fa-check-circle fa-fw" title="{% trans %}Yes{% endtrans %}"></i>
-    {% else %}
-        <i class="fas fa-times-circle fa-fw" title="{% trans %}No{% endtrans %}"></i>
-    {% endif %}
 {% endmacro %}
 
 {% macro date_user_combination(entity, lastModified, datetime_format = "short") %}

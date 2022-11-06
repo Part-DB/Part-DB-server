@@ -206,6 +206,8 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       delete_logs:
         label: "perm.delete_logs"
         alsoSet: 'show_logs'
+      server_infos:
+        label: "perm.server_infos"
 
   attachments:
     label: "perm.part.attachments"

@@ -1,0 +1,30 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}tools.server_infos.title{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fas fa-database"></i> {% trans %}tools.server_infos.title{% endtrans %}
+{% endblock %}
+
+{% block card_content %}
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="server_infos-partdb-tab" data-bs-toggle="tab" data-bs-target="#server_infos-partdb" type="button" role="tab" aria-controls="server_infos-partdb" aria-selected="true">Part-DB</button>
+            <button class="nav-link" id="server_infos-php-tab" data-bs-toggle="tab" data-bs-target="#server_infos-php" type="button" role="tab" aria-controls="server_infos-php" aria-selected="false">PHP</button>
+            <button class="nav-link" id="server_infos-database-tab" data-bs-toggle="tab" data-bs-target="#server_infos-db" type="button" role="tab" aria-controls="server_infos-db" aria-selected="false">Database</button>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="server_infos-partdb" role="tabpanel" aria-labelledby="server_infos-partdb-tab">
+            {% include "Tools/ServerInfos/_partdb.html.twig" %}
+        </div>
+        <div class="tab-pane fade" id="server_infos-php" role="tabpanel" aria-labelledby="server_infos-php-tab">
+            {% include "Tools/ServerInfos/_php.html.twig" %}
+        </div>
+        <div class="tab-pane fade" id="server_infos-db" role="tabpanel" aria-labelledby="server_infos-database-tab">
+            {% include "Tools/ServerInfos/_db.html.twig" %}
+        </div>
+    </div>
+
+    <p>Run <code>php bin/console partdb:check-requirements</code> in a terminal in your Part-DB folder to check if there are any recommendations for your system configuration.</p>
+{% endblock %}

@@ -291,6 +291,13 @@ class ToolsTreeBuilder
             ))->setIcon('fa-fw fa-treeview fa-solid fa-binoculars');
         }
 
+        if ($this->security->isGranted('@system.server_infos')) {
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('tools.server_infos.title'),
+                $this->urlGenerator->generate('tools_server_infos')
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-database');
+        }
+
         return $nodes;
     }
 }
