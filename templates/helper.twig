@@ -136,7 +136,7 @@
     {% else %}
         {{ entity.addedDate | format_datetime(datetime_format) }}
     {% endif %}
-    {% if is_granted('show_users', entity) %}
+    {% if is_granted('show_history', entity) %}
         {% if lastModified == true %}
             {% set user = last_editing_user(entity) %}
         {% else %}
@@ -145,9 +145,9 @@
 
         {% if user is not null %}
             {% if user.fullName is not empty %}
-                <a href="{{ path('user_info', {"id": user.id}) }}" title="@{{ user.name }}"><i>({{ user.fullName }})</i></a>
+                (<a href="{{ path('user_info', {"id": user.id}) }}" title="@{{ user.name }}">{{ user.fullName }}</a>)
             {% else %}
-                <a href="{{ path('user_info', {"id": user.id}) }}" title="@{{ user.name }}"><i>(@{{ user.name }})</i></a>
+                (<a href="{{ path('user_info', {"id": user.id}) }}" title="@{{ user.name }}">@{{ user.name }}</a>)
             {% endif %}
         {% endif %}
     {% endif %}

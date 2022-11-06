@@ -50,6 +50,7 @@ use App\Form\Type\StructuralEntityType;
 use App\Form\WorkaroundCollectionType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -106,16 +107,15 @@ class OrderdetailType extends AbstractType
             }
 
             //Attachment section
-            $event->getForm()->add('pricedetails', WorkaroundCollectionType::class, [
+            $event->getForm()->add('pricedetails', CollectionType::class, [
                 'entry_type' => PricedetailType::class,
-                'allow_add' => $this->security->isGranted('@parts_prices.create'),
-                'allow_delete' => $this->security->isGranted('@parts_prices.delete'),
+                'allow_add' => true,
+                'allow_delete' => true,
                 'label' => false,
                 'reindex_enable' => true,
                 'prototype_data' => $dummy_pricedetail,
                 'by_reference' => false,
                 'entry_options' => [
-                    'disabled' => !$this->security->isGranted('@parts_prices.edit'),
                     'measurement_unit' => $options['measurement_unit'],
                 ],
             ]);

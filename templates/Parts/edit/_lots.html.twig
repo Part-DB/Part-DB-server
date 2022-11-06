@@ -11,7 +11,7 @@
     </table>
 
     <button type="button" class="btn btn-success" {{ collection.create_btn() }}
-            {% if not is_granted('lots.create', part) %}disabled{% endif %}>
+            {% if not is_granted('edit', part) %}disabled{% endif %}>
         <i class="fas fa-plus-square fa-fw"></i>
         {% trans %}part_lot.create{% endtrans %}
     </button>

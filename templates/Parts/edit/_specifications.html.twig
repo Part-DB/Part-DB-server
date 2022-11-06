@@ -24,7 +24,7 @@
         </tbody>
     </table>
 
-    <button type="button" class="btn btn-success"  {% if not is_granted('parameters.create', part) %}disabled{% endif %} {{ collection.create_btn() }}>
+    <button type="button" class="btn btn-success"  {% if not is_granted('edit', part) %}disabled{% endif %} {{ collection.create_btn() }}>
         <i class="fas fa-plus-square fa-fw"></i>
         {% trans %}specification.create{% endtrans %}
     </button>
