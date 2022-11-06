@@ -56,7 +56,7 @@ class ToolsController extends AbstractController
             'php_version' => PHP_VERSION,
             'php_uname' => php_uname('a'),
             'php_sapi' => PHP_SAPI,
-            'php_extensions' => array_merge(get_loaded_extensions(), get_loaded_extensions(true)),
+            'php_extensions' => array_merge(get_loaded_extensions()),
             'php_opcache_enabled' => ini_get('opcache.enable'),
             'php_upload_max_filesize' => ini_get('upload_max_filesize'),
             'php_post_max_size' => ini_get('post_max_size'),
