@@ -106,7 +106,7 @@ class AttachmentVoter extends ExtendedVoter
     {
         if (is_a($subject, Attachment::class, true)) {
             //These are the allowed attributes
-            return in_array($attribute, ['view', 'edit', 'delete', 'create', 'show_private'], true);
+            return in_array($attribute, ['read', 'view', 'edit', 'delete', 'create', 'show_private'], true);
         }
 
         //Allow class name as subject
