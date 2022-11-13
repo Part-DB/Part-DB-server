@@ -46,17 +46,31 @@ class ParameterVoter extends ExtendedVoter
         $target_element = $subject->getElement();
         if ($target_element !== null) {
             //Depending on the operation delegate either to the attachments element or to the attachment permission
+
+
             switch ($attribute) {
                 //We can view the attachment if we can view the element
                 case 'read':
                 case 'view':
-                    return $this->security->isGranted('read', $target_element);
+                    $operation = 'read';
+                    break;
                 //We can edit/create/delete the attachment if we can edit the element
                 case 'edit':
                 case 'create':
                 case 'delete':
-                    return $this->security->isGranted('edit', $target_element);
+                    $operation = 'edit';
+                    break;
+                case 'show_history':
+                    $operation = 'show_history';
+                    break;
+                case 'revert_element':
+                    $operation = 'revert_element';
+                    break;
+                default:
+                    throw new RuntimeException('Unknown operation: '.$attribute);
             }
+
+            return $this->security->isGranted($operation, $target_element);
         }
 
         //If we do not have a concrete element, we delegate to the different categories
@@ -93,7 +107,7 @@ class ParameterVoter extends ExtendedVoter
     {
         if (is_a($subject, AbstractParameter::class, true)) {
             //These are the allowed attributes
-            return in_array($attribute, ['read', 'edit', 'delete', 'create'], true);
+            return in_array($attribute, ['read', 'edit', 'delete', 'create', 'show_history', 'revert_element'], true);
         }
 
         //Allow class name as subject
