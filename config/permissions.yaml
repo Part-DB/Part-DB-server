@@ -20,6 +20,9 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
     operations: # Here are all possible operations are listed => the op name is mapped to bit value
       read:
         label: "perm.read"
+        # If a part can be read by a user, he can also see all the datastructures (except devices)
+        alsoSet: ['storelocations.read', 'footprints.read', 'categories.read', 'suppliers.read', 'manufacturers.read',
+                  'currencies.read', 'attachment_types.read', 'measurement_units.read']
       edit:
         label: "perm.edit"
         alsoSet: 'read'
@@ -31,8 +34,10 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         alsoSet: ['read', 'edit']
       change_favorite:
         label: "perm.part.change_favorite"
+        alsoSet: ['edit']
       show_history:
         label: "perm.part.show_history"
+        alsoSet: ['read']
       revert_element:
         label: "perm.revert_elements"
         alsoSet: ["read", "edit", "create", "delete", "show_history"]
@@ -109,6 +114,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         label: "perm.tools.lastActivity"
       timetravel:
         label: "perm.tools.timeTravel"
+        alsoSet: 'parts.show_history'
       label_scanner:
         label: "perm.tools.label_scanner"
       reel_calculator:

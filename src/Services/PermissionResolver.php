@@ -211,18 +211,39 @@ class PermissionResolver
      */
     public function ensureCorrectSetOperations(HasPermissionsInterface $user): void
     {
-        //Check for each permission and operation, for an alsoSet attribute
-        foreach ($this->permission_structure['perms'] as $perm_key => $permission) {
-            foreach ($permission['operations'] as $op_key => $op) {
-                if (!empty($op['alsoSet']) &&
-                    true === $this->dontInherit($user, $perm_key, $op_key)) {
-                    //Set every op listed in also Set
-                    foreach ($op['alsoSet'] as $set_also) {
-                        $this->setPermission($user, $perm_key, $set_also, true);
+        //If we have changed anything on the permission structure due to the alsoSet value, this becomes true, so we
+        //redo the whole process, to ensure that all alsoSet values are set recursively.
+        $anything_changed = false;
+
+        do {
+            $anything_changed = false; //Reset the variable for the next iteration
+
+            //Check for each permission and operation, for an alsoSet attribute
+            foreach ($this->permission_structure['perms'] as $perm_key => $permission) {
+                foreach ($permission['operations'] as $op_key => $op) {
+                    if (!empty($op['alsoSet']) &&
+                        true === $this->dontInherit($user, $perm_key, $op_key)) {
+                        //Set every op listed in also Set
+                        foreach ($op['alsoSet'] as $set_also) {
+                            //If the alsoSet value contains a dot then we set the operation of another permission
+                            if (false !== strpos($set_also, '.')) {
+                                [$set_perm, $set_op] = explode('.', $set_also);
+                            } else {
+                                //Else we set the operation of the same permission
+                                [$set_perm, $set_op] = [$perm_key, $set_also];
+                            }
+
+                            //Check if we change the value of the permission
+                            if ($this->dontInherit($user, $set_perm, $set_op) !== true) {
+                                $this->setPermission($user, $set_perm, $set_op, true);
+                                //Mark the change, so we redo the whole process
+                                $anything_changed = true;
+                            }
+                        }
                     }
                 }
             }
-        }
+        } while($anything_changed);
     }
 
     /**
