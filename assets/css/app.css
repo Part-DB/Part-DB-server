@@ -871,3 +871,10 @@ table.dataTable tr.selected td.select-checkbox:after, table.dataTable tr.selecte
     width: 100%;
 }
 
+/***********************************************
+ * Permission checkboxes
+ ***********************************************/
+.permission-checkbox:checked {
+    background-color: var(--bs-success);
+    border-color: var(--bs-success);
+}

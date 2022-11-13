@@ -4,7 +4,7 @@
             {% if multi_checkbox %}
 
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input tristate permission_multicheckbox" id="mulit_check_{{ form.vars.label }}">
+                    <input type="checkbox" class="form-check-input tristate permission-checkbox permission_multicheckbox" id="mulit_check_{{ form.vars.label }}">
                     <label class="form-check-label" for="mulit_check_{{ form.vars.label }}">
                         <b>{{ form.vars.label | trans }}</b>
                     </label>
@@ -53,15 +53,15 @@
             <label><b>{% trans %}permission.legend.title{% endtrans %}:</b></label>
             <div>
                 <div class="form-check form-check-inline">
-                    <input type="checkbox" class="form-check-input" disabled>
+                    <input type="checkbox" class="form-check-input permission-checkbox" disabled>
                     <label class="form-check-label opacity-100">{% trans %}permission.legend.disallow{% endtrans %}</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" checked disabled>
+                    <input class="form-check-input permission-checkbox" type="checkbox" checked disabled>
                     <label class="form-check-label  opacity-100">{% trans %}permission.legend.allow{% endtrans %}</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input type="checkbox" class="tristate form-check-input" indeterminate="indeterminate" value="indeterminate" disabled>
+                    <input type="checkbox" class="tristate form-check-input permission-checkbox" indeterminate="indeterminate" value="indeterminate" disabled>
                     <label class="form-check-label opacity-100">{% trans %}permission.legend.inherit{% endtrans %}</label>
                 </div>
             </div>

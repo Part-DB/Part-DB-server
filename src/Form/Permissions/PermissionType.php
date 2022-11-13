@@ -97,6 +97,9 @@ class PermissionType extends AbstractType
                 'mapped' => false,
                 'label' => $operation['label'] ?? null,
                 'disabled' => $options['disabled'],
+                'attr' => [
+                    'class' => 'permission-checkbox tristate',
+                ],
                 'label_attr' => [
                     'class' => 'checkbox-inline opacity-100',
                 ],
