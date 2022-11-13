@@ -102,7 +102,6 @@ class PartController extends AbstractController
 
         $timeTravel_timestamp = null;
         if (null !== $timestamp) {
-            $this->denyAccessUnlessGranted('@tools.timetravel');
             $this->denyAccessUnlessGranted('show_history', $part);
             //If the timestamp only contains numbers interpret it as unix timestamp
             if (ctype_digit($timestamp)) {

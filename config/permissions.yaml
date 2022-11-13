@@ -112,9 +112,6 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         label: "perm.tools.statistics"
       lastActivity:
         label: "perm.tools.lastActivity"
-      timetravel:
-        label: "perm.tools.timeTravel"
-        alsoSet: 'parts.show_history'
       label_scanner:
         label: "perm.tools.label_scanner"
       reel_calculator:

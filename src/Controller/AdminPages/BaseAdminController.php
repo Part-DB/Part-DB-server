@@ -143,7 +143,6 @@ abstract class BaseAdminController extends AbstractController
     protected function revertElementIfNeeded(AbstractDBElement $entity, ?string $timestamp): ?DateTime
     {
         if (null !== $timestamp) {
-            $this->denyAccessUnlessGranted('@tools.timetravel');
             $this->denyAccessUnlessGranted('show_history', $entity);
             //If the timestamp only contains numbers interpret it as unix timestamp
             if (ctype_digit($timestamp)) {
