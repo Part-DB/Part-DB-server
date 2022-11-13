@@ -9779,5 +9779,89 @@ Element 3</target>
         <target>Server Infos</target>
       </segment>
     </unit>
+    <unit id="NvclBUL" name="permission.preset.read_only">
+      <segment>
+        <source>permission.preset.read_only</source>
+        <target>Read-Only</target>
+      </segment>
+    </unit>
+    <unit id="HD3j3BW" name="permission.preset.read_only.desc">
+      <segment>
+        <source>permission.preset.read_only.desc</source>
+        <target>Only allow read operations on data</target>
+      </segment>
+    </unit>
+    <unit id="Ge20aJg" name="permission.preset.all_inherit">
+      <segment>
+        <source>permission.preset.all_inherit</source>
+        <target>Inherit all</target>
+      </segment>
+    </unit>
+    <unit id="DJpsLcr" name="permission.preset.all_inherit.desc">
+      <segment>
+        <source>permission.preset.all_inherit.desc</source>
+        <target>Set all permissions to Inherit</target>
+      </segment>
+    </unit>
+    <unit id="lzjvvzm" name="permission.preset.all_forbid">
+      <segment>
+        <source>permission.preset.all_forbid</source>
+        <target>Forbid all</target>
+      </segment>
+    </unit>
+    <unit id="QqQDTyH" name="permission.preset.all_forbid.desc">
+      <segment>
+        <source>permission.preset.all_forbid.desc</source>
+        <target>Set all permissions to Forbid</target>
+      </segment>
+    </unit>
+    <unit id="DV2fh6l" name="permission.preset.all_allow">
+      <segment>
+        <source>permission.preset.all_allow</source>
+        <target>Allow all</target>
+      </segment>
+    </unit>
+    <unit id="_m.Pbza" name="permission.preset.all_allow.desc">
+      <segment>
+        <source>permission.preset.all_allow.desc</source>
+        <target>Set all permissions to allow</target>
+      </segment>
+    </unit>
+    <unit id="VIDdo5K" name="perm.server_infos">
+      <segment>
+        <source>perm.server_infos</source>
+        <target>Server infos</target>
+      </segment>
+    </unit>
+    <unit id="d6SOlzR" name="permission.preset.editor">
+      <segment>
+        <source>permission.preset.editor</source>
+        <target>Editor</target>
+      </segment>
+    </unit>
+    <unit id="8KYl_wh" name="permission.preset.editor.desc">
+      <segment>
+        <source>permission.preset.editor.desc</source>
+        <target>Allow to change parts and data structures</target>
+      </segment>
+    </unit>
+    <unit id="dYudjp." name="permission.preset.admin">
+      <segment>
+        <source>permission.preset.admin</source>
+        <target>Admin</target>
+      </segment>
+    </unit>
+    <unit id="0o2M0uj" name="permission.preset.admin.desc">
+      <segment>
+        <source>permission.preset.admin.desc</source>
+        <target>Allow administrative actions</target>
+      </segment>
+    </unit>
+    <unit id="SnAIVQf" name="permission.preset.button">
+      <segment>
+        <source>permission.preset.button</source>
+        <target>Permission applied successfully. Check if the new permissions fit your needs.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

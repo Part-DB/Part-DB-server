@@ -101,4 +101,31 @@ class PermissionDataTest extends TestCase
         $this->assertTrue($perm_data->getPermissionValue('perm1', 'op1'));
         $this->assertFalse($perm_data->getPermissionValue('perm2', 'op2'));
     }
+
+    public function testResetPermissions()
+    {
+        $data = new PermissionData();
+
+        $data->setPermissionValue('perm1', 'op1', PermissionData::ALLOW);
+        $data->setPermissionValue('perm1', 'op2', PermissionData::DISALLOW);
+        $data->setPermissionValue('perm1', 'op3', PermissionData::INHERIT);
+
+        //Ensure that values were set correctly
+        $this->assertTrue($data->isPermissionSet('perm1', 'op1'));
+        $this->assertTrue($data->isPermissionSet('perm1', 'op2'));
+        $this->assertFalse($data->isPermissionSet('perm1', 'op3'));
+
+        //Reset the permissions
+        $data->resetPermissions();
+
+        //Afterwards all values must be set to inherit (null)
+        $this->assertNull($data->getPermissionValue('perm1', 'op1'));
+        $this->assertNull($data->getPermissionValue('perm1', 'op2'));
+        $this->assertNull($data->getPermissionValue('perm1', 'op3'));
+
+        //And be undefined
+        $this->assertFalse($data->isPermissionSet('perm1', 'op1'));
+        $this->assertFalse($data->isPermissionSet('perm1', 'op2'));
+        $this->assertFalse($data->isPermissionSet('perm1', 'op3'));
+    }
 }

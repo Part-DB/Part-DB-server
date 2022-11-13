@@ -51,6 +51,7 @@ use App\Form\AdminPages\GroupAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
+use App\Services\UserSystem\PermissionPresetsHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -73,8 +74,27 @@ class GroupController extends BaseAdminController
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="group_edit")
      * @Route("/{id}/", requirements={"id"="\d+"})
      */
-    public function edit(Group $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
+    public function edit(Group $entity, Request $request, EntityManagerInterface $em, PermissionPresetsHelper $permissionPresetsHelper, ?string $timestamp = null): Response
     {
+        //Handle permissions presets
+        if ($request->request->has('permission_preset')) {
+            $this->denyAccessUnlessGranted('edit_permissions', $entity);
+            if ($this->isCsrfTokenValid('group'.$entity->getId(), $request->request->get('_token'))) {
+                $preset = $request->request->get('permission_preset');
+
+                $permissionPresetsHelper->applyPreset($entity, $preset);
+
+                $em->flush();
+
+                $this->addFlash('success', 'user.edit.permission_success');
+
+                //We need to stop the execution here, or our permissions changes will be overwritten by the form values
+                return $this->redirectToRoute('group_edit', ['id' => $entity->getID()]);
+            } else {
+                $this->addFlash('danger', 'csfr_invalid');
+            }
+        }
+
         return $this->_edit($entity, $request, $em, $timestamp);
     }
 

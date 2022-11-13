@@ -89,6 +89,16 @@ final class PermissionData implements \JsonSerializable
     }
 
     /**
+     * Resets the saved permissions and set all operations to inherit (which means they are not defined).
+     * @return $this
+     */
+    public function resetPermissions(): self
+    {
+        $this->data = [];
+        return $this;
+    }
+
+    /**
      * Creates a new Permission Data Instance using the given JSON encoded data
      * @param  string  $json
      * @return static

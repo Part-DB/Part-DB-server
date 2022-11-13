@@ -206,7 +206,7 @@ class PermissionResolver
 
     /**
      * This functions sets all operations mentioned in the alsoSet value of a permission, so that the structure is always valid.
-     * @param  User  $user
+     * @param  HasPermissionsInterface $user
      * @return void
      */
     public function ensureCorrectSetOperations(HasPermissionsInterface $user): void
@@ -258,6 +258,26 @@ class PermissionResolver
             foreach ($permission['operations'] as $op_key => $op) {
                 $this->setPermission($perm_holder, $perm_key, $op_key, $new_value);
             }
+        }
+    }
+
+    /**
+     * Sets all operations of the given permissions to the given value.
+     * Please note that you have to call ensureCorrectSetOperations() after this function, to ensure that all alsoSet values are set.
+     *
+     * @param  HasPermissionsInterface  $perm_holder
+     * @param  string  $permission
+     * @param  bool|null  $new_value
+     * @return void
+     */
+    public function setAllOperationsOfPermission(HasPermissionsInterface $perm_holder, string $permission, ?bool $new_value): void
+    {
+        if (!$this->isValidPermission($permission)) {
+            throw new InvalidArgumentException(sprintf('A permission with that name is not existing! Got %s.', $permission));
+        }
+
+        foreach ($this->permission_structure['perms'][$permission]['operations'] as $op_key => $op) {
+            $this->setPermission($perm_holder, $permission, $op_key, $new_value);
         }
     }
 
