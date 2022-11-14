@@ -173,7 +173,7 @@ services:
         arguments:
             $allow_email_pw_reset: '%partdb.users.email_pw_reset%'
 
-    App\Services\TFA\BackupCodeGenerator:
+    App\Services\UserSystem\TFA\BackupCodeGenerator:
         arguments:
             $code_length: 8
             $code_count: 15
