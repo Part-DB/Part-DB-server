@@ -219,6 +219,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         label: "perm.attachments.show_private"
       list_attachments:
         label: "perm.attachments.list_attachments"
+        alsoSet: ['attachment_types.read']
 
   self:
     label: "perm.self"

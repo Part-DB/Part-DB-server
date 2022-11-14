@@ -9860,7 +9860,25 @@ Element 3</target>
     <unit id="SnAIVQf" name="permission.preset.button">
       <segment>
         <source>permission.preset.button</source>
-        <target>Permission applied successfully. Check if the new permissions fit your needs.</target>
+        <target>Apply preset</target>
+      </segment>
+    </unit>
+    <unit id="6q4uHDx" name="perm.attachments.show_private">
+      <segment>
+        <source>perm.attachments.show_private</source>
+        <target>Show private attachments</target>
+      </segment>
+    </unit>
+    <unit id="NL9t5hy" name="perm.attachments.list_attachments">
+      <segment>
+        <source>perm.attachments.list_attachments</source>
+        <target>Show list of all attachments</target>
+      </segment>
+    </unit>
+    <unit id="PYh9dNP" name="user.edit.permission_success">
+      <segment>
+        <source>user.edit.permission_success</source>
+        <target>Permission preset applied successfully. Check if the new permissions fit your needs.</target>
       </segment>
     </unit>
   </file>
