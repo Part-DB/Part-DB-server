@@ -2,10 +2,12 @@
 # This should be compatible with the legacy Part-DB
 
 groups:
-  parts:
-    label: "perm.group.parts"
-  structures:
-    label: "perm.group.structures"
+  #parts:
+  #  label: "perm.group.parts"
+  #structures:
+  #  label: "perm.group.structures"
+  data:
+    label: "perm.group.data"
   system:
     label: "perm.group.system"
 
@@ -15,7 +17,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
   # Part related permissions
 
   parts: # e.g. this maps to perms_parts in User/Group database
-    group: "parts"
+    group: "data"
     label: "perm.parts"
     operations: # Here are all possible operations are listed => the op name is mapped to bit value
       read:
@@ -44,7 +46,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
 
   storelocations: &PART_CONTAINING
     label: "perm.storelocations"
-    group: "structures"
+    group: "data"
     operations:
       read:
         label: "perm.read"

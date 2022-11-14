@@ -7779,7 +7779,7 @@ Element 3</target>
       </notes>
       <segment>
         <source>perm.parts</source>
-        <target>Common</target>
+        <target>Parts</target>
       </segment>
     </unit>
     <unit id="eeUmOBN" name="perm.read">
@@ -9879,6 +9879,12 @@ Element 3</target>
       <segment>
         <source>user.edit.permission_success</source>
         <target>Permission preset applied successfully. Check if the new permissions fit your needs.</target>
+      </segment>
+    </unit>
+    <unit id="cP8VNKS" name="perm.group.data">
+      <segment>
+        <source>perm.group.data</source>
+        <target>Data</target>
       </segment>
     </unit>
   </file>
