@@ -40,57 +40,58 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\Tests\Services\TFA;
+namespace App\Services\UserSystem\TFA;
 
-use App\Services\TFA\BackupCodeGenerator;
-use PHPUnit\Framework\TestCase;
-use RuntimeException;
+use App\Entity\UserSystem\User;
 
-class BackupCodeGeneratorTest extends TestCase
+/**
+ * This services offers methods to manage backup codes for two factor authentication.
+ */
+class BackupCodeManager
 {
-    /**
-     * Test if an exception is thrown if you are using a too high code length.
-     */
-    public function testLengthUpperLimit(): void
+    protected BackupCodeGenerator $backupCodeGenerator;
+
+    public function __construct(BackupCodeGenerator $backupCodeGenerator)
     {
-        $this->expectException(RuntimeException::class);
-        new BackupCodeGenerator(33, 10);
+        $this->backupCodeGenerator = $backupCodeGenerator;
     }
 
     /**
-     * Test if an exception is thrown if you are using a too high code length.
+     * Enable backup codes for the given user, by generating a set of backup codes.
+     * If the backup codes were already enabled before, they a.
      */
-    public function testLengthLowerLimit(): void
+    public function enableBackupCodes(User $user): void
     {
-        $this->expectException(RuntimeException::class);
-        new BackupCodeGenerator(4, 10);
-    }
-
-    public function codeLengthDataProvider(): array
-    {
-        return [[6], [8], [10], [16]];
+        if (empty($user->getBackupCodes())) {
+            $this->regenerateBackupCodes($user);
+        }
     }
 
     /**
-     * @dataProvider  codeLengthDataProvider
+     * Disable (remove) the backup codes when no other 2 factor authentication methods are enabled.
      */
-    public function testGenerateSingleCode(int $code_length): void
+    public function disableBackupCodesIfUnused(User $user): void
     {
-        $generator = new BackupCodeGenerator($code_length, 10);
-        $this->assertMatchesRegularExpression("/^([a-f0-9]){{$code_length}}\$/", $generator->generateSingleCode());
-    }
+        if ($user->isGoogleAuthenticatorEnabled()) {
+            return;
+        }
 
-    public function codeCountDataProvider(): array
-    {
-        return [[2], [8], [10]];
+        if ($user->isWebAuthnAuthenticatorEnabled()) {
+            return;
+        }
+
+        $user->setBackupCodes([]);
     }
 
     /**
-     * @dataProvider codeCountDataProvider
+     * Generates a new set of backup codes for the user. If no backup codes were available before, new ones are
+     * generated.
+     *
+     * @param User $user The user for which the backup codes should be regenerated
      */
-    public function testGenerateCodeSet(int $code_count): void
+    public function regenerateBackupCodes(User $user): void
     {
-        $generator = new BackupCodeGenerator(8, $code_count);
-        $this->assertCount($code_count, $generator->generateCodeSet());
+        $codes = $this->backupCodeGenerator->generateCodeSet();
+        $user->setBackupCodes($codes);
     }
 }

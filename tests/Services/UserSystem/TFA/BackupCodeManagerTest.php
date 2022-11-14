@@ -40,10 +40,10 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\Tests\Services\TFA;
+namespace App\Tests\Services\UserSystem\TFA;
 
 use App\Entity\UserSystem\User;
-use App\Services\TFA\BackupCodeManager;
+use App\Services\UserSystem\TFA\BackupCodeManager;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class BackupCodeManagerTest extends WebTestCase

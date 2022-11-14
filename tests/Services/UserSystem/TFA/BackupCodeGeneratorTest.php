@@ -40,65 +40,57 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\Services\TFA;
+namespace App\Tests\Services\UserSystem\TFA;
 
-use Exception;
+use App\Services\UserSystem\TFA\BackupCodeGenerator;
+use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-/**
- * This class generates random backup codes for two factor authentication.
- */
-class BackupCodeGenerator
+class BackupCodeGeneratorTest extends TestCase
 {
-    protected int $code_length;
-    protected int $code_count;
-
     /**
-     * BackupCodeGenerator constructor.
-     *
-     * @param int $code_length how many characters a single code should have
-     * @param int $code_count  how many codes are generated for a whole backup set
+     * Test if an exception is thrown if you are using a too high code length.
      */
-    public function __construct(int $code_length, int $code_count)
+    public function testLengthUpperLimit(): void
     {
-        if ($code_length > 32) {
-            throw new RuntimeException('Backup code can have maximum 32 digits!');
-        }
-        if ($code_length < 6) {
-            throw new RuntimeException('Code must have at least 6 digits to ensure security!');
-        }
-
-        $this->code_count = $code_count;
-        $this->code_length = $code_length;
+        $this->expectException(RuntimeException::class);
+        new BackupCodeGenerator(33, 10);
     }
 
     /**
-     * Generates a single backup code.
-     * It is a random hexadecimal value with the digit count configured in constructor.
-     *
-     * @return string The generated backup code (e.g. 1f3870be2)
-     *
-     * @throws Exception if no entropy source is available
+     * Test if an exception is thrown if you are using a too high code length.
      */
-    public function generateSingleCode(): string
+    public function testLengthLowerLimit(): void
     {
-        $bytes = random_bytes(32);
+        $this->expectException(RuntimeException::class);
+        new BackupCodeGenerator(4, 10);
+    }
 
-        return substr(md5($bytes), 0, $this->code_length);
+    public function codeLengthDataProvider(): array
+    {
+        return [[6], [8], [10], [16]];
     }
 
     /**
-     * Returns a full backup code set. The code count can be configured in the constructor.
-     *
-     * @return string[] an array containing different backup codes
+     * @dataProvider  codeLengthDataProvider
      */
-    public function generateCodeSet(): array
+    public function testGenerateSingleCode(int $code_length): void
     {
-        $array = [];
-        for ($n = 0; $n < $this->code_count; ++$n) {
-            $array[] = $this->generateSingleCode();
-        }
+        $generator = new BackupCodeGenerator($code_length, 10);
+        $this->assertMatchesRegularExpression("/^([a-f0-9]){{$code_length}}\$/", $generator->generateSingleCode());
+    }
 
-        return $array;
+    public function codeCountDataProvider(): array
+    {
+        return [[2], [8], [10]];
+    }
+
+    /**
+     * @dataProvider codeCountDataProvider
+     */
+    public function testGenerateCodeSet(int $code_count): void
+    {
+        $generator = new BackupCodeGenerator(8, $code_count);
+        $this->assertCount($code_count, $generator->generateCodeSet());
     }
 }

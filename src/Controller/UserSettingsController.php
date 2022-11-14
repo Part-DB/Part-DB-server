@@ -49,7 +49,7 @@ use App\Events\SecurityEvent;
 use App\Events\SecurityEvents;
 use App\Form\TFAGoogleSettingsType;
 use App\Form\UserSettingsType;
-use App\Services\TFA\BackupCodeManager;
+use App\Services\UserSystem\TFA\BackupCodeManager;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
