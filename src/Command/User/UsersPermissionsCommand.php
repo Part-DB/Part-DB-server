@@ -18,7 +18,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UsersPermissionsCommand extends Command
 {
-    protected static $defaultName = 'partdb:users:permissions';
+    protected static $defaultName = 'partdb:users:permissions|partdb:user:permissions';
     protected static $defaultDescription = 'View and edit the permissions of a given user';
 
     protected EntityManagerInterface $entityManager;
