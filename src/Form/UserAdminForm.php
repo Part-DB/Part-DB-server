@@ -102,7 +102,7 @@ class UserAdminForm extends AbstractType
                 'required' => false,
                 'label' => 'group.label',
                 'disable_not_selectable' => true,
-                'disabled' => !$this->security->isGranted('change_group', $entity),
+                'disabled' => !$this->security->isGranted('edit_permissions', $entity),
             ])
 
             ->add('first_name', TextType::class, [
