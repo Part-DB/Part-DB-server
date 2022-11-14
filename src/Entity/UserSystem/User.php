@@ -208,11 +208,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected bool $need_pw_change = true;
 
     /**
-     * //@ORM\Column(type="json").
-     */
-    //protected $roles = [];
-
-    /**
      * @var string|null The hashed password
      * @ORM\Column(type="string", nullable=true)
      */
@@ -271,11 +266,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @ORM\Embedded(class="PermissionData", columnPrefix="permissions_")
      */
     protected PermissionData $permissions;
-
-    /** @var PermissionsEmbed
-     * @ORM\Embedded(class="PermissionsEmbed", columnPrefix="perms_")
-     */
-    protected $permissions_old;
 
     /**
      * @var DateTime the time until the password reset token is valid

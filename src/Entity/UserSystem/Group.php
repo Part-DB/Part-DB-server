@@ -102,12 +102,6 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      */
     protected PermissionData $permissions;
 
-
-    /** @var PermissionsEmbed
-     * @ORM\Embedded(class="PermissionsEmbed", columnPrefix="perms_")
-     */
-    protected $permissions_old;
-
     /** @var Collection<int, GroupParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\GroupParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
@@ -119,7 +113,6 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     {
         parent::__construct();
         $this->permissions = new PermissionData();
-        $this->permissions_old = new PermissionsEmbed();
         $this->users = new ArrayCollection();
     }
 
