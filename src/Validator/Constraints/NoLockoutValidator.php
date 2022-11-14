@@ -44,7 +44,7 @@ namespace App\Validator\Constraints;
 
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
-use App\Services\PermissionResolver;
+use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Security\Core\Security;
@@ -53,12 +53,12 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class NoLockoutValidator extends ConstraintValidator
 {
-    protected PermissionResolver $resolver;
+    protected PermissionManager $resolver;
     protected array $perm_structure;
     protected Security $security;
     protected EntityManagerInterface $entityManager;
 
-    public function __construct(PermissionResolver $resolver, Security $security, EntityManagerInterface $entityManager)
+    public function __construct(PermissionManager $resolver, Security $security, EntityManagerInterface $entityManager)
     {
         $this->resolver = $resolver;
         $this->perm_structure = $resolver->getPermissionStructure();

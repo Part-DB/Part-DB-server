@@ -42,7 +42,7 @@ declare(strict_types=1);
 
 namespace App\Form\Permissions;
 
-use App\Services\PermissionResolver;
+use App\Services\UserSystem\PermissionManager;
 use App\Validator\Constraints\NoLockout;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -53,10 +53,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PermissionsType extends AbstractType
 {
-    protected PermissionResolver $resolver;
+    protected PermissionManager $resolver;
     protected array $perm_structure;
 
-    public function __construct(PermissionResolver $resolver)
+    public function __construct(PermissionManager $resolver)
     {
         $this->resolver = $resolver;
         $this->perm_structure = $resolver->getPermissionStructure();

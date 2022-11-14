@@ -44,9 +44,8 @@ namespace App\Security\Voter;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\UserSystem\User;
-use App\Services\PermissionResolver;
+use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
-
 use Symfony\Component\Security\Core\Security;
 
 use function in_array;
@@ -55,7 +54,7 @@ class AttachmentVoter extends ExtendedVoter
 {
     protected $security;
 
-    public function __construct(PermissionResolver $resolver, EntityManagerInterface $entityManager, Security $security)
+    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, Security $security)
     {
         parent::__construct($resolver, $entityManager);
         $this->security = $security;

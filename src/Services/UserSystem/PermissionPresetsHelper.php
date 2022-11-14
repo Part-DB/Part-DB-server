@@ -3,15 +3,13 @@
 namespace App\Services\UserSystem;
 
 use App\Entity\UserSystem\PermissionData;
-use App\Entity\UserSystem\User;
 use App\Security\Interfaces\HasPermissionsInterface;
-use App\Services\PermissionResolver;
 
 class PermissionPresetsHelper
 {
-    private PermissionResolver $permissionResolver;
+    private PermissionManager $permissionResolver;
 
-    public function __construct(PermissionResolver $permissionResolver)
+    public function __construct(PermissionManager $permissionResolver)
     {
         $this->permissionResolver = $permissionResolver;
     }

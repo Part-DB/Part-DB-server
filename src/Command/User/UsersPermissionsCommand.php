@@ -4,7 +4,7 @@ namespace App\Command\User;
 
 use App\Entity\UserSystem\User;
 use App\Repository\UserRepository;
-use App\Services\PermissionResolver;
+use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -23,10 +23,10 @@ class UsersPermissionsCommand extends Command
 
     protected EntityManagerInterface $entityManager;
     protected UserRepository $userRepository;
-    protected PermissionResolver $permissionResolver;
+    protected PermissionManager $permissionResolver;
     protected TranslatorInterface $translator;
 
-    public function __construct(EntityManagerInterface $entityManager, PermissionResolver $permissionResolver, TranslatorInterface $translator)
+    public function __construct(EntityManagerInterface $entityManager, PermissionManager $permissionResolver, TranslatorInterface $translator)
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $entityManager->getRepository(User::class);

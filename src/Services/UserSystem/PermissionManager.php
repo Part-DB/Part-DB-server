@@ -40,7 +40,7 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\Services;
+namespace App\Services\UserSystem;
 
 use App\Configuration\PermissionsConfiguration;
 use App\Entity\UserSystem\Group;
@@ -52,7 +52,12 @@ use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\Yaml\Yaml;
 
-class PermissionResolver
+/**
+ * This class manages the permissions of users and groups.
+ * Permissions are defined in the config/permissions.yaml file, and are parsed and resolved by this class using the
+ * user and hierachical group PermissionData information.
+ */
+class PermissionManager
 {
     protected $permission_structure;
 

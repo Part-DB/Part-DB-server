@@ -40,24 +40,24 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\Tests\Services;
+namespace App\Tests\Services\UserSystem;
 
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\PermissionData;
 use App\Entity\UserSystem\PermissionsEmbed;
 use App\Entity\UserSystem\User;
-use App\Services\PermissionResolver;
+use App\Services\UserSystem\PermissionManager;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class PermissionResolverTest extends WebTestCase
+class PermissionManagerTest extends WebTestCase
 {
     protected $user_withoutGroup;
 
     protected $user;
     protected $group;
     /**
-     * @var PermissionResolver
+     * @var PermissionManager
      */
     protected $service;
 
@@ -67,7 +67,7 @@ class PermissionResolverTest extends WebTestCase
 
         //Get an service instance.
         self::bootKernel();
-        $this->service = self::$container->get(PermissionResolver::class);
+        $this->service = self::$container->get(PermissionManager::class);
 
         //Set up a mocked user
         $user_perms = new PermissionData();

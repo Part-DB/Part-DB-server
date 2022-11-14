@@ -43,17 +43,17 @@ declare(strict_types=1);
 namespace App\Validator\Constraints;
 
 use App\Security\Interfaces\HasPermissionsInterface;
-use App\Services\PermissionResolver;
+use App\Services\UserSystem\PermissionManager;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class ValidPermissionValidator extends ConstraintValidator
 {
-    protected PermissionResolver $resolver;
+    protected PermissionManager $resolver;
     protected array $perm_structure;
 
-    public function __construct(PermissionResolver $resolver)
+    public function __construct(PermissionManager $resolver)
     {
         $this->resolver = $resolver;
     }

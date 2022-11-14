@@ -2,8 +2,6 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\Attachments\CategoryAttachment;
-use App\Entity\Attachments\CurrencyAttachment;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parameters\AttachmentTypeParameter;
 use App\Entity\Parameters\CategoryParameter;
@@ -16,9 +14,8 @@ use App\Entity\Parameters\MeasurementUnitParameter;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parameters\StorelocationParameter;
 use App\Entity\Parameters\SupplierParameter;
-use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\User;
-use App\Services\PermissionResolver;
+use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\TextUI\RuntimeException;
 use Symfony\Component\Security\Core\Security;
@@ -28,7 +25,7 @@ class ParameterVoter extends ExtendedVoter
 
     protected Security $security;
 
-    public function __construct(PermissionResolver $resolver, EntityManagerInterface $entityManager, Security $security)
+    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, Security $security)
     {
         $this->security = $security;
         parent::__construct($resolver, $entityManager);

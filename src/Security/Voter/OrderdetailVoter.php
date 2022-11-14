@@ -25,7 +25,7 @@ namespace App\Security\Voter;
 
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\UserSystem\User;
-use App\Services\PermissionResolver;
+use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 
@@ -33,7 +33,7 @@ class OrderdetailVoter extends ExtendedVoter
 {
     protected Security $security;
 
-    public function __construct(PermissionResolver $resolver, EntityManagerInterface $entityManager, Security $security)
+    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, Security $security)
     {
         parent::__construct($resolver, $entityManager);
         $this->security = $security;

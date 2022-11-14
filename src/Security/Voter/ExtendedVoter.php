@@ -44,7 +44,7 @@ namespace App\Security\Voter;
 
 use App\Entity\UserSystem\User;
 use App\Repository\UserRepository;
-use App\Services\PermissionResolver;
+use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -55,9 +55,9 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 abstract class ExtendedVoter extends Voter
 {
     protected EntityManagerInterface $entityManager;
-    protected PermissionResolver $resolver;
+    protected PermissionManager $resolver;
 
-    public function __construct(PermissionResolver $resolver, EntityManagerInterface $entityManager)
+    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager)
     {
         $this->resolver = $resolver;
         $this->entityManager = $entityManager;
