@@ -292,7 +292,7 @@ class PermissionManager
 
         //Check if the cache is fresh, else regenerate it.
         if (!$cache->isFresh()) {
-            $permission_file = __DIR__.'/../../config/permissions.yaml';
+            $permission_file = __DIR__.'/../../../config/permissions.yaml';
 
             //Read the permission config file...
             $config = Yaml::parse(
