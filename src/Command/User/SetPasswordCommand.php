@@ -77,7 +77,6 @@ class SetPasswordCommand extends Command
             ->setDescription('Sets the password of a user')
             ->setHelp('This password allows you to set the password of a user, without knowing the old password.')
             ->addArgument('user', InputArgument::REQUIRED, 'The name of the user')
-
         ;
     }
 
