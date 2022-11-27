@@ -9761,11 +9761,5 @@ Element 3</target>
         <target>Target element ID</target>
       </segment>
     </unit>
-    <unit id="_vbPEFO" name="entity.info.parts_count_recursive">
-      <segment state="translated">
-        <source>entity.info.parts_count_recursive</source>
-        <target>Number of parts with this element or its subelements</target>
-      </segment>
-    </unit>
   </file>
 </xliff>
