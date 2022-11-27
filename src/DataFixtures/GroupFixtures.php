@@ -66,7 +66,7 @@ class GroupFixtures extends Fixture
         $admins = new Group();
         $admins->setName('admins');
         //Set permissions using preset
-        $this->permission_presets->applyPreset($admins, PermissionPresetsHelper::PRESET_ADMIN);
+        $this->permission_presets->applyPreset($admins, PermissionPresetsHelper::PRESET_ALL_ALLOW);
         $this->setReference(self::ADMINS, $admins);
         $manager->persist($admins);
 

@@ -71,7 +71,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
 
         $client->request('GET', $url);
 
-        $this->assertTrue($client->getResponse()->isSuccessful(), 'Request not successful. Status code is '.$client->getResponse()->getStatusCode());
+        $this->assertTrue($client->getResponse()->isSuccessful(), 'Request not successful. Status code is '.$client->getResponse()->getStatusCode() . ' for URL '.$url);
     }
 
     public function urlProvider(): ?Generator
