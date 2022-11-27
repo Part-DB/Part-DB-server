@@ -96,11 +96,11 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     protected $attachments;
 
     /**
-     * @var PermissionData
+     * @var PermissionData|null
      * @ValidPermission()
      * @ORM\Embedded(class="PermissionData", columnPrefix="permissions_")
      */
-    protected PermissionData $permissions;
+    protected ?PermissionData $permissions = null;
 
     /** @var Collection<int, GroupParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\GroupParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -140,6 +140,10 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
 
     public function getPermissions(): PermissionData
     {
+        if ($this->permissions === null) {
+            $this->permissions = new PermissionData();
+        }
+
         return $this->permissions;
     }
 

@@ -265,7 +265,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @ValidPermission()
      * @ORM\Embedded(class="PermissionData", columnPrefix="permissions_")
      */
-    protected PermissionData $permissions;
+    protected ?PermissionData $permissions = null;
 
     /**
      * @var DateTime the time until the password reset token is valid
@@ -425,6 +425,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     public function getPermissions(): PermissionData
     {
+        if ($this->permissions === null) {
+            $this->permissions = new PermissionData();
+        }
+
         return $this->permissions;
     }
 
