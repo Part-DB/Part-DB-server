@@ -956,14 +956,14 @@
     "@ckeditor/ckeditor5-utils" "^35.3.2"
     lodash-es "^4.17.15"
 
-"@ckeditor/ckeditor5-dev-utils@^30.3.1", "@ckeditor/ckeditor5-dev-utils@^30.5.0":
-  version "30.5.0"
-  resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-dev-utils/-/ckeditor5-dev-utils-30.5.0.tgz#798291a79183db716b667591a2ccebe6fcb7a7f8"
-  integrity sha512-R5oC9ka68X7NwafM5rFvIv6q0qT2kMsBkRikdEygx7cmGkV4dy7uM5HuOBUuIoLW7Md2o3QfkD3dnk6OdzuuJw==
+"@ckeditor/ckeditor5-dev-utils@^31.1.13":
+  version "31.1.13"
+  resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-dev-utils/-/ckeditor5-dev-utils-31.1.13.tgz#649ee881b5f04c5a4961f99bb74e505113fcb3c6"
+  integrity sha512-U/C7ZLY7yeSMWDQNSDG6UyHxoUjOoXpFafpXnF3VrmkBEJ/PD67wUI645AXgRKE5W8jkCyDfueiI0Wq7JHjD9A==
   dependencies:
     "@babel/parser" "^7.18.9"
     "@babel/traverse" "^7.18.9"
-    "@ckeditor/ckeditor5-dev-webpack-plugin" "^30.5.0"
+    "@ckeditor/ckeditor5-dev-webpack-plugin" "^31.1.13"
     chalk "^3.0.0"
     cli-cursor "^3.1.0"
     cli-spinners "^2.6.1"
@@ -986,15 +986,14 @@
     through2 "^3.0.1"
     ts-loader "^9.3.0"
 
-"@ckeditor/ckeditor5-dev-webpack-plugin@^30.3.1", "@ckeditor/ckeditor5-dev-webpack-plugin@^30.5.0":
-  version "30.5.0"
-  resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-dev-webpack-plugin/-/ckeditor5-dev-webpack-plugin-30.5.0.tgz#732033e117ce0b00cb0efaf009495ab767ec47de"
-  integrity sha512-mErNKfGd8XBjJxB7K7yCDnNq4pLQKbEjwJHf9g2EW4gOD1U55rgPc1XpmgfxhMj44QQ8YOZXAQ/Y/55AN7GATA==
+"@ckeditor/ckeditor5-dev-webpack-plugin@^31.1.13":
+  version "31.1.13"
+  resolved "https://registry.yarnpkg.com/@ckeditor/ckeditor5-dev-webpack-plugin/-/ckeditor5-dev-webpack-plugin-31.1.13.tgz#64dd4866121ae7b50107adeb71dc3b6286d71c53"
+  integrity sha512-XcMjwGO8hb5OQRWzYnX4M0aOuqLqd5Bo5t7chwwXWztvNjlj4pjzb9aRdrnN5DiRLdw26t0EPo2vnx2REe9gZw==
   dependencies:
-    "@ckeditor/ckeditor5-dev-utils" "^30.5.0"
+    "@ckeditor/ckeditor5-dev-utils" "^31.1.13"
     chalk "^4.0.0"
     rimraf "^3.0.2"
-    semver "^7.3.4"
     webpack-sources "^2.0.1"
 
 "@ckeditor/ckeditor5-editor-classic@^35.0.0":
@@ -2196,10 +2195,10 @@ boolbase@^1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==
 
-bootbox@^5.4.0:
-  version "5.5.3"
-  resolved "https://registry.yarnpkg.com/bootbox/-/bootbox-5.5.3.tgz#6b32da9c401a22b089e1544797cc9a91f1c35b23"
-  integrity sha512-B4mnm1DYgNHzoNtD7I0L/fixqvya4EEQy5bFF/yNmGI2Eq3WwVVwdfWf3hoF8KS+EaV4f0uIMqtxB1EAZwZPhQ==
+bootbox@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/bootbox/-/bootbox-6.0.0.tgz#a5f1074faab38b881e79e009ea4d625c7e8c536d"
+  integrity sha512-+Calbj1v5UvxAXXDAHfoBlsx63Hcz1JqHaZdJ5EjIcOlkyAbZLCreVScx0Em6ZUvsMCqynuz/3nGDyd9FtFrNQ==
 
 bootstrap-select@v1.14.0-beta3:
   version "1.14.0-beta3"
@@ -5905,10 +5904,10 @@ statuses@2.0.1:
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
   integrity sha512-OpZ3zP+jT1PI7I8nemJX4AKmAX070ZkYPVWV/AaKTJl+tXCTGyVdC1a4SL8RUQYEwk/f34ZX8UTykN68FwrqAA==
 
-stimulus-use@^0.50.0:
-  version "0.50.0"
-  resolved "https://registry.yarnpkg.com/stimulus-use/-/stimulus-use-0.50.0.tgz#0bae92fbb1fd961cbb23569f9edd12ae642ce4a6"
-  integrity sha512-9NScZQiOycQdzh8VZ15pxk6ep/a22fgha2halOvZFpJITC4nsTbWlO7D1hm+9LspFxa5b28tQhm3XkbH/qAlGw==
+stimulus-use@^0.51.1:
+  version "0.51.1"
+  resolved "https://registry.yarnpkg.com/stimulus-use/-/stimulus-use-0.51.1.tgz#55e775eee26d583ee4bdb4427d58979885408ebe"
+  integrity sha512-e7yEDHWz1GrDWwTc1y1Nnz62HPjELRAfn5q1JSCpTj1wHCCs4NNRUR14oZ08xxlp/4bjrgApMOKRkMPKA2TmVg==
   dependencies:
     hotkeys-js ">=3"
 
