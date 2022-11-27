@@ -49,6 +49,7 @@ final class Version20221114193325 extends AbstractMultiPlatformMigration
 
         $this->warnIf(true, "\x1b[1;37;43m\n!!! All permissions were reset! Please change them to the desired state, immediately !!!\x1b[0;39;49m");
         $this->warnIf(true, "\x1b[1;37;43m\n!!! For security reasons all users (except the admin user) were disabled. Login with admin user and reenable other users after checking their permissions !!!\x1b[0;39;49m");
+        $this->warnIf(true, "\x1b[1;37;43m\n!!! For more infos see: https://github.com/Part-DB/Part-DB-symfony/discussions/193 !!!\x1b[0;39;49m");
     }
 
     public function mySQLUp(Schema $schema): void
