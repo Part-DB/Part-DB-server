@@ -33,6 +33,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/select_api")
+ *
+ * This endpoint is used by the select2 library to dynamically load data (used in the multiselect action helper in parts lists)
  */
 class SelectAPIController extends AbstractController
 {
