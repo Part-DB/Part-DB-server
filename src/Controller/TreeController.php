@@ -145,6 +145,8 @@ class TreeController extends AbstractController
     {
         if ($this->isGranted('@parts.read') && $this->isGranted('@suppliers.read')) {
             $tree = $this->treeGenerator->getTreeView(Supplier::class, $supplier, 'list_parts_root');
+        } else {
+            return new JsonResponse("Access denied", 403);
         }
 
         return new JsonResponse($tree);

@@ -108,8 +108,12 @@ class UsersPermissionsCommand extends Command
                 $this->entityManager->flush();
 
                 break; //Show the new table
-            } else {
+            }
+
+            if (isset($op_to_edit, $perm_to_edit)) {
                 $this->permissionResolver->setPermission($user, $perm_to_edit, $op_to_edit, $new_value);
+            } else {
+                throw new \RuntimeException('Erorr while editing permission');
             }
 
             //Ensure that all operations are set accordingly

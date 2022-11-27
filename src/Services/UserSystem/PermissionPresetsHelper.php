@@ -25,9 +25,8 @@ class PermissionPresetsHelper
      * Apply the given preset to the permission holding entity (like a user)
      * The permission data will be reset during the process and then the preset will be applied.
      *
-     * @param
      * @param  string  $preset_name The name of the preset to use
-     * @return PermissionData
+     * @return HasPermissionsInterface
      */
     public function applyPreset(HasPermissionsInterface $perm_holder, string $preset_name): HasPermissionsInterface
     {

@@ -17,7 +17,7 @@ use App\Entity\Parameters\SupplierParameter;
 use App\Entity\UserSystem\User;
 use App\Services\UserSystem\PermissionManager;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\TextUI\RuntimeException;
+use RuntimeException;
 use Symfony\Component\Security\Core\Security;
 
 class ParameterVoter extends ExtendedVoter

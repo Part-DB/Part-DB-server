@@ -91,6 +91,8 @@ class AttachmentVoter extends ExtendedVoter
             case 'show_private':
                 return $this->resolver->inherit($user, 'attachments', 'show_private') ?? false;
         }
+
+        throw new \RuntimeException('Encountered unknown attribute "'.$attribute.'" in AttachmentVoter!');
     }
 
     /**
