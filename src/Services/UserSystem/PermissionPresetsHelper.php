@@ -7,6 +7,13 @@ use App\Security\Interfaces\HasPermissionsInterface;
 
 class PermissionPresetsHelper
 {
+    public const PRESET_ALL_INHERIT = 'all_inherit';
+    public const PRESET_ALL_FORBID = 'all_forbid';
+    public const PRESET_ALL_ALLOW = 'all_allow';
+    public const PRESET_READ_ONLY = 'read_only';
+    public const PRESET_EDITOR = 'editor';
+    public const PRESET_ADMIN = 'admin';
+
     private PermissionManager $permissionResolver;
 
     public function __construct(PermissionManager $permissionResolver)
@@ -28,22 +35,22 @@ class PermissionPresetsHelper
         $perm_holder->getPermissions()->resetPermissions();
 
         switch($preset_name) {
-            case 'all_inherit':
+            case self::PRESET_ALL_INHERIT:
                 //Do nothing, all values are inherit after reset
                 break;
-            case 'all_forbid':
+            case self::PRESET_ALL_FORBID:
                 $this->allForbid($perm_holder);
                 break;
-            case 'all_allow':
+            case self::PRESET_ALL_ALLOW:
                 $this->allAllow($perm_holder);
                 break;
-            case 'read_only':
+            case self::PRESET_READ_ONLY:
                 $this->readOnly($perm_holder);
                 break;
-            case 'editor':
+            case self::PRESET_EDITOR:
                 $this->editor($perm_holder);
                 break;
-            case 'admin':
+            case self::PRESET_ADMIN:
                 $this->admin($perm_holder);
                 break;
 
