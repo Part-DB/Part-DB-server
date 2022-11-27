@@ -56,6 +56,7 @@ class PermissionManagerTest extends WebTestCase
 
     protected $user;
     protected $group;
+
     /**
      * @var PermissionManager
      */
@@ -67,7 +68,7 @@ class PermissionManagerTest extends WebTestCase
 
         //Get an service instance.
         self::bootKernel();
-        $this->service = self::$container->get(PermissionManager::class);
+        $this->service = self::getContainer()->get(PermissionManager::class);
 
         //Set up a mocked user
         $user_perms = new PermissionData();
@@ -112,30 +113,13 @@ class PermissionManagerTest extends WebTestCase
 
     public function getPermissionNames(): array
     {
-        //List all possible operation names.
+        //List some permission names
         return [
-            [PermissionsEmbed::PARTS],
-            [PermissionsEmbed::USERS],
-            [PermissionsEmbed::PARTS_ORDERDETAILS],
-            [PermissionsEmbed::PARTS_NAME],
-            [PermissionsEmbed::PARTS_ORDER],
-            [PermissionsEmbed::PARTS_MINAMOUNT],
-            [PermissionsEmbed::PARTS_MANUFACTURER],
-            [PermissionsEmbed::DEVICES],
-            [PermissionsEmbed::PARTS_FOOTPRINT],
-            [PermissionsEmbed::PARTS_DESCRIPTION],
-            [PermissionsEmbed::PARTS_COMMENT],
-            [PermissionsEmbed::PARTS_ATTACHMENTS],
-            [PermissionsEmbed::MANUFACTURERS],
-            [PermissionsEmbed::LABELS],
-            [PermissionsEmbed::DATABASE],
-            [PermissionsEmbed::GROUPS],
-            [PermissionsEmbed::FOOTRPINTS],
-            [PermissionsEmbed::DEVICE_PARTS],
-            [PermissionsEmbed::CATEGORIES],
-            [PermissionsEmbed::PARTS_PRICES],
-            [PermissionsEmbed::ATTACHMENT_TYPES],
-            [PermissionsEmbed::CONFIG],
+            ['parts'],
+            ['system'],
+            ['footprints'],
+            ['suppliers'],
+            ['tools']
         ];
     }
 
@@ -214,5 +198,97 @@ class PermissionManagerTest extends WebTestCase
         $this->assertNull($this->service->inherit($this->user_withoutGroup, 'parts', 'create'));
         $this->assertNull($this->service->inherit($this->user_withoutGroup, 'parts', 'show_history'));
         $this->assertNull($this->service->inherit($this->user_withoutGroup, 'parts', 'delete'));
+    }
+
+    public function testSetPermission(): void
+    {
+        $user = new User();
+
+        //Set permission to true
+        $this->service->setPermission($user, 'parts', 'read', true);
+        $this->assertTrue($this->service->dontInherit($user, 'parts', 'read'));
+        $this->assertTrue($this->service->inherit($user, 'parts', 'read'));
+
+        //Set permission to false
+        $this->service->setPermission($user, 'parts', 'read', false);
+        $this->assertFalse($this->service->dontInherit($user, 'parts', 'read'));
+        $this->assertFalse($this->service->inherit($user, 'parts', 'read'));
+
+        //Set permission to null
+        $this->service->setPermission($user, 'parts', 'read', null);
+        $this->assertNull($this->service->dontInherit($user, 'parts', 'read'));
+        $this->assertNull($this->service->inherit($user, 'parts', 'read'));
+    }
+
+    public function testSetAllPermissions(): void
+    {
+        $user = new User();
+
+        //Set all permissions to true
+        $this->service->setAllPermissions($user, true);
+        $this->assertTrue($this->service->dontInherit($user, 'parts', 'read'));
+        $this->assertTrue($this->service->dontInherit($user, 'parts', 'create'));
+        $this->assertTrue($this->service->dontInherit($user, 'categories', 'edit'));
+
+        //Set all permissions to false
+        $this->service->setAllPermissions($user, false);
+        $this->assertFalse($this->service->dontInherit($user, 'parts', 'read'));
+        $this->assertFalse($this->service->dontInherit($user, 'parts', 'create'));
+        $this->assertFalse($this->service->dontInherit($user, 'categories', 'edit'));
+
+        //Set all permissions to null
+        $this->service->setAllPermissions($user, null);
+        $this->assertNull($this->service->dontInherit($user, 'parts', 'read'));
+        $this->assertNull($this->service->dontInherit($user, 'parts', 'create'));
+        $this->assertNull($this->service->dontInherit($user, 'categories', 'edit'));
+    }
+
+    public function testSetAllOperationsOfPermission(): void
+    {
+        $user = new User();
+
+        //Set all operations of permission to true
+        $this->service->setAllOperationsOfPermission($user, 'parts', true);
+        $this->assertTrue($this->service->dontInherit($user, 'parts', 'read'));
+        $this->assertTrue($this->service->dontInherit($user, 'parts', 'create'));
+        $this->assertTrue($this->service->dontInherit($user, 'parts', 'edit'));
+
+        //Set all operations of permission to false
+        $this->service->setAllOperationsOfPermission($user, 'parts', false);
+        $this->assertFalse($this->service->dontInherit($user, 'parts', 'read'));
+        $this->assertFalse($this->service->dontInherit($user, 'parts', 'create'));
+        $this->assertFalse($this->service->dontInherit($user, 'parts', 'edit'));
+
+        //Set all operations of permission to null
+        $this->service->setAllOperationsOfPermission($user, 'parts', null);
+        $this->assertNull($this->service->dontInherit($user, 'parts', 'read'));
+        $this->assertNull($this->service->dontInherit($user, 'parts', 'create'));
+        $this->assertNull($this->service->dontInherit($user, 'parts', 'edit'));
+    }
+
+    public function testEnsureCorrectSetOperations(): void
+    {
+        //Create an empty user (all permissions are inherit)
+        $user = new User();
+
+        //ensure that all permissions are inherit
+        $this->assertNull($this->service->inherit($user, 'parts', 'read'));
+        $this->assertNull($this->service->inherit($user, 'parts', 'edit'));
+        $this->assertNull($this->service->inherit($user, 'categories', 'read'));
+
+        //Set some permissions
+        $this->service->setPermission($user, 'parts', 'create', true);
+        //Until now only the create permission should be set
+        $this->assertTrue($this->service->dontInherit($user, 'parts', 'create'));
+        $this->assertNull($this->service->dontInherit($user, 'parts', 'read'));
+
+        //Now we call the ensureCorrectSetOperations method
+        $this->service->ensureCorrectSetOperations($user);
+
+        //Now all permissions should be set
+        $this->assertTrue($this->service->dontInherit($user, 'parts', 'create'));
+        $this->assertTrue($this->service->dontInherit($user, 'parts', 'read'));
+        $this->assertTrue($this->service->dontInherit($user, 'parts', 'edit'));
+        $this->assertTrue($this->service->dontInherit($user, 'categories', 'read'));
     }
 }
