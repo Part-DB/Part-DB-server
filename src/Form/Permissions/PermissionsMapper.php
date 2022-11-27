@@ -42,7 +42,7 @@ declare(strict_types=1);
 
 namespace App\Form\Permissions;
 
-use App\Services\PermissionResolver;
+use App\Services\UserSystem\PermissionManager;
 use RuntimeException;
 use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\FormInterface;
@@ -54,10 +54,10 @@ use Traversable;
  */
 final class PermissionsMapper implements DataMapperInterface
 {
-    private PermissionResolver $resolver;
+    private PermissionManager $resolver;
     private bool $inherit;
 
-    public function __construct(PermissionResolver $resolver, bool $inherit = false)
+    public function __construct(PermissionManager $resolver, bool $inherit = false)
     {
         $this->inherit = $inherit;
         $this->resolver = $resolver;

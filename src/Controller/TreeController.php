@@ -84,7 +84,11 @@ class TreeController extends AbstractController
      */
     public function categoryTree(?Category $category = null): JsonResponse
     {
-        $tree = $this->treeGenerator->getTreeView(Category::class, $category, 'list_parts_root');
+        if ($this->isGranted('@parts.read') && $this->isGranted('@categories.read')) {
+            $tree = $this->treeGenerator->getTreeView(Category::class, $category, 'list_parts_root');
+        } else {
+            return new JsonResponse("Access denied", 403);
+        }
 
         return new JsonResponse($tree);
     }
@@ -95,8 +99,11 @@ class TreeController extends AbstractController
      */
     public function footprintTree(?Footprint $footprint = null): JsonResponse
     {
-        $tree = $this->treeGenerator->getTreeView(Footprint::class, $footprint, 'list_parts_root');
-
+        if ($this->isGranted('@parts.read') && $this->isGranted('@footprints.read')) {
+            $tree = $this->treeGenerator->getTreeView(Footprint::class, $footprint, 'list_parts_root');
+        } else {
+            return new JsonResponse("Access denied", 403);
+        }
         return new JsonResponse($tree);
     }
 
@@ -106,7 +113,11 @@ class TreeController extends AbstractController
      */
     public function locationTree(?Storelocation $location = null): JsonResponse
     {
-        $tree = $this->treeGenerator->getTreeView(Storelocation::class, $location, 'list_parts_root');
+        if ($this->isGranted('@parts.read') && $this->isGranted('@storelocations.read')) {
+            $tree = $this->treeGenerator->getTreeView(Storelocation::class, $location, 'list_parts_root');
+        } else {
+            return new JsonResponse("Access denied", 403);
+        }
 
         return new JsonResponse($tree);
     }
@@ -117,7 +128,11 @@ class TreeController extends AbstractController
      */
     public function manufacturerTree(?Manufacturer $manufacturer = null): JsonResponse
     {
-        $tree = $this->treeGenerator->getTreeView(Manufacturer::class, $manufacturer, 'list_parts_root');
+        if ($this->isGranted('@parts.read') && $this->isGranted('@manufacturers.read')) {
+            $tree = $this->treeGenerator->getTreeView(Manufacturer::class, $manufacturer, 'list_parts_root');
+        } else {
+            return new JsonResponse("Access denied", 403);
+        }
 
         return new JsonResponse($tree);
     }
@@ -128,7 +143,11 @@ class TreeController extends AbstractController
      */
     public function supplierTree(?Supplier $supplier = null): JsonResponse
     {
-        $tree = $this->treeGenerator->getTreeView(Supplier::class, $supplier, 'list_parts_root');
+        if ($this->isGranted('@parts.read') && $this->isGranted('@suppliers.read')) {
+            $tree = $this->treeGenerator->getTreeView(Supplier::class, $supplier, 'list_parts_root');
+        } else {
+            return new JsonResponse("Access denied", 403);
+        }
 
         return new JsonResponse($tree);
     }
@@ -139,7 +158,11 @@ class TreeController extends AbstractController
      */
     public function deviceTree(?Device $device = null): JsonResponse
     {
-        $tree = $this->treeGenerator->getTreeView(Device::class, $device, 'devices');
+        if ($this->isGranted('@devices.read')) {
+            $tree = $this->treeGenerator->getTreeView(Device::class, $device, 'devices');
+        } else {
+            return new JsonResponse("Access denied", 403);
+        }
 
         return new JsonResponse($tree);
     }

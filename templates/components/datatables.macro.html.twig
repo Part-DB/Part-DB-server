@@ -35,15 +35,15 @@
             <select class="selectpicker" name="action" data-controller="elements--selectpicker" {{ stimulus_action('elements/datatables/parts', 'updateTargetPicker', 'change') }}
                     title="{% trans %}part_list.action.action.title{% endtrans %}" required>
                 <optgroup label="{% trans %}part_list.action.action.group.favorite{% endtrans %}">
-                    <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="favorite">{% trans %}part_list.action.action.favorite{% endtrans %}</option>
-                    <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="unfavorite">{% trans %}part_list.action.action.unfavorite{% endtrans %}</option>
+                    <option {% if not is_granted('@parts.change_favorite')  %}disabled{% endif %} value="favorite">{% trans %}part_list.action.action.favorite{% endtrans %}</option>
+                    <option {% if not is_granted('@parts.change_favorite') %}disabled{% endif %} value="unfavorite">{% trans %}part_list.action.action.unfavorite{% endtrans %}</option>
                 </optgroup>
 
                 <optgroup label="{% trans %}part_list.action.action.group.change_field{% endtrans %}">
-                    <option {% if not is_granted('@parts_category.edit') %}disabled{% endif %} value="change_category" data-url="{{ path('select_category') }}">{% trans %}part_list.action.action.change_category{% endtrans %}</option>
-                    <option {% if not is_granted('@parts_footprint.edit') %}disabled{% endif %} value="change_footprint" data-url="{{ path('select_footprint') }}">{% trans %}part_list.action.action.change_footprint{% endtrans %}</option>
-                    <option {% if not is_granted('@parts_manufacturer.edit') %}disabled{% endif %} value="change_manufacturer" data-url="{{ path('select_manufacturer') }}">{% trans %}part_list.action.action.change_manufacturer{% endtrans %}</option>
-                    <option {% if not is_granted('@parts_unit.edit') %}disabled{% endif %} value="change_unit" data-url="{{ path('select_measurement_unit') }}">{% trans %}part_list.action.action.change_unit{% endtrans %}</option>
+                    <option {% if not is_granted('@categories.read') %}disabled{% endif %} value="change_category" data-url="{{ path('select_category') }}">{% trans %}part_list.action.action.change_category{% endtrans %}</option>
+                    <option {% if not is_granted('@footprints.read') %}disabled{% endif %} value="change_footprint" data-url="{{ path('select_footprint') }}">{% trans %}part_list.action.action.change_footprint{% endtrans %}</option>
+                    <option {% if not is_granted('@manufacturers.read') %}disabled{% endif %} value="change_manufacturer" data-url="{{ path('select_manufacturer') }}">{% trans %}part_list.action.action.change_manufacturer{% endtrans %}</option>
+                    <option {% if not is_granted('@measurement_units.read') %}disabled{% endif %} value="change_unit" data-url="{{ path('select_measurement_unit') }}">{% trans %}part_list.action.action.change_unit{% endtrans %}</option>
                 </optgroup>
 
                 <option {% if not is_granted('@parts.delete') %}disabled{% endif %} value="delete">{% trans %}part_list.action.action.delete{% endtrans %}</option>
@@ -53,7 +53,7 @@
                 {# This is left empty, as this will be filled by Javascript #}
             </select>
 
-            <button type="submit" class="btn btn-secondary">{% trans %}part_list.action.submit{% endtrans %}</button>
+            <button type="submit" class="btn btn-secondary" {% if not is_granted('@parts.edit') %}disabled{% endif %}>{% trans %}part_list.action.submit{% endtrans %}</button>
         </div>
 
         <div {{ stimulus_target('elements/datatables/parts', 'dt') }}>

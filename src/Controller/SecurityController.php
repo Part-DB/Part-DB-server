@@ -45,7 +45,7 @@ namespace App\Controller;
 use App\Entity\UserSystem\User;
 use App\Events\SecurityEvent;
 use App\Events\SecurityEvents;
-use App\Services\PasswordResetManager;
+use App\Services\UserSystem\PasswordResetManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
 use RuntimeException;

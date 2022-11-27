@@ -2,10 +2,12 @@
 # This should be compatible with the legacy Part-DB
 
 groups:
-  parts:
-    label: "perm.group.parts"
-  structures:
-    label: "perm.group.structures"
+  #parts:
+  #  label: "perm.group.parts"
+  #structures:
+  #  label: "perm.group.structures"
+  data:
+    label: "perm.group.data"
   system:
     label: "perm.group.system"
 
@@ -15,221 +17,52 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
   # Part related permissions
 
   parts: # e.g. this maps to perms_parts in User/Group database
-    group: "parts"
+    group: "data"
     label: "perm.parts"
     operations: # Here are all possible operations are listed => the op name is mapped to bit value
       read:
         label: "perm.read"
-        bit: 0
+        # If a part can be read by a user, he can also see all the datastructures (except devices)
+        alsoSet: ['storelocations.read', 'footprints.read', 'categories.read', 'suppliers.read', 'manufacturers.read',
+                  'currencies.read', 'attachment_types.read', 'measurement_units.read']
       edit:
         label: "perm.edit"
-        bit: 2
         alsoSet: 'read'
       create:
         label: "perm.create"
-        bit: 4
         alsoSet: ['read', 'edit']
-      #move:
-      #  label: "perm.part.move"
-      #  bit: 6
-      #  alsoSet: 'read'
       delete:
         label: "perm.delete"
-        bit: 8
         alsoSet: ['read', 'edit']
-      search:
-        label: "perm.part.search"
-        bit: 10
-      all_parts:
-        label: "perm.part.all_parts"
-        bit: 12
-      no_price_parts:
-        label: "perm.part.no_price_parts"
-        bit: 14
-      obsolete_parts:
-        label: "perm.part.obsolete_parts"
-        bit: 16
-      unknown_instock_parts:
-        label: "perm.part.unknown_instock_parts"
-        bit: 18
       change_favorite:
         label: "perm.part.change_favorite"
-        bit: 20
-      show_favorite_parts:
-        label: "perm.part.show_favorite"
-        bit: 24
-      show_last_edit_parts:
-        label: "perm.part.show_last_edit_parts"
-        bit: 26
-      show_users:
-        label: "perm.part.show_users"
-        bit: 28
+        alsoSet: ['edit']
       show_history:
         label: "perm.part.show_history"
-        bit: 30
+        alsoSet: ['read']
       revert_element:
         label: "perm.revert_elements"
-        bit: 32
         alsoSet: ["read", "edit", "create", "delete", "show_history"]
-
-  parts_name:  &PART_ATTRIBUTE # We define a template here, that we can use for all part attributes.
-    label: "perm.part.name"
-    group: "parts"
-    operations:
-      read:
-        label: "perm.read"
-        bit: 0
-      edit:
-        label: "perm.edit"
-        bit: 2
-        alsoSet: 'read'
-
-  parts_category:
-    <<: *PART_ATTRIBUTE
-    label: "perm.part.category"
-
-  parts_description:
-    <<: *PART_ATTRIBUTE
-    label: "perm.part.description"
-
-  parts_minamount:
-    <<: *PART_ATTRIBUTE
-    label: "perm.part.minamount"
-
-  parts_footprint:
-    <<: *PART_ATTRIBUTE
-    label: "perm.part.footprint"
-
-  parts_comment:
-    <<: *PART_ATTRIBUTE
-    label: "perm.part.comment"
-
-  parts_manufacturer:
-    <<: *PART_ATTRIBUTE
-    label: "perm.part.manufacturer"
-
-  parts_mpn:
-    <<: *PART_ATTRIBUTE
-    label: "perm.part.mpn"
-
-  parts_status:
-    <<: *PART_ATTRIBUTE
-    label: "perm.part.status"
-
-  parts_tags:
-    <<: *PART_ATTRIBUTE
-    label: "perm.part.tags"
-
-  parts_unit:
-    <<: *PART_ATTRIBUTE
-    label: "perm.part.unit"
-
-  parts_mass:
-    <<: *PART_ATTRIBUTE
-    label: "perm.part.mass"
-
-  parts_orderdetails: &PART_MULTI_ATTRIBUTE
-    label: "perm.part.orderdetails"
-    group: "parts"
-    operations:
-      read:
-        label: "perm.read"
-        bit: 0
-      edit:
-        label: "perm.edit"
-        bit: 2
-        alsoSet: 'read'
-      create:
-        label: "perm.create"
-        bit: 4
-        alsoSet: ['read', 'edit']
-      delete:
-        label: "perm.delete"
-        bit: 6
-        alsoSet: ['read']
-
-
-  parts_prices:
-    <<: *PART_MULTI_ATTRIBUTE
-    label: "perm.part.prices"
-
-  parts_parameters:
-    <<: *PART_MULTI_ATTRIBUTE
-    label: "perm.part.parameters"
-
-  parts_lots:
-    <<: *PART_MULTI_ATTRIBUTE
-    label: "perm.part.lots"
-
-  parts_attachments:
-    group: "structures"
-    label: "perm.part.attachments"
-    operations:
-      read:
-        label: "perm.read"
-        bit: 0
-      edit:
-        label: "perm.edit"
-        bit: 2
-        alsoSet: 'read'
-      create:
-        label: "perm.create"
-        bit: 4
-        alsoSet: ['read', 'edit']
-      delete:
-        label: "perm.delete"
-        bit: 6
-        alsoSet: ['read']
-      show_history:
-        label: "perm.show_history"
-        bit: 8
-      revert_element:
-        label: "perm.revert_elements"
-        bit: 10
-        alsoSet: ["read", "edit", "create", "delete", "show_history"]
-      show_private:
-        label: "perm.attachment_show_private"
-        bit: 12
-        alsoSet: ["read"]
-
-  parts_order:
-    <<: *PART_ATTRIBUTE
-    label: "perm.part.order"
 
   storelocations: &PART_CONTAINING
     label: "perm.storelocations"
-    group: "structures"
+    group: "data"
     operations:
       read:
         label: "perm.read"
-        bit: 0
       edit:
         label: "perm.edit"
-        bit: 2
         alsoSet: 'read'
       create:
         label: "perm.create"
-        bit: 4
         alsoSet: ['read', 'edit']
-      move:
-        label: "perm.move"
-        bit: 6
       delete:
         label: "perm.delete"
-        bit: 8
         alsoSet: ['read', 'edit']
-      list_parts:
-        label: "perm.list_parts"
-        bit: 10
-      show_users:
-        label: "perm.show_users"
-        bit: 12
       show_history:
         label: "perm.show_history"
-        bit: 14
       revert_element:
         label: "perm.revert_elements"
-        bit: 16
         alsoSet: ["read", "edit", "create", "delete", "show_history"]
 
   footprints:
@@ -267,36 +100,24 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
   tools:
     label: "perm.part.tools"
     operations:
-      import:
-        label: "perm.tools.import"
-        bit: 0
-      labels:
-        label: "perm.tools.labels"
-        bit: 2
+      #import:
+      #  label: "perm.tools.import"
+      #labels:
+      #  label: "perm.tools.labels"
       #calculator:
       #  label: "perm.tools.calculator"
-      #  bit: 4
       #footprints:
       #  label: "perm.tools.footprints"
-      #  bit: 6
       #ic_logos:
       #  label: "perm.tools.ic_logos"
-      #  bit: 8
       statistics:
         label: "perm.tools.statistics"
-        bit: 10
       lastActivity:
         label: "perm.tools.lastActivity"
-        bit: 12
-      timetravel:
-        label: "perm.tools.timeTravel"
-        bit: 14
       label_scanner:
         label: "perm.tools.label_scanner"
-        bit: 16
       reel_calculator:
         label: "perm.tools.reel_calculator"
-        bit: 18
 
   groups:
     label: "perm.groups"
@@ -304,33 +125,23 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
     operations:
       read:
         label: "perm.read"
-        bit: 0
       edit:
         label: "perm.edit"
-        bit: 2
         alsoSet: 'read'
       create:
         label: "perm.create"
-        bit: 4
         alsoSet: ['read', 'edit']
-      move:
-        label: "perm.move"
-        bit: 6
       delete:
         label: "perm.delete"
-        bit: 8
         alsoSet: ['read', 'delete']
       edit_permissions:
         label: "perm.edit_permissions"
         alsoSet: ['read', 'edit']
-        bit: 10
       show_history:
         label: "perm.show_history"
-        bit: 12
       revert_element:
         label: "perm.revert_elements"
-        bit: 14
-        alsoSet: ["read", "edit", "create", "delete", "move", "edit_permissions", "show_history"]
+        alsoSet: ["read", "edit", "create", "delete", "edit_permissions", "show_history"]
 
   users:
     label: "perm.users"
@@ -338,167 +149,119 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
     operations:
       read:
         label: "perm.read"
-        bit: 0
       create:
         label: "perm.create"
         alsoSet: ['read', 'edit_username', 'edit_infos']
-        bit: 4
       delete:
         label: "perm.delete"
         alsoSet: ['read', 'edit_username', 'edit_infos']
-        bit: 8
       edit_username:
         label: "perm.users.edit_user_name"
         alsoSet: ['read']
-        bit: 2
-      change_group:
-        label: "perm.users.edit_change_group"
-        alsoSet: 'read'
-        bit: 6
       edit_infos:
         label: "perm.users.edit_infos"
         alsoSet: 'read'
-        bit: 10
       edit_permissions:
         label: "perm.users.edit_permissions"
         alsoSet: 'read'
-        bit: 12
       set_password:
         label: "perm.users.set_password"
         alsoSet: 'read'
-        bit: 14
       change_user_settings:
         label: "perm.users.change_user_settings"
-        bit: 16
       show_history:
         label: "perm.show_history"
-        bit: 18
       revert_element:
         label: "perm.revert_elements"
-        bit: 20
-        alsoSet: ["read", "create", "delete", "edit_permissions", "show_history", "edit_infos", "change_group", "edit_username"]
+        alsoSet: ["read", "create", "delete", "edit_permissions", "show_history", "edit_infos", "edit_username"]
 
-  database:
-    label: "perm.database"
-    group: "system"
-    operations:
-      see_status:
-        label: "perm.database.see_status"
-        bit: 0
-      update_db:
-        label: "perm.database.update_db"
-        bit: 2
-        alsoSet: 'see_status'
-      read_db_settings:
-        label: "perm.database.read_db_settings"
-        bit: 4
-      write_db_settings:
-        label: "perm.database.write_db_settings"
-        alsoSet: ['read_db_settings', 'see_status']
-        bit: 2
+  #database:
+  #  label: "perm.database"
+  #  group: "system"
+  #  operations:
+  #    see_status:
+  #      label: "perm.database.see_status"
+  #    update_db:
+  #      label: "perm.database.update_db"
+  #      alsoSet: 'see_status'
+  #    read_db_settings:
+  #      label: "perm.database.read_db_settings"
+  #    write_db_settings:
+  #      label: "perm.database.write_db_settings"
+  #      alsoSet: ['read_db_settings', 'see_status']
 
-  config:
-    label: "perm.config"
-    group: "system"
-    operations:
-      read_config:
-        label: "perm.config.read_config"
-        bit: 0
-      edit_config:
-        label: "perm.config.edit_config"
-        alsoSet: 'read_config'
-        bit: 2
-      server_info:
-        label: "perm.config.server_info"
-        bit: 6
+  #config:
+  #  label: "perm.config"
+  #  group: "system"
+  #  operations:
+  #    read_config:
+  #      label: "perm.config.read_config"
+  #    edit_config:
+  #      label: "perm.config.edit_config"
+  #      alsoSet: 'read_config'
+  #    server_info:
+  #      label: "perm.config.server_info"
 
   system:
     label: "perm.system"
     group: "system"
     operations:
-      use_debug:
-        label: "perm.config.use_debug"
-        bit: 0
       show_logs:
         label: "perm.show_logs"
-        bit: 2
       delete_logs:
         label: "perm.delete_logs"
         alsoSet: 'show_logs'
-        bit: 4
+      server_infos:
+        label: "perm.server_infos"
 
-  devices_parts:
-    label: "perm.device_parts"
-    group: "parts"
+  attachments:
+    label: "perm.part.attachments"
     operations:
-      read:
-        label: "perm.read"
-        bit: 0
-      edit:
-        label: "perm.edit"
-        alsoSet: 'read'
-        bit: 2
-      create:
-        label: "perm.create"
-        alsoSet: ['edit', 'read']
-        bit: 6
-      delete:
-        label: "perm.delete"
-        alsoSet: ['edit', 'read']
-        bit: 8
+      show_private:
+        label: "perm.attachments.show_private"
+      list_attachments:
+        label: "perm.attachments.list_attachments"
+        alsoSet: ['attachment_types.read']
 
   self:
     label: "perm.self"
     operations:
       edit_infos:
         label: "perm.self.edit_infos"
-        bit: 0
       edit_username:
         label: "perm.self.edit_username"
-        bit: 2
       show_permissions:
         label: "perm.self.show_permissions"
-        bit: 4
       show_logs:
         label: "perm.self.show_logs"
-        bit: 6
 
   labels:
     label: "perm.labels"
     operations:
       create_labels:
         label: "perm.self.create_labels"
-        bit: 0
       edit_options:
         label: "perm.self.edit_options"
-        bit: 2
         alsoSet: ['create_labels']
       read_profiles:
         label: "perm.self.read_profiles"
-        bit: 10
       edit_profiles:
         label: "perm.self.edit_profiles"
-        bit: 6
         alsoSet: ['read_profiles']
       create_profiles:
         label: "perm.self.create_profiles"
-        bit: 8
         alsoSet: ['read_profiles', 'edit_profiles']
       delete_profiles:
         label: "perm.self.delete_profiles"
-        bit: 4
         alsoSet: ['read_profiles', 'edit_profiles', 'create_profiles']
       use_twig:
         label: "perm.labels.use_twig"
-        bit: 12
         alsoSet: ['create_labels', 'edit_options']
       show_history:
         label: "perm.show_history"
-        bit: 14
         alsoSet: ['read_profiles']
       revert_element:
         label: "perm.revert_elements"
-        bit: 16
         alsoSet: ['read_profiles', 'edit_profiles', 'create_profiles', 'delete_profiles']
 
 

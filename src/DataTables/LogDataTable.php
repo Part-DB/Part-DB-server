@@ -260,9 +260,7 @@ class LogDataTable implements DataTableTypeInterface
                 return null;
             },
             'disabled' => function ($value, AbstractLogEntry $context) {
-                return
-                    !$this->security->isGranted('@tools.timetravel')
-                    || !$this->security->isGranted('show_history', $context->getTargetClass());
+                return !$this->security->isGranted('show_history', $context->getTargetClass());
             },
         ]);
 

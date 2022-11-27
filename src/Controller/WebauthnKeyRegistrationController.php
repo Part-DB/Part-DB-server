@@ -18,6 +18,8 @@ class WebauthnKeyRegistrationController extends AbstractController
      */
     public function register(Request $request, TFAWebauthnRegistrationHelper $registrationHelper, EntityManagerInterface $em)
     {
+        //When user change its settings, he should be logged  in fully.
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         //If form was submitted, check the auth response
         if ($request->getMethod() === 'POST') {
@@ -51,7 +53,7 @@ class WebauthnKeyRegistrationController extends AbstractController
 
 
         return $this->render(
-            'Security/Webauthn/webauthn_register.html.twig',
+            'security/Webauthn/webauthn_register.html.twig',
             [
                 'registrationRequest' => $registrationHelper->generateRegistrationRequestAsJSON(),
             ]

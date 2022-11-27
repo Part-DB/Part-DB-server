@@ -13,7 +13,7 @@ doctrine:
                 class: App\Helpers\UTCDateTimeType
             big_decimal:
                 class: App\Helpers\BigDecimalType
-
+        
         schema_filter: ~^(?!internal)~
         # Only enable this when needed
         profiling_collect_backtrace: false

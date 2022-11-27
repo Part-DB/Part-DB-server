@@ -131,7 +131,7 @@ class AttachmentFileController extends AbstractController
      */
     public function attachmentsTable(Request $request, DataTableFactory $dataTableFactory, NodesListBuilder $nodesListBuilder)
     {
-        $this->denyAccessUnlessGranted('read', new PartAttachment());
+        $this->denyAccessUnlessGranted('@attachments.list_attachments');
 
         $formRequest = clone $request;
         $formRequest->setMethod('GET');

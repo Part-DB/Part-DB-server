@@ -44,7 +44,6 @@ namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
-use App\Security\Annotations\ColumnSecurity;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -54,14 +53,12 @@ trait BasicPropertyTrait
     /**
      * @var string A text describing what this part does
      * @ORM\Column(type="text")
-     * @ColumnSecurity(prefix="description")
      */
     protected string $description = '';
 
     /**
      * @var string A comment/note related to this part
      * @ORM\Column(type="text")
-     * @ColumnSecurity(prefix="comment")
      */
     protected string $comment = '';
 
@@ -74,7 +71,6 @@ trait BasicPropertyTrait
     /**
      * @var bool true, if the part is marked as favorite
      * @ORM\Column(type="boolean")
-     * @ColumnSecurity(type="boolean")
      */
     protected bool $favorite = false;
 
@@ -83,7 +79,6 @@ trait BasicPropertyTrait
      *               Every part must have a category.
      * @ORM\ManyToOne(targetEntity="Category")
      * @ORM\JoinColumn(name="id_category", referencedColumnName="id", nullable=false)
-     * @ColumnSecurity(prefix="category", type="App\Entity\Parts\Category")
      * @Selectable()
      * @Assert\NotNull(message="validator.select_valid_category")
      */
@@ -93,7 +88,6 @@ trait BasicPropertyTrait
      * @var Footprint|null The footprint of this part (e.g. DIP8)
      * @ORM\ManyToOne(targetEntity="Footprint")
      * @ORM\JoinColumn(name="id_footprint", referencedColumnName="id")
-     * @ColumnSecurity(prefix="footprint", type="App\Entity\Parts\Footprint")
      * @Selectable()
      */
     protected ?Footprint $footprint = null;

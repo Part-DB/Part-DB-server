@@ -40,7 +40,7 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\Services;
+namespace App\Services\UserSystem;
 
 use App\Configuration\PermissionsConfiguration;
 use App\Entity\UserSystem\Group;
@@ -52,7 +52,12 @@ use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\Yaml\Yaml;
 
-class PermissionResolver
+/**
+ * This class manages the permissions of users and groups.
+ * Permissions are defined in the config/permissions.yaml file, and are parsed and resolved by this class using the
+ * user and hierachical group PermissionData information.
+ */
+class PermissionManager
 {
     protected $permission_structure;
 
@@ -81,6 +86,7 @@ class PermissionResolver
      * Check if a user/group is allowed to do the specified operation for the permission.
      *
      * See permissions.yaml for valid permission operation combinations.
+     * This function does not check, if the permission is valid!
      *
      * @param HasPermissionsInterface $user       the user/group for which the operation should be checked
      * @param string                  $permission the name of the permission for which should be checked
@@ -92,18 +98,13 @@ class PermissionResolver
     public function dontInherit(HasPermissionsInterface $user, string $permission, string $operation): ?bool
     {
         //Get the permissions from the user
-        $perm_list = $user->getPermissions();
-
-        //Determine bit number using our configuration
-        $bit = $this->permission_structure['perms'][$permission]['operations'][$operation]['bit'];
-
-        return $perm_list->getPermissionValue($permission, $bit);
+        return $user->getPermissions()->getPermissionValue($permission, $operation);
     }
 
     /**
      * Checks if a user is allowed to do the specified operation for the permission.
-     * In contrast to dontInherit() it tries to resolve the inherit values, of the user, by going upwards in the
-     * hierachy (user -> group -> parent group -> so on). But even in this case it is possible, that the inherit value
+     * In contrast to dontInherit() it tries to resolve to inherit values, of the user, by going upwards in the
+     * hierarchy (user -> group -> parent group -> so on). But even in this case it is possible, that to inherit value
      * could be resolved, and this function returns null.
      *
      * In that case the voter should set it manually to false by using ?? false.
@@ -153,10 +154,12 @@ class PermissionResolver
         //Get the permissions from the user
         $perm_list = $user->getPermissions();
 
-        //Determine bit number using our configuration
-        $bit = $this->permission_structure['perms'][$permission]['operations'][$operation]['bit'];
+        //Check if the permission/operation combination is valid
+        if (! $this->isValidOperation($permission, $operation)) {
+            throw new InvalidArgumentException(sprintf('The permission/operation combination "%s.%s" is not valid!', $permission, $operation));
+        }
 
-        $perm_list->setPermissionValue($permission, $bit, $new_val);
+        $perm_list->setPermissionValue($permission, $operation, $new_val);
     }
 
     /**
@@ -206,13 +209,90 @@ class PermissionResolver
             isset($this->permission_structure['perms'][$permission]['operations'][$operation]);
     }
 
+    /**
+     * This functions sets all operations mentioned in the alsoSet value of a permission, so that the structure is always valid.
+     * @param  HasPermissionsInterface $user
+     * @return void
+     */
+    public function ensureCorrectSetOperations(HasPermissionsInterface $user): void
+    {
+        //If we have changed anything on the permission structure due to the alsoSet value, this becomes true, so we
+        //redo the whole process, to ensure that all alsoSet values are set recursively.
+        $anything_changed = false;
+
+        do {
+            $anything_changed = false; //Reset the variable for the next iteration
+
+            //Check for each permission and operation, for an alsoSet attribute
+            foreach ($this->permission_structure['perms'] as $perm_key => $permission) {
+                foreach ($permission['operations'] as $op_key => $op) {
+                    if (!empty($op['alsoSet']) &&
+                        true === $this->dontInherit($user, $perm_key, $op_key)) {
+                        //Set every op listed in also Set
+                        foreach ($op['alsoSet'] as $set_also) {
+                            //If the alsoSet value contains a dot then we set the operation of another permission
+                            if (false !== strpos($set_also, '.')) {
+                                [$set_perm, $set_op] = explode('.', $set_also);
+                            } else {
+                                //Else we set the operation of the same permission
+                                [$set_perm, $set_op] = [$perm_key, $set_also];
+                            }
+
+                            //Check if we change the value of the permission
+                            if ($this->dontInherit($user, $set_perm, $set_op) !== true) {
+                                $this->setPermission($user, $set_perm, $set_op, true);
+                                //Mark the change, so we redo the whole process
+                                $anything_changed = true;
+                            }
+                        }
+                    }
+                }
+            }
+        } while($anything_changed);
+    }
+
+    /**
+     * Sets all possible operations of all possible permissions of the given entity to the given value.
+     * @param  HasPermissionsInterface  $perm_holder
+     * @param  bool|null  $new_value
+     * @return void
+     */
+    public function setAllPermissions(HasPermissionsInterface $perm_holder, ?bool $new_value): void
+    {
+        foreach ($this->permission_structure['perms'] as $perm_key => $permission) {
+            foreach ($permission['operations'] as $op_key => $op) {
+                $this->setPermission($perm_holder, $perm_key, $op_key, $new_value);
+            }
+        }
+    }
+
+    /**
+     * Sets all operations of the given permissions to the given value.
+     * Please note that you have to call ensureCorrectSetOperations() after this function, to ensure that all alsoSet values are set.
+     *
+     * @param  HasPermissionsInterface  $perm_holder
+     * @param  string  $permission
+     * @param  bool|null  $new_value
+     * @return void
+     */
+    public function setAllOperationsOfPermission(HasPermissionsInterface $perm_holder, string $permission, ?bool $new_value): void
+    {
+        if (!$this->isValidPermission($permission)) {
+            throw new InvalidArgumentException(sprintf('A permission with that name is not existing! Got %s.', $permission));
+        }
+
+        foreach ($this->permission_structure['perms'][$permission]['operations'] as $op_key => $op) {
+            $this->setPermission($perm_holder, $permission, $op_key, $new_value);
+        }
+    }
+
     protected function generatePermissionStructure()
     {
         $cache = new ConfigCache($this->cache_file, $this->is_debug);
 
         //Check if the cache is fresh, else regenerate it.
         if (!$cache->isFresh()) {
-            $permission_file = __DIR__.'/../../config/permissions.yaml';
+            $permission_file = __DIR__.'/../../../config/permissions.yaml';
 
             //Read the permission config file...
             $config = Yaml::parse(

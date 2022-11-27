@@ -106,7 +106,7 @@ class AttachmentFormType extends AbstractType
             'required' => false,
             'label' => 'attachment.edit.secure_file',
             'mapped' => false,
-            'disabled' => !$this->security->isGranted('@parts_attachments.show_private'),
+            'disabled' => !$this->security->isGranted('@attachments.show_private'),
             'help' => 'attachment.edit.secure_file.help',
         ]);
 

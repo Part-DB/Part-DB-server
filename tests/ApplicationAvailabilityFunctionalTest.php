@@ -71,13 +71,13 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
 
         $client->request('GET', $url);
 
-        $this->assertTrue($client->getResponse()->isSuccessful(), 'Request not successful. Status code is '.$client->getResponse()->getStatusCode());
+        $this->assertTrue($client->getResponse()->isSuccessful(), 'Request not successful. Status code is '.$client->getResponse()->getStatusCode() . ' for URL '.$url);
     }
 
     public function urlProvider(): ?Generator
     {
         //Homepage
-        //yield ['/'];
+        yield ['/'];
         //User related things
         yield ['/user/settings'];
         yield ['/user/info'];
@@ -117,9 +117,21 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         //Statistics
         yield ['/statistics'];
 
+        //Event log
+        yield ['/log/']; //Slash suffix here is important
+
+
         //Typeahead
         yield ['/typeahead/builtInResources/search?query=DIP8'];
         yield ['/typeahead/tags/search/test'];
+        yield ['/typeahead/parameters/part/search/NPN'];
+        yield ['/typeahead/parameters/category/search/NPN'];
+
+        //Select API
+        yield ['/select_api/category'];
+        yield ['/select_api/footprint'];
+        yield ['/select_api/manufacturer'];
+        yield ['/select_api/measurement_unit'];
 
         //Label test
         yield ['/scan'];
@@ -130,5 +142,9 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
 
         //Tools
         yield ['/tools/reel_calc'];
+        yield ['/tools/server_infos'];
+
+        //Webauthn Register
+        yield ['/webauthn/register'];
     }
 }

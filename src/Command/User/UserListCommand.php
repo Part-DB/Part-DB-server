@@ -43,7 +43,7 @@ class UserListCommand extends Command
         $io->title('Users:');
 
         $table = new Table($output);
-        $table->setHeaders(['ID', 'Username', 'Name', 'Email', 'Group']);
+        $table->setHeaders(['ID', 'Username', 'Name', 'Email', 'Group', 'Login Disabled']);
 
         foreach ($users as $user) {
             $table->addRow([
@@ -52,6 +52,7 @@ class UserListCommand extends Command
                 $user->getFullName(),
                 $user->getEmail(),
                 $user->getGroup() !== null ? $user->getGroup()->getName() . ' (ID: ' . $user->getGroup()->getID() . ')' : 'No group',
+                $user->isDisabled() ? 'Yes' : 'No',
             ]);
         }
 

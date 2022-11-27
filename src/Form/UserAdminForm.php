@@ -102,7 +102,7 @@ class UserAdminForm extends AbstractType
                 'required' => false,
                 'label' => 'group.label',
                 'disable_not_selectable' => true,
-                'disabled' => !$this->security->isGranted('change_group', $entity),
+                'disabled' => !$this->security->isGranted('edit_permissions', $entity),
             ])
 
             ->add('first_name', TextType::class, [
@@ -227,6 +227,7 @@ class UserAdminForm extends AbstractType
                 'mapped' => false,
                 'data' => $builder->getData(),
                 'disabled' => !$this->security->isGranted('edit_permissions', $entity),
+                'show_presets' => $this->security->isGranted('edit_permissions', $entity) && !$is_new,
             ])
         ;
         /*->add('comment', CKEditorType::class, ['required' => false,

@@ -15,7 +15,7 @@
         <td>{{ form_widget(form.price_related_quantity, {'attr': {'class': 'form-control-sm'}}) }} {{ form_errors(form.price_related_quantity) }}</td>
         <td>
             <button type="button" class="btn btn-danger order_btn_delete btn-sm" title="{% trans %}orderdetail.delete{% endtrans %}"
-                    {{ collection.delete_btn() }} {% if not is_granted('@parts_prices.delete') %}disabled{% endif %}>
+                    {{ collection.delete_btn() }}>
                 <i class="fas fa-trash-alt fa-fw"></i>
             </button>
             {{ form_errors(form) }}
@@ -50,15 +50,14 @@
                     </tbody>
                 </table>
 
-                <button type="button" class="btn btn-success" {{ collection.create_pricedetail_btn() }} {% if not is_granted('@parts_prices.create') %}disabled{% endif %}>
+                <button type="button" class="btn btn-success" {{ collection.create_pricedetail_btn() }}>
                     <i class="fas fa-plus-square fa-fw"></i>
                     {% trans %}pricedetail.create{% endtrans %}
                 </button>
             </div>
         </td>
         <td>
-            <button type="button" class="btn btn-danger order_btn_delete" {{ collection.delete_btn() }} title="{% trans %}orderdetail.delete{% endtrans %}"
-                    {% if not is_granted('@parts_orderdetails.delete') %}disabled{% endif %}>
+            <button type="button" class="btn btn-danger order_btn_delete" {{ collection.delete_btn() }} title="{% trans %}orderdetail.delete{% endtrans %}">
                 <i class="fas fa-trash-alt fa-fw"></i>
             </button>
             {{ form_errors(form) }}
@@ -93,8 +92,7 @@
             {{ form_widget(form) }}
         </td>
         <td>
-            <button type="button" class="btn btn-danger lot_btn_delete" {{ collection.delete_btn() }}
-                    {% if not is_granted('lots.delete', form.parent.parent.vars.data) %}disabled{% endif %}>
+            <button type="button" class="btn btn-danger lot_btn_delete" {{ collection.delete_btn() }}>
                 <i class="fas fa-trash-alt fa-fw"></i>
                 {% trans %}part_lot.delete{% endtrans %}
             </button>
@@ -111,7 +109,7 @@
             {{ form_widget(form) }}
         </td>
         <td>
-            <button type="button" class="btn btn-danger lot_btn_delete" {{ collection.delete_btn() }} {# {% if not is_granted('attachments.delete', part) %}disabled{% endif %}#}>
+            <button type="button" class="btn btn-danger lot_btn_delete" {{ collection.delete_btn() }}>
                 <i class="fas fa-trash-alt fa-fw"></i>
                 {% trans %}attachment.delete{% endtrans %}
             </button>

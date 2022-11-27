@@ -37,8 +37,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @ORM\MappedSuperclass(repositoryClass="App\Repository\DBElementRepository")
  *
- * @ORM\EntityListeners({"App\Security\EntityListeners\ElementPermissionListener"})
- *
  * @DiscriminatorMap(typeProperty="type", mapping={
  *      "attachment_type" = "App\Entity\AttachmentType",
  *      "attachment" = "App\Entity\Attachment",

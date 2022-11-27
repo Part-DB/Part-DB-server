@@ -242,12 +242,15 @@ class ToolsTreeBuilder
     protected function getShowNodes(): array
     {
         $show_nodes = [];
-        $show_nodes[] = (new TreeViewNode(
-            $this->translator->trans('tree.tools.show.all_parts'),
-            $this->urlGenerator->generate('parts_show_all')
-        ))->setIcon('fa-fw fa-treeview fa-solid fa-globe');
 
-        if ($this->security->isGranted('read', new PartAttachment())) {
+        if ($this->security->isGranted('@parts.read')) {
+            $show_nodes[] = (new TreeViewNode(
+                $this->translator->trans('tree.tools.show.all_parts'),
+                $this->urlGenerator->generate('parts_show_all')
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-globe');
+        }
+
+        if ($this->security->isGranted('@attachments.list_attachments')) {
             $show_nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.show.all_attachments'),
                 $this->urlGenerator->generate('attachment_list')
@@ -289,6 +292,13 @@ class ToolsTreeBuilder
                 $this->translator->trans('tree.tools.system.event_log'),
                 $this->urlGenerator->generate('log_view')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-binoculars');
+        }
+
+        if ($this->security->isGranted('@system.server_infos')) {
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('tools.server_infos.title'),
+                $this->urlGenerator->generate('tools_server_infos')
+            ))->setIcon('fa-fw fa-treeview fa-solid fa-database');
         }
 
         return $nodes;

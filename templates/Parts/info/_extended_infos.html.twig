@@ -9,7 +9,7 @@
 
     <tr>
         <td>{% trans %}user.creating_user{% endtrans %}</td>
-        <td>{% if is_granted('show_users', part) %}
+        <td>{% if is_granted('show_history', part) %}
                 {{ creating_user(part).fullName(true) ?? 'Unknown'|trans }}
             {% else %}
                 {% trans %}accessDenied{% endtrans %}
@@ -24,7 +24,7 @@
 
     <tr>
         <td>{% trans %}user.last_editing_user{% endtrans %}</td>
-        <td>{% if is_granted('show_users', part) %}
+        <td>{% if is_granted('show_history', part) %}
                 {{ last_editing_user(part).fullName(true) ?? 'Unknown'|trans }}
             {% else %}
                 {% trans %}accessDenied{% endtrans %}

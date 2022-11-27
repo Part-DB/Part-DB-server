@@ -1,13 +1,13 @@
 {% macro sidebar_dropdown() %}
-    {# Format is [mode, route, label] #}
+    {# Format is [mode, route, label, show_condition] #}
     {% set data_sources = [
-        ['categories', path('tree_category_root'), 'category.labelp'],
-        ['locations', path('tree_location_root'), 'storelocation.labelp'],
-        ['footprints', path('tree_footprint_root'), 'footprint.labelp'],
-        ['manufacturers', path('tree_manufacturer_root'), 'manufacturer.labelp'],
-        ['suppliers', path('tree_supplier_root'), 'supplier.labelp'],
-        ['devices', path('tree_device_root'), 'device.labelp'],
-        ['tools', path('tree_tools'), 'tools.label'],
+        ['categories', path('tree_category_root'), 'category.labelp', is_granted('@categories.read') and is_granted('@parts.read')],
+        ['locations', path('tree_location_root'), 'storelocation.labelp', is_granted('@storelocations.read') and is_granted('@parts.read')],
+        ['footprints', path('tree_footprint_root'), 'footprint.labelp', is_granted('@footprints.read') and is_granted('@parts.read')],
+        ['manufacturers', path('tree_manufacturer_root'), 'manufacturer.labelp', is_granted('@manufacturers.read') and is_granted('@parts.read')],
+        ['suppliers', path('tree_supplier_root'), 'supplier.labelp', is_granted('@suppliers.read') and is_granted('@parts.read')],
+        ['devices', path('tree_device_root'), 'device.labelp', is_granted('@devices.read')],
+        ['tools', path('tree_tools'), 'tools.label', true],
     ] %}
 
     <li class="dropdown-header">{% trans %}actions{% endtrans %}</li>
@@ -17,9 +17,11 @@
     <li class="dropdown-header">{% trans %}datasource{% endtrans %}</li>
 
     {% for source in data_sources %}
-        <li><button class="tree-btns dropdown-item" data-mode="{{ source[0] }}" data-url="{{ source[1] }}" data-text="{{ source[2] | trans }}"
-                    {{ stimulus_action('elements/sidebar_tree', 'changeDataSource')  }}
-            >{{ source[2] | trans }}</button></li>
+        {% if source[3] %} {# show_condition #}
+            <li><button class="tree-btns dropdown-item" data-mode="{{ source[0] }}" data-url="{{ source[1] }}" data-text="{{ source[2] | trans }}"
+                        {{ stimulus_action('elements/sidebar_tree', 'changeDataSource')  }}
+                >{{ source[2] | trans }}</button></li>
+        {% endif %}
     {% endfor %}
 {% endmacro %}
 
@@ -28,7 +30,7 @@
         <div class="input-group input-group-sm mb-2 mt-1">
             <button class="btn btn-light dropdown-toggle" type="button"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            ><span class="sidebar-title" {{ stimulus_target('elements/sidebar_tree', 'sourceText') }}>Loading...</span></button>
+            ><span class="sidebar-title" {{ stimulus_target('elements/sidebar_tree', 'sourceText') }}>Loading... / Access Denied</span></button>
             <ul class="dropdown-menu" aria-labelledby="dropdownCat">
                 {{ _self.sidebar_dropdown('tree-categories') }}
             </ul>

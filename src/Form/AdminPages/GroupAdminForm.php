@@ -64,6 +64,7 @@ class GroupAdminForm extends BaseEntityAdminForm
             'mapped' => false,
             'data' => $builder->getData(),
             'disabled' => !$this->security->isGranted('edit_permissions', $entity),
+            'show_presets' => $this->security->isGranted('edit_permissions', $entity) && !$is_new,
         ]);
     }
 }

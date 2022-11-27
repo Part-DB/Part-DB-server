@@ -40,58 +40,65 @@ declare(strict_types=1);
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  */
 
-namespace App\Services\TFA;
+namespace App\Services\UserSystem\TFA;
 
-use App\Entity\UserSystem\User;
+use Exception;
+use RuntimeException;
 
 /**
- * This services offers methods to manage backup codes for two factor authentication.
+ * This class generates random backup codes for two factor authentication.
  */
-class BackupCodeManager
+class BackupCodeGenerator
 {
-    protected BackupCodeGenerator $backupCodeGenerator;
-
-    public function __construct(BackupCodeGenerator $backupCodeGenerator)
-    {
-        $this->backupCodeGenerator = $backupCodeGenerator;
-    }
+    protected int $code_length;
+    protected int $code_count;
 
     /**
-     * Enable backup codes for the given user, by generating a set of backup codes.
-     * If the backup codes were already enabled before, they a.
-     */
-    public function enableBackupCodes(User $user): void
-    {
-        if (empty($user->getBackupCodes())) {
-            $this->regenerateBackupCodes($user);
-        }
-    }
-
-    /**
-     * Disable (remove) the backup codes when no other 2 factor authentication methods are enabled.
-     */
-    public function disableBackupCodesIfUnused(User $user): void
-    {
-        if ($user->isGoogleAuthenticatorEnabled()) {
-            return;
-        }
-
-        if ($user->isWebAuthnAuthenticatorEnabled()) {
-            return;
-        }
-
-        $user->setBackupCodes([]);
-    }
-
-    /**
-     * Generates a new set of backup codes for the user. If no backup codes were available before, new ones are
-     * generated.
+     * BackupCodeGenerator constructor.
      *
-     * @param User $user The user for which the backup codes should be regenerated
+     * @param int $code_length how many characters a single code should have
+     * @param int $code_count  how many codes are generated for a whole backup set
      */
-    public function regenerateBackupCodes(User $user): void
+    public function __construct(int $code_length, int $code_count)
     {
-        $codes = $this->backupCodeGenerator->generateCodeSet();
-        $user->setBackupCodes($codes);
+        if ($code_length > 32) {
+            throw new RuntimeException('Backup code can have maximum 32 digits!');
+        }
+        if ($code_length < 6) {
+            throw new RuntimeException('Code must have at least 6 digits to ensure security!');
+        }
+
+        $this->code_count = $code_count;
+        $this->code_length = $code_length;
+    }
+
+    /**
+     * Generates a single backup code.
+     * It is a random hexadecimal value with the digit count configured in constructor.
+     *
+     * @return string The generated backup code (e.g. 1f3870be2)
+     *
+     * @throws Exception if no entropy source is available
+     */
+    public function generateSingleCode(): string
+    {
+        $bytes = random_bytes(32);
+
+        return substr(md5($bytes), 0, $this->code_length);
+    }
+
+    /**
+     * Returns a full backup code set. The code count can be configured in the constructor.
+     *
+     * @return string[] an array containing different backup codes
+     */
+    public function generateCodeSet(): array
+    {
+        $array = [];
+        for ($n = 0; $n < $this->code_count; ++$n) {
+            $array[] = $this->generateSingleCode();
+        }
+
+        return $array;
     }
 }

@@ -42,7 +42,7 @@ declare(strict_types=1);
 
 namespace App\Form\Permissions;
 
-use App\Services\PermissionResolver;
+use App\Services\UserSystem\PermissionManager;
 use App\Validator\Constraints\NoLockout;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -53,10 +53,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PermissionsType extends AbstractType
 {
-    protected PermissionResolver $resolver;
+    protected PermissionManager $resolver;
     protected array $perm_structure;
 
-    public function __construct(PermissionResolver $resolver)
+    public function __construct(PermissionManager $resolver)
     {
         $this->resolver = $resolver;
         $this->perm_structure = $resolver->getPermissionStructure();
@@ -66,6 +66,7 @@ class PermissionsType extends AbstractType
     {
         $resolver->setDefaults([
             'show_legend' => true,
+            'show_presets' => false,
             'constraints' => static function (Options $options) {
                 if (!$options['disabled']) {
                     return [new NoLockout()];
@@ -80,6 +81,7 @@ class PermissionsType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['show_legend'] = $options['show_legend'];
+        $view->vars['show_presets'] = $options['show_presets'];
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

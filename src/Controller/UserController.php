@@ -54,6 +54,7 @@ use App\Form\UserAdminForm;
 use App\Services\EntityExporter;
 use App\Services\EntityImporter;
 use App\Services\StructuralElementRecursionHelper;
+use App\Services\UserSystem\PermissionPresetsHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use InvalidArgumentException;
@@ -101,7 +102,7 @@ class UserController extends AdminPages\BaseAdminController
      *
      * @throws Exception
      */
-    public function edit(User $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
+    public function edit(User $entity, Request $request, EntityManagerInterface $em,  PermissionPresetsHelper $permissionPresetsHelper, ?string $timestamp = null): Response
     {
         //Handle 2FA disabling
 
@@ -127,6 +128,25 @@ class UserController extends AdminPages\BaseAdminController
                 $this->eventDispatcher->dispatch($event, SecurityEvents::TFA_ADMIN_RESET);
 
                 $this->addFlash('success', 'user.edit.reset_success');
+            } else {
+                $this->addFlash('danger', 'csfr_invalid');
+            }
+        }
+
+        //Handle permissions presets
+        if ($request->request->has('permission_preset')) {
+            $this->denyAccessUnlessGranted('edit_permissions', $entity);
+            if ($this->isCsrfTokenValid('reset_2fa'.$entity->getId(), $request->request->get('_token'))) {
+                $preset = $request->request->get('permission_preset');
+
+                $permissionPresetsHelper->applyPreset($entity, $preset);
+
+                $em->flush();
+
+                $this->addFlash('success', 'user.edit.permission_success');
+
+                //We need to stop the execution here, or our permissions changes will be overwritten by the form values
+                return $this->redirectToRoute('user_edit', ['id' => $entity->getID()]);
             } else {
                 $this->addFlash('danger', 'csfr_invalid');
             }

@@ -1,0 +1,25 @@
+{% import "helper.twig" as helper %}
+<table class="table table-sm table-striped table-hover table-bordered">
+    <tbody>
+    <tr>
+        <td>PHP version</td>
+        <td>{{ php_version }} (SAPI: {{ php_sapi }})</td>
+    </tr>
+    <tr>
+        <td>Server Operating System</td>
+        <td>{{ php_uname }}</td>
+    </tr>
+    <tr>
+        <td>Opcache enabled</td>
+        <td>{{ helper.boolean_badge(php_opcache_enabled) }}</td>
+    </tr>
+    <tr>
+        <td>Maximum upload sizee (upload_max_filesize / post_max_size)</td>
+        <td>{{ php_upload_max_filesize }} / {{ php_post_max_size }}</td>
+    </tr>
+    <tr>
+        <td>PHP extensions</td>
+        <td>{{ helper.array_to_tags(php_extensions) }}</td>
+    </tr>
+    </tbody>
+</table>

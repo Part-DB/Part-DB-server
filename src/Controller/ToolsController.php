@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Services\GitVersionInfo;
+use App\Services\Misc\DBInfoHelper;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,5 +22,48 @@ class ToolsController extends AbstractController
         $this->denyAccessUnlessGranted('@tools.reel_calculator');
 
         return $this->render('Tools/ReelCalculator/main.html.twig');
+    }
+
+    /**
+     * @Route("/server_infos", name="tools_server_infos")
+     */
+    public function systemInfos(GitVersionInfo $versionInfo, DBInfoHelper $DBInfoHelper): Response
+    {
+        $this->denyAccessUnlessGranted('@system.server_infos');
+
+        return $this->render('Tools/ServerInfos/main.html.twig', [
+            //Part-DB section
+            'git_branch' => $versionInfo->getGitBranchName(),
+            'git_commit' => $versionInfo->getGitCommitHash(),
+            'default_locale' => $this->getParameter('partdb.locale'),
+            'default_timezone' => $this->getParameter('partdb.timezone'),
+            'default_currency' => $this->getParameter('partdb.default_currency'),
+            'default_theme' => $this->getParameter('partdb.global_theme'),
+            'enabled_locales' => $this->getParameter('partdb.locale_menu'),
+            'demo_mode' => $this->getParameter('partdb.demo_mode'),
+            'gpdr_compliance' => $this->getParameter('partdb.gpdr_compliance'),
+            'use_gravatar' => $this->getParameter('partdb.users.use_gravatar'),
+            'email_password_reset' => $this->getParameter('partdb.users.email_pw_reset'),
+            'enviroment' => $this->getParameter('kernel.environment'),
+            'is_debug' => $this->getParameter('kernel.debug'),
+            'email_sender' => $this->getParameter('partdb.mail.sender_email'),
+            'email_sender_name' => $this->getParameter('partdb.mail.sender_name'),
+            'allow_attachments_downloads' => $this->getParameter('partdb.attachments.allow_downloads'),
+            'detailed_error_pages' => $this->getParameter('partdb.error_pages.show_help'),
+            'error_page_admin_email' => $this->getParameter('partdb.error_pages.admin_email'),
+
+            //PHP section
+            'php_version' => PHP_VERSION,
+            'php_uname' => php_uname('a'),
+            'php_sapi' => PHP_SAPI,
+            'php_extensions' => array_merge(get_loaded_extensions()),
+            'php_opcache_enabled' => ini_get('opcache.enable'),
+            'php_upload_max_filesize' => ini_get('upload_max_filesize'),
+            'php_post_max_size' => ini_get('post_max_size'),
+
+            //DB section
+            'db_type' => $DBInfoHelper->getDatabaseType() ?? 'Unknown',
+            'db_version' => $DBInfoHelper->getDatabaseVersion() ?? 'Unknown',
+        ]);
     }
 }

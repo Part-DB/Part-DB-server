@@ -54,7 +54,7 @@ class CollectionTypeExtension extends AbstractTypeExtension
 
     public static function getExtendedTypes(): iterable
     {
-        return [CollectionType::class, WorkaroundCollectionType::class];
+        return [CollectionType::class];
     }
 
     public function configureOptions(OptionsResolver $resolver): void

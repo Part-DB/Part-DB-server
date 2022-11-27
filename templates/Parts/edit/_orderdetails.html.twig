@@ -6,12 +6,12 @@
     <table class="table table-striped table-sm table-responsive-md" id="orderdetails_table" {{ collection.target() }}>
         <tbody>
         {% for detail in form.orderdetails %}
-            {{ form_widget(detail, {'disable_delete' : not is_granted('orderdetails.delete', part)}) }}
+            {{ form_widget(detail) }}
         {% endfor %}
         </tbody>
     </table>
 
-    <button type="button" class="btn btn-success" {{ collection.create_btn() }} {% if not is_granted('orderdetails.create', part) %}disabled{% endif %}>
+    <button type="button" class="btn btn-success" {{ collection.create_btn() }}>
         <i class="fas fa-plus-square fa-fw"></i>
         {% trans %}orderdetail.create{% endtrans %}
     </button>

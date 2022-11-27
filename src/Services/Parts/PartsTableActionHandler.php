@@ -76,9 +76,11 @@ final class PartsTableActionHandler
 
             switch ($action) {
                 case 'favorite':
+                    $this->denyAccessUnlessGranted('change_favorite', $part);
                     $part->setFavorite(true);
                     break;
                 case 'unfavorite':
+                    $this->denyAccessUnlessGranted('change_favorite', $part);
                     $part->setFavorite(false);
                     break;
                 case 'delete':
@@ -86,19 +88,19 @@ final class PartsTableActionHandler
                     $this->entityManager->remove($part);
                     break;
                 case 'change_category':
-                    $this->denyAccessUnlessGranted('category.edit', $part);
+                    $this->denyAccessUnlessGranted('@categories.read');
                     $part->setCategory($this->entityManager->find(Category::class, $target_id));
                     break;
                 case 'change_footprint':
-                    $this->denyAccessUnlessGranted('footprint.edit', $part);
+                    $this->denyAccessUnlessGranted('@footprints.read');
                     $part->setFootprint(null === $target_id ? null : $this->entityManager->find(Footprint::class, $target_id));
                     break;
                 case 'change_manufacturer':
-                    $this->denyAccessUnlessGranted('manufacturer.edit', $part);
+                    $this->denyAccessUnlessGranted('@manufacturers.read');
                     $part->setManufacturer(null === $target_id ? null : $this->entityManager->find(Manufacturer::class, $target_id));
                     break;
                 case 'change_unit':
-                    $this->denyAccessUnlessGranted('unit.edit', $part);
+                    $this->denyAccessUnlessGranted('@measurement_units.read');
                     $part->setPartUnit(null === $target_id ? null : $this->entityManager->find(MeasurementUnit::class, $target_id));
                     break;
 

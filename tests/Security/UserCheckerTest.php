@@ -45,15 +45,18 @@ namespace App\Tests\Security;
 use App\Entity\UserSystem\User;
 use App\Security\UserChecker;
 use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 use Symfony\Component\Security\Core\Exception\DisabledException;
 
-class UserCheckerTest extends TestCase
+class UserCheckerTest extends WebTestCase
 {
     protected $service;
 
     protected function setUp(): void
     {
-        $this->service = new UserChecker();
+        self::bootKernel();
+        $this->service = self::getContainer()->get(UserChecker::class);
     }
 
     public function testThrowDisabledException(): void
@@ -66,7 +69,7 @@ class UserCheckerTest extends TestCase
 
         //An disabled user must throw an exception
         $user->setDisabled(true);
-        $this->expectException(DisabledException::class);
+        $this->expectException(CustomUserMessageAccountStatusException::class);
         $this->service->checkPostAuth($user);
     }
 }

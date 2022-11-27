@@ -12,6 +12,7 @@
 
 {% block additional_panes %}
     <div class="tab-pane" id="tab_permissions">
+        <input type="hidden" name="_token" value="{{ csrf_token('group' ~ entity.id) }}">
         {{ form_row(form.permissions) }}
     </div>
 {% endblock %}

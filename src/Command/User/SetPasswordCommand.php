@@ -56,7 +56,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class SetPasswordCommand extends Command
 {
-    protected static $defaultName = 'partdb:users:set-password|app:set-password|users:set-password';
+    protected static $defaultName = 'partdb:users:set-password|app:set-password|users:set-password|partdb:user:set-password';
 
     protected EntityManagerInterface $entityManager;
     protected UserPasswordHasherInterface $encoder;
@@ -77,7 +77,6 @@ class SetPasswordCommand extends Command
             ->setDescription('Sets the password of a user')
             ->setHelp('This password allows you to set the password of a user, without knowing the old password.')
             ->addArgument('user', InputArgument::REQUIRED, 'The name of the user')
-
         ;
     }
 

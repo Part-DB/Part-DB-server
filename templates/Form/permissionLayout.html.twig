@@ -4,7 +4,7 @@
             {% if multi_checkbox %}
 
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input tristate permission_multicheckbox" id="mulit_check_{{ form.vars.label }}">
+                    <input type="checkbox" class="form-check-input tristate permission-checkbox permission_multicheckbox" id="mulit_check_{{ form.vars.label }}">
                     <label class="form-check-label" for="mulit_check_{{ form.vars.label }}">
                         <b>{{ form.vars.label | trans }}</b>
                     </label>
@@ -48,26 +48,46 @@
 {% block permissions_row %}
     {{ form_errors(form) }}
 
-    {% if show_legend %}
-        <div class="mb-2">
-            <label><b>{% trans %}permission.legend.title{% endtrans %}:</b></label>
-            <div>
-                <div class="form-check form-check-inline">
-                    <input type="checkbox" class="form-check-input" disabled>
-                    <label class="form-check-label opacity-100">{% trans %}permission.legend.disallow{% endtrans %}</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" disabled>
-                    <label class="form-check-label  opacity-100">{% trans %}permission.legend.allow{% endtrans %}</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input type="checkbox" class="tristate form-check-input" indeterminate="indeterminate" disabled>
-                    <label class="form-check-label opacity-100">{% trans %}permission.legend.inherit{% endtrans %}</label>
+    <div class="row mb-2">
+        {% if show_legend %}
+            <div class="col">
+                <label><b>{% trans %}permission.legend.title{% endtrans %}:</b></label>
+                <div>
+                    <div class="form-check form-check-inline">
+                        <input type="checkbox" class="form-check-input permission-checkbox" disabled>
+                        <label class="form-check-label opacity-100">{% trans %}permission.legend.disallow{% endtrans %}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input permission-checkbox" type="checkbox" checked disabled>
+                        <label class="form-check-label  opacity-100">{% trans %}permission.legend.allow{% endtrans %}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="checkbox" class="tristate form-check-input permission-checkbox" indeterminate="indeterminate" value="indeterminate" disabled>
+                        <label class="form-check-label opacity-100">{% trans %}permission.legend.inherit{% endtrans %}</label>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
 
-    {% endif %}
+        {% if show_presets %}
+            <div class="col text-end">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        {% trans %}permission.preset.button{% endtrans %}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><button type="submit" name="permission_preset" value="read_only" class="dropdown-item" >{% trans %}permission.preset.read_only{% endtrans%} <br><small class="text-muted">{% trans %}permission.preset.read_only.desc{% endtrans%}</small></button></li>
+                        <li><button type="submit" name="permission_preset" value="editor" class="dropdown-item" >{% trans %}permission.preset.editor{% endtrans%} <br><small class="text-muted">{% trans %}permission.preset.editor.desc{% endtrans%}</small></button></li>
+                        <li><button type="submit" name="permission_preset" value="admin" class="dropdown-item" >{% trans %}permission.preset.admin{% endtrans%} <br><small class="text-muted">{% trans %}permission.preset.admin.desc{% endtrans%}</small></button></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><button type="submit" name="permission_preset" value="all_inherit" class="dropdown-item" >{% trans %}permission.preset.all_inherit{% endtrans%}<br><small class="text-muted">{% trans %}permission.preset.all_inherit.desc{% endtrans%}</small></button></li>
+                        <li><button type="submit" name="permission_preset" value="all_forbid" class="dropdown-item" >{% trans %}permission.preset.all_forbid{% endtrans%}<br><small class="text-muted">{% trans %}permission.preset.all_forbid.desc{% endtrans%}</small></button></li>
+                        <li><button type="submit" name="permission_preset" value="all_allow" class="dropdown-item" >{% trans %}permission.preset.all_allow{% endtrans%}<br><small class="text-muted">{% trans %}permission.preset.all_allow.desc{% endtrans%}</small></button></li>
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+    </div>
 
     <ul class="nav nav-tabs">
         {% for group in form %}

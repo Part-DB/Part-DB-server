@@ -42,7 +42,7 @@ declare(strict_types=1);
 
 namespace App\Services\TranslationExtractor;
 
-use App\Services\PermissionResolver;
+use App\Services\UserSystem\PermissionManager;
 use Symfony\Component\Translation\Extractor\ExtractorInterface;
 use Symfony\Component\Translation\MessageCatalogue;
 
@@ -55,7 +55,7 @@ final class PermissionExtractor implements ExtractorInterface
     private array $permission_structure;
     private bool $finished = false;
 
-    public function __construct(PermissionResolver $resolver)
+    public function __construct(PermissionManager $resolver)
     {
         $this->permission_structure = $resolver->getPermissionStructure();
     }

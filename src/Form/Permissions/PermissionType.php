@@ -43,7 +43,7 @@ declare(strict_types=1);
 namespace App\Form\Permissions;
 
 use App\Form\Type\TriStateCheckboxType;
-use App\Services\PermissionResolver;
+use App\Services\UserSystem\PermissionManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -53,10 +53,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PermissionType extends AbstractType
 {
-    protected PermissionResolver $resolver;
+    protected PermissionManager $resolver;
     protected array $perm_structure;
 
-    public function __construct(PermissionResolver $resolver)
+    public function __construct(PermissionManager $resolver)
     {
         $this->resolver = $resolver;
         $this->perm_structure = $resolver->getPermissionStructure();
@@ -97,6 +97,9 @@ class PermissionType extends AbstractType
                 'mapped' => false,
                 'label' => $operation['label'] ?? null,
                 'disabled' => $options['disabled'],
+                'attr' => [
+                    'class' => 'permission-checkbox tristate',
+                ],
                 'label_attr' => [
                     'class' => 'checkbox-inline opacity-100',
                 ],

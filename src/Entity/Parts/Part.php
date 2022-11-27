@@ -61,7 +61,6 @@ use App\Entity\Parts\PartTraits\BasicPropertyTrait;
 use App\Entity\Parts\PartTraits\InstockTrait;
 use App\Entity\Parts\PartTraits\ManufacturerTrait;
 use App\Entity\Parts\PartTraits\OrderTrait;
-use App\Security\Annotations\ColumnSecurity;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -103,7 +102,6 @@ class Part extends AttachmentContainingDBElement
     protected $parameters;
 
     /**
-     * @ColumnSecurity(type="datetime")
      * @ORM\Column(type="datetime", name="datetime_added", options={"default"="CURRENT_TIMESTAMP"})
      */
     protected ?DateTime $addedDate = null;
@@ -116,14 +114,12 @@ class Part extends AttachmentContainingDBElement
     /**
      * @var string The name of this part
      * @ORM\Column(type="string")
-     * @ColumnSecurity(prefix="name")
      */
     protected string $name = '';
 
     /**
      * @var Collection<int, PartAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\PartAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ColumnSecurity(type="collection", prefix="attachments")
      * @ORM\OrderBy({"name" = "ASC"})
      * @Assert\Valid()
      */
@@ -131,7 +127,6 @@ class Part extends AttachmentContainingDBElement
 
     /**
      * @var DateTime the date when this element was modified the last time
-     * @ColumnSecurity(type="datetime")
      * @ORM\Column(type="datetime", name="last_modified", options={"default"="CURRENT_TIMESTAMP"})
      */
     protected ?DateTime $lastModified = null;

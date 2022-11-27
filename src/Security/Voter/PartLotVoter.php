@@ -25,30 +25,60 @@ namespace App\Security\Voter;
 
 use App\Entity\Parts\PartLot;
 use App\Entity\UserSystem\User;
+use App\Services\UserSystem\PermissionManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Security;
 
 class PartLotVoter extends ExtendedVoter
 {
-    /**
-     * @var string[] When this permsission are encountered, they are checked on part
-     */
-    protected const PART_PERMS = ['show_history', 'revert_element'];
+    protected Security $security;
+
+    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, Security $security)
+    {
+        parent::__construct($resolver, $entityManager);
+        $this->security = $security;
+    }
+
+    protected const ALLOWED_PERMS = ['read', 'edit', 'create', 'delete', 'show_history', 'revert_element'];
 
     protected function voteOnUser(string $attribute, $subject, User $user): bool
     {
-        if (in_array($attribute, self::PART_PERMS, true)) {
-            return $this->resolver->inherit($user, 'parts', $attribute) ?? false;
+        if (! is_a($subject, PartLot::class, true)) {
+            throw new \RuntimeException('This voter can only handle PartLot objects!');
         }
 
-        return $this->resolver->inherit($user, 'parts_lots', $attribute) ?? false;
+        switch ($attribute) {
+            case 'read':
+                $operation = 'read';
+                break;
+            case 'edit': //As long as we can edit, we can also edit orderdetails
+            case 'create':
+            case 'delete':
+                $operation = 'edit';
+                break;
+            case 'show_history':
+                $operation = 'show_history';
+                break;
+            case 'revert_element':
+                $operation = 'revert_element';
+                break;
+            default:
+                throw new \RuntimeException('Encountered unknown operation "'.$attribute.'"!');
+        }
+
+        //If we have no part associated use the generic part permission
+        if (is_string($subject) || $subject->getPart() === null) {
+            return $this->resolver->inherit($user, 'parts', $operation) ?? false;
+        }
+
+        //Otherwise vote on the part
+        return $this->security->isGranted($attribute, $subject->getPart());
     }
 
     protected function supports($attribute, $subject): bool
     {
         if (is_a($subject, PartLot::class, true)) {
-            return in_array($attribute, array_merge(
-                self::PART_PERMS,
-                $this->resolver->listOperationsForPermission('parts_lots')
-            ), true);
+            return in_array($attribute, self::ALLOWED_PERMS, true);
         }
 
         return false;

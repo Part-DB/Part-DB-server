@@ -175,6 +175,8 @@ class PartListsController extends AbstractController
      */
     public function showCategory(Category $category, Request $request)
     {
+        $this->denyAccessUnlessGranted('@categories.read');
+
         return $this->showListWithFilter($request,
             'Parts/lists/category_list.html.twig',
             function (PartFilter $filter) use ($category) {
@@ -195,6 +197,8 @@ class PartListsController extends AbstractController
      */
     public function showFootprint(Footprint $footprint, Request $request)
     {
+        $this->denyAccessUnlessGranted('@footprints.read');
+
         return $this->showListWithFilter($request,
             'Parts/lists/footprint_list.html.twig',
             function (PartFilter $filter) use ($footprint) {
@@ -215,6 +219,8 @@ class PartListsController extends AbstractController
      */
     public function showManufacturer(Manufacturer $manufacturer, Request $request)
     {
+        $this->denyAccessUnlessGranted('@manufacturers.read');
+
         return $this->showListWithFilter($request,
             'Parts/lists/manufacturer_list.html.twig',
             function (PartFilter $filter) use ($manufacturer) {
@@ -235,6 +241,8 @@ class PartListsController extends AbstractController
      */
     public function showStorelocation(Storelocation $storelocation, Request $request)
     {
+        $this->denyAccessUnlessGranted('@storelocations.read');
+
         return $this->showListWithFilter($request,
             'Parts/lists/store_location_list.html.twig',
             function (PartFilter $filter) use ($storelocation) {
@@ -255,6 +263,8 @@ class PartListsController extends AbstractController
      */
     public function showSupplier(Supplier $supplier, Request $request)
     {
+        $this->denyAccessUnlessGranted('@suppliers.read');
+
         return $this->showListWithFilter($request,
             'Parts/lists/supplier_list.html.twig',
             function (PartFilter $filter) use ($supplier) {

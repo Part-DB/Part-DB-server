@@ -44,7 +44,6 @@ namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\PartLot;
-use App\Security\Annotations\ColumnSecurity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -58,7 +57,6 @@ trait InstockTrait
      * @var Collection|PartLot[] A list of part lots where this part is stored
      * @ORM\OneToMany(targetEntity="PartLot", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
-     * @ColumnSecurity(type="collection", prefix="lots")
      * @ORM\OrderBy({"amount" = "DESC"})
      */
     protected $partLots;
@@ -68,7 +66,6 @@ trait InstockTrait
      *            Given in the partUnit.
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero()
-     * @ColumnSecurity(prefix="minamount", type="integer")
      */
     protected float $minamount = 0;
 
@@ -76,7 +73,6 @@ trait InstockTrait
      * @var ?MeasurementUnit the unit in which the part's amount is measured
      * @ORM\ManyToOne(targetEntity="MeasurementUnit")
      * @ORM\JoinColumn(name="id_part_unit", referencedColumnName="id", nullable=true)
-     * @ColumnSecurity(type="object", prefix="unit")
      */
     protected ?MeasurementUnit $partUnit = null;
 

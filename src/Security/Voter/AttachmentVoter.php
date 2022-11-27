@@ -44,10 +44,22 @@ namespace App\Security\Voter;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\UserSystem\User;
+use App\Services\UserSystem\PermissionManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Security;
+
 use function in_array;
 
 class AttachmentVoter extends ExtendedVoter
 {
+    protected $security;
+
+    public function __construct(PermissionManager $resolver, EntityManagerInterface $entityManager, Security $security)
+    {
+        parent::__construct($resolver, $entityManager);
+        $this->security = $security;
+    }
+
     /**
      * Similar to voteOnAttribute, but checking for the anonymous user is already done.
      * The current user (or the anonymous user) is passed by $user.
@@ -56,7 +68,31 @@ class AttachmentVoter extends ExtendedVoter
      */
     protected function voteOnUser(string $attribute, $subject, User $user): bool
     {
-        return $this->resolver->inherit($user, 'parts_attachments', $attribute) ?? false;
+        //return $this->resolver->inherit($user, 'attachments', $attribute) ?? false;
+
+        //If the attachment has no element (which should not happen), we deny access, as we can not determine if the user is allowed to access the associated element
+        $target_element = $subject->getElement();
+        if (! $subject instanceof Attachment || null === $target_element) {
+            return false;
+        }
+
+        //Depending on the operation delegate either to the attachments element or to the attachment permission
+        switch ($attribute) {
+            //We can view the attachment if we can view the element
+            case 'read':
+            case 'view':
+                return $this->security->isGranted('read', $target_element);
+            //We can edit/create/delete the attachment if we can edit the element
+            case 'edit':
+            case 'create':
+            case 'delete':
+                return $this->security->isGranted('edit', $target_element);
+
+            case 'show_private':
+                return $this->resolver->inherit($user, 'attachments', 'show_private') ?? false;
+        }
+
+        throw new \RuntimeException('Encountered unknown attribute "'.$attribute.'" in AttachmentVoter!');
     }
 
     /**
@@ -70,7 +106,8 @@ class AttachmentVoter extends ExtendedVoter
     protected function supports(string $attribute, $subject): bool
     {
         if (is_a($subject, Attachment::class, true)) {
-            return in_array($attribute, $this->resolver->listOperationsForPermission('parts_attachments'), false);
+            //These are the allowed attributes
+            return in_array($attribute, ['read', 'view', 'edit', 'delete', 'create', 'show_private'], true);
         }
 
         //Allow class name as subject

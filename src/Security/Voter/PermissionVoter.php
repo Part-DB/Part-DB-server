@@ -80,7 +80,14 @@ class PermissionVoter extends ExtendedVoter
             $attribute = ltrim($attribute, '@');
             [$perm, $op] = explode('.', $attribute);
 
-            return $this->resolver->isValidOperation($perm, $op);
+            $valid = $this->resolver->isValidOperation($perm, $op);
+
+            //if an invalid operation is encountered, throw an exception so the developer knows it
+            if(!$valid) {
+                throw new \RuntimeException('Encountered invalid permission operation "'.$op.'" for permission "'.$perm.'"!');
+            }
+
+            return true;
         }
 
         return false;

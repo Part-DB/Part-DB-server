@@ -95,11 +95,12 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      */
     protected $attachments;
 
-    /** @var PermissionsEmbed
-     * @ORM\Embedded(class="PermissionsEmbed", columnPrefix="perms_")
+    /**
+     * @var PermissionData
      * @ValidPermission()
+     * @ORM\Embedded(class="PermissionData", columnPrefix="permissions_")
      */
-    protected $permissions;
+    protected PermissionData $permissions;
 
     /** @var Collection<int, GroupParameter>
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\GroupParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -111,7 +112,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     public function __construct()
     {
         parent::__construct();
-        $this->permissions = new PermissionsEmbed();
+        $this->permissions = new PermissionData();
         $this->users = new ArrayCollection();
     }
 
@@ -137,7 +138,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
         return $this;
     }
 
-    public function getPermissions(): PermissionsEmbed
+    public function getPermissions(): PermissionData
     {
         return $this->permissions;
     }

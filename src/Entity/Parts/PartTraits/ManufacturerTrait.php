@@ -44,7 +44,6 @@ namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
-use App\Security\Annotations\ColumnSecurity;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -58,7 +57,6 @@ trait ManufacturerTrait
      * @var Manufacturer|null The manufacturer of this part
      * @ORM\ManyToOne(targetEntity="Manufacturer")
      * @ORM\JoinColumn(name="id_manufacturer", referencedColumnName="id")
-     * @ColumnSecurity(prefix="manufacturer", type="App\Entity\Parts\Manufacturer")
      * @Selectable()
      */
     protected ?Manufacturer $manufacturer = null;
@@ -67,14 +65,12 @@ trait ManufacturerTrait
      * @var string the url to the part on the manufacturer's homepage
      * @ORM\Column(type="string")
      * @Assert\Url()
-     * @ColumnSecurity(prefix="mpn", type="string", placeholder="")
      */
     protected string $manufacturer_product_url = '';
 
     /**
      * @var string The product number used by the manufacturer. If this is set to "", the name field is used.
      * @ORM\Column(type="string")
-     * @ColumnSecurity(prefix="mpn", type="string", placeholder="")
      */
     protected string $manufacturer_product_number = '';
 
@@ -82,7 +78,6 @@ trait ManufacturerTrait
      * @var string The production status of this part. Can be one of the specified ones.
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Choice({"announced", "active", "nrfnd", "eol", "discontinued", ""})
-     * @ColumnSecurity(type="string", prefix="status", placeholder="")
      */
     protected ?string $manufacturing_status = '';
 

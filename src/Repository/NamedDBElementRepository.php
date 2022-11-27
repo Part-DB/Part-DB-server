@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Base\AbstractNamedDBElement;
+use App\Entity\UserSystem\User;
 use App\Helpers\Trees\TreeViewNode;
 
 class NamedDBElementRepository extends DBElementRepository
@@ -63,6 +64,11 @@ class NamedDBElementRepository extends DBElementRepository
             $node = new TreeViewNode($entity->getName(), null, null);
             $node->setId($entity->getID());
             $result[] = $node;
+
+            if ($entity instanceof User && $entity->isDisabled()) {
+                //If this is an user, then add a badge when it is disabled
+                $node->setIcon('fa-fw fa-treeview fa-solid fa-user-lock text-muted');
+            }
         }
 
         return $result;
