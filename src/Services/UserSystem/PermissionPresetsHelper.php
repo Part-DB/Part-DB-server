@@ -129,6 +129,10 @@ class PermissionPresetsHelper
         //Label permissions
         $this->permissionResolver->setPermission($perm_holder, 'labels', 'create_labels', PermissionData::ALLOW);
         $this->permissionResolver->setPermission($perm_holder, 'labels', 'edit_options', PermissionData::ALLOW);
+        $this->permissionResolver->setPermission($perm_holder, 'labels', 'read_profiles', PermissionData::ALLOW);
+
+        //Set devices permissions
+        $this->permissionResolver->setPermission($perm_holder, 'devices', 'read', PermissionData::ALLOW);
 
         return $perm_holder;
     }

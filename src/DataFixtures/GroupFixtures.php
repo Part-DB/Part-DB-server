@@ -43,6 +43,7 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\UserSystem\Group;
+use App\Services\UserSystem\PermissionManager;
 use App\Services\UserSystem\PermissionPresetsHelper;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -55,10 +56,12 @@ class GroupFixtures extends Fixture
 
 
     private PermissionPresetsHelper $permission_presets;
+    private PermissionManager $permissionManager;
 
-    public function __construct(PermissionPresetsHelper $permissionPresetsHelper)
+    public function __construct(PermissionPresetsHelper $permissionPresetsHelper, PermissionManager $permissionManager)
     {
         $this->permission_presets = $permissionPresetsHelper;
+        $this->permissionManager = $permissionManager;
     }
 
     public function load(ObjectManager $manager): void
@@ -67,6 +70,7 @@ class GroupFixtures extends Fixture
         $admins->setName('admins');
         //Set permissions using preset
         $this->permission_presets->applyPreset($admins, PermissionPresetsHelper::PRESET_ALL_ALLOW);
+        $this->addDevicesPermissions($admins);
         $this->setReference(self::ADMINS, $admins);
         $manager->persist($admins);
 
@@ -79,9 +83,16 @@ class GroupFixtures extends Fixture
         $users = new Group();
         $users->setName('users');
         $this->permission_presets->applyPreset($users, PermissionPresetsHelper::PRESET_EDITOR);
+        $this->addDevicesPermissions($users);
         $this->setReference(self::USERS, $users);
         $manager->persist($users);
 
         $manager->flush();
     }
+
+    private function addDevicesPermissions(Group $group): void
+    {
+        $this->permissionManager->setAllOperationsOfPermission($group, 'devices', true);
+    }
+
 }
