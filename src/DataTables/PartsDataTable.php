@@ -210,8 +210,19 @@ final class PartsDataTable implements DataTableTypeInterface
             'label' => $this->translator->trans('part.table.amount'),
             'render' => function ($value, Part $context) {
                 $amount = $context->getAmountSum();
+                $expiredAmount = $context->getExpiredAmountSum();
 
-                return $this->amountFormatter->format($amount, $context->getPartUnit());
+                $ret = $this->amountFormatter->format($amount, $context->getPartUnit());
+
+                //If we have expired lots, we show them in parentheses behind
+                if ($expiredAmount > 0) {
+                    $ret .= sprintf(' <span title="%s" class="text-muted">(+%s)</span>',
+                        $this->translator->trans('part_lots.is_expired'),
+                        $this->amountFormatter->format($expiredAmount, $context->getPartUnit()));
+                }
+
+
+                return $ret;
             },
             'orderField' => 'amountSum'
         ])

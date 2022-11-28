@@ -194,6 +194,26 @@ trait InstockTrait
     }
 
     /**
+     * Returns the summed amount of all part lots that are expired. If no part lots are expired 0 is returned.
+     * @return float
+     */
+    public function getExpiredAmountSum(): float
+    {
+        $sum = 0.0;
+        foreach ($this->getPartLots() as $lot) {
+            if ($lot->isExpired() && !$lot->isInstockUnknown()) {
+                $sum += $lot->getAmount();
+            }
+        }
+
+        if ($this->useFloatAmount()) {
+            return $sum;
+        }
+
+        return round($sum);
+    }
+
+    /**
      * Set the minimum amount of parts that have to be instock.
      * See getPartUnit() for the associated unit.
      *
