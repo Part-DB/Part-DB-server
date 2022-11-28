@@ -38,7 +38,10 @@
                     <option {% if not is_granted('@parts.change_favorite')  %}disabled{% endif %} value="favorite">{% trans %}part_list.action.action.favorite{% endtrans %}</option>
                     <option {% if not is_granted('@parts.change_favorite') %}disabled{% endif %} value="unfavorite">{% trans %}part_list.action.action.unfavorite{% endtrans %}</option>
                 </optgroup>
-
+                <optgroup label="{% trans %}part_list.action.action.group.needs_review{% endtrans %}">
+                    <option {% if not is_granted('@parts.edit')  %}disabled{% endif %} value="set_needs_review">{% trans %}part_list.action.action.set_needs_review{% endtrans %}</option>
+                    <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="unset_needs_review">{% trans %}part_list.action.action.unset_needs_review{% endtrans %}</option>
+                </optgroup>
                 <optgroup label="{% trans %}part_list.action.action.group.change_field{% endtrans %}">
                     <option {% if not is_granted('@categories.read') %}disabled{% endif %} value="change_category" data-url="{{ path('select_category') }}">{% trans %}part_list.action.action.change_category{% endtrans %}</option>
                     <option {% if not is_granted('@footprints.read') %}disabled{% endif %} value="change_footprint" data-url="{{ path('select_footprint') }}">{% trans %}part_list.action.action.change_footprint{% endtrans %}</option>

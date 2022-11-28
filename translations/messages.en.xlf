@@ -9887,5 +9887,23 @@ Element 3</target>
         <target>Data</target>
       </segment>
     </unit>
+    <unit id="AAoGo_X" name="part_list.action.action.group.needs_review">
+      <segment>
+        <source>part_list.action.action.group.needs_review</source>
+        <target>Needs Review</target>
+      </segment>
+    </unit>
+    <unit id="hcvOTrH" name="part_list.action.action.set_needs_review">
+      <segment>
+        <source>part_list.action.action.set_needs_review</source>
+        <target>Set Needs Review Status</target>
+      </segment>
+    </unit>
+    <unit id="E1AQubV" name="part_list.action.action.unset_needs_review">
+      <segment>
+        <source>part_list.action.action.unset_needs_review</source>
+        <target>Unset Needs Review Status</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

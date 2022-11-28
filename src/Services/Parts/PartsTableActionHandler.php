@@ -83,6 +83,14 @@ final class PartsTableActionHandler
                     $this->denyAccessUnlessGranted('change_favorite', $part);
                     $part->setFavorite(false);
                     break;
+                case 'set_needs_review':
+                    $this->denyAccessUnlessGranted('edit', $part);
+                    $part->setNeedsReview(true);
+                    break;
+                case 'unset_needs_review':
+                    $this->denyAccessUnlessGranted('edit', $part);
+                    $part->setNeedsReview(false);
+                    break;
                 case 'delete':
                     $this->denyAccessUnlessGranted('delete', $part);
                     $this->entityManager->remove($part);
