@@ -61,14 +61,15 @@ class MarkdownParser
      * The rendering of markdown is done on client side.
      *
      * @param string $markdown    the markdown text that should be parsed to html
-     * @param bool   $inline_mode Only allow inline markdown codes like (*bold* or **italic**), not something like tables
+     * @param bool   $inline_mode When true, p blocks will have no margins behind them
      *
      * @return string the markdown in a version that can be parsed on client side
      */
     public function markForRendering(string $markdown, bool $inline_mode = false): string
     {
         return sprintf(
-            '<div class="markdown" data-markdown="%s" data-controller="common--markdown">%s</div>',
+            '<div class="markdown %s" data-markdown="%s" data-controller="common--markdown">%s</div>',
+            $inline_mode ? 'markdown-inline' : '',  //Add class if inline mode is enabled, to prevent margin after p
             htmlspecialchars($markdown),
             $this->translator->trans('markdown.loading')
         );

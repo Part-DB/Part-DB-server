@@ -743,6 +743,10 @@ th.select-checkbox {
     margin-right: 0.2em;
 }
 
+.markdown-inline p {
+    margin-block-end: 0;
+}
+
 /*********************************
     Workarounds
  *********************************/
