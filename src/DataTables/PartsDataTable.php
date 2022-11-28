@@ -343,7 +343,20 @@ final class PartsDataTable implements DataTableTypeInterface
             ->leftJoin('part.partUnit', 'partUnit')
             ->leftJoin('part.parameters', 'parameters')
 
-            ->groupBy('part')
+            //We have to group by all elements, or only the first sub elements of an association is fetched! (caused issue #190)
+            ->addGroupBy('part')
+            ->addGroupBy('partLots')
+            ->addGroupBy('category')
+            ->addGroupBy('master_picture_attachment')
+            ->addGroupBy('storelocations')
+            ->addGroupBy('footprint')
+            ->addGroupBy('footprint_attachment')
+            ->addGroupBy('manufacturer')
+            ->addGroupBy('orderdetails')
+            ->addGroupBy('suppliers')
+            ->addGroupBy('attachments')
+            ->addGroupBy('partUnit')
+            ->addGroupBy('parameters');
         ;
     }
 
