@@ -150,10 +150,22 @@ final class PartsDataTable implements DataTableTypeInterface
             ->add('name', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.name'),
                 'render' => function ($value, Part $context) {
+                    $icon = '';
+
+                    //Depending on the part status we show a different icon (the later conditions have higher priority)
+                    if ($context->isFavorite()) {
+                        $icon = sprintf('<i class="fa-solid fa-star fa-fw me-1" title="%s"></i>', $this->translator->trans('part.favorite.badge'));
+                    }
+                    if ($context->isNeedsReview()) {
+                        $icon = sprintf('<i class="fa-solid fa-ambulance fa-fw me-1" title="%s"></i>', $this->translator->trans('part.needs_review.badge'));
+                    }
+
+
                     return sprintf(
-                        '<a href="%s">%s</a>',
+                        '<a href="%s">%s%s</a>',
                         $this->urlGenerator->infoURL($context),
-                        $context->getName()
+                        $icon,
+                        htmlentities($context->getName())
                     );
                 },
             ])
