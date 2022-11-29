@@ -7779,7 +7779,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.parts</source>
-        <target>Common</target>
+        <target>Parts</target>
       </segment>
     </unit>
     <unit id="eeUmOBN" name="perm.read">
@@ -8690,6 +8690,12 @@ Element 3</target>
       <segment state="translated">
         <source>google</source>
         <target>Google</target>
+      </segment>
+    </unit>
+    <unit id="RAX6xpX" name="tfa.provider.webauthn_two_factor_provider">
+      <segment state="translated">
+        <source>tfa.provider.webauthn_two_factor_provider</source>
+        <target>Security key</target>
       </segment>
     </unit>
     <unit id="XTe6pUU" name="tfa.provider.google">
@@ -9759,6 +9765,144 @@ Element 3</target>
       <segment state="translated">
         <source>log.target_id</source>
         <target>Target element ID</target>
+      </segment>
+    </unit>
+    <unit id="dU7EyhM" name="entity.info.parts_count_recursive">
+      <segment state="translated">
+        <source>entity.info.parts_count_recursive</source>
+        <target>Number of parts with this element or its subelements</target>
+      </segment>
+    </unit>
+    <unit id="_hKlKv." name="tools.server_infos.title">
+      <segment state="translated">
+        <source>tools.server_infos.title</source>
+        <target>Server Infos</target>
+      </segment>
+    </unit>
+    <unit id="NvclBUL" name="permission.preset.read_only">
+      <segment state="translated">
+        <source>permission.preset.read_only</source>
+        <target>Read-Only</target>
+      </segment>
+    </unit>
+    <unit id="HD3j3BW" name="permission.preset.read_only.desc">
+      <segment state="translated">
+        <source>permission.preset.read_only.desc</source>
+        <target>Only allow read operations on data</target>
+      </segment>
+    </unit>
+    <unit id="Ge20aJg" name="permission.preset.all_inherit">
+      <segment state="translated">
+        <source>permission.preset.all_inherit</source>
+        <target>Inherit all</target>
+      </segment>
+    </unit>
+    <unit id="DJpsLcr" name="permission.preset.all_inherit.desc">
+      <segment state="translated">
+        <source>permission.preset.all_inherit.desc</source>
+        <target>Set all permissions to Inherit</target>
+      </segment>
+    </unit>
+    <unit id="lzjvvzm" name="permission.preset.all_forbid">
+      <segment state="translated">
+        <source>permission.preset.all_forbid</source>
+        <target>Forbid all</target>
+      </segment>
+    </unit>
+    <unit id="QqQDTyH" name="permission.preset.all_forbid.desc">
+      <segment state="translated">
+        <source>permission.preset.all_forbid.desc</source>
+        <target>Set all permissions to Forbid</target>
+      </segment>
+    </unit>
+    <unit id="DV2fh6l" name="permission.preset.all_allow">
+      <segment state="translated">
+        <source>permission.preset.all_allow</source>
+        <target>Allow all</target>
+      </segment>
+    </unit>
+    <unit id="_m.Pbza" name="permission.preset.all_allow.desc">
+      <segment state="translated">
+        <source>permission.preset.all_allow.desc</source>
+        <target>Set all permissions to allow</target>
+      </segment>
+    </unit>
+    <unit id="VIDdo5K" name="perm.server_infos">
+      <segment state="translated">
+        <source>perm.server_infos</source>
+        <target>Server infos</target>
+      </segment>
+    </unit>
+    <unit id="d6SOlzR" name="permission.preset.editor">
+      <segment state="translated">
+        <source>permission.preset.editor</source>
+        <target>Editor</target>
+      </segment>
+    </unit>
+    <unit id="8KYl_wh" name="permission.preset.editor.desc">
+      <segment state="translated">
+        <source>permission.preset.editor.desc</source>
+        <target>Allow to change parts and data structures</target>
+      </segment>
+    </unit>
+    <unit id="dYudjp." name="permission.preset.admin">
+      <segment state="translated">
+        <source>permission.preset.admin</source>
+        <target>Admin</target>
+      </segment>
+    </unit>
+    <unit id="0o2M0uj" name="permission.preset.admin.desc">
+      <segment state="translated">
+        <source>permission.preset.admin.desc</source>
+        <target>Allow administrative actions</target>
+      </segment>
+    </unit>
+    <unit id="SnAIVQf" name="permission.preset.button">
+      <segment state="translated">
+        <source>permission.preset.button</source>
+        <target>Apply preset</target>
+      </segment>
+    </unit>
+    <unit id="6q4uHDx" name="perm.attachments.show_private">
+      <segment state="translated">
+        <source>perm.attachments.show_private</source>
+        <target>Show private attachments</target>
+      </segment>
+    </unit>
+    <unit id="NL9t5hy" name="perm.attachments.list_attachments">
+      <segment state="translated">
+        <source>perm.attachments.list_attachments</source>
+        <target>Show list of all attachments</target>
+      </segment>
+    </unit>
+    <unit id="PYh9dNP" name="user.edit.permission_success">
+      <segment state="translated">
+        <source>user.edit.permission_success</source>
+        <target>Permission preset applied successfully. Check if the new permissions fit your needs.</target>
+      </segment>
+    </unit>
+    <unit id="cP8VNKS" name="perm.group.data">
+      <segment state="translated">
+        <source>perm.group.data</source>
+        <target>Data</target>
+      </segment>
+    </unit>
+    <unit id="AAoGo_X" name="part_list.action.action.group.needs_review">
+      <segment state="translated">
+        <source>part_list.action.action.group.needs_review</source>
+        <target>Needs Review</target>
+      </segment>
+    </unit>
+    <unit id="hcvOTrH" name="part_list.action.action.set_needs_review">
+      <segment state="translated">
+        <source>part_list.action.action.set_needs_review</source>
+        <target>Set Needs Review Status</target>
+      </segment>
+    </unit>
+    <unit id="E1AQubV" name="part_list.action.action.unset_needs_review">
+      <segment state="translated">
+        <source>part_list.action.action.unset_needs_review</source>
+        <target>Unset Needs Review Status</target>
       </segment>
     </unit>
   </file>
