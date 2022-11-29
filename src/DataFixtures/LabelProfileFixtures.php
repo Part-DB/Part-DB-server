@@ -23,7 +23,7 @@ declare(strict_types=1);
 /**
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
  *
- * Copyright (C) 2019 - 2020 Jan Böhmer (https://github.com/jbtronics)
+ * Copyright (C) 2019 - 2022 Jan Böhmer (https://github.com/jbtronics)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
