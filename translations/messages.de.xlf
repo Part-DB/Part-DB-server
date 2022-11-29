@@ -8691,6 +8691,12 @@ Element 3</target>
         <target>Google</target>
       </segment>
     </unit>
+    <unit id="RAX6xpX" name="tfa.provider.webauthn_two_factor_provider">
+      <segment state="translated">
+        <source>tfa.provider.webauthn_two_factor_provider</source>
+        <target>Sicherheitsschlüssel</target>
+      </segment>
+    </unit>
     <unit id="XTe6pUU" name="tfa.provider.google">
       <notes>
         <note priority="1">obsolete</note>
@@ -9310,6 +9316,12 @@ Element 3</target>
         <target>Passwortänderung benötigt! Bitte setze ein neues Passwort.</target>
       </segment>
     </unit>
+    <unit id="uEMvuw8" name="tree.root_node.text">
+      <segment state="translated">
+        <source>tree.root_node.text</source>
+        <target>Wurzel</target>
+      </segment>
+    </unit>
     <unit id="EieqscF" name="part_list.action.select_null">
       <segment state="translated">
         <source>part_list.action.select_null</source>
@@ -9758,6 +9770,30 @@ Element 3</target>
       <segment state="translated">
         <source>entity.info.parts_count_recursive</source>
         <target>Bauteile mit diesem Element oder dessen Kindelementen</target>
+      </segment>
+    </unit>
+    <unit id="NvclBUL" name="permission.preset.read_only">
+      <segment state="translated">
+        <source>permission.preset.read_only</source>
+        <target>Nur Lesen</target>
+      </segment>
+    </unit>
+    <unit id="HD3j3BW" name="permission.preset.read_only.desc">
+      <segment state="translated">
+        <source>permission.preset.read_only.desc</source>
+        <target>Erlaube nur lesende Operationen auf Daten</target>
+      </segment>
+    </unit>
+    <unit id="Ge20aJg" name="permission.preset.all_inherit">
+      <segment state="translated">
+        <source>permission.preset.all_inherit</source>
+        <target>Alle Erben</target>
+      </segment>
+    </unit>
+    <unit id="DJpsLcr" name="permission.preset.all_inherit.desc">
+      <segment state="translated">
+        <source>permission.preset.all_inherit.desc</source>
+        <target>Setze all Berechtigungen auf Erben</target>
       </segment>
     </unit>
   </file>
