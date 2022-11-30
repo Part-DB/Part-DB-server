@@ -41,9 +41,47 @@ declare(strict_types=1);
 
 namespace App\Entity\LogSystem;
 
+use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentType;
+use App\Entity\Attachments\AttachmentTypeAttachment;
+use App\Entity\Attachments\CategoryAttachment;
+use App\Entity\Attachments\CurrencyAttachment;
+use App\Entity\Attachments\DeviceAttachment;
+use App\Entity\Attachments\FootprintAttachment;
+use App\Entity\Attachments\GroupAttachment;
+use App\Entity\Attachments\ManufacturerAttachment;
+use App\Entity\Attachments\MeasurementUnitAttachment;
+use App\Entity\Attachments\PartAttachment;
+use App\Entity\Attachments\StorelocationAttachment;
+use App\Entity\Attachments\SupplierAttachment;
+use App\Entity\Attachments\UserAttachment;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\LogWithEventUndoInterface;
 use App\Entity\Contracts\NamedElementInterface;
+use App\Entity\Devices\Device;
+use App\Entity\Parameters\AbstractParameter;
+use App\Entity\Parameters\AttachmentTypeParameter;
+use App\Entity\Parameters\CategoryParameter;
+use App\Entity\Parameters\CurrencyParameter;
+use App\Entity\Parameters\DeviceParameter;
+use App\Entity\Parameters\FootprintParameter;
+use App\Entity\Parameters\GroupParameter;
+use App\Entity\Parameters\ManufacturerParameter;
+use App\Entity\Parameters\MeasurementUnitParameter;
+use App\Entity\Parameters\PartParameter;
+use App\Entity\Parameters\StorelocationParameter;
+use App\Entity\Parameters\SupplierParameter;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Footprint;
+use App\Entity\Parts\Manufacturer;
+use App\Entity\Parts\MeasurementUnit;
+use App\Entity\Parts\Part;
+use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\Supplier;
+use App\Entity\PriceInformations\Currency;
+use App\Entity\UserSystem\Group;
+use App\Entity\UserSystem\User;
+use App\Repository\Parts\ManufacturerRepository;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 
@@ -93,7 +131,89 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
      */
     public function getDeletedElementClass(): string
     {
-        return self::targetTypeIdToClass($this->extra['c']);
+        //The class name of our target element
+        $tmp = self::targetTypeIdToClass($this->extra['c']);
+
+        $reflection_class = new \ReflectionClass($tmp);
+        //If the class is abstract, we have to map it to an instantiable class
+        if ($reflection_class->isAbstract()) {
+            return $this->resolveAbstractClassToInstantiableClass($tmp);
+        }
+
+        return $tmp;
+    }
+
+    /**
+     * This functions maps an abstract class name derived from the extra c element to an instantiable class name (based on the target element of this log entry).
+     * For example if the target element is a part and the extra c element is "App\Entity\Attachments\Attachment", this function will return "App\Entity\Attachments\PartAttachment".
+     * @param  string  $abstract_class
+     * @return string
+     */
+    private function resolveAbstractClassToInstantiableClass(string $abstract_class): string
+    {
+        if (is_a($abstract_class, AbstractParameter::class, true)) {
+            switch ($this->getTargetClass()) {
+                case AttachmentType::class:
+                    return AttachmentTypeParameter::class;
+                case Category::class:
+                    return CategoryParameter::class;
+                case Currency::class:
+                    return CurrencyParameter::class;
+                case Device::class:
+                    return DeviceParameter::class;
+                case Footprint::class:
+                    return FootprintParameter::class;
+                case Group::class:
+                    return GroupParameter::class;
+                case Manufacturer::class:
+                    return ManufacturerParameter::class;
+                case MeasurementUnit::class:
+                    return MeasurementUnitParameter::class;
+                case Part::class:
+                    return PartParameter::class;
+                case Storelocation::class:
+                    return StorelocationParameter::class;
+                case Supplier::class:
+                    return SupplierParameter::class;
+
+                default:
+                    throw new \RuntimeException('Unknown target class for parameter: '.$this->getTargetClass());
+            }
+        }
+
+        if (is_a($abstract_class, Attachment::class, true)) {
+            switch ($this->getTargetClass()) {
+                case AttachmentType::class:
+                    return AttachmentTypeAttachment::class;
+                case Category::class:
+                    return CategoryAttachment::class;
+                case Currency::class:
+                    return CurrencyAttachment::class;
+                case Device::class:
+                    return DeviceAttachment::class;
+                case Footprint::class:
+                    return FootprintAttachment::class;
+                case Group::class:
+                    return GroupAttachment::class;
+                case Manufacturer::class:
+                    return ManufacturerAttachment::class;
+                case MeasurementUnit::class:
+                    return MeasurementUnitAttachment::class;
+                case Part::class:
+                    return PartAttachment::class;
+                case Storelocation::class:
+                    return StorelocationAttachment::class;
+                case Supplier::class:
+                    return SupplierAttachment::class;
+                case User::class:
+                    return UserAttachment::class;
+
+                default:
+                    throw new \RuntimeException('Unknown target class for parameter: '.$this->getTargetClass());
+            }
+        }
+
+        throw new \RuntimeException('The class '.$abstract_class.' is abstract and no explicit resolving to an concrete type is defined!');
     }
 
     /**

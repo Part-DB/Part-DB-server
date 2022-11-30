@@ -53,6 +53,7 @@ class TimeTravel
         $this->repo = $em->getRepository(AbstractLogEntry::class);
     }
 
+
     /**
      * Undeletes the element with the given ID.
      *
