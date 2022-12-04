@@ -9,7 +9,7 @@
     {% trans with {'%name%': part.name} %}part.edit.card_title{% endtrans %}
     <b><a href="{{ entity_url(part, 'info') }}" class="text-white">{{ part.name }}</a></b>
     <div class="float-end">
-        {% trans %}id.label{% endtrans %}: {{ part.id }}
+        {% trans %}id.label{% endtrans %}: {{ part.id }} {% if part.ipn is not empty %}(<i>{{ part.ipn }}</i>){% endif %}
     </div>
 {% endblock %}
 

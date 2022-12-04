@@ -51,6 +51,14 @@ trait AdvancedPropertyTrait
     protected ?float $mass = null;
 
     /**
+     * @var string The internal part number of the part
+     * @ORM\Column(type="string", length=100, nullable=true, unique=true)
+     * @Assert\Length(max="100")
+     *
+     */
+    protected ?string $ipn = null;
+
+    /**
      * Checks if this part is marked, for that it needs further review.
      */
     public function isNeedsReview(): bool
@@ -117,4 +125,26 @@ trait AdvancedPropertyTrait
 
         return $this;
     }
+
+    /**
+     * Returns the internal part number of the part.
+     * @return string
+     */
+    public function getIpn(): ?string
+    {
+        return $this->ipn;
+    }
+
+    /**
+     * Sets the internal part number of the part
+     * @param  string  $ipn The new IPN of the part
+     * @return Part
+     */
+    public function setIpn(?string $ipn): Part
+    {
+        $this->ipn = $ipn;
+        return $this;
+    }
+
+
 }

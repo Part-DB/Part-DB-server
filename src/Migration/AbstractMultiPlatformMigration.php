@@ -130,7 +130,9 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
     public function postUp(Schema $schema): void
     {
         parent::postUp($schema);
-        $this->logger->warning('<question>[!!!] Permissions were updated! Please check if they fit your expectations!</question>');
+        if($this->permissions_updated) {
+            $this->logger->warning('<question>[!!!] Permissions were updated! Please check if they fit your expectations!</question>');
+        }
 
         if (!empty($this->admin_pw)) {
             $this->logger->warning('');

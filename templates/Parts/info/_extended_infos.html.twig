@@ -37,6 +37,11 @@
         <td>{{ part.iD }}</td>
     </tr>
 
+    <tr> {# ID #}
+        <td>{% trans %}part.edit.ipn{% endtrans %}</td>
+        <td>{{ part.ipn ?? 'part.ipn.not_defined'|trans }}</td>
+    </tr>
+
     <tr> {# Favorite status #}
         <td>{% trans %}part.isFavorite{% endtrans %}</td>
         <td>{{ helper.boolean(part.favorite) }}</td>

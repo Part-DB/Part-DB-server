@@ -9905,5 +9905,23 @@ Element 3</target>
         <target>Unset Needs Review Status</target>
       </segment>
     </unit>
+    <unit id="DNEEkTy" name="part.edit.ipn">
+      <segment>
+        <source>part.edit.ipn</source>
+        <target>Internal Part Number (IPN)</target>
+      </segment>
+    </unit>
+    <unit id="bT6yxOA" name="part.ipn.not_defined">
+      <segment>
+        <source>part.ipn.not_defined</source>
+        <target>Not defined</target>
+      </segment>
+    </unit>
+    <unit id="SHo2Ejq" name="part.table.ipn">
+      <segment>
+        <source>part.table.ipn</source>
+        <target>IPN</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

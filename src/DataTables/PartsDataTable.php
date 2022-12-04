@@ -153,6 +153,10 @@ final class PartsDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.id'),
                 'visible' => false,
             ])
+            ->add('ipn', TextColumn::class, [
+                'label' => $this->translator->trans('part.table.ipn'),
+                'visible' => false,
+            ])
             ->add('description', MarkdownColumn::class, [
                 'label' => $this->translator->trans('part.table.description'),
             ]);

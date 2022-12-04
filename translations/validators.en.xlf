@@ -233,5 +233,11 @@
         <target>To enable SI prefixes, you have to set a unit symbol!</target>
       </segment>
     </unit>
+    <unit id="DuzIOCr" name="part.ipn.must_be_unique">
+      <segment>
+        <source>part.ipn.must_be_unique</source>
+        <target>The internal part number must be unique. {{ value }} is already in use!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

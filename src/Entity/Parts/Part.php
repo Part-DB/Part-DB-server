@@ -37,6 +37,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -49,7 +50,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table("`parts`", indexes={
  *    @ORM\Index(name="parts_idx_datet_name_last_id_needs", columns={"datetime_added", "name", "last_modified", "id", "needs_review"}),
  *    @ORM\Index(name="parts_idx_name", columns={"name"}),
+ *    @ORM\Index(name="parts_idx_ipn", columns={"ipn"}),
  * })
+ * @UniqueEntity(fields={"ipn"}, message="part.ipn.must_be_unique")
  */
 class Part extends AttachmentContainingDBElement
 {

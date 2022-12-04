@@ -50,6 +50,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 
+use function Sodium\add;
+
 class PartBaseType extends AbstractType
 {
     protected Security $security;
@@ -169,6 +171,11 @@ class PartBaseType extends AbstractType
                 'required' => false,
                 'disable_not_selectable' => true,
                 'label' => 'part.edit.partUnit',
+            ])
+            ->add('ipn', TextType::class, [
+                'required' => false,
+                'empty_data' => null,
+                'label' => 'part.edit.ipn',
             ]);
 
         //Comment section
