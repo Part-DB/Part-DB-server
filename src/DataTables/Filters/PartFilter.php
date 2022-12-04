@@ -47,6 +47,7 @@ class PartFilter implements FilterInterface
     use CompoundFilterTrait;
 
     protected IntConstraint $dbId;
+    protected TextConstraint $ipn;
     protected TextConstraint $name;
     protected TextConstraint $description;
     protected TextConstraint $comment;
@@ -95,6 +96,7 @@ class PartFilter implements FilterInterface
         $this->measurementUnit = new EntityConstraint($nodesListBuilder, MeasurementUnit::class, 'part.partUnit');
         $this->mass = new NumberConstraint('part.mass');
         $this->dbId = new IntConstraint('part.id');
+        $this->ipn = new TextConstraint('part.ipn');
         $this->addedDate = new DateTimeConstraint('part.addedDate');
         $this->lastModified = new DateTimeConstraint('part.lastModified');
 
@@ -233,6 +235,11 @@ class PartFilter implements FilterInterface
     public function getDbId(): NumberConstraint
     {
         return $this->dbId;
+    }
+
+    public function getIpn(): TextConstraint
+    {
+        return $this->ipn;
     }
 
     /**

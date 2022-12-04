@@ -100,6 +100,10 @@ class PartFilterType extends AbstractType
             'step' => 1,
         ]);
 
+        $builder->add('ipn', TextConstraintType::class, [
+            'label' => 'part.edit.ipn',
+        ]);
+
         $builder->add('favorite', BooleanConstraintType::class, [
             'label' => 'part.edit.is_favorite'
         ]);
