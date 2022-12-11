@@ -9923,5 +9923,23 @@ Element 3</target>
         <target>IPN</target>
       </segment>
     </unit>
+    <unit id="1HcqCmo" name="currency.edit.update_rate">
+      <segment>
+        <source>currency.edit.update_rate</source>
+        <target>Retrieve exchange rate</target>
+      </segment>
+    </unit>
+    <unit id="jSf6Wmz" name="currency.edit.exchange_rate_update.unsupported_currency">
+      <segment>
+        <source>currency.edit.exchange_rate_update.unsupported_currency</source>
+        <target>The currency is unsupported by the exchange rate provider. Check your exchange rate provider configuration.</target>
+      </segment>
+    </unit>
+    <unit id="D481NZD" name="currency.edit.exchange_rate_update.generic_error">
+      <segment>
+        <source>currency.edit.exchange_rate_update.generic_error</source>
+        <target>Unable to retrieve the exchange rate. Check your exchange rate provider configuration.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

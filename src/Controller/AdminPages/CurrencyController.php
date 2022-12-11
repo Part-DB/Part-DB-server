@@ -39,6 +39,7 @@ use App\Services\LogSystem\TimeTravel;
 use App\Services\StructuralElementRecursionHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Exchanger\Exception\ChainException;
+use Exchanger\Exception\Exception;
 use Exchanger\Exception\UnsupportedCurrencyPairException;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -117,8 +118,8 @@ class CurrencyController extends BaseAdminController
             try {
                 $this->exchangeRateUpdater->update($entity);
                 $this->addFlash('info', 'currency.edit.exchange_rate_updated.success');
-            } catch (ChainException $exception) {
-                $exception = $exception->getExceptions()[0];
+            } catch (Exception $exception) {
+                //$exception = $exception->getExceptions()[0];
                 if ($exception instanceof UnsupportedCurrencyPairException || false !== stripos($exception->getMessage(), 'supported')) {
                     $this->addFlash('error', 'currency.edit.exchange_rate_update.unsupported_currency');
                 } else {

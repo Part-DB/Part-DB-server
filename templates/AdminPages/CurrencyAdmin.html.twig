@@ -20,7 +20,7 @@
     {{ form_row(form.exchange_rate) }}
 
     {% if form.update_exchange_rate is defined %}
-        {{ form_row(form.update_exchange_rate, {attr: {class: 'btn-link'}}) }}
+        {{ form_row(form.update_exchange_rate, {attr: {class: 'btn-info'}}) }}
     {% endif %}
     {% if entity.inverseExchangeRate %}
         <span class="form-text text-muted offset-3 col-9">
