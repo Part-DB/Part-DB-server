@@ -9904,5 +9904,47 @@ Element 3</target>
         <target>Review benötigt Status entfernen</target>
       </segment>
     </unit>
+    <unit id="DNEEkTy" name="part.edit.ipn">
+      <segment state="translated">
+        <source>part.edit.ipn</source>
+        <target>Internal Part Number (IPN)</target>
+      </segment>
+    </unit>
+    <unit id="bT6yxOA" name="part.ipn.not_defined">
+      <segment state="translated">
+        <source>part.ipn.not_defined</source>
+        <target>Nicht definiert</target>
+      </segment>
+    </unit>
+    <unit id="SHo2Ejq" name="part.table.ipn">
+      <segment state="translated">
+        <source>part.table.ipn</source>
+        <target>IPN</target>
+      </segment>
+    </unit>
+    <unit id="1HcqCmo" name="currency.edit.update_rate">
+      <segment state="translated">
+        <source>currency.edit.update_rate</source>
+        <target>Wechselkurs abfragen</target>
+      </segment>
+    </unit>
+    <unit id="jSf6Wmz" name="currency.edit.exchange_rate_update.unsupported_currency">
+      <segment state="translated">
+        <source>currency.edit.exchange_rate_update.unsupported_currency</source>
+        <target>Die Währung wird vom Wechselkursprovider nicht unterstützt. Bitte überprüfen Sie die Konfiguration der Wechselkursprovider.</target>
+      </segment>
+    </unit>
+    <unit id="D481NZD" name="currency.edit.exchange_rate_update.generic_error">
+      <segment state="translated">
+        <source>currency.edit.exchange_rate_update.generic_error</source>
+        <target>Wechselkurs kann nicht abgefragt werden. Bitte überprüfen Sie die Konfiguration der Wechselkursprovider.</target>
+      </segment>
+    </unit>
+    <unit id="E_M7mZ5" name="currency.edit.exchange_rate_updated.success">
+      <segment state="translated">
+        <source>currency.edit.exchange_rate_updated.success</source>
+        <target>Wechselkurs erfolgreich aktualisiert.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
