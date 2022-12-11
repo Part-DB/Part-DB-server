@@ -64,7 +64,18 @@ class LocaleDateTimeColumn extends AbstractColumn
             null
         );
 
-        return $formatter->format($value->getTimestamp());
+        //For the tooltip text
+        $long_formatter = IntlDateFormatter::create(
+            Locale::getDefault(),
+            IntlDateFormatter::FULL,
+            IntlDateFormatter::LONG,
+            null
+        );
+
+        return sprintf('<span title="%s">%s</span>',
+            $long_formatter->format($value->getTimestamp()), //Long form
+            $formatter->format($value->getTimestamp()), //Short form
+        );
     }
 
     protected function configureOptions(OptionsResolver $resolver): self
