@@ -8693,16 +8693,6 @@ exemple de ville</target>
         <target>google</target>
       </segment>
     </unit>
-    <unit id="tST2X1R" name="tfa.provider.u2f_two_factor">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>tfa.provider.u2f_two_factor</source>
-        <target>Clé de sécurité (U2F)</target>
-      </segment>
-    </unit>
     <unit id="XTe6pUU" name="tfa.provider.google">
       <notes>
         <note priority="1">obsolete</note>
@@ -9314,6 +9304,30 @@ exemple de ville</target>
       <segment state="translated">
         <source>tree.tools.tools.reel_calculator</source>
         <target>Calculateur de bobines CMS</target>
+      </segment>
+    </unit>
+    <unit id="1HcqCmo" name="currency.edit.update_rate">
+      <segment state="translated">
+        <source>currency.edit.update_rate</source>
+        <target>Taux de rafraîchissement</target>
+      </segment>
+    </unit>
+    <unit id="jSf6Wmz" name="currency.edit.exchange_rate_update.unsupported_currency">
+      <segment state="translated">
+        <source>currency.edit.exchange_rate_update.unsupported_currency</source>
+        <target>Devise non prise en charge</target>
+      </segment>
+    </unit>
+    <unit id="D481NZD" name="currency.edit.exchange_rate_update.generic_error">
+      <segment state="translated">
+        <source>currency.edit.exchange_rate_update.generic_error</source>
+        <target>Erreur générique</target>
+      </segment>
+    </unit>
+    <unit id="E_M7mZ5" name="currency.edit.exchange_rate_updated.success">
+      <segment state="translated">
+        <source>currency.edit.exchange_rate_updated.success</source>
+        <target>Succès</target>
       </segment>
     </unit>
   </file>

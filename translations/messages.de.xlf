@@ -8691,7 +8691,7 @@ Element 3</target>
         <target>Google</target>
       </segment>
     </unit>
-    <unit id="tST2X1S" name="tfa.provider.webauthn_two_factor_provider">
+    <unit id="RAX6xpX" name="tfa.provider.webauthn_two_factor_provider">
       <segment state="translated">
         <source>tfa.provider.webauthn_two_factor_provider</source>
         <target>Sicherheitsschlüssel</target>
@@ -9316,6 +9316,12 @@ Element 3</target>
         <target>Passwortänderung benötigt! Bitte setze ein neues Passwort.</target>
       </segment>
     </unit>
+    <unit id="uEMvuw8" name="tree.root_node.text">
+      <segment state="translated">
+        <source>tree.root_node.text</source>
+        <target>Wurzel</target>
+      </segment>
+    </unit>
     <unit id="EieqscF" name="part_list.action.select_null">
       <segment state="translated">
         <source>part_list.action.select_null</source>
@@ -9760,10 +9766,184 @@ Element 3</target>
         <target>ID des Ziel Elements</target>
       </segment>
     </unit>
-    <unit id="_vbPEFO" name="entity.info.parts_count_recursive">
+    <unit id="dU7EyhM" name="entity.info.parts_count_recursive">
       <segment state="translated">
         <source>entity.info.parts_count_recursive</source>
         <target>Bauteile mit diesem Element oder dessen Kindelementen</target>
+      </segment>
+    </unit>
+    <unit id="_hKlKv." name="tools.server_infos.title">
+      <segment state="translated">
+        <source>tools.server_infos.title</source>
+        <target>Server Infos</target>
+      </segment>
+    </unit>
+    <unit id="NvclBUL" name="permission.preset.read_only">
+      <segment state="translated">
+        <source>permission.preset.read_only</source>
+        <target>Nur Lesen</target>
+      </segment>
+    </unit>
+    <unit id="HD3j3BW" name="permission.preset.read_only.desc">
+      <segment state="translated">
+        <source>permission.preset.read_only.desc</source>
+        <target>Erlaube nur lesende Operationen auf Daten</target>
+      </segment>
+    </unit>
+    <unit id="Ge20aJg" name="permission.preset.all_inherit">
+      <segment state="translated">
+        <source>permission.preset.all_inherit</source>
+        <target>Alle Erben</target>
+      </segment>
+    </unit>
+    <unit id="DJpsLcr" name="permission.preset.all_inherit.desc">
+      <segment state="translated">
+        <source>permission.preset.all_inherit.desc</source>
+        <target>Setze all Berechtigungen auf Erben</target>
+      </segment>
+    </unit>
+    <unit id="lzjvvzm" name="permission.preset.all_forbid">
+      <segment state="translated">
+        <source>permission.preset.all_forbid</source>
+        <target>Alles Verbieten</target>
+      </segment>
+    </unit>
+    <unit id="QqQDTyH" name="permission.preset.all_forbid.desc">
+      <segment state="translated">
+        <source>permission.preset.all_forbid.desc</source>
+        <target>Setze alle Berechtigungen auf Verbieten</target>
+      </segment>
+    </unit>
+    <unit id="DV2fh6l" name="permission.preset.all_allow">
+      <segment state="translated">
+        <source>permission.preset.all_allow</source>
+        <target>Alles Erlauben</target>
+      </segment>
+    </unit>
+    <unit id="_m.Pbza" name="permission.preset.all_allow.desc">
+      <segment state="translated">
+        <source>permission.preset.all_allow.desc</source>
+        <target>Setze alle Berechtigungen auf Erlauben</target>
+      </segment>
+    </unit>
+    <unit id="VIDdo5K" name="perm.server_infos">
+      <segment state="translated">
+        <source>perm.server_infos</source>
+        <target>Server Infos</target>
+      </segment>
+    </unit>
+    <unit id="d6SOlzR" name="permission.preset.editor">
+      <segment state="translated">
+        <source>permission.preset.editor</source>
+        <target>Bearbeiter</target>
+      </segment>
+    </unit>
+    <unit id="8KYl_wh" name="permission.preset.editor.desc">
+      <segment state="translated">
+        <source>permission.preset.editor.desc</source>
+        <target>Erlauben Bauteile und Datenstrukturen zu bearbeiten</target>
+      </segment>
+    </unit>
+    <unit id="dYudjp." name="permission.preset.admin">
+      <segment state="translated">
+        <source>permission.preset.admin</source>
+        <target>Administrator</target>
+      </segment>
+    </unit>
+    <unit id="0o2M0uj" name="permission.preset.admin.desc">
+      <segment state="translated">
+        <source>permission.preset.admin.desc</source>
+        <target>Administrative Aktionen erlauben</target>
+      </segment>
+    </unit>
+    <unit id="SnAIVQf" name="permission.preset.button">
+      <segment state="translated">
+        <source>permission.preset.button</source>
+        <target>Vorlage Anwenden</target>
+      </segment>
+    </unit>
+    <unit id="6q4uHDx" name="perm.attachments.show_private">
+      <segment state="translated">
+        <source>perm.attachments.show_private</source>
+        <target>Private Anhänge anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="NL9t5hy" name="perm.attachments.list_attachments">
+      <segment state="translated">
+        <source>perm.attachments.list_attachments</source>
+        <target>Liste aller Anhänge anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="PYh9dNP" name="user.edit.permission_success">
+      <segment state="translated">
+        <source>user.edit.permission_success</source>
+        <target>Berechtigungsvorlage erfolgreich angewendet. Prüfen Sie, dass die neuen Berechtigungen ihrer Erwartung entsprechen.</target>
+      </segment>
+    </unit>
+    <unit id="cP8VNKS" name="perm.group.data">
+      <segment state="translated">
+        <source>perm.group.data</source>
+        <target>Daten</target>
+      </segment>
+    </unit>
+    <unit id="AAoGo_X" name="part_list.action.action.group.needs_review">
+      <segment state="translated">
+        <source>part_list.action.action.group.needs_review</source>
+        <target>Review benötigt</target>
+      </segment>
+    </unit>
+    <unit id="hcvOTrH" name="part_list.action.action.set_needs_review">
+      <segment state="translated">
+        <source>part_list.action.action.set_needs_review</source>
+        <target>Review benötigt Status setzen</target>
+      </segment>
+    </unit>
+    <unit id="E1AQubV" name="part_list.action.action.unset_needs_review">
+      <segment state="translated">
+        <source>part_list.action.action.unset_needs_review</source>
+        <target>Review benötigt Status entfernen</target>
+      </segment>
+    </unit>
+    <unit id="DNEEkTy" name="part.edit.ipn">
+      <segment state="translated">
+        <source>part.edit.ipn</source>
+        <target>Internal Part Number (IPN)</target>
+      </segment>
+    </unit>
+    <unit id="bT6yxOA" name="part.ipn.not_defined">
+      <segment state="translated">
+        <source>part.ipn.not_defined</source>
+        <target>Nicht definiert</target>
+      </segment>
+    </unit>
+    <unit id="SHo2Ejq" name="part.table.ipn">
+      <segment state="translated">
+        <source>part.table.ipn</source>
+        <target>IPN</target>
+      </segment>
+    </unit>
+    <unit id="1HcqCmo" name="currency.edit.update_rate">
+      <segment state="translated">
+        <source>currency.edit.update_rate</source>
+        <target>Wechselkurs abfragen</target>
+      </segment>
+    </unit>
+    <unit id="jSf6Wmz" name="currency.edit.exchange_rate_update.unsupported_currency">
+      <segment state="translated">
+        <source>currency.edit.exchange_rate_update.unsupported_currency</source>
+        <target>Die Währung wird vom Wechselkursprovider nicht unterstützt. Bitte überprüfen Sie die Konfiguration der Wechselkursprovider.</target>
+      </segment>
+    </unit>
+    <unit id="D481NZD" name="currency.edit.exchange_rate_update.generic_error">
+      <segment state="translated">
+        <source>currency.edit.exchange_rate_update.generic_error</source>
+        <target>Wechselkurs kann nicht abgefragt werden. Bitte überprüfen Sie die Konfiguration der Wechselkursprovider.</target>
+      </segment>
+    </unit>
+    <unit id="E_M7mZ5" name="currency.edit.exchange_rate_updated.success">
+      <segment state="translated">
+        <source>currency.edit.exchange_rate_updated.success</source>
+        <target>Wechselkurs erfolgreich aktualisiert.</target>
       </segment>
     </unit>
   </file>
