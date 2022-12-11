@@ -170,7 +170,7 @@ class PricedetailHelper
             return null;
         }
 
-        return $avg->dividedBy($count)->toScale(Pricedetail::PRICE_PRECISION);
+        return $avg->dividedBy($count)->toScale(Pricedetail::PRICE_PRECISION, RoundingMode::HALF_UP);
     }
 
     /**
