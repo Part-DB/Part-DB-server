@@ -18,15 +18,19 @@
     {% endif %}
 
     {{ form_row(form.exchange_rate) }}
+    {% if entity.inverseExchangeRate %}
+        <p class="form-text text-muted offset-3 col-9">
+        {{ '1'|format_currency(default_currency) }} = {{ entity.inverseExchangeRate.tofloat | format_currency(entity.isoCode, {fraction_digit: 5}) }}<br>
+        {{ '1'|format_currency(entity.isoCode) }} = {{ entity.exchangeRate.tofloat | format_currency(default_currency, {fraction_digit: 5}) }}
+        </p>
+    {% endif %}
+
 
     {% if form.update_exchange_rate is defined %}
         {{ form_row(form.update_exchange_rate, {attr: {class: 'btn-info'}}) }}
     {% endif %}
-    {% if entity.inverseExchangeRate %}
-        <span class="form-text text-muted offset-3 col-9">
-        {{ '1'|format_currency(default_currency) }} = {{ entity.inverseExchangeRate.tofloat | format_currency(entity.isoCode, {fraction_digit: 5}) }}
-    </span>
-    {% endif %}
+
+
 {% endblock %}
 
 {% block edit_title %}

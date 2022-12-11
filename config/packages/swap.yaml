@@ -1,4 +1,8 @@
 florianv_swap:
+  cache:
+    ttl: 3600 # 1 hour
+
+
   providers:
     european_central_bank: ~                      # European Central Bank (only works for EUR base currency)
     fixer:                                        # Fixer.io (needs an API key)

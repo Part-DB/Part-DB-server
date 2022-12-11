@@ -9941,5 +9941,11 @@ Element 3</target>
         <target>Unable to retrieve the exchange rate. Check your exchange rate provider configuration.</target>
       </segment>
     </unit>
+    <unit id="E_M7mZ5" name="currency.edit.exchange_rate_updated.success">
+      <segment>
+        <source>currency.edit.exchange_rate_updated.success</source>
+        <target>Retrieved the exchange rate successfully.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

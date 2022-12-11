@@ -22,6 +22,7 @@ namespace App\Services;
 
 use App\Entity\PriceInformations\Currency;
 use Brick\Math\BigDecimal;
+use Brick\Math\RoundingMode;
 use Swap\Swap;
 
 class ExchangeRateUpdater
@@ -40,8 +41,15 @@ class ExchangeRateUpdater
      */
     public function update(Currency $currency): Currency
     {
-        $rate = $this->swap->latest($currency->getIsoCode().'/'.$this->base_currency);
-        $currency->setExchangeRate(BigDecimal::of($rate->getValue()));
+        //Currency pairs are always in the format "BASE/QUOTE"
+        $rate = $this->swap->latest($this->base_currency.'/'.$currency->getIsoCode());
+        //The rate says how many quote units are worth one base unit
+        //So we need to invert it to get the exchange rate
+
+        $rate_bd = BigDecimal::of($rate->getValue());
+        $rate_inverted = BigDecimal::one()->dividedBy($rate_bd, Currency::PRICE_SCALE, RoundingMode::HALF_UP);
+
+        $currency->setExchangeRate($rate_inverted);
 
         return $currency;
     }
