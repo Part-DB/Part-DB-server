@@ -1,0 +1,127 @@
+/*
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
+ *
+ *  Copyright (C) 2019 - 2022 Jan Böhmer (https://github.com/jbtronics)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+.w-fit {
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
+.bg-primary-striped {
+    background: repeating-linear-gradient(
+            -45deg,
+            var(--bs-primary),
+            var(--bs-primary) 10px,
+            var(--bs-info) 10px,
+            var(--bs-info) 20px
+    )
+}
+
+.emoji {
+    height: 1.5em;
+}
+
+.hoverpic {
+    min-width: 10px;
+    max-width: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.thumbnail-sm {
+    max-height: 100px;
+}
+
+/* Show symbol after exteral links */
+/*noinspection CssNoGenericFontName*/
+a[target="_blank"].link-external:after {
+    content: "\f35d ";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-left: 3px;
+    font-size: smaller;
+    font-style: normal;
+    display: inline-block;
+    text-decoration: inherit;
+}
+
+/****************************************************
+* Search highlighting
+*****************************************************/
+
+span.highlight {
+    background-color: yellow;
+}
+
+/******************************
+* Breadcrumb like structural links
+********************************/
+
+/* Style the list */
+ul.structural_link {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 0;
+    list-style: none;
+    background-color: inherit;
+}
+
+/* Display list items side by side */
+ul.structural_link li {
+    display: inline;
+    font-size: inherit;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.structural_link li+li:before {
+    padding: 2px;
+    color: grey;
+    /*content: "/\00a0";*/
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-style: normal;
+    content: "\f30b"; /* long-arrow-alt-right */
+}
+
+/* Add a color to all links inside the list */
+ul.structural_link li a {
+    color: #0275d8;
+    text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.structural_link li a:hover {
+    color: #01447e;
+    text-decoration: underline;
+}
+
+/***********************************************
+ * Typeahead image
+ ***********************************************/
+.typeahead-image {
+    width: 100%;
+}
+
+/***********************************************
+ * Permission checkboxes
+ ***********************************************/
+.permission-checkbox:checked {
+    background-color: var(--bs-success);
+    border-color: var(--bs-success);
+}

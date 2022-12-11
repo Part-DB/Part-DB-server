@@ -1,0 +1,105 @@
+/*
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
+ *
+ *  Copyright (C) 2019 - 2022 Jan Böhmer (https://github.com/jbtronics)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/****************************************
+* Tables
+****************************************/
+
+/* We need to override the z index, or the elements will overlap the fixed header from datatables. */
+table .input-group .form-control {
+    z-index: 0;
+}
+
+table .input-group-btn:last-child>.btn, table .input-group-btn:last-child>.btn-group {
+    z-index: 0;
+}
+
+/* Hide datatables fixedHeaders on small devices */
+@media  only screen and (max-width: 1000px){
+    .fixedHeader-floating {
+        display: none;
+    }
+}
+
+/**
+ * Enforce white links on selected rows in datatables
+ */
+table.dataTable > tbody > tr.selected > td > a {
+    color: white !important;
+}
+
+/*******************************
+    Parts datatable styling
+ ******************************/
+.attach-table-icon {
+    margin-right: 0.7em;
+    color: var(--bs-gray);
+}
+.attach-table-icon:hover {
+    color: var(--bs-gray-dark);
+}
+.badge-table {
+    margin-right: 0.2em;
+}
+
+/** Do not add margin below description in part table */
+.markdown-inline p {
+    margin-block-end: 0;
+}
+
+.card-footer-table {
+    padding-top: 0;
+}
+
+table.dataTable {
+    margin-top: 0 !important;
+}
+
+div.dataTables_wrapper div.dataTables_info {
+    white-space: normal;
+}
+
+/** Ensure proper rendering/spacing of the select checkbox in tables */
+th.select-checkbox {
+    min-width: 10px;
+}
+
+/********************************************************************
+ * Datatables definitions/overrides
+ ********************************************************************/
+
+.dataTables_length {
+    display: inline-flex;
+}
+
+/** Fix datatables select-checkbox position */
+table.dataTable tr.selected td.select-checkbox:after, table.dataTable tr.selected th.select-checkbox:after {
+    margin-top: -28px !important;
+}
+
+
+/******************************************************
+Classes for Datatables export
+*******************************************************/
+
+#export-title,
+#export-messageTop,
+.export-helper{
+    display: none;
+}

@@ -11,7 +11,7 @@ datatables:
         lengthMenu : [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]]
         pageLength: 50
         #dom: "<'row' <'col-sm-12' tr>><'row' <'col-sm-6'l><'col-sm-6 text-right'pif>>"
-        dom: "  <'row'<'col mb-2 input-group' B l> <'col mb-2' <'pull-right' p>>>
+        dom: "  <'row'<'col mb-2 input-group' B l> <'col mb-2' <'pull-end' p>>>
                         <'card'
                             rt
                             <'card-footer card-footer-table text-muted' i >

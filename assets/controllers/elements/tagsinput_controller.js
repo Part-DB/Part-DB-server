@@ -58,29 +58,5 @@ export default class extends Controller {
         }
 
         this._tomSelect = new TomSelect(this.element, settings);
-
-        /*if(this.element.dataset.autocomplete) {
-            const engine = new Bloodhound({
-                //@ts-ignore
-                datumTokenizer: Bloodhound.tokenizers.obj.whitespace(''),
-                //@ts-ignore
-                queryTokenizer: Bloodhound.tokenizers.obj.whitespace(''),
-                remote: {
-                    url: this.element.dataset.autocomplete,
-                    wildcard: 'QUERY'
-                }
-            });
-
-            $(this.element).tagsinput({
-                typeaheadjs: {
-                    name: 'tags',
-                    source: engine.ttAdapter()
-                }
-            });
-        } else { // Init tagsinput without typeahead
-            $(this.element).tagsinput();
-        }*/
-
-
     }
 }

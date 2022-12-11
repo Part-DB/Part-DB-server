@@ -1,0 +1,108 @@
+/*
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
+ *
+ *  Copyright (C) 2019 - 2022 Jan Böhmer (https://github.com/jbtronics)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+a.badge {
+    text-decoration: none;
+}
+
+@media (min-width: 768px) {
+    .col-form-label {
+        font-weight: bold;
+        text-align: right;
+    }
+}
+
+.form-group > label,
+.form-group > .col-form-label {
+    font-weight: bold;
+}
+
+label:not(.form-check-label, .custom-control-label) {
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 0.4rem;
+}
+
+.dropdown-item,
+.dropdown-header,
+.dropdown-divider {
+    padding: .1rem 1.5rem;
+}
+
+/* Hide tab content even, if tab contents are wrapped inside a form. */
+.tab-content>form>.tab-pane {
+    display: none;
+}
+
+.tab-content>form>.active {
+    display: block;
+}
+
+/*******************************************
+ * Hovering carousel gallery
+ *******************************************/
+.carousel-caption-hover {
+    display: none;
+}
+
+.carousel .mask {
+    display: none;
+}
+
+.carousel:hover .mask {
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: .5s ease;
+    background-color: #0a0909;
+    opacity: 0.7;
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+}
+
+.carousel-control {
+    display: none;
+}
+
+.carousel:hover .carousel-caption-hover {
+    display: block;
+}
+
+.carousel:hover .carousel-control {
+    display: flex;
+}
+
+/***********************************************
+ * Form required dots
+ ***********************************************/
+
+form .col-form-label.required:after, form label.required:after {
+    bottom: 4px;
+    color: var(--bs-dark);
+    content: "\2022";
+    filter: opacity(75%);
+    position: relative;
+    right: -2px;
+    z-index: 700;
+}

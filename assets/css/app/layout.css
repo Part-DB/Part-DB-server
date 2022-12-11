@@ -1,0 +1,156 @@
+/*
+ * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony).
+ *
+ *  Copyright (C) 2019 - 2022 Jan Böhmer (https://github.com/jbtronics)
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published
+ *  by the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/************************************
+* Basic layout (Navbar, sidebar, etc.)
+*************************************/
+
+/* Add padding for fixed header bar */
+body {
+    overflow-x: hidden;
+    padding-top: 70px;
+}
+
+@media  (min-width: 768px) {
+    .fixed-sidebar {
+
+        position: fixed;
+        top: 60px;
+        bottom: 0;
+        left: 0;
+        padding-left: 15px;
+        padding-right: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        /*noinspection W3CssValidation*/
+        -webkit-overflow-scrolling: touch;
+
+        /** Hide scrollbar in old Firefox and Edge **/
+        -ms-overflow-style: none;
+        /*noinspection CssInvalidPropertyValue*/
+        overflow: -moz-scrollbars-none;
+        /*noinspection CssUnknownProperty*/
+        scrollbar-width: none;
+    }
+}
+
+/*noinspection W3CssValidation*/
+@media  (max-width: 768px) {
+    .fixed-sidebar {
+        position: fixed;
+        top: 56px;
+        right: 0;
+        left: 0;
+        z-index: 1000;
+        width: inherit;
+        overflow-x: hidden;
+        overflow-y: auto;
+        /*noinspection W3CssValidation*/
+        -webkit-overflow-scrolling: touch;
+        max-height: 100%;
+        opacity: 0.97;
+        padding: 7px 15px 50px;
+        margin-top: -10px;
+
+        /* Fill window */
+        height: 100%;
+
+        /** Hide scrollbar in Firefox and Edge **/
+        -ms-overflow-style: none;
+        /*noinspection CssInvalidPropertyValue*/
+        overflow: -moz-scrollbars-none;
+        /* Use standard version for hiding the scrollbar */
+        scrollbar-width: none;
+
+        background-color: var(--light);
+    }
+
+    #sidebar-container {
+        margin-top: 0;
+        padding-top: 5px;
+        background-color: #F8F8F8;
+    }
+
+    /* Hide devices menu */
+    #treeBox-devices {
+        display: none;
+    }
+}
+
+/* Hide scrollbar */
+.fixed-sidebar::-webkit-scrollbar {display:none;}
+
+@media (min-width: 768px) {
+    .sidebar-collapse.collapse {
+        display: block !important;
+        height: auto !important;
+        padding-bottom: 0;
+        overflow: visible !important;
+    }
+}
+
+/* Back to top button  */
+.back-to-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display:none;
+    z-index: 1030;
+}
+
+
+.sidebar-title {
+    margin-top: 0;
+    font-size: 18px;
+    margin-bottom: 10px;
+    line-height: 1.1;
+}
+
+/* Blur content during loading*/
+.loading-content {
+    filter: blur(2px);
+}
+
+/*
+The sidebar toggle button floats on the left side and is hidden when the viewport is to small for
+showing the sidebar (on devices with md or higher)
+ */
+#sidebar-toggle-button {
+    position: fixed;
+    left: 3px;
+    bottom: 50%;
+}
+
+@media (max-width: 576px) {
+    #sidebar-toggle-button {
+        display: none;
+    }
+}
+
+/********************************
+* Toasts
+ ********************************/
+.toast-container {
+    position: fixed;
+    top: auto;
+    z-index: 3000; /* Over darkmode layer for correct colors! */
+    right: 25px;
+}
