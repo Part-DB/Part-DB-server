@@ -882,3 +882,17 @@ table.dataTable tr.selected td.select-checkbox:after, table.dataTable tr.selecte
     background-color: var(--bs-success);
     border-color: var(--bs-success);
 }
+
+/***********************************************
+ * Form required dots
+ ***********************************************/
+
+form .col-form-label.required:after, form label.required:after {
+    bottom: 4px;
+    color: var(--bs-dark);
+    content: "\2022";
+    filter: opacity(75%);
+    position: relative;
+    right: -2px;
+    z-index: 700;
+}
