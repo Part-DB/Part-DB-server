@@ -20,7 +20,7 @@
 import {Controller} from "@hotwired/stimulus";
 
 import * as bootbox from "bootbox";
-import "../../css/bootbox_extensions.css";
+import "../../css/components/bootbox_extensions.css";
 
 export default class extends Controller {
     static values = {

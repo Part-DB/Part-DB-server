@@ -20,7 +20,7 @@
 import {Controller} from "@hotwired/stimulus";
 
 import "tom-select/dist/css/tom-select.bootstrap5.css";
-import '../../css/tom-select_extensions.css';
+import '../../css/components/tom-select_extensions.css';
 import TomSelect from "tom-select";
 
 export default class extends Controller {

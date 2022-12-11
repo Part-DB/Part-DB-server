@@ -25,7 +25,7 @@ import { default as HTMLLabelEditor } from "../../ckeditor/html_label";
 
 import EditorWatchdog from '@ckeditor/ckeditor5-watchdog/src/editorwatchdog';
 
-import "../../css/ckeditor.css";
+import "../../css/components/ckeditor.css";
 
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {

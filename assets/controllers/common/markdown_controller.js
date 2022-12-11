@@ -23,7 +23,7 @@ import { Controller } from '@hotwired/stimulus';
 import { marked } from "marked";
 import DOMPurify from 'dompurify';
 
-import "../../css/markdown.css";
+import "../../css/app/markdown.css";
 
 export default class extends Controller {
 
