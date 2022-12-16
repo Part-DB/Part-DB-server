@@ -65,7 +65,7 @@ class LogDBMigrationSubscriber implements EventSubscriber
 
         try {
             $log = new DatabaseUpdatedLogEntry($this->old_version, $this->new_version);
-            //$this->eventLogger->logAndFlush($log);
+            $this->eventLogger->logAndFlush($log);
         } catch (\Throwable $exception) {
             //Ignore any exception occuring here...
         }
