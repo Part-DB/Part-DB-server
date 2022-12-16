@@ -157,18 +157,6 @@ class UserController extends AdminPages\BaseAdminController
         return $this->_new($request, $em, $importer, $entity);
     }
 
-    protected function deleteCheck(AbstractNamedDBElement $entity): bool
-    {
-        if ($entity instanceof User) {
-            //TODO: Find a better solution
-            $this->addFlash('error', 'Currently it is not possible to delete a user, as this would break the log... This will be implemented later...');
-
-            return false;
-        }
-
-        return true;
-    }
-
     /**
      * @Route("/{id}", name="user_delete", methods={"DELETE"}, requirements={"id"="\d+"})
      */

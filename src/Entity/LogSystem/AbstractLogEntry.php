@@ -143,9 +143,15 @@ abstract class AbstractLogEntry extends AbstractDBElement
 
     /** @var User The user which has caused this log entry
      * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User", fetch="EAGER")
-     * @ORM\JoinColumn(name="id_user", nullable=false)
+     * @ORM\JoinColumn(name="id_user", nullable=true, onDelete="SET NULL")
      */
     protected ?User $user = null;
+
+    /**
+     * @var string The username of the user which has caused this log entry (shown if the user is deleted)
+     * @ORM\Column(type="string", nullable=false)
+     */
+    protected string $username = '';
 
     /** @var DateTime The datetime the event associated with this log entry has occured
      * @ORM\Column(type="datetime", name="datetime")
@@ -203,7 +209,20 @@ abstract class AbstractLogEntry extends AbstractDBElement
     {
         $this->user = $user;
 
+        //Save the username for later use
+        $this->username = $user->getUsername();
+
         return $this;
+    }
+
+    /**
+     * Retuns the username of the user that caused the event (useful if the user was deleted).
+     *
+     * @return string
+     */
+    public function getUsername(): string
+    {
+        return $this->username;
     }
 
     /**

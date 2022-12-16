@@ -188,10 +188,19 @@ class LogDataTable implements DataTableTypeInterface
             'render' => function ($value, AbstractLogEntry $context) {
                 $user = $context->getUser();
 
+                //If user was deleted, show the info from the username field
+                if ($user === null) {
+                    return sprintf(
+                        '@%s [%s]',
+                        htmlentities($context->getUsername()),
+                        $this->translator->trans('log.target_deleted'),
+                    );
+                }
+
                 return sprintf(
                     '<a href="%s">%s</a>',
                     $this->urlGenerator->generate('user_info', ['id' => $user->getID()]),
-                    $user->getFullName(true)
+                    htmlentities($user->getFullName(true))
                 );
             },
         ]);
