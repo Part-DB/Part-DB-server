@@ -105,6 +105,28 @@ class LogDataTable implements DataTableTypeInterface
         $this->configureOptions($resolver);
         $options = $resolver->resolve($options);
 
+        //This special $$rowClass column is used to set the row class depending on the log level. The class gets set by the frontend controller
+        $dataTable->add('$$rowClass', TextColumn::class, [
+            'label' => '',
+            'className' => 'no-colvis',
+            'visible' => false,
+            'render' => static function ($value, AbstractLogEntry $context) {
+                switch ($context->getLevel()) {
+                    case AbstractLogEntry::LEVEL_EMERGENCY:
+                    case AbstractLogEntry::LEVEL_ALERT:
+                    case AbstractLogEntry::LEVEL_CRITICAL:
+                    case AbstractLogEntry::LEVEL_ERROR:
+                        return 'table-danger';
+                    case AbstractLogEntry::LEVEL_WARNING:
+                        return 'table-warning';
+                    case AbstractLogEntry::LEVEL_NOTICE:
+                        return 'table-info';
+                    default:
+                        return '';
+                }
+            },
+        ]);
+
         $dataTable->add('symbol', TextColumn::class, [
             'label' => '',
             'className' => 'no-colvis',

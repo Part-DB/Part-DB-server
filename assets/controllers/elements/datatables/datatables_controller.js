@@ -138,7 +138,12 @@ export default class extends Controller {
     }
 
     _rowCallback(row, data, index) {
-        //Empty by default but can be overridden by child classes
+        //Set the row class based on the optional $$rowClass column data, can be used to color the rows
+
+        //Check if we have a level, then change color of this row
+        if (data.$$rowClass) {
+            $(row).addClass(data.$$rowClass);
+        }
     }
 
     _onSelectionChange(e, dt, items ) {
