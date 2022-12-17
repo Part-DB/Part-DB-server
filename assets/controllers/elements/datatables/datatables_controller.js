@@ -127,6 +127,9 @@ export default class extends Controller {
 
         //Register event handlers
         promise.then((dt) => {
+            //Deselect all rows before registering the event handler
+            dt.rows().deselect();
+
             dt.on('select.dt deselect.dt', this._onSelectionChange.bind(this));
         });
 
@@ -148,7 +151,6 @@ export default class extends Controller {
 
     _onSelectionChange(e, dt, items ) {
         //Empty by default but can be overridden by child classes
-        alert("Test");
     }
 
     _afterLoaded(dt) {
