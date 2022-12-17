@@ -26,6 +26,7 @@ use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\PrettyBoolColumn;
 use App\DataTables\Filters\AttachmentFilter;
 use App\Entity\Attachments\Attachment;
+use App\Entity\LogSystem\AbstractLogEntry;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\ElementTypeNameGenerator;
@@ -59,6 +60,20 @@ final class AttachmentDataTable implements DataTableTypeInterface
 
     public function configure(DataTable $dataTable, array $options): void
     {
+        $dataTable->add('$$rowClass', TextColumn::class, [
+            'label' => '',
+            'className' => 'no-colvis',
+            'visible' => false,
+            'render' => function ($value, Attachment $context) {
+                //Mark attachments with missing files yellow
+                if(!$this->attachmentHelper->isFileExisting($context)){
+                    return 'table-warning';
+                }
+
+                return ''; //Default coloring otherwise
+            },
+        ]);
+
         $dataTable->add('picture', TextColumn::class, [
             'label' => '',
             'className' => 'no-colvis',
@@ -141,11 +156,17 @@ final class AttachmentDataTable implements DataTableTypeInterface
         $dataTable->add('filesize', TextColumn::class, [
             'label' => $this->translator->trans('attachment.table.filesize'),
             'render' => function ($value, Attachment $context) {
+                if ($context->isExternal()) {
+                    return sprintf(
+                        '<span class="badge bg-primary">
+                        <i class="fas fa-globe fa-fw"></i>%s
+                        </span>',
+                        $this->translator->trans('attachment.external')
+                    );
+                }
+
                 if ($this->attachmentHelper->isFileExisting($context)) {
                     return $this->attachmentHelper->getHumanFileSize($context);
-                }
-                if ($context->isExternal()) {
-                    return '<i>'.$this->translator->trans('attachment.external').'</i>';
                 }
 
                 return sprintf(
