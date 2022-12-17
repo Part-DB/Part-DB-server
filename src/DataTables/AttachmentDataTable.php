@@ -24,6 +24,7 @@ namespace App\DataTables;
 
 use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\PrettyBoolColumn;
+use App\DataTables\Column\RowClassColumn;
 use App\DataTables\Filters\AttachmentFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\LogSystem\AbstractLogEntry;
@@ -60,10 +61,7 @@ final class AttachmentDataTable implements DataTableTypeInterface
 
     public function configure(DataTable $dataTable, array $options): void
     {
-        $dataTable->add('$$rowClass', TextColumn::class, [
-            'label' => '',
-            'className' => 'no-colvis',
-            'visible' => false,
+        $dataTable->add('dont_matter', RowClassColumn::class, [
             'render' => function ($value, Attachment $context) {
                 //Mark attachments with missing files yellow
                 if(!$this->attachmentHelper->isFileExisting($context)){

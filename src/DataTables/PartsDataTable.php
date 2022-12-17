@@ -28,6 +28,7 @@ use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\MarkdownColumn;
 use App\DataTables\Column\PartAttachmentsColumn;
 use App\DataTables\Column\PrettyBoolColumn;
+use App\DataTables\Column\RowClassColumn;
 use App\DataTables\Column\SelectColumn;
 use App\DataTables\Column\SIUnitNumberColumn;
 use App\DataTables\Column\TagsColumn;
@@ -102,6 +103,20 @@ final class PartsDataTable implements DataTableTypeInterface
         $options = $resolver->resolve($options);
 
         $dataTable
+            //Color the table rows depending on the review and favorite status
+            ->add('dont_matter', RowClassColumn::class, [
+                'render' => function ($value, Part $context) {
+                    if ($context->isNeedsReview()) {
+                        return 'table-secondary';
+                    }
+                    if ($context->isFavorite()) {
+                        return 'table-info';
+                    }
+
+                    return ''; //Default coloring otherwise
+                },
+            ])
+
             ->add('select', SelectColumn::class)
             ->add('picture', TextColumn::class, [
                 'label' => '',

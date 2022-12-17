@@ -27,6 +27,7 @@ use App\DataTables\Column\LocaleDateTimeColumn;
 use App\DataTables\Column\LogEntryExtraColumn;
 use App\DataTables\Column\LogEntryTargetColumn;
 use App\DataTables\Column\RevertLogColumn;
+use App\DataTables\Column\RowClassColumn;
 use App\DataTables\Filters\AttachmentFilter;
 use App\DataTables\Filters\LogFilter;
 use App\Entity\Base\AbstractDBElement;
@@ -106,10 +107,7 @@ class LogDataTable implements DataTableTypeInterface
         $options = $resolver->resolve($options);
 
         //This special $$rowClass column is used to set the row class depending on the log level. The class gets set by the frontend controller
-        $dataTable->add('$$rowClass', TextColumn::class, [
-            'label' => '',
-            'className' => 'no-colvis',
-            'visible' => false,
+        $dataTable->add('dont_matter', RowClassColumn::class, [
             'render' => static function ($value, AbstractLogEntry $context) {
                 switch ($context->getLevel()) {
                     case AbstractLogEntry::LEVEL_EMERGENCY:
