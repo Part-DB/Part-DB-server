@@ -144,6 +144,7 @@
                                 <i class="fas fa-fw fa-shield-alt"></i> {% trans %}attachment.secure{% endtrans %}
                            </span>
                         </h6>
+                    {% endif %}
 
                     {% if attach.secure and not is_granted('show_private', attach) %}
                         {# Leave blank #}
@@ -161,7 +162,7 @@
                         <i class="fas fa-exclamation-circle fa-fw"></i> {% trans %}attachment.file_not_found{% endtrans %}
                     </span>
                     </h6>
-                {% endif %}
+
                 {% endif %}
             {% endif %}
 

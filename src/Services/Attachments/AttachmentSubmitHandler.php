@@ -61,6 +61,10 @@ class AttachmentSubmitHandler
     protected MimeTypesInterface $mimeTypes;
     protected FileTypeFilterTools $filterTools;
 
+    protected const BLACKLISTED_EXTENSIONS = ['php', 'phtml', 'php3', 'ph3', 'php4', 'ph4', 'php5', 'ph5', 'phtm', 'sh',
+        'asp', 'cgi', 'py', 'pl', 'exe', 'aspx', 'js', 'mjs', 'jsp', 'css', 'jar', 'html', 'htm', 'shtm', 'shtml', 'htaccess',
+        'htpasswd', ''];
+
     public function __construct(AttachmentPathResolver $pathResolver, bool $allow_attachments_downloads,
                                 HttpClientInterface $httpClient, MimeTypesInterface $mimeTypes,
         FileTypeFilterTools $filterTools)
@@ -190,6 +194,9 @@ class AttachmentSubmitHandler
         //Move the attachment files to secure location (and back) if needed
         $this->moveFile($attachment, $options['secure_attachment']);
 
+        //Rename blacklisted (unsecure) files to a better extension
+        $this->renameBlacklistedExtensions($attachment);
+
         //Check if we should assign this attachment to master picture
         //this is only possible if the attachment is new (not yet persisted to DB)
         if ($options['become_preview_if_empty'] && null === $attachment->getID() && $attachment->isPicture()) {
@@ -198,6 +205,44 @@ class AttachmentSubmitHandler
                 $element->setMasterPictureAttachment($attachment);
             }
         }
+
+        return $attachment;
+    }
+
+    /**
+     * Rename attachments with an unsafe extension (meaning files which would be runned by a  to a safe one.
+     * @param Attachment $attachment
+     * @return void
+     */
+    protected function renameBlacklistedExtensions(Attachment $attachment): Attachment
+    {
+        //We can not do anything on builtins or external ressources
+        if ($attachment->isBuiltIn() || $attachment->isExternal()) {
+            return $attachment;
+        }
+
+        //Determine the old filepath
+        $old_path = $this->pathResolver->placeholderToRealPath($attachment->getPath());
+        if (!file_exists($old_path)) {
+            return $attachment;
+        }
+        $filename = basename($old_path);
+        $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+
+
+        //Check if the extension is blacklisted and replace the file extension with txt if needed
+        if(in_array($ext, self::BLACKLISTED_EXTENSIONS)) {
+            $new_path = $this->generateAttachmentPath($attachment, $attachment->isSecure())
+            .DIRECTORY_SEPARATOR.$this->generateAttachmentFilename($attachment, 'txt');
+
+            //Move file to new directory
+            $fs = new Filesystem();
+            $fs->rename($old_path, $new_path);
+
+            //Update the attachment
+            $attachment->setPath($this->pathResolver->realPathToPlaceholder($new_path));
+        }
+
 
         return $attachment;
     }
