@@ -24,7 +24,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractStructuralDBElement;
-use App\Entity\Devices\Device;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -51,7 +51,7 @@ class DataStructureFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         //Reset autoincrement
-        $types = [AttachmentType::class, Device::class, Category::class, Footprint::class, Manufacturer::class,
+        $types = [AttachmentType::class, Project::class, Category::class, Footprint::class, Manufacturer::class,
             MeasurementUnit::class, Storelocation::class, Supplier::class, ];
 
         foreach ($types as $type) {

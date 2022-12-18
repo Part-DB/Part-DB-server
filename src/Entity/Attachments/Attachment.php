@@ -44,7 +44,7 @@ use LogicException;
  * @ORM\DiscriminatorColumn(name="class_name", type="string")
  * @ORM\DiscriminatorMap({
  *     "PartDB\Part" = "PartAttachment", "Part" = "PartAttachment",
- *     "PartDB\Device" = "DeviceAttachment", "Device" = "DeviceAttachment",
+ *     "PartDB\Device" = "ProjectAttachment", "Device" = "ProjectAttachment",
  *     "AttachmentType" = "AttachmentTypeAttachment", "Category" = "CategoryAttachment",
  *     "Footprint" = "FootprintAttachment", "Manufacturer" = "ManufacturerAttachment",
  *     "Currency" = "CurrencyAttachment", "Group" = "GroupAttachment",

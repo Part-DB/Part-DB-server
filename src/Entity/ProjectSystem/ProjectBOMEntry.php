@@ -20,42 +20,60 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\Devices;
+namespace App\Entity\ProjectSystem;
 
 use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\TimestampTrait;
 use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class DevicePart.
+ * The ProjectBOMEntry class represents a entry in a project's BOM.
  *
- * @ORM\Table("`device_parts`")
+ * @ORM\Table("device_parts")
  * @ORM\Entity()
  */
-class DevicePart extends AbstractDBElement
+class ProjectBOMEntry extends AbstractDBElement
 {
-    /**
-     * @var int
-     * @ORM\Column(type="integer", name="quantity")
-     */
-    protected int $quantity;
+    use TimestampTrait;
 
     /**
-     * @var string
+     * @var int
+     * @ORM\Column(type="float", name="quantity")
+     * @Assert\PositiveOrZero()
+     */
+    protected float $quantity;
+
+    /**
+     * @var string A comma separated list of the names, where this parts should be placed
      * @ORM\Column(type="text", name="mountnames")
      */
     protected string $mountnames;
-    /**
-     * @var Device
-     * @ORM\ManyToOne(targetEntity="Device", inversedBy="parts")
-     * @ORM\JoinColumn(name="id_device", referencedColumnName="id")
-     */
-    protected ?Device $device = null;
 
     /**
-     * @var Part
+     * @var string An optional name describing this BOM entry (useful for non-part entries)
+     * @ORM\Column(type="text")
+     */
+    protected string $name;
+
+    /**
+     * @var string An optional comment for this BOM entry
+     * @ORM\Column(type="text")
+     */
+    protected string $comment;
+
+    /**
+     * @var Project
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="parts")
+     * @ORM\JoinColumn(name="id_device", referencedColumnName="id")
+     */
+    protected ?Project $device = null;
+
+    /**
+     * @var Part|null The part associated with this
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part")
-     * @ORM\JoinColumn(name="id_part", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_part", referencedColumnName="id", nullable=true)
      */
     protected ?Part $part = null;
 }

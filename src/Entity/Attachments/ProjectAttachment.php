@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Attachments;
 
-use App\Entity\Devices\Device;
+use App\Entity\ProjectSystem\Project;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -32,12 +32,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity()
  * @UniqueEntity({"name", "attachment_type", "element"})
  */
-class DeviceAttachment extends Attachment
+class ProjectAttachment extends Attachment
 {
-    public const ALLOWED_ELEMENT_CLASS = Device::class;
+    public const ALLOWED_ELEMENT_CLASS = Project::class;
     /**
-     * @var Device the element this attachment is associated with
-     * @ORM\ManyToOne(targetEntity="App\Entity\Devices\Device", inversedBy="attachments")
+     * @var Project the element this attachment is associated with
+     * @ORM\ManyToOne(targetEntity="App\Entity\ProjectSystem\Project", inversedBy="attachments")
      * @ORM\JoinColumn(name="element_id", referencedColumnName="id", nullable=false, onDelete="CASCADE").
      */
     protected ?AttachmentContainingDBElement $element = null;

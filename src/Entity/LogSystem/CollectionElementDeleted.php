@@ -46,7 +46,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Entity\Attachments\CategoryAttachment;
 use App\Entity\Attachments\CurrencyAttachment;
-use App\Entity\Attachments\DeviceAttachment;
+use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Attachments\GroupAttachment;
 use App\Entity\Attachments\ManufacturerAttachment;
@@ -58,12 +58,12 @@ use App\Entity\Attachments\UserAttachment;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Contracts\LogWithEventUndoInterface;
 use App\Entity\Contracts\NamedElementInterface;
-use App\Entity\Devices\Device;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parameters\AttachmentTypeParameter;
 use App\Entity\Parameters\CategoryParameter;
 use App\Entity\Parameters\CurrencyParameter;
-use App\Entity\Parameters\DeviceParameter;
+use App\Entity\Parameters\ProjectParameter;
 use App\Entity\Parameters\FootprintParameter;
 use App\Entity\Parameters\GroupParameter;
 use App\Entity\Parameters\ManufacturerParameter;
@@ -159,8 +159,8 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
                     return CategoryParameter::class;
                 case Currency::class:
                     return CurrencyParameter::class;
-                case Device::class:
-                    return DeviceParameter::class;
+                case Project::class:
+                    return ProjectParameter::class;
                 case Footprint::class:
                     return FootprintParameter::class;
                 case Group::class:
@@ -189,8 +189,8 @@ class CollectionElementDeleted extends AbstractLogEntry implements LogWithEventU
                     return CategoryAttachment::class;
                 case Currency::class:
                     return CurrencyAttachment::class;
-                case Device::class:
-                    return DeviceAttachment::class;
+                case Project::class:
+                    return ProjectAttachment::class;
                 case Footprint::class:
                     return FootprintAttachment::class;
                 case Group::class:

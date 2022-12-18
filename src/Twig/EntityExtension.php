@@ -22,7 +22,7 @@ namespace App\Twig;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Base\AbstractDBElement;
-use App\Entity\Devices\Device;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -99,7 +99,7 @@ final class EntityExtension extends AbstractExtension
             Storelocation::class => 'storelocation',
             Manufacturer::class => 'manufacturer',
             Category::class => 'category',
-            Device::class => 'device',
+            Project::class => 'device',
             Attachment::class => 'attachment',
             Supplier::class => 'supplier',
             User::class => 'user',

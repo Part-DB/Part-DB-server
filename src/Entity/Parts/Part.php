@@ -25,7 +25,7 @@ namespace App\Entity\Parts;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\PartAttachment;
-use App\Entity\Devices\Device;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\Parameters\ParametersTrait;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\PartTraits\AdvancedPropertyTrait;
@@ -152,7 +152,7 @@ class Part extends AttachmentContainingDBElement
     /**
      *  Get all devices which uses this part.
      *
-     * @return Device[] * all devices which uses this part as a one-dimensional array of Device objects
+     * @return Project[] * all devices which uses this part as a one-dimensional array of Device objects
      *                  (empty array if there are no ones)
      *                  * the array is sorted by the devices names
      */

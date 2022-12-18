@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\AdminPages;
 
-use App\Entity\Devices\Device;
+use App\Entity\ProjectSystem\Project;
 
 /**
  * @group slow
@@ -32,5 +32,5 @@ use App\Entity\Devices\Device;
 class DeviceControllerTest extends AbstractAdminControllerTest
 {
     protected static $base_path = '/en'.'/device';
-    protected static $entity_class = Device::class;
+    protected static $entity_class = Project::class;
 }

@@ -20,11 +20,12 @@
 
 declare(strict_types=1);
 
-namespace App\Entity\Devices;
+namespace App\Entity\ProjectSystem;
 
-use App\Entity\Attachments\DeviceAttachment;
-use App\Entity\Base\AbstractPartsContainingDBElement;
-use App\Entity\Parameters\DeviceParameter;
+use App\Entity\Attachments\ProjectAttachment;
+use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\Parameters\ProjectParameter;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
@@ -33,27 +34,27 @@ use InvalidArgumentException;
  * Class AttachmentType.
  *
  * @ORM\Entity(repositoryClass="App\Repository\Parts\DeviceRepository")
- * @ORM\Table(name="`devices`")
+ * @ORM\Table(name="devices")
  */
-class Device extends AbstractPartsContainingDBElement
+class Project extends AbstractStructuralDBElement
 {
     /**
-     * @ORM\OneToMany(targetEntity="Device", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Project", mappedBy="parent")
      * @ORM\OrderBy({"name" = "ASC"})
      * @var Collection
      */
     protected $children;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Device", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
     protected $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="DevicePart", mappedBy="device")
+     * @ORM\OneToMany(targetEntity="ProjectBOMEntry", mappedBy="device")
      */
-    protected $parts;
+    protected $bom_entries;
 
     /**
      * @ORM\Column(type="integer")
@@ -64,15 +65,21 @@ class Device extends AbstractPartsContainingDBElement
      * @ORM\Column(type="boolean")
      */
     protected bool $order_only_missing_parts = false;
+
     /**
-     * @var Collection<int, DeviceAttachment>
-     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\DeviceAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\Column(type="text", nullable=false)
+     */
+    protected string $description = '';
+
+    /**
+     * @var Collection<int, ProjectAttachment>
+     * @ORM\OneToMany(targetEntity="App\Entity\Attachments\ProjectAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"name" = "ASC"})
      */
     protected $attachments;
 
-    /** @var Collection<int, DeviceParameter>
-     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\DeviceParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
+    /** @var Collection<int, ProjectParameter>
+     * @ORM\OneToMany(targetEntity="App\Entity\Parameters\ProjectParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      */
     protected $parameters;
@@ -82,6 +89,12 @@ class Device extends AbstractPartsContainingDBElement
      *   Getters
      *
      *********************************************************************************/
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->bom_entries = new ArrayCollection();
+    }
 
     /**
      *  Get the order quantity of this device.
@@ -131,7 +144,7 @@ class Device extends AbstractPartsContainingDBElement
      *
      * @param bool $new_order_only_missing_parts the new "order_only_missing_parts" attribute
      *
-     * @return Device
+     * @return Project
      */
     public function setOrderOnlyMissingParts(bool $new_order_only_missing_parts): self
     {
@@ -139,4 +152,42 @@ class Device extends AbstractPartsContainingDBElement
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getBomEntries()
+    {
+        return $this->bom_entries;
+    }
+
+    /**
+     * @param  mixed  $bom_entries
+     * @return Project
+     */
+    public function setBomEntries($bom_entries)
+    {
+        $this->bom_entries = $bom_entries;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param  string  $description
+     * @return Project
+     */
+    public function setDescription(string $description): Project
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+
 }

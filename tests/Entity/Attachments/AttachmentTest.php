@@ -27,7 +27,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Entity\Attachments\CategoryAttachment;
 use App\Entity\Attachments\CurrencyAttachment;
-use App\Entity\Attachments\DeviceAttachment;
+use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Attachments\GroupAttachment;
 use App\Entity\Attachments\ManufacturerAttachment;
@@ -36,7 +36,7 @@ use App\Entity\Attachments\PartAttachment;
 use App\Entity\Attachments\StorelocationAttachment;
 use App\Entity\Attachments\SupplierAttachment;
 use App\Entity\Attachments\UserAttachment;
-use App\Entity\Devices\Device;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -78,7 +78,7 @@ class AttachmentTest extends TestCase
             [AttachmentTypeAttachment::class, AttachmentType::class],
             [CategoryAttachment::class, Category::class],
             [CurrencyAttachment::class, Currency::class],
-            [DeviceAttachment::class, Device::class],
+            [ProjectAttachment::class, Project::class],
             [FootprintAttachment::class, Footprint::class],
             [GroupAttachment::class, Group::class],
             [ManufacturerAttachment::class, Manufacturer::class],
@@ -117,8 +117,8 @@ class AttachmentTest extends TestCase
 
         /** @var Attachment $attachment */
         $attachment = new $attachment_class();
-        if (Device::class !== $allowed_class) {
-            $element = new Device();
+        if (Project::class !== $allowed_class) {
+            $element = new Project();
         } else {
             $element = new Category();
         }

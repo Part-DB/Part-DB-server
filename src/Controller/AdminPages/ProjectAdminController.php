@@ -22,10 +22,11 @@ declare(strict_types=1);
 
 namespace App\Controller\AdminPages;
 
-use App\Entity\Attachments\DeviceAttachment;
-use App\Entity\Devices\Device;
-use App\Entity\Parameters\DeviceParameter;
+use App\Entity\Attachments\ProjectAttachment;
+use App\Entity\ProjectSystem\Project;
+use App\Entity\Parameters\ProjectParameter;
 use App\Form\AdminPages\BaseEntityAdminForm;
+use App\Form\AdminPages\ProjectAdminForm;
 use App\Services\ImportExportSystem\EntityExporter;
 use App\Services\ImportExportSystem\EntityImporter;
 use App\Services\Trees\StructuralElementRecursionHelper;
@@ -38,19 +39,19 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/device")
  */
-class DeviceController extends BaseAdminController
+class ProjectAdminController extends BaseAdminController
 {
-    protected $entity_class = Device::class;
+    protected $entity_class = Project::class;
     protected $twig_template = 'AdminPages/DeviceAdmin.html.twig';
-    protected $form_class = BaseEntityAdminForm::class;
+    protected $form_class = ProjectAdminForm::class;
     protected $route_base = 'device';
-    protected $attachment_class = DeviceAttachment::class;
-    protected $parameter_class = DeviceParameter::class;
+    protected $attachment_class = ProjectAttachment::class;
+    protected $parameter_class = ProjectParameter::class;
 
     /**
      * @Route("/{id}", name="device_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Device $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
+    public function delete(Request $request, Project $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
         return $this->_delete($request, $entity, $recursionHelper);
     }
@@ -59,7 +60,7 @@ class DeviceController extends BaseAdminController
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="device_edit")
      * @Route("/{id}", requirements={"id"="\d+"})
      */
-    public function edit(Device $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
+    public function edit(Project $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
         return $this->_edit($entity, $request, $em, $timestamp);
     }
@@ -69,7 +70,7 @@ class DeviceController extends BaseAdminController
      * @Route("/{id}/clone", name="device_clone")
      * @Route("/")
      */
-    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Device $entity = null): Response
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?Project $entity = null): Response
     {
         return $this->_new($request, $em, $importer, $entity);
     }
@@ -85,7 +86,7 @@ class DeviceController extends BaseAdminController
     /**
      * @Route("/{id}/export", name="device_export")
      */
-    public function exportEntity(Device $entity, EntityExporter $exporter, Request $request): Response
+    public function exportEntity(Project $entity, EntityExporter $exporter, Request $request): Response
     {
         return $this->_exportEntity($entity, $exporter, $request);
     }

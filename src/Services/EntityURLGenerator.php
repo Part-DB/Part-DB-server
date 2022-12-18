@@ -26,7 +26,7 @@ use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
 use App\Entity\Base\AbstractDBElement;
-use App\Entity\Devices\Device;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -113,7 +113,7 @@ class EntityURLGenerator
             //As long we does not have own things for it use edit page
             AttachmentType::class => 'attachment_type_edit',
             Category::class => 'category_edit',
-            Device::class => 'device_edit',
+            Project::class => 'device_edit',
             Supplier::class => 'supplier_edit',
             Manufacturer::class => 'manufacturer_edit',
             Storelocation::class => 'store_location_edit',
@@ -204,7 +204,7 @@ class EntityURLGenerator
             //As long we does not have own things for it use edit page
             AttachmentType::class => 'attachment_type_edit',
             Category::class => 'category_edit',
-            Device::class => 'device_edit',
+            Project::class => 'device_edit',
             Supplier::class => 'supplier_edit',
             Manufacturer::class => 'manufacturer_edit',
             Storelocation::class => 'store_location_edit',
@@ -234,7 +234,7 @@ class EntityURLGenerator
             Part::class => 'part_edit',
             AttachmentType::class => 'attachment_type_edit',
             Category::class => 'category_edit',
-            Device::class => 'device_edit',
+            Project::class => 'device_edit',
             Supplier::class => 'supplier_edit',
             Manufacturer::class => 'manufacturer_edit',
             Storelocation::class => 'store_location_edit',
@@ -264,7 +264,7 @@ class EntityURLGenerator
             Part::class => 'part_new',
             AttachmentType::class => 'attachment_type_new',
             Category::class => 'category_new',
-            Device::class => 'device_new',
+            Project::class => 'device_new',
             Supplier::class => 'supplier_new',
             Manufacturer::class => 'manufacturer_new',
             Storelocation::class => 'store_location_new',
@@ -295,7 +295,7 @@ class EntityURLGenerator
             Part::class => 'part_clone',
             AttachmentType::class => 'attachment_type_clone',
             Category::class => 'category_clone',
-            Device::class => 'device_clone',
+            Project::class => 'device_clone',
             Supplier::class => 'supplier_clone',
             Manufacturer::class => 'manufacturer_clone',
             Storelocation::class => 'store_location_clone',
@@ -338,7 +338,7 @@ class EntityURLGenerator
             Part::class => 'part_delete',
             AttachmentType::class => 'attachment_type_delete',
             Category::class => 'category_delete',
-            Device::class => 'device_delete',
+            Project::class => 'device_delete',
             Supplier::class => 'supplier_delete',
             Manufacturer::class => 'manufacturer_delete',
             Storelocation::class => 'store_location_delete',

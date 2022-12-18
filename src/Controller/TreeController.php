@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Devices\Device;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -136,10 +136,10 @@ class TreeController extends AbstractController
      * @Route("/device/{id}", name="tree_device")
      * @Route("/devices", name="tree_device_root")
      */
-    public function deviceTree(?Device $device = null): JsonResponse
+    public function deviceTree(?Project $device = null): JsonResponse
     {
         if ($this->isGranted('@devices.read')) {
-            $tree = $this->treeGenerator->getTreeView(Device::class, $device, 'devices');
+            $tree = $this->treeGenerator->getTreeView(Project::class, $device, 'devices');
         } else {
             return new JsonResponse("Access denied", 403);
         }

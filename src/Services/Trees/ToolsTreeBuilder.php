@@ -24,7 +24,7 @@ namespace App\Services\Trees;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
-use App\Entity\Devices\Device;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -156,7 +156,7 @@ class ToolsTreeBuilder
                 $this->urlGenerator->generate('category_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-tags');
         }
-        if ($this->security->isGranted('read', new Device())) {
+        if ($this->security->isGranted('read', new Project())) {
             $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.edit.devices'),
                 $this->urlGenerator->generate('device_new')

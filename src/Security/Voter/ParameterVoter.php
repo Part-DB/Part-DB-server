@@ -24,7 +24,7 @@ use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parameters\AttachmentTypeParameter;
 use App\Entity\Parameters\CategoryParameter;
 use App\Entity\Parameters\CurrencyParameter;
-use App\Entity\Parameters\DeviceParameter;
+use App\Entity\Parameters\ProjectParameter;
 use App\Entity\Parameters\FootprintParameter;
 use App\Entity\Parameters\GroupParameter;
 use App\Entity\Parameters\ManufacturerParameter;
@@ -95,7 +95,7 @@ class ParameterVoter extends ExtendedVoter
             $param = 'categories';
         } elseif ($subject instanceof CurrencyParameter) {
             $param = 'currencies';
-        } elseif ($subject instanceof DeviceParameter) {
+        } elseif ($subject instanceof ProjectParameter) {
             $param = 'devices';
         } elseif ($subject instanceof FootprintParameter) {
             $param = 'footprints';

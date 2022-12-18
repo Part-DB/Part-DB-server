@@ -43,7 +43,7 @@ namespace App\Services\Tools;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
-use App\Entity\Devices\Device;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -111,7 +111,7 @@ class StatisticsHelper
         $arr = [
             'attachment_type' => AttachmentType::class,
             'category' => Category::class,
-            'device' => Device::class,
+            'device' => Project::class,
             'footprint' => Footprint::class,
             'manufacturer' => Manufacturer::class,
             'measurement_unit' => MeasurementUnit::class,

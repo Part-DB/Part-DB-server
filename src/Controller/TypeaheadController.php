@@ -24,7 +24,7 @@ namespace App\Controller;
 
 use App\Entity\Parameters\AttachmentTypeParameter;
 use App\Entity\Parameters\CategoryParameter;
-use App\Entity\Parameters\DeviceParameter;
+use App\Entity\Parameters\ProjectParameter;
 use App\Entity\Parameters\FootprintParameter;
 use App\Entity\Parameters\GroupParameter;
 use App\Entity\Parameters\ManufacturerParameter;
@@ -105,7 +105,7 @@ class TypeaheadController extends AbstractController
             case 'part':
                 return PartParameter::class;
             case 'device':
-                return DeviceParameter::class;
+                return ProjectParameter::class;
             case 'footprint':
                 return FootprintParameter::class;
             case 'manufacturer':

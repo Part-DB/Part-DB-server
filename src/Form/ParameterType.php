@@ -45,7 +45,7 @@ use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parameters\AttachmentTypeParameter;
 use App\Entity\Parameters\CategoryParameter;
 use App\Entity\Parameters\CurrencyParameter;
-use App\Entity\Parameters\DeviceParameter;
+use App\Entity\Parameters\ProjectParameter;
 use App\Entity\Parameters\FootprintParameter;
 use App\Entity\Parameters\GroupParameter;
 use App\Entity\Parameters\ManufacturerParameter;
@@ -158,7 +158,7 @@ class ParameterType extends AbstractType
             AttachmentTypeParameter::class => 'attachment_type',
             CategoryParameter::class => 'category',
             CurrencyParameter::class => 'currency',
-            DeviceParameter::class => 'device',
+            ProjectParameter::class => 'device',
             FootprintParameter::class => 'footprint',
             GroupParameter::class => 'group',
             ManufacturerParameter::class => 'manufacturer',

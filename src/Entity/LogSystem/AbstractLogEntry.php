@@ -25,8 +25,8 @@ namespace App\Entity\LogSystem;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractDBElement;
-use App\Entity\Devices\Device;
-use App\Entity\Devices\DevicePart;
+use App\Entity\ProjectSystem\Project;
+use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\Category;
@@ -124,8 +124,8 @@ abstract class AbstractLogEntry extends AbstractDBElement
         self::TARGET_TYPE_ATTACHEMENT => Attachment::class,
         self::TARGET_TYPE_ATTACHEMENTTYPE => AttachmentType::class,
         self::TARGET_TYPE_CATEGORY => Category::class,
-        self::TARGET_TYPE_DEVICE => Device::class,
-        self::TARGET_TYPE_DEVICEPART => DevicePart::class,
+        self::TARGET_TYPE_DEVICE => Project::class,
+        self::TARGET_TYPE_DEVICEPART => ProjectBOMEntry::class,
         self::TARGET_TYPE_FOOTPRINT => Footprint::class,
         self::TARGET_TYPE_GROUP => Group::class,
         self::TARGET_TYPE_MANUFACTURER => Manufacturer::class,

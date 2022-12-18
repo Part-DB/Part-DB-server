@@ -11,3 +11,7 @@
 {% block new_title %}
     {% trans %}device.new{% endtrans %}
 {% endblock %}
+
+{% block additional_controls %}
+    {{ form_row(form.description) }}
+{% endblock %}

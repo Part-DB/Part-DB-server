@@ -22,7 +22,7 @@ namespace App\Tests\Twig;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\PartAttachment;
-use App\Entity\Devices\Device;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -58,7 +58,7 @@ class EntityExtensionTest extends WebTestCase
         $this->assertEquals('storelocation', $this->service->getEntityType(new Storelocation()));
         $this->assertEquals('manufacturer', $this->service->getEntityType(new Manufacturer()));
         $this->assertEquals('category', $this->service->getEntityType(new Category()));
-        $this->assertEquals('device', $this->service->getEntityType(new Device()));
+        $this->assertEquals('device', $this->service->getEntityType(new Project()));
         $this->assertEquals('attachment', $this->service->getEntityType(new PartAttachment()));
         $this->assertEquals('supplier', $this->service->getEntityType(new Supplier()));
         $this->assertEquals('user', $this->service->getEntityType(new User()));

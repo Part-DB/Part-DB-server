@@ -23,8 +23,8 @@ namespace App\Form\Filters;
 use App\DataTables\Filters\LogFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
-use App\Entity\Devices\Device;
-use App\Entity\Devices\DevicePart;
+use App\Entity\ProjectSystem\Project;
+use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\LogSystem\CollectionElementDeleted;
@@ -135,8 +135,8 @@ class LogFilterType extends AbstractType
                 'attachment.label' => AbstractLogEntry::targetTypeClassToID(Attachment::class),
                 'attachment_type.label' => AbstractLogEntry::targetTypeClassToID(AttachmentType::class),
                 'category.label' => AbstractLogEntry::targetTypeClassToID(Category::class),
-                'device.label' => AbstractLogEntry::targetTypeClassToID(Device::class),
-                'device_part.label' => AbstractLogEntry::targetTypeClassToID(DevicePart::class),
+                'device.label' => AbstractLogEntry::targetTypeClassToID(Project::class),
+                'device_part.label' => AbstractLogEntry::targetTypeClassToID(ProjectBOMEntry::class),
                 'footprint.label' => AbstractLogEntry::targetTypeClassToID(Footprint::class),
                 'group.label' => AbstractLogEntry::targetTypeClassToID(Group::class),
                 'manufacturer.label' => AbstractLogEntry::targetTypeClassToID(Manufacturer::class),
