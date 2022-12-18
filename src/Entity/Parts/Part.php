@@ -33,6 +33,7 @@ use App\Entity\Parts\PartTraits\BasicPropertyTrait;
 use App\Entity\Parts\PartTraits\InstockTrait;
 use App\Entity\Parts\PartTraits\ManufacturerTrait;
 use App\Entity\Parts\PartTraits\OrderTrait;
+use App\Entity\ProjectSystem\ProjectBOMEntry;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -65,9 +66,10 @@ class Part extends AttachmentContainingDBElement
     use ParametersTrait;
 
     /**
-     * TODO.
+     * @var Collection<int, ProjectBOMEntry> $project_bom_entries
+     * @ORM\OneToMany(targetEntity="App\Entity\ProjectSystem\ProjectBOMEntry", mappedBy="part")
      */
-    protected $devices = [];
+    protected $project_bom_entries = [];
 
     /** @var Collection<int, PartParameter>
      * @Assert\Valid()
@@ -120,6 +122,7 @@ class Part extends AttachmentContainingDBElement
         $this->partLots = new ArrayCollection();
         $this->orderdetails = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+        $this->project_bom_entries = new ArrayCollection();
     }
 
     public function __clone()
@@ -150,14 +153,31 @@ class Part extends AttachmentContainingDBElement
     }
 
     /**
+     * Returns all ProjectBOMEntries that use this part.
+     * @return Collection<int, ProjectBOMEntry>|ProjectBOMEntry[]
+     */
+    public function getProjectBomEntries(): Collection
+    {
+        return $this->project_bom_entries;
+    }
+
+
+
+    /**
      *  Get all devices which uses this part.
      *
      * @return Project[] * all devices which uses this part as a one-dimensional array of Device objects
      *                  (empty array if there are no ones)
      *                  * the array is sorted by the devices names
      */
-    public function getDevices(): array
+    public function getProjects(): array
     {
-        return $this->devices;
+        $projects = [];
+
+        foreach($this->project_bom_entries as $entry) {
+            $projects[] = $entry->getProject();
+        }
+
+        return $projects;
     }
 }

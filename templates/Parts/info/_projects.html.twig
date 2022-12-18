@@ -1,0 +1,26 @@
+{% import "components/attachments.macro.html.twig" as attachments %}
+
+<table class="table table-striped table-sm table-hover table-responsive-sm">
+    <thead>
+    <tr>
+        <th></th>
+        <th>{% trans %}entity.info.name{% endtrans %}</th>
+        <th>{% trans %}description.label{% endtrans %}</th>
+        <th>{% trans %}project.bom.quantity{% endtrans %}</th>
+        <th>{% trans %}project.bom.mountnames{% endtrans %}</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for bom_entry in part.projectBomEntries %}
+    <tr>
+        <td>{% if bom_entry.project.masterPictureAttachment is not null %}{{ attachments.attachment_icon(bom_entry.project.masterPictureAttachment, attachment_manager) }}{% endif %}</td>
+        <td><a href="{{ url('project_info', {'id': bom_entry.project.iD}) }}">{{ bom_entry.project.name }}</a></td> {# Name #}
+        <td>{{ bom_entry.project.description|format_markdown }}</td> {# Description #}
+        <td>{{ bom_entry.quantity | format_amount(part.partUnit) }}</td>
+        <td>{{ bom_entry.mountnames }}</td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>

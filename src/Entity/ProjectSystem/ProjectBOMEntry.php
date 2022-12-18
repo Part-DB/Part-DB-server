@@ -72,7 +72,7 @@ class ProjectBOMEntry extends AbstractDBElement
 
     /**
      * @var Part|null The part associated with this
-     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Part", inversedBy="project_bom_entries")
      * @ORM\JoinColumn(name="id_part", referencedColumnName="id", nullable=true)
      */
     protected ?Part $part = null;
