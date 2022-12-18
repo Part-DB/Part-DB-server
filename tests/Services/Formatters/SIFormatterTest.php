@@ -20,9 +20,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Services;
+namespace App\Tests\Services\Formatters;
 
-use App\Services\SIFormatter;
+use App\Services\Formatters\SIFormatter;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class SIFormatterTest extends WebTestCase

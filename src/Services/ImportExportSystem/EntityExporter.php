@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services;
+namespace App\Services\ImportExportSystem;
 
 use App\Entity\Base\AbstractNamedDBElement;
 use function in_array;

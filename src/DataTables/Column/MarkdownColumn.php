@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace App\DataTables\Column;
 
-use App\Services\MarkdownParser;
+use App\Services\Formatters\MarkdownParser;
 use Omines\DataTablesBundle\Column\AbstractColumn;
 
 class MarkdownColumn extends AbstractColumn

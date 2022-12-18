@@ -20,11 +20,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Services;
+namespace App\Tests\Services\ImportExportSystem;
 
 use App\Entity\Attachments\AttachmentType;
-use App\Services\AmountFormatter;
-use App\Services\EntityImporter;
+use App\Services\Formatters\AmountFormatter;
+use App\Services\ImportExportSystem\EntityImporter;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**

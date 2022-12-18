@@ -21,7 +21,7 @@
 namespace App\Twig;
 
 use App\Services\Attachments\AttachmentURLGenerator;
-use App\Services\FAIconGenerator;
+use App\Services\Misc\FAIconGenerator;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

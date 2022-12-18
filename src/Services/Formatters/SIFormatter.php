@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services;
+namespace App\Services\Formatters;
 
 /**
  * A service that helps you to format values using the SI prefixes.

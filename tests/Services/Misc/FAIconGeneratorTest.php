@@ -20,9 +20,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Services;
+namespace App\Tests\Services\Misc;
 
-use App\Services\FAIconGenerator;
+use App\Services\Misc\FAIconGenerator;
+use App\Tests\Services\AmountFormatter;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class FAIconGeneratorTest extends WebTestCase

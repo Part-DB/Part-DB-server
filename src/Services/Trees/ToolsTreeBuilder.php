@@ -37,7 +37,7 @@ use App\Entity\PriceInformations\Currency;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Helpers\Trees\TreeViewNode;
-use App\Services\UserCacheKeyGenerator;
+use App\Services\UserSystem\UserCacheKeyGenerator;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Cache\ItemInterface;

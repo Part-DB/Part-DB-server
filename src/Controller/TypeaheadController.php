@@ -36,7 +36,7 @@ use App\Entity\PriceInformations\Currency;
 use App\Repository\ParameterRepository;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\BuiltinAttachmentsFinder;
-use App\Services\TagFinder;
+use App\Services\Tools\TagFinder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\Packages;

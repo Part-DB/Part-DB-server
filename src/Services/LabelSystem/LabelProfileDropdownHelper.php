@@ -43,7 +43,7 @@ namespace App\Services\LabelSystem;
 
 use App\Entity\LabelSystem\LabelProfile;
 use App\Repository\LabelProfileRepository;
-use App\Services\UserCacheKeyGenerator;
+use App\Services\UserSystem\UserCacheKeyGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;

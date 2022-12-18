@@ -42,7 +42,7 @@ declare(strict_types=1);
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
 use App\Entity\Parts\PartLot;
-use App\Services\AmountFormatter;
+use App\Services\Formatters\AmountFormatter;
 use App\Services\LabelSystem\LabelTextReplacer;
 use IntlDateFormatter;
 use Locale;

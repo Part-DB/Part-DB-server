@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services;
+namespace App\Services\Misc;
 
 use App\Entity\Attachments\Attachment;
 use function in_array;

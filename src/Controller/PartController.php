@@ -39,7 +39,7 @@ use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\HistoryHelper;
 use App\Services\LogSystem\TimeTravel;
 use App\Services\Parameters\ParameterExtractor;
-use App\Services\PricedetailHelper;
+use App\Services\Parts\PricedetailHelper;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;

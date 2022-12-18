@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Services\Attachments;
 
-use App\Services\AmountFormatter;
+use App\Services\Formatters\AmountFormatter;
 use App\Services\Attachments\AttachmentPathResolver;
 use const DIRECTORY_SEPARATOR;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;

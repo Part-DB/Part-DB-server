@@ -20,7 +20,7 @@
 
 namespace App\Controller;
 
-use App\Services\GitVersionInfo;
+use App\Services\Misc\GitVersionInfo;
 use App\Services\Misc\DBInfoHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

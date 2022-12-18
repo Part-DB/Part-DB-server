@@ -39,7 +39,7 @@ declare(strict_types=1);
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace App\Services;
+namespace App\Services\Tools;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;

@@ -23,7 +23,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\DataTables\LogDataTable;
-use App\Services\GitVersionInfo;
+use App\Services\Misc\GitVersionInfo;
 use const DIRECTORY_SEPARATOR;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

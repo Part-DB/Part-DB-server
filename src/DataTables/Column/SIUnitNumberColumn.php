@@ -20,7 +20,7 @@
 
 namespace App\DataTables\Column;
 
-use App\Services\SIFormatter;
+use App\Services\Formatters\SIFormatter;
 use Omines\DataTablesBundle\Column\AbstractColumn;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

@@ -28,7 +28,7 @@ use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Exceptions\EntityNotSupportedException;
-use App\Services\AmountFormatter;
+use App\Services\Formatters\AmountFormatter;
 use App\Services\ElementTypeNameGenerator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

@@ -41,7 +41,7 @@ use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
-use App\Services\AmountFormatter;
+use App\Services\Formatters\AmountFormatter;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\EntityURLGenerator;

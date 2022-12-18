@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services;
+namespace App\Services\Parts;
 
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Currency;

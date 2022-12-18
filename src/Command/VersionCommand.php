@@ -20,7 +20,7 @@
 
 namespace App\Command;
 
-use App\Services\GitVersionInfo;
+use App\Services\Misc\GitVersionInfo;
 use Shivas\VersioningBundle\Service\VersionManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

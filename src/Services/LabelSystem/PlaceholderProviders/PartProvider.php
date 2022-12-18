@@ -42,7 +42,7 @@ declare(strict_types=1);
 namespace App\Services\LabelSystem\PlaceholderProviders;
 
 use App\Entity\Parts\Part;
-use App\Services\SIFormatter;
+use App\Services\Formatters\SIFormatter;
 use Parsedown;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

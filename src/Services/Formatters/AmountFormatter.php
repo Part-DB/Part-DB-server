@@ -20,9 +20,10 @@
 
 declare(strict_types=1);
 
-namespace App\Services;
+namespace App\Services\Formatters;
 
 use App\Entity\Parts\MeasurementUnit;
+use App\Services\Formatters\SIFormatter;
 use InvalidArgumentException;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;

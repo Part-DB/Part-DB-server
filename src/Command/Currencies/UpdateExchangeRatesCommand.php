@@ -23,7 +23,7 @@ declare(strict_types=1);
 namespace App\Command\Currencies;
 
 use App\Entity\PriceInformations\Currency;
-use App\Services\ExchangeRateUpdater;
+use App\Services\Tools\ExchangeRateUpdater;
 use Doctrine\ORM\EntityManagerInterface;
 use Exchanger\Exception\Exception;
 use Symfony\Component\Console\Command\Command;

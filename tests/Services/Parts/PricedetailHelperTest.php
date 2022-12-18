@@ -20,13 +20,13 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Services;
+namespace App\Tests\Services\Parts;
 
 use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
-use App\Services\AmountFormatter;
-use App\Services\PricedetailHelper;
+use App\Services\Formatters\AmountFormatter;
+use App\Services\Parts\PricedetailHelper;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class PricedetailHelperTest extends WebTestCase

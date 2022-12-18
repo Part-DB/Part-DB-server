@@ -26,7 +26,7 @@ use App\Entity\Attachments\Attachment;
 use App\Entity\Parts\Part;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\EntityURLGenerator;
-use App\Services\FAIconGenerator;
+use App\Services\Misc\FAIconGenerator;
 use Omines\DataTablesBundle\Column\AbstractColumn;
 use RuntimeException;
 use Symfony\Component\OptionsResolver\OptionsResolver;

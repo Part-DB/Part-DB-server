@@ -24,7 +24,7 @@ namespace App\Services\Trees;
 
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Repository\StructuralDBElementRepository;
-use App\Services\UserCacheKeyGenerator;
+use App\Services\UserSystem\UserCacheKeyGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;

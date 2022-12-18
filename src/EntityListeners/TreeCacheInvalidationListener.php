@@ -27,7 +27,7 @@ use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
-use App\Services\UserCacheKeyGenerator;
+use App\Services\UserSystem\UserCacheKeyGenerator;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use function get_class;

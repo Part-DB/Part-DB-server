@@ -20,10 +20,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Services;
+namespace App\Tests\Services\Formatters;
 
 use App\Entity\Parts\MeasurementUnit;
-use App\Services\AmountFormatter;
+use App\Services\Formatters\AmountFormatter;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

@@ -23,7 +23,7 @@ declare(strict_types=1);
 namespace App\Form\Type;
 
 use App\Entity\Parts\MeasurementUnit;
-use App\Services\SIFormatter;
+use App\Services\Formatters\SIFormatter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\Exception;

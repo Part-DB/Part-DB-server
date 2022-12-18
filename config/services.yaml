@@ -146,15 +146,15 @@ services:
         arguments:
             $base_currency: '%partdb.default_currency%'
 
-    App\Services\PricedetailHelper:
+    App\Services\Parts\PricedetailHelper:
         arguments:
             $base_currency: '%partdb.default_currency%'
 
-    App\Services\MoneyFormatter:
+    App\Services\Formatters\MoneyFormatter:
         arguments:
             $base_currency: '%partdb.default_currency%'
 
-    App\Services\ExchangeRateUpdater:
+    App\Services\Tools\ExchangeRateUpdater:
         arguments:
             $base_currency: '%partdb.default_currency%'
 
