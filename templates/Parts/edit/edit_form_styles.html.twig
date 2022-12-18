@@ -138,6 +138,13 @@
                         </h6>
                     {% endif %}
 
+                    {% if attach.secure %}
+                        <h6>
+                           <span class="badge bg-success">
+                                <i class="fas fa-fw fa-shield-alt"></i> {% trans %}attachment.secure{% endtrans %}
+                           </span>
+                        </h6>
+
                     {% if attach.secure and not is_granted('show_private', attach) %}
                         {# Leave blank #}
                     {% elseif attach.picture %}
@@ -155,13 +162,6 @@
                     </span>
                     </h6>
                 {% endif %}
-
-                {% if attach.secure %}
-                    <h6>
-                           <span class="badge bg-success">
-                                <i class="fas fa-fw fa-shield-alt"></i> {% trans %}attachment.secure{% endtrans %}
-                           </span>
-                    </h6>
                 {% endif %}
             {% endif %}
 
