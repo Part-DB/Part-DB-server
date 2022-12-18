@@ -57,7 +57,7 @@ class AbstractElementProviderTest extends WebTestCase
     protected function setUp(): void
     {
         self::bootKernel();
-        $this->service = self::$container->get(AbstractDBElementProvider::class);
+        $this->service = self::getContainer()->get(AbstractDBElementProvider::class);
         $this->target = new class() extends AbstractDBElement {
             protected ?int $id = 123;
         };

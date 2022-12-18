@@ -54,7 +54,7 @@ class ParameterExtractorTest extends WebTestCase
         parent::setUp();
         //Get an service instance.
         self::bootKernel();
-        $this->service = self::$container->get(ParameterExtractor::class);
+        $this->service = self::getContainer()->get(ParameterExtractor::class);
     }
 
     public function emptyDataProvider(): array

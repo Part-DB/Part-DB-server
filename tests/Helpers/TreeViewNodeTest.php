@@ -40,7 +40,7 @@ class TreeViewNodeTest extends TestCase
     {
         $sub_nodes = [];
         $sub_nodes[] = new TreeViewNode('Subnode 1');
-        $sub_sub_nodes[] = [];
+        $sub_sub_nodes = [];
         $sub_sub_nodes[] = new TreeViewNode('Sub Subnode 1');
         $sub_sub_nodes[] = new TreeViewNode('Sub Subnode 2');
         $sub_nodes[] = new TreeViewNode('Subnode 2');

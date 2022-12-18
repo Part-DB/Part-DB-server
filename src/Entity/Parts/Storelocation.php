@@ -107,7 +107,7 @@ class Storelocation extends AbstractPartsContainingDBElement
      */
     public function isFull(): bool
     {
-        return (bool) $this->is_full;
+        return $this->is_full;
     }
 
     /**

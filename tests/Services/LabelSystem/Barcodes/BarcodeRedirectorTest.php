@@ -55,7 +55,7 @@ class BarcodeRedirectorTest extends KernelTestCase
     protected function setUp(): void
     {
         self::bootKernel();
-        $this->service = self::$container->get(BarcodeRedirector::class);
+        $this->service = self::getContainer()->get(BarcodeRedirector::class);
     }
 
     public function urlDataProvider(): array

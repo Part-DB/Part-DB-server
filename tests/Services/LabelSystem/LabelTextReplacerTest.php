@@ -64,7 +64,7 @@ class LabelTextReplacerTest extends WebTestCase
 
         //Get an service instance.
         self::bootKernel();
-        $this->service = self::$container->get(LabelTextReplacer::class);
+        $this->service = self::getContainer()->get(LabelTextReplacer::class);
 
         $this->target = new Part();
         $this->target->setName('Part 1');

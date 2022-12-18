@@ -30,9 +30,6 @@ use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Entity\UserSystem\User;
 use DateTime;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
-use Doctrine\ORM\TransactionRequiredException;
 use RuntimeException;
 
 class LogEntryRepository extends DBElementRepository

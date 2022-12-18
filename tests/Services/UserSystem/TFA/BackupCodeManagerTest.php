@@ -36,7 +36,7 @@ class BackupCodeManagerTest extends WebTestCase
     protected function setUp(): void
     {
         self::bootKernel();
-        $this->service = self::$container->get(BackupCodeManager::class);
+        $this->service = self::getContainer()->get(BackupCodeManager::class);
     }
 
     public function testRegenerateBackupCodes(): void

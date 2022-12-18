@@ -32,7 +32,7 @@ class FileTypeFilterToolsTest extends WebTestCase
     public static function setUpBeforeClass(): void
     {
         self::bootKernel();
-        self::$service = self::$container->get(FileTypeFilterTools::class);
+        self::$service = self::getContainer()->get(FileTypeFilterTools::class);
     }
 
     public function validateDataProvider(): array

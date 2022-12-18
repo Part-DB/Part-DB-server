@@ -60,7 +60,7 @@ class TimestampableElementProviderTest extends WebTestCase
     {
         self::bootKernel();
         \Locale::setDefault('en');
-        $this->service = self::$container->get(TimestampableElementProvider::class);
+        $this->service = self::getContainer()->get(TimestampableElementProvider::class);
         $this->target = new class() implements TimeStampableInterface {
             public function getLastModified(): ?DateTime
             {

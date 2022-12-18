@@ -43,7 +43,7 @@ class EntityImporterTest extends WebTestCase
 
         //Get an service instance.
         self::bootKernel();
-        $this->service = self::$container->get(EntityImporter::class);
+        $this->service = self::getContainer()->get(EntityImporter::class);
     }
 
     public function testMassCreationResults(): void

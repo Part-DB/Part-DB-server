@@ -40,7 +40,7 @@ class AmountFormatterTest extends WebTestCase
 
         //Get an service instance.
         self::bootKernel();
-        $this->service = self::$container->get(AmountFormatter::class);
+        $this->service = self::getContainer()->get(AmountFormatter::class);
     }
 
     public function testFormatWithoutUnit(): void

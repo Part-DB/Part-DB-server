@@ -378,7 +378,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ->addGroupBy('suppliers')
             ->addGroupBy('attachments')
             ->addGroupBy('partUnit')
-            ->addGroupBy('parameters');
+            ->addGroupBy('parameters')
         ;
     }
 

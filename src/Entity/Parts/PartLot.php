@@ -259,7 +259,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
             return round($this->amount);
         }
 
-        return (float) $this->amount;
+        return $this->amount;
     }
 
     /**

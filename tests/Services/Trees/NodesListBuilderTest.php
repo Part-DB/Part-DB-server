@@ -41,8 +41,8 @@ class NodesListBuilderTest extends WebTestCase
     protected function setUp(): void
     {
         self::bootKernel();
-        $this->service = self::$container->get(NodesListBuilder::class);
-        $this->em = self::$container->get(EntityManagerInterface::class);
+        $this->service = self::getContainer()->get(NodesListBuilder::class);
+        $this->em = self::getContainer()->get(EntityManagerInterface::class);
     }
 
     /**

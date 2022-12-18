@@ -22,8 +22,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller;
 
+use App\Entity\UserSystem\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Proxies\__CG__\App\Entity\UserSystem\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
@@ -44,7 +44,7 @@ class RedirectControllerTest extends WebTestCase
         ]);
         $this->client->disableReboot();
         $this->client->catchExceptions(false);
-        $this->em = self::$container->get(EntityManagerInterface::class);
+        $this->em = self::getContainer()->get(EntityManagerInterface::class);
         $this->userRepo = $this->em->getRepository(User::class);
     }
 

@@ -54,7 +54,7 @@ class BarcodeNormalizerTest extends WebTestCase
     protected function setUp(): void
     {
         self::bootKernel();
-        $this->service = self::$container->get(BarcodeNormalizer::class);
+        $this->service = self::getContainer()->get(BarcodeNormalizer::class);
     }
 
     public function dataProvider(): array

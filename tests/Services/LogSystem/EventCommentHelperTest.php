@@ -57,7 +57,7 @@ class EventCommentHelperTest extends WebTestCase
 
         //Get an service instance.
         self::bootKernel();
-        $this->service = self::$container->get(EventCommentHelper::class);
+        $this->service = self::getContainer()->get(EventCommentHelper::class);
     }
 
     public function testInitialState(): void

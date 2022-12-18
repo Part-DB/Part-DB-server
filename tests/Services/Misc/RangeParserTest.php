@@ -54,7 +54,7 @@ class RangeParserTest extends WebTestCase
     protected function setUp(): void
     {
         self::bootKernel();
-        $this->service = self::$container->get(RangeParser::class);
+        $this->service = self::getContainer()->get(RangeParser::class);
     }
 
     public function dataProvider(): array

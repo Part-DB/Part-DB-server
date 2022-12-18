@@ -57,7 +57,7 @@ class NamedElementProviderTest extends WebTestCase
     protected function setUp(): void
     {
         self::bootKernel();
-        $this->service = self::$container->get(NamedElementProvider::class);
+        $this->service = self::getContainer()->get(NamedElementProvider::class);
         $this->target = new class() implements NamedElementInterface {
             public function getName(): string
             {

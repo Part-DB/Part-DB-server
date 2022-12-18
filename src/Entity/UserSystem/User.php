@@ -283,7 +283,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     public function getUsername(): string
     {
-        return (string) $this->name;
+        return $this->name;
     }
 
     public function getUserIdentifier(): string

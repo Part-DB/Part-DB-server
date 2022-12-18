@@ -41,7 +41,7 @@ class PricedetailHelperTest extends WebTestCase
         parent::setUp();
         //Get an service instance.
         self::bootKernel();
-        $this->service = self::$container->get(PricedetailHelper::class);
+        $this->service = self::getContainer()->get(PricedetailHelper::class);
     }
 
     public function maxDiscountAmountDataProvider(): ?\Generator

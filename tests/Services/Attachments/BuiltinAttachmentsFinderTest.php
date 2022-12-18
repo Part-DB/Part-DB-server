@@ -40,7 +40,7 @@ class BuiltinAttachmentsFinderTest extends WebTestCase
     {
         //Get an service instance.
         self::bootKernel();
-        self::$service = self::$container->get(BuiltinAttachmentsFinder::class);
+        self::$service = self::getContainer()->get(BuiltinAttachmentsFinder::class);
     }
 
     public function dataProvider(): array

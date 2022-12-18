@@ -46,8 +46,8 @@ class TreeViewGeneratorTest extends WebTestCase
 
         //Get an service instance.
         self::bootKernel();
-        $this->service = self::$container->get(TreeViewGenerator::class);
-        $this->em = self::$container->get(EntityManagerInterface::class);
+        $this->service = self::getContainer()->get(TreeViewGenerator::class);
+        $this->em = self::getContainer()->get(EntityManagerInterface::class);
     }
 
     public function testGetGenericTree(): void

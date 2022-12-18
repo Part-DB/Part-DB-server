@@ -57,7 +57,7 @@ class BarcodeContentGeneratorTest extends KernelTestCase
     protected function setUp(): void
     {
         self::bootKernel();
-        $this->service = self::$container->get(BarcodeContentGenerator::class);
+        $this->service = self::getContainer()->get(BarcodeContentGenerator::class);
     }
 
     public function Barcode1DDataProvider(): array

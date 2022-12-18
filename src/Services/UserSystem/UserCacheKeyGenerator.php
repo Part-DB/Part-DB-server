@@ -55,7 +55,7 @@ class UserCacheKeyGenerator
 
         //If the user is null, then treat it as anonymous user.
         //When the anonymous user is passed as user then use this path too.
-        if (null === $user || !($user instanceof User) || User::ID_ANONYMOUS === $user->getID()) {
+        if (!($user instanceof User) || User::ID_ANONYMOUS === $user->getID()) {
             return 'user$_'.User::ID_ANONYMOUS;
         }
 

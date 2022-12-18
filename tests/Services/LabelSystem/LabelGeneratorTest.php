@@ -59,7 +59,7 @@ class LabelGeneratorTest extends WebTestCase
     protected function setUp(): void
     {
         self::bootKernel();
-        $this->service = self::$container->get(LabelGenerator::class);
+        $this->service = self::getContainer()->get(LabelGenerator::class);
     }
 
     public function supportsDataProvider(): array

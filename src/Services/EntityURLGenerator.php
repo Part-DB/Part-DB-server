@@ -166,16 +166,11 @@ class EntityURLGenerator
 
     public function viewURL(Attachment $entity): ?string
     {
-        if ($entity instanceof Attachment) {
-            if ($entity->isExternal()) { //For external attachments, return the link to external path
-                return $entity->getURL();
-            }
-            //return $this->urlGenerator->generate('attachment_view', ['id' => $entity->getID()]);
-            return $this->attachmentURLGenerator->getViewURL($entity);
+        if ($entity->isExternal()) { //For external attachments, return the link to external path
+            return $entity->getURL();
         }
-
-        //Otherwise throw an error
-        throw new EntityNotSupportedException('The given entity is not supported yet!');
+        //return $this->urlGenerator->generate('attachment_view', ['id' => $entity->getID()]);
+        return $this->attachmentURLGenerator->getViewURL($entity);
     }
 
     public function downloadURL($entity): ?string

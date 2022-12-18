@@ -57,7 +57,7 @@ class GlobalProvidersTest extends WebTestCase
     protected function setUp(): void
     {
         self::bootKernel();
-        $this->service = self::$container->get(GlobalProviders::class);
+        $this->service = self::getContainer()->get(GlobalProviders::class);
         $this->target = new Part();
     }
 

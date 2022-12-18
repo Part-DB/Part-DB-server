@@ -60,7 +60,7 @@ class EventLoggerTest extends WebTestCase
 
         //Get an service instance.
         self::bootKernel();
-        $this->service = self::$container->get(EventLogger::class);
+        $this->service = self::getContainer()->get(EventLogger::class);
     }
 
     public function testShouldBeAdded(): void

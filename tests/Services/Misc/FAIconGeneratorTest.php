@@ -29,7 +29,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class FAIconGeneratorTest extends WebTestCase
 {
     /**
-     * @var AmountFormatter
+     * @var FAIconGenerator
      */
     protected $service;
 
@@ -39,7 +39,7 @@ class FAIconGeneratorTest extends WebTestCase
 
         //Get an service instance.
         self::bootKernel();
-        $this->service = self::$container->get(FAIconGenerator::class);
+        $this->service = self::getContainer()->get(FAIconGenerator::class);
     }
 
     public function fileExtensionDataProvider(): array

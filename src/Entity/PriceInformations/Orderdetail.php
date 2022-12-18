@@ -176,7 +176,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      */
     public function getObsolete(): bool
     {
-        return (bool) $this->obsolete;
+        return $this->obsolete;
     }
 
     /**

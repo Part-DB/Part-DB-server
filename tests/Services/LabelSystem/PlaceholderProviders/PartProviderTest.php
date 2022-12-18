@@ -68,9 +68,9 @@ class PartProviderTest extends WebTestCase
     protected function setUp(): void
     {
         self::bootKernel();
-        $this->service = self::$container->get(PartProvider::class);
+        $this->service = self::getContainer()->get(PartProvider::class);
         $this->target = new Part();
-        $this->em = self::$container->get(EntityManagerInterface::class);
+        $this->em = self::getContainer()->get(EntityManagerInterface::class);
 
         $this->target->setCategory($this->em->find(Category::class, 6));
         $this->target->setFootprint($this->em->find(Footprint::class, 6));

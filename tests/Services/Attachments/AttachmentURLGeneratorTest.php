@@ -35,7 +35,7 @@ class AttachmentURLGeneratorTest extends WebTestCase
     {
         //Get an service instance.
         self::bootKernel();
-        self::$service = self::$container->get(AttachmentURLGenerator::class);
+        self::$service = self::getContainer()->get(AttachmentURLGenerator::class);
     }
 
     public function dataProvider(): array
