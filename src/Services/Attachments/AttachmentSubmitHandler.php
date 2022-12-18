@@ -223,7 +223,7 @@ class AttachmentSubmitHandler
 
         //Determine the old filepath
         $old_path = $this->pathResolver->placeholderToRealPath($attachment->getPath());
-        if (!file_exists($old_path)) {
+        if (empty($old_path) || !file_exists($old_path)) {
             return $attachment;
         }
         $filename = basename($old_path);
