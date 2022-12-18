@@ -212,7 +212,7 @@ class AttachmentSubmitHandler
     /**
      * Rename attachments with an unsafe extension (meaning files which would be runned by a  to a safe one.
      * @param Attachment $attachment
-     * @return void
+     * @return Attachment
      */
     protected function renameBlacklistedExtensions(Attachment $attachment): Attachment
     {
