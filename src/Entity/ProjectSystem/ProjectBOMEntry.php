@@ -68,7 +68,7 @@ class ProjectBOMEntry extends AbstractDBElement
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="parts")
      * @ORM\JoinColumn(name="id_device", referencedColumnName="id")
      */
-    protected ?Project $device = null;
+    protected ?Project $project = null;
 
     /**
      * @var Part|null The part associated with this
@@ -76,4 +76,116 @@ class ProjectBOMEntry extends AbstractDBElement
      * @ORM\JoinColumn(name="id_part", referencedColumnName="id", nullable=true)
      */
     protected ?Part $part = null;
+
+    /**
+     * @return float
+     */
+    public function getQuantity(): float
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param  float  $quantity
+     * @return ProjectBOMEntry
+     */
+    public function setQuantity(float $quantity): ProjectBOMEntry
+    {
+        $this->quantity = $quantity;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMountnames(): string
+    {
+        return $this->mountnames;
+    }
+
+    /**
+     * @param  string  $mountnames
+     * @return ProjectBOMEntry
+     */
+    public function setMountnames(string $mountnames): ProjectBOMEntry
+    {
+        $this->mountnames = $mountnames;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param  string  $name
+     * @return ProjectBOMEntry
+     */
+    public function setName(string $name): ProjectBOMEntry
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getComment(): string
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param  string  $comment
+     * @return ProjectBOMEntry
+     */
+    public function setComment(string $comment): ProjectBOMEntry
+    {
+        $this->comment = $comment;
+        return $this;
+    }
+
+    /**
+     * @return Project|null
+     */
+    public function getProject(): ?Project
+    {
+        return $this->project;
+    }
+
+    /**
+     * @param  Project|null  $project
+     * @return ProjectBOMEntry
+     */
+    public function setProject(?Project $project): ProjectBOMEntry
+    {
+        $this->project = $project;
+        return $this;
+    }
+
+
+
+    /**
+     * @return Part|null
+     */
+    public function getPart(): ?Part
+    {
+        return $this->part;
+    }
+
+    /**
+     * @param  Part|null  $part
+     * @return ProjectBOMEntry
+     */
+    public function setPart(?Part $part): ProjectBOMEntry
+    {
+        $this->part = $part;
+        return $this;
+    }
+
+
 }

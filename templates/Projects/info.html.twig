@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% import "components/datatables.macro.html.twig" as datatables %}
+
+{% block  title %}
+    {% trans %}parts_list.category.title{% endtrans %} {{ project.name }}
+{% endblock %}
+
+{% block content %}
+
+    {% include "Projects/_info_card.html.twig" %}
+
+    {{ datatables.datatable(datatable, 'elements/datatables/datatables', 'projects') }}
+
+   {# {% include "Parts/lists/_action_bar.html.twig" with {'url_options': {'category': entity.iD}} %}
+
+    {% include "Parts/lists/_parts_list.html.twig" %} #}
+
+{% endblock %}

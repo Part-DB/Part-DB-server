@@ -322,6 +322,8 @@ class EntityURLGenerator
     public function listPartsURL(AbstractDBElement $entity): string
     {
         $map = [
+            Project::class => 'project_info',
+
             Category::class => 'part_list_category',
             Footprint::class => 'part_list_footprint',
             Manufacturer::class => 'part_list_manufacturer',

@@ -52,7 +52,7 @@ class Project extends AbstractStructuralDBElement
     protected $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="ProjectBOMEntry", mappedBy="device")
+     * @ORM\OneToMany(targetEntity="ProjectBOMEntry", mappedBy="project")
      */
     protected $bom_entries;
 

@@ -110,7 +110,7 @@ class TreeViewGenerator
         }
 
         if ($mode === 'devices') {
-            $href_type = '';
+            $href_type = 'list_parts';
         }
 
         $generic = $this->getGenericTree($class, $parent);

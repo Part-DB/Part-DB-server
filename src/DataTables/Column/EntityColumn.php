@@ -65,8 +65,8 @@ class EntityColumn extends AbstractColumn
         });
 
         $resolver->setDefault('render', function (Options $options) {
-            return function ($value, Part $context) use ($options) {
-                /** @var AbstractDBElement|null $entity */
+            return function ($value, $context) use ($options) {
+                /** @var AbstractNamedDBElement|null $entity */
                 $entity = $this->accessor->getValue($context, $options['property']);
 
                 if (null !== $entity) {
@@ -74,7 +74,7 @@ class EntityColumn extends AbstractColumn
                         return sprintf(
                             '<a href="%s">%s</a>',
                             $this->urlGenerator->listPartsURL($entity),
-                            $value
+                            $entity->getName()
                         );
                     }
 
