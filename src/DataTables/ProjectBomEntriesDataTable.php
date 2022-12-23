@@ -76,7 +76,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ])
 
             ->add('quantity', TextColumn::class, [
-               'label' => $this->translator->trans('project.bom.quantity'),
+                'label' => $this->translator->trans('project.bom.quantity'),
                 'className' => 'text-center',
                 'render' => function ($value, ProjectBOMEntry $context) {
                     //If we have a non-part entry, only show the rounded quantity
@@ -132,7 +132,15 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ])
 
             ->add('mountnames', TextColumn::class, [
+                'label' => 'project.bom.mountnames',
+                'render' => function ($value, ProjectBOMEntry $context) {
+                    $html = '';
 
+                    foreach (explode(',', $context->getMountnames()) as $mountname) {
+                        $html .= sprintf('<span class="badge badge-secondary bg-secondary">%s</span> ', htmlspecialchars($mountname));
+                    }
+                    return $html;
+                },
             ])
 
 
