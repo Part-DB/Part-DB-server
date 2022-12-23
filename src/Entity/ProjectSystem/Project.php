@@ -52,7 +52,7 @@ class Project extends AbstractStructuralDBElement
     protected $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="ProjectBOMEntry", mappedBy="project")
+     * @ORM\OneToMany(targetEntity="ProjectBOMEntry", mappedBy="project", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected $bom_entries;
 
@@ -94,6 +94,23 @@ class Project extends AbstractStructuralDBElement
     {
         parent::__construct();
         $this->bom_entries = new ArrayCollection();
+    }
+
+    public function __clone()
+    {
+        //When cloning this project, we have to clone each bom entry too.
+        if ($this->id) {
+            $bom_entries = $this->bom_entries;
+            $this->bom_entries = new ArrayCollection();
+            //Set master attachment is needed
+            foreach ($bom_entries as $bom_entry) {
+                $clone = clone $bom_entry;
+                $this->bom_entries->add($clone);
+            }
+        }
+
+        //Parent has to be last call, as it resets the ID
+        parent::__clone();
     }
 
     /**
@@ -154,20 +171,31 @@ class Project extends AbstractStructuralDBElement
     }
 
     /**
-     * @return mixed
+     * @return Collection<int, ProjectBOMEntry>|ProjectBOMEntry[]
      */
-    public function getBomEntries()
+    public function getBomEntries(): Collection
     {
         return $this->bom_entries;
     }
 
     /**
-     * @param  mixed  $bom_entries
-     * @return Project
+     * @param  ProjectBOMEntry  $entry
+     * @return $this
      */
-    public function setBomEntries($bom_entries)
+    public function addBomEntry(ProjectBOMEntry $entry): self
     {
-        $this->bom_entries = $bom_entries;
+        $entry->setProject($this);
+        $this->bom_entries->add($entry);
+        return $this;
+    }
+
+    /**
+     * @param  ProjectBOMEntry  $entry
+     * @return $this
+     */
+    public function removeBomEntry(ProjectBOMEntry $entry): self
+    {
+        $this->bom_entries->removeElement($entry);
         return $this;
     }
 

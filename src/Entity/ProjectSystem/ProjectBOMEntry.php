@@ -32,6 +32,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * The ProjectBOMEntry class represents a entry in a project's BOM.
  *
  * @ORM\Table("device_parts")
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity()
  */
 class ProjectBOMEntry extends AbstractDBElement

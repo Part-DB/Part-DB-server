@@ -21,7 +21,9 @@
 namespace App\Form\AdminPages;
 
 use App\Entity\Base\AbstractNamedDBElement;
+use App\Form\ProjectSystem\ProjectBOMEntryType;
 use App\Form\Type\RichTextEditorType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class ProjectAdminForm extends BaseEntityAdminForm
@@ -37,6 +39,18 @@ class ProjectAdminForm extends BaseEntityAdminForm
                 'placeholder' => 'part.edit.description.placeholder',
                 'rows' => 2,
             ],
+        ]);
+
+        $builder->add('bom_entries', CollectionType::class, [
+            'entry_type' => ProjectBOMEntryType::class,
+            'entry_options' => [
+                'label' => false,
+            ],
+            'allow_add' => true,
+            'allow_delete' => true,
+            'by_reference' => false,
+            'reindex_enable' => true,
+            'label' => false,
         ]);
     }
 }
