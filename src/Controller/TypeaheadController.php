@@ -136,14 +136,14 @@ class TypeaheadController extends AbstractController
      * @param  EntityManagerInterface  $entityManager
      * @return JsonResponse
      */
-    public function parts(string $query, EntityManagerInterface $entityManager, PartPreviewGenerator $previewGenerator,
-    AttachmentURLGenerator $attachmentURLGenerator): JsonResponse
+    public function parts(EntityManagerInterface $entityManager, PartPreviewGenerator $previewGenerator,
+    AttachmentURLGenerator $attachmentURLGenerator, string $query = ""): JsonResponse
     {
         $this->denyAccessUnlessGranted('@parts.read');
 
         $repo = $entityManager->getRepository(Part::class);
 
-        $parts = $repo->autocompleteSearch($query);
+        $parts = $repo->autocompleteSearch($query, 100);
 
         $data = [];
         foreach ($parts as $part) {

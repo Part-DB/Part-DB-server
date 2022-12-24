@@ -72,11 +72,12 @@ class PartRepository extends NamedDBElementRepository
         $qb = $this->createQueryBuilder('part');
         $qb->select('part')
             ->leftJoin('part.category', 'category')
+            ->leftJoin('part.footprint', 'footprint')
 
             ->where('part.name LIKE :query')
             ->orWhere('part.description LIKE :query')
             ->orWhere('category.name LIKE :query')
-
+            ->orWhere('footprint.name LIKE :query')
             ;
 
         $qb->setParameter('query', '%'.$query.'%');

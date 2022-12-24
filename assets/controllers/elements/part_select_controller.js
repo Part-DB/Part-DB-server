@@ -13,12 +13,13 @@ export default class extends Controller {
         let settings = {
             allowEmptyOption: true,
             plugins: ['dropdown_input'],
-            searchField: "name",
+            searchField: ["name", "description", "category", "footprint"],
             valueField: "id",
             labelField: "name",
+            preload: "focus",
             render: {
                 item: (data, escape) => {
-                    return '<span>' + (data.image ? "<img style='height: 1.5rem;' ' src='" + data.image + "'/>" : "") + escape(data.name) +  '</span>';
+                    return '<span>' + (data.image ? "<img style='height: 1.5rem; margin-right: 5px;' ' src='" + data.image + "'/>" : "") + escape(data.name) +  '</span>';
                 },
                 option: (data, escape) => {
                     if(data.text) {
