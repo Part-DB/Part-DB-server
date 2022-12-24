@@ -66,4 +66,24 @@ class PartRepository extends NamedDBElementRepository
 
         return (int) ($query->getSingleScalarResult() ?? 0);
     }
+
+    public function autocompleteSearch(string $query, int $max_limits = 50): array
+    {
+        $qb = $this->createQueryBuilder('part');
+        $qb->select('part')
+            ->leftJoin('part.category', 'category')
+
+            ->where('part.name LIKE :query')
+            ->orWhere('part.description LIKE :query')
+            ->orWhere('category.name LIKE :query')
+
+            ;
+
+        $qb->setParameter('query', '%'.$query.'%');
+
+        $qb->setMaxResults($max_limits);
+        $qb->orderBy('part.name', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
 }

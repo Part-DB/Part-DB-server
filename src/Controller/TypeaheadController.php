@@ -32,10 +32,12 @@ use App\Entity\Parameters\MeasurementUnitParameter;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parameters\StorelocationParameter;
 use App\Entity\Parameters\SupplierParameter;
+use App\Entity\Parts\Part;
 use App\Entity\PriceInformations\Currency;
 use App\Repository\ParameterRepository;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\BuiltinAttachmentsFinder;
+use App\Services\Attachments\PartPreviewGenerator;
 use App\Services\Tools\TagFinder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -126,6 +128,45 @@ class TypeaheadController extends AbstractController
             default:
                 throw new \InvalidArgumentException('Invalid parameter type: '.$type);
         }
+    }
+
+    /**
+     * @Route("/parts/search/{query}", name="typeahead_parts")
+     * @param  string  $query
+     * @param  EntityManagerInterface  $entityManager
+     * @return JsonResponse
+     */
+    public function parts(string $query, EntityManagerInterface $entityManager, PartPreviewGenerator $previewGenerator,
+    AttachmentURLGenerator $attachmentURLGenerator): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('@parts.read');
+
+        $repo = $entityManager->getRepository(Part::class);
+
+        $parts = $repo->autocompleteSearch($query);
+
+        $data = [];
+        foreach ($parts as $part) {
+            //Determine the picture to show:
+            $preview_attachment = $previewGenerator->getTablePreviewAttachment($part);
+            if($preview_attachment !== null) {
+                $preview_url = $attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_sm');
+            } else {
+                $preview_url = '';
+            }
+
+            /** @var Part $part */
+            $data[] = [
+                'id' => $part->getID(),
+                'name' => $part->getName(),
+                'category' => $part->getCategory() ? $part->getCategory()->getName() : 'Unknown',
+                'footprint' => $part->getFootprint() ? $part->getFootprint()->getName() : '',
+                'description' => mb_strimwidth($part->getDescription(), 0, 127, '...'),
+                'image' => $preview_url,
+                ];
+        }
+
+        return new JsonResponse($data);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Form\ProjectSystem;
 
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
+use App\Form\Type\PartSelectType;
 use Svg\Tag\Text;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -23,9 +24,7 @@ class ProjectBOMEntryType extends AbstractType
                 'label' => 'project.bom.quantity',
             ])
 
-            ->add('part', EntityType::class, [
-                'class' => Part::class,
-                'choice_label' => 'name',
+            ->add('part', PartSelectType::class, [
                 'required' => false,
             ])
 
