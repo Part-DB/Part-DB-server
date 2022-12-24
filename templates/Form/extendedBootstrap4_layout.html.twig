@@ -124,3 +124,7 @@
 
     {{- block("choice_widget_collapsed", "bootstrap_base_layout.html.twig") -}}
 {%- endblock choice_widget_collapsed -%}
+
+{% block part_select_widget %}
+    {{ form_widget(form.autocomplete) }}
+{% endblock %}

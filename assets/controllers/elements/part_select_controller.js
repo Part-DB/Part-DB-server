@@ -12,19 +12,27 @@ export default class extends Controller {
 
         let settings = {
             allowEmptyOption: true,
+            plugins: ['dropdown_input'],
             searchField: "name",
             valueField: "id",
+            labelField: "name",
             render: {
                 item: (data, escape) => {
-                    return '<span>' + "<img style='height: 1.5rem;' ' src='" + data.image + "'/>" + escape(data.name) +  '</span>';
+                    return '<span>' + (data.image ? "<img style='height: 1.5rem;' ' src='" + data.image + "'/>" : "") + escape(data.name) +  '</span>';
                 },
                 option: (data, escape) => {
+                    if(data.text) {
+                        return '<span>' + escape(data.text) + '</span>';
+                    }
+
                     let tmp = '<div class="row m-0">' +
-                        "<div class='col-2 p-0 d-flex align-items-center'><img class='typeahead-image' src='" + data.image + "'/></div>" +
+                        "<div class='col-2 p-0 d-flex align-items-center'>" +
+                        (data.image ? "<img class='typeahead-image' src='" + data.image + "'/>" : "") +
+                        "</div>" +
                         "<div class='col-10'>" +
                         '<h6 class="m-0">' + escape(data.name) + '</h6>' +
-                        '<p class="m-0">' + marked.parseInline(data.description) + '</p>' +
-                        '<p class="m-0"><span class="fa-solid fa-tags fa-fw"></span> ' + escape(data.category);
+                        (data.description ? '<p class="m-0">' + marked.parseInline(data.description) + '</p>' : "") +
+                        (data.category ? '<p class="m-0"><span class="fa-solid fa-tags fa-fw"></span> ' + escape(data.category) : "");
 
                     if (data.footprint) { //If footprint is defined for the part show it next to the category
                         tmp += ' <span class="fa-solid fa-microchip fa-fw"></span> ' + escape(data.footprint);
@@ -53,6 +61,7 @@ export default class extends Controller {
 
 
             this._tomSelect = new TomSelect(this.element, settings);
+            //this._tomSelect.clearOptions();
         }
     }
 }
