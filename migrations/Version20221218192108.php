@@ -20,7 +20,7 @@ final class Version20221218192108 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE device_parts ADD name LONGTEXT NOT NULL, ADD comment LONGTEXT NOT NULL, ADD last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, ADD datetime_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, CHANGE quantity quantity DOUBLE PRECISION NOT NULL');
+        $this->addSql('ALTER TABLE device_parts ADD name VARCHAR(255) NULL, ADD comment LONGTEXT NOT NULL, ADD last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, ADD datetime_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, CHANGE quantity quantity DOUBLE PRECISION NOT NULL');
         $this->addSql('ALTER TABLE devices ADD description LONGTEXT NOT NULL');
     }
 

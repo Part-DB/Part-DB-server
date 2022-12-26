@@ -26,7 +26,9 @@ use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * The ProjectBOMEntry class represents a entry in a project's BOM.
@@ -34,6 +36,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table("device_parts")
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity()
+ * @UniqueEntity(fields={"part", "project"}, message="project.bom_entry.part_already_in_bom")
+ * @UniqueEntity(fields={"name", "project"}, message="project.bom_entry.name_already_in_bom", ignoreNull=true)
  */
 class ProjectBOMEntry extends AbstractDBElement
 {
@@ -42,7 +46,7 @@ class ProjectBOMEntry extends AbstractDBElement
     /**
      * @var int
      * @ORM\Column(type="float", name="quantity")
-     * @Assert\PositiveOrZero()
+     * @Assert\Positive()
      */
     protected float $quantity;
 
@@ -54,9 +58,13 @@ class ProjectBOMEntry extends AbstractDBElement
 
     /**
      * @var string An optional name describing this BOM entry (useful for non-part entries)
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="string", nullable=true)
+     * @Assert\Expression(
+     *     "this.getPart() !== null or this.getName() !== null",
+     *     message="validator.project.bom_entry.name_or_part_needed"
+     * )
      */
-    protected string $name;
+    protected ?string $name = null;
 
     /**
      * @var string An optional comment for this BOM entry
@@ -117,7 +125,7 @@ class ProjectBOMEntry extends AbstractDBElement
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -126,7 +134,7 @@ class ProjectBOMEntry extends AbstractDBElement
      * @param  string  $name
      * @return ProjectBOMEntry
      */
-    public function setName(string $name): ProjectBOMEntry
+    public function setName(?string $name): ProjectBOMEntry
     {
         $this->name = $name;
         return $this;
@@ -186,6 +194,38 @@ class ProjectBOMEntry extends AbstractDBElement
     {
         $this->part = $part;
         return $this;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
+        //Round quantity to whole numbers, if the part is not a decimal part
+        if ($this->part) {
+            if (!$this->part->getPartUnit() || $this->part->getPartUnit()->isInteger()) {
+                $this->quantity = round($this->quantity);
+            }
+        }
+
+        //Check that every part name in the mountnames list is unique (per bom_entry)
+        $mountnames = explode(',', $this->mountnames);
+        $mountnames = array_map('trim', $mountnames);
+        $uniq_mountnames = array_unique($mountnames);
+
+        //If the number of unique names is not the same as the number of names, there are duplicates
+        if (count($mountnames) !== count($uniq_mountnames)) {
+            $context->buildViolation('project.bom_entry.mountnames_not_unique')
+                ->atPath('mountnames')
+                ->addViolation();
+        }
+
+        //Check that the number of mountnames is the same as the (rounded) quantity
+        if (!empty($this->mountnames) && count($uniq_mountnames) !== (int) round ($this->quantity)) {
+            $context->buildViolation('project.bom_entry.mountnames_quantity_mismatch')
+                ->atPath('mountnames')
+                ->addViolation();
+        }
     }
 
 

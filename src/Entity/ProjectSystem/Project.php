@@ -29,6 +29,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class AttachmentType.
@@ -53,6 +54,7 @@ class Project extends AbstractStructuralDBElement
 
     /**
      * @ORM\OneToMany(targetEntity="ProjectBOMEntry", mappedBy="project", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     protected $bom_entries;
 

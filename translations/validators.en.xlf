@@ -239,5 +239,29 @@
         <target>The internal part number must be unique. {{ value }} is already in use!</target>
       </segment>
     </unit>
+    <unit id="Z4Kuuo2" name="validator.project.bom_entry.name_or_part_needed">
+      <segment>
+        <source>validator.project.bom_entry.name_or_part_needed</source>
+        <target>You have to choose a part for a part BOM entry or set a name for a non-part BOM entry.</target>
+      </segment>
+    </unit>
+    <unit id="WF_v4ih" name="project.bom_entry.name_already_in_bom">
+      <segment>
+        <source>project.bom_entry.name_already_in_bom</source>
+        <target>There is already an BOM entry with this name!</target>
+      </segment>
+    </unit>
+    <unit id="5v4p85H" name="project.bom_entry.part_already_in_bom">
+      <segment>
+        <source>project.bom_entry.part_already_in_bom</source>
+        <target>This part already exists in the BOM!</target>
+      </segment>
+    </unit>
+    <unit id="3lM32Tw" name="project.bom_entry.mountnames_quantity_mismatch">
+      <segment>
+        <source>project.bom_entry.mountnames_quantity_mismatch</source>
+        <target>The number of mountnames has to match the BOMs quantity!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

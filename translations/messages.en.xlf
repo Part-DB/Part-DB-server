@@ -9959,5 +9959,17 @@ Element 3</target>
         <target>Mount names</target>
       </segment>
     </unit>
+    <unit id="29QITRx" name="project.bom.name">
+      <segment>
+        <source>project.bom.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="PucC1gg" name="project.bom.comment">
+      <segment>
+        <source>project.bom.comment</source>
+        <target>Notes</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

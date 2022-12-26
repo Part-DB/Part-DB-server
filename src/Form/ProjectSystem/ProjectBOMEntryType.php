@@ -5,12 +5,15 @@ namespace App\Form\ProjectSystem;
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Form\Type\PartSelectType;
+use App\Form\Type\SIUnitType;
 use Svg\Tag\Text;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Event\PreSetDataEvent;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProjectBOMEntryType extends AbstractType
@@ -18,11 +21,20 @@ class ProjectBOMEntryType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
 
-            ->add('quantity', NumberType::class, [
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (PreSetDataEvent $event) {
+            $form = $event->getForm();
+            /** @var ProjectBOMEntry $data */
+            $data = $event->getData();
+
+            $form->add('quantity', SIUnitType::class, [
                 'label' => 'project.bom.quantity',
-            ])
+                'measurement_unit' => $data && $data->getPart() ? $data->getPart()->getPartUnit() : null,
+            ]);
+        });
+
+        $builder
 
             ->add('part', PartSelectType::class, [
                 'required' => false,
@@ -31,7 +43,6 @@ class ProjectBOMEntryType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'project.bom.name',
                 'required' => false,
-                'empty_data' => ''
             ])
             ->add('mountnames', TextType::class, [
                 'required' => false,
