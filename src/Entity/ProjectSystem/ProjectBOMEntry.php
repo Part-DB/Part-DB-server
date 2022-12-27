@@ -207,6 +207,10 @@ class ProjectBOMEntry extends AbstractDBElement
                 $this->quantity = round($this->quantity);
             }
         }
+        //Non-Part BOM entries are rounded
+        if ($this->part === null) {
+            $this->quantity = round($this->quantity);
+        }
 
         //Check that every part name in the mountnames list is unique (per bom_entry)
         $mountnames = explode(',', $this->mountnames);

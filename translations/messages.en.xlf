@@ -9971,5 +9971,17 @@ Element 3</target>
         <target>Notes</target>
       </segment>
     </unit>
+    <unit id="fR.vNpd" name="project.bom.part">
+      <segment>
+        <source>project.bom.part</source>
+        <target>Part</target>
+      </segment>
+    </unit>
+    <unit id="apnWXEq" name="project.bom.add_entry">
+      <segment>
+        <source>project.bom.add_entry</source>
+        <target>Add entry</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

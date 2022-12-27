@@ -1,15 +1,39 @@
 {% block project_bom_entry_widget %}
+    {% set target_id = 'expand_row-' ~ random() %}
+
     {% import 'components/collection_type.macro.html.twig' as collection %}
     <tr>
         <td>
-            {{ form_widget(form) }}
+            <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#{{ target_id }}">
+                <i class="fa-solid fa-eye"></i>
+            </button>
+        </td>
+        <td>
+            {{ form_errors(form.quantity) }}
+            {{ form_widget(form.quantity) }}
+        </td>
+        <td style="min-width: 250px;">
+            {{ form_errors(form.part) }}
+            {{ form_widget(form.part) }}
+        </td>
+        <td>
+            {{ form_errors(form.name) }}
+            {{ form_widget(form.name) }}
         </td>
         <td>
             <button type="button" class="btn btn-danger lot_btn_delete" {{ collection.delete_btn() }}>
                 <i class="fas fa-trash-alt fa-fw"></i>
-                {% trans %}part_lot.delete{% endtrans %}
             </button>
             {{ form_errors(form) }}
+        </td>
+    </tr>
+    <tr class="p-0 d-none"></tr>
+    <tr class="p-0">
+        <td colspan="5" class="accordion-body collapse" id="{{ target_id }}">
+            <div class="">
+                {{ form_row(form.mountnames) }}
+                {{ form_row(form.comment) }}
+            </div>
         </td>
     </tr>
 {% endblock %}

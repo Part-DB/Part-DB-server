@@ -5,6 +5,7 @@ namespace App\Form\ProjectSystem;
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Form\Type\PartSelectType;
+use App\Form\Type\RichTextEditorType;
 use App\Form\Type\SIUnitType;
 use Svg\Tag\Text;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -53,10 +54,14 @@ class ProjectBOMEntryType extends AbstractType
                     'data-controller' => 'elements--tagsinput',
                 ]
             ])
-            ->add('comment', TextType::class, [
+            ->add('comment', RichTextEditorType::class, [
                 'required' => false,
                 'label' => 'project.bom.comment',
-                'empty_data' => ''
+                'empty_data' => '',
+                'mode' => 'markdown-single_line',
+                'attr' => [
+                    'rows' => 2,
+                ],
             ])
         ;
 

@@ -41,7 +41,7 @@
     <div class="input-group {% if sm %}input-group-sm{% endif %}">
         {{ form_widget(form.value) }}
             {% if form.prefix is defined %}
-                {{ form_widget(form.prefix, {'attr': {'class': 'form-select'}}) }}
+                {{ form_widget(form.prefix, {'attr': {'class': '', 'style': 'max-width: 40px;'}}) }}
             {% endif %}
             {% if unit is not empty %}
                 <label class="input-group-text">{{ unit }}</label>
