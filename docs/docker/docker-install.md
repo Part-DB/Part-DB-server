@@ -11,7 +11,7 @@ The easiest way to use it is to use the docker-compose.yml available [here](http
 1. Create a folder where the Part-DB data should live
 2. Download docker-compose.yml and move it to the folder created above
 3. Inside the folder, run `docker-compose up -d`
-4. Create the inital database with `docker exec --user=www-data partdb bin/console doctrine:migrations:migrate` and watch for the password output
+4. Create the inital database with `docker exec --user=www-data partdb php bin/console doctrine:migrations:migrate` and watch for the password output
 5. Part-DB is available under `http://localhost:8080` and you can log in with username `admin` and the password shown before
 
 The docker image uses a SQLite database and all data (database, uploads and other media) is put into folders relative to the docker-compose.yml.
