@@ -26,6 +26,7 @@ export default class extends Controller {
     static values = {
         deleteMessage: String,
         prototype: String,
+        rowsToDelete: Number, //How many rows (including the current one) shall be deleted after the current row
     }
 
     static targets = ["target"];
@@ -125,7 +126,17 @@ export default class extends Controller {
         const del = () => {
             const target = event.target;
             //Remove the row element from the table
-            target.closest("tr").remove();
+            const current_row = target.closest("tr");
+            for(let i = this.rowsToDeleteValue; i > 1; i--) {
+                let nextSibling = current_row.nextElementSibling;
+                //Ensure that nextSibling is really a tr
+                if (nextSibling && nextSibling.tagName === "TR") {
+                    nextSibling.remove();
+                }
+            }
+
+            //Finally delete the current row
+            current_row.remove();
         }
 
         if(this.deleteMessageValue) {
