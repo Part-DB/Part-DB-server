@@ -24,7 +24,7 @@
           data-delete-message="{% trans %}part_list.action.delete-message{% endtrans %}">
         <input type="hidden" name="_token" value="{{ csrf_token('table_action') }}">
 
-        <input type="hidden" name="redirect_back" value="{{ app.request.uri }}">
+        <input type="hidden" name="redirect_back" value="{{ app.request.requestUri }}">
 
         <input type="hidden" name="ids" {{ stimulus_target('elements/datatables/parts', 'selectIDs') }} value="">
 

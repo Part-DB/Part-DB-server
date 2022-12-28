@@ -17,7 +17,7 @@
         {# @var bom_entry App\Entity\Project\ProjectBOMEntry #}
     <tr>
         <td>{% if bom_entry.project.masterPictureAttachment is not null %}{{ attachments.attachment_icon(bom_entry.project.masterPictureAttachment, attachment_manager) }}{% endif %}</td>
-        <td><a href="{{ url('project_info', {'id': bom_entry.project.iD}) }}">{{ bom_entry.project.name }}</a></td> {# Name #}
+        <td><a href="{{ path('project_info', {'id': bom_entry.project.iD}) }}">{{ bom_entry.project.name }}</a></td> {# Name #}
         <td>{{ bom_entry.project.description|format_markdown }}</td> {# Description #}
         <td>{{ bom_entry.quantity | format_amount(part.partUnit) }}</td>
         <td>{% for tag in bom_entry.mountnames|split(',') %}
