@@ -9983,5 +9983,29 @@ Element 3</target>
         <target>Add entry</target>
       </segment>
     </unit>
+    <unit id="gwloIYB" name="part_list.action.group.projects">
+      <segment>
+        <source>part_list.action.group.projects</source>
+        <target>Projects</target>
+      </segment>
+    </unit>
+    <unit id="QDvlT74" name="part_list.action.projects.add_to_project">
+      <segment>
+        <source>part_list.action.projects.add_to_project</source>
+        <target>Add parts to project</target>
+      </segment>
+    </unit>
+    <unit id="ZVrMX6T" name="project.bom.delete.confirm">
+      <segment>
+        <source>project.bom.delete.confirm</source>
+        <target>Do you really want to delete this BOM entry?</target>
+      </segment>
+    </unit>
+    <unit id="T_wVWg_" name="project.add_parts_to_project">
+      <segment>
+        <source>project.add_parts_to_project</source>
+        <target>Add parts to project BOM</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -1,0 +1,22 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}project.add_parts_to_project{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-magnifying-glass-plus fa-fw"></i>
+    {% trans %}project.add_parts_to_project{% endtrans %}{% if project %}: <i>{{ project.name }}</i>{% endif %}
+{% endblock %}
+
+{% block card_content %}
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.project) }}
+    {% form_theme form.bom_entries with ['Form/collection_types_layout.html.twig'] %}
+    {{ form_widget(form.bom_entries) }}
+
+    {{ form_row(form.submit) }}
+
+    {{ form_end(form) }}
+
+{% endblock %}
