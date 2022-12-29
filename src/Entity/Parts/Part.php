@@ -25,6 +25,7 @@ namespace App\Entity\Parts;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\PartAttachment;
+use App\Entity\Parts\PartTraits\ProjectTrait;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\Parameters\ParametersTrait;
 use App\Entity\Parameters\PartParameter;
@@ -64,12 +65,7 @@ class Part extends AttachmentContainingDBElement
     use ManufacturerTrait;
     use OrderTrait;
     use ParametersTrait;
-
-    /**
-     * @var Collection<int, ProjectBOMEntry> $project_bom_entries
-     * @ORM\OneToMany(targetEntity="App\Entity\ProjectSystem\ProjectBOMEntry", mappedBy="part")
-     */
-    protected $project_bom_entries = [];
+    use ProjectTrait;
 
     /** @var Collection<int, PartParameter>
      * @Assert\Valid()
@@ -150,34 +146,5 @@ class Part extends AttachmentContainingDBElement
             }
         }
         parent::__clone();
-    }
-
-    /**
-     * Returns all ProjectBOMEntries that use this part.
-     * @return Collection<int, ProjectBOMEntry>|ProjectBOMEntry[]
-     */
-    public function getProjectBomEntries(): Collection
-    {
-        return $this->project_bom_entries;
-    }
-
-
-
-    /**
-     *  Get all devices which uses this part.
-     *
-     * @return Project[] * all devices which uses this part as a one-dimensional array of Device objects
-     *                  (empty array if there are no ones)
-     *                  * the array is sorted by the devices names
-     */
-    public function getProjects(): array
-    {
-        $projects = [];
-
-        foreach($this->project_bom_entries as $entry) {
-            $projects[] = $entry->getProject();
-        }
-
-        return $projects;
     }
 }
