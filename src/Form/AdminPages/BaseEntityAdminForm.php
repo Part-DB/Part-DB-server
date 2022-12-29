@@ -82,7 +82,7 @@ class BaseEntityAdminForm extends AbstractType
                     'class' => get_class($entity),
                     'required' => false,
                     'label' => 'parent.label',
-                    'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
+                    'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
                 ]
             )
                 ->add(
