@@ -31,6 +31,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Class AttachmentType.
@@ -280,6 +281,34 @@ class Project extends AbstractStructuralDBElement
         }
     }
 
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
+        //If this project has subprojects, and these have builds part, they must be included in the BOM
+        foreach ($this->getChildren() as $child) {
+            /** @var $child Project */
+            if ($child->getBuildPart() === null) {
+                continue;
+            }
+            //We have to search all bom entries for the build part
+            $found = false;
+            foreach ($this->getBomEntries() as $bom_entry) {
+                if ($bom_entry->getPart() === $child->getBuildPart()) {
+                    $found = true;
+                    break;
+                }
+            }
 
-
+            //When the build part is not found, we have to add an error
+            if (!$found) {
+                $context->buildViolation('project.bom_has_to_include_all_subelement_parts')
+                    ->atPath('bom_entries')
+                    ->setParameter('%project_name%', $child->getName())
+                    ->setParameter('%part_name%', $child->getBuildPart()->getName())
+                    ->addViolation();
+            }
+        }
+    }
 }

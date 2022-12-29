@@ -269,5 +269,11 @@
         <target>You can not add a project's own builds part to the BOM.</target>
       </segment>
     </unit>
+    <unit id="2x2XDI_" name="project.bom_has_to_include_all_subelement_parts">
+      <segment>
+        <source>project.bom_has_to_include_all_subelement_parts</source>
+        <target>The project BOM has to include all subprojects builds parts. Part %part_name% of project %project_name% missing!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
