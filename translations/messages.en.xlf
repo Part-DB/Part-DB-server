@@ -10013,5 +10013,11 @@ Element 3</target>
         <target>Add this part to a project</target>
       </segment>
     </unit>
+    <unit id="OLIZm7S" name="project_bom_entry.label">
+      <segment>
+        <source>project_bom_entry.label</source>
+        <target>BOM entry</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
