@@ -24,6 +24,7 @@ use App\Entity\Base\AbstractNamedDBElement;
 use App\Form\ProjectSystem\ProjectBOMEntryCollectionType;
 use App\Form\ProjectSystem\ProjectBOMEntryType;
 use App\Form\Type\RichTextEditorType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -43,5 +44,20 @@ class ProjectAdminForm extends BaseEntityAdminForm
         ]);
 
         $builder->add('bom_entries', ProjectBOMEntryCollectionType::class);
+
+        $builder->add('status', ChoiceType::class, [
+            'attr' => [
+                'class' => 'form-select',
+            ],
+            'label' => 'project.edit.status',
+            'required' => false,
+            'choices' => [
+                'project.status.draft' => 'draft',
+                'project.status.planning' => 'planning',
+                'project.status.in_production' => 'in_production',
+                'project.status.finished' => 'finished',
+                'project.status.archived' => 'archived',
+            ],
+        ]);
     }
 }

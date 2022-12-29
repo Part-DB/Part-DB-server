@@ -10019,5 +10019,41 @@ Element 3</target>
         <target>BOM entry</target>
       </segment>
     </unit>
+    <unit id="HYlztPH" name="project.edit.status">
+      <segment>
+        <source>project.edit.status</source>
+        <target>Project status</target>
+      </segment>
+    </unit>
+    <unit id="g63LZsn" name="project.status.draft">
+      <segment>
+        <source>project.status.draft</source>
+        <target>Draft</target>
+      </segment>
+    </unit>
+    <unit id="agiQw0z" name="project.status.planning">
+      <segment>
+        <source>project.status.planning</source>
+        <target>Planning</target>
+      </segment>
+    </unit>
+    <unit id="8eTvW1x" name="project.status.in_production">
+      <segment>
+        <source>project.status.in_production</source>
+        <target>In production</target>
+      </segment>
+    </unit>
+    <unit id="xtDIXe_" name="project.status.finished">
+      <segment>
+        <source>project.status.finished</source>
+        <target>Finished</target>
+      </segment>
+    </unit>
+    <unit id="wpp2047" name="project.status.archived">
+      <segment>
+        <source>project.status.archived</source>
+        <target>Archived</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

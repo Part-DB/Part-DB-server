@@ -16,6 +16,13 @@ trait ProjectTrait
     protected $project_bom_entries = [];
 
     /**
+     * @var Project|null If a project is set here, then this part is special and represents the builds of a project.
+     * @ORM\OneToOne(targetEntity="App\Entity\ProjectSystem\Project", inversedBy="build_part")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected ?Project $built_project = null;
+
+    /**
      * Returns all ProjectBOMEntries that use this part.
      * @return Collection<int, ProjectBOMEntry>|ProjectBOMEntry[]
      */
@@ -23,6 +30,36 @@ trait ProjectTrait
     {
         return $this->project_bom_entries;
     }
+
+    /**
+     * Checks whether this part represents the builds of a project
+     * @return bool True if it represents the builds, false if not
+     */
+    public function isProjectBuildPart(): bool
+    {
+        return $this->built_project !== null;
+    }
+
+    /**
+     * Returns the project that this part represents the builds of, or null if it doesnt
+     * @return Project|null
+     */
+    public function getBuiltProject(): ?Project
+    {
+        return $this->built_project;
+    }
+
+
+    /**
+     * Sets the project that this part represents the builds of
+     * @param  Project|null  $built_project The project that this part represents the builds of, or null if it is not a build part
+     */
+    public function setBuiltProject(?Project $built_project): self
+    {
+        $this->built_project = $built_project;
+        return $this;
+    }
+
 
     /**
      *  Get all devices which uses this part.

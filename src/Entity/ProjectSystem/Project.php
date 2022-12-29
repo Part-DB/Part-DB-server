@@ -25,6 +25,7 @@ namespace App\Entity\ProjectSystem;
 use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\ProjectParameter;
+use App\Entity\Parts\Part;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -62,6 +63,20 @@ class Project extends AbstractStructuralDBElement
      * @ORM\Column(type="integer")
      */
     protected int $order_quantity = 0;
+
+    /**
+     * @var string The current status of the project
+     * @ORM\Column(type="string", length=64)
+     * @Assert\Choice({"draft","planning","in_production","finished","archived", ""})
+     */
+    protected string $status;
+
+
+    /**
+     * @var Part|null The (optional) part that represents the builds of this project in the stock
+     * @ORM\OneToOne(targetEntity="App\Entity\Parts\Part", mappedBy="built_project", cascade={"persist"}, orphanRemoval=true)
+     */
+    protected ?Part $build_part = null;
 
     /**
      * @ORM\Column(type="boolean")
@@ -218,6 +233,53 @@ class Project extends AbstractStructuralDBElement
         $this->description = $description;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param  string  $status
+     */
+    public function setStatus(string $status): void
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * Checks if this project has a associated part representing the builds of this project in the stock.
+     * @return bool
+     */
+    public function hasBuildPart(): bool
+    {
+        return $this->build_part !== null;
+    }
+
+    /**
+     * Gets the part representing the builds of this project in the stock, if it is existing
+     * @return Part|null
+     */
+    public function getBuildPart(): ?Part
+    {
+        return $this->build_part;
+    }
+
+    /**
+     * Sets the part representing the builds of this project in the stock.
+     * @param  Part|null  $build_part
+     */
+    public function setBuildPart(?Part $build_part): void
+    {
+        $this->build_part = $build_part;
+        if ($build_part) {
+            $build_part->setBuiltProject($this);
+        }
+    }
+
 
 
 }
