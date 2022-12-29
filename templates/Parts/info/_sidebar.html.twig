@@ -4,6 +4,10 @@
     <b class="mb-2">{% trans with {'%timestamp%': timeTravel|format_datetime('short')} %}part.info.timetravel_hint{% endtrans %}</b>
 {% endif %}
 
+{% if part.projectBuildPart %}
+    <b class="mb-2">{% trans %}part.info.projectBuildPart.hint{% endtrans %}:  <a href="{{ entity_url(part.builtProject) }}">{{ part.builtProject.name }}</a></b>
+{% endif %}
+
 <div class="mb-3">
 <span class="text-muted" title="{% trans %}lastModified{% endtrans %}">
     <i class="fas fa-history fa-fw"></i>  {{ helper.date_user_combination(part, true) }}

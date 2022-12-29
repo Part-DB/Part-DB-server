@@ -57,6 +57,10 @@ class PartDataTableHelper
         if ($context->isNeedsReview()) {
             $icon = sprintf('<i class="fa-solid fa-ambulance fa-fw me-1" title="%s"></i>', $this->translator->trans('part.needs_review.badge'));
         }
+        if ($context->getBuiltProject() !== null) {
+            $icon = sprintf('<i class="fa-solid fa-box-archive fa-fw me-1" title="%s"></i>',
+                $this->translator->trans('part.info.projectBuildPart.hint') . ': ' . $context->getBuiltProject()->getName());
+        }
 
 
         return sprintf(

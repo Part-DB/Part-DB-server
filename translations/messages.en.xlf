@@ -10079,5 +10079,17 @@ Element 3</target>
         <target>This part represents the builds of this project, which are stored somewhere.</target>
       </segment>
     </unit>
+    <unit id="Ze.0yTx" name="part.info.projectBuildPart.hint">
+      <segment>
+        <source>part.info.projectBuildPart.hint</source>
+        <target>This part represents the builds of the following project and is associated with it</target>
+      </segment>
+    </unit>
+    <unit id="coJxmoK" name="part.is_build_part">
+      <segment>
+        <source>part.is_build_part</source>
+        <target>Is project builds part</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

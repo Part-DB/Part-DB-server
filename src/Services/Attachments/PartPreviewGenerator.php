@@ -62,6 +62,13 @@ class PartPreviewGenerator
             }
         }
 
+        if (null !== $part->getBuiltProject()) {
+            $attachment = $part->getBuiltProject()->getMasterPictureAttachment();
+            if ($this->isAttachmentValidPicture($attachment)) {
+                $list[] = $attachment;
+            }
+        }
+
         if (null !== $part->getCategory()) {
             $attachment = $part->getCategory()->getMasterPictureAttachment();
             if ($this->isAttachmentValidPicture($attachment)) {
@@ -109,9 +116,17 @@ class PartPreviewGenerator
             return $attachment;
         }
 
-        //Otherwise check if the part has a footprint with a valid masterattachment
+        //Otherwise check if the part has a footprint with a valid master attachment
         if (null !== $part->getFootprint()) {
             $attachment = $part->getFootprint()->getMasterPictureAttachment();
+            if ($this->isAttachmentValidPicture($attachment)) {
+                return $attachment;
+            }
+        }
+
+        //With lowest priority use the master attachment of the project this part represents (when existing)
+        if (null !== $part->getBuiltProject()) {
+            $attachment = $part->getBuiltProject()->getMasterPictureAttachment();
             if ($this->isAttachmentValidPicture($attachment)) {
                 return $attachment;
             }
