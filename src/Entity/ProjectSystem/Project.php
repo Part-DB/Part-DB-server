@@ -66,10 +66,10 @@ class Project extends AbstractStructuralDBElement
 
     /**
      * @var string The current status of the project
-     * @ORM\Column(type="string", length=64)
-     * @Assert\Choice({"draft","planning","in_production","finished","archived", ""})
+     * @ORM\Column(type="string", length=64, nullable=true)
+     * @Assert\Choice({"draft","planning","in_production","finished","archived"})
      */
-    protected string $status;
+    protected ?string $status = null;
 
 
     /**
@@ -237,7 +237,7 @@ class Project extends AbstractStructuralDBElement
     /**
      * @return string
      */
-    public function getStatus(): string
+    public function getStatus(): ?string
     {
         return $this->status;
     }
@@ -245,7 +245,7 @@ class Project extends AbstractStructuralDBElement
     /**
      * @param  string  $status
      */
-    public function setStatus(string $status): void
+    public function setStatus(?string $status): void
     {
         $this->status = $status;
     }

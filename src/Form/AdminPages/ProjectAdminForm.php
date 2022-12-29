@@ -34,9 +34,9 @@ class ProjectAdminForm extends BaseEntityAdminForm
     {
         $builder->add('description', RichTextEditorType::class, [
             'required' => false,
-            'empty_data' => '',
             'label' => 'part.edit.description',
             'mode' => 'markdown-single_line',
+            'empty_data' => '',
             'attr' => [
                 'placeholder' => 'part.edit.description.placeholder',
                 'rows' => 2,
@@ -51,6 +51,7 @@ class ProjectAdminForm extends BaseEntityAdminForm
             ],
             'label' => 'project.edit.status',
             'required' => false,
+            'empty_data' => '',
             'choices' => [
                 'project.status.draft' => 'draft',
                 'project.status.planning' => 'planning',

@@ -31,6 +31,7 @@ use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Orderdetail;
+use App\Entity\ProjectSystem\Project;
 use App\Exceptions\AttachmentDownloadException;
 use App\Form\Part\PartBaseType;
 use App\Services\Attachments\AttachmentSubmitHandler;
@@ -40,10 +41,12 @@ use App\Services\LogSystem\HistoryHelper;
 use App\Services\LogSystem\TimeTravel;
 use App\Services\Parameters\ParameterExtractor;
 use App\Services\Parts\PricedetailHelper;
+use App\Services\ProjectSystem\ProjectBuildPartHelper;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Omines\DataTablesBundle\DataTableFactory;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -203,14 +206,26 @@ class PartController extends AbstractController
     /**
      * @Route("/new", name="part_new")
      * @Route("/{id}/clone", name="part_clone")
+     * @Route("/new_build_part/{project_id}", name="part_new_build_part")
+     * @ParamConverter("part", options={"id" = "id"})
+     * @ParamConverter("project", options={"id" = "project_id"})
      */
     public function new(Request $request, EntityManagerInterface $em, TranslatorInterface $translator,
-        AttachmentSubmitHandler $attachmentSubmitHandler, ?Part $part = null): Response
+        AttachmentSubmitHandler $attachmentSubmitHandler, ProjectBuildPartHelper $projectBuildPartHelper,
+        ?Part $part = null, ?Project $project = null): Response
     {
-        if (null === $part) {
-            $new_part = new Part();
-        } else {
+
+        if ($part) { //Clone part
             $new_part = clone $part;
+        } else if ($project) { //Initialize a new part for a build part from the given project
+            //Ensure that the project has not already a build part
+            if ($project->getBuildPart() !== null) {
+                $this->addFlash('error', 'part.new_build_part.error.build_part_already_exists');
+                return $this->redirectToRoute('part_edit', ['id' => $project->getBuildPart()->getID()]);
+            }
+            $new_part = $projectBuildPartHelper->getPartInitialization($project);
+        } else { //Create an empty part from scratch
+            $new_part = new Part();
         }
 
         $this->denyAccessUnlessGranted('create', $new_part);
@@ -279,6 +294,11 @@ class PartController extends AbstractController
             $em->persist($new_part);
             $em->flush();
             $this->addFlash('success', 'part.created_flash');
+
+            //If a redirect URL was given, redirect there
+            if ($request->query->get('_redirect')) {
+                return $this->redirect($request->query->get('_redirect'));
+            }
 
             //Redirect to clone page if user wished that...
             //@phpstan-ignore-next-line

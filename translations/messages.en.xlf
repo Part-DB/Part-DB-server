@@ -10055,5 +10055,29 @@ Element 3</target>
         <target>Archived</target>
       </segment>
     </unit>
+    <unit id="jcf.5wX" name="part.new_build_part.error.build_part_already_exists">
+      <segment>
+        <source>part.new_build_part.error.build_part_already_exists</source>
+        <target>The project already has an build part!</target>
+      </segment>
+    </unit>
+    <unit id="usGnetL" name="project.edit.associated_build_part">
+      <segment>
+        <source>project.edit.associated_build_part</source>
+        <target>Associated builds part</target>
+      </segment>
+    </unit>
+    <unit id="xXpskqU" name="project.edit.associated_build_part.add">
+      <segment>
+        <source>project.edit.associated_build_part.add</source>
+        <target>Add builds part</target>
+      </segment>
+    </unit>
+    <unit id="5rnE1fK" name="project.edit.associated_build.hint">
+      <segment>
+        <source>project.edit.associated_build.hint</source>
+        <target>This part represents the builds of this project, which are stored somewhere.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

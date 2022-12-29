@@ -1,5 +1,7 @@
 {% extends "AdminPages/EntityAdminBase.html.twig" %}
 
+{# @var entity App\Entity\ProjectSystem\Project #}
+
 {% block card_title %}
     <i class="fas fa-archive fa-fw"></i> {% trans %}device.caption{% endtrans %}
 {% endblock %}
@@ -19,6 +21,21 @@
 {% block additional_controls %}
     {{ form_row(form.description) }}
     {{ form_row(form.status) }}
+    {% if entity.id %}
+        <div class="mb-2 row">
+            <label class="col-form-label col-sm-3">{% trans %}project.edit.associated_build_part{% endtrans %}</label>
+            <div class="col-sm-9">
+                {% if entity.buildPart %}
+                    <span class="form-control-static"><a href="{{ entity_url(entity.buildPart) }}">{{ entity.buildPart.name }}</a></span>
+                {% else %}
+                    <a href="{{ path('part_new_build_part', {"project_id": entity.id , "_redirect": app.request.requestUri}) }}"
+                       class="btn btn-outline-success">{% trans %}project.edit.associated_build_part.add{% endtrans %}</a>
+                {% endif %}
+                <p class="text-muted">{% trans %}project.edit.associated_build.hint{% endtrans %}</p>
+            </div>
+        </div>
+    {% endif %}
+
 {% endblock %}
 
 {% block additional_panes %}
