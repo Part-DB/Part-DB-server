@@ -10007,5 +10007,11 @@ Element 3</target>
         <target>Add parts to project BOM</target>
       </segment>
     </unit>
+    <unit id="02xC690" name="part.info.add_part_to_project">
+      <segment>
+        <source>part.info.add_part_to_project</source>
+        <target>Add this part to a project</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

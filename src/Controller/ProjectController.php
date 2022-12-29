@@ -29,11 +29,13 @@ use App\Form\Type\StructuralEntityType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 /**
  * @Route("/project")
@@ -48,7 +50,7 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="project_info")
+     * @Route("/{id}", name="project_info", requirements={"id"="\d+"})
      */
     public function info(Project $project, Request $request)
     {
@@ -68,20 +70,28 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/add_parts", name="project_add_parts")
+     * @Route("/add_parts", name="project_add_parts_no_id")
+     * @Route("/{id}/add_parts", name="project_add_parts", requirements={"id"="\d+"})
      * @param  Request  $request
      * @param  Project|null  $project
      */
-    public function addPart(Request $request, Project $project, EntityManagerInterface $entityManager): Response
+    public function addPart(Request $request, EntityManagerInterface $entityManager, ?Project $project): Response
     {
-        $this->denyAccessUnlessGranted('edit', $project);
+        if($project) {
+            $this->denyAccessUnlessGranted('edit', $project);
+        } else {
+            $this->denyAccessUnlessGranted('@devices.edit');
+        }
 
         $builder = $this->createFormBuilder();
         $builder->add('project', StructuralEntityType::class, [
             'class' => Project::class,
             'required' => true,
-            'disabled' => true,
+            'disabled' => $project !== null, //If a project is given, disable the field
             'data' => $project,
+            'constraints' => [
+                new NotNull()
+            ]
         ]);
         $builder->add('bom_entries', ProjectBOMEntryCollectionType::class);
         $builder->add('submit', SubmitType::class, ['label' => 'save']);
@@ -111,10 +121,15 @@ class ProjectController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $target_project = $project ?? $form->get('project')->getData();
+
+            //Ensure that we really have acces to the selected project
+            $this->denyAccessUnlessGranted('edit', $target_project);
+
             $data = $form->getData();
             $bom_entries = $data['bom_entries'];
             foreach ($bom_entries as $bom_entry){
-                $project->addBOMEntry($bom_entry);
+                $target_project->addBOMEntry($bom_entry);
             }
             $entityManager->flush();
 
@@ -123,7 +138,7 @@ class ProjectController extends AbstractController
                 return $this->redirect($request->query->get('_redirect'));
             }
             //Otherwise just show the project info page
-            return $this->redirectToRoute('project_info', ['id' => $project->getID()]);
+            return $this->redirectToRoute('project_info', ['id' => $target_project->getID()]);
         }
 
         return $this->renderForm('Projects/add_parts.html.twig', [

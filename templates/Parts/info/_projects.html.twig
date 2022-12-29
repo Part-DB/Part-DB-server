@@ -25,6 +25,11 @@
             {% endfor %}</td>
     </tr>
     {% endfor %}
-
     </tbody>
 </table>
+
+<a class="btn btn-success" {% if not is_granted('@devices.edit') %}disabled{% endif %}
+   href="{{ path('project_add_parts_no_id', {"parts": part.id, "_redirect": app.request.requestUri}) }}">
+    <i class="fa-solid fa-magnifying-glass-plus fa-fw"></i>
+    {% trans %}part.info.add_part_to_project{% endtrans %}
+</a>
