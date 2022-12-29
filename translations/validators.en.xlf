@@ -263,5 +263,11 @@
         <target>The number of mountnames has to match the BOMs quantity!</target>
       </segment>
     </unit>
+    <unit id="x47D5WT" name="project.bom_entry.can_not_add_own_builds_part">
+      <segment>
+        <source>project.bom_entry.can_not_add_own_builds_part</source>
+        <target>You can not add a project's own builds part to the BOM.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

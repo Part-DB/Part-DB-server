@@ -199,7 +199,7 @@ class ProjectBOMEntry extends AbstractDBElement
     /**
      * @Assert\Callback
      */
-    public function validate(ExecutionContextInterface $context, $payload)
+    public function validate(ExecutionContextInterface $context, $payload): void
     {
         //Round quantity to whole numbers, if the part is not a decimal part
         if ($this->part) {
@@ -229,6 +229,22 @@ class ProjectBOMEntry extends AbstractDBElement
             $context->buildViolation('project.bom_entry.mountnames_quantity_mismatch')
                 ->atPath('mountnames')
                 ->addViolation();
+        }
+
+        //Check that the part is not the build representation part of this device or one of its parents
+        if ($this->part && $this->part->getBuiltProject() !== null) {
+            //Get the associated project
+            $associated_project = $this->part->getBuiltProject();
+            //Check that it is not the same as the current project neither one of its parents
+            $current_project = $this->project;
+            while ($current_project) {
+                if ($associated_project === $current_project) {
+                    $context->buildViolation('project.bom_entry.can_not_add_own_builds_part')
+                        ->atPath('part')
+                        ->addViolation();
+                }
+                $current_project = $current_project->getParent();
+            }
         }
     }
 
