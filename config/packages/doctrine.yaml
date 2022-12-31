@@ -8,11 +8,11 @@ doctrine:
 
         types:
             datetime:
-                class: App\Helpers\UTCDateTimeType
+                class: App\Doctrine\Types\UTCDateTimeType
             date:
-                class: App\Helpers\UTCDateTimeType
+                class: App\Doctrine\Types\UTCDateTimeType
             big_decimal:
-                class: App\Helpers\BigDecimalType
+                class: App\Doctrine\Types\BigDecimalType
         
         schema_filter: ~^(?!internal)~
         # Only enable this when needed
