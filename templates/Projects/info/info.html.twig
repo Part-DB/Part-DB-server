@@ -39,12 +39,23 @@
                 {% trans %}project.info.info.label{% endtrans %}
             </button>
         </li>
+        {% if project.children is not empty %}
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="subprojects-tab" data-bs-toggle="tab" data-bs-target="#subprojects-tab-pane"
+                        type="button" role="tab" aria-controls="subprojects-tab-pane" aria-selected="false">
+                    <i class="fa-solid fa-folder-tree fa-fw"></i>
+                    {% trans %}project.info.sub_projects.label{% endtrans %}
+                    <span class="badge bg-secondary">{{ project.children | length }}</span>
+                </button>
+            </li>
+        {% endif %}
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="bom-tab" data-bs-toggle="tab" data-bs-target="#bom-tab-pane"
                     type="button" role="tab" aria-controls="bom-tab-pane" aria-selected="false">
                 <i class="fa-solid fa-list-check fa-fw"></i>
                 {% trans %}project_bom_entry.label{% endtrans %}
-                <span class="badge bg-secondary">{{ project.bomEntries | length }}</span></button>
+                <span class="badge bg-secondary">{{ project.bomEntries | length }}</span>
+            </button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="attachments-tab" data-bs-toggle="tab" data-bs-target="#attachments-tab-pane"
@@ -56,6 +67,11 @@
         <div class="tab-pane fade show active" id="info-tab-pane" role="tabpanel" aria-labelledby="info-tab" tabindex="0">
             {% include "Projects/info/_info.html.twig" %}
         </div>
+        {% if project.children is not empty %}
+            <div class="tab-pane fade" id="subprojects-tab-pane" role="tabpanel" aria-labelledby="bom-tab" tabindex="0">
+                {% include "Projects/info/_subprojects.html.twig" %}
+            </div>
+        {% endif %}
         <div class="tab-pane fade" id="bom-tab-pane" role="tabpanel" aria-labelledby="bom-tab" tabindex="0">
             {% include "Projects/info/_bom.html.twig" %}
         </div>

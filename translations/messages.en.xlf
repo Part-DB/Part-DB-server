@@ -10121,5 +10121,11 @@ Element 3</target>
         <target>Info</target>
       </segment>
     </unit>
+    <unit id="vaFaY8r" name="project.info.sub_projects.label">
+      <segment>
+        <source>project.info.sub_projects.label</source>
+        <target>Subprojects</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
