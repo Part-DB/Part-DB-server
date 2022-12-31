@@ -10091,5 +10091,35 @@ Element 3</target>
         <target>Is project builds part</target>
       </segment>
     </unit>
+    <unit id="YiFf2jl" name="project.info.title">
+      <segment>
+        <source>project.info.title</source>
+        <target>Project info</target>
+      </segment>
+    </unit>
+    <unit id="Y7z_Lil" name="project.info.bom_entries_count">
+      <segment>
+        <source>project.info.bom_entries_count</source>
+        <target>BOM entries</target>
+      </segment>
+    </unit>
+    <unit id="jdkve2C" name="project.info.sub_projects_count">
+      <segment>
+        <source>project.info.sub_projects_count</source>
+        <target>Subprojects</target>
+      </segment>
+    </unit>
+    <unit id="keeSexh" name="project.info.bom_add_parts">
+      <segment>
+        <source>project.info.bom_add_parts</source>
+        <target>Add BOM entries</target>
+      </segment>
+    </unit>
+    <unit id="sgaRuly" name="project.info.info.label">
+      <segment>
+        <source>project.info.info.label</source>
+        <target>Info</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

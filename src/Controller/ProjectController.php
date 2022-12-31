@@ -63,7 +63,7 @@ class ProjectController extends AbstractController
             return $table->getResponse();
         }
 
-        return $this->render('Projects/info.html.twig', [
+        return $this->render('Projects/info/info.html.twig', [
             'datatable' => $table,
             'project' => $project,
         ]);

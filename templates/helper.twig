@@ -57,6 +57,21 @@
     {% endif %}
 {% endmacro %}
 
+{% macro project_status_to_badge(status, class="badge") %}
+    {% if status is not empty %}
+        {% set color = " bg-secondary" %}
+
+        {% if status == "in_production" %}
+            {% set color = " bg-success" %}
+        {% endif %}
+
+        <span class="{{ class ~ color}}">
+            <i class="fa-fw fas fa-info-circle"></i>
+            {{ ("project.status." ~ status) | trans }}
+        </span>
+    {% endif %}
+{% endmacro %}
+
 {% macro structural_entity_link(entity, link_type = "list_parts") %}
     {# @var entity \App\Entity\Base\StructuralDBElement #}
     {% if entity %}
