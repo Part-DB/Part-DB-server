@@ -57,10 +57,26 @@
                 <span class="badge bg-secondary">{{ project.bomEntries | length }}</span>
             </button>
         </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="attachments-tab" data-bs-toggle="tab" data-bs-target="#attachments-tab-pane"
-                    type="button" role="tab" aria-controls="attachments-tab-pane" aria-selected="false">BOM</button>
-        </li>
+        {% if project.attachments is not empty %}
+            <li class="nav-item">
+                <a class="nav-link" id="attachments-tab" data-bs-toggle="tab"
+                   data-bs-target="#attachments-tab-pane" role="tab">
+                    <i class="fas fa-paperclip fa-fw"></i>
+                    {% trans %}attachment.labelp{% endtrans %}
+                    <span class="badge bg-secondary">{{ project.attachments | length }}</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if project.parameters is not empty %}
+            <li class="nav-item">
+                <a class="nav-link" id="parameters-tab" data-bs-toggle="tab"
+                   data-bs-target="#parameters-tab-pane" role="tab">
+                    <i class="fas fa-atlas fa-fw"></i>
+                    {% trans %}entity.info.parameters.tab{% endtrans %}
+                    <span class="badge bg-secondary">{{ project.parameters | length }}</span>
+                </a>
+            </li>
+        {% endif %}
     </ul>
 
     <div class="tab-content">
@@ -76,7 +92,13 @@
             {% include "Projects/info/_bom.html.twig" %}
         </div>
         <div class="tab-pane fade" id="attachments-tab-pane" role="tabpanel" aria-labelledby="attachments-tab" tabindex="0">
-            Attachments
+            {% include "Parts/info/_attachments_info.html.twig" with {"part": project} %}
+        </div>
+        <div class="tab-pane fade" id="parameters-tab-pane" role="tabpanel" aria-labelledby="parameters-tab">
+            {% for name, parameters in project.groupedParameters %}
+                {% if name is not empty %}<h5 class="mt-1">{{ name }}</h5>{% endif %}
+                {{ helper.parameters_table(project.parameters) }}
+            {% endfor %}
         </div>
     </div>
 
