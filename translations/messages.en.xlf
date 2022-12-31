@@ -10127,5 +10127,11 @@ Element 3</target>
         <target>Subprojects</target>
       </segment>
     </unit>
+    <unit id="CTIbEF6" name="project.bom.price">
+      <segment>
+        <source>project.bom.price</source>
+        <target>Price</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

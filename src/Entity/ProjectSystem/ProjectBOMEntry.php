@@ -25,6 +25,10 @@ namespace App\Entity\ProjectSystem;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Entity\Parts\Part;
+use App\Entity\PriceInformations\Currency;
+use App\Validator\Constraints\BigDecimal\BigDecimalPositive;
+use App\Validator\Constraints\Selectable;
+use Brick\Math\BigDecimal;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -85,6 +89,29 @@ class ProjectBOMEntry extends AbstractDBElement
      * @ORM\JoinColumn(name="id_part", referencedColumnName="id", nullable=true)
      */
     protected ?Part $part = null;
+
+    /**
+     * @var BigDecimal The price of this non-part BOM entry
+     * @ORM\Column(type="big_decimal", precision=11, scale=5, nullable=true)
+     * @Assert\AtLeastOneOf({
+     *     @BigDecimalPositive(),
+     *     @Assert\IsNull()
+     * })
+     */
+    protected ?BigDecimal $price;
+
+    /**
+     * @var ?Currency The currency for the price of this non-part BOM entry
+     * @ORM\ManyToOne(targetEntity="App\Entity\PriceInformations\Currency")
+     * @ORM\JoinColumn(nullable=true)
+     * @Selectable()
+     */
+    protected ?Currency $price_currency = null;
+
+    public function __construct()
+    {
+        $this->price = BigDecimal::zero()->toScale(5);
+    }
 
     /**
      * @return float
@@ -197,6 +224,44 @@ class ProjectBOMEntry extends AbstractDBElement
     }
 
     /**
+     * Returns the price of this BOM entry, if existing.
+     * Prices are only valid on non-Part BOM entries.
+     * @return BigDecimal|null
+     */
+    public function getPrice(): ?BigDecimal
+    {
+        return $this->price;
+    }
+
+    /**
+     * Sets the price of this BOM entry.
+     * Prices are only valid on non-Part BOM entries.
+     * @param  BigDecimal|null  $price
+     */
+    public function setPrice(?BigDecimal $price): void
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return Currency|null
+     */
+    public function getPriceCurrency(): ?Currency
+    {
+        return $this->price_currency;
+    }
+
+    /**
+     * @param  Currency|null  $price_currency
+     */
+    public function setPriceCurrency(?Currency $price_currency): void
+    {
+        $this->price_currency = $price_currency;
+    }
+
+
+
+    /**
      * @Assert\Callback
      */
     public function validate(ExecutionContextInterface $context, $payload): void
@@ -228,6 +293,13 @@ class ProjectBOMEntry extends AbstractDBElement
         if (!empty($this->mountnames) && count($uniq_mountnames) !== (int) round ($this->quantity)) {
             $context->buildViolation('project.bom_entry.mountnames_quantity_mismatch')
                 ->atPath('mountnames')
+                ->addViolation();
+        }
+
+        //Prices are only only allowed on non-part BOM entries
+        if ($this->part !== null && $this->price !== null) {
+            $context->buildViolation('project.bom_entry.price_not_allowed_on_parts')
+                ->atPath('price')
                 ->addViolation();
         }
 

@@ -275,5 +275,11 @@
         <target>The project BOM has to include all subprojects builds parts. Part %part_name% of project %project_name% missing!</target>
       </segment>
     </unit>
+    <unit id="U9b1EzD" name="project.bom_entry.price_not_allowed_on_parts">
+      <segment>
+        <source>project.bom_entry.price_not_allowed_on_parts</source>
+        <target>Prices are not allowed on BOM entries associated with a part. Define the price on the part instead.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

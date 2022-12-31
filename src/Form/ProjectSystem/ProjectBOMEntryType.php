@@ -4,6 +4,8 @@ namespace App\Form\ProjectSystem;
 
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
+use App\Form\Type\BigDecimalNumberType;
+use App\Form\Type\CurrencyEntityType;
 use App\Form\Type\PartSelectType;
 use App\Form\Type\RichTextEditorType;
 use App\Form\Type\SIUnitType;
@@ -63,6 +65,22 @@ class ProjectBOMEntryType extends AbstractType
                     'rows' => 2,
                 ],
             ])
+            ->add('price', BigDecimalNumberType::class, [
+                'label' => false,
+                'required' => false,
+                'scale' => 5,
+                'html5' => true,
+                'attr' => [
+                    'min' => 0,
+                    'step' => 'any',
+                ],
+            ])
+            ->add('priceCurrency', CurrencyEntityType::class, [
+                'required' => false,
+                'label' => false,
+                'short' => true,
+            ])
+
         ;
 
     }
