@@ -1,0 +1,56 @@
+<div class="modal fade" id="withdraw-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" {{ stimulus_controller('pages/part_withdraw_modal') }}>
+    <form method="post" action="{{ path('part_add_withdraw', {"id": part.id}) }}">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {# non visible form elements #}
+                    <input type="hidden" name="lot_id" value="">
+                    <input type="hidden" name="action" value="">
+                    <input type="hidden" name="_csfr" value="{{ csrf_token('part_withraw' ~ part.iD) }}">
+                    <input type="hidden" name="_redirect" value="{{ app.request.requestUri }}">
+
+                    <div class="row mb-2">
+                        <label class="col-form-label col-sm-3">
+                            Amount
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="number" required class="form-control" min="0" step="{{ (part.partUnit and not part.partUnit.integer) ? 'any' : '1' }}" name="amount" value="">
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="col-form-label col-sm-3">Move to</label>
+                        <div class="col-sm-9">
+                            {% for lots in part.partLots|filter(l => l.instockUnknown == false) %}
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="target_id" value="{{ lots.iD }}" id="modal_target_radio_{{ lots.iD }}" {% if lots.storageLocation and lots.storageLocation.full %}disabled{% endif %} required>
+                                    <label class="form-check-label" for="modal_target_radio_{{ lots.iD }}">
+                                        {{ (lots.storageLocation) ? lots.storageLocation.fullPath : ("Lot " ~ loop.index) }}{% if lots.name is not empty %} ({{ lots.name }}){% endif %}: <b>{{ lots.amount | format_amount(part.partUnit) }}</b>
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label class="col-form-label col-sm-3">
+                            Comment
+                        </label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="comment" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -40,6 +40,7 @@ use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\HistoryHelper;
 use App\Services\LogSystem\TimeTravel;
 use App\Services\Parameters\ParameterExtractor;
+use App\Services\Parts\PartLotWithdrawAddHelper;
 use App\Services\Parts\PricedetailHelper;
 use App\Services\ProjectSystem\ProjectBuildPartHelper;
 use DateTime;
@@ -52,6 +53,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -318,5 +320,61 @@ class PartController extends AbstractController
                 'part' => $new_part,
                 'form' => $form,
             ]);
+    }
+
+    /**
+     * @Route("/{id}/add_withdraw", name="part_add_withdraw", methods={"POST"})
+     */
+    public function withdrawAddHandler(Part $part, Request $request, EntityManagerInterface $em, PartLotWithdrawAddHelper $withdrawAddHelper): Response
+    {
+        if ($this->isCsrfTokenValid('part_withraw' . $part->getID(), $request->request->get('_csfr'))) {
+            //Retrieve partlot from the request
+            $partLot = $em->find(PartLot::class, $request->request->get('lot_id'));
+            //Ensure that the partlot belongs to the part
+            if($partLot->getPart() !== $part) {
+                throw new \RuntimeException("The origin partlot does not belong to the part!");
+            }
+            //Try to determine the target lot (used for move actions)
+            $targetLot = $em->find(PartLot::class, $request->request->get('target_id'));
+            if ($targetLot && $targetLot->getPart() !== $part) {
+                throw new \RuntimeException("The target partlot does not belong to the part!");
+            }
+
+            //Extract the amount and comment from the request
+            $amount = (float) $request->request->get('amount');
+            $comment = $request->request->get('comment');
+            $action = $request->request->get('action');
+
+
+
+            switch ($action) {
+                case "withdraw":
+                case "remove":
+                    $withdrawAddHelper->withdraw($partLot, $amount, $comment);
+                    break;
+                case "add":
+                    $withdrawAddHelper->add($partLot, $amount, $comment);
+                    break;
+                case "move":
+                    $withdrawAddHelper->move($partLot, $targetLot, $amount, $comment);
+                    break;
+                default:
+                    throw new \RuntimeException("Unknown action!");
+            }
+
+            //Save the changes to the DB
+            $em->flush();
+            $this->addFlash('success', 'part.withdraw.success');
+
+        } else {
+            $this->addFlash('error', 'CSRF Token invalid!');
+        }
+
+        //If an redirect was passed, then redirect there
+        if($request->request->get('_redirect')) {
+            return $this->redirect($request->request->get('_redirect'));
+        }
+        //Otherwise just redirect to the part page
+        return $this->redirectToRoute('part_info', ['id' => $part->getID()]);
     }
 }
