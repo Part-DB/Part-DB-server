@@ -22,8 +22,17 @@
 class RegisterEventHelper {
     constructor() {
         this.registerTooltips();
-
         this.registerSpecialCharInput();
+
+        this.registerModalDropRemovalOnFormSubmit()
+    }
+
+
+    registerModalDropRemovalOnFormSubmit() {
+        //Remove all modal backdrops, before rendering the new page.
+        document.addEventListener('turbo:before-render', event => {
+            document.querySelector('.modal-backdrop').remove();
+        });
     }
 
     registerLoadHandler(fn) {
@@ -35,7 +44,7 @@ class RegisterEventHelper {
         this.registerLoadHandler(() => {
             $(".tooltip").remove();
             //Exclude dropdown buttons from tooltips, otherwise we run into endless errors from bootstrap (bootstrap.esm.js:614 Bootstrap doesn't allow more than one instance per element. Bound instance: bs.dropdown.)
-            $('a[title], button[title]:not([data-bs-toggle="dropdown"]), span[title], h6[title], h3[title], i.fas[title]')
+            $('a[title], button[title]:not([data-bs-toggle="dropdown"]), p[title], span[title], h6[title], h3[title], i.fas[title]')
                 //@ts-ignore
                 .tooltip("hide").tooltip({container: "body", placement: "auto", boundary: 'window'});
         });

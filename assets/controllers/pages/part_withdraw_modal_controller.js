@@ -4,16 +4,7 @@ import {Modal} from "bootstrap";
 export default class extends Controller
 {
     connect() {
-
-
         this.element.addEventListener('show.bs.modal', event => this._handleModalOpen(event));
-
-        //Register an event to remove the backdrop, when the form is submitted
-        const form = this.element.querySelector('form');
-        form.addEventListener('submit', event => {
-            //Remove the backdrop
-            document.querySelector('.modal-backdrop').remove();
-        });
     }
 
     _handleModalOpen(event) {
