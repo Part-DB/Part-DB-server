@@ -10133,5 +10133,65 @@ Element 3</target>
         <target>Price</target>
       </segment>
     </unit>
+    <unit id="hO.xnng" name="part.info.withdraw_modal.title.withdraw">
+      <segment>
+        <source>part.info.withdraw_modal.title.withdraw</source>
+        <target>Withdraw parts from lot</target>
+      </segment>
+    </unit>
+    <unit id="ci6FaUj" name="part.info.withdraw_modal.title.add">
+      <segment>
+        <source>part.info.withdraw_modal.title.add</source>
+        <target>Add parts to lot</target>
+      </segment>
+    </unit>
+    <unit id="kGal3M_" name="part.info.withdraw_modal.title.move">
+      <segment>
+        <source>part.info.withdraw_modal.title.move</source>
+        <target>Move parts from lot to another lot</target>
+      </segment>
+    </unit>
+    <unit id="zxFeQRY" name="part.info.withdraw_modal.amount">
+      <segment>
+        <source>part.info.withdraw_modal.amount</source>
+        <target>Amount</target>
+      </segment>
+    </unit>
+    <unit id="iblpgc7" name="part.info.withdraw_modal.move_to">
+      <segment>
+        <source>part.info.withdraw_modal.move_to</source>
+        <target>Move to</target>
+      </segment>
+    </unit>
+    <unit id="pYCfHzw" name="part.info.withdraw_modal.comment">
+      <segment>
+        <source>part.info.withdraw_modal.comment</source>
+        <target>Comment</target>
+      </segment>
+    </unit>
+    <unit id="ARNLGgz" name="part.info.withdraw_modal.comment.hint">
+      <segment>
+        <source>part.info.withdraw_modal.comment.hint</source>
+        <target>You can set a comment here describing why you are doing this operation (e.g. for what you need the parts). This info will be saved in the log.</target>
+      </segment>
+    </unit>
+    <unit id="Sumeg5G" name="modal.close">
+      <segment>
+        <source>modal.close</source>
+        <target>Close</target>
+      </segment>
+    </unit>
+    <unit id="sye5gxs" name="modal.submit">
+      <segment>
+        <source>modal.submit</source>
+        <target>Submit</target>
+      </segment>
+    </unit>
+    <unit id="jl7xM1O" name="part.withdraw.success">
+      <segment>
+        <source>part.withdraw.success</source>
+        <target>Added/Moved/Withdrawn parts successfully.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

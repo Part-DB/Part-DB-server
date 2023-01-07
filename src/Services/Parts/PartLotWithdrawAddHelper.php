@@ -39,6 +39,11 @@ class PartLotWithdrawAddHelper
             return false;
         }
 
+        //Part must contain more than 0 parts
+        if ($partLot->getAmount() <= 0) {
+            return false;
+        }
+
         return true;
     }
 

@@ -81,7 +81,7 @@ class PartController extends AbstractController
      * @throws Exception
      */
     public function show(Part $part, Request $request, TimeTravel $timeTravel, HistoryHelper $historyHelper,
-        DataTableFactory $dataTable, ParameterExtractor $parameterExtractor, ?string $timestamp = null): Response
+        DataTableFactory $dataTable, ParameterExtractor $parameterExtractor, PartLotWithdrawAddHelper $withdrawAddHelper, ?string $timestamp = null): Response
     {
         $this->denyAccessUnlessGranted('read', $part);
 
@@ -122,6 +122,7 @@ class PartController extends AbstractController
                 'timeTravel' => $timeTravel_timestamp,
                 'description_params' => $parameterExtractor->extractParameters($part->getDescription()),
                 'comment_params' => $parameterExtractor->extractParameters($part->getComment()),
+                'withdraw_add_helper' => $withdrawAddHelper,
             ]
         );
     }
@@ -330,6 +331,9 @@ class PartController extends AbstractController
         if ($this->isCsrfTokenValid('part_withraw' . $part->getID(), $request->request->get('_csfr'))) {
             //Retrieve partlot from the request
             $partLot = $em->find(PartLot::class, $request->request->get('lot_id'));
+            if($partLot === null) {
+                throw new \RuntimeException('Part lot not found!');
+            }
             //Ensure that the partlot belongs to the part
             if($partLot->getPart() !== $part) {
                 throw new \RuntimeException("The origin partlot does not belong to the part!");
