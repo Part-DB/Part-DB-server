@@ -10193,5 +10193,29 @@ Element 3</target>
         <target>Added/Moved/Withdrawn parts successfully.</target>
       </segment>
     </unit>
+    <unit id="oghrs8X" name="perm.parts_stock">
+      <segment>
+        <source>perm.parts_stock</source>
+        <target>Parts Stock</target>
+      </segment>
+    </unit>
+    <unit id="YjbdSVx" name="perm.parts_stock.withdraw">
+      <segment>
+        <source>perm.parts_stock.withdraw</source>
+        <target>Withdraw parts from stock</target>
+      </segment>
+    </unit>
+    <unit id="P4saY9b" name="perm.parts_stock.add">
+      <segment>
+        <source>perm.parts_stock.add</source>
+        <target>Add parts to stock</target>
+      </segment>
+    </unit>
+    <unit id="JR4LXfJ" name="perm.parts_stock.move">
+      <segment>
+        <source>perm.parts_stock.move</source>
+        <target>Move parts between lots</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

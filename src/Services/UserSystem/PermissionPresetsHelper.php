@@ -102,6 +102,7 @@ class PermissionPresetsHelper
 
         //Set datastructures
         $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'parts', PermissionData::ALLOW);
+        $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'parts_stock', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'categories', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'storelocations', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'footprints', PermissionData::ALLOW);

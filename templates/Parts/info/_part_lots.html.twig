@@ -65,21 +65,21 @@
                     <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#withdraw-modal"
                             data-action="withdraw" data-lot-id="{{ lot.id }}" data-lot-amount="{{ lot.amount }}"
                             title="{% trans %}part.info.withdraw_modal.title.withdraw{% endtrans %}"
-                            {% if not withdraw_add_helper.canWithdraw(lot) %}disabled{% endif %}
+                            {% if not is_granted('withdraw', lot) or not withdraw_add_helper.canWithdraw(lot) %}disabled{% endif %}
                     >
                         <i class="fa-solid fa-minus fa-fw"></i>
                     </button>
                     <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#withdraw-modal"
                             data-action="add" data-lot-id="{{ lot.id }}" data-lot-amount="{{ lot.amount }}"
                             title="{% trans %}part.info.withdraw_modal.title.add{% endtrans %}"
-                            {% if not withdraw_add_helper.canAdd(lot) %}disabled{% endif %}
+                            {% if not is_granted('add', lot) or not withdraw_add_helper.canAdd(lot) %}disabled{% endif %}
                     >
                         <i class="fa-solid fa-plus fa-fw"></i>
                     </button>
                     <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#withdraw-modal"
                             data-action="move" data-lot-id="{{ lot.id }}" data-lot-amount="{{ lot.amount }}"
                             title="{% trans %}part.info.withdraw_modal.title.move{% endtrans %}"
-                            {% if not withdraw_add_helper.canWithdraw(lot) or part.partLots.count == 1 %}disabled{% endif %}
+                            {% if not is_granted('move', lot) or not withdraw_add_helper.canWithdraw(lot) or part.partLots.count == 1 %}disabled{% endif %}
                     >
                         <i class="fa-solid fa-right-left fa-fw"></i>
                     </button>

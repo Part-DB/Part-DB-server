@@ -354,12 +354,15 @@ class PartController extends AbstractController
             switch ($action) {
                 case "withdraw":
                 case "remove":
+                    $this->denyAccessUnlessGranted('withdraw', $partLot);
                     $withdrawAddHelper->withdraw($partLot, $amount, $comment);
                     break;
                 case "add":
+                    $this->denyAccessUnlessGranted('add', $partLot);
                     $withdrawAddHelper->add($partLot, $amount, $comment);
                     break;
                 case "move":
+                    $this->denyAccessUnlessGranted('move', $partLot);
                     $withdrawAddHelper->move($partLot, $targetLot, $amount, $comment);
                     break;
                 default:
