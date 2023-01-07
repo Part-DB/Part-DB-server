@@ -146,4 +146,16 @@ class PermissionDataTest extends TestCase
         $this->assertFalse($data->isPermissionSet('perm1', 'op2'));
         $this->assertFalse($data->isPermissionSet('perm1', 'op3'));
     }
+
+    public function testGetSchemaVersion()
+    {
+        $data = new PermissionData();
+
+        //By default the schema version must be the CURRENT_SCHEMA_VERSION
+        $this->assertEquals(PermissionData::CURRENT_SCHEMA_VERSION, $data->getSchemaVersion());
+
+        //Ensure that the schema version can be set
+        $data->setSchemaVersion(12345);
+        $this->assertEquals(12345, $data->getSchemaVersion());
+    }
 }

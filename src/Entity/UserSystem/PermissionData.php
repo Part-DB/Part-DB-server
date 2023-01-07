@@ -38,6 +38,11 @@ final class PermissionData implements \JsonSerializable
     public const DISALLOW = false;
 
     /**
+     * The current schema version of the permission data
+     */
+    public const CURRENT_SCHEMA_VERSION = 1;
+
+    /**
      * @var array This array contains the permission values for each permission
      * This array contains the permission values for each permission, in the form of:
      * permission => [
@@ -45,7 +50,10 @@ final class PermissionData implements \JsonSerializable
      * ]
      * @ORM\Column(type="json", name="data", options={"default": "[]"})
      */
-    protected ?array $data = [];
+    protected ?array $data = [
+        //$ prefixed entries are used for metadata
+        '$ver' => self::CURRENT_SCHEMA_VERSION, //The schema version of the permission data
+    ];
 
     /**
      * Creates a new Permission Data Instance using the given data.
@@ -54,6 +62,11 @@ final class PermissionData implements \JsonSerializable
     public function __construct(array $data = [])
     {
         $this->data = $data;
+
+        //If the passed data did not contain a schema version, we set it to the current version
+        if (!isset($this->data['$ver'])) {
+            $this->data['$ver'] = self::CURRENT_SCHEMA_VERSION;
+        }
     }
 
     /**
@@ -64,6 +77,11 @@ final class PermissionData implements \JsonSerializable
      */
     public function isPermissionSet(string $permission, string $operation): bool
     {
+        //We cannot access metadata via normal permission data
+        if (strpos($permission, '$') !== false) {
+            return false;
+        }
+
         return isset($this->data[$permission][$operation]);
     }
 
@@ -155,4 +173,29 @@ final class PermissionData implements \JsonSerializable
 
         return $ret;
     }
+
+    /**
+     * Returns the schema version of the permission data.
+     * @return int The schema version of the permission data
+     */
+    public function getSchemaVersion(): int
+    {
+        return $this->data['$ver'] ?? 0;
+    }
+
+    /**
+     * Sets the schema version of this permission data
+     * @param  int  $new_version
+     * @return $this
+     */
+    public function setSchemaVersion(int $new_version): self
+    {
+        if ($new_version < 0) {
+            throw new \InvalidArgumentException('The schema version must be a positive integer');
+        }
+
+        $this->data['$ver'] = $new_version;
+        return $this;
+    }
+
 }
