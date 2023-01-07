@@ -20,7 +20,9 @@
 
 namespace App\Services\UserSystem;
 
+use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\PermissionData;
+use App\Entity\UserSystem\User;
 use App\Security\Interfaces\HasPermissionsInterface;
 
 class PermissionSchemaUpdater
@@ -42,7 +44,8 @@ class PermissionSchemaUpdater
     }
 
     /**
-     * Upgrades the permission schema of the given user/group to the chosen version
+     * Upgrades the permission schema of the given user/group to the chosen version.
+     * Please note that this function does not flush the changes to DB!
      * @param  HasPermissionsInterface  $holder
      * @param  int  $target_version
      * @return bool True, if an upgrade was done, false if it was not needed.
@@ -74,6 +77,42 @@ class PermissionSchemaUpdater
 
         //When we end up here, we have done an upgrade and we can return true
         return true;
+    }
+
+    /**
+     * Upgrades the permission schema of the given group and all of its parent groups to the chosen version.
+     * Please note that this function does not flush the changes to DB!
+     * @param  Group  $group
+     * @param  int  $target_version
+     * @return bool True if an upgrade was done, false if it was not needed.
+     */
+    public function groupUpgradeSchemaRecursively(Group $group, int $target_version = PermissionData::CURRENT_SCHEMA_VERSION): bool
+    {
+        $updated = $this->upgradeSchema($group, $target_version);
+
+        /** @var Group $parent */
+        $parent = $group->getParent();
+        while ($parent) {
+            $updated = $this->upgradeSchema($parent, $target_version) || $updated;
+            $parent = $parent->getParent();
+        }
+
+        return $updated;
+    }
+
+    /**
+     * Upgrades the permissions schema of the given users and its parent (including parent groups) to the chosen version.
+     * Please note that this function does not flush the changes to DB!
+     * @param  User  $user
+     * @param  int  $target_version
+     * @return bool True if an upgrade was done, false if it was not needed.
+     */
+    public function userUpgradeSchemaRecursively(User $user, int $target_version = PermissionData::CURRENT_SCHEMA_VERSION): bool
+    {
+        $updated = $this->upgradeSchema($user, $target_version);
+        $updated = $this->groupUpgradeSchemaRecursively($user->getGroup(), $target_version) || $updated;
+
+        return $updated;
     }
 
     private function upgradeSchemaToVersion1(HasPermissionsInterface $holder): void

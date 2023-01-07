@@ -35,6 +35,7 @@ use App\Services\ImportExportSystem\EntityExporter;
 use App\Services\ImportExportSystem\EntityImporter;
 use App\Services\Trees\StructuralElementRecursionHelper;
 use App\Services\UserSystem\PermissionPresetsHelper;
+use App\Services\UserSystem\PermissionSchemaUpdater;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use InvalidArgumentException;
@@ -82,10 +83,12 @@ class UserController extends AdminPages\BaseAdminController
      *
      * @throws Exception
      */
-    public function edit(User $entity, Request $request, EntityManagerInterface $em,  PermissionPresetsHelper $permissionPresetsHelper, ?string $timestamp = null): Response
+    public function edit(User $entity, Request $request, EntityManagerInterface $em,  PermissionPresetsHelper $permissionPresetsHelper, PermissionSchemaUpdater $permissionSchemaUpdater, ?string $timestamp = null): Response
     {
-        //Handle 2FA disabling
+        //Do an upgrade of the permission schema if needed (so the user can see the permissions a user get on next request (even if it was not done yet)
+        $permissionSchemaUpdater->userUpgradeSchemaRecursively($entity);
 
+        //Handle 2FA disabling
         if ($request->request->has('reset_2fa')) {
             //Check if the admin has the needed permissions
             $this->denyAccessUnlessGranted('set_password', $entity);

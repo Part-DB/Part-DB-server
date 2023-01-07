@@ -27,7 +27,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
                   'currencies.read', 'attachment_types.read', 'measurement_units.read']
       edit:
         label: "perm.edit"
-        alsoSet: ['read', 'parts_stock.withdraw', 'parts_stock.add', 'parts_stock.move']
+        alsoSet: ['read'] #['read', 'parts_stock.withdraw', 'parts_stock.add', 'parts_stock.move']
       create:
         label: "perm.create"
         alsoSet: ['read', 'edit']

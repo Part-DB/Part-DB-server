@@ -10217,5 +10217,11 @@ Element 3</target>
         <target>Move parts between lots</target>
       </segment>
     </unit>
+    <unit id="DQ_FAfi" name="user.permissions_schema_updated">
+      <segment>
+        <source>user.permissions_schema_updated</source>
+        <target>The permission schema of your user were upgraded to the latest version.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
