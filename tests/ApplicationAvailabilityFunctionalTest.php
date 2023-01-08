@@ -126,5 +126,10 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
 
         //Webauthn Register
         yield ['/webauthn/register'];
+
+        //Projects
+        yield ['/project/1/info'];
+        yield ['/project/1/add_parts'];
+        yield ['/project/1/add_parts?parts=1,2'];
     }
 }

@@ -29,8 +29,8 @@ use App\Entity\ProjectSystem\Project;
  * @group slow
  * @group DB
  */
-class DeviceControllerTest extends AbstractAdminControllerTest
+class ProjectControllerTest extends AbstractAdminControllerTest
 {
-    protected static $base_path = '/en'.'/device';
+    protected static $base_path = '/en'.'/project';
     protected static $entity_class = Project::class;
 }
