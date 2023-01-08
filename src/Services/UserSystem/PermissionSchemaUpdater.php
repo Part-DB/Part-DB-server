@@ -66,6 +66,8 @@ class PermissionSchemaUpdater
             $reflectionClass = new \ReflectionClass(self::class);
             try {
                 $method = $reflectionClass->getMethod('upgradeSchemaToVersion'.($n + 1));
+                //Set the method accessible, so we can call it (needed for PHP < 8.1)
+                $method->setAccessible(true);
                 $method->invoke($this, $holder);
             } catch (\ReflectionException $e) {
                 throw new \RuntimeException('Could not find update method for schema version '.($n + 1));
