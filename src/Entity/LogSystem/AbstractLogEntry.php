@@ -67,10 +67,11 @@ use Psr\Log\LogLevel;
  *  6 = "ElementCreatedLogEntry",
  *  7 = "ElementEditedLogEntry",
  *  8 = "ConfigChangedLogEntry",
- *  9 = "InstockChangedLogEntry",
+ *  9 = "LegacyInstockChangedLogEntry",
  *  10 = "DatabaseUpdatedLogEntry",
  *  11 = "CollectionElementDeleted",
  *  12 = "SecurityEventLogEntry",
+ *  13 = "PartStockChangedLogEntry",
  * })
  */
 abstract class AbstractLogEntry extends AbstractDBElement

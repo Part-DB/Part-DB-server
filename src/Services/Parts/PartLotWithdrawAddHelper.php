@@ -2,11 +2,20 @@
 
 namespace App\Services\Parts;
 
+use App\Entity\LogSystem\PartStockChangedLogEntry;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
+use App\Services\LogSystem\EventLogger;
 
-class PartLotWithdrawAddHelper
+final class PartLotWithdrawAddHelper
 {
+    private $eventLogger;
+
+    public function __construct(EventLogger $eventLogger)
+    {
+        $this->eventLogger = $eventLogger;
+    }
+
     /**
      * Checks whether the given part can
      * @param  PartLot  $partLot
@@ -80,7 +89,11 @@ class PartLotWithdrawAddHelper
         }
 
         //Subtract the amount from the part lot
-        $partLot->setAmount($partLot->getAmount() - $amount);
+        $oldAmount = $partLot->getAmount();
+        $partLot->setAmount($oldAmount - $amount);
+
+        $event = PartStockChangedLogEntry::withdraw($partLot, $oldAmount, $partLot->getAmount(), $part->getAmountSum() , $comment);
+        $this->eventLogger->log($event);
 
         return $partLot;
     }
@@ -111,8 +124,11 @@ class PartLotWithdrawAddHelper
             throw new \RuntimeException("Cannot add to this part lot!");
         }
 
-        //Subtract the amount from the part lot
-        $partLot->setAmount($partLot->getAmount() + $amount);
+        $oldAmount = $partLot->getAmount();
+        $partLot->setAmount($oldAmount + $amount);
+
+        $event = PartStockChangedLogEntry::add($partLot, $oldAmount, $partLot->getAmount(), $part->getAmountSum() , $comment);
+        $this->eventLogger->log($event);
 
         return $partLot;
     }
@@ -154,9 +170,14 @@ class PartLotWithdrawAddHelper
             throw new \RuntimeException('Not enough stock to withdraw!');
         }
 
+        $oldOriginAmount = $origin->getAmount();
+
         //Subtract the amount from the part lot
         $origin->setAmount($origin->getAmount() - $amount);
         //And add it to the target
         $target->setAmount($target->getAmount() + $amount);
+
+        $event = PartStockChangedLogEntry::move($origin, $oldOriginAmount, $origin->getAmount(), $part->getAmountSum() , $comment, $target);
+        $this->eventLogger->log($event);
     }
 }

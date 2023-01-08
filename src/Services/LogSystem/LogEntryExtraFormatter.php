@@ -31,7 +31,7 @@ use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Entity\LogSystem\ExceptionLogEntry;
-use App\Entity\LogSystem\InstockChangedLogEntry;
+use App\Entity\LogSystem\LegacyInstockChangedLogEntry;
 use App\Entity\LogSystem\SecurityEventLogEntry;
 use App\Entity\LogSystem\UserLoginLogEntry;
 use App\Entity\LogSystem\UserLogoutLogEntry;
@@ -155,7 +155,7 @@ class LogEntryExtraFormatter
             $array['log.element_edited.changed_fields'] = htmlspecialchars(implode(', ', $context->getChangedFields()));
         }
 
-        if ($context instanceof InstockChangedLogEntry) {
+        if ($context instanceof LegacyInstockChangedLogEntry) {
             $array[] = $this->translator->trans($context->isWithdrawal() ? 'log.instock_changed.withdrawal' : 'log.instock_changed.added');
             $array[] = sprintf(
                 '%s <i class="fas fa-long-arrow-alt-right"></i> %s (%s)',

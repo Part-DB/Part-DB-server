@@ -32,7 +32,7 @@ use App\Entity\LogSystem\DatabaseUpdatedLogEntry;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
-use App\Entity\LogSystem\InstockChangedLogEntry;
+use App\Entity\LogSystem\LegacyInstockChangedLogEntry;
 use App\Entity\LogSystem\SecurityEventLogEntry;
 use App\Entity\LogSystem\UserLoginLogEntry;
 use App\Entity\LogSystem\UserLogoutLogEntry;
@@ -88,7 +88,7 @@ class LogFilterType extends AbstractType
         'log.type.user_not_allowed' => UserNotAllowedLogEntry::class,
 
         //Legacy entries
-        'log.type.instock_changed' => InstockChangedLogEntry::class,
+        'log.type.instock_changed' => LegacyInstockChangedLogEntry::class,
     ];
 
     public function configureOptions(OptionsResolver $resolver): void

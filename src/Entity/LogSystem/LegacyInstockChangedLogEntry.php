@@ -27,7 +27,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity()
  */
-class InstockChangedLogEntry extends AbstractLogEntry
+class LegacyInstockChangedLogEntry extends AbstractLogEntry
 {
     protected string $typeString = 'instock_changed';
 
