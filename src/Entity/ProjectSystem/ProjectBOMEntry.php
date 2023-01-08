@@ -37,7 +37,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 /**
  * The ProjectBOMEntry class represents a entry in a project's BOM.
  *
- * @ORM\Table("device_parts")
+ * @ORM\Table("project_bom_entries")
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity()
  * @UniqueEntity(fields={"part", "project"}, message="project.bom_entry.part_already_in_bom")

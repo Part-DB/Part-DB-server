@@ -37,7 +37,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * Class AttachmentType.
  *
  * @ORM\Entity(repositoryClass="App\Repository\Parts\DeviceRepository")
- * @ORM\Table(name="devices")
+ * @ORM\Table(name="projects")
  */
 class Project extends AbstractStructuralDBElement
 {
