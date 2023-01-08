@@ -133,4 +133,14 @@ class PermissionSchemaUpdater
             $holder->getPermissions()->setPermissionValue('parts_stock', 'move', $new_value);
         }
     }
+
+    private function upgradeSchemaToVersion2(HasPermissionsInterface $holder): void
+    {
+        //If the projects permissions are not defined yet, rename devices permission to projects (just copy its data over)
+        if (!$holder->getPermissions()->isAnyOperationOfPermissionSet('projects')) {
+            $operations_value = $holder->getPermissions()->getAllDefinedOperationsOfPermission('devices');
+            $holder->getPermissions()->setAllOperationsOfPermission('projects', $operations_value);
+            $holder->getPermissions()->removePermission('devices');
+        }
+    }
 }

@@ -138,7 +138,7 @@ class TreeController extends AbstractController
      */
     public function deviceTree(?Project $device = null): JsonResponse
     {
-        if ($this->isGranted('@devices.read')) {
+        if ($this->isGranted('@projects.read')) {
             $tree = $this->treeGenerator->getTreeView(Project::class, $device, 'devices');
         } else {
             return new JsonResponse("Access denied", 403);

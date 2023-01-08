@@ -80,7 +80,7 @@ class ProjectController extends AbstractController
         if($project) {
             $this->denyAccessUnlessGranted('edit', $project);
         } else {
-            $this->denyAccessUnlessGranted('@devices.edit');
+            $this->denyAccessUnlessGranted('@projects.edit');
         }
 
         $builder = $this->createFormBuilder();

@@ -72,7 +72,7 @@ class GroupFixtures extends Fixture
 
     private function addDevicesPermissions(Group $group): void
     {
-        $this->permissionManager->setAllOperationsOfPermission($group, 'devices', true);
+        $this->permissionManager->setAllOperationsOfPermission($group, 'projects', true);
     }
 
 }

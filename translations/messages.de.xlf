@@ -8111,14 +8111,14 @@ Element 3</target>
         <target>Hersteller</target>
       </segment>
     </unit>
-    <unit id="5_k9ofl" name="perm.part.devices">
+    <unit id="5_k9ofl" name="perm.projects">
       <notes>
         <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment state="translated">
-        <source>perm.part.devices</source>
-        <target>Baugruppen</target>
+        <source>perm.projects</source>
+        <target>Projekte</target>
       </segment>
     </unit>
     <unit id="hgZrqP_" name="perm.part.attachment_types">

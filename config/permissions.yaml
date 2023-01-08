@@ -93,9 +93,9 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
     <<: *PART_CONTAINING
     label: "perm.part.manufacturers"
 
-  devices:
+  projects:
     <<: *PART_CONTAINING
-    label: "perm.part.devices"
+    label: "perm.projects"
 
   attachment_types:
     <<: *PART_CONTAINING

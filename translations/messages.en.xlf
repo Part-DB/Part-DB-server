@@ -3284,7 +3284,7 @@ Sub elements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>statistics.devices_count</source>
-        <target>Number of devices</target>
+        <target>Number of projects</target>
       </segment>
     </unit>
     <unit id="8HKc.Yq" name="statistics.attachment_types_count">
@@ -8112,14 +8112,14 @@ Element 3</target>
         <target>Manufacturers</target>
       </segment>
     </unit>
-    <unit id="5_k9ofl" name="perm.part.devices">
+    <unit id="5_k9ofl" name="perm.projects">
       <notes>
         <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
-        <source>perm.part.devices</source>
-        <target>Devices</target>
+        <source>perm.projects</source>
+        <target>Projects</target>
       </segment>
     </unit>
     <unit id="hgZrqP_" name="perm.part.attachment_types">

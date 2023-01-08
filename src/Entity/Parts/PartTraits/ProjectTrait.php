@@ -62,7 +62,7 @@ trait ProjectTrait
 
 
     /**
-     *  Get all devices which uses this part.
+     *  Get all projects which uses this part.
      *
      * @return Project[] * all devices which uses this part as a one-dimensional array of Device objects
      *                  (empty array if there are no ones)

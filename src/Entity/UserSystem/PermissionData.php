@@ -40,7 +40,7 @@ final class PermissionData implements \JsonSerializable
     /**
      * The current schema version of the permission data
      */
-    public const CURRENT_SCHEMA_VERSION = 1;
+    public const CURRENT_SCHEMA_VERSION = 2;
 
     /**
      * @var array This array contains the permission values for each permission
@@ -67,6 +67,56 @@ final class PermissionData implements \JsonSerializable
         if (!isset($this->data['$ver'])) {
             $this->data['$ver'] = self::CURRENT_SCHEMA_VERSION;
         }
+    }
+
+    /**
+     * Checks if any of the operations of the given permission is defined (meaning it is either ALLOW or DENY)
+     * @param  string  $permission
+     * @return bool
+     */
+    public function isAnyOperationOfPermissionSet(string $permission): bool
+    {
+        return !empty($this->data[$permission]);
+    }
+
+    /**
+     * Returns an associative array containing all defined (non-INHERIT) operations of the given permission.
+     * @param  string  $permission
+     * @return array An array in the form ["operation" => value], returns an empty array if no operations are defined
+     */
+    public function getAllDefinedOperationsOfPermission(string $permission): array
+    {
+        if (empty($this->data[$permission])) {
+            return [];
+        }
+
+        return $this->data[$permission];
+    }
+
+    /**
+     * Sets all operations of the given permission via the given array.
+     * The data is an array in the form [$operation => $value], all existing values will be overwritten/deleted.
+     * @param  string  $permission
+     * @param  array  $data
+     * @return $this
+     */
+    public function setAllOperationsOfPermission(string $permission, array $data): self
+    {
+        $this->data[$permission] = $data;
+
+        return $this;
+    }
+
+    /**
+     * Removes a whole permission from the data including all operations (effectivly setting them to INHERIT)
+     * @param  string  $permission
+     * @return $this
+     */
+    public function removePermission(string $permission): self
+    {
+        unset($this->data[$permission]);
+
+        return $this;
     }
 
     /**

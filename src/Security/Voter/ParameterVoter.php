@@ -96,7 +96,7 @@ class ParameterVoter extends ExtendedVoter
         } elseif ($subject instanceof CurrencyParameter) {
             $param = 'currencies';
         } elseif ($subject instanceof ProjectParameter) {
-            $param = 'devices';
+            $param = 'projects';
         } elseif ($subject instanceof FootprintParameter) {
             $param = 'footprints';
         } elseif ($subject instanceof GroupParameter) {

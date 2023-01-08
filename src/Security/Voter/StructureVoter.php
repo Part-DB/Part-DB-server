@@ -40,7 +40,7 @@ class StructureVoter extends ExtendedVoter
     protected const OBJ_PERM_MAP = [
         AttachmentType::class => 'attachment_types',
         Category::class => 'categories',
-        Project::class => 'devices',
+        Project::class => 'projects',
         Footprint::class => 'footprints',
         Manufacturer::class => 'manufacturers',
         Storelocation::class => 'storelocations',
