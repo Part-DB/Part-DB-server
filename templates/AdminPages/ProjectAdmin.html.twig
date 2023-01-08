@@ -18,6 +18,14 @@
     <li class="nav-item"><a data-bs-toggle="tab" class="nav-link link-anchor" href="#bom">BOM</a></li>
 {% endblock %}
 
+{% block quick_links %}
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            <a class="btn btn-outline-secondary" href="{{ entity_url(entity) }}"><i class="fas fa-eye fa-fw"></i></a>
+        </div>
+    </div>
+{% endblock %}
+
 {% block additional_controls %}
     {{ form_row(form.description) }}
     {{ form_row(form.status) }}
