@@ -25,7 +25,7 @@ namespace App\Services;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Contracts\NamedElementInterface;
-use App\Entity\Devices\Device;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\Category;
@@ -39,6 +39,7 @@ use App\Entity\Parts\Supplier;
 use App\Entity\PriceInformations\Currency;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
+use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
@@ -59,7 +60,8 @@ class ElementTypeNameGenerator
             Attachment::class => $this->translator->trans('attachment.label'),
             Category::class => $this->translator->trans('category.label'),
             AttachmentType::class => $this->translator->trans('attachment_type.label'),
-            Device::class => $this->translator->trans('device.label'),
+            Project::class => $this->translator->trans('project.label'),
+            ProjectBOMEntry::class => $this->translator->trans('project_bom_entry.label'),
             Footprint::class => $this->translator->trans('footprint.label'),
             Manufacturer::class => $this->translator->trans('manufacturer.label'),
             MeasurementUnit::class => $this->translator->trans('measurement_unit.label'),

@@ -37,6 +37,7 @@ use App\Entity\LogSystem\CollectionElementDeleted;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
+use App\Entity\LogSystem\PartStockChangedLogEntry;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Exceptions\EntityNotSupportedException;
@@ -190,7 +191,16 @@ class LogDataTable implements DataTableTypeInterface
             'label' => $this->translator->trans('log.type'),
             'propertyPath' => 'type',
             'render' => function (string $value, AbstractLogEntry $context) {
-                return $this->translator->trans('log.type.'.$value);
+                $text = $this->translator->trans('log.type.'.$value);
+
+                if ($context instanceof PartStockChangedLogEntry) {
+                    $text .= sprintf(
+                        ' (<i>%s</i>)',
+                        $this->translator->trans('log.part_stock_changed.' . $context->getInstockChangeType())
+                    );
+                }
+
+                return $text;
             },
         ]);
 

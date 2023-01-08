@@ -147,35 +147,35 @@
         <target>Neue Währung</target>
       </segment>
     </unit>
-    <unit id="tlgOYB5" name="device.caption">
+    <unit id="tlgOYB5" name="project.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
         <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
         <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
       </notes>
       <segment state="translated">
-        <source>device.caption</source>
-        <target>Baugruppen</target>
+        <source>project.caption</source>
+        <target>Projekte</target>
       </segment>
     </unit>
-    <unit id="fu1Uc_k" name="device.edit">
+    <unit id="fu1Uc_k" name="project.edit">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
         <note category="state" priority="1">new</note>
       </notes>
       <segment state="translated">
-        <source>device.edit</source>
-        <target>Bearbeite Baugruppe</target>
+        <source>project.edit</source>
+        <target>Bearbeite Projekt</target>
       </segment>
     </unit>
-    <unit id="2z6Gm_r" name="device.new">
+    <unit id="2z6Gm_r" name="project.new">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
         <note category="state" priority="1">new</note>
       </notes>
       <segment state="translated">
-        <source>device.new</source>
-        <target>Neue Baugruppe</target>
+        <source>project.new</source>
+        <target>Neues Projekt</target>
       </segment>
     </unit>
     <unit id="lQ8QeGr" name="search.placeholder">
@@ -4094,7 +4094,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Los!</target>
       </segment>
     </unit>
-    <unit id="g6tt4u1" name="device.labelp">
+    <unit id="g6tt4u1" name="project.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
@@ -4106,8 +4106,8 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <note priority="1">templates\base.html.twig:230</note>
       </notes>
       <segment state="translated">
-        <source>device.labelp</source>
-        <target>Baugruppen</target>
+        <source>project.labelp</source>
+        <target>Projekte</target>
       </segment>
     </unit>
     <unit id="Kw3N1AA" name="actions">
@@ -6024,14 +6024,14 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Ahangstyp</target>
       </segment>
     </unit>
-    <unit id="uR5eAkv" name="device.label">
+    <unit id="uR5eAkv" name="project.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
         <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
       </notes>
       <segment state="translated">
-        <source>device.label</source>
-        <target>Baugruppe</target>
+        <source>project.label</source>
+        <target>Projekt</target>
       </segment>
     </unit>
     <unit id="QPnDbnv" name="measurement_unit.label">
@@ -6214,15 +6214,15 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Kategorien</target>
       </segment>
     </unit>
-    <unit id="b2pLmAq" name="tree.tools.edit.devices">
+    <unit id="b2pLmAq" name="tree.tools.edit.projects">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:161</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:138</note>
         <note priority="1">src\Services\ToolsTreeBuilder.php:66</note>
       </notes>
       <segment state="translated">
-        <source>tree.tools.edit.devices</source>
-        <target>Baugruppen</target>
+        <source>tree.tools.edit.projects</source>
+        <target>Projekte</target>
       </segment>
     </unit>
     <unit id="BFfweU_" name="tree.tools.edit.suppliers">
@@ -8111,14 +8111,14 @@ Element 3</target>
         <target>Hersteller</target>
       </segment>
     </unit>
-    <unit id="5_k9ofl" name="perm.part.devices">
+    <unit id="5_k9ofl" name="perm.projects">
       <notes>
         <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment state="translated">
-        <source>perm.part.devices</source>
-        <target>Baugruppen</target>
+        <source>perm.projects</source>
+        <target>Projekte</target>
       </segment>
     </unit>
     <unit id="hgZrqP_" name="perm.part.attachment_types">
@@ -8499,16 +8499,6 @@ Element 3</target>
       <segment state="translated">
         <source>perm.system</source>
         <target>System</target>
-      </segment>
-    </unit>
-    <unit id="0CRVznf" name="perm.device_parts">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.device_parts</source>
-        <target>Baugruppenbauteile</target>
       </segment>
     </unit>
     <unit id="LG3jpJo" name="perm.self">
@@ -9752,12 +9742,6 @@ Element 3</target>
       <segment state="translated">
         <source>log.type.instock_changed</source>
         <target>[ALT] Bestand geändert</target>
-      </segment>
-    </unit>
-    <unit id="4Od2HUk" name="device_part.label">
-      <segment state="translated">
-        <source>device_part.label</source>
-        <target>Projektteil</target>
       </segment>
     </unit>
     <unit id="lJZCHHM" name="log.target_id">

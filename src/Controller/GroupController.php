@@ -32,6 +32,7 @@ use App\Services\ImportExportSystem\EntityExporter;
 use App\Services\ImportExportSystem\EntityImporter;
 use App\Services\Trees\StructuralElementRecursionHelper;
 use App\Services\UserSystem\PermissionPresetsHelper;
+use App\Services\UserSystem\PermissionSchemaUpdater;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,8 +55,11 @@ class GroupController extends BaseAdminController
      * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="group_edit")
      * @Route("/{id}/", requirements={"id"="\d+"})
      */
-    public function edit(Group $entity, Request $request, EntityManagerInterface $em, PermissionPresetsHelper $permissionPresetsHelper, ?string $timestamp = null): Response
+    public function edit(Group $entity, Request $request, EntityManagerInterface $em, PermissionPresetsHelper $permissionPresetsHelper, PermissionSchemaUpdater $permissionSchemaUpdater, ?string $timestamp = null): Response
     {
+        //Do an upgrade of the permission schema if needed (so the user can see the permissions a user get on next request (even if it was not done yet)
+        $permissionSchemaUpdater->groupUpgradeSchemaRecursively($entity);
+
         //Handle permissions presets
         if ($request->request->has('permission_preset')) {
             $this->denyAccessUnlessGranted('edit_permissions', $entity);

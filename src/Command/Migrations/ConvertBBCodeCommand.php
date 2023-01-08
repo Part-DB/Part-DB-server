@@ -24,7 +24,7 @@ namespace App\Command\Migrations;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractNamedDBElement;
-use App\Entity\Devices\Device;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
@@ -94,7 +94,7 @@ class ConvertBBCodeCommand extends Command
             Part::class => ['description', 'comment'],
             AttachmentType::class => ['comment'],
             Storelocation::class => ['comment'],
-            Device::class => ['comment'],
+            Project::class => ['comment'],
             Category::class => ['comment'],
             Manufacturer::class => ['comment'],
             MeasurementUnit::class => ['comment'],

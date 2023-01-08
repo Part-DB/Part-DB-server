@@ -23,7 +23,7 @@ declare(strict_types=1);
 namespace App\Security\Voter;
 
 use App\Entity\Attachments\AttachmentType;
-use App\Entity\Devices\Device;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -40,7 +40,7 @@ class StructureVoter extends ExtendedVoter
     protected const OBJ_PERM_MAP = [
         AttachmentType::class => 'attachment_types',
         Category::class => 'categories',
-        Device::class => 'devices',
+        Project::class => 'projects',
         Footprint::class => 'footprints',
         Manufacturer::class => 'manufacturers',
         Storelocation::class => 'storelocations',

@@ -146,4 +146,73 @@ class PermissionDataTest extends TestCase
         $this->assertFalse($data->isPermissionSet('perm1', 'op2'));
         $this->assertFalse($data->isPermissionSet('perm1', 'op3'));
     }
+
+    public function testGetSchemaVersion()
+    {
+        $data = new PermissionData();
+
+        //By default the schema version must be the CURRENT_SCHEMA_VERSION
+        $this->assertEquals(PermissionData::CURRENT_SCHEMA_VERSION, $data->getSchemaVersion());
+
+        //Ensure that the schema version can be set
+        $data->setSchemaVersion(12345);
+        $this->assertEquals(12345, $data->getSchemaVersion());
+    }
+
+    public function testIsAnyOperationOfPermissionSet()
+    {
+        $data = new PermissionData();
+
+        //Initially no operation of any permission is set
+        $this->assertFalse($data->isAnyOperationOfPermissionSet('perm1'));
+
+        $data->setPermissionValue('perm1', 'op1', PermissionData::ALLOW);
+        $this->assertTrue($data->isAnyOperationOfPermissionSet('perm1'));
+    }
+
+    public function testGetAllDefinedOperationsOfPermission()
+    {
+        $data = new PermissionData();
+
+        $this->assertEmpty($data->getAllDefinedOperationsOfPermission('perm1'));
+
+        $data->setPermissionValue('perm1', 'op1', PermissionData::ALLOW);
+        $data->setPermissionValue('perm1', 'op2', PermissionData::DISALLOW);
+
+        $this->assertEquals([
+            'op1' => PermissionData::ALLOW, 'op2' => PermissionData::DISALLOW,
+        ],
+            $data->getAllDefinedOperationsOfPermission('perm1'));
+    }
+
+    public function testSetAllOperationsOfPermission()
+    {
+        $data = new PermissionData();
+
+        $data->setAllOperationsOfPermission('perm1', [
+            'op1' => PermissionData::ALLOW,
+            'op2' => PermissionData::DISALLOW,
+        ]);
+
+        $this->assertEquals([
+            'op1' => PermissionData::ALLOW, 'op2' => PermissionData::DISALLOW,
+        ],
+            $data->getAllDefinedOperationsOfPermission('perm1'));
+    }
+
+    public function testRemovePermission()
+    {
+        $data = new PermissionData();
+
+        $data->setPermissionValue('perm1', 'op1', PermissionData::ALLOW);
+        $data->setPermissionValue('perm1', 'op2', PermissionData::DISALLOW);
+
+        $this->assertTrue($data->isPermissionSet('perm1', 'op1'));
+        $this->assertTrue($data->isPermissionSet('perm1', 'op2'));
+
+        $data->removePermission('perm1');
+
+        $this->assertFalse($data->isPermissionSet('perm1', 'op1'));
+        $this->assertFalse($data->isPermissionSet('perm1', 'op2'));
+    }
 }

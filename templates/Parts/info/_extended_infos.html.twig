@@ -37,14 +37,20 @@
         <td>{{ part.iD }}</td>
     </tr>
 
-    <tr> {# ID #}
+    <tr> {# IPN #}
         <td>{% trans %}part.edit.ipn{% endtrans %}</td>
         <td>{{ part.ipn ?? 'part.ipn.not_defined'|trans }}</td>
     </tr>
 
     <tr> {# Favorite status #}
         <td>{% trans %}part.isFavorite{% endtrans %}</td>
-        <td>{{ helper.boolean(part.favorite) }}</td>
+        <td>{{ helper.boolean_badge(part.favorite) }}</td>
+    </tr>
+
+    <tr> {# Build status #}
+        <td>{% trans %}part.is_build_part{% endtrans %}</td>
+        <td>{{ helper.boolean_badge(part.projectBuildPart) }}
+            {% if part.projectBuildPart %}(<a href="{{ entity_url(part.builtProject, "edit") }}">{{ part.builtProject.name }}</a>){% endif %}</td>
     </tr>
 
     <tr>

@@ -1,0 +1,79 @@
+{% block project_bom_entry_collection_widget %}
+    {% import 'components/collection_type.macro.html.twig' as collection %}
+    <div {{ collection.controller(form, 'project.bom.delete.confirm', 3) }}>
+        <table class="table table-striped table-bordered table-sm" {{ collection.target() }}>
+            <thead>
+            <tr>
+                <th></th> {#  expand button #}
+                <th>{% trans %}project.bom.quantity{% endtrans %}</th>
+                <th>{% trans %}project.bom.part{% endtrans %}</th>
+                <th>{% trans %}project.bom.name{% endtrans %}</th>
+                <th></th> {# Remove button #}
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for entry in form %}
+                {{ form_widget(entry) }}
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <button type="button" class="btn btn-success mb-2" {{ collection.create_btn() }}>
+            <i class="fas fa-plus-square fa-fw"></i>
+            {% trans %}project.bom.add_entry{% endtrans %}
+        </button>
+    </div>
+
+{% endblock %}
+
+{% block project_bom_entry_widget %}
+    {% set target_id = 'expand_row-' ~ form.vars.name %}
+
+    {% import 'components/collection_type.macro.html.twig' as collection %}
+    <tr>
+        <td>
+            <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#{{ target_id }}">
+                <i class="fa-solid fa-eye"></i>
+            </button>
+        </td>
+        <td>
+            {{ form_errors(form.quantity) }}
+            {{ form_widget(form.quantity) }}
+        </td>
+        <td style="min-width: 250px;">
+            {{ form_errors(form.part) }}
+            {{ form_widget(form.part) }}
+        </td>
+        <td>
+            {{ form_errors(form.name) }}
+            {{ form_widget(form.name) }}
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger lot_btn_delete" {{ collection.delete_btn() }}>
+                <i class="fas fa-trash-alt fa-fw"></i>
+            </button>
+            {{ form_errors(form) }}
+        </td>
+    </tr>
+    <tr class="p-0 d-none"></tr>
+    <tr class="p-0">
+        <td colspan="5" class="accordion-body collapse" id="{{ target_id }}">
+            <div class="">
+                {{ form_row(form.mountnames) }}
+                <div class="row mb-2">
+                    <label class="col-form-label col-sm-3">{% trans %}project.bom.price{% endtrans %}</label>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            {{ form_widget(form.price) }}
+                            {{ form_widget(form.priceCurrency, {'attr': {'class': 'selectpicker', 'data-controller': 'elements--selectpicker'}}) }}
+                        </div>
+                        {{ form_errors(form.price) }}
+                        {{ form_errors(form.priceCurrency) }}
+                    </div>
+                </div>
+                {{ form_row(form.comment) }}
+            </div>
+        </td>
+    </tr>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "main_card.html.twig" %}
+{% import "helper.twig" as helper %}
+
+{% block  title %}
+    {% trans %}project.info.title{% endtrans %}: {{ project.name }}
+{% endblock %}
+
+{% block content %}
+
+    {{ helper.breadcrumb_entity_link(project) }}
+    {{ parent() }}
+{% endblock %}
+
+{% block card_title %}
+    {% if project.masterPictureAttachment is not null and attachment_manager.isFileExisting(project.masterPictureAttachment) %}
+        <img class="hoverpic ms-0 me-1 d-inline" {{ stimulus_controller('elements/hoverpic') }} data-thumbnail="{{ entity_url(project.masterPictureAttachment, 'file_view') }}" src="{{ attachment_thumbnail(project.masterPictureAttachment, 'thumbnail_sm') }}">
+    {% else %}
+        {{ helper.entity_icon(project, "me-1") }}
+    {% endif %}
+    {% trans %}project.info.title{% endtrans %}:&nbsp;<b>{{ project.name }}</b>
+{% endblock %}
+
+{% block card_content %}
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info-tab-pane"
+                    type="button" role="tab" aria-controls="info-tab-pane" aria-selected="true">
+                <i class="fa-solid fa-circle-info fa-fw"></i>
+                {% trans %}project.info.info.label{% endtrans %}
+            </button>
+        </li>
+        {% if project.children is not empty %}
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="subprojects-tab" data-bs-toggle="tab" data-bs-target="#subprojects-tab-pane"
+                        type="button" role="tab" aria-controls="subprojects-tab-pane" aria-selected="false">
+                    <i class="fa-solid fa-folder-tree fa-fw"></i>
+                    {% trans %}project.info.sub_projects.label{% endtrans %}
+                    <span class="badge bg-secondary">{{ project.children | length }}</span>
+                </button>
+            </li>
+        {% endif %}
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="bom-tab" data-bs-toggle="tab" data-bs-target="#bom-tab-pane"
+                    type="button" role="tab" aria-controls="bom-tab-pane" aria-selected="false">
+                <i class="fa-solid fa-list-check fa-fw"></i>
+                {% trans %}project_bom_entry.label{% endtrans %}
+                <span class="badge bg-secondary">{{ project.bomEntries | length }}</span>
+            </button>
+        </li>
+        {% if project.attachments is not empty %}
+            <li class="nav-item">
+                <a class="nav-link" id="attachments-tab" data-bs-toggle="tab"
+                   data-bs-target="#attachments-tab-pane" role="tab">
+                    <i class="fas fa-paperclip fa-fw"></i>
+                    {% trans %}attachment.labelp{% endtrans %}
+                    <span class="badge bg-secondary">{{ project.attachments | length }}</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if project.parameters is not empty %}
+            <li class="nav-item">
+                <a class="nav-link" id="parameters-tab" data-bs-toggle="tab"
+                   data-bs-target="#parameters-tab-pane" role="tab">
+                    <i class="fas fa-atlas fa-fw"></i>
+                    {% trans %}entity.info.parameters.tab{% endtrans %}
+                    <span class="badge bg-secondary">{{ project.parameters | length }}</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="info-tab-pane" role="tabpanel" aria-labelledby="info-tab" tabindex="0">
+            {% include "Projects/info/_info.html.twig" %}
+        </div>
+        {% if project.children is not empty %}
+            <div class="tab-pane fade" id="subprojects-tab-pane" role="tabpanel" aria-labelledby="bom-tab" tabindex="0">
+                {% include "Projects/info/_subprojects.html.twig" %}
+            </div>
+        {% endif %}
+        <div class="tab-pane fade" id="bom-tab-pane" role="tabpanel" aria-labelledby="bom-tab" tabindex="0">
+            {% include "Projects/info/_bom.html.twig" %}
+        </div>
+        <div class="tab-pane fade" id="attachments-tab-pane" role="tabpanel" aria-labelledby="attachments-tab" tabindex="0">
+            {% include "Parts/info/_attachments_info.html.twig" with {"part": project} %}
+        </div>
+        <div class="tab-pane fade" id="parameters-tab-pane" role="tabpanel" aria-labelledby="parameters-tab">
+            {% for name, parameters in project.groupedParameters %}
+                {% if name is not empty %}<h5 class="mt-1">{{ name }}</h5>{% endif %}
+                {{ helper.parameters_table(project.parameters) }}
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

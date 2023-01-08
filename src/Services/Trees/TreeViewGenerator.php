@@ -25,7 +25,7 @@ namespace App\Services\Trees;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
-use App\Entity\Devices\Device;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -110,7 +110,7 @@ class TreeViewGenerator
         }
 
         if ($mode === 'devices') {
-            $href_type = '';
+            $href_type = 'list_parts';
         }
 
         $generic = $this->getGenericTree($class, $parent);
@@ -161,8 +161,8 @@ class TreeViewGenerator
                 return $this->translator->trans('manufacturer.labelp');
             case Supplier::class:
                 return $this->translator->trans('supplier.labelp');
-            case Device::class:
-                return $this->translator->trans('device.labelp');
+            case Project::class:
+                return $this->translator->trans('project.labelp');
             default:
                 return $this->translator->trans('tree.root_node.text');
         }
@@ -182,7 +182,7 @@ class TreeViewGenerator
                 return $icon . 'fa-industry';
             case Supplier::class:
                 return $icon . 'fa-truck';
-            case Device::class:
+            case Project::class:
                 return $icon . 'fa-archive';
             default:
                 return null;

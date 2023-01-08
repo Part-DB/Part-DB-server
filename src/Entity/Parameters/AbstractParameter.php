@@ -62,7 +62,7 @@ use function sprintf;
  * @ORM\DiscriminatorMap({
  *      0 = "CategoryParameter",
  *      1 = "CurrencyParameter",
- *      2 = "DeviceParameter",
+ *      2 = "ProjectParameter",
  *      3 = "FootprintParameter",
  *      4 = "GroupParameter",
  *      5 = "ManufacturerParameter",

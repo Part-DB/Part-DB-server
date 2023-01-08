@@ -77,12 +77,17 @@ class PartListsController extends AbstractController
             $this->addFlash('error', 'part.table.actions.no_params_given');
         } else {
             $parts = $actionHandler->idStringToArray($ids);
-            $actionHandler->handleAction($action, $parts, $target ? (int) $target : null);
+            $redirectResponse = $actionHandler->handleAction($action, $parts, $target ? (int) $target : null, $redirect);
 
             //Save changes
             $this->entityManager->flush();
 
             $this->addFlash('success', 'part.table.actions.success');
+        }
+
+        //If the action handler returned a response, we use it, otherwise we redirect back to the previous page.
+        if (isset($redirectResponse) && $redirectResponse instanceof Response) {
+            return $redirectResponse;
         }
 
         return $this->redirect($redirect);

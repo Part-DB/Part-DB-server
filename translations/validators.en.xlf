@@ -239,5 +239,47 @@
         <target>The internal part number must be unique. {{ value }} is already in use!</target>
       </segment>
     </unit>
+    <unit id="Z4Kuuo2" name="validator.project.bom_entry.name_or_part_needed">
+      <segment>
+        <source>validator.project.bom_entry.name_or_part_needed</source>
+        <target>You have to choose a part for a part BOM entry or set a name for a non-part BOM entry.</target>
+      </segment>
+    </unit>
+    <unit id="WF_v4ih" name="project.bom_entry.name_already_in_bom">
+      <segment>
+        <source>project.bom_entry.name_already_in_bom</source>
+        <target>There is already an BOM entry with this name!</target>
+      </segment>
+    </unit>
+    <unit id="5v4p85H" name="project.bom_entry.part_already_in_bom">
+      <segment>
+        <source>project.bom_entry.part_already_in_bom</source>
+        <target>This part already exists in the BOM!</target>
+      </segment>
+    </unit>
+    <unit id="3lM32Tw" name="project.bom_entry.mountnames_quantity_mismatch">
+      <segment>
+        <source>project.bom_entry.mountnames_quantity_mismatch</source>
+        <target>The number of mountnames has to match the BOMs quantity!</target>
+      </segment>
+    </unit>
+    <unit id="x47D5WT" name="project.bom_entry.can_not_add_own_builds_part">
+      <segment>
+        <source>project.bom_entry.can_not_add_own_builds_part</source>
+        <target>You can not add a project's own builds part to the BOM.</target>
+      </segment>
+    </unit>
+    <unit id="2x2XDI_" name="project.bom_has_to_include_all_subelement_parts">
+      <segment>
+        <source>project.bom_has_to_include_all_subelement_parts</source>
+        <target>The project BOM has to include all subprojects builds parts. Part %part_name% of project %project_name% missing!</target>
+      </segment>
+    </unit>
+    <unit id="U9b1EzD" name="project.bom_entry.price_not_allowed_on_parts">
+      <segment>
+        <source>project.bom_entry.price_not_allowed_on_parts</source>
+        <target>Prices are not allowed on BOM entries associated with a part. Define the price on the part instead.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

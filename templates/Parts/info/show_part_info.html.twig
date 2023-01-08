@@ -20,6 +20,9 @@
     {% if timeTravel != null %}
         <i>({{ timeTravel | format_datetime('short') }})</i>
     {% endif %}
+    {% if part.projectBuildPart %}
+        (<i>{{ entity_type_label(part.builtProject) }}</i>: <a class="text-white" href="{{ entity_url(part.builtProject) }}">{{ part.builtProject.name }}</a>)
+    {% endif %}
     <div class="float-end">
         {% trans %}id.label{% endtrans %}: {{ part.id }} {% if part.ipn is not empty %}(<i>{{ part.ipn }}</i>){% endif %}
     </div>
@@ -91,6 +94,15 @@
                         {% trans %}vendor.partinfo.history{% endtrans %}
                     </a>
                 </li>
+                {% if part.projectBomEntries is not empty %}
+                    <li class="nav-item">
+                        <a class="nav-link" id="projects-tab" data-bs-toggle="tab" href="#projects" role="tab">
+                            <i class="fas fa-archive fa-fw"></i>
+                            {% trans %}project.labelp{% endtrans %}
+                            <span class="badge bg-secondary">{{ part.projectBomEntries | length }}</span>
+                        </a>
+                    </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" id="tools-tab" data-bs-toggle="tab" href="#tools" role="tab">
                         <i class="fas fa-tools"></i>
@@ -129,6 +141,10 @@
                     {%  include "Parts/info/_order_infos.html.twig" %}
                 </div>
                 {% endif %}
+
+                <div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">
+                    {% include "Parts/info/_projects.html.twig" %}
+                </div>
 
                 <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
                     {% include "Parts/info/_history.html.twig" %}

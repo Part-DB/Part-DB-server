@@ -48,6 +48,9 @@
                     <option {% if not is_granted('@manufacturers.read') %}disabled{% endif %} value="change_manufacturer" data-url="{{ path('select_manufacturer') }}">{% trans %}part_list.action.action.change_manufacturer{% endtrans %}</option>
                     <option {% if not is_granted('@measurement_units.read') %}disabled{% endif %} value="change_unit" data-url="{{ path('select_measurement_unit') }}">{% trans %}part_list.action.action.change_unit{% endtrans %}</option>
                 </optgroup>
+                <optgroup label="{% trans %}part_list.action.group.projects{% endtrans %}">
+                    <option {% if not is_granted('@projects.read') %}disabled{% endif %} value="add_to_project" data-url="{{  path('select_project')}}">{% trans %}part_list.action.projects.add_to_project{% endtrans %}</option>
+                </optgroup>
 
                 <option {% if not is_granted('@parts.delete') %}disabled{% endif %} value="delete">{% trans %}part_list.action.action.delete{% endtrans %}</option>
             </select>

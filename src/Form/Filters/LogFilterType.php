@@ -23,8 +23,9 @@ namespace App\Form\Filters;
 use App\DataTables\Filters\LogFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
-use App\Entity\Devices\Device;
-use App\Entity\Devices\DevicePart;
+use App\Entity\LogSystem\PartStockChangedLogEntry;
+use App\Entity\ProjectSystem\Project;
+use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\LogSystem\CollectionElementDeleted;
@@ -32,7 +33,7 @@ use App\Entity\LogSystem\DatabaseUpdatedLogEntry;
 use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
-use App\Entity\LogSystem\InstockChangedLogEntry;
+use App\Entity\LogSystem\LegacyInstockChangedLogEntry;
 use App\Entity\LogSystem\SecurityEventLogEntry;
 use App\Entity\LogSystem\UserLoginLogEntry;
 use App\Entity\LogSystem\UserLogoutLogEntry;
@@ -86,9 +87,10 @@ class LogFilterType extends AbstractType
         'log.type.user_login' => UserLoginLogEntry::class,
         'log.type.user_logout' => UserLogoutLogEntry::class,
         'log.type.user_not_allowed' => UserNotAllowedLogEntry::class,
+        'log.type.part_stock_changed' => PartStockChangedLogEntry::class,
 
         //Legacy entries
-        'log.type.instock_changed' => InstockChangedLogEntry::class,
+        'log.type.instock_changed' => LegacyInstockChangedLogEntry::class,
     ];
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -135,8 +137,8 @@ class LogFilterType extends AbstractType
                 'attachment.label' => AbstractLogEntry::targetTypeClassToID(Attachment::class),
                 'attachment_type.label' => AbstractLogEntry::targetTypeClassToID(AttachmentType::class),
                 'category.label' => AbstractLogEntry::targetTypeClassToID(Category::class),
-                'device.label' => AbstractLogEntry::targetTypeClassToID(Device::class),
-                'device_part.label' => AbstractLogEntry::targetTypeClassToID(DevicePart::class),
+                'project.label' => AbstractLogEntry::targetTypeClassToID(Project::class),
+                'project_bom_entry.label' => AbstractLogEntry::targetTypeClassToID(ProjectBOMEntry::class),
                 'footprint.label' => AbstractLogEntry::targetTypeClassToID(Footprint::class),
                 'group.label' => AbstractLogEntry::targetTypeClassToID(Group::class),
                 'manufacturer.label' => AbstractLogEntry::targetTypeClassToID(Manufacturer::class),

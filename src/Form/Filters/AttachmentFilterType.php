@@ -25,7 +25,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Entity\Attachments\CategoryAttachment;
 use App\Entity\Attachments\CurrencyAttachment;
-use App\Entity\Attachments\DeviceAttachment;
+use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Attachments\GroupAttachment;
 use App\Entity\Attachments\LabelAttachment;
@@ -80,7 +80,7 @@ class AttachmentFilterType extends AbstractType
                 'attachment_type.label' => AttachmentTypeAttachment::class,
                 'category.label' => CategoryAttachment::class,
                 'currency.label' => CurrencyAttachment::class,
-                'device.label' => DeviceAttachment::class,
+                'project.label' => ProjectAttachment::class,
                 'footprint.label' => FootprintAttachment::class,
                 'group.label' => GroupAttachment::class,
                 'label_profile.label' => LabelAttachment::class,

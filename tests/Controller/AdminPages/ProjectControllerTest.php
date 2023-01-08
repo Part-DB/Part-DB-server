@@ -23,14 +23,14 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\AdminPages;
 
-use App\Entity\Devices\Device;
+use App\Entity\ProjectSystem\Project;
 
 /**
  * @group slow
  * @group DB
  */
-class DeviceControllerTest extends AbstractAdminControllerTest
+class ProjectControllerTest extends AbstractAdminControllerTest
 {
-    protected static $base_path = '/en'.'/device';
-    protected static $entity_class = Device::class;
+    protected static $base_path = '/en'.'/project';
+    protected static $entity_class = Project::class;
 }

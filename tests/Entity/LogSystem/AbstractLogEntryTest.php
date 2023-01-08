@@ -44,8 +44,8 @@ namespace App\Tests\Entity\LogSystem;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
-use App\Entity\Devices\Device;
-use App\Entity\Devices\DevicePart;
+use App\Entity\ProjectSystem\Project;
+use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -82,8 +82,8 @@ class AbstractLogEntryTest extends TestCase
             [2, Attachment::class],
             [3, AttachmentType::class],
             [4, Category::class],
-            [5, Device::class],
-            [6, DevicePart::class],
+            [5, Project::class],
+            [6, ProjectBOMEntry::class],
             [7, Footprint::class],
             [8, Group::class],
             [9, Manufacturer::class],

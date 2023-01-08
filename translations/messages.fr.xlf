@@ -8503,16 +8503,6 @@ exemple de ville</target>
         <target>Système</target>
       </segment>
     </unit>
-    <unit id="0CRVznf" name="perm.device_parts">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.device_parts</source>
-        <target>Composants de projet</target>
-      </segment>
-    </unit>
     <unit id="LG3jpJo" name="perm.self">
       <notes>
         <note priority="1">obsolete</note>

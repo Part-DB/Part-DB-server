@@ -102,6 +102,7 @@ class PermissionPresetsHelper
 
         //Set datastructures
         $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'parts', PermissionData::ALLOW);
+        $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'parts_stock', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'categories', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'storelocations', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'footprints', PermissionData::ALLOW);
@@ -110,6 +111,7 @@ class PermissionPresetsHelper
         $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'currencies', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'measurement_units', PermissionData::ALLOW);
         $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'suppliers', PermissionData::ALLOW);
+        $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'projects', PermissionData::ALLOW);
 
         //Attachments permissions
         $this->permissionResolver->setPermission($permHolder, 'attachments', 'show_private', PermissionData::ALLOW);
@@ -149,8 +151,8 @@ class PermissionPresetsHelper
         $this->permissionResolver->setPermission($perm_holder, 'labels', 'edit_options', PermissionData::ALLOW);
         $this->permissionResolver->setPermission($perm_holder, 'labels', 'read_profiles', PermissionData::ALLOW);
 
-        //Set devices permissions
-        $this->permissionResolver->setPermission($perm_holder, 'devices', 'read', PermissionData::ALLOW);
+        //Set projects permissions
+        $this->permissionResolver->setPermission($perm_holder, 'projects', 'read', PermissionData::ALLOW);
 
         return $perm_holder;
     }

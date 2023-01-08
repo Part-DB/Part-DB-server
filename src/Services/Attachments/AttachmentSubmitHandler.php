@@ -28,7 +28,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Entity\Attachments\CategoryAttachment;
 use App\Entity\Attachments\CurrencyAttachment;
-use App\Entity\Attachments\DeviceAttachment;
+use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Attachments\GroupAttachment;
 use App\Entity\Attachments\ManufacturerAttachment;
@@ -82,7 +82,7 @@ class AttachmentSubmitHandler
             AttachmentTypeAttachment::class => 'attachment_type',
             CategoryAttachment::class => 'category',
             CurrencyAttachment::class => 'currency',
-            DeviceAttachment::class => 'device',
+            ProjectAttachment::class => 'device',
             FootprintAttachment::class => 'footprint',
             GroupAttachment::class => 'group',
             ManufacturerAttachment::class => 'manufacturer',

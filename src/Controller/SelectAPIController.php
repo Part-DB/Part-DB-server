@@ -25,6 +25,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
+use App\Entity\ProjectSystem\Project;
 use App\Services\Trees\NodesListBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -77,6 +78,14 @@ class SelectAPIController extends AbstractController
     public function measurement_unit(): Response
     {
         return $this->getResponseForClass(MeasurementUnit::class, true);
+    }
+
+    /**
+     * @Route("/project", name="select_project")
+     */
+    public function projects(): Response
+    {
+        return $this->getResponseForClass(Project::class, false);
     }
 
     protected function getResponseForClass(string $class, bool $include_empty = false): Response

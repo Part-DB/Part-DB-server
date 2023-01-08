@@ -25,7 +25,8 @@ namespace App\Entity\Parts;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentContainingDBElement;
 use App\Entity\Attachments\PartAttachment;
-use App\Entity\Devices\Device;
+use App\Entity\Parts\PartTraits\ProjectTrait;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\Parameters\ParametersTrait;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\PartTraits\AdvancedPropertyTrait;
@@ -33,6 +34,7 @@ use App\Entity\Parts\PartTraits\BasicPropertyTrait;
 use App\Entity\Parts\PartTraits\InstockTrait;
 use App\Entity\Parts\PartTraits\ManufacturerTrait;
 use App\Entity\Parts\PartTraits\OrderTrait;
+use App\Entity\ProjectSystem\ProjectBOMEntry;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -63,11 +65,7 @@ class Part extends AttachmentContainingDBElement
     use ManufacturerTrait;
     use OrderTrait;
     use ParametersTrait;
-
-    /**
-     * TODO.
-     */
-    protected $devices = [];
+    use ProjectTrait;
 
     /** @var Collection<int, PartParameter>
      * @Assert\Valid()
@@ -120,6 +118,7 @@ class Part extends AttachmentContainingDBElement
         $this->partLots = new ArrayCollection();
         $this->orderdetails = new ArrayCollection();
         $this->parameters = new ArrayCollection();
+        $this->project_bom_entries = new ArrayCollection();
     }
 
     public function __clone()
@@ -147,17 +146,5 @@ class Part extends AttachmentContainingDBElement
             }
         }
         parent::__clone();
-    }
-
-    /**
-     *  Get all devices which uses this part.
-     *
-     * @return Device[] * all devices which uses this part as a one-dimensional array of Device objects
-     *                  (empty array if there are no ones)
-     *                  * the array is sorted by the devices names
-     */
-    public function getDevices(): array
-    {
-        return $this->devices;
     }
 }

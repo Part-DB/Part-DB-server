@@ -77,6 +77,11 @@ class PermissionManager
      */
     public function dontInherit(HasPermissionsInterface $user, string $permission, string $operation): ?bool
     {
+        //Check that the permission/operation combination is valid
+        if (! $this->isValidOperation($permission, $operation)) {
+            throw new InvalidArgumentException('The permission/operation combination "'.$permission.'/'.$operation.'" is not valid!');
+        }
+
         //Get the permissions from the user
         return $user->getPermissions()->getPermissionValue($permission, $operation);
     }

@@ -18,7 +18,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace App\Helpers;
+namespace App\Doctrine\Types;
 
 use Brick\Math\BigDecimal;
 use Brick\Math\BigNumber;

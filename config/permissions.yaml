@@ -27,7 +27,7 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
                   'currencies.read', 'attachment_types.read', 'measurement_units.read']
       edit:
         label: "perm.edit"
-        alsoSet: 'read'
+        alsoSet: ['read', 'parts_stock.withdraw', 'parts_stock.add', 'parts_stock.move']
       create:
         label: "perm.create"
         alsoSet: ['read', 'edit']
@@ -43,6 +43,18 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       revert_element:
         label: "perm.revert_elements"
         alsoSet: ["read", "edit", "create", "delete", "show_history"]
+
+  parts_stock:
+    group: "data"
+    label: "perm.parts_stock"
+    operations:
+      withdraw:
+        label: "perm.parts_stock.withdraw"
+      add:
+        label: "perm.parts_stock.add"
+      move:
+        label: "perm.parts_stock.move"
+
 
   storelocations: &PART_CONTAINING
     label: "perm.storelocations"
@@ -81,9 +93,9 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
     <<: *PART_CONTAINING
     label: "perm.part.manufacturers"
 
-  devices:
+  projects:
     <<: *PART_CONTAINING
-    label: "perm.part.devices"
+    label: "perm.projects"
 
   attachment_types:
     <<: *PART_CONTAINING

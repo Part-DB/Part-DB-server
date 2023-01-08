@@ -65,16 +65,21 @@ class EntityColumn extends AbstractColumn
         });
 
         $resolver->setDefault('render', function (Options $options) {
-            return function ($value, Part $context) use ($options) {
-                /** @var AbstractDBElement|null $entity */
-                $entity = $this->accessor->getValue($context, $options['property']);
+            return function ($value, $context) use ($options) {
+                if ($this->accessor->isReadable($context, $options['property'])) {
+                    $entity = $this->accessor->getValue($context, $options['property']);
+                } else {
+                    $entity = null;
+                }
+
+                /** @var AbstractNamedDBElement|null $entity */
 
                 if (null !== $entity) {
                     if (null !== $entity->getID()) {
                         return sprintf(
                             '<a href="%s">%s</a>',
                             $this->urlGenerator->listPartsURL($entity),
-                            $value
+                            $entity->getName()
                         );
                     }
 

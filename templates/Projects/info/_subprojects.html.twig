@@ -1,0 +1,28 @@
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>{% trans %}name.label{% endtrans %}</th>
+            <th>{% trans %}description.label{% endtrans %}</th>
+            <th># {% trans %}project.info.bom_entries_count{% endtrans %}</th>
+            <th># {% trans %}project.info.sub_projects_count{% endtrans %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for subproject in project.children %}
+            <tr>
+                <td> {# Name #}
+                    <a href="{{ entity_url(subproject, 'info') }}">{{ subproject.name }}</a>
+                </td>
+                <td> {# Description #}
+                    {{ subproject.description | format_markdown }}
+                </td>
+                <td>
+                    {{ subproject.bomEntries | length }}
+                </td>
+                <td>
+                    {{ subproject.children | length }}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

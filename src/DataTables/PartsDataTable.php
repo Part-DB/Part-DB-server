@@ -34,6 +34,7 @@ use App\DataTables\Column\SIUnitNumberColumn;
 use App\DataTables\Column\TagsColumn;
 use App\DataTables\Filters\PartFilter;
 use App\DataTables\Filters\PartSearchFilter;
+use App\DataTables\Helpers\PartDataTableHelper;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
@@ -63,9 +64,10 @@ final class PartsDataTable implements DataTableTypeInterface
     private TranslatorInterface $translator;
     private NodesListBuilder $treeBuilder;
     private AmountFormatter $amountFormatter;
-    private PartPreviewGenerator $previewGenerator;
     private AttachmentURLGenerator $attachmentURLGenerator;
     private Security $security;
+
+    private PartDataTableHelper $partDataTableHelper;
 
     /**
      * @var EntityURLGenerator
@@ -73,16 +75,16 @@ final class PartsDataTable implements DataTableTypeInterface
     private $urlGenerator;
 
     public function __construct(EntityURLGenerator $urlGenerator, TranslatorInterface $translator,
-        NodesListBuilder $treeBuilder, AmountFormatter $amountFormatter,
-        PartPreviewGenerator $previewGenerator, AttachmentURLGenerator $attachmentURLGenerator, Security $security)
+        NodesListBuilder $treeBuilder, AmountFormatter $amountFormatter,PartDataTableHelper $partDataTableHelper,
+        AttachmentURLGenerator $attachmentURLGenerator, Security $security)
     {
         $this->urlGenerator = $urlGenerator;
         $this->translator = $translator;
         $this->treeBuilder = $treeBuilder;
         $this->amountFormatter = $amountFormatter;
-        $this->previewGenerator = $previewGenerator;
         $this->attachmentURLGenerator = $attachmentURLGenerator;
         $this->security = $security;
+        $this->partDataTableHelper = $partDataTableHelper;
     }
 
     public function configureOptions(OptionsResolver $optionsResolver): void
@@ -122,46 +124,13 @@ final class PartsDataTable implements DataTableTypeInterface
                 'label' => '',
                 'className' => 'no-colvis',
                 'render' => function ($value, Part $context) {
-                    $preview_attachment = $this->previewGenerator->getTablePreviewAttachment($context);
-                    if (null === $preview_attachment) {
-                        return '';
-                    }
-
-                    $title = htmlspecialchars($preview_attachment->getName());
-                    if ($preview_attachment->getFilename()) {
-                        $title .= ' ('.htmlspecialchars($preview_attachment->getFilename()).')';
-                    }
-
-                    return sprintf(
-                        '<img alt="%s" src="%s" data-thumbnail="%s" class="%s" data-title="%s" data-controller="elements--hoverpic">',
-                        'Part image',
-                        $this->attachmentURLGenerator->getThumbnailURL($preview_attachment),
-                        $this->attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_md'),
-                        'img-fluid hoverpic',
-                        $title
-                    );
+                    return $this->partDataTableHelper->renderPicture($context);
                 },
             ])
             ->add('name', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.name'),
                 'render' => function ($value, Part $context) {
-                    $icon = '';
-
-                    //Depending on the part status we show a different icon (the later conditions have higher priority)
-                    if ($context->isFavorite()) {
-                        $icon = sprintf('<i class="fa-solid fa-star fa-fw me-1" title="%s"></i>', $this->translator->trans('part.favorite.badge'));
-                    }
-                    if ($context->isNeedsReview()) {
-                        $icon = sprintf('<i class="fa-solid fa-ambulance fa-fw me-1" title="%s"></i>', $this->translator->trans('part.needs_review.badge'));
-                    }
-
-
-                    return sprintf(
-                        '<a href="%s">%s%s</a>',
-                        $this->urlGenerator->infoURL($context),
-                        $icon,
-                        htmlentities($context->getName())
-                    );
+                    return $this->partDataTableHelper->renderName($context);
                 },
             ])
             ->add('id', TextColumn::class, [

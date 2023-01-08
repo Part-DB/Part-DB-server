@@ -24,7 +24,7 @@ namespace App\Twig;
 
 use App\Entity\Attachments\Attachment;
 use App\Entity\Base\AbstractDBElement;
-use App\Entity\Devices\Device;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;

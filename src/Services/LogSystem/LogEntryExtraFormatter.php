@@ -31,11 +31,13 @@ use App\Entity\LogSystem\ElementCreatedLogEntry;
 use App\Entity\LogSystem\ElementDeletedLogEntry;
 use App\Entity\LogSystem\ElementEditedLogEntry;
 use App\Entity\LogSystem\ExceptionLogEntry;
-use App\Entity\LogSystem\InstockChangedLogEntry;
+use App\Entity\LogSystem\LegacyInstockChangedLogEntry;
+use App\Entity\LogSystem\PartStockChangedLogEntry;
 use App\Entity\LogSystem\SecurityEventLogEntry;
 use App\Entity\LogSystem\UserLoginLogEntry;
 use App\Entity\LogSystem\UserLogoutLogEntry;
 use App\Entity\LogSystem\UserNotAllowedLogEntry;
+use App\Entity\Parts\PartLot;
 use App\Services\ElementTypeNameGenerator;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -155,7 +157,7 @@ class LogEntryExtraFormatter
             $array['log.element_edited.changed_fields'] = htmlspecialchars(implode(', ', $context->getChangedFields()));
         }
 
-        if ($context instanceof InstockChangedLogEntry) {
+        if ($context instanceof LegacyInstockChangedLogEntry) {
             $array[] = $this->translator->trans($context->isWithdrawal() ? 'log.instock_changed.withdrawal' : 'log.instock_changed.added');
             $array[] = sprintf(
                 '%s <i class="fas fa-long-arrow-alt-right"></i> %s (%s)',
@@ -177,6 +179,23 @@ class LogEntryExtraFormatter
 
         if ($context instanceof UserNotAllowedLogEntry) {
             $array[] = htmlspecialchars($context->getMessage());
+        }
+
+        if ($context instanceof PartStockChangedLogEntry) {
+            $array['log.part_stock_changed.change'] = sprintf("%s %s %s (%s)",
+                $context->getOldStock(),
+                '<i class="fa-solid fa-right-long"></i>',
+                $context->getNewStock(),
+                ($context->getNewStock() > $context->getOldStock() ? '+' : '-'). $context->getChangeAmount(),
+            );
+            if (!empty($context->getComment())) {
+                $array['log.part_stock_changed.comment'] = htmlspecialchars($context->getComment());
+            }
+            if ($context->getInstockChangeType() === PartStockChangedLogEntry::TYPE_MOVE) {
+                $array['log.part_stock_changed.move_target'] =
+                    $this->elementTypeNameGenerator->getLocalizedTypeLabel(PartLot::class)
+                    .' ' . $context->getMoveToTargetID();
+            }
         }
 
         return $array;

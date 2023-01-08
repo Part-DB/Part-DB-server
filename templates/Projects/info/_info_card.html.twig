@@ -1,0 +1,133 @@
+{% import "helper.twig" as helper %}
+{% import "LabelSystem/dropdown_macro.html.twig" as dropdown %}
+
+{{ helper.breadcrumb_entity_link(project) }}
+
+<div class="accordion mb-4" id="listAccordion">
+    <div class="accordion-item">
+        <div class="accordion-header">
+            <button class="accordion-button collapsed py-2" data-bs-toggle="collapse" data-bs-target="#entityInfo" aria-expanded="true">
+                {% if project.masterPictureAttachment is not null and attachment_manager.isFileExisting(project.masterPictureAttachment) %}
+                    <img class="hoverpic ms-0 me-1 d-inline" {{ stimulus_controller('elements/hoverpic') }} data-thumbnail="{{ entity_url(project.masterPictureAttachment, 'file_view') }}" src="{{ attachment_thumbnail(project.masterPictureAttachment, 'thumbnail_sm') }}">
+                {% else %}
+                    {{ helper.entity_icon(project, "me-1") }}
+                {% endif %}
+                {% trans %}project.label{% endtrans %}:&nbsp;<b>{{ project.name }}</b>
+            </button>
+        </div>
+        <div id="entityInfo" class="accordion-collapse collapse show" data-bs-parent="#listAccordion">
+            <div class="accordion-body">
+                {% if project.description is not empty %}
+                    {{ project.description|format_markdown }}
+                {% endif %}
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                                <i class="fas fa-info-circle fa-fw"></i>
+                                {% trans %}entity.info.common.tab{% endtrans %}
+                            </a>
+                            <a class="nav-link" id="v-pills-statistics-tab" data-bs-toggle="pill" href="#v-pills-statistics" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                                <i class="fas fa-chart-pie fa-fw"></i>
+                                {% trans %}entity.info.statistics.tab{% endtrans %}
+                            </a>
+                            {% if project.attachments is not empty %}
+                                <a class="nav-link" id="v-pills-attachments-tab" data-bs-toggle="pill" href="#v-pills-attachments" role="tab" aria-controls="v-pills-attachments" aria-selected="false">
+                                    <i class="fas fa-paperclip fa-fw"></i>
+                                    {% trans %}entity.info.attachments.tab{% endtrans %}
+                                </a>
+                            {% endif %}
+                            {% if project.parameters is not empty %}
+                                <a class="nav-link" id="v-pills-parameters-tab" data-bs-toggle="pill" href="#v-pills-parameters" role="tab" aria-controls="v-pills-parameters" aria-selected="false">
+                                    <i class="fas fa-atlas fa-fw"></i>
+                                    {% trans %}entity.info.parameters.tab{% endtrans %}
+                                </a>
+                            {% endif %}
+                            {% if project.comment is not empty %}
+                                <a class="nav-link" id="v-pills-comment-tab" data-bs-toggle="pill" href="#v-pills-comment" role="tab">
+                                    <i class="fas fa-comment-alt fa-fw"></i>
+                                    {% trans %}comment.label{% endtrans %}
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="tab-content" id="v-pills-tabContent">
+                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                <div class="row">
+                                    <div class="col-sm-9 form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-sm-4">{% trans %}entity.info.name{% endtrans %}:</label>
+                                            <span class="col-sm form-control-static">{{ project.name }}</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-4">{% trans %}entity.info.parent{% endtrans %}:</label>
+                                            <span class="col-sm form-control-static">
+                                        {% if project.parent %}
+                                            {{ project.parent.fullPath }}
+                                        {% else  %}
+                                            -
+                                        {% endif %}
+                                    </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {% block quick_links %}{% endblock %}
+
+                                        <a class="btn btn-secondary w-100 mb-2" href="{{ entity_url(project, 'edit') }}">
+                                            <i class="fas fa-edit"></i> {% trans %}entity.edit.btn{% endtrans %}
+                                        </a>
+                                        <div class="">
+                                        <span class="text-muted" title="{% trans %}lastModified{% endtrans %}">
+                                            <i class="fas fa-history fa-fw"></i> {{ project.lastModified | format_datetime("short") }}
+                                        </span>
+                                            <br>
+                                            <span class="text-muted mt-1" title="{% trans %}createdAt{% endtrans %}">
+                                            <i class="fas fa-calendar-plus fa-fw"></i> {{ project.addedDate | format_datetime("short") }}
+                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-statistics" role="tabpanel" aria-labelledby="v-pills-statistics-tab">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-4">{% trans %}entity.info.children_count{% endtrans %}:</label>
+                                        <span class="col-sm form-control-static">{{ project.children | length }}</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4">{% trans %}entity.info.parts_count{% endtrans %}:</label>
+                                        <span class="col-sm form-control-static">{{ project.bomEntries | length }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% if project.attachments is not empty %}
+                                <div class="tab-pane fade" id="v-pills-attachments" role="tabpanel" aria-labelledby="v-pills-attachments-tab">
+                                    {% include "Parts/info/_attachments_info.html.twig" with {"part": project} %}
+                                </div>
+                            {% endif %}
+
+                            {% if project.parameters is not empty %}
+                                <div class="tab-pane fade" id="v-pills-parameters" role="tabpanel" aria-labelledby="v-pills-parameters-tab">
+                                    {% for name, parameters in project.groupedParameters %}
+                                        {% if name is not empty %}<h5 class="mt-1">{{ name }}</h5>{% endif %}
+                                        {{ helper.parameters_table(project) }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            {% if project.comment is not empty %}
+                                <div class="tab-pane fade" id="v-pills-comment" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="container-fluid mt-2 latex" data-controller="common--latex">
+                                        {{ project.comment|format_markdown }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

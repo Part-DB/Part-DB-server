@@ -29,6 +29,8 @@ use App\Repository\DBElementRepository;
 use App\Repository\PartRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
 
@@ -36,11 +38,13 @@ final class PartsTableActionHandler
 {
     private EntityManagerInterface $entityManager;
     private Security $security;
+    private UrlGeneratorInterface $urlGenerator;
 
-    public function __construct(EntityManagerInterface $entityManager, Security $security)
+    public function __construct(EntityManagerInterface $entityManager, Security $security, UrlGeneratorInterface $urlGenerator)
     {
         $this->entityManager = $entityManager;
         $this->security = $security;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -62,9 +66,21 @@ final class PartsTableActionHandler
 
     /**
      * @param Part[] $selected_parts
+     * @return RedirectResponse|null Returns a redirect response if the user should be redirected to another page, otherwise null
      */
-    public function handleAction(string $action, array $selected_parts, ?int $target_id): void
+    public function handleAction(string $action, array $selected_parts, ?int $target_id, ?string $redirect_url = null): ?RedirectResponse
     {
+        if ($action === 'add_to_project') {
+            return new RedirectResponse(
+                $this->urlGenerator->generate('project_add_parts', [
+                    'id' => $target_id,
+                    'parts' => implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts)),
+                    '_redirect' => $redirect_url
+                ])
+            );
+        }
+
+
         //Iterate over the parts and apply the action to it:
         foreach ($selected_parts as $part) {
             if (!$part instanceof Part) {
@@ -116,6 +132,8 @@ final class PartsTableActionHandler
                     throw new InvalidArgumentException('The given action is unknown! ('.$action.')');
             }
         }
+
+        return null;
     }
 
     /**

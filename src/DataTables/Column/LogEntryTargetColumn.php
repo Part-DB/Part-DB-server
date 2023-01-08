@@ -31,6 +31,7 @@ use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\PartLot;
 use App\Entity\PriceInformations\Orderdetail;
 use App\Entity\PriceInformations\Pricedetail;
+use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Exceptions\EntityNotSupportedException;
 use App\Repository\LogEntryRepository;
 use App\Services\ElementTypeNameGenerator;
@@ -126,6 +127,8 @@ class LogEntryTargetColumn extends AbstractColumn
                 $on = $target->getPart();
             } elseif ($target instanceof Pricedetail && null !== $target->getOrderdetail() && null !== $target->getOrderdetail()->getPart()) {
                 $on = $target->getOrderdetail()->getPart();
+            } elseif ($target instanceof ProjectBOMEntry && null !== $target->getProject()) {
+                $on = $target->getProject();
             }
 
             if (isset($on) && is_object($on)) {

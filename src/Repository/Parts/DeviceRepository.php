@@ -22,18 +22,19 @@ namespace App\Repository\Parts;
 
 
 use App\Entity\Base\AbstractPartsContainingDBElement;
-use App\Entity\Devices\Device;
+use App\Entity\ProjectSystem\Project;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Part;
 use App\Repository\AbstractPartsContainingRepository;
+use App\Repository\StructuralDBElementRepository;
 use InvalidArgumentException;
 
-class DeviceRepository extends AbstractPartsContainingRepository
+class DeviceRepository extends StructuralDBElementRepository
 {
 
     public function getParts(object $element, array $order_by = ['name' => 'ASC']): array
     {
-        if (!$element instanceof Device) {
+        if (!$element instanceof Project) {
             throw new InvalidArgumentException('$element must be an Device!');
         }
 
@@ -44,7 +45,7 @@ class DeviceRepository extends AbstractPartsContainingRepository
 
     public function getPartsCount(object $element): int
     {
-        if (!$element instanceof Device) {
+        if (!$element instanceof Project) {
             throw new InvalidArgumentException('$element must be an Device!');
         }
 

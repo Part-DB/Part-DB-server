@@ -147,35 +147,35 @@
         <target>New currency</target>
       </segment>
     </unit>
-    <unit id="tlgOYB5" name="device.caption">
+    <unit id="tlgOYB5" name="project.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
         <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
         <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
       </notes>
       <segment>
-        <source>device.caption</source>
-        <target>Device</target>
+        <source>project.caption</source>
+        <target>Project</target>
       </segment>
     </unit>
-    <unit id="fu1Uc_k" name="device.edit">
+    <unit id="fu1Uc_k" name="project.edit">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
         <note category="state" priority="1">new</note>
       </notes>
       <segment>
-        <source>device.edit</source>
-        <target>Edit device</target>
+        <source>project.edit</source>
+        <target>Edit project</target>
       </segment>
     </unit>
-    <unit id="2z6Gm_r" name="device.new">
+    <unit id="2z6Gm_r" name="project.new">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
         <note category="state" priority="1">new</note>
       </notes>
       <segment>
-        <source>device.new</source>
-        <target>New device</target>
+        <source>project.new</source>
+        <target>New project</target>
       </segment>
     </unit>
     <unit id="lQ8QeGr" name="search.placeholder">
@@ -3284,7 +3284,7 @@ Sub elements will be moved upwards.]]></target>
       </notes>
       <segment>
         <source>statistics.devices_count</source>
-        <target>Number of devices</target>
+        <target>Number of projects</target>
       </segment>
     </unit>
     <unit id="8HKc.Yq" name="statistics.attachment_types_count">
@@ -4095,7 +4095,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Go!</target>
       </segment>
     </unit>
-    <unit id="g6tt4u1" name="device.labelp">
+    <unit id="g6tt4u1" name="project.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
@@ -4107,8 +4107,8 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <note priority="1">templates\base.html.twig:230</note>
       </notes>
       <segment>
-        <source>device.labelp</source>
-        <target>Devices</target>
+        <source>project.labelp</source>
+        <target>Projects</target>
       </segment>
     </unit>
     <unit id="Kw3N1AA" name="actions">
@@ -6025,13 +6025,13 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Attachment type</target>
       </segment>
     </unit>
-    <unit id="uR5eAkv" name="device.label">
+    <unit id="uR5eAkv" name="project.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
         <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
       </notes>
       <segment>
-        <source>device.label</source>
+        <source>project.label</source>
         <target>Project</target>
       </segment>
     </unit>
@@ -6215,15 +6215,15 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Categories</target>
       </segment>
     </unit>
-    <unit id="b2pLmAq" name="tree.tools.edit.devices">
+    <unit id="b2pLmAq" name="tree.tools.edit.projects">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:161</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:138</note>
         <note priority="1">src\Services\ToolsTreeBuilder.php:66</note>
       </notes>
       <segment>
-        <source>tree.tools.edit.devices</source>
-        <target>Devices</target>
+        <source>tree.tools.edit.projects</source>
+        <target>Projects</target>
       </segment>
     </unit>
     <unit id="BFfweU_" name="tree.tools.edit.suppliers">
@@ -8112,14 +8112,14 @@ Element 3</target>
         <target>Manufacturers</target>
       </segment>
     </unit>
-    <unit id="5_k9ofl" name="perm.part.devices">
+    <unit id="5_k9ofl" name="perm.projects">
       <notes>
         <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
       </notes>
       <segment>
-        <source>perm.part.devices</source>
-        <target>Devices</target>
+        <source>perm.projects</source>
+        <target>Projects</target>
       </segment>
     </unit>
     <unit id="hgZrqP_" name="perm.part.attachment_types">
@@ -8502,16 +8502,6 @@ Element 3</target>
         <target>System</target>
       </segment>
     </unit>
-    <unit id="0CRVznf" name="perm.device_parts">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>perm.device_parts</source>
-        <target>Device parts</target>
-      </segment>
-    </unit>
     <unit id="LG3jpJo" name="perm.self">
       <notes>
         <note priority="1">obsolete</note>
@@ -8693,7 +8683,7 @@ Element 3</target>
       </segment>
     </unit>
     <unit id="RAX6xpX" name="tfa.provider.webauthn_two_factor_provider">
-      <segment state="translated">
+      <segment>
         <source>tfa.provider.webauthn_two_factor_provider</source>
         <target>Security key</target>
       </segment>
@@ -9755,12 +9745,6 @@ Element 3</target>
         <target>[LEGACY] Instock changed</target>
       </segment>
     </unit>
-    <unit id="4Od2HUk" name="device_part.label">
-      <segment>
-        <source>device_part.label</source>
-        <target>Device part</target>
-      </segment>
-    </unit>
     <unit id="lJZCHHM" name="log.target_id">
       <segment>
         <source>log.target_id</source>
@@ -9768,183 +9752,501 @@ Element 3</target>
       </segment>
     </unit>
     <unit id="dU7EyhM" name="entity.info.parts_count_recursive">
-      <segment state="translated">
+      <segment>
         <source>entity.info.parts_count_recursive</source>
         <target>Number of parts with this element or its subelements</target>
       </segment>
     </unit>
     <unit id="_hKlKv." name="tools.server_infos.title">
-      <segment state="translated">
+      <segment>
         <source>tools.server_infos.title</source>
         <target>Server Infos</target>
       </segment>
     </unit>
     <unit id="NvclBUL" name="permission.preset.read_only">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.read_only</source>
         <target>Read-Only</target>
       </segment>
     </unit>
     <unit id="HD3j3BW" name="permission.preset.read_only.desc">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.read_only.desc</source>
         <target>Only allow read operations on data</target>
       </segment>
     </unit>
     <unit id="Ge20aJg" name="permission.preset.all_inherit">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.all_inherit</source>
         <target>Inherit all</target>
       </segment>
     </unit>
     <unit id="DJpsLcr" name="permission.preset.all_inherit.desc">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.all_inherit.desc</source>
         <target>Set all permissions to Inherit</target>
       </segment>
     </unit>
     <unit id="lzjvvzm" name="permission.preset.all_forbid">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.all_forbid</source>
         <target>Forbid all</target>
       </segment>
     </unit>
     <unit id="QqQDTyH" name="permission.preset.all_forbid.desc">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.all_forbid.desc</source>
         <target>Set all permissions to Forbid</target>
       </segment>
     </unit>
     <unit id="DV2fh6l" name="permission.preset.all_allow">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.all_allow</source>
         <target>Allow all</target>
       </segment>
     </unit>
     <unit id="_m.Pbza" name="permission.preset.all_allow.desc">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.all_allow.desc</source>
         <target>Set all permissions to allow</target>
       </segment>
     </unit>
     <unit id="VIDdo5K" name="perm.server_infos">
-      <segment state="translated">
+      <segment>
         <source>perm.server_infos</source>
         <target>Server infos</target>
       </segment>
     </unit>
     <unit id="d6SOlzR" name="permission.preset.editor">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.editor</source>
         <target>Editor</target>
       </segment>
     </unit>
     <unit id="8KYl_wh" name="permission.preset.editor.desc">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.editor.desc</source>
         <target>Allow to change parts and data structures</target>
       </segment>
     </unit>
     <unit id="dYudjp." name="permission.preset.admin">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.admin</source>
         <target>Admin</target>
       </segment>
     </unit>
     <unit id="0o2M0uj" name="permission.preset.admin.desc">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.admin.desc</source>
         <target>Allow administrative actions</target>
       </segment>
     </unit>
     <unit id="SnAIVQf" name="permission.preset.button">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.button</source>
         <target>Apply preset</target>
       </segment>
     </unit>
     <unit id="6q4uHDx" name="perm.attachments.show_private">
-      <segment state="translated">
+      <segment>
         <source>perm.attachments.show_private</source>
         <target>Show private attachments</target>
       </segment>
     </unit>
     <unit id="NL9t5hy" name="perm.attachments.list_attachments">
-      <segment state="translated">
+      <segment>
         <source>perm.attachments.list_attachments</source>
         <target>Show list of all attachments</target>
       </segment>
     </unit>
     <unit id="PYh9dNP" name="user.edit.permission_success">
-      <segment state="translated">
+      <segment>
         <source>user.edit.permission_success</source>
         <target>Permission preset applied successfully. Check if the new permissions fit your needs.</target>
       </segment>
     </unit>
     <unit id="cP8VNKS" name="perm.group.data">
-      <segment state="translated">
+      <segment>
         <source>perm.group.data</source>
         <target>Data</target>
       </segment>
     </unit>
     <unit id="AAoGo_X" name="part_list.action.action.group.needs_review">
-      <segment state="translated">
+      <segment>
         <source>part_list.action.action.group.needs_review</source>
         <target>Needs Review</target>
       </segment>
     </unit>
     <unit id="hcvOTrH" name="part_list.action.action.set_needs_review">
-      <segment state="translated">
+      <segment>
         <source>part_list.action.action.set_needs_review</source>
         <target>Set Needs Review Status</target>
       </segment>
     </unit>
     <unit id="E1AQubV" name="part_list.action.action.unset_needs_review">
-      <segment state="translated">
+      <segment>
         <source>part_list.action.action.unset_needs_review</source>
         <target>Unset Needs Review Status</target>
       </segment>
     </unit>
     <unit id="DNEEkTy" name="part.edit.ipn">
-      <segment state="translated">
+      <segment>
         <source>part.edit.ipn</source>
         <target>Internal Part Number (IPN)</target>
       </segment>
     </unit>
     <unit id="bT6yxOA" name="part.ipn.not_defined">
-      <segment state="translated">
+      <segment>
         <source>part.ipn.not_defined</source>
         <target>Not defined</target>
       </segment>
     </unit>
     <unit id="SHo2Ejq" name="part.table.ipn">
-      <segment state="translated">
+      <segment>
         <source>part.table.ipn</source>
         <target>IPN</target>
       </segment>
     </unit>
     <unit id="1HcqCmo" name="currency.edit.update_rate">
-      <segment state="translated">
+      <segment>
         <source>currency.edit.update_rate</source>
         <target>Retrieve exchange rate</target>
       </segment>
     </unit>
     <unit id="jSf6Wmz" name="currency.edit.exchange_rate_update.unsupported_currency">
-      <segment state="translated">
+      <segment>
         <source>currency.edit.exchange_rate_update.unsupported_currency</source>
         <target>The currency is unsupported by the exchange rate provider. Check your exchange rate provider configuration.</target>
       </segment>
     </unit>
     <unit id="D481NZD" name="currency.edit.exchange_rate_update.generic_error">
-      <segment state="translated">
+      <segment>
         <source>currency.edit.exchange_rate_update.generic_error</source>
         <target>Unable to retrieve the exchange rate. Check your exchange rate provider configuration.</target>
       </segment>
     </unit>
     <unit id="E_M7mZ5" name="currency.edit.exchange_rate_updated.success">
-      <segment state="translated">
+      <segment>
         <source>currency.edit.exchange_rate_updated.success</source>
         <target>Retrieved the exchange rate successfully.</target>
+      </segment>
+    </unit>
+    <unit id="HbPND5j" name="project.bom.quantity">
+      <segment>
+        <source>project.bom.quantity</source>
+        <target>BOM Qty.</target>
+      </segment>
+    </unit>
+    <unit id="gqYIO6x" name="project.bom.mountnames">
+      <segment>
+        <source>project.bom.mountnames</source>
+        <target>Mount names</target>
+      </segment>
+    </unit>
+    <unit id="29QITRx" name="project.bom.name">
+      <segment>
+        <source>project.bom.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="PucC1gg" name="project.bom.comment">
+      <segment>
+        <source>project.bom.comment</source>
+        <target>Notes</target>
+      </segment>
+    </unit>
+    <unit id="fR.vNpd" name="project.bom.part">
+      <segment>
+        <source>project.bom.part</source>
+        <target>Part</target>
+      </segment>
+    </unit>
+    <unit id="apnWXEq" name="project.bom.add_entry">
+      <segment>
+        <source>project.bom.add_entry</source>
+        <target>Add entry</target>
+      </segment>
+    </unit>
+    <unit id="gwloIYB" name="part_list.action.group.projects">
+      <segment>
+        <source>part_list.action.group.projects</source>
+        <target>Projects</target>
+      </segment>
+    </unit>
+    <unit id="QDvlT74" name="part_list.action.projects.add_to_project">
+      <segment>
+        <source>part_list.action.projects.add_to_project</source>
+        <target>Add parts to project</target>
+      </segment>
+    </unit>
+    <unit id="ZVrMX6T" name="project.bom.delete.confirm">
+      <segment>
+        <source>project.bom.delete.confirm</source>
+        <target>Do you really want to delete this BOM entry?</target>
+      </segment>
+    </unit>
+    <unit id="T_wVWg_" name="project.add_parts_to_project">
+      <segment>
+        <source>project.add_parts_to_project</source>
+        <target>Add parts to project BOM</target>
+      </segment>
+    </unit>
+    <unit id="02xC690" name="part.info.add_part_to_project">
+      <segment>
+        <source>part.info.add_part_to_project</source>
+        <target>Add this part to a project</target>
+      </segment>
+    </unit>
+    <unit id="OLIZm7S" name="project_bom_entry.label">
+      <segment>
+        <source>project_bom_entry.label</source>
+        <target>BOM entry</target>
+      </segment>
+    </unit>
+    <unit id="HYlztPH" name="project.edit.status">
+      <segment>
+        <source>project.edit.status</source>
+        <target>Project status</target>
+      </segment>
+    </unit>
+    <unit id="g63LZsn" name="project.status.draft">
+      <segment>
+        <source>project.status.draft</source>
+        <target>Draft</target>
+      </segment>
+    </unit>
+    <unit id="agiQw0z" name="project.status.planning">
+      <segment>
+        <source>project.status.planning</source>
+        <target>Planning</target>
+      </segment>
+    </unit>
+    <unit id="8eTvW1x" name="project.status.in_production">
+      <segment>
+        <source>project.status.in_production</source>
+        <target>In production</target>
+      </segment>
+    </unit>
+    <unit id="xtDIXe_" name="project.status.finished">
+      <segment>
+        <source>project.status.finished</source>
+        <target>Finished</target>
+      </segment>
+    </unit>
+    <unit id="wpp2047" name="project.status.archived">
+      <segment>
+        <source>project.status.archived</source>
+        <target>Archived</target>
+      </segment>
+    </unit>
+    <unit id="jcf.5wX" name="part.new_build_part.error.build_part_already_exists">
+      <segment>
+        <source>part.new_build_part.error.build_part_already_exists</source>
+        <target>The project already has an build part!</target>
+      </segment>
+    </unit>
+    <unit id="usGnetL" name="project.edit.associated_build_part">
+      <segment>
+        <source>project.edit.associated_build_part</source>
+        <target>Associated builds part</target>
+      </segment>
+    </unit>
+    <unit id="xXpskqU" name="project.edit.associated_build_part.add">
+      <segment>
+        <source>project.edit.associated_build_part.add</source>
+        <target>Add builds part</target>
+      </segment>
+    </unit>
+    <unit id="5rnE1fK" name="project.edit.associated_build.hint">
+      <segment>
+        <source>project.edit.associated_build.hint</source>
+        <target>This part represents the builds of this project, which are stored somewhere.</target>
+      </segment>
+    </unit>
+    <unit id="Ze.0yTx" name="part.info.projectBuildPart.hint">
+      <segment>
+        <source>part.info.projectBuildPart.hint</source>
+        <target>This part represents the builds of the following project and is associated with it</target>
+      </segment>
+    </unit>
+    <unit id="coJxmoK" name="part.is_build_part">
+      <segment>
+        <source>part.is_build_part</source>
+        <target>Is project builds part</target>
+      </segment>
+    </unit>
+    <unit id="YiFf2jl" name="project.info.title">
+      <segment>
+        <source>project.info.title</source>
+        <target>Project info</target>
+      </segment>
+    </unit>
+    <unit id="Y7z_Lil" name="project.info.bom_entries_count">
+      <segment>
+        <source>project.info.bom_entries_count</source>
+        <target>BOM entries</target>
+      </segment>
+    </unit>
+    <unit id="jdkve2C" name="project.info.sub_projects_count">
+      <segment>
+        <source>project.info.sub_projects_count</source>
+        <target>Subprojects</target>
+      </segment>
+    </unit>
+    <unit id="keeSexh" name="project.info.bom_add_parts">
+      <segment>
+        <source>project.info.bom_add_parts</source>
+        <target>Add BOM entries</target>
+      </segment>
+    </unit>
+    <unit id="sgaRuly" name="project.info.info.label">
+      <segment>
+        <source>project.info.info.label</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="vaFaY8r" name="project.info.sub_projects.label">
+      <segment>
+        <source>project.info.sub_projects.label</source>
+        <target>Subprojects</target>
+      </segment>
+    </unit>
+    <unit id="CTIbEF6" name="project.bom.price">
+      <segment>
+        <source>project.bom.price</source>
+        <target>Price</target>
+      </segment>
+    </unit>
+    <unit id="hO.xnng" name="part.info.withdraw_modal.title.withdraw">
+      <segment>
+        <source>part.info.withdraw_modal.title.withdraw</source>
+        <target>Withdraw parts from lot</target>
+      </segment>
+    </unit>
+    <unit id="ci6FaUj" name="part.info.withdraw_modal.title.add">
+      <segment>
+        <source>part.info.withdraw_modal.title.add</source>
+        <target>Add parts to lot</target>
+      </segment>
+    </unit>
+    <unit id="kGal3M_" name="part.info.withdraw_modal.title.move">
+      <segment>
+        <source>part.info.withdraw_modal.title.move</source>
+        <target>Move parts from lot to another lot</target>
+      </segment>
+    </unit>
+    <unit id="zxFeQRY" name="part.info.withdraw_modal.amount">
+      <segment>
+        <source>part.info.withdraw_modal.amount</source>
+        <target>Amount</target>
+      </segment>
+    </unit>
+    <unit id="iblpgc7" name="part.info.withdraw_modal.move_to">
+      <segment>
+        <source>part.info.withdraw_modal.move_to</source>
+        <target>Move to</target>
+      </segment>
+    </unit>
+    <unit id="pYCfHzw" name="part.info.withdraw_modal.comment">
+      <segment>
+        <source>part.info.withdraw_modal.comment</source>
+        <target>Comment</target>
+      </segment>
+    </unit>
+    <unit id="ARNLGgz" name="part.info.withdraw_modal.comment.hint">
+      <segment>
+        <source>part.info.withdraw_modal.comment.hint</source>
+        <target>You can set a comment here describing why you are doing this operation (e.g. for what you need the parts). This info will be saved in the log.</target>
+      </segment>
+    </unit>
+    <unit id="Sumeg5G" name="modal.close">
+      <segment>
+        <source>modal.close</source>
+        <target>Close</target>
+      </segment>
+    </unit>
+    <unit id="sye5gxs" name="modal.submit">
+      <segment>
+        <source>modal.submit</source>
+        <target>Submit</target>
+      </segment>
+    </unit>
+    <unit id="jl7xM1O" name="part.withdraw.success">
+      <segment>
+        <source>part.withdraw.success</source>
+        <target>Added/Moved/Withdrawn parts successfully.</target>
+      </segment>
+    </unit>
+    <unit id="oghrs8X" name="perm.parts_stock">
+      <segment>
+        <source>perm.parts_stock</source>
+        <target>Parts Stock</target>
+      </segment>
+    </unit>
+    <unit id="YjbdSVx" name="perm.parts_stock.withdraw">
+      <segment>
+        <source>perm.parts_stock.withdraw</source>
+        <target>Withdraw parts from stock</target>
+      </segment>
+    </unit>
+    <unit id="P4saY9b" name="perm.parts_stock.add">
+      <segment>
+        <source>perm.parts_stock.add</source>
+        <target>Add parts to stock</target>
+      </segment>
+    </unit>
+    <unit id="JR4LXfJ" name="perm.parts_stock.move">
+      <segment>
+        <source>perm.parts_stock.move</source>
+        <target>Move parts between lots</target>
+      </segment>
+    </unit>
+    <unit id="DQ_FAfi" name="user.permissions_schema_updated">
+      <segment>
+        <source>user.permissions_schema_updated</source>
+        <target>The permission schema of your user were upgraded to the latest version.</target>
+      </segment>
+    </unit>
+    <unit id="OohNh_M" name="log.type.part_stock_changed">
+      <segment>
+        <source>log.type.part_stock_changed</source>
+        <target>Part Stock changed</target>
+      </segment>
+    </unit>
+    <unit id="ZIcw_8V" name="log.part_stock_changed.withdraw">
+      <segment>
+        <source>log.part_stock_changed.withdraw</source>
+        <target>Stock withdrawn</target>
+      </segment>
+    </unit>
+    <unit id="jIm.ZAZ" name="log.part_stock_changed.add">
+      <segment>
+        <source>log.part_stock_changed.add</source>
+        <target>Stock added</target>
+      </segment>
+    </unit>
+    <unit id="Q8itu0n" name="log.part_stock_changed.move">
+      <segment>
+        <source>log.part_stock_changed.move</source>
+        <target>Stock moved</target>
+      </segment>
+    </unit>
+    <unit id="Z_uM8dG" name="log.part_stock_changed.comment">
+      <segment>
+        <source>log.part_stock_changed.comment</source>
+        <target>Comment</target>
+      </segment>
+    </unit>
+    <unit id="vEWZ248" name="log.part_stock_changed.change">
+      <segment>
+        <source>log.part_stock_changed.change</source>
+        <target>Change</target>
+      </segment>
+    </unit>
+    <unit id="8kmtQLq" name="log.part_stock_changed.move_target">
+      <segment>
+        <source>log.part_stock_changed.move_target</source>
+        <target>Move target</target>
       </segment>
     </unit>
   </file>

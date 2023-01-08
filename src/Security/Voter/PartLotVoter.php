@@ -57,12 +57,17 @@ class PartLotVoter extends ExtendedVoter
         $this->security = $security;
     }
 
-    protected const ALLOWED_PERMS = ['read', 'edit', 'create', 'delete', 'show_history', 'revert_element'];
+    protected const ALLOWED_PERMS = ['read', 'edit', 'create', 'delete', 'show_history', 'revert_element', 'withdraw', 'add', 'move'];
 
     protected function voteOnUser(string $attribute, $subject, User $user): bool
     {
         if (! is_a($subject, PartLot::class, true)) {
             throw new \RuntimeException('This voter can only handle PartLot objects!');
+        }
+
+        if (in_array($attribute, ['withdraw', 'add', 'move']))
+        {
+            return $this->resolver->inherit($user, 'parts_stock', $attribute) ?? false;
         }
 
         switch ($attribute) {

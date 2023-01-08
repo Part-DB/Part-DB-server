@@ -92,7 +92,7 @@ abstract class AbstractAdminControllerTest extends WebTestCase
         }
 
         //Test read/list access by access /new overview page
-        $client->request('GET', static::$base_path.'/1');
+        $client->request('GET', static::$base_path.'/1/edit');
         $this->assertFalse($client->getResponse()->isRedirect());
         $this->assertSame($read, $client->getResponse()->isSuccessful(), 'Controller was not successful!');
         $this->assertSame($read, !$client->getResponse()->isForbidden(), 'Permission Checking not working!');
