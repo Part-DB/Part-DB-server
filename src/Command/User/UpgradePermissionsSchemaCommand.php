@@ -23,6 +23,7 @@ namespace App\Command\User;
 use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\PermissionData;
 use App\Entity\UserSystem\User;
+use App\Services\LogSystem\EventCommentHelper;
 use App\Services\UserSystem\PermissionSchemaUpdater;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -39,12 +40,14 @@ final class UpgradePermissionsSchemaCommand extends Command
 
     private PermissionSchemaUpdater $permissionSchemaUpdater;
     private EntityManagerInterface $em;
+    private EventCommentHelper $eventCommentHelper;
 
-    public function __construct(PermissionSchemaUpdater $permissionSchemaUpdater, EntityManagerInterface $entityManager)
+    public function __construct(PermissionSchemaUpdater $permissionSchemaUpdater, EntityManagerInterface $entityManager, EventCommentHelper $eventCommentHelper)
     {
         parent::__construct(self::$defaultName);
 
         $this->permissionSchemaUpdater = $permissionSchemaUpdater;
+        $this->eventCommentHelper = $eventCommentHelper;
         $this->em = $entityManager;
     }
 
@@ -111,6 +114,8 @@ final class UpgradePermissionsSchemaCommand extends Command
             $io->writeln('Updating user '. $user->getUsername() .' (ID: '. $user->getID() .') to schema version '. PermissionData::CURRENT_SCHEMA_VERSION .'...', OutputInterface::VERBOSITY_VERBOSE);
             $this->permissionSchemaUpdater->upgradeSchema($user);
         }
+
+        $this->eventCommentHelper->setMessage('Manual permissions schema update via CLI');
 
         //Write changes to database
         $this->em->flush();

@@ -21,6 +21,7 @@
 namespace App\EventSubscriber\UserSystem;
 
 use App\Entity\UserSystem\User;
+use App\Services\LogSystem\EventCommentHelper;
 use App\Services\UserSystem\PermissionSchemaUpdater;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -38,13 +39,15 @@ class UpgradePermissionsSchemaSubscriber implements EventSubscriberInterface
     private PermissionSchemaUpdater $permissionSchemaUpdater;
     private EntityManagerInterface $entityManager;
     private FlashBagInterface $flashBag;
+    private EventCommentHelper $eventCommentHelper;
 
-    public function __construct(Security $security, PermissionSchemaUpdater $permissionSchemaUpdater, EntityManagerInterface $entityManager, FlashBagInterface $flashBag)
+    public function __construct(Security $security, PermissionSchemaUpdater $permissionSchemaUpdater, EntityManagerInterface $entityManager, FlashBagInterface $flashBag, EventCommentHelper $eventCommentHelper)
     {
         $this->security = $security;
         $this->permissionSchemaUpdater = $permissionSchemaUpdater;
         $this->entityManager = $entityManager;
         $this->flashBag = $flashBag;
+        $this->eventCommentHelper = $eventCommentHelper;
     }
 
     public function onRequest(RequestEvent $event): void
@@ -60,6 +63,7 @@ class UpgradePermissionsSchemaSubscriber implements EventSubscriberInterface
         }
 
         if ($this->permissionSchemaUpdater->isSchemaUpdateNeeded($user)) {
+            $this->eventCommentHelper->setMessage('Automatic permission schema update');
             $this->permissionSchemaUpdater->userUpgradeSchemaRecursively($user);
             $this->entityManager->flush();
             $this->flashBag->add('notice', 'user.permissions_schema_updated');
