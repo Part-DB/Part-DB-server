@@ -43,7 +43,7 @@ final class Version20230108165410 extends AbstractMultiPlatformMigration
         if ($this->getOldDBVersion() === 99) {
             $this->addSql('ALTER TABLE projects DROP FOREIGN KEY devices_parent_id_fk');
         }
-        $this->addSql('ALTER TABLE projects ADD status VARCHAR(64) DEFAULT NULL, ADD description LONGTEXT NOT NULL DEFAULT ""');
+        $this->addSql('ALTER TABLE projects ADD status VARCHAR(64) DEFAULT NULL, ADD description LONGTEXT NOT NULL');
         $this->addSql('DROP INDEX idx_11074e9a727aca70 ON projects');
         $this->addSql('CREATE INDEX IDX_5C93B3A4727ACA70 ON projects (parent_id)');
         $this->addSql('DROP INDEX idx_11074e9a6dedcec2 ON projects');
