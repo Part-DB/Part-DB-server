@@ -50,7 +50,7 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="project_info", requirements={"id"="\d+"})
+     * @Route("/{id}/info", name="project_info", requirements={"id"="\d+"})
      */
     public function info(Project $project, Request $request)
     {

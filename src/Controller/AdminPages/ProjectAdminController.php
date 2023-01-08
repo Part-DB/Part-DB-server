@@ -37,19 +37,19 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/device")
+ * @Route("/project")
  */
 class ProjectAdminController extends BaseAdminController
 {
     protected $entity_class = Project::class;
-    protected $twig_template = 'AdminPages/DeviceAdmin.html.twig';
+    protected $twig_template = 'AdminPages/ProjectAdmin.html.twig';
     protected $form_class = ProjectAdminForm::class;
-    protected $route_base = 'device';
+    protected $route_base = 'project';
     protected $attachment_class = ProjectAttachment::class;
     protected $parameter_class = ProjectParameter::class;
 
     /**
-     * @Route("/{id}", name="device_delete", methods={"DELETE"})
+     * @Route("/{id}", name="project_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Project $entity, StructuralElementRecursionHelper $recursionHelper): RedirectResponse
     {
@@ -57,8 +57,8 @@ class ProjectAdminController extends BaseAdminController
     }
 
     /**
-     * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="device_edit")
-     * @Route("/{id}", requirements={"id"="\d+"})
+     * @Route("/{id}/edit/{timestamp}", requirements={"id"="\d+"}, name="project_edit")
+     * @Route("/{id}/edit", requirements={"id"="\d+"})
      */
     public function edit(Project $entity, Request $request, EntityManagerInterface $em, ?string $timestamp = null): Response
     {
@@ -66,7 +66,7 @@ class ProjectAdminController extends BaseAdminController
     }
 
     /**
-     * @Route("/new", name="device_new")
+     * @Route("/new", name="project_new")
      * @Route("/{id}/clone", name="device_clone")
      * @Route("/")
      */
@@ -76,7 +76,7 @@ class ProjectAdminController extends BaseAdminController
     }
 
     /**
-     * @Route("/export", name="device_export_all")
+     * @Route("/export", name="project_export_all")
      */
     public function exportAll(EntityManagerInterface $em, EntityExporter $exporter, Request $request): Response
     {
@@ -84,7 +84,7 @@ class ProjectAdminController extends BaseAdminController
     }
 
     /**
-     * @Route("/{id}/export", name="device_export")
+     * @Route("/{id}/export", name="project_export")
      */
     public function exportEntity(Project $entity, EntityExporter $exporter, Request $request): Response
     {

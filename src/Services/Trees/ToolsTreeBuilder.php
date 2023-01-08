@@ -159,7 +159,7 @@ class ToolsTreeBuilder
         if ($this->security->isGranted('read', new Project())) {
             $nodes[] = (new TreeViewNode(
                 $this->translator->trans('tree.tools.edit.projects'),
-                $this->urlGenerator->generate('device_new')
+                $this->urlGenerator->generate('project_new')
             ))->setIcon('fa-fw fa-treeview fa-solid fa-archive');
         }
         if ($this->security->isGranted('read', new Supplier())) {
