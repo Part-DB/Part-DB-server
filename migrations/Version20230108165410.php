@@ -44,10 +44,8 @@ final class Version20230108165410 extends AbstractMultiPlatformMigration
             $this->addSql('ALTER TABLE projects DROP FOREIGN KEY devices_parent_id_fk');
         }
         $this->addSql('ALTER TABLE projects ADD status VARCHAR(64) DEFAULT NULL, ADD description LONGTEXT NOT NULL');
-        $this->addSql('DROP INDEX idx_11074e9a727aca70 ON projects');
-        $this->addSql('CREATE INDEX IDX_5C93B3A4727ACA70 ON projects (parent_id)');
-        $this->addSql('DROP INDEX idx_11074e9a6dedcec2 ON projects');
-        $this->addSql('CREATE INDEX IDX_5C93B3A46DEDCEC2 ON projects (id_preview_attachement)');
+        $this->addSql('ALTER TABLE projects RENAME INDEX idx_11074e9a727aca70 TO IDX_5C93B3A4727ACA70');
+        $this->addSql('ALTER TABLE projects RENAME INDEX idx_11074e9a6dedcec2 TO IDX_5C93B3A46DEDCEC2');
         $this->addSql('ALTER TABLE projects ADD CONSTRAINT FK_11074E9A6DEDCEC2 FOREIGN KEY (id_preview_attachement) REFERENCES attachments (id)');
         $this->addSql('ALTER TABLE projects ADD CONSTRAINT FK_5C93B3A4727ACA70 FOREIGN KEY (parent_id) REFERENCES projects (id)');
     }
