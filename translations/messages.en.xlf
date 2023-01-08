@@ -10223,5 +10223,47 @@ Element 3</target>
         <target>The permission schema of your user were upgraded to the latest version.</target>
       </segment>
     </unit>
+    <unit id="OohNh_M" name="log.type.part_stock_changed">
+      <segment>
+        <source>log.type.part_stock_changed</source>
+        <target>Part Stock changed</target>
+      </segment>
+    </unit>
+    <unit id="ZIcw_8V" name="log.part_stock_changed.withdraw">
+      <segment>
+        <source>log.part_stock_changed.withdraw</source>
+        <target>Stock withdrawn</target>
+      </segment>
+    </unit>
+    <unit id="jIm.ZAZ" name="log.part_stock_changed.add">
+      <segment>
+        <source>log.part_stock_changed.add</source>
+        <target>Stock added</target>
+      </segment>
+    </unit>
+    <unit id="Q8itu0n" name="log.part_stock_changed.move">
+      <segment>
+        <source>log.part_stock_changed.move</source>
+        <target>Stock moved</target>
+      </segment>
+    </unit>
+    <unit id="Z_uM8dG" name="log.part_stock_changed.comment">
+      <segment>
+        <source>log.part_stock_changed.comment</source>
+        <target>Comment</target>
+      </segment>
+    </unit>
+    <unit id="vEWZ248" name="log.part_stock_changed.change">
+      <segment>
+        <source>log.part_stock_changed.change</source>
+        <target>Change</target>
+      </segment>
+    </unit>
+    <unit id="8kmtQLq" name="log.part_stock_changed.move_target">
+      <segment>
+        <source>log.part_stock_changed.move_target</source>
+        <target>Move target</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
