@@ -131,9 +131,9 @@ final class PartsTableActionHandler
                 default:
                     throw new InvalidArgumentException('The given action is unknown! ('.$action.')');
             }
-
-            return null;
         }
+
+        return null;
     }
 
     /**

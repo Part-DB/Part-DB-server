@@ -66,12 +66,13 @@ class EntityColumn extends AbstractColumn
 
         $resolver->setDefault('render', function (Options $options) {
             return function ($value, $context) use ($options) {
-                /** @var AbstractNamedDBElement|null $entity */
                 if ($this->accessor->isReadable($context, $options['property'])) {
                     $entity = $this->accessor->getValue($context, $options['property']);
                 } else {
                     $entity = null;
                 }
+
+                /** @var AbstractNamedDBElement|null $entity */
 
                 if (null !== $entity) {
                     if (null !== $entity->getID()) {

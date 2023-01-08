@@ -48,7 +48,7 @@ class ProjectBOMEntry extends AbstractDBElement
     use TimestampTrait;
 
     /**
-     * @var int
+     * @var float
      * @ORM\Column(type="float", name="quantity")
      * @Assert\Positive()
      */
