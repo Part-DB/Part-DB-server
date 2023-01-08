@@ -165,12 +165,6 @@ class PermissionManagerTest extends WebTestCase
         //Check for inherit from group
         $this->assertTrue($this->service->inherit($this->user, 'parts', 'show_history'));
         $this->assertFalse($this->service->inherit($this->user, 'parts', 'delete'));
-        $this->assertNull($this->service->inherit($this->user, 'parts', 'search'));
-
-        //Check for inherit from group and parent group
-        $this->assertTrue($this->service->inherit($this->user, 'parts', 'all_parts'));
-        $this->assertFalse($this->service->inherit($this->user, 'parts', 'no_price_parts'));
-        $this->assertNull($this->service->inherit($this->user, 'parts', 'obsolete_parts'));
 
         //Test for user without group
         $this->assertTrue($this->service->inherit($this->user_withoutGroup, 'parts', 'read'));

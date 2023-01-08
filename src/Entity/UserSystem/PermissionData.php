@@ -211,6 +211,11 @@ final class PermissionData implements \JsonSerializable
 
         //Filter out all empty or null values
         foreach ($this->data as $permission => $operations) {
+            //Skip non-array values
+            if (!is_array($operations)) {
+                continue;
+            }
+
             $ret[$permission] = array_filter($operations, function ($value) {
                 return $value !== null;
             });

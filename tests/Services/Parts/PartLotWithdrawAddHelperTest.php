@@ -10,6 +10,14 @@ use App\Services\Parts\PartLotWithdrawAddHelper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+class TestPartLot extends PartLot
+{
+    public function getID(): ?int
+    {
+        return 2;
+    }
+}
+
 class PartLotWithdrawAddHelperTest extends WebTestCase
 {
 
@@ -56,25 +64,25 @@ class PartLotWithdrawAddHelperTest extends WebTestCase
         $this->full_storageLocation = new Storelocation();
         $this->full_storageLocation->setIsFull(true);
 
-        $this->partLot1 = new PartLot();
+        $this->partLot1 = new TestPartLot();
         $this->partLot1->setPart($this->part);
         $this->partLot1->setAmount(10);
 
-        $this->partLot2 = new PartLot();
+        $this->partLot2 = new TestPartLot();
         $this->partLot2->setPart($this->part);
         $this->partLot2->setStorageLocation($this->storageLocation);
         $this->partLot2->setAmount(2);
 
-        $this->partLot3 = new PartLot();
+        $this->partLot3 = new TestPartLot();
         $this->partLot3->setPart($this->part);
         $this->partLot3->setAmount(0);
 
-        $this->fullLot = new PartLot();
+        $this->fullLot = new TestPartLot();
         $this->fullLot->setPart($this->part);
         $this->fullLot->setAmount(45);
         $this->fullLot->setStorageLocation($this->full_storageLocation);
 
-        $this->lotWithUnknownInstock = new PartLot();
+        $this->lotWithUnknownInstock = new TestPartLot();
         $this->lotWithUnknownInstock->setPart($this->part);
         $this->lotWithUnknownInstock->setAmount(5);
         $this->lotWithUnknownInstock->setInstockUnknown(true);
@@ -86,7 +94,8 @@ class PartLotWithdrawAddHelperTest extends WebTestCase
         //Normal lots should be withdrawable
         $this->assertTrue($this->service->canWithdraw($this->partLot1));
         $this->assertTrue($this->service->canWithdraw($this->partLot2));
-        $this->assertTrue($this->service->canWithdraw($this->partLot3));
+        //Empty lots should not be withdrawable
+        $this->assertFalse($this->service->canWithdraw($this->partLot3));
 
         //Full lots should be withdrawable
         $this->assertTrue($this->service->canWithdraw($this->fullLot));
