@@ -23,6 +23,7 @@ namespace App\Form\Filters;
 use App\DataTables\Filters\LogFilter;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\LogSystem\PartStockChangedLogEntry;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Entity\LabelSystem\LabelProfile;
@@ -86,6 +87,7 @@ class LogFilterType extends AbstractType
         'log.type.user_login' => UserLoginLogEntry::class,
         'log.type.user_logout' => UserLogoutLogEntry::class,
         'log.type.user_not_allowed' => UserNotAllowedLogEntry::class,
+        'log.type.part_stock_changed' => PartStockChangedLogEntry::class,
 
         //Legacy entries
         'log.type.instock_changed' => LegacyInstockChangedLogEntry::class,
