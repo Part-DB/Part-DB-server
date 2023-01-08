@@ -8501,16 +8501,6 @@ Element 3</target>
         <target>System</target>
       </segment>
     </unit>
-    <unit id="0CRVznf" name="perm.device_parts">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.device_parts</source>
-        <target>Baugruppenbauteile</target>
-      </segment>
-    </unit>
     <unit id="LG3jpJo" name="perm.self">
       <notes>
         <note priority="1">obsolete</note>
@@ -9752,12 +9742,6 @@ Element 3</target>
       <segment state="translated">
         <source>log.type.instock_changed</source>
         <target>[ALT] Bestand geändert</target>
-      </segment>
-    </unit>
-    <unit id="4Od2HUk" name="device_part.label">
-      <segment state="translated">
-        <source>device_part.label</source>
-        <target>Projektteil</target>
       </segment>
     </unit>
     <unit id="lJZCHHM" name="log.target_id">

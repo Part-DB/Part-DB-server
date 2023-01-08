@@ -8502,16 +8502,6 @@ Element 3</target>
         <target>System</target>
       </segment>
     </unit>
-    <unit id="0CRVznf" name="perm.device_parts">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>perm.device_parts</source>
-        <target>Device parts</target>
-      </segment>
-    </unit>
     <unit id="LG3jpJo" name="perm.self">
       <notes>
         <note priority="1">obsolete</note>
@@ -9753,12 +9743,6 @@ Element 3</target>
       <segment>
         <source>log.type.instock_changed</source>
         <target>[LEGACY] Instock changed</target>
-      </segment>
-    </unit>
-    <unit id="4Od2HUk" name="device_part.label">
-      <segment>
-        <source>device_part.label</source>
-        <target>Device part</target>
       </segment>
     </unit>
     <unit id="lJZCHHM" name="log.target_id">
