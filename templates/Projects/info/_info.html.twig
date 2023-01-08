@@ -4,7 +4,13 @@
     <div class="col-md-8">
         <div class="row">
             <div class="col-md-3 col-lg-4 col-4 mt-auto mb-auto">
-                <img src="{{ asset('img/part_placeholder.svg') }}" class="img-fluid img-thumbnail bg-light mb-2" alt="Part main image" height="300" width="300">
+                {% if project.masterPictureAttachment %}
+                    <a href="{{ entity_url(project.masterPictureAttachment, 'file_view') }}" data-turbo="false" target="_blank" rel="noopener">
+                        <img class="d-block w-100 img-fluid img-thumbnail bg-light" src="{{ entity_url(project.masterPictureAttachment, 'file_view') }}" alt="">
+                    </a>
+                {% else %}
+                    <img src="{{ asset('img/part_placeholder.svg') }}" class="img-fluid img-thumbnail bg-light mb-2" alt="Part main image" height="300" width="300">
+                {% endif %}
             </div>
             <div class="col-md-9 col-lg-8 col-7">
                 <h3 class="w-fit" title="{% trans %}name.label{% endtrans %}">{{ project.name }}
