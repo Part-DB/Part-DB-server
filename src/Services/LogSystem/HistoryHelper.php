@@ -46,6 +46,7 @@ use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parameters\AbstractParameter;
 use App\Entity\Parts\Part;
+use App\Entity\ProjectSystem\Project;
 
 class HistoryHelper
 {
@@ -79,6 +80,10 @@ class HistoryHelper
 
         if ($element instanceof Part || $element instanceof AbstractStructuralDBElement) {
             $array = array_merge($array, $element->getParameters()->toArray());
+        }
+
+        if ($element instanceof Project) {
+            $array = array_merge($array, $element->getBomEntries()->toArray());
         }
 
         return $array;
