@@ -85,7 +85,7 @@ class Project extends AbstractStructuralDBElement
     protected bool $order_only_missing_parts = false;
 
     /**
-     * @ORM\Column(type="text", nullable=false)
+     * @ORM\Column(type="text", nullable=false, columnDefinition="DEFAULT ''")
      */
     protected string $description = '';
 
