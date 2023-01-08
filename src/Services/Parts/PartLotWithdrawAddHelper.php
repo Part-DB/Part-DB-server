@@ -5,15 +5,19 @@ namespace App\Services\Parts;
 use App\Entity\LogSystem\PartStockChangedLogEntry;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
+use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\EventLogger;
 
 final class PartLotWithdrawAddHelper
 {
-    private $eventLogger;
+    private EventLogger $eventLogger;
+    private EventCommentHelper $eventCommentHelper;
 
-    public function __construct(EventLogger $eventLogger)
+
+    public function __construct(EventLogger $eventLogger, EventCommentHelper $eventCommentHelper)
     {
         $this->eventLogger = $eventLogger;
+        $this->eventCommentHelper = $eventCommentHelper;
     }
 
     /**
@@ -95,6 +99,11 @@ final class PartLotWithdrawAddHelper
         $event = PartStockChangedLogEntry::withdraw($partLot, $oldAmount, $partLot->getAmount(), $part->getAmountSum() , $comment);
         $this->eventLogger->log($event);
 
+        //Apply the comment also to global events, so it gets associated with the elementChanged log entry
+        if (!$this->eventCommentHelper->isMessageSet() && !empty($comment)) {
+            $this->eventCommentHelper->setMessage($comment);
+        }
+
         return $partLot;
     }
 
@@ -129,6 +138,11 @@ final class PartLotWithdrawAddHelper
 
         $event = PartStockChangedLogEntry::add($partLot, $oldAmount, $partLot->getAmount(), $part->getAmountSum() , $comment);
         $this->eventLogger->log($event);
+
+        //Apply the comment also to global events, so it gets associated with the elementChanged log entry
+        if (!$this->eventCommentHelper->isMessageSet() && !empty($comment)) {
+            $this->eventCommentHelper->setMessage($comment);
+        }
 
         return $partLot;
     }
@@ -179,5 +193,10 @@ final class PartLotWithdrawAddHelper
 
         $event = PartStockChangedLogEntry::move($origin, $oldOriginAmount, $origin->getAmount(), $part->getAmountSum() , $comment, $target);
         $this->eventLogger->log($event);
+
+        //Apply the comment also to global events, so it gets associated with the elementChanged log entry
+        if (!$this->eventCommentHelper->isMessageSet() && !empty($comment)) {
+            $this->eventCommentHelper->setMessage($comment);
+        }
     }
 }
