@@ -110,7 +110,9 @@ class PermissionSchemaUpdater
     public function userUpgradeSchemaRecursively(User $user, int $target_version = PermissionData::CURRENT_SCHEMA_VERSION): bool
     {
         $updated = $this->upgradeSchema($user, $target_version);
-        $updated = $this->groupUpgradeSchemaRecursively($user->getGroup(), $target_version) || $updated;
+        if ($user->getGroup()) {
+            $updated = $this->groupUpgradeSchemaRecursively($user->getGroup(), $target_version) || $updated;
+        }
 
         return $updated;
     }
