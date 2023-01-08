@@ -60,7 +60,7 @@ class ElementTypeNameGenerator
             Attachment::class => $this->translator->trans('attachment.label'),
             Category::class => $this->translator->trans('category.label'),
             AttachmentType::class => $this->translator->trans('attachment_type.label'),
-            Project::class => $this->translator->trans('device.label'),
+            Project::class => $this->translator->trans('project.label'),
             ProjectBOMEntry::class => $this->translator->trans('project_bom_entry.label'),
             Footprint::class => $this->translator->trans('footprint.label'),
             Manufacturer::class => $this->translator->trans('manufacturer.label'),

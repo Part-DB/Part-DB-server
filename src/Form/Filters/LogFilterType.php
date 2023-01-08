@@ -137,7 +137,7 @@ class LogFilterType extends AbstractType
                 'attachment.label' => AbstractLogEntry::targetTypeClassToID(Attachment::class),
                 'attachment_type.label' => AbstractLogEntry::targetTypeClassToID(AttachmentType::class),
                 'category.label' => AbstractLogEntry::targetTypeClassToID(Category::class),
-                'device.label' => AbstractLogEntry::targetTypeClassToID(Project::class),
+                'project.label' => AbstractLogEntry::targetTypeClassToID(Project::class),
                 'device_part.label' => AbstractLogEntry::targetTypeClassToID(ProjectBOMEntry::class),
                 'footprint.label' => AbstractLogEntry::targetTypeClassToID(Footprint::class),
                 'group.label' => AbstractLogEntry::targetTypeClassToID(Group::class),

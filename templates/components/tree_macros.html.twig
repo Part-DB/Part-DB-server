@@ -6,7 +6,7 @@
         ['footprints', path('tree_footprint_root'), 'footprint.labelp', is_granted('@footprints.read') and is_granted('@parts.read')],
         ['manufacturers', path('tree_manufacturer_root'), 'manufacturer.labelp', is_granted('@manufacturers.read') and is_granted('@parts.read')],
         ['suppliers', path('tree_supplier_root'), 'supplier.labelp', is_granted('@suppliers.read') and is_granted('@parts.read')],
-        ['devices', path('tree_device_root'), 'device.labelp', is_granted('@devices.read')],
+        ['devices', path('tree_device_root'), 'project.labelp', is_granted('@devices.read')],
         ['tools', path('tree_tools'), 'tools.label', true],
     ] %}
 

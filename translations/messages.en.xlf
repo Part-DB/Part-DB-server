@@ -147,35 +147,35 @@
         <target>New currency</target>
       </segment>
     </unit>
-    <unit id="tlgOYB5" name="device.caption">
+    <unit id="tlgOYB5" name="project.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
         <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
         <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
       </notes>
       <segment>
-        <source>device.caption</source>
-        <target>Device</target>
+        <source>project.caption</source>
+        <target>Project</target>
       </segment>
     </unit>
-    <unit id="fu1Uc_k" name="device.edit">
+    <unit id="fu1Uc_k" name="project.edit">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
         <note category="state" priority="1">new</note>
       </notes>
       <segment>
-        <source>device.edit</source>
-        <target>Edit device</target>
+        <source>project.edit</source>
+        <target>Edit project</target>
       </segment>
     </unit>
-    <unit id="2z6Gm_r" name="device.new">
+    <unit id="2z6Gm_r" name="project.new">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
         <note category="state" priority="1">new</note>
       </notes>
       <segment>
-        <source>device.new</source>
-        <target>New device</target>
+        <source>project.new</source>
+        <target>New project</target>
       </segment>
     </unit>
     <unit id="lQ8QeGr" name="search.placeholder">
@@ -4095,7 +4095,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Go!</target>
       </segment>
     </unit>
-    <unit id="g6tt4u1" name="device.labelp">
+    <unit id="g6tt4u1" name="project.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
@@ -4107,8 +4107,8 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <note priority="1">templates\base.html.twig:230</note>
       </notes>
       <segment>
-        <source>device.labelp</source>
-        <target>Devices</target>
+        <source>project.labelp</source>
+        <target>Projects</target>
       </segment>
     </unit>
     <unit id="Kw3N1AA" name="actions">
@@ -6025,13 +6025,13 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Attachment type</target>
       </segment>
     </unit>
-    <unit id="uR5eAkv" name="device.label">
+    <unit id="uR5eAkv" name="project.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
         <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
       </notes>
       <segment>
-        <source>device.label</source>
+        <source>project.label</source>
         <target>Project</target>
       </segment>
     </unit>
@@ -6215,15 +6215,15 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Categories</target>
       </segment>
     </unit>
-    <unit id="b2pLmAq" name="tree.tools.edit.devices">
+    <unit id="b2pLmAq" name="tree.tools.edit.projects">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:161</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:138</note>
         <note priority="1">src\Services\ToolsTreeBuilder.php:66</note>
       </notes>
       <segment>
-        <source>tree.tools.edit.devices</source>
-        <target>Devices</target>
+        <source>tree.tools.edit.projects</source>
+        <target>Projects</target>
       </segment>
     </unit>
     <unit id="BFfweU_" name="tree.tools.edit.suppliers">

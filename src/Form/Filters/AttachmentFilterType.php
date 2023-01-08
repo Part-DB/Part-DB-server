@@ -80,7 +80,7 @@ class AttachmentFilterType extends AbstractType
                 'attachment_type.label' => AttachmentTypeAttachment::class,
                 'category.label' => CategoryAttachment::class,
                 'currency.label' => CurrencyAttachment::class,
-                'device.label' => ProjectAttachment::class,
+                'project.label' => ProjectAttachment::class,
                 'footprint.label' => FootprintAttachment::class,
                 'group.label' => GroupAttachment::class,
                 'label_profile.label' => LabelAttachment::class,

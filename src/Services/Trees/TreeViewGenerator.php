@@ -162,7 +162,7 @@ class TreeViewGenerator
             case Supplier::class:
                 return $this->translator->trans('supplier.labelp');
             case Project::class:
-                return $this->translator->trans('device.labelp');
+                return $this->translator->trans('project.labelp');
             default:
                 return $this->translator->trans('tree.root_node.text');
         }
