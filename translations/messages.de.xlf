@@ -147,7 +147,7 @@
         <target>Neue Währung</target>
       </segment>
     </unit>
-    <unit id="tlgOYB5" name="project.caption">
+    <unit id="zNlEdQs" name="project.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
         <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
@@ -158,7 +158,7 @@
         <target>Projekte</target>
       </segment>
     </unit>
-    <unit id="fu1Uc_k" name="project.edit">
+    <unit id="DTt5Co7" name="project.edit">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
         <note category="state" priority="1">new</note>
@@ -168,7 +168,7 @@
         <target>Bearbeite Projekt</target>
       </segment>
     </unit>
-    <unit id="2z6Gm_r" name="project.new">
+    <unit id="O_iNK2O" name="project.new">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
         <note category="state" priority="1">new</note>
@@ -4094,7 +4094,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Los!</target>
       </segment>
     </unit>
-    <unit id="g6tt4u1" name="project.labelp">
+    <unit id="w0jVACo" name="project.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
@@ -6024,7 +6024,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Ahangstyp</target>
       </segment>
     </unit>
-    <unit id="uR5eAkv" name="project.label">
+    <unit id="w.zcG5D" name="project.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
         <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
@@ -6214,7 +6214,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Kategorien</target>
       </segment>
     </unit>
-    <unit id="b2pLmAq" name="tree.tools.edit.projects">
+    <unit id="0I8lDuo" name="tree.tools.edit.projects">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:161</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:138</note>
@@ -8111,7 +8111,7 @@ Element 3</target>
         <target>Hersteller</target>
       </segment>
     </unit>
-    <unit id="5_k9ofl" name="perm.projects">
+    <unit id="1AtDlX." name="perm.projects">
       <notes>
         <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
