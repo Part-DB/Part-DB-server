@@ -1,0 +1,37 @@
+{% extends "main_card.html.twig" %}
+
+{% macro path_to_breadcrumb(path) %}
+    <nav aria-label="breadcrumb" >
+        <ol class="breadcrumb p-2 bg-light rounded mt-2" id="path-{{ path|replace({'/': '-'}) }}">
+            {% set path_array = path|split("/") %}
+            {% for part in path_array %}
+                <li class="breadcrumb-item {% if loop.last %}active{% endif %}" aria-current="page">
+                    {{ part }}
+                </li>
+            {% endfor %}
+        </ol>
+    </nav>
+{% endmacro %}
+
+{% block card_title %}
+    Built in Footprints
+{% endblock %}
+
+{% block card_content %}
+    {% for folder, file_array in grouped_footprints %}
+        {{ _self.path_to_breadcrumb(folder) }}
+
+        <div class="row row-cols-2 row-cols-md-6 g-4">
+            {% for file_info in file_array %}
+                <div class="col">
+                    <div class="card text-center">
+                        <img src="{{ asset(file_info.assets_path) }}" class="card-img-top" alt="{{ file_info.filename }}">
+                        <div class="card-body">
+                            <p class="card-text"><b>{{ file_info.filename }}</b></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endblock %}
