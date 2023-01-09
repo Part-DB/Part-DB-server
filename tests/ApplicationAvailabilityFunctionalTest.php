@@ -123,6 +123,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         //Tools
         yield ['/tools/reel_calc'];
         yield ['/tools/server_infos'];
+        yield ['/tools/builtin_footprints'];
 
         //Webauthn Register
         yield ['/webauthn/register'];

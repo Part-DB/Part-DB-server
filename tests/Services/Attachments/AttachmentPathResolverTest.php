@@ -139,4 +139,32 @@ class AttachmentPathResolverTest extends WebTestCase
     {
         $this->assertSame($expected, $this->service->realPathToPlaceholder($param, $old_method));
     }
+
+    public function germanFootprintPathdDataProvider()
+    {
+        self::bootKernel();
+        $this->projectDir_orig = realpath(self::$kernel->getProjectDir());
+        $this->projectDir = str_replace('\\', '/', $this->projectDir_orig);
+        $this->footprint_path = $this->projectDir.'/public/img/footprints';
+
+        yield [$this->footprint_path. '/Active/Diodes/THT/DIODE_P600.png', '%FOOTPRINTS%/Aktiv/Dioden/Bedrahtet/DIODE_P600.png'];
+        yield [$this->footprint_path . '/Passive/Resistors/THT/Carbon/RESISTOR-CARBON_0207.png', '%FOOTPRINTS%/Passiv/Widerstaende/Bedrahtet/Kohleschicht/WIDERSTAND-KOHLE_0207.png'];
+        yield [$this->footprint_path . '/Optics/LEDs/THT/LED-GREEN_3MM.png', '%FOOTPRINTS%/Optik/LEDs/Bedrahtet/LED-GRUEN_3MM.png'];
+        yield [$this->footprint_path . '/Passive/Capacitors/TrimmerCapacitors/TRIMMER_CAPACITOR-RED_TZ03F.png', '%FOOTPRINTS%/Passiv/Kondensatoren/Trimmkondensatoren/TRIMMKONDENSATOR-ROT_TZ03F.png'];
+        yield [$this->footprint_path . '/Active/ICs/TO/IC_TO126.png', '%FOOTPRINTS%/Aktiv/ICs/TO/IC_TO126.png'];
+        yield [$this->footprint_path . '/Electromechanics/Switches_Buttons/RotarySwitches/ROTARY_SWITCH_DIP10.png', '%FOOTPRINTS%/Elektromechanik/Schalter_Taster/Drehschalter/DREHSCHALTER_DIP10.png'];
+        yield [$this->footprint_path . '/Electromechanics/Connectors/DINConnectors/SOCKET_DIN_MAB_4.png', '%FOOTPRINTS%/Elektromechanik/Verbinder/Rundsteckverbinder/BUCHSE_DIN_MAB_4.png'];
+
+        //Leave english pathes untouched
+        yield [$this->footprint_path . '/Passive/Capacitors/CAPACITOR_CTS_A_15MM.png', '%FOOTPRINTS%/Passive/Capacitors/CAPACITOR_CTS_A_15MM.png'];
+    }
+
+    /**
+     * @dataProvider germanFootprintPathdDataProvider
+     * @return void
+     */
+    public function testConversionOfGermanFootprintPaths(string $expected, string $input): void
+    {
+        $this->assertSame($expected, $this->service->placeholderToRealPath($input));
+    }
 }

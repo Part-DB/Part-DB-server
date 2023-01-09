@@ -131,6 +131,12 @@ class ToolsTreeBuilder
                 $this->urlGenerator->generate('tools_reel_calculator')
             ))->setIcon('fa-treeview fa-fw fa-solid fa-ruler');
         }
+        if ($this->security->isGranted('@tools.builtin_footprints_viewer')) {
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('tools.builtin_footprints_viewer.title'),
+                $this->urlGenerator->generate('tools_builtin_footprints_viewer')
+            ))->setIcon('fa-treeview fa-fw fa-solid fa-images');
+        }
 
         return $nodes;
     }
