@@ -112,7 +112,7 @@
     </button>
 
     {# Must be outside of the sidebar or it will be hidden too #}
-    <button class="btn btn-outline-dark btn-sm p-0" type="button" id="sidebar-toggle-button" title="{% trans %}sidebar.big.toggle{% endtrans %}"
+    <button class="btn btn-outline-dark btn-sm p-0 d-md-block d-none" type="button" id="sidebar-toggle-button" title="{% trans %}sidebar.big.toggle{% endtrans %}"
             {{ stimulus_controller('common/hide_sidebar') }} {{ stimulus_action('common/hide_sidebar', 'toggleSidebar') }}>
         <i class="fas fa-angle-left"></i>
     </button>
