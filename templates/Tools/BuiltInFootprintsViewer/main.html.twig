@@ -2,7 +2,7 @@
 
 {% macro path_to_breadcrumb(path) %}
     <nav aria-label="breadcrumb" >
-        <ol class="breadcrumb p-2 bg-light rounded mt-2" id="path-{{ path|replace({'/': '-'}) }}">
+        <ol class="breadcrumb p-2 bg-info rounded mt-3" id="path-{{ path|replace({'/': '-'}) }}">
             {% set path_array = path|split("/") %}
             {% for part in path_array %}
                 <li class="breadcrumb-item {% if loop.last %}active{% endif %}" aria-current="page">
@@ -13,11 +13,16 @@
     </nav>
 {% endmacro %}
 
+{% block title %}{% trans %}tools.builtin_footprints_viewer.title{% endtrans %}{% endblock %}
+
 {% block card_title %}
-    Built in Footprints
+    <i class="fa-regular fa-images fa-fw"></i> {% trans %}tools.builtin_footprints_viewer.title{% endtrans %}
 {% endblock %}
 
 {% block card_content %}
+
+    <p class="text-muted">{% trans %}tools.builtin_footprints_viewer.hint{% endtrans %}</p>
+
     {% for folder, file_array in grouped_footprints %}
         {{ _self.path_to_breadcrumb(folder) }}
 
