@@ -154,6 +154,9 @@ class AttachmentPathResolverTest extends WebTestCase
         yield [$this->footprint_path . '/Active/ICs/TO/IC_TO126.png', '%FOOTPRINTS%/Aktiv/ICs/TO/IC_TO126.png'];
         yield [$this->footprint_path . '/Electromechanics/Switches_Buttons/RotarySwitches/ROTARY_SWITCH_DIP10.png', '%FOOTPRINTS%/Elektromechanik/Schalter_Taster/Drehschalter/DREHSCHALTER_DIP10.png'];
         yield [$this->footprint_path . '/Electromechanics/Connectors/DINConnectors/SOCKET_DIN_MAB_4.png', '%FOOTPRINTS%/Elektromechanik/Verbinder/Rundsteckverbinder/BUCHSE_DIN_MAB_4.png'];
+
+        //Leave english pathes untouched
+        yield [$this->footprint_path . '/Passive/Capacitors/CAPACITOR_CTS_A_15MM.png', '%FOOTPRINTS%/Passive/Capacitors/CAPACITOR_CTS_A_15MM.png'];
     }
 
     /**

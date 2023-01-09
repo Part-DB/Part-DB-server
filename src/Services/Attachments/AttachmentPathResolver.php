@@ -366,6 +366,11 @@ class AttachmentPathResolver
 
     public function convertOldFootprintPath(string $old_path): string
     {
+        //Only do the conversion if it contains a german string (meaning it has one of the four former base folders in its path)
+        if (!preg_match('/%FOOTPRINTS%\/(Passiv|Aktiv|Akustik|Elektromechanik|Optik)\//', $old_path)) {
+            return $old_path;
+        }
+
         return strtr($old_path, self::OLD_FOOTPINT_PATH_REPLACEMENT);
     }
 }
