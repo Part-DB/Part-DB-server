@@ -268,7 +268,7 @@ class AttachmentPathResolver
         'Quarze_SMD' => 'Crystals_SMD',
         'Quarzoszillatoren_bedrahtet' =>  'CrystalOscillator_THT',
         'QUARZOSZILLATOR' => 'CRYSTAL_OSCILLATOR',
-        'Quarzoszillator_SMD' => 'CrystalOscillator_SMD',
+        'Quarzoszillatoren_SMD' => 'CrystalOscillator_SMD',
         'Schaltregler' => 'SwitchingRegulator',
         'SCHALTREGLER' => 'SWITCHING_REGULATOR',
         'Akustik' => 'Acoustics',
@@ -291,7 +291,9 @@ class AttachmentPathResolver
         'Gewinde' => 'Threaded',
         'abgewinkelt' => 'angled',
         'hochkant' => 'vertical',
+        'stehend' => 'vertical',
         'liegend' => 'horizontal',
+        '_WECHSLER' => '',
         'Schiebeschalter' => 'SlideSwitch',
         'SCHIEBESCHALTER' => 'SLIDE_SWITCH',
         'Sicherungshalter' => 'Fuseholder',
@@ -309,12 +311,13 @@ class AttachmentPathResolver
         'gerade' => 'straight',
         'flach' => 'flat',
         'praezisions' => 'precision',
+        'praezision' => 'precision',
         'BUCHSENLEISTE' => 'SOCKET_STRIP',
         'GERADE' => 'STRAIGHT',
         'FLACH' => 'FLAT',
         'PRAEZISION' => 'PRECISION',
         'ABGEWINKELT' => 'ANGLED',
-        'Federkraftklemme' => 'SpringClamps',
+        'Federkraftklemmen' => 'SpringClamps',
         'SCHRAUBKLEMME' => 'SCREW_CLAMP',
         'KLEMME' => 'CLAMP',
         'VERBINDER' => 'CONNECTOR',
@@ -362,6 +365,7 @@ class AttachmentPathResolver
         'KERAMIK' => 'CERAMIC',
         'Kohleschicht' => 'Carbon',
         'KOHLE' => 'CARBON',
+        'Sonstige' => 'Miscellaneous', //Have to be last (after "Sonstiges")
     ];
 
     public function convertOldFootprintPath(string $old_path): string
