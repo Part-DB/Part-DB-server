@@ -364,7 +364,7 @@ class AttachmentPathResolver
         'KOHLE' => 'CARBON',
     ];
 
-    private function convertOldFootprintPath(string $old_path): string
+    public function convertOldFootprintPath(string $old_path): string
     {
         return strtr($old_path, self::OLD_FOOTPINT_PATH_REPLACEMENT);
     }
