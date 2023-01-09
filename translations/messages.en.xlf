@@ -147,37 +147,6 @@
         <target>New currency</target>
       </segment>
     </unit>
-    <unit id="tlgOYB5" name="project.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>project.caption</source>
-        <target>Project</target>
-      </segment>
-    </unit>
-    <unit id="fu1Uc_k" name="project.edit">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
-        <note category="state" priority="1">new</note>
-      </notes>
-      <segment state="translated">
-        <source>project.edit</source>
-        <target>Edit project</target>
-      </segment>
-    </unit>
-    <unit id="2z6Gm_r" name="project.new">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
-        <note category="state" priority="1">new</note>
-      </notes>
-      <segment state="translated">
-        <source>project.new</source>
-        <target>New project</target>
-      </segment>
-    </unit>
     <unit id="lQ8QeGr" name="search.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
@@ -4095,22 +4064,6 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Go!</target>
       </segment>
     </unit>
-    <unit id="g6tt4u1" name="project.labelp">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
-        <note priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
-        <note priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
-        <note priority="1">templates\base.html.twig:175</note>
-        <note priority="1">templates\base.html.twig:189</note>
-        <note priority="1">templates\base.html.twig:202</note>
-        <note priority="1">templates\base.html.twig:230</note>
-      </notes>
-      <segment state="translated">
-        <source>project.labelp</source>
-        <target>Projects</target>
-      </segment>
-    </unit>
     <unit id="Kw3N1AA" name="actions">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:2</note>
@@ -6025,16 +5978,6 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Attachment type</target>
       </segment>
     </unit>
-    <unit id="uR5eAkv" name="project.label">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
-        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
-      </notes>
-      <segment state="translated">
-        <source>project.label</source>
-        <target>Project</target>
-      </segment>
-    </unit>
     <unit id="QPnDbnv" name="measurement_unit.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:85</note>
@@ -6213,17 +6156,6 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <segment state="translated">
         <source>tree.tools.edit.categories</source>
         <target>Categories</target>
-      </segment>
-    </unit>
-    <unit id="b2pLmAq" name="tree.tools.edit.projects">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:161</note>
-        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:138</note>
-        <note priority="1">src\Services\ToolsTreeBuilder.php:66</note>
-      </notes>
-      <segment state="translated">
-        <source>tree.tools.edit.projects</source>
-        <target>Projects</target>
       </segment>
     </unit>
     <unit id="BFfweU_" name="tree.tools.edit.suppliers">
@@ -8110,16 +8042,6 @@ Element 3</target>
       <segment state="translated">
         <source>perm.part.manufacturers</source>
         <target>Manufacturers</target>
-      </segment>
-    </unit>
-    <unit id="5_k9ofl" name="perm.projects">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.projects</source>
-        <target>Projects</target>
       </segment>
     </unit>
     <unit id="hgZrqP_" name="perm.part.attachment_types">
