@@ -147,6 +147,37 @@
         <target>Neue Währung</target>
       </segment>
     </unit>
+    <unit id="tlgOYB5" name="project.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>project.caption</source>
+        <target>Projekte</target>
+      </segment>
+    </unit>
+    <unit id="fu1Uc_k" name="project.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>project.edit</source>
+        <target>Bearbeite Projekt</target>
+      </segment>
+    </unit>
+    <unit id="2z6Gm_r" name="project.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>project.new</source>
+        <target>Neues Projekt</target>
+      </segment>
+    </unit>
     <unit id="lQ8QeGr" name="search.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
@@ -4063,6 +4094,22 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Los!</target>
       </segment>
     </unit>
+    <unit id="g6tt4u1" name="project.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
+        <note priority="1">templates\base.html.twig:175</note>
+        <note priority="1">templates\base.html.twig:189</note>
+        <note priority="1">templates\base.html.twig:202</note>
+        <note priority="1">templates\base.html.twig:230</note>
+      </notes>
+      <segment state="translated">
+        <source>project.labelp</source>
+        <target>Projekte</target>
+      </segment>
+    </unit>
     <unit id="Kw3N1AA" name="actions">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:2</note>
@@ -5977,6 +6024,16 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Ahangstyp</target>
       </segment>
     </unit>
+    <unit id="uR5eAkv" name="project.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
+      </notes>
+      <segment state="translated">
+        <source>project.label</source>
+        <target>Projekt</target>
+      </segment>
+    </unit>
     <unit id="QPnDbnv" name="measurement_unit.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:85</note>
@@ -6155,6 +6212,17 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       <segment state="translated">
         <source>tree.tools.edit.categories</source>
         <target>Kategorien</target>
+      </segment>
+    </unit>
+    <unit id="b2pLmAq" name="tree.tools.edit.projects">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:161</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:138</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:66</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.projects</source>
+        <target>Projekte</target>
       </segment>
     </unit>
     <unit id="BFfweU_" name="tree.tools.edit.suppliers">
@@ -8043,6 +8111,16 @@ Element 3</target>
         <target>Hersteller</target>
       </segment>
     </unit>
+    <unit id="5_k9ofl" name="perm.projects">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.projects</source>
+        <target>Projekte</target>
+      </segment>
+    </unit>
     <unit id="hgZrqP_" name="perm.part.attachment_types">
       <notes>
         <note priority="1">obsolete</note>
@@ -9850,6 +9928,288 @@ Element 3</target>
       <segment state="translated">
         <source>currency.edit.exchange_rate_updated.success</source>
         <target>Wechselkurs erfolgreich aktualisiert.</target>
+      </segment>
+    </unit>
+    <unit id="HbPND5j" name="project.bom.quantity">
+      <segment state="translated">
+        <source>project.bom.quantity</source>
+        <target>BOM Menge</target>
+      </segment>
+    </unit>
+    <unit id="29QITRx" name="project.bom.name">
+      <segment state="translated">
+        <source>project.bom.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="PucC1gg" name="project.bom.comment">
+      <segment state="translated">
+        <source>project.bom.comment</source>
+        <target>Notizen</target>
+      </segment>
+    </unit>
+    <unit id="fR.vNpd" name="project.bom.part">
+      <segment state="translated">
+        <source>project.bom.part</source>
+        <target>Bauteil</target>
+      </segment>
+    </unit>
+    <unit id="apnWXEq" name="project.bom.add_entry">
+      <segment state="translated">
+        <source>project.bom.add_entry</source>
+        <target>Eintrag hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="gwloIYB" name="part_list.action.group.projects">
+      <segment state="translated">
+        <source>part_list.action.group.projects</source>
+        <target>Projekte</target>
+      </segment>
+    </unit>
+    <unit id="QDvlT74" name="part_list.action.projects.add_to_project">
+      <segment state="translated">
+        <source>part_list.action.projects.add_to_project</source>
+        <target>Bauteile zu Projekt hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="ZVrMX6T" name="project.bom.delete.confirm">
+      <segment state="translated">
+        <source>project.bom.delete.confirm</source>
+        <target>Wollen sie diesen BOM Eintrag wirklich löschen?</target>
+      </segment>
+    </unit>
+    <unit id="T_wVWg_" name="project.add_parts_to_project">
+      <segment state="translated">
+        <source>project.add_parts_to_project</source>
+        <target>Bauteile zur Projekt BOM hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="02xC690" name="part.info.add_part_to_project">
+      <segment state="translated">
+        <source>part.info.add_part_to_project</source>
+        <target>Dieses Bauteil zu einem Projekt hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="OLIZm7S" name="project_bom_entry.label">
+      <segment state="translated">
+        <source>project_bom_entry.label</source>
+        <target>BOM Eintrag</target>
+      </segment>
+    </unit>
+    <unit id="HYlztPH" name="project.edit.status">
+      <segment state="translated">
+        <source>project.edit.status</source>
+        <target>Projektstatus</target>
+      </segment>
+    </unit>
+    <unit id="g63LZsn" name="project.status.draft">
+      <segment state="translated">
+        <source>project.status.draft</source>
+        <target>Entwurf</target>
+      </segment>
+    </unit>
+    <unit id="agiQw0z" name="project.status.planning">
+      <segment state="translated">
+        <source>project.status.planning</source>
+        <target>In Planung</target>
+      </segment>
+    </unit>
+    <unit id="8eTvW1x" name="project.status.in_production">
+      <segment state="translated">
+        <source>project.status.in_production</source>
+        <target>In Produktion</target>
+      </segment>
+    </unit>
+    <unit id="xtDIXe_" name="project.status.finished">
+      <segment state="translated">
+        <source>project.status.finished</source>
+        <target>Abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="wpp2047" name="project.status.archived">
+      <segment state="translated">
+        <source>project.status.archived</source>
+        <target>Archiviert</target>
+      </segment>
+    </unit>
+    <unit id="jcf.5wX" name="part.new_build_part.error.build_part_already_exists">
+      <segment state="translated">
+        <source>part.new_build_part.error.build_part_already_exists</source>
+        <target>Dieses Projekt hat bereits ein verknüpftes Bauteil.</target>
+      </segment>
+    </unit>
+    <unit id="YiFf2jl" name="project.info.title">
+      <segment state="translated">
+        <source>project.info.title</source>
+        <target>Projektinfo</target>
+      </segment>
+    </unit>
+    <unit id="Y7z_Lil" name="project.info.bom_entries_count">
+      <segment state="translated">
+        <source>project.info.bom_entries_count</source>
+        <target>BOM Einträge</target>
+      </segment>
+    </unit>
+    <unit id="jdkve2C" name="project.info.sub_projects_count">
+      <segment state="translated">
+        <source>project.info.sub_projects_count</source>
+        <target>Unterprojekte</target>
+      </segment>
+    </unit>
+    <unit id="keeSexh" name="project.info.bom_add_parts">
+      <segment state="translated">
+        <source>project.info.bom_add_parts</source>
+        <target>BOM Einträge hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="sgaRuly" name="project.info.info.label">
+      <segment state="translated">
+        <source>project.info.info.label</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="vaFaY8r" name="project.info.sub_projects.label">
+      <segment state="translated">
+        <source>project.info.sub_projects.label</source>
+        <target>Unterprojekte</target>
+      </segment>
+    </unit>
+    <unit id="CTIbEF6" name="project.bom.price">
+      <segment state="translated">
+        <source>project.bom.price</source>
+        <target>Preis</target>
+      </segment>
+    </unit>
+    <unit id="hO.xnng" name="part.info.withdraw_modal.title.withdraw">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.title.withdraw</source>
+        <target>Bauteile aus Lot entnehmen</target>
+      </segment>
+    </unit>
+    <unit id="ci6FaUj" name="part.info.withdraw_modal.title.add">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.title.add</source>
+        <target>Bauteile zu Lot hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="kGal3M_" name="part.info.withdraw_modal.title.move">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.title.move</source>
+        <target>Verschiebe Bauteile in ein anderes Lot</target>
+      </segment>
+    </unit>
+    <unit id="zxFeQRY" name="part.info.withdraw_modal.amount">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.amount</source>
+        <target>Menge</target>
+      </segment>
+    </unit>
+    <unit id="iblpgc7" name="part.info.withdraw_modal.move_to">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.move_to</source>
+        <target>Verschieben in</target>
+      </segment>
+    </unit>
+    <unit id="pYCfHzw" name="part.info.withdraw_modal.comment">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.comment</source>
+        <target>Kommentar</target>
+      </segment>
+    </unit>
+    <unit id="ARNLGgz" name="part.info.withdraw_modal.comment.hint">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.comment.hint</source>
+        <target>Sie können hier einen Kommentar eintragen, der beschreibt warum diese Aktion durchgeführt wurde (z.B. für was dieses Bauteil benötigt wurde). Diese Information wird im Log gespeichert.</target>
+      </segment>
+    </unit>
+    <unit id="Sumeg5G" name="modal.close">
+      <segment state="translated">
+        <source>modal.close</source>
+        <target>Schließen</target>
+      </segment>
+    </unit>
+    <unit id="sye5gxs" name="modal.submit">
+      <segment state="translated">
+        <source>modal.submit</source>
+        <target>Absenden</target>
+      </segment>
+    </unit>
+    <unit id="jl7xM1O" name="part.withdraw.success">
+      <segment state="translated">
+        <source>part.withdraw.success</source>
+        <target>Bauteile erfolgreich entnommen/hinzugefügt/verschoben.</target>
+      </segment>
+    </unit>
+    <unit id="oghrs8X" name="perm.parts_stock">
+      <segment state="translated">
+        <source>perm.parts_stock</source>
+        <target>Bauteilbestand</target>
+      </segment>
+    </unit>
+    <unit id="YjbdSVx" name="perm.parts_stock.withdraw">
+      <segment state="translated">
+        <source>perm.parts_stock.withdraw</source>
+        <target>Bauteile aus Bestand entnehmen</target>
+      </segment>
+    </unit>
+    <unit id="P4saY9b" name="perm.parts_stock.add">
+      <segment state="translated">
+        <source>perm.parts_stock.add</source>
+        <target>Bauteile zu Bestand hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="JR4LXfJ" name="perm.parts_stock.move">
+      <segment state="translated">
+        <source>perm.parts_stock.move</source>
+        <target>Bauteile zwischen Lots verschieben</target>
+      </segment>
+    </unit>
+    <unit id="DQ_FAfi" name="user.permissions_schema_updated">
+      <segment state="translated">
+        <source>user.permissions_schema_updated</source>
+        <target>Das Berechtigungsschema deines Benutzeraccounts wurde auf die neuste Version aktualisiert.</target>
+      </segment>
+    </unit>
+    <unit id="OohNh_M" name="log.type.part_stock_changed">
+      <segment state="translated">
+        <source>log.type.part_stock_changed</source>
+        <target>Bauteilebestand geändert</target>
+      </segment>
+    </unit>
+    <unit id="ZIcw_8V" name="log.part_stock_changed.withdraw">
+      <segment state="translated">
+        <source>log.part_stock_changed.withdraw</source>
+        <target>Bauteile entnommen</target>
+      </segment>
+    </unit>
+    <unit id="jIm.ZAZ" name="log.part_stock_changed.add">
+      <segment state="translated">
+        <source>log.part_stock_changed.add</source>
+        <target>Bauteile hinzugefügt</target>
+      </segment>
+    </unit>
+    <unit id="Q8itu0n" name="log.part_stock_changed.move">
+      <segment state="translated">
+        <source>log.part_stock_changed.move</source>
+        <target>Bauteile verschoben</target>
+      </segment>
+    </unit>
+    <unit id="Z_uM8dG" name="log.part_stock_changed.comment">
+      <segment state="translated">
+        <source>log.part_stock_changed.comment</source>
+        <target>Kommentar</target>
+      </segment>
+    </unit>
+    <unit id="vEWZ248" name="log.part_stock_changed.change">
+      <segment state="translated">
+        <source>log.part_stock_changed.change</source>
+        <target>Änderung</target>
+      </segment>
+    </unit>
+    <unit id="8kmtQLq" name="log.part_stock_changed.move_target">
+      <segment state="translated">
+        <source>log.part_stock_changed.move_target</source>
+        <target>Verschoben in</target>
       </segment>
     </unit>
   </file>
