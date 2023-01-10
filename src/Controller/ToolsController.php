@@ -91,10 +91,9 @@ class ToolsController extends AbstractController
 
     /**
      * @Route("/builtin_footprints", name="tools_builtin_footprints_viewer")
-     * @param  AttachmentPathResolver  $pathResolver
      * @return Response
      */
-    public function builtInFootprintsViewer(BuiltinAttachmentsFinder $builtinAttachmentsFinder, AttachmentURLGenerator $urlGenerator, ): Response
+    public function builtInFootprintsViewer(BuiltinAttachmentsFinder $builtinAttachmentsFinder, AttachmentURLGenerator $urlGenerator): Response
     {
         $this->denyAccessUnlessGranted('@tools.builtin_footprints_viewer');
 
