@@ -111,4 +111,15 @@ class ToolsController extends AbstractController
             'grouped_footprints' => $grouped_footprints,
         ]);
     }
+
+    /**
+     * @Route("/ic_logos", name="tools_ic_logos")
+     * @return Response
+     */
+    public function icLogos(): Response
+    {
+        $this->denyAccessUnlessGranted('@tools.ic_logos');
+
+        return $this->render('Tools/ICLogos/ic_logos.html.twig');
+    }
 }

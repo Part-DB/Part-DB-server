@@ -10261,5 +10261,11 @@ Element 3</target>
         <target>This gallery lists all available builtin footprint images. If you want to use them in an attachment, type in the name (or a keyword) in the path field of the attachment and select the image from the dropdown select.</target>
       </segment>
     </unit>
+    <unit id="Dw4KG4Y" name="tools.ic_logos.title">
+      <segment>
+        <source>tools.ic_logos.title</source>
+        <target>IC logos</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
