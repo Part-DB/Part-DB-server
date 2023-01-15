@@ -100,5 +100,32 @@ class DBInfoHelper
         return null;
     }
 
+    /**
+     * Returns the name of the database.
+     * @return string|null
+     */
+    public function getDatabaseName(): ?string
+    {
+        return $this->connection->getDatabase() ?? null;
+    }
+
+    /**
+     * Returns the name of the database user.
+     * @return string|null
+     */
+    public function getDatabaseUsername(): ?string
+    {
+        if ($this->connection->getDatabasePlatform() instanceof AbstractMySQLPlatform) {
+            try {
+                return $this->connection->fetchOne('SELECT USER()');
+            } catch (\Doctrine\DBAL\Exception $e) {
+                return null;
+            }
+        }
+
+        if ($this->connection->getDatabasePlatform() instanceof SqlitePlatform) {
+            return 'sqlite';
+        }
+    }
 
 }
