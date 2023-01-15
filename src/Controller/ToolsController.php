@@ -86,6 +86,7 @@ class ToolsController extends AbstractController
             //DB section
             'db_type' => $DBInfoHelper->getDatabaseType() ?? 'Unknown',
             'db_version' => $DBInfoHelper->getDatabaseVersion() ?? 'Unknown',
+            'db_size' => $DBInfoHelper->getDatabaseSize(),
         ]);
     }
 

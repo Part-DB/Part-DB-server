@@ -73,4 +73,32 @@ class DBInfoHelper
 
         return null;
     }
+
+    /**
+     * Returns the database size in bytes.
+     * @return int|null The database size in bytes or null if unknown
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function getDatabaseSize(): ?int
+    {
+        if ($this->connection->getDatabasePlatform() instanceof AbstractMySQLPlatform) {
+            try {
+                return $this->connection->fetchOne('SELECT SUM(data_length + index_length) FROM information_schema.TABLES WHERE table_schema = DATABASE()');
+            } catch (\Doctrine\DBAL\Exception $e) {
+                return null;
+            }
+        }
+
+        if ($this->connection->getDatabasePlatform() instanceof SqlitePlatform) {
+            try {
+                return $this->connection->fetchOne('SELECT page_count * page_size as size FROM pragma_page_count(), pragma_page_size();');
+            } catch (\Doctrine\DBAL\Exception $e) {
+                return null;
+            }
+        }
+
+        return null;
+    }
+
+
 }

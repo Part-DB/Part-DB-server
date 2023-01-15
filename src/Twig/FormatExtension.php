@@ -86,6 +86,8 @@ final class FormatExtension extends AbstractExtension
             new TwigFilter('format_si', [$this, 'siFormat']),
             /** Format the given amount using the given MeasurementUnit */
             new TwigFilter('format_amount', [$this, 'amountFormat']),
+            /** Format the given number of bytes as human readable number */
+            new TwigFilter('format_bytes', [$this, 'formatBytes']),
         ];
     }
 
@@ -106,5 +108,17 @@ final class FormatExtension extends AbstractExtension
     public function amountFormat($value, ?MeasurementUnit $unit, array $options = []): string
     {
         return $this->amountFormatter->format($value, $unit, $options);
+    }
+
+    /**
+     * @param $bytes
+     * @param int $precision
+     * @return string
+     */
+    public function formatBytes(int $bytes, int $precision = 2): string
+    {
+        $size = ['B','kB','MB','GB','TB','PB','EB','ZB','YB'];
+        $factor = floor((strlen((string) $bytes) - 1) / 3);
+        return sprintf("%.{$precision}f", $bytes / pow(1024, $factor)) . ' ' . @$size[$factor];
     }
 }
