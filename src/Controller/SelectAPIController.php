@@ -20,6 +20,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\LabelSystem\LabelProfile;
@@ -170,7 +171,7 @@ class SelectAPIController extends AbstractController
                     'value' => $node->getID(),
                     'data-subtext' => $node->getParent() ? $node->getParent()->getFullPath() : null,
                 ];
-            } elseif ($node instanceof NamedElementInterface) {
+            } elseif ($node instanceof AbstractNamedDBElement) {
                 $entry = [
                     'text' => htmlspecialchars($node->getName()),
                     'value' => $node->getID(),
