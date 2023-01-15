@@ -25,6 +25,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
 use App\Repository\DBElementRepository;
 use App\Repository\PartRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -76,6 +77,27 @@ final class PartsTableActionHandler
                     'id' => $target_id,
                     'parts' => implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts)),
                     '_redirect' => $redirect_url
+                ])
+            );
+        }
+
+        if ($action === 'generate_label' || $action === 'generate_label_lot') {
+            //For parts we can just use the comma separated part IDs
+            if ($action === 'generate_label') {
+                $targets = implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts));
+            } else { //For lots we have to extract the part lots
+                $targets = implode(',', array_map(static function (Part $part) {
+                    //We concat the lot IDs of every part with a comma (which are later concated with a comma too per part)
+                    return implode(',', array_map(static fn (PartLot $lot) => $lot->getID(), $part->getPartLots()->toArray()));
+                }, $selected_parts));
+            }
+
+            return new RedirectResponse(
+                $this->urlGenerator->generate($target_id !== 0 && $target_id !== null ? 'label_dialog_profile' : 'label_dialog', [
+                    'profile' => $target_id,
+                    'target_id' => $targets,
+                    'generate' => '1',
+                    'target_type' => $action === 'generate_label_lot' ? 'part_lot' : 'part',
                 ])
             );
         }

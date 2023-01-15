@@ -9316,7 +9316,7 @@ Element 3</target>
     <unit id="EieqscF" name="part_list.action.select_null">
       <segment>
         <source>part_list.action.select_null</source>
-        <target>No elements existing!</target>
+        <target>Empty element</target>
       </segment>
     </unit>
     <unit id="4IH1qgL" name="part_list.action.delete-title">
@@ -10265,6 +10265,30 @@ Element 3</target>
       <segment>
         <source>tools.ic_logos.title</source>
         <target>IC logos</target>
+      </segment>
+    </unit>
+    <unit id="9a9Yu9u" name="part_list.action.group.labels">
+      <segment>
+        <source>part_list.action.group.labels</source>
+        <target>Labels</target>
+      </segment>
+    </unit>
+    <unit id="gaFZMnW" name="part_list.action.projects.generate_label">
+      <segment>
+        <source>part_list.action.projects.generate_label</source>
+        <target>Generate labels (for parts)</target>
+      </segment>
+    </unit>
+    <unit id="cKJeBZl" name="part_list.action.projects.generate_label_lot">
+      <segment>
+        <source>part_list.action.projects.generate_label_lot</source>
+        <target>Generate labels (for part lots)</target>
+      </segment>
+    </unit>
+    <unit id="obOVNB9" name="part_list.action.generate_label.empty">
+      <segment>
+        <source>part_list.action.generate_label.empty</source>
+        <target>Empty label</target>
       </segment>
     </unit>
   </file>
