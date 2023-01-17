@@ -126,6 +126,8 @@ class DBInfoHelper
         if ($this->connection->getDatabasePlatform() instanceof SqlitePlatform) {
             return 'sqlite';
         }
+        
+        return null;
     }
 
 }
