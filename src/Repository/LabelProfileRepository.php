@@ -109,4 +109,31 @@ class LabelProfileRepository extends NamedDBElementRepository
 
         return $this->findBy(['options.supported_element' => $type], $order_by);
     }
+
+    /**
+     * Returns all LabelProfiles that can be used for parts
+     * @return array
+     */
+    public function getPartLabelProfiles(): array
+    {
+        return $this->getDropdownProfiles('part');
+    }
+
+    /**
+     * Returns all LabelProfiles that can be used for part lots
+     * @return array
+     */
+    public function getPartLotsLabelProfiles(): array
+    {
+        return $this->getDropdownProfiles('part_lot');
+    }
+
+    /**
+     * Returns all LabelProfiles that can be used for storelocations
+     * @return array
+     */
+    public function getStorelocationsLabelProfiles(): array
+    {
+        return $this->getDropdownProfiles('storelocation');
+    }
 }

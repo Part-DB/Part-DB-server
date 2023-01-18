@@ -20,13 +20,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\Contracts\NamedElementInterface;
+use App\Entity\LabelSystem\LabelProfile;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\ProjectSystem\Project;
 use App\Services\Trees\NodesListBuilder;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -88,6 +92,48 @@ class SelectAPIController extends AbstractController
         return $this->getResponseForClass(Project::class, false);
     }
 
+    /**
+     * @Route("/label_profiles", name="select_label_profiles")
+     * @return Response
+     */
+    public function labelProfiles(EntityManagerInterface $entityManager): Response
+    {
+        $this->denyAccessUnlessGranted('@labels.create_labels');
+
+        if ($this->isGranted('@labels.read_profiles')) {
+            $profiles = $entityManager->getRepository(LabelProfile::class)->getPartLabelProfiles();
+            $nodes = $this->buildJSONStructure($profiles);
+        } else {
+            $nodes = [];
+        }
+
+        //Add the empty option
+        $this->addEmptyNode($nodes, 'part_list.action.generate_label.empty');
+
+        return $this->json($nodes);
+    }
+
+    /**
+     * @Route("/label_profiles_lot", name="select_label_profiles_lot")
+     * @return Response
+     */
+    public function labelProfilesLot(EntityManagerInterface $entityManager): Response
+    {
+        $this->denyAccessUnlessGranted('@labels.create_labels');
+
+        if ($this->isGranted('@labels.read_profiles')) {
+            $profiles = $entityManager->getRepository(LabelProfile::class)->getPartLotsLabelProfiles();
+            $nodes = $this->buildJSONStructure($profiles);
+        } else {
+            $nodes = [];
+        }
+
+        //Add the empty option
+        $this->addEmptyNode($nodes, 'part_list.action.generate_label.empty');
+
+        return $this->json($nodes);
+    }
+
     protected function getResponseForClass(string $class, bool $include_empty = false): Response
     {
         $test_obj = new $class();
@@ -98,14 +144,20 @@ class SelectAPIController extends AbstractController
         $json = $this->buildJSONStructure($nodes);
 
         if ($include_empty) {
-            array_unshift($json, [
-                'text' => '',
-                'value' => null,
-                'data-subtext' => $this->translator->trans('part_list.action.select_null'),
-            ]);
+            $this->addEmptyNode($json);
         }
 
         return $this->json($json);
+    }
+
+    protected function addEmptyNode(array &$arr, string $text = 'part_list.action.select_null'): array
+    {
+        array_unshift($arr, [
+            'text' => $this->translator->trans($text),
+            'value' => null,
+        ]);
+
+        return $arr;
     }
 
     protected function buildJSONStructure(array $nodes_list): array
@@ -113,12 +165,20 @@ class SelectAPIController extends AbstractController
         $entries = [];
 
         foreach ($nodes_list as $node) {
-            /** @var AbstractStructuralDBElement $node */
-            $entry = [
-                'text' => str_repeat('&nbsp;&nbsp;&nbsp;', $node->getLevel()).htmlspecialchars($node->getName()),
-                'value' => $node->getID(),
-                'data-subtext' => $node->getParent() ? $node->getParent()->getFullPath() : null,
-            ];
+            if ($node instanceof AbstractStructuralDBElement) {
+                $entry = [
+                    'text' => str_repeat('&nbsp;&nbsp;&nbsp;', $node->getLevel()).htmlspecialchars($node->getName()),
+                    'value' => $node->getID(),
+                    'data-subtext' => $node->getParent() ? $node->getParent()->getFullPath() : null,
+                ];
+            } elseif ($node instanceof AbstractNamedDBElement) {
+                $entry = [
+                    'text' => htmlspecialchars($node->getName()),
+                    'value' => $node->getID(),
+                ];
+            } else {
+                throw new \InvalidArgumentException('Invalid node type!');
+            }
 
             $entries[] = $entry;
         }

@@ -147,7 +147,7 @@
         <target>New currency</target>
       </segment>
     </unit>
-    <unit id="tlgOYB5" name="project.caption">
+    <unit id="zNlEdQs" name="project.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
         <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
@@ -158,7 +158,7 @@
         <target>Project</target>
       </segment>
     </unit>
-    <unit id="fu1Uc_k" name="project.edit">
+    <unit id="DTt5Co7" name="project.edit">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
         <note category="state" priority="1">new</note>
@@ -168,7 +168,7 @@
         <target>Edit project</target>
       </segment>
     </unit>
-    <unit id="2z6Gm_r" name="project.new">
+    <unit id="O_iNK2O" name="project.new">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
         <note category="state" priority="1">new</note>
@@ -4095,7 +4095,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Go!</target>
       </segment>
     </unit>
-    <unit id="g6tt4u1" name="project.labelp">
+    <unit id="w0jVACo" name="project.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
@@ -6025,7 +6025,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Attachment type</target>
       </segment>
     </unit>
-    <unit id="uR5eAkv" name="project.label">
+    <unit id="w.zcG5D" name="project.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
         <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
@@ -6215,7 +6215,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Categories</target>
       </segment>
     </unit>
-    <unit id="b2pLmAq" name="tree.tools.edit.projects">
+    <unit id="0I8lDuo" name="tree.tools.edit.projects">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:161</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:138</note>
@@ -8112,7 +8112,7 @@ Element 3</target>
         <target>Manufacturers</target>
       </segment>
     </unit>
-    <unit id="5_k9ofl" name="perm.projects">
+    <unit id="1AtDlX." name="perm.projects">
       <notes>
         <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
@@ -9316,7 +9316,7 @@ Element 3</target>
     <unit id="EieqscF" name="part_list.action.select_null">
       <segment>
         <source>part_list.action.select_null</source>
-        <target>No elements existing!</target>
+        <target>Empty element</target>
       </segment>
     </unit>
     <unit id="4IH1qgL" name="part_list.action.delete-title">
@@ -10247,6 +10247,48 @@ Element 3</target>
       <segment>
         <source>log.part_stock_changed.move_target</source>
         <target>Move target</target>
+      </segment>
+    </unit>
+    <unit id="e2xzHIo" name="tools.builtin_footprints_viewer.title">
+      <segment>
+        <source>tools.builtin_footprints_viewer.title</source>
+        <target>Builtin footprint image gallery</target>
+      </segment>
+    </unit>
+    <unit id="jtxbmbi" name="tools.builtin_footprints_viewer.hint">
+      <segment>
+        <source>tools.builtin_footprints_viewer.hint</source>
+        <target>This gallery lists all available builtin footprint images. If you want to use them in an attachment, type in the name (or a keyword) in the path field of the attachment and select the image from the dropdown select.</target>
+      </segment>
+    </unit>
+    <unit id="Dw4KG4Y" name="tools.ic_logos.title">
+      <segment>
+        <source>tools.ic_logos.title</source>
+        <target>IC logos</target>
+      </segment>
+    </unit>
+    <unit id="9a9Yu9u" name="part_list.action.group.labels">
+      <segment>
+        <source>part_list.action.group.labels</source>
+        <target>Labels</target>
+      </segment>
+    </unit>
+    <unit id="gaFZMnW" name="part_list.action.projects.generate_label">
+      <segment>
+        <source>part_list.action.projects.generate_label</source>
+        <target>Generate labels (for parts)</target>
+      </segment>
+    </unit>
+    <unit id="cKJeBZl" name="part_list.action.projects.generate_label_lot">
+      <segment>
+        <source>part_list.action.projects.generate_label_lot</source>
+        <target>Generate labels (for part lots)</target>
+      </segment>
+    </unit>
+    <unit id="obOVNB9" name="part_list.action.generate_label.empty">
+      <segment>
+        <source>part_list.action.generate_label.empty</source>
+        <target>Empty label</target>
       </segment>
     </unit>
   </file>

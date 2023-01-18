@@ -120,8 +120,6 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       #  label: "perm.tools.calculator"
       #footprints:
       #  label: "perm.tools.footprints"
-      #ic_logos:
-      #  label: "perm.tools.ic_logos"
       statistics:
         label: "perm.tools.statistics"
       lastActivity:
@@ -130,6 +128,10 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
         label: "perm.tools.label_scanner"
       reel_calculator:
         label: "perm.tools.reel_calculator"
+      builtin_footprints_viewer:
+        label: "tools.builtin_footprints_viewer.title"
+      ic_logos:
+        label: "perm.tools.ic_logos"
 
   groups:
     label: "perm.groups"

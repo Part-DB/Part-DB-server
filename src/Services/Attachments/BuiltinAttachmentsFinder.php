@@ -43,6 +43,39 @@ class BuiltinAttachmentsFinder
     }
 
     /**
+     * Returns an array with all builtin footprints, grouped by their folders
+     * The array have the form of: [
+     *     '/path/to/folder' => [
+     *          '%FOOTPRINTS%/path/to/folder/file1.png',
+     *          '%FOOTPRINTS%/path/to/folder/file2.png',
+     * ]
+     * @return array
+     */
+    public function getListOfFootprintsGroupedByFolder(): array
+    {
+        $finder = new Finder();
+        //We search only files
+        $finder->files();
+        $finder->in($this->pathResolver->getFootprintsPath());
+
+        $output = [];
+
+        foreach($finder as $file) {
+            $folder = $file->getRelativePath();
+            //Normalize path (replace \ with /)
+            $folder = str_replace('\\', '/', $folder);
+
+            if(!isset($output[$folder])) {
+                $output[$folder] = [];
+            }
+            //Add file to group
+            $output[$folder][] = $this->pathResolver->realPathToPlaceholder($file->getPathname());
+        }
+
+        return $output;
+    }
+
+    /**
      * Returns a list of all builtin ressources.
      * The array is a list of the relative filenames using the %PLACEHOLDERS%.
      * The list contains the files from all configured valid ressoureces.

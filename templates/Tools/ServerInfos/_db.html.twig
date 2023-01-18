@@ -9,5 +9,17 @@
         <td>Database Server Version</td>
         <td>{{ db_version }}</td>
     </tr>
+    <tr>
+        <td>Database Size</td>
+        <td>{{ db_size != null ? db_size | format_bytes : 'Unknown' }}</td>
+    </tr>
+    <tr>
+        <td>Database Name</td>
+        <td>{{ db_name }}</td>
+    </tr>
+    <tr>
+        <td>Database User</td>
+        <td>{{ db_user }}</td>
+    </tr>
     </tbody>
 </table>

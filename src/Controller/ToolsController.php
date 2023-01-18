@@ -20,12 +20,16 @@
 
 namespace App\Controller;
 
+use App\Services\Attachments\AttachmentPathResolver;
+use App\Services\Attachments\AttachmentURLGenerator;
+use App\Services\Attachments\BuiltinAttachmentsFinder;
 use App\Services\Misc\GitVersionInfo;
 use App\Services\Misc\DBInfoHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 
 /**
  * @Route("/tools")
@@ -82,6 +86,43 @@ class ToolsController extends AbstractController
             //DB section
             'db_type' => $DBInfoHelper->getDatabaseType() ?? 'Unknown',
             'db_version' => $DBInfoHelper->getDatabaseVersion() ?? 'Unknown',
+            'db_size' => $DBInfoHelper->getDatabaseSize(),
+            'db_name' => $DBInfoHelper->getDatabaseName() ?? 'Unknown',
+            'db_user' => $DBInfoHelper->getDatabaseUsername() ?? 'Unknown',
         ]);
+    }
+
+    /**
+     * @Route("/builtin_footprints", name="tools_builtin_footprints_viewer")
+     * @return Response
+     */
+    public function builtInFootprintsViewer(BuiltinAttachmentsFinder $builtinAttachmentsFinder, AttachmentURLGenerator $urlGenerator): Response
+    {
+        $this->denyAccessUnlessGranted('@tools.builtin_footprints_viewer');
+
+        $grouped_footprints = $builtinAttachmentsFinder->getListOfFootprintsGroupedByFolder();
+        $grouped_footprints = array_map(function($group) use ($urlGenerator) {
+            return array_map(function($placeholder_filepath) use ($urlGenerator) {
+                return [
+                    'filename' => basename($placeholder_filepath),
+                    'assets_path' => $urlGenerator->placeholderPathToAssetPath($placeholder_filepath),
+                ];
+            }, $group);
+        }, $grouped_footprints);
+
+        return $this->render('Tools/BuiltInFootprintsViewer/main.html.twig', [
+            'grouped_footprints' => $grouped_footprints,
+        ]);
+    }
+
+    /**
+     * @Route("/ic_logos", name="tools_ic_logos")
+     * @return Response
+     */
+    public function icLogos(): Response
+    {
+        $this->denyAccessUnlessGranted('@tools.ic_logos');
+
+        return $this->render('Tools/ICLogos/ic_logos.html.twig');
     }
 }

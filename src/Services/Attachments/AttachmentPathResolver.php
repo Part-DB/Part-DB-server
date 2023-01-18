@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\Attachments;
 
+use FontLib\Table\Type\maxp;
 use const DIRECTORY_SEPARATOR;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -131,6 +132,12 @@ class AttachmentPathResolver
         //Older path entries are given via %BASE% which was the project root
 
         $count = 0;
+
+        //When path is a footprint we have to first run the string through our lecagy german mapping functions
+        if (strpos($placeholder_path, '%FOOTPRINTS%') !== false) {
+            $placeholder_path = $this->convertOldFootprintPath($placeholder_path);
+        }
+
         $placeholder_path = preg_replace($this->placeholders_regex, $this->pathes, $placeholder_path, -1, $count);
 
         //A valid placeholder can have only one
@@ -246,5 +253,128 @@ class AttachmentPathResolver
         }
 
         return $ret;
+    }
+
+    private const OLD_FOOTPINT_PATH_REPLACEMENT = [
+        'Aktiv' => 'Active',
+        'Bedrahtet' => 'THT',
+        'Dioden' => 'Diodes',
+        'Gleichrichter' => 'Rectifier',
+        'GLEICHRICHTER' => 'RECTIFIER',
+        'Oszillatoren' => 'Oscillator',
+        'Keramikresonatoren_SMD' => 'CeramicResonator_SMD',
+        'Quarze_bedrahtet' => 'Crystals_THT',
+        'QUARZ' => 'CRYSTAL',
+        'Quarze_SMD' => 'Crystals_SMD',
+        'Quarzoszillatoren_bedrahtet' =>  'CrystalOscillator_THT',
+        'QUARZOSZILLATOR' => 'CRYSTAL_OSCILLATOR',
+        'Quarzoszillatoren_SMD' => 'CrystalOscillator_SMD',
+        'Schaltregler' => 'SwitchingRegulator',
+        'SCHALTREGLER' => 'SWITCHING_REGULATOR',
+        'Akustik' => 'Acoustics',
+        'Elektromechanik' => 'Electromechanics',
+        'Drahtbruecken' => 'WireJumpers',
+        'DRAHTBRUECKE' => 'WIREJUMPER',
+        'IC-Sockel' => 'IC-Socket',
+        'SOCKEL' => 'SOCKET',
+        'Kuehlkoerper' => 'Heatsinks',
+        'KUEHLKOERPER' => 'HEATSINK',
+        'Relais' => 'Relays',
+        'RELAIS' => 'RELAY',
+        'Schalter_Taster' => 'Switches_Buttons',
+        'Drehschalter' => 'RotarySwitches',
+        'DREHSCHALTER' => 'ROTARY_SWITCH',
+        'Drucktaster' => 'Button',
+        'TASTER' => 'BUTTON',
+        'Kippschalter' => 'ToggleSwitch',
+        'KIPPSCHALTER' => 'TOGGLE_SWITCH',
+        'Gewinde' => 'Threaded',
+        'abgewinkelt' => 'angled',
+        'hochkant' => 'vertical',
+        'stehend' => 'vertical',
+        'liegend' => 'horizontal',
+        '_WECHSLER' => '',
+        'Schiebeschalter' => 'SlideSwitch',
+        'SCHIEBESCHALTER' => 'SLIDE_SWITCH',
+        'Sicherungshalter' => 'Fuseholder',
+        'SICHERUNGSHALTER_Laengs' => 'FUSEHOLDER_Lenghtway',
+        'SICHERUNGSHALTER_Quer' => 'FUSEHOLDER_Across',
+        'Speicherkartenslots' => 'MemoryCardSlots',
+        'KARTENSLOT' => 'CARD_SLOT',
+        'SD-Karte' => 'SD_Card',
+        'Rot' => 'Red',
+        'Schwarz' => 'Black',
+        'Verbinder' => 'Connectors',
+        'BUCHSE' => 'SOCKET',
+        'Buchsenleisten' => 'SocketStrips',
+        'Reihig' => 'Row',
+        'gerade' => 'straight',
+        'flach' => 'flat',
+        'praezisions' => 'precision',
+        'praezision' => 'precision',
+        'BUCHSENLEISTE' => 'SOCKET_STRIP',
+        'GERADE' => 'STRAIGHT',
+        'FLACH' => 'FLAT',
+        'PRAEZISION' => 'PRECISION',
+        'ABGEWINKELT' => 'ANGLED',
+        'Federkraftklemmen' => 'SpringClamps',
+        'SCHRAUBKLEMME' => 'SCREW_CLAMP',
+        'KLEMME' => 'CLAMP',
+        'VERBINDER' => 'CONNECTOR',
+        'Loetoesen' => 'SolderingPads',
+        'LOETOESE' => 'SOLDERING_PAD',
+        'Rundsteckverbinder' => 'DINConnectors',
+        'Schraubklemmen' => 'ScrewClamps',
+        'Sonstiges' => 'Miscellaneous',
+        'Stiftleisten' => 'PinHeaders',
+        'STIFTLEISTE' => 'PIN_HEADER',
+        'mit_Rahmen' => 'with_frame',
+        'RAHMEN' => 'FRAME',
+        'Maennlich' => 'Male',
+        'Platinenmontage' => 'PCBMount',
+        'PLATINENMONTAGE' => 'PCB_MOUNT',
+        'Weiblich' => 'Female',
+        'Optik' => 'Optics',
+        'BLAU' => 'BLUE',
+        'GELD' => 'YELLOW',
+        'GRUEN' => 'GREEN',
+        'ROT' => 'RED',
+        'eckig' => 'square',
+        'Passiv' => 'Passive',
+        'EMV' => 'EMC',
+        'Induktivitaeten' => 'Inductors',
+        'SPULE' => 'COIL',
+        'Kondensatoren' => 'Capacitors',
+        'ELKO' => 'Electrolyte',
+        'Elektrolyt' => 'Electrolyte',
+        'Folie' => 'Film',
+        'FOLIENKONDENSATOR' => 'FILM_CAPACITOR',
+        'Keramik' => 'Ceramic',
+        'KERKO' => 'Ceramic',
+        'Tantal' => 'Tantalum',
+        'TANTAL' => 'TANTALUM',
+        'Trimmkondensatoren' => 'TrimmerCapacitors',
+        'TRIMMKONDENSATOR' => 'TRIMMER_CAPACITOR',
+        'KONDENSATOR' => 'CAPACITOR',
+        'Transformatoren' => 'Transformers',
+        'TRAFO' => 'TRANSFORMER',
+        'Widerstaende' => 'Resistors',
+        'WIDERSTAND' => 'RESISTOR',
+        'Dickschicht' => 'ThickFilm',
+        'DICKSCHICHT' => 'THICK_FILM',
+        'KERAMIK' => 'CERAMIC',
+        'Kohleschicht' => 'Carbon',
+        'KOHLE' => 'CARBON',
+        'Sonstige' => 'Miscellaneous', //Have to be last (after "Sonstiges")
+    ];
+
+    public function convertOldFootprintPath(string $old_path): string
+    {
+        //Only do the conversion if it contains a german string (meaning it has one of the four former base folders in its path)
+        if (!preg_match('/%FOOTPRINTS%\/(Passiv|Aktiv|Akustik|Elektromechanik|Optik)\//', $old_path)) {
+            return $old_path;
+        }
+
+        return strtr($old_path, self::OLD_FOOTPINT_PATH_REPLACEMENT);
     }
 }
