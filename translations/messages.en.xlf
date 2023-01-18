@@ -10333,5 +10333,11 @@ Element 3</target>
         <target><![CDATA[You have enough stocked to build <b>%max_builds%</b> builds of this project.]]></target>
       </segment>
     </unit>
+    <unit id="fZhqvmk" name="project.builds.check_project_status">
+      <segment>
+        <source>project.builds.check_project_status</source>
+        <target><![CDATA[The current project status is <b>"%project_status%"</b>. You should check if you really want to build the project with this status!]]></target>
+      </segment>
+    </unit>
   </file>
 </xliff>

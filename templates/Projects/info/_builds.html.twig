@@ -2,6 +2,12 @@
 
 {% import "components/projects.macro.html.twig" as project_macros %}
 
+{% if project.status is not empty and project.status != "in_production" %}
+    <div class="alert mt-2 alert-warning" role="alert">
+        <i class="fa-solid fa-triangle-exclamation fa-fw"></i> {% trans with {"%project_status%": ('project.status.'~project.status)|trans } %}project.builds.check_project_status{% endtrans %}
+    </div>
+{% endif %}
+
 <div class="alert mt-2 {% if can_build %}alert-success{% else %}alert-danger{% endif %}" role="alert">
     {% if not can_build %}
         <h5><i class="fa-solid fa-circle-exclamation fa-fw"></i> {% trans %}project.builds.build_not_possible{% endtrans %}</h5>
