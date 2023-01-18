@@ -26,6 +26,7 @@ use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Form\ProjectSystem\ProjectBOMEntryCollectionType;
 use App\Form\Type\StructuralEntityType;
+use App\Services\ProjectSystem\ProjectBuildHelper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
@@ -52,7 +53,7 @@ class ProjectController extends AbstractController
     /**
      * @Route("/{id}/info", name="project_info", requirements={"id"="\d+"})
      */
-    public function info(Project $project, Request $request)
+    public function info(Project $project, Request $request, ProjectBuildHelper $buildHelper)
     {
         $this->denyAccessUnlessGranted('read', $project);
 
@@ -64,6 +65,7 @@ class ProjectController extends AbstractController
         }
 
         return $this->render('Projects/info/info.html.twig', [
+            'buildHelper' => $buildHelper,
             'datatable' => $table,
             'project' => $project,
         ]);

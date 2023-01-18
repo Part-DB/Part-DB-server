@@ -259,7 +259,14 @@ class ProjectBOMEntry extends AbstractDBElement
         $this->price_currency = $price_currency;
     }
 
-
+    /**
+     * Checks whether this BOM entry is a part associated BOM entry or not.
+     * @return bool True if this BOM entry is a part associated BOM entry, false otherwise.
+     */
+    public function isPartBomEntry(): bool
+    {
+        return $this->part !== null;
+    }
 
     /**
      * @Assert\Callback
