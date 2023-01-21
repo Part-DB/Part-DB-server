@@ -72,13 +72,14 @@ class ProjectBuildHelper
 
     /**
      * Checks if the given project can be build with the current stock.
-     * This means that the maximum buildable count is greater than 0.
+     * This means that the maximum buildable count is greater or equal than the requested $number_of_projects
      * @param  Project  $project
+     * @parm int $number_of_projects
      * @return bool
      */
-    public function isProjectBuildable(Project $project): bool
+    public function isProjectBuildable(Project $project, int $number_of_projects = 1): bool
     {
-        return $this->getMaximumBuildableCount($project) > 0;
+        return $this->getMaximumBuildableCount($project) >= $number_of_projects;
     }
 
     /**

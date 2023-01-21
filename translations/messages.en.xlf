@@ -10339,5 +10339,11 @@ Element 3</target>
         <target><![CDATA[The current project status is <b>"%project_status%"</b>. You should check if you really want to build the project with this status!]]></target>
       </segment>
     </unit>
+    <unit id="57BNIbl" name="project.builds.following_bom_entries_miss_instock_n">
+      <segment>
+        <source>project.builds.following_bom_entries_miss_instock_n</source>
+        <target>You do not have enough parts stocked to build this project %number_of_builds% times. The following parts have missing instock:</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

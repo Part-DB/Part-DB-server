@@ -23,12 +23,14 @@
     {% endif %}
 </div>
 
-
-<div class="row mt-2">
-    <div class="col-4">
-        <div class="input-group mb-3">
-            <input type="number" min="1" class="form-control" placeholder="Number" aria-describedby="button-addon2" required>
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Build</button>
+<form method="get" action="{{ path('project_build', {"id": project.iD }) }}">
+    <div class="row mt-2">
+        <div class="col-4">
+            <div class="input-group mb-3">
+                <input type="number" min="1" class="form-control" placeholder="Number" name="n" required>
+                <input type="hidden" name="_redirect" value="{{ app.request.requestUri }}">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Build</button>
+            </div>
         </div>
     </div>
-</div>
+</form>

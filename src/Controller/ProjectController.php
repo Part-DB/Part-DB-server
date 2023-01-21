@@ -72,6 +72,27 @@ class ProjectController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/build", name="project_build", requirements={"id"="\d+"})
+     */
+    public function build(Project $project, Request $request, ProjectBuildHelper $buildHelper): Response
+    {
+        $this->denyAccessUnlessGranted('read', $project);
+
+        //If no number of builds is given (or it is invalid), just assume 1
+        $number_of_builds = $request->query->getInt('n', 1);
+        if ($number_of_builds < 1) {
+            $number_of_builds = 1;
+        }
+
+
+        return $this->render('Projects/build/build.html.twig', [
+            'buildHelper' => $buildHelper,
+            'project' => $project,
+            'number_of_builds' => $number_of_builds,
+        ]);
+    }
+
+    /**
      * @Route("/add_parts", name="project_add_parts_no_id")
      * @Route("/{id}/add_parts", name="project_add_parts", requirements={"id"="\d+"})
      * @param  Request  $request
