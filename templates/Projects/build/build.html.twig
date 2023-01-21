@@ -23,7 +23,7 @@
             <b>{% trans with {"%number_of_builds%": number_of_builds} %}project.builds.following_bom_entries_miss_instock_n{% endtrans %}</b>
             <ul>
                 {% for bom_entry in buildHelper.nonBuildableProjectBomEntries(project, number_of_builds) %}
-                    <li>{{ project_macros.project_bom_entry_with_missing_instock(bom_entry) }}</li>
+                    <li>{{ project_macros.project_bom_entry_with_missing_instock(bom_entry, number_of_builds) }}</li>
                 {% endfor %}
             </ul>
         {% else %}
@@ -31,6 +31,8 @@
             <span>{% trans with {"%max_builds%": number_of_builds} %}project.builds.number_of_builds_possible{% endtrans %}</span>
         {% endif %}
     </div>
+
+    {% include 'Projects/build/_form.html.twig' %}
 
 
 {% endblock %}

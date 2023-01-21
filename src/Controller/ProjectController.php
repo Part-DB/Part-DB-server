@@ -25,7 +25,9 @@ use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Form\ProjectSystem\ProjectBOMEntryCollectionType;
+use App\Form\ProjectSystem\ProjectBuildType;
 use App\Form\Type\StructuralEntityType;
+use App\Helpers\Projects\ProjectBuildRequest;
 use App\Services\ProjectSystem\ProjectBuildHelper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -84,11 +86,20 @@ class ProjectController extends AbstractController
             $number_of_builds = 1;
         }
 
+        $projectBuildRequest = new ProjectBuildRequest($project, $number_of_builds);
+        $form = $this->createForm(ProjectBuildType::class, $projectBuildRequest);
 
-        return $this->render('Projects/build/build.html.twig', [
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            //TODO
+        }
+
+        return $this->renderForm('Projects/build/build.html.twig', [
             'buildHelper' => $buildHelper,
             'project' => $project,
+            'build_request' => $projectBuildRequest,
             'number_of_builds' => $number_of_builds,
+            'form' => $form,
         ]);
     }
 

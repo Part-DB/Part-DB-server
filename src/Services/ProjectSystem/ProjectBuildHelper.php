@@ -74,12 +74,24 @@ class ProjectBuildHelper
      * Checks if the given project can be build with the current stock.
      * This means that the maximum buildable count is greater or equal than the requested $number_of_projects
      * @param  Project  $project
-     * @parm int $number_of_projects
+     * @parm int $number_of_builds
      * @return bool
      */
-    public function isProjectBuildable(Project $project, int $number_of_projects = 1): bool
+    public function isProjectBuildable(Project $project, int $number_of_builds = 1): bool
     {
-        return $this->getMaximumBuildableCount($project) >= $number_of_projects;
+        return $this->getMaximumBuildableCount($project) >= $number_of_builds;
+    }
+
+    /**
+     * Check if the given BOM entry can be build with the current stock.
+     * This means that the maximum buildable count is greater or equal than the requested $number_of_projects
+     * @param  ProjectBOMEntry  $bom_entry
+     * @param  int  $number_of_builds
+     * @return bool
+     */
+    public function isBOMEntryBuildable(ProjectBOMEntry $bom_entry, int $number_of_builds = 1): bool
+    {
+        return $this->getMaximumBuildableCountForBOMEntry($bom_entry) >= $number_of_builds;
     }
 
     /**

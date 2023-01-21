@@ -1,0 +1,62 @@
+{% import "helper.twig" as helper %}
+
+{{ form_start(form) }}
+
+<table class="table table-sm table-responsive table-hover">
+    <tbody>
+    {% for bom_entry in build_request.bomEntries %}
+        {# 1st row basic infos about the BOM entry #}
+        <tr class="{% if buildHelper.bOMEntryBuildable(bom_entry, number_of_builds) %}table-primary{% else %}table-danger{% endif %}">
+            <td style="width: 20px;">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="checkbox_{{ loop.index }}" required>
+                    {# <label class="form-check-label" for="checkbox_{{ loop.index }}">  #}
+                    </label>
+                </div>
+            </td>
+            <td >
+                {% if bom_entry.part %}
+                    <b><a target="_blank" href="{{ entity_url(bom_entry.part) }}">{{ bom_entry.part.name }}</a></b> {% if bom_entry.name %}({{ bom_entry.name }}){% endif %}
+                {% endif %}
+            </td>
+            <td>
+                {{ bom_entry.mountnames }}
+            </td>
+            <td class="text-end">
+                <b>{{ build_request.neededAmountForBOMEntry(bom_entry) | format_amount(bom_entry.part.partUnit ?? null) }}</b> {% trans %}project.builds.needed{% endtrans %}
+                (= {{ number_of_builds }} x {{ bom_entry.quantity | format_amount(bom_entry.part.partUnit ?? null) }})
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                {% set lots = build_request.partLotsForBOMEntry(bom_entry) %}
+                {% if lots is not null %}
+                    {% for lot in lots %}
+                        {# @var lot \App\Entity\Parts\PartLot #}
+                        <div class="mb-2 row">
+                            <label class="col-form-label col-sm-4" for="category_admin_form_parent">
+                                {% if lot.storageLocation %}
+                                    <small>{{ helper.structural_entity_link(lot.storageLocation) }}</small>
+                                {% endif %}
+                                {% if lot.name is not empty %}
+                                    (<small>{{ lot.name }}</small>)
+                                {% endif %}
+                            </label>
+                            <div class="col-sm-6">
+                                {{ form_widget(form["lot_"~lot.id]) }}
+                            </div>
+                            <div class="col-sm-2 mt-1  text-end">
+                                / <b>{{ lot.amount | format_amount(lot.part.partUnit) }}</b> {% trans %}project.builds.stocked{% endtrans %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{{ form_row(form.submit) }}
+
+{{ form_end(form) }}
