@@ -10387,5 +10387,17 @@ Element 3</target>
         <target>Target lot</target>
       </segment>
     </unit>
+    <unit id="pyv0k6b" name="project.builds.number_of_builds">
+      <segment>
+        <source>project.builds.number_of_builds</source>
+        <target>Build amount</target>
+      </segment>
+    </unit>
+    <unit id="RjYY9MA" name="project.builds.no_stocked_builds">
+      <segment>
+        <source>project.builds.no_stocked_builds</source>
+        <target>Number of stocked builds</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

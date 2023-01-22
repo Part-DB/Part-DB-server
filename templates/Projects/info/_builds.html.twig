@@ -27,10 +27,14 @@
     <div class="row mt-2">
         <div class="col-4">
             <div class="input-group mb-3">
-                <input type="number" min="1" class="form-control" placeholder="Number" name="n" required>
+                <input type="number" min="1" class="form-control" placeholder="{% trans %}project.builds.number_of_builds{% endtrans %}" name="n" required>
                 <input type="hidden" name="_redirect" value="{{ app.request.requestUri }}">
-                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Build</button>
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">{% trans %}project.build.btn_build{% endtrans %}</button>
             </div>
         </div>
     </div>
 </form>
+
+{% if project.buildPart %}
+    <p><b>{% trans %}project.builds.no_stocked_builds{% endtrans %}:</b> <a href="{{ entity_url(project.buildPart) }}">{{ project.buildPart.amountSum }}</a></p>
+{% endif %}
