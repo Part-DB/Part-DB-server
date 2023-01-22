@@ -135,13 +135,13 @@ class ProjectBuildHelper
     }
 
     /**
-     * Withdraw the parts from the stock using the given ProjectBuildRequest.
+     * Withdraw the parts from the stock using the given ProjectBuildRequest and create the build parts entries, if needed.
      * The ProjectBuildRequest has to be validated before!!
      * You have to flush changes to DB afterwards
      * @param  ProjectBuildRequest  $buildRequest
      * @return void
      */
-    public function doWithdrawForProjectBuildRequest(ProjectBuildRequest $buildRequest): void
+    public function doBuild(ProjectBuildRequest $buildRequest): void
     {
         $message = $buildRequest->getComment();
         $message .= ' (Project build: '.$buildRequest->getProject()->getName().')';
@@ -153,6 +153,10 @@ class ProjectBuildHelper
                     $this->withdraw_add_helper->withdraw($part_lot, $amount, $message);
                 }
             }
+        }
+
+        if ($buildRequest->getAddBuildsToBuildsPart()) {
+            $this->withdraw_add_helper->add($buildRequest->getBuildsPartLot(), $buildRequest->getNumberOfBuilds(), $message);
         }
     }
 }

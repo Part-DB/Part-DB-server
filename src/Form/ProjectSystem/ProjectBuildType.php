@@ -20,11 +20,14 @@
 
 namespace App\Form\ProjectSystem;
 
+use App\Entity\Parts\PartLot;
+use App\Form\Type\PartLotSelectType;
 use App\Form\Type\SIUnitType;
 use App\Helpers\Projects\ProjectBuildRequest;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\Event\PreSetDataEvent;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -53,14 +56,31 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
         $builder->add('comment', TextType::class, [
             'label' => 'part.info.withdraw_modal.comment',
             'help' => 'part.info.withdraw_modal.comment.hint',
+            'empty_data' => '',
             'required' => false,
         ]);
+
 
         //The form is initially empty, we have to define the fields after we know the data
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (PreSetDataEvent $event) {
             $form = $event->getForm();
             /** @var ProjectBuildRequest $build_request */
             $build_request = $event->getData();
+
+            $form->add('addBuildsToBuildsPart', CheckboxType::class, [
+                'label' => 'project.build.add_builds_to_builds_part',
+                'required' => false,
+                'disabled' => $build_request->getProject()->getBuildPart() === null,
+            ]);
+
+            if ($build_request->getProject()->getBuildPart()) {
+                $form->add('buildsPartLot', PartLotSelectType::class, [
+                    'label' => 'project.build.builds_part_lot',
+                    'required' => false,
+                    'part' => $build_request->getProject()->getBuildPart(),
+                    'placeholder' => 'project.build.buildsPartLot.new_lot'
+                ]);
+            }
 
             foreach ($build_request->getPartBomEntries() as $bomEntry) {
                 //Every part lot has a field to specify the number of parts to take from this lot
@@ -94,6 +114,10 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
         }
 
         $forms['comment']->setData($data->getComment());
+        $forms['addBuildsToBuildsPart']->setData($data->getAddBuildsToBuildsPart());
+        if (isset($forms['buildsPartLot'])) {
+            $forms['buildsPartLot']->setData($data->getBuildsPartLot());
+        }
 
     }
 
@@ -116,5 +140,22 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
         }
 
         $data->setComment($forms['comment']->getData());
+        if (isset($forms['buildsPartLot'])) {
+            $lot = $forms['buildsPartLot']->getData();
+            if (!$lot) { //When the user selected "Create new lot", create a new lot
+                $lot = new PartLot();
+                $description = 'Build ' . date('Y-m-d H:i:s');
+                if (!empty($data->getComment())) {
+                    $description .= ' (' . $data->getComment() . ')';
+                }
+                $lot->setDescription($description);
+
+                $data->getProject()->getBuildPart()->addPartLot($lot);
+            }
+
+            $data->setBuildsPartLot($lot);
+        }
+        //This has to be set after the builds part lot, so that it can disable the option
+        $data->setAddBuildsToBuildsPart($forms['addBuildsToBuildsPart']->getData());
     }
 }

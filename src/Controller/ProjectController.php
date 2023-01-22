@@ -92,7 +92,9 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
-                $buildHelper->doWithdrawForProjectBuildRequest($projectBuildRequest);
+                //We have to do a flush already here, so that the newly created partLot gets an ID and can be logged to DB later.
+                $entityManager->flush();
+                $buildHelper->doBuild($projectBuildRequest);
                 $entityManager->flush();
                 $this->addFlash('success', 'project.build.flash.success');
 

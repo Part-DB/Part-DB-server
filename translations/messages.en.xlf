@@ -10369,5 +10369,23 @@ Element 3</target>
         <target>Choose from which part lots the stock to build this project should be taken (and in which amount). Check the checkbox for each BOM Entry, when you are finished withdrawing the parts, or use the top checkbox to check all boxes at once.</target>
       </segment>
     </unit>
+    <unit id="rvdUHEn" name="project.build.buildsPartLot.new_lot">
+      <segment>
+        <source>project.build.buildsPartLot.new_lot</source>
+        <target>Create new lot</target>
+      </segment>
+    </unit>
+    <unit id="Kn_jkyo" name="project.build.add_builds_to_builds_part">
+      <segment>
+        <source>project.build.add_builds_to_builds_part</source>
+        <target>Add builds to project builds part</target>
+      </segment>
+    </unit>
+    <unit id="92b1_QD" name="project.build.builds_part_lot">
+      <segment>
+        <source>project.build.builds_part_lot</source>
+        <target>Target lot</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

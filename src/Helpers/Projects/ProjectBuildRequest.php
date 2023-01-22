@@ -40,6 +40,10 @@ final class ProjectBuildRequest
 
     private string $comment = '';
 
+    private ?PartLot $builds_lot = null;
+
+    private bool $add_build_to_builds_part = false;
+
     /**
      * @param  Project  $project  The project that should be build
      * @param  int  $number_of_builds The number of builds that should be created
@@ -50,6 +54,17 @@ final class ProjectBuildRequest
         $this->number_of_builds = $number_of_builds;
 
         $this->initializeArray();
+
+        //By default, use the first available lot of builds part if there is one.
+        if($project->getBuildPart() !== null) {
+            $this->add_build_to_builds_part = true;
+            foreach( $project->getBuildPart()->getPartLots() as $lot) {
+                if (!$lot->isInstockUnknown()) {
+                    $this->builds_lot = $lot;
+                    break;
+                }
+            }
+        }
     }
 
     private function initializeArray(): void
@@ -78,6 +93,62 @@ final class ProjectBuildRequest
         if ($entry->getProject() !== $this->project) {
             throw new \InvalidArgumentException('The given BOM entry does not belong to the project!');
         }
+    }
+
+    /**
+     * Returns the partlot where the builds should be added to, or null if it should not be added to any lot.
+     * @return PartLot|null
+     */
+    public function getBuildsPartLot(): ?PartLot
+    {
+        return $this->builds_lot;
+    }
+
+    /**
+     * Return if the builds should be added to the builds part of this project as new stock
+     * @return bool
+     */
+    public function getAddBuildsToBuildsPart(): bool
+    {
+        return $this->add_build_to_builds_part;
+    }
+
+    /**
+     * Set if the builds should be added to the builds part of this project as new stock
+     * @param  bool  $new_value
+     * @return $this
+     */
+    public function setAddBuildsToBuildsPart(bool $new_value): self
+    {
+        $this->add_build_to_builds_part = $new_value;
+
+        if ($new_value === false) {
+            $this->builds_lot = null;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set the partlot where the builds should be added to, or null if it should not be added to any lot.
+     * The part lot must belong to the project build part, or an exception is thrown!
+     * @param  PartLot|null  $new_part_lot
+     * @return $this
+     */
+    public function setBuildsPartLot(?PartLot $new_part_lot): self
+    {
+        //Ensure that this new_part_lot belongs to the project
+        if (($new_part_lot !== null && $new_part_lot->getPart() !== $this->project->getBuildPart()) || $this->project->getBuildPart() === null) {
+            throw new \InvalidArgumentException('The given part lot does not belong to the projects build part!');
+        }
+
+        if ($new_part_lot !== null) {
+            $this->setAddBuildsToBuildsPart(true);
+        }
+
+        $this->builds_lot = $new_part_lot;
+
+        return $this;
     }
 
     /**
