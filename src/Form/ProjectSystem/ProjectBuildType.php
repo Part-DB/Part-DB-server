@@ -34,9 +34,17 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class ProjectBuildType extends AbstractType implements DataMapperInterface
 {
+    private Security $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
@@ -50,7 +58,8 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
         $builder->setDataMapper($this);
 
         $builder->add('submit', SubmitType::class, [
-            'label' => 'project.build.btn_build'
+            'label' => 'project.build.btn_build',
+            'disabled' => !$this->security->isGranted('@parts_stock.withdraw'),
         ]);
 
         $builder->add('comment', TextType::class, [
@@ -89,6 +98,7 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
                         'label' => false,
                         'measurement_unit' => $bomEntry->getPart()->getPartUnit(),
                         'max' => min($build_request->getNeededAmountForBOMEntry($bomEntry), $lot->getAmount()),
+                        'disabled' => !$this->security->isGranted('withdraw', $lot),
                     ]);
                 }
             }

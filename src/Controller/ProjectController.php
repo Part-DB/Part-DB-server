@@ -92,6 +92,9 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
+                //Ensure that the user can withdraw stock from all parts
+                $this->denyAccessUnlessGranted('@parts_stock.withdraw');
+
                 //We have to do a flush already here, so that the newly created partLot gets an ID and can be logged to DB later.
                 $entityManager->flush();
                 $buildHelper->doBuild($projectBuildRequest);
