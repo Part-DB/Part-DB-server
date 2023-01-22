@@ -3,13 +3,25 @@
 {{ form_start(form) }}
 
 <table class="table table-sm table-responsive table-hover">
+    <thead>
+    <tr>
+        <th>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" data-multicheck-name="lots_check" {{ stimulus_controller('pages/checkbox_multicheck') }}>
+            </div>
+        </th>
+        <th>{% trans %}part.table.name{% endtrans %}</th>
+        <th>{% trans %}project.bom.mountnames{% endtrans %}</th>
+        <th class="text-end">{% trans %}project.build.required_qty{% endtrans %}</th>
+    </tr>
+    </thead>
     <tbody>
     {% for bom_entry in build_request.bomEntries %}
         {# 1st row basic infos about the BOM entry #}
         <tr class="{% if buildHelper.bOMEntryBuildable(bom_entry, number_of_builds) %}table-primary{% else %}table-danger{% endif %}">
             <td style="width: 20px;">
                 <div class="form-check">
-                    {# <input class="form-check-input" type="checkbox" value="" id="checkbox_{{ loop.index }}" required> #}
+                    <input class="form-check-input" type="checkbox" value="" data-multicheck-name="lots_check" required>
                     {# <label class="form-check-label" for="checkbox_{{ loop.index }}">  #}
                 </div>
             </td>
@@ -19,7 +31,9 @@
                 {% endif %}
             </td>
             <td>
-                {{ bom_entry.mountnames }}
+                {% for tag in bom_entry.mountnames|split(',') %}
+                    <span class="badge bg-secondary badge-secondary" >{{ tag | trim }}</span>
+                {% endfor %}
             </td>
             <td class="text-end">
                 <b>{{ build_request.neededAmountForBOMEntry(bom_entry) | format_amount(bom_entry.part.partUnit ?? null) }}</b> {% trans %}project.builds.needed{% endtrans %}

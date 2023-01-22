@@ -10351,5 +10351,23 @@ Element 3</target>
         <target>Can not build project. Check input!</target>
       </segment>
     </unit>
+    <unit id="_sFMgby" name="project.build.required_qty">
+      <segment>
+        <source>project.build.required_qty</source>
+        <target>Required quantity</target>
+      </segment>
+    </unit>
+    <unit id="5gpbL_k" name="project.build.btn_build">
+      <segment>
+        <source>project.build.btn_build</source>
+        <target>Build</target>
+      </segment>
+    </unit>
+    <unit id="AqGFkiA" name="project.build.help">
+      <segment>
+        <source>project.build.help</source>
+        <target>Choose from which part lots the stock to build this project should be taken (and in which amount). Check the checkbox for each BOM Entry, when you are finished withdrawing the parts, or use the top checkbox to check all boxes at once.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

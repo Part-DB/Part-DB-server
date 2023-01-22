@@ -46,7 +46,9 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
     {
         $builder->setDataMapper($this);
 
-        $builder->add('submit', SubmitType::class, []);
+        $builder->add('submit', SubmitType::class, [
+            'label' => 'project.build.btn_build'
+        ]);
 
         $builder->add('comment', TextType::class, [
             'label' => 'part.info.withdraw_modal.comment',
@@ -91,6 +93,8 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
             }
         }
 
+        $forms['comment']->setData($data->getComment());
+
     }
 
     public function mapFormsToData(\Traversable $forms, &$data)
@@ -110,5 +114,7 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
                 $data->setLotWithdrawAmount($lot_id, $form->getData());
             }
         }
+
+        $data->setComment($forms['comment']->getData());
     }
 }
