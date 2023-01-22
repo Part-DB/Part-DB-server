@@ -235,7 +235,7 @@ final class ProjectBuildRequest
 
     /**
      * Returns the number of available lots to take stock from for the given BOM entry.
-     * @param ProjectBOMEntry $entry
+     * @param ProjectBOMEntry $projectBOMEntry
      * @return PartLot[]|null Returns null if the entry is a non-part BOM entry
      */
     public function getPartLotsForBOMEntry(ProjectBOMEntry $projectBOMEntry): ?array
