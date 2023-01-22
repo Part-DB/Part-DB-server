@@ -91,7 +91,7 @@ class ProjectController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            //TODO
+            dump($projectBuildRequest);
         }
 
         return $this->renderForm('Projects/build/build.html.twig', [

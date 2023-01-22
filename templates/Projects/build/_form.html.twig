@@ -9,9 +9,8 @@
         <tr class="{% if buildHelper.bOMEntryBuildable(bom_entry, number_of_builds) %}table-primary{% else %}table-danger{% endif %}">
             <td style="width: 20px;">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="checkbox_{{ loop.index }}" required>
+                    {# <input class="form-check-input" type="checkbox" value="" id="checkbox_{{ loop.index }}" required> #}
                     {# <label class="form-check-label" for="checkbox_{{ loop.index }}">  #}
-                    </label>
                 </div>
             </td>
             <td >
@@ -43,6 +42,7 @@
                                 {% endif %}
                             </label>
                             <div class="col-sm-6">
+                                {{ form_errors(form["lot_"~lot.id]) }}
                                 {{ form_widget(form["lot_"~lot.id]) }}
                             </div>
                             <div class="col-sm-2 mt-1  text-end">

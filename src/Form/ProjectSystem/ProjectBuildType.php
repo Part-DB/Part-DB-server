@@ -28,6 +28,7 @@ use Symfony\Component\Form\Event\PreSetDataEvent;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProjectBuildType extends AbstractType implements DataMapperInterface
@@ -58,6 +59,7 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
                     $form->add('lot_' . $lot->getID(), SIUnitType::class, [
                         'label' => false,
                         'measurement_unit' => $bomEntry->getPart()->getPartUnit(),
+                        'max' => min($build_request->getNeededAmountForBOMEntry($bomEntry), $lot->getAmount()),
                     ]);
                 }
             }
@@ -65,16 +67,41 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
         });
     }
 
-    public function mapDataToForms($viewData, \Traversable $forms)
+    public function mapDataToForms($data, \Traversable $forms)
     {
-        $forms = iterator_to_array($forms);
+        if (!$data instanceof ProjectBuildRequest) {
+            throw new \RuntimeException('Data must be an instance of ' . ProjectBuildRequest::class);
+        }
 
-        dump($viewData);
-        dump ($forms);
+        /** @var FormInterface[] $forms */
+        $forms = iterator_to_array($forms);
+        foreach ($forms as $key => $form) {
+            //Extract the lot id from the form name
+            $matches = [];
+            if (preg_match('/^lot_(\d+)$/', $key, $matches)) {
+                $lot_id = (int) $matches[1];
+                $form->setData($data->getLotWithdrawAmount($lot_id));
+            }
+        }
+
     }
 
-    public function mapFormsToData(\Traversable $forms, &$viewData)
+    public function mapFormsToData(\Traversable $forms, &$data)
     {
-        // TODO: Implement mapFormsToData() method.
+        if (!$data instanceof ProjectBuildRequest) {
+            throw new \RuntimeException('Data must be an instance of ' . ProjectBuildRequest::class);
+        }
+
+        /** @var FormInterface[] $forms */
+        $forms = iterator_to_array($forms);
+
+        foreach ($forms as $key => $form) {
+            //Extract the lot id from the form name
+            $matches = [];
+            if (preg_match('/^lot_(\d+)$/', $key, $matches)) {
+                $lot_id = (int) $matches[1];
+                $data->setLotWithdrawAmount($lot_id, $form->getData());
+            }
+        }
     }
 }
