@@ -10291,5 +10291,113 @@ Element 3</target>
         <target>Empty label</target>
       </segment>
     </unit>
+    <unit id="YddcwVg" name="project.info.builds.label">
+      <segment>
+        <source>project.info.builds.label</source>
+        <target>Build</target>
+      </segment>
+    </unit>
+    <unit id="6uUxHyg" name="project.builds.build_not_possible">
+      <segment>
+        <source>project.builds.build_not_possible</source>
+        <target>Build not possible: Parts not stocked</target>
+      </segment>
+    </unit>
+    <unit id="HY05vl8" name="project.builds.following_bom_entries_miss_instock">
+      <segment>
+        <source>project.builds.following_bom_entries_miss_instock</source>
+        <target>The following parts have not enough stock to build this project at least once:</target>
+      </segment>
+    </unit>
+    <unit id="VHUY79k" name="project.builds.stocked">
+      <segment>
+        <source>project.builds.stocked</source>
+        <target>stocked</target>
+      </segment>
+    </unit>
+    <unit id="mwL3d70" name="project.builds.needed">
+      <segment>
+        <source>project.builds.needed</source>
+        <target>needed</target>
+      </segment>
+    </unit>
+    <unit id="jZKw98F" name="project.builds.build_possible">
+      <segment>
+        <source>project.builds.build_possible</source>
+        <target>Build possible</target>
+      </segment>
+    </unit>
+    <unit id="rRMnoEh" name="project.builds.number_of_builds_possible">
+      <segment>
+        <source>project.builds.number_of_builds_possible</source>
+        <target><![CDATA[You have enough stocked to build <b>%max_builds%</b> builds of this project.]]></target>
+      </segment>
+    </unit>
+    <unit id="fZhqvmk" name="project.builds.check_project_status">
+      <segment>
+        <source>project.builds.check_project_status</source>
+        <target><![CDATA[The current project status is <b>"%project_status%"</b>. You should check if you really want to build the project with this status!]]></target>
+      </segment>
+    </unit>
+    <unit id="57BNIbl" name="project.builds.following_bom_entries_miss_instock_n">
+      <segment>
+        <source>project.builds.following_bom_entries_miss_instock_n</source>
+        <target>You do not have enough parts stocked to build this project %number_of_builds% times. The following parts have missing instock:</target>
+      </segment>
+    </unit>
+    <unit id="dB.JmYm" name="project.build.flash.invalid_input">
+      <segment>
+        <source>project.build.flash.invalid_input</source>
+        <target>Can not build project. Check input!</target>
+      </segment>
+    </unit>
+    <unit id="_sFMgby" name="project.build.required_qty">
+      <segment>
+        <source>project.build.required_qty</source>
+        <target>Required quantity</target>
+      </segment>
+    </unit>
+    <unit id="5gpbL_k" name="project.build.btn_build">
+      <segment>
+        <source>project.build.btn_build</source>
+        <target>Build</target>
+      </segment>
+    </unit>
+    <unit id="AqGFkiA" name="project.build.help">
+      <segment>
+        <source>project.build.help</source>
+        <target>Choose from which part lots the stock to build this project should be taken (and in which amount). Check the checkbox for each BOM Entry, when you are finished withdrawing the parts, or use the top checkbox to check all boxes at once.</target>
+      </segment>
+    </unit>
+    <unit id="rvdUHEn" name="project.build.buildsPartLot.new_lot">
+      <segment>
+        <source>project.build.buildsPartLot.new_lot</source>
+        <target>Create new lot</target>
+      </segment>
+    </unit>
+    <unit id="Kn_jkyo" name="project.build.add_builds_to_builds_part">
+      <segment>
+        <source>project.build.add_builds_to_builds_part</source>
+        <target>Add builds to project builds part</target>
+      </segment>
+    </unit>
+    <unit id="92b1_QD" name="project.build.builds_part_lot">
+      <segment>
+        <source>project.build.builds_part_lot</source>
+        <target>Target lot</target>
+      </segment>
+    </unit>
+    <unit id="pyv0k6b" name="project.builds.number_of_builds">
+      <segment>
+        <source>project.builds.number_of_builds</source>
+        <target>Build amount</target>
+      </segment>
+    </unit>
+    <unit id="RjYY9MA" name="project.builds.no_stocked_builds">
+      <segment>
+        <source>project.builds.no_stocked_builds</source>
+        <target>Number of stocked builds</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

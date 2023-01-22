@@ -25,7 +25,10 @@ use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Form\ProjectSystem\ProjectBOMEntryCollectionType;
+use App\Form\ProjectSystem\ProjectBuildType;
 use App\Form\Type\StructuralEntityType;
+use App\Helpers\Projects\ProjectBuildRequest;
+use App\Services\ProjectSystem\ProjectBuildHelper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Omines\DataTablesBundle\DataTableFactory;
@@ -52,7 +55,7 @@ class ProjectController extends AbstractController
     /**
      * @Route("/{id}/info", name="project_info", requirements={"id"="\d+"})
      */
-    public function info(Project $project, Request $request)
+    public function info(Project $project, Request $request, ProjectBuildHelper $buildHelper)
     {
         $this->denyAccessUnlessGranted('read', $project);
 
@@ -64,8 +67,55 @@ class ProjectController extends AbstractController
         }
 
         return $this->render('Projects/info/info.html.twig', [
+            'buildHelper' => $buildHelper,
             'datatable' => $table,
             'project' => $project,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/build", name="project_build", requirements={"id"="\d+"})
+     */
+    public function build(Project $project, Request $request, ProjectBuildHelper $buildHelper, EntityManagerInterface $entityManager): Response
+    {
+        $this->denyAccessUnlessGranted('read', $project);
+
+        //If no number of builds is given (or it is invalid), just assume 1
+        $number_of_builds = $request->query->getInt('n', 1);
+        if ($number_of_builds < 1) {
+            $number_of_builds = 1;
+        }
+
+        $projectBuildRequest = new ProjectBuildRequest($project, $number_of_builds);
+        $form = $this->createForm(ProjectBuildType::class, $projectBuildRequest);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                //Ensure that the user can withdraw stock from all parts
+                $this->denyAccessUnlessGranted('@parts_stock.withdraw');
+
+                //We have to do a flush already here, so that the newly created partLot gets an ID and can be logged to DB later.
+                $entityManager->flush();
+                $buildHelper->doBuild($projectBuildRequest);
+                $entityManager->flush();
+                $this->addFlash('success', 'project.build.flash.success');
+
+                return $this->redirect(
+                    $request->get('_redirect',
+                        $this->generateUrl('project_info', ['id' => $project->getID()]
+                        )));
+            } else {
+                $this->addFlash('error', 'project.build.flash.invalid_input');
+            }
+        }
+
+        return $this->renderForm('Projects/build/build.html.twig', [
+            'buildHelper' => $buildHelper,
+            'project' => $project,
+            'build_request' => $projectBuildRequest,
+            'number_of_builds' => $number_of_builds,
+            'form' => $form,
         ]);
     }
 

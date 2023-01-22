@@ -281,5 +281,17 @@
         <target>Prices are not allowed on BOM entries associated with a part. Define the price on the part instead.</target>
       </segment>
     </unit>
+    <unit id="ID056SR" name="validator.project_build.lot_bigger_than_needed">
+      <segment>
+        <source>validator.project_build.lot_bigger_than_needed</source>
+        <target>You have selected more quantity to withdraw than needed! Remove unnecessary quantity.</target>
+      </segment>
+    </unit>
+    <unit id="6hV5UqD" name="validator.project_build.lot_smaller_than_needed">
+      <segment>
+        <source>validator.project_build.lot_smaller_than_needed</source>
+        <target>You have selected less quantity to withdraw than needed for the build! Add additional quantity.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

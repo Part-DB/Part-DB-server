@@ -29,6 +29,9 @@ class ProjectBuildPartHelper
         //Add a tag to the part that indicates that it is a build part
         $part->setTags('project-build');
 
+        //Associate the part with the project
+        $project->setBuildPart($part);
+
         return $part;
     }
 }

@@ -1,0 +1,40 @@
+{% set can_build = buildHelper.projectBuildable(project) %}
+
+{% import "components/projects.macro.html.twig" as project_macros %}
+
+{% if project.status is not empty and project.status != "in_production" %}
+    <div class="alert mt-2 alert-warning" role="alert">
+        <i class="fa-solid fa-triangle-exclamation fa-fw"></i> {% trans with {"%project_status%": ('project.status.'~project.status)|trans } %}project.builds.check_project_status{% endtrans %}
+    </div>
+{% endif %}
+
+<div class="alert mt-2 {% if can_build %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+    {% if not can_build %}
+        <h5><i class="fa-solid fa-circle-exclamation fa-fw"></i> {% trans %}project.builds.build_not_possible{% endtrans %}</h5>
+        <b>{% trans %}project.builds.following_bom_entries_miss_instock{% endtrans %}</b>
+        <ul>
+            {% for bom_entry in buildHelper.nonBuildableProjectBomEntries(project) %}
+                <li>{{ project_macros.project_bom_entry_with_missing_instock(bom_entry) }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h5><i class="fa-solid fa-circle-check fa-fw"></i> {% trans %}project.builds.build_possible{% endtrans %}</h5>
+        <span>{% trans with {"%max_builds%": buildHelper.maximumBuildableCount(project)} %}project.builds.number_of_builds_possible{% endtrans %}</span>
+    {% endif %}
+</div>
+
+<form method="get" action="{{ path('project_build', {"id": project.iD }) }}">
+    <div class="row mt-2">
+        <div class="col-4">
+            <div class="input-group mb-3">
+                <input type="number" min="1" class="form-control" placeholder="{% trans %}project.builds.number_of_builds{% endtrans %}" name="n" required>
+                <input type="hidden" name="_redirect" value="{{ app.request.requestUri }}">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">{% trans %}project.build.btn_build{% endtrans %}</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% if project.buildPart %}
+    <p><b>{% trans %}project.builds.no_stocked_builds{% endtrans %}:</b> <a href="{{ entity_url(project.buildPart) }}">{{ project.buildPart.amountSum }}</a></p>
+{% endif %}

@@ -1,0 +1,40 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}project.info.builds.label{% endtrans %}: {{ number_of_builds }}x {{ project.name }}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-bolt fa-fw"></i>
+    {% trans %}project.info.builds.label{% endtrans %}: <b>{{ number_of_builds }}x</b> <i>{{ project.name }}</i>
+{% endblock %}
+
+{% block card_content %}
+    {% set can_build = buildHelper.projectBuildable(project, number_of_builds) %}
+    {% import "components/projects.macro.html.twig" as project_macros %}
+
+    {% if project.status is not empty and project.status != "in_production" %}
+        <div class="alert  alert-warning" role="alert">
+            <i class="fa-solid fa-triangle-exclamation fa-fw"></i> {% trans with {"%project_status%": ('project.status.'~project.status)|trans } %}project.builds.check_project_status{% endtrans %}
+        </div>
+    {% endif %}
+
+    <div class="alert {% if can_build %}alert-success{% else %}alert-danger{% endif %}" role="alert">
+        {% if not can_build %}
+            <h5><i class="fa-solid fa-circle-exclamation fa-fw"></i> {% trans %}project.builds.build_not_possible{% endtrans %}</h5>
+            <b>{% trans with {"%number_of_builds%": number_of_builds} %}project.builds.following_bom_entries_miss_instock_n{% endtrans %}</b>
+            <ul>
+                {% for bom_entry in buildHelper.nonBuildableProjectBomEntries(project, number_of_builds) %}
+                    <li>{{ project_macros.project_bom_entry_with_missing_instock(bom_entry, number_of_builds) }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h5><i class="fa-solid fa-circle-check fa-fw"></i> {% trans %}project.builds.build_possible{% endtrans %}</h5>
+            <span>{% trans with {"%max_builds%": number_of_builds} %}project.builds.number_of_builds_possible{% endtrans %}</span>
+        {% endif %}
+    </div>
+
+    <p class="text-muted">{% trans %}project.build.help{% endtrans %}</p>
+
+    {% include 'Projects/build/_form.html.twig' %}
+
+
+{% endblock %}
