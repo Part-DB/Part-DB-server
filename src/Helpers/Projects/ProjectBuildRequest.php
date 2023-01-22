@@ -38,6 +38,8 @@ final class ProjectBuildRequest
      */
     private array $withdraw_amounts = [];
 
+    private string $comment = '';
+
     /**
      * @param  Project  $project  The project that should be build
      * @param  int  $number_of_builds The number of builds that should be created
@@ -76,6 +78,24 @@ final class ProjectBuildRequest
         if ($entry->getProject() !== $this->project) {
             throw new \InvalidArgumentException('The given BOM entry does not belong to the project!');
         }
+    }
+
+    /**
+     * Returns the comment where the user can write additional information about the build.
+     * @return string
+     */
+    public function getComment(): string
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Sets the comment where the user can write additional information about the build.
+     * @param  string  $comment
+     */
+    public function setComment(string $comment): void
+    {
+        $this->comment = $comment;
     }
 
     /**

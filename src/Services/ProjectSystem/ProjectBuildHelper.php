@@ -22,9 +22,17 @@ namespace App\Services\ProjectSystem;
 
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
+use App\Helpers\Projects\ProjectBuildRequest;
+use App\Services\Parts\PartLotWithdrawAddHelper;
 
 class ProjectBuildHelper
 {
+    private PartLotWithdrawAddHelper $withdraw_add_helper;
+
+    public function __construct(PartLotWithdrawAddHelper $withdraw_add_helper)
+    {
+        $this->withdraw_add_helper = $withdraw_add_helper;
+    }
 
     /**
      * Returns the maximum buildable amount of the given BOM entry based on the stock of the used parts.
@@ -124,5 +132,27 @@ class ProjectBuildHelper
         }
 
         return $non_buildable_entries;
+    }
+
+    /**
+     * Withdraw the parts from the stock using the given ProjectBuildRequest.
+     * The ProjectBuildRequest has to be validated before!!
+     * You have to flush changes to DB afterwards
+     * @param  ProjectBuildRequest  $buildRequest
+     * @return void
+     */
+    public function doWithdrawForProjectBuildRequest(ProjectBuildRequest $buildRequest): void
+    {
+        $message = $buildRequest->getComment();
+        $message .= ' (Project build: '.$buildRequest->getProject()->getName().')';
+
+        foreach ($buildRequest->getBomEntries() as $bom_entry) {
+            foreach ($buildRequest->getPartLotsForBOMEntry($bom_entry) as $part_lot) {
+                $amount = $buildRequest->getLotWithdrawAmount($part_lot);
+                if ($amount > 0) {
+                    $this->withdraw_add_helper->withdraw($part_lot, $amount, $message);
+                }
+            }
+        }
     }
 }

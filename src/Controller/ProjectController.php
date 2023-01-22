@@ -76,7 +76,7 @@ class ProjectController extends AbstractController
     /**
      * @Route("/{id}/build", name="project_build", requirements={"id"="\d+"})
      */
-    public function build(Project $project, Request $request, ProjectBuildHelper $buildHelper): Response
+    public function build(Project $project, Request $request, ProjectBuildHelper $buildHelper, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('read', $project);
 
@@ -90,8 +90,19 @@ class ProjectController extends AbstractController
         $form = $this->createForm(ProjectBuildType::class, $projectBuildRequest);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            dump($projectBuildRequest);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $buildHelper->doWithdrawForProjectBuildRequest($projectBuildRequest);
+                $entityManager->flush();
+                $this->addFlash('success', 'project.build.flash.success');
+
+                return $this->redirect(
+                    $request->get('_redirect',
+                        $this->generateUrl('project_info', ['id' => $project->getID()]
+                        )));
+            } else {
+                $this->addFlash('error', 'project.build.flash.invalid_input');
+            }
         }
 
         return $this->renderForm('Projects/build/build.html.twig', [

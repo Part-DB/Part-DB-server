@@ -26,6 +26,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\Event\PreSetDataEvent;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
@@ -46,6 +47,12 @@ class ProjectBuildType extends AbstractType implements DataMapperInterface
         $builder->setDataMapper($this);
 
         $builder->add('submit', SubmitType::class, []);
+
+        $builder->add('comment', TextType::class, [
+            'label' => 'part.info.withdraw_modal.comment',
+            'help' => 'part.info.withdraw_modal.comment.hint',
+            'required' => false,
+        ]);
 
         //The form is initially empty, we have to define the fields after we know the data
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (PreSetDataEvent $event) {

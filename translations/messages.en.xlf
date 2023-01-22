@@ -10345,5 +10345,11 @@ Element 3</target>
         <target>You do not have enough parts stocked to build this project %number_of_builds% times. The following parts have missing instock:</target>
       </segment>
     </unit>
+    <unit id="dB.JmYm" name="project.build.flash.invalid_input">
+      <segment>
+        <source>project.build.flash.invalid_input</source>
+        <target>Can not build project. Check input!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
