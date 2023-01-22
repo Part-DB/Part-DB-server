@@ -146,7 +146,7 @@ class ProjectBuildHelper
         $message = $buildRequest->getComment();
         $message .= ' (Project build: '.$buildRequest->getProject()->getName().')';
 
-        foreach ($buildRequest->getBomEntries() as $bom_entry) {
+        foreach ($buildRequest->getPartBomEntries() as $bom_entry) {
             foreach ($buildRequest->getPartLotsForBOMEntry($bom_entry) as $part_lot) {
                 $amount = $buildRequest->getLotWithdrawAmount($part_lot);
                 if ($amount > 0) {

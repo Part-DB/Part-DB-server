@@ -18,7 +18,7 @@
     <tbody>
     {% for bom_entry in build_request.bomEntries %}
         {# 1st row basic infos about the BOM entry #}
-        <tr class="{% if buildHelper.bOMEntryBuildable(bom_entry, number_of_builds) %}table-primary{% else %}table-danger{% endif %}">
+        <tr class="{% if bom_entry.part is null or buildHelper.bOMEntryBuildable(bom_entry, number_of_builds) %}table-primary{% else %}table-danger{% endif %}">
             <td style="width: 20px;">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" data-multicheck-name="lots_check" required>
@@ -28,6 +28,8 @@
             <td >
                 {% if bom_entry.part %}
                     <b><a target="_blank" href="{{ entity_url(bom_entry.part) }}">{{ bom_entry.part.name }}</a></b> {% if bom_entry.name %}({{ bom_entry.name }}){% endif %}
+                {% else %}
+                    <b>{{ bom_entry.name }}</b>
                 {% endif %}
             </td>
             <td>
