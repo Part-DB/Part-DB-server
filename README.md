@@ -35,12 +35,15 @@ and multiple store locations and price informations. Parts can be grouped using 
 * Multi-Language support (currently German, English, Russian, Japanese and French (experimental))
 * Barcodes/Labels generator for parts and storage locations, scan barcodes via webcam using the builtin barcode scanner
 * User system with groups and detailed (fine granular) permissions. 
-Two-factor authentication is supported (Google Authenticator and U2F keys) and can be enforced. Password reset via email can be setuped.
+Two-factor authentication is supported (Google Authenticator and Webauthn/U2F keys) and can be enforced for groups. Password reset via email can be setuped.
 * Import/Export system (partial working)
 * Project managment: Create projects and assign parts to the bill of material (BOM), to show how often you could build this project and directly withdraw all components needed from DB
 * Event log: Track what changes happens to your inventory, track which user does what. Revert your parts to older versions.
 * Responsive design: You can use Part-DB on your PC, your tablet and your smartphone using the same interface.
 * MySQL and SQLite (experimental) supported as database backends
+* Support for rich text descriptions and comments in parts
+* Support for multiple currencies and automatic update of exchange rates supported
+* Powerful search and filter function, including parametric search (search for parts according to some specifications)
 
 
 With this features Part-DB is useful to hobbyists, who want to keep track of their private electronic parts inventory,
