@@ -27,6 +27,7 @@ use App\Form\Type\CurrencyEntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -35,6 +36,7 @@ use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Validator\Constraints\File;
 
 class UserSettingsType extends AbstractType
 {
@@ -73,6 +75,19 @@ class UserSettingsType extends AbstractType
                 'required' => false,
                 'label' => 'user.email.label',
                 'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
+            ])
+            ->add('avatar_file', FileType::class, [
+                'label' => 'user.change_avatar.label',
+                'mapped' => false,
+                'required' => false,
+                'attr' => [
+                    'accept' => 'image/*',
+                ],
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2M',
+                    ]),
+                ],
             ])
             ->add('language', LanguageType::class, [
                 'disabled' => $this->demo_mode,

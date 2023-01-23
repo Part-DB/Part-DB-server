@@ -20,10 +20,16 @@
 
 namespace App\Services\UserSystem;
 
+use App\Entity\Attachments\Attachment;
+use App\Entity\Attachments\AttachmentType;
+use App\Entity\Attachments\UserAttachment;
 use App\Entity\UserSystem\User;
+use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\Attachments\AttachmentURLGenerator;
+use Doctrine\ORM\EntityManagerInterface;
 use Liip\ImagineBundle\Service\FilterService;
 use Symfony\Component\Asset\Packages;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UserAvatarHelper
 {
@@ -31,13 +37,18 @@ class UserAvatarHelper
     private Packages $packages;
     private AttachmentURLGenerator $attachmentURLGenerator;
     private FilterService $filterService;
+    private EntityManagerInterface $entityManager;
+    private AttachmentSubmitHandler $submitHandler;
 
-    public function __construct(bool $use_gravatar, Packages $packages, AttachmentURLGenerator $attachmentURLGenerator, FilterService $filterService)
+    public function __construct(bool $use_gravatar, Packages $packages, AttachmentURLGenerator $attachmentURLGenerator,
+        FilterService $filterService, EntityManagerInterface $entityManager, AttachmentSubmitHandler $attachmentSubmitHandler)
     {
         $this->use_gravatar = $use_gravatar;
         $this->packages = $packages;
         $this->attachmentURLGenerator = $attachmentURLGenerator;
         $this->filterService = $filterService;
+        $this->entityManager = $entityManager;
+        $this->submitHandler = $attachmentSubmitHandler;
     }
 
 
@@ -107,5 +118,45 @@ class UserAvatarHelper
         $url .= "?s=${s}&d=${d}&r=${r}";
 
         return $url;
+    }
+
+    /**
+     * Handles the upload of the user avatar.
+     * @param  User  $user
+     * @param  UploadedFile  $file
+     * @return Attachment
+     */
+    public function handleAvatarUpload(User $user, UploadedFile $file): Attachment
+    {
+        //Determine which attachment to user
+        //If the user already has a master attachment, we use this one
+        if ($user->getMasterPictureAttachment()) {
+            $attachment = $user->getMasterPictureAttachment();
+        } else { //Otherwise we have to create one
+            $attachment = new UserAttachment();
+            $user->addAttachment($attachment);
+            $user->setMasterPictureAttachment($attachment);
+            $attachment->setName('Avatar');
+
+            //Retrieve or create the avatar attachment type
+            $attachment_type = $this->entityManager->getRepository(AttachmentType::class)->findOneBy(['name' => 'Avatars']);
+            if ($attachment_type === null) {
+                $attachment_type = new AttachmentType();
+                $attachment_type->setName('Avatars');
+                $attachment_type->setFiletypeFilter('image/*');
+                $this->entityManager->persist($attachment_type);
+            }
+
+            $attachment->setAttachmentType($attachment_type);
+            //$user->setMasterPictureAttachment($attachment);
+        }
+
+        //Handle the upload
+        $this->submitHandler->handleFormSubmit($attachment, $file);
+
+        //Set attachment as master picture
+        $user->setMasterPictureAttachment($attachment);
+
+        return $attachment;
     }
 }

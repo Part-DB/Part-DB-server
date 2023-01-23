@@ -30,6 +30,7 @@ use App\Events\SecurityEvents;
 use App\Form\TFAGoogleSettingsType;
 use App\Form\UserSettingsType;
 use App\Services\UserSystem\TFA\BackupCodeManager;
+use App\Services\UserSystem\UserAvatarHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
@@ -209,7 +210,7 @@ class UserSettingsController extends AbstractController
      *
      * @return RedirectResponse|Response
      */
-    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator, BackupCodeManager $backupCodeManager, FormFactoryInterface $formFactory)
+    public function userSettings(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordEncoder, GoogleAuthenticator $googleAuthenticator, BackupCodeManager $backupCodeManager, FormFactoryInterface $formFactory, UserAvatarHelper $avatarHelper)
     {
         /** @var User */
         $user = $this->getUser();
@@ -237,6 +238,13 @@ class UserSettingsController extends AbstractController
             //Check if user theme setting has changed
             if ($user->getTheme() !== $em->getUnitOfWork()->getOriginalEntityData($user)['theme']) {
                 $page_need_reload = true;
+            }
+
+            if ($form['avatar_file']->getData() !== null) {
+                $attachment = $avatarHelper->handleAvatarUpload($user, $form['avatar_file']->getData());
+                //$em->flush();
+                //For some reason the avatar is not set as master picture attachment, so we do it again here
+                $user->setMasterPictureAttachment($attachment);
             }
 
             $em->flush();
