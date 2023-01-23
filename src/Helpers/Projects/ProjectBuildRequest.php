@@ -50,6 +50,10 @@ final class ProjectBuildRequest
      */
     public function __construct(Project $project, int $number_of_builds)
     {
+        if ($number_of_builds < 1) {
+            throw new \InvalidArgumentException('Number of builds must be at least 1!');
+        }
+
         $this->project = $project;
         $this->number_of_builds = $number_of_builds;
 
