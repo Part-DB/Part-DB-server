@@ -225,3 +225,7 @@ services:
     App\Doctrine\Purger\ResetAutoIncrementPurgerFactory:
         tags:
             - { name: 'doctrine.fixtures.purger_factory', alias: 'reset_autoincrement_purger' }
+
+    # We are needing this service inside of a migration, where only the container is injected. So we need to define it as public, to access it from the container.
+    App\Services\UserSystem\PermissionPresetsHelper:
+        public: true

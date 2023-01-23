@@ -4,35 +4,75 @@ declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
+use App\Entity\UserSystem\PermissionData;
 use App\Migration\AbstractMultiPlatformMigration;
+use App\Security\Interfaces\HasPermissionsInterface;
+use App\Services\UserSystem\PermissionPresetsHelper;
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20221114193325 extends AbstractMultiPlatformMigration
+final class Version20221114193325 extends AbstractMultiPlatformMigration implements ContainerAwareInterface
 {
+    private ?ContainerInterface $container = null;
+    private ?PermissionPresetsHelper $permission_presets_helper = null;
+
+    public function __construct(Connection $connection, LoggerInterface $logger)
+    {
+        parent::__construct($connection, $logger);
+    }
+
     public function getDescription(): string
     {
         return 'Update the permission system to the new system. Please note that all permissions will be reset!';
     }
 
+    private function getJSONPermDataFromPreset(string $preset): string
+    {
+        if ($this->permission_presets_helper === null) {
+            throw new \RuntimeException('PermissionPresetsHelper not set! There seems to be some issue with the dependency injection!');
+        }
+
+        //Create a virtual user on which we can apply the preset
+        $user = new class implements HasPermissionsInterface {
+
+            public PermissionData $perm_data;
+
+            public function __construct()
+            {
+                $this->perm_data = new PermissionData();
+            }
+
+            public function getPermissions(): PermissionData
+            {
+                return $this->perm_data;
+            }
+        };
+
+        //Apply the preset to the virtual user
+        $this->permission_presets_helper->applyPreset($user, $preset);
+
+        //And return the json data
+        return json_encode($user->getPermissions());
+    }
+
     private function addDataMigrationAndWarning(): void
     {
+        //Retrieve the json representations of the presets
+        $admin = $this->getJSONPermDataFromPreset(PermissionPresetsHelper::PRESET_ADMIN);
+        $editor = $this->getJSONPermDataFromPreset(PermissionPresetsHelper::PRESET_EDITOR);
+        $read_only = $this->getJSONPermDataFromPreset(PermissionPresetsHelper::PRESET_READ_ONLY);
+
         //Reset the permissions of the predefined groups, when their name was not changed
-        $this->addSql(<<<'SQL'
-            UPDATE `groups` SET permissions_data = '{"parts":{"read":true,"edit":true,"create":true,"delete":true,"change_favorite":true,"show_history":true,"revert_element":true},"tools":{"statistics":true,"label_scanner":true,"reel_calculator":true,"lastActivity":true},"attachments":{"list_attachments":true,"show_private":true},"self":{"show_permissions":true,"edit_infos":true},"labels":{"create_labels":true,"edit_options":true,"read_profiles":true,"edit_profiles":true,"create_profiles":true,"delete_profiles":true,"show_history":true,"revert_element":true},"categories":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"storelocations":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"footprints":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"manufacturers":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"attachment_types":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"currencies":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"measurement_units":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"suppliers":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"users":{"read":true,"create":true,"delete":true,"edit_username":true,"edit_infos":true,"edit_permissions":true,"set_password":true,"change_user_settings":true,"show_history":true,"revert_element":true},"groups":{"read":true,"edit":true,"create":true,"delete":true,"edit_permissions":true,"show_history":true,"revert_element":true},"system":{"show_logs":true,"server_infos":true},"devices":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true}}'
-            WHERE id = 1 AND name = 'admins';
-        SQL);
-        $this->addSql(<<<'SQL'
-            UPDATE `groups` SET permissions_data = '{"parts":{"read":true},"tools":{"statistics":true,"label_scanner":true,"reel_calculator":true},"attachments":{"list_attachments":true},"self":{"show_permissions":true},"labels":{"create_labels":true,"edit_options":true},"storelocations":{"read":true},"footprints":{"read":true},"categories":{"read":true},"suppliers":{"read":true},"manufacturers":{"read":true},"currencies":{"read":true},"attachment_types":{"read":true},"measurement_units":{"read":true},"devices":{"read":true}}'
-            WHERE id = 2 AND name = 'readonly';
-        SQL);
-        $this->addSql(<<<'SQL'
-            UPDATE `groups` SET permissions_data = '{"parts":{"read":true,"edit":true,"create":true,"delete":true,"change_favorite":true,"show_history":true,"revert_element":true},"tools":{"statistics":true,"label_scanner":true,"reel_calculator":true,"lastActivity":true},"attachments":{"list_attachments":true,"show_private":true},"self":{"show_permissions":true,"edit_infos":true},"labels":{"create_labels":true,"edit_options":true,"read_profiles":true,"edit_profiles":true,"create_profiles":true,"delete_profiles":true,"show_history":true,"revert_element":true},"categories":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"storelocations":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"footprints":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"manufacturers":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"attachment_types":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"currencies":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"measurement_units":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"suppliers":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"devices":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true}}'
-            WHERE id = 3 AND name = 'users';
-        SQL);
+        $this->addSql("UPDATE `groups` SET permissions_data = '$admin' WHERE id = 1 AND name = 'admins';");
+        $this->addSql("UPDATE `groups` SET permissions_data = '$read_only' WHERE id = 2 AND name = 'readonly';");
+        $this->addSql("UPDATE `groups` SET permissions_data = '$editor' WHERE id = 3 AND name = 'users';");
 
         //Disable login of all users with ID > 2 (meaning all except the anonymous and admin user)
         $this->addSql(<<<'SQL'
@@ -41,11 +81,7 @@ final class Version20221114193325 extends AbstractMultiPlatformMigration
         SQL);
 
         //Reset the permissions of the admin user, to allow admin permissions (like the admins group)
-        $this->addSql(<<<'SQL'
-            UPDATE `users` SET permissions_data = '{"parts":{"read":true,"edit":true,"create":true,"delete":true,"change_favorite":true,"show_history":true,"revert_element":true},"tools":{"statistics":true,"label_scanner":true,"reel_calculator":true,"lastActivity":true},"attachments":{"list_attachments":true,"show_private":true},"self":{"show_permissions":true,"edit_infos":true},"labels":{"create_labels":true,"edit_options":true,"read_profiles":true,"edit_profiles":true,"create_profiles":true,"delete_profiles":true,"show_history":true,"revert_element":true},"categories":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"storelocations":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"footprints":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"manufacturers":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"attachment_types":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"currencies":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"measurement_units":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"suppliers":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true},"users":{"read":true,"create":true,"delete":true,"edit_username":true,"edit_infos":true,"edit_permissions":true,"set_password":true,"change_user_settings":true,"show_history":true,"revert_element":true},"groups":{"read":true,"edit":true,"create":true,"delete":true,"edit_permissions":true,"show_history":true,"revert_element":true},"system":{"show_logs":true,"server_infos":true},"devices":{"read":true,"edit":true,"create":true,"delete":true,"show_history":true,"revert_element":true}}'
-            WHERE id = 2;
-        SQL);
-
+        $this->addSql("UPDATE `users` SET permissions_data = '$admin' WHERE id = 2;");
 
         $this->warnIf(true, "\x1b[1;37;43m\n!!! All permissions were reset! Please change them to the desired state, immediately !!!\x1b[0;39;49m");
         $this->warnIf(true, "\x1b[1;37;43m\n!!! For security reasons all users (except the admin user) were disabled. Login with admin user and reenable other users after checking their permissions !!!\x1b[0;39;49m");
@@ -123,5 +159,13 @@ final class Version20221114193325 extends AbstractMultiPlatformMigration
         $this->addSql('CREATE INDEX IDX_1483A5E938248176 ON "users" (currency_id)');
         $this->addSql('CREATE INDEX IDX_1483A5E96DEDCEC2 ON "users" (id_preview_attachement)');
         $this->addSql('CREATE INDEX user_idx_username ON "users" (name)');
+    }
+
+    public function setContainer(ContainerInterface $container = null)
+    {
+        if ($container) {
+            $this->container = $container;
+            $this->permission_presets_helper = $container->get(PermissionPresetsHelper::class);
+        }
     }
 }
