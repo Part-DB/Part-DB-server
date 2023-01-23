@@ -28,6 +28,7 @@ use App\Entity\UserSystem\Group;
 use App\Entity\UserSystem\User;
 use App\Form\Permissions\PermissionsType;
 use App\Form\Type\CurrencyEntityType;
+use App\Form\Type\MasterPictureAttachmentType;
 use App\Form\Type\StructuralEntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -227,7 +228,14 @@ class UserAdminForm extends AbstractType
                 'data_class' => $options['attachment_class'],
             ],
             'by_reference' => false,
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit_infos', $entity),
+        ]);
+
+        $builder->add('master_picture_attachment', MasterPictureAttachmentType::class, [
+            'required' => false,
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit_infos', $entity),
+            'label' => 'part.edit.master_attachment',
+            'entity' => $entity,
         ]);
 
         $builder->add('log_comment', TextType::class, [

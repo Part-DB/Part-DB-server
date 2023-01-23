@@ -50,7 +50,7 @@ class UserAvatarHelper
     {
         //Check if the user has a master attachment defined (meaning he has explicitly defined a profile picture)
         if ($user->getMasterPictureAttachment() !== null) {
-            return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment());
+            return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_md');
         }
 
         //If not check if gravatar is enabled (then use gravatar URL)

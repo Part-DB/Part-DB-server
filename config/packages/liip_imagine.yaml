@@ -5,7 +5,7 @@ liip_imagine:
 
     filter_sets:
         thumbnail_sm:
-            quality: 70
+            quality: 90
             filters:
                 thumbnail:
                     size: [150, 150]
@@ -13,14 +13,14 @@ liip_imagine:
 
 
         thumbnail_md:
-            quality: 75
+            quality: 90
             filters:
                 thumbnail:
                     size: [250, 250]
                     mode: inset
 
         thumbnail_xs:
-            quality: 70
+            quality: 90
             filters:
                 thumbnail:
                     size: [50, 50]

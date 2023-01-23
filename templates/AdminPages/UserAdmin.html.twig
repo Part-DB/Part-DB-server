@@ -16,8 +16,6 @@
     <li class="nav-item"><a data-bs-toggle="tab" class="nav-link link-anchor" href="#permissions">{% trans %}user.edit.permissions{% endtrans %}</a></li>
 {% endblock %}
 
-{% block master_picture_block %}{% endblock %}
-
 {% block additional_controls %}
     {{ form_row(form.group) }}
     {{ form_row(form.first_name) }}
@@ -87,4 +85,8 @@
 
 {% block new_title %}
     {% trans %}user.new{% endtrans %}
+{% endblock %}
+
+{% block quick_links %}
+    <img src="{{ avatar_helper.avatarURL(entity) }}" style="height: 50px; width: 50px; object-fit: cover;">
 {% endblock %}
