@@ -15,9 +15,7 @@
 Part-DB is an Open-Source inventory managment system for your electronic components.
 It is installed on a web server and so can be accessed with any browser without the need to install additional software.
 
-The version in this Repository is a complete rewrite of the legacy [Part-DB](https://github.com/Part-DB/Part-DB) (Version < 1.0) based on a modern framework.
-In the moment it lacks some features from the old Part-DB and the testing and documentation is not finished.
-Part-DB is in undergoing development, that means features and appeareance can change, and the software can contain bugs.
+The version in this Repository is a complete rewrite of the legacy [Part-DB](https://github.com/Part-DB/Part-DB) (Version < 1.0) based on a modern framework. Currently it is still missing some (less) features from the old version (see [UPGRADE.md](./UPGRADE.md)) for more details, but also many huge improvements and advantages compared to the old version. If you start completly new with Part-DB it is recommended that you use the version from this repository, as it is actively developed.
 
 If you find a bug, please open an [Issue on Github](https://github.com/Part-DB/Part-DB-symfony/issues) so it can be fixed for everybody.
 
@@ -32,23 +30,18 @@ maybe not completly stable. Please mind, that the free Heroku instance is used, 
 for the first time.
 
 ## Features
-As this version of Part-DB is under development, some of the features listed below is not existing yet and the
-list of the features could change in the future. Features that are not working yet are marked with a star (*).
-
 * Inventory managment of your electronic parts. Each part can be assigned to a category, footprint, manufacturer 
-and multiple store locations and price informations. Parts can be grouped using tags. Support for file attachments like datasheets. 
+and multiple store locations and price informations. Parts can be grouped using tags. You can associate various files like datasheets or pictures with the parts.
 * Multi-Language support (currently German, English, Russian, Japanese and French (experimental))
-* Barcodes/Labels generator for parts and storage locations
-* User system with groups and detailed permissions. 
+* Barcodes/Labels generator for parts and storage locations, scan barcodes via webcam using the builtin barcode scanner
+* User system with groups and detailed (fine granular) permissions. 
 Two-factor authentication is supported (Google Authenticator and U2F keys) and can be enforced. Password reset via email can be setuped.
-* Import/Export system (*)
-* Project managment: Parts can be assigned to projects to manage how often a project can be build. (*)
-* Order managment: Collect parts that should be ordered during the next order on your distributor and automatically add
-it to your instock, when they arrive. (*)
+* Import/Export system (partial working)
+* Project managment: Create projects and assign parts to the bill of material (BOM), to show how often you could build this project and directly withdraw all components needed from DB
 * Event log: Track what changes happens to your inventory, track which user does what. Revert your parts to older versions.
 * Responsive design: You can use Part-DB on your PC, your tablet and your smartphone using the same interface.
-* PartKeepr import (*)
 * MySQL and SQLite (experimental) supported as database backends
+
 
 With this features Part-DB is useful to hobbyists, who want to keep track of their private electronic parts inventory,
 or makerspaces, where many users have should have (controlled) access to the shared inventory.
