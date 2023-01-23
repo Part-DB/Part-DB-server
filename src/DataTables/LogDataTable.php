@@ -44,6 +44,7 @@ use App\Exceptions\EntityNotSupportedException;
 use App\Repository\LogEntryRepository;
 use App\Services\ElementTypeNameGenerator;
 use App\Services\EntityURLGenerator;
+use App\Services\UserSystem\UserAvatarHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORM\SearchCriteriaProvider;
@@ -66,9 +67,11 @@ class LogDataTable implements DataTableTypeInterface
     protected EntityURLGenerator $entityURLGenerator;
     protected LogEntryRepository $logRepo;
     protected Security $security;
+    protected UserAvatarHelper $userAvatarHelper;
 
     public function __construct(ElementTypeNameGenerator $elementTypeNameGenerator, TranslatorInterface $translator,
-        UrlGeneratorInterface $urlGenerator, EntityURLGenerator $entityURLGenerator, EntityManagerInterface $entityManager, Security $security)
+        UrlGeneratorInterface $urlGenerator, EntityURLGenerator $entityURLGenerator, EntityManagerInterface $entityManager,
+        Security $security, UserAvatarHelper $userAvatarHelper)
     {
         $this->elementTypeNameGenerator = $elementTypeNameGenerator;
         $this->translator = $translator;
@@ -76,6 +79,7 @@ class LogDataTable implements DataTableTypeInterface
         $this->entityURLGenerator = $entityURLGenerator;
         $this->logRepo = $entityManager->getRepository(AbstractLogEntry::class);
         $this->security = $security;
+        $this->userAvatarHelper = $userAvatarHelper;
     }
 
     public function configureOptions(OptionsResolver $optionsResolver): void
@@ -227,8 +231,11 @@ class LogDataTable implements DataTableTypeInterface
                     );
                 }
 
+                $img_url = $this->userAvatarHelper->getAvatarSmURL($user);
+
                 return sprintf(
-                    '<a href="%s">%s</a>',
+                    '<img src="%s" class="rounded" style="height: 1.2rem;"> <a href="%s">%s</a>',
+                    $img_url,
                     $this->urlGenerator->generate('user_info', ['id' => $user->getID()]),
                     htmlentities($user->getFullName(true))
                 );

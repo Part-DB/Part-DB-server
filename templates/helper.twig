@@ -160,12 +160,16 @@
 
         {% if user is not null %}
             {% if user.fullName is not empty %}
-                (<a href="{{ path('user_info', {"id": user.id}) }}" title="@{{ user.name }}">{{ user.fullName }}</a>)
+                ({{ _self.user_icon(user) }} <a href="{{ path('user_info', {"id": user.id}) }}" title="@{{ user.name }}">{{ user.fullName }}</a>)
             {% else %}
-                (<a href="{{ path('user_info', {"id": user.id}) }}" title="@{{ user.name }}">@{{ user.name }}</a>)
+                ({{ _self.user_icon(user) }} <a href="{{ path('user_info', {"id": user.id}) }}" title="@{{ user.name }}">@{{ user.name }}</a>)
             {% endif %}
         {% endif %}
     {% endif %}
+{% endmacro %}
+
+{% macro user_icon(user) %}
+    <img src="{{ avatar_helper.avatarSmURL(user) }}" class="rounded" style="height: 1.2rem;" alt="User avatar">
 {% endmacro %}
 
 {% macro parameters_table(parameters) %}

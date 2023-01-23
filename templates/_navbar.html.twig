@@ -1,3 +1,5 @@
+{% import "helper.twig" as helper %}
+
 <nav class="navbar navbar-expand-md navbar-light bg-light border-bottom shadow-sm fixed-top py-0" id="navbar">
     <div class="container-fluid">
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#sidebar-container">
@@ -41,7 +43,7 @@
                     <ul class="dropdown-menu dropdown-menu-end" id="login-menu" aria-labelledby="navbar-user-dropdown-btn">
                         {% if app.user %}
                             <a class="dropdown-item disabled" href="#">{% trans %}user.loggedin.label{% endtrans %}
-                                <b>{{ app.user.firstName }} {{ app.user.lastName }}</b> (@{{ app.user.name }})</a>
+                               {{ helper.user_icon(app.user) }} <b>{{ app.user.firstName }} {{ app.user.lastName }}</b> (@{{ app.user.name }})</a>
                             <a class="dropdown-item" href="{{ path("user_settings") }}"><i class="fa fa-cogs fa-fw"
                                                                                            aria-hidden="true"></i> {% trans %}user.settings.label{% endtrans %}
                             </a>

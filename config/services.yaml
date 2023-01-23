@@ -182,6 +182,10 @@ services:
         tags:
             - { name: 'translation.extractor', alias: 'permissionExtractor'}
 
+    App\Services\UserSystem\UserAvatarHelper:
+        arguments:
+            $use_gravatar: '%partdb.users.use_gravatar%'
+
 
     ####################################################################################################################
     # Label system
