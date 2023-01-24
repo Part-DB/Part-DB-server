@@ -234,8 +234,9 @@ class LogDataTable implements DataTableTypeInterface
                 $img_url = $this->userAvatarHelper->getAvatarSmURL($user);
 
                 return sprintf(
-                    '<img src="%s" class="rounded" style="height: 1.2rem;"> <a href="%s">%s</a>',
+                    '<img src="%s" data-thumbnail="%s" class="rounded" style="height: 1.2rem;" data-controller="elements--hoverpic"> <a href="%s">%s</a>',
                     $img_url,
+                    $this->userAvatarHelper->getAvatarMdURL($user),
                     $this->urlGenerator->generate('user_info', ['id' => $user->getID()]),
                     htmlentities($user->getFullName(true))
                 );

@@ -94,6 +94,27 @@ class UserAvatarHelper
         }
     }
 
+    public function getAvatarMdURL(User $user): string
+    {
+        //Check if the user has a master attachment defined (meaning he has explicitly defined a profile picture)
+        if ($user->getMasterPictureAttachment() !== null) {
+            return $this->attachmentURLGenerator->getThumbnailURL($user->getMasterPictureAttachment(), 'thumbnail_sm');
+        }
+
+        //If not check if gravatar is enabled (then use gravatar URL)
+        if ($this->use_gravatar) {
+            return $this->getGravatar($user, 150);
+        }
+
+        try {
+            //Otherwise we can serve the relative path via Asset component
+            return $this->filterService->getUrlOfFilteredImage('/img/default_avatar.png', 'thumbnail_xs');
+        } catch (\Imagine\Exception\RuntimeException $e) {
+            //If the filter fails, we can not serve the thumbnail and fall back to the original image and log an warning
+            return $this->packages->getUrl('/img/default_avatar.png');
+        }
+    }
+
 
     /**
      * Get either a Gravatar URL or complete image tag for a specified email address.

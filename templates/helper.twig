@@ -169,7 +169,7 @@
 {% endmacro %}
 
 {% macro user_icon(user) %}
-    <img src="{{ avatar_helper.avatarSmURL(user) }}" class="rounded" style="height: 1.2rem;" alt="User avatar">
+    <img src="{{ avatar_helper.avatarSmURL(user) }}" class="rounded" style="height: 1.2rem;" alt="User avatar" {{ stimulus_controller('elements/hoverpic') }} data-thumbnail="{{ avatar_helper.avatarMdURL(user) }}">
 {% endmacro %}
 
 {% macro parameters_table(parameters) %}
