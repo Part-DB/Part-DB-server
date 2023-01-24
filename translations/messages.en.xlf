@@ -10399,5 +10399,23 @@ Element 3</target>
         <target>Number of stocked builds</target>
       </segment>
     </unit>
+    <unit id="Mken7uv" name="user.change_avatar.label">
+      <segment>
+        <source>user.change_avatar.label</source>
+        <target>Change profile picture</target>
+      </segment>
+    </unit>
+    <unit id="QFNPD0_" name="user_settings.change_avatar.label">
+      <segment>
+        <source>user_settings.change_avatar.label</source>
+        <target>Change profile picture</target>
+      </segment>
+    </unit>
+    <unit id="GLYVqz2" name="user_settings.remove_avatar.label">
+      <segment>
+        <source>user_settings.remove_avatar.label</source>
+        <target>Remove profile picture</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

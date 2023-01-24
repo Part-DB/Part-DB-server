@@ -245,6 +245,16 @@ class UserSettingsController extends AbstractController
                 //$em->flush();
                 //For some reason the avatar is not set as master picture attachment, so we do it again here
                 $user->setMasterPictureAttachment($attachment);
+                $page_need_reload = true;
+            }
+
+            if ($form->getClickedButton() && 'remove_avatar' === $form->getClickedButton()->getName()) {
+                //Remove the avatar attachment from the user if requested
+                if ($user->getMasterPictureAttachment() !== null) {
+                    $em->remove($user->getMasterPictureAttachment());
+                    $user->setMasterPictureAttachment(null);
+                    $page_need_reload = true;
+                }
             }
 
             $em->flush();

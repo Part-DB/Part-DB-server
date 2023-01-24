@@ -25,6 +25,7 @@ namespace App\Form;
 use App\Entity\UserSystem\User;
 use App\Form\Type\CurrencyEntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Event\PreSetDataEvent;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -34,6 +35,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints\File;
@@ -77,9 +79,10 @@ class UserSettingsType extends AbstractType
                 'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
             ->add('avatar_file', FileType::class, [
-                'label' => 'user.change_avatar.label',
+                'label' => 'user_settings.change_avatar.label',
                 'mapped' => false,
                 'required' => false,
+                'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
                 'attr' => [
                     'accept' => 'image/*',
                 ],
@@ -134,6 +137,25 @@ class UserSettingsType extends AbstractType
             //Buttons
             ->add('save', SubmitType::class, ['label' => 'save'])
             ->add('reset', ResetType::class, ['label' => 'reset']);
+
+        //Add the remove_avatar button if the user has an avatar (we have to add this dynamically)
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (PreSetDataEvent $event) {
+            $data = $event->getData();
+            if (!$data instanceof User) {
+                return;
+            }
+            $form = $event->getForm();
+
+            //if ($data->getMasterPictureAttachment()) {
+                $form->add('remove_avatar', SubmitType::class, [
+                    'label' => 'user_settings.remove_avatar.label',
+                    'disabled' => !$this->security->isGranted('edit_infos', $data) || $this->demo_mode,
+                    'attr' => [
+                        'class' => 'btn btn-link',
+                    ],
+                ]);
+            //}
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver): void
