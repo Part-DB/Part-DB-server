@@ -26,7 +26,10 @@ use App\Entity\Attachments\Attachment;
 use App\Services\Attachments\AttachmentManager;
 use App\Services\Attachments\AttachmentPathResolver;
 use App\Services\Attachments\AttachmentReverseSearch;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PostRemoveEventArgs;
+use Doctrine\ORM\Event\PreRemoveEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\PostRemove;
@@ -82,7 +85,7 @@ class AttachmentDeleteListener
      *
      * @ORM\PreRemove()
      */
-    public function preRemoveHandler(Attachment $attachment, LifecycleEventArgs $event): void
+    public function preRemoveHandler(Attachment $attachment, PreRemoveEventArgs $event): void
     {
         //Ensure that the attachment that will be deleted, is not used as preview picture anymore...
         $attachment_holder = $attachment->getElement();
@@ -94,6 +97,14 @@ class AttachmentDeleteListener
         //... Otherwise remove it as preview picture
         if ($attachment_holder->getMasterPictureAttachment() === $attachment) {
             $attachment_holder->setMasterPictureAttachment(null);
+
+            //Recalculate the changes on the attachment holder, so the master picture change is really written to DB
+            $em = $event->getObjectManager();
+            if (!$em instanceof EntityManagerInterface) {
+                throw new \RuntimeException('Invalid EntityManagerInterface!');
+            }
+            $classMetadata = $em->getClassMetadata(get_class($attachment_holder));
+            $em->getUnitOfWork()->computeChangeSet($classMetadata, $attachment_holder);
         }
     }
 
@@ -102,7 +113,7 @@ class AttachmentDeleteListener
      *
      * @PostRemove
      */
-    public function postRemoveHandler(Attachment $attachment, LifecycleEventArgs $event): void
+    public function postRemoveHandler(Attachment $attachment, PostRemoveEventArgs $event): void
     {
         //Dont delete file if the attachment uses a builtin ressource:
         if ($attachment->isBuiltIn()) {
