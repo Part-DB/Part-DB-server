@@ -41,6 +41,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -248,6 +249,7 @@ class UserSettingsController extends AbstractController
                 $page_need_reload = true;
             }
 
+            /** @var Form $form We need an form implementation for the next calls */
             if ($form->getClickedButton() && 'remove_avatar' === $form->getClickedButton()->getName()) {
                 //Remove the avatar attachment from the user if requested
                 if ($user->getMasterPictureAttachment() !== null) {
