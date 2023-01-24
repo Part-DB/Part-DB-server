@@ -117,7 +117,13 @@ class EventLoggerSubscriber implements EventSubscriber
             }
         }
 
-        $uow->computeChangeSets();
+        /* Do not call $uow->computeChangeSets() in this function, only individual entities should be computed!
+         * Otherwise we will run into very strange issues, that some entity changes are no longer updated!
+         * This is almost impossible to debug, because it only happens in some cases, and it looks very unrelated to
+         * this code (which caused the problem and which took me very long time to find out).
+         * So just do not call $uow->computeChangeSets() here ever, even if it is tempting!!
+         * If you need to log something from inside here, just call logFromOnFlush() instead of the normal log() function.
+         */
     }
 
     public function postPersist(LifecycleEventArgs $args): void
@@ -217,7 +223,7 @@ class EventLoggerSubscriber implements EventSubscriber
             //The 4th param is important here, as we delete the element...
             $this->saveChangeSet($entity, $log, $em, true);
         }
-        $this->logger->log($log);
+        $this->logger->logFromOnFlush($log);
 
         //Check if we have to log CollectionElementDeleted entries
         if ($this->save_changed_data) {
@@ -234,7 +240,7 @@ class EventLoggerSubscriber implements EventSubscriber
                             if ($this->eventUndoHelper->isUndo()) {
                                 $log->setUndoneEvent($this->eventUndoHelper->getUndoneEvent(), $this->eventUndoHelper->getMode());
                             }
-                            $this->logger->log($log);
+                            $this->logger->logFromOnFlush($log);
                         }
                     }
                 }
@@ -271,7 +277,7 @@ class EventLoggerSubscriber implements EventSubscriber
         if ($this->eventUndoHelper->isUndo()) {
             $log->setUndoneEvent($this->eventUndoHelper->getUndoneEvent(), $this->eventUndoHelper->getMode());
         }
-        $this->logger->log($log);
+        $this->logger->logFromOnFlush($log);
     }
 
     /**

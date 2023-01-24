@@ -77,6 +77,26 @@ class EventLogger
     }
 
     /**
+     * Same as log(), but this function can be safely called from within the onFlush() doctrine event, as it
+     * updated the changesets of the unit of work.
+     * @param  AbstractLogEntry  $logEntry
+     * @return bool
+     */
+    public function logFromOnFlush(AbstractLogEntry $logEntry): bool
+    {
+        if ($this->log($logEntry)) {
+            $uow = $this->em->getUnitOfWork();
+            //As we call it from onFlush, we have to recompute the changeset here, according to https://www.doctrine-project.org/projects/doctrine-orm/en/2.14/reference/events.html#reference-events-on-flush
+            $uow->computeChangeSet($this->em->getClassMetadata(get_class($logEntry)), $logEntry);
+
+            return true;
+        }
+
+        //If the normal log function does not added the log entry, we just do nothing
+        return false;
+    }
+
+    /**
      * Adds the given log entry to the Log, if the entry fullfills the global configured criterias and flush afterwards.
      *
      * @return bool returns true, if the event was added to log
