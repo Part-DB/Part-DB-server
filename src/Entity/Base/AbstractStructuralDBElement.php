@@ -148,9 +148,20 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
             return false;
         }
 
-        //If this' parents element, is $another_element, then we are finished
-        return ($this->parent->getID() === $another_element->getID())
-            || $this->parent->isChildOf($another_element); //Otherwise, check recursively
+        //If the parent element is equal to the element we want to compare, return true
+        if ($this->getParent()->getID() === null || $this->getParent()->getID() === null) {
+            //If the IDs are not yet defined, we have to compare the objects itself
+            if ($this->getParent() === $another_element) {
+                return true;
+            }
+        } else { //If the IDs are defined, we can compare the IDs
+            if ($this->getParent()->getID() === $another_element->getID()) {
+                return true;
+            }
+        }
+
+        //Otherwise, check recursively
+        return $this->parent->isChildOf($another_element);
     }
 
     /**

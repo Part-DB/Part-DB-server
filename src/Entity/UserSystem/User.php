@@ -83,7 +83,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @ORM\Column(type="string", name="config_theme", nullable=true)
      * @Assert\Choice(choices=User::AVAILABLE_THEMES)
      */
-    protected ?string $theme = '';
+    protected ?string $theme = null;
 
     /**
      * @var string|null the hash of a token the user must provide when he wants to reset his password

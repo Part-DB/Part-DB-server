@@ -358,7 +358,7 @@
       </notes>
       <segment>
         <source>mass_creation.help</source>
-        <target>Each line will be interpreted as a name of a element, which will be created.</target>
+        <target>Each line will be interpreted as a name of a element, which will be created. You can create nested structures by indentations.</target>
       </segment>
     </unit>
     <unit id="a5.CFfq" name="edit.caption">
@@ -7255,6 +7255,9 @@ Exampletown</target>
       <segment>
         <source>mass_creation.lines.placeholder</source>
         <target>Element 1
+   Element 1.1
+      Element 1.1.1
+   Element 1.2
 Element 2
 Element 3</target>
       </segment>

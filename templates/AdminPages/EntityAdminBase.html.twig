@@ -25,7 +25,7 @@
 
             <div class="col-sm-4">
                 <turbo-frame id="admin-tree-frame" target="admin-content-frame" data-turbo-action="advance">
-                   {{ tree.treeview(entity) }}
+                    {{ tree.treeview(entity) }}
                 </turbo-frame>
             </div>
 
@@ -176,7 +176,9 @@
                                 </div>
 
                                 <div id="mass_creation" class="tab-pane fade">
-                                    <span class="text-muted">{% trans %}mass_creation.help{% endtrans %}</span>
+                                    <div class="row mb-2">
+                                        <span class="text-muted offset-sm-3">{% trans %}mass_creation.help{% endtrans %}</span>
+                                    </div>
                                     {{ form(mass_creation_form) }}
                                 </div>
 

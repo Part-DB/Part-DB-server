@@ -364,7 +364,7 @@ abstract class BaseAdminController extends AbstractController
 
             //Create entries based on input
             $errors = [];
-            $results = $importer->massCreation($data['lines'], $this->entity_class, $data['parent'], $errors);
+            $results = $importer->massCreation($data['lines'], $this->entity_class, $data['parent'] ?? null, $errors);
 
             //Show errors to user:
             foreach ($errors as $error) {

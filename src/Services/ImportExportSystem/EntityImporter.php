@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\Services\ImportExportSystem;
 
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use function count;
 use Doctrine\ORM\EntityManagerInterface;
@@ -61,7 +62,7 @@ class EntityImporter
         //Expand every line to a single entry:
         $names = explode("\n", $lines);
 
-        if (!is_a($class_name, AbstractStructuralDBElement::class, true)) {
+        if (!is_a($class_name, AbstractNamedDBElement::class, true)) {
             throw new InvalidArgumentException('$class_name must be a StructuralDBElement type!');
         }
         if (null !== $parent && !is_a($parent, $class_name)) {
@@ -71,7 +72,31 @@ class EntityImporter
         $errors = [];
         $valid_entities = [];
 
+        $current_parent = $parent;
+        $last_element = $parent;
+        //We use this array to store all levels of indentation as a stack.
+        $indentations = [0];
+
         foreach ($names as $name) {
+            //Count intendation level (whitespace characters at the beginning of the line)
+            $identSize = strlen($name)-strlen(ltrim($name));
+
+            //If the line is intendet more than the last line, we have a new parent element
+            if ($identSize > end($indentations)) {
+                $current_parent = $last_element;
+                //Add the new indentation level to the stack
+                $indentations[] = $identSize;
+            }
+            while ($identSize < end($indentations)) {
+                //If the line is intendet less than the last line, we have to go up in the tree
+                if ($current_parent instanceof AbstractStructuralDBElement) {
+                    $current_parent = $current_parent->getParent();
+                } else {
+                    $current_parent = null;
+                }
+                array_pop($indentations);
+            }
+
             $name = trim($name);
             if ('' === $name) {
                 //Skip empty lines (StrucuralDBElements must have a name)
@@ -81,7 +106,10 @@ class EntityImporter
             //Create new element with given name
             $entity = new $class_name();
             $entity->setName($name);
-            $entity->setParent($parent);
+            //Only set the parent if the entity is a StructuralDBElement
+            if ($entity instanceof AbstractStructuralDBElement) {
+                $entity->setParent($current_parent);
+            }
 
             //Validate entity
             $tmp = $this->validator->validate($entity);
@@ -94,6 +122,8 @@ class EntityImporter
                     'violations' => $tmp,
                 ];
             }
+
+            $last_element = $entity;
         }
 
         return $valid_entities;
