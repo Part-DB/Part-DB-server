@@ -75,7 +75,12 @@ trait ManufacturerTrait
         }
 
         if (null !== $this->getManufacturer()) {
-            return $this->getManufacturer()->getAutoProductUrl($this->name);
+            //If possible use the MPN to resolve the auto product URL, otherwise use the parts name
+            $mpn = $this->getManufacturerProductNumber();
+            if (empty($mpn)) {
+                $mpn = $this->getName();
+            }
+            return $this->getManufacturer()->getAutoProductUrl($mpn);
         }
 
         return ''; // no url is available
