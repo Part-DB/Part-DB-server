@@ -1495,28 +1495,6 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Für Fragen rund um die Part-DB gibt es einen Thread auf &lt;a class="link-external" rel="noopener" target="_blank" href="%href%"&gt;mikrocontroller.net&lt;/a&gt;</target>
       </segment>
     </unit>
-    <unit id="exDsVQ3" name="homepage.wiki.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:34</note>
-        <note priority="1">Part-DB1\templates\homepage.html.twig:34</note>
-        <note priority="1">templates\homepage.html.twig:31</note>
-      </notes>
-      <segment state="translated">
-        <source>homepage.wiki.caption</source>
-        <target>Wiki</target>
-      </segment>
-    </unit>
-    <unit id="tdI0IlW" name="homepage.wiki.text">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:34</note>
-        <note priority="1">Part-DB1\templates\homepage.html.twig:34</note>
-        <note priority="1">templates\homepage.html.twig:31</note>
-      </notes>
-      <segment state="translated">
-        <source>homepage.wiki.text</source>
-        <target>Weitere Informationen gibt es im &lt;a class="link-external" rel="noopener" target="_blank" href="%href%"&gt;mikrocontroller.net Artikel&lt;/a&gt;</target>
-      </segment>
-    </unit>
     <unit id="SV0IxK0" name=" homepage.basedOn ">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:36</note>
