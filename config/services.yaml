@@ -233,3 +233,7 @@ services:
     # We are needing this service inside of a migration, where only the container is injected. So we need to define it as public, to access it from the container.
     App\Services\UserSystem\PermissionPresetsHelper:
         public: true
+
+    App\Command\BackupCommand:
+        arguments:
+            $project_dir: '%kernel.project_dir%'
