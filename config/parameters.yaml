@@ -5,26 +5,26 @@ parameters:
   ######################################################################################################################
   # Common
   ######################################################################################################################
-  partdb.locale: 'en'                                         # The default language to use serverwide
-  partdb.timezone: 'Europe/Berlin'                            # The default timezone
-  partdb.title: 'Part-DB'                                     # The title shown inside of Part-DB (e.g. in the navbar and on homepage)
+  partdb.locale: '%env(string:DEFAULT_LANG)%'                 # The default language to use serverwide
+  partdb.timezone: '%env(string:DEFAULT_TIMEZONE)%'           # The default timezone
+  partdb.title: '%env(trim:string:INSTANCE_NAME)%'            # The title shown inside of Part-DB (e.g. in the navbar and on homepage)
   partdb.banner: '%env(trim:string:BANNER)%'                  # The info text shown in the homepage, if empty config/banner.md is used
-  partdb.default_currency: 'EUR'                              # The currency that is used inside the DB (and is assumed when no currency is set). This can not be changed later, so be sure to set it the currency used in your country
+  partdb.default_currency: '%env(string:BASE_CURRENCY)%'      # The currency that is used inside the DB (and is assumed when no currency is set). This can not be changed later, so be sure to set it the currency used in your country
   partdb.global_theme: ''                                     # The theme to use globally (see public/build/themes/ for choices, use name without .css). Set to '' for default bootstrap theme
   partdb.locale_menu: ['en', 'de', 'fr', 'ru', 'ja']          # The languages that are shown in user drop down menu
 
   ######################################################################################################################
   # Users and Privacy
   ######################################################################################################################
-  partdb.gpdr_compliance: true                                # If this option is activated, IP addresses are anonymized to be GPDR compliant
-  partdb.users.use_gravatar: true                             # Set to false, if no Gravatar images should be used for user profiles.
-  partdb.users.email_pw_reset: '%env(validMailDSN:MAILER_DSN)%' # Config if users are able, to reset their password by email. By default this enabled, when a mail server is configured.
+  partdb.gpdr_compliance: true                                  # If this option is activated, IP addresses are anonymized to be GPDR compliant
+  partdb.users.use_gravatar: '%env(bool:USE_GRAVATAR)%'         # Set to false, if no Gravatar images should be used for user profiles.
+  partdb.users.email_pw_reset: '%env(bool:ALLOW_EMAIL_PW_RESET)%' # Config if users are able, to reset their password by email. By default this enabled, when a mail server is configured.
 
   ######################################################################################################################
   # Mail settings
   ######################################################################################################################
-  partdb.mail.sender_email: 'noreply@partdb.changeme'         # The email address from which all emails are sent from
-  partdb.mail.sender_name: 'Part-DB Mailer'                   # The name that will be used for all mails sent by Part-DB
+  partdb.mail.sender_email: '%env(string:EMAIL_SENDER_EMAIL)%'         # The email address from which all emails are sent from
+  partdb.mail.sender_name: '%env(string:EMAIL_SENDER_NAME)%'           # The name that will be used for all mails sent by Part-DB
 
   ######################################################################################################################
   # Attachments and files
@@ -36,8 +36,8 @@ parameters:
   ######################################################################################################################
   # Error pages
   ######################################################################################################################
-  partdb.error_pages.admin_email: ''                          # You can set an email address here, which is shown on an error page, how to contact an administrator
-  partdb.error_pages.show_help: true                          # If this is set to true, solutions to common problems are shown on error pages. Disable this, if you do not want your users to see them...
+  partdb.error_pages.admin_email: '%env(trim:string:ERROR_PAGE_ADMIN_EMAIL)%'     # You can set an email address here, which is shown on an error page, how to contact an administrator
+  partdb.error_pages.show_help: '%env(trim:string:ERROR_PAGE_SHOW_HELP)%'         # If this is set to true, solutions to common problems are shown on error pages. Disable this, if you do not want your users to see them...
 
   ######################################################################################################################
   # Sidebar
@@ -58,8 +58,24 @@ parameters:
   ######################################################################################################################
   # Env default values
   ######################################################################################################################
-  env(DEMO_MODE): 0
+
+  env(DEFAULT_LANG): 'en'
+  env(DEFAULT_TIMEZONE): 'Europe/Berlin'
+  env(INSTANCE_NAME): 'Part-DB'
+  env(BASE_CURRENCY): 'EUR'
+  env(USE_GRAVATAR): '0'
   env(ALLOW_ATTACHMENT_DOWNLOADS): 0
+
+  env(ERROR_PAGE_ADMIN_EMAIL): ''
+  env(ERROR_PAGE_SHOW_HELP): 1
+
+  env(DEMO_MODE): 0
+  env(BANNER): ''
+
+
+  env(EMAIL_SENDER_EMAIL): 'noreply@partdb.changeme'
+  env(EMAIL_SENDER_NAME): 'Part-DB Mailer'
+  env(ALLOW_EMAIL_PW_RESET): 0
 
   env(TRUSTED_PROXIES): '127.0.0.1' #By default trust only our own server
   env(TRUSTED_HOSTS): '' # Trust all host names by default
