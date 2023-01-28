@@ -1465,28 +1465,6 @@ Sub elements will be moved upwards.</target>
         <target>For questions about the Part-DB there is a thread on &lt;a href="%href%" class="link-external" target="_blank"&gt;mikrocontroller.net&lt;/a&gt;</target>
       </segment>
     </unit>
-    <unit id="exDsVQ3" name="homepage.wiki.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:34</note>
-        <note priority="1">Part-DB1\templates\homepage.html.twig:34</note>
-        <note priority="1">templates\homepage.html.twig:31</note>
-      </notes>
-      <segment state="translated">
-        <source>homepage.wiki.caption</source>
-        <target>Wiki</target>
-      </segment>
-    </unit>
-    <unit id="tdI0IlW" name="homepage.wiki.text">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:34</note>
-        <note priority="1">Part-DB1\templates\homepage.html.twig:34</note>
-        <note priority="1">templates\homepage.html.twig:31</note>
-      </notes>
-      <segment state="translated">
-        <source>homepage.wiki.text</source>
-        <target>Further information is available in &lt;a href="%href%" class="link-external" target="_blank"&gt;mikrocontroller.net Article&lt;/a&gt;</target>
-      </segment>
-    </unit>
     <unit id="SV0IxK0" name=" homepage.basedOn ">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:36</note>
