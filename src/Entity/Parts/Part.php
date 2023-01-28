@@ -41,6 +41,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Part class.
@@ -146,5 +147,24 @@ class Part extends AttachmentContainingDBElement
             }
         }
         parent::__clone();
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
+        //Ensure that the part name fullfills the regex of the category
+        if ($this->category) {
+            $regex = $this->category->getPartnameRegex();
+            if (!empty($regex)) {
+                if (!preg_match($regex, $this->name)) {
+                    $context->buildViolation('part.name.must_match_category_regex')
+                        ->atPath('name')
+                        ->setParameter('%regex%', $regex)
+                        ->addViolation();
+                }
+            }
+        }
     }
 }

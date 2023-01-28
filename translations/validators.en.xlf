@@ -293,5 +293,11 @@
         <target>You have selected less quantity to withdraw than needed for the build! Add additional quantity.</target>
       </segment>
     </unit>
+    <unit id="G9ZKt.4" name="part.name.must_match_category_regex">
+      <segment>
+        <source>part.name.must_match_category_regex</source>
+        <target>The part name does not match the regular expression stated by the category: %regex%</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

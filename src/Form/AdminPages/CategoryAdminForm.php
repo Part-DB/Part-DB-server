@@ -76,6 +76,7 @@ class CategoryAdminForm extends BaseEntityAdminForm
             'required' => false,
             'empty_data' => '',
             'label' => 'category.edit.partname_regex',
+            'help' => 'category.edit.partname_regex.help',
             'attr' => [
                 'placeholder' => 'category.edit.partname_regex.placeholder',
             ],

@@ -2,7 +2,7 @@
 {% if part.category is not null and part.category.partnameHint is not empty %}
     <div class="row">
         <div class="col-sm-9 offset-sm-3">
-            <p class="text-muted"><b>{% trans %}part.edit.name.category_hint{% endtrans %}:</b> {{ part.category.partnameHint }}</p>
+            <p class="form-text help-text"><b>{% trans %}part.edit.name.category_hint{% endtrans %}:</b> {{ part.category.partnameHint }}</p>
         </div>
     </div>
 {% endif %}

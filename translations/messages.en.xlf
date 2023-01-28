@@ -10401,5 +10401,17 @@ Element 3</target>
         <target>Hint from category</target>
       </segment>
     </unit>
+    <unit id="_vbPEFP" name="category.edit.partname_regex.placeholder">
+      <segment>
+        <source>category.edit.partname_regex.placeholder</source>
+        <target>e.g "/Capacitor \d+ nF/i"</target>
+      </segment>
+    </unit>
+    <unit id="QFgP__5" name="category.edit.partname_regex.help">
+      <segment>
+        <source>category.edit.partname_regex.help</source>
+        <target>A PCRE-compatible regular expression, which a part name have to match.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
