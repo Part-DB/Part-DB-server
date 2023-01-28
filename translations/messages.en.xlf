@@ -10395,5 +10395,11 @@ Element 3</target>
         <target>Remove profile picture</target>
       </segment>
     </unit>
+    <unit id="Y1Aes28" name="part.edit.name.category_hint">
+      <segment>
+        <source>part.edit.name.category_hint</source>
+        <target>Hint from category</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

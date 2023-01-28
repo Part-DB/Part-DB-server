@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Form\AdminPages;
 
 use App\Entity\Base\AbstractNamedDBElement;
+use App\Form\Type\RichTextEditorType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -81,20 +82,22 @@ class CategoryAdminForm extends BaseEntityAdminForm
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
-        $builder->add('default_description', TextType::class, [
+        $builder->add('default_description', RichTextEditorType::class, [
             'required' => false,
             'empty_data' => '',
             'label' => 'category.edit.default_description',
+            'mode' => 'markdown-single_line',
             'attr' => [
                 'placeholder' => 'category.edit.default_description.placeholder',
             ],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
-        $builder->add('default_comment', TextType::class, [
+        $builder->add('default_comment', RichTextEditorType::class, [
             'required' => false,
             'empty_data' => '',
             'label' => 'category.edit.default_comment',
+            'mode' => 'markdown-full',
             'attr' => [
                 'placeholder' => 'category.edit.default_comment.placeholder',
             ],

@@ -237,6 +237,8 @@ class PartController extends AbstractController
         $category = $cid ? $em->find(Category::class, $cid) : null;
         if (null !== $category && null === $new_part->getCategory()) {
             $new_part->setCategory($category);
+            $new_part->setDescription($category->getDefaultDescription());
+            $new_part->setComment($category->getDefaultComment());
         }
 
         $fid = $request->get('footprint', null);
