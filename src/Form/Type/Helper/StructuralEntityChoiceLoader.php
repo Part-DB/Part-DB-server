@@ -22,6 +22,7 @@ namespace App\Form\Type\Helper;
 
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Repository\StructuralDBElementRepository;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\ChoiceList\Loader\AbstractChoiceLoader;
@@ -33,6 +34,8 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
     private NodesListBuilder $builder;
     private EntityManagerInterface $entityManager;
 
+    private ?string $additional_element = null;
+
     public function __construct(Options $options, NodesListBuilder $builder, EntityManagerInterface $entityManager)
     {
         $this->options = $options;
@@ -42,10 +45,16 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
 
     protected function loadChoices(): iterable
     {
-        return $this->builder->typeToNodesList($this->options['class'], null);
+        $tmp = [];
+        if ($this->additional_element) {
+            $tmp = $this->createNewEntitiesFromValue($this->additional_element);
+            $this->additional_element = null;
+        }
+
+        return array_merge($tmp, $this->builder->typeToNodesList($this->options['class'], null));
     }
 
-    public function loadChoicesForValues(array $values, callable $value = null)
+    /*public function loadChoicesForValues(array $values, callable $value = null)
     {
         $tmp = parent::loadChoicesForValues($values, $value);
 
@@ -59,29 +68,13 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
                 return $tmp;
             }
 
-            return [$this->createNewEntityFromValue((string)$values[0])];
-        }
-
-        return $tmp;
-    }
-
-    /*public function loadValuesForChoices(array $choices, callable $value = null)
-    {
-        $tmp = parent::loadValuesForChoices($choices, $value);
-
-        if ($this->options['allow_add'] && count($tmp) === 1) {
-            if ($tmp[0] instanceof AbstractDBElement && $tmp[0]->getID() === null) {
-                return [$tmp[0]->getName()];
-            }
-
-            return [(string)$choices[0]->getID()];
+            return [$this->createNewEntitiesFromValue($values[0])[0]];
         }
 
         return $tmp;
     }*/
 
-
-    public function createNewEntityFromValue(string $value): AbstractStructuralDBElement
+    public function createNewEntitiesFromValue(string $value): array
     {
         if (!$this->options['allow_add']) {
             throw new \RuntimeException('Cannot create new entity, because allow_add is not enabled!');
@@ -92,13 +85,32 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
         }
 
         $class = $this->options['class'];
-        /** @var AbstractStructuralDBElement $entity */
-        $entity = new $class();
-        $entity->setName($value);
+        /** @var StructuralDBElementRepository $repo */
+        $repo = $this->entityManager->getRepository($class);
 
-        //Persist element to database
-        $this->entityManager->persist($entity);
+        $entities = $repo->getNewEntityFromPath($value, '->');
 
-        return $entity;
+        $results = [];
+
+        foreach($entities as $entity) {
+            //If the entity is newly created (ID null), add it as result and persist it.
+            if ($entity->getID() === null) {
+                $this->entityManager->persist($entity);
+                $results[] = $entity;
+            }
+        }
+
+        return $results;
     }
+
+    public function setAdditionalElement(?string $element): void
+    {
+        $this->additional_element = $element;
+    }
+
+    public function getAdditionalElement(): ?string
+    {
+        return $this->additional_element;
+    }
+
 }

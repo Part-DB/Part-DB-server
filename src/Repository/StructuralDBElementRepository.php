@@ -89,4 +89,38 @@ class StructuralDBElementRepository extends NamedDBElementRepository
 
         return $result;
     }
+
+    /**
+     * Creates a structure of AbsstractStructuralDBElements from a path separated by $separator, which splits the various levels.
+     * This function will try to use existing elements, if they are already in the database. If not, they will be created.
+     * An array of the created elements will be returned, with the last element being the deepest element.
+     * @param  string  $path
+     * @param  string  $separator
+     * @return AbstractStructuralDBElement[]
+     */
+    public function getNewEntityFromPath(string $path, string $separator = '->'): array
+    {
+        $parent = null;
+        $result = [];
+        foreach (explode($separator, $path) as $name) {
+            $name = trim($name);
+            if ('' === $name) {
+                continue;
+            }
+
+            //See if we already have an element with this name and parent
+            $entity = $this->findOneBy(['name' => $name, 'parent' => $parent]);
+            if (null === $entity) {
+                /** @var AbstractStructuralDBElement $entity */
+                $entity = new ($this->getClassName());
+                $entity->setName($name);
+                $entity->setParent($parent);
+            }
+
+            $result[] = $entity;
+            $parent = $entity;
+        }
+
+        return $result;
+    }
 }

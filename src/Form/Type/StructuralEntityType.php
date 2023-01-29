@@ -31,9 +31,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
+use Symfony\Component\Form\Event\PostSubmitEvent;
+use Symfony\Component\Form\Event\PreSubmitEvent;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
@@ -65,12 +68,44 @@ class StructuralEntityType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (PreSubmitEvent $event) {
+            //When the data contains non-digit characters, we assume that the user entered a new element.
+            //In that case we add the new element to our choice_loader
+
+            $data = $event->getData();
+            if (null === $data || !is_string($data) || $data === "" || ctype_digit($data)) {
+                return;
+            }
+
+            $form = $event->getForm();
+            $options = $form->getConfig()->getOptions();
+            $choice_loader = $options['choice_loader'];
+            if ($choice_loader instanceof StructuralEntityChoiceLoader) {
+                $choice_loader->setAdditionalElement($data);
+            }
+        });
+
+       /* $builder->addEventListener(FormEvents::POST_SUBMIT, function (PostSubmitEvent $event) {
+           $name =  $event->getForm()->getConfig()->getName();
+           $data = $event->getForm()->getData();
+
+           if ($event->getForm()->getParent() === null) {
+               return;
+           }
+
+           $event->getForm()->getParent()->add($name, static::class, $event->getForm()->getConfig()->getOptions());
+           $new_form = $event->getForm()->getParent()->get($name);
+           $new_form->setData($data);
+        });*/
+
+
+
         $builder->addModelTransformer(new CallbackTransformer(
-                                          function ($value) use ($options) {
-                                              return $this->modelTransform($value, $options);
-                                          }, function ($value) use ($options) {
-                                              return $this->modelReverseTransform($value, $options);
-                                          }));
+            function ($value) use ($options) {
+                return $this->modelTransform($value, $options);
+            }, function ($value) use ($options) {
+            return $this->modelReverseTransform($value, $options);
+        }));
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -81,7 +116,18 @@ class StructuralEntityType extends AbstractType
             'show_fullpath_in_subtext' => true, //When this is enabled, the full path will be shown in subtext
             'subentities_of' => null,   //Only show entities with the given parent class
             'disable_not_selectable' => false,  //Disable entries with not selectable property
-            'choice_value' => 'id', //Use the element id as option value and for comparing items
+            'choice_value' => function (?AbstractStructuralDBElement $element) {
+                if ($element === null) {
+                    return null;
+                }
+
+                if ($element->getID() === null) {
+                    //Must be the same as the separator in the choice_loader, otherwise this will not work!
+                    return $element->getFullPath('->');
+                }
+
+                return $element->getID();
+            }, //Use the element id as option value and for comparing items
             'choice_loader' => function (Options $options) {
                 return new StructuralEntityChoiceLoader($options, $this->builder, $this->em);
             },
@@ -94,6 +140,15 @@ class StructuralEntityType extends AbstractType
                 return function ($choice, $key, $value) use ($options) {
                     return $this->generateChoiceAttr($choice, $key, $value, $options);
                 };
+            },
+            'group_by' => function (AbstractStructuralDBElement $element)
+            {
+                //Show entities that are not added to DB yet separately from other entities
+                if ($element->getID() === null) {
+                    return 'New (not added to DB yet)';
+                }
+
+                return null;
             },
             'choice_translation_domain' => false, //Don't translate the entity names
         ]);
