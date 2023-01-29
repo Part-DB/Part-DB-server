@@ -24,6 +24,7 @@ namespace App\Form\Type;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
@@ -44,16 +45,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class StructuralEntityType extends AbstractType
 {
     protected EntityManagerInterface $em;
+    protected AttachmentURLGenerator $attachmentURLGenerator;
 
     /**
      * @var NodesListBuilder
      */
     protected $builder;
 
-    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder)
+    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder, AttachmentURLGenerator $attachmentURLGenerator)
     {
         $this->em = $em;
         $this->builder = $builder;
+        $this->attachmentURLGenerator = $attachmentURLGenerator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -94,17 +97,14 @@ class StructuralEntityType extends AbstractType
 
         $resolver->setDefault('empty_message', null);
 
-        $resolver->setDefault('controller', 'elements--selectpicker');
+        $resolver->setDefault('controller', 'elements--structural-entity-select');
 
         $resolver->setDefault('attr', static function (Options $options) {
             $tmp = [
                 'data-controller' => $options['controller'],
-                'data-live-search' => true,
-                'title' => 'selectpicker.nothing_selected',
             ];
             if ($options['empty_message']) {
-                $tmp['data-none-Selected-Text'] = $options['empty_message'];
-                $tmp['title'] = $options['empty_message'];
+                $tmp['data-empty_message'] = $options['empty_message'];
             }
 
             return $tmp;
@@ -117,15 +117,6 @@ class StructuralEntityType extends AbstractType
     public function getEntries(Options $options): array
     {
         return $this->builder->typeToNodesList($options['class'], null);
-    }
-
-    public function buildView(FormView $view, FormInterface $form, array $options): void
-    {
-        //Allow HTML in labels. You must override the 'choice_widget_options' block, so that can work
-        //See extendedBootstrap4_layout.html.twig for that...
-        $view->vars['use_html_in_labels'] = true;
-
-        parent::buildView($view, $form, $options);
     }
 
     public function getParent(): string
@@ -221,34 +212,9 @@ class StructuralEntityType extends AbstractType
         return $this->em->find($options['class'], $value->getID());
     }
 
-    /**
-     * This generates the HTML code that will be rendered by selectpicker
-     * @return string
-     */
-    protected function getChoiceContent(AbstractStructuralDBElement $choice, $key, $value, $options): string
-    {
-        $html = "";
-
-        //Add element name, use a class as whitespace which hides when not used in dropdown list
-        $html .= $this->getElementNameWithLevelWhitespace($choice, $options, '<span class="picker-level"></span>');
-
-        if ($options['show_fullpath_in_subtext'] && null !== $choice->getParent()) {
-            $html .= '<span class="ms-3 badge rounded-pill bg-secondary float-end picker-us"><i class="fa-solid fa-folder-tree"></i>&nbsp;' . trim(htmlspecialchars($choice->getParent()->getFullPath())) . '</span>';
-        }
-
-        if ($choice instanceof AttachmentType && !empty($choice->getFiletypeFilter())) {
-            $html .= '<span class="ms-3 badge bg-warning"><i class="fa-solid fa-file-circle-exclamation"></i>&nbsp;' . trim(htmlspecialchars($choice->getFiletypeFilter())) . '</span>';
-        }
-
-        return $html;
-    }
-
-
     protected function generateChoiceAttr(AbstractStructuralDBElement $choice, $key, $value, $options): array
     {
         $tmp = [];
-
-
 
         //Disable attribute if the choice is marked as not selectable
         if ($options['disable_not_selectable'] && $choice->isNotSelectable()) {
@@ -259,8 +225,22 @@ class StructuralEntityType extends AbstractType
             $tmp += ['data-filetype_filter' => $choice->getFiletypeFilter()];
         }
 
-        //Add the HTML content that will be shown finally in the selectpicker
-        $tmp += ['data-content' => $this->getChoiceContent($choice, $key, $value, $options)];
+        $level = $choice->getLevel();
+        /** @var AbstractStructuralDBElement|null $parent */
+        $parent = $options['subentities_of'];
+        if (null !== $parent) {
+            $level -= $parent->getLevel() - 1;
+        }
+
+        $tmp += [
+            'data-level' => $level,
+            'data-parent' => $choice->getParent() ? $choice->getParent()->getFullPath() : null,
+            'data-image' => $choice->getMasterPictureAttachment() ? $this->attachmentURLGenerator->getThumbnailURL($choice->getMasterPictureAttachment(), 'thumbnail_xs') : null,
+        ];
+
+        if ($choice instanceof AttachmentType && !empty($choice->getFiletypeFilter())) {
+            $tmp += ['data-filetype_filter' => $choice->getFiletypeFilter()];
+        }
 
         return $tmp;
     }
@@ -285,7 +265,6 @@ class StructuralEntityType extends AbstractType
 
     protected function generateChoiceLabels(AbstractStructuralDBElement $choice, $key, $value, $options): string
     {
-        //Just for compatibility reasons for the case selectpicker should not work. The real value is generated in the getChoiceContent() method
-        return $this->getElementNameWithLevelWhitespace($choice, $options, " ");
+        return $choice->getName();
     }
 }

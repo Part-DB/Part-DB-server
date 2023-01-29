@@ -101,13 +101,13 @@ class AttachmentURLGenerator
 
     /**
      * Returns a URL under which the attachment file can be viewed.
+     * @return string|null The URL or null if the attachment file is not existing
      */
-    public function getViewURL(Attachment $attachment): string
+    public function getViewURL(Attachment $attachment): ?string
     {
         $absolute_path = $this->attachmentHelper->toAbsoluteFilePath($attachment);
         if (null === $absolute_path) {
-            throw new RuntimeException('The given attachment is external or has no valid file, so no URL can get generated for it!
-                Use Attachment::getURL() to get the external URL!');
+            return null;
         }
 
         $asset_path = $this->absolutePathToAssetPath($absolute_path);
@@ -122,8 +122,9 @@ class AttachmentURLGenerator
 
     /**
      * Returns a URL to an thumbnail of the attachment file.
+     * @return string|null The URL or null if the attachment file is not existing
      */
-    public function getThumbnailURL(Attachment $attachment, string $filter_name = 'thumbnail_sm'): string
+    public function getThumbnailURL(Attachment $attachment, string $filter_name = 'thumbnail_sm'): ?string
     {
         if (!$attachment->isPicture()) {
             throw new InvalidArgumentException('Thumbnail creation only works for picture attachments!');
@@ -135,7 +136,7 @@ class AttachmentURLGenerator
 
         $absolute_path = $this->attachmentHelper->toAbsoluteFilePath($attachment);
         if (null === $absolute_path) {
-            throw new RuntimeException('The given attachment is external or has no valid file, so no URL can get generated for it!');
+            return null;
         }
 
         $asset_path = $this->absolutePathToAssetPath($absolute_path);

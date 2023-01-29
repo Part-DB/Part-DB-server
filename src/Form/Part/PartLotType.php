@@ -60,11 +60,6 @@ class PartLotType extends AbstractType
             'label' => 'part_lot.edit.location',
             'required' => false,
             'disable_not_selectable' => true,
-            'attr' => [
-                'data-controller' => 'elements--selectpicker',
-                'title' => 'selectpicker.nothing_selected',
-                'data-live-search' => true,
-            ],
         ]);
 
         $builder->add('amount', SIUnitType::class, [

@@ -25,6 +25,7 @@ namespace App\Form\Type;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\PriceInformations\Currency;
+use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
@@ -39,9 +40,9 @@ class CurrencyEntityType extends StructuralEntityType
 {
     protected ?string $base_currency;
 
-    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder, ?string $base_currency)
+    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder, AttachmentURLGenerator $attachmentURLGenerator, ?string $base_currency)
     {
-        parent::__construct($em, $builder);
+        parent::__construct($em, $builder, $attachmentURLGenerator);
         $this->base_currency = $base_currency;
     }
 

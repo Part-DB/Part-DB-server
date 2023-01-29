@@ -20,23 +20,6 @@
     col-sm-9
 {%- endblock form_group_class %}
 
-{%- block choice_widget_options -%}
-    {% for group_label, choice in options %}
-        {%- if choice is iterable -%}
-            <optgroup label="{{ choice_translation_domain is same as(false) ? group_label : group_label|trans({}, choice_translation_domain) }}">
-                {% set options = choice %}
-                {{- block('choice_widget_options') -}}
-            </optgroup>
-        {%- else -%}
-            {% if use_html_in_labels is defined and use_html_in_labels %}
-                <option value="{{ choice.value }}"{% if choice.attr %}{% with { attr: choice.attr } %}{{ block('attributes') }}{% endwith %}{% endif %}{% if choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ choice_translation_domain is same as(false) ? choice.label|raw : choice.label|trans({}, choice_translation_domain)|raw }}</option>
-            {% else %}
-                <option value="{{ choice.value }}"{% if choice.attr %}{% with { attr: choice.attr } %}{{ block('attributes') }}{% endwith %}{% endif %}{% if choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ choice_translation_domain is same as(false) ? choice.label : choice.label|trans({}, choice_translation_domain) }}</option>
-            {% endif %}
-        {%- endif -%}
-    {% endfor %}
-{%- endblock choice_widget_options -%}
-
 {% block si_unit_widget %}
     <div class="input-group {% if sm %}input-group-sm{% endif %}">
         {{ form_widget(form.value) }}
