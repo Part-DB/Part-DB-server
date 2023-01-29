@@ -21,5 +21,9 @@
         <td>PHP extensions</td>
         <td>{{ helper.array_to_tags(php_extensions) }}</td>
     </tr>
+    <tr>
+        <td>Server time</td>
+        <td>{{ "now" | format_datetime("long", "long") }}</td>
+    </tr>
     </tbody>
 </table>
