@@ -104,7 +104,7 @@ class StructuralEntityType extends AbstractType
                 'data-controller' => $options['controller'],
             ];
             if ($options['empty_message']) {
-                $tmp['data-empty_message'] = $options['empty_message'];
+                $tmp['data-empty-message'] = $options['empty_message'];
             }
 
             return $tmp;

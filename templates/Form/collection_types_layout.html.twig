@@ -66,7 +66,7 @@
                     <div class="col-sm-9">
                         <div class="input-group">
                             {{ form_widget(form.price) }}
-                            {{ form_widget(form.priceCurrency, {'attr': {'class': 'selectpicker', 'data-controller': 'elements--selectpicker'}}) }}
+                            {{ form_widget(form.priceCurrency) }}
                         </div>
                         {{ form_errors(form.price) }}
                         {{ form_errors(form.priceCurrency) }}

@@ -75,6 +75,29 @@ class CurrencyEntityType extends StructuralEntityType
         $resolver->setDefault('short', false);
     }
 
+    protected function generateChoiceAttr(AbstractStructuralDBElement $choice, $key, $value, $options): array
+    {
+        $tmp = parent::generateChoiceAttr($choice, $key, $value, $options);
+
+        if(!empty($choice->getIsoCode())) {
+            $symbol = Currencies::getSymbol($choice->getIsoCode());
+        } else {
+            $symbol = null;
+        }
+
+        if ($options['short']) {
+            $tmp['data-short'] = $symbol;
+        } else {
+            $tmp['data-short'] = $choice->getName();
+        }
+
+        $tmp += [
+            'data-symbol' => $symbol,
+        ];
+
+        return $tmp;
+    }
+
     protected function getChoiceContent(AbstractStructuralDBElement $choice, $key, $value, $options): string
     {
         if(!$choice instanceof Currency) {

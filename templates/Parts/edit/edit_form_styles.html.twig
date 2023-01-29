@@ -7,7 +7,7 @@
         <td>
             <div class="input-group input-group-sm">
                 {{ form_widget(form.price) }}
-                {{ form_widget(form.currency, {'attr': {'class': 'selectpicker form-control-sm', 'data-controller': 'elements--selectpicker'}}) }}
+                {{ form_widget(form.currency, {'attr': {'class': 'form-control-sm'}}) }}
             </div>
             {{ form_errors(form.price) }}
             {{ form_errors(form.currency) }}

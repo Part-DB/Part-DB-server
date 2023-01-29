@@ -26,11 +26,17 @@ import {Controller} from "@hotwired/stimulus";
 export default class extends Controller {
     _tomSelect;
 
+    _emptyMessage;
+
     connect() {
+
+        //Extract empty message from data attribute
+        this._emptyMessage = this.element.getAttribute("data-empty-message") ?? "";
 
         let settings = {
             allowEmptyOption: true,
             selectOnTab: true,
+            maxOptions: null,
 
             searchField: [
                 {field: "text", weight : 2},
@@ -38,8 +44,8 @@ export default class extends Controller {
             ],
 
             render: {
-                item: this.renderItem,
-                option: this.renderOption,
+                item: this.renderItem.bind(this),
+                option: this.renderOption.bind(this),
             }
         };
 
@@ -47,6 +53,19 @@ export default class extends Controller {
     }
 
     renderItem(data, escape) {
+        //Render empty option as full row
+        if (data.value === "") {
+            if (this._emptyMessage) {
+                return '<div class="tom-select-empty-option"><span class="text-muted"><b>' + escape(this._emptyMessage) + '</b></span></div>';
+            } else {
+                return '<div>&nbsp;</div>';
+            }
+        }
+
+        if (data.short) {
+            return '<div><b>' + escape(data.short) + '</b></div>';
+        }
+
         let name = "";
         if (data.parent) {
             name += escape(data.parent) + "&nbsp;→&nbsp;";
@@ -59,16 +78,25 @@ export default class extends Controller {
     renderOption(data, escape) {
         //Render empty option as full row
         if (data.value === "") {
-            return '<div>&nbsp;</div>';
+            if (this._emptyMessage) {
+                return '<div class="tom-select-empty-option"><span class="text-muted">' + escape(this._emptyMessage) + '</span></div>';
+            } else {
+                return '<div>&nbsp;</div>';
+            }
         }
 
 
         //Indent the option according to the level
-        const level_html = '&nbsp;&nbsp;&nbsp;'.repeat(data.level);
+        let level_html = '&nbsp;&nbsp;&nbsp;'.repeat(data.level);
 
         let filter_badge = "";
         if (data.filetype_filter) {
             filter_badge = '<span class="badge bg-warning float-end"><i class="fa-solid fa-file-circle-exclamation"></i>&nbsp;' + escape(data.filetype_filter) + '</span>';
+        }
+
+        let symbol_badge = "";
+        if (data.symbol) {
+            symbol_badge = '<span class="badge bg-primary ms-2">' + escape(data.symbol) + '</span>';
         }
 
         let parent_badge = "";
@@ -81,7 +109,7 @@ export default class extends Controller {
             image = '<img style="max-height: 1.5rem; max-width: 2rem; margin-left: 5px;" src="' + data.image + '"/>';
         }
 
-        return '<div>' + level_html + escape(data.text) + image + parent_badge + filter_badge + '</div>';
+        return '<div>' + level_html + escape(data.text) + image + symbol_badge + parent_badge + filter_badge + '</div>';
     }
 
 }
