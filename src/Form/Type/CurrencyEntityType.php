@@ -79,6 +79,10 @@ class CurrencyEntityType extends StructuralEntityType
     {
         $tmp = parent::generateChoiceAttr($choice, $key, $value, $options);
 
+        if (!$choice instanceof Currency) {
+            throw new RuntimeException('The choice must be an instance of '.Currency::class);
+        }
+
         if(!empty($choice->getIsoCode())) {
             $symbol = Currencies::getSymbol($choice->getIsoCode());
         } else {

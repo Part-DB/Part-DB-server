@@ -111,8 +111,9 @@ class StructuralDBElementRepository extends NamedDBElementRepository
             //See if we already have an element with this name and parent
             $entity = $this->findOneBy(['name' => $name, 'parent' => $parent]);
             if (null === $entity) {
+                $class = $this->getClassName();
                 /** @var AbstractStructuralDBElement $entity */
-                $entity = new ($this->getClassName());
+                $entity = new $class;
                 $entity->setName($name);
                 $entity->setParent($parent);
             }
