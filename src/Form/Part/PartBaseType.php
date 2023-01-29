@@ -104,15 +104,15 @@ class PartBaseType extends AbstractType
             ])
             ->add('category', StructuralEntityType::class, [
                 'class' => Category::class,
+                'allow_add' => $this->security->isGranted('@categories.create'),
                 'label' => 'part.edit.category',
                 'disable_not_selectable' => true,
-                'constraints' => [
-                ],
             ])
             ->add('footprint', StructuralEntityType::class, [
                 'class' => Footprint::class,
                 'required' => false,
                 'label' => 'part.edit.footprint',
+                'allow_add' => $this->security->isGranted('@footprints.create'),
                 'disable_not_selectable' => true,
             ])
             ->add('tags', TextType::class, [
@@ -131,6 +131,7 @@ class PartBaseType extends AbstractType
             'class' => Manufacturer::class,
             'required' => false,
             'label' => 'part.edit.manufacturer.label',
+            'allow_add' => $this->security->isGranted('@manufacturers.create'),
             'disable_not_selectable' => true,
         ])
             ->add('manufacturer_product_url', UrlType::class, [

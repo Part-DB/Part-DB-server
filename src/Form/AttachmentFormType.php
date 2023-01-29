@@ -75,6 +75,7 @@ class AttachmentFormType extends AbstractType
                 'label' => 'attachment.edit.attachment_type',
                 'class' => AttachmentType::class,
                 'disable_not_selectable' => true,
+                'allow_add' => $this->security->isGranted('@attachment_types.create'),
             ]);
 
         $builder->add('showInTable', CheckboxType::class, [

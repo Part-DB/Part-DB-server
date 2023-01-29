@@ -33,10 +33,13 @@ export default class extends Controller {
         //Extract empty message from data attribute
         this._emptyMessage = this.element.getAttribute("data-empty-message") ?? "";
 
+        const allowAdd = this.element.getAttribute("data-allow-add") === "true";
+
         let settings = {
             allowEmptyOption: true,
             selectOnTab: true,
             maxOptions: null,
+            create: allowAdd,
 
             searchField: [
                 {field: "text", weight : 2},

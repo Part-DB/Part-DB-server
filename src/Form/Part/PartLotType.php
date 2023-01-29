@@ -60,6 +60,7 @@ class PartLotType extends AbstractType
             'label' => 'part_lot.edit.location',
             'required' => false,
             'disable_not_selectable' => true,
+            'allow_add' => $this->security->isGranted('@storelocations.create'),
         ]);
 
         $builder->add('amount', SIUnitType::class, [

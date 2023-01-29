@@ -24,6 +24,7 @@ namespace App\Form\Type;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Form\Type\Helper\StructuralEntityChoiceLoader;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
@@ -37,6 +38,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\AtLeastOneOf;
+use Symfony\Component\Validator\Constraints\IsNull;
+use Symfony\Component\Validator\Constraints\Valid;
 
 /**
  * This class provides a choice form type similar to EntityType, with the difference, that the tree structure
@@ -63,9 +67,9 @@ class StructuralEntityType extends AbstractType
     {
         $builder->addModelTransformer(new CallbackTransformer(
                                           function ($value) use ($options) {
-                                              return $this->transform($value, $options);
+                                              return $this->modelTransform($value, $options);
                                           }, function ($value) use ($options) {
-                                              return $this->reverseTransform($value, $options);
+                                              return $this->modelReverseTransform($value, $options);
                                           }));
     }
 
@@ -73,14 +77,13 @@ class StructuralEntityType extends AbstractType
     {
         $resolver->setRequired(['class']);
         $resolver->setDefaults([
+            'allow_add' => false,
             'show_fullpath_in_subtext' => true, //When this is enabled, the full path will be shown in subtext
             'subentities_of' => null,   //Only show entities with the given parent class
             'disable_not_selectable' => false,  //Disable entries with not selectable property
             'choice_value' => 'id', //Use the element id as option value and for comparing items
             'choice_loader' => function (Options $options) {
-                return new CallbackChoiceLoader(function () use ($options) {
-                    return $this->getEntries($options);
-                });
+                return new StructuralEntityChoiceLoader($options, $this->builder, $this->em);
             },
             'choice_label' => function (Options $options) {
                 return function ($choice, $key, $value) use ($options) {
@@ -95,6 +98,15 @@ class StructuralEntityType extends AbstractType
             'choice_translation_domain' => false, //Don't translate the entity names
         ]);
 
+        //Set the constraints for the case that allow add is enabled (we then have to check that the new element is valid)
+        $resolver->setNormalizer('constraints', function (Options $options, $value) {
+            if ($options['allow_add']) {
+                $value[] = new Valid();
+            }
+
+            return $value;
+        });
+
         $resolver->setDefault('empty_message', null);
 
         $resolver->setDefault('controller', 'elements--structural-entity-select');
@@ -102,6 +114,7 @@ class StructuralEntityType extends AbstractType
         $resolver->setDefault('attr', static function (Options $options) {
             $tmp = [
                 'data-controller' => $options['controller'],
+                'data-allow-add' => $options['allow_add'] ? 'true' : 'false',
             ];
             if ($options['empty_message']) {
                 $tmp['data-empty-message'] = $options['empty_message'];
@@ -111,91 +124,18 @@ class StructuralEntityType extends AbstractType
         });
     }
 
-    /**
-     * Gets the entries from database and return an array of them.
-     */
-    public function getEntries(Options $options): array
-    {
-        return $this->builder->typeToNodesList($options['class'], null);
-    }
 
     public function getParent(): string
     {
         return ChoiceType::class;
     }
 
-    /**
-     *  Transforms a value from the original representation to a transformed representation.
-     *
-     *  This method is called when the form field is initialized with its default data, on
-     *  two occasions for two types of transformers:
-     *
-     *  1. Model transformers which normalize the model data.
-     *     This is mainly useful when the same form type (the same configuration)
-     *     has to handle different kind of underlying data, e.g The DateType can
-     *     deal with strings or \DateTime objects as input.
-     *
-     *  2. View transformers which adapt the normalized data to the view format.
-     *     a/ When the form is simple, the value returned by convention is used
-     *        directly in the view and thus can only be a string or an array. In
-     *        this case the data class should be null.
-     *
-     *     b/ When the form is compound the returned value should be an array or
-     *        an object to be mapped to the children. Each property of the compound
-     *        data will be used as model data by each child and will be transformed
-     *        too. In this case data class should be the class of the object, or null
-     *        when it is an array.
-     *
-     *  All transformers are called in a configured order from model data to view value.
-     *  At the end of this chain the view data will be validated against the data class
-     *  setting.
-     *
-     *  This method must be able to deal with empty values. Usually this will
-     *  be NULL, but depending on your implementation other empty values are
-     *  possible as well (such as empty strings). The reasoning behind this is
-     *  that data transformers must be chainable. If the transform() method
-     *  of the first data transformer outputs NULL, the second must be able to
-     *  process that value.
-     *
-     * @param mixed $value The value in the original representation
-     *
-     * @return mixed The value in the transformed representation
-     *
-     * @throws TransformationFailedException when the transformation fails
-     */
-    public function transform($value, array $options)
+    public function modelTransform($value, array $options)
     {
         return $value;
     }
 
-    /**
-     *  Transforms a value from the transformed representation to its original
-     *  representation.
-     *
-     *  This method is called when {@link Form::submit()} is called to transform the requests tainted data
-     *  into an acceptable format.
-     *
-     *  The same transformers are called in the reverse order so the responsibility is to
-     *  return one of the types that would be expected as input of transform().
-     *
-     *  This method must be able to deal with empty values. Usually this will
-     *  be an empty string, but depending on your implementation other empty
-     *  values are possible as well (such as NULL). The reasoning behind
-     *  this is that value transformers must be chainable. If the
-     *  reverseTransform() method of the first value transformer outputs an
-     *  empty string, the second value transformer must be able to process that
-     *  value.
-     *
-     *  By convention, reverseTransform() should return NULL if an empty string
-     *  is passed.
-     *
-     * @param mixed $value The value in the transformed representation
-     *
-     * @return mixed The value in the original representation
-     *
-     * @throws TransformationFailedException when the transformation fails
-     */
-    public function reverseTransform($value, array $options)
+    public function modelReverseTransform($value, array $options)
     {
         /* This step is important in combination with the caching!
            The elements deserialized from cache, are not known to Doctrinte ORM any more, so doctrine thinks,
@@ -209,7 +149,13 @@ class StructuralEntityType extends AbstractType
             return null;
         }
 
-        return $this->em->find($options['class'], $value->getID());
+        //If the value is already in the db, retrieve it freshly
+        if ($value->getID()) {
+            return $this->em->find($options['class'], $value->getID());
+        }
+
+        //Otherwise just return the value
+        return $value;
     }
 
     protected function generateChoiceAttr(AbstractStructuralDBElement $choice, $key, $value, $options): array

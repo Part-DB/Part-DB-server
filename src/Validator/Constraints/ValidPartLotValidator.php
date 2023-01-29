@@ -59,7 +59,8 @@ class ValidPartLotValidator extends ConstraintValidator
         if ($value->getStorageLocation()) {
             $repo = $this->em->getRepository(Storelocation::class);
             //We can only determine associated parts, if the part have an ID
-            if (null !== $value->getID()) {
+            //When the storage location is new (no ID), we can just assume there are no other parts
+            if (null !== $value->getID() && $value->getStorageLocation()->getID()) {
                 $parts = new ArrayCollection($repo->getParts($value->getStorageLocation()));
             } else {
                 $parts = new ArrayCollection([]);

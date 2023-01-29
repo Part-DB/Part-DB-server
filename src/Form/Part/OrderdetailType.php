@@ -63,6 +63,7 @@ class OrderdetailType extends AbstractType
             'class' => Supplier::class,
             'disable_not_selectable' => true,
             'label' => 'orderdetails.edit.supplier',
+            'allow_add' => $this->security->isGranted('@suppliers.create'),
         ]);
 
         $builder->add('supplier_product_url', UrlType::class, [
