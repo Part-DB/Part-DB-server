@@ -147,6 +147,37 @@
         <target>New currency</target>
       </segment>
     </unit>
+    <unit id="zNlEdQs" name="project.caption">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
+        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
+        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
+      </notes>
+      <segment state="translated">
+        <source>project.caption</source>
+        <target>Project</target>
+      </segment>
+    </unit>
+    <unit id="DTt5Co7" name="project.edit">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>project.edit</source>
+        <target>Edit project</target>
+      </segment>
+    </unit>
+    <unit id="O_iNK2O" name="project.new">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
+        <note category="state" priority="1">new</note>
+      </notes>
+      <segment state="translated">
+        <source>project.new</source>
+        <target>New project</target>
+      </segment>
+    </unit>
     <unit id="lQ8QeGr" name="search.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
@@ -327,7 +358,7 @@
       </notes>
       <segment state="translated">
         <source>mass_creation.help</source>
-        <target>Each line will be interpreted as a name of a element, which will be created.</target>
+        <target>Each line will be interpreted as a name of a element, which will be created. You can create nested structures by indentations.</target>
       </segment>
     </unit>
     <unit id="a5.CFfq" name="edit.caption">
@@ -1462,7 +1493,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>homepage.forum.text</source>
-        <target>For questions about the Part-DB there is a thread on &lt;a href="%href%" class="link-external" target="_blank"&gt;mikrocontroller.net&lt;/a&gt;</target>
+        <target>For questions about Part-DB use the &lt;a href="%href%" class="link-external" target="_blank"&gt;discussion forum&lt;/a&gt;</target>
       </segment>
     </unit>
     <unit id="SV0IxK0" name=" homepage.basedOn ">
@@ -4042,6 +4073,22 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Go!</target>
       </segment>
     </unit>
+    <unit id="w0jVACo" name="project.labelp">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
+        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
+        <note priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
+        <note priority="1">templates\base.html.twig:175</note>
+        <note priority="1">templates\base.html.twig:189</note>
+        <note priority="1">templates\base.html.twig:202</note>
+        <note priority="1">templates\base.html.twig:230</note>
+      </notes>
+      <segment state="translated">
+        <source>project.labelp</source>
+        <target>Projects</target>
+      </segment>
+    </unit>
     <unit id="Kw3N1AA" name="actions">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:2</note>
@@ -5956,6 +6003,16 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>Attachment type</target>
       </segment>
     </unit>
+    <unit id="w.zcG5D" name="project.label">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
+        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
+      </notes>
+      <segment state="translated">
+        <source>project.label</source>
+        <target>Project</target>
+      </segment>
+    </unit>
     <unit id="QPnDbnv" name="measurement_unit.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:85</note>
@@ -6134,6 +6191,17 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       <segment state="translated">
         <source>tree.tools.edit.categories</source>
         <target>Categories</target>
+      </segment>
+    </unit>
+    <unit id="0I8lDuo" name="tree.tools.edit.projects">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:161</note>
+        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:138</note>
+        <note priority="1">src\Services\ToolsTreeBuilder.php:66</note>
+      </notes>
+      <segment state="translated">
+        <source>tree.tools.edit.projects</source>
+        <target>Projects</target>
       </segment>
     </unit>
     <unit id="BFfweU_" name="tree.tools.edit.suppliers">
@@ -7187,6 +7255,9 @@ Exampletown</target>
       <segment state="translated">
         <source>mass_creation.lines.placeholder</source>
         <target>Element 1
+   Element 1.1
+      Element 1.1.1
+   Element 1.2
 Element 2
 Element 3</target>
       </segment>
@@ -8020,6 +8091,16 @@ Element 3</target>
       <segment state="translated">
         <source>perm.part.manufacturers</source>
         <target>Manufacturers</target>
+      </segment>
+    </unit>
+    <unit id="1AtDlX." name="perm.projects">
+      <notes>
+        <note priority="1">obsolete</note>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>perm.projects</source>
+        <target>Projects</target>
       </segment>
     </unit>
     <unit id="hgZrqP_" name="perm.part.attachment_types">
@@ -9216,7 +9297,7 @@ Element 3</target>
     <unit id="EieqscF" name="part_list.action.select_null">
       <segment state="translated">
         <source>part_list.action.select_null</source>
-        <target>No elements existing!</target>
+        <target>Empty element</target>
       </segment>
     </unit>
     <unit id="4IH1qgL" name="part_list.action.delete-title">
@@ -10147,6 +10228,192 @@ Element 3</target>
       <segment state="translated">
         <source>log.part_stock_changed.move_target</source>
         <target>Move target</target>
+      </segment>
+    </unit>
+    <unit id="e2xzHIo" name="tools.builtin_footprints_viewer.title">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.title</source>
+        <target>Builtin footprint image gallery</target>
+      </segment>
+    </unit>
+    <unit id="jtxbmbi" name="tools.builtin_footprints_viewer.hint">
+      <segment state="translated">
+        <source>tools.builtin_footprints_viewer.hint</source>
+        <target>This gallery lists all available builtin footprint images. If you want to use them in an attachment, type in the name (or a keyword) in the path field of the attachment and select the image from the dropdown select.</target>
+      </segment>
+    </unit>
+    <unit id="Dw4KG4Y" name="tools.ic_logos.title">
+      <segment state="translated">
+        <source>tools.ic_logos.title</source>
+        <target>IC logos</target>
+      </segment>
+    </unit>
+    <unit id="9a9Yu9u" name="part_list.action.group.labels">
+      <segment state="translated">
+        <source>part_list.action.group.labels</source>
+        <target>Labels</target>
+      </segment>
+    </unit>
+    <unit id="gaFZMnW" name="part_list.action.projects.generate_label">
+      <segment state="translated">
+        <source>part_list.action.projects.generate_label</source>
+        <target>Generate labels (for parts)</target>
+      </segment>
+    </unit>
+    <unit id="cKJeBZl" name="part_list.action.projects.generate_label_lot">
+      <segment state="translated">
+        <source>part_list.action.projects.generate_label_lot</source>
+        <target>Generate labels (for part lots)</target>
+      </segment>
+    </unit>
+    <unit id="obOVNB9" name="part_list.action.generate_label.empty">
+      <segment state="translated">
+        <source>part_list.action.generate_label.empty</source>
+        <target>Empty label</target>
+      </segment>
+    </unit>
+    <unit id="YddcwVg" name="project.info.builds.label">
+      <segment state="translated">
+        <source>project.info.builds.label</source>
+        <target>Build</target>
+      </segment>
+    </unit>
+    <unit id="6uUxHyg" name="project.builds.build_not_possible">
+      <segment state="translated">
+        <source>project.builds.build_not_possible</source>
+        <target>Build not possible: Parts not stocked</target>
+      </segment>
+    </unit>
+    <unit id="HY05vl8" name="project.builds.following_bom_entries_miss_instock">
+      <segment state="translated">
+        <source>project.builds.following_bom_entries_miss_instock</source>
+        <target>The following parts have not enough stock to build this project at least once:</target>
+      </segment>
+    </unit>
+    <unit id="VHUY79k" name="project.builds.stocked">
+      <segment state="translated">
+        <source>project.builds.stocked</source>
+        <target>stocked</target>
+      </segment>
+    </unit>
+    <unit id="mwL3d70" name="project.builds.needed">
+      <segment state="translated">
+        <source>project.builds.needed</source>
+        <target>needed</target>
+      </segment>
+    </unit>
+    <unit id="jZKw98F" name="project.builds.build_possible">
+      <segment state="translated">
+        <source>project.builds.build_possible</source>
+        <target>Build possible</target>
+      </segment>
+    </unit>
+    <unit id="rRMnoEh" name="project.builds.number_of_builds_possible">
+      <segment state="translated">
+        <source>project.builds.number_of_builds_possible</source>
+        <target>You have enough stocked to build &lt;b&gt;%max_builds%&lt;/b&gt; builds of this project.</target>
+      </segment>
+    </unit>
+    <unit id="fZhqvmk" name="project.builds.check_project_status">
+      <segment state="translated">
+        <source>project.builds.check_project_status</source>
+        <target>The current project status is &lt;b&gt;"%project_status%"&lt;/b&gt;. You should check if you really want to build the project with this status!</target>
+      </segment>
+    </unit>
+    <unit id="57BNIbl" name="project.builds.following_bom_entries_miss_instock_n">
+      <segment state="translated">
+        <source>project.builds.following_bom_entries_miss_instock_n</source>
+        <target>You do not have enough parts stocked to build this project %number_of_builds% times. The following parts have missing instock:</target>
+      </segment>
+    </unit>
+    <unit id="dB.JmYm" name="project.build.flash.invalid_input">
+      <segment state="translated">
+        <source>project.build.flash.invalid_input</source>
+        <target>Can not build project. Check input!</target>
+      </segment>
+    </unit>
+    <unit id="_sFMgby" name="project.build.required_qty">
+      <segment state="translated">
+        <source>project.build.required_qty</source>
+        <target>Required quantity</target>
+      </segment>
+    </unit>
+    <unit id="5gpbL_k" name="project.build.btn_build">
+      <segment state="translated">
+        <source>project.build.btn_build</source>
+        <target>Build</target>
+      </segment>
+    </unit>
+    <unit id="AqGFkiA" name="project.build.help">
+      <segment state="translated">
+        <source>project.build.help</source>
+        <target>Choose from which part lots the stock to build this project should be taken (and in which amount). Check the checkbox for each BOM Entry, when you are finished withdrawing the parts, or use the top checkbox to check all boxes at once.</target>
+      </segment>
+    </unit>
+    <unit id="rvdUHEn" name="project.build.buildsPartLot.new_lot">
+      <segment state="translated">
+        <source>project.build.buildsPartLot.new_lot</source>
+        <target>Create new lot</target>
+      </segment>
+    </unit>
+    <unit id="Kn_jkyo" name="project.build.add_builds_to_builds_part">
+      <segment state="translated">
+        <source>project.build.add_builds_to_builds_part</source>
+        <target>Add builds to project builds part</target>
+      </segment>
+    </unit>
+    <unit id="92b1_QD" name="project.build.builds_part_lot">
+      <segment state="translated">
+        <source>project.build.builds_part_lot</source>
+        <target>Target lot</target>
+      </segment>
+    </unit>
+    <unit id="pyv0k6b" name="project.builds.number_of_builds">
+      <segment state="translated">
+        <source>project.builds.number_of_builds</source>
+        <target>Build amount</target>
+      </segment>
+    </unit>
+    <unit id="RjYY9MA" name="project.builds.no_stocked_builds">
+      <segment state="translated">
+        <source>project.builds.no_stocked_builds</source>
+        <target>Number of stocked builds</target>
+      </segment>
+    </unit>
+    <unit id="Mken7uv" name="user.change_avatar.label">
+      <segment state="translated">
+        <source>user.change_avatar.label</source>
+        <target>Change profile picture</target>
+      </segment>
+    </unit>
+    <unit id="QFNPD0_" name="user_settings.change_avatar.label">
+      <segment state="translated">
+        <source>user_settings.change_avatar.label</source>
+        <target>Change profile picture</target>
+      </segment>
+    </unit>
+    <unit id="GLYVqz2" name="user_settings.remove_avatar.label">
+      <segment state="translated">
+        <source>user_settings.remove_avatar.label</source>
+        <target>Remove profile picture</target>
+      </segment>
+    </unit>
+    <unit id="Y1Aes28" name="part.edit.name.category_hint">
+      <segment state="translated">
+        <source>part.edit.name.category_hint</source>
+        <target>Hint from category</target>
+      </segment>
+    </unit>
+    <unit id="_vbPEFP" name="category.edit.partname_regex.placeholder">
+      <segment state="translated">
+        <source>category.edit.partname_regex.placeholder</source>
+        <target>e.g "/Capacitor \d+ nF/i"</target>
+      </segment>
+    </unit>
+    <unit id="QFgP__5" name="category.edit.partname_regex.help">
+      <segment state="translated">
+        <source>category.edit.partname_regex.help</source>
+        <target>A PCRE-compatible regular expression, which a part name have to match.</target>
       </segment>
     </unit>
   </file>
