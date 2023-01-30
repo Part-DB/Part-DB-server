@@ -82,8 +82,8 @@ class StructuralDBElementRepositoryTest extends WebTestCase
 
         //Check that IDs were set correctly
         $this->assertSame(1, $tree[0]->getId());
-        $this->assertSame(2, $tree[1]->getId());
-        $this->assertSame(7, $tree[0]->getNodes()[0]->getNodes()[0]->getId());
+        $this->assertSame(5, $tree[1]->getId());
+        $this->assertSame(3, $tree[0]->getNodes()[0]->getNodes()[0]->getId());
     }
 
     /**
