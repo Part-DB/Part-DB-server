@@ -1492,7 +1492,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>homepage.forum.text</source>
-        <target>Für Fragen rund um die Part-DB gibt es einen Thread auf &lt;a class="link-external" rel="noopener" target="_blank" href="%href%"&gt;mikrocontroller.net&lt;/a&gt;</target>
+        <target>Für Fragen rund um Part-DB, nutze das &lt;a class="link-external" rel="noopener" target="_blank" href="%href%"&gt;Diskussionsforum&lt;/a&gt;</target>
       </segment>
     </unit>
     <unit id="SV0IxK0" name=" homepage.basedOn ">
