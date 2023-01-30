@@ -6482,7 +6482,7 @@
       </notes>
       <segment state="translated">
         <source>log.collection_deleted.deleted</source>
-        <target>削除された要素: </target>
+        <target>削除された要素:</target>
       </segment>
     </unit>
     <unit id="rOLpDSq" name="go.exclamation">
@@ -7611,7 +7611,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>homepage.basedOn</source>
-        <target>オリジナルのPart-DBの作者: </target>
+        <target>オリジナルのPart-DBの作者:</target>
       </segment>
     </unit>
     <unit id="PlY3xmo" name="homepage.others">
@@ -7631,7 +7631,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>part.order.price_per</source>
-        <target>あたりの価格: </target>
+        <target>あたりの価格:</target>
       </segment>
     </unit>
     <unit id="1n22zD9" name="part.withdraw.caption">
