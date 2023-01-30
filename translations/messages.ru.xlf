@@ -1473,7 +1473,7 @@
       </notes>
       <segment state="translated">
         <source> homepage.basedOn </source>
-        <target> На основе оригинальной версии Part-DB  </target>
+        <target> На основе оригинальной версии Part-DB </target>
       </segment>
     </unit>
     <unit id="Qw1sChr" name=" homepage.others ">
@@ -4109,7 +4109,7 @@
       </notes>
       <segment state="translated">
         <source>attachment.download_failed</source>
-        <target>Не удалось скачать внешнее вложение. </target>
+        <target>Не удалось скачать внешнее вложение.</target>
       </segment>
     </unit>
     <unit id="A7i8za4" name="entity.edit_flash">
@@ -5390,7 +5390,7 @@
       </notes>
       <segment state="translated">
         <source>label_generator.target_id.range_hint</source>
-        <target>Вы можете указать несколько ID (например 1,2,3) и/или диапазон (1-3) чтобы создать этикетки для нескольких элементов сразу. </target>
+        <target>Вы можете указать несколько ID (например 1,2,3) и/или диапазон (1-3) чтобы создать этикетки для нескольких элементов сразу.</target>
       </segment>
     </unit>
     <unit id="GN.UJxb" name="label_generator.target_id.label">
