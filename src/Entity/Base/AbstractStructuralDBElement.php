@@ -322,6 +322,11 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
 
         $this->parent = $new_parent;
 
+        //Add this element as child to the new parent
+        if (null !== $new_parent) {
+            $new_parent->getChildren()->add($this);
+        }
+
         return $this;
     }
 
@@ -340,18 +345,28 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     }
 
     /**
-     * @param static[]|Collection $elements
-     *
+     * Adds the given element as child to this element.
+     * @param  static  $child
      * @return $this
      */
-    public function setChildren($elements): self
+    public function addChild(self $child): self
     {
-        if (!is_array($elements) && !$elements instanceof Collection) {
-            throw new InvalidArgumentException('$elements must be an array or Collection!');
-        }
+        $this->children->add($child);
+        //Children get this element as parent
+        $child->setParent($this);
+        return $this;
+    }
 
-        $this->children = $elements;
-
+    /**
+     * Removes the given element as child from this element.
+     * @param  static  $child
+     * @return $this
+     */
+    public function removeChild(self $child): self
+    {
+        $this->children->removeElement($child);
+        //Children has no parent anymore
+        $child->setParent(null);
         return $this;
     }
 

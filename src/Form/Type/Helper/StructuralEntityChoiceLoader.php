@@ -54,26 +54,6 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
         return array_merge($tmp, $this->builder->typeToNodesList($this->options['class'], null));
     }
 
-    /*public function loadChoicesForValues(array $values, callable $value = null)
-    {
-        $tmp = parent::loadChoicesForValues($values, $value);
-
-        if ($this->options['allow_add'] && empty($tmp)) {
-            if (count($values) > 1) {
-                throw new \InvalidArgumentException('Cannot add multiple entities at once.');
-            }
-
-            //Dont create a new entity for the empty option
-            if ($values[0] === "" || $values[0] === null) {
-                return $tmp;
-            }
-
-            return [$this->createNewEntitiesFromValue($values[0])[0]];
-        }
-
-        return $tmp;
-    }*/
-
     public function createNewEntitiesFromValue(string $value): array
     {
         if (!$this->options['allow_add']) {
