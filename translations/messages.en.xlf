@@ -10416,5 +10416,17 @@ Element 3</target>
         <target>A PCRE-compatible regular expression, which a part name have to match.</target>
       </segment>
     </unit>
+    <unit id="vr7oZKL" name="entity.select.add_hint">
+      <segment state="translated">
+        <source>entity.select.add_hint</source>
+        <target>Use -&gt; to create nested structures, e.g. "Node 1-&gt;Node 1.1"</target>
+      </segment>
+    </unit>
+    <unit id="_cXCaLo" name="entity.select.group.new_not_added_to_DB">
+      <segment state="translated">
+        <source>entity.select.group.new_not_added_to_DB</source>
+        <target>New (not added to DB yet)</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
