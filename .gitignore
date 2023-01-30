@@ -23,6 +23,11 @@
 .idea/*
 uploads/*
 !uploads/.keep
+
+# Do not keep cache files
+.php_cs.cache
+.phpcs-cache
+
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
 /public/build/
