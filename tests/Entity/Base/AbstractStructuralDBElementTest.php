@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Entity;
+namespace App\Tests\Entity\Base;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Parts\Category;
@@ -31,7 +31,7 @@ use PHPUnit\Framework\TestCase;
  * Test StructuralDBElement entities.
  * Note: Because StructuralDBElement is abstract we use AttachmentType here as a placeholder.
  */
-class StructuralDBElementTest extends TestCase
+class AbstractStructuralDBElementTest extends TestCase
 {
     protected $root;
     protected $child1;
@@ -57,6 +57,32 @@ class StructuralDBElementTest extends TestCase
         $this->child1_1->setName('child1_1')->setParent($this->child1);
         $this->child1_2 = new AttachmentType();
         $this->child1_2->setName('child1_2')->setParent($this->child1);
+    }
+
+    public function testSetParent(): void
+    {
+        $el1 = new AttachmentType();
+        $el2 = new AttachmentType();
+
+        $el2->setParent($el1);
+
+        //Check if parent was set correctly
+        $this->assertSame($el1, $el2->getParent());
+        //El2 must now be a child of el1
+        $this->assertTrue($el1->getChildren()->contains($el2));
+    }
+
+    public function testAddChild(): void
+    {
+        $el1 = new AttachmentType();
+        $el2 = new AttachmentType();
+
+        $el1->addChild($el2);
+
+        //Check if parent was set correctly
+        $this->assertSame($el1, $el2->getParent());
+        //El2 must now be a child of el1
+        $this->assertTrue($el1->getChildren()->contains($el2));
     }
 
     public function testIsRoot(): void

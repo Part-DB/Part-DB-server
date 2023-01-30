@@ -117,4 +117,61 @@ class StructuralDBElementRepositoryTest extends WebTestCase
         $this->assertSame('Node 1.1.1', $nodes[1]->getName());
         $this->assertSame('Node 1.2', $nodes[2]->getName());
     }
+
+    public function testGetNewEntityFromDB(): void
+    {
+        $path = 'Node 1/ Node 1.1 /Node 1.1.1';
+
+        $nodes = $this->repo->getNewEntityFromPath($path, '/');
+
+        $this->assertSame('Node 1', $nodes[0]->getName());
+        //Node must be from DB
+        $this->assertNotNull( $nodes[0]->getID());
+
+        $this->assertSame('Node 1.1', $nodes[1]->getName());
+        //Node must be from DB
+        $this->assertNotNull( $nodes[1]->getID());
+
+        $this->assertSame('Node 1.1.1', $nodes[2]->getName());
+        //Node must be from DB
+        $this->assertNotNull( $nodes[2]->getID());
+    }
+
+    public function testGetNewEntityNew(): void
+    {
+        $path = 'Element 1-> Element 1.1 ->Element 1.1.1';
+
+        $nodes = $this->repo->getNewEntityFromPath($path);
+
+        $this->assertSame('Element 1', $nodes[0]->getName());
+        //Node must not be from DB
+        $this->assertNull( $nodes[0]->getID());
+
+        $this->assertSame('Element 1.1', $nodes[1]->getName());
+        //Node must not be from DB
+        $this->assertNull( $nodes[1]->getID());
+
+        $this->assertSame('Element 1.1.1', $nodes[2]->getName());
+        //Node must not be from DB
+        $this->assertNull( $nodes[2]->getID());
+    }
+
+    public function testGetNewEntityMixed(): void
+    {
+        $path = 'Node 1-> Node 1.1 -> New Node';
+
+        $nodes = $this->repo->getNewEntityFromPath($path);
+
+        $this->assertSame('Node 1', $nodes[0]->getName());
+        //Node must be from DB
+        $this->assertNotNull( $nodes[0]->getID());
+
+        $this->assertSame('Node 1.1', $nodes[1]->getName());
+        //Node must be from DB
+        $this->assertNotNull( $nodes[1]->getID());
+
+        $this->assertSame('New Node', $nodes[2]->getName());
+        //Node must not be from DB
+        $this->assertNull( $nodes[2]->getID());
+    }
 }
