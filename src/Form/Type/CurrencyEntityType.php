@@ -32,6 +32,7 @@ use RuntimeException;
 use Symfony\Component\Intl\Currencies;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * An entity to select a currency shortly
@@ -40,9 +41,9 @@ class CurrencyEntityType extends StructuralEntityType
 {
     protected ?string $base_currency;
 
-    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder, AttachmentURLGenerator $attachmentURLGenerator, ?string $base_currency)
+    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder, AttachmentURLGenerator $attachmentURLGenerator, TranslatorInterface $translator, ?string $base_currency)
     {
-        parent::__construct($em, $builder, $attachmentURLGenerator);
+        parent::__construct($em, $builder, $attachmentURLGenerator, $translator);
         $this->base_currency = $base_currency;
     }
 

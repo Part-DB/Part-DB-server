@@ -44,6 +44,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\AtLeastOneOf;
 use Symfony\Component\Validator\Constraints\IsNull;
 use Symfony\Component\Validator\Constraints\Valid;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * This class provides a choice form type similar to EntityType, with the difference, that the tree structure
@@ -53,17 +54,19 @@ class StructuralEntityType extends AbstractType
 {
     protected EntityManagerInterface $em;
     protected AttachmentURLGenerator $attachmentURLGenerator;
+    protected TranslatorInterface $translator;
 
     /**
      * @var NodesListBuilder
      */
     protected $builder;
 
-    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder, AttachmentURLGenerator $attachmentURLGenerator)
+    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder, AttachmentURLGenerator $attachmentURLGenerator, TranslatorInterface $translator)
     {
         $this->em = $em;
         $this->builder = $builder;
         $this->attachmentURLGenerator = $attachmentURLGenerator;
+        $this->translator = $translator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -84,21 +87,6 @@ class StructuralEntityType extends AbstractType
                 $choice_loader->setAdditionalElement($data);
             }
         });
-
-       /* $builder->addEventListener(FormEvents::POST_SUBMIT, function (PostSubmitEvent $event) {
-           $name =  $event->getForm()->getConfig()->getName();
-           $data = $event->getForm()->getData();
-
-           if ($event->getForm()->getParent() === null) {
-               return;
-           }
-
-           $event->getForm()->getParent()->add($name, static::class, $event->getForm()->getConfig()->getOptions());
-           $new_form = $event->getForm()->getParent()->get($name);
-           $new_form->setData($data);
-        });*/
-
-
 
         $builder->addModelTransformer(new CallbackTransformer(
             function ($value) use ($options) {
@@ -145,7 +133,7 @@ class StructuralEntityType extends AbstractType
             {
                 //Show entities that are not added to DB yet separately from other entities
                 if ($element->getID() === null) {
-                    return 'New (not added to DB yet)';
+                    return $this->translator->trans('entity.select.group.new_not_added_to_DB');
                 }
 
                 return null;
@@ -166,10 +154,11 @@ class StructuralEntityType extends AbstractType
 
         $resolver->setDefault('controller', 'elements--structural-entity-select');
 
-        $resolver->setDefault('attr', static function (Options $options) {
+        $resolver->setDefault('attr', function (Options $options) {
             $tmp = [
                 'data-controller' => $options['controller'],
                 'data-allow-add' => $options['allow_add'] ? 'true' : 'false',
+                'data-add-hint' => $this->translator->trans('entity.select.add_hint'),
             ];
             if ($options['empty_message']) {
                 $tmp['data-empty-message'] = $options['empty_message'];
@@ -236,6 +225,7 @@ class StructuralEntityType extends AbstractType
         $tmp += [
             'data-level' => $level,
             'data-parent' => $choice->getParent() ? $choice->getParent()->getFullPath() : null,
+            'data-path' => $choice->getFullPath('->'),
             'data-image' => $choice->getMasterPictureAttachment() ? $this->attachmentURLGenerator->getThumbnailURL($choice->getMasterPictureAttachment(), 'thumbnail_xs') : null,
         ];
 

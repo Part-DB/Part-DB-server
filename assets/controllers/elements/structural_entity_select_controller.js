@@ -34,21 +34,29 @@ export default class extends Controller {
         this._emptyMessage = this.element.getAttribute("data-empty-message") ?? "";
 
         const allowAdd = this.element.getAttribute("data-allow-add") === "true";
+        const addHint = this.element.getAttribute("data-add-hint") ?? "";
 
         let settings = {
             allowEmptyOption: true,
             selectOnTab: true,
             maxOptions: null,
             create: allowAdd,
+            createFilter: /\D/, //Must contain a non-digit character, otherwise they would be recognized as DB ID
 
             searchField: [
                 {field: "text", weight : 2},
                 {field: "parent", weight : 0.5},
+                {field: "path", weight : 1.0},
             ],
 
             render: {
                 item: this.renderItem.bind(this),
                 option: this.renderOption.bind(this),
+                option_create: function(data, escape) {
+                    return '<div class="create">Add <strong>' + escape(data.input) + '</strong>&hellip;&nbsp;' +
+                        '<small class="text-muted float-end">(' + addHint +')</small>' +
+                        '</div>';
+                },
             }
         };
 
