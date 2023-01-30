@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="ja">
+  <file id="validators.en">
+    <unit id="xevSdCK" name="part.master_attachment.must_be_picture">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentContainingDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractStructuralDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\LabelSystem\LabelProfile.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Manufacturer.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\MeasurementUnit.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Part.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Part.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Storelocation.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Supplier.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractStructuralDBElement.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Manufacturer.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\MeasurementUnit.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Part.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Storelocation.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Supplier.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
+      </notes>
+      <segment state="translated">
+        <source>part.master_attachment.must_be_picture</source>
+        <target>プレビュー用の添付ファイルは有効な画像ファイルである必要があります。</target>
+      </segment>
+    </unit>
+    <unit id="VJHTkxx" name="structural.entity.unique_name">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Base\AbstractStructuralDBElement.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Manufacturer.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\MeasurementUnit.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Storelocation.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parts\Supplier.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Attachments\AttachmentType.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractCompany.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractPartsContainingDBElement.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Base\AbstractStructuralDBElement.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Devices\Device.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Category.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Footprint.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Manufacturer.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\MeasurementUnit.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Storelocation.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\Parts\Supplier.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\PriceInformations\Currency.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
+        <note priority="1">src\Entity\AttachmentType.php:0</note>
+        <note priority="1">src\Entity\Category.php:0</note>
+        <note priority="1">src\Entity\Company.php:0</note>
+        <note priority="1">src\Entity\Device.php:0</note>
+        <note priority="1">src\Entity\Footprint.php:0</note>
+        <note priority="1">src\Entity\Group.php:0</note>
+        <note priority="1">src\Entity\Manufacturer.php:0</note>
+        <note priority="1">src\Entity\PartsContainingDBElement.php:0</note>
+        <note priority="1">src\Entity\Storelocation.php:0</note>
+        <note priority="1">src\Entity\StructuralDBElement.php:0</note>
+        <note priority="1">src\Entity\Supplier.php:0</note>
+      </notes>
+      <segment state="translated">
+        <source>structural.entity.unique_name</source>
+        <target>同じレベルにすでにこの名前を持つ要素があります。</target>
+      </segment>
+    </unit>
+    <unit id="3ODUtpU" name="parameters.validator.min_lesser_typical">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AbstractParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AttachmentTypeParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CategoryParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CurrencyParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\DeviceParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\FootprintParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\GroupParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\ManufacturerParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\MeasurementUnitParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\PartParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\StorelocationParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\SupplierParameter.php:0</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.validator.min_lesser_typical</source>
+        <target>値は標準値 ({{ compared_value }}) 以下である必要があります。</target>
+      </segment>
+    </unit>
+    <unit id="jDBA_WW" name="parameters.validator.min_lesser_max">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AbstractParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AttachmentTypeParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CategoryParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CurrencyParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\DeviceParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\FootprintParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\GroupParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\ManufacturerParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\MeasurementUnitParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\PartParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\StorelocationParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\SupplierParameter.php:0</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.validator.min_lesser_max</source>
+        <target>値は最大値 ({{ compared_value }}) 未満である必要があります。</target>
+      </segment>
+    </unit>
+    <unit id="ygK_e_X" name="parameters.validator.max_greater_typical">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AbstractParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\AttachmentTypeParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CategoryParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\CurrencyParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\DeviceParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\FootprintParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\GroupParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\ManufacturerParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\MeasurementUnitParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\PartParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\StorelocationParameter.php:0</note>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\SupplierParameter.php:0</note>
+      </notes>
+      <segment state="translated">
+        <source>parameters.validator.max_greater_typical</source>
+        <target>値は標準値 ({{ compared_value }}) 以上である必要があります。</target>
+      </segment>
+    </unit>
+    <unit id="isXL.ie" name="validator.user.username_already_used">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
+      </notes>
+      <segment state="translated">
+        <source>validator.user.username_already_used</source>
+        <target>同じ名前のユーザーがすでに存在します。</target>
+      </segment>
+    </unit>
+    <unit id="NcM463r" name="user.invalid_username">
+      <notes>
+        <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
+        <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
+      </notes>
+      <segment state="translated">
+        <source>user.invalid_username</source>
+        <target>ユーザー名にはアルファベット・数字・アンダースコア・ドット・プラス・マイナスのみを使用できます。</target>
+      </segment>
+    </unit>
+    <unit id="lZvhKYu" name="validator.noneofitschild.self">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>validator.noneofitschild.self</source>
+        <target>要素は自身の親とすることはできません。</target>
+      </segment>
+    </unit>
+    <unit id="pr07aV4" name="validator.noneofitschild.children">
+      <notes>
+        <note category="state" priority="1">obsolete</note>
+      </notes>
+      <segment state="translated">
+        <source>validator.noneofitschild.children</source>
+        <target>要素は自身の子とすることはできません。</target>
+      </segment>
+    </unit>
+    <unit id="6vIlN5q" name="validator.part_lot.only_existing">
+      <segment state="translated">
+        <source>validator.part_lot.only_existing</source>
+        <target>新しい部品を追加できません。保管場所は「既存の部品のみ」とマークされています。</target>
+      </segment>
+    </unit>
+    <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
+      <segment state="translated">
+        <source>validator.part_lot.location_full</source>
+        <target>新しい部品を追加できません。保管場所が満杯とマークされています。</target>
+      </segment>
+    </unit>
+    <unit id="BNQk2e7" name="validator.part_lot.single_part">
+      <segment state="translated">
+        <source>validator.part_lot.single_part</source>
+        <target>新しい部品を追加できません。保管場所は「1つの部品のみ」とマークされています。</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>
