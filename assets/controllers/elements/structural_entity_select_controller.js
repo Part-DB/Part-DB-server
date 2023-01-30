@@ -53,7 +53,7 @@ export default class extends Controller {
                 item: this.renderItem.bind(this),
                 option: this.renderOption.bind(this),
                 option_create: function(data, escape) {
-                    return '<div class="create">Add <strong>' + escape(data.input) + '</strong>&hellip;&nbsp;' +
+                    return '<div class="create"><i class="fa-solid fa-plus fa-fw"></i>&nbsp;<strong>' + escape(data.input) + '</strong>&hellip;&nbsp;' +
                         '<small class="text-muted float-end">(' + addHint +')</small>' +
                         '</div>';
                 },
