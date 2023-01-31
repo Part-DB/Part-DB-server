@@ -147,7 +147,7 @@
         <target>Neue Währung</target>
       </segment>
     </unit>
-    <unit id="tlgOYB5" name="project.caption">
+    <unit id="zNlEdQs" name="project.caption">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
         <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
@@ -158,7 +158,7 @@
         <target>Projekte</target>
       </segment>
     </unit>
-    <unit id="fu1Uc_k" name="project.edit">
+    <unit id="DTt5Co7" name="project.edit">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
         <note category="state" priority="1">new</note>
@@ -168,7 +168,7 @@
         <target>Bearbeite Projekt</target>
       </segment>
     </unit>
-    <unit id="2z6Gm_r" name="project.new">
+    <unit id="O_iNK2O" name="project.new">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
         <note category="state" priority="1">new</note>
@@ -4072,7 +4072,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Los!</target>
       </segment>
     </unit>
-    <unit id="g6tt4u1" name="project.labelp">
+    <unit id="w0jVACo" name="project.labelp">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
@@ -6002,7 +6002,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Ahangstyp</target>
       </segment>
     </unit>
-    <unit id="uR5eAkv" name="project.label">
+    <unit id="w.zcG5D" name="project.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
         <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
@@ -6192,7 +6192,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
         <target>Kategorien</target>
       </segment>
     </unit>
-    <unit id="b2pLmAq" name="tree.tools.edit.projects">
+    <unit id="0I8lDuo" name="tree.tools.edit.projects">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:161</note>
         <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:138</note>
@@ -8089,7 +8089,7 @@ Element 3</target>
         <target>Hersteller</target>
       </segment>
     </unit>
-    <unit id="5_k9ofl" name="perm.projects">
+    <unit id="1AtDlX." name="perm.projects">
       <notes>
         <note priority="1">obsolete</note>
         <note category="state" priority="1">obsolete</note>
@@ -9906,6 +9906,432 @@ Element 3</target>
       <segment state="translated">
         <source>currency.edit.exchange_rate_updated.success</source>
         <target>Wechselkurs erfolgreich aktualisiert.</target>
+      </segment>
+    </unit>
+    <unit id="HbPND5j" name="project.bom.quantity">
+      <segment state="translated">
+        <source>project.bom.quantity</source>
+        <target>BOM Menge</target>
+      </segment>
+    </unit>
+    <unit id="29QITRx" name="project.bom.name">
+      <segment state="translated">
+        <source>project.bom.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="PucC1gg" name="project.bom.comment">
+      <segment state="translated">
+        <source>project.bom.comment</source>
+        <target>Notizen</target>
+      </segment>
+    </unit>
+    <unit id="fR.vNpd" name="project.bom.part">
+      <segment state="translated">
+        <source>project.bom.part</source>
+        <target>Bauteil</target>
+      </segment>
+    </unit>
+    <unit id="apnWXEq" name="project.bom.add_entry">
+      <segment state="translated">
+        <source>project.bom.add_entry</source>
+        <target>Eintrag hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="gwloIYB" name="part_list.action.group.projects">
+      <segment state="translated">
+        <source>part_list.action.group.projects</source>
+        <target>Projekte</target>
+      </segment>
+    </unit>
+    <unit id="QDvlT74" name="part_list.action.projects.add_to_project">
+      <segment state="translated">
+        <source>part_list.action.projects.add_to_project</source>
+        <target>Bauteile zu Projekt hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="ZVrMX6T" name="project.bom.delete.confirm">
+      <segment state="translated">
+        <source>project.bom.delete.confirm</source>
+        <target>Wollen sie diesen BOM Eintrag wirklich löschen?</target>
+      </segment>
+    </unit>
+    <unit id="T_wVWg_" name="project.add_parts_to_project">
+      <segment state="translated">
+        <source>project.add_parts_to_project</source>
+        <target>Bauteile zur Projekt BOM hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="02xC690" name="part.info.add_part_to_project">
+      <segment state="translated">
+        <source>part.info.add_part_to_project</source>
+        <target>Dieses Bauteil zu einem Projekt hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="OLIZm7S" name="project_bom_entry.label">
+      <segment state="translated">
+        <source>project_bom_entry.label</source>
+        <target>BOM Eintrag</target>
+      </segment>
+    </unit>
+    <unit id="HYlztPH" name="project.edit.status">
+      <segment state="translated">
+        <source>project.edit.status</source>
+        <target>Projektstatus</target>
+      </segment>
+    </unit>
+    <unit id="g63LZsn" name="project.status.draft">
+      <segment state="translated">
+        <source>project.status.draft</source>
+        <target>Entwurf</target>
+      </segment>
+    </unit>
+    <unit id="agiQw0z" name="project.status.planning">
+      <segment state="translated">
+        <source>project.status.planning</source>
+        <target>In Planung</target>
+      </segment>
+    </unit>
+    <unit id="8eTvW1x" name="project.status.in_production">
+      <segment state="translated">
+        <source>project.status.in_production</source>
+        <target>In Produktion</target>
+      </segment>
+    </unit>
+    <unit id="xtDIXe_" name="project.status.finished">
+      <segment state="translated">
+        <source>project.status.finished</source>
+        <target>Abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="wpp2047" name="project.status.archived">
+      <segment state="translated">
+        <source>project.status.archived</source>
+        <target>Archiviert</target>
+      </segment>
+    </unit>
+    <unit id="jcf.5wX" name="part.new_build_part.error.build_part_already_exists">
+      <segment state="translated">
+        <source>part.new_build_part.error.build_part_already_exists</source>
+        <target>Dieses Projekt hat bereits ein verknüpftes Bauteil.</target>
+      </segment>
+    </unit>
+    <unit id="YiFf2jl" name="project.info.title">
+      <segment state="translated">
+        <source>project.info.title</source>
+        <target>Projektinfo</target>
+      </segment>
+    </unit>
+    <unit id="Y7z_Lil" name="project.info.bom_entries_count">
+      <segment state="translated">
+        <source>project.info.bom_entries_count</source>
+        <target>BOM Einträge</target>
+      </segment>
+    </unit>
+    <unit id="jdkve2C" name="project.info.sub_projects_count">
+      <segment state="translated">
+        <source>project.info.sub_projects_count</source>
+        <target>Unterprojekte</target>
+      </segment>
+    </unit>
+    <unit id="keeSexh" name="project.info.bom_add_parts">
+      <segment state="translated">
+        <source>project.info.bom_add_parts</source>
+        <target>BOM Einträge hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="sgaRuly" name="project.info.info.label">
+      <segment state="translated">
+        <source>project.info.info.label</source>
+        <target>Info</target>
+      </segment>
+    </unit>
+    <unit id="vaFaY8r" name="project.info.sub_projects.label">
+      <segment state="translated">
+        <source>project.info.sub_projects.label</source>
+        <target>Unterprojekte</target>
+      </segment>
+    </unit>
+    <unit id="CTIbEF6" name="project.bom.price">
+      <segment state="translated">
+        <source>project.bom.price</source>
+        <target>Preis</target>
+      </segment>
+    </unit>
+    <unit id="hO.xnng" name="part.info.withdraw_modal.title.withdraw">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.title.withdraw</source>
+        <target>Bauteile aus Lot entnehmen</target>
+      </segment>
+    </unit>
+    <unit id="ci6FaUj" name="part.info.withdraw_modal.title.add">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.title.add</source>
+        <target>Bauteile zu Lot hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="kGal3M_" name="part.info.withdraw_modal.title.move">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.title.move</source>
+        <target>Verschiebe Bauteile in ein anderes Lot</target>
+      </segment>
+    </unit>
+    <unit id="zxFeQRY" name="part.info.withdraw_modal.amount">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.amount</source>
+        <target>Menge</target>
+      </segment>
+    </unit>
+    <unit id="iblpgc7" name="part.info.withdraw_modal.move_to">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.move_to</source>
+        <target>Verschieben in</target>
+      </segment>
+    </unit>
+    <unit id="pYCfHzw" name="part.info.withdraw_modal.comment">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.comment</source>
+        <target>Kommentar</target>
+      </segment>
+    </unit>
+    <unit id="ARNLGgz" name="part.info.withdraw_modal.comment.hint">
+      <segment state="translated">
+        <source>part.info.withdraw_modal.comment.hint</source>
+        <target>Sie können hier einen Kommentar eintragen, der beschreibt warum diese Aktion durchgeführt wurde (z.B. für was dieses Bauteil benötigt wurde). Diese Information wird im Log gespeichert.</target>
+      </segment>
+    </unit>
+    <unit id="Sumeg5G" name="modal.close">
+      <segment state="translated">
+        <source>modal.close</source>
+        <target>Schließen</target>
+      </segment>
+    </unit>
+    <unit id="sye5gxs" name="modal.submit">
+      <segment state="translated">
+        <source>modal.submit</source>
+        <target>Absenden</target>
+      </segment>
+    </unit>
+    <unit id="jl7xM1O" name="part.withdraw.success">
+      <segment state="translated">
+        <source>part.withdraw.success</source>
+        <target>Bauteile erfolgreich entnommen/hinzugefügt/verschoben.</target>
+      </segment>
+    </unit>
+    <unit id="oghrs8X" name="perm.parts_stock">
+      <segment state="translated">
+        <source>perm.parts_stock</source>
+        <target>Bauteilbestand</target>
+      </segment>
+    </unit>
+    <unit id="YjbdSVx" name="perm.parts_stock.withdraw">
+      <segment state="translated">
+        <source>perm.parts_stock.withdraw</source>
+        <target>Bauteile aus Bestand entnehmen</target>
+      </segment>
+    </unit>
+    <unit id="P4saY9b" name="perm.parts_stock.add">
+      <segment state="translated">
+        <source>perm.parts_stock.add</source>
+        <target>Bauteile zu Bestand hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="JR4LXfJ" name="perm.parts_stock.move">
+      <segment state="translated">
+        <source>perm.parts_stock.move</source>
+        <target>Bauteile zwischen Lots verschieben</target>
+      </segment>
+    </unit>
+    <unit id="DQ_FAfi" name="user.permissions_schema_updated">
+      <segment state="translated">
+        <source>user.permissions_schema_updated</source>
+        <target>Das Berechtigungsschema deines Benutzeraccounts wurde auf die neuste Version aktualisiert.</target>
+      </segment>
+    </unit>
+    <unit id="OohNh_M" name="log.type.part_stock_changed">
+      <segment state="translated">
+        <source>log.type.part_stock_changed</source>
+        <target>Bauteilebestand geändert</target>
+      </segment>
+    </unit>
+    <unit id="ZIcw_8V" name="log.part_stock_changed.withdraw">
+      <segment state="translated">
+        <source>log.part_stock_changed.withdraw</source>
+        <target>Bauteile entnommen</target>
+      </segment>
+    </unit>
+    <unit id="jIm.ZAZ" name="log.part_stock_changed.add">
+      <segment state="translated">
+        <source>log.part_stock_changed.add</source>
+        <target>Bauteile hinzugefügt</target>
+      </segment>
+    </unit>
+    <unit id="Q8itu0n" name="log.part_stock_changed.move">
+      <segment state="translated">
+        <source>log.part_stock_changed.move</source>
+        <target>Bauteile verschoben</target>
+      </segment>
+    </unit>
+    <unit id="Z_uM8dG" name="log.part_stock_changed.comment">
+      <segment state="translated">
+        <source>log.part_stock_changed.comment</source>
+        <target>Kommentar</target>
+      </segment>
+    </unit>
+    <unit id="vEWZ248" name="log.part_stock_changed.change">
+      <segment state="translated">
+        <source>log.part_stock_changed.change</source>
+        <target>Änderung</target>
+      </segment>
+    </unit>
+    <unit id="8kmtQLq" name="log.part_stock_changed.move_target">
+      <segment state="translated">
+        <source>log.part_stock_changed.move_target</source>
+        <target>Verschoben in</target>
+      </segment>
+    </unit>
+    <unit id="Dw4KG4Y" name="tools.ic_logos.title">
+      <segment state="translated">
+        <source>tools.ic_logos.title</source>
+        <target>IC Logos</target>
+      </segment>
+    </unit>
+    <unit id="9a9Yu9u" name="part_list.action.group.labels">
+      <segment state="translated">
+        <source>part_list.action.group.labels</source>
+        <target>Labels</target>
+      </segment>
+    </unit>
+    <unit id="gaFZMnW" name="part_list.action.projects.generate_label">
+      <segment state="translated">
+        <source>part_list.action.projects.generate_label</source>
+        <target>Labels erzeugen (für Bauteile)</target>
+      </segment>
+    </unit>
+    <unit id="cKJeBZl" name="part_list.action.projects.generate_label_lot">
+      <segment state="translated">
+        <source>part_list.action.projects.generate_label_lot</source>
+        <target>Labels erzeugen (für Lots der Bauteile)</target>
+      </segment>
+    </unit>
+    <unit id="obOVNB9" name="part_list.action.generate_label.empty">
+      <segment state="translated">
+        <source>part_list.action.generate_label.empty</source>
+        <target>Leeres Label</target>
+      </segment>
+    </unit>
+    <unit id="YddcwVg" name="project.info.builds.label">
+      <segment state="translated">
+        <source>project.info.builds.label</source>
+        <target>Bau</target>
+      </segment>
+    </unit>
+    <unit id="6uUxHyg" name="project.builds.build_not_possible">
+      <segment state="translated">
+        <source>project.builds.build_not_possible</source>
+        <target>Bau nicht möglich: Nicht genügend Bauteile vorhanden</target>
+      </segment>
+    </unit>
+    <unit id="HY05vl8" name="project.builds.following_bom_entries_miss_instock">
+      <segment state="translated">
+        <source>project.builds.following_bom_entries_miss_instock</source>
+        <target>Folgende Bauteile haben nicht genug Bestand um dieses Projekt mindestens einmal zu bauen:</target>
+      </segment>
+    </unit>
+    <unit id="VHUY79k" name="project.builds.stocked">
+      <segment state="translated">
+        <source>project.builds.stocked</source>
+        <target>vorhanden</target>
+      </segment>
+    </unit>
+    <unit id="mwL3d70" name="project.builds.needed">
+      <segment state="translated">
+        <source>project.builds.needed</source>
+        <target>benötigt</target>
+      </segment>
+    </unit>
+    <unit id="jZKw98F" name="project.builds.build_possible">
+      <segment state="translated">
+        <source>project.builds.build_possible</source>
+        <target>Bau möglich</target>
+      </segment>
+    </unit>
+    <unit id="rRMnoEh" name="project.builds.number_of_builds_possible">
+      <segment state="translated">
+        <source>project.builds.number_of_builds_possible</source>
+        <target>You have enough stocked to build &lt;b&gt;%max_builds%&lt;/b&gt; builds of this project.</target>
+      </segment>
+    </unit>
+    <unit id="fZhqvmk" name="project.builds.check_project_status">
+      <segment state="translated">
+        <source>project.builds.check_project_status</source>
+        <target>Der aktuelle Projektstatus ist &lt;b&gt;"%project_status%"&lt;/b&gt;. Sie sollten überprüfen, ob sie das Projekt mit diesem Status wirklich bauen wollen!</target>
+      </segment>
+    </unit>
+    <unit id="57BNIbl" name="project.builds.following_bom_entries_miss_instock_n">
+      <segment state="translated">
+        <source>project.builds.following_bom_entries_miss_instock_n</source>
+        <target>Es sind nicht genügend Bauteile auf Lager, um dieses Projekt %number_of_builds% mal zu bauen. Von folgenden Bauteilen ist nicht genügend auf Lager.</target>
+      </segment>
+    </unit>
+    <unit id="dB.JmYm" name="project.build.flash.invalid_input">
+      <segment state="translated">
+        <source>project.build.flash.invalid_input</source>
+        <target>Projekt kann nicht gebaut werden. Bitte Eingaben überprüfen!</target>
+      </segment>
+    </unit>
+    <unit id="_sFMgby" name="project.build.required_qty">
+      <segment state="translated">
+        <source>project.build.required_qty</source>
+        <target>Benötigte Anzahl</target>
+      </segment>
+    </unit>
+    <unit id="5gpbL_k" name="project.build.btn_build">
+      <segment state="translated">
+        <source>project.build.btn_build</source>
+        <target>Bauen</target>
+      </segment>
+    </unit>
+    <unit id="AqGFkiA" name="project.build.help">
+      <segment state="translated">
+        <source>project.build.help</source>
+        <target>Wählen Sie aus von welche Lots, die zum Bau notwendigen Bauteile genommen werden sollen (und in welcher Anzahl). Setzen sie den Haken für jeden BOM Eintrag, wenn sie die Bauteile entnommen haben, oder nutzen Sie die oberste Checkbox um alle Haken auf einmal zu setzen.</target>
+      </segment>
+    </unit>
+    <unit id="Mken7uv" name="user.change_avatar.label">
+      <segment state="translated">
+        <source>user.change_avatar.label</source>
+        <target>Profilbild ändern</target>
+      </segment>
+    </unit>
+    <unit id="QFNPD0_" name="user_settings.change_avatar.label">
+      <segment state="translated">
+        <source>user_settings.change_avatar.label</source>
+        <target>Profilbild ändern</target>
+      </segment>
+    </unit>
+    <unit id="GLYVqz2" name="user_settings.remove_avatar.label">
+      <segment state="translated">
+        <source>user_settings.remove_avatar.label</source>
+        <target>Profilbild löschen</target>
+      </segment>
+    </unit>
+    <unit id="Y1Aes28" name="part.edit.name.category_hint">
+      <segment state="translated">
+        <source>part.edit.name.category_hint</source>
+        <target>Hinweis von Kategorie</target>
+      </segment>
+    </unit>
+    <unit id="_vbPEFP" name="category.edit.partname_regex.placeholder">
+      <segment state="translated">
+        <source>category.edit.partname_regex.placeholder</source>
+        <target>z.B. "/Kondensator \d+ nF/i"</target>
+      </segment>
+    </unit>
+    <unit id="QFgP__5" name="category.edit.partname_regex.help">
+      <segment state="translated">
+        <source>category.edit.partname_regex.help</source>
+        <target>Ein PCRE-kompatibler regulärer Ausdruck, den der Bauteilename erfüllen muss.</target>
       </segment>
     </unit>
   </file>

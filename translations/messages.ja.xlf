@@ -147,37 +147,6 @@
         <target>通貨を新規作成</target>
       </segment>
     </unit>
-    <unit id="tlgOYB5" name="device.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>device.caption</source>
-        <target>デバイス</target>
-      </segment>
-    </unit>
-    <unit id="fu1Uc_k" name="device.edit">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
-        <note category="state" priority="1">new</note>
-      </notes>
-      <segment state="translated">
-        <source>device.edit</source>
-        <target>デバイスを編集</target>
-      </segment>
-    </unit>
-    <unit id="2z6Gm_r" name="device.new">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
-        <note category="state" priority="1">new</note>
-      </notes>
-      <segment state="translated">
-        <source>device.new</source>
-        <target>デバイスを新規作成</target>
-      </segment>
-    </unit>
     <unit id="lQ8QeGr" name="search.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
@@ -4063,22 +4032,6 @@
         <target>検索</target>
       </segment>
     </unit>
-    <unit id="g6tt4u1" name="device.labelp">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
-        <note priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
-        <note priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
-        <note priority="1">templates\base.html.twig:175</note>
-        <note priority="1">templates\base.html.twig:189</note>
-        <note priority="1">templates\base.html.twig:202</note>
-        <note priority="1">templates\base.html.twig:230</note>
-      </notes>
-      <segment state="translated">
-        <source>device.labelp</source>
-        <target>デバイス</target>
-      </segment>
-    </unit>
     <unit id="Kw3N1AA" name="actions">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:2</note>
@@ -5993,16 +5946,6 @@
         <target>添付ファイルの種類</target>
       </segment>
     </unit>
-    <unit id="uR5eAkv" name="device.label">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
-        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
-      </notes>
-      <segment state="translated">
-        <source>device.label</source>
-        <target>プロジェクト</target>
-      </segment>
-    </unit>
     <unit id="QPnDbnv" name="measurement_unit.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:85</note>
@@ -6181,17 +6124,6 @@
       <segment state="translated">
         <source>tree.tools.edit.categories</source>
         <target>カテゴリー</target>
-      </segment>
-    </unit>
-    <unit id="b2pLmAq" name="tree.tools.edit.devices">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:161</note>
-        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:138</note>
-        <note priority="1">src\Services\ToolsTreeBuilder.php:66</note>
-      </notes>
-      <segment state="translated">
-        <source>tree.tools.edit.devices</source>
-        <target>デバイス</target>
       </segment>
     </unit>
     <unit id="BFfweU_" name="tree.tools.edit.suppliers">
@@ -6539,7 +6471,7 @@
       </notes>
       <segment state="translated">
         <source>log.collection_deleted.deleted</source>
-        <target>削除された要素: </target>
+        <target>削除された要素:</target>
       </segment>
     </unit>
     <unit id="rOLpDSq" name="go.exclamation">
@@ -7668,7 +7600,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>homepage.basedOn</source>
-        <target>オリジナルのPart-DBの作者: </target>
+        <target>オリジナルのPart-DBの作者:</target>
       </segment>
     </unit>
     <unit id="PlY3xmo" name="homepage.others">
@@ -7688,7 +7620,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>part.order.price_per</source>
-        <target>あたりの価格: </target>
+        <target>あたりの価格:</target>
       </segment>
     </unit>
     <unit id="1n22zD9" name="part.withdraw.caption">
@@ -8079,16 +8011,6 @@ Exampletown</target>
       <segment state="translated">
         <source>perm.part.manufacturers</source>
         <target>メーカー</target>
-      </segment>
-    </unit>
-    <unit id="5_k9ofl" name="perm.part.devices">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.part.devices</source>
-        <target>デバイス</target>
       </segment>
     </unit>
     <unit id="hgZrqP_" name="perm.part.attachment_types">

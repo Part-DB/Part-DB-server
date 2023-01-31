@@ -147,37 +147,6 @@
         <target>Новая валюта</target>
       </segment>
     </unit>
-    <unit id="tlgOYB5" name="device.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>device.caption</source>
-        <target>Устройство</target>
-      </segment>
-    </unit>
-    <unit id="fu1Uc_k" name="device.edit">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
-        <note category="state" priority="1">new</note>
-      </notes>
-      <segment state="translated">
-        <source>device.edit</source>
-        <target>Изменить устройство</target>
-      </segment>
-    </unit>
-    <unit id="2z6Gm_r" name="device.new">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
-        <note category="state" priority="1">new</note>
-      </notes>
-      <segment state="translated">
-        <source>device.new</source>
-        <target>Новое устройство</target>
-      </segment>
-    </unit>
     <unit id="lQ8QeGr" name="search.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
@@ -1493,7 +1462,7 @@
       </notes>
       <segment state="translated">
         <source> homepage.basedOn </source>
-        <target> На основе оригинальной версии Part-DB  </target>
+        <target> На основе оригинальной версии Part-DB </target>
       </segment>
     </unit>
     <unit id="Qw1sChr" name=" homepage.others ">
@@ -4064,22 +4033,6 @@
         <target>Поехали!</target>
       </segment>
     </unit>
-    <unit id="g6tt4u1" name="device.labelp">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
-        <note priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
-        <note priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
-        <note priority="1">templates\base.html.twig:175</note>
-        <note priority="1">templates\base.html.twig:189</note>
-        <note priority="1">templates\base.html.twig:202</note>
-        <note priority="1">templates\base.html.twig:230</note>
-      </notes>
-      <segment state="translated">
-        <source>device.labelp</source>
-        <target>Устройства</target>
-      </segment>
-    </unit>
     <unit id="Kw3N1AA" name="actions">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:2</note>
@@ -4145,7 +4098,7 @@
       </notes>
       <segment state="translated">
         <source>attachment.download_failed</source>
-        <target>Не удалось скачать внешнее вложение. </target>
+        <target>Не удалось скачать внешнее вложение.</target>
       </segment>
     </unit>
     <unit id="A7i8za4" name="entity.edit_flash">
@@ -5426,7 +5379,7 @@
       </notes>
       <segment state="translated">
         <source>label_generator.target_id.range_hint</source>
-        <target>Вы можете указать несколько ID (например 1,2,3) и/или диапазон (1-3) чтобы создать этикетки для нескольких элементов сразу. </target>
+        <target>Вы можете указать несколько ID (например 1,2,3) и/или диапазон (1-3) чтобы создать этикетки для нескольких элементов сразу.</target>
       </segment>
     </unit>
     <unit id="GN.UJxb" name="label_generator.target_id.label">
@@ -5994,16 +5947,6 @@
         <target>Тип вложения</target>
       </segment>
     </unit>
-    <unit id="uR5eAkv" name="device.label">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
-        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
-      </notes>
-      <segment state="translated">
-        <source>device.label</source>
-        <target>Проект</target>
-      </segment>
-    </unit>
     <unit id="QPnDbnv" name="measurement_unit.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:85</note>
@@ -6182,17 +6125,6 @@
       <segment state="translated">
         <source>tree.tools.edit.categories</source>
         <target>Категории</target>
-      </segment>
-    </unit>
-    <unit id="b2pLmAq" name="tree.tools.edit.devices">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:161</note>
-        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:138</note>
-        <note priority="1">src\Services\ToolsTreeBuilder.php:66</note>
-      </notes>
-      <segment state="translated">
-        <source>tree.tools.edit.devices</source>
-        <target>Устройства</target>
       </segment>
     </unit>
     <unit id="BFfweU_" name="tree.tools.edit.suppliers">
@@ -8080,16 +8012,6 @@
       <segment state="translated">
         <source>perm.part.manufacturers</source>
         <target>Производители</target>
-      </segment>
-    </unit>
-    <unit id="5_k9ofl" name="perm.part.devices">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.part.devices</source>
-        <target>Устройства</target>
       </segment>
     </unit>
     <unit id="hgZrqP_" name="perm.part.attachment_types">

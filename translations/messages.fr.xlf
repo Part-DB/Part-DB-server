@@ -147,37 +147,6 @@
         <target>Nouvelle devise</target>
       </segment>
     </unit>
-    <unit id="tlgOYB5" name="device.caption">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:4</note>
-        <note priority="1">templates\AdminPages\DeviceAdmin.html.twig:4</note>
-      </notes>
-      <segment state="translated">
-        <source>device.caption</source>
-        <target>Appareil</target>
-      </segment>
-    </unit>
-    <unit id="fu1Uc_k" name="device.edit">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:8</note>
-        <note category="state" priority="1">new</note>
-      </notes>
-      <segment state="translated">
-        <source>device.edit</source>
-        <target>Modifier projet</target>
-      </segment>
-    </unit>
-    <unit id="2z6Gm_r" name="device.new">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\AdminPages\DeviceAdmin.html.twig:12</note>
-        <note category="state" priority="1">new</note>
-      </notes>
-      <segment state="translated">
-        <source>device.new</source>
-        <target>Nouveau projet</target>
-      </segment>
-    </unit>
     <unit id="lQ8QeGr" name="search.placeholder">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:19</note>
@@ -4063,22 +4032,6 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
         <target>Rechercher!</target>
       </segment>
     </unit>
-    <unit id="g6tt4u1" name="device.labelp">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
-        <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
-        <note priority="1">Part-DB1\templates\_sidebar.html.twig:37</note>
-        <note priority="1">Part-DB1\templates\_sidebar.html.twig:12</note>
-        <note priority="1">templates\base.html.twig:175</note>
-        <note priority="1">templates\base.html.twig:189</note>
-        <note priority="1">templates\base.html.twig:202</note>
-        <note priority="1">templates\base.html.twig:230</note>
-      </notes>
-      <segment state="translated">
-        <source>device.labelp</source>
-        <target>Projets</target>
-      </segment>
-    </unit>
     <unit id="Kw3N1AA" name="actions">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\_sidebar.html.twig:2</note>
@@ -5993,16 +5946,6 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
         <target>Type de fichier joint</target>
       </segment>
     </unit>
-    <unit id="uR5eAkv" name="device.label">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
-        <note priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:82</note>
-      </notes>
-      <segment state="translated">
-        <source>device.label</source>
-        <target>Projet</target>
-      </segment>
-    </unit>
     <unit id="QPnDbnv" name="measurement_unit.label">
       <notes>
         <note category="file-source" priority="1">Part-DB1\src\Services\ElementTypeNameGenerator.php:85</note>
@@ -6181,17 +6124,6 @@ Si vous avez fait cela de manière incorrecte ou si un ordinateur n'est plus fia
       <segment state="translated">
         <source>tree.tools.edit.categories</source>
         <target>Catégories</target>
-      </segment>
-    </unit>
-    <unit id="b2pLmAq" name="tree.tools.edit.devices">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:161</note>
-        <note priority="1">Part-DB1\src\Services\Trees\ToolsTreeBuilder.php:138</note>
-        <note priority="1">src\Services\ToolsTreeBuilder.php:66</note>
-      </notes>
-      <segment state="translated">
-        <source>tree.tools.edit.devices</source>
-        <target>Projet</target>
       </segment>
     </unit>
     <unit id="BFfweU_" name="tree.tools.edit.suppliers">
@@ -8078,16 +8010,6 @@ exemple de ville</target>
       <segment state="translated">
         <source>perm.part.manufacturers</source>
         <target>Fabricants</target>
-      </segment>
-    </unit>
-    <unit id="5_k9ofl" name="perm.part.devices">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>perm.part.devices</source>
-        <target>Projets</target>
       </segment>
     </unit>
     <unit id="hgZrqP_" name="perm.part.attachment_types">

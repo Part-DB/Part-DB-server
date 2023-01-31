@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="de">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en" trgLang="ru">
   <file id="validators.en">
     <unit id="xevSdCK" name="part.master_attachment.must_be_picture">
       <notes>
@@ -39,7 +39,7 @@
       </notes>
       <segment state="translated">
         <source>part.master_attachment.must_be_picture</source>
-        <target>Der Vorschauanhang muss ein gültiges Bild sein!</target>
+        <target>Предварительный просмотр возможен только для картинок!</target>
       </segment>
     </unit>
     <unit id="VJHTkxx" name="structural.entity.unique_name">
@@ -84,7 +84,7 @@
       </notes>
       <segment state="translated">
         <source>structural.entity.unique_name</source>
-        <target>Es kann auf jeder Ebene nur ein Objekt mit dem gleichem Namen geben!</target>
+        <target>Элемент с таким именем уже существует на данном уровне!</target>
       </segment>
     </unit>
     <unit id="3ODUtpU" name="parameters.validator.min_lesser_typical">
@@ -104,7 +104,7 @@
       </notes>
       <segment state="translated">
         <source>parameters.validator.min_lesser_typical</source>
-        <target>Wert muss kleiner oder gleich als der typische Wert sein ({{ compared_value }}).</target>
+        <target>Значение должно быть меньше или равно типичного значения ({{ compared_value }}).</target>
       </segment>
     </unit>
     <unit id="jDBA_WW" name="parameters.validator.min_lesser_max">
@@ -124,7 +124,7 @@
       </notes>
       <segment state="translated">
         <source>parameters.validator.min_lesser_max</source>
-        <target>Wert muss kleiner als der Maximalwert sein ({{ compared_value }}).</target>
+        <target>Значение должно быть меньше максимального значения ({{ compared_value }}).</target>
       </segment>
     </unit>
     <unit id="ygK_e_X" name="parameters.validator.max_greater_typical">
@@ -144,7 +144,7 @@
       </notes>
       <segment state="translated">
         <source>parameters.validator.max_greater_typical</source>
-        <target>Wert muss größer oder gleich dem typischen Wert sein ({{ compared_value }}).</target>
+        <target>Значение должно быть больше или равно типичного значения ({{ compared_value }}).</target>
       </segment>
     </unit>
     <unit id="isXL.ie" name="validator.user.username_already_used">
@@ -154,7 +154,7 @@
       </notes>
       <segment state="translated">
         <source>validator.user.username_already_used</source>
-        <target>Es existiert bereits ein Benutzer mit diesem Namen.</target>
+        <target>Пользователь с таким именем уже существует</target>
       </segment>
     </unit>
     <unit id="NcM463r" name="user.invalid_username">
@@ -164,7 +164,7 @@
       </notes>
       <segment state="translated">
         <source>user.invalid_username</source>
-        <target>Der Benutzername darf nur Buchstaben, Zahlen, Unterstriche, Punkte, Plus- oder Minuszeichen enthalten.</target>
+        <target>Имя пользователя должно содержать только буквы, цифры, знак подчеркивания, знаки препинания, плюс и минус.</target>
       </segment>
     </unit>
     <unit id="lZvhKYu" name="validator.noneofitschild.self">
@@ -173,112 +173,34 @@
       </notes>
       <segment state="translated">
         <source>validator.noneofitschild.self</source>
-        <target>Ein Element kann nicht sein eigenenes übergeordnetes Element sein.</target>
+        <target>Элемент не может быть собственным родителем</target>
       </segment>
     </unit>
     <unit id="pr07aV4" name="validator.noneofitschild.children">
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment state="final">
-        <source>validator.noneofitschild.children</source>
-        <target>Ein Kindelement kann nicht das übergeordnete Element sein!</target>
-      </segment>
-    </unit>
-    <unit id="ayNr6QK" name="validator.select_valid_category">
       <segment state="translated">
-        <source>validator.select_valid_category</source>
-        <target>Bitte wählen Sie eine gültige Kategorie.</target>
+        <source>validator.noneofitschild.children</source>
+        <target>Родитель не может быть дочерним по отношению к себе</target>
       </segment>
     </unit>
     <unit id="6vIlN5q" name="validator.part_lot.only_existing">
       <segment state="translated">
         <source>validator.part_lot.only_existing</source>
-        <target>Der Lagerort wurde als "nur bestehende Teile" markiert, daher können keine neuen Teile hinzugefügt werden.</target>
-      </segment>
-    </unit>
-    <unit id="3xoKOIS" name="validator.part_lot.location_full.no_increase">
-      <segment state="translated">
-        <source>validator.part_lot.location_full.no_increase</source>
-        <target>Lagerort ist voll. Bestand kann nicht erhöht werden (neuer Wert muss kleiner sein als {{old_amount}}).</target>
+        <target>Вы не можете добавлять новые компоненты в хранилище которое помечено как "только существующие".</target>
       </segment>
     </unit>
     <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
-      <segment state="final">
+      <segment state="translated">
         <source>validator.part_lot.location_full</source>
-        <target>Der Lagerort ist voll, daher können keine neue Teile hinzugefügt werden.</target>
+        <target>Вы не можете добавлять новые компоненты в хранилище которое отмечено как "полное".</target>
       </segment>
     </unit>
     <unit id="BNQk2e7" name="validator.part_lot.single_part">
-      <segment state="final">
+      <segment state="translated">
         <source>validator.part_lot.single_part</source>
-        <target>Der Lagerort wurde als "Nur ein Bauteil" markiert, daher kann kein neues Bauteil hinzugefügt werden.</target>
-      </segment>
-    </unit>
-    <unit id="4gPskOG" name="validator.attachment.must_not_be_null">
-      <segment state="translated">
-        <source>validator.attachment.must_not_be_null</source>
-        <target>Sie müssen ein Dateitypen auswählen!</target>
-      </segment>
-    </unit>
-    <unit id="cDDVrWT" name="validator.orderdetail.supplier_must_not_be_null">
-      <segment state="translated">
-        <source>validator.orderdetail.supplier_must_not_be_null</source>
-        <target>Sie müssen einen Lieferanten auswählen!</target>
-      </segment>
-    </unit>
-    <unit id="k5DDdB4" name="validator.measurement_unit.use_si_prefix_needs_unit">
-      <segment state="translated">
-        <source>validator.measurement_unit.use_si_prefix_needs_unit</source>
-        <target>Um SI-Prefixe zu aktivieren, müssen Sie einen Einheitensymbol setzen!</target>
-      </segment>
-    </unit>
-    <unit id="DuzIOCr" name="part.ipn.must_be_unique">
-      <segment state="translated">
-        <source>part.ipn.must_be_unique</source>
-        <target>Die Internal Part Number (IPN) muss einzigartig sein. Der Wert {{value}} wird bereits benutzt!</target>
-      </segment>
-    </unit>
-    <unit id="Z4Kuuo2" name="validator.project.bom_entry.name_or_part_needed">
-      <segment state="translated">
-        <source>validator.project.bom_entry.name_or_part_needed</source>
-        <target>Sie müssen ein Bauteil auswählen, oder einen Namen für ein nicht-Bauteil BOM-Eintrag setzen!</target>
-      </segment>
-    </unit>
-    <unit id="WF_v4ih" name="project.bom_entry.name_already_in_bom">
-      <segment state="translated">
-        <source>project.bom_entry.name_already_in_bom</source>
-        <target>Es gibt bereits einen BOM Eintrag mit diesem Namen!</target>
-      </segment>
-    </unit>
-    <unit id="5v4p85H" name="project.bom_entry.part_already_in_bom">
-      <segment state="translated">
-        <source>project.bom_entry.part_already_in_bom</source>
-        <target>Dieses Bauteil existiert bereits in der BOM!</target>
-      </segment>
-    </unit>
-    <unit id="U9b1EzD" name="project.bom_entry.price_not_allowed_on_parts">
-      <segment state="translated">
-        <source>project.bom_entry.price_not_allowed_on_parts</source>
-        <target>Sie können keinen Preis für Bauteil-BOM-Einträge definieren. Definieren Sie die Preise stattdessen auf dem Bauteil.</target>
-      </segment>
-    </unit>
-    <unit id="ID056SR" name="validator.project_build.lot_bigger_than_needed">
-      <segment state="translated">
-        <source>validator.project_build.lot_bigger_than_needed</source>
-        <target>Sie haben mehr zur Entnahme ausgewählt als notwendig. Entfernen Sie die überflüssige Anzahl.</target>
-      </segment>
-    </unit>
-    <unit id="6hV5UqD" name="validator.project_build.lot_smaller_than_needed">
-      <segment state="translated">
-        <source>validator.project_build.lot_smaller_than_needed</source>
-        <target>Sie haben weniger zur Entnahme ausgewählt, als zum Bau notwendig ist! Fügen Sie mehr hinzu.</target>
-      </segment>
-    </unit>
-    <unit id="G9ZKt.4" name="part.name.must_match_category_regex">
-      <segment state="translated">
-        <source>part.name.must_match_category_regex</source>
-        <target>Der Bauteilename entspricht nicht dem regulären Ausdruck, der von der Kategorie vorgegeben wurde: %regex%</target>
+        <target>Вы не можете добавлять новые компоненты в хранилище которое отмечено как "единственный компонент".</target>
       </segment>
     </unit>
   </file>
