@@ -24,6 +24,7 @@ namespace App\Form;
 
 use App\Entity\UserSystem\User;
 use App\Form\Type\CurrencyEntityType;
+use App\Form\Type\ThemeChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\PreSetDataEvent;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -114,18 +115,9 @@ class UserSettingsType extends AbstractType
                 'label' => 'user.timezone.label',
                 'preferred_choices' => ['Europe/Berlin'],
             ])
-            ->add('theme', ChoiceType::class, [
+            ->add('theme', ThemeChoiceType::class, [
                 'disabled' => $this->demo_mode,
                 'required' => false,
-                'attr' => [
-                    'data-controller' => 'elements--selectpicker',
-                ],
-                'choice_translation_domain' => false,
-                'choices' => User::AVAILABLE_THEMES,
-                'choice_label' => static function ($entity, $key, $value) {
-                    return $value;
-                },
-                'placeholder' => 'user_settings.theme.placeholder',
                 'label' => 'user.theme.label',
             ])
             ->add('currency', CurrencyEntityType::class, [

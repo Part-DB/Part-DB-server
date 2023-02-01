@@ -68,10 +68,6 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     public const ID_ANONYMOUS = 1;
 
-    public const AVAILABLE_THEMES = ['bootstrap', 'cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal',
-        'litera', 'lumen', 'lux', 'materia', 'minty', 'morph', 'pulse', 'quartz', 'sandstone', 'simplex', 'sketchy', 'slate', 'solar',
-        'spacelab', 'superhero', 'united', 'vapor', 'yeti', 'zephyr'];
-
     /**
      * @var bool Determines if the user is disabled (user can not log in)
      * @ORM\Column(type="boolean")

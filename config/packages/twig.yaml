@@ -18,6 +18,7 @@ twig:
         sidebar_items: '%partdb.sidebar.items%'
         sidebar_tree_updater: '@App\Services\Trees\SidebarTreeUpdater'
         avatar_helper: '@App\Services\UserSystem\UserAvatarHelper'
+        available_themes: '%partdb.available_themes%'
 
 when@test:
     twig:

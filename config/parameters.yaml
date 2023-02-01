@@ -55,6 +55,37 @@ parameters:
   ######################################################################################################################
   partdb.demo_mode: '%env(bool:DEMO_MODE)%'                   # If set to true, all potentially dangerous things are disabled (like changing passwords of the own user)
 
+  # Set the themes from which the user can choose from in the settings.
+  # Themes commented here by default, are not really usable, because of display problems. Enable them at your own risk!
+  partdb.available_themes:
+    - bootstrap
+    - cerulean
+    - cosmo
+    - cyborg
+    - darkly
+    - flatly
+    - journal
+    - litera
+    - lumen
+    - lux
+    #- materia
+    - minty
+    #- morph
+    #- pulse
+    #- quartz
+    - sandstone
+    - simplex
+    - sketchy
+    - slate
+    - solar
+    - spacelab
+    - superhero
+    - united
+    #- vapor
+    - yeti
+    - zephyr
+
+
   ######################################################################################################################
   # Env default values
   ######################################################################################################################

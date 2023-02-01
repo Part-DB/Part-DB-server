@@ -186,6 +186,10 @@ services:
         arguments:
             $use_gravatar: '%partdb.users.use_gravatar%'
 
+    App\Form\Type\ThemeChoiceType:
+        arguments:
+            $available_themes: '%partdb.available_themes%'
+
 
     ####################################################################################################################
     # Label system

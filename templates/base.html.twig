@@ -41,7 +41,7 @@
 
 
 
-        {% if theme and theme in constant('App\\Entity\\UserSystem\\User::AVAILABLE_THEMES') and encore_entry_exists('theme_' ~ theme) %}
+        {% if theme and theme in available_themes and encore_entry_exists('theme_' ~ theme) %}
             {{ encore_entry_link_tags('theme_' ~ theme) }}
         {% else %}
             {{ encore_entry_link_tags('theme_bootstrap') }}

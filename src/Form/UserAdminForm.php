@@ -30,6 +30,7 @@ use App\Form\Permissions\PermissionsType;
 use App\Form\Type\CurrencyEntityType;
 use App\Form\Type\MasterPictureAttachmentType;
 use App\Form\Type\StructuralEntityType;
+use App\Form\Type\ThemeChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -151,18 +152,8 @@ class UserAdminForm extends AbstractType
                 'preferred_choices' => ['Europe/Berlin'],
                 'disabled' => !$this->security->isGranted('change_user_settings', $entity),
             ])
-            ->add('theme', ChoiceType::class, [
+            ->add('theme', ThemeChoiceType::class, [
                 'required' => false,
-                'choices' => User::AVAILABLE_THEMES,
-                'choice_label' => static function ($entity, $key, $value) {
-                    return $value;
-                },
-                'attr' => [
-                    'data-controller' => 'elements--selectpicker',
-                    'title' => 'selectpicker.nothing_selected',
-                ],
-                'choice_translation_domain' => false,
-                'placeholder' => 'user_settings.theme.placeholder',
                 'label' => 'user.theme.label',
                 'disabled' => !$this->security->isGranted('change_user_settings', $entity),
             ])
