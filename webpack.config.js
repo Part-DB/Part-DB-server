@@ -1,7 +1,7 @@
 /*
  * This file is part of Part-DB (https://github.com/Part-DB/Part-DB-symfony)
  *
- * Copyright (C) 2019 Jan Böhmer (https://github.com/jbtronics)
+ * Copyright (C) 2019 - 2023 Jan Böhmer (https://github.com/jbtronics)
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -20,7 +20,6 @@
  */
 
 var Encore = require('@symfony/webpack-encore');
-const CopyPlugin = require('copy-webpack-plugin');
 
 const zlib = require('zlib');
 const CompressionPlugin = require("compression-webpack-plugin");
@@ -61,6 +60,9 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('webauthn_tfa', './assets/js/webauthn_tfa.js')
 
+
+
+
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
     //.addEntry('page1', './assets/js/page1.js')
@@ -87,6 +89,8 @@ Encore
     //.enableVersioning(Encore.isProduction())
     .enableVersioning()
 
+
+
     // configure Babel
     // .configureBabel((config) => {
     //     config.plugins.push('@babel/a-babel-plugin');
@@ -109,21 +113,6 @@ Encore
     // uncomment to get integrity="..." attributes on your script & link tags
     // requires WebpackEncoreBundle 1.4 or higher
     .enableIntegrityHashes(Encore.isProduction())
-    .addPlugin(new CopyPlugin({
-        patterns: [
-            {
-                from: 'node_modules/bootswatch/dist/*/*.min.css',
-                to({ context, absoluteFilename }) {
-                    const regexp = /.*([\/\\])(.+)([\/\\]).*\.css$/g;
-                    const array = [...absoluteFilename.matchAll(regexp)];
-                    return 'themes/'+array[0][2]+'[ext]';
-                }
-            },
-            {
-                from: 'node_modules/bootstrap/dist/css/bootstrap.min.css',
-                to: 'themes/bootstrap.css'
-            }
-        ]}))
 
     // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
@@ -163,18 +152,15 @@ Encore
 
 ;
 
+//These are all the themes that are available in bootswatch
+const AVAILABLE_THEMES = ['bootstrap', 'cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly', 'journal',
+    'litera', 'lumen', 'lux', 'materia', 'minty', 'morph', 'pulse', 'quartz', 'sandstone', 'simplex', 'sketchy', 'slate', 'solar',
+    'spacelab', 'superhero', 'united', 'vapor', 'yeti', 'zephyr'];
 
-
-//Copy bootstrap map if in debug mode
-if (Encore.isDev()) {
-    Encore.addPlugin(new CopyPlugin({
-        patterns: [
-            {
-                from: 'node_modules/bootstrap/dist/css/bootstrap.min.css.map',
-                to: 'themes/bootstrap.min.css.map'
-            }
-        ]}))
+for (const theme of AVAILABLE_THEMES) {
+    Encore.addEntry('theme_' + theme, './assets/themes/'+theme+'.js');
 }
+
 
 if (Encore.isProduction()) {
     Encore.addPlugin(new CompressionPlugin({

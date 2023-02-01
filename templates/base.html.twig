@@ -41,10 +41,10 @@
 
 
 
-        {% if theme and theme in constant('App\\Entity\\UserSystem\\User::AVAILABLE_THEMES') %}
-            <link rel="stylesheet" href="{{ preload(asset('build/themes/' ~ theme ~ '.css'), {as: 'style'}) }}">
+        {% if theme and theme in constant('App\\Entity\\UserSystem\\User::AVAILABLE_THEMES') and encore_entry_exists('theme_' ~ theme) %}
+            {{ encore_entry_link_tags('theme_' ~ theme) }}
         {% else %}
-            <link rel="stylesheet" href="{{ preload(asset('build/themes/bootstrap.css'), {as: 'style'}) }}">
+            {{ encore_entry_link_tags('theme_bootstrap') }}
         {% endif %}
 
         {{ encore_entry_link_tags('app') }}
