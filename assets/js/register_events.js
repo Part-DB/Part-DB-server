@@ -19,14 +19,16 @@
 
 'use strict';
 
+import {Dropdown} from "bootstrap";
+
 class RegisterEventHelper {
     constructor() {
         this.registerTooltips();
+        this.configureDropdowns();
         this.registerSpecialCharInput();
 
-        this.registerModalDropRemovalOnFormSubmit()
+        this.registerModalDropRemovalOnFormSubmit();
     }
-
 
     registerModalDropRemovalOnFormSubmit() {
         //Remove all modal backdrops, before rendering the new page.
@@ -38,6 +40,19 @@ class RegisterEventHelper {
     registerLoadHandler(fn) {
         document.addEventListener('turbo:render', fn);
         document.addEventListener('turbo:load', fn);
+    }
+
+    configureDropdowns() {
+        this.registerLoadHandler(() => {
+            //Set the dropdown strategy to fixed, so that the dropdowns are not cut off by the overflow: hidden of the body.
+            //Solution from: https://github.com/twbs/bootstrap/issues/36560
+            const dropdowns = document.querySelectorAll('[data-bs-toggle="dropdown"]');
+            const dropdown = [...dropdowns].map((dropdownToggleEl) => new Dropdown(dropdownToggleEl, {
+                popperConfig(defaultBsPopperConfig) {
+                    return { ...defaultBsPopperConfig, strategy: 'fixed' };
+                }
+            }));
+        });
     }
 
     registerTooltips() {
