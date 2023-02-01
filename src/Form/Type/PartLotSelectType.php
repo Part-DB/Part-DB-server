@@ -47,10 +47,6 @@ class PartLotSelectType extends AbstractType
                 return ($part_lot->getStorageLocation() ? $part_lot->getStorageLocation()->getFullPath() : '')
                     . ' (' . $part_lot->getName() . '): ' . $part_lot->getAmount();
             }),
-            'attr' => [
-                'data-controller' => 'elements--selectpicker',
-                'data-live-search' => true,
-            ],
             'query_builder' => function (Options $options) {
                 return function (EntityRepository $er) use ($options) {
                     return $er->createQueryBuilder('l')

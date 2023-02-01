@@ -54,11 +54,6 @@ class UserEntityConstraintType extends AbstractType
         $builder->add('value', EntityType::class, [
             'class' => User::class,
             'required' => false,
-            'attr' => [
-                'data-controller' => 'elements--selectpicker',
-                'data-live-search' => true,
-                'title' => 'selectpicker.nothing_selected',
-            ]
         ]);
 
 

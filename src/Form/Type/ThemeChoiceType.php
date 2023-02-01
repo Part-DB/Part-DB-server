@@ -46,10 +46,6 @@ class ThemeChoiceType extends AbstractType
             'choice_label' => static function ($entity, $key, $value) {
                 return $value;
             },
-            'attr' => [
-                'data-controller' => 'elements--selectpicker',
-                'title' => 'selectpicker.nothing_selected',
-            ],
             'choice_translation_domain' => false,
             'placeholder' => 'user_settings.theme.placeholder'
         ]);

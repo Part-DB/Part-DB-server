@@ -96,10 +96,6 @@ class UserSettingsType extends AbstractType
             ->add('language', LanguageType::class, [
                 'disabled' => $this->demo_mode,
                 'required' => false,
-                'attr' => [
-                    'data-controller' => 'elements--selectpicker',
-                    'data-live-search' => true,
-                ],
                 'placeholder' => 'user_settings.language.placeholder',
                 'label' => 'user.language_select',
                 'preferred_choices' => ['en', 'de'],
@@ -107,10 +103,6 @@ class UserSettingsType extends AbstractType
             ->add('timezone', TimezoneType::class, [
                 'disabled' => $this->demo_mode,
                 'required' => false,
-                'attr' => [
-                    'data-controller' => 'elements--selectpicker',
-                    'data-live-search' => true,
-                ],
                 'placeholder' => 'user_settings.timezone.placeholder',
                 'label' => 'user.timezone.label',
                 'preferred_choices' => ['Europe/Berlin'],

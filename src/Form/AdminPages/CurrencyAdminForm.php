@@ -47,11 +47,6 @@ class CurrencyAdminForm extends BaseEntityAdminForm
             'required' => false,
             'label' => 'currency.edit.iso_code',
             'preferred_choices' => ['EUR', 'USD', 'GBP', 'JPY', 'CNY'],
-            'attr' => [
-                'data-controller' => 'elements--selectpicker',
-                'title' => 'selectpicker.nothing_selected',
-                'data-live-search' => true,
-            ],
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 

@@ -42,10 +42,6 @@ class MasterPictureAttachmentType extends AbstractType
         $resolver->setDefaults([
             'filter' => 'picture',
             'choice_translation_domain' => false,
-            'attr' => [
-                'data-controller' => 'elements--selectpicker',
-                'title' => 'selectpicker.nothing_selected',
-            ],
             'choice_attr' => static function (Options $options) {
                 return  static function ($choice, $key, $value) use ($options) {
                     /** @var Attachment $choice */

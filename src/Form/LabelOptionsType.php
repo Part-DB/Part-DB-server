@@ -111,11 +111,6 @@ class LabelOptionsType extends AbstractType
 
                 return null;
             },
-            'attr' => [
-                'data-controller' => 'elements--selectpicker',
-                'title' => 'selectpicker.nothing_selected',
-                'data-live-search' => true,
-            ],
         ]);
 
         $builder->add('lines', RichTextEditorType::class, [

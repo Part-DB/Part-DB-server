@@ -130,11 +130,6 @@ class UserAdminForm extends AbstractType
             //Config section
             ->add('language', LanguageType::class, [
                 'required' => false,
-                'attr' => [
-                    'data-controller' => 'elements--selectpicker',
-                    'title' => 'selectpicker.nothing_selected',
-                    'data-live-search' => true,
-                ],
                 'placeholder' => 'user_settings.language.placeholder',
                 'label' => 'user.language_select',
                 'preferred_choices' => ['en', 'de'],
@@ -142,11 +137,6 @@ class UserAdminForm extends AbstractType
             ])
             ->add('timezone', TimezoneType::class, [
                 'required' => false,
-                'attr' => [
-                    'data-controller' => 'elements--selectpicker',
-                    'title' => 'selectpicker.nothing_selected',
-                    'data-live-search' => true,
-                ],
                 'placeholder' => 'user_settings.timezone.placeholder',
                 'label' => 'user.timezone.label',
                 'preferred_choices' => ['Europe/Berlin'],
