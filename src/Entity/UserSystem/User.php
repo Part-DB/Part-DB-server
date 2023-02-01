@@ -29,6 +29,7 @@ use App\Entity\PriceInformations\Currency;
 use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPermission;
+use App\Validator\Constraints\ValidTheme;
 use Jbtronics\TFAWebauthn\Model\LegacyU2FKeyInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Webauthn\PublicKeyCredentialUserEntity;
@@ -77,7 +78,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @var string|null The theme
      * @ORM\Column(type="string", name="config_theme", nullable=true)
-     * @Assert\Choice(choices=User::AVAILABLE_THEMES)
+     * @ValidTheme()
      */
     protected ?string $theme = null;
 

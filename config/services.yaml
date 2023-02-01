@@ -190,6 +190,10 @@ services:
         arguments:
             $available_themes: '%partdb.available_themes%'
 
+    App\Validator\Constraints\ValidThemeValidator:
+        arguments:
+            $available_themes: '%partdb.available_themes%'
+
 
     ####################################################################################################################
     # Label system
