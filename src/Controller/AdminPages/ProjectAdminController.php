@@ -41,12 +41,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProjectAdminController extends BaseAdminController
 {
-    protected $entity_class = Project::class;
-    protected $twig_template = 'AdminPages/ProjectAdmin.html.twig';
-    protected $form_class = ProjectAdminForm::class;
-    protected $route_base = 'project';
-    protected $attachment_class = ProjectAttachment::class;
-    protected $parameter_class = ProjectParameter::class;
+    protected string $entity_class = Project::class;
+    protected string $twig_template = 'AdminPages/ProjectAdmin.html.twig';
+    protected string $form_class = ProjectAdminForm::class;
+    protected string $route_base = 'project';
+    protected string $attachment_class = ProjectAttachment::class;
+    protected ?string $parameter_class = ProjectParameter::class;
 
     /**
      * @Route("/{id}", name="project_delete", methods={"DELETE"})

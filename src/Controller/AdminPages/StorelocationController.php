@@ -40,12 +40,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class StorelocationController extends BaseAdminController
 {
-    protected $entity_class = Storelocation::class;
-    protected $twig_template = 'AdminPages/StorelocationAdmin.html.twig';
-    protected $form_class = StorelocationAdminForm::class;
-    protected $route_base = 'store_location';
-    protected $attachment_class = StorelocationAttachment::class;
-    protected $parameter_class = StorelocationParameter::class;
+    protected string $entity_class = Storelocation::class;
+    protected string $twig_template = 'AdminPages/StorelocationAdmin.html.twig';
+    protected string $form_class = StorelocationAdminForm::class;
+    protected string $route_base = 'store_location';
+    protected string $attachment_class = StorelocationAttachment::class;
+    protected ?string $parameter_class = StorelocationParameter::class;
 
     /**
      * @Route("/{id}", name="store_location_delete", methods={"DELETE"})

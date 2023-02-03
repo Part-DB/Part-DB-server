@@ -41,12 +41,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class MeasurementUnitController extends BaseAdminController
 {
-    protected $entity_class = MeasurementUnit::class;
-    protected $twig_template = 'AdminPages/MeasurementUnitAdmin.html.twig';
-    protected $form_class = MeasurementUnitAdminForm::class;
-    protected $route_base = 'measurement_unit';
-    protected $attachment_class = MeasurementUnitAttachment::class;
-    protected $parameter_class = MeasurementUnitParameter::class;
+    protected string $entity_class = MeasurementUnit::class;
+    protected string $twig_template = 'AdminPages/MeasurementUnitAdmin.html.twig';
+    protected string $form_class = MeasurementUnitAdminForm::class;
+    protected string $route_base = 'measurement_unit';
+    protected string $attachment_class = MeasurementUnitAttachment::class;
+    protected ?string $parameter_class = MeasurementUnitParameter::class;
 
     /**
      * @Route("/{id}", name="measurement_unit_delete", methods={"DELETE"})

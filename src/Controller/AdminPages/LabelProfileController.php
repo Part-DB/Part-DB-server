@@ -40,13 +40,13 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class LabelProfileController extends BaseAdminController
 {
-    protected $entity_class = LabelProfile::class;
-    protected $twig_template = 'AdminPages/LabelProfileAdmin.html.twig';
-    protected $form_class = LabelProfileAdminForm::class;
-    protected $route_base = 'label_profile';
-    protected $attachment_class = LabelAttachment::class;
+    protected string $entity_class = LabelProfile::class;
+    protected string $twig_template = 'AdminPages/LabelProfileAdmin.html.twig';
+    protected string $form_class = LabelProfileAdminForm::class;
+    protected string $route_base = 'label_profile';
+    protected string $attachment_class = LabelAttachment::class;
     //Just a placeholder
-    protected $parameter_class = AbstractParameter::class;
+    protected ?string $parameter_class = null;
 
     /**
      * @Route("/{id}", name="label_profile_delete", methods={"DELETE"})

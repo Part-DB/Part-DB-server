@@ -25,6 +25,7 @@ namespace App\Form\AdminPages;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\LabelSystem\LabelProfile;
+use App\Entity\Parameters\AbstractParameter;
 use App\Form\AttachmentFormType;
 use App\Form\ParameterType;
 use App\Form\Type\MasterPictureAttachmentType;
@@ -56,6 +57,7 @@ class BaseEntityAdminForm extends AbstractType
         parent::configureOptions($resolver);
         $resolver->setRequired('attachment_class');
         $resolver->setRequired('parameter_class');
+        $resolver->setAllowedTypes('parameter_class', ['string', 'null']);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -143,7 +145,9 @@ class BaseEntityAdminForm extends AbstractType
             'empty_data' => null,
         ]);
 
-        if ($entity instanceof AbstractStructuralDBElement) {
+        if ($options['parameter_class']) {
+            $prototype = new $options['parameter_class']();
+
             $builder->add(
                 'parameters',
                 CollectionType::class,
@@ -155,7 +159,7 @@ class BaseEntityAdminForm extends AbstractType
                     'reindex_enable' => true,
                     'label' => false,
                     'by_reference' => false,
-                    'prototype_data' => new $options['parameter_class'](),
+                    'prototype_data' => $prototype,
                     'entry_options' => [
                         'data_class' => $options['parameter_class'],
                     ],

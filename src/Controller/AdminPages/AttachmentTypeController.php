@@ -41,12 +41,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AttachmentTypeController extends BaseAdminController
 {
-    protected $entity_class = AttachmentType::class;
-    protected $twig_template = 'AdminPages/AttachmentTypeAdmin.html.twig';
-    protected $form_class = AttachmentTypeAdminForm::class;
-    protected $route_base = 'attachment_type';
-    protected $attachment_class = AttachmentTypeAttachment::class;
-    protected $parameter_class = AttachmentTypeParameter::class;
+    protected string $entity_class = AttachmentType::class;
+    protected string $twig_template = 'AdminPages/AttachmentTypeAdmin.html.twig';
+    protected string $form_class = AttachmentTypeAdminForm::class;
+    protected string $route_base = 'attachment_type';
+    protected string $attachment_class = AttachmentTypeAttachment::class;
+    protected ?string $parameter_class = AttachmentTypeParameter::class;
 
     /**
      * @Route("/{id}", name="attachment_type_delete", methods={"DELETE"})

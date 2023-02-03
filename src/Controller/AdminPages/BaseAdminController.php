@@ -65,12 +65,12 @@ use function Symfony\Component\Translation\t;
 
 abstract class BaseAdminController extends AbstractController
 {
-    protected $entity_class = '';
-    protected $form_class = '';
-    protected $twig_template = '';
-    protected $route_base = '';
-    protected $attachment_class = '';
-    protected $parameter_class = '';
+    protected string $entity_class = '';
+    protected string $form_class = '';
+    protected string $twig_template = '';
+    protected string $route_base = '';
+    protected string $attachment_class = '';
+    protected ?string $parameter_class = '';
 
     protected UserPasswordHasherInterface $passwordEncoder;
     protected TranslatorInterface $translator;
@@ -103,7 +103,7 @@ abstract class BaseAdminController extends AbstractController
             throw new InvalidArgumentException('You have to override the $attachment_class value with a valid Attachment class in your subclass!');
         }
 
-        if ('' === $this->parameter_class || !is_a($this->parameter_class, AbstractParameter::class, true)) {
+        if ('' === $this->parameter_class || ($this->parameter_class && !is_a($this->parameter_class, AbstractParameter::class, true))) {
             throw new InvalidArgumentException('You have to override the $parameter_class value with a valid Parameter class in your subclass!');
         }
 

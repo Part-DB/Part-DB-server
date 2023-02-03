@@ -40,12 +40,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CategoryController extends BaseAdminController
 {
-    protected $entity_class = Category::class;
-    protected $twig_template = 'AdminPages/CategoryAdmin.html.twig';
-    protected $form_class = CategoryAdminForm::class;
-    protected $route_base = 'category';
-    protected $attachment_class = CategoryAttachment::class;
-    protected $parameter_class = CategoryParameter::class;
+    protected string $entity_class = Category::class;
+    protected string $twig_template = 'AdminPages/CategoryAdmin.html.twig';
+    protected string $form_class = CategoryAdminForm::class;
+    protected string $route_base = 'category';
+    protected string $attachment_class = CategoryAttachment::class;
+    protected ?string $parameter_class = CategoryParameter::class;
 
     /**
      * @Route("/{id}", name="category_delete", methods={"DELETE"})

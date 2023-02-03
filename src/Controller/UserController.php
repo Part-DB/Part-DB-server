@@ -53,13 +53,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserController extends AdminPages\BaseAdminController
 {
-    protected $entity_class = User::class;
-    protected $twig_template = 'AdminPages/UserAdmin.html.twig';
-    protected $form_class = UserAdminForm::class;
-    protected $route_base = 'user';
-    protected $attachment_class = UserAttachment::class;
-    //Just define a value here to prevent error. It is not used.
-    protected $parameter_class = AbstractParameter::class;
+    protected string $entity_class = User::class;
+    protected string $twig_template = 'AdminPages/UserAdmin.html.twig';
+    protected string $form_class = UserAdminForm::class;
+    protected string $route_base = 'user';
+    protected string $attachment_class = UserAttachment::class;
+    protected ?string $parameter_class = null;
 
     protected function additionalActionEdit(FormInterface $form, AbstractNamedDBElement $entity): bool
     {

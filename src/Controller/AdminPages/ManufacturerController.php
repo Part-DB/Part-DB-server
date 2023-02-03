@@ -40,12 +40,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ManufacturerController extends BaseAdminController
 {
-    protected $entity_class = Manufacturer::class;
-    protected $twig_template = 'AdminPages/ManufacturerAdmin.html.twig';
-    protected $form_class = CompanyForm::class;
-    protected $route_base = 'manufacturer';
-    protected $attachment_class = ManufacturerAttachment::class;
-    protected $parameter_class = ManufacturerParameter::class;
+    protected string $entity_class = Manufacturer::class;
+    protected string $twig_template = 'AdminPages/ManufacturerAdmin.html.twig';
+    protected string $form_class = CompanyForm::class;
+    protected string $route_base = 'manufacturer';
+    protected string $attachment_class = ManufacturerAttachment::class;
+    protected ?string $parameter_class = ManufacturerParameter::class;
 
     /**
      * @Route("/{id}", name="manufacturer_delete", methods={"DELETE"})

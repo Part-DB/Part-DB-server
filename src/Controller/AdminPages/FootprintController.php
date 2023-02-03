@@ -41,12 +41,12 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class FootprintController extends BaseAdminController
 {
-    protected $entity_class = Footprint::class;
-    protected $twig_template = 'AdminPages/FootprintAdmin.html.twig';
-    protected $form_class = FootprintAdminForm::class;
-    protected $route_base = 'footprint';
-    protected $attachment_class = FootprintAttachment::class;
-    protected $parameter_class = FootprintParameter::class;
+    protected string $entity_class = Footprint::class;
+    protected string $twig_template = 'AdminPages/FootprintAdmin.html.twig';
+    protected string $form_class = FootprintAdminForm::class;
+    protected string $route_base = 'footprint';
+    protected string $attachment_class = FootprintAttachment::class;
+    protected ?string $parameter_class = FootprintParameter::class;
 
     /**
      * @Route("/{id}", name="footprint_delete", methods={"DELETE"})
