@@ -55,8 +55,6 @@ class TabRememberHelper {
         if(first_element) {
             this.revealElementOnTab(first_element);
         }
-
-        debugger;
     }
 
     /**
