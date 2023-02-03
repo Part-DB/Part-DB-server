@@ -368,7 +368,11 @@ abstract class BaseAdminController extends AbstractController
 
             //Show errors to user:
             foreach ($errors as $error) {
-                $this->addFlash('error', $error['entity']->getFullPath().':'.$error['violations']);
+                if ($error['entity'] instanceof AbstractStructuralDBElement) {
+                    $this->addFlash('error', $error['entity']->getFullPath().':'.$error['violations']);
+                } else { //When we dont have a structural element, we can only show the name
+                    $this->addFlash('error', $error['entity']->getName().':'.$error['violations']);
+                }
             }
 
             //Persist valid entities to DB
