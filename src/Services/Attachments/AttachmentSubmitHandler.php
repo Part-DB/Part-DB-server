@@ -28,6 +28,7 @@ use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\AttachmentTypeAttachment;
 use App\Entity\Attachments\CategoryAttachment;
 use App\Entity\Attachments\CurrencyAttachment;
+use App\Entity\Attachments\LabelAttachment;
 use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Attachments\FootprintAttachment;
 use App\Entity\Attachments\GroupAttachment;
@@ -90,6 +91,7 @@ class AttachmentSubmitHandler
             StorelocationAttachment::class => 'storelocation',
             SupplierAttachment::class => 'supplier',
             UserAttachment::class => 'user',
+            LabelAttachment::class => 'label_profile',
         ];
     }
 
