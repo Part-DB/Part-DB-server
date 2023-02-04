@@ -55,7 +55,7 @@ class StatisticsController extends AbstractController
     {
         $this->denyAccessUnlessGranted('@tools.statistics');
 
-        return $this->render('/Statistics/statistics.html.twig', [
+        return $this->render('tools/statistics/statistics.html.twig', [
             'helper' => $helper,
         ]);
     }

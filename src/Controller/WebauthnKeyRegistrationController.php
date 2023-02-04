@@ -71,7 +71,7 @@ class WebauthnKeyRegistrationController extends AbstractController
 
 
         return $this->render(
-            'security/Webauthn/webauthn_register.html.twig',
+            'security/webauthn/webauthn_register.html.twig',
             [
                 'registrationRequest' => $registrationHelper->generateRegistrationRequestAsJSON(),
             ]
