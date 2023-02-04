@@ -106,7 +106,7 @@
 
                             {% if entity.attachments is not empty %}
                                 <div class="tab-pane fade" id="v-pills-attachments" role="tabpanel" aria-labelledby="v-pills-attachments-tab">
-                                    {% include "Parts/info/_attachments_info.html.twig" with {"part": entity} %}
+                                    {% include "parts/info/_attachments_info.html.twig" with {"part": entity} %}
                                 </div>
                             {% endif %}
 
@@ -134,6 +134,6 @@
     </div>
 
     {% if filterForm is defined %}
-        {% include "Parts/lists/_filter.html.twig" %}
+        {% include "parts/lists/_filter.html.twig" %}
     {% endif %}
 </div>

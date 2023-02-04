@@ -92,7 +92,7 @@
             {% include "projects/info/_builds.html.twig" %}
         </div>
         <div class="tab-pane fade" id="attachments-tab-pane" role="tabpanel" aria-labelledby="attachments-tab" tabindex="0">
-            {% include "Parts/info/_attachments_info.html.twig" with {"part": project} %}
+            {% include "parts/info/_attachments_info.html.twig" with {"part": project} %}
         </div>
         <div class="tab-pane fade" id="parameters-tab-pane" role="tabpanel" aria-labelledby="parameters-tab">
             {% for name, parameters in project.groupedParameters %}

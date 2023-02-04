@@ -1,6 +1,6 @@
 {# Renders a editable list of all attachments. form is the Attachment CollectionType #}
 {% macro attachment_edit_list(form, part_mode = false) %}
-    {% form_theme form with ['Parts/edit/edit_form_styles.html.twig'] %}
+    {% form_theme form with ['parts/edit/edit_form_styles.html.twig'] %}
 
     {% import 'components/collection_type.macro.html.twig' as collection %}
     <div {{ collection.controller(form, 'attachment.edit.delete.confirm') }}>

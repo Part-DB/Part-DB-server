@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block  title %}
-{% trans %}parts_list.tags.title{% endtrans %} {{ tag }}
+    {% trans %}parts_list.all.title{% endtrans %}
 {% endblock %}
 
 {% block content %}
@@ -10,8 +10,8 @@
         <div class="accordion-item">
             <div class="accordion-header">
                 <button class="accordion-button collapsed py-2" data-bs-toggle="collapse" data-bs-target="#searchInfo" disabled>
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                    {% trans %}parts_list.tags.title{% endtrans %}&nbsp;<span class="badge bg-primary">{{ tag }}</span>
+                    <i class="fa-solid fa-globe fa-fw"></i>
+                    {% trans %}parts_list.all.title{% endtrans %}
                 </button>
             </div>
             <div id="searchInfo" class="accordion-collapse collapse" data-bs-parent="#listAccordion">
@@ -21,11 +21,10 @@
             </div>
         </div>
 
-        {% include "Parts/lists/_filter.html.twig" %}
+        {% include "parts/lists/_filter.html.twig" %}
     </div>
 
-    {% include "Parts/lists/_action_bar.html.twig" with {'url_options': {}} %}
-
-    {% include "Parts/lists/_parts_list.html.twig" %}
+    {% include "parts/lists/_action_bar.html.twig" with {'url_options': {}} %}
+    {% include "parts/lists/_parts_list.html.twig" %}
 
 {% endblock %}

@@ -1,5 +1,5 @@
 {# Leave this template at bootstrap 4 for now, as it otherwise destroys our layout #}
-{% form_theme form.orderdetails with ['Parts/edit/edit_form_styles.html.twig', "bootstrap_4_layout.html.twig"] %}
+{% form_theme form.orderdetails with ['parts/edit/edit_form_styles.html.twig', "bootstrap_4_layout.html.twig"] %}
 {% import 'components/collection_type.macro.html.twig' as collection %}
 
 <div {{ collection.controller(form.orderdetails, 'orderdetails.edit.delete.confirm') }}>

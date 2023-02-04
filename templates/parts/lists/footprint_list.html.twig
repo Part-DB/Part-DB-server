@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block  title %}
+    {% trans %}parts_list.footprint.title{% endtrans %} {{ entity.name }}
+{% endblock %}
+
+{% block content %}
+
+    {% include "parts/lists/_info_card.html.twig" with {'header_label': 'footprint.label'} %}
+
+    {% include "parts/lists/_action_bar.html.twig" with {'url_options': {'footprint': entity.iD}} %}
+
+    {% include "parts/lists/_parts_list.html.twig" %}
+
+{% endblock %}

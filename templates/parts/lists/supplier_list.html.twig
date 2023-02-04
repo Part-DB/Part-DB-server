@@ -6,7 +6,7 @@
 
 {% block content %}
 
-    {% embed "Parts/lists/_info_card.html.twig" with {'header_label': 'supplier.label'} %}
+    {% embed "parts/lists/_info_card.html.twig" with {'header_label': 'supplier.label'} %}
         {% block quick_links %}
             <div class="mb-2">
                 {% import "components/quick_links.macro.html.twig" as quick_links %}
@@ -15,8 +15,8 @@
         {% endblock %}
     {% endembed %}
 
-    {% include "Parts/lists/_action_bar.html.twig" with {'url_options': {'supplier': entity.iD}} %}
+    {% include "parts/lists/_action_bar.html.twig" with {'url_options': {'supplier': entity.iD}} %}
 
-    {% include "Parts/lists/_parts_list.html.twig" %}
+    {% include "parts/lists/_parts_list.html.twig" %}
 
 {% endblock %}

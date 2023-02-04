@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block  title %}
+    {% trans %}parts_list.category.title{% endtrans %} {{ entity.name }}
+{% endblock %}
+
+{% block content %}
+
+    {% include "parts/lists/_info_card.html.twig" with {'header_label': 'category.label'} %}
+
+    {% include "parts/lists/_action_bar.html.twig" with {'url_options': {'category': entity.iD}} %}
+
+    {% include "parts/lists/_parts_list.html.twig" %}
+
+{% endblock %}

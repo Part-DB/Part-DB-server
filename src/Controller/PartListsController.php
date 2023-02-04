@@ -163,7 +163,7 @@ class PartListsController extends AbstractController
         $this->denyAccessUnlessGranted('@categories.read');
 
         return $this->showListWithFilter($request,
-            'Parts/lists/category_list.html.twig',
+            'parts/lists/category_list.html.twig',
             function (PartFilter $filter) use ($category) {
                 $filter->getCategory()->setOperator('INCLUDING_CHILDREN')->setValue($category);
             }, function (FormInterface $filterForm) {
@@ -185,7 +185,7 @@ class PartListsController extends AbstractController
         $this->denyAccessUnlessGranted('@footprints.read');
 
         return $this->showListWithFilter($request,
-            'Parts/lists/footprint_list.html.twig',
+            'parts/lists/footprint_list.html.twig',
             function (PartFilter $filter) use ($footprint) {
                 $filter->getFootprint()->setOperator('INCLUDING_CHILDREN')->setValue($footprint);
             }, function (FormInterface $filterForm) {
@@ -207,7 +207,7 @@ class PartListsController extends AbstractController
         $this->denyAccessUnlessGranted('@manufacturers.read');
 
         return $this->showListWithFilter($request,
-            'Parts/lists/manufacturer_list.html.twig',
+            'parts/lists/manufacturer_list.html.twig',
             function (PartFilter $filter) use ($manufacturer) {
                 $filter->getManufacturer()->setOperator('INCLUDING_CHILDREN')->setValue($manufacturer);
             }, function (FormInterface $filterForm) {
@@ -229,7 +229,7 @@ class PartListsController extends AbstractController
         $this->denyAccessUnlessGranted('@storelocations.read');
 
         return $this->showListWithFilter($request,
-            'Parts/lists/store_location_list.html.twig',
+            'parts/lists/store_location_list.html.twig',
             function (PartFilter $filter) use ($storelocation) {
                 $filter->getStorelocation()->setOperator('INCLUDING_CHILDREN')->setValue($storelocation);
             }, function (FormInterface $filterForm) {
@@ -251,7 +251,7 @@ class PartListsController extends AbstractController
         $this->denyAccessUnlessGranted('@suppliers.read');
 
         return $this->showListWithFilter($request,
-            'Parts/lists/supplier_list.html.twig',
+            'parts/lists/supplier_list.html.twig',
             function (PartFilter $filter) use ($supplier) {
                 $filter->getSupplier()->setOperator('INCLUDING_CHILDREN')->setValue($supplier);
             }, function (FormInterface $filterForm) {
@@ -273,7 +273,7 @@ class PartListsController extends AbstractController
         $tag = trim($tag);
 
         return $this->showListWithFilter($request,
-            'Parts/lists/tags_list.html.twig',
+            'parts/lists/tags_list.html.twig',
             function (PartFilter $filter) use ($tag) {
                 $filter->getTags()->setOperator('ANY')->setValue($tag);
             }, function (FormInterface $filterForm) {
@@ -314,7 +314,7 @@ class PartListsController extends AbstractController
         $searchFilter = $this->searchRequestToFilter($request);
 
         return $this->showListWithFilter($request,
-            'Parts/lists/search_list.html.twig',
+            'parts/lists/search_list.html.twig',
             null,
             null,
             [
@@ -334,6 +334,6 @@ class PartListsController extends AbstractController
      */
     public function showAll(Request $request, DataTableFactory $dataTable)
     {
-        return $this->showListWithFilter($request,'Parts/lists/all_list.html.twig');
+        return $this->showListWithFilter($request,'parts/lists/all_list.html.twig');
     }
 }

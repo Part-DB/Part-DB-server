@@ -31,11 +31,11 @@
 {% block card_content %}
     <div class="row">
         <div class="col-md-9">
-            {% include "Parts/info/_main_infos.html.twig" %}
+            {% include "parts/info/_main_infos.html.twig" %}
         </div>
 
         <div class="col-md-3 offset-md-0 col-9 offset-3">
-            {% include "Parts/info/_sidebar.html.twig" %}
+            {% include "parts/info/_sidebar.html.twig" %}
         </div>
 
     </div>
@@ -127,42 +127,42 @@
                 {% endif %}
 
                 <div class="tab-pane fade show active" id="part_lots" role="tabpanel" aria-labelledby="part_lots-tab">
-                    {% include "Parts/info/_part_lots.html.twig" %}
+                    {% include "parts/info/_part_lots.html.twig" %}
                 </div>
 
                 {% if part.attachments is not empty %}
                     <div class="tab-pane fade" id="attachments" role="tabpanel" aria-labelledby="attachment-tab">
-                        {% include "Parts/info/_attachments_info.html.twig" %}
+                        {% include "parts/info/_attachments_info.html.twig" %}
                     </div>
                 {% endif %}
 
                 {% if part.orderdetails is not empty %}
                 <div class="tab-pane fade" id="suppliers" role="tabpanel" aria-labelledby="supplier-tab">
-                    {%  include "Parts/info/_order_infos.html.twig" %}
+                    {%  include "parts/info/_order_infos.html.twig" %}
                 </div>
                 {% endif %}
 
                 <div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">
-                    {% include "Parts/info/_projects.html.twig" %}
+                    {% include "parts/info/_projects.html.twig" %}
                 </div>
 
                 <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
-                    {% include "Parts/info/_history.html.twig" %}
+                    {% include "parts/info/_history.html.twig" %}
                 </div>
 
                 <div class="tab-pane fade" id="tools" role="tabpanel" aria-labelledby="tools-tab">
-                    {% include "Parts/info/_tools.html.twig" %}
+                    {% include "parts/info/_tools.html.twig" %}
                 </div>
 
                 {% if part.parameters is not empty or description_params is not empty or comment_params is not empty %}
                     <div class="tab-pane fade" id="specifications" role="tabpanel" aria-labelledby="tools-tab">
-                        {% include "Parts/info/_specifications.html.twig" %}
+                        {% include "parts/info/_specifications.html.twig" %}
                     </div>
                 {% endif %}
 
                 <div class="tab-pane fade" id="extended_info" role="tabpanel" aria-labelledby="extended_info-tab">
 
-                    {% include "Parts/info/_extended_infos.html.twig" %}
+                    {% include "parts/info/_extended_infos.html.twig" %}
 
                 </div>
             </div>
