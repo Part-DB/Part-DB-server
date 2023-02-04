@@ -59,7 +59,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class CurrencyController extends BaseAdminController
 {
     protected string $entity_class = Currency::class;
-    protected string $twig_template = 'AdminPages/CurrencyAdmin.html.twig';
+    protected string $twig_template = 'admin/currency_admin.html.twig';
     protected string $form_class = CurrencyAdminForm::class;
     protected string $route_base = 'currency';
     protected string $attachment_class = CurrencyAttachment::class;

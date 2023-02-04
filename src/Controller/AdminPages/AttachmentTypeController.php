@@ -42,7 +42,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AttachmentTypeController extends BaseAdminController
 {
     protected string $entity_class = AttachmentType::class;
-    protected string $twig_template = 'AdminPages/AttachmentTypeAdmin.html.twig';
+    protected string $twig_template = 'admin/attachment_type_admin.html.twig';
     protected string $form_class = AttachmentTypeAdminForm::class;
     protected string $route_base = 'attachment_type';
     protected string $attachment_class = AttachmentTypeAttachment::class;

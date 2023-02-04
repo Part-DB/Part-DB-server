@@ -42,7 +42,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProjectAdminController extends BaseAdminController
 {
     protected string $entity_class = Project::class;
-    protected string $twig_template = 'AdminPages/ProjectAdmin.html.twig';
+    protected string $twig_template = 'admin/project_admin.html.twig';
     protected string $form_class = ProjectAdminForm::class;
     protected string $route_base = 'project';
     protected string $attachment_class = ProjectAttachment::class;

@@ -42,7 +42,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MeasurementUnitController extends BaseAdminController
 {
     protected string $entity_class = MeasurementUnit::class;
-    protected string $twig_template = 'AdminPages/MeasurementUnitAdmin.html.twig';
+    protected string $twig_template = 'admin/measurement_unit_admin.html.twig';
     protected string $form_class = MeasurementUnitAdminForm::class;
     protected string $route_base = 'measurement_unit';
     protected string $attachment_class = MeasurementUnitAttachment::class;

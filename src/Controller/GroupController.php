@@ -45,7 +45,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class GroupController extends BaseAdminController
 {
     protected string $entity_class = Group::class;
-    protected string $twig_template = 'AdminPages/GroupAdmin.html.twig';
+    protected string $twig_template = 'admin/group_admin.html.twig';
     protected string $form_class = GroupAdminForm::class;
     protected string $route_base = 'group';
     protected string $attachment_class = GroupAttachment::class;

@@ -41,7 +41,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SupplierController extends BaseAdminController
 {
     protected string $entity_class = Supplier::class;
-    protected string $twig_template = 'AdminPages/SupplierAdmin.html.twig';
+    protected string $twig_template = 'admin/supplier_admin.html.twig';
     protected string $form_class = SupplierForm::class;
     protected string $route_base = 'supplier';
     protected string $attachment_class = SupplierAttachment::class;

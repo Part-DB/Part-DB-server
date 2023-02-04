@@ -41,7 +41,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryController extends BaseAdminController
 {
     protected string $entity_class = Category::class;
-    protected string $twig_template = 'AdminPages/CategoryAdmin.html.twig';
+    protected string $twig_template = 'admin/category_admin.html.twig';
     protected string $form_class = CategoryAdminForm::class;
     protected string $route_base = 'category';
     protected string $attachment_class = CategoryAttachment::class;

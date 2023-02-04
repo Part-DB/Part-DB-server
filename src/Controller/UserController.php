@@ -54,7 +54,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AdminPages\BaseAdminController
 {
     protected string $entity_class = User::class;
-    protected string $twig_template = 'AdminPages/UserAdmin.html.twig';
+    protected string $twig_template = 'admin/user_admin.html.twig';
     protected string $form_class = UserAdminForm::class;
     protected string $route_base = 'user';
     protected string $attachment_class = UserAttachment::class;

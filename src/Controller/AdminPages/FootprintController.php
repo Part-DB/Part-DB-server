@@ -42,7 +42,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class FootprintController extends BaseAdminController
 {
     protected string $entity_class = Footprint::class;
-    protected string $twig_template = 'AdminPages/FootprintAdmin.html.twig';
+    protected string $twig_template = 'admin/footprint_admin.html.twig';
     protected string $form_class = FootprintAdminForm::class;
     protected string $route_base = 'footprint';
     protected string $attachment_class = FootprintAttachment::class;

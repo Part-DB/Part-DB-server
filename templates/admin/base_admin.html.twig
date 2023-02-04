@@ -106,7 +106,7 @@
                                     {% block additional_panes %}{% endblock %}
 
                                     <div class="tab-pane" id="attachments">
-                                        {% include "AdminPages/_attachments.html.twig" %}
+                                        {% include "admin/_attachments.html.twig" %}
                                         {% block master_picture_block %}
                                             {{ form_row(form.master_picture_attachment) }}
                                         {% endblock %}
@@ -114,7 +114,7 @@
 
                                     {% if entity.parameters is defined %}
                                         <div id="parameters" class="tab-pane fade">
-                                            {% include "AdminPages/_parameters.html.twig" %}
+                                            {% include "admin/_parameters.html.twig" %}
                                         </div>
                                     {% endif %}
                                 </div>
@@ -140,14 +140,14 @@
 
                                 {# Only include on existing parts #}
                                 {% if entity.id %}
-                                    {{ include('AdminPages/_duplicate.html.twig') }}
-                                    {{ include('AdminPages/_delete_form.html.twig') }}
+                                    {{ include('admin/_duplicate.html.twig') }}
+                                    {{ include('admin/_delete_form.html.twig') }}
                                 {% endif %}
 
                             </div>
 
                             <div id="info" class="tab-pane fade">
-                                {% include "AdminPages/_info.html.twig" %}
+                                {% include "admin/_info.html.twig" %}
                             </div>
 
                             {% if datatable is defined and datatable is not null %}
@@ -159,7 +159,7 @@
 
                             {% if entity.id %}
                                 <div id="export" class="tab-pane fade">
-                                    {% include 'AdminPages/_export_form.html.twig' with {'path' : path(route_base ~ '_export', {'id': entity.id})} %}
+                                    {% include 'admin/_export_form.html.twig' with {'path' : path(route_base ~ '_export', {'id': entity.id})} %}
                                 </div>
                             {% else %} {# For new element we have a combined import/export tab #}
                                 <div id="import_export" class="tab-pane fade">
@@ -171,7 +171,7 @@
                                     <hr>
                                     <fieldset>
                                         <legend>{% trans %}export_all.label{% endtrans %}</legend>
-                                        {% include 'AdminPages/_export_form.html.twig' with {'path' : path('attachment_type_export_all')} %}
+                                        {% include 'admin/_export_form.html.twig' with {'path' : path('attachment_type_export_all')} %}
                                     </fieldset>
                                 </div>
 

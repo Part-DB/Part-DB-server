@@ -41,7 +41,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class StorelocationController extends BaseAdminController
 {
     protected string $entity_class = Storelocation::class;
-    protected string $twig_template = 'AdminPages/StorelocationAdmin.html.twig';
+    protected string $twig_template = 'admin/storelocation_admin.html.twig';
     protected string $form_class = StorelocationAdminForm::class;
     protected string $route_base = 'store_location';
     protected string $attachment_class = StorelocationAttachment::class;

@@ -41,7 +41,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class LabelProfileController extends BaseAdminController
 {
     protected string $entity_class = LabelProfile::class;
-    protected string $twig_template = 'AdminPages/LabelProfileAdmin.html.twig';
+    protected string $twig_template = 'admin/label_profile_admin.html.twig';
     protected string $form_class = LabelProfileAdminForm::class;
     protected string $route_base = 'label_profile';
     protected string $attachment_class = LabelAttachment::class;
