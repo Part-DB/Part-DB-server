@@ -89,7 +89,7 @@ class UserSettingsController extends AbstractController
             throw new RuntimeException('You do not have any backup codes enabled, therefore you can not view them!');
         }
 
-        return $this->render('Users/backup_codes.html.twig', [
+        return $this->render('users/backup_codes.html.twig', [
             'user' => $user,
         ]);
     }
@@ -380,7 +380,7 @@ class UserSettingsController extends AbstractController
          * Output both forms
          *****************************/
 
-        return $this->renderForm('Users/user_settings.html.twig', [
+        return $this->renderForm('users/user_settings.html.twig', [
             'user' => $user,
             'settings_form' => $form,
             'pw_form' => $pw_form,
