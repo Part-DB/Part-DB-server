@@ -48,7 +48,7 @@
 
 {% block additional_panes %}
     <div class="tab-pane" id="bom">
-        {% form_theme form.bom_entries with ['Form/collection_types_layout.html.twig'] %}
+        {% form_theme form.bom_entries with ['form/collection_types_layout.html.twig'] %}
         {{ form_errors(form.bom_entries) }}
         {{ form_widget(form.bom_entries) }}
     </div>

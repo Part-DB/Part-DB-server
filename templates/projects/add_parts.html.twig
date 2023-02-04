@@ -12,7 +12,7 @@
     {{ form_start(form) }}
 
     {{ form_row(form.project) }}
-    {% form_theme form.bom_entries with ['Form/collection_types_layout.html.twig'] %}
+    {% form_theme form.bom_entries with ['form/collection_types_layout.html.twig'] %}
     {{ form_widget(form.bom_entries) }}
 
     {{ form_row(form.submit) }}
