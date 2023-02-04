@@ -78,18 +78,18 @@
 
     <div class="tab-content">
         <div class="tab-pane fade show active" id="info-tab-pane" role="tabpanel" aria-labelledby="info-tab" tabindex="0">
-            {% include "Projects/info/_info.html.twig" %}
+            {% include "projects/info/_info.html.twig" %}
         </div>
         {% if project.children is not empty %}
             <div class="tab-pane fade" id="subprojects-tab-pane" role="tabpanel" aria-labelledby="bom-tab" tabindex="0">
-                {% include "Projects/info/_subprojects.html.twig" %}
+                {% include "projects/info/_subprojects.html.twig" %}
             </div>
         {% endif %}
         <div class="tab-pane fade" id="bom-tab-pane" role="tabpanel" aria-labelledby="bom-tab" tabindex="0">
-            {% include "Projects/info/_bom.html.twig" %}
+            {% include "projects/info/_bom.html.twig" %}
         </div>
         <div class="tab-pane fade" id="builds-tab-pane" role="tabpanel" aria-labelledby="builds-tab" tabindex="0">
-            {% include "Projects/info/_builds.html.twig" %}
+            {% include "projects/info/_builds.html.twig" %}
         </div>
         <div class="tab-pane fade" id="attachments-tab-pane" role="tabpanel" aria-labelledby="attachments-tab" tabindex="0">
             {% include "Parts/info/_attachments_info.html.twig" with {"part": project} %}

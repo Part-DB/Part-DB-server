@@ -66,7 +66,7 @@ class ProjectController extends AbstractController
             return $table->getResponse();
         }
 
-        return $this->render('Projects/info/info.html.twig', [
+        return $this->render('projects/info/info.html.twig', [
             'buildHelper' => $buildHelper,
             'datatable' => $table,
             'project' => $project,
@@ -110,7 +110,7 @@ class ProjectController extends AbstractController
             }
         }
 
-        return $this->renderForm('Projects/build/build.html.twig', [
+        return $this->renderForm('projects/build/build.html.twig', [
             'buildHelper' => $buildHelper,
             'project' => $project,
             'build_request' => $projectBuildRequest,
@@ -191,7 +191,7 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('project_info', ['id' => $target_project->getID()]);
         }
 
-        return $this->renderForm('Projects/add_parts.html.twig', [
+        return $this->renderForm('projects/add_parts.html.twig', [
             'project' => $project,
             'form' => $form,
         ]);
