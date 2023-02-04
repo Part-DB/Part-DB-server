@@ -55,5 +55,10 @@ ENV DATABASE_URL="sqlite:///%kernel.project_dir%/uploads/app.db"
 
 USER root
 
-VOLUME ["/var/www/html/uploads", "/var/www/html/public/media"]
+# Copy entrypoint to /usr/local/bin and make it executable
+RUN cp ./.docker/partdb-entrypoint.sh /usr/local/bin/partdb-entrypoint.sh && chmod +x /usr/local/bin/partdb-entrypoint.sh
+ENTRYPOINT ["partdb-entrypoint.sh", "docker-php-entrypoint"]
+CMD ["apache2-foreground"]
+
 EXPOSE 80
+VOLUME ["/var/www/html/uploads", "/var/www/html/public/media"]
