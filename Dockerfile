@@ -49,8 +49,8 @@ USER www-data
 RUN composer install -a --no-dev && composer clear-cache
 RUN yarn install && yarn build && yarn cache clean && rm -rf node_modules/
 
-# Use demo env to output logs to stdout
-ENV APP_ENV=demo
+# Use docker env to output logs to stdout
+ENV APP_ENV=docker
 ENV DATABASE_URL="sqlite:///%kernel.project_dir%/uploads/app.db"
 
 USER root

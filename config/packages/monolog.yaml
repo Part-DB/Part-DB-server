@@ -60,7 +60,7 @@ when@prod:
                 channels: [deprecation]
                 path: "%kernel.logs_dir%/%kernel.environment%_deprecations.log"
 
-when@demo:
+when@docker:
     monolog:
         handlers:
             main:

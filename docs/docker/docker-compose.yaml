@@ -15,6 +15,5 @@ services:
     environment:
       # Put SQLite database in our mapped folder. You can configure some other kind of database here too.
       - DATABASE_URL=sqlite:///%kernel.project_dir%/var/db/app.db
-      # In demo env logs will be redirected to stderr
-      - APP_ENV=demo
-      - APP_DEBUG=0
+      # In docker env logs will be redirected to stderr
+      - APP_ENV=docker
