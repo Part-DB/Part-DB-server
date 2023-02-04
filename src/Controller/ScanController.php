@@ -91,7 +91,7 @@ class ScanController extends AbstractController
             }
         }
 
-        return $this->renderForm('LabelSystem/Scanner/dialog.html.twig', [
+        return $this->renderForm('label_system/scanner/scanner.html.twig', [
             'form' => $form,
         ]);
     }

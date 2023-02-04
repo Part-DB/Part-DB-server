@@ -115,7 +115,7 @@ final class LabelHTMLGenerator
             ++$page;
         }
 
-        return $this->twig->render('LabelSystem/labels/base_label.html.twig', [
+        return $this->twig->render('label_system/labels/base_label.html.twig', [
             'meta_title' => $this->getPDFTitle($options, $elements[0]),
             'elements' => $twig_elements,
             'options' => $options,
