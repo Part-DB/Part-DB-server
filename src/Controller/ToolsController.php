@@ -43,7 +43,7 @@ class ToolsController extends AbstractController
     {
         $this->denyAccessUnlessGranted('@tools.reel_calculator');
 
-        return $this->render('Tools/ReelCalculator/main.html.twig');
+        return $this->render('tools/reel_calculator/reel_calculator.html.twig');
     }
 
     /**
@@ -53,7 +53,7 @@ class ToolsController extends AbstractController
     {
         $this->denyAccessUnlessGranted('@system.server_infos');
 
-        return $this->render('Tools/ServerInfos/main.html.twig', [
+        return $this->render('tools/server_infos/server_infos.html.twig ', [
             //Part-DB section
             'git_branch' => $versionInfo->getGitBranchName(),
             'git_commit' => $versionInfo->getGitCommitHash(),
@@ -110,7 +110,7 @@ class ToolsController extends AbstractController
             }, $group);
         }, $grouped_footprints);
 
-        return $this->render('Tools/BuiltInFootprintsViewer/main.html.twig', [
+        return $this->render('tools/builtin_footprints_viewer/builtin_footprints_viewer.html.twig', [
             'grouped_footprints' => $grouped_footprints,
         ]);
     }
@@ -123,6 +123,6 @@ class ToolsController extends AbstractController
     {
         $this->denyAccessUnlessGranted('@tools.ic_logos');
 
-        return $this->render('Tools/ICLogos/ic_logos.html.twig');
+        return $this->render('tools/ic_logos/ic_logos.html.twig');
     }
 }
