@@ -245,3 +245,20 @@ services:
     App\Command\BackupCommand:
         arguments:
             $project_dir: '%kernel.project_dir%'
+
+    ####################################################################################################################
+    # Monolog
+    ####################################################################################################################
+    # Add various monolog processors to log more information
+    Symfony\Bridge\Monolog\Processor\WebProcessor:
+        tags:
+            - { name: monolog.processor }
+
+    Symfony\Bridge\Monolog\Processor\ConsoleCommandProcessor:
+        tags:
+            - { name: monolog.processor }
+
+    Symfony\Bridge\Monolog\Processor\TokenProcessor:
+        autowire: true
+        tags:
+            - { name: monolog.processor }
