@@ -87,7 +87,7 @@ class LogController extends AbstractController
             return $table->getResponse();
         }
 
-        return $this->render('LogSystem/log_list.html.twig', [
+        return $this->render('log_system/log_list.html.twig', [
             'datatable' => $table,
             'filterForm' => $filterForm->createView(),
         ]);
