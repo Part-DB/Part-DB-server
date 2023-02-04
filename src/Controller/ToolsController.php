@@ -53,7 +53,7 @@ class ToolsController extends AbstractController
     {
         $this->denyAccessUnlessGranted('@system.server_infos');
 
-        return $this->render('tools/server_infos/server_infos.html.twig ', [
+        return $this->render('tools/server_infos/server_infos.html.twig', [
             //Part-DB section
             'git_branch' => $versionInfo->getGitBranchName(),
             'git_commit' => $versionInfo->getGitCommitHash(),
