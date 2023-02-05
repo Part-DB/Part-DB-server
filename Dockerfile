@@ -95,7 +95,7 @@ RUN a2enmod rewrite
 # Install composer and yarn dependencies for Part-DB
 USER www-data
 RUN composer install -a --no-dev && composer clear-cache
-RUN yarn install && yarn build && yarn cache clean && rm -rf node_modules/
+RUN yarn install --network-timeout 600000 && yarn build && yarn cache clean && rm -rf node_modules/
 
 # Use docker env to output logs to stdout
 ENV APP_ENV=docker

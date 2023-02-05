@@ -119,7 +119,7 @@ class StructuralEntityType extends AbstractType
                     //Must be the same as the separator in the choice_loader, otherwise this will not work!
                     return $element->getFullPath('->');
                 }
-                
+
                 return $element->getID();
             }, //Use the element id as option value and for comparing items
             'choice_loader' => function (Options $options) {
