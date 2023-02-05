@@ -157,7 +157,7 @@ class SelectAPIController extends AbstractController
     {
         array_unshift($arr, [
             'text' => $this->translator->trans($text),
-            'value' => null,
+            'value' => "",
         ]);
 
         return $arr;
