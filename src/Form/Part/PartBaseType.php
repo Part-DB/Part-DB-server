@@ -268,6 +268,12 @@ class PartBaseType extends AbstractType
                     'value' => 'save-and-clone'
                 ]
             ])
+            ->add('save_and_new', SubmitType::class, [
+                'label' => 'part.edit.save_and_new',
+                'attr' => [
+                    'value' => 'save-and-new'
+                ]
+            ])
             ->add('reset', ResetType::class, ['label' => 'part.edit.reset']);
     }
 

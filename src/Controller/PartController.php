@@ -162,12 +162,16 @@ class PartController extends AbstractController
 
             $em->persist($part);
             $em->flush();
-            $this->addFlash('info', 'part.edited_flash');
+            $this->addFlash('success', 'part.edited_flash');
 
             //Redirect to clone page if user wished that...
             //@phpstan-ignore-next-line
             if ('save_and_clone' === $form->getClickedButton()->getName()) {
                 return $this->redirectToRoute('part_clone', ['id' => $part->getID()]);
+            }
+            //@phpstan-ignore-next-line
+            if ('save_and_new' === $form->getClickedButton()->getName()) {
+                return $this->redirectToRoute('part_new');
             }
 
             //Reload form, so the SIUnitType entries use the new part unit
@@ -309,6 +313,10 @@ class PartController extends AbstractController
             //@phpstan-ignore-next-line
             if ('save_and_clone' === $form->getClickedButton()->getName()) {
                 return $this->redirectToRoute('part_clone', ['id' => $new_part->getID()]);
+            }
+            //@phpstan-ignore-next-line
+            if ('save_and_new' === $form->getClickedButton()->getName()) {
+                return $this->redirectToRoute('part_new');
             }
 
             return $this->redirectToRoute('part_edit', ['id' => $new_part->getID()]);

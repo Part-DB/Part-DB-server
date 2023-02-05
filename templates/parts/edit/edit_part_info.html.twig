@@ -104,8 +104,10 @@
                 </button>
                 <div class="dropdown-menu">
                     {{ form_widget(form.save_and_clone, {'attr': {'class': 'dropdown-item'}}) }}
+                    {{ form_widget(form.save_and_new, {'attr': {'class': 'dropdown-item'}}) }}
                     <div class="dropdown-divider"></div>
                     <div class="p-2">
+
                         {{ form_row(form.log_comment)}}
                     </div>
                 </div>
