@@ -10,7 +10,7 @@ RUN docker-php-ext-configure gd \
     --with-webp \
     --with-jpeg \
     --with-freetype \
-    && docker-php-ext-install -j "$(nproc)" gd pdo_mysql curl intl mbstring bcmath zip xml xsl
+    && docker-php-ext-install -j "$(nproc)" gd pdo_mysql intl bcmath zip xsl
 
 # Enable opcache and configure it recommended for symfony (see https://symfony.com/doc/current/performance.html)
 RUN docker-php-ext-enable opcache; \
