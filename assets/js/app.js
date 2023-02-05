@@ -26,6 +26,7 @@ import '../css/app/darkmode.css';
 import '../css/app/tables.css';
 import '../css/app/bs-overrides.css';
 import '../css/app/treeview.css';
+import '../css/app/images.css';
 
 // start the Stimulus application
 import '../bootstrap';

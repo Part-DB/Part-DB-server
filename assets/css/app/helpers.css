@@ -36,18 +36,6 @@
     height: 1.5em;
 }
 
-.hoverpic {
-    min-width: 10px;
-    max-width: 30px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.thumbnail-sm {
-    max-height: 100px;
-}
-
 /* Show symbol after exteral links */
 /*noinspection CssNoGenericFontName*/
 a[target="_blank"].link-external:after {
