@@ -85,6 +85,7 @@ class HomepageController extends AbstractController
             'banner' => $this->getBanner(),
             'git_branch' => $versionInfo->getGitBranchName(),
             'git_commit' => $versionInfo->getGitCommitHash(),
+            'show_first_steps' => true,
             'datatable' => $table,
         ]);
     }
