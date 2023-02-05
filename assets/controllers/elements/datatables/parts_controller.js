@@ -76,6 +76,11 @@ export default class extends DatatablesController {
 
         tom_select.addOptions(json, false);
 
+        //Select first element if there is one (so category select is not empty)
+        if(json.length > 0) {
+            tom_select.setValue(json[0].value);
+        }
+
         select_element.nextElementSibling.classList.remove('d-none');
 
         //$(select_element).selectpicker('show');
