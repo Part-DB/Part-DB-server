@@ -87,6 +87,6 @@
     {% trans %}user.new{% endtrans %}
 {% endblock %}
 
-{% block quick_links %}
-    <img src="{{ avatar_helper.avatarURL(entity) }}" style="height: 50px; width: 50px; object-fit: cover;">
+{% block preview_picture %}
+    <img src="{{ avatar_helper.avatarURL(entity) }}" style="height: 50px;">
 {% endblock %}

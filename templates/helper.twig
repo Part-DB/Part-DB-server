@@ -172,6 +172,15 @@
     <img src="{{ avatar_helper.avatarSmURL(user) }}" class="rounded" style="height: 1.2rem;" alt="User avatar" {{ stimulus_controller('elements/hoverpic') }} data-thumbnail="{{ avatar_helper.avatarMdURL(user) }}">
 {% endmacro %}
 
+{% macro entity_preview_sm(entity) %}
+    {# @var entity \App\Entity\Contracts\HasMasterAttachmentInterface #}
+    {% if entity.masterPictureAttachment and entity.masterPictureAttachment.picture and attachment_manager.fileExisting(entity.masterPictureAttachment) %}
+        <a href="{{ entity_url(entity.masterPictureAttachment, 'file_view')  }}" target="_blank" title="{{ entity.masterPictureAttachment.name}}">
+            <img src="{{ attachment_thumbnail(entity.masterPictureAttachment, 'thumbnail_sm') }}" style="height: 50px;">
+        </a>
+    {% endif %}
+{% endmacro %}
+
 {% macro parameters_table(parameters) %}
     <table class="table table-hover table-striped table-sm">
         <thead>

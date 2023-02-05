@@ -1,4 +1,7 @@
 {% import "components/tree_macros.html.twig" as tree %}
+{% import "helper.twig" as helper %}
+
+{# @var entity \App\Entity\Base\AbstractStructuralDBElement #}
 
 {% extends "main_card.html.twig" %}
 
@@ -38,7 +41,12 @@
                                 {% if timeTravel is defined and timeTravel is not null %}
                                     ({{ timeTravel|format_datetime('short') }})
                                 {% endif %}
-                                <span class="float-end">{% block quick_links %}{% endblock %}</span>
+                                <div class="float-end">
+                                    {% block quick_links %}{% endblock %}
+                                    {% block preview_picture %}
+                                        {{ helper.entity_preview_sm(entity) }}
+                                    {% endblock %}
+                                </div>
                             {% else %}
                                 <strong>{% block new_title %}{% trans %}new.caption{% endtrans %}{% endblock %}</strong>
                             {% endif %}
