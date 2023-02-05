@@ -10434,5 +10434,29 @@ Element 3</target>
         <target>Save and create new empty part</target>
       </segment>
     </unit>
+    <unit id="q2IWd9b" name="homepage.first_steps.title">
+      <segment>
+        <source>homepage.first_steps.title</source>
+        <target>First steps</target>
+      </segment>
+    </unit>
+    <unit id="qoK8lss" name="homepage.first_steps.introduction">
+      <segment>
+        <source>homepage.first_steps.introduction</source>
+        <target><![CDATA[Your database is still empty. You might want to read the <a href="%url%">documentation</a> or start to creating the following data structures:]]></target>
+      </segment>
+    </unit>
+    <unit id="8RkT6ZQ" name="homepage.first_steps.create_part">
+      <segment>
+        <source>homepage.first_steps.create_part</source>
+        <target><![CDATA[Or you can directly <a href="%url%">create a new part</a>.]]></target>
+      </segment>
+    </unit>
+    <unit id="mBSlTrA" name="homepage.first_steps.hide_hint">
+      <segment>
+        <source>homepage.first_steps.hide_hint</source>
+        <target>This box will hide as soon as you have created your first part.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

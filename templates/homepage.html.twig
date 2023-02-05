@@ -17,6 +17,26 @@
         {% endif %}
     </div>
 
+    {% if show_first_steps %}
+        <div class="card border-info mt-3">
+            <div class="card-header bg-info ">
+                <h4><i class="fa fa-circle-play fa-fw " aria-hidden="true"></i> {% trans %}homepage.first_steps.title{% endtrans %}</h4>
+            </div>
+            <div class="card-body">
+                <div>{% trans with {"%url%": "https://github.com/Part-DB/Part-DB-symfony/wiki/Getting-started"} %}homepage.first_steps.introduction{% endtrans %}</div>
+                <ul>
+                    <li><a href="{{ path("category_new") }}">{{ 'category.labelp'|trans }}</a></li>
+                    <li><a href="{{ path("store_location_new") }}">{{ 'storelocation.labelp'|trans }}</a></li>
+                    <li><a href="{{ path("footprint_new") }}">{{ 'footprint.labelp'|trans }}</a></li>
+                    <li><a href="{{ path("supplier_new") }}">{{ 'supplier.labelp'|trans }}</a></li>
+                    <li><a href="{{ path("manufacturer_new") }}">{{ 'manufacturer.labelp'|trans }}</a></li>
+                </ul>
+                <div>{% trans with {"%url%": path('part_new')} %}homepage.first_steps.create_part{% endtrans %}</div>
+                <div class="text-muted">{% trans %}homepage.first_steps.hide_hint{% endtrans %}</div>
+            </div>
+        </div>
+    {% endif %}
+
     <div class="card border-primary mt-3">
         <div class="card-header bg-primary text-white">
             <h4><i class="fa fa-book fa-fw" aria-hidden="true"></i> {% trans %}homepage.license{% endtrans %}</h4>
@@ -35,12 +55,12 @@
     </div>
 
     {% if datatable is not null %}
-    <div class="card mt-3">
-        <div class="card-header"><i class="fas fa-fw fa-history"></i> {% trans %}homepage.last_activity{% endtrans %}</div>
-        <div class="card-body">
-            {% import "components/history_log_macros.html.twig" as log %}
-            {{ log.last_activity_component(datatable) }}
+        <div class="card mt-3">
+            <div class="card-header"><i class="fas fa-fw fa-history"></i> {% trans %}homepage.last_activity{% endtrans %}</div>
+            <div class="card-body">
+                {% import "components/history_log_macros.html.twig" as log %}
+                {{ log.last_activity_component(datatable) }}
+            </div>
         </div>
-    </div>
     {% endif %}
 {% endblock %}

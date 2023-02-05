@@ -23,7 +23,9 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\DataTables\LogDataTable;
+use App\Entity\Parts\Part;
 use App\Services\Misc\GitVersionInfo;
+use Doctrine\ORM\EntityManagerInterface;
 use const DIRECTORY_SEPARATOR;
 use Omines\DataTablesBundle\DataTableFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -62,7 +64,7 @@ class HomepageController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function homepage(Request $request, GitVersionInfo $versionInfo): Response
+    public function homepage(Request $request, GitVersionInfo $versionInfo, EntityManagerInterface $entityManager): Response
     {
         if ($this->isGranted('@tools.lastActivity')) {
             $table = $this->dataTable->createFromType(
@@ -81,11 +83,21 @@ class HomepageController extends AbstractController
             $table = null;
         }
 
+        $show_first_steps = false;
+        //When the user is allowed to create parts and no parts are in the database, show the first steps
+        if ($this->isGranted('@parts.create')) {
+            $repo = $entityManager->getRepository(Part::class);
+            $number_of_parts = $repo->count([]);
+            if (0 === $number_of_parts) {
+                $show_first_steps = true;
+            }
+        }
+
         return $this->render('homepage.html.twig', [
             'banner' => $this->getBanner(),
             'git_branch' => $versionInfo->getGitBranchName(),
             'git_commit' => $versionInfo->getGitCommitHash(),
-            'show_first_steps' => true,
+            'show_first_steps' => $show_first_steps,
             'datatable' => $table,
         ]);
     }
