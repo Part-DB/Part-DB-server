@@ -109,7 +109,18 @@ class StructuralEntityType extends AbstractType
                     return null;
                 }
 
-                return (string) $element->getID() ?? $element->getFullPath('->');
+                /**
+                 * Do not change the structure below, even when inspection says it can be replaced with a null coalescing operator.
+                 * It is important that the value returned here for a existing element is an int, and for a new element a string.
+                 * I dont really understand why, but it seems to be important for the choice_loader to work correctly.
+                 * So please do not change this!
+                 */
+                if ($element->getID() === null) {
+                    //Must be the same as the separator in the choice_loader, otherwise this will not work!
+                    return $element->getFullPath('->');
+                }
+                
+                return $element->getID();
             }, //Use the element id as option value and for comparing items
             'choice_loader' => function (Options $options) {
                 return new StructuralEntityChoiceLoader($options, $this->builder, $this->em);
