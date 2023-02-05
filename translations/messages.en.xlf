@@ -10428,5 +10428,35 @@ Element 3</target>
         <target>New (not added to DB yet)</target>
       </segment>
     </unit>
+    <unit id="i6.vjBW" name="part.edit.save_and_new">
+      <segment state="translated">
+        <source>part.edit.save_and_new</source>
+        <target>Save and create new empty part</target>
+      </segment>
+    </unit>
+    <unit id="q2IWd9b" name="homepage.first_steps.title">
+      <segment state="translated">
+        <source>homepage.first_steps.title</source>
+        <target>First steps</target>
+      </segment>
+    </unit>
+    <unit id="qoK8lss" name="homepage.first_steps.introduction">
+      <segment state="translated">
+        <source>homepage.first_steps.introduction</source>
+        <target>Your database is still empty. You might want to read the &lt;a href="%url%"&gt;documentation&lt;/a&gt; or start to creating the following data structures:</target>
+      </segment>
+    </unit>
+    <unit id="8RkT6ZQ" name="homepage.first_steps.create_part">
+      <segment state="translated">
+        <source>homepage.first_steps.create_part</source>
+        <target>Or you can directly &lt;a href="%url%"&gt;create a new part&lt;/a&gt;.</target>
+      </segment>
+    </unit>
+    <unit id="mBSlTrA" name="homepage.first_steps.hide_hint">
+      <segment state="translated">
+        <source>homepage.first_steps.hide_hint</source>
+        <target>This box will hide as soon as you have created your first part.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
