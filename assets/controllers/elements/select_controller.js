@@ -29,7 +29,10 @@ export default class extends Controller {
     _emptyMessage;
 
     connect() {
+        this._init();
+    }
 
+    _init() {
         this._emptyMessage = this.element.getAttribute("data-empty-message") ?? "";
         if (this._emptyMessage === "" && this.element.hasAttribute('title')) {
             this._emptyMessage = this.element.getAttribute('title');
@@ -48,6 +51,10 @@ export default class extends Controller {
         };
 
         this._tomSelect = new TomSelect(this.element, settings);
+    }
+
+    getTomSelect() {
+        return this._tomSelect;
     }
 
     renderItem(data, escape) {

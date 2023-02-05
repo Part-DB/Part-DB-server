@@ -18,6 +18,7 @@
  */
 
 import DatatablesController from "./datatables_controller.js";
+import TomSelect from "tom-select";
 
 import * as bootbox from "bootbox";
 
@@ -63,22 +64,22 @@ export default class extends DatatablesController {
     {
         //Clear options
         select_element.innerHTML = null;
-        $(select_element).selectpicker('destroy');
+        //$(select_element).selectpicker('destroy');
 
-        for(let i=0; i<json.length; i++) {
-            let json_opt = json[i];
-            let opt = document.createElement('option');
-            opt.value = json_opt.value;
-            opt.innerHTML = json_opt.text;
+        //Retrieve the select controller instance
+        const select_controller = this.application.getControllerForElementAndIdentifier(select_element, 'elements--structural-entity-select');
+        /** @var {TomSelect} tom_select */
+        const tom_select = select_controller.getTomSelect();
 
-            if(json_opt['data-subtext']) {
-                opt.dataset.subtext = json_opt['data-subtext'];
-            }
+        tom_select.clear();
+        tom_select.clearOptions();
 
-            select_element.appendChild(opt);
-        }
+        tom_select.addOptions(json, false);
 
-        $(select_element).selectpicker('show');
+        select_element.parentElement.classList.remove('d-none');
+        select_element.parentElement.classList.add('d-inline-block');
+
+        //$(select_element).selectpicker('show');
 
     }
 
@@ -99,7 +100,9 @@ export default class extends DatatablesController {
                     });
                 });
         } else {
-            $(select_target).selectpicker('hide');
+            //$(select_target).selectpicker('hide');
+            select_element.parentElement.classList.remove('d-inline-block');
+            select_target.parentElement.classList.add('d-none');
         }
     }
 

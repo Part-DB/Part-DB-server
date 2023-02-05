@@ -63,6 +63,10 @@ export default class extends Controller {
         this._tomSelect = new TomSelect(this.element, settings);
     }
 
+    getTomSelect() {
+        return this._tomSelect;
+    }
+
     renderItem(data, escape) {
         //Render empty option as full row
         if (data.value === "") {

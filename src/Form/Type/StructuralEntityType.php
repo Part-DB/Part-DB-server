@@ -24,6 +24,7 @@ namespace App\Form\Type;
 
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Form\Type\Helper\StructuralEntityChoiceHelper;
 use App\Form\Type\Helper\StructuralEntityChoiceLoader;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Trees\NodesListBuilder;
@@ -53,20 +54,20 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class StructuralEntityType extends AbstractType
 {
     protected EntityManagerInterface $em;
-    protected AttachmentURLGenerator $attachmentURLGenerator;
     protected TranslatorInterface $translator;
+    protected StructuralEntityChoiceHelper $choice_helper;
 
     /**
      * @var NodesListBuilder
      */
-    protected $builder;
+    protected NodesListBuilder $builder;
 
-    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder, AttachmentURLGenerator $attachmentURLGenerator, TranslatorInterface $translator)
+    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder, TranslatorInterface $translator, StructuralEntityChoiceHelper $choice_helper)
     {
         $this->em = $em;
         $this->builder = $builder;
-        $this->attachmentURLGenerator = $attachmentURLGenerator;
         $this->translator = $translator;
+        $this->choice_helper = $choice_helper;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -105,44 +106,23 @@ class StructuralEntityType extends AbstractType
             'subentities_of' => null,   //Only show entities with the given parent class
             'disable_not_selectable' => false,  //Disable entries with not selectable property
             'choice_value' => function (?AbstractStructuralDBElement $element) {
-                if ($element === null) {
-                    return null;
-                }
-
-                /**
-                 * Do not change the structure below, even when inspection says it can be replaced with a null coalescing operator.
-                 * It is important that the value returned here for a existing element is an int, and for a new element a string.
-                 * I dont really understand why, but it seems to be important for the choice_loader to work correctly.
-                 * So please do not change this!
-                 */
-                if ($element->getID() === null) {
-                    //Must be the same as the separator in the choice_loader, otherwise this will not work!
-                    return $element->getFullPath('->');
-                }
-
-                return $element->getID();
+                return $this->choice_helper->generateChoiceValue($element);
             }, //Use the element id as option value and for comparing items
             'choice_loader' => function (Options $options) {
                 return new StructuralEntityChoiceLoader($options, $this->builder, $this->em);
             },
             'choice_label' => function (Options $options) {
                 return function ($choice, $key, $value) use ($options) {
-                    return $this->generateChoiceLabels($choice, $key, $value, $options);
+                    return $this->choice_helper->generateChoiceLabel($choice, $options);
                 };
             },
             'choice_attr' => function (Options $options) {
                 return function ($choice, $key, $value) use ($options) {
-                    return $this->generateChoiceAttr($choice, $key, $value, $options);
+                    return $this->choice_helper->generateChoiceAttr($choice, $options);
                 };
             },
-            'group_by' => function (AbstractStructuralDBElement $element)
-            {
-                //Show entities that are not added to DB yet separately from other entities
-                if ($element->getID() === null) {
-                    return $this->translator->trans('entity.select.group.new_not_added_to_DB');
-                }
-
-                return null;
+            'group_by' => function (AbstractStructuralDBElement $element) {
+                return $this->choice_helper->generateGroupBy($element);
             },
             'choice_translation_domain' => false, //Don't translate the entity names
         ]);
@@ -206,62 +186,5 @@ class StructuralEntityType extends AbstractType
 
         //Otherwise just return the value
         return $value;
-    }
-
-    protected function generateChoiceAttr(AbstractStructuralDBElement $choice, $key, $value, $options): array
-    {
-        $tmp = [];
-
-        //Disable attribute if the choice is marked as not selectable
-        if ($options['disable_not_selectable'] && $choice->isNotSelectable()) {
-            $tmp += ['disabled' => 'disabled'];
-        }
-
-        if ($choice instanceof AttachmentType) {
-            $tmp += ['data-filetype_filter' => $choice->getFiletypeFilter()];
-        }
-
-        $level = $choice->getLevel();
-        /** @var AbstractStructuralDBElement|null $parent */
-        $parent = $options['subentities_of'];
-        if (null !== $parent) {
-            $level -= $parent->getLevel() - 1;
-        }
-
-        $tmp += [
-            'data-level' => $level,
-            'data-parent' => $choice->getParent() ? $choice->getParent()->getFullPath() : null,
-            'data-path' => $choice->getFullPath('->'),
-            'data-image' => $choice->getMasterPictureAttachment() ? $this->attachmentURLGenerator->getThumbnailURL($choice->getMasterPictureAttachment(), 'thumbnail_xs') : null,
-        ];
-
-        if ($choice instanceof AttachmentType && !empty($choice->getFiletypeFilter())) {
-            $tmp += ['data-filetype_filter' => $choice->getFiletypeFilter()];
-        }
-
-        return $tmp;
-    }
-
-    protected function getElementNameWithLevelWhitespace(AbstractStructuralDBElement $choice, $options, $whitespace = "&nbsp;&nbsp;&nbsp;"): string
-    {
-        /** @var AbstractStructuralDBElement|null $parent */
-        $parent = $options['subentities_of'];
-
-        /*** @var AbstractStructuralDBElement $choice */
-        $level = $choice->getLevel();
-        //If our base entity is not the root level, we need to change the level, to get zero position
-        if (null !== $options['subentities_of']) {
-            $level -= $parent->getLevel() - 1;
-        }
-
-        $tmp = str_repeat($whitespace, $level); //Use 3 spaces for intendation
-        $tmp .= htmlspecialchars($choice->getName());
-
-        return $tmp;
-    }
-
-    protected function generateChoiceLabels(AbstractStructuralDBElement $choice, $key, $value, $options): string
-    {
-        return $choice->getName();
     }
 }

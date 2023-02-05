@@ -25,6 +25,7 @@ namespace App\Form\Type;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\PriceInformations\Currency;
+use App\Form\Type\Helper\StructuralEntityChoiceHelper;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
@@ -41,9 +42,9 @@ class CurrencyEntityType extends StructuralEntityType
 {
     protected ?string $base_currency;
 
-    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder, AttachmentURLGenerator $attachmentURLGenerator, TranslatorInterface $translator, ?string $base_currency)
+    public function __construct(EntityManagerInterface $em, NodesListBuilder $builder, TranslatorInterface $translator, StructuralEntityChoiceHelper $choiceHelper, ?string $base_currency)
     {
-        parent::__construct($em, $builder, $attachmentURLGenerator, $translator);
+        parent::__construct($em, $builder, $translator, $choiceHelper);
         $this->base_currency = $base_currency;
     }
 
@@ -58,6 +59,12 @@ class CurrencyEntityType extends StructuralEntityType
 
         // This options allows you to override the currency shown for the null value
         $resolver->setDefault('base_currency', null);
+
+        $resolver->setDefault('choice_attr', function (Options $options) {
+            return function ($choice) use ($options) {
+                return $this->choice_helper->generateChoiceAttrCurrency($choice, $options);
+            };
+        });
 
         $resolver->setDefault('empty_message', function (Options $options) {
             //By default we use the global base currency:
@@ -75,62 +82,4 @@ class CurrencyEntityType extends StructuralEntityType
         //If short is set to true, then the name of the entity will only shown in the dropdown list not in the selected value.
         $resolver->setDefault('short', false);
     }
-
-    protected function generateChoiceAttr(AbstractStructuralDBElement $choice, $key, $value, $options): array
-    {
-        $tmp = parent::generateChoiceAttr($choice, $key, $value, $options);
-
-        if (!$choice instanceof Currency) {
-            throw new RuntimeException('The choice must be an instance of '.Currency::class);
-        }
-
-        if(!empty($choice->getIsoCode())) {
-            $symbol = Currencies::getSymbol($choice->getIsoCode());
-        } else {
-            $symbol = null;
-        }
-
-        if ($options['short']) {
-            $tmp['data-short'] = $symbol;
-        } else {
-            $tmp['data-short'] = $choice->getName();
-        }
-
-        $tmp += [
-            'data-symbol' => $symbol,
-        ];
-
-        return $tmp;
-    }
-
-    protected function getChoiceContent(AbstractStructuralDBElement $choice, $key, $value, $options): string
-    {
-        if(!$choice instanceof Currency) {
-            throw new RuntimeException('$choice must be an instance of Currency!');
-        }
-
-        //Generate the level spacing
-        /** @var AbstractStructuralDBElement|null $parent */
-        $parent = $options['subentities_of'];
-        /*** @var AbstractStructuralDBElement $choice */
-        $level = $choice->getLevel();
-        //If our base entity is not the root level, we need to change the level, to get zero position
-        if (null !== $options['subentities_of']) {
-            $level -= $parent->getLevel() - 1;
-        }
-
-        $tmp = str_repeat('<span class="picker-level"></span>', $level);
-
-        //Show currency symbol or ISO code and the name of the currency
-        if(!empty($choice->getIsoCode())) {
-            $tmp .= Currencies::getSymbol($choice->getIsoCode());
-            //Add currency name as badge
-            $tmp .= sprintf('<span class="badge bg-primary ms-2 %s">%s</span>', $options['short'] ? 'picker-hs' : '' , htmlspecialchars($choice->getName()));
-        } else {
-            $tmp .= htmlspecialchars($choice->getName());
-        }
-
-        return $tmp;
-    }
-
 }

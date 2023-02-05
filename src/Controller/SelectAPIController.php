@@ -29,6 +29,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\ProjectSystem\Project;
+use App\Form\Type\Helper\StructuralEntityChoiceHelper;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -45,11 +46,13 @@ class SelectAPIController extends AbstractController
 {
     private NodesListBuilder $nodesListBuilder;
     private TranslatorInterface $translator;
+    private StructuralEntityChoiceHelper $choiceHelper;
 
-    public function __construct(NodesListBuilder $nodesListBuilder, TranslatorInterface $translator)
+    public function __construct(NodesListBuilder $nodesListBuilder, TranslatorInterface $translator, StructuralEntityChoiceHelper $choiceHelper)
     {
         $this->nodesListBuilder = $nodesListBuilder;
         $this->translator = $translator;
+        $this->choiceHelper = $choiceHelper;
     }
 
     /**
@@ -167,10 +170,32 @@ class SelectAPIController extends AbstractController
         foreach ($nodes_list as $node) {
             if ($node instanceof AbstractStructuralDBElement) {
                 $entry = [
+                    'text' => $this->choiceHelper->generateChoiceLabel($node),
+                    'value' => $this->choiceHelper->generateChoiceValue($node),
+                ];
+
+                $data = $this->choiceHelper->generateChoiceAttr($node, [
+                    'disable_not_selectable' => true,
+                ]);
+                //Remove the data-* prefix for each key
+                $data = array_combine(
+                    array_map(function ($key) {
+                        if (strpos($key, 'data-') === 0) {
+                            return substr($key, 5);
+                        }
+                        return $key;
+                    }, array_keys($data)),
+                    $data
+                );
+
+                //Append the data to the entry
+                $entry += $data;
+
+                /*$entry = [
                     'text' => str_repeat('&nbsp;&nbsp;&nbsp;', $node->getLevel()).htmlspecialchars($node->getName()),
                     'value' => $node->getID(),
                     'data-subtext' => $node->getParent() ? $node->getParent()->getFullPath() : null,
-                ];
+                ];*/
             } elseif ($node instanceof AbstractNamedDBElement) {
                 $entry = [
                     'text' => htmlspecialchars($node->getName()),
