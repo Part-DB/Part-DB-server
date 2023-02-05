@@ -83,7 +83,7 @@ export default class extends Controller {
         }
         name += "<b>" + escape(data.text) + "</b>";
 
-        return '<div>' + (data.image ? "<img style='max-height: 1.5rem; max-width: 2rem; margin-right: 5px;' ' src='" + data.image + "'/>" : "") + name + '</div>';
+        return '<div>' + (data.image ? "<img class='structural-entity-select-image' style='margin-right: 5px;' ' src='" + data.image + "'/>" : "") + name + '</div>';
     }
 
     renderOption(data, escape) {
@@ -117,7 +117,7 @@ export default class extends Controller {
 
         let image = "";
         if (data.image) {
-            image = '<img style="max-height: 1.5rem; max-width: 2rem; margin-left: 5px;" src="' + data.image + '"/>';
+            image = '<img class="structural-entity-select-image" style="margin-left: 5px;" src="' + data.image + '"/>';
         }
 
         return '<div>' + level_html + escape(data.text) + image + symbol_badge + parent_badge + filter_badge + '</div>';

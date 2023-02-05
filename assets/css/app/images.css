@@ -30,8 +30,20 @@
 }
 
 .avatar-xs {
-    height: 1.2rem;
-    width: 1.2rem;
+    height: 1.2em;
+    width: 1.2em;
     object-fit: cover;
     border-radius: 5px;
+}
+
+.entity-image-xs {
+    height: 1.2em;
+    width: 2.0em;
+    object-fit: contain;
+}
+
+.structural-entity-select-image {
+    height: 1.5em;
+    max-width: 2.0em;
+    object-fit: contain;
 }
