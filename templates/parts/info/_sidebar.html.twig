@@ -10,11 +10,11 @@
 
 <div class="mb-3">
 <span class="text-muted" title="{% trans %}lastModified{% endtrans %}">
-    <i class="fas fa-history fa-fw"></i>  {{ helper.date_user_combination(part, true) }}
+    <i class="fas fa-history fa-fw"></i>  {{ helper.entity_last_modified(part) }}
 </span>
     <br>
     <span class="text-muted mt-1" title="{% trans %}createdAt{% endtrans %}">
-    <i class="fas fa-calendar-plus fa-fw"></i> {{ helper.date_user_combination(part, false) }}
+    <i class="fas fa-calendar-plus fa-fw"></i> {{ helper.entity_created_at(part) }}
 </span>
 </div>
 

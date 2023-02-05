@@ -13,6 +13,7 @@
             <th></th> {# Tags row #}
             <th></th>
             <th></th> {# Button row #}
+            <th></th>
         </tr>
         </thead>
 
@@ -63,21 +64,21 @@
                 </td>
                 <td>
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#withdraw-modal"
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#withdraw-modal"
                                 data-action="withdraw" data-lot-id="{{ lot.id }}" data-lot-amount="{{ lot.amount }}"
                                 title="{% trans %}part.info.withdraw_modal.title.withdraw{% endtrans %}"
                                 {% if not is_granted('withdraw', lot) or not withdraw_add_helper.canWithdraw(lot) %}disabled{% endif %}
                         >
                             <i class="fa-solid fa-minus fa-fw"></i>
                         </button>
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#withdraw-modal"
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#withdraw-modal"
                                 data-action="add" data-lot-id="{{ lot.id }}" data-lot-amount="{{ lot.amount }}"
                                 title="{% trans %}part.info.withdraw_modal.title.add{% endtrans %}"
                                 {% if not is_granted('add', lot) or not withdraw_add_helper.canAdd(lot) %}disabled{% endif %}
                         >
                             <i class="fa-solid fa-plus fa-fw"></i>
                         </button>
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#withdraw-modal"
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#withdraw-modal"
                                 data-action="move" data-lot-id="{{ lot.id }}" data-lot-amount="{{ lot.amount }}"
                                 title="{% trans %}part.info.withdraw_modal.title.move{% endtrans %}"
                                 {% if not is_granted('move', lot) or not withdraw_add_helper.canWithdraw(lot) or part.partLots.count == 1 %}disabled{% endif %}
@@ -88,6 +89,23 @@
                 </td>
                 <td>
                     {{ dropdown.profile_dropdown('part_lot', lot.id, false) }}
+                </td>
+                <td>
+                <td> {# Action for order information #}
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa-solid fa-lightbulb fa-fw"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <span class="text-muted dropdown-item-text" ><i class="fas fa-lightbulb fa-fw"></i> <b>{% trans %}id.label{% endtrans %}:</b> {{ lot.iD }}</span>
+                            <span class="text-muted dropdown-item-text" ><i class="fas fa-history fa-fw"></i> <b>{% trans %}lastModified{% endtrans %}:</b> {{ helper.entity_last_modified(lot) }}</span>
+                            <span class="text-muted dropdown-item-text" ><i class="fas fa-calendar-plus fa-fw"></i> <b>{% trans %}createdAt{% endtrans %}:</b> {{ helper.entity_created_at(lot) }}</span>
+                            {% if lot.comment is not empty %}
+                                <span class="text-muted dropdown-item-text" ><i class="fas fa-sticky-note fa-fw"></i> <b>{% trans %}part_lot.edit.comment{% endtrans %}:</b> {{ lot.comment }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </td>
                 </td>
             </tr>
         {% endfor %}

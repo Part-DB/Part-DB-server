@@ -168,6 +168,14 @@
     {% endif %}
 {% endmacro %}
 
+{% macro entity_last_modified(entity, datetime_format = "short") %}
+    {{ _self.date_user_combination(entity, true, datetime_format) }}
+{% endmacro %}
+
+{% macro entity_created_at(entity, datetime_format = "short") %}
+    {{ _self.date_user_combination(entity, false, datetime_format) }}
+{% endmacro %}
+
 {% macro user_icon(user) %}
     <img src="{{ avatar_helper.avatarSmURL(user) }}" class="avatar-xs" alt="User avatar" {{ stimulus_controller('elements/hoverpic') }} data-thumbnail="{{ avatar_helper.avatarMdURL(user) }}">
 {% endmacro %}

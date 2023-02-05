@@ -1,3 +1,5 @@
+{% import "helper.twig" as helper %}
+
 <div class="table-responsive">
     <table class="table table-striped table-header table-hover">
         <thead>
@@ -64,15 +66,13 @@
                 </td>
                 <td> {# Action for order information #}
                     <div class="btn-group">
-                        <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Action
+                        <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa-solid fa-lightbulb fa-fw"></i>
                         </button>
                         <div class="dropdown-menu">
                             <span class="text-muted dropdown-item-text" ><i class="fas fa-lightbulb fa-fw"></i> <b>ID:</b> {{ order.iD }}</span>
-                            <span class="text-muted dropdown-item-text" ><i class="fas fa-history fa-fw"></i> <b>{% trans %}createdAt{% endtrans %}:</b> {{ order.addedDate | format_datetime("short")}}</span>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#"><i class="fas fa-edit fa-fw"></i> {% trans %}edit.caption_short{% endtrans %}</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-trash fa-fw"></i> {% trans %}delete.caption{% endtrans %}</a>
+                            <span class="text-muted dropdown-item-text" ><i class="fas fa-history fa-fw"></i> <b>{% trans %}lastModified{% endtrans %}:</b> {{ helper.entity_last_modified(order) }}</span>
+                            <span class="text-muted dropdown-item-text" ><i class="fas fa-calendar-plus fa-fw"></i> <b>{% trans %}createdAt{% endtrans %}:</b> {{ helper.entity_created_at(order) }}</span>
                         </div>
                     </div>
                 </td>

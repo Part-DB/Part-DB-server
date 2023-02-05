@@ -1,3 +1,5 @@
+{% import "helper.twig" as helper %}
+
 <table class="table table-striped table-sm table-hover table-responsive-sm">
     <thead>
     <tr>
@@ -72,8 +74,9 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                             <span class="text-muted dropdown-item-text" ><i class="fas fa-lightbulb fa-fw"></i> <b>ID:</b> {{ attachment.iD }}</span>
-                            <span class="text-muted dropdown-item-text" ><i class="fas fa-calendar fa-fw"></i> <b>{% trans %}createdAt{% endtrans %}:</b> {{ attachment.addedDate | format_datetime("short")}}</span>
-                            <span class="text-muted dropdown-item-text" ><i class="fas fa-history fa-fw"></i> <b>{% trans %}createdAt{% endtrans %}:</b> {{ attachment.addedDate | format_datetime("short")}}</span>
+                            <span class="text-muted dropdown-item-text" ><i class="fas fa-history fa-fw"></i> <b>{% trans %}lastModified{% endtrans %}:</b> {{ helper.entity_last_modified(attachment) }}</span>
+                            <span class="text-muted dropdown-item-text" ><i class="fas fa-calendar-plus fa-fw"></i> <b>{% trans %}createdAt{% endtrans %}:</b> {{ helper.entity_created_at(attachment) }}</span>
+
                         </div>
                     </div>
                 </div></td>
