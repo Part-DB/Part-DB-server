@@ -76,8 +76,7 @@ export default class extends DatatablesController {
 
         tom_select.addOptions(json, false);
 
-        select_element.parentElement.classList.remove('d-none');
-        select_element.parentElement.classList.add('d-inline-block');
+        select_element.nextElementSibling.classList.remove('d-none');
 
         //$(select_element).selectpicker('show');
 
@@ -100,9 +99,8 @@ export default class extends DatatablesController {
                     });
                 });
         } else {
-            //$(select_target).selectpicker('hide');
-            select_element.parentElement.classList.remove('d-inline-block');
-            select_target.parentElement.classList.add('d-none');
+            //Hide the select element (the tomselect button is the sibling of the select element)
+            select_target.nextElementSibling.classList.add('d-none');
         }
     }
 
