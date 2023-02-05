@@ -252,7 +252,7 @@ class Project extends AbstractStructuralDBElement
     }
 
     /**
-     * Checks if this project has a associated part representing the builds of this project in the stock.
+     * Checks if this project has an associated part representing the builds of this project in the stock.
      * @return bool
      */
     public function hasBuildPart(): bool

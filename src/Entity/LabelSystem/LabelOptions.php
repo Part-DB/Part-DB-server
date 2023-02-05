@@ -199,7 +199,7 @@ class LabelOptions
     }
 
     /**
-     * Gets additional CSS (it will simply be attached.
+     * Gets additional CSS (it will simply be attended to base CSS).
      */
     public function getAdditionalCss(): string
     {

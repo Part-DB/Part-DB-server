@@ -82,10 +82,10 @@ final class UserRepository extends NamedDBElementRepository implements PasswordU
         }
     }
 
-    public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
+    public function upgradePassword(UserInterface $user, string $newHashedPassword): void
     {
         if ($user instanceof User) {
-            $user->setPassword($newEncodedPassword);
+            $user->setPassword($newHashedPassword);
             $this->getEntityManager()->flush();
         }
     }

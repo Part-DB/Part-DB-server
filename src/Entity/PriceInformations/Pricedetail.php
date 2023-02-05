@@ -244,7 +244,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     }
 
     /**
-     * Sets the currency associated with the price informations.
+     * Sets the currency associated with the price information.
      * Set to null, to use the global base currency.
      *
      * @return Pricedetail

@@ -117,7 +117,7 @@ class BackupCommand extends Command
      * Constructs the MySQL PDO DSN.
      * Taken from https://github.com/doctrine/dbal/blob/3.5.x/src/Driver/PDO/MySQL/Driver.php
      *
-     * @param mixed[] $params
+     * @param array $params
      */
     private function configureDumper(array $params, DbDumper $dumper): void
     {

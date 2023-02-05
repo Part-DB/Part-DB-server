@@ -124,7 +124,7 @@ final class GlobalProviders implements PlaceholderProviderInterface
         }
 
         if ('[[INSTANCE_URL]]' === $placeholder) {
-            return $this->url_generator->generate('homepage', [], UrlGenerator::ABSOLUTE_URL);
+            return $this->url_generator->generate('homepage', [], UrlGeneratorInterface::ABSOLUTE_URL);
         }
 
         return null;

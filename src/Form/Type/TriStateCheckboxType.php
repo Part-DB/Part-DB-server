@@ -70,7 +70,7 @@ final class TriStateCheckboxType extends AbstractType implements DataTransformer
      *
      * 1. Model transformers which normalize the model data.
      *    This is mainly useful when the same form type (the same configuration)
-     *    has to handle different kind of underlying data, e.g The DateType can
+     *    has to handle different kind of underlying data, e.g. The DateType can
      *    deal with strings or \DateTime objects as input.
      *
      * 2. View transformers which adapt the normalized data to the view format.

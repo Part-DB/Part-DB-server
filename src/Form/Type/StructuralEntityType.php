@@ -109,12 +109,7 @@ class StructuralEntityType extends AbstractType
                     return null;
                 }
 
-                if ($element->getID() === null) {
-                    //Must be the same as the separator in the choice_loader, otherwise this will not work!
-                    return $element->getFullPath('->');
-                }
-
-                return $element->getID();
+                return (string) $element->getID() ?? $element->getFullPath('->');
             }, //Use the element id as option value and for comparing items
             'choice_loader' => function (Options $options) {
                 return new StructuralEntityChoiceLoader($options, $this->builder, $this->em);

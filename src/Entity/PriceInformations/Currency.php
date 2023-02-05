@@ -35,7 +35,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * This entity describes a currency that can be used for price informations.
+ * This entity describes a currency that can be used for price information.
  *
  * @UniqueEntity("iso_code")
  * @ORM\Entity()
@@ -57,7 +57,7 @@ class Currency extends AbstractStructuralDBElement
     protected ?BigDecimal $exchange_rate = null;
 
     /**
-     * @var string the 3 letter ISO code of the currency
+     * @var string the 3-letter ISO code of the currency
      * @ORM\Column(type="string")
      * @Assert\Currency()
      */
@@ -107,7 +107,7 @@ class Currency extends AbstractStructuralDBElement
     }
 
     /**
-     * Returns the 3 letter ISO code of this currency.
+     * Returns the 3-letter ISO code of this currency.
      *
      * @return string
      */

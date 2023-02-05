@@ -32,6 +32,8 @@ use Doctrine\DBAL\Schema\Identifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
+
 use function array_reverse;
 use function array_search;
 use function assert;
@@ -282,7 +284,7 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
 
         foreach ($classes as $class) {
             foreach ($class->associationMappings as $assoc) {
-                if (! $assoc['isOwningSide'] || $assoc['type'] !== ClassMetadata::MANY_TO_MANY) {
+                if (! $assoc['isOwningSide'] || $assoc['type'] !== ClassMetadataInfo::MANY_TO_MANY) {
                     continue;
                 }
 

@@ -52,7 +52,7 @@ class LogEntryRepository extends DBElementRepository
      * Find log entries associated with the given element (the history of the element).
      *
      * @param AbstractDBElement $element The element for which the history should be generated
-     * @param  string  $order   By default newest entries are shown first. Change this to ASC to show oldest entries first.
+     * @param  string  $order   By default, the newest entries are shown first. Change this to ASC to show the oldest entries first.
      * @param null              $limit
      * @param null              $offset
      *

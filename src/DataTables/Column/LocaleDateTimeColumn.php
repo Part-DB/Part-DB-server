@@ -74,7 +74,7 @@ class LocaleDateTimeColumn extends AbstractColumn
 
         return sprintf('<span title="%s">%s</span>',
             $long_formatter->format($value->getTimestamp()), //Long form
-            $formatter->format($value->getTimestamp()), //Short form
+            $formatter->format($value->getTimestamp()) //Short form
         );
     }
 

@@ -55,7 +55,7 @@ class RichTextEditorType extends AbstractType
     {
         $tmp = [];
 
-        //Set novalidate attribute or we will get problems that form can not be submitted as textarea is not focusable
+        //Set novalidate attribute, or we will get problems that form can not be submitted as textarea is not focusable
         $tmp['novalidate'] = 'novalidate';
 
         $tmp['data-mode'] = $options['mode'];

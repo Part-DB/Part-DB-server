@@ -149,7 +149,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
         }
 
         //If the parent element is equal to the element we want to compare, return true
-        if ($this->getParent()->getID() === null || $this->getParent()->getID() === null) {
+        if ($this->getParent()->getID() === null) {
             //If the IDs are not yet defined, we have to compare the objects itself
             if ($this->getParent() === $another_element) {
                 return true;

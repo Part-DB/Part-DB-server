@@ -36,6 +36,7 @@ use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Mapping\MappingException;
 use DoctrineExtensions\Query\Mysql\Date;
 use Exception;
@@ -139,16 +140,16 @@ class TimeTravel
 
             //Revert many to one association (one element in property)
             if (
-                ClassMetadata::MANY_TO_ONE === $mapping['type']
-                || ClassMetadata::ONE_TO_ONE === $mapping['type']
+                ClassMetadataInfo::MANY_TO_ONE === $mapping['type']
+                || ClassMetadataInfo::ONE_TO_ONE === $mapping['type']
             ) {
                 $target_element = $this->getField($element, $field);
                 if (null !== $target_element && $element->getLastModified() > $timestamp) {
                     $this->revertEntityToTimestamp($target_element, $timestamp, $reverted_elements);
                 }
             } elseif ( //Revert *_TO_MANY associations (collection properties)
-                (ClassMetadata::MANY_TO_MANY === $mapping['type']
-                    || ClassMetadata::ONE_TO_MANY === $mapping['type'])
+                (ClassMetadataInfo::MANY_TO_MANY === $mapping['type']
+                    || ClassMetadataInfo::ONE_TO_MANY === $mapping['type'])
                 && false === $mapping['isOwningSide']
             ) {
                 $target_elements = $this->getField($element, $field);

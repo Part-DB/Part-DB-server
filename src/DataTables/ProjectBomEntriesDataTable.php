@@ -102,6 +102,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                         }
                         return $tmp;
                     }
+                    throw new \Exception('This should never happen!');
                 },
             ])
 
@@ -175,7 +176,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ->from(ProjectBOMEntry::class, 'bom_entry')
             ->leftJoin('bom_entry.part', 'part')
             ->where('bom_entry.project = :project')
-            ->setParameter('project', $options['project']);
+            ->setParameter('project', $options['project'])
         ;
     }
 

@@ -180,10 +180,10 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     }
 
     /**
-     * Get the link to the website of the article on the suppliers website.
+     * Get the link to the website of the article on the supplier's website.
      *
      * @param bool $no_automatic_url Set this to true, if you only want to get the local set product URL for this Orderdetail
-     *                               and not a automatic generated one, based from the Supplier
+     *                               and not an automatic generated one, based from the Supplier
      *
      * @return string the link to the article
      */
@@ -212,7 +212,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     }
 
     /**
-     * Adds an pricedetail to this orderdetail.
+     * Adds a price detail to this orderdetail.
      *
      * @param Pricedetail $pricedetail The pricedetail to add
      *
@@ -227,7 +227,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     }
 
     /**
-     * Removes an pricedetail from this orderdetail.
+     * Removes a price detail from this orderdetail.
      *
      * @return Orderdetail
      */
@@ -244,7 +244,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      *
      * @param float $quantity this is the quantity to choose the correct pricedetails
      *
-     * @return Pricedetail|null: the price as a bcmath string. Null if there are no orderdetails for the given quantity
+     * @return Pricedetail|null the price as a bcmath string. Null if there are no orderdetails for the given quantity
      */
     public function findPriceForQty(float $quantity = 1.0): ?Pricedetail
     {

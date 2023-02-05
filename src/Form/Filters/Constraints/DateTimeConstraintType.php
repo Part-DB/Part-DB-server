@@ -38,7 +38,7 @@ class DateTimeConstraintType extends AbstractType
         $resolver->setDefaults([
             'compound' => true,
             'data_class' => DateTimeConstraint::class,
-            'text_suffix' => '', // An suffix which is attached as text-append to the input group. This can for example be used for units
+            'text_suffix' => '', // A suffix which is attached as text-append to the input group. This can for example be used for units
 
             'value1_options' => [], // Options for the first value input
             'value2_options' => [], // Options for the second value input

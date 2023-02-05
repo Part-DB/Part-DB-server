@@ -27,7 +27,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * A attachment attached to a currency element.
+ * An attachment attached to a currency element.
  *
  * @ORM\Entity()
  * @UniqueEntity({"name", "attachment_type", "element"})

@@ -35,7 +35,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
- * The ProjectBOMEntry class represents a entry in a project's BOM.
+ * The ProjectBOMEntry class represents an entry in a project's BOM.
  *
  * @ORM\Table("project_bom_entries")
  * @ORM\HasLifecycleCallbacks()
@@ -303,7 +303,7 @@ class ProjectBOMEntry extends AbstractDBElement
                 ->addViolation();
         }
 
-        //Prices are only only allowed on non-part BOM entries
+        //Prices are only allowed on non-part BOM entries
         if ($this->part !== null && $this->price !== null) {
             $context->buildViolation('project.bom_entry.price_not_allowed_on_parts')
                 ->atPath('price')
