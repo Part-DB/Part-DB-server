@@ -484,7 +484,7 @@
       </notes>
       <segment state="translated">
         <source>label_profile.comment</source>
-        <target>Kommentar</target>
+        <target>Notizen</target>
       </segment>
     </unit>
     <unit id="VwVLyJA" name="label_profile.edit">
@@ -1484,17 +1484,6 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
         <target>Forum</target>
       </segment>
     </unit>
-    <unit id="nfBdkzp" name="homepage.forum.text">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:33</note>
-        <note priority="1">Part-DB1\templates\homepage.html.twig:33</note>
-        <note priority="1">templates\homepage.html.twig:30</note>
-      </notes>
-      <segment state="translated">
-        <source>homepage.forum.text</source>
-        <target>Für Fragen rund um Part-DB, nutze das &lt;a class="link-external" rel="noopener" target="_blank" href="%href%"&gt;Diskussionsforum&lt;/a&gt;</target>
-      </segment>
-    </unit>
     <unit id="SV0IxK0" name=" homepage.basedOn ">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:36</note>
@@ -1928,7 +1917,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>part.edit.tab.comment</source>
-        <target>Kommentar</target>
+        <target>Notizen</target>
       </segment>
     </unit>
     <unit id="h0g53U_" name="part.new.card_title">
@@ -2028,7 +2017,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>comment.label</source>
-        <target>Kommentar</target>
+        <target>Notizen</target>
       </segment>
     </unit>
     <unit id="Y2.Edoh" name="part.info.specifications">
@@ -2580,7 +2569,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>parameters.auto_extracted_from_comment</source>
-        <target>Automatisch aus Kommentar extrahiert</target>
+        <target>Automatisch aus Notizen extrahiert</target>
       </segment>
     </unit>
     <unit id="cTsojYo" name="part.edit.btn">
@@ -5874,7 +5863,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>part_lot.edit.comment</source>
-        <target>Kommentar</target>
+        <target>Notiz</target>
       </segment>
     </unit>
     <unit id=".8YTKod" name="perm.group.other">
@@ -7622,7 +7611,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>admin.comment</source>
-        <target>Kommentar</target>
+        <target>Notizen</target>
       </segment>
     </unit>
     <unit id="74zmrRr" name="manufacturer_url.label">
@@ -7956,7 +7945,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.part.comment</source>
-        <target>Kommentar</target>
+        <target>Notizen</target>
       </segment>
     </unit>
     <unit id="B_OF7Kn" name="perm.part.storelocation">
@@ -10016,6 +10005,36 @@ Element 3</target>
         <target>Dieses Projekt hat bereits ein verknüpftes Bauteil.</target>
       </segment>
     </unit>
+    <unit id="usGnetL" name="project.edit.associated_build_part">
+      <segment state="translated">
+        <source>project.edit.associated_build_part</source>
+        <target>Verknüpftes Produktionsbauteil</target>
+      </segment>
+    </unit>
+    <unit id="xXpskqU" name="project.edit.associated_build_part.add">
+      <segment state="translated">
+        <source>project.edit.associated_build_part.add</source>
+        <target>Produktionsbauteil hinzufügen</target>
+      </segment>
+    </unit>
+    <unit id="5rnE1fK" name="project.edit.associated_build.hint">
+      <segment state="translated">
+        <source>project.edit.associated_build.hint</source>
+        <target>Dieses Bauteil repräsentiert die gebauten Instanzen des Projektes, die irgendwo gelagert werden</target>
+      </segment>
+    </unit>
+    <unit id="Ze.0yTx" name="part.info.projectBuildPart.hint">
+      <segment state="translated">
+        <source>part.info.projectBuildPart.hint</source>
+        <target>Dieses Bauteil repräsentiert die gebauten Instanzen folgendes Projektes und ist mit diesem verknüpft</target>
+      </segment>
+    </unit>
+    <unit id="coJxmoK" name="part.is_build_part">
+      <segment state="translated">
+        <source>part.is_build_part</source>
+        <target>Ist Produktionsbauteil</target>
+      </segment>
+    </unit>
     <unit id="YiFf2jl" name="project.info.title">
       <segment state="translated">
         <source>project.info.title</source>
@@ -10097,7 +10116,7 @@ Element 3</target>
     <unit id="ARNLGgz" name="part.info.withdraw_modal.comment.hint">
       <segment state="translated">
         <source>part.info.withdraw_modal.comment.hint</source>
-        <target>Sie können hier einen Kommentar eintragen, der beschreibt warum diese Aktion durchgeführt wurde (z.B. für was dieses Bauteil benötigt wurde). Diese Information wird im Log gespeichert.</target>
+        <target>Sie können hier einen Kommentar eintragen, der beschreibt warum diese Aktion durchgeführt wurde (z.B. wofür dieses Bauteil benötigt wurde). Diese Information wird im Log gespeichert.</target>
       </segment>
     </unit>
     <unit id="Sumeg5G" name="modal.close">
@@ -10332,6 +10351,36 @@ Element 3</target>
       <segment state="translated">
         <source>category.edit.partname_regex.help</source>
         <target>Ein PCRE-kompatibler regulärer Ausdruck, den der Bauteilename erfüllen muss.</target>
+      </segment>
+    </unit>
+    <unit id="i6.vjBW" name="part.edit.save_and_new">
+      <segment state="translated">
+        <source>part.edit.save_and_new</source>
+        <target>Speichern und neues leeres Bauteil erstellen</target>
+      </segment>
+    </unit>
+    <unit id="q2IWd9b" name="homepage.first_steps.title">
+      <segment state="translated">
+        <source>homepage.first_steps.title</source>
+        <target>Erste Schritte</target>
+      </segment>
+    </unit>
+    <unit id="qoK8lss" name="homepage.first_steps.introduction">
+      <segment state="translated">
+        <source>homepage.first_steps.introduction</source>
+        <target>Die Datenbank is momentan noch leer. Sie möchten möglicherweise die &lt;a href="%url%"&gt;Dokumentation&lt;/a&gt; lesen oder anfangen die folgenden Datenstrukturen anzulegen.</target>
+      </segment>
+    </unit>
+    <unit id="8RkT6ZQ" name="homepage.first_steps.create_part">
+      <segment state="translated">
+        <source>homepage.first_steps.create_part</source>
+        <target>Oder Sie könne direkt ein &lt;a href="%url%"&gt;neues Bauteil erstellen&lt;/a&gt;.</target>
+      </segment>
+    </unit>
+    <unit id="mBSlTrA" name="homepage.first_steps.hide_hint">
+      <segment state="translated">
+        <source>homepage.first_steps.hide_hint</source>
+        <target>Dieser Hinweis wird verborgen, sobald Sie das erste Bauteil erstellt haben.</target>
       </segment>
     </unit>
   </file>
