@@ -146,7 +146,7 @@ class StructuralEntityChoiceHelper
     }
 
     /**
-     * @param  AbstractStructuralDBElement|null  $element
+     * @param  AbstractStructuralDBElement  $element
      * @return string|null
      */
     public function generateGroupBy(AbstractStructuralDBElement $element): ?string

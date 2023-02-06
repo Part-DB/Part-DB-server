@@ -113,7 +113,7 @@ class StructuralEntityType extends AbstractType
             },
             'choice_label' => function (Options $options) {
                 return function ($choice, $key, $value) use ($options) {
-                    return $this->choice_helper->generateChoiceLabel($choice, $options);
+                    return $this->choice_helper->generateChoiceLabel($choice);
                 };
             },
             'choice_attr' => function (Options $options) {
