@@ -33,6 +33,7 @@ export default class extends Controller {
                 }
             },
             persistent: false,
+            selectOnTab: true,
             createOnBlur: true,
             create: true,
         };
