@@ -10447,5 +10447,11 @@ Element 3</target>
         <target>This box will hide as soon as you have created your first part.</target>
       </segment>
     </unit>
+    <unit id="homepage.forum.text">
+      <segment state="translated">
+        <source>homepage.forum.text</source>
+        <target>For questions about Part-DB use the &lt;a href="%href%" class="link-external" target="_blank"&gt;discussion forum&lt;/a&gt;</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
