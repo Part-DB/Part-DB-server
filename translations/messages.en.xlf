@@ -484,7 +484,7 @@
       </notes>
       <segment state="translated">
         <source>label_profile.comment</source>
-        <target>Comment</target>
+        <target>Notes</target>
       </segment>
     </unit>
     <unit id="VwVLyJA" name="label_profile.edit">
@@ -1929,7 +1929,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>part.edit.tab.comment</source>
-        <target>Comment</target>
+        <target>Notes</target>
       </segment>
     </unit>
     <unit id="h0g53U_" name="part.new.card_title">
@@ -2029,7 +2029,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>comment.label</source>
-        <target>Comment</target>
+        <target>Notes</target>
       </segment>
     </unit>
     <unit id="Y2.Edoh" name="part.info.specifications">
@@ -2581,7 +2581,7 @@ Sub elements will be moved upwards.</target>
       </notes>
       <segment state="translated">
         <source>parameters.auto_extracted_from_comment</source>
-        <target>Automatically extracted from comment</target>
+        <target>Automatically extracted from notes</target>
       </segment>
     </unit>
     <unit id="cTsojYo" name="part.edit.btn">
@@ -5743,7 +5743,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>part.edit.comment</source>
-        <target>Comment</target>
+        <target>Notes</target>
       </segment>
     </unit>
     <unit id="cIVLqUs" name="part.edit.master_attachment">
@@ -5875,7 +5875,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>part_lot.edit.comment</source>
-        <target>Comment</target>
+        <target>Notes</target>
       </segment>
     </unit>
     <unit id=".8YTKod" name="perm.group.other">
@@ -7083,7 +7083,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>category.edit.default_comment</source>
-        <target>Default comment</target>
+        <target>Default notes</target>
       </segment>
     </unit>
     <unit id="KN33Vgx" name="company.edit.address">
@@ -7626,7 +7626,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>admin.comment</source>
-        <target>Comment</target>
+        <target>Notes</target>
       </segment>
     </unit>
     <unit id="74zmrRr" name="manufacturer_url.label">
@@ -7960,7 +7960,7 @@ Element 3</target>
       </notes>
       <segment state="translated">
         <source>perm.part.comment</source>
-        <target>Comment</target>
+        <target>Notes</target>
       </segment>
     </unit>
     <unit id="B_OF7Kn" name="perm.part.storelocation">
