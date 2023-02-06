@@ -4014,7 +4014,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>ordernumber.label.short</source>
-        <target>Ordernr.</target>
+        <target>supplier partnr.</target>
       </segment>
     </unit>
     <unit id="zT4k8ZJ" name="supplier.label">
@@ -5542,7 +5542,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>orderdetails.edit.supplierpartnr</source>
-        <target>Order number</target>
+        <target>Supplier part number</target>
       </segment>
     </unit>
     <unit id="CimWRtu" name="orderdetails.edit.supplier">
