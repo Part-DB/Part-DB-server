@@ -6,6 +6,9 @@ on:
   push:
     branches:
       - '**'
+    branches-ignore:
+      - 'dependabot/**'
+      - 'I10n_**'
     tags:
       - 'v*.*.*'
   pull_request:
