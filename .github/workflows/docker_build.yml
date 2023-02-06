@@ -6,11 +6,10 @@ on:
   push:
     branches:
       - '**'
-    branches-ignore:
-      - 'dependabot/**'
-      - 'I10n_**'
+      - '!I10n_**'
     tags:
       - 'v*.*.*'
+      - 'v*.*.*-**'
   pull_request:
     branches:
       - 'master'
@@ -33,8 +32,24 @@ jobs:
           # Mark the image build from master as latest (as we dont have really releases yet)
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
+            type=edge,branch=master
             type=ref,event=branch,
             type=ref,event=tag,
+            type=schedule
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=ref,event=branch
+            type=ref,event=pr
+          labels: |
+            org.opencontainers.image.source=${{ github.event.repository.clone_url }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.title=Part-DB
+            org.opencontainers.image.description=Part-DB is a web application for managing electronic components and your inventory.
+            org.opencontainers.image.url=https://github.com/Part-DB/Part-DB-symfony
+            org.opencontainers.image.source=https://github.com/Part-DB/Part-DB-symfony
+            org.opencontainers.image.authors=Jan Böhmer
+            org.opencontainers.licenses=AGPL-3.0-or-later
 
       -
         name: Set up QEMU
