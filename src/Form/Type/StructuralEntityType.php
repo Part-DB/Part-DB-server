@@ -112,7 +112,7 @@ class StructuralEntityType extends AbstractType
                 return new StructuralEntityChoiceLoader($options, $this->builder, $this->em);
             },
             'choice_label' => function (Options $options) {
-                return function ($choice, $key, $value) use ($options) {
+                return function ($choice, $key, $value) {
                     return $this->choice_helper->generateChoiceLabel($choice);
                 };
             },
