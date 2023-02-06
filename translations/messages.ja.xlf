@@ -8946,5 +8946,11 @@ Exampletown</target>
         <target>未選択</target>
       </segment>
     </unit>
+    <unit id="homepage.forum.text">
+      <segment state="translated">
+        <source>homepage.forum.text</source>
+        <target>Part-DBについての質問は、&lt;a href="%href%" class="link-external" target="_blank"&gt;GitHub&lt;/a&gt; にスレッドがあります。</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
