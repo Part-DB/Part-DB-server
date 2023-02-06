@@ -1455,17 +1455,6 @@
         <target>フォーラム</target>
       </segment>
     </unit>
-    <unit id="nfBdkzp" name="homepage.forum.text">
-      <notes>
-        <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:33</note>
-        <note priority="1">Part-DB1\templates\homepage.html.twig:33</note>
-        <note priority="1">templates\homepage.html.twig:30</note>
-      </notes>
-      <segment state="translated">
-        <source>homepage.forum.text</source>
-        <target>Part-DBについての質問は、&lt;a href="%href%" class="link-external" target="_blank"&gt;mikrocontroller.net&lt;/a&amp;gt にスレッドがあります。</target>
-      </segment>
-    </unit>
     <unit id="SV0IxK0" name=" homepage.basedOn ">
       <notes>
         <note category="file-source" priority="1">Part-DB1\templates\homepage.html.twig:36</note>
