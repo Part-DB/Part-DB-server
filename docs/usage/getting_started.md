@@ -10,6 +10,7 @@ After Part-DB you should begin with customizing the settings, and setting up the
 Before starting its useful to read a bit about the [concepts of Part-DB](https://github.com/Part-DB/Part-DB-symfony/wiki/Concepts).
 
 ## Customize config files
+
 <details>
 <summary>Click to expand</summary>
 
@@ -20,6 +21,7 @@ A list of possible configuration options, can be found [here](Configuration).
 </details>
 
 ## Change password, Set up Two-Factor-Authentication & Customize User settings
+
 <details>
 <summary>Click to expand</summary>
 
@@ -37,10 +39,12 @@ In the configuration tab you can also override global settings, like your prefer
 </details>
 
 ## Create groups, users and customize permissions
+
 <details>
 <summary>Click to expand</summary>
 
 ### Users
+
 When logged in as administrator, you can open the users menu in the `Tools` section of the sidebar under `System -> Users`.
 At this page you can create new users, change their passwords and settings and change their permissions.
 For each user which should use Part-DB you should setup a own account, so that tracking of what user did what works properly.
@@ -54,9 +58,11 @@ For each capability you can choose between allow, forbid and inherit. In the las
 
 
 ### Anonymous user
+
 The `anonymous` user is special, as its settings and permissions are used for everybody who is not logged in. By default the anonymous user has read capabilities for your parts. If your Part-DB instance is publicly available you maybe want to restrict the permissions.
 
 ### Groups
+
 If you have many users which should share the same permissions, it is useful to define the permissions using user groups, which you can create and edit in the `System -> Groups` menu.
 
 By default 3 groups are defined:
@@ -72,6 +78,7 @@ To inherit the permissions from a parent group set the capability to inherit, ot
 </details>
 
 ## Create Attachment types
+
 <details>
 <summary>Click to expand</summary>
 
@@ -91,6 +98,7 @@ For every attachment type a list of allowed file types, which can be uploaded to
 </details>
 
 ## (Optional) Create Currencies
+
 <details>
 <summary>Click to expand</summary>
 If you want to save priceinformations for parts in a currency different to your global currency (by default Euro), you have to define the additional currencies you want to use under `Edit -> Currencies`:
@@ -104,6 +112,7 @@ You can define a exchange rate in terms of your base currency (e.g. how much eur
 </details>
 
 ## (Optional) Create Measurement Units
+
 <details>
 <summary>Click to expand</summary>
 
@@ -119,6 +128,7 @@ The measurement unit can be selected for each part individually, by setting the 
 </details>
 
 ## (Optional) Customize homepage banner
+
 <details>
 <summary>Click to expand</summary>
 The banner which is shown on the homepage, can be customized/changed by changing the `config/banner.md` file with a text editor. You can use markdown and (safe) HTML here, to style and customize the banner.
