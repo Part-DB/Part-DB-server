@@ -1,3 +1,9 @@
+---
+title: Direct Installation on Debian 11
+layout: default
+parent: Installation
+---
+
 # Part-DB installation guide for Debian 11 (Bullseye)
 This guide shows you how to install Part-DB directly on Debian 11 using apache2 and SQLite. This guide should work with recent Ubuntu and other Debian based distributions with little to no changes.
 Depending on what you want to do, using the prebuilt docker images may be a better choice, as you dont need to install this much dependencies. See **TODO** for more information of the docker installation.
