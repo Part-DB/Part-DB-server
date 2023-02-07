@@ -1,11 +1,21 @@
 ---
-title: Backup & Restore Data
+title: Labels
 layout: default
 parent: Usage
 ---
 
 # Labels
 
+Part-DB support the generation and printing of labels for parts, part lots and storelocation. 
+You can use the "Tools -> Labelgenerator" menu entry to create labels, or click the label generation link on the part.
+
+You can define label templates by creating Label profiles. This way you can create many similar looking labels with for
+many parts.
+
+The content of the labels is defined by the templates content field. You can use the WYSIWYG editor to create and style the content (or write HTML code).
+Using the "Label placeholder" menu in the editor, you can insert placeholders for the data of the parts.
+It will be replaced by the concrete data when the label is generated.
+ 
 ## Label placeholders
 A placeholder has the format `[[PLACEHOLDER]]` and will be filled with the concrete data by Part-DB.
 You can use the "Placeholders" dropdown in content editor, to automatically insert the placeholders.
@@ -20,6 +30,7 @@ You can use the "Placeholders" dropdown in content editor, to automatically inse
 | `[[DATE]]`  | The current date in the selected locale  | 31.12.2017 |
 | `[[TIME]]` | The current time in the selected locale | 18:34:11 |
 | `[[INSTALL_NAME]]` | The name of the current installation (see $config['partdb_title']) | Part-DB |
+| `[[INSTANCE_URL]]` | The URL of the current installation | https://demo.part-db.de | 
 
 ### Parts
 
@@ -45,6 +56,7 @@ You can use the "Placeholders" dropdown in content editor, to automatically inse
 | `[[CREATION_DATE]]` | The datetime when the element was created  | 2/26/16, 5:38 PM |
 
 ### Part lot
+
 | Placeholder  | Description  | Example  |
 |---|---|---|
 | `[[LOT_ID]]`   | Part lot ID | 123  |
@@ -56,6 +68,7 @@ You can use the "Placeholders" dropdown in content editor, to automatically inse
 | `[[LOCATION_FULL]]` | The full path of the storage location | Location -> Location A |
 
 ### Storelocation
+
 | Placeholder  | Description  | Example  |
 |---|---|---|
 | `[[ID]]` | ID of the storage location |  |
@@ -69,6 +82,7 @@ You can use the "Placeholders" dropdown in content editor, to automatically inse
 | `[[CREATION_DATE]]` | The datetime when the element was created  | 2/26/16, 5:38 PM |
 
 ## Twig mode
+
 If you select "Twig" in parser mode under advanced settings, you can input a twig template in the lines field (activate source mode). You can use most of the twig tags and filters listed in [offical documentation](https://twig.symfony.com/doc/3.x/).
 
 The following variables are in injected into Twig and can be accessed using `{{ variable }}` (or `{{ variable.property }}`):

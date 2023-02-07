@@ -2,23 +2,33 @@
 title: Installation using Docker
 layout: default
 parent: Installation
+nav_order: 2
 ---
 
 # Installation of Part-DB via docker
 
-**Warning: The methods described here, configure PHP without HTTPS and therefore should only be used locally. If you want to expose Part-DB to the internet, you have to configure a reverse proxy!**
+{: .warning }
+> The methods described here, configure PHP without HTTPS and therefore should only be used locally in a trusted network.
+> If you want to expose Part-DB to the internet, you have to configure a reverse proxy with an SSL certificate!
 
 ## Docker-compose
 Part-DB can be installed via docker. A pre-built docker image is available under [jbtronics/part-db1](https://hub.docker.com/repository/docker/jbtronics/part-db1/).
 In the moment the master tag should be used (which is built from the latest commits in the master branch), as no tagged releases are available yet.
 
 The easiest way to use it is to use the docker-compose.yml available [here](https://raw.githubusercontent.com/Part-DB/Part-DB-symfony/master/docs/docker/docker-compose.yaml):
-0. Install docker and docker-compose like described under https://docs.docker.com/compose/install/
-1. Create a folder where the Part-DB data should live
-2. Download docker-compose.yml and move it to the folder created above
-3. Inside the folder, run `docker-compose up -d`
-4. Create the inital database with `docker exec --user=www-data partdb php bin/console doctrine:migrations:migrate` and watch for the password output
-5. Part-DB is available under `http://localhost:8080` and you can log in with username `admin` and the password shown before
+1. Install docker and docker-compose like described under https://docs.docker.com/compose/install/
+2. Create a folder where the Part-DB data should live
+3. Download docker-compose.yml and move it to the folder created above
+4. Inside the folder, run
+```bash
+   docker-compose up -d
+```    
+5. Create the inital database with 
+ ```bash
+docker exec --user=www-data partdb php bin/console doctrine:migrations:migrate
+ ```
+and watch for the password output
+6. Part-DB is available under `http://localhost:8080` and you can log in with username `admin` and the password shown before
 
 The docker image uses a SQLite database and all data (database, uploads and other media) is put into folders relative to the docker-compose.yml.
 

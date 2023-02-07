@@ -2,13 +2,17 @@
 title: Direct Installation on Debian 11
 layout: default
 parent: Installation
+nav_order: 4
 ---
 
 # Part-DB installation guide for Debian 11 (Bullseye)
 This guide shows you how to install Part-DB directly on Debian 11 using apache2 and SQLite. This guide should work with recent Ubuntu and other Debian based distributions with little to no changes.
 Depending on what you want to do, using the prebuilt docker images may be a better choice, as you dont need to install this much dependencies. See **TODO** for more information of the docker installation.
 
-**Caution: This guide shows you how to install Part-DB for use in a trusted local network. If you want to use Part-DB on the internet, you HAVE TO setup a SSL certificate for your connection!**
+{: .warning }
+> The methods described here, configure PHP without HTTPS and therefore should only be used locally in a trusted network.
+> If you want to expose Part-DB to the internet, you HAVE to configure an SSL connection!
+
 
 ## Install prerequisites
 For the installation of Part-DB, we need some prerequisites. They can be installed by running the following command:
@@ -100,6 +104,12 @@ sudo -u www-data composer install --no-dev -o
 sudo yarn install
 # Build frontend
 sudo yarn build
+```
+
+### Clear cache
+To ensure everything is working, clear the cache:
+```bash
+sudo -u www-data php bin/console cache:clear
 ```
 
 ### Check if everything is installed

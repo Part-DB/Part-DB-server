@@ -9,6 +9,7 @@ nav_order: 1
 
 Part-DB saves its data in a [relational (SQL) database](https://en.wikipedia.org/wiki/Relational_database). Part-DB supports either the use of [SQLite](https://www.sqlite.org/index.html) or [MySQL](https://www.mysql.com/) / [MariaDB](https://mariadb.org/) (which are mostly the same, except for some minor differences).
 
+{: .important }
 You have to choose between the database types before you start using Part-DB and **you can not change it (easily) after you have started creating data**. So you should choose the database type for your usecase (and possible future uses).
 
 ## Comparison
