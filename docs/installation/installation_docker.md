@@ -1,3 +1,9 @@
+---
+title: Installation using Docker
+layout: default
+parent: Installation
+---
+
 # Installation of Part-DB via docker
 
 **Warning: The methods described here, configure PHP without HTTPS and therefore should only be used locally. If you want to expose Part-DB to the internet, you have to configure a reverse proxy!**
