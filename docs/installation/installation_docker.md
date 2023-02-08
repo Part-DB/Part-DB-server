@@ -7,18 +7,68 @@ nav_order: 2
 
 # Installation of Part-DB via docker
 
+Part-DB can be installed containerized via docker. This is the easiest way to get Part-DB up and running and works on all platforms,
+where docker is available (especially recommended for Windows and MacOS).
+
+
 {: .warning }
 > The methods described here, configure PHP without HTTPS and therefore should only be used locally in a trusted network.
 > If you want to expose Part-DB to the internet, you have to configure a reverse proxy with an SSL certificate!
 
 ## Docker-compose
-Part-DB can be installed via docker. A pre-built docker image is available under [jbtronics/part-db1](https://hub.docker.com/repository/docker/jbtronics/part-db1/).
-In the moment the master tag should be used (which is built from the latest commits in the master branch), as no tagged releases are available yet.
+Docker-compose configures the needed images and automatically creates the needed containers and volumes.
 
-The easiest way to use it is to use the docker-compose.yml available [here](https://raw.githubusercontent.com/Part-DB/Part-DB-symfony/master/docs/docker/docker-compose.yaml):
+
 1. Install docker and docker-compose like described under https://docs.docker.com/compose/install/
 2. Create a folder where the Part-DB data should live
-3. Download docker-compose.yml and move it to the folder created above
+3. Create a file named docker-compose.yaml with the following content:
+
+```yaml
+version: '3.3'
+services:
+  partdb:
+    container_name: partdb
+    # By default Part-DB will be running under Port 8080, you can change it here
+    ports:
+      - '8080:80'
+    volumes:
+      # By default
+      - ./uploads:/var/www/html/uploads
+      - ./public_media:/var/www/html/public/media
+      - ./db:/var/www/html/var/db
+    restart: unless-stopped
+    image: jbtronics/part-db1:latest
+    environment:
+      # Put SQLite database in our mapped folder. You can configure some other kind of database here too.
+      - DATABASE_URL=sqlite:///%kernel.project_dir%/var/db/app.db
+      # In docker env logs will be redirected to stderr
+      - APP_ENV=docker
+
+      # You can configure Part-DB using environment variables
+      # Below you can find the most essential ones predefined
+      # However you can add add any other environment configuration you want here
+      # See .env file for all available options or https://github.com/Part-DB/Part-DB-symfony/wiki/Configuration
+
+      # The language to use serverwide as default (en, de, ru, etc.)
+      - DEFAULT_LANG=en
+      # The default timezone to use serverwide (e.g. Europe/Berlin)
+      - DEFAULT_TIMEZONE=Europe/Berlin
+      # The currency that is used inside the DB (and is assumed when no currency is set). This can not be changed later, so be sure to set it the currency used in your country
+      - BASE_CURRENCY=EUR
+      # The name of this installation. This will be shown as title in the browser and in the header of the website
+      - INSTANCE_NAME=Part-DB
+
+      # Allow users to download attachments to the server by providing an URL
+      # This could be a potential security issue, as the user can retrieve any file the server has access to (via internet)
+      - ALLOW_ATTACHMENT_DOWNLOADS=0
+      # Use gravatars for user avatars, when user has no own avatar defined
+      - USE_GRAVATAR=0
+
+      # Override value if you want to show to show a given text on homepage.
+      # When this is empty the content of config/banner.md is used as banner
+      #- BANNER=This is a test banner<br>with a line break
+```
+
 4. Inside the folder, run
 ```bash
    docker-compose up -d
@@ -31,6 +81,75 @@ and watch for the password output
 6. Part-DB is available under `http://localhost:8080` and you can log in with username `admin` and the password shown before
 
 The docker image uses a SQLite database and all data (database, uploads and other media) is put into folders relative to the docker-compose.yml.
+
+### MySQL
+
+If you want to use MySQL as a database, you can use the following docker-compose.yaml, and follow the steps from above:
+
+```yaml
+version: '3.3'
+services:
+  partdb:
+    container_name: partdb
+    # By default Part-DB will be running under Port 8080, you can change it here
+    ports:
+      - '8080:80'
+    volumes:
+      # By default
+      - ./uploads:/var/www/html/uploads
+      - ./public_media:/var/www/html/public/media
+      - ./db:/var/www/html/var/db
+    restart: unless-stopped
+    image: jbtronics/part-db1:latest
+    depends_on:
+      - database
+    environment:
+      # Put SQLite database in our mapped folder. You can configure some other kind of database here too.
+      - DATABASE_URL=mysql://partdb:SECRET_USER_PASSWORD@database:3306/partdb
+      # In docker env logs will be redirected to stderr
+      - APP_ENV=docker
+
+      # You can configure Part-DB using environment variables
+      # Below you can find the most essential ones predefined
+      # However you can add add any other environment configuration you want here
+      # See .env file for all available options or https://github.com/Part-DB/Part-DB-symfony/wiki/Configuration
+
+      # The language to use serverwide as default (en, de, ru, etc.)
+      - DEFAULT_LANG=en
+      # The default timezone to use serverwide (e.g. Europe/Berlin)
+      - DEFAULT_TIMEZONE=Europe/Berlin
+      # The currency that is used inside the DB (and is assumed when no currency is set). This can not be changed later, so be sure to set it the currency used in your country
+      - BASE_CURRENCY=EUR
+      # The name of this installation. This will be shown as title in the browser and in the header of the website
+      - INSTANCE_NAME=Part-DB
+
+      # Allow users to download attachments to the server by providing an URL
+      # This could be a potential security issue, as the user can retrieve any file the server has access to (via internet)
+      - ALLOW_ATTACHMENT_DOWNLOADS=0
+      # Use gravatars for user avatars, when user has no own avatar defined
+      - USE_GRAVATAR=0
+
+      # Override value if you want to show to show a given text on homepage.
+      # When this is empty the content of config/banner.md is used as banner
+      #- BANNER=This is a test banner<br>with a line break
+
+  database:
+    container_name: partdb_database
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      # Change this Password
+      MYSQL_ROOT_PASSWORD: SECRET_ROOT_PASSWORD
+      MYSQL_DATABASE: partdb
+      MYSQL_USER: partdb
+      MYSQL_PASSWORD: SECRET_USER_PASSWORD
+    # Uncomment the following line if you need to access, your MySQL database from outside of docker (e.g. for debugging), normally you should leave that disabled
+    #ports:
+    #  - '4306:3306'
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+```
 
 ## Direct use of docker image
 You can use the `jbtronics/part-db1:master` image directly. You have to expose the port 80 to a host port and configure volumes for `/var/www/html/uploads` and `/var/www/html/public/media`.
