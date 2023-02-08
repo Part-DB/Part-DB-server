@@ -2,8 +2,11 @@ title: Part-DB
 description: Open source inventory management system for your electronic components.
 remote_theme: just-the-docs/just-the-docs
 
-url: "https://part-db.github.io"
-baseurl: "/Part-DB-symfony" # the subpath of your site, e.g. /blog
+url: "https://docs.part-db.de"
+baseurl: "/" # the subpath of your site, e.g. /blog
+
+#url: "https://part-db.github.io"
+#baseurl: "/Part-DB-symfony" # the subpath of your site, e.g. /blog
 
 favicon_ico: "/assets/favicon.ico"
 
