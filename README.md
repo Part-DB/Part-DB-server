@@ -11,6 +11,8 @@
 
 *When updgrading from a version from before 2022-11-27, please read [this](https://github.com/Part-DB/Part-DB-symfony/discussions/193) before upgrading!*
 
+**[Documentation](https://docs.part-db.de/)**
+
 # Part-DB
 Part-DB is an Open-Source inventory managment system for your electronic components.
 It is installed on a web server and so can be accessed with any browser without the need to install additional software.
@@ -64,9 +66,9 @@ Anyhow, the migrations that will be made, are not compatible with the old Part-D
 Also after the migration it is not possible to go back to the old database scheme, so make sure to make a backup of your database beforehand.
 See [UPGRADE](UPGRADE.md) for more infos.
 
-*Hint:* A docker image is available under [jbtronics/part-db1](https://hub.docker.com/r/jbtronics/part-db1). How to setup Part-DB via docker is described [here](https://github.com/Part-DB/Part-DB-symfony/blob/master/docs/docker/docker-install.md).
+*Hint:* A docker image is available under [jbtronics/part-db1](https://hub.docker.com/r/jbtronics/part-db1). How to setup Part-DB via docker is described [here](https://docs.part-db.de/installation/installation_docker.html).
 
-**Below you find some general hints for installtion, see [here](docs/installation/installation_guide-debian.md) for a detailed guide how to install Part-DB on Debian/Ubuntu.**
+**Below you find some general hints for installation, see [here](https://docs.part-db.de/installation/installation_guide-debian.html) for a detailed guide how to install Part-DB on Debian/Ubuntu.**
 
 1. Copy or clone this repository into a folder on your server.
 2. Configure your webserver to serve from the `public/` folder. See [here](https://symfony.com/doc/current/setup/web_server_configuration.html)
@@ -90,25 +92,13 @@ for additional informations.
 When you want to upgrade to a newer version, then just copy the new files into the folder
 and repeat the steps 4. to 7.
 
+Normally a random password is generated when the admin user is created during inital database creation,
+however you can set the inital admin password, by setting the `INITIAL_ADMIN_PW` env var.
+
 ### Reverse proxy
 If you are using a reverse proxy, you have to ensure that the proxies sets the `X-Forwarded-*` headers correctly, or you will get HTTP/HTTPS mixup and wrong hostnames.
 If the reverse proxy is on a different server (or it cannot access Part-DB via localhost) you have to set the `TRUSTED_PROXIES` env variable to match your reverse proxies IP-address (or IP block). You can do this in your `.env.local` or (when using docker) in your `docker-compose.yml` file.
 
-## Useful console commands
-Part-DB provides some command consoles which can be invoked by `php bin/console [command]`. You can get help for every command with the parameter `--help`.
-Useful commands are:
-* `php bin/console partdb:users:set-password [username]`: Sets a new password for the user with the given username. Useful if you forget the password to your Part-DB instance.
-* `php bin/console partdb:logs:show`: Show last activty log on console. Use `-x` options, to include extra column.
-* `php bin/console partdb:currencies:update-exchange-rates`: Update the exchange rates of your currencies from internet. Setup this to be run in a cronjob to always get up-to-date exchange rates.
- If you dont use Euro as base currency, you have to setup an fixer.io API key in `.env.local`.
-* `php bin/console partdb:attachments:clean-unused`: Removes all unused files (files without an associated attachment) in attachments folder. 
-Normally Part-DB should be able to delete the attachment file, if you delete the attachment, but if you have some obsolete files left over from legacy Part-DB you can remove them safely with this command.
-* `php bin/console partdb:check-requirements`: Checks if the required dependencies are installed and gives you recommendations for optimization
-* `php bin/console cache:clear`: Remove and rebuild all caches. If you encounter some weird issues in Part-DB, it maybe helps to run this command.
-* `php bin/console doctrine:migrations:up-to-date`: Check if your database is up to date.
-
-* Normally a random password is generated when the admin user is created during inital database creation.
-You can set the inital admin password, by setting the `INITIAL_ADMIN_PW` env var.
 ## Donate for development
 If you want to donate to the Part-DB developer, see the sponsor button in the top bar (next to the repo name).
 There you will find various methods to support development on a monthly or a one time base.

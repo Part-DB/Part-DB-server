@@ -47,7 +47,7 @@ services:
       # You can configure Part-DB using environment variables
       # Below you can find the most essential ones predefined
       # However you can add add any other environment configuration you want here
-      # See .env file for all available options or https://github.com/Part-DB/Part-DB-symfony/wiki/Configuration
+      # See .env file for all available options or https://docs.part-db.de/configuration.html
 
       # The language to use serverwide as default (en, de, ru, etc.)
       - DEFAULT_LANG=en
@@ -116,7 +116,7 @@ services:
       # You can configure Part-DB using environment variables
       # Below you can find the most essential ones predefined
       # However you can add add any other environment configuration you want here
-      # See .env file for all available options or https://github.com/Part-DB/Part-DB-symfony/wiki/Configuration
+      # See .env file for all available options or https://docs.part-db.de/configuration.html
 
       # The language to use serverwide as default (en, de, ru, etc.)
       - DEFAULT_LANG=en
