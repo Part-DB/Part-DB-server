@@ -86,6 +86,10 @@ The docker image uses a SQLite database and all data (database, uploads and othe
 
 If you want to use MySQL as a database, you can use the following docker-compose.yaml, and follow the steps from above:
 
+{: .warning }
+> You have to replace the values for MYSQL_ROOT_PASSWORD and MYSQL_PASSWORD with your own passwords!!
+> You have to change MYSQL_PASSWORD in the database section and for the DATABASE_URL in the partdb section.
+
 ```yaml
 version: '3.3'
 services:
@@ -104,7 +108,7 @@ services:
     depends_on:
       - database
     environment:
-      # Put SQLite database in our mapped folder. You can configure some other kind of database here too.
+      # Replace SECRET_USER_PASSWORD with the value of MYSQL_PASSWORD from below
       - DATABASE_URL=mysql://partdb:SECRET_USER_PASSWORD@database:3306/partdb
       # In docker env logs will be redirected to stderr
       - APP_ENV=docker
@@ -149,6 +153,15 @@ services:
     volumes:
       - ./mysql:/var/lib/mysql
 
+```
+
+### Update Part-DB
+You can update Part-DB by pulling the latest image and restarting the container.
+Then you have to run the database migrations again
+```bash
+docker-compose pull
+docker-compose up -d
+docker exec --user=www-data partdb php bin/console doctrine:migrations:migrate
 ```
 
 ## Direct use of docker image
