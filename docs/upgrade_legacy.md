@@ -22,24 +22,37 @@ Some things changed however to the old version and some features are still missi
 * Label placeholders now use the `[[PLACEHOLDER]]` format instead of `%PLACEHOLDER%`. Also some placeholders has changed.
 * Configuration is now done via configuration files / environment variables instead of the WebUI (this maybe change in the future).
 * Database updated are now done via console instead of the WebUI
+* Permission system changed: **You will have to newly set the permissions of all users and groups!**
 
 ## Missing features
 * No possibility to mark parts for ordering (yet)
-* No import / export possibility for parts (yet), however you can import/export other datastructures like Categories, Footprints, etc.
+* No import / export possibility for parts (yet), however you can import/export other datastructures like Categories, Footprints, etc. (yet)
 * No support for 3D models of footprints (yet)
+* No possibility to disable footprints, manufacturers globally (or per category). This should not have a big impact, when you forbid users to edit/create them.
 
 
 ## Upgrade process
- 1. Upgrade your existing Part-DB version the newest Part-DB 0.5.* version (in the moment Part-DB 0.5.8), like 
- described in the old Part-DB's repository.
- 2. Make a backup of your database. If somethings goes wrong during migration, you can use this backup to start over.
- 3. Setup the new Part-DB like described on [README](README.md) in section Installation. In `.env.local` enter the URL
- to your old Part-DB database.
- 4. Run `php bin/console partdb:migrations:convert-bbcode` to convert the BBCode used in comments and part description to the newly used markdown.
- 5. Copy the content of `data/media` from the old Part-DB version into `public/media` in the new version.
- 6. Run 'php bin/console cache:clear'
 
-You should now be able to access Part-DB and log in using your old credentials. 
+{: .warning }
+> Once you have upgraded the database to the latest version, you will not be able to access the database with Part-DB 0.5.*. Doing so could lead to data corruption. So make a a backup before you proceed the upgrade, so you will be able to revert the upgrade, when you are not happy with the new version
+>
+> Beware that all user and group permissions will be reset, and you have to set the permissions again 
+> the new Part-DB as many permissions changed, and automatic migration is not possible.
+
+ 1. Upgrade your existing Part-DB version the newest Part-DB 0.5.* version (in the moment Part-DB 0.5.8), like described in the old Part-DB's repository.
+ 2. Make a backup of your database and attachments. If somethings goes wrong during migration, you can use this backup to start over. If you have some more complex permission configuration, you maybe want to do screenshots of it, so you can redo it again later.
+ 3. Setup the new Part-DB like described in installation section. You will need to do the setup for a MySQL instance (either via docker or direct installation). Set the `DATABASE_URL` environment variable in your `.env.local` (or `docker-compose.yaml`) to your existing database. (e.g. `DATABASE_URL=mysql://PARTDB_USER:PASSWORD@localhost:3306/DATABASE_NAME`)
+ 4. Ensure that the correct base currency is configured (`BASE_CURRENCY` env), this must match the currency used in the old Part-DB version. If you used Euro, you do not need to change anything. 
+ 5. Run `php bin/console cache:clear` and `php bin/console doctrine:migrations:migrate`.
+ 4. Run `php bin/console partdb:migrations:convert-bbcode` to convert the BBCode used in comments and part description to the newly used markdown.
+ 5. Copy the content of the `data/media` folder from the old Part-DB instance into `public/media` folder in the new version.
+ 6. Run `php bin/console cache:clear`
+ 7. You should be able to login to Part-DB now using your admin account and the old password. If you do not know the admin username, run `php bin/console partdb:users:list` and look for the user with ID 1. You can reset the password of this user using `php bin/console partdb:users:set-password [username]`.
+ 8. All other users besides the admin user are disabled (meaning they can not login). Go to "System->User" and "System->Group" and check the permissions of the users (and change them if needed). If you are done enable the users again, by removing the disabled checkmark in the password section. If you have a lot of users you can enable them all at once using `php bin/console partdb:users:enable --all`
 
 **It is not possible to access the database using the old Part-DB version. 
-If you do so, this could damage your database.** Therefore it is recommended to remove the old Part-DB version.
+If you do so, this could damage your database.** Therefore it is recommended to remove the old Part-DB version, after everything works.
+
+
+## Issues
+If you encounter any issues (especially during the database migration) or features do not work like intended, please open an issue ticket at GitHub.
