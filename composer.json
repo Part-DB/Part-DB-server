@@ -113,7 +113,8 @@
             "composer/package-versions-deprecated": true,
             "symfony/flex": true,
             "phpstan/extension-installer": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "php-http/discovery": true
         }
     },
     "autoload": {
