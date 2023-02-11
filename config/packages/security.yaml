@@ -26,7 +26,8 @@ security:
                 check_path: 2fa_login_check
                 enable_csrf: true
 
-
+            login_throttling:
+                max_attempts: 5 # per minute
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             form_login:
