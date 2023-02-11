@@ -59,6 +59,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+use function Symfony\Component\Translation\t;
+
 class LogDataTable implements DataTableTypeInterface
 {
     protected ElementTypeNameGenerator $elementTypeNameGenerator;
@@ -182,17 +184,17 @@ class LogDataTable implements DataTableTypeInterface
         ]);
 
         $dataTable->add('id', TextColumn::class, [
-            'label' => $this->translator->trans('log.id'),
+            'label' => 'log.id',
             'visible' => false,
         ]);
 
         $dataTable->add('timestamp', LocaleDateTimeColumn::class, [
-            'label' => $this->translator->trans('log.timestamp'),
+            'label' => 'log.timestamp',
             'timeFormat' => 'medium',
         ]);
 
         $dataTable->add('type', TextColumn::class, [
-            'label' => $this->translator->trans('log.type'),
+            'label' => 'log.type',
             'propertyPath' => 'type',
             'render' => function (string $value, AbstractLogEntry $context) {
                 $text = $this->translator->trans('log.type.'.$value);
@@ -209,7 +211,7 @@ class LogDataTable implements DataTableTypeInterface
         ]);
 
         $dataTable->add('level', TextColumn::class, [
-            'label' => $this->translator->trans('log.level'),
+            'label' => 'log.level',
             'visible' => 'system_log' === $options['mode'],
             'propertyPath' => 'levelString',
             'render' => function (string $value, AbstractLogEntry $context) {
@@ -218,7 +220,7 @@ class LogDataTable implements DataTableTypeInterface
         ]);
 
         $dataTable->add('user', TextColumn::class, [
-            'label' => $this->translator->trans('log.user'),
+            'label' => 'log.user',
             'render' => function ($value, AbstractLogEntry $context) {
                 $user = $context->getUser();
 
@@ -244,7 +246,7 @@ class LogDataTable implements DataTableTypeInterface
         ]);
 
         $dataTable->add('target_type', TextColumn::class, [
-            'label' => $this->translator->trans('log.target_type'),
+            'label' => 'log.target_type',
             'visible' => false,
             'render' => function ($value, AbstractLogEntry $context) {
                 $class = $context->getTargetClass();
@@ -257,12 +259,12 @@ class LogDataTable implements DataTableTypeInterface
         ]);
 
         $dataTable->add('target', LogEntryTargetColumn::class, [
-            'label' => $this->translator->trans('log.target'),
+            'label' => 'log.target',
             'show_associated' => 'element_history' !== $options['mode'],
         ]);
 
         $dataTable->add('extra', LogEntryExtraColumn::class, [
-            'label' => $this->translator->trans('log.extra'),
+            'label' => 'log.extra',
         ]);
 
         $dataTable->add('timeTravel', IconLinkColumn::class, [

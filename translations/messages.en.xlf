@@ -6851,7 +6851,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment>
         <source>attachment_type.edit.filetype_filter</source>
-        <target>Allowed file extensions.</target>
+        <target>Allowed file extensions</target>
       </segment>
     </unit>
     <unit id="1KMaa2P" name="attachment_type.edit.filetype_filter.help">
@@ -8653,7 +8653,7 @@ Element 3</target>
       </segment>
     </unit>
     <unit id="RAX6xpX" name="tfa.provider.webauthn_two_factor_provider">
-      <segment state="translated">
+      <segment>
         <source>tfa.provider.webauthn_two_factor_provider</source>
         <target>Security key</target>
       </segment>
@@ -9722,181 +9722,181 @@ Element 3</target>
       </segment>
     </unit>
     <unit id="dU7EyhM" name="entity.info.parts_count_recursive">
-      <segment state="translated">
+      <segment>
         <source>entity.info.parts_count_recursive</source>
         <target>Number of parts with this element or its subelements</target>
       </segment>
     </unit>
     <unit id="_hKlKv." name="tools.server_infos.title">
-      <segment state="translated">
+      <segment>
         <source>tools.server_infos.title</source>
         <target>Server Infos</target>
       </segment>
     </unit>
     <unit id="NvclBUL" name="permission.preset.read_only">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.read_only</source>
         <target>Read-Only</target>
       </segment>
     </unit>
     <unit id="HD3j3BW" name="permission.preset.read_only.desc">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.read_only.desc</source>
         <target>Only allow read operations on data</target>
       </segment>
     </unit>
     <unit id="Ge20aJg" name="permission.preset.all_inherit">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.all_inherit</source>
         <target>Inherit all</target>
       </segment>
     </unit>
     <unit id="DJpsLcr" name="permission.preset.all_inherit.desc">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.all_inherit.desc</source>
         <target>Set all permissions to Inherit</target>
       </segment>
     </unit>
     <unit id="lzjvvzm" name="permission.preset.all_forbid">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.all_forbid</source>
         <target>Forbid all</target>
       </segment>
     </unit>
     <unit id="QqQDTyH" name="permission.preset.all_forbid.desc">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.all_forbid.desc</source>
         <target>Set all permissions to Forbid</target>
       </segment>
     </unit>
     <unit id="DV2fh6l" name="permission.preset.all_allow">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.all_allow</source>
         <target>Allow all</target>
       </segment>
     </unit>
     <unit id="_m.Pbza" name="permission.preset.all_allow.desc">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.all_allow.desc</source>
         <target>Set all permissions to allow</target>
       </segment>
     </unit>
     <unit id="VIDdo5K" name="perm.server_infos">
-      <segment state="translated">
+      <segment>
         <source>perm.server_infos</source>
         <target>Server infos</target>
       </segment>
     </unit>
     <unit id="d6SOlzR" name="permission.preset.editor">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.editor</source>
         <target>Editor</target>
       </segment>
     </unit>
     <unit id="8KYl_wh" name="permission.preset.editor.desc">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.editor.desc</source>
         <target>Allow to change parts and data structures</target>
       </segment>
     </unit>
     <unit id="dYudjp." name="permission.preset.admin">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.admin</source>
         <target>Admin</target>
       </segment>
     </unit>
     <unit id="0o2M0uj" name="permission.preset.admin.desc">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.admin.desc</source>
         <target>Allow administrative actions</target>
       </segment>
     </unit>
     <unit id="SnAIVQf" name="permission.preset.button">
-      <segment state="translated">
+      <segment>
         <source>permission.preset.button</source>
         <target>Apply preset</target>
       </segment>
     </unit>
     <unit id="6q4uHDx" name="perm.attachments.show_private">
-      <segment state="translated">
+      <segment>
         <source>perm.attachments.show_private</source>
         <target>Show private attachments</target>
       </segment>
     </unit>
     <unit id="NL9t5hy" name="perm.attachments.list_attachments">
-      <segment state="translated">
+      <segment>
         <source>perm.attachments.list_attachments</source>
         <target>Show list of all attachments</target>
       </segment>
     </unit>
     <unit id="PYh9dNP" name="user.edit.permission_success">
-      <segment state="translated">
+      <segment>
         <source>user.edit.permission_success</source>
         <target>Permission preset applied successfully. Check if the new permissions fit your needs.</target>
       </segment>
     </unit>
     <unit id="cP8VNKS" name="perm.group.data">
-      <segment state="translated">
+      <segment>
         <source>perm.group.data</source>
         <target>Data</target>
       </segment>
     </unit>
     <unit id="AAoGo_X" name="part_list.action.action.group.needs_review">
-      <segment state="translated">
+      <segment>
         <source>part_list.action.action.group.needs_review</source>
         <target>Needs Review</target>
       </segment>
     </unit>
     <unit id="hcvOTrH" name="part_list.action.action.set_needs_review">
-      <segment state="translated">
+      <segment>
         <source>part_list.action.action.set_needs_review</source>
         <target>Set Needs Review Status</target>
       </segment>
     </unit>
     <unit id="E1AQubV" name="part_list.action.action.unset_needs_review">
-      <segment state="translated">
+      <segment>
         <source>part_list.action.action.unset_needs_review</source>
         <target>Unset Needs Review Status</target>
       </segment>
     </unit>
     <unit id="DNEEkTy" name="part.edit.ipn">
-      <segment state="translated">
+      <segment>
         <source>part.edit.ipn</source>
         <target>Internal Part Number (IPN)</target>
       </segment>
     </unit>
     <unit id="bT6yxOA" name="part.ipn.not_defined">
-      <segment state="translated">
+      <segment>
         <source>part.ipn.not_defined</source>
         <target>Not defined</target>
       </segment>
     </unit>
     <unit id="SHo2Ejq" name="part.table.ipn">
-      <segment state="translated">
+      <segment>
         <source>part.table.ipn</source>
         <target>IPN</target>
       </segment>
     </unit>
     <unit id="1HcqCmo" name="currency.edit.update_rate">
-      <segment state="translated">
+      <segment>
         <source>currency.edit.update_rate</source>
         <target>Retrieve exchange rate</target>
       </segment>
     </unit>
     <unit id="jSf6Wmz" name="currency.edit.exchange_rate_update.unsupported_currency">
-      <segment state="translated">
+      <segment>
         <source>currency.edit.exchange_rate_update.unsupported_currency</source>
         <target>The currency is unsupported by the exchange rate provider. Check your exchange rate provider configuration.</target>
       </segment>
     </unit>
     <unit id="D481NZD" name="currency.edit.exchange_rate_update.generic_error">
-      <segment state="translated">
+      <segment>
         <source>currency.edit.exchange_rate_update.generic_error</source>
         <target>Unable to retrieve the exchange rate. Check your exchange rate provider configuration.</target>
       </segment>
     </unit>
     <unit id="E_M7mZ5" name="currency.edit.exchange_rate_updated.success">
-      <segment state="translated">
+      <segment>
         <source>currency.edit.exchange_rate_updated.success</source>
         <target>Retrieved the exchange rate successfully.</target>
       </segment>
@@ -10418,39 +10418,447 @@ Element 3</target>
       </segment>
     </unit>
     <unit id="i6.vjBW" name="part.edit.save_and_new">
-      <segment state="translated">
+      <segment>
         <source>part.edit.save_and_new</source>
         <target>Save and create new empty part</target>
       </segment>
     </unit>
     <unit id="q2IWd9b" name="homepage.first_steps.title">
-      <segment state="translated">
+      <segment>
         <source>homepage.first_steps.title</source>
         <target>First steps</target>
       </segment>
     </unit>
     <unit id="qoK8lss" name="homepage.first_steps.introduction">
-      <segment state="translated">
+      <segment>
         <source>homepage.first_steps.introduction</source>
-        <target>Your database is still empty. You might want to read the &lt;a href="%url%"&gt;documentation&lt;/a&gt; or start to creating the following data structures:</target>
+        <target><![CDATA[Your database is still empty. You might want to read the <a href="%url%">documentation</a> or start to creating the following data structures:]]></target>
       </segment>
     </unit>
     <unit id="8RkT6ZQ" name="homepage.first_steps.create_part">
-      <segment state="translated">
+      <segment>
         <source>homepage.first_steps.create_part</source>
-        <target>Or you can directly &lt;a href="%url%"&gt;create a new part&lt;/a&gt;.</target>
+        <target><![CDATA[Or you can directly <a href="%url%">create a new part</a>.]]></target>
       </segment>
     </unit>
     <unit id="mBSlTrA" name="homepage.first_steps.hide_hint">
-      <segment state="translated">
+      <segment>
         <source>homepage.first_steps.hide_hint</source>
         <target>This box will hide as soon as you have created your first part.</target>
       </segment>
     </unit>
-    <unit id="homepage.forum.text">
-      <segment state="translated">
+    <unit id="nfBdkzp" name="homepage.forum.text">
+      <segment>
         <source>homepage.forum.text</source>
-        <target>For questions about Part-DB use the &lt;a href="%href%" class="link-external" target="_blank"&gt;discussion forum&lt;/a&gt;</target>
+        <target><![CDATA[For questions about Part-DB use the <a href="%href%" class="link-external" target="_blank">discussion forum</a>]]></target>
+      </segment>
+    </unit>
+    <unit id="qmnrptL" name="log.element_edited.changed_fields.category">
+      <segment>
+        <source>log.element_edited.changed_fields.category</source>
+        <target>Category</target>
+      </segment>
+    </unit>
+    <unit id="h2yNq58" name="log.element_edited.changed_fields.footprint">
+      <segment>
+        <source>log.element_edited.changed_fields.footprint</source>
+        <target>Footprint</target>
+      </segment>
+    </unit>
+    <unit id="TYrqEhh" name="log.element_edited.changed_fields.manufacturer">
+      <segment>
+        <source>log.element_edited.changed_fields.manufacturer</source>
+        <target>Manufacturer</target>
+      </segment>
+    </unit>
+    <unit id="gD7hYx2" name="log.element_edited.changed_fields.value_typical">
+      <segment>
+        <source>log.element_edited.changed_fields.value_typical</source>
+        <target>typ. value</target>
+      </segment>
+    </unit>
+    <unit id="0I9yC96" name="log.element_edited.changed_fields.pw_reset_expires">
+      <segment>
+        <source>log.element_edited.changed_fields.pw_reset_expires</source>
+        <target>Password reset</target>
+      </segment>
+    </unit>
+    <unit id="0yxA3bg" name="log.element_edited.changed_fields.comment">
+      <segment>
+        <source>log.element_edited.changed_fields.comment</source>
+        <target>Notes</target>
+      </segment>
+    </unit>
+    <unit id="ZX180Uu" name="log.element_edited.changed_fields.supplierpartnr">
+      <segment>
+        <source>log.element_edited.changed_fields.supplierpartnr</source>
+        <target>Supplier part number</target>
+      </segment>
+    </unit>
+    <unit id="Bzp4a3p" name="log.element_edited.changed_fields.supplier_product_url">
+      <segment>
+        <source>log.element_edited.changed_fields.supplier_product_url</source>
+        <target>Link to offer</target>
+      </segment>
+    </unit>
+    <unit id="X2KjgsJ" name="log.element_edited.changed_fields.price">
+      <segment>
+        <source>log.element_edited.changed_fields.price</source>
+        <target>Price</target>
+      </segment>
+    </unit>
+    <unit id="zlKYtvI" name="log.element_edited.changed_fields.min_discount_quantity">
+      <segment>
+        <source>log.element_edited.changed_fields.min_discount_quantity</source>
+        <target>Minimum discount amount</target>
+      </segment>
+    </unit>
+    <unit id="IrL23Tw" name="log.element_edited.changed_fields.original_filename">
+      <segment>
+        <source>log.element_edited.changed_fields.original_filename</source>
+        <target>Original filename</target>
+      </segment>
+    </unit>
+    <unit id="qvgIER7" name="log.element_edited.changed_fields.path">
+      <segment>
+        <source>log.element_edited.changed_fields.path</source>
+        <target>Filepath</target>
+      </segment>
+    </unit>
+    <unit id="B7rbOAi" name="log.element_edited.changed_fields.description">
+      <segment>
+        <source>log.element_edited.changed_fields.description</source>
+        <target>Description</target>
+      </segment>
+    </unit>
+    <unit id="iRpQ.r4" name="log.element_edited.changed_fields.manufacturing_status">
+      <segment>
+        <source>log.element_edited.changed_fields.manufacturing_status</source>
+        <target>Manufacturing status</target>
+      </segment>
+    </unit>
+    <unit id="aQlVtZN" name="log.element_edited.changed_fields.options.barcode_type">
+      <segment>
+        <source>log.element_edited.changed_fields.options.barcode_type</source>
+        <target>Barcode type</target>
+      </segment>
+    </unit>
+    <unit id="GrbTB8Q" name="log.element_edited.changed_fields.status">
+      <segment>
+        <source>log.element_edited.changed_fields.status</source>
+        <target>Status</target>
+      </segment>
+    </unit>
+    <unit id="2MH9WjL" name="log.element_edited.changed_fields.quantity">
+      <segment>
+        <source>log.element_edited.changed_fields.quantity</source>
+        <target>BOM Qty.</target>
+      </segment>
+    </unit>
+    <unit id="XRhN7QN" name="log.element_edited.changed_fields.mountnames">
+      <segment>
+        <source>log.element_edited.changed_fields.mountnames</source>
+        <target>Mountnames</target>
+      </segment>
+    </unit>
+    <unit id="j5npGa6" name="log.element_edited.changed_fields.name">
+      <segment>
+        <source>log.element_edited.changed_fields.name</source>
+        <target>Name</target>
+      </segment>
+    </unit>
+    <unit id="NjHccov" name="log.element_edited.changed_fields.part">
+      <segment>
+        <source>log.element_edited.changed_fields.part</source>
+        <target>Part</target>
+      </segment>
+    </unit>
+    <unit id="SCBolPs" name="log.element_edited.changed_fields.price_currency">
+      <segment>
+        <source>log.element_edited.changed_fields.price_currency</source>
+        <target>Currency of price</target>
+      </segment>
+    </unit>
+    <unit id="qVqwVf0" name="log.element_edited.changed_fields.partname_hint">
+      <segment>
+        <source>log.element_edited.changed_fields.partname_hint</source>
+        <target>Part name hint</target>
+      </segment>
+    </unit>
+    <unit id="HE8CkUq" name="log.element_edited.changed_fields.partname_regex">
+      <segment>
+        <source>log.element_edited.changed_fields.partname_regex</source>
+        <target>Name filter</target>
+      </segment>
+    </unit>
+    <unit id="waUb8Sn" name="log.element_edited.changed_fields.disable_footprints">
+      <segment>
+        <source>log.element_edited.changed_fields.disable_footprints</source>
+        <target>Disable footprints</target>
+      </segment>
+    </unit>
+    <unit id="jysLxE8" name="log.element_edited.changed_fields.disable_manufacturers">
+      <segment>
+        <source>log.element_edited.changed_fields.disable_manufacturers</source>
+        <target>Disable manufacturers</target>
+      </segment>
+    </unit>
+    <unit id="7SOq4dc" name="log.element_edited.changed_fields.disable_autodatasheets">
+      <segment>
+        <source>log.element_edited.changed_fields.disable_autodatasheets</source>
+        <target>Disable automatic datasheet links</target>
+      </segment>
+    </unit>
+    <unit id="VXVZch0" name="log.element_edited.changed_fields.disable_properties">
+      <segment>
+        <source>log.element_edited.changed_fields.disable_properties</source>
+        <target>Disable properties</target>
+      </segment>
+    </unit>
+    <unit id="gEePBMo" name="log.element_edited.changed_fields.default_description">
+      <segment>
+        <source>log.element_edited.changed_fields.default_description</source>
+        <target>Default description</target>
+      </segment>
+    </unit>
+    <unit id="nxg002v" name="log.element_edited.changed_fields.default_comment">
+      <segment>
+        <source>log.element_edited.changed_fields.default_comment</source>
+        <target>Default notes</target>
+      </segment>
+    </unit>
+    <unit id="EzrwA.V" name="log.element_edited.changed_fields.filetype_filter">
+      <segment>
+        <source>log.element_edited.changed_fields.filetype_filter</source>
+        <target>Allowed file extensions</target>
+      </segment>
+    </unit>
+    <unit id="Fu4Pkpd" name="log.element_edited.changed_fields.not_selectable">
+      <segment>
+        <source>log.element_edited.changed_fields.not_selectable</source>
+        <target>Not selected</target>
+      </segment>
+    </unit>
+    <unit id="HOMIDJA" name="log.element_edited.changed_fields.parent">
+      <segment>
+        <source>log.element_edited.changed_fields.parent</source>
+        <target>Parent element</target>
+      </segment>
+    </unit>
+    <unit id="gZ_rDFJ" name="log.element_edited.changed_fields.shipping_costs">
+      <segment>
+        <source>log.element_edited.changed_fields.shipping_costs</source>
+        <target>Shipping costs</target>
+      </segment>
+    </unit>
+    <unit id="7yyrZp7" name="log.element_edited.changed_fields.default_currency">
+      <segment>
+        <source>log.element_edited.changed_fields.default_currency</source>
+        <target>Default currency</target>
+      </segment>
+    </unit>
+    <unit id="T_67Yyo" name="log.element_edited.changed_fields.address">
+      <segment>
+        <source>log.element_edited.changed_fields.address</source>
+        <target>Address</target>
+      </segment>
+    </unit>
+    <unit id="o6PKTJA" name="log.element_edited.changed_fields.phone_number">
+      <segment>
+        <source>log.element_edited.changed_fields.phone_number</source>
+        <target>Phone number</target>
+      </segment>
+    </unit>
+    <unit id="W5rKz.M" name="log.element_edited.changed_fields.fax_number">
+      <segment>
+        <source>log.element_edited.changed_fields.fax_number</source>
+        <target>Fax number</target>
+      </segment>
+    </unit>
+    <unit id="BlkJXPJ" name="log.element_edited.changed_fields.email_address">
+      <segment>
+        <source>log.element_edited.changed_fields.email_address</source>
+        <target>Email</target>
+      </segment>
+    </unit>
+    <unit id="jQ2bFEK" name="log.element_edited.changed_fields.website">
+      <segment>
+        <source>log.element_edited.changed_fields.website</source>
+        <target>Website</target>
+      </segment>
+    </unit>
+    <unit id="hQUV7ZC" name="log.element_edited.changed_fields.auto_product_url">
+      <segment>
+        <source>log.element_edited.changed_fields.auto_product_url</source>
+        <target>Product URL</target>
+      </segment>
+    </unit>
+    <unit id="ZRxLMgU" name="log.element_edited.changed_fields.is_full">
+      <segment>
+        <source>log.element_edited.changed_fields.is_full</source>
+        <target>Storelocation full</target>
+      </segment>
+    </unit>
+    <unit id="hMc.US1" name="log.element_edited.changed_fields.limit_to_existing_parts">
+      <segment>
+        <source>log.element_edited.changed_fields.limit_to_existing_parts</source>
+        <target>Limit to existing parts</target>
+      </segment>
+    </unit>
+    <unit id="czzufVD" name="log.element_edited.changed_fields.only_single_part">
+      <segment>
+        <source>log.element_edited.changed_fields.only_single_part</source>
+        <target>Only single part</target>
+      </segment>
+    </unit>
+    <unit id="BFHeYb7" name="log.element_edited.changed_fields.storage_type">
+      <segment>
+        <source>log.element_edited.changed_fields.storage_type</source>
+        <target>Storage type</target>
+      </segment>
+    </unit>
+    <unit id="7c.vSJ5" name="log.element_edited.changed_fields.footprint_3d">
+      <segment>
+        <source>log.element_edited.changed_fields.footprint_3d</source>
+        <target>3D model</target>
+      </segment>
+    </unit>
+    <unit id="EhKSmFQ" name="log.element_edited.changed_fields.master_picture_attachment">
+      <segment>
+        <source>log.element_edited.changed_fields.master_picture_attachment</source>
+        <target>Preview image</target>
+      </segment>
+    </unit>
+    <unit id="0Qixo51" name="log.element_edited.changed_fields.exchange_rate">
+      <segment>
+        <source>log.element_edited.changed_fields.exchange_rate</source>
+        <target>Exchange rate</target>
+      </segment>
+    </unit>
+    <unit id="EippsOk" name="log.element_edited.changed_fields.iso_code">
+      <segment>
+        <source>log.element_edited.changed_fields.iso_code</source>
+        <target>Exchange rate</target>
+      </segment>
+    </unit>
+    <unit id="JPVZRzH" name="log.element_edited.changed_fields.unit">
+      <segment>
+        <source>log.element_edited.changed_fields.unit</source>
+        <target>Unit symbol</target>
+      </segment>
+    </unit>
+    <unit id="bNKi.oP" name="log.element_edited.changed_fields.is_integer">
+      <segment>
+        <source>log.element_edited.changed_fields.is_integer</source>
+        <target>Is integer</target>
+      </segment>
+    </unit>
+    <unit id="XkLHxqf" name="log.element_edited.changed_fields.use_si_prefix">
+      <segment>
+        <source>log.element_edited.changed_fields.use_si_prefix</source>
+        <target>Use SI prefix</target>
+      </segment>
+    </unit>
+    <unit id="bgeqM2B" name="log.element_edited.changed_fields.options.width">
+      <segment>
+        <source>log.element_edited.changed_fields.options.width</source>
+        <target>Width</target>
+      </segment>
+    </unit>
+    <unit id="UJNmG3d" name="log.element_edited.changed_fields.options.height">
+      <segment>
+        <source>log.element_edited.changed_fields.options.height</source>
+        <target>Height</target>
+      </segment>
+    </unit>
+    <unit id="M7z_SCq" name="log.element_edited.changed_fields.options.supported_element">
+      <segment>
+        <source>log.element_edited.changed_fields.options.supported_element</source>
+        <target>Target type</target>
+      </segment>
+    </unit>
+    <unit id="WnWfGoW" name="log.element_edited.changed_fields.options.additional_css">
+      <segment>
+        <source>log.element_edited.changed_fields.options.additional_css</source>
+        <target>Additional styles (CSS)</target>
+      </segment>
+    </unit>
+    <unit id="0wsPXyV" name="log.element_edited.changed_fields.options.lines">
+      <segment>
+        <source>log.element_edited.changed_fields.options.lines</source>
+        <target>Content</target>
+      </segment>
+    </unit>
+    <unit id="SsbpFX0" name="log.element_edited.changed_fields.permissions.data">
+      <segment>
+        <source>log.element_edited.changed_fields.permissions.data</source>
+        <target>Permissions</target>
+      </segment>
+    </unit>
+    <unit id="GYoJ2_d" name="log.element_edited.changed_fields.disabled">
+      <segment>
+        <source>log.element_edited.changed_fields.disabled</source>
+        <target>Disabled</target>
+      </segment>
+    </unit>
+    <unit id="q7TPEPu" name="log.element_edited.changed_fields.theme">
+      <segment>
+        <source>log.element_edited.changed_fields.theme</source>
+        <target>Theme</target>
+      </segment>
+    </unit>
+    <unit id="Qlf8uK3" name="log.element_edited.changed_fields.timezone">
+      <segment>
+        <source>log.element_edited.changed_fields.timezone</source>
+        <target>Timezone</target>
+      </segment>
+    </unit>
+    <unit id="2GWIhsp" name="log.element_edited.changed_fields.language">
+      <segment>
+        <source>log.element_edited.changed_fields.language</source>
+        <target>Language</target>
+      </segment>
+    </unit>
+    <unit id="Sw3SmBJ" name="log.element_edited.changed_fields.email">
+      <segment>
+        <source>log.element_edited.changed_fields.email</source>
+        <target>Email</target>
+      </segment>
+    </unit>
+    <unit id="7FpvTOI" name="log.element_edited.changed_fields.department">
+      <segment>
+        <source>log.element_edited.changed_fields.department</source>
+        <target>Department</target>
+      </segment>
+    </unit>
+    <unit id="jWNSk.e" name="log.element_edited.changed_fields.last_name">
+      <segment>
+        <source>log.element_edited.changed_fields.last_name</source>
+        <target>Last name</target>
+      </segment>
+    </unit>
+    <unit id="49zb3b7" name="log.element_edited.changed_fields.first_name">
+      <segment>
+        <source>log.element_edited.changed_fields.first_name</source>
+        <target>First name</target>
+      </segment>
+    </unit>
+    <unit id="b55U6o6" name="log.element_edited.changed_fields.group">
+      <segment>
+        <source>log.element_edited.changed_fields.group</source>
+        <target>Group</target>
+      </segment>
+    </unit>
+    <unit id="fgxi1Rb" name="log.element_edited.changed_fields.currency">
+      <segment>
+        <source>log.element_edited.changed_fields.currency</source>
+        <target>Preferred currency</target>
+      </segment>
+    </unit>
+    <unit id="YjMeEAn" name="log.element_edited.changed_fields.enforce2FA">
+      <segment>
+        <source>log.element_edited.changed_fields.enforce2FA</source>
+        <target>Enforce 2FA</target>
       </segment>
     </unit>
   </file>

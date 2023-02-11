@@ -154,7 +154,7 @@ class LogEntryExtraFormatter
         }
 
         if ($context instanceof ElementEditedLogEntry && $context->hasChangedFieldsInfo()) {
-            $array['log.element_edited.changed_fields'] = htmlspecialchars(implode(', ', $context->getChangedFields()));
+            $array['log.element_edited.changed_fields'] = $this->getChangedFieldsTranslated($context);
         }
 
         if ($context instanceof LegacyInstockChangedLogEntry) {
@@ -199,5 +199,22 @@ class LogEntryExtraFormatter
         }
 
         return $array;
+    }
+
+    private function getChangedFieldsTranslated(ElementEditedLogEntry $entry): string
+    {
+        $output = [];
+
+        foreach($entry->getChangedFields() as $field) {
+            $key = 'log.element_edited.changed_fields.'.$field;
+            //If the key is not found, use the field name as a fallback
+            $tmp = $this->translator->trans($key);
+            if ($key === $tmp) {
+                $tmp = $field;
+            }
+            $output[] = htmlspecialchars($tmp);
+        }
+
+        return implode(', ', $output);
     }
 }
