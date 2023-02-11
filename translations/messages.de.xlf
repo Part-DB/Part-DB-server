@@ -10443,7 +10443,7 @@ Element 3</target>
         <target>Dieser Hinweis wird verborgen, sobald Sie das erste Bauteil erstellt haben.</target>
       </segment>
     </unit>
-    <unit id="homepage.forum.text">
+    <unit id="nfBdkzp" name="homepage.forum.text">
       <segment state="translated">
         <source>homepage.forum.text</source>
         <target>Für Fragen rund um Part-DB, nutze das &lt;a class="link-external" rel="noopener" target="_blank" href="%href%"&gt;Diskussionsforum&lt;/a&gt;</target>
