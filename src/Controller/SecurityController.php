@@ -140,9 +140,11 @@ class SecurityController extends AbstractController
         $builder = $this->createFormBuilder($data);
         $builder->add('username', TextType::class, [
             'label' => $this->translator->trans('pw_reset.username'),
+            'disabled' => true,
         ]);
         $builder->add('token', TextType::class, [
             'label' => $this->translator->trans('pw_reset.token'),
+            'disabled' => true,
         ]);
         $builder->add('new_password', RepeatedType::class, [
             'type' => PasswordType::class,
