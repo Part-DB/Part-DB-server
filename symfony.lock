@@ -252,9 +252,6 @@
             "./config/packages/datatables.yaml"
         ]
     },
-    "openlss/lib-array2xml": {
-        "version": "1.0.0"
-    },
     "phenx/php-font-lib": {
         "version": "0.5.1"
     },
@@ -840,8 +837,5 @@
     },
     "webmozart/assert": {
         "version": "1.4.0"
-    },
-    "webmozart/path-util": {
-        "version": "2.3.0"
     }
 }

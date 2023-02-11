@@ -85,7 +85,7 @@
         "phpstan/phpstan": "^1.4.7",
         "phpstan/phpstan-doctrine": "^1.2.11",
         "phpstan/phpstan-symfony": "^1.1.7",
-        "psalm/plugin-symfony": "^3.0.3",
+        "psalm/plugin-symfony": "^v5.0.1",
         "roave/security-advisories": "dev-latest",
         "symfony/browser-kit": "^5.2",
         "symfony/css-selector": "^5.2",
@@ -95,7 +95,7 @@
         "symfony/stopwatch": "^5.2",
         "symfony/web-profiler-bundle": "^5.2",
         "symplify/easy-coding-standard": "^11.0",
-        "vimeo/psalm": "^4.3.2"
+        "vimeo/psalm": "^5.6.0"
     },
     "suggest": {
         "ext-bcmath": "Used to improve price calculation performance",
