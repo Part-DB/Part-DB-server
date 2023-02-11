@@ -50,7 +50,7 @@ class SupplierForm extends CompanyForm
             'required' => false,
             'label' => 'supplier.edit.default_currency',
             'disable_not_selectable' => true,
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
         $builder->add('shipping_costs', BigDecimalMoneyType::class, [
@@ -58,7 +58,7 @@ class SupplierForm extends CompanyForm
             'currency' => $this->default_currency,
             'scale' => 3,
             'label' => 'supplier.shipping_costs.label',
-            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'move', $entity),
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
     }
 }
