@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - '*'
-      - "!i10n_*" # Dont test localization branches
+      - "!l10n_*" # Dont test localization branches
   pull_request:
     branches:
       - '*'
-      - "!i10n_*"
+      - "!l10n_*"
 
 jobs:
   phpstan:
