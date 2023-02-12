@@ -1,4 +1,4 @@
-name: Static analysis
+name: Build assets artifact
 
 on:
   push:
