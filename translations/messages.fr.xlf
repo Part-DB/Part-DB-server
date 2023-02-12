@@ -9209,7 +9209,7 @@ exemple de ville</target>
         <target>Succès</target>
       </segment>
     </unit>
-    <unit id="homepage.forum.text">
+    <unit id="nfBdkzp" name="homepage.forum.text">
       <segment state="translated">
         <source>homepage.forum.text</source>
         <target>Si vous avez des questions à propos de Part-DB , rendez vous sur &lt;a href="%href%" class="link-external" target="_blank"&gt;Github&lt;/a&gt;</target>
