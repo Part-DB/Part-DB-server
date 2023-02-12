@@ -49,6 +49,7 @@ class AttachmentTypeAdminForm extends BaseEntityAdminForm
             'help' => 'attachment_type.edit.filetype_filter.help',
             'attr' => [
                 'placeholder' => 'attachment_type.edit.filetype_filter.placeholder',
+                'data-controller' => 'elements--tagsinput'
             ],
             'empty_data' => '',
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
