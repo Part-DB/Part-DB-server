@@ -31,6 +31,9 @@ Every change to the master branch gets automatically deployed, so it represents 
 maybe not completely stable. Please mind, that the free Heroku instance is used, so it can take some time when loading the page
 for the first time.
 
+<img src="https://github.com/Part-DB/Part-DB-server/raw/master/docs/assets/readme/part_info.png">
+<img src="https://github.com/Part-DB/Part-DB-server/raw/master/docs/assets/readme/parts_list.png">
+
 ## Features
 * Inventory management of your electronic parts. Each part can be assigned to a category, footprint, manufacturer 
 and multiple store locations and price information. Parts can be grouped using tags. You can associate various files like datasheets or pictures with the parts.
@@ -46,6 +49,7 @@ Two-factor authentication is supported (Google Authenticator and Webauthn/U2F ke
 * Support for rich text descriptions and comments in parts
 * Support for multiple currencies and automatic update of exchange rates supported
 * Powerful search and filter function, including parametric search (search for parts according to some specifications)
+* Automatic thumbnail generation for pictures
 
 
 With these features Part-DB is useful to hobbyists, who want to keep track of their private electronic parts inventory,
