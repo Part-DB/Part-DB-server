@@ -81,13 +81,12 @@ export default class extends Controller {
         //Add url info, as the one available in the history is not enough, as Turbo may have not changed it yet
         settings.url = this.element.dataset.dtUrl;
 
-
         let options = {
             colReorder: true,
             responsive: true,
             fixedHeader: {
                 header: $(window).width() >= 768, //Only enable fixedHeaders on devices with big screen. Fixes scrolling issues on smartphones.
-                headerOffset: $("#navbar").height()
+                headerOffset: $("#navbar").outerHeight()
             },
             buttons: [{
                 "extend": 'colvis',
@@ -133,11 +132,22 @@ export default class extends Controller {
             dt.on('select.dt deselect.dt', this._onSelectionChange.bind(this));
         });
 
+        promise.then((dt) => {
+            //Recalculate the fixed header offset, as the navbar should be rendered now
+            dt.fixedHeader.headerOffset($("#navbar").outerHeight());
+        });
+
         //Allow to further configure the datatable
         promise.then(this._afterLoaded.bind(this));
 
 
         console.debug('Datatables inited.');
+    }
+
+    disconnect() {
+        //Destroy the datatable element
+        this._dt.destroy();
+        console.debug("Datatables destroyed.");
     }
 
     _rowCallback(row, data, index) {
