@@ -36,6 +36,15 @@ class UTCDateTimeType extends DateTimeType
 {
     private static ?DateTimeZone $utc_timezone = null;
 
+    /**
+     * {@inheritdoc}
+     *
+     * @param T $value
+     *
+     * @return (T is null ? null : string)
+     *
+     * @template T
+     */
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if (!self::$utc_timezone) {
