@@ -2979,7 +2979,7 @@ Subelemente werden beim Löschen nach oben verschoben.</target>
       </notes>
       <segment state="translated">
         <source>tfa_u2f.http_warning</source>
-        <target>Sie greifen auf diese Seite über das unsichere HTTP-Verfahren zu, daher wird U2F sehr wahrscheinlich nicht funktionieren (Fehlermeldung Bad Request). Bitten Sie einen Adminstrator das sichere HTTPS Verfahren einzurichten, wenn Sie Sicherheitsschlüssel benutzen möchten.</target>
+        <target>Sie greifen auf diese Seite über das unsichere HTTP-Verfahren zu, daher wird U2F sehr wahrscheinlich nicht funktionieren (Fehlermeldung Bad Request). Bitten Sie einen Administrator, das sichere HTTPS Verfahren einzurichten, wenn Sie Sicherheitsschlüssel benutzen möchten.</target>
       </segment>
     </unit>
     <unit id="Do6QuMa" name="r_u2f_two_factor.pressbutton">
@@ -3658,7 +3658,7 @@ Beachten Sie außerdem, dass ihr Account ohne Zwei-Faktor-Authentifizierung nich
       </notes>
       <segment state="translated">
         <source>tfa_google.step.download_backup</source>
-        <target>Drucken Sie ihre Backupcodes aus und lagern sie an einem sicherem Ort</target>
+        <target>Drucken Sie ihre Backupcodes aus und lagern sie an einem sicheren Ort</target>
       </segment>
     </unit>
     <unit id="EygadTb" name="tfa_google.manual_setup">
@@ -5085,7 +5085,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>import.abort_on_validation.help</source>
-        <target>Wenn diese Option aktivert ist, wird beim erkennen ungültiger Daten der gesamte Vorgang abgebrochen. Ist diese Option nicht aktiv, werden ungültige Einträge ignoriert und versucht die anderen Einträge zu importieren.</target>
+        <target>Wenn diese Option aktiviert ist, wird beim Erkennen ungültiger Daten der gesamte Vorgang abgebrochen. Ist diese Option nicht aktiv, werden ungültige Einträge ignoriert und versucht, die anderen Einträge zu importieren.</target>
       </segment>
     </unit>
     <unit id="Peaf8Qu" name="import.csv_separator">
@@ -5261,7 +5261,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>part_lot.label</source>
-        <target>Bauteile Lot</target>
+        <target>Bauteilebestand</target>
       </segment>
     </unit>
     <unit id="FmESg.O" name="label_options.barcode_type.none">
@@ -5731,7 +5731,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>part.edit.comment</source>
-        <target>Kommentat</target>
+        <target>Notizen</target>
       </segment>
     </unit>
     <unit id="cIVLqUs" name="part.edit.master_attachment">
@@ -5783,7 +5783,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>part.edit.description.placeholder</source>
-        <target>z.B.  NPN 45V 0,1A 0,5W</target>
+        <target>z.B. NPN 45V 0,1A 0,5W</target>
       </segment>
     </unit>
     <unit id=".V3Lfkf" name="part.editmininstock.placeholder">
@@ -5988,7 +5988,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>attachment_type.label</source>
-        <target>Ahangstyp</target>
+        <target>Anhangstyp</target>
       </segment>
     </unit>
     <unit id="w.zcG5D" name="project.label">
@@ -6780,7 +6780,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>m_status.unknown.help</source>
-        <target>Der Produktionstatus ist nicht bekannt.</target>
+        <target>Der Produktionsstatus ist nicht bekannt.</target>
       </segment>
     </unit>
     <unit id="g4ahva6" name="flash.success">
@@ -7132,7 +7132,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>company.edit.email</source>
-        <target>Email Addresse</target>
+        <target>E-Mail</target>
       </segment>
     </unit>
     <unit id="vTq5HxO" name="company.edit.email.placeholder">
@@ -7182,7 +7182,7 @@ Wenn Sie dies fehlerhafterweise gemacht haben oder ein Computer nicht mehr vertr
       </notes>
       <segment state="translated">
         <source>company.edit.auto_product_url.help</source>
-        <target>Wenn diese URL gesetzt ist, wird sie benutzt um die URL eines Bauteils auf der Website des Herstellers zu erzeugen. Dabei wird %PARTNUMBER% mit der Bestellnummer ersetzt.</target>
+        <target>Wenn diese URL gesetzt ist, wird sie benutzt, um die URL eines Bauteils auf der Website des Herstellers zu erzeugen. Dabei wird %PARTNUMBER% mit der Bestellnummer ersetzt.</target>
       </segment>
     </unit>
     <unit id="22S3ulf" name="company.edit.auto_product_url.placeholder">
@@ -9714,7 +9714,7 @@ Element 3</target>
     <unit id="lJZCHHM" name="log.target_id">
       <segment state="translated">
         <source>log.target_id</source>
-        <target>ID des Ziel Elements</target>
+        <target>ID des Zielelements</target>
       </segment>
     </unit>
     <unit id="dU7EyhM" name="entity.info.parts_count_recursive">
@@ -10164,7 +10164,7 @@ Element 3</target>
     <unit id="JR4LXfJ" name="perm.parts_stock.move">
       <segment state="translated">
         <source>perm.parts_stock.move</source>
-        <target>Bauteile zwischen Lots verschieben</target>
+        <target>Bauteile zwischen Beständen verschieben</target>
       </segment>
     </unit>
     <unit id="DQ_FAfi" name="user.permissions_schema_updated">
@@ -10248,7 +10248,7 @@ Element 3</target>
     <unit id="cKJeBZl" name="part_list.action.projects.generate_label_lot">
       <segment state="translated">
         <source>part_list.action.projects.generate_label_lot</source>
-        <target>Labels erzeugen (für Lots der Bauteile)</target>
+        <target>Labels erzeugen (für Bestände der Bauteile)</target>
       </segment>
     </unit>
     <unit id="obOVNB9" name="part_list.action.generate_label.empty">
@@ -10296,7 +10296,7 @@ Element 3</target>
     <unit id="rRMnoEh" name="project.builds.number_of_builds_possible">
       <segment state="translated">
         <source>project.builds.number_of_builds_possible</source>
-        <target>You have enough stocked to build &lt;b&gt;%max_builds%&lt;/b&gt; builds of this project.</target>
+        <target>Sie haben genug Bauteile auf Lager, um &lt;b&gt;%max_builds%&lt;/b&gt; Exemplare dieses Projektes zu bauen.</target>
       </segment>
     </unit>
     <unit id="fZhqvmk" name="project.builds.check_project_status">
@@ -10332,7 +10332,7 @@ Element 3</target>
     <unit id="AqGFkiA" name="project.build.help">
       <segment state="translated">
         <source>project.build.help</source>
-        <target>Wählen Sie aus von welche Lots, die zum Bau notwendigen Bauteile genommen werden sollen (und in welcher Anzahl). Setzen sie den Haken für jeden BOM Eintrag, wenn sie die Bauteile entnommen haben, oder nutzen Sie die oberste Checkbox um alle Haken auf einmal zu setzen.</target>
+        <target>Wählen Sie aus, aus welchen Beständen die zum Bau notwendigen Bauteile genommen werden sollen (und in welcher Anzahl). Setzen Sie den Haken für jeden BOM Eintrag, wenn sie die Bauteile entnommen haben, oder nutzen Sie die oberste Checkbox, um alle Haken auf einmal zu setzen.</target>
       </segment>
     </unit>
     <unit id="rvdUHEn" name="project.build.buildsPartLot.new_lot">
@@ -10428,7 +10428,7 @@ Element 3</target>
     <unit id="qoK8lss" name="homepage.first_steps.introduction">
       <segment state="translated">
         <source>homepage.first_steps.introduction</source>
-        <target>Die Datenbank is momentan noch leer. Sie möchten möglicherweise die &lt;a href="%url%"&gt;Dokumentation&lt;/a&gt; lesen oder anfangen die folgenden Datenstrukturen anzulegen.</target>
+        <target>Die Datenbank ist momentan noch leer. Sie möchten möglicherweise die &lt;a href="%url%"&gt;Dokumentation&lt;/a&gt; lesen oder anfangen, die folgenden Datenstrukturen anzulegen.</target>
       </segment>
     </unit>
     <unit id="8RkT6ZQ" name="homepage.first_steps.create_part">
@@ -10674,7 +10674,7 @@ Element 3</target>
     <unit id="BlkJXPJ" name="log.element_edited.changed_fields.email_address">
       <segment state="translated">
         <source>log.element_edited.changed_fields.email_address</source>
-        <target>Email</target>
+        <target>E-Mail</target>
       </segment>
     </unit>
     <unit id="jQ2bFEK" name="log.element_edited.changed_fields.website">
@@ -10818,7 +10818,7 @@ Element 3</target>
     <unit id="Sw3SmBJ" name="log.element_edited.changed_fields.email">
       <segment state="translated">
         <source>log.element_edited.changed_fields.email</source>
-        <target>Email</target>
+        <target>E-Mail</target>
       </segment>
     </unit>
     <unit id="7FpvTOI" name="log.element_edited.changed_fields.department">
