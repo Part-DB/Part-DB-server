@@ -83,7 +83,7 @@ class AttachmentSubmitHandler
             AttachmentTypeAttachment::class => 'attachment_type',
             CategoryAttachment::class => 'category',
             CurrencyAttachment::class => 'currency',
-            ProjectAttachment::class => 'device',
+            ProjectAttachment::class => 'project',
             FootprintAttachment::class => 'footprint',
             GroupAttachment::class => 'group',
             ManufacturerAttachment::class => 'manufacturer',
