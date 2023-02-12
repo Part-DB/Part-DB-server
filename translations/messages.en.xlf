@@ -358,7 +358,7 @@
       </notes>
       <segment state="translated">
         <source>mass_creation.help</source>
-        <target>Each line will be interpreted as a name of a element, which will be created. You can create nested structures by indentations.</target>
+        <target>Each line will be interpreted as a name of an element, which will be created. You can create nested structures by indentations.</target>
       </segment>
     </unit>
     <unit id="a5.CFfq" name="edit.caption">
@@ -367,7 +367,7 @@
         <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:45</note>
         <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:35</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>edit.caption</source>
         <target>Edit element "%name"</target>
       </segment>
@@ -378,7 +378,7 @@
         <note priority="1">Part-DB1\templates\AdminPages\EntityAdminBase.html.twig:50</note>
         <note priority="1">templates\AdminPages\EntityAdminBase.html.twig:37</note>
       </notes>
-      <segment state="translated">
+      <segment state="final">
         <source>new.caption</source>
         <target>New element</target>
       </segment>
@@ -560,7 +560,7 @@
       </notes>
       <segment state="translated">
         <source>storelocation.labelp</source>
-        <target>Storelocations</target>
+        <target>Store locations</target>
       </segment>
     </unit>
     <unit id="eSA7p5N" name="storelocation.edit">
@@ -4101,7 +4101,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>datasource</source>
-        <target>Datasource</target>
+        <target>Data source</target>
       </segment>
     </unit>
     <unit id="NSnSQf4" name="manufacturer.labelp">
@@ -6271,7 +6271,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>tree.tools.edit.part</source>
-        <target>Part</target>
+        <target>New part</target>
       </segment>
     </unit>
     <unit id="cMe4sAM" name="tree.tools.show.all_parts">
@@ -6731,7 +6731,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>m_status.active.help</source>
-        <target>The part is currently and in forseeable future in production</target>
+        <target>The part is currently and in the foreseeable future in production</target>
       </segment>
     </unit>
     <unit id="UsEaNqy" name="m_status.announced.help">
@@ -6861,7 +6861,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>attachment_type.edit.filetype_filter.help</source>
-        <target>You can specify a comma separated list of file extension or mimetypes, which an uploaded file must have when assigned to this attachment type. To allow all supported image files you can use image/*.</target>
+        <target>You can specify a comma separated list of file extension or mime types, which an uploaded file must have when assigned to this attachment type. To allow all supported image files, you can use image/*.</target>
       </segment>
     </unit>
     <unit id="wkNc9Pm" name="attachment_type.edit.filetype_filter.placeholder">
@@ -7183,7 +7183,7 @@ Exampletown</target>
       </notes>
       <segment state="translated">
         <source>company.edit.auto_product_url.help</source>
-        <target>This field is used to determine an link to the part on the company page. %PARTNUMBER% will be replaced with the order number.</target>
+        <target>This field is used to determine a link to the part on the company page. %PARTNUMBER% will be replaced with the order number.</target>
       </segment>
     </unit>
     <unit id="22S3ulf" name="company.edit.auto_product_url.placeholder">
@@ -9046,7 +9046,7 @@ Element 3</target>
     <unit id="OewVQB8" name="entity.delete.must_not_contain_prices">
       <segment state="translated">
         <source>entity.delete.must_not_contain_prices</source>
-        <target>Currency still contains pricedetails. You have to change their currency to be able to delete this element.</target>
+        <target>Currency still contains price details. You have to change their currency to be able to delete this element.</target>
       </segment>
     </unit>
     <unit id="L93n2S_" name="entity.delete.must_not_contain_users">
@@ -9406,7 +9406,7 @@ Element 3</target>
     <unit id="So3q9VW" name="filter.tags_constraint.operator.ALL">
       <segment state="translated">
         <source>filter.tags_constraint.operator.ALL</source>
-        <target>All of the tags</target>
+        <target>All the tags</target>
       </segment>
     </unit>
     <unit id="mqkIc_4" name="filter.tags_constraint.operator.NONE">
@@ -9580,7 +9580,7 @@ Element 3</target>
     <unit id="fqRL5fp" name="filter.parameter_value_constraint.operator.RANGE_IN_RANGE">
       <segment state="translated">
         <source>filter.parameter_value_constraint.operator.RANGE_IN_RANGE</source>
-        <target>Range is completly in Value range</target>
+        <target>Range is completely in Value range</target>
       </segment>
     </unit>
     <unit id="PJgHP5E" name="filter.parameter_value_constraint.operator.RANGE_INTERSECT_RANGE">
@@ -9724,13 +9724,13 @@ Element 3</target>
     <unit id="dU7EyhM" name="entity.info.parts_count_recursive">
       <segment>
         <source>entity.info.parts_count_recursive</source>
-        <target>Number of parts with this element or its subelements</target>
+        <target>Number of parts with this element or its sub elements</target>
       </segment>
     </unit>
     <unit id="_hKlKv." name="tools.server_infos.title">
       <segment>
         <source>tools.server_infos.title</source>
-        <target>Server Infos</target>
+        <target>Server info</target>
       </segment>
     </unit>
     <unit id="NvclBUL" name="permission.preset.read_only">
@@ -9784,7 +9784,7 @@ Element 3</target>
     <unit id="VIDdo5K" name="perm.server_infos">
       <segment>
         <source>perm.server_infos</source>
-        <target>Server infos</target>
+        <target>Server info</target>
       </segment>
     </unit>
     <unit id="d6SOlzR" name="permission.preset.editor">
@@ -9796,7 +9796,7 @@ Element 3</target>
     <unit id="8KYl_wh" name="permission.preset.editor.desc">
       <segment>
         <source>permission.preset.editor.desc</source>
-        <target>Allow to change parts and data structures</target>
+        <target>Allow changing parts and data structures</target>
       </segment>
     </unit>
     <unit id="dYudjp." name="permission.preset.admin">
@@ -10012,7 +10012,7 @@ Element 3</target>
     <unit id="jcf.5wX" name="part.new_build_part.error.build_part_already_exists">
       <segment state="translated">
         <source>part.new_build_part.error.build_part_already_exists</source>
-        <target>The project already has an build part!</target>
+        <target>The project already has a build part!</target>
       </segment>
     </unit>
     <unit id="usGnetL" name="project.edit.associated_build_part">
@@ -10228,7 +10228,7 @@ Element 3</target>
     <unit id="jtxbmbi" name="tools.builtin_footprints_viewer.hint">
       <segment state="translated">
         <source>tools.builtin_footprints_viewer.hint</source>
-        <target>This gallery lists all available builtin footprint images. If you want to use them in an attachment, type in the name (or a keyword) in the path field of the attachment and select the image from the dropdown select.</target>
+        <target>This gallery lists all available built-in footprint images. If you want to use them in an attachment, type in the name (or a keyword) in the path field of the attachment and select the image from the dropdown select.</target>
       </segment>
     </unit>
     <unit id="Dw4KG4Y" name="tools.ic_logos.title">
