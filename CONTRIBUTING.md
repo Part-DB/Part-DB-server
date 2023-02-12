@@ -4,20 +4,18 @@ Thank you for consider to contribute to Part-DB!
 Please read the text below, so your contributed content can be contributed easily to Part-DB.
 
 You can contribute to Part-DB in various ways:
-* Report bugs and request new features via [issues](https://github.com/Part-DB/Part-DB-symfony/issues)
+* Report bugs and request new features via [issues](https://github.com/Part-DB/Part-DB-server/issues)
 * Improve translations (via https://part-db.crowdin.com/part-db)
-* Improve code (either PHP, Javascript or HTML templates) by creating a [pull request](https://github.com/Part-DB/Part-DB-symfony/pulls)
+* Improve code (either PHP, Javascript or HTML templates) by creating a [pull request](https://github.com/Part-DB/Part-DB-server/pulls)
 
 ## Translations
 The recommended way to create/improve translations is to use the online platform [Crowdin](https://part-db.crowdin.com/part-db).
 Register an account there and join the Part-DB team.
 
-If you want to start translation for a new language that does not have an entry on Crowdin yet, send an message to `@jbtronics`.
+If you want to start translation for a new language that does not have an entry on Crowdin yet, send a message to `@jbtronics`.
 
 Part-DB uses translation keys (e.g. part.info.title) that are sorted by their usage, so you will most likely have to lookup, how the key
 was translated in other languages (this is possible via the "Other languages" dropdown in the translation editor).
-
-Translation keys can be extracted from templates and PHP codes by running `bin/console translation:extract`.
 
 ## Project structure
 Part-DB uses symfony's recommended [project structure](https://symfony.com/doc/current/best_practices.html).
@@ -45,8 +43,8 @@ Part-DB uses [Easy Coding Standard](https://github.com/symplify/easy-coding-stan
 * To check your code for valid code style run `vendor/bin/ecs check src/`
 * To fix violations run `vendor/bin/ecs check src/` (please checks afterwards if the code is valid afterwards)
 
-## TravisCI
-Part-DB has a [Travis-CI](https://travis-ci.com/Part-DB/Part-DB-symfony) instance running, that checks for every commit and contribute if the following things are working:
+## GitHub actions
+Part-DB uses GitHub actions to run various tests and checks on the code:
 * Yarn dependencies can compile
 * PHPunit tests run successful
 * Config files, translations and templates has valid syntax
@@ -54,4 +52,4 @@ Part-DB has a [Travis-CI](https://travis-ci.com/Part-DB/Part-DB-symfony) instanc
 * No known vulnerable dependecies are used
 * Static analysis successful (phpstan with `--level=2`)
 
-Further the code coverage of the PHPunit tests is determined.
+Further the code coverage of the PHPunit tests is determined and uploaded to [CodeCov](https://codecov.io/gh/Part-DB/Part-DB-server).
