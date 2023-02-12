@@ -1,0 +1,84 @@
+name: Static analysis
+
+on:
+  push:
+    branches:
+      - '*'
+      - "!l10n_*" # Dont test localization branches
+  pull_request:
+    branches:
+      - '*'
+      - "!l10n_*"
+
+jobs:
+  assets_artifact_build:
+    name: Build assets artifact
+    runs-on: ubuntu-22.04
+
+    env:
+      APP_ENV: prod
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-  
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-dev -a
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v3
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install composer dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install yarn dependencies
+        run: yarn install
+
+      - name: Build frontend
+        run: yarn build
+
+      - name: Remove node_modules/ folder
+        run: rm -rf node_modules/
+
+      - name: Zip the current folder
+        run: zip -r /tmp/partdb_with_assets.zip . -x .git/\* -x var/\* -x node_modules/\*
+
+      - name: Zip only the assets folder (include public/build/ and vendor/)
+        run: zip -r /tmp/partdb_assets.zip public/build/ vendor/
+
+      - name: Upload assets artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Only dependencies and built assets
+          path: /tmp/partdb_assets.zip
+
+      - name: Upload full artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Full Part-DB including dependencies and built assets
+          path: /tmp/partdb_with_assets.zip
