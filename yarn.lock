@@ -3820,9 +3820,9 @@ html-entities@^2.3.2:
   integrity sha512-DV5Ln36z34NNTDgnz0EWGBLZENelNAtkiFA4kyNOG2tDI6Mz1uSWiq1wAKdyjnJwyDiDO7Fa2SO1CTxPXL8VxA==
 
 html5-qrcode@^2.2.1:
-  version "2.3.5"
-  resolved "https://registry.yarnpkg.com/html5-qrcode/-/html5-qrcode-2.3.5.tgz#dd28d86acc576c5dad3631e3ed4eea792ae4df8c"
-  integrity sha512-FuXYsjC8fwaP5itd9QeO0D6nFtR01lzMSOzExgtFTd6im2VieCGZDR96DpsgpbWb0KKxT03apPFQdPYdHCHJjg==
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/html5-qrcode/-/html5-qrcode-2.3.6.tgz#95f572fd79b84cbce0e509da80eda43a394cec3c"
+  integrity sha512-yuCJUFzm04xGPM2a40XYPptpioV6K5uJA3Ogy0Xi/a7tAYrcD7T4ZCsbg0T1H2qX/143SZfDG1EINnNFh5rH0A==
 
 htmlparser2@^6.1.0:
   version "6.1.0"
