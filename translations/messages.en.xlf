@@ -10861,5 +10861,113 @@ Element 3</target>
         <target>Enforce 2FA</target>
       </segment>
     </unit>
+    <unit id="Ekpsda2" name="log.element_edited.changed_fields.symbol">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.symbol</source>
+        <target>Symbol</target>
+      </segment>
+    </unit>
+    <unit id="VUH1O1d" name="log.element_edited.changed_fields.value_min">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.value_min</source>
+        <target>Min. value</target>
+      </segment>
+    </unit>
+    <unit id="DqyfYKK" name="log.element_edited.changed_fields.value_max">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.value_max</source>
+        <target>Max. value</target>
+      </segment>
+    </unit>
+    <unit id="qX_n4ud" name="log.element_edited.changed_fields.value_text">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.value_text</source>
+        <target>Text value</target>
+      </segment>
+    </unit>
+    <unit id="T2zweRa" name="log.element_edited.changed_fields.show_in_table">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.show_in_table</source>
+        <target>Show in table</target>
+      </segment>
+    </unit>
+    <unit id="TkaXDi7" name="log.element_edited.changed_fields.attachment_type">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.attachment_type</source>
+        <target>Show in table</target>
+      </segment>
+    </unit>
+    <unit id="YPerF93" name="log.element_edited.changed_fields.needs_review">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.needs_review</source>
+        <target>Needs review</target>
+      </segment>
+    </unit>
+    <unit id="gF_Zo45" name="log.element_edited.changed_fields.tags">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.tags</source>
+        <target>Tags</target>
+      </segment>
+    </unit>
+    <unit id="fjo2JY_" name="log.element_edited.changed_fields.mass">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.mass</source>
+        <target>Mass</target>
+      </segment>
+    </unit>
+    <unit id="f7YI8uk" name="log.element_edited.changed_fields.ipn">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.ipn</source>
+        <target>IPN</target>
+      </segment>
+    </unit>
+    <unit id="vAHGo60" name="log.element_edited.changed_fields.favorite">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.favorite</source>
+        <target>Favorite</target>
+      </segment>
+    </unit>
+    <unit id="TUBvDxJ" name="log.element_edited.changed_fields.minamount">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.minamount</source>
+        <target>Minimum stock</target>
+      </segment>
+    </unit>
+    <unit id="pVJ9vgg" name="log.element_edited.changed_fields.manufacturer_product_url">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.manufacturer_product_url</source>
+        <target>Link to product page</target>
+      </segment>
+    </unit>
+    <unit id="JW.PgxU" name="log.element_edited.changed_fields.manufacturer_product_number">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.manufacturer_product_number</source>
+        <target>MPN</target>
+      </segment>
+    </unit>
+    <unit id="tV.PNy_" name="log.element_edited.changed_fields.partUnit">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.partUnit</source>
+        <target>Measuring Unit</target>
+      </segment>
+    </unit>
+    <unit id="nwxlI_C" name="log.element_edited.changed_fields.expiration_date">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.expiration_date</source>
+        <target>Expiration date</target>
+      </segment>
+    </unit>
+    <unit id="cPY3MD7" name="log.element_edited.changed_fields.amount">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.amount</source>
+        <target>Amount</target>
+      </segment>
+    </unit>
+    <unit id="eSrNkis" name="log.element_edited.changed_fields.storage_location">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.storage_location</source>
+        <target>Storage location</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
