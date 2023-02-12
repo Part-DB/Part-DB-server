@@ -127,4 +127,10 @@ export default class extends Controller {
         return '<div>' + level_html + escape(data.text) + image + symbol_badge + parent_badge + filter_badge + '</div>';
     }
 
+    disconnect() {
+        super.disconnect();
+        //Destroy the TomSelect instance
+        this._tomSelect.destroy();
+    }
+
 }

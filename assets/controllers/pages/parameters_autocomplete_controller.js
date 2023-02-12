@@ -31,6 +31,8 @@ export default class extends Controller
 
     static targets = ["name", "symbol", "unit"]
 
+    _tomSelect;
+
     onItemAdd(value, item) {
         //Retrieve the unit and symbol from the item
         const symbol = item.dataset.symbol;
@@ -115,5 +117,11 @@ export default class extends Controller
         }
 
         this._tomSelect = new TomSelect(this.nameTarget, settings);
+    }
+
+    disconnect() {
+        super.disconnect();
+        //Destroy the TomSelect instance
+        this._tomSelect.destroy();
     }
 }

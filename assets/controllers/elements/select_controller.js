@@ -84,4 +84,10 @@ export default class extends Controller {
 
         return '<div>' + escape(data.text) + '</div>';
     }
+
+    disconnect() {
+        super.disconnect();
+        //Destroy the TomSelect instance
+        this._tomSelect.destroy();
+    }
 }

@@ -60,4 +60,10 @@ export default class extends Controller {
 
         this._tomSelect = new TomSelect(this.element, settings);
     }
+
+    disconnect() {
+        super.disconnect();
+        //Destroy the TomSelect instance
+        this._tomSelect.destroy();
+    }
 }
