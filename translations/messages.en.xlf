@@ -5343,7 +5343,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
       </notes>
       <segment state="translated">
         <source>label_options.lines_mode.help</source>
-        <target>If you select Twig here, the content field is interpreted as Twig template. See &lt;a href="https://twig.symfony.com/doc/3.x/templates.html"&gt;Twig documentation&lt;/a&gt; and &lt;a href="https://github.com/Part-DB/Part-DB-symfony/wiki/Labels#twig-mode"&gt;Wiki&lt;/a&gt; for more informations.</target>
+        <target>If you select Twig here, the content field is interpreted as Twig template. See &lt;a href="https://twig.symfony.com/doc/3.x/templates.html"&gt;Twig documentation&lt;/a&gt; and &lt;a href="https://docs.part-db.de/usage/labels.html#twig-mode"&gt;Wiki&lt;/a&gt; for more information.</target>
       </segment>
     </unit>
     <unit id="2d9g1o5" name="label_options.page_size.label">
