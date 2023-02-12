@@ -48,9 +48,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install composer dependencies
-        run: composer install --prefer-dist --no-progress
-
       - name: Setup node
         uses: actions/setup-node@v3
         with:
