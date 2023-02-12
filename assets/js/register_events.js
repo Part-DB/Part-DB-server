@@ -33,7 +33,10 @@ class RegisterEventHelper {
     registerModalDropRemovalOnFormSubmit() {
         //Remove all modal backdrops, before rendering the new page.
         document.addEventListener('turbo:before-render', event => {
-            document.querySelector('.modal-backdrop').remove();
+            const back_drop = document.querySelector('.modal-backdrop');
+            if (back_drop) {
+                back_drop.remove();
+            }
         });
     }
 
