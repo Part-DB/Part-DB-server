@@ -56,7 +56,7 @@ There you will find various methods to support development on a monthly or a one
 ## Built with
 * [Symfony 5](https://symfony.com/): The main framework used for the serverside PHP
 * [Bootstrap 5](https://getbootstrap.com/) and [Bootswatch](https://bootswatch.com/): Used as website theme
-* [Fontawesome](https://fontawesome.com/: Used as icon set
+* [Fontawesome](https://fontawesome.com/): Used as icon set
 * [Hotwire Stimulus](https://stimulus.hotwired.dev/) and [Hotwire Turbo](https://turbo.hotwired.dev/): Frontend Javascript
 
 ## Authors

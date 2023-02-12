@@ -85,11 +85,11 @@ You can use the "Placeholders" dropdown in content editor, to automatically inse
 
 If you select "Twig" in parser mode under advanced settings, you can input a twig template in the lines field (activate source mode). You can use most of the twig tags and filters listed in [offical documentation](https://twig.symfony.com/doc/3.x/).
 
-The following variables are in injected into Twig and can be accessed using `{{ variable }}` (or `{{ variable.property }}`):
+The following variables are in injected into Twig and can be accessed using `{% raw %}{{ variable }}` (or `{% raw %}{{ variable.property }}{% endraw %}`):
 
-| Variable name | Description |
-| ------------- | ----------- |
-| `{{ element }}` | The target element, selected in label dialog |
-| `{{ user }}`   | The current logged in user. Null if you are not logged in |
-| `{{ install_title }}` | The name of the current Part-DB instance (similar to [[INSTALL_NAME]] placeholder). |
-| `{{ page }}` | The page number (the nth-element for which the label is generated |
+| Variable name                        | Description |
+|--------------------------------------| ----------- |
+| `{% raw %}{{ element }}{% endraw %}` | The target element, selected in label dialog |
+| `{% raw %}{{ user }}{% endraw %}`                         | The current logged in user. Null if you are not logged in |
+| `{% raw %}{{ install_title }}{% endraw %}`                | The name of the current Part-DB instance (similar to [[INSTALL_NAME]] placeholder). |
+| `{% raw %}{{ page }}{% endraw %}`                         | The page number (the nth-element for which the label is generated |

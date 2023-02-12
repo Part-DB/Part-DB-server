@@ -54,3 +54,26 @@ If you wanna use want to revert changes or view older revisions of entities, the
 * `FIXER_API_KEY`: If you want to automatically retrieve exchange rates for base currencies other than euros, you have configure an exchange rate provider API. [Fixer.io](https://fixer.io/) is preconfigured, and you just have to register there and set the retrieved API key in this environment variable.
 * `APP_ENV`: This value should always be set to `prod` in normal use. Set it to `dev` to enable debug/development mode. (**You should not do this on a publicly accessible server, as it will leak sensitive informations!**)
 * `BANNER`: You can configure the text that should be shown as the banner on the homepage. Useful especially for docker container. In all other applications you can just change the `config/banner.md` file.
+
+## Banner
+To change the banner you can find on the homepage, you can either set the `BANNER` environment variable to the text you
+want to show, or you can edit the `config/banner.md` file. The banner is written in markdown, so you can use all
+markdown (and even some subset of HTML) syntax to format the text.
+
+## parameters.yaml
+You can also configure some options via the `config/parameters.yaml` file. This should normally not needed, 
+and you should know what you are doing, when you change something here. You should expect, that you will have to do some 
+manual merge, when you have changed something here and update to a newer version of Part-DB. It is possible that configuration
+options here will change or completely removed in future versions of Part-DB.
+
+If you change something here, you have to clear the cache, before the changes will take effect with the command `bin/console cache:clear`.
+
+The following options are available:
+
+* `partdb.global_theme`: The default theme to use, when no user specific theme is set. Should be one of the themes from the `partdb.available_themes` config option.
+* `partdb.locale_menu`: The codes of the languages, which should be shown in the language chooser menu (the one with the user icon in the navbar). The first language in the list will be the default language.
+* `partdb.gpdr_compliance`: When set to true (default value), IP addresses which are saved in the database will be anonymized, by removing the last byte of the IP. This is required by the GDPR (General Data Protection Regulation) in the EU.
+* `partdb.sidebar.items`: The panel contents which should be shown in the sidebar by default. You can also change the number of sidebar panels by changing the number of items in this list.
+* `partdb.sidebar.root_node_enable`: Show a root node in the sidebar trees, of which all nodes are children of
+* `partdb.sidebar.root_expanded`: Expand the root node in the sidebar trees by default
+* `partdb.available_themes`: The list of available themes a user can choose from.

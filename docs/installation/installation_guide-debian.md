@@ -90,7 +90,7 @@ The basic configuration of Part-DB is done by a `.env.local` file in the main di
 cp .env .env.local
 ```
 
-In your `.env.local` you can configure Part-DB according to your wishes. A full list of configuration options can be found **TODO**.
+In your `.env.local` you can configure Part-DB according to your wishes. A full list of configuration options can be found [here]({% link configuration.md %}.
 Other configuration options like the default language or default currency can be found in `config/parameters.yaml`.
 
 Please check that the `partdb.default_currency` value in `config/parameters.yaml` matches your mainly used currency, as this can not be changed after creating price informations.

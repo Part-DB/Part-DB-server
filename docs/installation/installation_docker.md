@@ -68,12 +68,12 @@ services:
       # When this is empty the content of config/banner.md is used as banner
       #- BANNER=This is a test banner<br>with a line break
 ```
-
-4. Inside the folder, run
+4. Customize the settings by changing the environment variables (or add new ones). See [Configuration]({% link configuration.md %}) for more information.
+5. Inside the folder, run
 ```bash
    docker-compose up -d
 ```    
-5. Create the inital database with 
+6. Create the inital database with 
  ```bash
 docker exec --user=www-data partdb php bin/console doctrine:migrations:migrate
  ```

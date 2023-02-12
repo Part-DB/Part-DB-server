@@ -5,7 +5,10 @@ nav_order: 2
 ---
 
 # Concepts
-This page explains the different concepts of Part-DB and what their intended use is
+This page explains the different concepts of Part-DB and what their intended use is:
+
+1. TOC
+{:toc}
 
 ## Part managment
 
