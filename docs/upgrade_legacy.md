@@ -29,7 +29,7 @@ Some things changed however to the old version and some features are still missi
 * No import / export possibility for parts (yet), however you can import/export other datastructures like Categories, Footprints, etc. (yet)
 * No support for 3D models of footprints (yet)
 * No possibility to disable footprints, manufacturers globally (or per category). This should not have a big impact, when you forbid users to edit/create them.
-
+* No resitor calculator or SMD labels tools
 
 ## Upgrade process
 
