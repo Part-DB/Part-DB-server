@@ -60,7 +60,9 @@
                         <option {% if not is_granted('@projects.read') %}disabled{% endif %} value="add_to_project" data-url="{{  path('select_project')}}">{% trans %}part_list.action.projects.add_to_project{% endtrans %}</option>
                     </optgroup>
 
-                    <option {% if not is_granted('@parts.delete') %}disabled{% endif %} value="delete">{% trans %}part_list.action.action.delete{% endtrans %}</option>
+                    <optgroup label="{% trans %}part_list.action.action.delete{% endtrans %}">
+                        <option {% if not is_granted('@parts.delete') %}disabled{% endif %} value="delete">{% trans %}part_list.action.action.delete{% endtrans %}</option>
+                    </optgroup>
                 </select>
 
                 <select class="form-select d-none" data-controller="elements--structural-entity-select" name="target" {{ stimulus_target('elements/datatables/parts', 'selectTargetPicker') }}>
