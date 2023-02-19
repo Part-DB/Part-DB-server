@@ -23,7 +23,8 @@
 
 /** If darkmode is enabled revert the blening for images and videos, as these should be shown not inverted */
 .darkmode--activated img,
-.darkmode--activated video {
+.darkmode--activated video,
+.darkmode--activated object {
     mix-blend-mode: difference;
 }
 
