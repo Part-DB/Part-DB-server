@@ -88,7 +88,7 @@ class PartDataTableHelper
             'Part image',
             $this->attachmentURLGenerator->getThumbnailURL($preview_attachment),
             $this->attachmentURLGenerator->getThumbnailURL($preview_attachment, 'thumbnail_md'),
-            'img-fluid hoverpic',
+            'hoverpic part-table-image',
             $title
         );
     }
