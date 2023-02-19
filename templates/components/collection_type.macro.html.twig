@@ -4,11 +4,13 @@
             'deleteMessage': deleteMessage|trans,
             'prototype': form_widget(form.vars.prototype)|e('html_attr'),
             'rowsToDelete': rowsToDelete,
+            'fieldPlaceholder': form.vars.prototype_name
         }) }}
     {% else %} {# If add_element is disabled/forbidden, prototype is not available #}
         {{ stimulus_controller('elements/collection_type', {
             'deleteMessage': deleteMessage|trans,
-            'rowsToDelete': rowsToDelete
+            'rowsToDelete': rowsToDelete,
+            'fieldPlaceholder': form.vars.prototype_name
         }) }}
     {% endif %}
 {% endmacro %}

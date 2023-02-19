@@ -27,6 +27,7 @@ export default class extends Controller {
         deleteMessage: String,
         prototype: String,
         rowsToDelete: Number, //How many rows (including the current one) shall be deleted after the current row
+        fieldPlaceholder: String
     }
 
     static targets = ["target"];
@@ -65,8 +66,11 @@ export default class extends Controller {
         }
 
 
+        const regexString = this.fieldPlaceholderValue || "__name__";
+        const regex = new RegExp(regexString, "g");
+
         //Apply the index to prototype to create our element to insert
-        const newElementStr = this.htmlDecode(prototype.replace(/__name__/g, this.generateUID()));
+        const newElementStr = this.htmlDecode(prototype.replace(regex, this.generateUID()));
 
 
         //Insert new html after the last child element

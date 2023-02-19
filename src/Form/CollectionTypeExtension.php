@@ -52,6 +52,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormConfigBuilder;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
@@ -87,9 +90,23 @@ class CollectionTypeExtension extends AbstractTypeExtension
             'reindex_path' => 'id',
         ]);
 
+        //Set a unique prototype name, so that we can use nested collections
+        $resolver->setDefaults([
+            'prototype_name' => function (Options $options) {
+                return '__name_'.uniqid("", false) . '__';
+            },
+        ]);
+
         $resolver->setAllowedTypes('reindex_enable', 'bool');
         $resolver->setAllowedTypes('reindex_prefix', 'string');
         $resolver->setAllowedTypes('reindex_path', 'string');
+    }
+
+    public function finishView(FormView $view, FormInterface $form, array $options)
+    {
+        parent::finishView($view, $form, $options);
+        //Add prototype name to view, so that we can pass it to the stimulus controller
+        $view->vars['prototype_name'] = $options['prototype_name'];
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
