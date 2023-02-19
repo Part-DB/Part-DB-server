@@ -70,7 +70,7 @@ class LabelProfileController extends BaseAdminController
      * @Route("/{id}/clone", name="label_profile_clone")
      * @Route("/")
      */
-    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?AttachmentType $entity = null): Response
+    public function new(Request $request, EntityManagerInterface $em, EntityImporter $importer, ?LabelProfile $entity = null): Response
     {
         return $this->_new($request, $em, $importer, $entity);
     }
