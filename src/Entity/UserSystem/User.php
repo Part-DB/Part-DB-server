@@ -306,6 +306,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
+        if ($this->saml_user) {
+            $roles[] = 'ROLE_SAML_USER';
+        }
+
         return array_unique($roles);
     }
 
