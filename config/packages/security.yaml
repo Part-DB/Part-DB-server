@@ -6,11 +6,21 @@ security:
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        # used to reload user from session & other features (e.g. switch_user)
-        app_user_provider:
+        local_users:
             entity:
                 class: App\Entity\UserSystem\User
                 property: name
+
+        saml_users:
+            saml:
+                user_class: App\Entity\UserSystem\User
+                default_roles: [ 'ROLE_USER' ]
+
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            chain:
+                providers: ['local_users', 'saml_users']
+
 
     firewalls:
         dev:
@@ -20,6 +30,7 @@ security:
             provider: app_user_provider
             lazy: true
             user_checker: App\Security\UserChecker
+            entry_point: form_login
 
             two_factor:
                 auth_form_path: 2fa_login
@@ -28,6 +39,13 @@ security:
 
             login_throttling:
                 max_attempts: 5 # per minute
+
+            saml:
+                #username_attribute: username
+                #use_attribute_friendly_name: false
+                check_path: saml_acs
+                login_path: saml_login
+                failure_path: saml_login
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             form_login:

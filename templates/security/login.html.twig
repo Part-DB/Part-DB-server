@@ -27,6 +27,8 @@
 
         <input type="hidden" name="_target_path" value="{{ app.request.query.get('_target_path') }}" />
 
+        <a href="{{ path('saml_login') }}">SAML Login</a>
+
         <div class="form-group row">
             <label class="col-form-label col-md-3 col-lg-2">{% trans %}login.username.label{% endtrans %}</label>
             <div class="col-md-9 col-lg-10">
