@@ -57,10 +57,11 @@ final class LoginSuccessSubscriber implements EventSubscriberInterface
         $ip = $event->getRequest()->getClientIp();
         $log = new UserLoginLogEntry($ip, $this->gpdr_compliance);
         $user = $event->getAuthenticationToken()->getUser();
-        if ($user instanceof User) {
+        if ($user instanceof User && $user->getID()) {
             $log->setTargetElement($user);
+            $this->eventLogger->logAndFlush($log);
         }
-        $this->eventLogger->logAndFlush($log);
+
 
         $this->flashBag->add('notice', $this->translator->trans('flash.login_successful'));
     }

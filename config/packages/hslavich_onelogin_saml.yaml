@@ -28,7 +28,7 @@ hslavich_onelogin_saml:
   #  nameIdEncrypted: false
      authnRequestsSigned: true
      logoutRequestSigned: true
-  #  logoutResponseSigned: false
+     logoutResponseSigned: true
   #  wantMessagesSigned: false
   #   wantAssertionsSigned: true
   #  wantNameIdEncrypted: false

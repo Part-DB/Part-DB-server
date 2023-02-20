@@ -4,22 +4,12 @@ security:
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
 
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        local_users:
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
             entity:
                 class: App\Entity\UserSystem\User
                 property: name
-
-        saml_users:
-            saml:
-                user_class: App\Entity\UserSystem\User
-                default_roles: [ 'ROLE_USER' ]
-
-        # used to reload user from session & other features (e.g. switch_user)
-        app_user_provider:
-            chain:
-                providers: ['local_users', 'saml_users']
 
 
     firewalls:
@@ -41,8 +31,9 @@ security:
                 max_attempts: 5 # per minute
 
             saml:
-                #username_attribute: username
-                #use_attribute_friendly_name: false
+                use_referer: true
+                user_factory: saml_user_factory
+                persist_user: true
                 check_path: saml_acs
                 login_path: saml_login
                 failure_path: saml_login

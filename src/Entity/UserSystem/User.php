@@ -30,6 +30,7 @@ use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPermission;
 use App\Validator\Constraints\ValidTheme;
+use Hslavich\OneloginSamlBundle\Security\User\SamlUserInterface;
 use Jbtronics\TFAWebauthn\Model\LegacyU2FKeyInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Webauthn\PublicKeyCredentialUserEntity;
@@ -60,7 +61,8 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
  * @ORM\EntityListeners({"App\EntityListeners\TreeCacheInvalidationListener"})
  * @UniqueEntity("name", message="validator.user.username_already_used")
  */
-class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface, BackupCodeInterface, TrustedDeviceInterface, WebauthnTwoFactorInterface, PreferredProviderInterface, PasswordAuthenticatedUserInterface
+class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface,
+                                                            BackupCodeInterface, TrustedDeviceInterface, WebauthnTwoFactorInterface, PreferredProviderInterface, PasswordAuthenticatedUserInterface, SamlUserInterface
 {
     //use MasterAttachmentTrait;
 
@@ -859,5 +861,24 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     public function addWebauthnKey(WebauthnKey $webauthnKey): void
     {
         $this->webauthn_keys->add($webauthnKey);
+    }
+
+    public function setSamlAttributes(array $attributes)
+    {
+        //When mail attribute exists, set it
+        if (isset($attributes['email'])) {
+            $this->setEmail($attributes['email'][0]);
+        }
+        //When first name attribute exists, set it
+        if (isset($attributes['firstName'])) {
+            $this->setFirstName($attributes['firstName'][0]);
+        }
+        //When last name attribute exists, set it
+        if (isset($attributes['lastName'])) {
+            $this->setLastName($attributes['lastName'][0]);
+        }
+        if (isset($attributes['department'])) {
+            $this->setDepartment($attributes['department'][0]);
+        }
     }
 }
