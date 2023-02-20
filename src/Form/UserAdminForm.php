@@ -65,7 +65,7 @@ class UserAdminForm extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var AbstractStructuralDBElement $entity */
+        /** @var User $entity */
         $entity = $options['data'];
         $is_new = null === $entity->getID();
 
@@ -164,7 +164,7 @@ class UserAdminForm extends AbstractType
                 'invalid_message' => 'password_must_match',
                 'required' => false,
                 'mapped' => false,
-                'disabled' => !$this->security->isGranted('set_password', $entity),
+                'disabled' => !$this->security->isGranted('set_password', $entity) || $entity->isSamlUser(),
                 'constraints' => [new Length([
                     'min' => 6,
                     'max' => 128,
@@ -174,7 +174,7 @@ class UserAdminForm extends AbstractType
             ->add('need_pw_change', CheckboxType::class, [
                 'required' => false,
                 'label' => 'user.edit.needs_pw_change',
-                'disabled' => !$this->security->isGranted('set_password', $entity),
+                'disabled' => !$this->security->isGranted('set_password', $entity) || $entity->isSamlUser(),
             ])
 
             ->add('disabled', CheckboxType::class, [

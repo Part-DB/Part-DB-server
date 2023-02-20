@@ -240,9 +240,15 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * @var DateTime the time until the password reset token is valid
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true, columnDefinition="DEFAULT NULL")
      */
     protected $pw_reset_expires;
+
+    /**
+     * @var bool True if the user was created by a SAML provider (and therefore cannot change its password)
+     * @ORM\Column(type="boolean")
+     */
+    protected bool $saml_user = false;
 
     public function __construct()
     {
@@ -862,6 +868,28 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     {
         $this->webauthn_keys->add($webauthnKey);
     }
+
+    /**
+     * Returns true, if the user was created by the SAML authentication.
+     * @return bool
+     */
+    public function isSamlUser(): bool
+    {
+        return $this->saml_user;
+    }
+
+    /**
+     * Sets the saml_user flag.
+     * @param  bool  $saml_user
+     * @return User
+     */
+    public function setSamlUser(bool $saml_user): User
+    {
+        $this->saml_user = $saml_user;
+        return $this;
+    }
+
+
 
     public function setSamlAttributes(array $attributes)
     {

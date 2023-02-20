@@ -52,9 +52,16 @@
                 <div class="form-group row">
                     <label class="col-form-label col-md-4">{% trans %}group.label{% endtrans %}</label>
                     <div class="col-md-8">
-                        <p class="form-control-plaintext">{{ user.group.fullPath }}</p>
+                        <p class="form-control-plaintext">{{ user.group.fullPath ?? '' }}</p>
                     </div>
                 </div>
+                {% if user.samlUser %}
+                    <div class="form-group row">
+                        <div class="col-md-8 offset-md-4">
+                            <span class="badge badge-primary bg-primary"><i class="fa-solid fa-house-user"></i> {% trans %}user.saml_user{% endtrans %}</span>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -74,9 +81,9 @@
     {% endif %}
 
     <div class="mt-2">
-    {% if datatable is defined and datatable is not null %}
-        {% import "components/history_log_macros.html.twig" as log %}
-        {{ log.element_history_component(datatable) }}
-    {% endif %}
+        {% if datatable is defined and datatable is not null %}
+            {% import "components/history_log_macros.html.twig" as log %}
+            {{ log.element_history_component(datatable) }}
+        {% endif %}
     </div>
 {% endblock %}
