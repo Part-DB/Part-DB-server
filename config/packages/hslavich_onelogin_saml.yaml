@@ -15,14 +15,14 @@ hslavich_onelogin_saml:
       url: 'http://localhost:8000/saml/acs'
       binding: 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST'
     singleLogoutService:
-      url: 'http://localhost:8000/saml/logout'
+      url: 'http://localhost:8000/logout'
       binding: 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect'
     x509cert: 'MIICmzCCAYMCBgGGcIfLmDANBgkqhkiG9w0BAQsFADARMQ8wDQYDVQQDDAZwYXJ0ZGIwHhcNMjMwMjIwMjAzMTMzWhcNMzMwMjIwMjAzMzEzWjARMQ8wDQYDVQQDDAZwYXJ0ZGIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCmz9Lr8PxVjqqhGjjH4FbhVDbEPIplcQ1cFhTKu1NYpwHIm01pNnEwiyoLMBrZ16qq0PvCX+KCIjuJbC44k6N/+UCjbSZ8Fu+vyT9OkKVLvimc5sg9m9Kys+WiuaxzSEa2dA88khyGb6O9huuVYjibjROAN5I20h8f0FLfvolqWfEXVM00LIYYCHcvKNGq6PH0SS+2P6CGHoRrEFOoi7v7kkL6gWqYzPA/T7GSb78W14gU6FKcvQXPYOdsL7dYDy634BCd9k/tNF6JkiFi9U1IP8LEYkQUq3mKGRSjoPKKztws00ol3Nfd04XAdPKxIb3ff3io0vONE3QfJsgTzdR7AgMBAAEwDQYJKoZIhvcNAQELBQADggEBAEkYH4pCKxqoABjYGRml+ea5nteF/qsff6qHcNU8Unw1XLZO7ES1GU4Ij3RSFdt1SoKnphXnBtlVIechkOnOaECGs4RdbG4RGSFfusiEcWHbp1C0n3cnaUoV0/PJ3iETeeaPduqz9I/dlwhOxEOkpCaomYm4j2hfNcI9pmdM8bZuG+6dedh02ILrufQiCREmF6Sp+AOjueoFOoGwsXMbTuKo9pNizCO2OTT6nrjbNhjzoIvzbmlqiOGFs7YmpyTHcyqm66ACOnu1Nq9z9QLGkhvwjAmEytp6A9yEEkl0QO+DVhlAnvfdSMaR9jgyGtnBXQGOHv4osPtCtrk3IU4nB3s='
     privateKey: 'MIIEogIBAAKCAQEAps/S6/D8VY6qoRo4x+BW4VQ2xDyKZXENXBYUyrtTWKcByJtNaTZxMIsqCzAa2deqqtD7wl/igiI7iWwuOJOjf/lAo20mfBbvr8k/TpClS74pnObIPZvSsrPlormsc0hGtnQPPJIchm+jvYbrlWI4m40TgDeSNtIfH9BS376JalnxF1TNNCyGGAh3LyjRqujx9Ekvtj+ghh6EaxBTqIu7+5JC+oFqmMzwP0+xkm+/FteIFOhSnL0Fz2DnbC+3WA8ut+AQnfZP7TReiZIhYvVNSD/CxGJEFKt5ihkUo6Dyis7cLNNKJdzX3dOFwHTysSG93394qNLzjRN0HybIE83UewIDAQABAoIBAA1M7dLtPJlvzjAZQKTDQPondlRwRVKwUHHiutatWAhuDIjbxTDZ6+2Ecx5AQCvVc+C52BEYBx38L8YVz5uoPfWiwKInPlXPmF3qTHdtthhTecruZdHvvj2MdYdjiZoJjcXXfC2GsuqPNT2T5+3Zzoysk3z6MVjYqS2mtSzs6tUFZOY13/zMnrELjR2dFrigndjQgb5vENJ+/WNH4k9rt7KGDaMniJWHi3bDDNwilR0XrwhJVav0PIl7h8bMk95ixqo5B+RN0EMhfS+j3+8QJhYbGzXIyJbgMGTUGb23tBIDl6RFblLoic/PEVpA5yhVbLtdoMy5Mn+Y28yZPh6/VB0CgYEA1xtwZVbrRObv76bIkqgCXEYbiXhbFHzGTaI23UEBrV60VNr5LZl/vqA6JowDFUYl30Ytzr7TvC5KwfrNhaYOqVd4rMg145cn8J61bRHArMaXouVYVwWKEni50gCktVy8Tt2Nbzfja2rccCqv3JM2HHp49+e9CLi/D95XPAip3vcCgYEAxoYB7/OQmGMHnqwz2CUnLhGcnC1X4fZ+EJuRo1BXRcntCS4lwXCoyC3Es+YLZ6tfhUp17i/HaT3tJyp6F+EM43zIxwyDVCl6t0yFkjLHRdZHR3xGMMfcMLZGRY99Y25QyW1/GJFKff7D+rKvrpBVcl+9xLYcpIN6ULuHqs9f4Z0CgYBrDL2/wSTusltAEemJitE56K31mQ8CwCHUKuFQ9PQHurTV8e/F8LkxPf4ShuVV5gYc+oj7dd5brVII/W7gj0aGogBtRGoFLIl05xb1A7u2gFKgf7CaBiizjp8zUpyloVQZj4q+ibrFD3ZK4AOLKzvnqk+fWBWsTHzRQd56Avm++wKBgF3eR1Q6CojDanrwWaM+DgSOd0qxdfh2IK2hoX9jIaDyFY5dr6SDrIraeUPG5mWidowD5Tc2iEeO7G+0ef6IfxuhiR31ILPO2SOKny29rNOsug9nB5lRJyAxT5DchCFbq/9SMuJe8KYarHgBvWgA/yYRdx1oLqrrMA60XTW60E9RAoGALmoMX1CLe7BBrqaZrHBAqkV/6koTPSMuYVUZpbKgTmA7VsBScUZaX8huS7ARjLfoujxcNuFT4haPlY7gybvhEN0dMlqRwVNeiD3jo+PdDxu3h9SM6GTuVks1XWoifHBRj2NngBEipV3WDXLJR2sAbUArUdL58y12f7EWFdX41+s='
   # Optional settings
   #baseurl: 'http://myapp.com'
-  #strict: true
-  debug: true
+  strict: true
+  debug: false
   security:
      allowRepeatAttributeName: true
   #  nameIdEncrypted: false
@@ -52,6 +52,6 @@ hslavich_onelogin_saml:
   #    emailAddress: 'administrativeuser@example.com'
   #organization:
   #  en:
-  #    name: 'Example'
-  #    displayname: 'Example'
+  #    name: 'Part-DB-name'
+  #    displayname: 'Displayname'
   #    url: 'http://example.com'

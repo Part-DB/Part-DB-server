@@ -36,7 +36,7 @@ security:
                 persist_user: true
                 check_path: saml_acs
                 login_path: saml_login
-                failure_path: saml_login
+                failure_path: login
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             form_login:
