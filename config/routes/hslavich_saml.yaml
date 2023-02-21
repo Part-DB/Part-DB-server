@@ -1,2 +1,4 @@
 hslavich_saml_sp:
   resource: "@HslavichOneloginSamlBundle/Resources/config/routing.yml"
+  # Only load the SAML routes if SAML is enabled
+  condition: "env('SAML_ENABLED') == '1' or env('SAML_ENABLED') == 'true'"

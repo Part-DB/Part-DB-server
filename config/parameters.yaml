@@ -13,6 +13,8 @@ parameters:
   partdb.global_theme: ''                                     # The theme to use globally (see public/build/themes/ for choices, use name without .css). Set to '' for default bootstrap theme
   partdb.locale_menu: ['en', 'de', 'fr', 'ru', 'ja']          # The languages that are shown in user drop down menu
 
+  partdb.default_uri: '%env(string:DEFAULT_URI)%'             # The default URI to use for the Part-DB instance (e.g. https://part-db.example.com/). This is used for generating links in emails
+
   ######################################################################################################################
   # Users and Privacy
   ######################################################################################################################
@@ -38,6 +40,11 @@ parameters:
   ######################################################################################################################
   partdb.error_pages.admin_email: '%env(trim:string:ERROR_PAGE_ADMIN_EMAIL)%'     # You can set an email address here, which is shown on an error page, how to contact an administrator
   partdb.error_pages.show_help: '%env(trim:string:ERROR_PAGE_SHOW_HELP)%'         # If this is set to true, solutions to common problems are shown on error pages. Disable this, if you do not want your users to see them...
+
+  ######################################################################################################################
+  # SAML
+  ######################################################################################################################
+  partdb.saml.enabled: '%env(bool:SAML_ENABLED)%'              # If this is set to true, SAML authentication is enabled
 
   ######################################################################################################################
   # Sidebar
@@ -110,3 +117,5 @@ parameters:
 
   env(TRUSTED_PROXIES): '127.0.0.1' #By default trust only our own server
   env(TRUSTED_HOSTS): '' # Trust all host names by default
+
+  env(DEFAULT_URI): 'https://partdb.changeme.invalid/'

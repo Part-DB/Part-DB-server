@@ -10981,5 +10981,17 @@ Element 3</target>
         <target>Your user uses single sign-on (SSO). You can not change the password and 2FA settings here. Configure them on your central SSO provider instead!</target>
       </segment>
     </unit>
+    <unit id="32beTBH" name="login.sso_saml_login">
+      <segment>
+        <source>login.sso_saml_login</source>
+        <target>Single Sign-On Login (SSO)</target>
+      </segment>
+    </unit>
+    <unit id="wnMLanX" name="login.local_login_hint">
+      <segment>
+        <source>login.local_login_hint</source>
+        <target>The form below is only for log in for a local user. If you want to log in via single sign-on, press the button above.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
