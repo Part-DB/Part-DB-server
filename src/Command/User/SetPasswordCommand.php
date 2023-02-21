@@ -78,6 +78,11 @@ class SetPasswordCommand extends Command
 
         $io->note('User found!');
 
+        if ($user->isSamlUser()) {
+            $io->error('This user is a SAML user, so you can not change the password!');
+            return 1;
+        }
+
         $proceed = $io->confirm(
             sprintf('You are going to change the password of %s with ID %d. Proceed?',
                 $user->getFullName(true), $user->getID()));
