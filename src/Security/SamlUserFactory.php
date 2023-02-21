@@ -31,12 +31,11 @@ class SamlUserFactory implements SamlUserFactoryInterface
         $user = new User();
         $user->setName($username);
         $user->setNeedPwChange(false);
-        $user->setPassword('$$SAML$$');
+        $user->setPassword('!!SAML!!');
         //This is a SAML user now!
         $user->setSamlUser(true);
 
         $user->setSamlAttributes($attributes);
-
 
         return $user;
     }

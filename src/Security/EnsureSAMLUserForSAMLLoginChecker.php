@@ -44,7 +44,7 @@ class EnsureSAMLUserForSAMLLoginChecker implements EventSubscriberInterface
         ];
     }
 
-    public function onAuthenticationSuccess(AuthenticationSuccessEvent $event)
+    public function onAuthenticationSuccess(AuthenticationSuccessEvent $event): void
     {
         $token = $event->getAuthenticationToken();
         $user = $token->getUser();

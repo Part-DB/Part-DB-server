@@ -912,5 +912,16 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         if (isset($attributes['department'])) {
             $this->setDepartment($attributes['department'][0]);
         }
+
+        //Use X500 attributes as userinfo
+        if (isset($attributes['urn:oid:2.5.4.42'])) {
+            $this->setFirstName($attributes['urn:oid:2.5.4.42'][0]);
+        }
+        if (isset($attributes['urn:oid:2.5.4.4'])) {
+            $this->setLastName($attributes['urn:oid:2.5.4.4'][0]);
+        }
+        if (isset($attributes['urn:oid:1.2.840.113549.1.9.1'])) {
+            $this->setEmail($attributes['urn:oid:1.2.840.113549.1.9.1'][0]);
+        }
     }
 }
