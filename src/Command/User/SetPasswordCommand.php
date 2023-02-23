@@ -56,7 +56,7 @@ class SetPasswordCommand extends Command
         $this
             ->setDescription('Sets the password of a user')
             ->setHelp('This password allows you to set the password of a user, without knowing the old password.')
-            ->addArgument('user', InputArgument::REQUIRED, 'The name of the user')
+            ->addArgument('user', InputArgument::REQUIRED, 'The username or email of the user')
         ;
     }
 
@@ -65,16 +65,13 @@ class SetPasswordCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $user_name = $input->getArgument('user');
 
-        /** @var User[] $users */
-        $users = $this->entityManager->getRepository(User::class)->findBy(['name' => $user_name]);
+        $user = $this->entityManager->getRepository(User::class)->findByEmailOrName($user_name);
 
-        if (empty($users)) {
+        if (!$user) {
             $io->error(sprintf('No user with the given username %s found in the database!', $user_name));
 
             return 1;
         }
-
-        $user = $users[0];
 
         $io->note('User found!');
 
