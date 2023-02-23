@@ -62,7 +62,7 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
  * @UniqueEntity("name", message="validator.user.username_already_used")
  */
 class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface,
-                                                            BackupCodeInterface, TrustedDeviceInterface, WebauthnTwoFactorInterface, PreferredProviderInterface, PasswordAuthenticatedUserInterface, SamlUserInterface
+                                                            BackupCodeInterface, TrustedDeviceInterface, WebauthnTwoFactorInterface, PreferredProviderInterface, PasswordAuthenticatedUserInterface
 {
     //use MasterAttachmentTrait;
 
@@ -891,37 +891,5 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     {
         $this->saml_user = $saml_user;
         return $this;
-    }
-
-
-
-    public function setSamlAttributes(array $attributes)
-    {
-        //When mail attribute exists, set it
-        if (isset($attributes['email'])) {
-            $this->setEmail($attributes['email'][0]);
-        }
-        //When first name attribute exists, set it
-        if (isset($attributes['firstName'])) {
-            $this->setFirstName($attributes['firstName'][0]);
-        }
-        //When last name attribute exists, set it
-        if (isset($attributes['lastName'])) {
-            $this->setLastName($attributes['lastName'][0]);
-        }
-        if (isset($attributes['department'])) {
-            $this->setDepartment($attributes['department'][0]);
-        }
-
-        //Use X500 attributes as userinfo
-        if (isset($attributes['urn:oid:2.5.4.42'])) {
-            $this->setFirstName($attributes['urn:oid:2.5.4.42'][0]);
-        }
-        if (isset($attributes['urn:oid:2.5.4.4'])) {
-            $this->setLastName($attributes['urn:oid:2.5.4.4'][0]);
-        }
-        if (isset($attributes['urn:oid:1.2.840.113549.1.9.1'])) {
-            $this->setEmail($attributes['urn:oid:1.2.840.113549.1.9.1'][0]);
-        }
     }
 }

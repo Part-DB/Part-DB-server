@@ -62,4 +62,40 @@ class SamlUserFactoryTest extends WebTestCase
         $this->assertEquals('IT', $user->getDepartment());
         $this->assertEquals('j.doe@invalid.invalid', $user->getEmail());
     }
+
+    public function testUpdateUserInfoFromSAMLAttributes(): void
+    {
+        $data = [
+            'firstName' => ['John'],
+            'lastName' => ['Doe'],
+            'email' => ['j.doe@invalid.invalid'],
+            'department' => ['Test Department'],
+        ];
+
+        $user = new User();
+        $this->service->updateUserInfoFromSAMLAttributes($user, $data);
+
+        //Test if the data was set correctly
+        $this->assertSame('John', $user->getFirstName());
+        $this->assertSame('Doe', $user->getLastName());
+        $this->assertSame('j.doe@invalid.invalid', $user->getEmail());
+        $this->assertSame('Test Department', $user->getDepartment());
+
+        //Test that it works for X500 attributes
+        $data = [
+            'urn:oid:2.5.4.42' => ['Jane'],
+            'urn:oid:2.5.4.4' => ['Dane'],
+            'urn:oid:1.2.840.113549.1.9.1' => ['mail@invalid.invalid'],
+        ];
+
+        $this->service->updateUserInfoFromSAMLAttributes($user, $data);
+
+        //Data must be changed
+        $this->assertSame('Jane', $user->getFirstName());
+        $this->assertSame('Dane', $user->getLastName());
+        $this->assertSame('mail@invalid.invalid', $user->getEmail());
+
+        //Department must not be changed
+        $this->assertSame('Test Department', $user->getDepartment());
+    }
 }
