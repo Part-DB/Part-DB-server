@@ -89,4 +89,26 @@ final class UserRepository extends NamedDBElementRepository implements PasswordU
             $this->getEntityManager()->flush();
         }
     }
+
+    /**
+     * Returns the list of all local users (not SAML users).
+     * @return User[]
+     */
+    public function onlyLocalUsers(): array
+    {
+        return $this->findBy([
+            'saml_user' => false,
+        ]);
+    }
+
+    /**
+     * Returns the list of all SAML users.
+     * @return User[]
+     */
+    public function onlySAMLUsers(): array
+    {
+        return $this->findBy([
+            'saml_user' => true,
+        ]);
+    }
 }

@@ -197,6 +197,10 @@ services:
         arguments:
             $available_themes: '%partdb.available_themes%'
 
+    App\Command\User\ConvertToSAMLUserCommand:
+        arguments:
+            $saml_enabled: '%partdb.saml.enabled%'
+
 
     ####################################################################################################################
     # Label system

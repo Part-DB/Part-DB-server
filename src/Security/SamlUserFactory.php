@@ -26,12 +26,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class SamlUserFactory implements SamlUserFactoryInterface
 {
+    public const SAML_PASSWORD_PLACEHOLDER = '!!SAML!!';
+
     public function createUser($username, array $attributes = []): UserInterface
     {
         $user = new User();
         $user->setName($username);
         $user->setNeedPwChange(false);
-        $user->setPassword('!!SAML!!');
+        $user->setPassword(self::SAML_PASSWORD_PLACEHOLDER);
         //This is a SAML user now!
         $user->setSamlUser(true);
 
