@@ -37,7 +37,7 @@ class EnsureSAMLUserForSAMLLoginCheckerTest extends WebTestCase
     protected function setUp(): void
     {
         self::bootKernel();
-        $this->service = self::getContainer()->get('saml_user_factory');
+        $this->service = self::getContainer()->get(EnsureSAMLUserForSAMLLoginChecker::class);
     }
 
     public function testOnAuthenticationSuccessFailsOnSSOLoginWithLocalUser(): void
