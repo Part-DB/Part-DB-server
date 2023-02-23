@@ -33,7 +33,7 @@ security:
             saml:
                 use_referer: true
                 user_factory: saml_user_factory
-                persist_user: false # False as we have our own persisting mechanism in SAMLUserFactory
+                persist_user: true
                 check_path: saml_acs
                 login_path: saml_login
                 failure_path: login
