@@ -9636,7 +9636,7 @@ Element 3</target>
     <unit id="W1rWF5g" name="parts_list.search.searching_for">
       <segment state="translated">
         <source>parts_list.search.searching_for</source>
-        <target>Searching parts with keyword &lt;b&gt;%keyword%&lt;/b&gt;</target>
+        <target>Suche Teile mit dem Suchbegriff &lt;b&gt;%keyword%&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id="lkQ2zTi" name="parts_list.search_options.caption">
