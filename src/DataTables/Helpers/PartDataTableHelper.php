@@ -67,7 +67,7 @@ class PartDataTableHelper
             '<a href="%s">%s%s</a>',
             $this->entityURLGenerator->infoURL($context),
             $icon,
-            htmlentities($context->getName())
+            htmlspecialchars($context->getName())
         );
     }
 
