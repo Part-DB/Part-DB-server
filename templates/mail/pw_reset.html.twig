@@ -3,7 +3,7 @@
 {% block content %}
 <row>
     <columns>
-        <h4>{% trans with {'%name%': user.fullName} %}email.hi %name%{% endtrans %},</h4>
+        <h4>{% trans with {'%name%': user.fullName|escape } %}email.hi %name%{% endtrans %},</h4>
         {% trans %}email.pw_reset.message{% endtrans %}
         <br>
         <button class="large expand" href="{{ url('pw_reset_new_pw', {user: user.name, token: token}) }}">{% trans %}email.pw_reset.button{% endtrans %}</button>
