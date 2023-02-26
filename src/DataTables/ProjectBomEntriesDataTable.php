@@ -84,7 +84,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                         return round($context->getQuantity());
                     }
                     //Otherwise use the unit of the part to format the quantity
-                    return $this->amountFormatter->format($context->getQuantity(), $context->getPart()->getPartUnit());
+                    return htmlspecialchars($this->amountFormatter->format($context->getQuantity(), $context->getPart()->getPartUnit()));
                 },
             ])
 
@@ -93,7 +93,7 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
                 'orderable' => false,
                 'render' => function ($value, ProjectBOMEntry $context) {
                     if($context->getPart() === null) {
-                        return $context->getName();
+                        return htmlspecialchars($context->getName());
                     }
                     if($context->getPart() !== null) {
                         $tmp = $this->partDataTableHelper->renderName($context->getPart());

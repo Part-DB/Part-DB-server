@@ -117,7 +117,7 @@ class ElementTypeNameGenerator
      * It uses getLocalizedLabel to determine the type.
      *
      * @param NamedElementInterface $entity   the entity for which the string should be generated
-     * @param bool                  $use_html If set to true, a html string is returned, where the type is set italic
+     * @param bool                  $use_html If set to true, a html string is returned, where the type is set italic, and the name is escaped
      *
      * @return string The localized string
      *
