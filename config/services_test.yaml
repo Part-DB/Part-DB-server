@@ -1,9 +1,0 @@
-# Service overrides for the test environment
-
-services:
-  saml_user_factory:
-    class: App\Security\SamlUserFactory
-    public: true
-
-  App\Security\SamlUserFactory:
-    public: true

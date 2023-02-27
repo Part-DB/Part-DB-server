@@ -128,7 +128,13 @@ services:
     ####################################################################################################################
 
     saml_user_factory:
-        class: App\Security\SamlUserFactory
+        alias: App\Security\SamlUserFactory
+        public: true
+
+    App\Security\SamlUserFactory:
+        arguments:
+            $saml_role_mapping: '%env(json:SAML_ROLE_MAPPING)%'
+            $update_group_on_login: '%env(bool:SAML_UPDATE_GROUP_ON_LOGIN)%'
 
     ####################################################################################################################
     # Cache

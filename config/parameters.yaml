@@ -119,3 +119,5 @@ parameters:
   env(TRUSTED_HOSTS): '' # Trust all host names by default
 
   env(DEFAULT_URI): 'https://partdb.changeme.invalid/'
+
+  env(SAML_ROLE_MAPPING): '{}'

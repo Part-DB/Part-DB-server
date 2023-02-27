@@ -62,4 +62,27 @@ class SamlUserFactoryTest extends WebTestCase
         $this->assertEquals('IT', $user->getDepartment());
         $this->assertEquals('j.doe@invalid.invalid', $user->getEmail());
     }
+
+    public function testMapSAMLRolesToLocalGroupID()
+    {
+        $mapping = [
+            'employee' => 1,
+            'admin' => 2,
+            'manager' => 3,
+            'administrator' => 2,
+            '*' => 4,
+        ];
+
+        //Test if mapping works
+        $this->assertEquals(1, $this->service->mapSAMLRolesToLocalGroupID(['employee'], $mapping));
+        //Only the first valid mapping should be used
+        $this->assertEquals(1, $this->service->mapSAMLRolesToLocalGroupID(['employee', 'admin'], $mapping));
+        $this->assertSame(2, $this->service->mapSAMLRolesToLocalGroupID(['does_not_matter', 'admin', 'employee'], $mapping));
+        //Test if mapping is case sensitive
+        $this->assertEquals(4, $this->service->mapSAMLRolesToLocalGroupID(['ADMIN'], $mapping));
+
+        //Test that wildcard mapping works
+        $this->assertEquals(4, $this->service->mapSAMLRolesToLocalGroupID(['entry1', 'entry2'], $mapping));
+        $this->assertEquals(4, $this->service->mapSAMLRolesToLocalGroupID([], $mapping));
+    }
 }
