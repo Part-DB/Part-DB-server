@@ -62,7 +62,8 @@ The name field should be set to something human-readable, like `Part-DB`.
 7. Copy the `Single Sign-On Service` value from the metadata to the `SAML_IDP_SINGLE_SIGN_ON_SERVICE` configuration variable of Part-DB (by default something like `https://idp.yourdomain.invalid/realms/master/protocol/saml`).
 8. Copy the `Single Logout Service` value from the metadata to the `SAML_IDP_SINGLE_LOGOUT_SERVICE` configuration variable of Part-DB (by default something like `https://idp.yourdomain.invalid/realms/master/protocol/saml/logout`).
 9. Copy the `X.509 Certificate` value from the metadata to the `SAML_IDP_X509_CERT` configuration variable of Part-DB (it should start with `MIIC` and should be pretty long).
-10. Set the `SAML_ENABLED` configuration in Part-DB to 1 to enable SAML authentication.
+10. Set the `DEFAULT_URI` to the homepage (on the publicly available domain) of your Part-DB installation (e.g. `https://partdb.yourdomain.invalid/`). It must end with a slash.
+11. Set the `SAML_ENABLED` configuration in Part-DB to 1 to enable SAML authentication.
 
 When you access the Part-DB login form now, you should see a new button to log in via SSO. Click on it to be redirected to the SAML identity provider and log in.
 

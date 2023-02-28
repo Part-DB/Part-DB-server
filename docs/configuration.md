@@ -26,6 +26,7 @@ The following configuration options can only be changed by the server administra
 * `INSTANCE_NAME`: The name of your installation. It will be shown as a title in the navbar and other places. By default `Part-DB`, but you can customize it to something likes `ExampleCorp. Inventory`.
 * `ALLOW_ATTACHMENT_DOWNLOADS` (allowed values `0` or `1`): By setting this option to 1, users can make Part-DB directly download a file specified as an URL and create it as local file. Please not that this allows users access to all ressources publicly available to the server (so full access to other servers in the same local network), which could be a security risk.
 * `USE_GRAVATAR`: Set to `1` to use [gravatar.com](gravatar.com) images for user avatars (as long as they have not set their own picture). The users browsers have to download the pictures from a third-party (gravatars) server, so this might be a privacy risk.
+* `DEFAULT_URI`: The default URI base to use for the Part-DB, when no URL can be determined from the browser request. This should be the primary URL/Domain, which is used to access Part-DB. This value is used to create correct links in emails and other places, where the URL is needed. It is also used, when SAML is enabled.s If you are using a reverse proxy, you should set this to the URL of the reverse proxy (e.g. `https://part-db.example.com`). **This value must end with a slash**.
 
 
 ### E-Mail settings
@@ -45,6 +46,22 @@ If you wanna use want to revert changes or view older revisions of entities, the
 ### Error pages settings
 * `ERROR_PAGE_ADMIN_EMAIL`: You can set an email-address here, which is shown on the error page, who should be contacted about the issue (e.g. an IT support email of your company)
 * `ERROR_PAGE_SHOW_HELP`: Set this 0, to disable the solution hints shown on an error page. These hints should not contain senstive informations, but could confuse end-users.
+
+### SAML SSO settings
+The following settings can be used to enable and configure Single-Sign on via SAML. This allows users to login to Part-DB without entering a username and password, but instead they are redirected to a SAML Identity Provider (IdP) and are logged in automatically. This is especially useful, when you want to use Part-DB in a company, where all users have a SAML account (e.g. via Active Directory or LDAP).
+You can find more advanced settings in the `config/packages/hslavich_onelogin_saml.yaml` file. Please note that this file is not backuped by the backup script, so you have to backup it manually, if you want to keep your changes. If you want to edit it on docker, you have to map the file to a volume.
+
+* `SAML_ENABLED`: When this is set to 1, SAML SSO is enabled and the SSO Login button is shown in the login form. You have to configure the SAML settings below, before you can use this feature.
+* `SAML_ROLE_MAPPING`: A [JSON](https://en.wikipedia.org/wiki/JSON) encoded map which specifies how Part-DB should convert the user roles given by SAML attribute `group` should be converted to a Part-DB group (specified by ID). You can use a wildcard `*` to map all otherwise unmapped roles to a certain group. Example: `{"*": 1, "admin": 2, "editor": 3}`. This would map all roles to the group with ID 1, except the role `admin`, which is mapped to the group with ID 2 and the role `editor`, which is mapped to the group with ID 3.
+* `SAML_UPDATE_GROUP_ON_LOGIN`: When this is enabled the group of the user is updated on every login of the user based on the SAML role attributes. When this is disabled, the group is only assigned on the first login of the user, and a Part-DB administrator can change the group afterwards by editing the user.
+* `SAML_IDP_ENTITY_ID`: The entity ID of your SAML Identity Provider (IdP). You can find this value in the metadata XML file or configuration UI of your IdP.
+* `SAML_IDP_SINGLE_SIGN_ON_SERVICE`: The URL of the SAML IdP Single Sign-On Service (SSO). You can find this value in the metadata XML file or configuration UI of your IdP.
+* `SAML_IDP_SINGLE_LOGOUT_SERVICE`: The URL of the SAML IdP Single Logout Service (SLO). You can find this value in the metadata XML file or configuration UI of your IdP.
+* `SAML_IDP_X509_CERT`: The base64 encoded X.509 public certificate of your SAML IdP. You can find this value in the metadata XML file or configuration UI of your IdP. It should start with `MIIC` and end with `=`.	
+* `SAML_SP_ENTITY_ID`: The entity ID of your SAML Service Provider (SP). This is the value you have configured for the Part-DB client in your IdP.
+* `SAML_SP_X509_CERT`: The public X.509 certificate of your SAML SP (here Part-DB). This is the value you have configured for the Part-DB client in your IdP. It should start with `MIIC` and end with `=`. IdPs like keycloak allows you to generate a public/private key pair for the client which you can setup here and in the `SAML_SP_PRIVATE_KEY` setting.
+* `SAML_SP_PRIVATE_KEY`: The private key of your SAML SP (here Part-DB), corresponding the public key specified in `SAML_SP_X509_CERT`. This is the value you have configured for the Part-DB client in your IdP. It should start with `MIIE` and end with `=`. IdPs like keycloak allows you to generate a public/private key pair for the client which you can setup here and in the `SAML_SP_X509_CERT` setting.
+
 
 ### Other / less used options
 * `TRUSTED_PROXIES`: Set the IP addresses (or IP blocks) of trusted reverse proxies here. This is needed to get correct IP informations (see [here](https://symfony.com/doc/current/deployment/proxies.html) for more info).
