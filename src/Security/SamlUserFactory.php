@@ -91,7 +91,7 @@ class SamlUserFactory implements SamlUserFactoryInterface, EventSubscriberInterf
         //If needed update the group of the user and save it to DB
         if ($group !== $user->getGroup()) {
             $user->setGroup($group);
-            $this->em->flush($user);
+            $this->em->flush();
         }
     }
 
