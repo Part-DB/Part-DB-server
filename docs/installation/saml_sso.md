@@ -89,8 +89,27 @@ In the scope configuration page, click on `Add mappers` and `From predefined map
 
 and click `Add`. Now Part-DB will be provided with the email, first name and last name of the user based on the Keycloak user database.
 
-### Configure user permissions
+### Configure permissions for SAML users
+On the first login of a SAML user, Part-DB will create a new user in the database. This user will have the same username as the SAML user, but no password set. The user will be marked as a SAML user, so he can only login via SAML in the future. However in other aspects the user is a normal user, so Part-DB admins can set permissions for SAML users like for any other user and override permissions assigned via groups.
 
+However for large organizations you maybe want to automatically assign permissions to SAML users based on the roles or groups configured in the identity provider. For this purpose Part-DB allows you to map SAML roles or groups to Part-DB groups. See the next section for details.
+
+### Map SAML roles to Part-DB groups
+Part-DB allows you to configure a mapping between SAML roles or groups and Part-DB groups. This allows you to automatically assign permissions to SAML users based on the roles or groups configured in the identity provider. For example if a user at your SAML provider has the role `admin`, you can configure Part-DB to assign the `admin` group to this user. This will give the user all permissions of the `admin` group.
+
+For this you need first have to create the groups in Part-DB, to which you want to assign the users and configure their permissions. You will need the IDs of the groups, which you can find in the `System->Group` page of Part-DB in the Info tab.
+
+The map is provided as [JSON](https://en.wikipedia.org/wiki/JSON) encoded map between the SAML role and the group ID, which has the form `{"saml_role": group_id, "*": group_id, ...}`. You can use the `*` key to assign a group to all users, which are not in any other group. The map is configured via the `SAML_ROLE_MAPPING` environment variable, which you can configure via the `.env.local` or `docker-compose.yml` file. Please note that you have to enclose the JSON string in single quotes here, as JSON itself uses double quotes (e.g. `SAML_ROLE_MAPPING='{ "*": 2, "editor": 3, "admin": 1 }').
+
+For example if you want to assign the group with ID 1 (by default admin) to every SAML user which has the role `admin`, the role with ID 3 (by default editor) to every SAML user with the role `editor` and everybody else to the group with ID 2 (by default readonly), you can configure the following map:
+
+```
+SAML_ROLE_MAPPING='{"admin": 1, "editor": 3, "*": 2}'
+```
+
+If you want to assign users with a certain role to a empty group, provide the group ID -1 as the value. This is not a valid group ID, so the user will not be assigned to any group.
+
+The SAML roles (or groups depending on your configuration), have to be supplied via a SAML attribute `group`. You have to configure your SAML identity provider to provide this attribute. For example in Keycloak you can configure this attribute in the `Client scopes` page. Select the `sp-dedicatd` client scope (or create a new one) and click on `Add mappers`. Select `Role mapping` or `Group membership`, change the field name and click `Add`. Now Part-DB will be provided with the groups of the user based on the Keycloak user database.
 
 ### Use SAML Login for existing users
 Part-DB distinguishes between local users and SAML users. Local users are users, which can login via Part-DB login form and which use the password (hash) saved in the Part-DB database. SAML users are stored in the database too (they are created on the first login of the user via SAML), but they use the SAML identity provider to authenticate the user and have no password stored in the database. When you try you will get an error message.
