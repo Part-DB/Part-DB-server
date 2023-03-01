@@ -88,3 +88,16 @@ In the scope configuration page, click on `Add mappers` and `From predefined map
 * `X500 surname`
 
 and click `Add`. Now Part-DB will be provided with the email, first name and last name of the user based on the Keycloak user database.
+
+### Configure user permissions
+
+
+### Use SAML Login for existing users
+Part-DB distinguishes between local users and SAML users. Local users are users, which can login via Part-DB login form and which use the password (hash) saved in the Part-DB database. SAML users are stored in the database too (they are created on the first login of the user via SAML), but they use the SAML identity provider to authenticate the user and have no password stored in the database. When you try you will get an error message.
+
+For security reasons it is not possible to authenticate via SAML as a local user (and vice versa). So if you have existing users in your Part-DB database and want them to be able to login via SAML in the future, you can use the `php bin/console partdb:user:convert-to-saml-user username` command to convert them to SAML users. This will remove the password hash from the database and mark them as SAML users, so they can login via SAML in the future.
+
+The reverse is also possible: If you have existing SAML users and want them to be able to login via the Part-DB login form, you can use the `php bin/console partdb:user:convert-to-saml-user --to-local username` command to convert them to local users. You have to set an password for the user afterwards.
+
+{: .important }
+> It is recommended that you let the original admin user (ID: 2) be a local user, so you can still login to Part-DB if the SAML identity provider is not available.
