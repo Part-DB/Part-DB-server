@@ -106,7 +106,21 @@
 
     <tr {{ stimulus_controller('elements/attachmenttype_change') }}>
         <td>
-            {{ form_widget(form) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.attachment_type) }}
+            {{ form_row(form.secureFile) }}
+            {{ form_row(form.showInTable) }}
+            {{ form_row(form.url) }}
+            {{ form_row(form.downloadURL) }}
+
+            <div class="mb-2 row">
+                {{ form_label(form.file) }}
+                <div class="col-sm-9">
+                    {{ form_widget(form.file) }}
+                    <small class="text-muted">{% trans %}attachment.max_file_size{% endtrans %}: {{ max_upload_size | format_bytes }}</small>
+                </div>
+            </div>
+
         </td>
         <td>
             <button type="button" class="btn btn-danger lot_btn_delete" {{ collection.delete_btn() }}>

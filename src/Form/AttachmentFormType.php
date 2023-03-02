@@ -37,6 +37,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -166,6 +168,11 @@ class AttachmentFormType extends AbstractType
             'max_file_size' => $this->max_file_size,
             'allow_builtins' => true,
         ]);
+    }
+
+    public function finishView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['max_upload_size'] = $this->submitHandler->getMaximumAllowedUploadSize();
     }
 
     public function getBlockPrefix(): string
