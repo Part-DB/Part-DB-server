@@ -173,7 +173,7 @@
       </notes>
       <segment state="translated">
         <source>validator.noneofitschild.self</source>
-        <target>Ein Element kann nicht sein eigenenes übergeordnetes Element sein.</target>
+        <target>Ein Element kann nicht sein eigenenes übergeordnetes Element sein!</target>
       </segment>
     </unit>
     <unit id="pr07aV4" name="validator.noneofitschild.children">

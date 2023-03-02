@@ -27,6 +27,8 @@ use InvalidArgumentException;
 
 abstract class AbstractPartsContainingRepository extends StructuralDBElementRepository implements PartsContainingRepositoryInterface
 {
+    private const RECURSION_LIMIT = 50;
+
     /**
      * Returns all parts associated with this element.
      *
@@ -55,8 +57,17 @@ abstract class AbstractPartsContainingRepository extends StructuralDBElementRepo
     {
         $count = $this->getPartsCount($element);
 
+        //If the element is its own parent, we have a loop in the tree, so we stop here.
+        if ($element->getParent() === $element) {
+            return 0;
+        }
+
+        $n = 0;
         foreach ($element->getChildren() as $child) {
             $count += $this->getPartsCountRecursive($child);
+            if ($n++ > self::RECURSION_LIMIT) {
+                throw new \RuntimeException('Recursion limit reached!');
+            }
         }
 
         return $count;

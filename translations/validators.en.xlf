@@ -164,7 +164,7 @@
       </notes>
       <segment state="translated">
         <source>user.invalid_username</source>
-        <target>The username must contain only letters, numbers, underscores, dots, pluses or minuses.</target>
+        <target>The username must contain only letters, numbers, underscores, dots, pluses or minuses!</target>
       </segment>
     </unit>
     <unit id="lZvhKYu" name="validator.noneofitschild.self">
@@ -173,7 +173,7 @@
       </notes>
       <segment state="translated">
         <source>validator.noneofitschild.self</source>
-        <target>An element can not be its own parent.</target>
+        <target>An element can not be its own parent!</target>
       </segment>
     </unit>
     <unit id="pr07aV4" name="validator.noneofitschild.children">
@@ -182,7 +182,7 @@
       </notes>
       <segment state="translated">
         <source>validator.noneofitschild.children</source>
-        <target>You can not assign children element as parent (This would cause loops).</target>
+        <target>You can not assign children element as parent (This would cause loops)!</target>
       </segment>
     </unit>
     <unit id="ayNr6QK" name="validator.select_valid_category">
