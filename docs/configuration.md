@@ -26,7 +26,7 @@ The following configuration options can only be changed by the server administra
 * `INSTANCE_NAME`: The name of your installation. It will be shown as a title in the navbar and other places. By default `Part-DB`, but you can customize it to something likes `ExampleCorp. Inventory`.
 * `ALLOW_ATTACHMENT_DOWNLOADS` (allowed values `0` or `1`): By setting this option to 1, users can make Part-DB directly download a file specified as an URL and create it as local file. Please not that this allows users access to all ressources publicly available to the server (so full access to other servers in the same local network), which could be a security risk.
 * `USE_GRAVATAR`: Set to `1` to use [gravatar.com](gravatar.com) images for user avatars (as long as they have not set their own picture). The users browsers have to download the pictures from a third-party (gravatars) server, so this might be a privacy risk.
-
+* `MAX_ATTACHMENT_FILE_SIZE`: The maximum file size (in bytes) for attachments. You can use the suffix `K`, `M` or `G` to specify the size in kilobytes, megabytes or gigabytes. By default `100M` (100 megabytes). Please note that this only the limit of Part-DB. You still need to configure the php.ini `upload_max_filesize` and `post_max_size` to allow bigger files to be uploaded.
 
 ### E-Mail settings
 * `MAILER_DSN`: You can configure the mail provider which should be used for email delivery (see https://symfony.com/doc/current/components/mailer.html for full documentation). If you just want to use an SMTP mail account, you can use the following syntax `MAILER_DSN=smtp://user:password@smtp.mailserver.invalid:587`
