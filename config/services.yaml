@@ -88,6 +88,7 @@ services:
     App\Form\AttachmentFormType:
         arguments:
             $allow_attachments_downloads: '%partdb.attachments.allow_downloads%'
+            $max_file_size: '%partdb.attachments.max_file_size%'
 
     App\Services\Attachments\AttachmentSubmitHandler:
         arguments:

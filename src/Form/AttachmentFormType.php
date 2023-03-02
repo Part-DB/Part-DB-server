@@ -50,13 +50,14 @@ class AttachmentFormType extends AbstractType
     protected AttachmentManager $attachment_helper;
     protected UrlGeneratorInterface $urlGenerator;
     protected bool $allow_attachments_download;
+    protected string $max_file_size;
     protected Security $security;
     protected AttachmentSubmitHandler $submitHandler;
     protected TranslatorInterface $translator;
 
-    public function __construct(AttachmentManager $attachmentHelper,
-                                UrlGeneratorInterface $urlGenerator, Security $security,
-        bool $allow_attachments_downloads, AttachmentSubmitHandler $submitHandler, TranslatorInterface $translator)
+    public function __construct(AttachmentManager $attachmentHelper, UrlGeneratorInterface $urlGenerator,
+        Security $security, AttachmentSubmitHandler $submitHandler, TranslatorInterface $translator,
+        bool $allow_attachments_downloads, string $max_file_size)
     {
         $this->attachment_helper = $attachmentHelper;
         $this->urlGenerator = $urlGenerator;
@@ -64,6 +65,7 @@ class AttachmentFormType extends AbstractType
         $this->security = $security;
         $this->submitHandler = $submitHandler;
         $this->translator = $translator;
+        $this->max_file_size = $max_file_size;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -140,8 +142,8 @@ class AttachmentFormType extends AbstractType
             if ($attachment instanceof Attachment && $file instanceof UploadedFile && $attachment->getAttachmentType(
                 ) && !$this->submitHandler->isValidFileExtension($attachment->getAttachmentType(), $file)) {
                 $event->getForm()->get('file')->addError(
-                        new FormError($this->translator->trans('validator.file_ext_not_allowed'))
-                    );
+                    new FormError($this->translator->trans('validator.file_ext_not_allowed'))
+                );
             }
         });
 
@@ -161,7 +163,7 @@ class AttachmentFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Attachment::class,
-            'max_file_size' => '16M',
+            'max_file_size' => $this->max_file_size,
             'allow_builtins' => true,
         ]);
     }
