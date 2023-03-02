@@ -444,7 +444,7 @@ class AttachmentSubmitHandler
         if (ctype_digit((string) $maxSize)) {
             return (int) $maxSize;
         } elseif (preg_match('/^(\d++)('.implode('|', array_keys($factors)).')$/i', $maxSize, $matches)) {
-            return $matches[1] * $factors[$unit = strtolower($matches[2])];
+            return (((int) $matches[1]) * $factors[strtolower($matches[2])]);
         } else {
             throw new RuntimeException(sprintf('"%s" is not a valid maximum size.', $maxSize));
         }
