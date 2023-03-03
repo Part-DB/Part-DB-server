@@ -62,5 +62,9 @@
         <td>Detailed error pages enabled</td>
         <td>{{ helper.boolean_badge(detailed_error_pages) }} (Admin Contact email: {{ error_page_admin_email }})</td>
     </tr>
+    <tr>
+        <td>Maximum file size for attachments</td>
+        <td>{{ configured_max_file_size }} (Effective: {{ effective_max_file_size | format_bytes }})</td>
+    </tr>
     </tbody>
 </table>

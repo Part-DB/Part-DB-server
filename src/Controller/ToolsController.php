@@ -21,6 +21,7 @@
 namespace App\Controller;
 
 use App\Services\Attachments\AttachmentPathResolver;
+use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\Attachments\AttachmentURLGenerator;
 use App\Services\Attachments\BuiltinAttachmentsFinder;
 use App\Services\Misc\GitVersionInfo;
@@ -49,7 +50,8 @@ class ToolsController extends AbstractController
     /**
      * @Route("/server_infos", name="tools_server_infos")
      */
-    public function systemInfos(GitVersionInfo $versionInfo, DBInfoHelper $DBInfoHelper): Response
+    public function systemInfos(GitVersionInfo $versionInfo, DBInfoHelper $DBInfoHelper,
+        AttachmentSubmitHandler $attachmentSubmitHandler): Response
     {
         $this->denyAccessUnlessGranted('@system.server_infos');
 
@@ -73,6 +75,8 @@ class ToolsController extends AbstractController
             'allow_attachments_downloads' => $this->getParameter('partdb.attachments.allow_downloads'),
             'detailed_error_pages' => $this->getParameter('partdb.error_pages.show_help'),
             'error_page_admin_email' => $this->getParameter('partdb.error_pages.admin_email'),
+            'configured_max_file_size' => $this->getParameter('partdb.attachments.max_file_size'),
+            'effective_max_file_size' => $attachmentSubmitHandler->getMaximumAllowedUploadSize(),
 
             //PHP section
             'php_version' => PHP_VERSION,
