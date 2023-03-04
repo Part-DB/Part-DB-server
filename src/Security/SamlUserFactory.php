@@ -120,6 +120,7 @@ class SamlUserFactory implements SamlUserFactoryInterface, EventSubscriberInterf
 
     /**
      * Maps a list of SAML roles to a local group ID.
+     * The first available mapping will be used (so the order of the $map is important, first match wins).
      * @param  array  $roles The list of SAML roles
      * @param  array  $map|null The mapping from SAML roles. If null, the global mapping will be used.
      * @return int|null The ID of the local group or null if no mapping was found.
@@ -128,13 +129,17 @@ class SamlUserFactory implements SamlUserFactoryInterface, EventSubscriberInterf
     {
         $map = $map ?? $this->saml_role_mapping;
 
-        //Iterate over all roles and check if we have a mapping for it.
-        foreach ($roles as $role) {
-            if (array_key_exists($role, $map)) {
-                //We use the first available mapping
-                return (int) $map[$role];
+        //Iterate over the mapping (from first to last) and check if we have a match
+        foreach ($map as $saml_role => $group_id) {
+            //Skip wildcard
+            if ($saml_role === '*') {
+                continue;
+            }
+            if (in_array($saml_role, $roles, true)) {
+                return (int) $group_id;
             }
         }
+
 
         //If no applicable mapping was found, check if we have a default mapping
         if (array_key_exists('*', $map)) {

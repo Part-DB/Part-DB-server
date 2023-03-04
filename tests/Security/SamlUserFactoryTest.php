@@ -66,18 +66,20 @@ class SamlUserFactoryTest extends WebTestCase
     public function testMapSAMLRolesToLocalGroupID()
     {
         $mapping = [
+            'admin' => 2, //This comes first, as this should have higher priority
             'employee' => 1,
-            'admin' => 2,
             'manager' => 3,
             'administrator' => 2,
             '*' => 4,
         ];
 
         //Test if mapping works
-        $this->assertEquals(1, $this->service->mapSAMLRolesToLocalGroupID(['employee'], $mapping));
+        $this->assertSame(1, $this->service->mapSAMLRolesToLocalGroupID(['employee'], $mapping));
         //Only the first valid mapping should be used
-        $this->assertEquals(1, $this->service->mapSAMLRolesToLocalGroupID(['employee', 'admin'], $mapping));
+        $this->assertSame(2, $this->service->mapSAMLRolesToLocalGroupID(['employee', 'admin'], $mapping));
         $this->assertSame(2, $this->service->mapSAMLRolesToLocalGroupID(['does_not_matter', 'admin', 'employee'], $mapping));
+        $this->assertSame(1, $this->service->mapSAMLRolesToLocalGroupID(['employee', 'does_not_matter', 'manager'], $mapping));
+        $this->assertSame(3, $this->service->mapSAMLRolesToLocalGroupID(['administrator', 'does_not_matter', 'manager'], $mapping));
         //Test if mapping is case sensitive
         $this->assertEquals(4, $this->service->mapSAMLRolesToLocalGroupID(['ADMIN'], $mapping));
 
