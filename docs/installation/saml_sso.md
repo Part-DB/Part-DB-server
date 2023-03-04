@@ -121,7 +121,7 @@ The SAML roles (or groups depending on your configuration), have to be supplied 
 
 By default, the group is assigned to the user on the first login and updated on every login based on the SAML attributes. This allows you to configure the groups in the SAML identity provider and the users will automatically stay up to date with their permissions. However, if you want to disable this behavior (and let the Part-DB admins configure the groups manually, after the first login), you can set the `SAML_UPDATE_GROUP_ON_LOGIN` environment variable to `false`. If you want to disable the automatic group assignment completly (so not even on the first login of a user), set the `SAML_ROLE_MAPPING` to `{}` (empty JSON object).
 
-### Overview of possible SAML attributes used by Part-DB
+## Overview of possible SAML attributes used by Part-DB
 The following table shows all SAML attributes, which can be usedby Part-DB. If your identity provider is configured to provide these attributes, you can use to automatically fill the corresponding fields of the user in Part-DB.
 
 | SAML attribute                            | Part-DB user field | Description                                                       |
@@ -132,7 +132,7 @@ The following table shows all SAML attributes, which can be usedby Part-DB. If y
 | `department`                              | department        | The department of the user.                                       |
 | `group`                                   | group             | The group of the user (determined by `SAML_ROLE_MAPPING` option). |
 
-### Use SAML Login for existing users
+## Use SAML Login for existing users
 Part-DB distinguishes between local users and SAML users. Local users are users, which can login via Part-DB login form and which use the password (hash) saved in the Part-DB database. SAML users are stored in the database too (they are created on the first login of the user via SAML), but they use the SAML identity provider to authenticate the user and have no password stored in the database. When you try you will get an error message.
 
 For security reasons it is not possible to authenticate via SAML as a local user (and vice versa). So if you have existing users in your Part-DB database and want them to be able to login via SAML in the future, you can use the `php bin/console partdb:user:convert-to-saml-user username` command to convert them to SAML users. This will remove the password hash from the database and mark them as SAML users, so they can login via SAML in the future.
@@ -141,3 +141,10 @@ The reverse is also possible: If you have existing SAML users and want them to b
 
 {: .important }
 > It is recommended that you let the original admin user (ID: 2) be a local user, so you can still login to Part-DB if the SAML identity provider is not available.
+
+## Advanced SAML configuration
+You can find some more advanced SAML configuration options in the `config/packages/hslavich_onelogin_saml.yaml` file. Refer to the file for more information.
+Normally you don't have to change anything here.
+
+Please note that this file is not saved by the Part-DB backup tool, so you have to save it manually if you want to keep your changes. On docker containers you have to configure a volume mapping for it.
+
