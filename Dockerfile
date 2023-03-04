@@ -9,7 +9,7 @@ RUN apt-get update && apt-get -y install apt-transport-https lsb-release ca-cert
     && curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg  \
     && sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' \
     && apt-get update && apt-get upgrade -y \
-    && apt-get install -y apache2 php8.1 libapache2-mod-php8.1 php8.1-opcache php8.1-curl php8.1-gd php8.1-mbstring php8.1-xml php8.1-bcmath php8.1-intl php8.1-zip php8.1-xsl php8.1-sqlite3 php8.1-mysql gpg \
+    && apt-get install -y apache2 php8.1 php8.1-fpm php8.1-opcache php8.1-curl php8.1-gd php8.1-mbstring php8.1-xml php8.1-bcmath php8.1-intl php8.1-zip php8.1-xsl php8.1-sqlite3 php8.1-mysql gpg \
     && apt-get -y autoremove && apt-get clean autoclean && rm -rf /var/lib/apt/lists/*;
 
 ENV APACHE_CONFDIR /etc/apache2
@@ -34,10 +34,11 @@ RUN  sed -ri 's/^export ([^=]+)=(.*)$/: ${\1:=\2}\nexport \1/' "$APACHE_ENVVARS"
     	ln -sfT /dev/stderr "$APACHE_LOG_DIR/error.log"; \
     	ln -sfT /dev/stdout "$APACHE_LOG_DIR/access.log"; \
     	ln -sfT /dev/stdout "$APACHE_LOG_DIR/other_vhosts_access.log"; \
+        ln -sfT /dev/stderr /var/log/php8.1-fpm.log; \
         chown -R --no-dereference "$APACHE_RUN_USER:$APACHE_RUN_GROUP" "$APACHE_LOG_DIR";
 
-# Enable mpm_prefork
-RUN a2dismod mpm_event && a2enmod mpm_prefork
+# Enable php-fpm
+RUN a2enmod proxy_fcgi setenvif && a2enconf php8.1-fpm
 
 # PHP files should be handled by PHP, and should be preferred over any other file type
 RUN { \
@@ -64,14 +65,16 @@ RUN  \
         # Configure Realpath cache for performance
         echo 'realpath_cache_size=4096K'; \
         echo 'realpath_cache_ttl=600'; \
-    } > /etc/php/8.1/apache2/conf.d/symfony-recommended.ini
+    } > /etc/php/8.1/fpm/conf.d/symfony-recommended.ini
 
-# Increase upload limit
+# Increase upload limit and enable preloading
 RUN  \
 	{ \
 		echo 'upload_max_filesize=256M'; \
 		echo 'post_max_size=300M'; \
-    } > /etc/php/8.1/apache2/conf.d/partdb.ini
+        echo 'opcache.preload_user=www-data'; \
+        echo 'opcache.preload=/var/www/html/config/preload.php'; \
+    } > /etc/php/8.1/fpm/conf.d/partdb.ini
 
 # Install node and yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
