@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\DataTables;
 
+use App\DataTables\Adapters\CustomFetchJoinORMAdapter;
 use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\IconLinkColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
@@ -281,7 +282,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ])
 
             ->addOrderBy('name')
-            ->createAdapter(FetchJoinORMAdapter::class, [
+            ->createAdapter(CustomFetchJoinORMAdapter::class, [
                 'simple_total_query' => true,
                 'query' => function (QueryBuilder $builder): void {
                     $this->getQuery($builder);
