@@ -14737,12 +14737,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "2f3a048ff643e4aff8308eaeea738c82dfac0a81"
+                "reference": "91fab0df509bae51a5e0c0d224f3e088cea08ea2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/2f3a048ff643e4aff8308eaeea738c82dfac0a81",
-                "reference": "2f3a048ff643e4aff8308eaeea738c82dfac0a81",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/91fab0df509bae51a5e0c0d224f3e088cea08ea2",
+                "reference": "91fab0df509bae51a5e0c0d224f3e088cea08ea2",
                 "shasum": ""
             },
             "conflict": {
@@ -14800,7 +14800,7 @@
                 "catfan/medoo": "<1.7.5",
                 "centreon/centreon": "<22.10-beta.1",
                 "cesnet/simplesamlphp-module-proxystatistics": "<3.1",
-                "cockpit-hq/cockpit": "<2.3.9",
+                "cockpit-hq/cockpit": "<=2.3.9",
                 "codeception/codeception": "<3.1.3|>=4,<4.1.22",
                 "codeigniter/framework": "<=3.0.6",
                 "codeigniter4/framework": "<4.2.11",
@@ -14815,7 +14815,7 @@
                 "contao/core-bundle": "<4.9.18|>=4.10,<4.11.7|>=4.13,<4.13.3|= 4.10.0",
                 "contao/listing-bundle": ">=4,<4.4.8",
                 "contao/managed-edition": "<=1.5",
-                "craftcms/cms": "<3.7.55.2|>= 4.0.0-RC1, < 4.2.1",
+                "craftcms/cms": "<4.3.7|>= 4.0.0-RC1, < 4.2.1",
                 "croogo/croogo": "<3.0.7",
                 "cuyz/valinor": "<0.12",
                 "czproject/git-php": "<4.0.3",
@@ -15050,7 +15050,7 @@
                 "phpmyfaq/phpmyfaq": "<=3.1.7",
                 "phpoffice/phpexcel": "<1.8",
                 "phpoffice/phpspreadsheet": "<1.16",
-                "phpseclib/phpseclib": "<2.0.31|>=3,<3.0.7",
+                "phpseclib/phpseclib": "<=2.0.41|>=3,<3.0.7",
                 "phpservermon/phpservermon": "<=3.5.2",
                 "phpunit/phpunit": ">=4.8.19,<4.8.28|>=5,<5.6.3",
                 "phpwhois/phpwhois": "<=4.2.5",
@@ -15315,7 +15315,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-02T19:04:12+00:00"
+            "time": "2023-03-03T23:04:13+00:00"
         },
         {
             "name": "sebastian/diff",
