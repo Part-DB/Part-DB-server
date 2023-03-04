@@ -2,6 +2,9 @@
 
 <table class="table table-sm table-striped table-hover table-bordered">
     <tbody>
+    <tr class="table-info">
+        <td colspan="2"><b>General</b></td>
+    </tr>
     <tr>
         <td>Part-DB Version</td>
         <td>{{ shivas_app_version }} {% if git_branch is not empty or git_commit is not empty %}({{ git_branch ?? '' }}/{{ git_commit ?? '' }}){% endif %}</td>
@@ -42,8 +45,11 @@
         <td>GPDR Compliance Mode</td>
         <td>{{ helper.boolean_badge(gpdr_compliance) }}</td>
     </tr>
+    <tr class="table-info">
+        <td colspan="2"><b>Users</b></td>
+    </tr>
     <tr>
-        <td>Use Gravatar</td>
+        <td>Use Gravatar for Avatar</td>
         <td>{{ helper.boolean_badge(use_gravatar) }}</td>
     </tr>
     <tr>
@@ -51,8 +57,18 @@
         <td>{{ helper.boolean_badge(email_password_reset) }}</td>
     </tr>
     <tr>
+        <td>Single Sign-On via SAML enabled</td>
+        <td>{{ helper.boolean_badge(saml_enabled) }}</td>
+    </tr>
+    <tr class="table-info">
+        <td colspan="2"><b>Email</b></td>
+    </tr>
+    <tr>
         <td>Configured E-Mail sender</td>
         <td>{{ email_sender }} ({{ email_sender_name }})</td>
+    </tr>
+    <tr class="table-info">
+        <td colspan="2"><b>Attachments</b></td>
     </tr>
     <tr>
         <td>Allow server-side download of attachments</td>

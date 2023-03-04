@@ -77,6 +77,7 @@ class ToolsController extends AbstractController
             'error_page_admin_email' => $this->getParameter('partdb.error_pages.admin_email'),
             'configured_max_file_size' => $this->getParameter('partdb.attachments.max_file_size'),
             'effective_max_file_size' => $attachmentSubmitHandler->getMaximumAllowedUploadSize(),
+            'saml_enabled' => $this->getParameter('partdb.saml.enabled'),
 
             //PHP section
             'php_version' => PHP_VERSION,
