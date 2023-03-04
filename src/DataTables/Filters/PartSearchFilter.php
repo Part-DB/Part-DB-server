@@ -65,6 +65,9 @@ class PartSearchFilter implements FilterInterface
     /** @var bool Use footprint name for searching */
     protected bool $footprint = false;
 
+    /** @var bool Use Internal Part number for searching */
+    protected bool $ipn = true;
+
     public function __construct(string $query)
     {
         $this->keyword = $query;
@@ -103,6 +106,9 @@ class PartSearchFilter implements FilterInterface
         }
         if($this->footprint) {
             $fields_to_search[] = 'footprint.name';
+        }
+        if ($this->ipn) {
+            $fields_to_search[] = 'part.ipn';
         }
 
         return $fields_to_search;
@@ -298,6 +304,17 @@ class PartSearchFilter implements FilterInterface
     public function setMpn(bool $mpn): PartSearchFilter
     {
         $this->mpn = $mpn;
+        return $this;
+    }
+
+    public function isIPN(): bool
+    {
+        return $this->ipn;
+    }
+
+    public function setIPN(bool $ipn): PartSearchFilter
+    {
+        $this->ipn = $ipn;
         return $this;
     }
 

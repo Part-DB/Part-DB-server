@@ -5,7 +5,7 @@
             <span class="caret"></span>
         </button>
         <div class="dropdown-menu" aria-labelledby="navbar-search-options">
-            <div class="px-2">
+            <div class="px-2" style="width: max-content;">
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="search_name"  name="name" value="1" checked>
                     <label for="search_name" class="form-check-label justify-content-start">{% trans %}name.label{% endtrans %}</label>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="search_mpn" name="mpn" value="1" checked>
-                    <label for="search_description" class="form-check-label justify-content-start">{% trans %}part.edit.mpn{% endtrans %}</label>
+                    <label for="search_mpn" class="form-check-label justify-content-start">{% trans %}part.edit.mpn{% endtrans %}</label>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="search_tags" name="tags" value="1" checked>
@@ -34,10 +34,14 @@
                     <input type="checkbox" class="form-check-input" id="search_comment" name="comment" value="1" checked>
                     <label for="search_comment" class="form-check-label justify-content-start">{% trans %}comment.label{% endtrans %}</label>
                 </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="search_ipn" name="ipn" value="1" checked>
+                    <label for="search_ipn" class="form-check-label justify-content-start">{% trans %}part.edit.ipn{% endtrans %}</label>
+                </div>
                 {% if true %}
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="search_supplierpartnr" name="ordernr" value="1" checked>
-                        <label for="search_supplierpartnr" class="form-check-label justify-content-start">{% trans %}ordernumber.label.short{% endtrans %}</label>
+                        <label for="search_supplierpartnr" class="form-check-label justify-content-start">{% trans %}orderdetails.edit.supplierpartnr{% endtrans %}</label>
                     </div>
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="search_supplier" name="supplier" value="1">
