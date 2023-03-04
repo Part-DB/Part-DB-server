@@ -24,6 +24,11 @@ but it should work with any SAML 2.0 compatible identity provider.
 
 This guide assumes that you have a working Keycloak installation with some users. If you don't, you can follow the [Keycloak Getting Started Guide](https://www.keycloak.org/docs/latest/getting_started/index.html).
 
+{: .important }
+> Part-DB associates local users with SAML users by their username. That means if the username of a SAML user changes, a new local user will be created (and the old account can not be accessed).
+> You should make sure that the username of a SAML user does not change. If you use Keycloak make sure that the possibility to change the username is disabled (which is by default).
+> If you really have to rename a SAML user, a Part-DB admin can rename the local user in the Part-DB in the admin panel, to match the new username of the SAML user.
+
 ## Configure basic SAML connection
 
 ### Create a new SAML client
@@ -99,7 +104,7 @@ Part-DB allows you to configure a mapping between SAML roles or groups and Part-
 
 For this you need first have to create the groups in Part-DB, to which you want to assign the users and configure their permissions. You will need the IDs of the groups, which you can find in the `System->Group` page of Part-DB in the Info tab.
 
-The map is provided as [JSON](https://en.wikipedia.org/wiki/JSON) encoded map between the SAML role and the group ID, which has the form `{"saml_role": group_id, "*": group_id, ...}`. You can use the `*` key to assign a group to all users, which are not in any other group. The map is configured via the `SAML_ROLE_MAPPING` environment variable, which you can configure via the `.env.local` or `docker-compose.yml` file. Please note that you have to enclose the JSON string in single quotes here, as JSON itself uses double quotes (e.g. `SAML_ROLE_MAPPING='{ "*": 2, "editor": 3, "admin": 1 }').
+The map is provided as [JSON](https://en.wikipedia.org/wiki/JSON) encoded map between the SAML role and the group ID, which has the form `{"saml_role": group_id, "*": group_id, ...}`. You can use the `*` key to assign a group to all users, which are not in any other group. The map is configured via the `SAML_ROLE_MAPPING` environment variable, which you can configure via the `.env.local` or `docker-compose.yml` file. Please note that you have to enclose the JSON string in single quotes here, as JSON itself uses double quotes (e.g. `SAML_ROLE_MAPPING='{ "*": 2, "editor": 3, "admin": 1 }`).
 
 For example if you want to assign the group with ID 1 (by default admin) to every SAML user which has the role `admin`, the role with ID 3 (by default editor) to every SAML user with the role `editor` and everybody else to the group with ID 2 (by default readonly), you can configure the following map:
 
