@@ -112,10 +112,20 @@ This mean that you should always put the most specific roles (e.g. admins) first
 
 If you want to assign users with a certain role to a empty group, provide the group ID -1 as the value. This is not a valid group ID, so the user will not be assigned to any group.
 
-The SAML roles (or groups depending on your configuration), have to be supplied via a SAML attribute `group`. You have to configure your SAML identity provider to provide this attribute. For example in Keycloak you can configure this attribute in the `Client scopes` page. Select the `sp-dedicatd` client scope (or create a new one) and click on `Add mappers`. Select `Role mapping` or `Group membership`, change the field name and click `Add`. Now Part-DB will be provided with the groups of the user based on the Keycloak user database.
+The SAML roles (or groups depending on your configuration), have to be supplied via a SAML attribute `group`. You have to configure your SAML identity provider to provide this attribute. For example in Keycloak you can configure this attribute in the `Client scopes` page. Select the `sp-dedicated` client scope (or create a new one) and click on `Add mappers`. Select `Role mapping` or `Group membership`, change the field name and click `Add`. Now Part-DB will be provided with the groups of the user based on the Keycloak user database.
 
-By default, the group is assigned to the user on the first login and updated on every login based on the SAML attributes. This allows you to configure the groups in the SAML identity provider and the users will automatically stay up to date with their permissions. However if you want to disable this behavior (and let the Part-DB admins configure the groups manually, after the first login), you can set the `SAML_UPDATE_GROUP_ON_LOGIN` environment variable to `false`. If you want to disable the automatic group assignment completly (so not even on the first login of a user), set the `SAML_ROLE_MAPPING` to `{}` (empty JSON object).
+By default, the group is assigned to the user on the first login and updated on every login based on the SAML attributes. This allows you to configure the groups in the SAML identity provider and the users will automatically stay up to date with their permissions. However, if you want to disable this behavior (and let the Part-DB admins configure the groups manually, after the first login), you can set the `SAML_UPDATE_GROUP_ON_LOGIN` environment variable to `false`. If you want to disable the automatic group assignment completly (so not even on the first login of a user), set the `SAML_ROLE_MAPPING` to `{}` (empty JSON object).
 
+### Overview of possible SAML attributes used by Part-DB
+The following table shows all SAML attributes, which can be usedby Part-DB. If your identity provider is configured to provide these attributes, you can use to automatically fill the corresponding fields of the user in Part-DB.
+
+| SAML attribute                            | Part-DB user field | Description                                                       |
+|-------------------------------------------|-------------------|-------------------------------------------------------------------|
+| `urn:oid:1.2.840.113549.1.9.1` or `email` | email             | The email address of the user.                                    |
+| `urn:oid:2.5.4.42` or `firstName`         | firstName         | The first name of the user.                                       |
+| `urn:oid:2.5.4.4` or `lastName`           | lastName          | The last name of the user.                                        |
+| `department`                              | department        | The department of the user.                                       |
+| `group`                                   | group             | The group of the user (determined by `SAML_ROLE_MAPPING` option). |
 
 ### Use SAML Login for existing users
 Part-DB distinguishes between local users and SAML users. Local users are users, which can login via Part-DB login form and which use the password (hash) saved in the Part-DB database. SAML users are stored in the database too (they are created on the first login of the user via SAML), but they use the SAML identity provider to authenticate the user and have no password stored in the database. When you try you will get an error message.
