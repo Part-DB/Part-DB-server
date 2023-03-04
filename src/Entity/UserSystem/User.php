@@ -30,6 +30,7 @@ use App\Security\Interfaces\HasPermissionsInterface;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPermission;
 use App\Validator\Constraints\ValidTheme;
+use Hslavich\OneloginSamlBundle\Security\User\SamlUserInterface;
 use Jbtronics\TFAWebauthn\Model\LegacyU2FKeyInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Webauthn\PublicKeyCredentialUserEntity;
@@ -60,7 +61,8 @@ use Jbtronics\TFAWebauthn\Model\TwoFactorInterface as WebauthnTwoFactorInterface
  * @ORM\EntityListeners({"App\EntityListeners\TreeCacheInvalidationListener"})
  * @UniqueEntity("name", message="validator.user.username_already_used")
  */
-class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface, BackupCodeInterface, TrustedDeviceInterface, WebauthnTwoFactorInterface, PreferredProviderInterface, PasswordAuthenticatedUserInterface
+class User extends AttachmentContainingDBElement implements UserInterface, HasPermissionsInterface, TwoFactorInterface,
+                                                            BackupCodeInterface, TrustedDeviceInterface, WebauthnTwoFactorInterface, PreferredProviderInterface, PasswordAuthenticatedUserInterface, SamlUserInterface
 {
     //use MasterAttachmentTrait;
 
@@ -238,9 +240,15 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * @var DateTime the time until the password reset token is valid
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", nullable=true, columnDefinition="DEFAULT NULL")
      */
     protected $pw_reset_expires;
+
+    /**
+     * @var bool True if the user was created by a SAML provider (and therefore cannot change its password)
+     * @ORM\Column(type="boolean")
+     */
+    protected bool $saml_user = false;
 
     public function __construct()
     {
@@ -297,6 +305,10 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
         //$roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
+
+        if ($this->saml_user) {
+            $roles[] = 'ROLE_SAML_USER';
+        }
 
         return array_unique($roles);
     }
@@ -859,5 +871,57 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     public function addWebauthnKey(WebauthnKey $webauthnKey): void
     {
         $this->webauthn_keys->add($webauthnKey);
+    }
+
+    /**
+     * Returns true, if the user was created by the SAML authentication.
+     * @return bool
+     */
+    public function isSamlUser(): bool
+    {
+        return $this->saml_user;
+    }
+
+    /**
+     * Sets the saml_user flag.
+     * @param  bool  $saml_user
+     * @return User
+     */
+    public function setSamlUser(bool $saml_user): User
+    {
+        $this->saml_user = $saml_user;
+        return $this;
+    }
+
+
+
+    public function setSamlAttributes(array $attributes)
+    {
+        //When mail attribute exists, set it
+        if (isset($attributes['email'])) {
+            $this->setEmail($attributes['email'][0]);
+        }
+        //When first name attribute exists, set it
+        if (isset($attributes['firstName'])) {
+            $this->setFirstName($attributes['firstName'][0]);
+        }
+        //When last name attribute exists, set it
+        if (isset($attributes['lastName'])) {
+            $this->setLastName($attributes['lastName'][0]);
+        }
+        if (isset($attributes['department'])) {
+            $this->setDepartment($attributes['department'][0]);
+        }
+
+        //Use X500 attributes as userinfo
+        if (isset($attributes['urn:oid:2.5.4.42'])) {
+            $this->setFirstName($attributes['urn:oid:2.5.4.42'][0]);
+        }
+        if (isset($attributes['urn:oid:2.5.4.4'])) {
+            $this->setLastName($attributes['urn:oid:2.5.4.4'][0]);
+        }
+        if (isset($attributes['urn:oid:1.2.840.113549.1.9.1'])) {
+            $this->setEmail($attributes['urn:oid:1.2.840.113549.1.9.1'][0]);
+        }
     }
 }

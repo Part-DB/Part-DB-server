@@ -22,6 +22,7 @@
         "florianv/swap": "^4.0",
         "florianv/swap-bundle": "dev-master",
         "gregwar/captcha-bundle": "^2.1.0",
+        "hslavich/oneloginsaml-bundle": "^2.10",
         "jbtronics/2fa-webauthn": "^1.0.0",
         "league/html-to-markdown": "^5.0.1",
         "liip/imagine-bundle": "^2.2",

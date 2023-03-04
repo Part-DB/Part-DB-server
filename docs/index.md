@@ -27,6 +27,7 @@ It is installed on a web server and so can be accessed with any browser without 
 * Barcodes/Labels generator for parts and storage locations, scan barcodes via webcam using the builtin barcode scanner
 * User system with groups and detailed (fine granular) permissions.
   Two-factor authentication is supported (Google Authenticator and Webauthn/U2F keys) and can be enforced for groups. Password reset via email can be setuped.
+* Optional support for single sign-on (SSO) via SAML (using an intermediate service like [Keycloak](https://www.keycloak.org/) you can connect Part-DB to an existing LDAP or Active Directory server)
 * Import/Export system (partial working)
 * Project management: Create projects and assign parts to the bill of material (BOM), to show how often you could build this project and directly withdraw all components needed from DB
 * Event log: Track what changes happens to your inventory, track which user does what. Revert your parts to older versions.

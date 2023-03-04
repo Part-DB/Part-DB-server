@@ -19,6 +19,7 @@ You can get help for every command with the parameter `--help`. See `php bin/con
 * `php bin/console partdb:users:permissions`: View/Change the permissions of the user with the given username
 * `php bin/console partdb:users:upgrade-permissions-schema`: Upgrade the permissions schema of users to the latest version (this is normally automatically done when the user visits a page)
 * `php bin/console partdb:logs:show`: Show the most recent entries of the Part-DB event log / recent activity
+* `php bin/console partdb:user:convert-to-saml-user`: Convert a local user to a SAML/SSO user. This is needed, if you want to use SAML/SSO authentication for a user, which was created before you enabled SAML/SSO authentication.
 
 ## Currency commands
 * `php bin/console partdb:currencies:update-exchange-rates`: Update the exchange rates of all currencies from the internet)

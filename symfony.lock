@@ -173,6 +173,9 @@
     "gregwar/captcha-bundle": {
         "version": "v2.0.6"
     },
+    "hslavich/oneloginsaml-bundle": {
+        "version": "v2.10.0"
+    },
     "imagine/imagine": {
         "version": "1.2.2"
     },

@@ -20,9 +20,11 @@
 
 namespace App\Controller;
 
+use App\Entity\UserSystem\User;
 use App\Entity\UserSystem\WebauthnKey;
 use Doctrine\ORM\EntityManagerInterface;
 use Jbtronics\TFAWebauthn\Services\TFAWebauthnRegistrationHelper;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,6 +33,13 @@ use function Symfony\Component\Translation\t;
 
 class WebauthnKeyRegistrationController extends AbstractController
 {
+    private bool $demo_mode;
+
+    public function __construct(bool $demo_mode)
+    {
+        $this->demo_mode = $demo_mode;
+    }
+
     /**
      * @Route("/webauthn/register", name="webauthn_register")
      */
@@ -38,6 +47,20 @@ class WebauthnKeyRegistrationController extends AbstractController
     {
         //When user change its settings, he should be logged  in fully.
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        if ($this->demo_mode) {
+            throw new RuntimeException('You can not do 2FA things in demo mode');
+        }
+
+        $user = $this->getUser();
+
+        if (!$user instanceof User) {
+            throw new RuntimeException('This controller only works only for Part-DB User objects!');
+        }
+
+        if ($user->isSamlUser()) {
+            throw new RuntimeException('You can not remove U2F keys from SAML users!');
+        }
 
         //If form was submitted, check the auth response
         if ($request->getMethod() === 'POST') {

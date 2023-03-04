@@ -46,22 +46,39 @@ class UserListCommand extends Command
         $this
             ->setDescription('Lists all users')
             ->setHelp('This command lists all users in the database.')
+            ->addOption('local', 'l', null, 'Only list local users')
+            ->addOption('saml', 's', null, 'Only list SAML users')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
+        $only_local = $input->getOption('local');
+        $only_saml = $input->getOption('saml');
 
-        //Get all users from database
-        $users = $this->entityManager->getRepository(User::class)->findAll();
+        if ($only_local && $only_saml) {
+            $io->error('You can not use --local and --saml at the same time!');
+
+            return Command::FAILURE;
+        }
+
+        $repo = $this->entityManager->getRepository(User::class);
+
+        if ($only_local) {
+            $users = $repo->onlyLocalUsers();
+        } elseif ($only_saml) {
+            $users = $repo->onlySAMLUsers();
+        } else {
+            $users = $repo->findAll();
+        }
 
         $io->info(sprintf("Found %d users in database.", count($users)));
 
         $io->title('Users:');
 
         $table = new Table($output);
-        $table->setHeaders(['ID', 'Username', 'Name', 'Email', 'Group', 'Login Disabled']);
+        $table->setHeaders(['ID', 'Username', 'Name', 'Email', 'Group', 'Login Disabled', 'Type']);
 
         foreach ($users as $user) {
             $table->addRow([
@@ -71,6 +88,7 @@ class UserListCommand extends Command
                 $user->getEmail(),
                 $user->getGroup() !== null ? $user->getGroup()->getName() . ' (ID: ' . $user->getGroup()->getID() . ')' : 'No group',
                 $user->isDisabled() ? 'Yes' : 'No',
+                $user->isSAMLUser() ? 'SAML' : 'Local',
             ]);
         }
 

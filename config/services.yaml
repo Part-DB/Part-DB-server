@@ -129,6 +129,15 @@ services:
     # Security
     ####################################################################################################################
 
+    saml_user_factory:
+        alias: App\Security\SamlUserFactory
+        public: true
+
+    App\Security\SamlUserFactory:
+        arguments:
+            $saml_role_mapping: '%env(json:SAML_ROLE_MAPPING)%'
+            $update_group_on_login: '%env(bool:SAML_UPDATE_GROUP_ON_LOGIN)%'
+
     ####################################################################################################################
     # Cache
     ####################################################################################################################
@@ -195,6 +204,10 @@ services:
     App\Validator\Constraints\ValidThemeValidator:
         arguments:
             $available_themes: '%partdb.available_themes%'
+
+    App\Command\User\ConvertToSAMLUserCommand:
+        arguments:
+            $saml_enabled: '%partdb.saml.enabled%'
 
 
     ####################################################################################################################

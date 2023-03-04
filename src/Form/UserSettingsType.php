@@ -57,7 +57,7 @@ class UserSettingsType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'user.username.label',
-                'disabled' => !$this->security->isGranted('edit_username', $options['data']) || $this->demo_mode,
+                'disabled' => !$this->security->isGranted('edit_username', $options['data']) || $this->demo_mode || $options['data']->isSamlUser(),
             ])
             ->add('first_name', TextType::class, [
                 'required' => false,

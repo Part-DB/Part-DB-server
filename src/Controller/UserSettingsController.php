@@ -83,6 +83,10 @@ class UserSettingsController extends AbstractController
             return new RuntimeException('This controller only works only for Part-DB User objects!');
         }
 
+        if ($user->isSamlUser()) {
+            throw new RuntimeException('You can not remove U2F keys from SAML users!');
+        }
+
         if (empty($user->getBackupCodes())) {
             $this->addFlash('error', 'tfa_backup.no_codes_enabled');
 
@@ -110,6 +114,10 @@ class UserSettingsController extends AbstractController
 
         if (!$user instanceof User) {
             throw new RuntimeException('This controller only works only for Part-DB User objects!');
+        }
+
+        if ($user->isSamlUser()) {
+            throw new RuntimeException('You can not remove U2F keys from SAML users!');
         }
 
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
@@ -190,6 +198,10 @@ class UserSettingsController extends AbstractController
 
         if (!$user instanceof User) {
             return new RuntimeException('This controller only works only for Part-DB User objects!');
+        }
+
+        if ($user->isSamlUser()) {
+            throw new RuntimeException('You can not remove U2F keys from SAML users!');
         }
 
         if ($this->isCsrfTokenValid('devices_reset'.$user->getId(), $request->request->get('_token'))) {
@@ -281,14 +293,14 @@ class UserSettingsController extends AbstractController
             ])
             ->add('old_password', PasswordType::class, [
                 'label' => 'user.settings.pw_old.label',
-                'disabled' => $this->demo_mode,
+                'disabled' => $this->demo_mode || $user->isSamlUser(),
                 'attr' => [
                     'autocomplete' => 'current-password',
                 ],
                 'constraints' => [new UserPassword()],
             ]) //This constraint checks, if the current user pw was inputted.
             ->add('new_password', RepeatedType::class, [
-                'disabled' => $this->demo_mode,
+                'disabled' => $this->demo_mode || $user->isSamlUser(),
                 'type' => PasswordType::class,
                 'first_options' => [
                     'label' => 'user.settings.pw_new.label',
@@ -307,7 +319,10 @@ class UserSettingsController extends AbstractController
                     'max' => 128,
                 ])],
             ])
-            ->add('submit', SubmitType::class, ['label' => 'save'])
+            ->add('submit', SubmitType::class, [
+                'label' => 'save',
+                'disabled' => $this->demo_mode || $user->isSamlUser(),
+            ])
             ->getForm();
 
         $pw_form->handleRequest($request);
@@ -327,7 +342,9 @@ class UserSettingsController extends AbstractController
         }
 
         //Handle 2FA things
-        $google_form = $this->createForm(TFAGoogleSettingsType::class, $user);
+        $google_form = $this->createForm(TFAGoogleSettingsType::class, $user, [
+            'disabled' => $this->demo_mode || $user->isSamlUser(),
+        ]);
         $google_enabled = $user->isGoogleAuthenticatorEnabled();
         if (!$google_enabled && !$form->isSubmitted()) {
             $user->setGoogleAuthenticatorSecret($googleAuthenticator->generateSecret());
@@ -335,7 +352,7 @@ class UserSettingsController extends AbstractController
         }
         $google_form->handleRequest($request);
 
-        if (!$this->demo_mode && $google_form->isSubmitted() && $google_form->isValid()) {
+        if (!$this->demo_mode && !$user->isSamlUser() && $google_form->isSubmitted() && $google_form->isValid()) {
             if (!$google_enabled) {
                 //Save 2FA settings (save secrets)
                 $user->setGoogleAuthenticatorSecret($google_form->get('googleAuthenticatorSecret')->getData());
@@ -369,7 +386,7 @@ class UserSettingsController extends AbstractController
         ])->getForm();
 
         $backup_form->handleRequest($request);
-        if (!$this->demo_mode && $backup_form->isSubmitted() && $backup_form->isValid()) {
+        if (!$this->demo_mode && !$user->isSamlUser() && $backup_form->isSubmitted() && $backup_form->isValid()) {
             $backupCodeManager->regenerateBackupCodes($user);
             $em->flush();
             $this->addFlash('success', 'user.settings.2fa.backup_codes.regenerated');
