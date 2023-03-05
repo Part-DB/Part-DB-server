@@ -117,6 +117,7 @@
                 {{ form_label(form.file) }}
                 <div class="col-sm-9">
                     {{ form_widget(form.file) }}
+                    {{ form_errors(form.file) }}
                     <small class="text-muted">{% trans %}attachment.max_file_size{% endtrans %}: {{ max_upload_size | format_bytes }}</small>
                 </div>
             </div>
