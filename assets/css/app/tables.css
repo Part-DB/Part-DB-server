@@ -89,7 +89,8 @@ th.select-checkbox {
 }
 
 /** Fix datatables select-checkbox position */
-table.dataTable tr.selected td.select-checkbox:after, table.dataTable tr.selected th.select-checkbox:after {
+table.dataTable tr.selected td.select-checkbox:after
+{
     margin-top: -28px !important;
 }
 
@@ -102,4 +103,43 @@ Classes for Datatables export
 #export-messageTop,
 .export-helper{
     display: none;
+}
+
+/******************************************************
+ * Styling for the select all checkbox in the parts table
+ * Should match the styling of the select checkbox
+ ******************************************************/
+table.dataTable > thead > tr > th.select-checkbox {
+    position: relative;
+}
+table.dataTable > thead > tr > th.select-checkbox:before,
+table.dataTable > thead > tr > th.select-checkbox:after {
+    display: block;
+    position: absolute;
+    top: 1.2em;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    box-sizing: border-box;
+}
+table.dataTable > thead > tr > th.select-checkbox:before {
+    content: " ";
+    margin-top: -5px;
+    margin-left: -6px;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+table.dataTable > thead > tr.selected > th.select-checkbox:after {
+    content: "✓";
+    font-size: 20px;
+    margin-top: -23px;
+    margin-left: -6px;
+    text-align: center;
+    /*text-shadow: 1px 1px #B0BED9, -1px -1px #B0BED9, 1px -1px #B0BED9, -1px 1px #B0BED9; */
+}
+table.dataTable.compact > thead > tr > th.select-checkbox:before {
+    margin-top: -12px;
+}
+table.dataTable.compact > thead > tr.selected > th.select-checkbox:after {
+    margin-top: -16px;
 }

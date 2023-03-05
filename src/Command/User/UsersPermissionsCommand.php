@@ -57,7 +57,7 @@ class UsersPermissionsCommand extends Command
     protected function configure(): void
     {
         $this
-            ->addArgument('user', InputArgument::REQUIRED, 'The username of the user to view')
+            ->addArgument('user', InputArgument::REQUIRED, 'The username or email of the user to view')
             ->addOption('noInherit', null, InputOption::VALUE_NONE, 'Do not inherit permissions from groups')
             ->addOption('edit', '', InputOption::VALUE_NONE, 'Edit the permissions of the user')
         ;

@@ -78,22 +78,23 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ->add('quantity', TextColumn::class, [
                 'label' => $this->translator->trans('project.bom.quantity'),
                 'className' => 'text-center',
+                'orderField' => 'bom_entry.quantity',
                 'render' => function ($value, ProjectBOMEntry $context) {
                     //If we have a non-part entry, only show the rounded quantity
                     if ($context->getPart() === null) {
                         return round($context->getQuantity());
                     }
                     //Otherwise use the unit of the part to format the quantity
-                    return $this->amountFormatter->format($context->getQuantity(), $context->getPart()->getPartUnit());
+                    return htmlspecialchars($this->amountFormatter->format($context->getQuantity(), $context->getPart()->getPartUnit()));
                 },
             ])
 
             ->add('name', TextColumn::class, [
                 'label' => $this->translator->trans('part.table.name'),
-                'orderable' => false,
+                'orderField' => 'part.name',
                 'render' => function ($value, ProjectBOMEntry $context) {
                     if($context->getPart() === null) {
-                        return $context->getName();
+                        return htmlspecialchars($context->getName());
                     }
                     if($context->getPart() !== null) {
                         $tmp = $this->partDataTableHelper->renderName($context->getPart());
@@ -121,15 +122,18 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ->add('category', EntityColumn::class, [
                 'label' => $this->translator->trans('part.table.category'),
                 'property' => 'part.category',
+                'orderField' => 'category.name',
             ])
             ->add('footprint', EntityColumn::class, [
                 'property' => 'part.footprint',
                 'label' => $this->translator->trans('part.table.footprint'),
+                'orderField' => 'footprint.name',
             ])
 
             ->add('manufacturer', EntityColumn::class, [
                 'property' => 'part.manufacturer',
                 'label' => $this->translator->trans('part.table.manufacturer'),
+                'orderField' => 'manufacturer.name',
             ])
 
             ->add('mountnames', TextColumn::class, [
@@ -155,6 +159,8 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ])
         ;
 
+        $dataTable->addOrderBy('name', DataTable::SORT_ASCENDING);
+
         $dataTable->createAdapter(ORMAdapter::class, [
             'entity' => Attachment::class,
             'query' => function (QueryBuilder $builder) use ($options): void {
@@ -175,6 +181,9 @@ class ProjectBomEntriesDataTable implements DataTableTypeInterface
             ->addSelect('part')
             ->from(ProjectBOMEntry::class, 'bom_entry')
             ->leftJoin('bom_entry.part', 'part')
+            ->leftJoin('part.category', 'category')
+            ->leftJoin('part.footprint', 'footprint')
+            ->leftJoin('part.manufacturer', 'manufacturer')
             ->where('bom_entry.project = :project')
             ->setParameter('project', $options['project'])
         ;

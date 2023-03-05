@@ -17,3 +17,5 @@ For example, if your reverse proxy has the IP address `192.168.2.10`, your value
 ```
 TRUSTED_PROXIES=192.168.2.10
 ```
+
+Set the `DEFAULT_URI` environment variable to the URL of your Part-DB installation, available from the outside (so via the reverse proxy).

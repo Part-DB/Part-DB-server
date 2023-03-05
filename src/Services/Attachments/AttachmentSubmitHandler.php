@@ -61,6 +61,12 @@ class AttachmentSubmitHandler
     protected HttpClientInterface $httpClient;
     protected MimeTypesInterface $mimeTypes;
     protected FileTypeFilterTools $filterTools;
+    /**
+     * @var string The user configured maximum upload size. This is a string like "10M" or "1G" and will be converted to
+     */
+    protected string $max_upload_size;
+
+    private ?int $max_upload_size_bytes = null;
 
     protected const BLACKLISTED_EXTENSIONS = ['php', 'phtml', 'php3', 'ph3', 'php4', 'ph4', 'php5', 'ph5', 'phtm', 'sh',
         'asp', 'cgi', 'py', 'pl', 'exe', 'aspx', 'js', 'mjs', 'jsp', 'css', 'jar', 'html', 'htm', 'shtm', 'shtml', 'htaccess',
@@ -68,12 +74,13 @@ class AttachmentSubmitHandler
 
     public function __construct(AttachmentPathResolver $pathResolver, bool $allow_attachments_downloads,
                                 HttpClientInterface $httpClient, MimeTypesInterface $mimeTypes,
-        FileTypeFilterTools $filterTools)
+        FileTypeFilterTools $filterTools, string $max_upload_size)
     {
         $this->pathResolver = $pathResolver;
         $this->allow_attachments_downloads = $allow_attachments_downloads;
         $this->httpClient = $httpClient;
         $this->mimeTypes = $mimeTypes;
+        $this->max_upload_size = $max_upload_size;
 
         $this->filterTools = $filterTools;
 
@@ -416,5 +423,49 @@ class AttachmentSubmitHandler
         $attachment->setFilename($file->getClientOriginalName());
 
         return $attachment;
+    }
+
+    /**
+     * Parses the given file size string and returns the size in bytes.
+     * Taken from https://github.com/symfony/symfony/blob/6.2/src/Symfony/Component/Validator/Constraints/File.php
+     * @param  string  $maxSize
+     * @return int
+     */
+    private function parseFileSizeString(string $maxSize): int
+    {
+        $factors = [
+            'k' => 1000,
+            'ki' => 1 << 10,
+            'm' => 1000 * 1000,
+            'mi' => 1 << 20,
+            'g' => 1000 * 1000 * 1000,
+            'gi' => 1 << 30,
+        ];
+        if (ctype_digit((string) $maxSize)) {
+            return (int) $maxSize;
+        } elseif (preg_match('/^(\d++)('.implode('|', array_keys($factors)).')$/i', $maxSize, $matches)) {
+            return (((int) $matches[1]) * $factors[strtolower($matches[2])]);
+        } else {
+            throw new RuntimeException(sprintf('"%s" is not a valid maximum size.', $maxSize));
+        }
+    }
+
+    /*
+     * Returns the maximum allowed upload size in bytes.
+     * This is the minimum value of Part-DB max_file_size, and php.ini's post_max_size and upload_max_filesize.
+     */
+    public function getMaximumAllowedUploadSize(): int
+    {
+        if ($this->max_upload_size_bytes) {
+            return $this->max_upload_size_bytes;
+        }
+
+        $this->max_upload_size_bytes = min(
+            $this->parseFileSizeString(ini_get('post_max_size')),
+            $this->parseFileSizeString(ini_get('upload_max_filesize')),
+            $this->parseFileSizeString($this->max_upload_size),
+        );
+
+        return $this->max_upload_size_bytes;
     }
 }

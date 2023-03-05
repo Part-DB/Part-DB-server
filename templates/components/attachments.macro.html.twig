@@ -19,7 +19,7 @@
     </div>
 {% endmacro %}
 
-{% macro attachment_icon(attachment, attachment_helper, class = "fa-fw fas fa-3x", link = true) %}
+{% macro attachment_icon(attachment, attachment_helper, class = "fa-fw fas fa-3x hoverpic", link = true) %}
     {% set disabled = attachment.secure and not is_granted("show_secure", attachment) %}
     {% if not attachment_helper or attachment_helper.fileExisting(attachment) %}
         {% if link and not disabled %}

@@ -37,11 +37,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -50,13 +53,14 @@ class AttachmentFormType extends AbstractType
     protected AttachmentManager $attachment_helper;
     protected UrlGeneratorInterface $urlGenerator;
     protected bool $allow_attachments_download;
+    protected string $max_file_size;
     protected Security $security;
     protected AttachmentSubmitHandler $submitHandler;
     protected TranslatorInterface $translator;
 
-    public function __construct(AttachmentManager $attachmentHelper,
-                                UrlGeneratorInterface $urlGenerator, Security $security,
-        bool $allow_attachments_downloads, AttachmentSubmitHandler $submitHandler, TranslatorInterface $translator)
+    public function __construct(AttachmentManager $attachmentHelper, UrlGeneratorInterface $urlGenerator,
+        Security $security, AttachmentSubmitHandler $submitHandler, TranslatorInterface $translator,
+        bool $allow_attachments_downloads, string $max_file_size)
     {
         $this->attachment_helper = $attachmentHelper;
         $this->urlGenerator = $urlGenerator;
@@ -64,13 +68,17 @@ class AttachmentFormType extends AbstractType
         $this->security = $security;
         $this->submitHandler = $submitHandler;
         $this->translator = $translator;
+        $this->max_file_size = $max_file_size;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('name', TextType::class, [
-            'label' => 'attachment.edit.name',
-        ])
+        $builder
+            ->add('name', TextType::class, [
+                'label' => 'attachment.edit.name',
+                'required' => false,
+                'empty_data' => '',
+            ])
             ->add('attachment_type', StructuralEntityType::class, [
                 'label' => 'attachment.edit.attachment_type',
                 'class' => AttachmentType::class,
@@ -130,6 +138,7 @@ class AttachmentFormType extends AbstractType
             ],
         ]);
 
+
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event): void {
             $form = $event->getForm();
             $attachment = $form->getData();
@@ -137,13 +146,27 @@ class AttachmentFormType extends AbstractType
             $file_form = $form->get('file');
             $file = $file_form->getData();
 
-            if ($attachment instanceof Attachment && $file instanceof UploadedFile && $attachment->getAttachmentType(
-                ) && !$this->submitHandler->isValidFileExtension($attachment->getAttachmentType(), $file)) {
-                $event->getForm()->get('file')->addError(
-                        new FormError($this->translator->trans('validator.file_ext_not_allowed'))
-                    );
+            if (!$attachment instanceof Attachment) {
+                return;
             }
-        });
+
+            if (!$file instanceof UploadedFile) {
+                return;
+            }
+
+            //Ensure that the file extension is allowed for the selected attachment type
+            if ($attachment->getAttachmentType()
+                && !$this->submitHandler->isValidFileExtension($attachment->getAttachmentType(), $file)) {
+                $event->getForm()->get('file')->addError(
+                    new FormError($this->translator->trans('validator.file_ext_not_allowed'))
+                );
+            }
+
+            //If the name is empty, use the original file name as attachment name
+            if (empty($attachment->getName())) {
+                $attachment->setName($file->getClientOriginalName());
+            }
+        }, 100000);
 
         //Check the secure file checkbox, if file is in securefile location
         $builder->get('secureFile')->addEventListener(
@@ -161,9 +184,14 @@ class AttachmentFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Attachment::class,
-            'max_file_size' => '16M',
+            'max_file_size' => $this->max_file_size,
             'allow_builtins' => true,
         ]);
+    }
+
+    public function finishView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['max_upload_size'] = $this->submitHandler->getMaximumAllowedUploadSize();
     }
 
     public function getBlockPrefix(): string

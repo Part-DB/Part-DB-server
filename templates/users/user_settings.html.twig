@@ -52,6 +52,15 @@
 {% block content %}
     {{ parent() }}
 
+    {% if user.samlUser %}
+        <div class="alert alert-warning mt-3" role="alert">
+            <h4 class="alert-heading">{% trans %}user.saml_user{% endtrans %}</h4>
+            <p>
+                {% trans %}user.saml_user.pw_change_hint{% endtrans %}
+            </p>
+        </div>
+    {% endif %}
+
     {% include "users/_2fa_settings.html.twig" %}
 
     <div class="card mt-4">

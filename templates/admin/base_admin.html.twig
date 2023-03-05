@@ -21,7 +21,7 @@
         {% endif %}
     {% endblock %}
 
-    {% form_theme form.log_comment 'bootstrap_4_layout.html.twig' %}
+    {% form_theme form.log_comment 'bootstrap_5_layout.html.twig' %}
 
     {% block card_content %}
         <div class="row">
@@ -37,7 +37,7 @@
                     <fieldset>
                         <legend>
                             {% if entity.ID %}
-                                <strong>{% block edit_title %}{% trans with {'%name': entity.name} %}edit.caption{% endtrans %}{% endblock %}</strong>
+                                <strong>{% block edit_title %}{% trans with {'%name': entity.name|escape } %}edit.caption{% endtrans %}{% endblock %}</strong>
                                 {% if timeTravel is defined and timeTravel is not null %}
                                     ({{ timeTravel|format_datetime('short') }})
                                 {% endif %}

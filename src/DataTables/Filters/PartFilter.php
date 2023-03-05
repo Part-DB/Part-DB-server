@@ -105,7 +105,8 @@ class PartFilter implements FilterInterface
            This seems to be related to the fact, that PDO does not have an float parameter type and using string type does not work in this situation (at least in SQLite)
            TODO: Find a better solution here
          */
-        $this->amountSum = new IntConstraint('amountSum');
+        //We have to use Having here, as we use an alias column which is not supported on the where clause and would result in an error
+        $this->amountSum = (new IntConstraint('amountSum'))->useHaving();
         $this->lotCount = new IntConstraint('COUNT(partLots)');
 
         $this->storelocation = new EntityConstraint($nodesListBuilder, Storelocation::class, 'partLots.storage_location');

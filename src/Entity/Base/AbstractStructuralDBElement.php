@@ -282,6 +282,12 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      */
     public function getSubelements(): iterable
     {
+        //If the parent is equal to this object, we would get an endless loop, so just return an empty array
+        //This is just a workaround, as validator should prevent this behaviour, before it gets written to the database
+        if ($this->parent === $this) {
+            return new ArrayCollection();
+        }
+
         return $this->children ?? new ArrayCollection();
     }
 

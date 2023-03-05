@@ -19,6 +19,7 @@ twig:
         sidebar_tree_updater: '@App\Services\Trees\SidebarTreeUpdater'
         avatar_helper: '@App\Services\UserSystem\UserAvatarHelper'
         available_themes: '%partdb.available_themes%'
+        saml_enabled: '%partdb.saml.enabled%'
 
 when@test:
     twig:

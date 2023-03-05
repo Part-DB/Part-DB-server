@@ -50,6 +50,6 @@ class SIUnitNumberColumn extends AbstractColumn
             return '';
         }
 
-        return $this->formatter->format((float) $value, $this->options['unit'], $this->options['precision']);
+        return htmlspecialchars($this->formatter->format((float) $value, $this->options['unit'], $this->options['precision']));
     }
 }

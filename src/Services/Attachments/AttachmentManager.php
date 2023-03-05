@@ -160,7 +160,7 @@ class AttachmentManager
 
         $sz = 'BKMGTP';
         $factor = (int) floor((strlen((string) $bytes) - 1) / 3);
-
-        return sprintf("%.{$decimals}f", $bytes / 1024 ** $factor).@$sz[$factor];
+        //Use real (10 based) SI prefixes
+        return sprintf("%.{$decimals}f", $bytes / 1000 ** $factor).@$sz[$factor];
     }
 }

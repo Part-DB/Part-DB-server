@@ -47,3 +47,18 @@
     max-width: 2.0em;
     object-fit: contain;
 }
+
+.part-table-image {
+    max-height: 40px;
+    object-fit: contain;
+    width: 100%;
+}
+
+.part-info-image {
+    max-height: 350px;
+    object-fit: contain;
+}
+
+.object-fit-cover {
+    object-fit: cover;
+}

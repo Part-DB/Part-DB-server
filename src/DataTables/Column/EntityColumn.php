@@ -79,7 +79,7 @@ class EntityColumn extends AbstractColumn
                         return sprintf(
                             '<a href="%s">%s</a>',
                             $this->urlGenerator->listPartsURL($entity),
-                            $entity->getName()
+                            htmlspecialchars($entity->getName())
                         );
                     }
 

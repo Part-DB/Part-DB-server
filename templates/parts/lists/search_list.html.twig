@@ -16,7 +16,7 @@
             </div>
             <div id="searchInfo" class="accordion-collapse collapse" data-bs-parent="#listAccordion">
                 <div class="accordion-body">
-                    <h4>{% trans with {"%keyword%": keyword} %}parts_list.search.searching_for{% endtrans %}</h4>
+                    <h4>{% trans with {"%keyword%": keyword|escape} %}parts_list.search.searching_for{% endtrans %}</h4>
                     {% trans %}parts_list.search_options.caption{% endtrans %}:
 
 

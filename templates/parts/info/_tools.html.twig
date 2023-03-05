@@ -29,7 +29,7 @@
 
 <form method="post" class="mt-2" action="{{ entity_url(part, 'delete') }}"
         {{ stimulus_controller('elements/delete_btn') }} {{ stimulus_action('elements/delete_btn', "submit", "submit") }}
-      data-delete-title="{% trans  with {'%name%': part.name }%}part.delete.confirm_title{% endtrans %}"
+      data-delete-title="{% trans with {'%name%': part.name|escape }%}part.delete.confirm_title{% endtrans %}"
       data-delete-message="{% trans %}part.delete.message{% endtrans %}">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ part.id) }}">

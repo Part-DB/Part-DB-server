@@ -151,7 +151,9 @@
                     <p><b>{% trans %}tfa_u2f.no_keys_registered{% endtrans %}</b></p>
                 {% endif %}
 
-                <a href="{{ path('webauthn_register') }}" class="btn btn-success"><i class="fas fa-plus-square fa-fw"></i> {% trans %}tfa_u2f.add_new_key{% endtrans %}</a>
+                {% if not user.samlUser %}
+                    <a href="{{ path('webauthn_register') }}" class="btn btn-success" ><i class="fas fa-plus-square fa-fw"></i> {% trans %}tfa_u2f.add_new_key{% endtrans %}</a>
+                {% endif %}
             </div>
 
             <div class="tab-pane fade" id="tfa-trustedDevices" role="tabpanel" aria-labelledby="trustedDevices-tab-tab">
@@ -163,7 +165,7 @@
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="_token" value="{{ csrf_token('devices_reset' ~ user.id) }}">
 
-                    <button class="btn btn-danger" type="submit">{% trans %}tfa_trustedDevices.invalidate.btn{% endtrans %}</button>
+                    <button class="btn btn-danger" type="submit" {% if user.samlUser %}disabled{% endif %}>{% trans %}tfa_trustedDevices.invalidate.btn{% endtrans %}</button>
                 </form>
             </div>
 

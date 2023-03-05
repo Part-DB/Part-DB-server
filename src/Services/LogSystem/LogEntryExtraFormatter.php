@@ -193,7 +193,7 @@ class LogEntryExtraFormatter
             }
             if ($context->getInstockChangeType() === PartStockChangedLogEntry::TYPE_MOVE) {
                 $array['log.part_stock_changed.move_target'] =
-                    $this->elementTypeNameGenerator->getLocalizedTypeLabel(PartLot::class)
+                    htmlspecialchars($this->elementTypeNameGenerator->getLocalizedTypeLabel(PartLot::class))
                     .' ' . $context->getMoveToTargetID();
             }
         }

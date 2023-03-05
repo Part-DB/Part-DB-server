@@ -144,4 +144,15 @@ class AbstractStructuralDBElementTest extends TestCase
         $this->assertSame([$this->root, $this->child1], $this->child1->getPathArray());
         $this->assertSame([$this->root], $this->root->getPathArray());
     }
+
+    public function testGetSubelements(): void
+    {
+        $this->assertSame([$this->child1, $this->child2, $this->child3], $this->root->getSubelements()->toArray());
+        $this->assertSame([$this->child1_1, $this->child1_2], $this->child1->getSubelements()->toArray());
+        $this->assertSame([], $this->child1_1->getSubelements()->toArray());
+
+        //If a element is set as its own parent, it should not be returned as a subelement
+        $this->child1->setParent($this->child1);
+        $this->assertSame([], $this->child1->getSubelements()->toArray());
+    }
 }

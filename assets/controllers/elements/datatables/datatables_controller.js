@@ -66,7 +66,12 @@ export default class extends Controller {
     }
 
     stateLoadCallback(settings) {
-        return JSON.parse( localStorage.getItem(this.getStateSaveKey()) );
+        const data = JSON.parse( localStorage.getItem(this.getStateSaveKey()) );
+
+        //Do not save the start value (current page), as we want to always start at the first page on a page reload
+        data.start = 0;
+
+        return data;
     }
 
     connect() {
@@ -136,6 +141,27 @@ export default class extends Controller {
             //Recalculate the fixed header offset, as the navbar should be rendered now
             dt.fixedHeader.headerOffset($("#navbar").outerHeight());
         });
+
+        //Register event handler to selectAllRows checkbox if available
+        if (this.isSelectable()) {
+            promise.then((dt) => {
+               const selectAllCheckbox = this.element.querySelector('thead th.select-checkbox');
+               selectAllCheckbox.addEventListener('click', () => {
+                   if(selectAllCheckbox.parentElement.classList.contains('selected')) {
+                       dt.rows().deselect();
+                       selectAllCheckbox.parentElement.classList.remove('selected');
+                   } else {
+                       dt.rows().select();
+                       selectAllCheckbox.parentElement.classList.add('selected');
+                   }
+               });
+
+                //When any row is deselected, also deselect the selectAll checkbox
+                dt.on('deselect.dt', () => {
+                    selectAllCheckbox.parentElement.classList.remove('selected');
+                });
+            });
+        }
 
         //Allow to further configure the datatable
         promise.then(this._afterLoaded.bind(this));

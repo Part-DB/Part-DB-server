@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace App\DataTables;
 
+use App\DataTables\Adapters\CustomFetchJoinORMAdapter;
 use App\DataTables\Column\EntityColumn;
 use App\DataTables\Column\IconLinkColumn;
 use App\DataTables\Column\LocaleDateTimeColumn;
@@ -177,7 +178,7 @@ final class PartsDataTable implements DataTableTypeInterface
                         $tmp[] = sprintf(
                             '<a href="%s">%s</a>',
                             $this->urlGenerator->listPartsURL($lot->getStorageLocation()),
-                            $lot->getStorageLocation()->getName()
+                            htmlspecialchars($lot->getStorageLocation()->getName())
                         );
                     }
 
@@ -192,13 +193,13 @@ final class PartsDataTable implements DataTableTypeInterface
                 $amount = $context->getAmountSum();
                 $expiredAmount = $context->getExpiredAmountSum();
 
-                $ret = $this->amountFormatter->format($amount, $context->getPartUnit());
+                $ret = htmlspecialchars($this->amountFormatter->format($amount, $context->getPartUnit()));
 
                 //If we have expired lots, we show them in parentheses behind
                 if ($expiredAmount > 0) {
                     $ret .= sprintf(' <span title="%s" class="text-muted">(+%s)</span>',
                         $this->translator->trans('part_lots.is_expired'),
-                        $this->amountFormatter->format($expiredAmount, $context->getPartUnit()));
+                        htmlspecialchars($this->amountFormatter->format($expiredAmount, $context->getPartUnit())));
                 }
 
 
@@ -210,7 +211,7 @@ final class PartsDataTable implements DataTableTypeInterface
                 'label' => $this->translator->trans('part.table.minamount'),
                 'visible' => false,
                 'render' => function ($value, Part $context) {
-                    return $this->amountFormatter->format($value, $context->getPartUnit());
+                    return htmlspecialchars($this->amountFormatter->format($value, $context->getPartUnit()));
                 },
             ]);
 
@@ -281,7 +282,7 @@ final class PartsDataTable implements DataTableTypeInterface
             ])
 
             ->addOrderBy('name')
-            ->createAdapter(FetchJoinORMAdapter::class, [
+            ->createAdapter(CustomFetchJoinORMAdapter::class, [
                 'simple_total_query' => true,
                 'query' => function (QueryBuilder $builder): void {
                     $this->getQuery($builder);

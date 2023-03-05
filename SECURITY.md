@@ -9,4 +9,4 @@ fixed before the next release. However, if you find a security vulnerability in 
 
 ## Reporting a Vulnerability
 
-If you find a security vulnerability, contact the maintainer directly (Email: security@part-db.de).
+If you find a security vulnerability, report a vulnerability in the [security section of GitHub](https://github.com/Part-DB/Part-DB-server/security/advisories) or contact the maintainer directly (Email: security@part-db.de)
