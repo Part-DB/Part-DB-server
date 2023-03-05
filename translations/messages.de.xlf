@@ -9636,7 +9636,7 @@ Element 3</target>
     <unit id="W1rWF5g" name="parts_list.search.searching_for">
       <segment>
         <source>parts_list.search.searching_for</source>
-        <target><![CDATA[Suche Teile mit dem Suchbegriff <b>%keyword%</b>]]></target>
+        <target>Suche Teile mit dem Suchbegriff &lt;b&gt;%keyword%&lt;/b&gt;</target>
       </segment>
     </unit>
     <unit id="lkQ2zTi" name="parts_list.search_options.caption">
@@ -10966,9 +10966,33 @@ Element 3</target>
       </segment>
     </unit>
     <unit id="Qt585vm" name="attachment.max_file_size">
-      <segment>
+      <segment state="translated">
         <source>attachment.max_file_size</source>
         <target>Maximale Dateigröße</target>
+      </segment>
+    </unit>
+    <unit id="tkkbiag" name="user.saml_user">
+      <segment state="translated">
+        <source>user.saml_user</source>
+        <target>SSO / SAML Benutzer</target>
+      </segment>
+    </unit>
+    <unit id="fhepjKr" name="user.saml_user.pw_change_hint">
+      <segment state="translated">
+        <source>user.saml_user.pw_change_hint</source>
+        <target>Sie verwenden Single Sign-On (SSO) zum Einloggen. Sie können ihr Passwort und Zwei-Faktor-Authentifizierungen deshalb hier nicht konfigurieren. Nutzen Sie stattdessen die zentrale Seite ihres SSO Anbieters!</target>
+      </segment>
+    </unit>
+    <unit id="32beTBH" name="login.sso_saml_login">
+      <segment state="translated">
+        <source>login.sso_saml_login</source>
+        <target>Single Sign-On Login (SSO)</target>
+      </segment>
+    </unit>
+    <unit id="wnMLanX" name="login.local_login_hint">
+      <segment state="translated">
+        <source>login.local_login_hint</source>
+        <target>Das untenstehende Formular kann nur für den Login mit einem lokalen Benutzer verwendet werden. Wenn Sie sich stattdessen via Single Sign-On einloggen wollen, nutzen Sie den obenstehenden Button.</target>
       </segment>
     </unit>
   </file>
