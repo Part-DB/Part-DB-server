@@ -34,11 +34,12 @@ class FAIconGenerator
         'fa-file-lines' => ['txt', 'md', 'log', 'rst', 'tex'],
         'fa-file-csv' => ['csv', 'tsv'],
         'fa-file-word' => ['doc', 'docx', 'odt', 'rtf'],
-        'fa-file-zipper' => ['zip', 'rar', 'bz2', 'tar', '7z', 'gz', 'tgz'],
+        'fa-file-zipper' => ['zip', 'rar', 'bz2', 'tar', '7z', 'gz', 'tgz', 'xz', 'txz', 'tbz'],
         'fa-file-audio' => ['mp3', 'wav', 'aac', 'm4a', 'wma', 'ogg', 'flac', 'alac'],
         'fa-file-powerpoint' => ['ppt', 'pptx', 'odp', 'pps', 'key'],
         'fa-file-excel' => ['xls', 'xlr', 'xlsx', 'ods', 'numbers'],
-        'fa-file-code' => ['php', 'xml', 'html', 'js', 'ts', 'htm', 'c', 'cpp', 'json'],
+        'fa-file-code' => ['php', 'xml', 'html', 'js', 'ts', 'htm', 'c', 'cpp', 'json', 'py', 'css', 'yml', 'yaml',
+            'sql', 'sh', 'bat', 'exe', 'dll', 'lib', 'so', 'a', 'o', 'h', 'hpp', 'java', 'class', 'jar', 'rb', 'rbw', 'rake', 'gem',],
         'fa-file-video' => ['webm', 'avi', 'mp4', 'mkv', 'wmv'],
     ];
 
