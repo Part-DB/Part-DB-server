@@ -141,7 +141,7 @@ class CollectionTypeExtension extends AbstractTypeExtension
         // This event listener fixes the error mapping for newly created elements of collection types
         // Without this method, the errors for newly created elements are shown on the parent element, as forms
         // can not map it to the correct element.
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (PreSubmitEvent $event) use ($options) {
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (PreSubmitEvent $event) {
            $data = $event->getData();
            $form = $event->getForm();
            $config = $form->getConfig();
