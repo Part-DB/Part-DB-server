@@ -25,6 +25,7 @@ namespace App\Entity\Attachments;
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use function in_array;
 use InvalidArgumentException;
@@ -94,6 +95,14 @@ abstract class Attachment extends AbstractNamedDBElement
      * @ORM\Column(type="string", name="path")
      */
     protected string $path = '';
+
+    /**
+     * @var string the name of this element
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="validator.attachment.name_not_blank")
+     * @Groups({"simple", "extended", "full"})
+     */
+    protected string $name = '';
 
     /**
      * ORM mapping is done in sub classes (like PartAttachment).

@@ -44,6 +44,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -72,9 +73,12 @@ class AttachmentFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('name', TextType::class, [
-            'label' => 'attachment.edit.name',
-        ])
+        $builder
+            ->add('name', TextType::class, [
+                'label' => 'attachment.edit.name',
+                'required' => false,
+                'empty_data' => '',
+            ])
             ->add('attachment_type', StructuralEntityType::class, [
                 'label' => 'attachment.edit.attachment_type',
                 'class' => AttachmentType::class,
@@ -134,6 +138,7 @@ class AttachmentFormType extends AbstractType
             ],
         ]);
 
+
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event): void {
             $form = $event->getForm();
             $attachment = $form->getData();
@@ -141,13 +146,27 @@ class AttachmentFormType extends AbstractType
             $file_form = $form->get('file');
             $file = $file_form->getData();
 
-            if ($attachment instanceof Attachment && $file instanceof UploadedFile && $attachment->getAttachmentType(
-                ) && !$this->submitHandler->isValidFileExtension($attachment->getAttachmentType(), $file)) {
+            if (!$attachment instanceof Attachment) {
+                return;
+            }
+
+            if (!$file instanceof UploadedFile) {
+                return;
+            }
+
+            //Ensure that the file extension is allowed for the selected attachment type
+            if ($attachment->getAttachmentType()
+                && !$this->submitHandler->isValidFileExtension($attachment->getAttachmentType(), $file)) {
                 $event->getForm()->get('file')->addError(
                     new FormError($this->translator->trans('validator.file_ext_not_allowed'))
                 );
             }
-        });
+
+            //If the name is empty, use the original file name as attachment name
+            if (empty($attachment->getName())) {
+                $attachment->setName($file->getClientOriginalName());
+            }
+        }, 100000);
 
         //Check the secure file checkbox, if file is in securefile location
         $builder->get('secureFile')->addEventListener(

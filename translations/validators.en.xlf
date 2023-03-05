@@ -299,5 +299,11 @@
         <target>The part name does not match the regular expression stated by the category: %regex%</target>
       </segment>
     </unit>
+    <unit id="m8kMFhf" name="validator.attachment.name_not_blank">
+      <segment>
+        <source>validator.attachment.name_not_blank</source>
+        <target>Set a value here, or upload a file to automatically use its filename as name for the attachment.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
