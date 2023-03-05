@@ -299,5 +299,11 @@
         <target>Der Bauteilename entspricht nicht dem regulären Ausdruck, der von der Kategorie vorgegeben wurde: %regex%</target>
       </segment>
     </unit>
+    <unit id="m8kMFhf" name="validator.attachment.name_not_blank">
+      <segment state="translated">
+        <source>validator.attachment.name_not_blank</source>
+        <target>Wählen Sie einen Wert, oder laden Sie eine Datei hoch, um dessen Dateiname automatisch als Namen für diesen Anhang zu nutzen.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
