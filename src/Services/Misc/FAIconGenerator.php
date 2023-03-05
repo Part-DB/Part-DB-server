@@ -29,16 +29,16 @@ use InvalidArgumentException;
 class FAIconGenerator
 {
     protected const EXT_MAPPING = [
-        'fa-file-pdf' => ['pdf'],
+        'fa-file-pdf' => ['pdf', 'ps', 'eps'],
         'fa-file-image' => Attachment::PICTURE_EXTS,
-        'fa-file-alt' => ['txt', 'md', 'rtf', 'log', 'rst', 'tex'],
-        'fa-file-csv' => ['csv'],
-        'fa-file-word' => ['doc', 'docx', 'odt'],
-        'fa-file-archive' => ['zip', 'rar', 'bz2', 'tar', '7z', 'gz'],
-        'fa-file-audio' => ['mp3', 'wav', 'aac', 'm4a', 'wma'],
+        'fa-file-lines' => ['txt', 'md', 'log', 'rst', 'tex'],
+        'fa-file-csv' => ['csv', 'tsv'],
+        'fa-file-word' => ['doc', 'docx', 'odt', 'rtf'],
+        'fa-file-zipper' => ['zip', 'rar', 'bz2', 'tar', '7z', 'gz', 'tgz'],
+        'fa-file-audio' => ['mp3', 'wav', 'aac', 'm4a', 'wma', 'ogg', 'flac', 'alac'],
         'fa-file-powerpoint' => ['ppt', 'pptx', 'odp', 'pps', 'key'],
-        'fa-file-excel' => ['xls', 'xlr', 'xlsx', 'ods'],
-        'fa-file-code' => ['php', 'xml', 'html', 'js', 'ts', 'htm', 'c', 'cpp'],
+        'fa-file-excel' => ['xls', 'xlr', 'xlsx', 'ods', 'numbers'],
+        'fa-file-code' => ['php', 'xml', 'html', 'js', 'ts', 'htm', 'c', 'cpp', 'json'],
         'fa-file-video' => ['webm', 'avi', 'mp4', 'mkv', 'wmv'],
     ];
 
