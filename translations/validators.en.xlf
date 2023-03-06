@@ -37,7 +37,7 @@
         <note priority="1">Part-DB1\src\Entity\UserSystem\Group.php:0</note>
         <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>part.master_attachment.must_be_picture</source>
         <target>The preview attachment must be a valid picture!</target>
       </segment>
@@ -82,7 +82,7 @@
         <note priority="1">src\Entity\StructuralDBElement.php:0</note>
         <note priority="1">src\Entity\Supplier.php:0</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>structural.entity.unique_name</source>
         <target>An element with this name already exists on this level!</target>
       </segment>
@@ -102,7 +102,7 @@
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\StorelocationParameter.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\SupplierParameter.php:0</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>parameters.validator.min_lesser_typical</source>
         <target>Value must be lesser or equal the the typical value ({{ compared_value }}).</target>
       </segment>
@@ -122,7 +122,7 @@
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\StorelocationParameter.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\SupplierParameter.php:0</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>parameters.validator.min_lesser_max</source>
         <target>Value must be lesser than the maximum value ({{ compared_value }}).</target>
       </segment>
@@ -142,7 +142,7 @@
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\StorelocationParameter.php:0</note>
         <note category="file-source" priority="1">Part-DB1\src\Entity\Parameters\SupplierParameter.php:0</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>parameters.validator.max_greater_typical</source>
         <target>Value must be greater or equal than the typical value ({{ compared_value }}).</target>
       </segment>
@@ -152,7 +152,7 @@
         <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
         <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>validator.user.username_already_used</source>
         <target>A user with this name is already exisiting</target>
       </segment>
@@ -162,7 +162,7 @@
         <note category="file-source" priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
         <note priority="1">Part-DB1\src\Entity\UserSystem\User.php:0</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>user.invalid_username</source>
         <target>The username must contain only letters, numbers, underscores, dots, pluses or minuses!</target>
       </segment>
@@ -171,7 +171,7 @@
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>validator.noneofitschild.self</source>
         <target>An element can not be its own parent!</target>
       </segment>
@@ -180,121 +180,121 @@
       <notes>
         <note category="state" priority="1">obsolete</note>
       </notes>
-      <segment>
+      <segment state="translated">
         <source>validator.noneofitschild.children</source>
         <target>You can not assign children element as parent (This would cause loops)!</target>
       </segment>
     </unit>
     <unit id="ayNr6QK" name="validator.select_valid_category">
-      <segment>
+      <segment state="translated">
         <source>validator.select_valid_category</source>
         <target>Please select a valid category!</target>
       </segment>
     </unit>
     <unit id="6vIlN5q" name="validator.part_lot.only_existing">
-      <segment>
+      <segment state="translated">
         <source>validator.part_lot.only_existing</source>
         <target>Can not add new parts to this location as it is marked as "Only Existing"</target>
       </segment>
     </unit>
     <unit id="3xoKOIS" name="validator.part_lot.location_full.no_increase">
-      <segment>
+      <segment state="translated">
         <source>validator.part_lot.location_full.no_increase</source>
         <target>Location is full. Amount can not be increased (new value must be smaller than {{ old_amount }}).</target>
       </segment>
     </unit>
     <unit id="R6Ov4Yt" name="validator.part_lot.location_full">
-      <segment>
+      <segment state="translated">
         <source>validator.part_lot.location_full</source>
         <target>Location is full. Can not add new parts to it.</target>
       </segment>
     </unit>
     <unit id="BNQk2e7" name="validator.part_lot.single_part">
-      <segment>
+      <segment state="translated">
         <source>validator.part_lot.single_part</source>
         <target>This location can only contain a single part and it is already full!</target>
       </segment>
     </unit>
     <unit id="4gPskOG" name="validator.attachment.must_not_be_null">
-      <segment>
+      <segment state="translated">
         <source>validator.attachment.must_not_be_null</source>
         <target>You must select an attachment type!</target>
       </segment>
     </unit>
     <unit id="cDDVrWT" name="validator.orderdetail.supplier_must_not_be_null">
-      <segment>
+      <segment state="translated">
         <source>validator.orderdetail.supplier_must_not_be_null</source>
         <target>You must select an supplier!</target>
       </segment>
     </unit>
     <unit id="k5DDdB4" name="validator.measurement_unit.use_si_prefix_needs_unit">
-      <segment>
+      <segment state="translated">
         <source>validator.measurement_unit.use_si_prefix_needs_unit</source>
         <target>To enable SI prefixes, you have to set a unit symbol!</target>
       </segment>
     </unit>
     <unit id="DuzIOCr" name="part.ipn.must_be_unique">
-      <segment>
+      <segment state="translated">
         <source>part.ipn.must_be_unique</source>
         <target>The internal part number must be unique. {{ value }} is already in use!</target>
       </segment>
     </unit>
     <unit id="Z4Kuuo2" name="validator.project.bom_entry.name_or_part_needed">
-      <segment>
+      <segment state="translated">
         <source>validator.project.bom_entry.name_or_part_needed</source>
         <target>You have to choose a part for a part BOM entry or set a name for a non-part BOM entry.</target>
       </segment>
     </unit>
     <unit id="WF_v4ih" name="project.bom_entry.name_already_in_bom">
-      <segment>
+      <segment state="translated">
         <source>project.bom_entry.name_already_in_bom</source>
         <target>There is already an BOM entry with this name!</target>
       </segment>
     </unit>
     <unit id="5v4p85H" name="project.bom_entry.part_already_in_bom">
-      <segment>
+      <segment state="translated">
         <source>project.bom_entry.part_already_in_bom</source>
         <target>This part already exists in the BOM!</target>
       </segment>
     </unit>
     <unit id="3lM32Tw" name="project.bom_entry.mountnames_quantity_mismatch">
-      <segment>
+      <segment state="translated">
         <source>project.bom_entry.mountnames_quantity_mismatch</source>
         <target>The number of mountnames has to match the BOMs quantity!</target>
       </segment>
     </unit>
     <unit id="x47D5WT" name="project.bom_entry.can_not_add_own_builds_part">
-      <segment>
+      <segment state="translated">
         <source>project.bom_entry.can_not_add_own_builds_part</source>
         <target>You can not add a project's own builds part to the BOM.</target>
       </segment>
     </unit>
     <unit id="2x2XDI_" name="project.bom_has_to_include_all_subelement_parts">
-      <segment>
+      <segment state="translated">
         <source>project.bom_has_to_include_all_subelement_parts</source>
         <target>The project BOM has to include all subprojects builds parts. Part %part_name% of project %project_name% missing!</target>
       </segment>
     </unit>
     <unit id="U9b1EzD" name="project.bom_entry.price_not_allowed_on_parts">
-      <segment>
+      <segment state="translated">
         <source>project.bom_entry.price_not_allowed_on_parts</source>
         <target>Prices are not allowed on BOM entries associated with a part. Define the price on the part instead.</target>
       </segment>
     </unit>
     <unit id="ID056SR" name="validator.project_build.lot_bigger_than_needed">
-      <segment>
+      <segment state="translated">
         <source>validator.project_build.lot_bigger_than_needed</source>
         <target>You have selected more quantity to withdraw than needed! Remove unnecessary quantity.</target>
       </segment>
     </unit>
     <unit id="6hV5UqD" name="validator.project_build.lot_smaller_than_needed">
-      <segment>
+      <segment state="translated">
         <source>validator.project_build.lot_smaller_than_needed</source>
         <target>You have selected less quantity to withdraw than needed for the build! Add additional quantity.</target>
       </segment>
     </unit>
     <unit id="G9ZKt.4" name="part.name.must_match_category_regex">
-      <segment>
+      <segment state="translated">
         <source>part.name.must_match_category_regex</source>
         <target>The part name does not match the regular expression stated by the category: %regex%</target>
       </segment>
