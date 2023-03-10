@@ -68,8 +68,10 @@ export default class extends Controller {
     stateLoadCallback(settings) {
         const data = JSON.parse( localStorage.getItem(this.getStateSaveKey()) );
 
-        //Do not save the start value (current page), as we want to always start at the first page on a page reload
-        data.start = 0;
+        if (data) {
+            //Do not save the start value (current page), as we want to always start at the first page on a page reload
+            data.start = 0;
+        }
 
         return data;
     }
