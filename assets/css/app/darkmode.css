@@ -31,3 +31,7 @@
 .darkmode--activated .hoverpic:hover {
     background: black;
 }
+
+.tools-ic-logos img {
+    mix-blend-mode: normal;
+}
