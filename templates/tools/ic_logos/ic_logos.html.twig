@@ -8,14 +8,13 @@
 {% extends "main_card.html.twig" %}
 
     {% block card_content %}
+
+
         <ul class="pagination">
-            <li class="page-item"><a class="link-anchor page-link" href="#A">A</a></li> <li class="page-item"><a class="link-anchor page-link" href="#B">B</a></li> <li class="page-item"><a class="link-anchor page-link" href="#C">C</a></li> <li class="page-item"><a class="link-anchor page-link" href="#D">D</a></li> <li class="page-item"><a class="link-anchor page-link" href="#E">E</a></li> <li class="page-item"><a class="link-anchor page-link" href="#F">F</a></li>
-            <li class="page-item"><a class="link-anchor page-link" href="#G">G</a></li> <li class="page-item"><a class="link-anchor page-link" href="#H">H</a></li> <li class="page-item"><a class="link-anchor page-link" href="#I">I</a></li> <li class="page-item"><a class="link-anchor page-link" href="#J">J</a></li> <li class="page-item"><a class="link-anchor page-link" href="#K">K</a></li> <li class="page-item"><a  class="link-anchor page-link" href="#L">L</a></li>
-            <li class="page-item"><a class="link-anchor page-link" href="#M">M</a></li> <li class="page-item"><a class="link-anchor page-link" href="#N">N</a></li> <li class="page-item"><a class="link-anchor page-link" href="#O">O</a></li> <li class="page-item"><a class="link-anchor page-link" href="#P">P</a></li> <li class="page-item"><a class="link-anchor page-link" href="#Q">Q</a></li> <li class="page-item"><a class="link-anchor page-link" href="#R">R</a></li>
-            <li class="page-item"><a class="link-anchor page-link" href="#S">S</a></li> <li class="page-item"><a class="link-anchor page-link" href="#T">T</a></li> <li class="page-item"><a class="link-anchor page-link" href="#U">U</a></li> <li class="page-item"><a class="link-anchor page-link" href="#V">V</a></li> <li class="page-item"><a  class="link-anchor page-link" href="#W">W</a></li> <li class="page-item"><a class="link-anchor page-link" href="#X">X</a></li>
-            <li class="page-item"><a class="link-anchor page-link" href="#Y">Y</a></li> <li class="page-item"><a class="link-anchor page-link" href="#Z">Z</a></li>
+            {% for letter in "abcdefghijklmnopqrstuvwxyz"|upper|split("") %}
+                <li class="page-item"><a class="link-anchor page-link" data-turbo="false" href="#{{ letter }}">{{ letter }}</a></li>
+            {% endfor %}
         </ul>
-        </div>
         <table class="table table-striped table-hover">
 
             <thead><tr class="bg-info"><th colspan="2"><a id="A">A</a></th></tr></thead>
