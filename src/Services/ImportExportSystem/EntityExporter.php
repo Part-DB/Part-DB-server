@@ -52,7 +52,7 @@ class EntityExporter
         $resolver->setDefault('format', 'csv');
         $resolver->setAllowedValues('format', ['csv', 'json', 'xml', 'yaml']);
 
-        $resolver->setDefault('csv_delimiter', ',');
+        $resolver->setDefault('csv_delimiter', ';');
         $resolver->setAllowedTypes('csv_delimiter', 'string');
 
         $resolver->setDefault('level', 'extended');

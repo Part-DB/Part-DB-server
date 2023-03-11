@@ -8,7 +8,7 @@
       </segment>
     </unit>
     <unit id="Dpb9AmY" name="saml.error.cannot_login_local_user_per_saml">
-      <segment state="translated">
+      <segment>
         <source>saml.error.cannot_login_local_user_per_saml</source>
         <target>You can not login as local user via SSO! Use your local user password instead.</target>
       </segment>

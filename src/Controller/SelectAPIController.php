@@ -96,6 +96,25 @@ class SelectAPIController extends AbstractController
     }
 
     /**
+     * @Route("/export_level", name="select_export_level")
+     */
+    public function exportLevel(): Response
+    {
+        $entries = [
+            1 => $this->translator->trans('export.level.simple'),
+            2 => $this->translator->trans('export.level.extended'),
+            3 => $this->translator->trans('export.level.full'),
+        ];
+
+        return $this->json(array_map(function ($key, $value) {
+            return [
+                'text' => $value,
+                'value' => $key,
+            ];
+        }, array_keys($entries), $entries));
+    }
+
+    /**
      * @Route("/label_profiles", name="select_label_profiles")
      * @return Response
      */

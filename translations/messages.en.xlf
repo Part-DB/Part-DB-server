@@ -10970,33 +10970,63 @@ Element 3</target>
       </segment>
     </unit>
     <unit id="Qt585vm" name="attachment.max_file_size">
-      <segment state="translated">
+      <segment>
         <source>attachment.max_file_size</source>
         <target>Maximum file size</target>
       </segment>
     </unit>
     <unit id="tkkbiag" name="user.saml_user">
-      <segment state="translated">
+      <segment>
         <source>user.saml_user</source>
         <target>SSO / SAML user</target>
       </segment>
     </unit>
     <unit id="fhepjKr" name="user.saml_user.pw_change_hint">
-      <segment state="translated">
+      <segment>
         <source>user.saml_user.pw_change_hint</source>
         <target>Your user uses single sign-on (SSO). You can not change the password and 2FA settings here. Configure them on your central SSO provider instead!</target>
       </segment>
     </unit>
     <unit id="32beTBH" name="login.sso_saml_login">
-      <segment state="translated">
+      <segment>
         <source>login.sso_saml_login</source>
         <target>Single Sign-On Login (SSO)</target>
       </segment>
     </unit>
     <unit id="wnMLanX" name="login.local_login_hint">
-      <segment state="translated">
+      <segment>
         <source>login.local_login_hint</source>
         <target>The form below is only for log in with a local user. If you want to log in via single sign-on, press the button above.</target>
+      </segment>
+    </unit>
+    <unit id="fa76Qc9" name="part_list.action.action.export">
+      <segment>
+        <source>part_list.action.action.export</source>
+        <target>Export parts</target>
+      </segment>
+    </unit>
+    <unit id="OfOI7tn" name="part_list.action.export_json">
+      <segment>
+        <source>part_list.action.export_json</source>
+        <target>Export to JSON</target>
+      </segment>
+    </unit>
+    <unit id="8Y5uz7l" name="part_list.action.export_csv">
+      <segment>
+        <source>part_list.action.export_csv</source>
+        <target>Export to CSV</target>
+      </segment>
+    </unit>
+    <unit id="gtllBTO" name="part_list.action.export_yaml">
+      <segment>
+        <source>part_list.action.export_yaml</source>
+        <target>Export to YAML</target>
+      </segment>
+    </unit>
+    <unit id="IW9wGBS" name="part_list.action.export_xml">
+      <segment>
+        <source>part_list.action.export_xml</source>
+        <target>Export to XML</target>
       </segment>
     </unit>
   </file>

@@ -63,6 +63,12 @@
                     <optgroup label="{% trans %}part_list.action.action.delete{% endtrans %}">
                         <option {% if not is_granted('@parts.delete') %}disabled{% endif %} value="delete">{% trans %}part_list.action.action.delete{% endtrans %}</option>
                     </optgroup>
+                    <optgroup label="{% trans %}part_list.action.action.export{% endtrans %}">
+                        <option {% if not is_granted('@parts.read') %}disabled{% endif %} value="export_json" data-url="{{  path('select_export_level')}}" data-turbo="false">{% trans %}part_list.action.export_json{% endtrans %}</option>
+                        <option {% if not is_granted('@parts.read') %}disabled{% endif %} value="export_csv" data-url="{{  path('select_export_level')}}" data-turbo="false">{% trans %}part_list.action.export_csv{% endtrans %}</option>
+                        <option {% if not is_granted('@parts.read') %}disabled{% endif %} value="export_yaml" data-url="{{  path('select_export_level')}}" data-turbo="false">{% trans %}part_list.action.export_yaml{% endtrans %}</option>
+                        <option {% if not is_granted('@parts.read') %}disabled{% endif %} value="export_xml" data-url="{{  path('select_export_level')}}" data-turbo="false">{% trans %}part_list.action.export_xml{% endtrans %}</option>
+                    </optgroup>
                 </select>
 
                 <select class="form-select d-none" data-controller="elements--structural-entity-select" name="target" {{ stimulus_target('elements/datatables/parts', 'selectTargetPicker') }}>

@@ -102,6 +102,34 @@ final class PartsTableActionHandler
             );
         }
 
+        //When action starts with "export_" we have to redirect to the export controller
+        $matches = [];
+        if (preg_match('/^export_(json|yaml|xml|csv)$/', $action, $matches)) {
+            $ids = implode(',', array_map(static fn (Part $part) => $part->getID(), $selected_parts));
+            switch ($target_id) {
+                case 1:
+                default:
+                    $level = 'simple';
+                    break;
+                case 2:
+                    $level = 'extended';
+                    break;
+                case 3:
+                    $level = 'full';
+                    break;
+            }
+
+
+            return new RedirectResponse(
+                $this->urlGenerator->generate('parts_export', [
+                    'format' => $matches[1],
+                    'level' => $level,
+                    'ids' => $ids,
+                    '_redirect' => $redirect_url
+                ])
+            );
+        }
+
 
         //Iterate over the parts and apply the action to it:
         foreach ($selected_parts as $part) {

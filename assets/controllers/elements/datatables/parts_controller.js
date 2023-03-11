@@ -107,6 +107,13 @@ export default class extends DatatablesController {
             //Hide the select element (the tomselect button is the sibling of the select element)
             select_target.nextElementSibling.classList.add('d-none');
         }
+
+        //If the selected option has a data-turbo attribute, set it to the form
+        if (selected_option.dataset.turbo) {
+            this.element.dataset.turbo = selected_option.dataset.turbo;
+        } else {
+            this.element.dataset.turbo = true;
+        }
     }
 
     confirmDeletionAtSubmit(event) {
