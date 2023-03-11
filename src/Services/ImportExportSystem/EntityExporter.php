@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Services\ImportExportSystem;
 
 use App\Entity\Base\AbstractNamedDBElement;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use function in_array;
 use InvalidArgumentException;
 use function is_array;
@@ -32,6 +33,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Serializer\SerializerInterface;
+use function Symfony\Component\String\u;
 
 /**
  * Use this class to export an entity to multiple file formats.
@@ -42,96 +44,128 @@ class EntityExporter
 
     public function __construct(SerializerInterface $serializer)
     {
-        /*$encoders = [new XmlEncoder(), new JsonEncoder(), new CSVEncoder(), new YamlEncoder()];
-        $normalizers = [new ObjectNormalizer(), new DateTimeNormalizer()];
-        $this->serializer = new Serializer($normalizers, $encoders);
-        $this->serializer-> */
         $this->serializer = $serializer;
     }
 
+    protected function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefault('format', 'csv');
+        $resolver->setAllowedValues('format', ['csv', 'json', 'xml', 'yaml']);
+
+        $resolver->setDefault('csv_delimiter', ',');
+        $resolver->setAllowedTypes('csv_delimiter', 'string');
+
+        $resolver->setDefault('level', 'extended');
+        $resolver->setAllowedValues('level', ['simple', 'extended', 'full']);
+
+        $resolver->setDefault('include_children', false);
+        $resolver->setAllowedTypes('include_children', 'bool');
+    }
+
     /**
-     *  Exports an Entity or an array of entities to multiple file formats.
+     * Export the given entities using the given options.
+     * @param AbstractNamedDBElement|AbstractNamedDBElement[] $entities The data to export
+     * @param  array  $options The options to use for exporting
+     * @return string The serialized data
+     */
+    public function exportEntities($entities, array $options): string
+    {
+        if (!is_array($entities)) {
+            $entities = [$entities];
+        }
+
+        //Ensure that all entities are of type AbstractNamedDBElement
+        $entity_type = null;
+        foreach ($entities as $entity) {
+            if (!$entity instanceof AbstractNamedDBElement) {
+                throw new InvalidArgumentException('All entities must be of type AbstractNamedDBElement!');
+            }
+        }
+
+        $resolver = new OptionsResolver();
+        $this->configureOptions($resolver);
+
+        $options = $resolver->resolve($options);
+
+        //If include children is set, then we need to add the include_children group
+        $groups = [$options['level']];
+        if ($options['include_children']) {
+            $groups[] = 'include_children';
+        }
+
+        return $this->serializer->serialize($entities, $options['format'],
+            [
+                'groups' => $groups,
+                'as_collection' => true,
+                'csv_delimiter' => $options['csv_delimiter'],
+                'xml_root_node_name' => 'PartDBExport',
+            ]
+        );
+    }
+
+    /**
+     * Exports an Entity or an array of entities to multiple file formats.
      *
      * @param Request                         $request the request that should be used for option resolving
-     * @param AbstractNamedDBElement|object[] $entity
+     * @param AbstractNamedDBElement|object[] $entities
      *
      * @return Response the generated response containing the exported data
      *
      * @throws ReflectionException
      */
-    public function exportEntityFromRequest($entity, Request $request): Response
+    public function exportEntityFromRequest($entities, Request $request): Response
     {
-        $format = $request->get('format') ?? 'json';
+        $options = [
+            'format' => $request->get('format') ?? 'json',
+            'level' => $request->get('level') ?? 'extended',
+            'include_children' => $request->request->getBoolean('include_children') ?? false,
+        ];
 
-        //Check if we have one of the supported formats
-        if (!in_array($format, ['json', 'csv', 'yaml', 'xml'], true)) {
-            throw new InvalidArgumentException('Given format is not supported!');
+        if (!is_array($entities)) {
+            $entities = [$entities];
         }
 
-        //Check export verbosity level
-        $level = $request->get('level') ?? 'extended';
-        if (!in_array($level, ['simple', 'extended', 'full'], true)) {
-            throw new InvalidArgumentException('Given level is not supported!');
-        }
+        //Do the serialization with the given options
+        $serialized_data = $this->exportEntities($entities, $options);
 
-        //Check for include children option
-        $include_children = $request->get('include_children') ?? false;
+        $response = new Response($serialized_data);
 
-        //Check which groups we need to export, based on level and include_children
-        $groups = [$level];
-        if ($include_children) {
-            $groups[] = 'include_children';
-        }
+        //Resolve the format
+        $optionsResolver = new OptionsResolver();
+        $this->configureOptions($optionsResolver);
+        $options = $optionsResolver->resolve($options);
+
+        //Determine the content type for the response
 
         //Plain text should work for all types
         $content_type = 'text/plain';
 
         //Try to use better content types based on the format
+        $format = $options['format'];
         switch ($format) {
             case 'xml':
                 $content_type = 'application/xml';
-
                 break;
             case 'json':
                 $content_type = 'application/json';
-
                 break;
         }
-
-        //Ensure that we always serialize an array. This makes it easier to import the data again.
-        if (is_array($entity)) {
-            $entity_array = $entity;
-        } else {
-            $entity_array = [$entity];
-        }
-
-        $serialized_data = $this->serializer->serialize($entity_array, $format,
-                                                        [
-                                                            'groups' => $groups,
-                                                            'as_collection' => true,
-                                                            'csv_delimiter' => ';', //Better for Excel
-                                                            'xml_root_node_name' => 'PartDBExport',
-                                                        ]);
-
-        $response = new Response($serialized_data);
-
         $response->headers->set('Content-Type', $content_type);
 
         //If view option is not specified, then download the file.
         if (!$request->get('view')) {
-            if ($entity instanceof AbstractNamedDBElement) {
-                $entity_name = $entity->getName();
-            } elseif (is_array($entity)) {
-                if (empty($entity)) {
-                    throw new InvalidArgumentException('$entity must not be empty!');
-                }
 
-                //Use the class name of the first element for the filename
-                $reflection = new ReflectionClass($entity[0]);
-                $entity_name = $reflection->getShortName();
+            //Determine the filename
+            //When we only have one entity, then we can use the name of the entity
+            if (count($entities) === 1) {
+                $entity_name = $entities[0]->getName();
             } else {
-                throw new InvalidArgumentException('$entity type is not supported!');
+                //Use the class name of the first element for the filename otherwise
+                $reflection = new ReflectionClass($entities[0]);
+                $entity_name = $reflection->getShortName();
             }
+
+            $level = $options['level'];
 
             $filename = 'export_'.$entity_name.'_'.$level.'.'.$format;
 
@@ -139,7 +173,7 @@ class EntityExporter
             $disposition = $response->headers->makeDisposition(
                 ResponseHeaderBag::DISPOSITION_ATTACHMENT,
                 $filename,
-                $string = preg_replace('![^'.preg_quote('-', '!').'a-z0-_9\s]+!', '', strtolower($filename))
+                u($filename)->ascii()->toString(),
             );
             // Set the content disposition
             $response->headers->set('Content-Disposition', $disposition);
