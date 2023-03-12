@@ -342,16 +342,17 @@ abstract class BaseAdminController extends AbstractController
                 'parent' => $data['parent'],
                 'preserve_children' => $data['preserve_children'],
                 'format' => $data['format'],
+                'class' => $this->entity_class,
                 'csv_separator' => $data['csv_separator'],
             ];
 
             $this->commentHelper->setMessage('Import '.$file->getClientOriginalName());
 
-            $errors = $importer->fileToDBEntities($file, $this->entity_class, $options);
+            $errors = $importer->importFileAndPersistToDB($file, $options);
 
             foreach ($errors as $name => $error) {
                 /** @var ConstraintViolationList $error */
-                $this->addFlash('error', $name.':'.$error);
+                $this->addFlash('error', $name.': '.$error['violations']);
             }
         }
 

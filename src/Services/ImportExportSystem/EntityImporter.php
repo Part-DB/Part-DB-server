@@ -24,6 +24,7 @@ namespace App\Services\ImportExportSystem;
 
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
+use Symplify\EasyCodingStandard\ValueObject\Option;
 use function count;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
@@ -48,7 +49,7 @@ class EntityImporter
 
     /**
      * Creates many entries at once, based on a (text) list of name.
-     * The created enties are not persisted to database yet, so you have to do it yourself.
+     * The created entities are not persisted to database yet, so you have to do it yourself.
      *
      * @param string                           $lines      The list of names seperated by \n
      * @param string                           $class_name The name of the class for which the entities should be created
@@ -130,25 +131,53 @@ class EntityImporter
     }
 
     /**
-     * This methods deserializes the given file and saves it database.
-     * The imported elements will be checked (validated) before written to database.
-     *
-     * @param File   $file       the file that should be used for importing
-     * @param string $class_name the class name of the enitity that should be imported
-     * @param array  $options    options for the import process
-     *
-     * @return array An associative array containing an ConstraintViolationList and the entity name as key are returned,
-     *               if an error happened during validation. When everything was successfull, the array should be empty.
+     * Import data from a string.
+     * @param  string  $data The serialized data which should be imported
+     * @param  array  $options The options for the import process
+     * @param  array  $errors An array which will be filled with the validation errors, if any occurs during import
+     * @return array An array containing all valid imported entities
      */
-    public function fileToDBEntities(File $file, string $class_name, array $options = []): array
+    public function importString(string $data, array $options = [], array &$errors = []): array
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
-
         $options = $resolver->resolve($options);
 
-        $entities = $this->fileToEntityArray($file, $class_name, $options);
+        if (!is_a($options['class'], AbstractNamedDBElement::class, true)) {
+            throw new InvalidArgumentException('$class_name must be an AbstractNamedDBElement type!');
+        }
 
+        $groups = ['import']; //We can only import data, that is marked with the group "import"
+        //Add group when the children should be preserved
+        if ($options['preserve_children']) {
+            $groups[] = 'include_children';
+        }
+
+        //The [] behind class_name denotes that we expect an array.
+        $entities = $this->serializer->deserialize($data, $options['class'].'[]', $options['format'],
+            [
+                'groups' => $groups,
+                'csv_delimiter' => $options['csv_separator'],
+            ]);
+
+        //Ensure we have an array of entity elements.
+        if (!is_array($entities)) {
+            $entities = [$entities];
+        }
+
+        //The serializer has only set the children attributes. We also have to change the parent value (the real value in DB)
+        if ($entities[0] instanceof AbstractStructuralDBElement) {
+            $this->correctParentEntites($entities, null);
+        }
+
+        //Set the parent of the imported elements to the given options
+        foreach ($entities as $entity) {
+            if ($entity instanceof AbstractStructuralDBElement) {
+                $entity->setParent($options['parent']);
+            }
+        }
+
+        //Validate the entities
         $errors = [];
 
         //Iterate over each $entity write it to DB.
@@ -160,78 +189,84 @@ class EntityImporter
             //Validate entity
             $tmp = $this->validator->validate($entity);
 
-            //When no validation error occured, persist entity to database (cascade must be set in entity)
+            if (count($tmp) > 0) { //Log validation errors to global log.
+                $name = $entity instanceof AbstractStructuralDBElement ? $entity->getFullPath() : $entity->getName();
+
+                $errors[$name] = [
+                    'violations' => $tmp,
+                    'entity' => $entity,
+                ];
+            }
+        }
+
+        return $entities;
+    }
+
+    protected function configureOptions(OptionsResolver $resolver): OptionsResolver
+    {
+        $resolver->setDefaults([
+            'csv_separator' => ';',
+            'format' => 'json',
+            'class' => AbstractNamedDBElement::class,
+            'preserve_children' => true,
+            'parent' => null, //The parent element to which the imported elements should be added
+            'abort_on_validation_error' => true,
+        ]);
+
+        return $resolver;
+    }
+
+    /**
+     * This method deserializes the given file and writes the entities to the database (and flush the db).
+     * The imported elements will be checked (validated) before written to database.
+     *
+     * @param File   $file       the file that should be used for importing
+     * @param array  $options    options for the import process
+     *
+     * @return array An associative array containing an ConstraintViolationList and the entity name as key are returned,
+     *               if an error happened during validation. When everything was successfully, the array should be empty.
+     */
+    public function importFileAndPersistToDB(File $file, array $options = []): array
+    {
+        $options = $this->configureOptions(new OptionsResolver())->resolve($options);
+
+        $errors = [];
+        $entities = $this->importFile($file, $options, $errors);
+
+        //When we should abort on validation error, do nothing and return the errors
+        if (!empty($errors) && $options['abort_on_validation_error']) {
+            return $errors;
+        }
+
+        //Iterate over each $entity write it to DB.
+        foreach ($entities as $entity) {
+            //Validate entity
+            $tmp = $this->validator->validate($entity);
+
+            //When no validation error occurred, persist entity to database (cascade must be set in entity)
             if (null === $tmp) {
                 $this->em->persist($entity);
-            } else { //Log validation errors to global log.
-                $errors[$entity->getFullPath()] = $tmp;
             }
         }
 
         //Save changes to database, when no error happened, or we should continue on error.
-        if (empty($errors) || false === $options['abort_on_validation_error']) {
-            $this->em->flush();
-        }
+        $this->em->flush();
 
         return $errors;
     }
 
     /**
      * This method converts (deserialize) a (uploaded) file to an array of entities with the given class.
-     *
-     * The imported elements will NOT be validated. If you want to use the result array, you have to validate it by yourself.
+     * The imported elements are not persisted to database yet, so you have to do it yourself.
      *
      * @param File   $file       the file that should be used for importing
-     * @param string $class_name the class name of the enitity that should be imported
      * @param array  $options    options for the import process
      *
      * @return array an array containing the deserialized elements
      */
-    public function fileToEntityArray(File $file, string $class_name, array $options = []): array
+    public function importFile(File $file, array $options = [], array &$errors = []): array
     {
-        $resolver = new OptionsResolver();
-        $this->configureOptions($resolver);
-
-        $options = $resolver->resolve($options);
-
-        //Read file contents
-        $content = file_get_contents($file->getRealPath());
-
-        $groups = ['simple'];
-        //Add group when the children should be preserved
-        if ($options['preserve_children']) {
-            $groups[] = 'include_children';
-        }
-
-        //The [] behind class_name denotes that we expect an array.
-        $entities = $this->serializer->deserialize($content, $class_name.'[]', $options['format'],
-            [
-                'groups' => $groups,
-                'csv_delimiter' => $options['csv_separator'],
-            ]);
-
-        //Ensure we have an array of entitity elements.
-        if (!is_array($entities)) {
-            $entities = [$entities];
-        }
-
-        //The serializer has only set the children attributes. We also have to change the parent value (the real value in DB)
-        if ($entities[0] instanceof AbstractStructuralDBElement) {
-            $this->correctParentEntites($entities, null);
-        }
-
-        return $entities;
-    }
-
-    protected function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'csv_separator' => ';',
-            'format' => 'json',
-            'preserve_children' => true,
-            'parent' => null,
-            'abort_on_validation_error' => true,
-        ]);
+        return $this->importString($file->getContent(), $options, $errors);
     }
 
     /**
