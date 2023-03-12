@@ -15,7 +15,6 @@
                     <li>
                         <b>{{ name }}: </b>
                         {% for violation in error.violations %}
-                            {% dump(violation) %}
                             <i>{{ violation.propertyPath }}</i>: {{ violation.message|trans(violation.parameters, 'validators') }}<br>
                         {% endfor %}
                     </li>
