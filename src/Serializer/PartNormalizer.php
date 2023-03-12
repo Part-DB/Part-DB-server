@@ -30,8 +30,13 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class PartNormalizer implements NormalizerInterface, DenormalizerInterface, CacheableSupportsMethodInterface
 {
+    private const DENORMALIZE_KEY_MAPPING = [
+        'notes' => 'comment',
+        'quantity' => 'instock',
+        'amount' => 'instock',
+    ];
 
-    private NormalizerInterface $normalizer;
+    private ObjectNormalizer $normalizer;
     private StructuralElementFromNameDenormalizer $locationDenormalizer;
 
     public function __construct(ObjectNormalizer $normalizer, StructuralElementFromNameDenormalizer $locationDenormalizer)
@@ -68,8 +73,23 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
         return is_array($data) && is_a($type, Part::class, true);
     }
 
+    private function normalizeKeys(array &$data): array
+    {
+        //Rename keys based on the mapping, while leaving the data untouched
+        foreach ($data as $key => $value) {
+            if (isset(self::DENORMALIZE_KEY_MAPPING[$key])) {
+                $data[self::DENORMALIZE_KEY_MAPPING[$key]] = $value;
+                unset($data[$key]);
+            }
+        }
+
+        return $data;
+    }
+
     public function denormalize($data, string $type, string $format = null, array $context = [])
     {
+        $this->normalizeKeys($data);
+
         $object = $this->normalizer->denormalize($data, $type, $format, $context);
 
         if (!$object instanceof Part) {
