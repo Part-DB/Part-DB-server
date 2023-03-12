@@ -26,6 +26,7 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\PartLot;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -38,6 +39,7 @@ trait InstockTrait
      * @ORM\OneToMany(targetEntity="PartLot", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      * @ORM\OrderBy({"amount" = "DESC"})
+     * @Groups({"extended", "full"})
      */
     protected $partLots;
 
@@ -46,6 +48,7 @@ trait InstockTrait
      *            Given in the partUnit.
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero()
+     * @Groups({"extended", "full"})
      */
     protected float $minamount = 0;
 
@@ -53,6 +56,7 @@ trait InstockTrait
      * @var ?MeasurementUnit the unit in which the part's amount is measured
      * @ORM\ManyToOne(targetEntity="MeasurementUnit")
      * @ORM\JoinColumn(name="id_part_unit", referencedColumnName="id", nullable=true)
+     * @Groups({"extended", "full"})
      */
     protected ?MeasurementUnit $partUnit = null;
 

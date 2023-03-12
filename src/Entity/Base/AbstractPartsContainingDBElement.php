@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Entity\Base;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Class PartsContainingDBElement.
@@ -31,4 +32,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class AbstractPartsContainingDBElement extends AbstractStructuralDBElement
 {
+    /** @Groups({"full"}) */
+    protected $parameters;
 }

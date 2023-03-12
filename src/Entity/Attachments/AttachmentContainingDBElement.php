@@ -29,6 +29,7 @@ use App\Entity\Contracts\HasMasterAttachmentInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\MappedSuperclass()
@@ -43,6 +44,7 @@ abstract class AttachmentContainingDBElement extends AbstractNamedDBElement impl
      *                              //@ORM\OneToMany(targetEntity="Attachment", mappedBy="element")
      *
      * Mapping is done in sub classes like part
+     * @Groups({"full"})
      */
     protected $attachments;
 

@@ -27,6 +27,7 @@ use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Parameters\CategoryParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -56,48 +57,56 @@ class Category extends AbstractPartsContainingDBElement
     /**
      * @var string
      * @ORM\Column(type="text")
+     * @Groups({"full"})
      */
     protected string $partname_hint = '';
 
     /**
      * @var string
      * @ORM\Column(type="text")
+     * @Groups({"full"})
      */
     protected string $partname_regex = '';
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
+     * @Groups({"full"})
      */
     protected bool $disable_footprints = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
+     * @Groups({"full"})
      */
     protected bool $disable_manufacturers = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
+     * @Groups({"full"})
      */
     protected bool $disable_autodatasheets = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
+     * @Groups({"full"})
      */
     protected bool $disable_properties = false;
 
     /**
      * @var string
      * @ORM\Column(type="text")
+     * @Groups({"full"})
      */
     protected string $default_description = '';
 
     /**
      * @var string
      * @ORM\Column(type="text")
+     * @Groups({"full"})
      */
     protected string $default_comment = '';
     /**
@@ -105,6 +114,7 @@ class Category extends AbstractPartsContainingDBElement
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\CategoryAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"name" = "ASC"})
      * @Assert\Valid()
+     * @Groups({"full"})
      */
     protected $attachments;
 
@@ -112,6 +122,7 @@ class Category extends AbstractPartsContainingDBElement
      * @ORM\OneToMany(targetEntity="App\Entity\Parameters\CategoryParameter", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)
      * @ORM\OrderBy({"group" = "ASC" ,"name" = "ASC"})
      * @Assert\Valid()
+     * @Groups({"full"})
      */
     protected $parameters;
 

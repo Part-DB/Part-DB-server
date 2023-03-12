@@ -32,6 +32,7 @@ use Brick\Math\RoundingMode;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -55,6 +56,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * @var BigDecimal The price related to the detail. (Given in the selected currency)
      * @ORM\Column(type="big_decimal", precision=11, scale=5)
      * @BigDecimalPositive()
+     * @Groups({"extended", "full"})
      */
     protected BigDecimal $price;
 
@@ -64,6 +66,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * @ORM\ManyToOne(targetEntity="Currency", inversedBy="pricedetails")
      * @ORM\JoinColumn(name="id_currency", referencedColumnName="id", nullable=true)
      * @Selectable()
+     * @Groups({"extended", "full"})
      */
     protected ?Currency $currency = null;
 
@@ -71,6 +74,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * @var float
      * @ORM\Column(type="float")
      * @Assert\Positive()
+     * @Groups({"extended", "full"})
      */
     protected float $price_related_quantity = 1.0;
 
@@ -78,12 +82,14 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * @var float
      * @ORM\Column(type="float")
      * @Assert\Positive()
+     * @Groups({"extended", "full"})
      */
     protected float $min_discount_quantity = 1.0;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
+     * @Groups({"extended", "full"})
      */
     protected bool $manual_input = true;
 

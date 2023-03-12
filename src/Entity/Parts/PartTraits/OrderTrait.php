@@ -24,6 +24,7 @@ namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\PriceInformations\Orderdetail;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use function count;
 use Doctrine\Common\Collections\Collection;
@@ -39,6 +40,7 @@ trait OrderTrait
      * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      * @ORM\OrderBy({"supplierpartnr" = "ASC"})
+     * @Groups({"extended", "full"})
      */
     protected $orderdetails;
 

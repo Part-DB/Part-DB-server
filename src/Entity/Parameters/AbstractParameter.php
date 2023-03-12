@@ -46,6 +46,7 @@ use App\Entity\Base\AbstractNamedDBElement;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
 use LogicException;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use function sprintf;
@@ -84,6 +85,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      * @var string The mathematical symbol for this specification. Can be rendered pretty later. Should be short
      * @Assert\Length(max=20)
      * @ORM\Column(type="string", nullable=false)
+     * @Groups({"full"})
      */
     protected string $symbol = '';
 
@@ -93,6 +95,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      * @Assert\LessThanOrEqual(propertyPath="value_typical", message="parameters.validator.min_lesser_typical")
      * @Assert\LessThan(propertyPath="value_max", message="parameters.validator.min_lesser_max")
      * @ORM\Column(type="float", nullable=true)
+     * @Groups({"full"})
      */
     protected ?float $value_min = null;
 
@@ -100,6 +103,7 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      * @var float|null the typical value of this property
      * @Assert\Type({"null", "float"})
      * @ORM\Column(type="float", nullable=true)
+     * @Groups({"full"})
      */
     protected ?float $value_typical = null;
 
@@ -108,24 +112,29 @@ abstract class AbstractParameter extends AbstractNamedDBElement
      * @Assert\Type({"float", "null"})
      * @Assert\GreaterThanOrEqual(propertyPath="value_typical", message="parameters.validator.max_greater_typical")
      * @ORM\Column(type="float", nullable=true)
+     * @Groups({"full"})
      */
     protected ?float $value_max = null;
 
     /**
      * @var string The unit in which the value values are given (e.g. V)
      * @ORM\Column(type="string", nullable=false)
+     * @Groups({"full"})
      */
     protected string $unit = '';
 
     /**
      * @var string a text value for the given property
      * @ORM\Column(type="string", nullable=false)
+     * @Groups({"full"})
      */
     protected string $value_text = '';
 
     /**
      * @var string the group this parameter belongs to
      * @ORM\Column(type="string", nullable=false, name="param_group")
+     * @Groups({"full"})
+     * @Groups({"full"})
      */
     protected string $group = '';
 

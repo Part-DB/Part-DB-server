@@ -27,6 +27,7 @@ use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Parameters\StorelocationParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -70,12 +71,14 @@ class Storelocation extends AbstractPartsContainingDBElement
     /**
      * @var bool
      * @ORM\Column(type="boolean")
+     * @Groups({"full"})
      */
     protected bool $is_full = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
+     * @Groups({"full"})
      */
     protected bool $only_single_part = false;
 

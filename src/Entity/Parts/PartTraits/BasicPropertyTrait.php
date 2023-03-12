@@ -26,6 +26,7 @@ use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Validator\Constraints\Selectable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 trait BasicPropertyTrait
@@ -33,12 +34,14 @@ trait BasicPropertyTrait
     /**
      * @var string A text describing what this part does
      * @ORM\Column(type="text")
+     * @Groups({"simple", "extended", "full"})
      */
     protected string $description = '';
 
     /**
      * @var string A comment/note related to this part
      * @ORM\Column(type="text")
+     * @Groups({"extended", "full"})
      */
     protected string $comment = '';
 
@@ -51,6 +54,7 @@ trait BasicPropertyTrait
     /**
      * @var bool true, if the part is marked as favorite
      * @ORM\Column(type="boolean")
+     * @Groups({"extended", "full"})
      */
     protected bool $favorite = false;
 
@@ -61,6 +65,7 @@ trait BasicPropertyTrait
      * @ORM\JoinColumn(name="id_category", referencedColumnName="id", nullable=false)
      * @Selectable()
      * @Assert\NotNull(message="validator.select_valid_category")
+     * @Groups({"simple", "extended", "full"})
      */
     protected ?Category $category = null;
 
@@ -69,6 +74,7 @@ trait BasicPropertyTrait
      * @ORM\ManyToOne(targetEntity="Footprint")
      * @ORM\JoinColumn(name="id_footprint", referencedColumnName="id")
      * @Selectable()
+     * @Groups({"simple", "extended", "full"})
      */
     protected ?Footprint $footprint = null;
 

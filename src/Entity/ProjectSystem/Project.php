@@ -30,6 +30,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use InvalidArgumentException;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -57,6 +58,7 @@ class Project extends AbstractStructuralDBElement
     /**
      * @ORM\OneToMany(targetEntity="ProjectBOMEntry", mappedBy="project", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
+     * @Groups({"extended", "full"})
      */
     protected $bom_entries;
 
@@ -69,6 +71,7 @@ class Project extends AbstractStructuralDBElement
      * @var string The current status of the project
      * @ORM\Column(type="string", length=64, nullable=true)
      * @Assert\Choice({"draft","planning","in_production","finished","archived"})
+     * @Groups({"extended", "full"})
      */
     protected ?string $status = null;
 
@@ -86,6 +89,7 @@ class Project extends AbstractStructuralDBElement
 
     /**
      * @ORM\Column(type="text", nullable=false, columnDefinition="DEFAULT ''")
+     * @Groups({"simple", "extended", "full"})
      */
     protected string $description = '';
 
