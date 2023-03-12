@@ -12,7 +12,13 @@
             <h4><i class="fa-solid fa-exclamation-triangle fa-fw"></i> {% trans %}parts.import.errors.title{% endtrans %}</h4>
             <ul>
                 {% for name, error in import_errors %}
-                    <li><b>{{ name }}:</b> {{ error.violations }}</li>
+                    <li>
+                        <b>{{ name }}: </b>
+                        {% for violation in error.violations %}
+                            {% dump(violation) %}
+                            <i>{{ violation.propertyPath }}</i>: {{ violation.message|trans(violation.parameters, 'validators') }}<br>
+                        {% endfor %}
+                    </li>
                 {% endfor %}
             </ul>
         </div>
@@ -20,15 +26,19 @@
 {% endblock %}
 
 {% block card_content %}
-{{ form(import_form) }}
+    {{ form(import_form) }}
 
     {% if imported_entities %}
         <hr>
         <h4>{% trans %}parts.import.errors.imported_entities{% endtrans %} ({{ imported_entities | length }}):</h4>
         <ul>
-            {% for entity in imported_entities %}
-                {# @var \App\Entity\Parts\Part entity #}
+        {% for entity in imported_entities %}
+            {# @var \App\Entity\Parts\Part entity #}
+            {% if entity.id %}
                 <li><a href="{{ entity_url(entity) }}">{{ entity.name }}</a> (ID: {{ entity.iD }})</li>
-            {% endfor %}
+            {% else %}
+                <li>{{ entity.name }}</li>
+            {% endif %}
+        {% endfor %}
     {% endif %}
 {% endblock %}

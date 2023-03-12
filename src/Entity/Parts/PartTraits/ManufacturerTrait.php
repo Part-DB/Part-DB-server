@@ -39,7 +39,7 @@ trait ManufacturerTrait
      * @ORM\ManyToOne(targetEntity="Manufacturer")
      * @ORM\JoinColumn(name="id_manufacturer", referencedColumnName="id")
      * @Selectable()
-     * @Groups({"simple","extended", "full"})
+     * @Groups({"simple","extended", "full", "import"})
      */
     protected ?Manufacturer $manufacturer = null;
 

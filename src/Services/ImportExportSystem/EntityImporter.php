@@ -160,6 +160,8 @@ class EntityImporter
             [
                 'groups' => $groups,
                 'csv_delimiter' => $options['csv_delimiter'],
+                'create_unknown_datastructures' => $options['create_unknown_datastructures'],
+                'path_delimiter' => $options['path_delimiter'],
             ]);
 
         //Ensure we have an array of entity elements.
@@ -215,7 +217,9 @@ class EntityImporter
             'preserve_children' => true,
             'parent' => null, //The parent element to which the imported elements should be added
             'abort_on_validation_error' => true,
-            'part_category' => null
+            'part_category' => null,
+            'create_unknown_datastructures' => true, //If true, unknown datastructures (categories, footprints, etc.) will be created on the fly
+            'path_delimiter' => '->', //The delimiter used to separate the path elements in the name of a structural element
         ]);
 
         $resolver->setAllowedValues('format', ['csv', 'json', 'xml', 'yaml']);

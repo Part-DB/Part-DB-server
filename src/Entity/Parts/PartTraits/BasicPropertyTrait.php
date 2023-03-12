@@ -65,7 +65,7 @@ trait BasicPropertyTrait
      * @ORM\JoinColumn(name="id_category", referencedColumnName="id", nullable=false)
      * @Selectable()
      * @Assert\NotNull(message="validator.select_valid_category")
-     * @Groups({"simple", "extended", "full"})
+     * @Groups({"simple", "extended", "full", "import"})
      */
     protected ?Category $category = null;
 
@@ -74,7 +74,7 @@ trait BasicPropertyTrait
      * @ORM\ManyToOne(targetEntity="Footprint")
      * @ORM\JoinColumn(name="id_footprint", referencedColumnName="id")
      * @Selectable()
-     * @Groups({"simple", "extended", "full"})
+     * @Groups({"simple", "extended", "full", "import"})
      */
     protected ?Footprint $footprint = null;
 

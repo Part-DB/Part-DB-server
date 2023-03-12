@@ -92,7 +92,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     /**
      * @var AbstractStructuralDBElement
      * @NoneOfItsChildren()
-     * @Groups({"include_parents"})
+     * @Groups({"include_parents", "import"})
      */
     protected $parent = null;
 

@@ -6674,16 +6674,7 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>The parent can not be one of the children of itself.</target>
       </segment>
     </unit>
-    <unit id="0IF0VIF" name="validator.isSelectable">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>validator.isSelectable</source>
-        <target>The element must be selectable.</target>
-      </segment>
-    </unit>
+
     <unit id="nd207H6" name="validator.part_lot.location_full.no_increasment">
       <notes>
         <note priority="1">obsolete</note>

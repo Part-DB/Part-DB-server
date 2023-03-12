@@ -56,7 +56,7 @@ trait InstockTrait
      * @var ?MeasurementUnit the unit in which the part's amount is measured
      * @ORM\ManyToOne(targetEntity="MeasurementUnit")
      * @ORM\JoinColumn(name="id_part_unit", referencedColumnName="id", nullable=true)
-     * @Groups({"extended", "full"})
+     * @Groups({"extended", "full", "import"})
      */
     protected ?MeasurementUnit $partUnit = null;
 

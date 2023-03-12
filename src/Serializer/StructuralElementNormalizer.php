@@ -21,6 +21,7 @@
 namespace App\Serializer;
 
 use App\Entity\Base\AbstractStructuralDBElement;
+use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -48,7 +49,7 @@ class StructuralElementNormalizer implements ContextAwareNormalizerInterface
         $data = $this->normalizer->normalize($object, $format, $context);
 
         //Remove type field for CSV export
-        if ($format == 'csv') {
+        if ($format === 'csv') {
             unset($data['type']);
         }
 
