@@ -33,7 +33,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\ConstraintViolationList;
+use UnexpectedValueException;
 
 class PartImportExportController extends AbstractController
 {
@@ -64,9 +64,19 @@ class PartImportExportController extends AbstractController
             $file = $import_form['file']->getData();
             $data = $import_form->getData();
 
+            if ($data['format'] === 'auto') {
+                $format = $this->entityImporter->determineFormat($file->getClientOriginalExtension());
+                if (null === $format) {
+                    $this->addFlash('error', 'parts.import.flash.error.unknown_format');
+                    goto ret;
+                }
+            } else {
+                $format = $data['format'];
+            }
+
             $options = [
                 'preserve_children' => $data['preserve_children'],
-                'format' => $data['format'],
+                'format' => $format,
                 'part_category' => $data['part_category'],
                 'class' => Part::class,
                 'csv_delimiter' => $data['csv_delimiter'],
@@ -76,7 +86,12 @@ class PartImportExportController extends AbstractController
 
             $entities = [];
 
-            $errors = $this->entityImporter->importFileAndPersistToDB($file, $options, $entities);
+            try {
+                $errors = $this->entityImporter->importFileAndPersistToDB($file, $options, $entities);
+            } catch (UnexpectedValueException $e) {
+                $this->addFlash('error', 'parts.import.flash.error.invalid_file');
+                goto ret;
+            }
 
             if ($errors) {
                 $this->addFlash('error', 'parts.import.flash.error');
@@ -85,6 +100,8 @@ class PartImportExportController extends AbstractController
             }
         }
 
+
+        ret:
         return $this->renderForm('parts/import/parts_import.html.twig', [
             'import_form' => $import_form,
             'imported_entities' => $entities ?? [],

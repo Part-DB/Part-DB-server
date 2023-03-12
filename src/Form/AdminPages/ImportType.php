@@ -57,6 +57,7 @@ class ImportType extends AbstractType
 
             ->add('format', ChoiceType::class, [
                 'choices' => [
+                    'parts.import.format.auto' => 'auto',
                     'JSON' => 'json',
                     'XML' => 'xml',
                     'CSV' => 'csv',

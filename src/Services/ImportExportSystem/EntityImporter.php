@@ -279,6 +279,33 @@ class EntityImporter
         return $this->importString($file->getContent(), $options, $errors);
     }
 
+
+    /**
+     * Determines the format to import based on the file extension.
+     * @param  string  $extension The file extension to use
+     * @return string The format to use (json, xml, csv, yaml), or null if the extension is unknown
+     */
+    public function determineFormat(string $extension): ?string
+    {
+        //Convert the extension to lower case
+        $extension = strtolower($extension);
+
+        switch ($extension) {
+            case 'json':
+                return 'json';
+            case 'xml':
+                return 'xml';
+            case 'csv':
+            case 'tsv':
+                return 'csv';
+            case 'yaml':
+            case 'yml':
+                return 'yaml';
+            default:
+                return null;
+        }
+    }
+
     /**
      * This functions corrects the parent setting based on the children value of the parent.
      *

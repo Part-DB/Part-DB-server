@@ -6674,7 +6674,6 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>The parent can not be one of the children of itself.</target>
       </segment>
     </unit>
-
     <unit id="nd207H6" name="validator.part_lot.location_full.no_increasment">
       <notes>
         <note priority="1">obsolete</note>
@@ -11036,6 +11035,24 @@ Element 3</target>
       <segment>
         <source>parts.import.flash.error</source>
         <target>Errors during import. This is most likely caused by some invalid data.</target>
+      </segment>
+    </unit>
+    <unit id="hJHxH3J" name="parts.import.format.auto">
+      <segment>
+        <source>parts.import.format.auto</source>
+        <target>Automatic (based on file extension)</target>
+      </segment>
+    </unit>
+    <unit id="E1zm0rb" name="parts.import.flash.error.unknown_format">
+      <segment>
+        <source>parts.import.flash.error.unknown_format</source>
+        <target>Could not determine the format from the given file!</target>
+      </segment>
+    </unit>
+    <unit id="y2UaCL7" name="parts.import.flash.error.invalid_file">
+      <segment>
+        <source>parts.import.flash.error.invalid_file</source>
+        <target>File invalid / malformatted. Please check that you have selected the right format!</target>
       </segment>
     </unit>
   </file>

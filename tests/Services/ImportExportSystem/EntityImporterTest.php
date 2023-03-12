@@ -151,4 +151,24 @@ EOT;
         $this->assertCount(2, $errors);
         $this->assertSame('Node 1', $errors[0]['entity']->getName());
     }
+
+    public function formatDataProvider(): array
+    {
+        return [
+            ['csv', 'csv'],
+            ['csv', 'CSV'],
+            ['xml', 'Xml'],
+            ['json', 'json'],
+            ['yaml', 'yml'],
+            ['yaml', 'YAML'],
+        ];
+    }
+
+    /**
+     * @dataProvider formatDataProvider
+     */
+    public function testDetermineFormat(string $expected, string $extension): void
+    {
+        $this->assertSame($expected, $this->service->determineFormat($extension));
+    }
 }

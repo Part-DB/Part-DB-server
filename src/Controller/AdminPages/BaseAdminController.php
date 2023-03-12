@@ -58,6 +58,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -338,17 +339,33 @@ abstract class BaseAdminController extends AbstractController
             $file = $import_form['file']->getData();
             $data = $import_form->getData();
 
+            if ($data['format'] === 'auto') {
+                $format = $importer->determineFormat($file->getClientOriginalExtension());
+                if (null === $format) {
+                    $this->addFlash('error', 'parts.import.flash.error.unknown_format');
+                    goto ret;
+                }
+            } else {
+                $format = $data['format'];
+            }
+
             $options = [
                 'parent' => $data['parent'],
                 'preserve_children' => $data['preserve_children'],
-                'format' => $data['format'],
+                'format' => $format,
                 'class' => $this->entity_class,
                 'csv_delimiter' => $data['csv_delimiter'],
             ];
 
             $this->commentHelper->setMessage('Import '.$file->getClientOriginalName());
 
-            $errors = $importer->importFileAndPersistToDB($file, $options);
+            try {
+                $errors = $importer->importFileAndPersistToDB($file, $options);
+            }
+            catch (UnexpectedValueException $e) {
+                $this->addFlash('error', 'parts.import.flash.error.invalid_file');
+                goto ret;
+            }
 
             foreach ($errors as $name => $error) {
                 /** @var ConstraintViolationList $error */
@@ -383,6 +400,7 @@ abstract class BaseAdminController extends AbstractController
             $em->flush();
         }
 
+        ret:
         return $this->renderForm($this->twig_template, [
             'entity' => $new_entity,
             'form' => $form,
