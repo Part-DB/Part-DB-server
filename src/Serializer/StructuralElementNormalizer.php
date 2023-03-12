@@ -21,12 +21,13 @@
 namespace App\Serializer;
 
 use App\Entity\Base\AbstractStructuralDBElement;
+use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class StructuralElementNormalizer implements ContextAwareNormalizerInterface
+class StructuralElementNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface
 {
     private NormalizerInterface $normalizer;
 
@@ -35,7 +36,7 @@ class StructuralElementNormalizer implements ContextAwareNormalizerInterface
         $this->normalizer = $normalizer;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null): bool
     {
         return $data instanceof AbstractStructuralDBElement;
     }
@@ -56,5 +57,10 @@ class StructuralElementNormalizer implements ContextAwareNormalizerInterface
         $data['full_name'] = $object->getFullPath('->');
 
         return $data;
+    }
+
+    public function hasCacheableSupportsMethod(): bool
+    {
+        return true;
     }
 }

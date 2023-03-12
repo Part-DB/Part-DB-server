@@ -24,9 +24,11 @@ use App\Entity\Base\AbstractStructuralDBElement;
 use App\Form\Type\StructuralEntityType;
 use App\Repository\StructuralDBElementRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
-class StructuralElementFromNameDenormalizer implements ContextAwareDenormalizerInterface
+class StructuralElementFromNameDenormalizer implements DenormalizerInterface, CacheableSupportsMethodInterface
 {
     private EntityManagerInterface $em;
 
@@ -35,7 +37,7 @@ class StructuralElementFromNameDenormalizer implements ContextAwareDenormalizerI
         $this->em = $em;
     }
 
-    public function supportsDenormalization($data, string $type, string $format = null, array $context = [])
+    public function supportsDenormalization($data, string $type, string $format = null)
     {
         return is_string($data) && is_subclass_of($type, AbstractStructuralDBElement::class);
     }
@@ -65,5 +67,11 @@ class StructuralElementFromNameDenormalizer implements ContextAwareDenormalizerI
             return null;
         }
         return end($elements);
+    }
+
+    public function hasCacheableSupportsMethod(): bool
+    {
+        //Must be false, because we do a is_string check on data in supportsDenormalization
+        return false;
     }
 }

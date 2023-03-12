@@ -22,22 +22,29 @@ namespace App\Serializer;
 
 use Brick\Math\BigDecimal;
 use Brick\Math\BigNumber;
+use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class BigNumberSerializer implements ContextAwareNormalizerInterface
+class BigNumberSerializer implements NormalizerInterface, CacheableSupportsMethodInterface
 {
 
-    public function supportsNormalization($data, string $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null): bool
     {
         return $data instanceof BigNumber;
     }
 
-    public function normalize($object, string $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = []): string
     {
         if (!$object instanceof BigNumber) {
             throw new \InvalidArgumentException('This normalizer only supports BigNumber objects!');
         }
 
         return (string) $object;
+    }
+
+    public function hasCacheableSupportsMethod(): bool
+    {
+        return true;
     }
 }

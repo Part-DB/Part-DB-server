@@ -23,12 +23,12 @@ namespace App\Serializer;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
-use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class PartNormalizer implements ContextAwareNormalizerInterface, ContextAwareDenormalizerInterface
+class PartNormalizer implements NormalizerInterface, DenormalizerInterface, CacheableSupportsMethodInterface
 {
 
     private NormalizerInterface $normalizer;
@@ -40,7 +40,7 @@ class PartNormalizer implements ContextAwareNormalizerInterface, ContextAwareDen
         $this->locationDenormalizer = $locationDenormalizer;
     }
 
-    public function supportsNormalization($data, string $format = null, array $context = [])
+    public function supportsNormalization($data, string $format = null): bool
     {
         return $data instanceof Part;
     }
@@ -63,7 +63,7 @@ class PartNormalizer implements ContextAwareNormalizerInterface, ContextAwareDen
         return $data;
     }
 
-    public function supportsDenormalization($data, string $type, string $format = null, array $context = [])
+    public function supportsDenormalization($data, string $type, string $format = null): bool
     {
         return is_array($data) && is_a($type, Part::class, true);
     }
@@ -97,5 +97,11 @@ class PartNormalizer implements ContextAwareNormalizerInterface, ContextAwareDen
         }
 
         return $object;
+    }
+
+    public function hasCacheableSupportsMethod(): bool
+    {
+        //Must be false, because we rely on is_array($data) in supportsDenormalization()
+        return false;
     }
 }
