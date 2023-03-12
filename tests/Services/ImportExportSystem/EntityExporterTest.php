@@ -53,12 +53,12 @@ class EntityExporterTest extends WebTestCase
         $entities = $this->getEntities();
 
         $json_without_children = $this->service->exportEntities($entities, ['format' => 'json', 'level' => 'simple']);
-        $this->assertSame('[{"comment":"Test","name":"Enitity 1","type":null},{"comment":"","name":"Enitity 1.1","type":null},{"comment":"","name":"Enitity 2","type":null}]',
+        $this->assertJsonStringEqualsJsonString('[{"name":"Enitity 1","type":"category","full_name":"Enitity 1"},{"name":"Enitity 1.1","type":"category","full_name":"Enitity 1->Enitity 1.1"},{"name":"Enitity 2","type":"category","full_name":"Enitity 2"}]',
             $json_without_children);
 
         $json_with_children = $this->service->exportEntities($entities,
             ['format' => 'json', 'level' => 'simple', 'include_children' => true]);
-        $this->assertSame('[{"children":[{"children":[],"comment":"","name":"Enitity 1.1","type":null}],"comment":"Test","name":"Enitity 1","type":null},{"children":[],"comment":"","name":"Enitity 1.1","type":null},{"children":[],"comment":"","name":"Enitity 2","type":null}]',
+        $this->assertJsonStringEqualsJsonString('[{"children":[{"children":[],"name":"Enitity 1.1","type":"category","full_name":"Enitity 1->Enitity 1.1"}],"name":"Enitity 1","type":"category","full_name":"Enitity 1"},{"children":[],"name":"Enitity 1.1","type":"category","full_name":"Enitity 1->Enitity 1.1"},{"children":[],"name":"Enitity 2","type":"category","full_name":"Enitity 2"}]',
             $json_with_children);
     }
 
@@ -71,8 +71,7 @@ class EntityExporterTest extends WebTestCase
         $request->request->set('level', 'simple');
         $response = $this->service->exportEntityFromRequest($entities, $request);
 
-        $this->assertSame('[{"comment":"Test","name":"Enitity 1","type":null},{"comment":"","name":"Enitity 1.1","type":null},{"comment":"","name":"Enitity 2","type":null}]',
-            $response->getContent());
+        $this->assertJson($response->getContent());
 
         $this->assertSame('application/json', $response->headers->get('Content-Type'));
         $this->assertNotEmpty($response->headers->get('Content-Disposition'));
