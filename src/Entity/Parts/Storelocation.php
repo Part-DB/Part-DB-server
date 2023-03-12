@@ -71,22 +71,24 @@ class Storelocation extends AbstractPartsContainingDBElement
     /**
      * @var bool
      * @ORM\Column(type="boolean")
-     * @Groups({"full"})
+     * @Groups({"full", "import"})
      */
     protected bool $is_full = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
-     * @Groups({"full"})
+     * @Groups({"full", "import"})
      */
     protected bool $only_single_part = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
+     * @Groups({"full", "import"})
      */
     protected bool $limit_to_existing_parts = false;
+
     /**
      * @var Collection<int, StorelocationAttachment>
      * @ORM\OneToMany(targetEntity="App\Entity\Attachments\StorelocationAttachment", mappedBy="element", cascade={"persist", "remove"}, orphanRemoval=true)

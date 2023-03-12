@@ -57,56 +57,56 @@ class Category extends AbstractPartsContainingDBElement
     /**
      * @var string
      * @ORM\Column(type="text")
-     * @Groups({"full"})
+     * @Groups({"full", "import"})
      */
     protected string $partname_hint = '';
 
     /**
      * @var string
      * @ORM\Column(type="text")
-     * @Groups({"full"})
+     * @Groups({"full", "import"})
      */
     protected string $partname_regex = '';
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
-     * @Groups({"full"})
+     * @Groups({"full", "import"})
      */
     protected bool $disable_footprints = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
-     * @Groups({"full"})
+     * @Groups({"full", "import"})
      */
     protected bool $disable_manufacturers = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
-     * @Groups({"full"})
+     * @Groups({"full", "import"})
      */
     protected bool $disable_autodatasheets = false;
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
-     * @Groups({"full"})
+     * @Groups({"full", "import"})
      */
     protected bool $disable_properties = false;
 
     /**
      * @var string
      * @ORM\Column(type="text")
-     * @Groups({"full"})
+     * @Groups({"full", "import"})
      */
     protected string $default_description = '';
 
     /**
      * @var string
      * @ORM\Column(type="text")
-     * @Groups({"full"})
+     * @Groups({"full", "import"})
      */
     protected string $default_comment = '';
     /**

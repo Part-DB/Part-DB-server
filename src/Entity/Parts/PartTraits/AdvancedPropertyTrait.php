@@ -58,7 +58,7 @@ trait AdvancedPropertyTrait
      * @var string The internal part number of the part
      * @ORM\Column(type="string", length=100, nullable=true, unique=true)
      * @Assert\Length(max="100")
-     * @Groups({"extended", "full", "ipn"})
+     * @Groups({"extended", "full", "import"})
      */
     protected ?string $ipn = null;
 

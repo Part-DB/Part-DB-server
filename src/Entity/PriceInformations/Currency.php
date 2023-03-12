@@ -61,7 +61,7 @@ class Currency extends AbstractStructuralDBElement
      * @var string the 3-letter ISO code of the currency
      * @ORM\Column(type="string")
      * @Assert\Currency()
-     * @Groups({"extended", "full"})
+     * @Groups({"extended", "full", "import"})
      */
     protected string $iso_code = "";
 

@@ -66,7 +66,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * @ORM\ManyToOne(targetEntity="Currency", inversedBy="pricedetails")
      * @ORM\JoinColumn(name="id_currency", referencedColumnName="id", nullable=true)
      * @Selectable()
-     * @Groups({"extended", "full"})
+     * @Groups({"extended", "full", "import"})
      */
     protected ?Currency $currency = null;
 
@@ -74,7 +74,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * @var float
      * @ORM\Column(type="float")
      * @Assert\Positive()
-     * @Groups({"extended", "full"})
+     * @Groups({"extended", "full", "import"})
      */
     protected float $price_related_quantity = 1.0;
 
@@ -82,7 +82,7 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
      * @var float
      * @ORM\Column(type="float")
      * @Assert\Positive()
-     * @Groups({"extended", "full"})
+     * @Groups({"extended", "full", "import"})
      */
     protected float $min_discount_quantity = 1.0;
 

@@ -34,6 +34,7 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
         'notes' => 'comment',
         'quantity' => 'instock',
         'amount' => 'instock',
+        'mpn' => 'manufacturer_product_number',
     ];
 
     private ObjectNormalizer $normalizer;
