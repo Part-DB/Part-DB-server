@@ -21,18 +21,23 @@
 namespace App\Serializer;
 
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
+use App\Entity\Parts\Storelocation;
+use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class PartNormalizer implements ContextAwareNormalizerInterface
+class PartNormalizer implements ContextAwareNormalizerInterface, ContextAwareDenormalizerInterface
 {
 
     private NormalizerInterface $normalizer;
+    private StructuralElementFromNameDenormalizer $locationDenormalizer;
 
-    public function __construct(ObjectNormalizer $normalizer)
+    public function __construct(ObjectNormalizer $normalizer, StructuralElementFromNameDenormalizer $locationDenormalizer)
     {
         $this->normalizer = $normalizer;
+        $this->locationDenormalizer = $locationDenormalizer;
     }
 
     public function supportsNormalization($data, string $format = null, array $context = [])
@@ -49,12 +54,48 @@ class PartNormalizer implements ContextAwareNormalizerInterface
         $data = $this->normalizer->normalize($object, $format, $context);
 
         //Remove type field for CSV export
-        if ($format == 'csv') {
+        if ($format === 'csv') {
             unset($data['type']);
         }
 
         $data['total_instock'] = $object->getAmountSum();
 
         return $data;
+    }
+
+    public function supportsDenormalization($data, string $type, string $format = null, array $context = [])
+    {
+        return is_array($data) && is_a($type, Part::class, true);
+    }
+
+    public function denormalize($data, string $type, string $format = null, array $context = [])
+    {
+        $object = $this->normalizer->denormalize($data, $type, $format, $context);
+
+        if (!$object instanceof Part) {
+            throw new \InvalidArgumentException('This normalizer only supports Part objects!');
+        }
+
+        if (isset($data['instock']) || isset($data['storelocation'])) {
+            $partLot = new PartLot();
+
+            if (isset($data['instock']) && $data['instock'] !== "") {
+                //Replace comma with dot
+                $instock = (float) str_replace(',', '.', $data['instock']);
+
+                $partLot->setAmount($instock);
+            } else {
+                $partLot->setInstockUnknown(true);
+            }
+
+            if (isset($data['storelocation']) && $data['storelocation'] !== "") {
+                $location = $this->locationDenormalizer->denormalize($data['storelocation'], Storelocation::class, $format, $context);
+                $partLot->setStorageLocation($location);
+            }
+
+            $object->addPartLot($partLot);
+        }
+
+        return $object;
     }
 }

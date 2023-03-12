@@ -54,10 +54,16 @@ class StructuralElementFromNameDenormalizer implements ContextAwareDenormalizerI
             foreach ($elements as $element) {
                 $this->em->persist($element);
             }
+            if (empty($elements)) {
+                return null;
+            }
             return end($elements);
         }
 
         $elements = $repo->getEntityByPath($data, $path_delimiter);
+        if (empty($elements)) {
+            return null;
+        }
         return end($elements);
     }
 }
