@@ -89,7 +89,6 @@ class Pricedetail extends AbstractDBElement implements TimeStampableInterface
     /**
      * @var bool
      * @ORM\Column(type="boolean")
-     * @Groups({"extended", "full"})
      */
     protected bool $manual_input = true;
 
