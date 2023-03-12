@@ -48,7 +48,7 @@ trait InstockTrait
      *            Given in the partUnit.
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero()
-     * @Groups({"extended", "full"})
+     * @Groups({"extended", "full", "import"})
      */
     protected float $minamount = 0;
 

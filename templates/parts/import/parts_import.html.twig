@@ -28,7 +28,7 @@
         <ul>
             {% for entity in imported_entities %}
                 {# @var \App\Entity\Parts\Part entity #}
-                <li><a href="{{ entity_url(entity) }}">{{ entity.name }}</a></li>
+                <li><a href="{{ entity_url(entity) }}">{{ entity.name }}</a> (ID: {{ entity.iD }})</li>
             {% endfor %}
     {% endif %}
 {% endblock %}

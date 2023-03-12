@@ -47,14 +47,14 @@ trait ManufacturerTrait
      * @var string the url to the part on the manufacturer's homepage
      * @ORM\Column(type="string")
      * @Assert\Url()
-     * @Groups({"full"})
+     * @Groups({"full", "import"})
      */
     protected string $manufacturer_product_url = '';
 
     /**
      * @var string The product number used by the manufacturer. If this is set to "", the name field is used.
      * @ORM\Column(type="string")
-     * @Groups({"extended", "full"})
+     * @Groups({"extended", "full", "import"})
      */
     protected string $manufacturer_product_number = '';
 
@@ -62,7 +62,7 @@ trait ManufacturerTrait
      * @var string The production status of this part. Can be one of the specified ones.
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Choice({"announced", "active", "nrfnd", "eol", "discontinued", ""})
-     * @Groups({"extended", "full"})
+     * @Groups({"extended", "full", "import"})
      */
     protected ?string $manufacturing_status = '';
 

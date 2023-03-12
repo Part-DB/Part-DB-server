@@ -34,14 +34,14 @@ trait BasicPropertyTrait
     /**
      * @var string A text describing what this part does
      * @ORM\Column(type="text")
-     * @Groups({"simple", "extended", "full"})
+     * @Groups({"simple", "extended", "full", "import"})
      */
     protected string $description = '';
 
     /**
      * @var string A comment/note related to this part
      * @ORM\Column(type="text")
-     * @Groups({"extended", "full"})
+     * @Groups({"extended", "full", "import"})
      */
     protected string $comment = '';
 
@@ -54,7 +54,7 @@ trait BasicPropertyTrait
     /**
      * @var bool true, if the part is marked as favorite
      * @ORM\Column(type="boolean")
-     * @Groups({"extended", "full"})
+     * @Groups({"extended", "full", "import"})
      */
     protected bool $favorite = false;
 
