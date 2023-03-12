@@ -24,6 +24,8 @@ namespace App\Services\ImportExportSystem;
 
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Part;
 use Symplify\EasyCodingStandard\ValueObject\Option;
 use function count;
 use Doctrine\ORM\EntityManagerInterface;
@@ -157,7 +159,7 @@ class EntityImporter
         $entities = $this->serializer->deserialize($data, $options['class'].'[]', $options['format'],
             [
                 'groups' => $groups,
-                'csv_delimiter' => $options['csv_separator'],
+                'csv_delimiter' => $options['csv_delimiter'],
             ]);
 
         //Ensure we have an array of entity elements.
@@ -175,17 +177,16 @@ class EntityImporter
             if ($entity instanceof AbstractStructuralDBElement) {
                 $entity->setParent($options['parent']);
             }
+            if ($entity instanceof Part && $options['part_category']) {
+                $entity->setCategory($options['part_category']);
+            }
         }
 
         //Validate the entities
         $errors = [];
 
         //Iterate over each $entity write it to DB.
-        foreach ($entities as $entity) {
-            /** @var AbstractStructuralDBElement $entity */
-            //Move every imported entity to the selected parent
-            $entity->setParent($options['parent']);
-
+        foreach ($entities as $key => $entity) {
             //Validate entity
             $tmp = $this->validator->validate($entity);
 
@@ -196,6 +197,9 @@ class EntityImporter
                     'violations' => $tmp,
                     'entity' => $entity,
                 ];
+
+                //Remove the invalid entity from the array
+                unset($entities[$key]);
             }
         }
 
@@ -205,13 +209,20 @@ class EntityImporter
     protected function configureOptions(OptionsResolver $resolver): OptionsResolver
     {
         $resolver->setDefaults([
-            'csv_separator' => ';',
-            'format' => 'json',
+            'csv_delimiter' => ';', //The separator to use when importing csv files
+            'format' => 'json', //The format of the file that should be imported
             'class' => AbstractNamedDBElement::class,
             'preserve_children' => true,
             'parent' => null, //The parent element to which the imported elements should be added
             'abort_on_validation_error' => true,
+            'part_category' => null
         ]);
+
+        $resolver->setAllowedValues('format', ['csv', 'json', 'xml', 'yaml']);
+        $resolver->setAllowedTypes('csv_delimiter', 'string');
+        $resolver->setAllowedTypes('preserve_children', 'bool');
+        $resolver->setAllowedTypes('class', 'string');
+        $resolver->setAllowedTypes('part_category', [Category::class, 'null']);
 
         return $resolver;
     }
@@ -222,11 +233,12 @@ class EntityImporter
      *
      * @param File   $file       the file that should be used for importing
      * @param array  $options    options for the import process
+     * @param AbstractNamedDBElement[]  $entities  The imported entities are returned in this array
      *
      * @return array An associative array containing an ConstraintViolationList and the entity name as key are returned,
      *               if an error happened during validation. When everything was successfully, the array should be empty.
      */
-    public function importFileAndPersistToDB(File $file, array $options = []): array
+    public function importFileAndPersistToDB(File $file, array $options = [], array &$entities = []): array
     {
         $options = $this->configureOptions(new OptionsResolver())->resolve($options);
 
@@ -238,15 +250,9 @@ class EntityImporter
             return $errors;
         }
 
-        //Iterate over each $entity write it to DB.
+        //Iterate over each $entity write it to DB (the invalid entities were already filtered out).
         foreach ($entities as $entity) {
-            //Validate entity
-            $tmp = $this->validator->validate($entity);
-
-            //When no validation error occurred, persist entity to database (cascade must be set in entity)
-            if (null === $tmp) {
-                $this->em->persist($entity);
-            }
+            $this->em->persist($entity);
         }
 
         //Save changes to database, when no error happened, or we should continue on error.

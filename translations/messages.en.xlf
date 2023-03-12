@@ -11029,5 +11029,23 @@ Element 3</target>
         <target>Export to XML</target>
       </segment>
     </unit>
+    <unit id="kCT2Emc" name="parts.import.title">
+      <segment>
+        <source>parts.import.title</source>
+        <target>Import parts</target>
+      </segment>
+    </unit>
+    <unit id="6oVjTY." name="parts.import.errors.title">
+      <segment>
+        <source>parts.import.errors.title</source>
+        <target>Import violations</target>
+      </segment>
+    </unit>
+    <unit id="2sWmr2k" name="parts.import.flash.error">
+      <segment>
+        <source>parts.import.flash.error</source>
+        <target>Errors during import. This is most likely caused by some invalid data.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

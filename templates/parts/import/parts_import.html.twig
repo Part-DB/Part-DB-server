@@ -1,0 +1,34 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}parts.import.title{% endtrans %}{% endblock %}
+
+{% block card_title %}
+    <i class="fa-solid fa-file-import fa-fw"></i> {% trans %}parts.import.title{% endtrans %}
+{% endblock %}
+
+{% block before_card %}
+    {% if import_errors %}
+        <div class="alert alert-danger">
+            <h4><i class="fa-solid fa-exclamation-triangle fa-fw"></i> {% trans %}parts.import.errors.title{% endtrans %}</h4>
+            <ul>
+                {% for name, error in import_errors %}
+                    <li><b>{{ name }}:</b> {{ error.violations }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block card_content %}
+{{ form(import_form) }}
+
+    {% if imported_entities %}
+        <hr>
+        <h4>{% trans %}parts.import.errors.imported_entities{% endtrans %} ({{ imported_entities | length }}):</h4>
+        <ul>
+            {% for entity in imported_entities %}
+                {# @var \App\Entity\Parts\Part entity #}
+                <li><a href="{{ entity_url(entity) }}">{{ entity.name }}</a></li>
+            {% endfor %}
+    {% endif %}
+{% endblock %}

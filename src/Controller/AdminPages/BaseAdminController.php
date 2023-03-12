@@ -343,7 +343,7 @@ abstract class BaseAdminController extends AbstractController
                 'preserve_children' => $data['preserve_children'],
                 'format' => $data['format'],
                 'class' => $this->entity_class,
-                'csv_separator' => $data['csv_separator'],
+                'csv_delimiter' => $data['csv_delimiter'],
             ];
 
             $this->commentHelper->setMessage('Import '.$file->getClientOriginalName());

@@ -20,24 +20,76 @@
 
 namespace App\Controller;
 
+use App\Entity\Parts\Part;
+use App\Form\AdminPages\ImportType;
 use App\Services\ImportExportSystem\EntityExporter;
+use App\Services\ImportExportSystem\EntityImporter;
+use App\Services\LogSystem\EventCommentHelper;
 use App\Services\Parts\PartsTableActionHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\ConstraintViolationList;
 
 class PartImportExportController extends AbstractController
 {
-    private EntityManagerInterface $entityManager;
     private PartsTableActionHandler $partsTableActionHandler;
+    private EntityImporter $entityImporter;
+    private EventCommentHelper $commentHelper;
 
-    public function __construct(EntityManagerInterface $entityManager, PartsTableActionHandler $partsTableActionHandler)
+    public function __construct(PartsTableActionHandler $partsTableActionHandler,
+        EntityImporter $entityImporter, EventCommentHelper $commentHelper)
     {
-        $this->entityManager = $entityManager;
         $this->partsTableActionHandler = $partsTableActionHandler;
+        $this->entityImporter = $entityImporter;
+        $this->commentHelper = $commentHelper;
+    }
+
+    /**
+     * @Route("/parts/import", name="parts_import")
+     * @param  Request  $request
+     * @return Response
+     */
+    public function importParts(Request $request): Response
+    {
+        $import_form = $this->createForm(ImportType::class, ['entity_class' => Part::class]);
+        $import_form->handleRequest($request);
+
+        if ($import_form->isSubmitted() && $import_form->isValid()) {
+            /** @var UploadedFile $file */
+            $file = $import_form['file']->getData();
+            $data = $import_form->getData();
+
+            $options = [
+                'preserve_children' => $data['preserve_children'],
+                'format' => $data['format'],
+                'part_category' => $data['part_category'],
+                'class' => Part::class,
+                'csv_delimiter' => $data['csv_delimiter'],
+            ];
+
+            $this->commentHelper->setMessage('Import '.$file->getClientOriginalName());
+
+            $entities = [];
+
+            $errors = $this->entityImporter->importFileAndPersistToDB($file, $options, $entities);
+
+            if ($errors) {
+                $this->addFlash('error', 'parts.import.flash.error');
+            } else {
+                $this->addFlash('success', 'parts.import.flash.success');
+            }
+        }
+
+        return $this->renderForm('parts/import/parts_import.html.twig', [
+            'import_form' => $import_form,
+            'imported_entities' => $entities ?? [],
+            'import_errors' => $errors ?? [],
+        ]);
     }
 
     /**

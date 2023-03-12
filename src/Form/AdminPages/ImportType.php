@@ -23,6 +23,8 @@ declare(strict_types=1);
 namespace App\Form\AdminPages;
 
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Part;
 use App\Form\Type\StructuralEntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -63,7 +65,7 @@ class ImportType extends AbstractType
                 'label' => 'export.format',
                 'disabled' => $disabled,
             ])
-            ->add('csv_separator', TextType::class, [
+            ->add('csv_delimiter', TextType::class, [
                 'data' => ';',
                 'label' => 'import.csv_separator',
                 'disabled' => $disabled,
@@ -75,6 +77,17 @@ class ImportType extends AbstractType
                 'required' => false,
                 'label' => 'parent.label',
                 'disabled' => $disabled,
+            ]);
+        }
+
+        if ($entity instanceof Part) {
+            $builder->add('part_category', StructuralEntityType::class, [
+                'class' => Category::class,
+                'required' => false,
+                'label' => 'category.label',
+                'disabled' => $disabled,
+                'disable_not_selectable' => true,
+                'allow_add' => true
             ]);
         }
 
