@@ -85,10 +85,37 @@ class ImportType extends AbstractType
             $builder->add('part_category', StructuralEntityType::class, [
                 'class' => Category::class,
                 'required' => false,
-                'label' => 'category.label',
+                'label' => 'parts.import.part_category.label',
+                'help' => 'parts.import.part_category.help',
                 'disabled' => $disabled,
                 'disable_not_selectable' => true,
                 'allow_add' => true
+            ]);
+        }
+
+        if ($entity instanceof AbstractStructuralDBElement) {
+            $builder->add('preserve_children', CheckboxType::class, [
+                'data' => true,
+                'required' => false,
+                'label' => 'import.preserve_children',
+                'disabled' => $disabled,
+            ]);
+        }
+
+        if ($entity instanceof Part) {
+            $builder->add('create_unknown_datastructures', CheckboxType::class, [
+                'data' => true,
+                'required' => false,
+                'label' => 'import.create_unknown_datastructures',
+                'help' => 'import.create_unknown_datastructures.help',
+                'disabled' => $disabled,
+            ]);
+
+            $builder->add('path_delimiter', TextType::class, [
+                'data' => '->',
+                'label' => 'import.path_delimiter',
+                'help' => 'import.path_delimiter.help',
+                'disabled' => $disabled,
             ]);
         }
 
@@ -100,21 +127,15 @@ class ImportType extends AbstractType
                 'data-show-upload' => 'false',
             ],
             'disabled' => $disabled,
-        ])
+        ]);
 
-            ->add('preserve_children', CheckboxType::class, [
-                'data' => true,
-                'required' => false,
-                'label' => 'import.preserve_children',
-                'disabled' => $disabled,
-            ])
-            ->add('abort_on_validation_error', CheckboxType::class, [
-                'data' => true,
-                'required' => false,
-                'label' => 'import.abort_on_validation',
-                'help' => 'import.abort_on_validation.help',
-                'disabled' => $disabled,
-            ])
+        $builder->add('abort_on_validation_error', CheckboxType::class, [
+            'data' => true,
+            'required' => false,
+            'label' => 'import.abort_on_validation',
+            'help' => 'import.abort_on_validation.help',
+            'disabled' => $disabled,
+        ])
 
             //Buttons
             ->add('import', SubmitType::class, [

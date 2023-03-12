@@ -75,7 +75,8 @@ class PartImportExportController extends AbstractController
             }
 
             $options = [
-                'preserve_children' => $data['preserve_children'],
+                'create_unknown_datastructures' => $data['create_unknown_datastructures'],
+                'path_delimiter' => $data['path_delimiter'],
                 'format' => $format,
                 'part_category' => $data['part_category'],
                 'class' => Part::class,
