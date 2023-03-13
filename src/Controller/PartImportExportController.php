@@ -56,6 +56,8 @@ class PartImportExportController extends AbstractController
      */
     public function importParts(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('@parts.import');
+
         $import_form = $this->createForm(ImportType::class, ['entity_class' => Part::class]);
         $import_form->handleRequest($request);
 
