@@ -11115,5 +11115,11 @@ Element 3</target>
         <target>Imported parts</target>
       </segment>
     </unit>
+    <unit id="W7NWPFx" name="perm.import">
+      <segment>
+        <source>perm.import</source>
+        <target>Import data</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -43,6 +43,9 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       revert_element:
         label: "perm.revert_elements"
         alsoSet: ["read", "edit", "create", "delete", "show_history"]
+      import:
+        label: "perm.import"
+        alsoSet: ["read", "edit", "create"]
 
   parts_stock:
     group: "data"
@@ -76,6 +79,9 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       revert_element:
         label: "perm.revert_elements"
         alsoSet: ["read", "edit", "create", "delete", "show_history"]
+      import:
+        label: "perm.import"
+        alsoSet: [ "read", "edit", "create" ]
 
   footprints:
     <<: *PART_CONTAINING
@@ -156,6 +162,9 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       revert_element:
         label: "perm.revert_elements"
         alsoSet: ["read", "edit", "create", "delete", "edit_permissions", "show_history"]
+      import:
+        label: "perm.import"
+        alsoSet: [ "read", "edit", "create" ]
 
   users:
     label: "perm.users"
@@ -188,6 +197,9 @@ perms: # Here comes a list with all Permission names (they have a perm_[name] co
       revert_element:
         label: "perm.revert_elements"
         alsoSet: ["read", "create", "delete", "edit_permissions", "show_history", "edit_infos", "edit_username"]
+      import:
+        label: "perm.import"
+        alsoSet: [ "read", "create" ]
 
   #database:
   #  label: "perm.database"

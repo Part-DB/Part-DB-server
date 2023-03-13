@@ -240,6 +240,36 @@ class PermissionManagerTest extends WebTestCase
         $this->assertNull($this->service->dontInherit($user, 'parts', 'edit'));
     }
 
+    public function testSetAllOperationsOfPermissionExcept(): void
+    {
+        $user = new User();
+
+        //Set all operations of permission to true (except import and delete)
+        $this->service->setAllOperationsOfPermissionExcept($user, 'parts', true, ['import', 'delete']);
+        $this->assertTrue($this->service->dontInherit($user, 'parts', 'read'));
+        $this->assertTrue($this->service->dontInherit($user, 'parts', 'create'));
+        $this->assertTrue($this->service->dontInherit($user, 'parts', 'edit'));
+        $this->assertNull($this->service->dontInherit($user, 'parts', 'import'));
+        $this->assertNull($this->service->dontInherit($user, 'parts', 'delete'));
+
+        //Set all operations of permission to false
+        $this->service->setAllOperationsOfPermissionExcept($user, 'parts', false, ['import', 'delete']);
+        $this->assertFalse($this->service->dontInherit($user, 'parts', 'read'));
+        $this->assertFalse($this->service->dontInherit($user, 'parts', 'create'));
+        $this->assertFalse($this->service->dontInherit($user, 'parts', 'edit'));
+        $this->assertNull($this->service->dontInherit($user, 'parts', 'import'));
+        $this->assertNull($this->service->dontInherit($user, 'parts', 'delete'));
+
+
+        //Set all operations of permission to null
+        $this->service->setAllOperationsOfPermissionExcept($user, 'parts', null, ['import', 'delete']);
+        $this->assertNull($this->service->dontInherit($user, 'parts', 'read'));
+        $this->assertNull($this->service->dontInherit($user, 'parts', 'create'));
+        $this->assertNull($this->service->dontInherit($user, 'parts', 'edit'));
+        $this->assertNull($this->service->dontInherit($user, 'parts', 'import'));
+        $this->assertNull($this->service->dontInherit($user, 'parts', 'delete'));
+    }
+
     public function testEnsureCorrectSetOperations(): void
     {
         //Create an empty user (all permissions are inherit)
