@@ -99,7 +99,7 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
         $this->normalizeKeys($data);
 
         //Empty IPN should be null, or we get a constraint error
-        if ($data['ipn'] === '') {
+        if (isset($data['ipn']) && $data['ipn'] === '') {
             $data['ipn'] = null;
         }
 

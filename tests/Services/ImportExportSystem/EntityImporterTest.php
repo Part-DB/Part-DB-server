@@ -23,10 +23,13 @@ declare(strict_types=1);
 namespace App\Tests\Services\ImportExportSystem;
 
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\Parts\Category;
+use App\Entity\Parts\Part;
 use App\Entity\UserSystem\User;
 use App\Services\Formatters\AmountFormatter;
 use App\Services\ImportExportSystem\EntityImporter;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Validator\ConstraintViolation;
 
 /**
  * @group DB
@@ -170,5 +173,76 @@ EOT;
     public function testDetermineFormat(string $expected, string $extension): void
     {
         $this->assertSame($expected, $this->service->determineFormat($extension));
+    }
+
+    public function testImportStringParts(): void
+    {
+        $input = <<<EOT
+        name,description,notes,manufacturer
+        Test 1,Test 1 description,Test 1 notes,Test 1 manufacturer
+        Test 2,Test 2 description,Test 2 notes,Test 2 manufacturer
+        EOT;
+
+        $category = new Category();
+        $category->setName('Test category');
+
+        $errors = [];
+        $results = $this->service->importString($input, [
+            'class' => Part::class,
+            'format' => 'csv',
+            'csv_delimiter' => ',',
+            'create_unknown_datastructures' => true,
+            'part_category' => $category,
+        ], $errors);
+
+        $this->assertCount(2, $results);
+        //No errors must be present
+        $this->assertEmpty($errors);
+        $this->assertContainsOnlyInstancesOf(Part::class, $results);
+
+        $this->assertSame('Test 1', $results[0]->getName());
+        $this->assertSame('Test 1 description', $results[0]->getDescription());
+        $this->assertSame('Test 1 notes', $results[0]->getComment());
+        $this->assertSame('Test 1 manufacturer', $results[0]->getManufacturer()->getName());
+        $this->assertSame($category, $results[0]->getCategory());
+
+        $this->assertSame('Test 2', $results[1]->getName());
+        $this->assertSame('Test 2 description', $results[1]->getDescription());
+        $this->assertSame('Test 2 notes', $results[1]->getComment());
+        $this->assertSame('Test 2 manufacturer', $results[1]->getManufacturer()->getName());
+        $this->assertSame($category, $results[1]->getCategory());
+
+        $input = <<<EOT
+        [{"name":"Test 1","description":"Test 1 description","notes":"Test 1 notes","manufacturer":"Test 1 manufacturer", "tags": "test,test2"},{"name":"Test 2","description":"Test 2 description","notes":"Test 2 notes","manufacturer":"Test 2 manufacturer", "manufacturing_status": "invalid"}]
+        EOT;
+
+        $errors = [];
+        $results = $this->service->importString($input, [
+            'class' => Part::class,
+            'format' => 'json',
+            'create_unknown_datastructures' => true,
+            'part_category' => $category,
+        ], $errors);
+
+        //We have 2 elements, but one is invalid
+        $this->assertCount(1, $results);
+        $this->assertCount(1, $errors);
+        $this->assertContainsOnlyInstancesOf(Part::class, $results);
+
+        //Check the format of the error
+        $error = reset($errors);
+        $this->assertInstanceOf(Part::class, $error['entity']);
+        $this->assertSame('Test 2', $error['entity']->getName());
+        $this->assertContainsOnlyInstancesOf(ConstraintViolation::class, $error['violations']);
+        //Element name must be element name
+        $this->assertArrayHasKey('Test 2', $errors);
+
+        //Check the valid element
+        $this->assertSame('Test 1', $results[0]->getName());
+        $this->assertSame('Test 1 description', $results[0]->getDescription());
+        $this->assertSame('Test 1 notes', $results[0]->getComment());
+        $this->assertSame('Test 1 manufacturer', $results[0]->getManufacturer()->getName());
+        $this->assertSame($category, $results[0]->getCategory());
+        $this->assertSame('test,test2', $results[0]->getTags());
     }
 }
