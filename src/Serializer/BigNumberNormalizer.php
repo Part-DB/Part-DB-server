@@ -26,7 +26,7 @@ use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class BigNumberSerializer implements NormalizerInterface, CacheableSupportsMethodInterface
+class BigNumberNormalizer implements NormalizerInterface, CacheableSupportsMethodInterface
 {
 
     public function supportsNormalization($data, string $format = null): bool

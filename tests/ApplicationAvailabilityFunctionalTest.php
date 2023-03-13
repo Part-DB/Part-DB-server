@@ -94,6 +94,9 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         yield ['/part/new'];
         yield ['/part/new?category=1&footprint=1&manufacturer=1&storelocation=1&supplier=1'];
 
+        //Parts import
+        yield ['/parts/import'];
+
         //Statistics
         yield ['/statistics'];
 
