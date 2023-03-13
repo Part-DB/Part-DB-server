@@ -30,6 +30,7 @@ use App\Validator\Constraints\ValidPermission;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -65,6 +66,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
     /**
      * @var bool If true all users associated with this group must have enabled some kind of 2 factor authentication
      * @ORM\Column(type="boolean", name="enforce_2fa")
+     * @Groups({"extended", "full", "import"})
      */
     protected $enforce2FA = false;
     /**
@@ -79,6 +81,7 @@ class Group extends AbstractStructuralDBElement implements HasPermissionsInterfa
      * @var PermissionData|null
      * @ValidPermission()
      * @ORM\Embedded(class="PermissionData", columnPrefix="permissions_")
+     * @Groups({"full"})
      */
     protected ?PermissionData $permissions = null;
 

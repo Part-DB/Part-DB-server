@@ -50,7 +50,7 @@ class ImportType extends AbstractType
 
         //Disable import if user is not allowed to create elements.
         $entity = new $data['entity_class']();
-        $perm_name = 'create';
+        $perm_name = 'import';
         $disabled = !$this->security->isGranted($perm_name, $entity);
 
         $builder

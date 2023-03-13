@@ -33,6 +33,7 @@ use App\Validator\Constraints\ValidTheme;
 use Hslavich\OneloginSamlBundle\Security\User\SamlUserInterface;
 use Jbtronics\TFAWebauthn\Model\LegacyU2FKeyInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Webauthn\PublicKeyCredentialUserEntity;
 use function count;
 use DateTime;
@@ -74,6 +75,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @var bool Determines if the user is disabled (user can not log in)
      * @ORM\Column(type="boolean")
+     * @Groups({"extended", "full", "import"})
      */
     protected bool $disabled = false;
 
@@ -81,6 +83,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var string|null The theme
      * @ORM\Column(type="string", name="config_theme", nullable=true)
      * @ValidTheme()
+     * @Groups({"full", "import"})
      */
     protected ?string $theme = null;
 
@@ -124,6 +127,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @ORM\ManyToOne(targetEntity="Group", inversedBy="users")
      * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
      * @Selectable()
+     * @Groups({"extended", "full", "import"})
      */
     protected ?Group $group = null;
 
@@ -137,6 +141,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var string|null The timezone the user prefers
      * @ORM\Column(type="string", name="config_timezone", nullable=true)
      * @Assert\Timezone()
+     * @Groups({"full", "import"})
      */
     protected ?string $timezone = '';
 
@@ -144,6 +149,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var string|null The language/locale the user prefers
      * @ORM\Column(type="string", name="config_language", nullable=true)
      * @Assert\Language()
+     * @Groups({"full", "import"})
      */
     protected ?string $language = '';
 
@@ -151,30 +157,35 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var string|null The email address of the user
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Email()
+     * @Groups({"simple", "extended", "full", "import"})
      */
     protected ?string $email = '';
 
     /**
      * @var string|null The department the user is working
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"simple", "extended", "full", "import"})
      */
     protected ?string $department = '';
 
     /**
      * @var string|null The last name of the User
      * @ORM\Column(type="string", length=255,  nullable=true)
+     * @Groups({"simple", "extended", "full", "import"})
      */
     protected ?string $last_name = '';
 
     /**
      * @var string|null The first name of the User
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"simple", "extended", "full", "import"})
      */
     protected ?string $first_name = '';
 
     /**
      * @var bool True if the user needs to change password after log in
      * @ORM\Column(type="boolean")
+     * @Groups({"extended", "full", "import"})
      */
     protected bool $need_pw_change = true;
 
@@ -206,6 +217,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /** @var DateTime|null The time when the backup codes were generated
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"full"})
      */
     protected ?DateTime $backupCodesGenerationDate = null;
 
@@ -228,6 +240,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @ORM\ManyToOne(targetEntity="App\Entity\PriceInformations\Currency")
      * @ORM\JoinColumn(name="currency_id", referencedColumnName="id")
      * @Selectable()
+     * @Groups({"extended", "full", "import"})
      */
     protected $currency;
 
@@ -235,6 +248,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      * @var PermissionData
      * @ValidPermission()
      * @ORM\Embedded(class="PermissionData", columnPrefix="permissions_")
+     * @Groups({"simple", "extended", "full", "import"})
      */
     protected ?PermissionData $permissions = null;
 
@@ -247,6 +261,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     /**
      * @var bool True if the user was created by a SAML provider (and therefore cannot change its password)
      * @ORM\Column(type="boolean")
+     * @Groups({"extended", "full"})
      */
     protected bool $saml_user = false;
 
