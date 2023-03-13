@@ -364,7 +364,9 @@ abstract class BaseAdminController extends AbstractController
 
                 foreach ($errors as $name => $error) {
                     /** @var ConstraintViolationList $error */
-                    $this->addFlash('error', $name.': '.$error['violations']);
+                    foreach ($error['violations'] as $violation) {
+                        $this->addFlash('error', $name.': '.$violation->getMessage());
+                    }
                 }
             }
             catch (UnexpectedValueException $e) {
