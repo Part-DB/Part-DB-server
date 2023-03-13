@@ -350,8 +350,8 @@ abstract class BaseAdminController extends AbstractController
             }
 
             $options = [
-                'parent' => $data['parent'],
-                'preserve_children' => $data['preserve_children'],
+                'parent' => $data['parent'] ?? null,
+                'preserve_children' => $data['preserve_children'] ?? false,
                 'format' => $format,
                 'class' => $this->entity_class,
                 'csv_delimiter' => $data['csv_delimiter'],
@@ -361,15 +361,14 @@ abstract class BaseAdminController extends AbstractController
 
             try {
                 $errors = $importer->importFileAndPersistToDB($file, $options);
+
+                foreach ($errors as $name => $error) {
+                    /** @var ConstraintViolationList $error */
+                    $this->addFlash('error', $name.': '.$error['violations']);
+                }
             }
             catch (UnexpectedValueException $e) {
                 $this->addFlash('error', 'parts.import.flash.error.invalid_file');
-                goto ret;
-            }
-
-            foreach ($errors as $name => $error) {
-                /** @var ConstraintViolationList $error */
-                $this->addFlash('error', $name.': '.$error['violations']);
             }
         }
 
