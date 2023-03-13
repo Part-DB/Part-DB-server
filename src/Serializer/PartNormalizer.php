@@ -23,6 +23,10 @@ namespace App\Serializer;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\Supplier;
+use App\Entity\PriceInformations\Orderdetail;
+use App\Entity\PriceInformations\Pricedetail;
+use Brick\Math\BigDecimal;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -35,6 +39,8 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
         'quantity' => 'instock',
         'amount' => 'instock',
         'mpn' => 'manufacturer_product_number',
+        'spn' => 'supplier_part_number',
+        'supplier_product_number' => 'supplier_part_number'
     ];
 
     private ObjectNormalizer $normalizer;
@@ -91,6 +97,11 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
     {
         $this->normalizeKeys($data);
 
+        //Empty IPN should be null, or we get a constraint error
+        if ($data['ipn'] === '') {
+            $data['ipn'] = null;
+        }
+
         $object = $this->normalizer->denormalize($data, $type, $format, $context);
 
         if (!$object instanceof Part) {
@@ -115,6 +126,31 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
             }
 
             $object->addPartLot($partLot);
+        }
+
+        if (isset($data['supplier']) && $data['supplier'] !== "") {
+            $supplier = $this->locationDenormalizer->denormalize($data['supplier'], Supplier::class, $format, $context);
+
+            if ($supplier) {
+                $orderdetail = new Orderdetail();
+                $orderdetail->setSupplier($supplier);
+
+                if (isset($data['supplier_part_number']) && $data['supplier_part_number'] !== "") {
+                    $orderdetail->setSupplierpartnr($data['supplier_part_number']);
+                }
+
+                $object->addOrderdetail($orderdetail);
+
+                if (isset($data['price']) && $data['price'] !== "") {
+                    $pricedetail = new Pricedetail();
+                    $pricedetail->setMinDiscountQuantity(1);
+                    $pricedetail->setPriceRelatedQuantity(1);
+                    $price = BigDecimal::of(str_replace(',', '.', $data['price']));
+                    $pricedetail->setPrice($price);
+
+                    $orderdetail->addPricedetail($pricedetail);
+                }
+            }
         }
 
         return $object;
