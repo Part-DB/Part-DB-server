@@ -179,7 +179,7 @@
                                     <hr>
                                     <fieldset>
                                         <legend>{% trans %}export_all.label{% endtrans %}</legend>
-                                        {% include 'admin/_export_form.html.twig' with {'path' : path('attachment_type_export_all')} %}
+                                        {% include 'admin/_export_form.html.twig' with {'path' : path(route_base ~ '_export_all')} %}
                                     </fieldset>
                                 </div>
 
