@@ -1,0 +1,31 @@
+{% extends "main_card.html.twig" %}
+
+{% block title %}{% trans %}project.add_parts_to_project{% endtrans %}{% endblock %}
+
+{% block before_card %}
+    {% if errors %}
+        <div class="alert alert-danger">
+            <h4><i class="fa-solid fa-exclamation-triangle fa-fw"></i> {% trans %}parts.import.errors.title{% endtrans %}</h4>
+            <ul>
+                {% for violation in errors %}
+                    <li>
+                        <b>{{ violation.propertyPath }}: </b>
+                        {{ violation.message|trans(violation.parameters, 'validators') }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+{% block card_title %}
+    <i class="fa-solid fa-magnifying-glass-plus fa-fw"></i>
+    {% trans %}project.add_parts_to_project{% endtrans %}{% if project %}: <i>{{ project.name }}</i>{% endif %}
+{% endblock %}
+
+{% block card_content %}
+
+    {{ form(form) }}
+
+{% endblock %}

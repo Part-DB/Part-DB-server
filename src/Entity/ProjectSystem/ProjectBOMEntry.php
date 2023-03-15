@@ -110,7 +110,8 @@ class ProjectBOMEntry extends AbstractDBElement
 
     public function __construct()
     {
-        $this->price = BigDecimal::zero()->toScale(5);
+        //$this->price = BigDecimal::zero()->toScale(5);
+        $this->price = null;
     }
 
     /**
