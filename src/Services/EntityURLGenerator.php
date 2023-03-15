@@ -164,23 +164,23 @@ class EntityURLGenerator
         throw new EntityNotSupportedException('The given entity is not supported yet!');
     }
 
-    public function viewURL(Attachment $entity): ?string
+    public function viewURL(Attachment $entity): string
     {
         if ($entity->isExternal()) { //For external attachments, return the link to external path
             return $entity->getURL();
         }
         //return $this->urlGenerator->generate('attachment_view', ['id' => $entity->getID()]);
-        return $this->attachmentURLGenerator->getViewURL($entity);
+        return $this->attachmentURLGenerator->getViewURL($entity) ?? '';
     }
 
-    public function downloadURL($entity): ?string
+    public function downloadURL($entity): string
     {
         if ($entity instanceof Attachment) {
             if ($entity->isExternal()) { //For external attachments, return the link to external path
                 return $entity->getURL();
             }
 
-            return $this->attachmentURLGenerator->getDownloadURL($entity);
+            return $this->attachmentURLGenerator->getDownloadURL($entity) ?? '';
         }
 
         //Otherwise throw an error
