@@ -355,6 +355,7 @@ abstract class BaseAdminController extends AbstractController
                 'format' => $format,
                 'class' => $this->entity_class,
                 'csv_delimiter' => $data['csv_delimiter'],
+                'abort_on_validation_error' => $data['abort_on_validation_error'],
             ];
 
             $this->commentHelper->setMessage('Import '.$file->getClientOriginalName());

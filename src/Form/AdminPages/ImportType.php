@@ -91,6 +91,13 @@ class ImportType extends AbstractType
                 'disable_not_selectable' => true,
                 'allow_add' => true
             ]);
+            $builder->add('part_needs_review', CheckboxType::class, [
+                'data' => false,
+                'required' => false,
+                'label' => 'parts.import.part_needs_review.label',
+                'help' => 'parts.import.part_needs_review.help',
+                'disabled' => $disabled,
+            ]);
         }
 
         if ($entity instanceof AbstractStructuralDBElement) {

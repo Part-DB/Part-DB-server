@@ -84,6 +84,8 @@ class PartImportExportController extends AbstractController
                 'part_category' => $data['part_category'],
                 'class' => Part::class,
                 'csv_delimiter' => $data['csv_delimiter'],
+                'part_needs_review' => $data['part_needs_review'],
+                'abort_on_validation_error' => $data['abort_on_validation_error'],
             ];
 
             $this->commentHelper->setMessage('Import '.$file->getClientOriginalName());

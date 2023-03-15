@@ -11121,5 +11121,17 @@ Element 3</target>
         <target>Import data</target>
       </segment>
     </unit>
+    <unit id="sYQswdX" name="parts.import.part_needs_review.label">
+      <segment>
+        <source>parts.import.part_needs_review.label</source>
+        <target>Mark all imported parts as "Needs review"</target>
+      </segment>
+    </unit>
+    <unit id="5DhI5ZW" name="parts.import.part_needs_review.help">
+      <segment>
+        <source>parts.import.part_needs_review.help</source>
+        <target>If this option is selected, then all parts will be marked as "Needs review", no matter what was set in the data.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

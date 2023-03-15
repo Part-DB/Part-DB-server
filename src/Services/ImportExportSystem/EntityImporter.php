@@ -179,8 +179,13 @@ class EntityImporter
             if ($entity instanceof AbstractStructuralDBElement) {
                 $entity->setParent($options['parent']);
             }
-            if ($entity instanceof Part && $options['part_category']) {
-                $entity->setCategory($options['part_category']);
+            if ($entity instanceof Part) {
+                if ($options['part_category']) {
+                    $entity->setCategory($options['part_category']);
+                }
+                if ($options['part_needs_review']) {
+                    $entity->setNeedsReview(true);
+                }
             }
         }
 
@@ -218,6 +223,7 @@ class EntityImporter
             'parent' => null, //The parent element to which the imported elements should be added
             'abort_on_validation_error' => true,
             'part_category' => null,
+            'part_needs_review' => false, //If true, the imported parts will be marked as "needs review", otherwise the value from the file will be used
             'create_unknown_datastructures' => true, //If true, unknown datastructures (categories, footprints, etc.) will be created on the fly
             'path_delimiter' => '->', //The delimiter used to separate the path elements in the name of a structural element
         ]);
@@ -227,6 +233,7 @@ class EntityImporter
         $resolver->setAllowedTypes('preserve_children', 'bool');
         $resolver->setAllowedTypes('class', 'string');
         $resolver->setAllowedTypes('part_category', [Category::class, 'null']);
+        $resolver->setAllowedTypes('part_needs_review', 'bool');
 
         return $resolver;
     }
