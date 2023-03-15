@@ -143,6 +143,12 @@ class ToolsTreeBuilder
                 $this->urlGenerator->generate('tools_ic_logos')
             ))->setIcon('fa-treeview fa-fw fa-solid fa-flag');
         }
+        if ($this->security->isGranted('@parts.import')) {
+            $nodes[] = (new TreeViewNode(
+                $this->translator->trans('parts.import.title'),
+                $this->urlGenerator->generate('parts_import')
+            ))->setIcon('fa-treeview fa-fw fa-solid fa-file-import');
+        }
 
         return $nodes;
     }

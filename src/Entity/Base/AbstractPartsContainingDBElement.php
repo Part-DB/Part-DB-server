@@ -23,13 +23,15 @@ declare(strict_types=1);
 namespace App\Entity\Base;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Class PartsContainingDBElement.
  *
  * @ORM\MappedSuperclass(repositoryClass="App\Repository\AbstractPartsContainingRepository")
  */
-abstract class
-AbstractPartsContainingDBElement extends AbstractStructuralDBElement
+abstract class AbstractPartsContainingDBElement extends AbstractStructuralDBElement
 {
+    /** @Groups({"full"}) */
+    protected $parameters;
 }

@@ -93,6 +93,20 @@ class PermissionPresetsHelper
         //Allow access to system log and server infos
         $this->permissionResolver->setPermission($perm_holder, 'system', 'show_logs', PermissionData::ALLOW);
         $this->permissionResolver->setPermission($perm_holder, 'system', 'server_infos', PermissionData::ALLOW);
+
+        //Allow import for all datastructures
+        $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'parts', PermissionData::ALLOW);
+        $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'parts_stock', PermissionData::ALLOW);
+        $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'categories', PermissionData::ALLOW);
+        $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'storelocations', PermissionData::ALLOW);
+        $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'footprints', PermissionData::ALLOW);
+        $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'manufacturers', PermissionData::ALLOW);
+        $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'attachment_types', PermissionData::ALLOW);
+        $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'currencies', PermissionData::ALLOW);
+        $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'measurement_units', PermissionData::ALLOW);
+        $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'suppliers', PermissionData::ALLOW);
+        $this->permissionResolver->setAllOperationsOfPermission($perm_holder, 'projects', PermissionData::ALLOW);
+
     }
 
     private function editor(HasPermissionsInterface $permHolder): HasPermissionsInterface
@@ -101,17 +115,18 @@ class PermissionPresetsHelper
         $this->readOnly($permHolder);
 
         //Set datastructures
-        $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'parts', PermissionData::ALLOW);
+        //By default import is restricted to administrators, as it allows to fill up the database very fast
+        $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'parts', PermissionData::ALLOW, ['import']);
         $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'parts_stock', PermissionData::ALLOW);
-        $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'categories', PermissionData::ALLOW);
-        $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'storelocations', PermissionData::ALLOW);
-        $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'footprints', PermissionData::ALLOW);
-        $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'manufacturers', PermissionData::ALLOW);
-        $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'attachment_types', PermissionData::ALLOW);
-        $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'currencies', PermissionData::ALLOW);
-        $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'measurement_units', PermissionData::ALLOW);
-        $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'suppliers', PermissionData::ALLOW);
-        $this->permissionResolver->setAllOperationsOfPermission($permHolder, 'projects', PermissionData::ALLOW);
+        $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'categories', PermissionData::ALLOW, ['import']);
+        $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'storelocations', PermissionData::ALLOW, ['import']);
+        $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'footprints', PermissionData::ALLOW, ['import']);
+        $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'manufacturers', PermissionData::ALLOW, ['import']);
+        $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'attachment_types', PermissionData::ALLOW, ['import']);
+        $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'currencies', PermissionData::ALLOW, ['import']);
+        $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'measurement_units', PermissionData::ALLOW, ['import']);
+        $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'suppliers', PermissionData::ALLOW, ['import']);
+        $this->permissionResolver->setAllOperationsOfPermissionExcept($permHolder, 'projects', PermissionData::ALLOW, ['import']);
 
         //Attachments permissions
         $this->permissionResolver->setPermission($permHolder, 'attachments', 'show_private', PermissionData::ALLOW);

@@ -34,6 +34,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -54,18 +55,21 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      * @ORM\OneToMany(targetEntity="Pricedetail", mappedBy="orderdetail", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      * @ORM\OrderBy({"min_discount_quantity" = "ASC"})
+     * @Groups({"extended", "full", "import"})
      */
     protected $pricedetails;
 
     /**
      * @var string
      * @ORM\Column(type="string")
+     * @Groups({"extended", "full", "import"})
      */
     protected string $supplierpartnr = '';
 
     /**
      * @var bool
      * @ORM\Column(type="boolean")
+     * @Groups({"extended", "full", "import"})
      */
     protected bool $obsolete = false;
 
@@ -73,6 +77,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      * @var string
      * @ORM\Column(type="string")
      * @Assert\Url()
+     * @Groups({"full", "import"})
      */
     protected string $supplier_product_url = '';
 
@@ -89,6 +94,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
      * @ORM\ManyToOne(targetEntity="App\Entity\Parts\Supplier", inversedBy="orderdetails")
      * @ORM\JoinColumn(name="id_supplier", referencedColumnName="id")
      * @Assert\NotNull(message="validator.orderdetail.supplier_must_not_be_null")
+     * @Groups({"extended", "full", "import"})
      */
     protected ?Supplier $supplier = null;
 

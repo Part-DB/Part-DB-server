@@ -28,6 +28,7 @@ use App\Entity\Parameters\MeasurementUnitParameter;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -48,6 +49,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      *             or m (for meters).
      * @ORM\Column(type="string", name="unit", nullable=true)
      * @Assert\Length(max=10)
+     * @Groups({"extended", "full", "import"})
      */
     protected ?string $unit = null;
 
@@ -55,6 +57,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      * @var bool Determines if the amount value associated with this unit should be treated as integer.
      *           Set to false, to measure continuous sizes likes masses or lengths.
      * @ORM\Column(type="boolean", name="is_integer")
+     * @Groups({"extended", "full", "import"})
      */
     protected bool $is_integer = false;
 
@@ -63,6 +66,7 @@ class MeasurementUnit extends AbstractPartsContainingDBElement
      *           Useful for sizes like meters. For this the unit must be set
      * @ORM\Column(type="boolean", name="use_si_prefix")
      * @Assert\Expression("this.isUseSIPrefix() == false or this.getUnit() != null", message="validator.measurement_unit.use_si_prefix_needs_unit")
+     * @Groups({"full", "import"})
      */
     protected bool $use_si_prefix = false;
 

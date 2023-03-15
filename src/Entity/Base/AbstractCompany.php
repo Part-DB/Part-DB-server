@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Entity\Base;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use function is_string;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -36,18 +37,21 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
     /**
      * @var string The address of the company
      * @ORM\Column(type="string")
+     * @Groups({"full"})
      */
     protected string $address = '';
 
     /**
      * @var string The phone number of the company
      * @ORM\Column(type="string")
+     * @Groups({"full"})
      */
     protected string $phone_number = '';
 
     /**
      * @var string The fax number of the company
      * @ORM\Column(type="string")
+     * @Groups({"full"})
      */
     protected string $fax_number = '';
 
@@ -55,6 +59,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      * @var string The email address of the company
      * @ORM\Column(type="string")
      * @Assert\Email()
+     * @Groups({"full"})
      */
     protected string $email_address = '';
 
@@ -62,6 +67,7 @@ abstract class AbstractCompany extends AbstractPartsContainingDBElement
      * @var string The website of the company
      * @ORM\Column(type="string")
      * @Assert\Url()
+     * @Groups({"full"})
      */
     protected string $website = '';
 

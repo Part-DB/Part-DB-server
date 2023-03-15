@@ -58,6 +58,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -338,20 +339,39 @@ abstract class BaseAdminController extends AbstractController
             $file = $import_form['file']->getData();
             $data = $import_form->getData();
 
+            if ($data['format'] === 'auto') {
+                $format = $importer->determineFormat($file->getClientOriginalExtension());
+                if (null === $format) {
+                    $this->addFlash('error', 'parts.import.flash.error.unknown_format');
+                    goto ret;
+                }
+            } else {
+                $format = $data['format'];
+            }
+
             $options = [
-                'parent' => $data['parent'],
-                'preserve_children' => $data['preserve_children'],
-                'format' => $data['format'],
-                'csv_separator' => $data['csv_separator'],
+                'parent' => $data['parent'] ?? null,
+                'preserve_children' => $data['preserve_children'] ?? false,
+                'format' => $format,
+                'class' => $this->entity_class,
+                'csv_delimiter' => $data['csv_delimiter'],
+                'abort_on_validation_error' => $data['abort_on_validation_error'],
             ];
 
             $this->commentHelper->setMessage('Import '.$file->getClientOriginalName());
 
-            $errors = $importer->fileToDBEntities($file, $this->entity_class, $options);
+            try {
+                $errors = $importer->importFileAndPersistToDB($file, $options);
 
-            foreach ($errors as $name => $error) {
                 /** @var ConstraintViolationList $error */
-                $this->addFlash('error', $name.':'.$error);
+                foreach ($errors as $name => $error) {
+                    foreach ($error['violations'] as $violation) {
+                        $this->addFlash('error', $name.': '.$violation->getMessage());
+                    }
+                }
+            }
+            catch (UnexpectedValueException $e) {
+                $this->addFlash('error', 'parts.import.flash.error.invalid_file');
             }
         }
 
@@ -382,6 +402,7 @@ abstract class BaseAdminController extends AbstractController
             $em->flush();
         }
 
+        ret:
         return $this->renderForm($this->twig_template, [
             'entity' => $new_entity,
             'form' => $form,

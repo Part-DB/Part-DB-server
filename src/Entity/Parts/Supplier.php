@@ -31,6 +31,7 @@ use App\Validator\Constraints\Selectable;
 use Brick\Math\BigDecimal;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -74,6 +75,7 @@ class Supplier extends AbstractCompany
     /**
      * @var BigDecimal|null the shipping costs that have to be paid, when ordering via this supplier
      * @ORM\Column(name="shipping_costs", nullable=true, type="big_decimal", precision=11, scale=5)
+     * @Groups({"extended", "full", "import"})
      * @BigDecimalPositiveOrZero()
      */
     protected ?BigDecimal $shipping_costs = null;

@@ -24,6 +24,7 @@ namespace App\Entity\Parts\PartTraits;
 
 use App\Entity\Parts\Part;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -34,12 +35,14 @@ trait AdvancedPropertyTrait
     /**
      * @var bool Determines if this part entry needs review (for example, because it is work in progress)
      * @ORM\Column(type="boolean")
+     * @Groups({"extended", "full", "import"})
      */
     protected bool $needs_review = false;
 
     /**
      * @var string a comma separated list of tags, associated with the part
      * @ORM\Column(type="text")
+     * @Groups({"extended", "full", "import"})
      */
     protected string $tags = '';
 
@@ -47,6 +50,7 @@ trait AdvancedPropertyTrait
      * @var float|null how much a single part unit weighs in grams
      * @ORM\Column(type="float", nullable=true)
      * @Assert\PositiveOrZero()
+     * @Groups({"extended", "full", "import"})
      */
     protected ?float $mass = null;
 
@@ -54,7 +58,7 @@ trait AdvancedPropertyTrait
      * @var string The internal part number of the part
      * @ORM\Column(type="string", length=100, nullable=true, unique=true)
      * @Assert\Length(max="100")
-     *
+     * @Groups({"extended", "full", "import"})
      */
     protected ?string $ipn = null;
 

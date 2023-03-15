@@ -6674,16 +6674,6 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>The parent can not be one of the children of itself.</target>
       </segment>
     </unit>
-    <unit id="0IF0VIF" name="validator.isSelectable">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment>
-        <source>validator.isSelectable</source>
-        <target>The element must be selectable.</target>
-      </segment>
-    </unit>
     <unit id="nd207H6" name="validator.part_lot.location_full.no_increasment">
       <notes>
         <note priority="1">obsolete</note>
@@ -10970,33 +10960,177 @@ Element 3</target>
       </segment>
     </unit>
     <unit id="Qt585vm" name="attachment.max_file_size">
-      <segment state="translated">
+      <segment>
         <source>attachment.max_file_size</source>
         <target>Maximum file size</target>
       </segment>
     </unit>
     <unit id="tkkbiag" name="user.saml_user">
-      <segment state="translated">
+      <segment>
         <source>user.saml_user</source>
         <target>SSO / SAML user</target>
       </segment>
     </unit>
     <unit id="fhepjKr" name="user.saml_user.pw_change_hint">
-      <segment state="translated">
+      <segment>
         <source>user.saml_user.pw_change_hint</source>
         <target>Your user uses single sign-on (SSO). You can not change the password and 2FA settings here. Configure them on your central SSO provider instead!</target>
       </segment>
     </unit>
     <unit id="32beTBH" name="login.sso_saml_login">
-      <segment state="translated">
+      <segment>
         <source>login.sso_saml_login</source>
         <target>Single Sign-On Login (SSO)</target>
       </segment>
     </unit>
     <unit id="wnMLanX" name="login.local_login_hint">
-      <segment state="translated">
+      <segment>
         <source>login.local_login_hint</source>
         <target>The form below is only for log in with a local user. If you want to log in via single sign-on, press the button above.</target>
+      </segment>
+    </unit>
+    <unit id="fa76Qc9" name="part_list.action.action.export">
+      <segment>
+        <source>part_list.action.action.export</source>
+        <target>Export parts</target>
+      </segment>
+    </unit>
+    <unit id="OfOI7tn" name="part_list.action.export_json">
+      <segment>
+        <source>part_list.action.export_json</source>
+        <target>Export to JSON</target>
+      </segment>
+    </unit>
+    <unit id="8Y5uz7l" name="part_list.action.export_csv">
+      <segment>
+        <source>part_list.action.export_csv</source>
+        <target>Export to CSV</target>
+      </segment>
+    </unit>
+    <unit id="gtllBTO" name="part_list.action.export_yaml">
+      <segment>
+        <source>part_list.action.export_yaml</source>
+        <target>Export to YAML</target>
+      </segment>
+    </unit>
+    <unit id="IW9wGBS" name="part_list.action.export_xml">
+      <segment>
+        <source>part_list.action.export_xml</source>
+        <target>Export to XML</target>
+      </segment>
+    </unit>
+    <unit id="kCT2Emc" name="parts.import.title">
+      <segment>
+        <source>parts.import.title</source>
+        <target>Import parts</target>
+      </segment>
+    </unit>
+    <unit id="6oVjTY." name="parts.import.errors.title">
+      <segment>
+        <source>parts.import.errors.title</source>
+        <target>Import violations</target>
+      </segment>
+    </unit>
+    <unit id="2sWmr2k" name="parts.import.flash.error">
+      <segment>
+        <source>parts.import.flash.error</source>
+        <target>Errors during import. This is most likely caused by some invalid data.</target>
+      </segment>
+    </unit>
+    <unit id="hJHxH3J" name="parts.import.format.auto">
+      <segment>
+        <source>parts.import.format.auto</source>
+        <target>Automatic (based on file extension)</target>
+      </segment>
+    </unit>
+    <unit id="E1zm0rb" name="parts.import.flash.error.unknown_format">
+      <segment>
+        <source>parts.import.flash.error.unknown_format</source>
+        <target>Could not determine the format from the given file!</target>
+      </segment>
+    </unit>
+    <unit id="y2UaCL7" name="parts.import.flash.error.invalid_file">
+      <segment>
+        <source>parts.import.flash.error.invalid_file</source>
+        <target>File invalid / malformatted. Please check that you have selected the right format!</target>
+      </segment>
+    </unit>
+    <unit id="ih.wsVn" name="parts.import.part_category.label">
+      <segment>
+        <source>parts.import.part_category.label</source>
+        <target>Category override</target>
+      </segment>
+    </unit>
+    <unit id="mLczcax" name="parts.import.part_category.help">
+      <segment>
+        <source>parts.import.part_category.help</source>
+        <target>If you select a value here, all imported parts will be assigned to this category. No matter what was set in the data.</target>
+      </segment>
+    </unit>
+    <unit id="W09n3nV" name="import.create_unknown_datastructures">
+      <segment>
+        <source>import.create_unknown_datastructures</source>
+        <target>Create unknown datastructures</target>
+      </segment>
+    </unit>
+    <unit id="QkzTk.8" name="import.create_unknown_datastructures.help">
+      <segment>
+        <source>import.create_unknown_datastructures.help</source>
+        <target>If this is selected, datastructures (like categories, footprints, etc.) which does not exist in the database yet, will be automatically created. If this is not selected, only existing data structures will be used, and if no matching data structure is found, the part will get assigned nothing</target>
+      </segment>
+    </unit>
+    <unit id="p6fTkCQ" name="import.path_delimiter">
+      <segment>
+        <source>import.path_delimiter</source>
+        <target>Path delimiter</target>
+      </segment>
+    </unit>
+    <unit id="gSn6XRk" name="import.path_delimiter.help">
+      <segment>
+        <source>import.path_delimiter.help</source>
+        <target>The delimiter used to mark different levels in data structure pathes like category, footprint, etc.</target>
+      </segment>
+    </unit>
+    <unit id="aNR2tK9" name="parts.import.help_documentation">
+      <segment>
+        <source>parts.import.help_documentation</source>
+        <target><![CDATA[See the <a href="%link%">documentation</a> for more information on the file format.]]></target>
+      </segment>
+    </unit>
+    <unit id="bOHORjK" name="parts.import.help">
+      <segment>
+        <source>parts.import.help</source>
+        <target>You can import parts from existing files with this tool. The parts will be directly written to database, so please check your file beforehand for correct content before uploading it here.</target>
+      </segment>
+    </unit>
+    <unit id="sweByB7" name="parts.import.flash.success">
+      <segment>
+        <source>parts.import.flash.success</source>
+        <target>Part import successful!</target>
+      </segment>
+    </unit>
+    <unit id="j7NAkR." name="parts.import.errors.imported_entities">
+      <segment>
+        <source>parts.import.errors.imported_entities</source>
+        <target>Imported parts</target>
+      </segment>
+    </unit>
+    <unit id="W7NWPFx" name="perm.import">
+      <segment>
+        <source>perm.import</source>
+        <target>Import data</target>
+      </segment>
+    </unit>
+    <unit id="sYQswdX" name="parts.import.part_needs_review.label">
+      <segment>
+        <source>parts.import.part_needs_review.label</source>
+        <target>Mark all imported parts as "Needs review"</target>
+      </segment>
+    </unit>
+    <unit id="5DhI5ZW" name="parts.import.part_needs_review.help">
+      <segment>
+        <source>parts.import.part_needs_review.help</source>
+        <target>If this option is selected, then all parts will be marked as "Needs review", no matter what was set in the data.</target>
       </segment>
     </unit>
   </file>

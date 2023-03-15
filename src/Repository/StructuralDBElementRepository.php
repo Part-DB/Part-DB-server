@@ -30,6 +30,12 @@ use RecursiveIteratorIterator;
 class StructuralDBElementRepository extends NamedDBElementRepository
 {
     /**
+     * @var array An array containing all new entities created by getNewEntityByPath.
+     * This is used to prevent creating multiple entities for the same path.
+     */
+    private array $new_entity_cache = [];
+
+    /**
      * Finds all nodes without a parent node. They are our root nodes.
      *
      * @return AbstractStructuralDBElement[]
@@ -91,7 +97,7 @@ class StructuralDBElementRepository extends NamedDBElementRepository
     }
 
     /**
-     * Creates a structure of AbsstractStructuralDBElements from a path separated by $separator, which splits the various levels.
+     * Creates a structure of AbstractStructuralDBElements from a path separated by $separator, which splits the various levels.
      * This function will try to use existing elements, if they are already in the database. If not, they will be created.
      * An array of the created elements will be returned, with the last element being the deepest element.
      * @param  string  $path
@@ -108,14 +114,67 @@ class StructuralDBElementRepository extends NamedDBElementRepository
                 continue;
             }
 
-            //See if we already have an element with this name and parent
-            $entity = $this->findOneBy(['name' => $name, 'parent' => $parent]);
+            //Use the cache to prevent creating multiple entities for the same path
+            $entity = $this->getNewEntityFromCache($name, $parent);
+
+            //See if we already have an element with this name and parent in the database
+            if (!$entity) {
+                $entity = $this->findOneBy(['name' => $name, 'parent' => $parent]);
+            }
             if (null === $entity) {
                 $class = $this->getClassName();
                 /** @var AbstractStructuralDBElement $entity */
                 $entity = new $class;
                 $entity->setName($name);
                 $entity->setParent($parent);
+
+                $this->setNewEntityToCache($entity);
+            }
+
+            $result[] = $entity;
+            $parent = $entity;
+        }
+
+        return $result;
+    }
+
+    private function getNewEntityFromCache(string $name, ?AbstractStructuralDBElement $parent): ?AbstractStructuralDBElement
+    {
+        $key = $parent ? $parent->getFullPath('%->%').'%->%'.$name : $name;
+        if (isset($this->new_entity_cache[$key])) {
+            return $this->new_entity_cache[$key];
+        }
+        return null;
+    }
+
+    private function setNewEntityToCache(AbstractStructuralDBElement $entity): void
+    {
+        $key = $entity->getFullPath('%->%');
+        $this->new_entity_cache[$key] = $entity;
+    }
+
+    /**
+     * Returns an element of AbstractStructuralDBElements queried from a path separated by $separator, which splits the various levels.
+     * An array of the created elements will be returned, with the last element being the deepest element.
+     * If no element was found, an empty array will be returned.
+     * @param  string  $path
+     * @param  string  $separator
+     * @return AbstractStructuralDBElement[]
+     */
+    public function getEntityByPath(string $path, string $separator = '->'): array
+    {
+        $parent = null;
+        $result = [];
+        foreach (explode($separator, $path) as $name) {
+            $name = trim($name);
+            if ('' === $name) {
+                continue;
+            }
+
+            //See if we already have an element with this name and parent
+            $entity = $this->findOneBy(['name' => $name, 'parent' => $parent]);
+            if (null === $entity) {
+                return [];
             }
 
             $result[] = $entity;

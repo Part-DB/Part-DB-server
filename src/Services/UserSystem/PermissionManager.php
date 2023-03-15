@@ -271,6 +271,28 @@ class PermissionManager
         }
     }
 
+    /**
+     * This function sets all operations of the given permission to the given value, except the ones listed in the except array.
+     * @param  HasPermissionsInterface  $perm_holder
+     * @param  string  $permission
+     * @param  bool|null  $new_value
+     * @param  array  $except
+     * @return void
+     */
+    public function setAllOperationsOfPermissionExcept(HasPermissionsInterface $perm_holder, string $permission, ?bool $new_value, array $except): void
+    {
+        if (!$this->isValidPermission($permission)) {
+            throw new InvalidArgumentException(sprintf('A permission with that name is not existing! Got %s.', $permission));
+        }
+
+        foreach ($this->permission_structure['perms'][$permission]['operations'] as $op_key => $op) {
+            if (in_array($op_key, $except, true)) {
+                continue;
+            }
+            $this->setPermission($perm_holder, $permission, $op_key, $new_value);
+        }
+    }
+
     protected function generatePermissionStructure()
     {
         $cache = new ConfigCache($this->cache_file, $this->is_debug);

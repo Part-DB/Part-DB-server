@@ -1,0 +1,4 @@
+name;description;category;notes;footprint;tags;quantity;storage_location;mass;ipn;mpn;manufacturing_status;manufacturer;supplier;spn;price;favorite;needs_review;minamount;partUnit;manufacturing_status
+BC547;NPN transistor;Transistors -> NPN;very important notes;TO -> TO-92;NPN,Transistor;5;Room 1 -> Shelf 1 -> Box 2;10;;;Manufacturer;;You need to fill this line, to use spn and price;BC547C;2,3;0;;;;
+BC557;PNP transistor;<b>HTML</b>;;TO -> TO-92;PNP,Transistor;10;Room 2-> Box 3;;Internal1234;;;;;;;;1;;;active
+Copper Wire;;Wire;;;;;;;;;;;;;;;;;Meter;

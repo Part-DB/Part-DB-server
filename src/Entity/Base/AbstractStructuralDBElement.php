@@ -63,7 +63,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     /**
      * @var string The comment info for this element
      * @ORM\Column(type="text")
-     * @Groups({"simple", "extended", "full"})
+     * @Groups({"full", "import"})
      */
     protected string $comment = '';
 
@@ -71,6 +71,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
      * @var bool If this property is set, this element can not be selected for part properties.
      *           Useful if this element should be used only for grouping, sorting.
      * @ORM\Column(type="boolean")
+     * @Groups({"full", "import"})
      */
     protected bool $not_selectable = false;
 
@@ -91,7 +92,7 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     /**
      * @var AbstractStructuralDBElement
      * @NoneOfItsChildren()
-     * @Groups({"include_parents"})
+     * @Groups({"include_parents", "import"})
      */
     protected $parent = null;
 

@@ -28,7 +28,9 @@ class ErrorHandlerHelper {
         console.log('Error Handler registered');
 
         const content = document.getElementById('content');
-        content.addEventListener('turbo:before-fetch-response', (event) => this.handleError(event));
+        //content.addEventListener('turbo:before-fetch-response', (event) => this.handleError(event));
+        content.addEventListener('turbo:fetch-request-error', (event) => this.handleError(event));
+        content.addEventListener('turbo:frame-missing', (event) => this.handleError(event));
 
         $(document).ajaxError(this.handleJqueryErrror.bind(this));
     }
@@ -87,8 +89,10 @@ class ErrorHandlerHelper {
     }
 
     handleError(event) {
-        const fetchResponse = event.detail.fetchResponse;
-        const response = fetchResponse.response;
+        //Prevent default error handling
+        event.preventDefault();
+
+        const response = event.detail.response;
 
         //Ignore aborted requests.
         if (response.statusText === 'abort' || response.status == 0) {
@@ -100,11 +104,11 @@ class ErrorHandlerHelper {
             return;
         }
 
-        if(fetchResponse.failed) {
+        if(!response.ok) {
             response.text().then(responseHTML => {
-                this._showAlert(response.statusText, response.status, fetchResponse.location.toString(), responseHTML);
+                this._showAlert(response.statusText, response.status, response.url, responseHTML);
             }).catch(err => {
-                this._showAlert(response.statusText, response.status, fetchResponse.location.toString(), '<pre>' + err + '</pre>');
+                this._showAlert(response.statusText, response.status, response.url, '<pre>' + err + '</pre>');
             });
         }
     }

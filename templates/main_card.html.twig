@@ -1,6 +1,8 @@
 {% extends "base.html.twig" %}
 
 {% block content %}
+    {% block before_card %}{% endblock %}
+
 <div class="card {% block card_border %}border-primary{% endblock %}">
     {% block card_header %}
     <div class="card-header {% block card_type %}bg-primary text-white{% endblock %}">
@@ -13,6 +15,8 @@
     </div>
     {% endblock %}
 </div>
+
+    {% block after_card %}{% endblock %}
 
    {% block additional_content %}{% endblock %}
 {% endblock %}
