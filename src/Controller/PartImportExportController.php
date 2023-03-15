@@ -96,7 +96,7 @@ class PartImportExportController extends AbstractController
                 goto ret;
             }
 
-            if ($errors) {
+            if (!isset($errors) || $errors) {
                 $this->addFlash('error', 'parts.import.flash.error');
             } else {
                 $this->addFlash('success', 'parts.import.flash.success');
