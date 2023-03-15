@@ -11,6 +11,11 @@ Part-DB offers the possibility to import existing data (parts, datastructures, e
 
 ## Import
 
+{: .note }
+> As data import is a very powerful feature and can easily fill up your database with lots of data, import is by default only available for
+> administrators. If you want to allow other users to import data, or can not import data, check the permissions of the user. You can enable import for each data structure
+> individually in the permissions settings.
+
 ### Import parts
 
 Part-DB supports the import of parts from CSV files and other formats. This can be used to import existing parts from other databases or datasources into Part-DB. The import can be done via the "Tools -> Import parts" page, which you can find in the "Tools" sidebar panel.
@@ -64,6 +69,8 @@ The following fields can be used to specify the supplier/distributor, supplier p
 
 #### Example data
 Here you can find some example data for the import of parts, you can use it as a template for your own import (especially the CSV file).
+
+* [Part import CSV example]({% link assets/usage/import_export/part_import_example.csv %}) with all possible fields
 
 ## Export
 

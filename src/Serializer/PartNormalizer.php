@@ -103,13 +103,24 @@ class PartNormalizer implements NormalizerInterface, DenormalizerInterface, Cach
             $data['ipn'] = null;
         }
 
+        //Fill empty needs_review and needs_review_comment fields with false
+        if (empty($data['needs_review'])) {
+            $data['needs_review'] = false;
+        }
+        if (empty($data['favorite'])) {
+            $data['favorite'] = false;
+        }
+        if (empty($data['minamount'])) {
+            $data['minamount'] = 0.0;
+        }
+
         $object = $this->normalizer->denormalize($data, $type, $format, $context);
 
         if (!$object instanceof Part) {
             throw new \InvalidArgumentException('This normalizer only supports Part objects!');
         }
 
-        if (isset($data['instock']) || isset($data['storelocation'])) {
+        if ((isset($data['instock']) && trim($data['instock']) !== "") || (isset($data['storelocation']) && trim($data['storelocation']) !== "")) {
             $partLot = new PartLot();
 
             if (isset($data['instock']) && $data['instock'] !== "") {

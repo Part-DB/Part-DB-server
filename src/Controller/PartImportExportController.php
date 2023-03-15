@@ -33,6 +33,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 use UnexpectedValueException;
 
 class PartImportExportController extends AbstractController
@@ -93,6 +94,9 @@ class PartImportExportController extends AbstractController
                 $errors = $this->entityImporter->importFileAndPersistToDB($file, $options, $entities);
             } catch (UnexpectedValueException $e) {
                 $this->addFlash('error', 'parts.import.flash.error.invalid_file');
+                if ($e instanceof NotNormalizableValueException) {
+                    $this->addFlash('error', $e->getMessage());
+                }
                 goto ret;
             }
 
