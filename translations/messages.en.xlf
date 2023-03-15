@@ -6674,16 +6674,6 @@ If you have done this incorrectly or if a computer is no longer trusted, you can
         <target>The parent can not be one of the children of itself.</target>
       </segment>
     </unit>
-    <unit id="0IF0VIF" name="validator.isSelectable">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>validator.isSelectable</source>
-        <target>The element must be selectable.</target>
-      </segment>
-    </unit>
     <unit id="nd207H6" name="validator.part_lot.location_full.no_increasment">
       <notes>
         <note priority="1">obsolete</note>
@@ -10997,6 +10987,54 @@ Element 3</target>
       <segment state="translated">
         <source>login.local_login_hint</source>
         <target>The form below is only for log in with a local user. If you want to log in via single sign-on, press the button above.</target>
+      </segment>
+    </unit>
+    <unit id="fa76Qc9" name="part_list.action.action.export">
+      <segment state="translated">
+        <source>part_list.action.action.export</source>
+        <target>Export parts</target>
+      </segment>
+    </unit>
+    <unit id="OfOI7tn" name="part_list.action.export_json">
+      <segment state="translated">
+        <source>part_list.action.export_json</source>
+        <target>Export to JSON</target>
+      </segment>
+    </unit>
+    <unit id="8Y5uz7l" name="part_list.action.export_csv">
+      <segment state="translated">
+        <source>part_list.action.export_csv</source>
+        <target>Export to CSV</target>
+      </segment>
+    </unit>
+    <unit id="gtllBTO" name="part_list.action.export_yaml">
+      <segment state="translated">
+        <source>part_list.action.export_yaml</source>
+        <target>Export to YAML</target>
+      </segment>
+    </unit>
+    <unit id="IW9wGBS" name="part_list.action.export_xml">
+      <segment state="translated">
+        <source>part_list.action.export_xml</source>
+        <target>Export to XML</target>
+      </segment>
+    </unit>
+    <unit id="kCT2Emc" name="parts.import.title">
+      <segment state="translated">
+        <source>parts.import.title</source>
+        <target>Import parts</target>
+      </segment>
+    </unit>
+    <unit id="6oVjTY." name="parts.import.errors.title">
+      <segment state="translated">
+        <source>parts.import.errors.title</source>
+        <target>Import violations</target>
+      </segment>
+    </unit>
+    <unit id="2sWmr2k" name="parts.import.flash.error">
+      <segment state="translated">
+        <source>parts.import.flash.error</source>
+        <target>Errors during import. This is most likely caused by some invalid data.</target>
       </segment>
     </unit>
   </file>
