@@ -59,7 +59,6 @@ class BOMImporter
      * @param  File  $file
      * @param  array  $options
      * @param  Project  $project
-     * @param  array  $errors
      * @return ProjectBOMEntry[]
      */
     public function importFileIntoProject(File $file, Project $project, array $options): array

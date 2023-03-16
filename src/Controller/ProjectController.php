@@ -169,7 +169,7 @@ class ProjectController extends AbstractController
             //Clear existing BOM entries if requested
             if ($form->get('clear_existing_bom')->getData()) {
                 $project->getBomEntries()->clear();
-                $entityManager->flush($project);
+                $entityManager->flush();
             }
 
             try {
