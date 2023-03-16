@@ -51,5 +51,12 @@
         {% form_theme form.bom_entries with ['form/collection_types_layout.html.twig'] %}
         {{ form_errors(form.bom_entries) }}
         {{ form_widget(form.bom_entries) }}
+        {% if entity.id %}
+            <a href="{{ path('project_import_bom', {'id': entity.id}) }}" class="btn btn-secondary mb-2"
+            {% if not is_granted('edit', entity) %}disabled="disabled"{% endif %}>
+                <i class="fa-solid fa-file-import fa-fw"></i>
+                {% trans %}project.edit.bom.import_bom{% endtrans %}
+            </a>
+        {% endif %}
     </div>
 {% endblock %}

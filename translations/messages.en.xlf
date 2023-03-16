@@ -11181,5 +11181,11 @@ Element 3</target>
         <target>Import BOM for project</target>
       </segment>
     </unit>
+    <unit id="sPZbhUL" name="project.edit.bom.import_bom">
+      <segment>
+        <source>project.edit.bom.import_bom</source>
+        <target>Import BOM</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

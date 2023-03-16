@@ -4,8 +4,21 @@
 
 {{ datatables.datatable(datatable, 'elements/datatables/datatables', 'projects') }}
 
-<a class="btn btn-success" {% if not is_granted('@projects.edit') %}disabled{% endif %}
-   href="{{ path('project_add_parts', {"id": project.id, "_redirect": app.request.requestUri}) }}">
-    <i class="fa-solid fa-square-plus fa-fw"></i>
-    {% trans %}project.info.bom_add_parts{% endtrans %}
-</a>
+<div class="btn-group">
+    <a class="btn btn-success" {% if not is_granted('@projects.edit') %}disabled{% endif %}
+       href="{{ path('project_add_parts', {"id": project.id, "_redirect": app.request.requestUri}) }}">
+        <i class="fa-solid fa-square-plus fa-fw"></i>
+        {% trans %}project.info.bom_add_parts{% endtrans %}
+    </a>
+    <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="visually-hidden">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu">
+        <li>
+            <a class="dropdown-item" href="{{ path('project_import_bom', {'id': project.id}) }}" {% if not is_granted('edit', project) %}disabled="disabled"{% endif %}>
+                <i class="fa-solid fa-file-import fa-fw"></i>
+                {% trans %}project.edit.bom.import_bom{% endtrans %}
+            </a>
+        </li>
+    </ul>
+</div>
