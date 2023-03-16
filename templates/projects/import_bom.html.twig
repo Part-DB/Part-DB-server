@@ -1,6 +1,6 @@
 {% extends "main_card.html.twig" %}
 
-{% block title %}{% trans %}project.add_parts_to_project{% endtrans %}{% endblock %}
+{% block title %}{% trans %}project.import_bom{% endtrans %}{% endblock %}
 
 {% block before_card %}
     {% if errors %}
@@ -20,8 +20,8 @@
 
 
 {% block card_title %}
-    <i class="fa-solid fa-magnifying-glass-plus fa-fw"></i>
-    {% trans %}project.add_parts_to_project{% endtrans %}{% if project %}: <i>{{ project.name }}</i>{% endif %}
+    <i class="fa-solid fa-file-import fa-fw"></i>
+    {% trans %}project.import_bom{% endtrans %}{% if project %}: <i>{{ project.name }}</i>{% endif %}
 {% endblock %}
 
 {% block card_content %}

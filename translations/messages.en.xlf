@@ -11148,7 +11148,7 @@ Element 3</target>
     <unit id="._nn_MY" name="project.bom_import.type.kicad_pcbnew">
       <segment>
         <source>project.bom_import.type.kicad_pcbnew</source>
-        <target>KiCAD PCBNew BOM (CSV file)</target>
+        <target>KiCAD Pcbnew BOM (CSV file)</target>
       </segment>
     </unit>
     <unit id="iTVcfIk" name="project.bom_import.clear_existing_bom">
@@ -11173,6 +11173,12 @@ Element 3</target>
       <segment>
         <source>project.bom_import.flash.invalid_entries</source>
         <target>Validation error! Please check your data!</target>
+      </segment>
+    </unit>
+    <unit id="0oQjMQO" name="project.import_bom">
+      <segment>
+        <source>project.import_bom</source>
+        <target>Import BOM for project</target>
       </segment>
     </unit>
   </file>
