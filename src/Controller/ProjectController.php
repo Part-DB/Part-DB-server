@@ -32,6 +32,8 @@ use App\Services\ImportExportSystem\BOMImporter;
 use App\Services\ProjectSystem\ProjectBuildHelper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use League\Csv\Exception;
+use League\Csv\SyntaxError;
 use Omines\DataTablesBundle\DataTableFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -189,6 +191,8 @@ class ProjectController extends AbstractController
                     $this->addFlash('error', t('project.bom_import.flash.invalid_entries'));
                 }
             } catch (\UnexpectedValueException $e) {
+                $this->addFlash('error', t('project.bom_import.flash.invalid_file', ['%message%' => $e->getMessage()]));
+            } catch (SyntaxError $e) {
                 $this->addFlash('error', t('project.bom_import.flash.invalid_file', ['%message%' => $e->getMessage()]));
             }
         }

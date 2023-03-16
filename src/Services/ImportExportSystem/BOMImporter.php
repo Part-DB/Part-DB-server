@@ -45,7 +45,7 @@ class BOMImporter
     {
     }
 
-    public function configureOptions(OptionsResolver $resolver): OptionsResolver
+    protected function configureOptions(OptionsResolver $resolver): OptionsResolver
     {
         $resolver->setRequired('type');
         $resolver->setAllowedValues('type', ['kicad_pcbnew']);
