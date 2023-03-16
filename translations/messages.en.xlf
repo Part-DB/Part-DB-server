@@ -11133,5 +11133,59 @@ Element 3</target>
         <target>If this option is selected, then all parts will be marked as "Needs review", no matter what was set in the data.</target>
       </segment>
     </unit>
+    <unit id="eVvGwjn" name="project.bom_import.flash.success">
+      <segment>
+        <source>project.bom_import.flash.success</source>
+        <target>Imported %count% BOM entries successfully.</target>
+      </segment>
+    </unit>
+    <unit id="5mJNteq" name="project.bom_import.type">
+      <segment>
+        <source>project.bom_import.type</source>
+        <target>Type</target>
+      </segment>
+    </unit>
+    <unit id="._nn_MY" name="project.bom_import.type.kicad_pcbnew">
+      <segment>
+        <source>project.bom_import.type.kicad_pcbnew</source>
+        <target>KiCAD Pcbnew BOM (CSV file)</target>
+      </segment>
+    </unit>
+    <unit id="iTVcfIk" name="project.bom_import.clear_existing_bom">
+      <segment>
+        <source>project.bom_import.clear_existing_bom</source>
+        <target>Clear existing BOM entries before importing</target>
+      </segment>
+    </unit>
+    <unit id="ijGhrbQ" name="project.bom_import.clear_existing_bom.help">
+      <segment>
+        <source>project.bom_import.clear_existing_bom.help</source>
+        <target>Selecting this option will remove all existing BOM entries in the project and overwrite them with the imported BOM file!</target>
+      </segment>
+    </unit>
+    <unit id="_FX5OYh" name="project.bom_import.flash.invalid_file">
+      <segment>
+        <source>project.bom_import.flash.invalid_file</source>
+        <target>File could not be imported. Please check that you have selected the right file type. Error message: %message%</target>
+      </segment>
+    </unit>
+    <unit id="1bpfKwW" name="project.bom_import.flash.invalid_entries">
+      <segment>
+        <source>project.bom_import.flash.invalid_entries</source>
+        <target>Validation error! Please check your data!</target>
+      </segment>
+    </unit>
+    <unit id="0oQjMQO" name="project.import_bom">
+      <segment>
+        <source>project.import_bom</source>
+        <target>Import BOM for project</target>
+      </segment>
+    </unit>
+    <unit id="sPZbhUL" name="project.edit.bom.import_bom">
+      <segment>
+        <source>project.edit.bom.import_bom</source>
+        <target>Import BOM</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

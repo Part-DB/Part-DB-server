@@ -137,5 +137,6 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         yield ['/project/1/add_parts'];
         yield ['/project/1/add_parts?parts=1,2'];
         yield ['/project/1/build?n=1'];
+        yield ['/project/1/import_bom'];
     }
 }

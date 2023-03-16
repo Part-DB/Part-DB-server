@@ -28,17 +28,26 @@ use App\Form\ProjectSystem\ProjectBOMEntryCollectionType;
 use App\Form\ProjectSystem\ProjectBuildType;
 use App\Form\Type\StructuralEntityType;
 use App\Helpers\Projects\ProjectBuildRequest;
+use App\Services\ImportExportSystem\BOMImporter;
 use App\Services\ProjectSystem\ProjectBuildHelper;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use League\Csv\Exception;
+use League\Csv\SyntaxError;
 use Omines\DataTablesBundle\DataTableFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+
+use function Symfony\Component\Translation\t;
 
 /**
  * @Route("/project")
@@ -116,6 +125,82 @@ class ProjectController extends AbstractController
             'build_request' => $projectBuildRequest,
             'number_of_builds' => $number_of_builds,
             'form' => $form,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/import_bom", name="project_import_bom", requirements={"id"="\d+"})
+     */
+    public function importBOM(Request $request, EntityManagerInterface $entityManager, Project $project,
+        BOMImporter $BOMImporter, ValidatorInterface $validator): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $project);
+
+        $builder = $this->createFormBuilder();
+        $builder->add('file', FileType::class, [
+            'label' => 'import.file',
+            'required' => true,
+            'attr' => [
+                'accept' => '.csv'
+            ]
+        ]);
+        $builder->add('type', ChoiceType::class, [
+            'label' => 'project.bom_import.type',
+            'required' => true,
+            'choices' => [
+                'project.bom_import.type.kicad_pcbnew' => 'kicad_pcbnew',
+            ]
+        ]);
+        $builder->add('clear_existing_bom', CheckboxType::class, [
+            'label' => 'project.bom_import.clear_existing_bom',
+            'required' => false,
+            'data' => false,
+            'help' => 'project.bom_import.clear_existing_bom.help',
+        ]);
+        $builder->add('submit', SubmitType::class, [
+            'label' => 'import.btn',
+        ]);
+
+        $form = $builder->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            //Clear existing BOM entries if requested
+            if ($form->get('clear_existing_bom')->getData()) {
+                $project->getBomEntries()->clear();
+                $entityManager->flush();
+            }
+
+            try {
+                $entries = $BOMImporter->importFileIntoProject($form->get('file')->getData(), $project, [
+                    'type' => $form->get('type')->getData(),
+                ]);
+
+                //Validate the project entries
+                $errors = $validator->validateProperty($project, 'bom_entries');
+
+                //If no validation errors occured, save the changes and redirect to edit page
+                if (count ($errors) === 0) {
+                    $this->addFlash('success', t('project.bom_import.flash.success', ['%count%' => count($entries)]));
+                    $entityManager->flush();
+                    return $this->redirectToRoute('project_edit', ['id' => $project->getID()]);
+                }
+
+                if (count ($errors) > 0) {
+                    $this->addFlash('error', t('project.bom_import.flash.invalid_entries'));
+                }
+            } catch (\UnexpectedValueException $e) {
+                $this->addFlash('error', t('project.bom_import.flash.invalid_file', ['%message%' => $e->getMessage()]));
+            } catch (SyntaxError $e) {
+                $this->addFlash('error', t('project.bom_import.flash.invalid_file', ['%message%' => $e->getMessage()]));
+            }
+        }
+
+        return $this->renderForm('projects/import_bom.html.twig', [
+            'project' => $project,
+            'form' => $form,
+            'errors' => $errors ?? null,
         ]);
     }
 

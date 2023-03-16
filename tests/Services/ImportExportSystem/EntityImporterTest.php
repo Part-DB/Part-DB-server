@@ -37,7 +37,7 @@ use Symfony\Component\Validator\ConstraintViolation;
 class EntityImporterTest extends WebTestCase
 {
     /**
-     * @var AmountFormatter
+     * @var EntityImporter
      */
     protected $service;
 
