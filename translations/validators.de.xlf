@@ -305,25 +305,5 @@
         <target>Wählen Sie einen Wert, oder laden Sie eine Datei hoch, um dessen Dateiname automatisch als Namen für diesen Anhang zu nutzen.</target>
       </segment>
     </unit>
-        <unit id="0IF0VIF" name="validator.isSelectable">
-          <notes>
-            <note priority="1">obsolete</note>
-            <note category="state" priority="1">obsolete</note>
-          </notes>
-          <segment>
-            <source>validator.isSelectable</source>
-            <target>Das Element muss auswählbar sein!</target>
-          </segment>
-        </unit>
-        <unit id="0IF0VIF" name="validator.isSelectable">
-              <notes>
-                <note priority="1">obsolete</note>
-                <note category="state" priority="1">obsolete</note>
-              </notes>
-              <segment>
-                <source>validator.isSelectable</source>
-                <target>The element must be selectable.</target>
-              </segment>
-            </unit>
   </file>
 </xliff>
