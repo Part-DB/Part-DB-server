@@ -10985,5 +10985,107 @@ Element 3</target>
         <target>Das untenstehende Formular kann nur für den Login mit einem lokalen Benutzer verwendet werden. Wenn Sie sich stattdessen via Single Sign-On einloggen wollen, nutzen Sie den obenstehenden Button.</target>
       </segment>
     </unit>
+    <unit id="fa76Qc9" name="part_list.action.action.export">
+      <segment state="translated">
+        <source>part_list.action.action.export</source>
+        <target>Bauteile exportieren</target>
+      </segment>
+    </unit>
+    <unit id="OfOI7tn" name="part_list.action.export_json">
+      <segment state="translated">
+        <source>part_list.action.export_json</source>
+        <target>Export als JSON</target>
+      </segment>
+    </unit>
+    <unit id="8Y5uz7l" name="part_list.action.export_csv">
+      <segment state="translated">
+        <source>part_list.action.export_csv</source>
+        <target>Export als CSV</target>
+      </segment>
+    </unit>
+    <unit id="gtllBTO" name="part_list.action.export_yaml">
+      <segment state="translated">
+        <source>part_list.action.export_yaml</source>
+        <target>Export als YAML</target>
+      </segment>
+    </unit>
+    <unit id="IW9wGBS" name="part_list.action.export_xml">
+      <segment state="translated">
+        <source>part_list.action.export_xml</source>
+        <target>Export als XML</target>
+      </segment>
+    </unit>
+    <unit id="kCT2Emc" name="parts.import.title">
+      <segment state="translated">
+        <source>parts.import.title</source>
+        <target>Bauteile importieren</target>
+      </segment>
+    </unit>
+    <unit id="6oVjTY." name="parts.import.errors.title">
+      <segment state="translated">
+        <source>parts.import.errors.title</source>
+        <target>Probleme beim Import</target>
+      </segment>
+    </unit>
+    <unit id="2sWmr2k" name="parts.import.flash.error">
+      <segment state="translated">
+        <source>parts.import.flash.error</source>
+        <target>Es sind Fehler während des Exports aufgetreten. Dies ist vermutlich durch fehlerhafte Daten verursacht.</target>
+      </segment>
+    </unit>
+    <unit id="hJHxH3J" name="parts.import.format.auto">
+      <segment state="translated">
+        <source>parts.import.format.auto</source>
+        <target>Automatisch (basierend auf Dateiendung)</target>
+      </segment>
+    </unit>
+    <unit id="E1zm0rb" name="parts.import.flash.error.unknown_format">
+      <segment state="translated">
+        <source>parts.import.flash.error.unknown_format</source>
+        <target>Das Format konnte nicht automatisch bestimmt werden. Bitte wählen Sie das korrekte Format manuell!</target>
+      </segment>
+    </unit>
+    <unit id="y2UaCL7" name="parts.import.flash.error.invalid_file">
+      <segment state="translated">
+        <source>parts.import.flash.error.invalid_file</source>
+        <target>Datei fehlerhaft / falsch formatiert. Überprüfen Sie, dass sie das richtige Format gewählt haben.</target>
+      </segment>
+    </unit>
+    <unit id="ih.wsVn" name="parts.import.part_category.label">
+      <segment state="translated">
+        <source>parts.import.part_category.label</source>
+        <target>Erzwinge Kategorie</target>
+      </segment>
+    </unit>
+    <unit id="mLczcax" name="parts.import.part_category.help">
+      <segment state="translated">
+        <source>parts.import.part_category.help</source>
+        <target>Wenn Sie hier eine Kategorie auswählen, dann werden alle importierten Bauteile dieser Kategorie zugewiesen, unabhängig davon, was in den Importdaten steht.</target>
+      </segment>
+    </unit>
+    <unit id="W09n3nV" name="import.create_unknown_datastructures">
+      <segment state="translated">
+        <source>import.create_unknown_datastructures</source>
+        <target>Erstelle unbekannte Datenstrukturen</target>
+      </segment>
+    </unit>
+    <unit id="QkzTk.8" name="import.create_unknown_datastructures.help">
+      <segment state="translated">
+        <source>import.create_unknown_datastructures.help</source>
+        <target>Wenn diese Option gewählt ist, dann werden Datenstrukturen (z.B. Kategorien, Footprints, etc.), die noch nicht in der Datenbank existieren, automatisch angelegt. Wenn diese Option nicht gewählt ist, werden nur Datenstrukturen, die bereits in der Datenbank existieren, verwendet, und falls keine passende Struktur existiert, wird das entsprechende Feld des Bauteils leer gelassen.</target>
+      </segment>
+    </unit>
+    <unit id="p6fTkCQ" name="import.path_delimiter">
+      <segment state="translated">
+        <source>import.path_delimiter</source>
+        <target>Pfadbegrenzer</target>
+      </segment>
+    </unit>
+    <unit id="gSn6XRk" name="import.path_delimiter.help">
+      <segment state="translated">
+        <source>import.path_delimiter.help</source>
+        <target>Der Begrenzer wird benutzt, um die verschiedenen Ebenen von Datenstrukturen (wie Kategorien, Footprints, etc.) in Pfadangaben zu trennen.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
