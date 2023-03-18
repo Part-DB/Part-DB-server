@@ -300,7 +300,7 @@
       </segment>
     </unit>
     <unit id="m8kMFhf" name="validator.attachment.name_not_blank">
-      <segment>
+      <segment state="translated">
         <source>validator.attachment.name_not_blank</source>
         <target>Set a value here, or upload a file to automatically use its filename as name for the attachment.</target>
       </segment>
