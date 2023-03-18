@@ -11087,5 +11087,101 @@ Element 3</target>
         <target>Der Begrenzer wird benutzt, um die verschiedenen Ebenen von Datenstrukturen (wie Kategorien, Footprints, etc.) in Pfadangaben zu trennen.</target>
       </segment>
     </unit>
+    <unit id="aNR2tK9" name="parts.import.help_documentation">
+      <segment state="translated">
+        <source>parts.import.help_documentation</source>
+        <target>Konsultieren Sie die &lt;a href="%link%"&gt;Dokumentation&lt;/a&gt; für weiter Informationen über das Dateiformat.</target>
+      </segment>
+    </unit>
+    <unit id="bOHORjK" name="parts.import.help">
+      <segment state="translated">
+        <source>parts.import.help</source>
+        <target>Mit diesem Tool können sie Bauteile aus bestehenden Dateien importieren. Die Bauteile werden direkt in die Datenbank gespeichert (ohne die Möglichkeit, sie vorher noch einmal zu überprüfen). Prüfen Sie daher ihre Importdatei vor dem Upload hier!</target>
+      </segment>
+    </unit>
+    <unit id="sweByB7" name="parts.import.flash.success">
+      <segment state="translated">
+        <source>parts.import.flash.success</source>
+        <target>Bauteileimport erfolgreich!</target>
+      </segment>
+    </unit>
+    <unit id="j7NAkR." name="parts.import.errors.imported_entities">
+      <segment state="translated">
+        <source>parts.import.errors.imported_entities</source>
+        <target>Importierte Bauteile</target>
+      </segment>
+    </unit>
+    <unit id="W7NWPFx" name="perm.import">
+      <segment state="translated">
+        <source>perm.import</source>
+        <target>Daten importieren</target>
+      </segment>
+    </unit>
+    <unit id="sYQswdX" name="parts.import.part_needs_review.label">
+      <segment state="translated">
+        <source>parts.import.part_needs_review.label</source>
+        <target>Markiere alle Bauteile als "Review benötigt"</target>
+      </segment>
+    </unit>
+    <unit id="5DhI5ZW" name="parts.import.part_needs_review.help">
+      <segment state="translated">
+        <source>parts.import.part_needs_review.help</source>
+        <target>Wenn diese Option ausgewählt ist, werden alle importierten Bauteile als "Review benötigt" markiert, unabhängig davon, was in den Importdaten steht.</target>
+      </segment>
+    </unit>
+    <unit id="eVvGwjn" name="project.bom_import.flash.success">
+      <segment state="translated">
+        <source>project.bom_import.flash.success</source>
+        <target>%count% BOM Einträge erfolgreich importiert.</target>
+      </segment>
+    </unit>
+    <unit id="5mJNteq" name="project.bom_import.type">
+      <segment state="translated">
+        <source>project.bom_import.type</source>
+        <target>Typ</target>
+      </segment>
+    </unit>
+    <unit id="._nn_MY" name="project.bom_import.type.kicad_pcbnew">
+      <segment state="translated">
+        <source>project.bom_import.type.kicad_pcbnew</source>
+        <target>KiCAD Pcbnew BOM (CSV Datei)</target>
+      </segment>
+    </unit>
+    <unit id="iTVcfIk" name="project.bom_import.clear_existing_bom">
+      <segment state="translated">
+        <source>project.bom_import.clear_existing_bom</source>
+        <target>Lösche existierende BOM Einträge vor dem Import</target>
+      </segment>
+    </unit>
+    <unit id="ijGhrbQ" name="project.bom_import.clear_existing_bom.help">
+      <segment state="translated">
+        <source>project.bom_import.clear_existing_bom.help</source>
+        <target>Wenn diese Option ausgewählt ist, werden alle bereits im Projekt existierenden BOM Einträge gelöscht und mit den importierten BOM Daten überschrieben.</target>
+      </segment>
+    </unit>
+    <unit id="_FX5OYh" name="project.bom_import.flash.invalid_file">
+      <segment state="translated">
+        <source>project.bom_import.flash.invalid_file</source>
+        <target>Datei konnte nicht importiert werden. Überprüfen Sie, dass Sie den richtigen Dateityp gewählt haben. Fehlermeldung: %message%</target>
+      </segment>
+    </unit>
+    <unit id="1bpfKwW" name="project.bom_import.flash.invalid_entries">
+      <segment state="translated">
+        <source>project.bom_import.flash.invalid_entries</source>
+        <target>Validierungsfehler! Bitte überprüfen Sie die importierte Datei!</target>
+      </segment>
+    </unit>
+    <unit id="0oQjMQO" name="project.import_bom">
+      <segment state="translated">
+        <source>project.import_bom</source>
+        <target>Importiere BOM für Projekt</target>
+      </segment>
+    </unit>
+    <unit id="sPZbhUL" name="project.edit.bom.import_bom">
+      <segment state="translated">
+        <source>project.edit.bom.import_bom</source>
+        <target>BOM importieren</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
