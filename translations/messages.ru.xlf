@@ -6608,16 +6608,6 @@
         <target>Родитель не может быть дочерним по отношению к себе</target>
       </segment>
     </unit>
-    <unit id="0IF0VIF" name="validator.isSelectable">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>validator.isSelectable</source>
-        <target>Элемент должен быть выбираемым!</target>
-      </segment>
-    </unit>
     <unit id="nd207H6" name="validator.part_lot.location_full.no_increasment">
       <notes>
         <note priority="1">obsolete</note>

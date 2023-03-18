@@ -6607,16 +6607,6 @@
         <target>要素は自身の子とすることはできません。</target>
       </segment>
     </unit>
-    <unit id="0IF0VIF" name="validator.isSelectable">
-      <notes>
-        <note priority="1">obsolete</note>
-        <note category="state" priority="1">obsolete</note>
-      </notes>
-      <segment state="translated">
-        <source>validator.isSelectable</source>
-        <target>要素は選択可能である必要があります。</target>
-      </segment>
-    </unit>
     <unit id="nd207H6" name="validator.part_lot.location_full.no_increasment">
       <notes>
         <note priority="1">obsolete</note>
