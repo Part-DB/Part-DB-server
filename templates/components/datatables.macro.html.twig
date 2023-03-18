@@ -47,10 +47,10 @@
                         <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="unset_needs_review">{% trans %}part_list.action.action.unset_needs_review{% endtrans %}</option>
                     </optgroup>
                     <optgroup label="{% trans %}part_list.action.action.group.change_field{% endtrans %}">
-                        <option {% if not is_granted('@categories.read') %}disabled{% endif %} value="change_category" data-url="{{ path('select_category') }}">{% trans %}part_list.action.action.change_category{% endtrans %}</option>
-                        <option {% if not is_granted('@footprints.read') %}disabled{% endif %} value="change_footprint" data-url="{{ path('select_footprint') }}">{% trans %}part_list.action.action.change_footprint{% endtrans %}</option>
-                        <option {% if not is_granted('@manufacturers.read') %}disabled{% endif %} value="change_manufacturer" data-url="{{ path('select_manufacturer') }}">{% trans %}part_list.action.action.change_manufacturer{% endtrans %}</option>
-                        <option {% if not is_granted('@measurement_units.read') %}disabled{% endif %} value="change_unit" data-url="{{ path('select_measurement_unit') }}">{% trans %}part_list.action.action.change_unit{% endtrans %}</option>
+                        <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="change_category" data-url="{{ path('select_category') }}">{% trans %}part_list.action.action.change_category{% endtrans %}</option>
+                        <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="change_footprint" data-url="{{ path('select_footprint') }}">{% trans %}part_list.action.action.change_footprint{% endtrans %}</option>
+                        <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="change_manufacturer" data-url="{{ path('select_manufacturer') }}">{% trans %}part_list.action.action.change_manufacturer{% endtrans %}</option>
+                        <option {% if not is_granted('@parts.edit') %}disabled{% endif %} value="change_unit" data-url="{{ path('select_measurement_unit') }}">{% trans %}part_list.action.action.change_unit{% endtrans %}</option>
                     </optgroup>
                     <optgroup label="{% trans %}part_list.action.group.labels{% endtrans %}">
                         <option {% if not is_granted('@labels.create_labels') %}disabled{% endif %} value="generate_label_lot" data-url="{{  path('select_label_profiles_lot')}}">{% trans %}part_list.action.projects.generate_label_lot{% endtrans %}</option>
@@ -75,7 +75,7 @@
                     {# This is left empty, as this will be filled by Javascript #}
                 </select>
 
-                <button type="submit" class="btn btn-secondary" {% if not is_granted('@parts.edit') %}disabled{% endif %}>{% trans %}part_list.action.submit{% endtrans %}</button>
+                <button type="submit" class="btn btn-secondary">{% trans %}part_list.action.submit{% endtrans %}</button>
             </div>
         </div>
 
