@@ -10,9 +10,6 @@ on:
     tags:
       - 'v*.*.*'
       - 'v*.*.*-**'
-  pull_request:
-    branches:
-      - 'master'
 
 jobs:
   docker:
