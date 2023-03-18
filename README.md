@@ -42,7 +42,7 @@ and multiple store locations and price information. Parts can be grouped using t
 * User system with groups and detailed (fine granular) permissions. 
 Two-factor authentication is supported (Google Authenticator and Webauthn/U2F keys) and can be enforced for groups. Password reset via email can be setuped.
 * Optional support for single sign-on (SSO) via SAML (using an intermediate service like [Keycloak](https://www.keycloak.org/) you can connect Part-DB to an existing LDAP or Active Directory server)
-* Import/Export system (partial working)
+* Import/Export system for parts and datastructure. BOM import for projects from KiCAD is supported.
 * Project management: Create projects and assign parts to the bill of material (BOM), to show how often you could build this project and directly withdraw all components needed from DB
 * Event log: Track what changes happens to your inventory, track which user does what. Revert your parts to older versions.
 * Responsive design: You can use Part-DB on your PC, your tablet and your smartphone using the same interface.

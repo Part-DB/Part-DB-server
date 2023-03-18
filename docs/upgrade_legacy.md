@@ -23,13 +23,14 @@ Some things changed however to the old version and some features are still missi
 * Configuration is now done via configuration files / environment variables instead of the WebUI (this maybe change in the future).
 * Database updated are now done via console instead of the WebUI
 * Permission system changed: **You will have to newly set the permissions of all users and groups!**
+* Import / Export file format changed. Fields must be english now (unlike in legacy Part-DB versions, where german fields in CSV were possible)
+and you maybe have to change the header line/field names of your CSV files.
 
 ## Missing features
 * No possibility to mark parts for ordering (yet)
-* No import / export possibility for parts (yet), however you can import/export other datastructures like Categories, Footprints, etc. (yet)
 * No support for 3D models of footprints (yet)
 * No possibility to disable footprints, manufacturers globally (or per category). This should not have a big impact, when you forbid users to edit/create them.
-* No resitor calculator or SMD labels tools
+* No resistor calculator or SMD labels tools
 
 ## Upgrade process
 

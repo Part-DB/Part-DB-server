@@ -27,7 +27,7 @@
 {% block card_content %}
     <p class="text-muted offset-sm-3">
         {% trans %}parts.import.help{% endtrans %}<br>
-        {% trans with {'%link%': 'https://docs.part-db.de/'} %}parts.import.help_documentation{% endtrans %}
+        {% trans with {'%link%': 'https://docs.part-db.de/usage/import_export.html'} %}parts.import.help_documentation{% endtrans %}
     </p>
 
     {{ form(import_form) }}
