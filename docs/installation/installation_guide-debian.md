@@ -199,7 +199,7 @@ sudo nano config/parameters.yaml
 sudo -u www-data php bin/console doctrine:migrations:migrate
 
 # Clear Part-DB cache
-sudo u www-data php bin/console cache:clear
+sudo -u www-data php bin/console cache:clear
 ```
 
 ## MySQL/MariaDB database
