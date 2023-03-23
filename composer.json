@@ -9,6 +9,7 @@
         "ext-intl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
+        "ext-dom": "*",
         "beberlei/doctrineextensions": "^1.2",
         "brick/math": "^0.8.15",
         "composer/package-versions-deprecated": "1.11.99.4",

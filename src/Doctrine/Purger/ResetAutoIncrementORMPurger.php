@@ -179,7 +179,7 @@ class ResetAutoIncrementORMPurger implements PurgerInterface, ORMPurgerInterface
             }
 
             // If the table is excluded, skip it as well
-            if (array_search($tbl, $this->excluded) !== false) {
+            if (in_array($tbl, $this->excluded, true)) {
                 continue;
             }
 
