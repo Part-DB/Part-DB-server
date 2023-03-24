@@ -103,6 +103,10 @@ class ImportPartKeeprCommand extends Command
         $io->info('Importing storage locations...');
         $count = $this->importer->importStorelocations($data);
         $io->success('Imported '.$count.' storage locations.');
+
+        $io->info('Importing parts...');
+        $count = $this->importer->importParts($data);
+        $io->success('Imported '.$count.' parts.');
     }
 
 }

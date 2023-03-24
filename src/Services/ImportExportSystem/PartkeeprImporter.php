@@ -24,26 +24,32 @@ use App\Doctrine\Purger\ResetAutoIncrementORMPurger;
 use App\Doctrine\Purger\ResetAutoIncrementPurgerFactory;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\Contracts\TimeStampableInterface;
+use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use Doctrine\Bundle\FixturesBundle\Purger\ORMPurgerFactory;
 use Doctrine\Bundle\FixturesBundle\Purger\PurgerFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 class PartkeeprImporter
 {
 
     protected EntityManagerInterface $em;
+    protected PropertyAccessorInterface $propertyAccessor;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, PropertyAccessorInterface $propertyAccessor)
     {
         $this->em = $em;
+        $this->propertyAccessor = $propertyAccessor;
     }
 
     public function purgeDatabaseForImport(): void
@@ -256,6 +262,77 @@ class PartkeeprImporter
         return $this->importElementsWithCategory($data, Storelocation::class, 'storagelocation');
     }
 
+    public function importParts(array $data): int
+    {
+        if (!isset($data['part'])) {
+            throw new \RuntimeException('$data must contain a "part" key!');
+        }
+
+
+        $part_data = $data['part'];
+        foreach ($part_data as $part) {
+            $entity = new Part();
+            $entity->setName($part['name']);
+            $entity->setDescription($part['description'] ?? '');
+            //All parts get a tag, that they were imported from PartKeepr
+            $entity->setTags('partkeepr-imported');
+
+            //If the part is a metapart, write that in the description, and we can skip the rest
+            if ($part['metaPart'] === '1') {
+                $entity->setDescription('Metapart (Not supported in Part-DB)');
+                $entity->setComment('This part represents a former metapart in PartKeepr. It is not supported in Part-DB yet. And you can most likely delete it.');
+                $entity->setTags('partkeepr-imported,partkeepr-metapart');
+            } else {
+                $entity->setMinAmount($part['minStockLevel'] ?? 0);
+                if (!empty($part['internalPartNumber'])) {
+                    $entity->setIpn($part['internalPartNumber']);
+                }
+                $entity->setComment($part['comment'] ?? '');
+                $entity->setNeedsReview($part['needsReview'] === '1');
+                $this->setCreationDate($entity, $part['createDate']);
+
+                $this->setAssociationField($entity, 'footprint', Footprint::class, $part['footprint_id']);
+                $this->setAssociationField($entity, 'category', Category::class, $part['category_id']);
+
+                //Set partUnit (when it is not ID=1, which is Pieces in Partkeepr)
+                if ($part['partUnit_id'] !== '1') {
+                    $this->setAssociationField($entity, 'partUnit', MeasurementUnit::class, $part['partUnit_id']);
+                }
+
+                //Create a part lot to store the stock level and location
+                $lot = new PartLot();
+                $lot->setAmount($part['stockLevel'] ?? 0);
+                $this->setAssociationField($lot, 'storage_location', Storelocation::class, $part['storageLocation_id']);
+                $entity->addPartLot($lot);
+
+                //For partCondition, productionsRemarks and Status, create a custom parameter
+                if ($part['partCondition']) {
+                    $partCondition = (new PartParameter())->setName('Part Condition')->setGroup('PartKeepr')
+                        ->setValueText($part['partCondition']);
+                    $entity->addParameter($partCondition);
+                }
+                if ($part['productionRemarks']) {
+                    $partCondition = (new PartParameter())->setName('Production Remarks')->setGroup('PartKeepr')
+                        ->setValueText($part['productionRemarks']);
+                    $entity->addParameter($partCondition);
+                }
+                if ($part['status']) {
+                    $partCondition = (new PartParameter())->setName('Status')->setGroup('PartKeepr')
+                        ->setValueText($part['status']);
+                    $entity->addParameter($partCondition);
+                }
+            }
+
+            $this->setIDOfEntity($entity, $part['id']);
+            $this->em->persist($entity);
+        }
+
+        $this->em->flush();
+
+
+        return count($part_data);
+    }
+
     /**
      * Assigns the parent to the given entity, using the numerical IDs from the imported data.
      * @param  string  $class
@@ -263,7 +340,7 @@ class PartkeeprImporter
      * @param int|string $parent_id
      * @return AbstractStructuralDBElement The structural element that was modified (with $element_id)
      */
-    private function setParent(string $class, $element_id, $parent_id): AbstractStructuralDBElement
+    protected function setParent(string $class, $element_id, $parent_id): AbstractStructuralDBElement
     {
         $element = $this->em->find($class, (int) $element_id);
         if (!$element) {
@@ -285,12 +362,33 @@ class PartkeeprImporter
     }
 
     /**
+     * Sets the given field of the given entity to the entity with the given ID.
+     * @return AbstractDBElement
+     */
+    protected function setAssociationField(AbstractDBElement $element, string $field, string $other_class, $other_id): AbstractDBElement
+    {
+        //If the parent is null, set the field to null and we're done
+        if (!$other_id) {
+            $this->propertyAccessor->setValue($element, $field, null);
+            return $element;
+        }
+
+        $parent = $this->em->find($other_class, (int) $other_id);
+        if (!$parent) {
+            throw new \RuntimeException(sprintf('Could not find other_class with ID %s', $other_id));
+        }
+
+        $this->propertyAccessor->setValue($element, $field, $parent);
+        return $element;
+    }
+
+    /**
      * Set the ID of an entity to a specific value. Must be called before persisting the entity, but before flushing.
      * @param  AbstractDBElement  $element
      * @param  int|string $id
      * @return void
      */
-    public function setIDOfEntity(AbstractDBElement $element, $id): void
+    protected function setIDOfEntity(AbstractDBElement $element, $id): void
     {
         if (!is_int($id) && !is_string($id)) {
             throw new \InvalidArgumentException('ID must be an integer or string');
@@ -302,5 +400,24 @@ class PartkeeprImporter
         $metadata->setIdGeneratorType(ClassMetadataInfo::GENERATOR_TYPE_NONE);
         $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
         $metadata->setIdentifierValues($element, ['id' => $id]);
+    }
+
+    /**
+     * Sets the creation date of an entity to a specific value.
+     * @return void
+     * @throws \Exception
+     */
+    protected function setCreationDate(TimeStampableInterface $entity, ?string $datetime_str)
+    {
+        if ($datetime_str) {
+            $date = new \DateTime($datetime_str);
+        } else {
+            $date = null; //Null means "now" at persist time
+        }
+
+        $reflectionClass = new \ReflectionClass($entity);
+        $property = $reflectionClass->getProperty('addedDate');
+        $property->setAccessible(true);
+        $property->setValue($entity, $date);
     }
 }
