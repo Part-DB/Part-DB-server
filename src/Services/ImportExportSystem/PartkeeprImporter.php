@@ -29,6 +29,7 @@ use App\Entity\Parts\Footprint;
 use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
+use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
 use Doctrine\Bundle\FixturesBundle\Purger\ORMPurgerFactory;
 use Doctrine\Bundle\FixturesBundle\Purger\PurgerFactory;
@@ -176,28 +177,33 @@ class PartkeeprImporter
         return count($partcategory_data);
     }
 
+    /**
+     * The common import functions for footprints and storeloactions
+     * @param  array  $data
+     * @param  string  $target_class
+     * @param  string  $data_prefix
+     * @return int
+     */
     private function importElementsWithCategory(array $data, string $target_class, string $data_prefix): int
     {
+        $key = $data_prefix;
+        $category_key = $data_prefix.'category';
 
-    }
-
-    public function importFootprints(array $data): int
-    {
-        if (!isset($data['footprint'])) {
-            throw new \RuntimeException('$data must contain a "footprint" key!');
+        if (!isset($data[$key])) {
+            throw new \RuntimeException('$data must contain a "'. $key .'" key!');
         }
-        if (!isset($data['footprintcategory'])) {
-            throw new \RuntimeException('$data must contain a "footprintcategory" key!');
+        if (!isset($data[$category_key])) {
+            throw new \RuntimeException('$data must contain a "'. $category_key .'" key!');
         }
 
         //We import the footprints first, as we need the IDs of the footprints be our real DBs later (as we match the part import by ID)
         //As the footprints category is not existing yet, we just skip the parent field for now
-        $footprint_data = $data['footprint'];
+        $footprint_data = $data[$key];
         $max_footprint_id = 0;
         foreach ($footprint_data as $footprint) {
-            $entity = new Footprint();
+            $entity = new $target_class();
             $entity->setName($footprint['name']);
-            $entity->setComment($footprint['description']);
+            $entity->setComment($footprint['description'] ?? '');
 
             $this->setIDOfEntity($entity, $footprint['id']);
             $this->em->persist($entity);
@@ -206,9 +212,9 @@ class PartkeeprImporter
 
         //Import the footprint categories ignoring the parents for now
         //Their IDs are $max_footprint_id + $ID
-        $footprintcategory_data = $data['footprintcategory'];
+        $footprintcategory_data = $data[$category_key];
         foreach ($footprintcategory_data as $footprintcategory) {
-            $entity = new Footprint();
+            $entity = new $target_class();
             $entity->setName($footprintcategory['name']);
             $entity->setComment($footprintcategory['description']);
             //Categories are not assignable to parts, so we set them to not selectable
@@ -224,13 +230,13 @@ class PartkeeprImporter
         foreach ($footprintcategory_data as $footprintcategory) {
             //We have to use the mapped IDs here, as the imported ID is not the effective ID
             if ($footprintcategory['parent_id']) {
-                $this->setParent(Footprint::class, $max_footprint_id + (int)$footprintcategory['id'],
+                $this->setParent($target_class, $max_footprint_id + (int)$footprintcategory['id'],
                     $max_footprint_id + (int)$footprintcategory['parent_id']);
             }
         }
         foreach ($footprint_data as $footprint) {
             if ($footprint['category_id']) {
-                $this->setParent(Footprint::class, $footprint['id'],
+                $this->setParent($target_class, $footprint['id'],
                     $max_footprint_id + (int)$footprint['category_id']);
             }
         }
@@ -238,6 +244,16 @@ class PartkeeprImporter
         $this->em->flush();
 
         return count($footprint_data) + count($footprintcategory_data);
+    }
+
+    public function importFootprints(array $data): int
+    {
+        return $this->importElementsWithCategory($data, Footprint::class, 'footprint');
+    }
+
+    public function importStorelocations(array $data): int
+    {
+        return $this->importElementsWithCategory($data, Storelocation::class, 'storagelocation');
     }
 
     /**

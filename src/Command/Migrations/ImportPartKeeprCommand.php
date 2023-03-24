@@ -99,6 +99,10 @@ class ImportPartKeeprCommand extends Command
         $io->info('Importing Footprints...');
         $count = $this->importer->importFootprints($data);
         $io->success('Imported '.$count.' footprints.');
+
+        $io->info('Importing storage locations...');
+        $count = $this->importer->importStorelocations($data);
+        $io->success('Imported '.$count.' storage locations.');
     }
 
 }
