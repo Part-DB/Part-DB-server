@@ -20,8 +20,10 @@
 
 namespace App\Command\Migrations;
 
-use App\Services\ImportExportSystem\PartkeeprImporter;
-use App\Services\Misc\MySQLDumpXMLConverter;
+use App\Services\ImportExportSystem\PartKeeprImporter\PKDatastructureImporter;
+use App\Services\ImportExportSystem\PartKeeprImporter\MySQLDumpXMLConverter;
+use App\Services\ImportExportSystem\PartKeeprImporter\PKImportHelper;
+use App\Services\ImportExportSystem\PartKeeprImporter\PKPartImporter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -35,14 +37,19 @@ class ImportPartKeeprCommand extends Command
     protected static $defaultName = 'partdb:import-partkeepr';
 
     protected EntityManagerInterface $em;
-    protected PartkeeprImporter $importer;
     protected MySQLDumpXMLConverter $xml_converter;
+    protected PKDatastructureImporter $datastructureImporter;
+    protected PKImportHelper $importHelper;
+    protected PKPartImporter $partImporter;
 
-    public function __construct(EntityManagerInterface $em, PartkeeprImporter $importer, MySQLDumpXMLConverter $xml_converter)
+    public function __construct(EntityManagerInterface $em, MySQLDumpXMLConverter $xml_converter,
+        PKDatastructureImporter $datastructureImporter, PKPartImporter $partImporter, PKImportHelper $importHelper)
     {
         parent::__construct(self::$defaultName);
         $this->em = $em;
-        $this->importer = $importer;
+        $this->datastructureImporter = $datastructureImporter;
+        $this->importHelper = $importHelper;
+        $this->partImporter = $partImporter;
         $this->xml_converter = $xml_converter;
     }
 
@@ -63,7 +70,7 @@ class ImportPartKeeprCommand extends Command
         //$io->confirm('This will delete all data in the database. Do you want to continue?', false);
 
         //Purge the databse, so we will not have any conflicts
-        $this->importer->purgeDatabaseForImport();
+        $this->importHelper->purgeDatabaseForImport();
 
         //Convert the XML file to an array
         $xml = file_get_contents($input_path);
@@ -75,37 +82,37 @@ class ImportPartKeeprCommand extends Command
         return 0;
     }
 
-    private function doImport(SymfonyStyle $io, array $data)
+    private function doImport(SymfonyStyle $io, array $data): void
     {
         //First import the distributors
         $io->info('Importing distributors...');
-        $count = $this->importer->importDistributors($data);
+        $count = $this->datastructureImporter->importDistributors($data);
         $io->success('Imported '.$count.' distributors.');
 
         //Import the measurement units
         $io->info('Importing part measurement units...');
-        $count = $this->importer->importPartUnits($data);
+        $count = $this->datastructureImporter->importPartUnits($data);
         $io->success('Imported '.$count.' measurement units.');
 
         //Import manufacturers
         $io->info('Importing manufacturers...');
-        $count = $this->importer->importManufacturers($data);
+        $count = $this->datastructureImporter->importManufacturers($data);
         $io->success('Imported '.$count.' manufacturers.');
 
         $io->info('Importing categories...');
-        $count = $this->importer->importCategories($data);
+        $count = $this->datastructureImporter->importCategories($data);
         $io->success('Imported '.$count.' categories.');
 
         $io->info('Importing Footprints...');
-        $count = $this->importer->importFootprints($data);
+        $count = $this->datastructureImporter->importFootprints($data);
         $io->success('Imported '.$count.' footprints.');
 
         $io->info('Importing storage locations...');
-        $count = $this->importer->importStorelocations($data);
+        $count = $this->datastructureImporter->importStorelocations($data);
         $io->success('Imported '.$count.' storage locations.');
 
         $io->info('Importing parts...');
-        $count = $this->importer->importParts($data);
+        $count = $this->partImporter->importParts($data);
         $io->success('Imported '.$count.' parts.');
     }
 

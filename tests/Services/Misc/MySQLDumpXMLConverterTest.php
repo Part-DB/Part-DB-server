@@ -20,7 +20,7 @@
 
 namespace App\Tests\Services\Misc;
 
-use App\Services\Misc\MySQLDumpXMLConverter;
+use App\Services\ImportExportSystem\PartKeeprImporter\MySQLDumpXMLConverter;
 use PHPUnit\Framework\TestCase;
 
 class MySQLDumpXMLConverterTest extends TestCase

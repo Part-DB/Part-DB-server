@@ -18,7 +18,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace App\Services\Misc;
+namespace App\Services\ImportExportSystem\PartKeeprImporter;
 
 class MySQLDumpXMLConverter
 {
