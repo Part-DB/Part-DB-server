@@ -276,6 +276,7 @@ class PartkeeprImporter
             $entity->setDescription($part['description'] ?? '');
             //All parts get a tag, that they were imported from PartKeepr
             $entity->setTags('partkeepr-imported');
+            $this->setAssociationField($entity, 'category', Category::class, $part['category_id']);
 
             //If the part is a metapart, write that in the description, and we can skip the rest
             if ($part['metaPart'] === '1') {
@@ -292,7 +293,6 @@ class PartkeeprImporter
                 $this->setCreationDate($entity, $part['createDate']);
 
                 $this->setAssociationField($entity, 'footprint', Footprint::class, $part['footprint_id']);
-                $this->setAssociationField($entity, 'category', Category::class, $part['category_id']);
 
                 //Set partUnit (when it is not ID=1, which is Pieces in Partkeepr)
                 if ($part['partUnit_id'] !== '1') {
@@ -329,8 +329,88 @@ class PartkeeprImporter
 
         $this->em->flush();
 
+        $this->importPartManufacturers($data);
+        $this->importPartParameters($data);
 
         return count($part_data);
+    }
+
+    protected function importPartManufacturers(array $data): void
+    {
+        if (!isset($data['partmanufacturer'])) {
+            throw new \RuntimeException('$data must contain a "partmanufacturer" key!');
+        }
+
+        //Part-DB only supports one manufacturer per part, only the last one is imported
+        $partmanufacturer_data = $data['partmanufacturer'];
+        foreach ($partmanufacturer_data as $partmanufacturer) {
+            /** @var Part $part */
+            $part = $this->em->find(Part::class, (int) $partmanufacturer['part_id']);
+            if (!$part) {
+                throw new \RuntimeException(sprintf('Could not find part with ID %s', $partmanufacturer['part_id']));
+            }
+            $manufacturer = $this->em->find(Manufacturer::class, (int) $partmanufacturer['manufacturer_id']);
+            if (!$manufacturer) {
+                throw new \RuntimeException(sprintf('Could not find manufacturer with ID %s', $partmanufacturer['manufacturer_id']));
+            }
+            $part->setManufacturer($manufacturer);
+            $part->setManufacturerProductNumber($partmanufacturer['partNumber']);
+        }
+
+        $this->em->flush();
+    }
+
+    protected function importPartParameters(array $data): void
+    {
+        if (!isset($data['partparameter'])) {
+            throw new \RuntimeException('$data must contain a "partparameter" key!');
+        }
+
+        foreach ($data['partparameter'] as $partparameter) {
+            $entity = new PartParameter();
+
+            //Name format: Name (Description)
+            $name = $partparameter['name'];
+            if (!empty($partparameter['description'])) {
+                $name .= ' ('.$partparameter['description'].')';
+            }
+            $entity->setName($name);
+
+            $entity->setValueText($partparameter['stringValue'] ?? '');
+            $entity->setUnit($this->getUnitSymbol($data, (int) $partparameter['unit_id']));
+
+            $entity->setValueMin($partparameter['normalizedMinValue'] ?? null);
+            $entity->setValueTypical($partparameter['normalizedValue'] ?? null);
+            $entity->setValueMax($partparameter['normalizedMaxValue'] ?? null);
+
+            $part = $this->em->find(Part::class, (int) $partparameter['part_id']);
+            if (!$part) {
+                throw new \RuntimeException(sprintf('Could not find part with ID %s', $partparameter['part_id']));
+            }
+
+            $part->addParameter($entity);
+            $this->em->persist($entity);
+        }
+        $this->em->flush();
+    }
+
+
+
+    /**
+     * Returns the (parameter) unit symbol for the given ID.
+     * @param  array  $data
+     * @param  int  $id
+     * @return string
+     */
+    protected function getUnitSymbol(array $data, int $id): string
+    {
+        foreach ($data['unit'] as $unit) {
+            if ((int) $unit['id'] === $id) {
+                return $unit['symbol'];
+            }
+        }
+
+        throw new \RuntimeException(sprintf('Could not find unit with ID %s', $id));
     }
 
     /**
