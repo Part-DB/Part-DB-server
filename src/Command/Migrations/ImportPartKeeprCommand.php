@@ -91,6 +91,14 @@ class ImportPartKeeprCommand extends Command
         $io->info('Importing manufacturers...');
         $count = $this->importer->importManufacturers($data);
         $io->success('Imported '.$count.' manufacturers.');
+
+        $io->info('Importing categories...');
+        $count = $this->importer->importCategories($data);
+        $io->success('Imported '.$count.' categories.');
+
+        $io->info('Importing Footprints...');
+        $count = $this->importer->importFootprints($data);
+        $io->success('Imported '.$count.' footprints.');
     }
 
 }
