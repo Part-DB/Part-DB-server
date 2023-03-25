@@ -28,7 +28,7 @@ It is installed on a web server and so can be accessed with any browser without 
 * User system with groups and detailed (fine granular) permissions.
   Two-factor authentication is supported (Google Authenticator and Webauthn/U2F keys) and can be enforced for groups. Password reset via email can be setuped.
 * Optional support for single sign-on (SSO) via SAML (using an intermediate service like [Keycloak](https://www.keycloak.org/) you can connect Part-DB to an existing LDAP or Active Directory server)
-* Import/Export system (partial working)
+* Import/Export system
 * Project management: Create projects and assign parts to the bill of material (BOM), to show how often you could build this project and directly withdraw all components needed from DB
 * Event log: Track what changes happens to your inventory, track which user does what. Revert your parts to older versions.
 * Responsive design: You can use Part-DB on your PC, your tablet and your smartphone using the same interface.
@@ -36,7 +36,7 @@ It is installed on a web server and so can be accessed with any browser without 
 * Support for rich text descriptions and comments in parts
 * Support for multiple currencies and automatic update of exchange rates supported
 * Powerful search and filter function, including parametric search (search for parts according to some specifications)
-
+* Easy migration from an existing PartKeepr instance (see [here]({%link partkeepr_migration.md %}))
 
 With these features Part-DB is useful to hobbyists, who want to keep track of their private electronic parts inventory,
 or makerspaces, where many users have should have (controlled) access to the shared inventory.

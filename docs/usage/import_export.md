@@ -16,6 +16,8 @@ Part-DB offers the possibility to import existing data (parts, datastructures, e
 > administrators. If you want to allow other users to import data, or can not import data, check the permissions of the user. You can enable import for each data structure
 > individually in the permissions settings.
 
+If you want to import data from PartKeepr you might want to look into the [PartKeepr migration guide]({% link upgrade_legacy.md %}).
+
 ### Import parts
 
 Part-DB supports the import of parts from CSV files and other formats. This can be used to import existing parts from other databases or datasources into Part-DB. The import can be done via the "Tools -> Import parts" page, which you can find in the "Tools" sidebar panel.
