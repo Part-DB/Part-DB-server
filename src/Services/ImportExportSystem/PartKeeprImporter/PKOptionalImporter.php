@@ -20,6 +20,7 @@
 
 namespace App\Services\ImportExportSystem\PartKeeprImporter;
 
+use App\Entity\Attachments\ProjectAttachment;
 use App\Entity\Parts\Part;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
@@ -95,6 +96,8 @@ class PKOptionalImporter
             $project->addBomEntry($bom_entry);
         }
         $this->em->flush();
+
+        $this->importAttachments($data, 'projectattachment', Project::class, 'project_id', ProjectAttachment::class);
 
         return count($projects_data);
     }

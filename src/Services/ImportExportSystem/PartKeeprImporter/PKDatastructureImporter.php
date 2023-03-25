@@ -21,6 +21,9 @@
 namespace App\Services\ImportExportSystem\PartKeeprImporter;
 
 use App\Doctrine\Purger\ResetAutoIncrementORMPurger;
+use App\Entity\Attachments\FootprintAttachment;
+use App\Entity\Attachments\ManufacturerAttachment;
+use App\Entity\Attachments\StorelocationAttachment;
 use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Contracts\TimeStampableInterface;
@@ -124,6 +127,8 @@ class PKDatastructureImporter
         $this->em->persist($parent_manufacturer);
 
         $this->em->flush();
+
+        $this->importAttachments($data, 'manufacturericlogo', Manufacturer::class, 'manufacturer_id', ManufacturerAttachment::class);
 
         return count($manufacturer_data);
     }
@@ -249,11 +254,22 @@ class PKDatastructureImporter
 
     public function importFootprints(array $data): int
     {
-        return $this->importElementsWithCategory($data, Footprint::class, 'footprint');
+        $count = $this->importElementsWithCategory($data, Footprint::class, 'footprint');
+
+        //Footprints have both attachments and images
+        $this->importAttachments($data, 'footprintattachment', Footprint::class, 'footprint_id', FootprintAttachment::class);
+        $this->importAttachments($data, 'footprintimage', Footprint::class, 'footprint_id', FootprintAttachment::class);
+
+        return $count;
     }
 
     public function importStorelocations(array $data): int
     {
-        return $this->importElementsWithCategory($data, Storelocation::class, 'storagelocation');
+        $count = $this->importElementsWithCategory($data, Storelocation::class, 'storagelocation');
+
+        //Footprints have both attachments and images
+        $this->importAttachments($data, 'storagelocationimage', Storelocation::class, 'footprint_id', StorelocationAttachment::class);
+
+        return $count;
     }
 }

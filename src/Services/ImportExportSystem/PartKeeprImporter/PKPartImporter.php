@@ -20,6 +20,7 @@
 
 namespace App\Services\ImportExportSystem\PartKeeprImporter;
 
+use App\Entity\Attachments\PartAttachment;
 use App\Entity\Parameters\PartParameter;
 use App\Entity\Parts\Category;
 use App\Entity\Parts\Footprint;
@@ -118,6 +119,9 @@ class PKPartImporter
         $this->importPartManufacturers($data);
         $this->importPartParameters($data);
         $this->importOrderdetails($data);
+
+        //Import attachments
+        $this->importAttachments($data, 'partattachment', Part::class, 'part_id', PartAttachment::class);
 
         return count($part_data);
     }
