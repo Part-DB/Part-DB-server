@@ -36,7 +36,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ImportPartKeeprCommand extends Command
 {
 
-    protected static $defaultName = 'partdb:import-partkeepr';
+    protected static $defaultName = 'partdb:migrations:import-partkeepr';
 
     protected EntityManagerInterface $em;
     protected MySQLDumpXMLConverter $xml_converter;
@@ -60,7 +60,8 @@ class ImportPartKeeprCommand extends Command
 
     protected function configure()
     {
-        $this->setDescription('Import a PartKeepr database dump into Part-DB');
+        $this->setDescription('Import a PartKeepr database XML dump into Part-DB');
+        $this->setHelp('This command allows you to import a PartKeepr database exported by mysqldump as XML file into Part-DB');
 
         $this->addArgument('file', InputArgument::REQUIRED, 'The file to which should be imported.');
 
@@ -75,6 +76,16 @@ class ImportPartKeeprCommand extends Command
         $input_path = $input->getArgument('file');
         $no_projects_import = $input->getOption('no-projects');
         $import_users = $input->getOption('import-users');
+
+        $io->note('This command is still in development. If you encounter any problems, please report them to the issue tracker on GitHub.');
+        $io->warning('This command will delete all existing data in the database (except users). Make sure that you have no important data in the database before you continue!');
+
+        $io->ask('Please type "DELETE ALL DATA" to continue.', '', function ($answer) {
+            if (strtoupper($answer) !== 'DELETE ALL DATA') {
+                throw new \RuntimeException('You did not type "DELETE ALL DATA"!');
+            }
+            return $answer;
+        });
 
         //Make more checks here
         //$io->confirm('This will delete all data in the database. Do you want to continue?', false);
