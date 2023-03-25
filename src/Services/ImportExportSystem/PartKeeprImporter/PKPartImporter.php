@@ -28,6 +28,10 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
+use App\Entity\Parts\Supplier;
+use App\Entity\PriceInformations\Orderdetail;
+use App\Entity\PriceInformations\Pricedetail;
+use Brick\Math\BigDecimal;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
@@ -113,6 +117,7 @@ class PKPartImporter
 
         $this->importPartManufacturers($data);
         $this->importPartParameters($data);
+        $this->importOrderdetails($data);
 
         return count($part_data);
     }
@@ -174,6 +179,64 @@ class PKPartImporter
             $this->em->persist($entity);
         }
         $this->em->flush();
+    }
+
+    protected function importOrderdetails(array $data): void
+    {
+        if (!isset($data['partdistributor'])) {
+            throw new \RuntimeException('$data must contain a "partdistributor" key!');
+        }
+
+        foreach ($data['partdistributor'] as $partdistributor) {
+            //Retrieve the part
+            $part = $this->em->find(Part::class, (int) $partdistributor['part_id']);
+            if (!$part) {
+                throw new \RuntimeException(sprintf('Could not find part with ID %s', $partdistributor['part_id']));
+            }
+            //Retrieve the distributor
+            $supplier = $this->em->find(Supplier::class, (int) $partdistributor['distributor_id']);
+            if (!$supplier) {
+                throw new \RuntimeException(sprintf('Could not find supplier with ID %s', $partdistributor['distributor_id']));
+            }
+
+            //Check if the part already has an orderdetail for this supplier and ordernumber
+            if (empty($partdistributor['orderNumber']) && !empty($partdistributor['sku'])) {
+                $spn = $partdistributor['sku'];
+            } elseif (!empty($partdistributor['orderNumber']) && empty($partdistributor['sku'])) {
+                $spn = $partdistributor['orderNumber'];
+            } elseif (!empty($partdistributor['orderNumber']) && !empty($partdistributor['sku'])) {
+                $spn = $partdistributor['orderNumber'] . ' (' . $partdistributor['sku'] . ')';
+            } else {
+                $spn = 'PartKeepr Import';
+            }
+
+            $orderdetail = $this->em->getRepository(Orderdetail::class)->findOneBy([
+                'part' => $part,
+                'supplier' => $supplier,
+                'supplierpartnr' => $spn,
+            ]);
+
+            //When no orderdetail exists, create one
+            if (!$orderdetail) {
+                $orderdetail = new Orderdetail();
+                $orderdetail->setSupplier($supplier);
+                $orderdetail->setSupplierpartnr($spn);
+                $part->addOrderdetail($orderdetail);
+            }
+
+            //Add the price information to the orderdetail
+            if (!empty($partdistributor['price'])) {
+                $pricedetail = new Pricedetail();
+                $orderdetail->addPricedetail($pricedetail);
+                //Partkeepr stores the price per item, we need to convert it to the price per packaging unit
+                $price_per_item = BigDecimal::of($partdistributor['price']);
+                $pricedetail->setPrice($price_per_item->multipliedBy($partdistributor['packagingUnit']));
+                $pricedetail->setPriceRelatedQuantity($partdistributor['packagingUnit'] ?? 1);
+            }
+
+            //We have to flush the changes in every loop, so the find function can find newly created entities
+            $this->em->flush();
+        }
     }
 
     /**
