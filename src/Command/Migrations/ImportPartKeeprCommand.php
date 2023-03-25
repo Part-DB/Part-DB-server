@@ -86,6 +86,12 @@ class ImportPartKeeprCommand extends Command
         $xml = file_get_contents($input_path);
         $data = $this->xml_converter->convertMySQLDumpXMLDataToArrayStructure($xml);
 
+        if (!$this->importHelper->checkVersion($data)) {
+            $db_version = $this->importHelper->getDatabaseSchemaVersion($data);
+            $io->error('The version of the imported database is not supported! (Version: '.$db_version.')');
+            return 1;
+        }
+
         //Import the mandatory data
         $this->doImport($io, $data);
 

@@ -47,4 +47,28 @@ class PKImportHelper
         $purger = new ResetAutoIncrementORMPurger($this->em, ['users', '"users"', 'groups', '"groups"', 'u2f_keys', 'internal', 'migration_versions']);
         $purger->purge();
     }
+
+    /**
+     * Extracts the current database schema version from the PartKeepr XML dump.
+     * @param  array  $data
+     * @return string
+     */
+    public function getDatabaseSchemaVersion(array $data): string
+    {
+        if (!isset($data['schemaversions'])) {
+            throw new \RuntimeException('Could not find schema version in XML dump!');
+        }
+
+        return end($data['schemaversions'])['version'];
+    }
+
+    /**
+     * Checks that the database schema of the PartKeepr XML dump is compatible with the importer
+     * @param  array  $data
+     * @return bool True if the schema is compatible, false otherwise
+     */
+    public function checkVersion(array $data): bool
+    {
+        return $this->getDatabaseSchemaVersion($data) === '20170601175559';
+    }
 }
