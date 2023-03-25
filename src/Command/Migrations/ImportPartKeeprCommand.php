@@ -24,10 +24,12 @@ use App\Services\ImportExportSystem\PartKeeprImporter\PKDatastructureImporter;
 use App\Services\ImportExportSystem\PartKeeprImporter\MySQLDumpXMLConverter;
 use App\Services\ImportExportSystem\PartKeeprImporter\PKImportHelper;
 use App\Services\ImportExportSystem\PartKeeprImporter\PKPartImporter;
+use App\Services\ImportExportSystem\PartKeeprImporter\PKOptionalImporter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -41,9 +43,11 @@ class ImportPartKeeprCommand extends Command
     protected PKDatastructureImporter $datastructureImporter;
     protected PKImportHelper $importHelper;
     protected PKPartImporter $partImporter;
+    protected PKOptionalImporter $optionalImporter;
 
     public function __construct(EntityManagerInterface $em, MySQLDumpXMLConverter $xml_converter,
-        PKDatastructureImporter $datastructureImporter, PKPartImporter $partImporter, PKImportHelper $importHelper)
+        PKDatastructureImporter $datastructureImporter, PKPartImporter $partImporter, PKImportHelper $importHelper,
+        PKOptionalImporter $optionalImporter)
     {
         parent::__construct(self::$defaultName);
         $this->em = $em;
@@ -51,6 +55,7 @@ class ImportPartKeeprCommand extends Command
         $this->importHelper = $importHelper;
         $this->partImporter = $partImporter;
         $this->xml_converter = $xml_converter;
+        $this->optionalImporter = $optionalImporter;
     }
 
     protected function configure()
@@ -58,6 +63,9 @@ class ImportPartKeeprCommand extends Command
         $this->setDescription('Import a PartKeepr database dump into Part-DB');
 
         $this->addArgument('file', InputArgument::REQUIRED, 'The file to which should be imported.');
+
+        $this->addOption('--no-projects', null, InputOption::VALUE_NONE, 'Do not import projects.');
+        $this->addOption('--import-users', null, InputOption::VALUE_NONE, 'Import users (passwords will not be imported).');
     }
 
     public function execute(InputInterface $input, OutputInterface $output)
@@ -65,6 +73,8 @@ class ImportPartKeeprCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $input_path = $input->getArgument('file');
+        $no_projects_import = $input->getOption('no-projects');
+        $import_users = $input->getOption('import-users');
 
         //Make more checks here
         //$io->confirm('This will delete all data in the database. Do you want to continue?', false);
@@ -76,8 +86,20 @@ class ImportPartKeeprCommand extends Command
         $xml = file_get_contents($input_path);
         $data = $this->xml_converter->convertMySQLDumpXMLDataToArrayStructure($xml);
 
-        //Import the data
+        //Import the mandatory data
         $this->doImport($io, $data);
+
+        if (!$no_projects_import) {
+            $io->info('Importing projects...');
+            $count = $this->optionalImporter->importProjects($data);
+            $io->success('Imported '.$count.' projects.');
+        }
+
+        if ($import_users) {
+            $io->info('Importing users...');
+            $count = $this->optionalImporter->importUsers($data);
+            $io->success('Imported '.$count.' users.');
+        }
 
         return 0;
     }
