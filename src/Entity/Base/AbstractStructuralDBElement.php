@@ -340,11 +340,11 @@ abstract class AbstractStructuralDBElement extends AttachmentContainingDBElement
     /**
      *  Set the comment.
      *
-     * @param  string|null  $new_comment  the new comment
+     * @param  string  $new_comment  the new comment
      *
      * @return AbstractStructuralDBElement
      */
-    public function setComment(?string $new_comment): self
+    public function setComment(string $new_comment): self
     {
         $this->comment = $new_comment;
 

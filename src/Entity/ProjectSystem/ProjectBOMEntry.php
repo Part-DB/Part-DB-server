@@ -58,7 +58,7 @@ class ProjectBOMEntry extends AbstractDBElement
      * @var string A comma separated list of the names, where this parts should be placed
      * @ORM\Column(type="text", name="mountnames")
      */
-    protected string $mountnames;
+    protected string $mountnames = '';
 
     /**
      * @var string An optional name describing this BOM entry (useful for non-part entries)
