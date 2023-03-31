@@ -24,9 +24,13 @@ namespace App\Services\Attachments;
 
 use App\Entity\Attachments\Attachment;
 use InvalidArgumentException;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Liip\ImagineBundle\Service\FilterService;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\UrlHelper;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 use function strlen;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -38,19 +42,19 @@ class AttachmentURLGenerator
     protected AttachmentPathResolver $pathResolver;
     protected UrlGeneratorInterface $urlGenerator;
     protected AttachmentManager $attachmentHelper;
-    protected FilterService $filterService;
+    protected CacheManager $thumbnailManager;
 
     protected LoggerInterface $logger;
 
     public function __construct(Packages $assets, AttachmentPathResolver $pathResolver,
                                 UrlGeneratorInterface $urlGenerator, AttachmentManager $attachmentHelper,
-                                FilterService $filterService, LoggerInterface $logger)
+        CacheManager $thumbnailManager, LoggerInterface $logger)
     {
         $this->assets = $assets;
         $this->pathResolver = $pathResolver;
         $this->urlGenerator = $urlGenerator;
         $this->attachmentHelper = $attachmentHelper;
-        $this->filterService = $filterService;
+        $this->thumbnailManager = $thumbnailManager;
         $this->logger = $logger;
 
         //Determine a normalized path to the public folder (assets are relative to this folder)
@@ -145,7 +149,7 @@ class AttachmentURLGenerator
             return $this->urlGenerator->generate('attachment_view', ['id' => $attachment->getID()]);
         }
 
-        //For builtin ressources it is not useful to create a thumbnail
+        //For builtin resources it is not useful to create a thumbnail
         //because the footprints images are small and highly optimized already.
         if (('thumbnail_md' === $filter_name && $attachment->isBuiltIn())
             //GD can not work with SVG, so serve it directly...
@@ -154,8 +158,10 @@ class AttachmentURLGenerator
         }
 
         try {
-            //Otherwise we can serve the relative path via Asset component
-            return $this->filterService->getUrlOfFilteredImage($asset_path, $filter_name);
+            //We try to get network path here (so no schema), but this param might just get ignored by the cache manager
+            $tmp = $this->thumbnailManager->getBrowserPath($asset_path, $filter_name, [], null, UrlGeneratorInterface::NETWORK_PATH);
+            //So we remove the schema manually
+            return preg_replace('/^https?:/', '', $tmp);
         } catch (\Imagine\Exception\RuntimeException $e) {
             //If the filter fails, we can not serve the thumbnail and fall back to the original image and log an warning
             $this->logger->warning('Could not open thumbnail for attachment with ID ' . $attachment->getID() . ': ' . $e->getMessage());
