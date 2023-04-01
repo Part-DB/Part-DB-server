@@ -16,7 +16,7 @@ liip_imagine:
 
 
         thumbnail_md:
-            quality: 80
+            quality: 90
             filters:
                 thumbnail:
                     size: [250, 250]
