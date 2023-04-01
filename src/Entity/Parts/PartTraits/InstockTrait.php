@@ -39,7 +39,7 @@ trait InstockTrait
      * @ORM\OneToMany(targetEntity="PartLot", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      * @ORM\OrderBy({"amount" = "DESC"})
-     * @Groups({"extended", "full"})
+     * @Groups({"extended", "full", "import"})
      */
     protected $partLots;
 

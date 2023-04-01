@@ -40,7 +40,7 @@ trait OrderTrait
      * @ORM\OneToMany(targetEntity="App\Entity\PriceInformations\Orderdetail", mappedBy="part", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Assert\Valid()
      * @ORM\OrderBy({"supplierpartnr" = "ASC"})
-     * @Groups({"extended", "full"})
+     * @Groups({"extended", "full", "import"})
      */
     protected $orderdetails;
 

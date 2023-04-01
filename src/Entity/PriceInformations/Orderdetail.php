@@ -344,7 +344,7 @@ class Orderdetail extends AbstractDBElement implements TimeStampableInterface, N
     public function setSupplierProductUrl(string $new_url): self
     {
         //Only change the internal URL if it is not the auto generated one
-        if ($new_url === $this->supplier->getAutoProductUrl($this->getSupplierPartNr())) {
+        if ($this->supplier && $new_url === $this->supplier->getAutoProductUrl($this->getSupplierPartNr())) {
             return $this;
         }
 
