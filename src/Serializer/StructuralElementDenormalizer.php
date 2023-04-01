@@ -32,7 +32,7 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 class StructuralElementDenormalizer implements ContextAwareDenormalizerInterface, CacheableSupportsMethodInterface
 {
 
-    private NormalizerInterface $normalizer;
+    private DenormalizerInterface $normalizer;
     private EntityManagerInterface $entityManager;
 
     private array $object_cache = [];
