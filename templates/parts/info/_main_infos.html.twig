@@ -15,7 +15,13 @@
             {% endif %}
             {% if part.manufacturerProductUrl %}
                 <small>
-                    <a class="link-external" href="{{ part.manufacturerProductUrl }}" rel="noopener" target="_blank">{{ part.manufacturerProductNumber }}</a>
+                    <a class="link-external" href="{{ part.manufacturerProductUrl }}" rel="noopener" target="_blank">
+                        {% if part.manufacturerProductNumber is not empty %}
+                            {{ part.manufacturerProductNumber }}
+                        {% else %}
+                            <i>{{ part.name }}</i>
+                        {% endif %}
+                    </a>
                 </small>
             {% else %}
                 <small>{{ part.manufacturerProductNumber }}</small>
