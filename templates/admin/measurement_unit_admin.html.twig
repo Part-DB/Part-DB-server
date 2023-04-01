@@ -4,6 +4,14 @@
     <i class="fas fa-balance-scale fa-fw"></i> {% trans %}measurement_unit.caption{% endtrans %}
 {% endblock %}
 
+{% block edit_title %}
+    {% trans %}measurement_unit.edit{% endtrans %}: {{ entity.name }}
+{% endblock %}
+
+{% block new_title %}
+    {% trans %}measurement_unit.new{% endtrans %}
+{% endblock %}
+
 {% block additional_controls %}
     {{ form_row(form.unit) }}
     {{ form_row(form.is_integer) }}
