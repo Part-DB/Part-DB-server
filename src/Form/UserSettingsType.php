@@ -24,6 +24,7 @@ namespace App\Form;
 
 use App\Entity\UserSystem\User;
 use App\Form\Type\CurrencyEntityType;
+use App\Form\Type\RichTextEditorType;
 use App\Form\Type\ThemeChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\PreSetDataEvent;
@@ -92,6 +93,16 @@ class UserSettingsType extends AbstractType
                         'maxSize' => '2M',
                     ]),
                 ],
+            ])
+            ->add('aboutMe', RichTextEditorType::class, [
+                'required' => false,
+                'empty_data' => '',
+                'label' => 'user.aboutMe.label',
+                'attr' => [
+                    'rows' => 4,
+                ],
+                'mode' => 'markdown-full',
+                'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
             ->add('language', LanguageType::class, [
                 'disabled' => $this->demo_mode,

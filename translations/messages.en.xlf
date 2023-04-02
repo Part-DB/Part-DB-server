@@ -11199,5 +11199,11 @@ Element 3</target>
         <target>Edit Measurement Unit</target>
       </segment>
     </unit>
+    <unit id="gRatnCn" name="user.aboutMe.label">
+      <segment>
+        <source>user.aboutMe.label</source>
+        <target>About Me</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

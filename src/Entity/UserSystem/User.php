@@ -633,6 +633,28 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     }
 
     /**
+     * Returns the about me text of the user.
+     * @return string
+     */
+    public function getAboutMe(): string
+    {
+        return $this->aboutMe;
+    }
+
+    /**
+     * Change the about me text of the user.
+     * @param  string  $aboutMe
+     * @return User
+     */
+    public function setAboutMe(string $aboutMe): User
+    {
+        $this->aboutMe = $aboutMe;
+        return $this;
+    }
+
+
+
+    /**
      * Gets the language the user prefers (as 2 letter ISO code).
      *
      * @return string|null The 2 letter ISO code of the preferred language (e.g. 'en' or 'de').
