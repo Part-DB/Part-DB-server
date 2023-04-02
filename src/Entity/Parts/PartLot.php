@@ -34,6 +34,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * This entity describes a lot where parts can be stored.
@@ -332,10 +333,26 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
         return $this;
     }
 
-
-
     public function getName(): string
     {
         return $this->description;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
+        //When the storage location sets the owner must match, the part lot owner must match the storage location owner
+        if ($this->getStorageLocation() && $this->getStorageLocation()->isPartOwnerMustMatch()
+            && $this->getStorageLocation()->getOwner() && $this->getOwner()) {
+            if ($this->getOwner() !== $this->getStorageLocation()->getOwner()
+                && $this->owner->getID() !== $this->getStorageLocation()->getOwner()->getID()) {
+                $context->buildViolation('validator.part_lot.owner_must_match_storage_location_owner')
+                    ->setParameter('%owner_name%', $this->getStorageLocation()->getOwner()->getFullName(true))
+                    ->atPath('owner')
+                    ->addViolation();
+            }
+        }
     }
 }
