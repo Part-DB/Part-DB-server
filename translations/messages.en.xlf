@@ -11217,5 +11217,17 @@ Element 3</target>
         <target>Part Lot owner must match storage location owner</target>
       </segment>
     </unit>
+    <unit id="sddE1L." name="part_lot.owner">
+      <segment>
+        <source>part_lot.owner</source>
+        <target>Owner</target>
+      </segment>
+    </unit>
+    <unit id="XKIMr8j" name="part_lot.owner.help">
+      <segment>
+        <source>part_lot.owner.help</source>
+        <target>Only the owner can withdraw or add stock to this lot.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
