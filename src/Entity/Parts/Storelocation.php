@@ -99,7 +99,7 @@ class Storelocation extends AbstractPartsContainingDBElement
 
     /**
      * @var bool If this is set to true, only parts lots, which are owned by the same user as the store location are allowed to be stored here.
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default"=false})
      */
     protected bool $part_owner_must_match = false;
 

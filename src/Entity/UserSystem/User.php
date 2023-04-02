@@ -261,7 +261,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * @var DateTime the time until the password reset token is valid
-     * @ORM\Column(type="datetime", nullable=true, columnDefinition="DEFAULT NULL")
+     * @ORM\Column(type="datetime", nullable=true, options={"default": null})
      */
     protected $pw_reset_expires;
 
