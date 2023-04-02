@@ -15,7 +15,7 @@ final class Version20230402170923 extends AbstractMultiPlatformMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Create database schema for user aboutMe and part lot owners';
     }
 
     public function mySQLUp(Schema $schema): void
@@ -24,10 +24,12 @@ final class Version20230402170923 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE part_lots ADD CONSTRAINT FK_EBC8F94321E5A74C FOREIGN KEY (id_owner) REFERENCES `users` (id) ON DELETE SET NULL');
         $this->addSql('CREATE INDEX IDX_EBC8F94321E5A74C ON part_lots (id_owner)');
         $this->addSql('ALTER TABLE projects ADD CONSTRAINT FK_5C93B3A4727ACA70 FOREIGN KEY (parent_id) REFERENCES projects (id)');
-        $this->addSql('ALTER TABLE storelocations ADD id_owner INT DEFAULT NULL, ADD part_owner_must_match TINYINT(1) NOT NULL');
+        $this->addSql('ALTER TABLE storelocations ADD id_owner INT DEFAULT NULL, ADD part_owner_must_match TINYINT(1) DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE storelocations ADD CONSTRAINT FK_751702021E5A74C FOREIGN KEY (id_owner) REFERENCES `users` (id) ON DELETE SET NULL');
         $this->addSql('CREATE INDEX IDX_751702021E5A74C ON storelocations (id_owner)');
         $this->addSql('ALTER TABLE users ADD about_me LONGTEXT DEFAULT \'\' NOT NULL');
+
+        $this->addSql('ALTER TABLE projects CHANGE description description LONGTEXT DEFAULT \'\' NOT NULL');
     }
 
     public function mySQLDown(Schema $schema): void
