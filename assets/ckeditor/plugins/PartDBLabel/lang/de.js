@@ -55,6 +55,8 @@ Object.assign( window.CKEDITOR_TRANSLATIONS[ 'de' ].dictionary, {
     'Lot amount': 'Lot Menge',
     'Storage location': 'Lagerort',
     'Storage location (Full path)': 'Lagerort (Vollständiger Pfad)',
+    'Full name of the lot owner': 'Name des Besitzers des Lots',
+    'Username of the lot owner': 'Benutzername des Besitzers des Lots',
 
 
     'Barcodes': 'Barcodes',
