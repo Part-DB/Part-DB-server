@@ -11229,5 +11229,29 @@ Element 3</target>
         <target>Only the owner can withdraw or add stock to this lot.</target>
       </segment>
     </unit>
+    <unit id="61.yfNy" name="log.element_edited.changed_fields.owner">
+      <segment>
+        <source>log.element_edited.changed_fields.owner</source>
+        <target>Owner</target>
+      </segment>
+    </unit>
+    <unit id="YkZAIS8" name="log.element_edited.changed_fields.instock_unknown">
+      <segment>
+        <source>log.element_edited.changed_fields.instock_unknown</source>
+        <target>Amount unknown</target>
+      </segment>
+    </unit>
+    <unit id="xf7NNZ9" name="log.element_edited.changed_fields.needs_refill">
+      <segment>
+        <source>log.element_edited.changed_fields.needs_refill</source>
+        <target>Refill needed</target>
+      </segment>
+    </unit>
+    <unit id="Gfw_MWL" name="part.withdraw.access_denied">
+      <segment>
+        <source>part.withdraw.access_denied</source>
+        <target>Not allowed to do the desired action. Please check your permissions and the owner of the part lots.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -55,7 +55,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Contracts\Translation\TranslatorInterface;
+
+use function Symfony\Component\Translation\t;
 
 /**
  * @Route("/part")
@@ -360,23 +363,28 @@ class PartController extends AbstractController
             $action = $request->request->get('action');
 
 
-
-            switch ($action) {
-                case "withdraw":
-                case "remove":
-                    $this->denyAccessUnlessGranted('withdraw', $partLot);
-                    $withdrawAddHelper->withdraw($partLot, $amount, $comment);
-                    break;
-                case "add":
-                    $this->denyAccessUnlessGranted('add', $partLot);
-                    $withdrawAddHelper->add($partLot, $amount, $comment);
-                    break;
-                case "move":
-                    $this->denyAccessUnlessGranted('move', $partLot);
-                    $withdrawAddHelper->move($partLot, $targetLot, $amount, $comment);
-                    break;
-                default:
-                    throw new \RuntimeException("Unknown action!");
+            try {
+                switch ($action) {
+                    case "withdraw":
+                    case "remove":
+                        $this->denyAccessUnlessGranted('withdraw', $partLot);
+                        $withdrawAddHelper->withdraw($partLot, $amount, $comment);
+                        break;
+                    case "add":
+                        $this->denyAccessUnlessGranted('add', $partLot);
+                        $withdrawAddHelper->add($partLot, $amount, $comment);
+                        break;
+                    case "move":
+                        $this->denyAccessUnlessGranted('move', $partLot);
+                        $this->denyAccessUnlessGranted('move', $targetLot);
+                        $withdrawAddHelper->move($partLot, $targetLot, $amount, $comment);
+                        break;
+                    default:
+                        throw new \RuntimeException("Unknown action!");
+                }
+            } catch (AccessDeniedException $exception) {
+                $this->addFlash('error', t('part.withdraw.access_denied'));
+                goto err;
             }
 
             //Save the changes to the DB
@@ -387,6 +395,7 @@ class PartController extends AbstractController
             $this->addFlash('error', 'CSRF Token invalid!');
         }
 
+        err:
         //If an redirect was passed, then redirect there
         if($request->request->get('_redirect')) {
             return $this->redirect($request->request->get('_redirect'));
