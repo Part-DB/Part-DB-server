@@ -11183,5 +11183,17 @@ Element 3</target>
         <target>BOM importieren</target>
       </segment>
     </unit>
+    <unit id="qDVJg2i" name="measurement_unit.new">
+      <segment state="translated">
+        <source>measurement_unit.new</source>
+        <target>Neue Maßeinheit</target>
+      </segment>
+    </unit>
+    <unit id="WKzr7h0" name="measurement_unit.edit">
+      <segment state="translated">
+        <source>measurement_unit.edit</source>
+        <target>Bearbeite Maßeinheit</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
