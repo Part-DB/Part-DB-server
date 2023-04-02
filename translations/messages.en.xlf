@@ -11199,5 +11199,59 @@ Element 3</target>
         <target>Edit Measurement Unit</target>
       </segment>
     </unit>
+    <unit id="gRatnCn" name="user.aboutMe.label">
+      <segment state="translated">
+        <source>user.aboutMe.label</source>
+        <target>About Me</target>
+      </segment>
+    </unit>
+    <unit id="WsHXARp" name="storelocation.owner.label">
+      <segment state="translated">
+        <source>storelocation.owner.label</source>
+        <target>Owner</target>
+      </segment>
+    </unit>
+    <unit id="VQ97Dh0" name="storelocation.part_owner_must_match.label">
+      <segment state="translated">
+        <source>storelocation.part_owner_must_match.label</source>
+        <target>Part Lot owner must match storage location owner</target>
+      </segment>
+    </unit>
+    <unit id="sddE1L." name="part_lot.owner">
+      <segment state="translated">
+        <source>part_lot.owner</source>
+        <target>Owner</target>
+      </segment>
+    </unit>
+    <unit id="XKIMr8j" name="part_lot.owner.help">
+      <segment state="translated">
+        <source>part_lot.owner.help</source>
+        <target>Only the owner can withdraw or add stock to this lot.</target>
+      </segment>
+    </unit>
+    <unit id="61.yfNy" name="log.element_edited.changed_fields.owner">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.owner</source>
+        <target>Owner</target>
+      </segment>
+    </unit>
+    <unit id="YkZAIS8" name="log.element_edited.changed_fields.instock_unknown">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.instock_unknown</source>
+        <target>Amount unknown</target>
+      </segment>
+    </unit>
+    <unit id="xf7NNZ9" name="log.element_edited.changed_fields.needs_refill">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.needs_refill</source>
+        <target>Refill needed</target>
+      </segment>
+    </unit>
+    <unit id="Gfw_MWL" name="part.withdraw.access_denied">
+      <segment state="translated">
+        <source>part.withdraw.access_denied</source>
+        <target>Not allowed to do the desired action. Please check your permissions and the owner of the part lots.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
