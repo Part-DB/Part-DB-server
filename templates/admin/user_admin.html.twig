@@ -34,9 +34,11 @@
     </div>
 
     <div class="tab-pane" id="password">
-        <div class="offset-3 mb-3 col-9">
-            <span class="badge badge-warning bg-warning"><i class="fa-solid fa-house-user"></i> {% trans %}user.saml_user{% endtrans %}</span>
-        </div>
+        {% if entity.samlUser %}
+            <div class="offset-3 mb-3 col-9">
+                <span class="badge badge-warning bg-warning"><i class="fa-solid fa-house-user"></i> {% trans %}user.saml_user{% endtrans %}</span>
+            </div>
+        {% endif %}
 
         {{ form_row(form.new_password) }}
         {{ form_row(form.need_pw_change) }}
