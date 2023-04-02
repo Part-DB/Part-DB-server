@@ -159,11 +159,7 @@
         {% endif %}
 
         {% if user is not null %}
-            {% if user.fullName is not empty %}
-                ({{ _self.user_icon(user) }} <a href="{{ path('user_info', {"id": user.id}) }}" title="@{{ user.name }}">{{ user.fullName }}</a>)
-            {% else %}
-                ({{ _self.user_icon(user) }} <a href="{{ path('user_info', {"id": user.id}) }}" title="@{{ user.name }}">@{{ user.name }}</a>)
-            {% endif %}
+            ({{ _self.user_icon_link(user) }})
         {% endif %}
     {% endif %}
 {% endmacro %}
@@ -179,6 +175,14 @@
 {% macro user_icon(user) %}
     <img src="{{ avatar_helper.avatarSmURL(user) }}" class="avatar-xs" alt="User avatar" {{ stimulus_controller('elements/hoverpic') }} data-thumbnail="{{ avatar_helper.avatarMdURL(user) }}">
 {% endmacro %}
+
+{% macro user_icon_link(user) %}
+    {% if user.fullName is not empty %}
+        {{ _self.user_icon(user) }} <a href="{{ path('user_info', {"id": user.id}) }}" title="@{{ user.name }}">{{ user.fullName }}</a>
+    {% else %}
+        {{ _self.user_icon(user) }} <a href="{{ path('user_info', {"id": user.id}) }}" title="@{{ user.name }}">@{{ user.name }}</a>
+    {% endif %}
+{% endmacro  %}
 
 {% macro entity_preview_sm(entity) %}
     {# @var entity \App\Entity\Contracts\HasMasterAttachmentInterface #}

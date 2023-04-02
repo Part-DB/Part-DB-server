@@ -67,7 +67,15 @@ class PartLotVoter extends ExtendedVoter
 
         if (in_array($attribute, ['withdraw', 'add', 'move']))
         {
-            return $this->resolver->inherit($user, 'parts_stock', $attribute) ?? false;
+            $base_permission = $this->resolver->inherit($user, 'parts_stock', $attribute) ?? false;
+
+            $lot_permission = true;
+            //If the lot has an owner, we need to check if the user is the owner of the lot to be allowed to withdraw it.
+            if ($subject instanceof PartLot && $subject->getOwner()) {
+                $lot_permission = $subject->getOwner() === $user || $subject->getOwner()->getID() === $user->getID();
+            }
+
+            return $base_permission && $lot_permission;
         }
 
         switch ($attribute) {

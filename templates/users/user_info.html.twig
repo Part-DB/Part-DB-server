@@ -64,6 +64,11 @@
                 {% endif %}
             </div>
         </div>
+        {% if user.aboutMe is not empty %}
+            <hr>
+            <h5>{% trans %}user.aboutMe.label{% endtrans %}</h5>
+            {{ user.aboutMe | format_markdown }}
+        {% endif %}
     </div>
 {% endblock %}
 

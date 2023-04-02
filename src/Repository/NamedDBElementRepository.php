@@ -59,4 +59,14 @@ class NamedDBElementRepository extends DBElementRepository
 
         return $result;
     }
+
+    /**
+     * Returns the list of all nodes to use in a select box.
+     * @return AbstractNamedDBElement[]
+     */
+    public function toNodesList(): array
+    {
+        //All nodes are sorted by name
+        return $this->findBy([], ['name' => 'ASC']);
+    }
 }

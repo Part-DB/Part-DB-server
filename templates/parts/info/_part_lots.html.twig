@@ -41,21 +41,26 @@
                 </td>
                 <td>
                     <h6>
+                        {% if lot.owner  %}
+                            <span class="badge bg-light mb-1" title="{% trans %}part_lot.owner{% endtrans %}">
+                                {{ helper.user_icon_link(lot.owner) }}
+                            </span><br>
+                        {% endif %}
                         {% if lot.expirationDate %}
-                            <span class="badge bg-info" title="{% trans %}part_lots.expiration_date{% endtrans %}">
-                            <i class="fas fa-calendar-alt fa-fw"></i> {{ lot.expirationDate | format_date() }}
+                            <span class="badge bg-info mb-1" title="{% trans %}part_lots.expiration_date{% endtrans %}">
+                            <i class="fas fa-calendar-alt fa-fw"></i> {{ lot.expirationDate | format_date() }}<br>
                         </span>
                         {% endif %}
                         {% if lot.expired %}
                             <br>
-                            <span class="badge bg-warning">
+                            <span class="badge bg-warning mb-1">
                             <i class="fas fa-exclamation-circle fa-fw"></i>
                             {% trans %}part_lots.is_expired{% endtrans %}
                         </span>
                         {% endif %}
                         {% if lot.needsRefill %}
                             <br>
-                            <span class="badge bg-warning">
+                            <span class="badge bg-warning mb-1">
                             <i class="fas fa-dolly fa-fw"></i>
                             {% trans %}part_lots.need_refill{% endtrans %}
                         </span>

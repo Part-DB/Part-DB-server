@@ -102,6 +102,14 @@ final class PartLotProvider implements PlaceholderProviderInterface
                 return $label_target->getStorageLocation() ? $label_target->getStorageLocation()->getFullPath() : '';
             }
 
+            if ('[[OWNER]]' === $placeholder) {
+                return $label_target->getOwner() ? $label_target->getOwner()->getFullName() : '';
+            }
+
+            if ('[[OWNER_USERNAME]]' === $placeholder) {
+                return $label_target->getOwner() ? $label_target->getOwner()->getUsername() : '';
+            }
+
             return $this->labelTextReplacer->handlePlaceholder($placeholder, $label_target->getPart());
         }
 

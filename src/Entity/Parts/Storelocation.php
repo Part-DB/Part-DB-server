@@ -25,6 +25,7 @@ namespace App\Entity\Parts;
 use App\Entity\Attachments\StorelocationAttachment;
 use App\Entity\Base\AbstractPartsContainingDBElement;
 use App\Entity\Parameters\StorelocationParameter;
+use App\Entity\UserSystem\User;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -88,6 +89,19 @@ class Storelocation extends AbstractPartsContainingDBElement
      * @Groups({"full", "import"})
      */
     protected bool $limit_to_existing_parts = false;
+
+    /**
+     * @var User|null The owner of this storage location
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User")
+     * @ORM\JoinColumn(name="id_owner", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    protected ?User $owner;
+
+    /**
+     * @var bool If this is set to true, only parts lots, which are owned by the same user as the store location are allowed to be stored here.
+     * @ORM\Column(type="boolean", options={"default"=false})
+     */
+    protected bool $part_owner_must_match = false;
 
     /**
      * @var Collection<int, StorelocationAttachment>
@@ -165,6 +179,49 @@ class Storelocation extends AbstractPartsContainingDBElement
 
         return $this;
     }
+
+    /**
+     * Returns the owner of this storage location
+     * @return User|null
+     */
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    /**
+     * Sets the owner of this storage location
+     * @param  User|null  $owner
+     * @return Storelocation
+     */
+    public function setOwner(?User $owner): Storelocation
+    {
+        $this->owner = $owner;
+        return $this;
+    }
+
+    /**
+     * If this is set to true, only parts lots, which are owned by the same user as the store location are allowed to be stored here.
+     * @return bool
+     */
+    public function isPartOwnerMustMatch(): bool
+    {
+        return $this->part_owner_must_match;
+    }
+
+    /**
+     * If this is set to true, only parts lots, which are owned by the same user as the store location are allowed to be stored here.
+     * @param  bool  $part_owner_must_match
+     * @return Storelocation
+     */
+    public function setPartOwnerMustMatch(bool $part_owner_must_match): Storelocation
+    {
+        $this->part_owner_must_match = $part_owner_must_match;
+        return $this;
+    }
+
+
+
 
     /********************************************************************************
      *

@@ -27,6 +27,7 @@ use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
 use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
+use App\Form\Type\UserSelectType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -97,6 +98,12 @@ class PartLotType extends AbstractType
             ],
             'required' => false,
             'empty_data' => '',
+        ]);
+
+        $builder->add('owner', UserSelectType::class, [
+            'label' => 'part_lot.owner',
+            'required' => false,
+            'help' => 'part_lot.owner.help',
         ]);
     }
 

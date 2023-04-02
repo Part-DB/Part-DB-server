@@ -46,7 +46,7 @@ class NodesListBuilder
     }
 
     /**
-     * Gets a flattened hierachical tree. Useful for generating option lists.
+     * Gets a flattened hierarchical tree. Useful for generating option lists.
      * In difference to the Repository Function, the results here are cached.
      *
      * @param string                           $class_name the class name of the entity you want to retrieve
@@ -66,6 +66,7 @@ class NodesListBuilder
             $item->tag(['groups', 'tree_list', $this->keyGenerator->generateKey(), $secure_class_name]);
             /** @var StructuralDBElementRepository $repo */
             $repo = $this->em->getRepository($class_name);
+
             return $repo->toNodesList($parent);
         });
     }

@@ -29,6 +29,7 @@ use App\Entity\UserSystem\User;
 use App\Form\Permissions\PermissionsType;
 use App\Form\Type\CurrencyEntityType;
 use App\Form\Type\MasterPictureAttachmentType;
+use App\Form\Type\RichTextEditorType;
 use App\Form\Type\StructuralEntityType;
 use App\Form\Type\ThemeChoiceType;
 use Symfony\Component\Form\AbstractType;
@@ -124,6 +125,16 @@ class UserAdminForm extends AbstractType
                     'placeholder' => 'user.department.placeholder',
                 ],
                 'required' => false,
+                'disabled' => !$this->security->isGranted('edit_infos', $entity),
+            ])
+            ->add('aboutMe', RichTextEditorType::class, [
+                'required' => false,
+                'empty_data' => '',
+                'label' => 'user.aboutMe.label',
+                'attr' => [
+                    'rows' => 4,
+                ],
+                'mode' => 'markdown-full',
                 'disabled' => !$this->security->isGranted('edit_infos', $entity),
             ])
 

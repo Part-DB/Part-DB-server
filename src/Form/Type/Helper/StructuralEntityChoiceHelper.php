@@ -21,8 +21,13 @@
 namespace App\Form\Type\Helper;
 
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\Base\AbstractDBElement;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
+use App\Entity\Contracts\HasMasterAttachmentInterface;
 use App\Entity\PriceInformations\Currency;
+use App\Entity\UserSystem\User;
+use App\Form\Type\MasterPictureAttachmentType;
 use App\Services\Attachments\AttachmentURLGenerator;
 use RuntimeException;
 use Symfony\Component\Intl\Currencies;
@@ -43,36 +48,48 @@ class StructuralEntityChoiceHelper
 
     /**
      * Generates the choice attributes for the given AbstractStructuralDBElement.
-     * @param  AbstractStructuralDBElement  $choice
+     * @param  AbstractNamedDBElement  $choice
      * @param Options|array $options
      * @return array|string[]
      */
-    public function generateChoiceAttr(AbstractStructuralDBElement $choice, $options): array
+    public function generateChoiceAttr(AbstractNamedDBElement $choice, $options): array
     {
-        $tmp = [];
-
-        //Disable attribute if the choice is marked as not selectable
-        if (($options['disable_not_selectable'] ?? false) && $choice->isNotSelectable()) {
-            $tmp += ['disabled' => 'disabled'];
-        }
-
-        if ($choice instanceof AttachmentType) {
-            $tmp += ['data-filetype_filter' => $choice->getFiletypeFilter()];
-        }
-
-        $level = $choice->getLevel();
-        /** @var AbstractStructuralDBElement|null $parent */
-        $parent = $options['subentities_of'] ?? null;
-        if (null !== $parent) {
-            $level -= $parent->getLevel() - 1;
-        }
-
-        $tmp += [
-            'data-level' => $level,
-            'data-parent' => $choice->getParent() ? $choice->getParent()->getFullPath() : null,
-            'data-path' => $choice->getFullPath('->'),
-            'data-image' => $choice->getMasterPictureAttachment() ? $this->attachmentURLGenerator->getThumbnailURL($choice->getMasterPictureAttachment(), 'thumbnail_xs') : null,
+        $tmp = [
+            'data-level' => 0,
+            'data-path' => $choice->getName(),
         ];
+
+        if ($choice instanceof AbstractStructuralDBElement) {
+            //Disable attribute if the choice is marked as not selectable
+            if (($options['disable_not_selectable'] ?? false) && $choice->isNotSelectable()) {
+                $tmp += ['disabled' => 'disabled'];
+            }
+
+            if ($choice instanceof AttachmentType) {
+                $tmp += ['data-filetype_filter' => $choice->getFiletypeFilter()];
+            }
+
+            $level = $choice->getLevel();
+            /** @var AbstractStructuralDBElement|null $parent */
+            $parent = $options['subentities_of'] ?? null;
+            if (null !== $parent) {
+                $level -= $parent->getLevel() - 1;
+            }
+
+            $tmp += [
+                'data-level' => $level,
+                'data-parent' => $choice->getParent() ? $choice->getParent()->getFullPath() : null,
+                'data-path' => $choice->getFullPath('->'),
+            ];
+        }
+
+        if ($choice instanceof HasMasterAttachmentInterface) {
+            $tmp['data-image'] = $choice->getMasterPictureAttachment() ?
+                $this->attachmentURLGenerator->getThumbnailURL($choice->getMasterPictureAttachment(),
+                    'thumbnail_xs')
+                : null
+            ;
+        }
 
         if ($choice instanceof AttachmentType && !empty($choice->getFiletypeFilter())) {
             $tmp += ['data-filetype_filter' => $choice->getFiletypeFilter()];
@@ -112,20 +129,20 @@ class StructuralEntityChoiceHelper
 
     /**
      * Returns the choice label for the given AbstractStructuralDBElement.
-     * @param  AbstractStructuralDBElement  $choice
+     * @param  AbstractNamedDBElement  $choice
      * @return string
      */
-    public function generateChoiceLabel(AbstractStructuralDBElement $choice): string
+    public function generateChoiceLabel(AbstractNamedDBElement $choice): string
     {
         return $choice->getName();
     }
 
     /**
      * Returns the choice value for the given AbstractStructuralDBElement.
-     * @param  AbstractStructuralDBElement|null  $element
+     * @param  AbstractNamedDBElement|null  $element
      * @return string|int|null
      */
-    public function generateChoiceValue(?AbstractStructuralDBElement $element)
+    public function generateChoiceValue(?AbstractNamedDBElement $element)
     {
         if ($element === null) {
             return null;
@@ -138,18 +155,21 @@ class StructuralEntityChoiceHelper
          * So please do not change this!
          */
         if ($element->getID() === null) {
-            //Must be the same as the separator in the choice_loader, otherwise this will not work!
-            return $element->getFullPath('->');
+            if ($element instanceof AbstractStructuralDBElement) {
+                //Must be the same as the separator in the choice_loader, otherwise this will not work!
+                return $element->getFullPath('->');
+            }
+            return $element->getName();
         }
 
         return $element->getID();
     }
 
     /**
-     * @param  AbstractStructuralDBElement  $element
+     * @param  AbstractDBElement  $element
      * @return string|null
      */
-    public function generateGroupBy(AbstractStructuralDBElement $element): ?string
+    public function generateGroupBy(AbstractDBElement $element): ?string
     {
         //Show entities that are not added to DB yet separately from other entities
         if ($element->getID() === null) {

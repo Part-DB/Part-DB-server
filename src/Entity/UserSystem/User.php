@@ -103,6 +103,13 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     protected string $instock_comment_w = '';
 
+    /**
+     * @var string A self-description of the user
+     * @ORM\Column(type="text", options={"default": ""})
+     * @Groups({"full", "import"})
+     */
+    protected string $aboutMe = '';
+
     /** @var int The version of the trusted device cookie. Used to invalidate all trusted device cookies at once.
      *  @ORM\Column(type="integer")
      */
@@ -254,7 +261,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * @var DateTime the time until the password reset token is valid
-     * @ORM\Column(type="datetime", nullable=true, columnDefinition="DEFAULT NULL")
+     * @ORM\Column(type="datetime", nullable=true, options={"default": null})
      */
     protected $pw_reset_expires;
 
@@ -624,6 +631,28 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
         return $this;
     }
+
+    /**
+     * Returns the about me text of the user.
+     * @return string
+     */
+    public function getAboutMe(): string
+    {
+        return $this->aboutMe;
+    }
+
+    /**
+     * Change the about me text of the user.
+     * @param  string  $aboutMe
+     * @return User
+     */
+    public function setAboutMe(string $aboutMe): User
+    {
+        $this->aboutMe = $aboutMe;
+        return $this;
+    }
+
+
 
     /**
      * Gets the language the user prefers (as 2 letter ISO code).

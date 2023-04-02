@@ -96,6 +96,8 @@ const PLACEHOLDERS = [
             ['[[AMOUNT]]', 'Lot amount'],
             ['[[LOCATION]]', 'Storage location'],
             ['[[LOCATION_FULL]]', 'Storage location (Full path)'],
+            ['[[OWNER]]', 'Full name of the lot owner'],
+            ['[[OWNER_USERNAME]]', 'Username of the lot owner'],
         ]
     },
     {

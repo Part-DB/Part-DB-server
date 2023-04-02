@@ -26,6 +26,7 @@ use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Contracts\TimeStampableInterface;
+use App\Entity\UserSystem\User;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPartLot;
 use DateTime;
@@ -33,6 +34,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * This entity describes a lot where parts can be stored.
@@ -110,6 +112,13 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      * @Assert\NotNull()
      */
     protected Part $part;
+
+    /**
+     * @var User|null The owner of this part lot
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User")
+     * @ORM\JoinColumn(name="id_owner", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    protected ?User $owner;
 
     public function __clone()
     {
@@ -304,8 +313,46 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
         return $this;
     }
 
+    /**
+     * Returns the owner of this part lot.
+     * @return User|null
+     */
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    /**
+     * Sets the owner of this part lot.
+     * @param  User|null  $owner
+     * @return PartLot
+     */
+    public function setOwner(?User $owner): PartLot
+    {
+        $this->owner = $owner;
+        return $this;
+    }
+
     public function getName(): string
     {
         return $this->description;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
+        //When the storage location sets the owner must match, the part lot owner must match the storage location owner
+        if ($this->getStorageLocation() && $this->getStorageLocation()->isPartOwnerMustMatch()
+            && $this->getStorageLocation()->getOwner() && $this->getOwner()) {
+            if ($this->getOwner() !== $this->getStorageLocation()->getOwner()
+                && $this->owner->getID() !== $this->getStorageLocation()->getOwner()->getID()) {
+                $context->buildViolation('validator.part_lot.owner_must_match_storage_location_owner')
+                    ->setParameter('%owner_name%', $this->getStorageLocation()->getOwner()->getFullName(true))
+                    ->atPath('owner')
+                    ->addViolation();
+            }
+        }
     }
 }
