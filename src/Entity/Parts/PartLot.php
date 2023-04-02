@@ -26,6 +26,7 @@ use App\Entity\Base\AbstractDBElement;
 use App\Entity\Base\TimestampTrait;
 use App\Entity\Contracts\NamedElementInterface;
 use App\Entity\Contracts\TimeStampableInterface;
+use App\Entity\UserSystem\User;
 use App\Validator\Constraints\Selectable;
 use App\Validator\Constraints\ValidPartLot;
 use DateTime;
@@ -110,6 +111,13 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      * @Assert\NotNull()
      */
     protected Part $part;
+
+    /**
+     * @var User|null The owner of this part lot
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User")
+     * @ORM\JoinColumn(name="id_owner", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    protected ?User $owner;
 
     public function __clone()
     {
@@ -303,6 +311,28 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
 
         return $this;
     }
+
+    /**
+     * Returns the owner of this part lot.
+     * @return User|null
+     */
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    /**
+     * Sets the owner of this part lot.
+     * @param  User|null  $owner
+     * @return PartLot
+     */
+    public function setOwner(?User $owner): PartLot
+    {
+        $this->owner = $owner;
+        return $this;
+    }
+
+
 
     public function getName(): string
     {

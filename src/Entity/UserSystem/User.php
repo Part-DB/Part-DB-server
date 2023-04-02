@@ -103,6 +103,13 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
      */
     protected string $instock_comment_w = '';
 
+    /**
+     * @var string A self-description of the user
+     * @ORM\Column(type="text", options={"default": ""})
+     * @Groups({"full", "import"})
+     */
+    protected string $aboutMe = '';
+
     /** @var int The version of the trusted device cookie. Used to invalidate all trusted device cookies at once.
      *  @ORM\Column(type="integer")
      */
