@@ -24,7 +24,9 @@ namespace App\Form\AdminPages;
 
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Parts\MeasurementUnit;
+use App\Entity\UserSystem\User;
 use App\Form\Type\StructuralEntityType;
+use App\Form\Type\UserSelectType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -61,6 +63,17 @@ class StorelocationAdminForm extends BaseEntityAdminForm
             'help' => 'storelocation.storage_type.help',
             'class' => MeasurementUnit::class,
             'disable_not_selectable' => true,
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
+
+        $builder->add('owner', UserSelectType::class, [
+            'required' => false,
+            'label' => 'storelocation.owner.label',
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
+        $builder->add('part_owner_must_match', CheckboxType::class, [
+            'required' => false,
+            'label' => 'storelocation.part_owner_must_match.label',
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
     }

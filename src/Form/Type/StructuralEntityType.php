@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace App\Form\Type;
 
 use App\Entity\Attachments\AttachmentType;
+use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Form\Type\Helper\StructuralEntityChoiceHelper;
 use App\Form\Type\Helper\StructuralEntityChoiceLoader;
@@ -105,7 +106,7 @@ class StructuralEntityType extends AbstractType
             'show_fullpath_in_subtext' => true, //When this is enabled, the full path will be shown in subtext
             'subentities_of' => null,   //Only show entities with the given parent class
             'disable_not_selectable' => false,  //Disable entries with not selectable property
-            'choice_value' => function (?AbstractStructuralDBElement $element) {
+            'choice_value' => function (?AbstractNamedDBElement $element) {
                 return $this->choice_helper->generateChoiceValue($element);
             }, //Use the element id as option value and for comparing items
             'choice_loader' => function (Options $options) {
@@ -121,7 +122,7 @@ class StructuralEntityType extends AbstractType
                     return $this->choice_helper->generateChoiceAttr($choice, $options);
                 };
             },
-            'group_by' => function (AbstractStructuralDBElement $element) {
+            'group_by' => function (AbstractNamedDBElement $element) {
                 return $this->choice_helper->generateGroupBy($element);
             },
             'choice_translation_domain' => false, //Don't translate the entity names

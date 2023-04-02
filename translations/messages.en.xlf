@@ -11205,5 +11205,17 @@ Element 3</target>
         <target>About Me</target>
       </segment>
     </unit>
+    <unit id="WsHXARp" name="storelocation.owner.label">
+      <segment>
+        <source>storelocation.owner.label</source>
+        <target>Owner</target>
+      </segment>
+    </unit>
+    <unit id="VQ97Dh0" name="storelocation.part_owner_must_match.label">
+      <segment>
+        <source>storelocation.part_owner_must_match.label</source>
+        <target>Part Lot owner must match storage location owner</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
