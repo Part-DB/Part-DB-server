@@ -27,9 +27,9 @@ final class Version20230402170923 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE storelocations ADD id_owner INT DEFAULT NULL, ADD part_owner_must_match TINYINT(1) DEFAULT 0 NOT NULL');
         $this->addSql('ALTER TABLE storelocations ADD CONSTRAINT FK_751702021E5A74C FOREIGN KEY (id_owner) REFERENCES `users` (id) ON DELETE SET NULL');
         $this->addSql('CREATE INDEX IDX_751702021E5A74C ON storelocations (id_owner)');
-        $this->addSql('ALTER TABLE users ADD about_me LONGTEXT DEFAULT \'\' NOT NULL');
+        $this->addSql('ALTER TABLE users ADD about_me LONGTEXT NOT NULL');
 
-        $this->addSql('ALTER TABLE projects CHANGE description description LONGTEXT DEFAULT \'\' NOT NULL');
+        $this->addSql('ALTER TABLE projects CHANGE description description LONGTEXT NOT NULL');
     }
 
     public function mySQLDown(Schema $schema): void
