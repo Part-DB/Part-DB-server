@@ -71,6 +71,8 @@ Object.assign( window.CKEDITOR_TRANSLATIONS[ 'de' ].dictionary, {
     'Full path': 'Vollständiger Pfad',
     'Parent name': 'Name des Übergeordneten Elements',
     'Parent full path': 'Ganzer Pfad des Übergeordneten Elements',
+    'Full name of the location owner': 'Name des Besitzers des Lagerorts',
+    'Username of the location owner': 'Benutzername des Besitzers des Lagerorts',
 
     'Username': 'Benutzername',
     'Username (including name)': 'Benutzername (inklusive Name)',

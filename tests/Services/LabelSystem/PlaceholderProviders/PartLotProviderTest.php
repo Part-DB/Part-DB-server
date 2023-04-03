@@ -44,6 +44,7 @@ namespace App\Tests\Services\LabelSystem\PlaceholderProviders;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
+use App\Entity\UserSystem\User;
 use App\Services\LabelSystem\PlaceholderProviders\PartLotProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -76,6 +77,12 @@ class PartLotProviderTest extends WebTestCase
         $part->setName('Part');
         $part->setDescription('Part description');
         $this->target->setPart($part);
+
+        $user = new User();
+        $user->setName('user');
+        $user->setFirstName('John');
+        $user->setLastName('Doe');
+        $this->target->setOwner($user);
     }
 
     public function dataProvider(): array
@@ -91,6 +98,8 @@ class PartLotProviderTest extends WebTestCase
             //Test part inheritance
             ['Part', '[[NAME]]'],
             ['Part description', '[[DESCRIPTION]]'],
+            ['John Doe', '[[OWNER]]'],
+            ['user', '[[OWNER_USERNAME]]'],
         ];
     }
 

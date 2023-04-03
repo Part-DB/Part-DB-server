@@ -112,6 +112,8 @@ const PLACEHOLDERS = [
             ['[[COMMENT_T]]', 'Comment (plain text)'],
             ['[[LAST_MODIFIED]]', 'Last modified datetime'],
             ['[[CREATION_DATE]]', 'Creation datetime'],
+            ['[[OWNER]]', 'Full name of the location owner'],
+            ['[[OWNER_USERNAME]]', 'Username of the location owner'],
         ]
     },
     {
