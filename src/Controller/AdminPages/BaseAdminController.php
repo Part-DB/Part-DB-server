@@ -39,7 +39,7 @@ use App\Repository\AbstractPartsContainingRepository;
 use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\ImportExportSystem\EntityExporter;
 use App\Services\ImportExportSystem\EntityImporter;
-use App\Services\LabelSystem\Barcodes\BarcodeExampleElementsGenerator;
+use App\Services\LabelSystem\LabelExampleElementsGenerator;
 use App\Services\LabelSystem\LabelGenerator;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\HistoryHelper;
@@ -86,14 +86,14 @@ abstract class BaseAdminController extends AbstractController
      */
     protected $eventDispatcher;
     protected LabelGenerator $labelGenerator;
-    protected BarcodeExampleElementsGenerator $barcodeExampleGenerator;
+    protected LabelExampleElementsGenerator $barcodeExampleGenerator;
 
     protected EntityManagerInterface $entityManager;
 
     public function __construct(TranslatorInterface $translator, UserPasswordHasherInterface $passwordEncoder,
         AttachmentSubmitHandler $attachmentSubmitHandler,
         EventCommentHelper $commentHelper, HistoryHelper $historyHelper, TimeTravel $timeTravel,
-        DataTableFactory $dataTableFactory, EventDispatcherInterface $eventDispatcher, BarcodeExampleElementsGenerator $barcodeExampleGenerator,
+        DataTableFactory $dataTableFactory, EventDispatcherInterface $eventDispatcher, LabelExampleElementsGenerator $barcodeExampleGenerator,
         LabelGenerator $labelGenerator, EntityManagerInterface $entityManager)
     {
         if ('' === $this->entity_class || '' === $this->form_class || '' === $this->twig_template || '' === $this->route_base) {

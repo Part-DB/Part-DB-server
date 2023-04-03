@@ -31,7 +31,7 @@ use App\Services\Attachments\AttachmentSubmitHandler;
 use App\Services\ImportExportSystem\EntityExporter;
 use App\Services\ImportExportSystem\EntityImporter;
 use App\Services\Tools\ExchangeRateUpdater;
-use App\Services\LabelSystem\Barcodes\BarcodeExampleElementsGenerator;
+use App\Services\LabelSystem\LabelExampleElementsGenerator;
 use App\Services\LabelSystem\LabelGenerator;
 use App\Services\LogSystem\EventCommentHelper;
 use App\Services\LogSystem\HistoryHelper;
@@ -76,7 +76,7 @@ class CurrencyController extends BaseAdminController
         TimeTravel $timeTravel,
         DataTableFactory $dataTableFactory,
         EventDispatcherInterface $eventDispatcher,
-        BarcodeExampleElementsGenerator $barcodeExampleGenerator,
+        LabelExampleElementsGenerator $barcodeExampleGenerator,
         LabelGenerator $labelGenerator,
         EntityManagerInterface $entityManager,
         ExchangeRateUpdater $exchangeRateUpdater

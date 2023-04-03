@@ -39,7 +39,7 @@ declare(strict_types=1);
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace App\Services\LabelSystem\Barcodes;
+namespace App\Services\LabelSystem;
 
 use App\Entity\Base\AbstractStructuralDBElement;
 use App\Entity\Parts\Category;
@@ -48,11 +48,12 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
 use App\Entity\Parts\Storelocation;
+use App\Entity\UserSystem\User;
 use DateTime;
 use InvalidArgumentException;
 use ReflectionClass;
 
-final class BarcodeExampleElementsGenerator
+final class LabelExampleElementsGenerator
 {
     public function getElement(string $type): object
     {
@@ -102,6 +103,7 @@ final class BarcodeExampleElementsGenerator
         $lot->setExpirationDate(new DateTime('+1 days'));
         $lot->setStorageLocation($this->getStructuralData(Storelocation::class));
         $lot->setAmount(123);
+        $lot->setOwner($this->getUser());
 
         return $lot;
     }
@@ -112,6 +114,8 @@ final class BarcodeExampleElementsGenerator
         $storelocation->setName('Location 1');
         $storelocation->setComment('Example comment');
         $storelocation->updateTimestamps();
+        $storelocation->setOwner($this->getUser());
+
 
         $parent = new Storelocation();
         $parent->setName('Parent');
@@ -119,6 +123,16 @@ final class BarcodeExampleElementsGenerator
         $storelocation->setParent($parent);
 
         return $storelocation;
+    }
+
+    private function getUser(): User
+    {
+        $user = new User();
+        $user->setName('user');
+        $user->setFirstName('John');
+        $user->setLastName('Doe');
+
+        return $user;
     }
 
     private function getStructuralData(string $class): AbstractStructuralDBElement
