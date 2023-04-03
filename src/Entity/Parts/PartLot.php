@@ -118,7 +118,7 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User")
      * @ORM\JoinColumn(name="id_owner", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
-    protected ?User $owner;
+    protected ?User $owner = null;
 
     public function __clone()
     {

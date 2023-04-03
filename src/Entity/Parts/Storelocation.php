@@ -95,7 +95,7 @@ class Storelocation extends AbstractPartsContainingDBElement
      * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User")
      * @ORM\JoinColumn(name="id_owner", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
-    protected ?User $owner;
+    protected ?User $owner = null;
 
     /**
      * @var bool If this is set to true, only parts lots, which are owned by the same user as the store location are allowed to be stored here.
