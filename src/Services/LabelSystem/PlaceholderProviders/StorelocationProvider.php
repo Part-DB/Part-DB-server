@@ -35,5 +35,7 @@ class StorelocationProvider implements PlaceholderProviderInterface
                 return $label_target->getOwner() ? $label_target->getOwner()->getUsername() : '';
             }
         }
+
+        return null;
     }
 }
