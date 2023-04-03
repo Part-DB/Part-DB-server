@@ -43,6 +43,9 @@
         <h6><i class="fas fa-shapes fa-fw"></i>
             <span class="{% if part.notEnoughInstock %}text-danger font-weight-bold{% else %}text-muted{% endif %}">
                 <span title="{% trans %}instock.label{% endtrans %}">{{ part.amountSum | format_amount(part.partUnit) }}</span>
+                {% if part.expiredAmountSum > 0 %}
+                    <span title="{% trans %}part_lots.is_expired{% endtrans %}" class="text-muted">(+{{ part.expiredAmountSum }})</span>
+                {% endif %}
                 /
                 <span title="{% trans %}mininstock.label{% endtrans %}">{{ part.minAmount | format_amount(part.partUnit) }}</span>
             </span>
