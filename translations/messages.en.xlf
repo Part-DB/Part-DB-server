@@ -11253,5 +11253,11 @@ Element 3</target>
         <target>Not allowed to do the desired action. Please check your permissions and the owner of the part lots.</target>
       </segment>
     </unit>
+    <unit id="Dwo4KWP" name="part.info.amount.less_than_desired">
+      <segment>
+        <source>part.info.amount.less_than_desired</source>
+        <target>Less than desired</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

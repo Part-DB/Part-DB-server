@@ -202,6 +202,12 @@ final class PartsDataTable implements DataTableTypeInterface
                         htmlspecialchars($this->amountFormatter->format($expiredAmount, $context->getPartUnit())));
                 }
 
+                //When the amount is below the minimum amount, we highlight the number red
+                if ($context->isNotEnoughInstock()) {
+                    $ret = sprintf('<b class="text-danger" title="%s">%s</b>',
+                        $this->translator->trans('part.info.amount.less_than_desired'),
+                        $ret);
+                }
 
                 return $ret;
             },

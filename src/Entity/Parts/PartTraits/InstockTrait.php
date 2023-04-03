@@ -152,6 +152,15 @@ trait InstockTrait
     }
 
     /**
+     * Returns true, if the total instock amount of this part is less than the minimum amount.
+     * @return bool
+     */
+    public function isNotEnoughInstock(): bool
+    {
+        return $this->getAmountSum() < $this->getMinAmount();
+    }
+
+    /**
      * Returns the summed amount of this part (over all part lots)
      * Part Lots that have unknown value or are expired, are not used for this value.
      *

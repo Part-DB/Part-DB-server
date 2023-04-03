@@ -41,11 +41,14 @@
             <span class="text-muted">{{ helper.structural_entity_link(part.category) }}</span>
         </h6>
         <h6><i class="fas fa-shapes fa-fw"></i>
-            <span class="text-muted">
-                                    <span title="{% trans %}instock.label{% endtrans %}">{{ part.amountSum | format_amount(part.partUnit) }}</span>
-                                    /
-                                    <span title="{% trans %}mininstock.label{% endtrans %}">{{ part.minAmount | format_amount(part.partUnit) }}</span>
-                                </span>
+            <span class="{% if part.notEnoughInstock %}text-danger font-weight-bold{% else %}text-muted{% endif %}">
+                <span title="{% trans %}instock.label{% endtrans %}">{{ part.amountSum | format_amount(part.partUnit) }}</span>
+                /
+                <span title="{% trans %}mininstock.label{% endtrans %}">{{ part.minAmount | format_amount(part.partUnit) }}</span>
+            </span>
+            {% if part.notEnoughInstock %}
+                <span class="badge badge-warning bg-warning rounded-pill"><i class="fa-solid fa-less-than-equal"></i>&nbsp;{% trans %}part.info.amount.less_than_desired{% endtrans %}</span>
+            {% endif %}
         </h6>
         <h6 class="">
             <i class="fas fa-microchip fa-fw" title="{% trans %}footprint.label{% endtrans %}"></i>
