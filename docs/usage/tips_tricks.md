@@ -63,3 +63,7 @@ If you call this command regularly (e.g. with a cronjob), you can keep the excha
 
 Please note that if you use a base currency, which is not the Euro, you have to configure an exchange rate API, as the
 free API used by default only supports the Euro as base currency.
+
+## Personal stocks and stock locations
+For makerspaces and universities with a lot of users, where each user can have his own stock, which only he should be able to access, you can assign
+the user as "owner" of a part lot. This way, only him is allowed to add or remove parts from this lot.
