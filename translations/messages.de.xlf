@@ -11195,5 +11195,65 @@ Element 3</target>
         <target>Bearbeite Maßeinheit</target>
       </segment>
     </unit>
+    <unit id="gRatnCn" name="user.aboutMe.label">
+      <segment state="translated">
+        <source>user.aboutMe.label</source>
+        <target>Über mich</target>
+      </segment>
+    </unit>
+    <unit id="WsHXARp" name="storelocation.owner.label">
+      <segment state="translated">
+        <source>storelocation.owner.label</source>
+        <target>Besitzer</target>
+      </segment>
+    </unit>
+    <unit id="VQ97Dh0" name="storelocation.part_owner_must_match.label">
+      <segment state="translated">
+        <source>storelocation.part_owner_must_match.label</source>
+        <target>Bauteilebesitzer muss mit Lagerortbesitzer übereinstimmen</target>
+      </segment>
+    </unit>
+    <unit id="sddE1L." name="part_lot.owner">
+      <segment state="translated">
+        <source>part_lot.owner</source>
+        <target>Besitzer</target>
+      </segment>
+    </unit>
+    <unit id="XKIMr8j" name="part_lot.owner.help">
+      <segment state="translated">
+        <source>part_lot.owner.help</source>
+        <target>Nur der Besitzer kann Bauteile aus diesem Bestand entnehmen oder hinzufügen.</target>
+      </segment>
+    </unit>
+    <unit id="61.yfNy" name="log.element_edited.changed_fields.owner">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.owner</source>
+        <target>Besitzer</target>
+      </segment>
+    </unit>
+    <unit id="YkZAIS8" name="log.element_edited.changed_fields.instock_unknown">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.instock_unknown</source>
+        <target>Menge unbekannt</target>
+      </segment>
+    </unit>
+    <unit id="xf7NNZ9" name="log.element_edited.changed_fields.needs_refill">
+      <segment state="translated">
+        <source>log.element_edited.changed_fields.needs_refill</source>
+        <target>Muss aufgefüllt werden</target>
+      </segment>
+    </unit>
+    <unit id="Gfw_MWL" name="part.withdraw.access_denied">
+      <segment state="translated">
+        <source>part.withdraw.access_denied</source>
+        <target>Sie sind nicht berechtigt die gewünschte Aktion durchzuführen! Bitte überprüfen Sie Ihre Berechtigungen und den Besitzer des Bauteilebestandes.</target>
+      </segment>
+    </unit>
+    <unit id="Dwo4KWP" name="part.info.amount.less_than_desired">
+      <segment state="translated">
+        <source>part.info.amount.less_than_desired</source>
+        <target>Weniger als erwünscht</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
