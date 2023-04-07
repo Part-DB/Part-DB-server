@@ -155,6 +155,11 @@ class ErrorHandlerHelper {
             return;
         }
 
+        //Skip 404 errors, on admin pages (as this causes a popup on deletion in firefox)
+        if (response.status == 404 && event.target.id === 'admin-content-frame') {
+            return;
+        }
+
 
         if(!response.ok) {
             response.text().then(responseHTML => {
