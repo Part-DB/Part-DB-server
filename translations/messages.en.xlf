@@ -11259,5 +11259,17 @@ Element 3</target>
         <target>Less than desired</target>
       </segment>
     </unit>
+    <unit id="cdnsW4q" name="log.cli_user">
+      <segment>
+        <source>log.cli_user</source>
+        <target>CLI user</target>
+      </segment>
+    </unit>
+    <unit id="4GTAJ9E" name="log.element_edited.changed_fields.part_owner_must_match">
+      <segment>
+        <source>log.element_edited.changed_fields.part_owner_must_match</source>
+        <target>Part owner must match storage location owner</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

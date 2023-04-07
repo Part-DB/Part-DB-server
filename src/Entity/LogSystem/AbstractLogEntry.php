@@ -216,6 +216,26 @@ abstract class AbstractLogEntry extends AbstractDBElement
         return $this;
     }
 
+    public function setCLIUser(?string $cli_username): self
+    {
+        $this->user = null;
+        $this->username = '!!!CLI ' . $cli_username;
+        return $this;
+    }
+
+    public function isCLIUser(): bool
+    {
+        return strpos($this->username, '!!!CLI ') === 0;
+    }
+
+    public function getCLIUsername(): ?string
+    {
+        if ($this->isCLIUser()) {
+            return substr($this->username, 7);
+        }
+        return null;
+    }
+
     /**
      * Retuns the username of the user that caused the event (useful if the user was deleted).
      *

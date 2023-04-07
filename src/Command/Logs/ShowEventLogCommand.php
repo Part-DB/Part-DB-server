@@ -147,11 +147,21 @@ class ShowEventLogCommand extends Command
             $target_class = $this->elementTypeNameGenerator->getLocalizedTypeLabel($entry->getTargetClass());
         }
 
+        if ($entry->getUser()) {
+            $user = $entry->getUser()->getFullName(true);
+        } else {
+            if ($entry->isCLIUser()) {
+                $user = $entry->getCLIUsername() . ' [CLI]';
+            } else {
+                $user = $entry->getUsername() . ' [deleted]';
+            }
+        }
+
         $row = [
             $entry->getID(),
             $entry->getTimestamp()->format('Y-m-d H:i:s'),
             $entry->getType(),
-            $entry->getUser()->getFullName(true),
+            $user,
             $target_class,
             $target_name,
         ];

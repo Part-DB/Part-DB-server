@@ -24,6 +24,7 @@ namespace App\Services\LogSystem;
 
 use App\Entity\LogSystem\AbstractLogEntry;
 use App\Entity\UserSystem\User;
+use App\Services\Misc\ConsoleInfoHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 
@@ -34,14 +35,17 @@ class EventLogger
     protected array $whitelist;
     protected EntityManagerInterface $em;
     protected Security $security;
+    protected ConsoleInfoHelper $console_info_helper;
 
-    public function __construct(int $minimum_log_level, array $blacklist, array $whitelist, EntityManagerInterface $em, Security $security)
+    public function __construct(int $minimum_log_level, array $blacklist, array $whitelist, EntityManagerInterface $em,
+        Security $security, ConsoleInfoHelper $console_info_helper)
     {
         $this->minimum_log_level = $minimum_log_level;
         $this->blacklist = $blacklist;
         $this->whitelist = $whitelist;
         $this->em = $em;
         $this->security = $security;
+        $this->console_info_helper = $console_info_helper;
     }
 
     /**
@@ -65,6 +69,11 @@ class EventLogger
                 return false;
             }
             $logEntry->setUser($user);
+        }
+
+        //Set the console user info, if the log entry was created in a console command
+        if ($this->console_info_helper->isCLI()) {
+            $logEntry->setCLIUser($this->console_info_helper->getCLIUser() ?? 'Unknown');
         }
 
         if ($this->shouldBeAdded($logEntry)) {
