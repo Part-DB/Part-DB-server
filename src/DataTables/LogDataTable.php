@@ -226,7 +226,7 @@ class LogDataTable implements DataTableTypeInterface
 
                 //If user was deleted, show the info from the username field
                 if ($user === null) {
-                    if ($context->isCLIUser()) {
+                    if ($context->isCLIEntry()) {
                         return sprintf('%s [%s]',
                             htmlentities($context->getCLIUsername()),
                             $this->translator->trans('log.cli_user')

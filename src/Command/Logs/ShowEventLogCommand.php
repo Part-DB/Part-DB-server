@@ -150,7 +150,7 @@ class ShowEventLogCommand extends Command
         if ($entry->getUser()) {
             $user = $entry->getUser()->getFullName(true);
         } else {
-            if ($entry->isCLIUser()) {
+            if ($entry->isCLIEntry()) {
                 $user = $entry->getCLIUsername() . ' [CLI]';
             } else {
                 $user = $entry->getUsername() . ' [deleted]';

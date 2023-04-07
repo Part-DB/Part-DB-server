@@ -216,21 +216,36 @@ abstract class AbstractLogEntry extends AbstractDBElement
         return $this;
     }
 
-    public function setCLIUser(?string $cli_username): self
+    /**
+     * Returns true if this log entry was created by a CLI command, false otherwise.
+     * @return bool
+     */
+    public function isCLIEntry(): bool
+    {
+        return strpos($this->username, '!!!CLI ') === 0;
+    }
+
+    /**
+     * Marks this log entry as a CLI entry, and set the username of the CLI user.
+     * This removes the association to a user object in database, as CLI users are not really related to logged in
+     * Part-DB users.
+     * @param  string  $cli_username
+     * @return $this
+     */
+    public function setCLIUsername(string $cli_username): self
     {
         $this->user = null;
         $this->username = '!!!CLI ' . $cli_username;
         return $this;
     }
 
-    public function isCLIUser(): bool
-    {
-        return strpos($this->username, '!!!CLI ') === 0;
-    }
-
+    /**
+     * Retrieves the username of the CLI user that caused the event.
+     * @return string|null The username of the CLI user, or null if this log entry was not created by a CLI command.
+     */
     public function getCLIUsername(): ?string
     {
-        if ($this->isCLIUser()) {
+        if ($this->isCLIEntry()) {
             return substr($this->username, 7);
         }
         return null;

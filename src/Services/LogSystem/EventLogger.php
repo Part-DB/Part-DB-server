@@ -73,7 +73,7 @@ class EventLogger
 
         //Set the console user info, if the log entry was created in a console command
         if ($this->console_info_helper->isCLI()) {
-            $logEntry->setCLIUser($this->console_info_helper->getCLIUser() ?? 'Unknown');
+            $logEntry->setCLIUsername($this->console_info_helper->getCLIUser() ?? 'Unknown');
         }
 
         if ($this->shouldBeAdded($logEntry)) {
