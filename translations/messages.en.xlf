@@ -11271,5 +11271,11 @@ Element 3</target>
         <target>Part owner must match storage location owner</target>
       </segment>
     </unit>
+    <unit id="u6qFa_j" name="part.filter.lessThanDesired">
+      <segment>
+        <source>part.filter.lessThanDesired</source>
+        <target><![CDATA[In stock less than desired (total amount < min. amount)]]></target>
+      </segment>
+    </unit>
   </file>
 </xliff>

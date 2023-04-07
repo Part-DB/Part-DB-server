@@ -26,6 +26,7 @@ use App\DataTables\Filters\Constraints\DateTimeConstraint;
 use App\DataTables\Filters\Constraints\EntityConstraint;
 use App\DataTables\Filters\Constraints\IntConstraint;
 use App\DataTables\Filters\Constraints\NumberConstraint;
+use App\DataTables\Filters\Constraints\Part\LessThanDesiredConstraint;
 use App\DataTables\Filters\Constraints\Part\ParameterConstraint;
 use App\DataTables\Filters\Constraints\Part\TagsConstraint;
 use App\DataTables\Filters\Constraints\TextConstraint;
@@ -68,6 +69,15 @@ class PartFilter implements FilterInterface
     protected EntityConstraint $storelocation;
     protected IntConstraint $lotCount;
     protected IntConstraint $amountSum;
+    protected LessThanDesiredConstraint $lessThanDesired;
+
+    /**
+     * @return LessThanDesiredConstraint
+     */
+    public function getLessThanDesired(): LessThanDesiredConstraint
+    {
+        return $this->lessThanDesired;
+    }
     protected BooleanConstraint $lotNeedsRefill;
     protected TextConstraint $lotDescription;
     protected BooleanConstraint $lotUnknownAmount;
@@ -108,6 +118,7 @@ class PartFilter implements FilterInterface
         //We have to use Having here, as we use an alias column which is not supported on the where clause and would result in an error
         $this->amountSum = (new IntConstraint('amountSum'))->useHaving();
         $this->lotCount = new IntConstraint('COUNT(partLots)');
+        $this->lessThanDesired = new LessThanDesiredConstraint();
 
         $this->storelocation = new EntityConstraint($nodesListBuilder, Storelocation::class, 'partLots.storage_location');
         $this->lotNeedsRefill = new BooleanConstraint('partLots.needs_refill');

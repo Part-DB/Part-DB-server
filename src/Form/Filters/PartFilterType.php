@@ -206,6 +206,10 @@ class PartFilterType extends AbstractType
             'min' => 0,
         ]);
 
+        $builder->add('lessThanDesired', BooleanConstraintType::class, [
+            'label' => 'part.filter.lessThanDesired'
+        ]);
+
         $builder->add('lotNeedsRefill', BooleanConstraintType::class, [
             'label' => 'part.filter.lotNeedsRefill'
         ]);
