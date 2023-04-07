@@ -94,6 +94,7 @@ class Storelocation extends AbstractPartsContainingDBElement
      * @var User|null The owner of this storage location
      * @ORM\ManyToOne(targetEntity="App\Entity\UserSystem\User")
      * @ORM\JoinColumn(name="id_owner", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * @Assert\Expression("this.getOwner() == null or this.getOwner().isAnonymousUser() === false", message="validator.part_lot.owner_must_not_be_anonymous")
      */
     protected ?User $owner = null;
 

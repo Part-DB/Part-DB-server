@@ -311,5 +311,11 @@
         <target>The owner of this lot must match the owner of the selected storage location (%owner_name%)!</target>
       </segment>
     </unit>
+    <unit id="HXSz3nQ" name="validator.part_lot.owner_must_not_be_anonymous">
+      <segment>
+        <source>validator.part_lot.owner_must_not_be_anonymous</source>
+        <target>A lot owner must not be the anonymous user!</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

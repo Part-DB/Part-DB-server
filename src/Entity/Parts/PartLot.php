@@ -343,6 +343,13 @@ class PartLot extends AbstractDBElement implements TimeStampableInterface, Named
      */
     public function validate(ExecutionContextInterface $context, $payload)
     {
+        //Ensure that the owner is not the anonymous user
+        if ($this->getOwner() && $this->getOwner()->isAnonymousUser()) {
+            $context->buildViolation('validator.part_lot.owner_must_not_be_anonymous')
+                ->atPath('owner')
+                ->addViolation();
+        }
+
         //When the storage location sets the owner must match, the part lot owner must match the storage location owner
         if ($this->getStorageLocation() && $this->getStorageLocation()->isPartOwnerMustMatch()
             && $this->getStorageLocation()->getOwner() && $this->getOwner()) {
