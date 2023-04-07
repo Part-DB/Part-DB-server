@@ -37,6 +37,8 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\UserSystem\User;
+use App\Form\Filters\Constraints\UserEntityConstraintType;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
@@ -71,17 +73,12 @@ class PartFilter implements FilterInterface
     protected IntConstraint $amountSum;
     protected LessThanDesiredConstraint $lessThanDesired;
 
-    /**
-     * @return LessThanDesiredConstraint
-     */
-    public function getLessThanDesired(): LessThanDesiredConstraint
-    {
-        return $this->lessThanDesired;
-    }
     protected BooleanConstraint $lotNeedsRefill;
     protected TextConstraint $lotDescription;
     protected BooleanConstraint $lotUnknownAmount;
     protected DateTimeConstraint $lotExpirationDate;
+    protected EntityConstraint $lotOwner;
+
     protected EntityConstraint $measurementUnit;
     protected TextConstraint $manufacturer_product_url;
     protected TextConstraint $manufacturer_product_number;
@@ -125,6 +122,7 @@ class PartFilter implements FilterInterface
         $this->lotUnknownAmount = new BooleanConstraint('partLots.instock_unknown');
         $this->lotExpirationDate = new DateTimeConstraint('partLots.expiration_date');
         $this->lotDescription = new TextConstraint('partLots.description');
+        $this->lotOwner = new EntityConstraint($nodesListBuilder, User::class, 'partLots.owner');
 
         $this->manufacturer = new EntityConstraint($nodesListBuilder, Manufacturer::class, 'part.manufacturer');
         $this->manufacturer_product_number = new TextConstraint('part.manufacturer_product_number');
@@ -292,6 +290,14 @@ class PartFilter implements FilterInterface
     }
 
     /**
+     * @return EntityConstraint
+     */
+    public function getLotOwner(): EntityConstraint
+    {
+        return $this->lotOwner;
+    }
+
+    /**
      * @return TagsConstraint
      */
     public function getTags(): TagsConstraint
@@ -394,7 +400,13 @@ class PartFilter implements FilterInterface
         return $this->obsolete;
     }
 
-
+    /**
+     * @return LessThanDesiredConstraint
+     */
+    public function getLessThanDesired(): LessThanDesiredConstraint
+    {
+        return $this->lessThanDesired;
+    }
 
 
 }

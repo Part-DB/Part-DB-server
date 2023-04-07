@@ -36,6 +36,7 @@ use App\Form\Filters\Constraints\ParameterConstraintType;
 use App\Form\Filters\Constraints\StructuralEntityConstraintType;
 use App\Form\Filters\Constraints\TagsConstraintType;
 use App\Form\Filters\Constraints\TextConstraintType;
+use App\Form\Filters\Constraints\UserEntityConstraintType;
 use Svg\Tag\Text;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -225,6 +226,10 @@ class PartFilterType extends AbstractType
 
         $builder->add('lotDescription', TextConstraintType::class, [
             'label' => 'part.filter.lotDescription',
+        ]);
+
+        $builder->add('lotOwner', UserEntityConstraintType::class, [
+            'label' => 'part.filter.lotOwner',
         ]);
 
         /**

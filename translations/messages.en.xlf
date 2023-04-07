@@ -11277,5 +11277,11 @@ Element 3</target>
         <target><![CDATA[In stock less than desired (total amount < min. amount)]]></target>
       </segment>
     </unit>
+    <unit id="lHTN.a1" name="part.filter.lotOwner">
+      <segment>
+        <source>part.filter.lotOwner</source>
+        <target>Lot owner</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
