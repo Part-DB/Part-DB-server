@@ -24,6 +24,8 @@ use App\DataTables\Filters\Constraints\BooleanConstraint;
 use App\Form\Type\TriStateCheckboxType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BooleanConstraintType extends AbstractType
@@ -42,5 +44,11 @@ class BooleanConstraintType extends AbstractType
             'label' => $options['label'],
             'required' => false,
         ]);
+    }
+
+    public function finishView(FormView $view, FormInterface $form, array $options)
+    {
+        //Remove the label from the compound form, as the checkbox already has a label
+        $view->vars['label'] = false;
     }
 }
