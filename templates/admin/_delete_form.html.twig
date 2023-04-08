@@ -14,7 +14,8 @@
                 </button>
                 <div class="dropdown-menu p-2">
                     <div class="form-group"><label for="delete_log_comment">{% trans %}edit.log_comment{% endtrans %}</label>
-                        <input type="text" id="delete_log_comment" name="log_comment" class="form-control">
+                        <input type="text" id="delete_log_comment" name="log_comment" class="form-control"
+                               {% if event_comment_needed('datastructure_delete') %}required{% endif %}>
                     </div>
                 </div>
             </div>

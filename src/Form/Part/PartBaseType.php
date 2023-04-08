@@ -37,6 +37,7 @@ use App\Form\Type\RichTextEditorType;
 use App\Form\Type\SIUnitType;
 use App\Form\Type\StructuralEntityType;
 use App\Form\WorkaroundCollectionType;
+use App\Services\LogSystem\EventCommentNeededHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -54,17 +55,20 @@ class PartBaseType extends AbstractType
 {
     protected Security $security;
     protected UrlGeneratorInterface $urlGenerator;
+    protected EventCommentNeededHelper $event_comment_needed_helper;
 
-    public function __construct(Security $security, UrlGeneratorInterface $urlGenerator)
+    public function __construct(Security $security, UrlGeneratorInterface $urlGenerator, EventCommentNeededHelper $event_comment_needed_helper)
     {
         $this->security = $security;
         $this->urlGenerator = $urlGenerator;
+        $this->event_comment_needed_helper = $event_comment_needed_helper;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var Part $part */
         $part = $builder->getData();
+        $new_part = null === $part->getID();
 
         $status_choices = [
             'm_status.unknown' => '',
@@ -250,7 +254,7 @@ class PartBaseType extends AbstractType
         $builder->add('log_comment', TextType::class, [
             'label' => 'edit.log_comment',
             'mapped' => false,
-            'required' => false,
+            'required' => $this->event_comment_needed_helper->isCommentNeeded($new_part ? 'part_create' : 'part_edit'),
             'empty_data' => null,
         ]);
 

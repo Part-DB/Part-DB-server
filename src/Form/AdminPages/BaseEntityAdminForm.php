@@ -31,6 +31,7 @@ use App\Form\ParameterType;
 use App\Form\Type\MasterPictureAttachmentType;
 use App\Form\Type\RichTextEditorType;
 use App\Form\Type\StructuralEntityType;
+use App\Services\LogSystem\EventCommentNeededHelper;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use function get_class;
 use Symfony\Component\Form\AbstractType;
@@ -46,10 +47,12 @@ use Symfony\Component\Security\Core\Security;
 class BaseEntityAdminForm extends AbstractType
 {
     protected Security $security;
+    protected EventCommentNeededHelper $eventCommentNeededHelper;
 
-    public function __construct(Security $security)
+    public function __construct(Security $security, EventCommentNeededHelper $eventCommentNeededHelper)
     {
         $this->security = $security;
+        $this->eventCommentNeededHelper = $eventCommentNeededHelper;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -141,7 +144,7 @@ class BaseEntityAdminForm extends AbstractType
         $builder->add('log_comment', TextType::class, [
             'label' => 'edit.log_comment',
             'mapped' => false,
-            'required' => false,
+            'required' => $this->eventCommentNeededHelper->isCommentNeeded($is_new ? 'datastructure_create': 'datastructure_edit'),
             'empty_data' => null,
         ]);
 

@@ -102,6 +102,10 @@ services:
               event: 'Symfony\Component\Security\Http\Event\LogoutEvent'
               dispatcher: security.event_dispatcher.main
 
+    App\Services\LogSystem\EventCommentNeededHelper:
+        arguments:
+            $enforce_change_comments_for: '%partdb.enforce_change_comments_for%'
+
     ####################################################################################################################
     # Attachment system
     ####################################################################################################################
