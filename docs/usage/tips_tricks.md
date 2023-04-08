@@ -63,3 +63,9 @@ If you call this command regularly (e.g. with a cronjob), you can keep the excha
 
 Please note that if you use a base currency, which is not the Euro, you have to configure an exchange rate API, as the
 free API used by default only supports the Euro as base currency.
+
+## Enforce log comments
+On almost any editing operation it is possible to add a comment describing, what or why you changed something.
+This comment will be written to change log and can be viewed later.
+If you want to enforce your users to add comments to certain operations, you can do this by setting the `ENFORCE_CHANGE_COMMENTS_FOR` option.
+See the configuration reference for more information.
