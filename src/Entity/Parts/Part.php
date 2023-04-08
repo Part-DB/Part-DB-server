@@ -78,7 +78,7 @@ class Part extends AttachmentContainingDBElement
     protected $parameters;
 
     /**
-     * @ORM\Column(type="datetime", name="datetime_added", options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(type="datetime", name="datetime_added", options={"default":"CURRENT_TIMESTAMP"})
      */
     protected ?DateTime $addedDate = null;
 
@@ -104,7 +104,7 @@ class Part extends AttachmentContainingDBElement
 
     /**
      * @var DateTime the date when this element was modified the last time
-     * @ORM\Column(type="datetime", name="last_modified", options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(type="datetime", name="last_modified", options={"default":"CURRENT_TIMESTAMP"})
      */
     protected ?DateTime $lastModified = null;
 

@@ -48,7 +48,7 @@ final class PermissionData implements \JsonSerializable
      * permission => [
      *     operation => value,
      * ]
-     * @ORM\Column(type="json", name="data", options={"default": "[]"})
+     * @ORM\Column(type="json", name="data")
      */
     protected ?array $data = [
         //$ prefixed entries are used for metadata

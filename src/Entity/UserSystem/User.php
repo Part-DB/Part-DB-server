@@ -105,7 +105,7 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
     /**
      * @var string A self-description of the user
-     * @ORM\Column(type="text", options={"default": ""})
+     * @ORM\Column(type="text")
      * @Groups({"full", "import"})
      */
     protected string $aboutMe = '';
