@@ -66,8 +66,6 @@ final class Version20190913141126 extends AbstractMultiPlatformMigration
         ';
 
         $this->addSql($sql);
-
-        $this->printPermissionUpdateMessage();
     }
 
     public function mySQLDown(Schema $schema): void

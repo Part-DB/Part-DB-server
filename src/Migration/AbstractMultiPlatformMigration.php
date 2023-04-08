@@ -36,8 +36,6 @@ use Psr\Log\LoggerInterface;
 abstract class AbstractMultiPlatformMigration extends AbstractMigration
 {
     public const ADMIN_PW_LENGTH = 10;
-
-    protected bool $permissions_updated = false;
     protected string $admin_pw = '';
 
     protected LoggerInterface $logger;
@@ -122,17 +120,9 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
         return password_hash($this->admin_pw, PASSWORD_DEFAULT);
     }
 
-    public function printPermissionUpdateMessage(): void
-    {
-        $this->permissions_updated = true;
-    }
-
     public function postUp(Schema $schema): void
     {
         parent::postUp($schema);
-        if($this->permissions_updated) {
-            $this->logger->warning('<question>[!!!] Permissions were updated! Please check if they fit your expectations!</question>');
-        }
 
         if (!empty($this->admin_pw)) {
             $this->logger->warning('');

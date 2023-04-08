@@ -134,8 +134,6 @@ EOD;
         (2, 1, 'admin', '{$admin_pw}', 1, '', '', '', '', NULL, NULL, NULL, '', '', '2020-06-13 23:39:26', '2020-06-13 23:39:26', 21845, 21845, 21845, 21, 85, 21, 349525, 21845, 21845, 21845, 21845, 21845, 21845, 21845, 21845, 21845, 21845, 21845, 21845, 21845, 21845, 21845, 21845, 21845, 21845, 0, NULL, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, 0, NULL, '', NULL, 0, 0);
 EOD;
         $this->addSql($sql);
-
-        $this->printPermissionUpdateMessage();
     }
 
     public function sqLiteDown(Schema $schema): void
