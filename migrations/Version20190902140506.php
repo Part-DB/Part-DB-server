@@ -100,11 +100,17 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
         $this->addSql('ALTER TABLE part_lots ADD CONSTRAINT FK_EBC8F9435D8F4B37 FOREIGN KEY (id_store_location) REFERENCES `storelocations` (id)');
         $this->addSql('ALTER TABLE part_lots ADD CONSTRAINT FK_EBC8F943C22F6CC4 FOREIGN KEY (id_part) REFERENCES `parts` (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE parts DROP INDEX parts_order_orderdetails_id_k, ADD UNIQUE INDEX UNIQ_6940A7FE81081E9B (order_orderdetails_id)');
-        $this->addSql('ALTER TABLE parts DROP FOREIGN KEY parts_id_storelocation_fk');
+        if ($this->doesFKExists('parts', 'parts_id_storelocation_fk')) {
+            $this->addSql('ALTER TABLE parts DROP FOREIGN KEY parts_id_storelocation_fk');
+        }
         $this->addSql('DROP INDEX favorite ON parts');
         $this->addSql('DROP INDEX parts_id_storelocation_k ON parts');
-        $this->addSql('ALTER TABLE parts DROP FOREIGN KEY parts_id_footprint_fk');
-        $this->addSql('ALTER TABLE parts DROP FOREIGN KEY parts_id_manufacturer_fk');
+        if ($this->doesFKExists('parts', 'parts_id_footprint_fk')) {
+            $this->addSql('ALTER TABLE parts DROP FOREIGN KEY parts_id_footprint_fk');
+        }
+        if ($this->doesFKExists('parts', 'parts_id_manufacturer_fk')) {
+            $this->addSql('ALTER TABLE parts DROP FOREIGN KEY parts_id_manufacturer_fk');
+        }
         $this->addSql('ALTER TABLE parts CHANGE mininstock minamount DOUBLE PRECISION NOT NULL, ADD id_part_unit INT DEFAULT NULL, ADD manufacturer_product_number VARCHAR(255) NOT NULL, ADD manufacturing_status VARCHAR(255) DEFAULT NULL, ADD needs_review TINYINT(1) NOT NULL, ADD tags LONGTEXT NOT NULL, ADD mass DOUBLE PRECISION DEFAULT NULL, DROP instock, CHANGE id_category id_category INT NOT NULL, CHANGE name name VARCHAR(255) NOT NULL, CHANGE order_quantity order_quantity INT NOT NULL, CHANGE manual_order manual_order TINYINT(1) NOT NULL, CHANGE manufacturer_product_url manufacturer_product_url VARCHAR(255) NOT NULL, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, CHANGE favorite favorite TINYINT(1) NOT NULL, DROP id_storelocation');
         $this->addSql('ALTER TABLE parts ADD CONSTRAINT FK_6940A7FE5697F554 FOREIGN KEY (id_category) REFERENCES `categories` (id)');
         $this->addSql('ALTER TABLE parts ADD CONSTRAINT FK_6940A7FEEBBCC786 FOREIGN KEY (id_master_picture_attachement) REFERENCES `attachments` (id)');
@@ -119,39 +125,53 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
         $this->addSql('CREATE INDEX IDX_6940A7FE1ECB93AE ON parts (id_manufacturer)');
         $this->addSql('ALTER TABLE parts ADD CONSTRAINT parts_id_footprint_fk FOREIGN KEY (id_footprint) REFERENCES footprints (id)');
         $this->addSql('ALTER TABLE parts ADD CONSTRAINT parts_id_manufacturer_fk FOREIGN KEY (id_manufacturer) REFERENCES manufacturers (id)');
-        $this->addSql('ALTER TABLE attachment_types DROP FOREIGN KEY attachement_types_parent_id_fk');
+        if ($this->doesFKExists('attachment_types', 'attachement_types_parent_id_fk')) {
+            $this->addSql('ALTER TABLE attachment_types DROP FOREIGN KEY attachement_types_parent_id_fk');
+        }
         $this->addSql('ALTER TABLE attachment_types ADD filetype_filter LONGTEXT NOT NULL, ADD not_selectable TINYINT(1) NOT NULL, CHANGE name name VARCHAR(255) NOT NULL, CHANGE comment comment LONGTEXT NOT NULL, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
         $this->addSql('DROP INDEX attachement_types_parent_id_k ON attachment_types');
         $this->addSql('CREATE INDEX IDX_EFAED719727ACA70 ON attachment_types (parent_id)');
         $this->addSql('ALTER TABLE attachment_types ADD CONSTRAINT attachement_types_parent_id_fk FOREIGN KEY (parent_id) REFERENCES attachment_types (id)');
-        $this->addSql('ALTER TABLE categories DROP FOREIGN KEY categories_parent_id_fk');
+        if ($this->doesFKExists('categories', 'categories_parent_id_fk')) {
+            $this->addSql('ALTER TABLE categories DROP FOREIGN KEY categories_parent_id_fk');
+        }
         $this->addSql('ALTER TABLE categories ADD not_selectable TINYINT(1) NOT NULL, CHANGE name name VARCHAR(255) NOT NULL, CHANGE disable_footprints disable_footprints TINYINT(1) NOT NULL, CHANGE disable_manufacturers disable_manufacturers TINYINT(1) NOT NULL, CHANGE disable_autodatasheets disable_autodatasheets TINYINT(1) NOT NULL, CHANGE disable_properties disable_properties TINYINT(1) NOT NULL, CHANGE comment comment LONGTEXT NOT NULL, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
         $this->addSql('DROP INDEX categories_parent_id_k ON categories');
         $this->addSql('CREATE INDEX IDX_3AF34668727ACA70 ON categories (parent_id)');
         $this->addSql('ALTER TABLE categories ADD CONSTRAINT categories_parent_id_fk FOREIGN KEY (parent_id) REFERENCES categories (id)');
-        $this->addSql('ALTER TABLE devices DROP FOREIGN KEY devices_parent_id_fk');
+        if ($this->doesFKExists('devices', 'devices_parent_id_fk')) {
+            $this->addSql('ALTER TABLE devices DROP FOREIGN KEY devices_parent_id_fk');
+        }
         $this->addSql('ALTER TABLE devices ADD not_selectable TINYINT(1) NOT NULL, CHANGE name name VARCHAR(255) NOT NULL, CHANGE order_quantity order_quantity INT NOT NULL, CHANGE order_only_missing_parts order_only_missing_parts TINYINT(1) NOT NULL, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, CHANGE comment comment LONGTEXT NOT NULL');
         $this->addSql('DROP INDEX devices_parent_id_k ON devices');
         $this->addSql('CREATE INDEX IDX_11074E9A727ACA70 ON devices (parent_id)');
         $this->addSql('ALTER TABLE devices ADD CONSTRAINT devices_parent_id_fk FOREIGN KEY (parent_id) REFERENCES devices (id)');
-        $this->addSql('ALTER TABLE footprints DROP FOREIGN KEY footprints_parent_id_fk');
+        if ($this->doesFKExists('footprints', 'footprints_parent_id_fk')) {
+            $this->addSql('ALTER TABLE footprints DROP FOREIGN KEY footprints_parent_id_fk');
+        }
         $this->addSql('ALTER TABLE footprints ADD not_selectable TINYINT(1) NOT NULL, CHANGE name name VARCHAR(255) NOT NULL, CHANGE comment comment LONGTEXT NOT NULL, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
         $this->addSql('DROP INDEX footprints_parent_id_k ON footprints');
         $this->addSql('CREATE INDEX IDX_A34D68A2727ACA70 ON footprints (parent_id)');
         $this->addSql('ALTER TABLE footprints ADD CONSTRAINT footprints_parent_id_fk FOREIGN KEY (parent_id) REFERENCES footprints (id)');
-        $this->addSql('ALTER TABLE manufacturers DROP FOREIGN KEY manufacturers_parent_id_fk');
+        if ($this->doesFKExists('manufacturers', 'manufacturers_parent_id_fk')) {
+            $this->addSql('ALTER TABLE manufacturers DROP FOREIGN KEY manufacturers_parent_id_fk');
+        }
         $this->addSql('ALTER TABLE manufacturers ADD not_selectable TINYINT(1) NOT NULL, CHANGE name name VARCHAR(255) NOT NULL, CHANGE address address VARCHAR(255) NOT NULL, CHANGE phone_number phone_number VARCHAR(255) NOT NULL, CHANGE fax_number fax_number VARCHAR(255) NOT NULL, CHANGE email_address email_address VARCHAR(255) NOT NULL, CHANGE website website VARCHAR(255) NOT NULL, CHANGE auto_product_url auto_product_url VARCHAR(255) NOT NULL, CHANGE comment comment LONGTEXT NOT NULL, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
         $this->addSql('DROP INDEX manufacturers_parent_id_k ON manufacturers');
         $this->addSql('CREATE INDEX IDX_94565B12727ACA70 ON manufacturers (parent_id)');
         $this->addSql('ALTER TABLE manufacturers ADD CONSTRAINT manufacturers_parent_id_fk FOREIGN KEY (parent_id) REFERENCES manufacturers (id)');
-        $this->addSql('ALTER TABLE storelocations DROP FOREIGN KEY storelocations_parent_id_fk');
+        if ($this->doesFKExists('storelocations', 'storelocations_parent_id_fk')) {
+            $this->addSql('ALTER TABLE storelocations DROP FOREIGN KEY storelocations_parent_id_fk');
+        }
         $this->addSql('ALTER TABLE storelocations ADD storage_type_id INT DEFAULT NULL, ADD only_single_part TINYINT(1) NOT NULL, ADD limit_to_existing_parts TINYINT(1) NOT NULL, ADD not_selectable TINYINT(1) NOT NULL, CHANGE name name VARCHAR(255) NOT NULL, CHANGE is_full is_full TINYINT(1) NOT NULL, CHANGE comment comment LONGTEXT NOT NULL, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
         $this->addSql('ALTER TABLE storelocations ADD CONSTRAINT FK_7517020B270BFF1 FOREIGN KEY (storage_type_id) REFERENCES `measurement_units` (id)');
         $this->addSql('CREATE INDEX IDX_7517020B270BFF1 ON storelocations (storage_type_id)');
         $this->addSql('DROP INDEX storelocations_parent_id_k ON storelocations');
         $this->addSql('CREATE INDEX IDX_7517020727ACA70 ON storelocations (parent_id)');
         $this->addSql('ALTER TABLE storelocations ADD CONSTRAINT storelocations_parent_id_fk FOREIGN KEY (parent_id) REFERENCES storelocations (id)');
-        $this->addSql('ALTER TABLE suppliers DROP FOREIGN KEY suppliers_parent_id_fk');
+        if ($this->doesFKExists('suppliers', 'suppliers_parent_id_fk')) {
+            $this->addSql('ALTER TABLE suppliers DROP FOREIGN KEY suppliers_parent_id_fk');
+        }
         $this->addSql('ALTER TABLE suppliers ADD default_currency_id INT DEFAULT NULL, ADD shipping_costs NUMERIC(11, 5) DEFAULT NULL, ADD not_selectable TINYINT(1) NOT NULL, CHANGE name name VARCHAR(255) NOT NULL, CHANGE address address VARCHAR(255) NOT NULL, CHANGE phone_number phone_number VARCHAR(255) NOT NULL, CHANGE fax_number fax_number VARCHAR(255) NOT NULL, CHANGE email_address email_address VARCHAR(255) NOT NULL, CHANGE website website VARCHAR(255) NOT NULL, CHANGE auto_product_url auto_product_url VARCHAR(255) NOT NULL, CHANGE comment comment LONGTEXT NOT NULL, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
         $this->addSql('ALTER TABLE suppliers ADD CONSTRAINT FK_AC28B95CECD792C0 FOREIGN KEY (default_currency_id) REFERENCES currencies (id)');
         $this->addSql('CREATE INDEX IDX_AC28B95CECD792C0 ON suppliers (default_currency_id)');
@@ -159,7 +179,9 @@ final class Version20190902140506 extends AbstractMultiPlatformMigration
         $this->addSql('CREATE INDEX IDX_AC28B95C727ACA70 ON suppliers (parent_id)');
         $this->addSql('ALTER TABLE suppliers ADD CONSTRAINT suppliers_parent_id_fk FOREIGN KEY (parent_id) REFERENCES suppliers (id)');
         $this->addSql('DROP INDEX attachements_class_name_k ON attachments');
-        $this->addSql('ALTER TABLE attachments DROP FOREIGN KEY attachements_type_id_fk');
+        if ($this->doesFKExists('attachments', 'attachements_type_id_fk')) {
+            $this->addSql('ALTER TABLE attachments DROP FOREIGN KEY attachements_type_id_fk');
+        }
         $this->addSql('ALTER TABLE attachments ADD datetime_added DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL, CHANGE type_id type_id INT DEFAULT NULL, CHANGE name name VARCHAR(255) NOT NULL, CHANGE filename filename VARCHAR(255) NOT NULL, CHANGE show_in_table show_in_table TINYINT(1) NOT NULL, CHANGE last_modified last_modified DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL');
         $this->addSql('ALTER TABLE attachments ADD CONSTRAINT FK_47C4FAD61F1F2A24 FOREIGN KEY (element_id) REFERENCES `parts` (id) ON DELETE CASCADE');
         $this->addSql('DROP INDEX attachements_type_id_fk ON attachments');

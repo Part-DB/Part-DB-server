@@ -142,6 +142,27 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
     }
 
     /**
+     * Checks if a foreign key on a table exists in the database.
+     * This method is only supported for MySQL/MariaDB databases yet!
+     * @param  string  $table
+     * @param  string  $fk_name
+     * @return bool Returns true, if the foreign key exists
+     * @throws Exception
+     */
+    public function doesFKExists(string $table, string $fk_name): bool
+    {
+        $db_type = $this->getDatabaseType();
+        if ($db_type !== 'mysql') {
+            throw new \RuntimeException('This method is only supported for MySQL/MariaDB databases!');
+        }
+
+        $sql = "SELECT COUNT(*) FROM information_schema.TABLE_CONSTRAINTS WHERE CONSTRAINT_SCHEMA = DATABASE() AND CONSTRAINT_NAME = '$fk_name' AND TABLE_NAME = '$table' AND CONSTRAINT_TYPE = 'FOREIGN KEY'";
+        $result = $this->connection->fetchOne($sql);
+
+        return $result > 0;
+    }
+
+    /**
      * Returns the database type of the used database.
      * @return string|null Returns 'mysql' for MySQL/MariaDB and 'sqlite' for SQLite. Returns null if unknown type
      */
