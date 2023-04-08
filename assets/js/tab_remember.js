@@ -19,7 +19,7 @@
 
 "use strict";
 
-import {Tab} from "bootstrap";
+import {Tab, Dropdown} from "bootstrap";
 import tab from "bootstrap/js/src/tab";
 
 /**
@@ -63,6 +63,16 @@ class TabRememberHelper {
      */
     onInvalid(event) {
         this.revealElementOnTab(event.target);
+        this.revealElementInDropdown(event.target);
+    }
+
+    revealElementInDropdown(element) {
+        let dropdown = element.closest('.dropdown-menu');
+
+        if(dropdown) {
+            let bs_dropdown = Dropdown.getOrCreateInstance(dropdown);
+            bs_dropdown.show();
+        }
     }
 
     revealElementOnTab(element) {

@@ -202,21 +202,24 @@ class UserController extends AdminPages\BaseAdminController
             $user = $tmp;
         } else {
             //Else we must check, if the current user is allowed to access $user
-            $this->denyAccessUnlessGranted('read', $user);
+            $this->denyAccessUnlessGranted('info', $user);
         }
 
-        $table = $this->dataTableFactory->createFromType(
-            LogDataTable::class,
-            [
-                'filter_elements' => $user,
-                'mode' => 'element_history',
-            ],
-            ['pageLength' => 10]
-        )
-            ->handleRequest($request);
+        //Only show the history table, if the user is the current user
+        if ($user === $this->getUser()) {
+            $table = $this->dataTableFactory->createFromType(
+                LogDataTable::class,
+                [
+                    'filter_elements' => $user,
+                    'mode' => 'element_history',
+                ],
+                ['pageLength' => 10]
+            )
+                ->handleRequest($request);
 
-        if ($table->isCallback()) {
-            return $table->getResponse();
+            if ($table->isCallback()) {
+                return $table->getResponse();
+            }
         }
 
         //Show permissions to user
@@ -230,7 +233,7 @@ class UserController extends AdminPages\BaseAdminController
         return $this->renderForm('users/user_info.html.twig', [
             'user' => $user,
             'form' => $builder->getForm(),
-            'datatable' => $table,
+            'datatable' => $table ?? null,
         ]);
     }
 }

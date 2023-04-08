@@ -117,7 +117,11 @@ class UserAdminForm extends AbstractType
                 'required' => false,
                 'disabled' => !$this->security->isGranted('edit_infos', $entity),
             ])
-
+            ->add('showEmailOnProfile', CheckboxType::class, [
+                'required' => false,
+                'label' => 'user.show_email_on_profile.label',
+                'disabled' => !$this->security->isGranted('edit_infos', $entity),
+            ])
             ->add('department', TextType::class, [
                 'empty_data' => '',
                 'label' => 'user.department.label',

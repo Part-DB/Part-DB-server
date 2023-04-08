@@ -44,6 +44,7 @@ namespace App\Tests\Entity\LogSystem;
 use App\Entity\Attachments\Attachment;
 use App\Entity\Attachments\AttachmentType;
 use App\Entity\Attachments\PartAttachment;
+use App\Entity\LogSystem\UserLoginLogEntry;
 use App\Entity\ProjectSystem\Project;
 use App\Entity\ProjectSystem\ProjectBOMEntry;
 use App\Entity\LogSystem\AbstractLogEntry;
@@ -159,5 +160,26 @@ class AbstractLogEntryTest extends TestCase
         $log->setTargetElement(null);
         $this->assertNull($log->getTargetClass());
         $this->assertNull($log->getTargetID());
+    }
+
+    public function testCLIUsername(): void
+    {
+        $log = new UserLoginLogEntry('1.1.1.1');
+
+        //By default no no CLI username is set
+        $this->assertNull($log->getCLIUsername());
+        $this->assertFalse($log->isCLIEntry());
+
+        $user = new User();
+        $user->setName('test');
+        $log->setUser($user);
+
+        //Set a CLI username
+        $log->setCLIUsername('root');
+        $this->assertSame('root', $log->getCLIUsername());
+        $this->assertTrue($log->isCLIEntry());
+
+        //Normal user must be null now
+        $this->assertNull($log->getUser());
     }
 }

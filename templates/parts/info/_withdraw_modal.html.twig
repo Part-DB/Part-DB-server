@@ -46,7 +46,7 @@
                             {% trans %}part.info.withdraw_modal.comment{% endtrans %}
                         </label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="comment" value="">
+                            <input type="text" class="form-control" name="comment" value="" {% if event_comment_needed('part_stock_operation') %}required{% endif %}>
                             <div id="emailHelp" class="form-text">{% trans %}part.info.withdraw_modal.comment.hint{% endtrans %}</div>
                         </div>
                     </div>

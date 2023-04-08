@@ -26,6 +26,7 @@ use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\PriceInformations\Currency;
 use App\Form\Type\BigDecimalMoneyType;
 use App\Form\Type\StructuralEntityType;
+use App\Services\LogSystem\EventCommentNeededHelper;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Security\Core\Security;
 
@@ -33,9 +34,9 @@ class SupplierForm extends CompanyForm
 {
     protected string $default_currency;
 
-    public function __construct(Security $security, string $default_currency)
+    public function __construct(Security $security, EventCommentNeededHelper $eventCommentNeededHelper, string $default_currency)
     {
-        parent::__construct($security);
+        parent::__construct($security, $eventCommentNeededHelper);
         $this->default_currency = $default_currency;
     }
 

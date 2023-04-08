@@ -29,8 +29,11 @@
                 <div class="form-group row">
                     <label class="col-form-label col-md-4">{% trans %}user.email.label{% endtrans %}</label>
                     <div class="col-md-8">
-                        {# <p class="form-control-plaintext">{{ user.email }}</p>#}
-                        <a class="form-control-plaintext" href="mailto:{{ user.email }}">{{ user.email }}</a>
+                        {% if user.showEmailOnProfile %}
+                            <a class="form-control-plaintext" href="mailto:{{ user.email }}">{{ user.email }}</a>
+                        {% else %}
+                            <span class="form-control-plaintext text-muted">-</span>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="form-group row">

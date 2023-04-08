@@ -26,6 +26,7 @@ use App\DataTables\Filters\Constraints\DateTimeConstraint;
 use App\DataTables\Filters\Constraints\EntityConstraint;
 use App\DataTables\Filters\Constraints\IntConstraint;
 use App\DataTables\Filters\Constraints\NumberConstraint;
+use App\DataTables\Filters\Constraints\Part\LessThanDesiredConstraint;
 use App\DataTables\Filters\Constraints\Part\ParameterConstraint;
 use App\DataTables\Filters\Constraints\Part\TagsConstraint;
 use App\DataTables\Filters\Constraints\TextConstraint;
@@ -36,6 +37,8 @@ use App\Entity\Parts\Manufacturer;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\Storelocation;
 use App\Entity\Parts\Supplier;
+use App\Entity\UserSystem\User;
+use App\Form\Filters\Constraints\UserEntityConstraintType;
 use App\Services\Trees\NodesListBuilder;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
@@ -68,10 +71,14 @@ class PartFilter implements FilterInterface
     protected EntityConstraint $storelocation;
     protected IntConstraint $lotCount;
     protected IntConstraint $amountSum;
+    protected LessThanDesiredConstraint $lessThanDesired;
+
     protected BooleanConstraint $lotNeedsRefill;
     protected TextConstraint $lotDescription;
     protected BooleanConstraint $lotUnknownAmount;
     protected DateTimeConstraint $lotExpirationDate;
+    protected EntityConstraint $lotOwner;
+
     protected EntityConstraint $measurementUnit;
     protected TextConstraint $manufacturer_product_url;
     protected TextConstraint $manufacturer_product_number;
@@ -108,12 +115,14 @@ class PartFilter implements FilterInterface
         //We have to use Having here, as we use an alias column which is not supported on the where clause and would result in an error
         $this->amountSum = (new IntConstraint('amountSum'))->useHaving();
         $this->lotCount = new IntConstraint('COUNT(partLots)');
+        $this->lessThanDesired = new LessThanDesiredConstraint();
 
         $this->storelocation = new EntityConstraint($nodesListBuilder, Storelocation::class, 'partLots.storage_location');
         $this->lotNeedsRefill = new BooleanConstraint('partLots.needs_refill');
         $this->lotUnknownAmount = new BooleanConstraint('partLots.instock_unknown');
         $this->lotExpirationDate = new DateTimeConstraint('partLots.expiration_date');
         $this->lotDescription = new TextConstraint('partLots.description');
+        $this->lotOwner = new EntityConstraint($nodesListBuilder, User::class, 'partLots.owner');
 
         $this->manufacturer = new EntityConstraint($nodesListBuilder, Manufacturer::class, 'part.manufacturer');
         $this->manufacturer_product_number = new TextConstraint('part.manufacturer_product_number');
@@ -281,6 +290,14 @@ class PartFilter implements FilterInterface
     }
 
     /**
+     * @return EntityConstraint
+     */
+    public function getLotOwner(): EntityConstraint
+    {
+        return $this->lotOwner;
+    }
+
+    /**
      * @return TagsConstraint
      */
     public function getTags(): TagsConstraint
@@ -383,7 +400,13 @@ class PartFilter implements FilterInterface
         return $this->obsolete;
     }
 
-
+    /**
+     * @return LessThanDesiredConstraint
+     */
+    public function getLessThanDesired(): LessThanDesiredConstraint
+    {
+        return $this->lessThanDesired;
+    }
 
 
 }

@@ -24,6 +24,7 @@ namespace App\Form\AdminPages;
 
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Services\Attachments\FileTypeFilterTools;
+use App\Services\LogSystem\EventCommentNeededHelper;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,10 +34,10 @@ class AttachmentTypeAdminForm extends BaseEntityAdminForm
 {
     protected FileTypeFilterTools $filterTools;
 
-    public function __construct(Security $security, FileTypeFilterTools $filterTools)
+    public function __construct(Security $security, FileTypeFilterTools $filterTools, EventCommentNeededHelper $eventCommentNeededHelper)
     {
         $this->filterTools = $filterTools;
-        parent::__construct($security);
+        parent::__construct($security, $eventCommentNeededHelper);
     }
 
     protected function additionalFormElements(FormBuilderInterface $builder, array $options, AbstractNamedDBElement $entity): void

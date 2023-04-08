@@ -38,10 +38,13 @@ class UserVoter extends ExtendedVoter
     protected function supports(string $attribute, $subject): bool
     {
         if (is_a($subject, User::class, true)) {
-            return in_array($attribute, array_merge(
-                $this->resolver->listOperationsForPermission('users'),
-                $this->resolver->listOperationsForPermission('self')),
-                            false
+            return in_array($attribute,
+                array_merge(
+                    $this->resolver->listOperationsForPermission('users'),
+                    $this->resolver->listOperationsForPermission('self'),
+                    ['info']
+                ),
+                false
             );
         }
 
@@ -56,6 +59,16 @@ class UserVoter extends ExtendedVoter
      */
     protected function voteOnUser(string $attribute, $subject, User $user): bool
     {
+        if ($attribute === 'info') {
+            //Every logged-in user (non-anonymous) can see the info pages of other users
+            if (!$user->isAnonymousUser()) {
+                return true;
+            }
+
+            //For the anonymous user, use the user read permission
+            $attribute = 'read';
+        }
+
         //Check if the checked user is the user itself
         if (($subject instanceof User) && $subject->getID() === $user->getID() &&
             $this->resolver->isValidOperation('self', $attribute)) {

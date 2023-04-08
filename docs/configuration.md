@@ -28,6 +28,14 @@ The following configuration options can only be changed by the server administra
 * `USE_GRAVATAR`: Set to `1` to use [gravatar.com](gravatar.com) images for user avatars (as long as they have not set their own picture). The users browsers have to download the pictures from a third-party (gravatars) server, so this might be a privacy risk.
 * `MAX_ATTACHMENT_FILE_SIZE`: The maximum file size (in bytes) for attachments. You can use the suffix `K`, `M` or `G` to specify the size in kilobytes, megabytes or gigabytes. By default `100M` (100 megabytes). Please note that this only the limit of Part-DB. You still need to configure the php.ini `upload_max_filesize` and `post_max_size` to allow bigger files to be uploaded.
 * `DEFAULT_URI`: The default URI base to use for the Part-DB, when no URL can be determined from the browser request. This should be the primary URL/Domain, which is used to access Part-DB. This value is used to create correct links in emails and other places, where the URL is needed. It is also used, when SAML is enabled.s If you are using a reverse proxy, you should set this to the URL of the reverse proxy (e.g. `https://part-db.example.com`). **This value must end with a slash**.
+* `ENFORCE_CHANGE_COMMENTS_FOR`: With this option you can configure, where users are enforced to give a change reason, which will be written to the log. This is a comma separated list of values (e.g. `part_edit,part_delete`). Leave empty to make change comments optional everywhere. Possible values are:
+  * `part_edit`: Edit operation of a existing part
+  * `part_delete`: Delete operation of a existing part
+  * `part_create`: Creation of a new part
+  * `part_stock_operation`: Stock operation on a part (therefore withdraw, add or move stock)
+  * `datastructure_edit`: Edit operation of a existing datastructure (e.g. category, manufacturer, ...)
+  * `datastructure_delete`: Delete operation of a existing datastructure (e.g. category, manufacturer, ...)
+  * `datastructure_create`: Creation of a new datastructure (e.g. category, manufacturer, ...)
 
 ### E-Mail settings
 * `MAILER_DSN`: You can configure the mail provider which should be used for email delivery (see https://symfony.com/doc/current/components/mailer.html for full documentation). If you just want to use an SMTP mail account, you can use the following syntax `MAILER_DSN=smtp://user:password@smtp.mailserver.invalid:587`
