@@ -54,7 +54,7 @@ class ElementCreatedLogEntry extends AbstractLogEntry implements LogWithCommentI
      */
     public function getCreationInstockValue(): ?string
     {
-        return $this->extra['i'] ?? null;
+        return isset($this->extra['i']) ? (string)$this->extra['i'] : null;
     }
 
     /**
