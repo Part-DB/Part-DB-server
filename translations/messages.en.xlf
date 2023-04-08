@@ -11283,5 +11283,11 @@ Element 3</target>
         <target>Lot owner</target>
       </segment>
     </unit>
+    <unit id="47OCK_W" name="user.show_email_on_profile.label">
+      <segment state="translated">
+        <source>user.show_email_on_profile.label</source>
+        <target>Show email on public profile page</target>
+      </segment>
+    </unit>
   </file>
 </xliff>
