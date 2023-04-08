@@ -15,7 +15,7 @@ final class Version20230408170059 extends AbstractMultiPlatformMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Add show_email_on_profile option';
     }
 
     public function mySQLUp(Schema $schema): void
