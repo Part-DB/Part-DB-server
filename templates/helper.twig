@@ -32,7 +32,7 @@
 
 {% macro string_to_tags(string, class="badge bg-info") %}
     {% for tag in string|split(',') %}
-        <a href="{{ path('part_list_tags', {'tag': tag | trim | url_encode}) }}" class="{{ class }}" >{{ tag | trim }}</a>
+        <a href="{{ path('part_list_tags', {'tag': tag | trim}) }}" class="{{ class }}" >{{ tag | trim }}</a>
     {% endfor %}
 {% endmacro %}
 
