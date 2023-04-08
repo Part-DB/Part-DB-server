@@ -31,7 +31,7 @@ class EventCommentNeededHelperTest extends TestCase
         $this->assertTrue($service->isCommentNeeded('part_edit'));
         $this->assertTrue($service->isCommentNeeded('part_create'));
         $this->assertFalse($service->isCommentNeeded('part_delete'));
-        $this->assertFalse($service->isCommentNeeded('part_lot_operation'));
+        $this->assertFalse($service->isCommentNeeded('part_stock_operation'));
     }
 
     public function testIsCommentNeededInvalidTypeException()
