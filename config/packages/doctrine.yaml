@@ -12,6 +12,8 @@ doctrine:
                 class: App\Doctrine\Types\UTCDateTimeType
             big_decimal:
                 class: App\Doctrine\Types\BigDecimalType
+            tinyint:
+                class: App\Doctrine\Types\TinyIntType
         
         schema_filter: ~^(?!internal)~
         # Only enable this when needed

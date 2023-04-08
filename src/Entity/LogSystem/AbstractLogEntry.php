@@ -160,7 +160,7 @@ abstract class AbstractLogEntry extends AbstractDBElement
     protected ?DateTime $timestamp = null;
 
     /** @var int The priority level of the associated level. 0 is highest, 7 lowest
-     * @ORM\Column(type="integer", name="level", columnDefinition="TINYINT(4) NOT NULL")
+     * @ORM\Column(type="tinyint", name="level", nullable=false)
      */
     protected int $level;
 
