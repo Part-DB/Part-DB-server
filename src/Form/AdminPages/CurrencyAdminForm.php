@@ -24,6 +24,7 @@ namespace App\Form\AdminPages;
 
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Form\Type\BigDecimalMoneyType;
+use App\Services\LogSystem\EventCommentNeededHelper;
 use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,9 +34,9 @@ class CurrencyAdminForm extends BaseEntityAdminForm
 {
     private string $default_currency;
 
-    public function __construct(Security $security, string $default_currency)
+    public function __construct(Security $security, EventCommentNeededHelper $eventCommentNeededHelper, string $default_currency)
     {
-        parent::__construct($security);
+        parent::__construct($security, $eventCommentNeededHelper);
         $this->default_currency = $default_currency;
     }
 
