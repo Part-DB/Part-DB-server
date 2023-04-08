@@ -147,7 +147,7 @@ abstract class AbstractMultiPlatformMigration extends AbstractMigration
         }
 
         $sql = "SELECT COUNT(*) FROM information_schema.TABLE_CONSTRAINTS WHERE CONSTRAINT_SCHEMA = DATABASE() AND CONSTRAINT_NAME = '$fk_name' AND TABLE_NAME = '$table' AND CONSTRAINT_TYPE = 'FOREIGN KEY'";
-        $result = $this->connection->fetchOne($sql);
+        $result = (int) $this->connection->fetchOne($sql);
 
         return $result > 0;
     }
