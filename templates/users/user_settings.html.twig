@@ -25,6 +25,7 @@
             {{ form_row(settings_form.last_name) }}
             {{ form_row(settings_form.department) }}
             {{ form_row(settings_form.email) }}
+            {{ form_row(settings_form.showEmailOnProfile) }}
             {{ form_row(settings_form.avatar_file) }}
             <div class="mb-3 row {% if user.masterPictureAttachment is null %}d-none{% endif %}">
                 <div class="offset-sm-3 col-sm-9">

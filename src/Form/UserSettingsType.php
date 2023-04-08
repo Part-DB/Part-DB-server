@@ -28,6 +28,7 @@ use App\Form\Type\RichTextEditorType;
 use App\Form\Type\ThemeChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\PreSetDataEvent;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -78,6 +79,11 @@ class UserSettingsType extends AbstractType
             ->add('email', EmailType::class, [
                 'required' => false,
                 'label' => 'user.email.label',
+                'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
+            ])
+            ->add('showEmailOnProfile', CheckboxType::class, [
+                'required' => false,
+                'label' => 'user.show_email_on_profile.label',
                 'disabled' => !$this->security->isGranted('edit_infos', $options['data']) || $this->demo_mode,
             ])
             ->add('avatar_file', FileType::class, [

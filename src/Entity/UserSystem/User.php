@@ -169,6 +169,12 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
     protected ?string $email = '';
 
     /**
+     * @var bool True if the user wants to show his email address on his (public) profile
+     * @ORM\Column(type="boolean", options={"default": false})
+     */
+    protected bool $show_email_on_profile = false;
+
+    /**
      * @var string|null The department the user is working
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"simple", "extended", "full", "import"})
@@ -631,6 +637,28 @@ class User extends AttachmentContainingDBElement implements UserInterface, HasPe
 
         return $this;
     }
+
+    /**
+     * Gets whether the email address of the user is shown on the public profile page.
+     * @return bool
+     */
+    public function isShowEmailOnProfile(): bool
+    {
+        return $this->show_email_on_profile;
+    }
+
+    /**
+     * Sets whether the email address of the user is shown on the public profile page.
+     * @param  bool  $show_email_on_profile
+     * @return User
+     */
+    public function setShowEmailOnProfile(bool $show_email_on_profile): User
+    {
+        $this->show_email_on_profile = $show_email_on_profile;
+        return $this;
+    }
+
+
 
     /**
      * Returns the about me text of the user.
